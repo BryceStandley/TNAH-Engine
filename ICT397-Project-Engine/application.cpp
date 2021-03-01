@@ -5,6 +5,11 @@
 #include <cmath>
 #include <chrono>
 #include <thread>
+
+#include "GameManager.h"
+#include "Singleton.h"
+#include "OpenGL.h"
+
 #define PI 3.14159265358
 
 static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
@@ -24,60 +29,25 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
 */
 int main(void)
 {
-    GLFWwindow* window;
+    GameManager* gameManager = Singleton<GameManager>::getInstance();
+    OpenGL render;
+    gameManager->gameRenderer = &render;
 
-    /* Initialize the library */
-    if (!glfwInit())
-        return -1;
-
-    /* Create a windowed mode window and its OpenGL context */
-    window = glfwCreateWindow(640, 480, "ICT397 Project", NULL, NULL);
-    if (!window)
+    if (!gameManager->gameRenderer->Init())
     {
-        glfwTerminate();
         return -1;
     }
 
-    std::cout << "GLFW Started!" << std::endl;
 
-    glfwSetKeyCallback(window, key_callback);
+    //glfwSetKeyCallback(window, key_callback);
 
     /* Make the window's context current */
-    glfwMakeContextCurrent(window);
-
-    GLclampf red = 0.0f;
-    GLclampf green = 0.0f;
-    GLclampf blue = 0.0f;
-    GLclampf alpha = 1.0f;
-    float x = -1.0f;
 
     /* Loop until the user closes the window */
-    while (!glfwWindowShouldClose(window))
+    while (1)
     {
-        /* Render here */
-
-        /*Small Background Colour changer for GLFW test*/
-        /*Remove below to clear Test from file*/
-        red = (sin(x) + 1) / 2.0;
-        green = (sin(x+1) + 1) / 2.0;
-        blue = (sin(x+2) + 1) / 2.0;
-        x += 0.1;
-        std::this_thread::sleep_for(std::chrono::milliseconds(10));
-
-        glClearColor(red, green, blue, alpha);
-        /*Remove Above to clear test from file*/
-
-
-        glClear(GL_COLOR_BUFFER_BIT);
-        
-
-        /* Swap front and back buffers */
-        glfwSwapBuffers(window);
-
-        /* Poll for and process events */
-        glfwPollEvents();
+        gameManager->gameRenderer->Update();
     }
-
-    glfwTerminate();
+    
     return 0;
 }

@@ -84,6 +84,16 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="application.cpp" />
+    <ClCompile Include="GameManager.cpp" />
+    <ClCompile Include="OpenGL.cpp" />
+    <ClCompile Include="Renderer.cpp" />
+    <ClCompile Include="Singleton.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="GameManager.h" />
+    <ClInclude Include="OpenGL.h" />
+    <ClInclude Include="Renderer.h" />
+    <ClInclude Include="Singleton.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
