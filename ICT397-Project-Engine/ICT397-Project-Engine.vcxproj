@@ -85,15 +85,23 @@
   <ItemGroup>
     <ClCompile Include="application.cpp" />
     <ClCompile Include="GameManager.cpp" />
+    <ClCompile Include="GlewInput.cpp" />
+    <ClCompile Include="GlewWindow.cpp" />
+    <ClCompile Include="Input.cpp" />
     <ClCompile Include="OpenGL.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Singleton.cpp" />
+    <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameManager.h" />
+    <ClInclude Include="GlewInput.h" />
+    <ClInclude Include="GlewWindow.h" />
+    <ClInclude Include="Input.h" />
     <ClInclude Include="OpenGL.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Singleton.h" />
+    <ClInclude Include="Window.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

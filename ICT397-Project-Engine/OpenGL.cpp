@@ -38,7 +38,12 @@ void OpenGL::Update()
     glClearColor(red, green, blue, alpha);
     /*Remove Above to clear test from file*/
 
+	int state = glfwGetKey(window, GLFW_KEY_E);
 
+	if (state == GLFW_PRESS)
+	{
+		std::cout << "E pressed" << std::endl;
+	}
     glClear(GL_COLOR_BUFFER_BIT);
 
 

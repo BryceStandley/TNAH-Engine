@@ -10,8 +10,8 @@ public:
 	bool Init();
 	void Update();
 	void Terminate();
-private:
 	GLFWwindow* window;
+private:
 	GLclampf red = 0.0f;
 	GLclampf green = 0.0f;
 	GLclampf blue = 0.0f;

@@ -9,6 +9,7 @@
 #include "GameManager.h"
 #include "Singleton.h"
 #include "OpenGL.h"
+#include "GlewInput.h"
 
 #define PI 3.14159265358
 
@@ -31,7 +32,9 @@ int main(void)
 {
     GameManager* gameManager = Singleton<GameManager>::getInstance();
     OpenGL render;
+    GlewInput input(render.window);
     gameManager->gameRenderer = &render;
+    gameManager->inputManager = &input;
 
     if (!gameManager->gameRenderer->Init())
     {
@@ -47,6 +50,11 @@ int main(void)
     while (1)
     {
         gameManager->gameRenderer->Update();
+
+        if (gameManager->inputManager->KeyPress(render.window, GLFW_KEY_ESCAPE))
+        {
+            break;
+        }
     }
     
     return 0;
