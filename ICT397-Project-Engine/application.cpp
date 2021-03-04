@@ -5,11 +5,13 @@
 #include <cmath>
 #include <chrono>
 #include <thread>
+#include <string>
 
 #include "GameManager.h"
 #include "Singleton.h"
 #include "OpenGL.h"
 #include "GlewInput.h"
+#include "GlewWindow.h"
 
 #define PI 3.14159265358
 
@@ -22,40 +24,38 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
     }
 }
 
-
-
-
-/**
-* Basic setup for defult GLFW Window
-*/
 int main(void)
 {
-    GameManager* gameManager = Singleton<GameManager>::getInstance();
-    OpenGL render;
-    GlewInput input(render.window);
-    gameManager->gameRenderer = &render;
-    gameManager->inputManager = &input;
+    Window* win;
+    GlewWindow a;
+    a.Init("init", 480, 640);
+    win = &a;
 
-    if (!gameManager->gameRenderer->Init())
-    {
-        return -1;
-    }
+    GLclampf red = 0.0f;
+    GLclampf green = 0.0f;
+    GLclampf blue = 0.0f;
+    GLclampf alpha = 1.0f;
+    float x = -1.0f;
 
-
-    //glfwSetKeyCallback(window, key_callback);
-
-    /* Make the window's context current */
-
-    /* Loop until the user closes the window */
     while (1)
     {
-        gameManager->gameRenderer->Update();
+        red = (sin(x) + 1) / 2.0;
+        green = (sin(x + 1) + 1) / 2.0;
+        blue = (sin(x + 2) + 1) / 2.0;
+        x += 0.1;
+        std::this_thread::sleep_for(std::chrono::milliseconds(10));
 
-        if (gameManager->inputManager->KeyPress(render.window, GLFW_KEY_ESCAPE))
-        {
+        glClearColor(red, green, blue, alpha);
+
+        if (a.GameInput())
             break;
-        }
+
+        glClear(GL_COLOR_BUFFER_BIT);
+
+        a.Buffer();
+
+        glfwPollEvents();
     }
-    
+
     return 0;
 }

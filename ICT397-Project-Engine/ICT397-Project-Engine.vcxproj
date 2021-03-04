@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|x64">
@@ -84,6 +84,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="application.cpp" />
+    <ClCompile Include="GameEngine.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="GlewInput.cpp" />
     <ClCompile Include="GlewWindow.cpp" />
@@ -94,6 +95,7 @@
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="GameEngine.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="GlewInput.h" />
     <ClInclude Include="GlewWindow.h" />

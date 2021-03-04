@@ -6,23 +6,6 @@ void OpenGL::Render()
 
 }
 
-bool OpenGL::Init()
-{
-	if (!glfwInit())
-		return false;
-	else
-	{
-		window = glfwCreateWindow(640, 480, "ICT397 Project", NULL, NULL);
-		if (!window)
-		{
-			glfwTerminate();
-			return false;
-		}
-		std::cout << "GLFW Started!" << std::endl;
-		glfwMakeContextCurrent(window);
-		return true;
-	}
-}
 void OpenGL::Update()
 {
     /* Render here */

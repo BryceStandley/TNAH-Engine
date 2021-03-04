@@ -1,6 +1,8 @@
 #pragma once
 #include <GLFW/glfw3.h>
 #include "Input.h"
+#include "OpenGL.h"
+
 class GlewInput : public Input
 {
 public:
@@ -8,7 +10,7 @@ public:
 	{
 		window = win;
 	}
-	bool KeyPress(GLFWwindow* win, int key);
+	bool KeyPress(Renderer* r, int key);
 private:
 	GLFWwindow* window;
 };
