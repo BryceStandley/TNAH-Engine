@@ -35,9 +35,10 @@ bool GlewWindow::GameInput()
 
     if (state == GLFW_PRESS)
     {
-        std::cout << "E pressed" << std::endl;
+        std::cout << "E pressed in GlewWindow.cpp file" << std::endl;
         return true;
     }
+
 
     return false;
 }

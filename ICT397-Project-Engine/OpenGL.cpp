@@ -25,7 +25,7 @@ void OpenGL::Update()
 
 	if (state == GLFW_PRESS)
 	{
-		std::cout << "E pressed" << std::endl;
+		std::cout << "E pressed in OpenGL.cpp" << std::endl;
 	}
     glClear(GL_COLOR_BUFFER_BIT);
 
