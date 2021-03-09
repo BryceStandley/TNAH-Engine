@@ -31,11 +31,11 @@ void GlewWindow::Terminate()
 
 bool GlewWindow::GameInput()
 {
-    int state = glfwGetKey(gameWindow, GLFW_KEY_E);
+    int state = glfwGetKey(gameWindow, GLFW_KEY_W);
 
     if (state == GLFW_PRESS)
     {
-        std::cout << "E pressed in GlewWindow.cpp file" << std::endl;
+        std::cout << "W pressed in GlewWindow.cpp file" << std::endl;
         return true;
     }
 

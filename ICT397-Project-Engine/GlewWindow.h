@@ -1,6 +1,7 @@
 #pragma once
 #include <GLFW/glfw3.h>
 #include "Window.h"
+#include <iostream>
 class GlewWindow : public Window
 {
 public:

@@ -34,7 +34,7 @@ int main(void)
     a.Init("ICT397 Game Engine", 480, 640);
     win = &a;
     glewExperimental = GL_TRUE;
-    if (glewInit() != GLEW_OK) { return 1; }
+    if (glewInit() != GLEW_OK){ return 1; }
     float triangle_vertices[] = {
         0.5f,  0.5f,  0.0f,     //1
         0.5f, -0.5f,  0.0f,     //2
@@ -71,6 +71,7 @@ int main(void)
     GLclampf blue = 0.0f;
     GLclampf alpha = 1.0f;
     float x = -1.0f;
+    bool wire = false;
     std::cout << "TV: " << (sizeof(triangle_vertices) / sizeof(*triangle_vertices)) << std::endl;
     while (1)
     {
@@ -83,7 +84,12 @@ int main(void)
         //glClearColor(red, green, blue, alpha);
 
         if (a.GameInput())
-            break;
+        {
+            if (wire)
+                wire = false;
+            else if(!wire)
+                wire = true;
+        }
 
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         shad.Start();
@@ -91,6 +97,13 @@ int main(void)
         shad2.Start();
         tri2.Render();
         a.Buffer();
+
+        if (wire)
+            glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+        //normal rendering
+        else if (!wire)
+            glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
 
         glfwPollEvents();
     }
