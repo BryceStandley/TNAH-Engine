@@ -5,6 +5,13 @@ VisualStudioVersion = 16.0.31005.135
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ICT397-Project-Engine", "ICT397-Project-Engine\ICT397-Project-Engine.vcxproj", "{8558F3E4-C51A-405C-B082-87B08D9EAA55}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{BA1339BB-EB9D-473F-AEEA-977D03FDCC38}"
+	ProjectSection(SolutionItems) = preProject
+		ICT397-Project-Engine\Simple.frag = ICT397-Project-Engine\Simple.frag
+		ICT397-Project-Engine\Simple.vert = ICT397-Project-Engine\Simple.vert
+		ICT397-Project-Engine\Simple2.frag = ICT397-Project-Engine\Simple2.frag
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
