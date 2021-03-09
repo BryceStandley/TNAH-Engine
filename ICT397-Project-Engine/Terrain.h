@@ -9,8 +9,8 @@ public:
 	Terrain()
 	{
 		sX = 1.0f;
-		sY = 1.0f;
-		sZ = 1.0f;
+		sY = -1.0f;
+		sZ = -1.0f;
 		data = NULL;
 	}
 
@@ -25,5 +25,6 @@ public:
 	void setScalingFactor(float xScale, float yScale, float zScale);
 	int size;
 	float getHeight(int xpos, int zpos);
+	bool inBounds(int x, int y);
 };
 

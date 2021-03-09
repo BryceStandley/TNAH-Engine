@@ -36,46 +36,17 @@ int main(void)
     GlewWindow a;
     Terrain h;
     h.LoadHeightFeild("height128.raw", 128);
-    a.Init("ICT397 Game Engine", 480, 640);
+    a.Init("ICT397 Game Engine", 1000, 1000);
     win = &a;
     glewExperimental = GL_TRUE;
     if (glewInit() != GLEW_OK){ return 1; }
-    float triangle_vertices[] = {
-        0.5f,  0.5f,  0.0f,     //1
-        0.5f, -0.5f,  0.0f,     //2
-        -0.5f, -0.5f,  0.0f,    //3
-        0.5f,  0.5f,  0.0f,     //1
-        -0.5f, -0.5f,  0.0f,    //3
-        -0.5f, 0.5f,  0.0f,     //4
-        0.5f,  0.5f,  0.0f,    //1
-        0.7f,  0.5f,  0.5F,    //5
-        0.7f,  -0.5f,  0.5f   //6
-    };
-
-    float triangle_vertices2[] = {
-        0.5f, -0.5f,  0.0f,     //2
-        0.7f,  -0.5f,  0.5f,   //6
-        0.5f,  0.5f,  0.0f     //1
-    };
 
     Shader shad("Simple.vert", "Simple.frag");
     if (!shad.Works())
     {
         return 1;
     }
-    Shader shad2("Simple.vert", "Simple2.frag");
-    if (!shad2.Works())
-    {
-        return 1;
-    }
-    //VertexBuffer tri(triangle_vertices, (sizeof(triangle_vertices) / sizeof(*triangle_vertices)));
-    //VertexBuffer tri2(triangle_vertices2, 9);
 
-    GLclampf red = 0.0f;
-    GLclampf green = 0.0f;
-    GLclampf blue = 0.0f;
-    GLclampf alpha = 1.0f;
-    float x = -1.0f;
     bool wire = false;
 
     std::vector<glm::vec3> thingo;
@@ -120,8 +91,8 @@ int main(void)
                 wire = true;
         }
 
-        glClear(GL_COLOR_BUFFER_BIT);
-        shad.Start();
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        //shad.Start();
         //tri.Render();
         //shad2.Start();
         //tri2.Render();

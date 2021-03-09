@@ -39,7 +39,10 @@ void Terrain::setScalingFactor(float xScale, float yScale, float zScale) {
 }
 
 float Terrain::getHeight(int xpos, int zpos) {
-	return ((float)(data[(zpos * size) + xpos]) * sY);
+	if(inBounds(xpos, zpos))
+		return ((float)(data[(zpos * size) + xpos]) * sY);
+	else
+		return ((float)(data[(zpos - 1 * size) + xpos]) * sY);
 }
 
 void Terrain::Render()
@@ -55,4 +58,12 @@ void Terrain::Render()
 		}
 		glEnd();
 	}
+}
+
+bool Terrain::inBounds(int x, int y)
+{
+	if ((x >= 0 && x < size * sX) && (y >= 0 && y < size * sZ))
+		return true;
+	else
+		return false;
 }
