@@ -1,15 +1,20 @@
 #include <iostream>
+#include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
 /*Test includes and defines to be removed*/
 #include <cmath>
 #include <chrono>
 #include <thread>
+#include <string>
 
 #include "GameManager.h"
 #include "Singleton.h"
 #include "OpenGL.h"
 #include "GlewInput.h"
+#include "GlewWindow.h"
+#include "Shader.h"
+#include "VertexBuffer.h"
 
 #define PI 3.14159265358
 
@@ -22,40 +27,73 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
     }
 }
 
-
-
-
-/**
-* Basic setup for defult GLFW Window
-*/
 int main(void)
 {
-    GameManager* gameManager = Singleton<GameManager>::getInstance();
-    OpenGL render;
-    GlewInput input(render.window);
-    gameManager->gameRenderer = &render;
-    gameManager->inputManager = &input;
+    Window* win;
+    GlewWindow a;
+    a.Init("ICT397 Game Engine", 480, 640);
+    win = &a;
+    glewExperimental = GL_TRUE;
+    if (glewInit() != GLEW_OK) { return 1; }
+    float triangle_vertices[] = {
+        0.5f,  0.5f,  0.0f,     //1
+        0.5f, -0.5f,  0.0f,     //2
+        -0.5f, -0.5f,  0.0f,    //3
+        0.5f,  0.5f,  0.0f,     //1
+        -0.5f, -0.5f,  0.0f,    //3
+        -0.5f, 0.5f,  0.0f,     //4
+        0.5f,  0.5f,  0.0f,    //1
+        0.7f,  0.5f,  0.5F,    //5
+        0.7f,  -0.5f,  0.5f   //6
+    };
 
-    if (!gameManager->gameRenderer->Init())
+    float triangle_vertices2[] = {
+        0.5f, -0.5f,  0.0f,     //2
+        0.7f,  -0.5f,  0.5f,   //6
+        0.5f,  0.5f,  0.0f     //1
+    };
+
+    Shader shad("Simple.vert", "Simple.frag");
+    if (!shad.Works())
     {
-        return -1;
+        return 1;
     }
+    Shader shad2("Simple.vert", "Simple2.frag");
+    if (!shad2.Works())
+    {
+        return 1;
+    }
+    VertexBuffer tri(triangle_vertices, (sizeof(triangle_vertices) / sizeof(*triangle_vertices)));
+    VertexBuffer tri2(triangle_vertices2, 9);
 
-
-    //glfwSetKeyCallback(window, key_callback);
-
-    /* Make the window's context current */
-
-    /* Loop until the user closes the window */
+    GLclampf red = 0.0f;
+    GLclampf green = 0.0f;
+    GLclampf blue = 0.0f;
+    GLclampf alpha = 1.0f;
+    float x = -1.0f;
+    std::cout << "TV: " << (sizeof(triangle_vertices) / sizeof(*triangle_vertices)) << std::endl;
     while (1)
     {
-        gameManager->gameRenderer->Update();
+        //red = (sin(x) + 1) / 2.0;
+        //green = (sin(x + 1) + 1) / 2.0;
+        //blue = (sin(x + 2) + 1) / 2.0;
+        //x += 0.1;
+        //std::this_thread::sleep_for(std::chrono::milliseconds(10));
 
-        if (gameManager->inputManager->KeyPress(render.window, GLFW_KEY_ESCAPE))
-        {
+        //glClearColor(red, green, blue, alpha);
+
+        if (a.GameInput())
             break;
-        }
+
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        shad.Start();
+        tri.Render();
+        shad2.Start();
+        tri2.Render();
+        a.Buffer();
+
+        glfwPollEvents();
     }
-    
+
     return 0;
 }

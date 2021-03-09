@@ -6,23 +6,6 @@ void OpenGL::Render()
 
 }
 
-bool OpenGL::Init()
-{
-	if (!glfwInit())
-		return false;
-	else
-	{
-		window = glfwCreateWindow(640, 480, "ICT397 Project", NULL, NULL);
-		if (!window)
-		{
-			glfwTerminate();
-			return false;
-		}
-		std::cout << "GLFW Started!" << std::endl;
-		glfwMakeContextCurrent(window);
-		return true;
-	}
-}
 void OpenGL::Update()
 {
     /* Render here */
@@ -42,7 +25,7 @@ void OpenGL::Update()
 
 	if (state == GLFW_PRESS)
 	{
-		std::cout << "E pressed" << std::endl;
+		std::cout << "E pressed in OpenGL.cpp" << std::endl;
 	}
     glClear(GL_COLOR_BUFFER_BIT);
 

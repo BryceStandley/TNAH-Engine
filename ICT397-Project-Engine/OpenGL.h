@@ -7,7 +7,7 @@ class OpenGL : public Renderer
 {
 public:
 	void Render();
-	bool Init();
+	//bool Init();
 	void Update();
 	void Terminate();
 	GLFWwindow* window;
@@ -18,4 +18,3 @@ private:
 	GLclampf alpha = 1.0f;
 	float x = -1.0f;
 };
-
