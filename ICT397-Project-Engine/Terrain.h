@@ -2,6 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <gl/glew.h>
 class Terrain
 {
 public:
@@ -14,13 +15,15 @@ public:
 	}
 
 	~Terrain() { delete [] data; }
+
+	void Render();
 	unsigned char* data;
 	float sX;
 	float sY;
 	float sZ;
 	bool LoadHeightFeild(std::string filename, int size);
 	void setScalingFactor(float xScale, float yScale, float zScale);
-private:
 	int size;
+	float getHeight(int xpos, int zpos);
 };
 

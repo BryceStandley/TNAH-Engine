@@ -19,10 +19,48 @@ VertexBuffer::VertexBuffer(const float* vPos, int vPosCount)
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
 }
 
+VertexBuffer::VertexBuffer(std::vector<glm::vec3> vPos, std::vector<int> indices)
+{
+    glGenVertexArrays(1, &VAO);
+    glGenBuffers(1, &VBO);
+    glGenBuffers(1, &EBO);
+
+    glBindVertexArray(VAO);
+
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBufferData(GL_ARRAY_BUFFER, vPos.size() * sizeof(glm::vec3), &vPos[0], GL_STATIC_DRAW);
+
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(int), &indices[0], GL_STATIC_DRAW);
+
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), 0);
+    vertCount = indices.size();
+
+}
+
+VertexBuffer::VertexBuffer(std::vector<float> vPos, int vPosCount)
+{
+    vertCount = vPosCount*2;
+
+    glGenVertexArrays(1, &VAO);
+    glGenBuffers(1, &VBO);
+
+    glBindVertexArray(VAO);
+
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+
+    glBufferData(GL_ARRAY_BUFFER, vPosCount * sizeof(float), &vPos[0], GL_STATIC_DRAW);
+
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
+}
+
 void VertexBuffer::Render()
 {
     glBindVertexArray(VAO);
-    glDrawArrays(GL_TRIANGLES, 0, vertCount);                                                                           
+    glDrawElements(GL_TRIANGLE_STRIP, vertCount, GL_UNSIGNED_INT, 0);
+    glBindVertexArray(0);
 }
 
 VertexBuffer::~VertexBuffer()

@@ -33,7 +33,26 @@ bool Terrain::LoadHeightFeild(std::string filename, int size)
 }
 
 void Terrain::setScalingFactor(float xScale, float yScale, float zScale) {
-	scaleX = xScale;
-	scaleY = yScale;
-	scaleZ = zScale;
+	sX = xScale;
+	sY = yScale;
+	sZ = zScale;
+}
+
+float Terrain::getHeight(int xpos, int zpos) {
+	return ((float)(data[(zpos * size) + xpos]) * sY);
+}
+
+void Terrain::Render()
+{
+	for (int z = 0; z < size - 1; z++) {
+		//loop through the x axis
+		glBegin(GL_TRIANGLE_STRIP);
+		for (int x = 0; x < size; x++) {
+
+			glVertex3f((float)x * sX, getHeight(x, z), (float)z * sZ);
+
+			glVertex3f((float)x * sX, getHeight(x, z + 1), (float)(z + 1) * sZ);
+		}
+		glEnd();
+	}
 }

@@ -7,6 +7,7 @@
 #include <chrono>
 #include <thread>
 #include <string>
+#include <vector>
 
 #include "GameManager.h"
 #include "Singleton.h"
@@ -15,6 +16,8 @@
 #include "GlewWindow.h"
 #include "Shader.h"
 #include "VertexBuffer.h"
+#include "Terrain.h"
+#include "glm/glm.hpp"
 
 #define PI 3.14159265358
 
@@ -31,6 +34,8 @@ int main(void)
 {
     Window* win;
     GlewWindow a;
+    Terrain h;
+    h.LoadHeightFeild("height128.raw", 128);
     a.Init("ICT397 Game Engine", 480, 640);
     win = &a;
     glewExperimental = GL_TRUE;
@@ -63,8 +68,8 @@ int main(void)
     {
         return 1;
     }
-    VertexBuffer tri(triangle_vertices, (sizeof(triangle_vertices) / sizeof(*triangle_vertices)));
-    VertexBuffer tri2(triangle_vertices2, 9);
+    //VertexBuffer tri(triangle_vertices, (sizeof(triangle_vertices) / sizeof(*triangle_vertices)));
+    //VertexBuffer tri2(triangle_vertices2, 9);
 
     GLclampf red = 0.0f;
     GLclampf green = 0.0f;
@@ -72,7 +77,31 @@ int main(void)
     GLclampf alpha = 1.0f;
     float x = -1.0f;
     bool wire = false;
-    std::cout << "TV: " << (sizeof(triangle_vertices) / sizeof(*triangle_vertices)) << std::endl;
+
+    std::vector<glm::vec3> thingo;
+    std::vector<int> grid;
+    int num = 0;
+    for (int z = 0; z < h.size-1; z++)
+    {
+        for (int x = 0; x < h.size; x++) {
+
+            glm::vec3 g;
+            g.x = (float)x * h.sX; 
+            g.y = h.getHeight(x, z);
+            g.z = (float)z * h.sZ;
+            thingo.push_back(g);
+            grid.push_back(z * h.size + (x + 1));
+            grid.push_back(z * h.size + (x + 1) + h.size);
+            if (x == h.size && z != h.size - 1)
+            {
+                grid.push_back(z * h.size + 2 * h.size);
+                grid.push_back((z + 1) * h.size + 1);
+            }
+        }
+    }
+
+    VertexBuffer terrain(thingo, grid);
+
     while (1)
     {
         //red = (sin(x) + 1) / 2.0;
@@ -91,11 +120,12 @@ int main(void)
                 wire = true;
         }
 
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        glClear(GL_COLOR_BUFFER_BIT);
         shad.Start();
-        tri.Render();
-        shad2.Start();
-        tri2.Render();
+        //tri.Render();
+        //shad2.Start();
+        //tri2.Render();
+        terrain.Render();
         a.Buffer();
 
         if (wire)
