@@ -31,7 +31,7 @@ int main(void)
 {
     Window* win;
     GlewWindow a;
-    a.Init("init", 480, 640);
+    a.Init("ICT397 Game Engine", 480, 640);
     win = &a;
     glewExperimental = GL_TRUE;
     if (glewInit() != GLEW_OK) { return 1; }
