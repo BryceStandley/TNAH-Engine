@@ -36,7 +36,6 @@ VertexBuffer::VertexBuffer(std::vector<glm::vec3> vPos, std::vector<int> indices
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), 0);
     vertCount = indices.size();
-
 }
 
 VertexBuffer::VertexBuffer(std::vector<float> vPos, int vPosCount)

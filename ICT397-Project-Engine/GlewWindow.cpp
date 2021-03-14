@@ -22,6 +22,7 @@ bool GlewWindow::Init(std::string title, int h, int w)
 void GlewWindow::Buffer()
 {
     glfwSwapBuffers(gameWindow);
+    glfwPollEvents();
 }
 
 void GlewWindow::Terminate()
@@ -41,4 +42,9 @@ bool GlewWindow::GameInput()
 
 
     return false;
+}
+
+void GlewWindow::Clear()
+{
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }

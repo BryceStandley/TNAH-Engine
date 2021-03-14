@@ -8,9 +8,9 @@ class Terrain
 public:
 	Terrain()
 	{
-		sX = 1.0f;
-		sY = -1.0f;
-		sZ = -1.0f;
+		sX = 100.0f;
+		sY = 1.0f;
+		sZ = 1.0f;
 		data = NULL;
 	}
 

@@ -13,8 +13,8 @@ public:
 	void Render();
 private:
 	int vertCount;
-	GLuint VBO;
-	GLuint VAO;
-	GLuint EBO;
+	unsigned int VBO;
+	unsigned int VAO;
+	unsigned int EBO;
 };
 
