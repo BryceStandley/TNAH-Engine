@@ -15,7 +15,8 @@ void Scene::Run()
 {
 
 }
+
 bool Scene::Init()
 {
-
+	return false;
 }

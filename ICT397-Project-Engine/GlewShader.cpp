@@ -1,6 +1,41 @@
-#include "Shader.h"
+#include "GlewShader.h"
 
-Shader::~Shader()
+GlewShader::GlewShader(const char* vertPath, const char* fragPath)
+{
+    GLuint vertexShader = LoadCompileShader(vertPath, GL_VERTEX_SHADER);
+    GLuint fragmentShader = LoadCompileShader(fragPath, GL_FRAGMENT_SHADER);
+    if (!Compild(vertexShader) || !Compild(fragmentShader))
+    {
+        glDeleteShader(vertexShader);
+        glDeleteShader(fragmentShader);
+        error = true;
+        return;
+    }
+
+    // Assemble shader program.
+    program = glCreateProgram();
+    glAttachShader(program, vertexShader);
+    glAttachShader(program, fragmentShader);
+
+    // Link the program.
+    glLinkProgram(program);
+
+    // If linking failed, clean up and return error.
+    if (!ProgramLinked(program))
+    {
+        glDeleteProgram(program);
+        glDeleteShader(vertexShader);
+        glDeleteShader(fragmentShader);
+        error = true;
+        return;
+    }
+
+    // Detach shaders after a successful link.
+    glDetachShader(program, vertexShader);
+    glDetachShader(program, fragmentShader);
+}
+
+GlewShader::~GlewShader()
 {
     if (program != GL_NONE)
     {
@@ -8,17 +43,17 @@ Shader::~Shader()
     }
 }
 
-bool Shader::Works()
+bool GlewShader::Works()
 {
     return !error;
 }
 
-void Shader::Start()
+void GlewShader::Start()
 {
     glUseProgram(program);
 }
 
-int Shader::LoadCompileShader(const char* path, int type)
+int GlewShader::LoadCompileShader(const char* path, int type)
 {
 
     std::ifstream file(path);
@@ -40,7 +75,7 @@ int Shader::LoadCompileShader(const char* path, int type)
     return shader;
 }
 
-bool Shader::Compild(int shader)
+bool GlewShader::Compild(int shader)
 {
     GLint compileSucceeded = 0;
     glGetShaderiv(shader, GL_COMPILE_STATUS, &compileSucceeded);
@@ -61,7 +96,7 @@ bool Shader::Compild(int shader)
     return true;
 }
 
-bool Shader::ProgramLinked(int shader)
+bool GlewShader::ProgramLinked(int shader)
 {
     GLint linkSucceeded = 0;
     glGetProgramiv(program, GL_LINK_STATUS, &linkSucceeded);

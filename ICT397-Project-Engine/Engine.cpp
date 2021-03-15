@@ -29,11 +29,12 @@ void Engine::Run()
 	{
 		window->Clear();
 		running = window->GameInput();
-		//gameScenes[currentScene].Run();
-		//In the loop we get the model information from the scene manager
-		//We also get the input information
-		//Using these we edit the model information based of the input information we get
-		//And pass the model information into the view information(renderer) and render the scene
+		//gameScenes[currentScene].Run
+
+		//std::vector<GameObject> objects = gameScenes[currentScene].GetGameObjects();
+		//We then will pass the game objects into the window/controller so they can me manipulated if needed
+		//THey will then be returned and passed into the renderer for rendering
+		//They will then be renderered and returned back to the scene so the changes made to them are kept
 		//This does the model-View-Controller
 		window->Buffer();
 	}
