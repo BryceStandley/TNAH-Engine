@@ -11,6 +11,7 @@ public:
 	virtual void Buffer();
 	virtual bool GameInput();
 	virtual void Terminate();
+	virtual void Clear();
 private:
 	Input gameInput;
 	GLFWwindow* gameWindow = NULL;
