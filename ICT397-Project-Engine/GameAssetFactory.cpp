@@ -6,7 +6,7 @@ GameObject GameAssetFactory::GetGameObject(std::string objectType)
 	if (objectType == "")
 	{
 		//NULL operator will be implemented
-		return NULL;
+		//
 	}
 	
 	if (objectType == "Terrain")
@@ -25,6 +25,6 @@ GameObject GameAssetFactory::GetGameObject(std::string objectType)
 	{
 		// = new PlayerBoundAsset()
 	}
-	//NULL operator will be implemented
-	return NULL;
+	GameObject g;
+	return g;
 }

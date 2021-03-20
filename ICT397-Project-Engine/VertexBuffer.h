@@ -1,4 +1,4 @@
-#include <gl/glew.h>
+#include <glad/glad.h>
 #include <iostream>
 #include <vector>
 #include <glm/glm.hpp>

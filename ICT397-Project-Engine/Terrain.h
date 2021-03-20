@@ -2,29 +2,52 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <gl/glew.h>
+#include <vector>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include "TextureLoader.h"
+#include "Shader.h"
+
 class Terrain
 {
+
+protected:
+	unsigned char* terrainData; //data of the heightfield
+	float scaleX;
+	float scaleY;
+	float scaleZ;
+
+private:
+	int size; //the size of the heightfield along x and z - power of 2ssssssssss
+
 public:
-	Terrain()
+	typedef struct terrainDataStruct
 	{
-		sX = 100.0f;
-		sY = 1.0f;
-		sZ = 1.0f;
-		data = NULL;
-	}
+		std::vector<glm::vec3> vertex;
+		std::vector<unsigned int> indices;
+		std::vector<glm::vec2> texCoords;
 
-	~Terrain() { delete [] data; }
+	} terrainDataStruct;
 
-	void Render();
-	unsigned char* data;
-	float sX;
-	float sY;
-	float sZ;
-	bool LoadHeightFeild(std::string filename, int size);
+	~Terrain() { delete[] terrainData; }
+	
+	Shader shader;
+	TextureLoader load;
+	unsigned int terrainTextureID;
+
+	virtual void Render() {};
+	virtual void modelSetup() {};
+	virtual void generateTerrain() {};
+	bool LoadHeightField(std::string filename, int size);
 	void setScalingFactor(float xScale, float yScale, float zScale);
-	int size;
+	int getSize();
 	float getHeight(int xpos, int zpos);
+	unsigned char getHeightColor(int xpos, int zpos);
+	void setHeightAtPoint(unsigned char height, int xpos, int zpos);
 	bool inBounds(int x, int y);
+	void addFilter(float* terrainData, float weight);
+	bool genFaultFormation(int iter, int hSize, int minHeight, int maxHeight, float weight, bool random);
+	void filterPass(float* startP, int increment, float weight);
+	void normaliseTerrain(float* terrainData);
 };
 

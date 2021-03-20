@@ -1,6 +1,8 @@
 #pragma once
+#include <glad/glad.h>
 #include "Windows.h"
 #include "Scene.h"
+//#include "Renderer.h"
 #include <vector>
 class Engine
 {
@@ -11,7 +13,7 @@ public:
 private:
 	Window* window;
 	std::vector<Scene> gameScenes;
-	//Renderer
+	//Renderer render;
 	int currentScene;
 	bool running;
 };
