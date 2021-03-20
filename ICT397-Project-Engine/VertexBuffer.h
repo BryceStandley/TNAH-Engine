@@ -12,9 +12,9 @@ public:
 	~VertexBuffer();
 	void Render();
 private:
-	int vertCount;
-	unsigned int VBO;
-	unsigned int VAO;
-	unsigned int EBO;
+	virtual void SetBufferFloat(const float* vPos, int vPosCount){}
+	virtual void SetBufferVectorFloat(std::vector<float> vPos, int vPosCount){}
+	virtual void SetBufferVec3(std::vector<glm::vec3> vPos, std::vector<int> indices){}
+	virtual void Terminate() {}
 };
 
