@@ -13,6 +13,8 @@ public:
 	void Run();
 	bool Init(std::string fs, std::string vs, std::string t);
 	Terrain *GetTerrain() { return gameTerrain; }
+
+	std::string GetSceneName() const { return sceneName; }
 private:
 	std::string sceneName;
 	GameAssetFactory factory;

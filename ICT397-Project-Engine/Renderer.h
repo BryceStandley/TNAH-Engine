@@ -1,10 +1,10 @@
 #pragma once
-//#include <glad/glad.h>
-//#include <GLFW/glfw3.h>
 #include <iostream>
 class Renderer
 {
 public:
-	
+	virtual void RenderTerrain(unsigned int VAO, int size) {}
+	virtual void BindTexture(unsigned int texture) {}
+	virtual void DepthTest() {}
 };
 

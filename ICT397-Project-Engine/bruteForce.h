@@ -9,7 +9,8 @@
 class bruteForce : public Terrain
 {
 public:
-
+	unsigned int GetVao() { return VAO; }
+	int GetSize() { return t.indices.size(); }
 	void Render();
 	void generateTerrain();
 	void modelSetup();

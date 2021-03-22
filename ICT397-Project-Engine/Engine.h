@@ -2,7 +2,7 @@
 #include <glad/glad.h>
 #include "Windows.h"
 #include "Scene.h"
-//#include "Renderer.h"
+#include "GladRenderer.h"
 #include <vector>
 class Engine
 {
@@ -13,7 +13,7 @@ public:
 private:
 	Window* window;
 	std::vector<Scene> gameScenes;
-	//Renderer render;
+	Renderer * render;
 	int currentScene;
 	bool running;
 };

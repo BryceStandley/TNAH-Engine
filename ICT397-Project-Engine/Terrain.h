@@ -35,6 +35,8 @@ public:
 	TextureLoader load;
 	unsigned int terrainTextureID;
 
+	virtual unsigned int GetVao() { return 1; }
+	virtual int GetSize() { return 1; }
 	virtual void Render() {};
 	virtual void modelSetup() {};
 	virtual void generateTerrain() {};

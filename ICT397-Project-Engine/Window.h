@@ -5,13 +5,15 @@
 class Window
 {
 public:
-	virtual bool Init(std::string title, int h, int w) { return false; }
+	virtual void Init(std::string title, int h, int w) { }
 	virtual void Buffer() = 0;
 	virtual bool GameInput() { return false; }
 	virtual void Terminate() {}
 	virtual void Clear() {}
 	virtual void FrameBuffer() {}
-	virtual void Projection(Terrain *gameTerrain) {}
+	virtual void Projection() {}
+	virtual void SetShader(Shader shader) {}
+	virtual void Restart() {}
 
 private:
 	Input gameInput;	
