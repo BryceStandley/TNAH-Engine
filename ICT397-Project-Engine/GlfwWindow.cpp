@@ -1,6 +1,6 @@
-#include "GlewWindow.h"
+#include "GlfwWindow.h"
 
-void GlewWindow::Init(std::string title, int h, int w)
+void GlfwWindow::Init(std::string title, int h, int w)
 {
     /* Create a windowed mode window and its OpenGL context */
     gameWindow = glfwCreateWindow(w, h, title.c_str(), NULL, NULL);
@@ -20,18 +20,18 @@ void GlewWindow::Init(std::string title, int h, int w)
     glfwMakeContextCurrent(gameWindow);
 }
 
-void GlewWindow::Buffer()
+void GlfwWindow::Buffer()
 {
     glfwSwapBuffers(gameWindow);
     glfwPollEvents();
 }
 
-void GlewWindow::Terminate()
+void GlfwWindow::Terminate()
 {
     glfwTerminate();
 }
 
-bool GlewWindow::GameInput()
+bool GlfwWindow::GameInput()
 {
     int state = glfwGetKey(gameWindow, GLFW_KEY_W);
 
@@ -45,18 +45,18 @@ bool GlewWindow::GameInput()
     return false;
 }
 
-void GlewWindow::Clear()
+void GlfwWindow::Clear()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-void GlewWindow::FrameBuffer()
+void GlfwWindow::FrameBuffer()
 {
     glfwSetFramebufferSizeCallback(gameWindow, framebufferCallback);
 }
 
 //For NOW WE WILL HAVE TERRAIN HERE, WILL BREAK OFF SOON
-void GlewWindow::Projection()
+void GlfwWindow::Projection()
 {
     glActiveTexture(GL_TEXTURE0);
 
@@ -72,7 +72,7 @@ void GlewWindow::Projection()
     model = glm::scale(model, glm::vec3(0.2f)); // a smaller cube
 }
 
-void GlewWindow::SetShader(Shader shader)
+void GlfwWindow::SetShader(Shader shader)
 {
     shader.use();
     shader.setMat4("projection", projection);
@@ -80,7 +80,7 @@ void GlewWindow::SetShader(Shader shader)
     shader.setMat4("model", model);
 }
 
-void GlewWindow::Restart()
+void GlfwWindow::Restart()
 {
     glPrimitiveRestartIndex(0xFFFFFFFFU);
     glEnable(GL_PRIMITIVE_RESTART);

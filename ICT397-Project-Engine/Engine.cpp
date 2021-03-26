@@ -2,19 +2,32 @@
 
 Engine::Engine()
 {
-	//Checks if glfw/glew is a thing
-	window = new GlewWindow();
-	bool check = window->Init("Engine", 1280, 720);
-	if (!check)
+	if (glfwInit())
 	{
+		window = new GlfwWindow();
+		window->Init("Engine", 600, 800);
+		window->FrameBuffer();
 		running = true;
 	}
 	else
 	{
 		running = false;
 	}
-		
-	this->currentScene = 0;
+
+	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+	{
+		std::cout << "Failed to initialize GLAD" << std::endl;
+	}
+	else
+	{
+		render = new GladRenderer();
+		render->DepthTest();
+	}
+
+	currentScene = 0;
+
+	Scene one("Game", "cfshader.glsl", "cvshader.glsl", "grass.jpg");
+	gameScenes.push_back(one);
 }
 
 Engine::~Engine()
@@ -25,17 +38,37 @@ Engine::~Engine()
 
 void Engine::Run()
 {
-	while (!running)
+	while (running)
 	{
 		window->Clear();
-		running = window->GameInput();
-		//gameScenes[currentScene].Run
 
-		//std::vector<GameObject> objects = gameScenes[currentScene].GetGameObjects();
-		//We then will pass the game objects into the window/controller so they can me manipulated if needed
-		//THey will then be returned and passed into the renderer for rendering
-		//They will then be renderered and returned back to the scene so the changes made to them are kept
-		//This does the model-View-Controller
+		Terrain *t = gameScenes[currentScene].GetTerrain();
+
+		//Scene projection
+		window->Projection();
+		window->Restart();
+
+		if (gameScenes[currentScene].GetSceneName() == "menu")
+		{
+			std::cout << "This is menu" << std::endl;
+		}
+		else
+		{
+			//Terrain
+			window->SetShader(t->shader);
+			render->BindTexture(t->terrainTextureID);
+			render->RenderTerrain(t->GetVao(), t->GetSize());
+
+			//for (int i = 0; i < gameScenes[currentScene].gameObjects.size(); i++)
+			//{
+				//maniplute game object
+				//set shader
+				//bind texture
+				//render game object
+				//send manipulations back
+			//}
+		}
+
 		window->Buffer();
 	}
 }

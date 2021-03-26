@@ -9,11 +9,11 @@
 #include "camera.h"
 #include "Shader.h"
 
-class GlewWindow : public Window
+class GlfwWindow : public Window
 {
 public:
-	GlewWindow() {}
-	~GlewWindow() { Terminate(); }
+	GlfwWindow() {}
+	~GlfwWindow() { Terminate(); }
 	virtual void Init(std::string title, int h, int w);
 	virtual void Buffer();
 	virtual bool GameInput();

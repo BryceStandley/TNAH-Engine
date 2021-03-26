@@ -1,22 +1,23 @@
 #pragma once
 #include <string>
 #include "GameAssetFactory.h"
-#include "Terrain.h"
-#include <vector>
+#include "bruteForce.h"
+#include "Shader.h"
+#include "TextureLoader.h"
+#include "camera.h"
 class Scene
 {
 public:
-	Scene(std::string type);
+	Scene(std::string name, std::string fs, std::string vs, std::string t);
 	~Scene();
-	bool Init();
+	void Run();
+	bool Init(std::string fs, std::string vs, std::string t);
+	Terrain *GetTerrain() { return gameTerrain; }
 
-	std::vector<GameObject> GetGameObjects() const { return gameObjects; }
-	void SetGameObjects(std::vector<GameObject> g) { gameObjects = g; }
-
+	std::string GetSceneName() const { return sceneName; }
 private:
-	std::string sceneType;
+	std::string sceneName;
 	GameAssetFactory factory;
-	Terrain gameTerrain;
-	std::vector<GameObject> gameObjects;
+	Terrain * gameTerrain;
 };
 
