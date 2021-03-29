@@ -14,7 +14,7 @@ public:
 	void Render();
 	void generateTerrain();
 	void modelSetup();
-	Terrain::terrainDataStruct t;
+	terrainDataStruct t;
 	//std::vector<glm::vec3> positions;
 	//std::vector<unsigned int> indices;
 	unsigned int VAO = 0, VBO = 0, EBO = 0;

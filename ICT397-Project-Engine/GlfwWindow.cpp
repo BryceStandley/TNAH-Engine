@@ -13,7 +13,7 @@ void GlfwWindow::Init(std::string title, int h, int w)
 
     glm::vec3 l(0.0, 0.0f, 0.0f);
     lightPos = l;
-    Camera c(13.2f, 20.6f, -14.1, 0.f, 1.0f, 0.f, 90.9f, -37.f);
+    Camera c(35.2f, 30.6f, -14.1, 0.f, 1.0f, 0.0f, 90.9f, -37.f);
     camera = c;
 
     /* Make the window's context current */
@@ -70,6 +70,24 @@ void GlfwWindow::Projection()
     model = glm::mat4(1.0f);
     model = glm::translate(model, lightPos);
     model = glm::scale(model, glm::vec3(0.2f)); // a smaller cube
+}
+
+void GlfwWindow::SetShaderTerrain(Shader shader)
+{
+    shader.use();
+    shader.setInt("texture0", 0);
+    shader.setInt("texture1", 1);
+    shader.setInt("texture2", 2);
+    shader.setInt("texture3", 3);
+    shader.setInt("texture4", 4);
+}
+
+void GlfwWindow::SetShaderSkybox(Shader shader)
+{
+    glm::mat4 viewSky = glm::mat4(glm::mat3(camera.GetViewMatrix()));
+    shader.use();
+    shader.setMat4("view", viewSky);
+    shader.setMat4("projection", projection);
 }
 
 void GlfwWindow::SetShader(Shader shader)

@@ -93,6 +93,7 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="glad.c" />
     <ClCompile Include="GladRenderer.cpp" />
+    <ClCompile Include="GladSkybox.cpp" />
     <ClCompile Include="GlewInput.cpp" />
     <ClCompile Include="GlewWindow.cpp" />
     <ClCompile Include="GlfwWindow.cpp" />
@@ -102,6 +103,7 @@
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="Skybox.cpp" />
     <ClCompile Include="stb.cpp" />
     <ClCompile Include="Terrain.cpp" />
     <ClCompile Include="TextureLoader.cpp" />
@@ -118,6 +120,7 @@
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GladRenderer.h" />
+    <ClInclude Include="GladSkybox.h" />
     <ClInclude Include="GlewInput.h" />
     <ClInclude Include="GlewWindow.h" />
     <ClInclude Include="GlfwWindow.h" />
@@ -127,6 +130,7 @@
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Shader.h" />
+    <ClInclude Include="Skybox.h" />
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="Terrain.h" />
     <ClInclude Include="TextureLoader.h" />

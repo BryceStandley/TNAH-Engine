@@ -20,7 +20,7 @@ public:
 	//TextureLoader();
 	//~TextureLoader();
 	std::vector<Texture>loadMaterialTextures(const char* str, std::string type = "texture_normal");
-	unsigned int loadTexture(const char* path, const std::string& dir, bool gamma);
+	unsigned int loadTexture(std::string path);
 	std::vector<Texture> getTextureList() const { return textures_loaded; }
 
 private:

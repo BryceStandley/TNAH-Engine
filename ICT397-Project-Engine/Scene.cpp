@@ -22,14 +22,22 @@ void Scene::Run()
 
 bool Scene::Init(std::string fs, std::string vs, std::string t)
 {
-	gameTerrain = new bruteForce();
-	gameTerrain->genFaultFormation(128, 128, 0, 1, 0.3, 1);
-	gameTerrain->setScalingFactor(1, 2, 1);
+	gameTerrain = new Terrain();
 	Shader s(vs.c_str(), fs.c_str());
-    gameTerrain->shader = s;
-    gameTerrain->terrainTextureID = gameTerrain->load.loadTexture(t.c_str(), "", 0);
-	gameTerrain->generateTerrain();
-	gameTerrain->modelSetup();
+	gameTerrain->attachShader(s);
+	gameTerrain->LoadHeightField("test-heightmap.raw", 512);
+	gameTerrain->setScalingFactor(1, 3, 1);
 
+	unsigned int grassTexture = textureLoader.loadTexture("grassTile.jpg");
+	unsigned int dirtTexture = textureLoader.loadTexture("dirtTile.jpg");
+	unsigned int mountainTexture = textureLoader.loadTexture("mountainTile.jpg");
+	unsigned int snowTexture = textureLoader.loadTexture("snowTile.jpg");
+	unsigned int detailMapTexture = textureLoader.loadTexture("detailMap.jpg");
+	gameTerrain->setTextures(grassTexture, dirtTexture, mountainTexture, snowTexture, detailMapTexture);
+
+	gameTerrain->generateTerrain();
+	gameTerrain->modelSetup(); 
+	gameSkybox = new GladSkybox();
+	gameSkybox->Init("./res/images/skybox/right.jpg", "./res/images/skybox/left.jpg", "./res/images/skybox/top.jpg", "./res/images/skybox/bottom.jpg", "./res/images/skybox/front.jpg", "./res/images/skybox/back.jpg", "./res/shader/skybox_vert.txt", "./res/shader/skybox_frag.txt");
     return true;
 }

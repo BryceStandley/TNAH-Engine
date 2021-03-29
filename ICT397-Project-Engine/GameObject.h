@@ -3,11 +3,20 @@
 class GameObject
 {
 public:
-	Model GetModel() const { return obj; }
-	void SetModel(Model m) { obj = m; }
-
+	void CheckCollisions();
+	virtual void OnCollision(GameObject &collisionObject);
+	GameObject();
+	GameObject(glm::vec3 pos, float colSize, float objSize);
+	void SetPos(glm::vec3 pos);
+	void SetScale(float size);
+	void SetSphereSIze(float size);
+	glm::vec3 GetPos() const;
+	float GetScale() const;
+	float GetSphereSize() const;
+	Model model;
 private:
-	Model obj;
+	float scale;
+	float sphereSize;
 	//Physics of some kind
 };
 

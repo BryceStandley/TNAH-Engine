@@ -5,8 +5,17 @@
 #include <vector>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
-#include "TextureLoader.h"
-#include "Shader.h"
+#include <time.h>
+
+#include "shader.h"
+
+typedef struct terrainDataStruct
+{
+	std::vector<glm::vec3> vertex;
+	std::vector<unsigned int> indices;
+	std::vector<glm::vec2> texCoords;
+
+} terrainDataStruct;
 
 class Terrain
 {
@@ -18,38 +27,33 @@ protected:
 	float scaleZ;
 
 private:
-	int size; //the size of the heightfield along x and z - power of 2ssssssssss
+	int size; //the size of the heightfield along x and z - power of 2
+	unsigned int VAO = 0, VBO = 0, EBO = 0;
+	std::vector<unsigned int> texIds;
+	Shader shader;
+
+	bool wireFlag = false;
+
+	terrainDataStruct t;
 
 public:
-	typedef struct terrainDataStruct
-	{
-		std::vector<glm::vec3> vertex;
-		std::vector<unsigned int> indices;
-		std::vector<glm::vec2> texCoords;
 
-	} terrainDataStruct;
 
-	~Terrain() { delete[] terrainData; }
-	
-	Shader shader;
-	TextureLoader load;
-	unsigned int terrainTextureID;
-
-	virtual unsigned int GetVao() { return 1; }
-	virtual int GetSize() { return 1; }
-	virtual void Render() {};
-	virtual void modelSetup() {};
-	virtual void generateTerrain() {};
+	Terrain();
+	~Terrain();
+	unsigned int GetVAO() const { return VAO; }
+	std::vector<unsigned int> GetTextIds() { return texIds; }
+	Shader GetShader() const { return shader; }
+	void attachShader(Shader shad);
 	bool LoadHeightField(std::string filename, int size);
 	void setScalingFactor(float xScale, float yScale, float zScale);
 	int getSize();
+	int GetIndicesSize() const { return t.indices.size(); }
 	float getHeight(int xpos, int zpos);
 	unsigned char getHeightColor(int xpos, int zpos);
-	void setHeightAtPoint(unsigned char height, int xpos, int zpos);
 	bool inBounds(int x, int y);
-	void addFilter(float* terrainData, float weight);
-	bool genFaultFormation(int iter, int hSize, int minHeight, int maxHeight, float weight, bool random);
-	void filterPass(float* startP, int increment, float weight);
-	void normaliseTerrain(float* terrainData);
+	void generateTerrain();
+	void modelSetup();
+	void setTextures(unsigned int tex1, unsigned int tex2, unsigned int tex3, unsigned int tex4, unsigned int tex5);
 };
 

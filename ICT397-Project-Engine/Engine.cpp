@@ -26,7 +26,7 @@ Engine::Engine()
 
 	currentScene = 0;
 
-	Scene one("Game", "cfshader.glsl", "cvshader.glsl", "grass.jpg");
+	Scene one("Game", "fragment.glsl", "vertex.glsl", "grass.jpg");
 	gameScenes.push_back(one);
 }
 
@@ -43,6 +43,7 @@ void Engine::Run()
 		window->Clear();
 
 		Terrain *t = gameScenes[currentScene].GetTerrain();
+		Skybox *s = gameScenes[currentScene].GetSkybox();
 
 		//Scene projection
 		window->Projection();
@@ -55,9 +56,14 @@ void Engine::Run()
 		else
 		{
 			//Terrain
-			window->SetShader(t->shader);
-			render->BindTexture(t->terrainTextureID);
-			render->RenderTerrain(t->GetVao(), t->GetSize());
+			window->SetShader(t->GetShader());
+			render->BindTexture(t->GetTextIds());
+			render->RenderTerrain(t->GetVAO(), t->GetIndicesSize());
+			
+			window->SetShaderSkybox(s->GetShader());
+			render->RenderSkybox(s->GetVAO(), s->GetTexture());
+			
+			//Skybox
 
 			//for (int i = 0; i < gameScenes[currentScene].gameObjects.size(); i++)
 			//{

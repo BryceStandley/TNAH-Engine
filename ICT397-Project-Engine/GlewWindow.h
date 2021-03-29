@@ -22,6 +22,7 @@ public:
 	virtual void FrameBuffer();
 	virtual void Projection();
 	virtual void SetShader(Shader shader);
+	virtual void SetShaderSkybox(Shader shader);
 	virtual void Restart();
 
 private:

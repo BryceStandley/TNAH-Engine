@@ -17,7 +17,7 @@ std::vector<Texture> TextureLoader::loadMaterialTextures(const char* str, std::s
     if (!skip)
     {   // if texture hasn't been loaded already, load it
         Texture texture;
-        texture.id = loadTexture(str, this->dir, false);
+        texture.id = loadTexture(str);
         texture.type = type;
         texture.path = str;
         textures.push_back(texture);
@@ -29,17 +29,18 @@ std::vector<Texture> TextureLoader::loadMaterialTextures(const char* str, std::s
 
 // utility function for loading a 2D texture from file
 // ---------------------------------------------------
-unsigned int TextureLoader::loadTexture(const char* path, const std::string& dir, bool gamma)
+unsigned int TextureLoader::loadTexture(std::string path)
 {
+    //auto filename = directory + "//" + path;
+
     unsigned int textureID;
     glGenTextures(1, &textureID);
-    glBindTexture(GL_TEXTURE_2D, textureID);
 
     int width, height, nrComponents;
-    unsigned char* data = stbi_load(path, &width, &height, &nrComponents, 0);
+    unsigned char* data = stbi_load(path.c_str(), &width, &height, &nrComponents, 0);
     if (data)
     {
-        GLenum format{};
+        GLenum format;
         if (nrComponents == 1)
             format = GL_RED;
         else if (nrComponents == 3)
