@@ -40,3 +40,8 @@ void GladRenderer::RenderSkybox(unsigned int VAO, unsigned int texture)
 	glBindVertexArray(0);
 	glDepthFunc(GL_LESS);
 }
+
+virtual void RenderModel(Shader& shader, glm::mat4 model)
+{
+
+}

@@ -42,9 +42,6 @@ void Engine::Run()
 	{
 		window->Clear();
 
-		Terrain *t = gameScenes[currentScene].GetTerrain();
-		Skybox *s = gameScenes[currentScene].GetSkybox();
-
 		//Scene projection
 		window->Projection();
 		window->Restart();
@@ -55,6 +52,11 @@ void Engine::Run()
 		}
 		else
 		{
+			Terrain* t = gameScenes[currentScene].GetTerrain();
+			Skybox* s = gameScenes[currentScene].GetSkybox();
+
+			GameObject testObject = gameScenes[currentScene].GetGameObject(0);
+
 			//Terrain
 			window->SetShader(t->GetShader());
 			render->BindTexture(t->GetTextIds());
@@ -63,6 +65,8 @@ void Engine::Run()
 			window->SetShaderSkybox(s->GetShader());
 			render->RenderSkybox(s->GetVAO(), s->GetTexture());
 			
+
+
 			//Skybox
 
 			//for (int i = 0; i < gameScenes[currentScene].gameObjects.size(); i++)
