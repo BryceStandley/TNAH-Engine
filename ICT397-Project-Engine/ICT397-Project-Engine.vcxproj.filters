@@ -146,11 +146,10 @@
     <ClInclude Include="Model.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-<<<<<<< Updated upstream
     <ClInclude Include="Texture.h">
-=======
+	  <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="stb_image.h">
->>>>>>> Stashed changes
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
