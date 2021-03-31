@@ -6,7 +6,6 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 #include "shader.h"
-#include "TextureLoader.h"
 
 #include <string>
 #include <vector>
@@ -25,15 +24,14 @@ struct Vertex {
     glm::vec3 Bitangent;
 };
 
- 
+
 struct TextureMesh {
     unsigned int id;
     std::string type;
     std::string path;
 };
 
- 
- 
+
 class Mesh {
 public:
     // mesh Data

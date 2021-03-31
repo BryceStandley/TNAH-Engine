@@ -5,10 +5,7 @@
 #include "Window.h"
 #include <iostream>
 #include "Callbacks.h"
- 
- 
-//#include "bruteForce.h"
- 
+
 #include "camera.h"
 #include "Shader.h"
 

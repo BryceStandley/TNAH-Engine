@@ -1,10 +1,6 @@
 #pragma once
 #include <iostream>
- 
- 
-#include "Renderer.h"
-#include "Input.h"
- 
+
 
 class GameManager
 {

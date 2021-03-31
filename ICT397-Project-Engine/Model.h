@@ -19,11 +19,9 @@
 #include <map>
 #include <vector>
 
- 
+
 #include "Callbacks.h"
- 
-//unsigned int TextureFromFile(const char* path, const std::string& directory, bool gamma = false);
- 
+
 
 class Model
 {
@@ -248,13 +246,10 @@ private:
             }
             if (!skip)
             {   // if texture hasn't been loaded already, load it
- 
-                TextureMesh texture;
-                texture.id = TextureFromFile(str.C_Str(), this->directory, false);
 
-                Texture texture;
-                texture.id = TextureFromFile(str.C_Str(), this->directory, false);
- 
+                TextureMesh texture;
+                texture.id = TextureFromFile(str.C_Str(), this->directory);
+
                 texture.type = typeName;
                 texture.path = str.C_Str();
                 textures.push_back(texture);
@@ -263,6 +258,9 @@ private:
         }
         return textures;
     }
+
+};
+
 
     unsigned int TextureFromFile(const char* path, const std::string& directory, bool gamma)
     {
@@ -312,6 +310,3 @@ private:
 
 
 };
-
-
- 

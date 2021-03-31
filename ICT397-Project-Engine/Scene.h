@@ -19,11 +19,11 @@ public:
 	Skybox* GetSkybox() { return gameSkybox; }
 	std::string GetSceneName() const { return sceneName; }
 	GameObject MakeGameObject(std::string modelName, std::string shaderV, std::string shaderF);
-	GameObject GetGameObject(int i) { return gameObjects[i]; }
+	GameObject GetGameObject() { return gameObjects; }
 private:
 	std::string sceneName;
 	GameAssetFactory factory;
-	std::vector<GameObject> gameObjects;
+	GameObject gameObjects;
 	Terrain *gameTerrain;
 	Skybox* gameSkybox;
 	TextureLoader textureLoader;
