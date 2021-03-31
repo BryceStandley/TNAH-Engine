@@ -13,7 +13,7 @@ void GlfwWindow::Init(std::string title, int h, int w)
 
     glm::vec3 l(0.0, 0.0f, 0.0f);
     lightPos = l;
-    Camera c(35.2f, 30.6f, -14.1, 0.f, 1.0f, 0.0f, 90.9f, -37.f);
+    Camera c(glm::vec3(0.0f, 10.0f, 50.0f));
     camera = c;
 
     /* Make the window's context current */

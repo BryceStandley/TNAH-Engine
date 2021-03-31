@@ -63,7 +63,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glfw3.lib;opengl32.lib;glew32.lib;glew32s.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;assimp-vc142-mtd.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -84,23 +84,18 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="application.cpp" />
-    <ClCompile Include="bruteForce.cpp" />
     <ClCompile Include="Callbacks.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="GameAssetFactory.cpp" />
-    <ClCompile Include="GameEngine.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="glad.c" />
     <ClCompile Include="GladRenderer.cpp" />
     <ClCompile Include="GladSkybox.cpp" />
-    <ClCompile Include="GlewInput.cpp" />
-    <ClCompile Include="GlewWindow.cpp" />
     <ClCompile Include="GlfwWindow.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Model.cpp" />
-    <ClCompile Include="OpenGL.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Scene.cpp" />
@@ -108,28 +103,23 @@
     <ClCompile Include="Skybox.cpp" />
     <ClCompile Include="stb.cpp" />
     <ClCompile Include="Terrain.cpp" />
+    <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TextureLoader.cpp" />
-    <ClCompile Include="VertexBuffer.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="bruteForce.h" />
     <ClInclude Include="Callbacks.h" />
     <ClInclude Include="camera.h" />
     <ClInclude Include="Engine.h" />
     <ClInclude Include="GameAssetFactory.h" />
-    <ClInclude Include="GameEngine.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GladRenderer.h" />
     <ClInclude Include="GladSkybox.h" />
-    <ClInclude Include="GlewInput.h" />
-    <ClInclude Include="GlewWindow.h" />
     <ClInclude Include="GlfwWindow.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Model.h" />
-    <ClInclude Include="OpenGL.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Scene.h" />
@@ -137,8 +127,8 @@
     <ClInclude Include="Skybox.h" />
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="Terrain.h" />
+    <ClInclude Include="Texture.h" />
     <ClInclude Include="TextureLoader.h" />
-    <ClInclude Include="VertexBuffer.h" />
     <ClInclude Include="Window.h" />
     <ClInclude Include="Windows.h" />
   </ItemGroup>
