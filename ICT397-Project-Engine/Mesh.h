@@ -6,6 +6,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 #include "shader.h"
+#include "TextureLoader.h"
 
 #include <string>
 #include <vector>
@@ -24,23 +25,26 @@ struct Vertex {
     glm::vec3 Bitangent;
 };
 
-struct Texture {
+<<<<<<< Updated upstream
+struct TextureMesh {
     unsigned int id;
     std::string type;
     std::string path;
 };
 
+=======
+>>>>>>> Stashed changes
 class Mesh {
 public:
     // mesh Data
     std::vector<Vertex>       vertices;
     std::vector<unsigned int> indices;
-    std::vector<Texture>      textures;
+    std::vector<TextureMesh>      textures;
     glm::mat4 transform;
     unsigned int VAO;
 
     // constructor
-    Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Texture> textures, glm::mat4& transform)
+    Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<TextureMesh> textures, glm::mat4& transform)
     {
         this->vertices = vertices;
         this->indices = indices;

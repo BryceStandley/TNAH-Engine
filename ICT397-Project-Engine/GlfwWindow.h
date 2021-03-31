@@ -5,7 +5,10 @@
 #include "Window.h"
 #include <iostream>
 #include "Callbacks.h"
-#include "bruteForce.h"
+<<<<<<< Updated upstream
+=======
+//#include "bruteForce.h"
+>>>>>>> Stashed changes
 #include "camera.h"
 #include "Shader.h"
 

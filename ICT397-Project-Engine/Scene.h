@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include "GameObjects.h"
 #include "GameAssetFactory.h"
 #include "Terrain.h"
 #include "Shader.h"

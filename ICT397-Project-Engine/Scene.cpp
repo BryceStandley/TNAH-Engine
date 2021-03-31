@@ -34,7 +34,7 @@ bool Scene::Init(std::string fs, std::string vs, std::string t)
 	unsigned int snowTexture = textureLoader.loadTexture("snowTile.jpg");
 	unsigned int detailMapTexture = textureLoader.loadTexture("detailMap.jpg");
 	gameTerrain->setTextures(grassTexture, dirtTexture, mountainTexture, snowTexture, detailMapTexture);
-	gameObjects.push_back(MakeGameObject("res/models/tokens/fbx/Free_Hit.fbx", "modelV.glsl", "modelF.glsl"));
+	gameObjects.push_back(MakeGameObject("res/models/tokens/fbx/Free_Hit.fbx", "res/shader/modelV.glsl", "res/shader/modelF.glsl"));
 	gameTerrain->generateTerrain();
 	gameTerrain->modelSetup(); 
 	gameSkybox = new GladSkybox();

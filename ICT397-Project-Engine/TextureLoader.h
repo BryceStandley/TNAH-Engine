@@ -2,7 +2,6 @@
 #include <vector>
 #include <string>
 #include <glad/glad.h>
-//#include <glm/glm.hpp>
 #include "stb_image.h"
 #include <iostream>
 #include <vector>
