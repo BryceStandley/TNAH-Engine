@@ -9,6 +9,7 @@
 
 #include "Mesh.h"
 #include "shader.h"
+#include "Texture.h"
 
 
 #include <string>
@@ -18,11 +19,11 @@
 #include <map>
 #include <vector>
 
-<<<<<<< Updated upstream
+ 
 #include "Callbacks.h"
-=======
+ 
 //unsigned int TextureFromFile(const char* path, const std::string& directory, bool gamma = false);
->>>>>>> Stashed changes
+ 
 
 class Model
 {
@@ -247,13 +248,13 @@ private:
             }
             if (!skip)
             {   // if texture hasn't been loaded already, load it
-<<<<<<< Updated upstream
+ 
                 TextureMesh texture;
-                texture.id = TextureFromFile(str.C_Str(), this->directory);
-=======
+                texture.id = TextureFromFile(str.C_Str(), this->directory, false);
+
                 Texture texture;
                 texture.id = TextureFromFile(str.C_Str(), this->directory, false);
->>>>>>> Stashed changes
+ 
                 texture.type = typeName;
                 texture.path = str.C_Str();
                 textures.push_back(texture);
@@ -262,9 +263,6 @@ private:
         }
         return textures;
     }
-<<<<<<< Updated upstream
-};
-=======
 
     unsigned int TextureFromFile(const char* path, const std::string& directory, bool gamma)
     {
@@ -316,4 +314,4 @@ private:
 };
 
 
->>>>>>> Stashed changes
+ 

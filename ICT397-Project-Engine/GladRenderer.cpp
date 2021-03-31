@@ -41,11 +41,10 @@ void GladRenderer::RenderSkybox(unsigned int VAO, unsigned int texture)
 	glDepthFunc(GL_LESS);
 }
 
-<<<<<<< Updated upstream
+ 
+//void GladRenderer::RenderModel(Shader& shader, glm::mat4 newModel, Mesh mesh);
+ 
 void GladRenderer::RenderModel(Shader& shader, glm::mat4 newModel, Mesh mesh)
-=======
-void GladRenderer::RenderModel(Shader& shader, glm::mat4 model)
->>>>>>> Stashed changes
 {
     shader.setMat4("model", newModel);
     // bind appropriate textures
