@@ -1,30 +1,17 @@
 #include "GameAssetFactory.h"
+#include "Player.h"
 
-
-//GameObject GameAssetFactory::GetGameObject(std::string objectType)
-//{
-//	if (objectType == "")
-//	{
-//		//NULL operator will be implemented
-//		//
-//	}
-//	
-//	if (objectType == "Terrain")
-//	{
-//		// = new Terrain()
-//	}
-//	else if (objectType == "StaticObject")
-//	{
-//		// = new StaticObject()
-//	}
-//	else if (objectType == "Character")
-//	{
-//		// = new Character()
-//	}
-//	else if (objectType == "PlayerBoundAsset")
-//	{
-//		// = new PlayerBoundAsset()
-//	}
-//	GameObject g;
-//	return g;
-//}
+GameObject* GameAssetFactory::GetGameObject(GameObjectType t)
+{
+	switch (t)
+	{
+		case TypePlayer:
+			return new Player();
+		case TypeStatic:
+			return new Static();
+		case TypeEnemy:
+			return new Enemy();
+		default:
+			return nullptr;
+	}
+}

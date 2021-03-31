@@ -1,12 +1,19 @@
 #pragma once
 #include <string>
-#include "GameObject.h"
+#include "GameObjects.h"
+
+enum GameObjectType
+{
+	TypeStatic,
+	TypePlayer,
+	TypeEnemy
+};
+
 
 class GameAssetFactory
 {
 public:
-	GameObject GetGameObject(std::string objectType);
+	GameObject* GetGameObject(GameObjectType t);
 private:
-
 };
 
