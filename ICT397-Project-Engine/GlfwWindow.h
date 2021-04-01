@@ -16,7 +16,7 @@ public:
 	~GlfwWindow() { Terminate(); }
 	virtual void Init(std::string title, int h, int w);
 	virtual void Buffer();
-	virtual bool GameInput();
+	virtual bool GameInput(float deltaTime);
 	virtual void Terminate();
 	virtual void Clear();
 	virtual void FrameBuffer();
@@ -25,7 +25,8 @@ public:
 	virtual void SetShaderSkybox(Shader shader);
 	virtual void SetShaderTerrain(Shader shader);
 	virtual void Restart();
-
+	virtual Camera GetCamera() { return camera; }
+	virtual void MouseMove();
 private:
 	Input gameInput;
 	GLFWwindow* gameWindow = NULL;
@@ -36,5 +37,8 @@ private:
 	glm::mat4 projection;
 	glm::mat4 view;
 	glm::mat4 model;
+	float lastX;
+	float lastY;
+	float firstMouse = true;
 };
 

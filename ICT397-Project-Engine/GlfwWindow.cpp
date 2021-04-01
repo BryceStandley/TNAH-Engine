@@ -13,7 +13,7 @@ void GlfwWindow::Init(std::string title, int h, int w)
 
     glm::vec3 l(0.0, 0.0f, 0.0f);
     lightPos = l;
-    Camera c(glm::vec3(0.0f, 10.0f, 50.0f));
+    Camera c(13.0f, 35.6f, -20.1, 0.f, 1.0f, 50.0f, 90.9f, -37.f);
     camera = c;
 
     /* Make the window's context current */
@@ -31,18 +31,25 @@ void GlfwWindow::Terminate()
     glfwTerminate();
 }
 
-bool GlfwWindow::GameInput()
+bool GlfwWindow::GameInput(float deltaTime)
 {
-    int state = glfwGetKey(gameWindow, GLFW_KEY_W);
+    if (glfwGetKey(gameWindow, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+        return false;
 
-    if (state == GLFW_PRESS)
-    {
-        std::cout << "W pressed in GlewWindow.cpp file" << std::endl;
-        return true;
-    }
+    if (glfwGetKey(gameWindow, GLFW_KEY_W) == GLFW_PRESS)
+        camera.ProcessKeyboard(FORWARD, deltaTime);
+    if (glfwGetKey(gameWindow, GLFW_KEY_S) == GLFW_PRESS)
+        camera.ProcessKeyboard(BACKWARD, deltaTime);
+    if (glfwGetKey(gameWindow, GLFW_KEY_A) == GLFW_PRESS)
+        camera.ProcessKeyboard(LEFT, deltaTime);
+    if (glfwGetKey(gameWindow, GLFW_KEY_D) == GLFW_PRESS)
+        camera.ProcessKeyboard(RIGHT, deltaTime);
+    if (glfwGetKey(gameWindow, GLFW_KEY_UP) == GLFW_PRESS)
+        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    if (glfwGetKey(gameWindow, GLFW_KEY_DOWN) == GLFW_PRESS)
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
-
-    return false;
+    return true;
 }
 
 void GlfwWindow::Clear()
@@ -102,4 +109,25 @@ void GlfwWindow::Restart()
 {
     glPrimitiveRestartIndex(0xFFFFFFFFU);
     glEnable(GL_PRIMITIVE_RESTART);
+}
+
+void GlfwWindow::MouseMove()
+{
+    double xpos, ypos;
+    glfwGetCursorPos(gameWindow, &xpos, &ypos);
+
+    if (firstMouse)
+    {
+        lastX = xpos;
+        lastY = ypos;
+        firstMouse = false;
+    }
+
+    float xoffset = xpos - lastX;
+    float yoffset = lastY - ypos; // reversed since y-coordinates go from bottom to top
+
+    lastX = xpos;
+    lastY = ypos;
+
+    camera.ProcessMouseMovement(xoffset, yoffset);
 }

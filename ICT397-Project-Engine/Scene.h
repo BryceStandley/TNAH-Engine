@@ -11,6 +11,7 @@
 class Scene
 {
 public:
+	Player player;
 	Scene(std::string name, std::string fs, std::string vs, std::string t);
 	~Scene();
 	void Run();
@@ -20,6 +21,7 @@ public:
 	std::string GetSceneName() const { return sceneName; }
 	GameObject MakeGameObject(std::string modelName, std::string shaderV, std::string shaderF);
 	GameObject GetGameObject() { return gameObjects; }
+	void UpdatePlayer(Camera playerCamera);
 private:
 	std::string sceneName;
 	GameAssetFactory factory;

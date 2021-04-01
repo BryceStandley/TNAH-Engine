@@ -26,6 +26,9 @@ Engine::Engine()
 
 	currentScene = 0;
 
+
+
+
 	Scene one("Game", "fragment.glsl", "vertex.glsl", "grass.jpg");
 	gameScenes.push_back(one);
 }
@@ -38,14 +41,18 @@ Engine::~Engine()
 
 void Engine::Run()
 {
+	float deltaTime;
+	float lastFrame = 0;
 	while (running)
 	{
+		float currentFrame = glfwGetTime();
+		deltaTime = currentFrame - lastFrame;
+		lastFrame = currentFrame;
 		window->Clear();
 
 		//Scene projection
 		window->Projection();
 		window->Restart();
-
 		if (gameScenes[currentScene].GetSceneName() == "menu")
 		{
 			std::cout << "This is menu" << std::endl;
@@ -64,12 +71,16 @@ void Engine::Run()
 			
 			window->SetShaderSkybox(s->GetShader());
 			render->RenderSkybox(s->GetVAO(), s->GetTexture());
-			testObject.shader.use();
+
+			window->SetShader(testObject.shader);
 			for (int i = 0; i < testObject.model.meshes.size(); i++)
 			{
 				render->RenderModel(testObject.shader, testObject.GenerateMatFourForMesh(i), testObject.model.meshes[i]);
 			}
-
+			gameScenes[currentScene].UpdatePlayer(window->GetCamera());
+			gameScenes[currentScene].player.Info();
+			running = window->GameInput(deltaTime);
+			window->MouseMove();
 		}
 
 		window->Buffer();
