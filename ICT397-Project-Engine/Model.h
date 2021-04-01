@@ -259,10 +259,10 @@ private:
         return textures;
     }
 
-};
 
 
-    unsigned int TextureFromFile(const char* path, const std::string& directory, bool gamma)
+
+    unsigned int TextureFromFile(const char* path, const std::string& directory)//, bool gamma)
     {
         std::string filename = std::string(path);
 
