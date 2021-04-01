@@ -55,32 +55,21 @@ void Engine::Run()
 			Terrain* t = gameScenes[currentScene].GetTerrain();
 			Skybox* s = gameScenes[currentScene].GetSkybox();
 
-			GameObject testObject = gameScenes[currentScene].GetGameObject(0);
+			GameObject testObject = gameScenes[currentScene].GetGameObject();
 
 			//Terrain
-			//window->SetShader(t->GetShader());
-			//render->BindTexture(t->GetTextIds());
-			//render->RenderTerrain(t->GetVAO(), t->GetIndicesSize());
+			window->SetShader(t->GetShader());
+			render->BindTexture(t->GetTextIds());
+			render->RenderTerrain(t->GetVAO(), t->GetIndicesSize());
 			
-			//window->SetShaderSkybox(s->GetShader());
-			//render->RenderSkybox(s->GetVAO(), s->GetTexture());
-
+			window->SetShaderSkybox(s->GetShader());
+			render->RenderSkybox(s->GetVAO(), s->GetTexture());
+			testObject.shader.use();
 			for (int i = 0; i < testObject.model.meshes.size(); i++)
 			{
-				testObject.model.Draw(testObject.shader, testObject.GenerateMatFour());
 				render->RenderModel(testObject.shader, testObject.GenerateMatFourForMesh(i), testObject.model.meshes[i]);
 			}
 
-			//Skybox
-
-			//for (int i = 0; i < gameScenes[currentScene].gameObjects.size(); i++)
-			//{
-				//maniplute game object
-				//set shader
-				//bind texture
-				//render game object
-				//send manipulations back
-			//}
 		}
 
 		window->Buffer();

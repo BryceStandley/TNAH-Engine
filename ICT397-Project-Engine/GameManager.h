@@ -1,10 +1,6 @@
 #pragma once
 #include <iostream>
-<<<<<<< Updated upstream
-=======
-#include "Renderer.h"
-#include "Input.h"
->>>>>>> Stashed changes
+
 
 class GameManager
 {

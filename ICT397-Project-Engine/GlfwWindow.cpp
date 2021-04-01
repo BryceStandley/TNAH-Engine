@@ -61,7 +61,7 @@ void GlfwWindow::Projection()
     glActiveTexture(GL_TEXTURE0);
 
     // view/projection transformations
-    projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
+    projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 10000.0f);
     view = camera.GetViewMatrix();
 
     // world transformation
