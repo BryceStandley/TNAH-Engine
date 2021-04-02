@@ -31,6 +31,8 @@ private:
 	unsigned int VAO = 0, VBO = 0, EBO = 0;
 	std::vector<unsigned int> texIds;
 	Shader shader;
+	float minHeight = 0.0f;
+	float maxHeight = 0.0f;
 
 	bool wireFlag = false;
 
@@ -55,5 +57,6 @@ public:
 	void generateTerrain();
 	void modelSetup();
 	void setTextures(unsigned int tex1, unsigned int tex2, unsigned int tex3, unsigned int tex4, unsigned int tex5);
+	float getAverageHeight(int xpos, int zpos);
 };
 

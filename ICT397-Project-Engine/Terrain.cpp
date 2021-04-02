@@ -71,6 +71,40 @@ float Terrain::getHeight(int xpos, int zpos) {
         return ((float)(terrainData[(zpos - 1 * size) + xpos]) * scaleY);
 }
 
+/**
+* 
+* 
+* \author Bryce Standley
+* \date   April 2021
+* \param xpos
+* \param zpos
+* \return average height around a given x and z point in the terrain
+*/
+float Terrain::getAverageHeight(int xpos, int zpos)
+{
+    std::vector<float> heights;
+    heights.push_back(getHeight(xpos, zpos) / 10.0f);
+
+    heights.push_back(getHeight(xpos - 1 , zpos - 1) / 10.0f);
+    heights.push_back(getHeight(xpos, zpos - 1) / 10.0f);
+    heights.push_back(getHeight(xpos + 1, zpos - 1) / 10.0f);
+
+    heights.push_back(getHeight(xpos - 1, zpos) / 10.0f);
+    heights.push_back(getHeight(xpos + 1, zpos) / 10.0f);
+
+    heights.push_back(getHeight(xpos - 1, zpos + 1) / 10.0f);
+    heights.push_back(getHeight(xpos, zpos + 1) / 10.0f);
+    heights.push_back(getHeight(xpos + 1, zpos + 1) / 10.0f);
+
+    float tot = 0.0f;
+    for (float h : heights)
+    {
+        tot += h;
+    }
+
+    return tot / heights.size();
+}
+
 unsigned char Terrain::getHeightColor(int xpos, int zpos) {
     if (inBounds(xpos, zpos)) {
         return terrainData[zpos * size + xpos];
@@ -113,6 +147,10 @@ void Terrain::generateTerrain()
 
                 t.indices.push_back((z * getSize()) + x + getSize());
             }
+
+            if (maxHeight < getHeight(x, z) / 10.0f) { maxHeight = getHeight(x, z) / 10.0f; }
+            if (minHeight > getHeight(x, z) / 10.0f) { minHeight = getHeight(x, z) / 10.0f; }
+
         }
 
         t.indices.push_back(0xFFFFFFFFF);
@@ -163,4 +201,5 @@ void Terrain::setTextures(unsigned int tex1, unsigned int tex2, unsigned int tex
     shader.setInt("texture3", 3);
     shader.setInt("texture4", 4);
 }
+
 

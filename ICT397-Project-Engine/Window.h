@@ -19,6 +19,7 @@ public:
 	virtual void SetShaderTerrain(Shader shader) {}
 	virtual void Restart() {}
 	virtual Camera GetCamera() { Camera c(glm::vec3(0, 0, 0)); return c; }
+	virtual void UpdateCamera(glm::vec3 p) {}
 	virtual void MouseMove() {}
 
 private:

@@ -55,7 +55,7 @@ void Engine::Run()
 		window->Restart();
 		if (gameScenes[currentScene].GetSceneName() == "menu")
 		{
-			std::cout << "This is menu" << std::endl;
+			std::cout << "This is a menu" << std::endl;
 		}
 		else
 		{
@@ -78,7 +78,8 @@ void Engine::Run()
 				render->RenderModel(testObject.shader, testObject.GenerateMatFourForMesh(i), testObject.model.meshes[i]);
 			}
 			gameScenes[currentScene].UpdatePlayer(window->GetCamera());
-			gameScenes[currentScene].player.Info();
+			window->UpdateCamera(gameScenes[currentScene].player.GetPos());
+			//gameScenes[currentScene].player.Info();
 			running = window->GameInput(deltaTime);
 			window->MouseMove();
 		}

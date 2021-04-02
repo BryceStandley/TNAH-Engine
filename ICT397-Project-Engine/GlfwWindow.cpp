@@ -13,7 +13,7 @@ void GlfwWindow::Init(std::string title, int h, int w)
 
     glm::vec3 l(0.0, 0.0f, 0.0f);
     lightPos = l;
-    Camera c(13.0f, 35.6f, -20.1, 0.f, 1.0f, 50.0f, 90.9f, -37.f);
+    Camera c(50.0f, 2.5f, 50.0f, 0.0f, 1.0f, 0.0f, 90.0f, -37.0f);
     camera = c;
 
     /* Make the window's context current */
@@ -44,6 +44,8 @@ bool GlfwWindow::GameInput(float deltaTime)
         camera.ProcessKeyboard(LEFT, deltaTime);
     if (glfwGetKey(gameWindow, GLFW_KEY_D) == GLFW_PRESS)
         camera.ProcessKeyboard(RIGHT, deltaTime);
+    if (glfwGetKey(gameWindow, GLFW_KEY_P) == GLFW_PRESS)//P to reset camera to new position
+        camera.Position = glm::vec3(100, 0, 0);
     if (glfwGetKey(gameWindow, GLFW_KEY_UP) == GLFW_PRESS)
         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     if (glfwGetKey(gameWindow, GLFW_KEY_DOWN) == GLFW_PRESS)

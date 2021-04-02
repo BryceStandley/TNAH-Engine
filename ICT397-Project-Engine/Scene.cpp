@@ -47,8 +47,24 @@ bool Scene::Init(std::string fs, std::string vs, std::string t)
 
 void Scene::UpdatePlayer(Camera playerCam)
 {
-	player.SetPos(playerCam.Position);
-	//std::cout << "Pos" << playerCam.Position.x << " " << playerCam.Position.y << " " << playerCam.Position.z << std::endl;
+	glm::vec3 pos = playerCam.Position;
+	float worldx, worldz;
+
+	worldx = (pos.x / 100.0f) * (float)gameTerrain->getSize();
+	worldz = (pos.z / 100.0f) * (float)gameTerrain->getSize();
+	
+	pos.y = 1.5f + ((gameTerrain->getAverageHeight(worldx, worldz) / gameTerrain->getSize()) * 100.0f);
+
+	if (gameTerrain->getAverageHeight(worldx, worldz) >= 10.0f)
+	{
+		pos.x = player.GetPos().x;
+		pos.y = player.GetPos().y;
+		pos.z = player.GetPos().z;
+	}
+
+	
+	std::cout << "Terrain Height at player position: " << gameTerrain->getAverageHeight(worldx, worldz) << " With Player XYZ: " << pos.x << "  -  " << pos.y << "  -  " << pos.z << std::endl;
+	player.SetPos(pos);
 }
 
 GameObject Scene::MakeGameObject(std::string modelName, std::string shaderV, std::string shaderF)

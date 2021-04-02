@@ -26,6 +26,7 @@ public:
 	virtual void SetShaderTerrain(Shader shader);
 	virtual void Restart();
 	virtual Camera GetCamera() { return camera; }
+	virtual void UpdateCamera(glm::vec3 p) { camera.Position = p; }
 	virtual void MouseMove();
 private:
 	Input gameInput;
