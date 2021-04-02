@@ -1,25 +1,90 @@
 #include "Terrain.h"
+#include "luaManager.h"
 #include <glad/glad.h>
 #include <vector>
 // pairs terrain object with fragment shader
 Terrain::Terrain()
 {
-    //shader = new Shader("vertex.glsl", "fragment.glsl");
-    //LoadHeightField("test-heightmap.raw",512);
-    //generateTerrain();
-    //modelSetup();
+    scaleX = 1;
+    scaleY = 1;
+    scaleZ = 1;
 }
 
 Terrain::~Terrain()
 {
     delete[] terrainData;
-    t.vertex.clear();
-    t.indices.clear();
-    t.texCoords.clear();
     glDeleteVertexArrays(1, &VAO);
     glDeleteBuffers(1, &VBO);
     glDeleteBuffers(1, &EBO);
 }
+
+void Terrain::Init()
+{
+    luaLoader();
+    LoadHeightField(filename, size);
+    setScalingFactor(scaleX, scaleY, scaleZ);
+    generateTerrain();
+    //textures
+}
+
+void Terrain::luaLoader()
+{
+    using namespace luabridge;
+
+    lua_State* L = LuaManager::getInstance().getLuaState();
+
+    if (luaL_dofile(L, "terrain.lua"))
+    {
+        std::cout << "File not found" << std::endl;
+    }
+    else
+    {
+        std::string heightMap;
+        int tSize;
+
+        int xScaler;
+        int yScaler;
+        int zScaler;
+
+        LuaRef heightmap = getGlobal(L, "heightmap");
+        LuaRef terrainSize = getGlobal(L, "terrainSize");
+        LuaRef xScale = getGlobal(L, "xScale");
+        LuaRef yScale = getGlobal(L, "yScale");
+        LuaRef zScale = getGlobal(L, "zScale");
+
+        if (heightmap.isString())
+        {
+            heightMap = heightmap.cast<std::string>();
+            this->filename = heightMap;
+        }
+
+        if (terrainSize.isNumber())
+        {
+            tSize = terrainSize.cast<int>();
+            this->size = tSize;
+        }
+
+        if (xScale.isNumber())
+        {
+            xScaler = xScale.cast<int>();
+            this->scaleX = xScaler;
+        }
+
+        if (yScale.isNumber())
+        {
+            yScaler = yScale.cast<int>();
+            this->scaleY = yScaler;
+        }
+
+        if (zScale.isNumber())
+        {
+            zScaler = zScale.cast<int>();
+            this->scaleZ = zScaler;
+        }
+    }
+
+}
+
 
 void Terrain::attachShader(Shader shad)
 {
@@ -125,36 +190,106 @@ int Terrain::getSize()
     return size;
 }
 
-// generates the terrain by placing position, colour and texture vertices into a vector
-void Terrain::generateTerrain()
+void Terrain::generateVertices(Vertex& vertex)
+{
+    for (unsigned int z = 0; z < getSize(); ++z)
+    {
+        for (unsigned int x = 0; x < getSize(); ++x)
+        {
+            glm::vec3 positions(x * scaleX, getHeight(x, z) / 10.0f, z * scaleZ);
+            vertex.position.push_back(positions);
+        }
+    }
+}
+
+void Terrain::generateIndices(std::vector<unsigned int>& indices)
+{
+    for (unsigned int z = 0; z < getSize(); ++z)
+    {
+        for (unsigned int x = 0; x < getSize(); ++x)
+        {
+            if (z + 1 < getSize())
+            {
+                indices.push_back((z * getSize() + x));
+
+                indices.push_back((z * getSize()) + x + getSize());
+            }
+        }
+        indices.push_back(0xFFFFFFFFF);
+    }
+}
+
+void Terrain::generateColors(Vertex& vertex)
 {
     float colorVal = 0.0f;
-    t.texCoords.push_back(glm::vec2(0, 0));
+
     for (unsigned int z = 0; z < getSize(); ++z)
     {
         for (unsigned int x = 0; x < getSize(); ++x)
         {
             colorVal = (float)getHeightColor(x, z) / 255;
-
-            t.vertex.push_back(glm::vec3(x * scaleX, getHeight(x, z) / 10.0f, z * scaleZ)); //position values
-            t.vertex.push_back(glm::vec3(colorVal, colorVal, colorVal)); // color values
-            glm::vec2 tex(((float)x / getSize()) * 5.0f, ((float)z / getSize()) * 5.0f);
-            t.vertex.push_back(glm::vec3(tex.x, 0.0f, tex.y)); // texture values
-
-            if (z + 1 < getSize())
-            {
-                t.indices.push_back((z * getSize() + x));
-
-                t.indices.push_back((z * getSize()) + x + getSize());
-            }
-
-            if (maxHeight < getHeight(x, z) / 10.0f) { maxHeight = getHeight(x, z) / 10.0f; }
-            if (minHeight > getHeight(x, z) / 10.0f) { minHeight = getHeight(x, z) / 10.0f; }
-
+            glm::vec3 color(0.0f, colorVal, 0.0f);
+            vertex.color.push_back(color);
         }
-
-        t.indices.push_back(0xFFFFFFFFF);
     }
+}
+
+void Terrain::generateTextures(Vertex& vertex)
+{
+
+    for (unsigned int z = 0; z < getSize(); ++z)
+    {
+        for (unsigned int x = 0; x < getSize(); ++x)
+        {
+            glm::vec3 tex(((float)x / getSize()) * 5.0f, 0.0f, ((float)z / getSize()) * 5.0f);
+            vertex.texture.push_back(tex);
+        }
+    }
+}
+
+void Terrain::generateNormals(std::vector<unsigned int>& indices)
+{
+    for (unsigned int z = 0; z < getSize(); ++z)
+    {
+        for (unsigned int x = 0; x < getSize(); ++x)
+        {
+            const glm::vec3& west = vertex.position[(x > 0 ? x - 1 : 0) + z * getSize()];
+            const glm::vec3& east = vertex.position[(x < getSize() - 1 ? x + 1 : x) + z * getSize()];
+
+            glm::vec3 slope_x = east - west;
+
+            const glm::vec3& south = vertex.position[x + (z > 0 ? z - 1 : 0) * getSize()];
+            const glm::vec3& north = vertex.position[x + (z < getSize() - 1 ? z + 1 : z) * getSize()];
+
+            glm::vec3 slope_y = north - south;
+
+
+            glm::vec3 normal = cross(slope_x, slope_y);
+            glm::vec3 normalized = glm::normalize(normal);
+            vertex.normal.push_back(normalized);
+        }
+    }
+}
+
+// generates the terrain by placing position, colour and texture vertices into a vector
+void Terrain::generateTerrain()
+{
+    generateVertices(vertex);
+    generateColors(vertex);
+    generateTextures(vertex);
+
+    generateIndices(Indices);
+    generateNormals(Indices);
+
+    for (unsigned i = 0; i < vertex.position.size(); ++i)
+    {
+        totalData.push_back(vertex.position[i]);
+        totalData.push_back(vertex.color[i]);
+        totalData.push_back(vertex.texture[i]);
+        totalData.push_back(-vertex.normal[i]);
+
+    }
+    modelSetup();
 }
 
 // readies the model by buffering the vertex data and defining what vertices are position, colour, texture
@@ -167,23 +302,26 @@ void Terrain::modelSetup()
     glBindVertexArray(VAO);
 
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, t.vertex.size() * sizeof(glm::vec3), &t.vertex[0], GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, totalData.size() * sizeof(glm::vec3), &totalData[0], GL_STATIC_DRAW);
 
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, t.indices.size() * sizeof(unsigned int), &t.indices[0], GL_STATIC_DRAW);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, Indices.size() * sizeof(unsigned int), &Indices[0], GL_STATIC_DRAW);
 
     //postion attributes
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 9 * sizeof(float), (void*)0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 12 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
 
     //color attributes
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 9 * sizeof(float), (void*)(3 * sizeof(float)));
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 12 * sizeof(float), (void*)(3 * sizeof(float)));
     glEnableVertexAttribArray(1);
 
     //texture attributes
-    glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 9 * sizeof(float), (void*)(6 * sizeof(float)));
+    glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 12 * sizeof(float), (void*)(6 * sizeof(float)));
     glEnableVertexAttribArray(2);
 
+    //normal attributes
+    glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, 12 * sizeof(float), (void*)(9 * sizeof(float)));
+    glEnableVertexAttribArray(3);
 }
 
 void Terrain::setTextures(unsigned int tex1, unsigned int tex2, unsigned int tex3, unsigned int tex4, unsigned int tex5)

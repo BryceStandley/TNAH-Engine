@@ -9,13 +9,7 @@
 
 #include "shader.h"
 
-typedef struct terrainDataStruct
-{
-	std::vector<glm::vec3> vertex;
-	std::vector<unsigned int> indices;
-	std::vector<glm::vec2> texCoords;
 
-} terrainDataStruct;
 
 class Terrain
 {
@@ -25,8 +19,18 @@ protected:
 	float scaleX;
 	float scaleY;
 	float scaleZ;
+	std::string filename;
 
 private:
+
+	struct Vertex
+	{
+		std::vector<glm::vec3> position = {};
+		std::vector<glm::vec3> color = {};
+		std::vector<glm::vec3> texture = {};
+		std::vector<glm::vec3> normal = {};
+	};
+
 	int size; //the size of the heightfield along x and z - power of 2
 	unsigned int VAO = 0, VBO = 0, EBO = 0;
 	std::vector<unsigned int> texIds;
@@ -35,10 +39,13 @@ private:
 	float maxHeight = 0.0f;
 
 	bool wireFlag = false;
-
-	terrainDataStruct t;
+	std::vector<unsigned int> Indices = {};
+	Vertex vertex{};
+	std::vector<glm::vec3> totalData = {};
 
 public:
+
+	
 
 
 	Terrain();
@@ -46,11 +53,13 @@ public:
 	unsigned int GetVAO() const { return VAO; }
 	std::vector<unsigned int> GetTextIds() { return texIds; }
 	Shader GetShader() const { return shader; }
+	void Init();
+	void luaLoader();
 	void attachShader(Shader shad);
 	bool LoadHeightField(std::string filename, int size);
 	void setScalingFactor(float xScale, float yScale, float zScale);
 	int getSize();
-	int GetIndicesSize() const { return t.indices.size(); }
+	int GetIndicesSize() const { return Indices.size(); }
 	float getHeight(int xpos, int zpos);
 	unsigned char getHeightColor(int xpos, int zpos);
 	bool inBounds(int x, int y);
@@ -58,5 +67,11 @@ public:
 	void modelSetup();
 	void setTextures(unsigned int tex1, unsigned int tex2, unsigned int tex3, unsigned int tex4, unsigned int tex5);
 	float getAverageHeight(int xpos, int zpos);
+
+	void generateVertices(Vertex& vertex);
+	void generateIndices(std::vector<unsigned int>& indices);
+	void generateColors(Vertex& vertex);
+	void generateTextures(Vertex& vertex);
+	void generateNormals(std::vector<unsigned int>& indices);
 };
 

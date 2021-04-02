@@ -25,8 +25,9 @@ bool Scene::Init(std::string fs, std::string vs, std::string t)
 	gameTerrain = new Terrain();
 	Shader s(vs.c_str(), fs.c_str());
 	gameTerrain->attachShader(s);
-	gameTerrain->LoadHeightField("test-heightmap.raw", 512);
-	gameTerrain->setScalingFactor(1, 3, 1);
+	gameTerrain->Init();
+	//gameTerrain->LoadHeightField("test-heightmap.raw", 512);
+	//gameTerrain->setScalingFactor(1, 3, 1);
 
 	unsigned int grassTexture = textureLoader.loadTexture("grassTile.jpg");
 	unsigned int dirtTexture = textureLoader.loadTexture("dirtTile.jpg");
