@@ -17,6 +17,7 @@ Engine::Engine()
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 	{
 		std::cout << "Failed to initialize GLAD" << std::endl;
+		running = false;
 	}
 	else
 	{
@@ -59,31 +60,55 @@ void Engine::Run()
 		}
 		else
 		{
-			Terrain* t = gameScenes[currentScene].GetTerrain();
-			Skybox* s = gameScenes[currentScene].GetSkybox();
+			RunTerrain();
+			RunSkybox();
+			RunModels();
 
-			GameObject testObject = gameScenes[currentScene].GetGameObject();
-
-			//Terrain
-			window->SetShader(t->GetShader());
-			render->BindTexture(t->GetTextIds());
-			render->RenderTerrain(t->GetVAO(), t->GetIndicesSize());
-			
-			window->SetShaderSkybox(s->GetShader());
-			render->RenderSkybox(s->GetVAO(), s->GetTexture());
-
-			window->SetShader(testObject.shader);
-			for (int i = 0; i < testObject.model.meshes.size(); i++)
-			{
-				render->RenderModel(testObject.shader, testObject.GenerateMatFourForMesh(i), testObject.model.meshes[i]);
-			}
-			gameScenes[currentScene].UpdatePlayer(window->GetCamera());
-			window->UpdateCamera(gameScenes[currentScene].player.GetPos());
 			//gameScenes[currentScene].player.Info();
 			running = window->GameInput(deltaTime);
 			window->MouseMove();
 		}
 
 		window->Buffer();
+	}
+}
+
+void Engine::RunTerrain()
+{
+	Terrain* t = gameScenes[currentScene].GetTerrain();
+	window->SetShader(t->GetShader());
+	render->BindTexture(t->GetTextIds());
+	render->RenderTerrain(t->GetVAO(), t->GetIndicesSize());
+}
+
+void Engine::RunModels()
+{
+	//For each game object
+	GameObject testObject = gameScenes[currentScene].GetGameObject();
+	window->SetShader(testObject.shader);
+	for (int i = 0; i < testObject.model.meshes.size(); i++)
+	{
+		render->RenderModel(testObject.shader, testObject.GenerateMatFourForMesh(i), testObject.model.meshes[i]);
+	}
+
+	//If game object is of type player
+	gameScenes[currentScene].UpdatePlayer(window->GetCamera());
+	window->UpdateCamera(gameScenes[currentScene].player.GetPos());
+}
+
+void Engine::RunSkybox()
+{
+	Skybox* s = gameScenes[currentScene].GetSkybox();
+	window->SetShaderSkybox(s->GetShader());
+	render->RenderSkybox(s->GetVAO(), s->GetTexture());
+}
+
+void Engine::InitiliseScene()
+{
+	for (int i = 0; i < totalScenes; i++)
+	{
+		//Initialise scene, getting file names, ect
+		Scene temp("sceneName");
+		gameScenes.push_back(temp);
 	}
 }

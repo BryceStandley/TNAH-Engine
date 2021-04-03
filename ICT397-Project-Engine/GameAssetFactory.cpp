@@ -1,7 +1,7 @@
 #include "GameAssetFactory.h"
 #include "Player.h"
 
-GameObject* GameAssetFactory::GetGameObject(GameObjectType t)
+GameObject* GameAssetFactory::GetGameObject(GameObjectType t, std::string fileName, glm::vec3 position, float scale, glm::vec3 fixRotation, glm::vec3 rotation)
 {
 	switch (t)
 	{

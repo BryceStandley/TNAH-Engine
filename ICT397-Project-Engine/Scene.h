@@ -12,6 +12,7 @@ class Scene
 {
 public:
 	Player player;
+	Scene(std::string name) {}
 	Scene(std::string name, std::string fs, std::string vs, std::string t);
 	~Scene();
 	void Run();

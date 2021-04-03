@@ -11,10 +11,17 @@ public:
 	~Engine();
 	void Run();
 private:
+
+	void InitiliseScene();
+	void RunModels();
+	void RunTerrain();
+	void RunSkybox();
+
 	Window* window;
 	std::vector<Scene> gameScenes;
 	Renderer * render;
 	int currentScene;
+	int totalScenes;
 	bool running;
 };
 
