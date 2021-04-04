@@ -106,6 +106,8 @@
     <ClCompile Include="Terrain.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TextureLoader.cpp" />
+    <ClCompile Include="Time.cpp" />
+    <ClCompile Include="View.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -131,8 +133,13 @@
     <ClInclude Include="Terrain.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TextureLoader.h" />
+    <ClInclude Include="Time.h" />
+    <ClInclude Include="View.h" />
     <ClInclude Include="Window.h" />
     <ClInclude Include="Windows.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\scripts\test.lua" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -11,10 +11,14 @@ public:
 	~Engine();
 	void Run();
 private:
+
+	void InitiliseScene();
+
 	Window* window;
 	std::vector<Scene> gameScenes;
 	Renderer * render;
 	int currentScene;
+	int totalScenes;
 	bool running;
 };
 

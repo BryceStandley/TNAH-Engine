@@ -78,3 +78,19 @@ void GladRenderer::RenderModel(Shader& shader, glm::mat4 newModel, Mesh mesh)
     // always good practice to set everything back to defaults once configured.
     glActiveTexture(GL_TEXTURE0);
 }
+
+void GladRenderer::SetShader(Shader shader, View lens)
+{
+    shader.use();
+    shader.setMat4("projection", lens.GetProjection());
+    shader.setMat4("view", lens.GetView());
+    shader.setMat4("model", lens.GetModel());
+}
+
+void GladRenderer::SetShaderSkybox(Shader shader, View lens)
+{
+    glm::mat4 viewSky = glm::mat4(glm::mat3(lens.GetSkyview()));
+    shader.use();
+    shader.setMat4("view", viewSky);
+    shader.setMat4("projection", lens.GetProjection());
+}

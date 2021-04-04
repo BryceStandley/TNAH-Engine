@@ -17,6 +17,7 @@ Engine::Engine()
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 	{
 		std::cout << "Failed to initialize GLAD" << std::endl;
+		running = false;
 	}
 	else
 	{
@@ -26,10 +27,8 @@ Engine::Engine()
 
 	currentScene = 0;
 
-
-
-
 	Scene one("Game", "fragment.glsl", "vertex.glsl", "grass.jpg");
+	one.gameRenderer = render;
 	gameScenes.push_back(one);
 }
 
@@ -42,48 +41,27 @@ Engine::~Engine()
 void Engine::Run()
 {
 	float deltaTime;
-	float lastFrame = 0;
 	while (running)
 	{
-		float currentFrame = glfwGetTime();
-		deltaTime = currentFrame - lastFrame;
-		lastFrame = currentFrame;
-		window->Clear();
+		deltaTime = window->GetTime();
 
-		//Scene projection
-		window->Projection();
-		window->Restart();
-		if (gameScenes[currentScene].GetSceneName() == "menu")
-		{
-			std::cout << "This is a menu" << std::endl;
-		}
-		else
-		{
-			Terrain* t = gameScenes[currentScene].GetTerrain();
-			Skybox* s = gameScenes[currentScene].GetSkybox();
-
-			GameObject testObject = gameScenes[currentScene].GetGameObject();
-
-			//Terrain
-			window->SetShader(t->GetShader());
-			render->BindTexture(t->GetTextIds());
-			render->RenderTerrain(t->GetVAO(), t->GetIndicesSize());
-			
-			window->SetShaderSkybox(s->GetShader());
-			render->RenderSkybox(s->GetVAO(), s->GetTexture());
-
-			window->SetShader(testObject.shader);
-			for (int i = 0; i < testObject.model.meshes.size(); i++)
-			{
-				render->RenderModel(testObject.shader, testObject.GenerateMatFourForMesh(i), testObject.model.meshes[i]);
-			}
-			gameScenes[currentScene].UpdatePlayer(window->GetCamera());
-			window->UpdateCamera(gameScenes[currentScene].player.GetPos());
-			//gameScenes[currentScene].player.Info();
-			running = window->GameInput(deltaTime);
-			window->MouseMove();
-		}
+		window->Update();
+		gameScenes[currentScene].Run(window->GetLens());
+		window->UpdateCamera(gameScenes[currentScene].player.GetPos());
+		//gameScenes[currentScene].player.Info();
+		running = window->GameInput(deltaTime);
+		window->MouseMove();
 
 		window->Buffer();
+	}
+}
+
+void Engine::InitiliseScene()
+{
+	for (int i = 0; i < totalScenes; i++)
+	{
+		//Initialise scene, getting file names, ect
+		Scene temp("sceneName");
+		gameScenes.push_back(temp);
 	}
 }
