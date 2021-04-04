@@ -32,7 +32,6 @@ private:
 	};
 
 	int size; //the size of the heightfield along x and z - power of 2
-	unsigned int VAO = 0, VBO = 0, EBO = 0;
 	std::vector<unsigned int> texIds;
 	Shader shader;
 	float minHeight = 0.0f;
@@ -44,10 +43,9 @@ private:
 	std::vector<glm::vec3> totalData = {};
 
 public:
-
-	
-
-
+	unsigned int VAO = 0, VBO = 0, EBO = 0;
+	std::vector<unsigned int> GetIndicies() { return Indices; }
+	std::vector<glm::vec3> GetTotalData() { return totalData; }
 	Terrain();
 	~Terrain();
 	unsigned int GetVAO() const { return VAO; }
@@ -64,7 +62,6 @@ public:
 	unsigned char getHeightColor(int xpos, int zpos);
 	bool inBounds(int x, int y);
 	void generateTerrain();
-	void modelSetup();
 	void setTextures(unsigned int tex1, unsigned int tex2, unsigned int tex3, unsigned int tex4, unsigned int tex5);
 	float getAverageHeight(int xpos, int zpos);
 

@@ -29,6 +29,7 @@ Engine::Engine()
 
 	Scene one("Game", "fragment.glsl", "vertex.glsl", "grass.jpg");
 	one.gameRenderer = render;
+	one.SetupTerrain();
 	gameScenes.push_back(one);
 }
 

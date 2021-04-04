@@ -21,10 +21,10 @@ public:
 	Terrain *GetTerrain() { return gameTerrain; }
 	Skybox* GetSkybox() { return gameSkybox; }
 	std::string GetSceneName() const { return sceneName; }
-	GameObject *MakeGameObject(std::string modelName, std::string shaderV, std::string shaderF, float s, glm::vec3 p);
+	GameObject *MakeGameObject(std::string modelName, std::string shaderV, std::string shaderF, float s, glm::vec3 p, bool rotate);
 	GameObject *GetGameObject(int i) { return gameObjects[i]; }
 	void UpdatePlayer(glm::vec3 position);
-
+	void SetupTerrain();
 	Renderer* gameRenderer;
 private:
 	std::string sceneName;

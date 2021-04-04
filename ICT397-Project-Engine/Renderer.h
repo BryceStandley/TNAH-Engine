@@ -14,5 +14,6 @@ public:
 	virtual void RenderSkybox(unsigned int VAO, unsigned int texture) {}
 	virtual void SetShader(Shader shader, View lens) {}
 	virtual void SetShaderSkybox(Shader shader, View lens) {}
+	virtual void TerrainSetup(std::vector<glm::vec3> totalData, std::vector<unsigned int> Indices, unsigned int& VAO, unsigned int& VBO, unsigned int& EBO) {}
 };
 
