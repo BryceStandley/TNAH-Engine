@@ -40,8 +40,13 @@ void Terrain::luaLoader()
     else
     {
         std::string heightMap;
+        std::string texture1;
+        std::string texture2;
+        std::string texture3;
+        std::string texture4;
+        std::string texture5;
+        
         int tSize;
-
         int xScaler;
         int yScaler;
         int zScaler;
@@ -51,6 +56,11 @@ void Terrain::luaLoader()
         LuaRef xScale = getGlobal(L, "xScale");
         LuaRef yScale = getGlobal(L, "yScale");
         LuaRef zScale = getGlobal(L, "zScale");
+        LuaRef tex1 = getGlobal(L, "tex1");
+        LuaRef tex2 = getGlobal(L, "tex2");
+        LuaRef tex3 = getGlobal(L, "tex3");
+        LuaRef tex4 = getGlobal(L, "tex4");
+        LuaRef tex5 = getGlobal(L, "detailMap");
 
         if (heightmap.isString())
         {
@@ -80,6 +90,36 @@ void Terrain::luaLoader()
         {
             zScaler = zScale.cast<int>();
             this->scaleZ = zScaler;
+        }
+
+        if (tex1.isString())
+        {
+            texture1 = tex1.cast<std::string>();
+            this->tex1 = texture1;
+        }
+
+        if (tex2.isString())
+        {
+            texture2 = tex2.cast<std::string>();
+            this->tex2 = texture2;
+        }
+
+        if (tex3.isString())
+        {
+            texture3 = tex3.cast<std::string>();
+            this->tex3 = texture3;
+        }
+
+        if (tex4.isString())
+        {
+            texture4 = tex4.cast<std::string>();
+            this->tex4 = texture4;
+        }
+
+        if (tex5.isString())
+        {
+            texture5 = tex5.cast<std::string>();
+            this->tex5 = texture5;
         }
     }
 
@@ -291,13 +331,19 @@ void Terrain::generateTerrain()
     }
 }
 
-void Terrain::setTextures(unsigned int tex1, unsigned int tex2, unsigned int tex3, unsigned int tex4, unsigned int tex5)
+void Terrain::setTextures()
 {
-    texIds.push_back(tex1);
-    texIds.push_back(tex2);
-    texIds.push_back(tex3);
-    texIds.push_back(tex4);
-    texIds.push_back(tex5);
+    unsigned int t1 = t.loadTexture(tex1);
+    unsigned int t2 = t.loadTexture(tex2);
+    unsigned int t3 = t.loadTexture(tex3);
+    unsigned int t4 = t.loadTexture(tex4);
+    unsigned int t5 = t.loadTexture(tex5);
+
+    texIds.push_back(t1);
+    texIds.push_back(t2);
+    texIds.push_back(t3);
+    texIds.push_back(t4);
+    texIds.push_back(t5);
 
     shader.use();
     shader.setInt("texture0", 0);

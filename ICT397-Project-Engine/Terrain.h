@@ -8,6 +8,7 @@
 #include <time.h>
 
 #include "shader.h"
+#include "TextureLoader.h"
 
 
 
@@ -20,6 +21,7 @@ protected:
 	float scaleY;
 	float scaleZ;
 	std::string filename;
+	std::string tex1, tex2, tex3, tex4, tex5;
 
 private:
 
@@ -36,7 +38,7 @@ private:
 	Shader shader;
 	float minHeight = 0.0f;
 	float maxHeight = 0.0f;
-
+	TextureLoader t;
 	bool wireFlag = false;
 	std::vector<unsigned int> Indices = {};
 	Vertex vertex{};
