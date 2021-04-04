@@ -27,10 +27,8 @@ Engine::Engine()
 
 	currentScene = 0;
 
-
-
-
 	Scene one("Game", "fragment.glsl", "vertex.glsl", "grass.jpg");
+	one.gameRenderer = render;
 	gameScenes.push_back(one);
 }
 
@@ -43,64 +41,19 @@ Engine::~Engine()
 void Engine::Run()
 {
 	float deltaTime;
-	float lastFrame = 0;
 	while (running)
 	{
-		float currentFrame = glfwGetTime();
-		deltaTime = currentFrame - lastFrame;
-		lastFrame = currentFrame;
-		window->Clear();
+		deltaTime = window->GetTime();
 
-		//Scene projection
-		window->Projection();
-		window->Restart();
-		if (gameScenes[currentScene].GetSceneName() == "menu")
-		{
-			std::cout << "This is a menu" << std::endl;
-		}
-		else
-		{
-			RunTerrain();
-			RunSkybox();
-			RunModels();
-
-			//gameScenes[currentScene].player.Info();
-			running = window->GameInput(deltaTime);
-			window->MouseMove();
-		}
+		window->Update();
+		gameScenes[currentScene].Run(window->GetLens());
+		window->UpdateCamera(gameScenes[currentScene].player.GetPos());
+		//gameScenes[currentScene].player.Info();
+		running = window->GameInput(deltaTime);
+		window->MouseMove();
 
 		window->Buffer();
 	}
-}
-
-void Engine::RunTerrain()
-{
-	Terrain* t = gameScenes[currentScene].GetTerrain();
-	window->SetShader(t->GetShader());
-	render->BindTexture(t->GetTextIds());
-	render->RenderTerrain(t->GetVAO(), t->GetIndicesSize());
-}
-
-void Engine::RunModels()
-{
-	//For each game object
-	GameObject testObject = gameScenes[currentScene].GetGameObject();
-	window->SetShader(testObject.shader);
-	for (int i = 0; i < testObject.model.meshes.size(); i++)
-	{
-		render->RenderModel(testObject.shader, testObject.GenerateMatFourForMesh(i), testObject.model.meshes[i]);
-	}
-
-	//If game object is of type player
-	gameScenes[currentScene].UpdatePlayer(window->GetCamera());
-	window->UpdateCamera(gameScenes[currentScene].player.GetPos());
-}
-
-void Engine::RunSkybox()
-{
-	Skybox* s = gameScenes[currentScene].GetSkybox();
-	window->SetShaderSkybox(s->GetShader());
-	render->RenderSkybox(s->GetVAO(), s->GetTexture());
 }
 
 void Engine::InitiliseScene()

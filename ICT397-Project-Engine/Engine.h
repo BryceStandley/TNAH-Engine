@@ -13,9 +13,6 @@ public:
 private:
 
 	void InitiliseScene();
-	void RunModels();
-	void RunTerrain();
-	void RunSkybox();
 
 	Window* window;
 	std::vector<Scene> gameScenes;

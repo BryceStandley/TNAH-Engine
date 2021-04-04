@@ -18,26 +18,31 @@ public:
 	virtual void Buffer();
 	virtual bool GameInput(float deltaTime);
 	virtual void Terminate();
-	virtual void Clear();
+
 	virtual void FrameBuffer();
-	virtual void Projection();
+
 	virtual void SetShader(Shader shader);
 	virtual void SetShaderSkybox(Shader shader);
 	virtual void SetShaderTerrain(Shader shader);
-	virtual void Restart();
+	
 	virtual Camera GetCamera() { return camera; }
 	virtual void UpdateCamera(glm::vec3 p) { camera.Position = p; }
 	virtual void MouseMove();
-private:
+	virtual View GetLens() { return lens; }
+	virtual void Update();
+	virtual float GetTime() { return gametime.DeltaTime(); }
+private:	
+	void Projection();
+	void Clear();
+	void Restart();
 	Input gameInput;
 	GLFWwindow* gameWindow = NULL;
 	glm::vec3 lightPos;
 	Camera camera;
+	View lens;
+	Time gametime;
 	const unsigned int SCR_WIDTH = 800;
 	const unsigned int SCR_HEIGHT = 600;
-	glm::mat4 projection;
-	glm::mat4 view;
-	glm::mat4 model;
 	float lastX;
 	float lastY;
 	float firstMouse = true;

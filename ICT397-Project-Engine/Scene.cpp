@@ -15,9 +15,29 @@ Scene::~Scene()
 
 }
 
-void Scene::Run()
+void Scene::Run(View lens)
 {
+	//Terrain
+	gameRenderer->SetShader(gameTerrain->GetShader(), lens);
+	gameRenderer->BindTexture(gameTerrain->GetTextIds());
+	gameRenderer->RenderTerrain(gameTerrain->GetVAO(), gameTerrain->GetIndicesSize());
 
+	//Skybox
+	gameRenderer->SetShaderSkybox(gameSkybox->GetShader(), lens);
+	gameRenderer->RenderSkybox(gameSkybox->GetVAO(), gameSkybox->GetTexture());
+
+	//Models
+	for (int x = 0; x < gameObjects.size(); x++)
+	{
+		gameRenderer->SetShader(gameObjects[x]->shader, lens);
+		for (int i = 0; i < gameObjects[x]->model.meshes.size(); i++)
+		{
+			gameRenderer->RenderModel(gameObjects[x]->shader, gameObjects[x]->GenerateMatFourForMesh(i), gameObjects[x]->model.meshes[i]);
+		}
+	}
+
+	//If game object is of type player
+	UpdatePlayer(lens.GetPosition());
 }
 
 bool Scene::Init(std::string fs, std::string vs, std::string t)
@@ -37,8 +57,18 @@ bool Scene::Init(std::string fs, std::string vs, std::string t)
 	gameTerrain->setTextures(grassTexture, dirtTexture, mountainTexture, snowTexture, detailMapTexture);
 	Player p;
 	player = p;
-	GameObject g = MakeGameObject("./res/models/tokens/fbx/Free_Hit.fbx", "./res/shader/modelV.glsl", "./res/shader/modelF.glsl");
-	gameObjects = g;
+	GameObject* g = MakeGameObject("./res/models/tokens/fbx/Free_Hit.fbx", "./res/shader/modelV.glsl", "./res/shader/modelF.glsl", 0.3, glm::vec3(0,0,0));
+	gameObjects.push_back(g);
+	g = MakeGameObject("./res/models/tokens/fbx/Free_Hit.fbx", "./res/shader/modelV.glsl", "./res/shader/modelF.glsl", 0.01, glm::vec3(50, 2, 50));
+	gameObjects.push_back(g);
+	g = MakeGameObject("./res/models/tokens/fbx/Free_Hit.fbx", "./res/shader/modelV.glsl", "./res/shader/modelF.glsl", 0.01, glm::vec3(40, 2, 40));
+	gameObjects.push_back(g);
+	g = MakeGameObject("./res/models/environment/Red_Tree.fbx", "./res/shader/modelV.glsl", "./res/shader/modelF.glsl", 0.01, glm::vec3(30, 2, 30));
+	gameObjects.push_back(g);
+	g = MakeGameObject("./res/models/environment/stone-oval.fbx", "./res/shader/modelV.glsl", "./res/shader/modelF.glsl", 0.01, glm::vec3(60, 2, 50));
+	gameObjects.push_back(g);
+	g = MakeGameObject("./res/models/tree/pine.fbx", "./res/shader/modelV.glsl", "./res/shader/modelF.glsl", 0.01, glm::vec3(70, 2, 50));
+	gameObjects.push_back(g);
 	gameTerrain->generateTerrain();
 	gameTerrain->modelSetup(); 
 	gameSkybox = new GladSkybox();
@@ -46,9 +76,9 @@ bool Scene::Init(std::string fs, std::string vs, std::string t)
     return true;
 }
 
-void Scene::UpdatePlayer(Camera playerCam)
+void Scene::UpdatePlayer(glm::vec3 position)
 {
-	glm::vec3 pos = playerCam.Position;
+	glm::vec3 pos = position;
 	float worldx, worldz;
 
 	worldx = (pos.x / 100.0f) * (float)gameTerrain->getSize();
@@ -68,15 +98,15 @@ void Scene::UpdatePlayer(Camera playerCam)
 	player.SetPos(pos);
 }
 
-GameObject Scene::MakeGameObject(std::string modelName, std::string shaderV, std::string shaderF)
+GameObject* Scene::MakeGameObject(std::string modelName, std::string shaderV, std::string shaderF, float s, glm::vec3 p)
 {
 	Shader ourShader(shaderV.c_str(), shaderF.c_str());
 	Model ourModel(modelName);
-	GameObject obj;
-	obj.model = ourModel;
-	obj.shader = ourShader;
-	obj.SetPos(glm::vec3(0.0f, 0.0f, 0.0f));
-	obj.SetScale(0.2);
+	GameObject * obj = new GameObject();
+	obj->model = ourModel;
+	obj->shader = ourShader;
+	obj->SetPos(glm::vec3(p));
+	obj->SetScale(s);
 
 	return obj;
 }

@@ -7,6 +7,7 @@
 #include "TextureLoader.h"
 #include "camera.h"
 #include "GladSkybox.h"
+#include "GladRenderer.h"
 
 class Scene
 {
@@ -15,20 +16,23 @@ public:
 	Scene(std::string name) {}
 	Scene(std::string name, std::string fs, std::string vs, std::string t);
 	~Scene();
-	void Run();
+	void Run(View lens);
 	bool Init(std::string fs, std::string vs, std::string t);
 	Terrain *GetTerrain() { return gameTerrain; }
 	Skybox* GetSkybox() { return gameSkybox; }
 	std::string GetSceneName() const { return sceneName; }
-	GameObject MakeGameObject(std::string modelName, std::string shaderV, std::string shaderF);
-	GameObject GetGameObject() { return gameObjects; }
-	void UpdatePlayer(Camera playerCamera);
+	GameObject *MakeGameObject(std::string modelName, std::string shaderV, std::string shaderF, float s, glm::vec3 p);
+	GameObject *GetGameObject(int i) { return gameObjects[i]; }
+	void UpdatePlayer(glm::vec3 position);
+
+	Renderer* gameRenderer;
 private:
 	std::string sceneName;
 	GameAssetFactory factory;
-	GameObject gameObjects;
+	std::vector<GameObject*> gameObjects;
 	Terrain *gameTerrain;
 	Skybox* gameSkybox;
 	TextureLoader textureLoader;
+	View lens;
 };
 
