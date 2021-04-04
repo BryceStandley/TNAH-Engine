@@ -64,7 +64,7 @@ public:
 	unsigned char getHeightColor(int xpos, int zpos);
 	bool inBounds(int x, int y);
 	void generateTerrain();
-	void setTextures(unsigned int tex1, unsigned int tex2, unsigned int tex3, unsigned int tex4, unsigned int tex5);
+	void setTextures();
 	float getAverageHeight(int xpos, int zpos);
 
 	void generateVertices(Vertex& vertex);
