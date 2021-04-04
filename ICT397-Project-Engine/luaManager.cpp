@@ -12,8 +12,3 @@ lua_State* LuaManager::getLuaState()
 		luaState = luaL_newstate();
 	return luaState;
 }
-
-void LuaManager::runScript(const std::string &path) 
-{
-	luaL_dofile(LuaManager::getInstance().getLuaState(), path.c_str());
-}

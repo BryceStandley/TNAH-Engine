@@ -32,7 +32,8 @@ void Terrain::luaLoader()
 
     lua_State* L = LuaManager::getInstance().getLuaState();
 
-    if (luaL_dofile(L, "terrain.lua"))
+
+    if (luaL_dofile(L, "terrain.lua")) 
     {
         std::cout << "File not found" << std::endl;
     }
