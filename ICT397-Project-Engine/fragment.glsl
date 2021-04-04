@@ -17,43 +17,41 @@ uniform sampler2D texture2; //mountain
 uniform sampler2D texture3; //snow
 uniform sampler2D texture4; //detail
 
-vec4 dirt = texture(texture1, texCoord);
-vec4 grass = texture(texture0, texCoord);
-vec4 mountain = texture(texture2, texCoord);
-vec4 snow = texture(texture3, texCoord);
+vec4 tex0 = texture(texture0, texCoord);
+vec4 tex1 = texture(texture1, texCoord);
+vec4 tex2 = texture(texture2, texCoord);
+vec4 tex3 = texture(texture3, texCoord);
 vec4 detail = texture(texture4, texCoord);
 
-int dirtStart = 40;
-int grassStart = 75;
-int mountainStart = 150;
-int snowStart = 200;
+int tex0Start = 40;
+int tex1Start = 75;
+int tex2Start = 150;
+int tex3Start = 200;
 
 void main()
-{
-	//vec4 finalColor;
-	
-	if(height > snowStart)
+{	
+	if(height > tex3Start)
 	{
-		FragColor = snow;
+		FragColor = tex3;
 	}
-	else if (height > mountainStart)
+	else if (height > tex2Start)
 	{
-		float blend = (height - mountainStart) / (snowStart - mountainStart);
-		FragColor = mix(mountain, snow, blend);
+		float blend = (height - tex2Start) / (tex3Start - tex2Start);
+		FragColor = mix(tex2, tex3, blend);
 	}
-	else if (height > grassStart)
+	else if (height > tex1Start)
 	{
-		float blend = (height - grassStart) / (mountainStart - grassStart);
-		FragColor = mix(grass, mountain, blend);
+		float blend = (height - tex1Start) / (tex2Start - tex1Start);
+		FragColor = mix(tex1, tex2, blend);
 	}
-	else if (height > dirtStart)
+	else if (height > tex0Start)
 	{
-		float blend = (height - dirtStart) / (grassStart - dirtStart);
-		FragColor = mix(dirt, grass, blend);
+		float blend = (height - tex0Start) / (tex1Start - tex0Start);
+		FragColor = mix(tex0, tex1, blend);
 	}
 	else
 	{
-		FragColor = dirt;
+		FragColor = tex0;
 	}
 	
 	// ambient

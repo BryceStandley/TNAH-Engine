@@ -29,12 +29,8 @@ bool Scene::Init(std::string fs, std::string vs, std::string t)
 	//gameTerrain->LoadHeightField("test-heightmap.raw", 512);
 	//gameTerrain->setScalingFactor(1, 3, 1);
 
-	unsigned int grassTexture = textureLoader.loadTexture("grassTile.jpg");
-	unsigned int dirtTexture = textureLoader.loadTexture("dirtTile.jpg");
-	unsigned int mountainTexture = textureLoader.loadTexture("mountainTile.jpg");
-	unsigned int snowTexture = textureLoader.loadTexture("snowTile.jpg");
-	unsigned int detailMapTexture = textureLoader.loadTexture("detailMap.jpg");
-	gameTerrain->setTextures(grassTexture, dirtTexture, mountainTexture, snowTexture, detailMapTexture);
+	
+	gameTerrain->setTextures();
 	Player p;
 	player = p;
 	GameObject g = MakeGameObject("./res/models/tokens/fbx/Free_Hit.fbx", "./res/shader/modelV.glsl", "./res/shader/modelF.glsl");

@@ -8,6 +8,7 @@
 #include <time.h>
 
 #include "shader.h"
+#include "TextureLoader.h"
 
 
 
@@ -20,6 +21,7 @@ protected:
 	float scaleY;
 	float scaleZ;
 	std::string filename;
+	std::string tex1, tex2, tex3, tex4, tex5;
 
 private:
 
@@ -37,7 +39,7 @@ private:
 	Shader shader;
 	float minHeight = 0.0f;
 	float maxHeight = 0.0f;
-
+	TextureLoader t;
 	bool wireFlag = false;
 	std::vector<unsigned int> Indices = {};
 	Vertex vertex{};
@@ -65,7 +67,7 @@ public:
 	bool inBounds(int x, int y);
 	void generateTerrain();
 	void modelSetup();
-	void setTextures(unsigned int tex1, unsigned int tex2, unsigned int tex3, unsigned int tex4, unsigned int tex5);
+	void setTextures();
 	float getAverageHeight(int xpos, int zpos);
 
 	void generateVertices(Vertex& vertex);
