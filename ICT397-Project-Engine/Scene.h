@@ -6,8 +6,8 @@
 #include "Shader.h"
 #include "TextureLoader.h"
 #include "camera.h"
-#include "GladSkybox.h"
-#include "GladRenderer.h"
+#include "Skybox.h"
+#include "OpenGL.h"
 
 class Scene
 {

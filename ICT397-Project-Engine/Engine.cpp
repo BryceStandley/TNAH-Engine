@@ -21,7 +21,7 @@ Engine::Engine()
 	}
 	else
 	{
-		render = new GladRenderer();
+		render = new OpenGL();
 		render->DepthTest();
 	}
 

@@ -23,8 +23,8 @@ void Scene::Run(View lens)
 	gameRenderer->RenderTerrain(gameTerrain->GetVAO(), gameTerrain->GetIndicesSize());
 
 	//Skybox
-	gameRenderer->SetShaderSkybox(gameSkybox->GetShader(), lens);
-	gameRenderer->RenderSkybox(gameSkybox->GetVAO(), gameSkybox->GetTexture());
+	gameRenderer->SetShaderSkybox(gameSkybox->skyShader, lens);
+	gameRenderer->RenderSkybox(gameSkybox->VAO, gameSkybox->texture);
 
 	//Models
 	for (int x = 0; x < gameObjects.size(); x++)
@@ -64,14 +64,14 @@ bool Scene::Init(std::string fs, std::string vs, std::string t)
 	gameObjects.push_back(g);
 
 	gameTerrain->generateTerrain();
-	gameSkybox = new GladSkybox();
-	gameSkybox->Init("./res/images/skybox/right.jpg", "./res/images/skybox/left.jpg", "./res/images/skybox/top.jpg", "./res/images/skybox/bottom.jpg", "./res/images/skybox/front.jpg", "./res/images/skybox/back.jpg", "./res/shader/skybox_vert.txt", "./res/shader/skybox_frag.txt");
+	gameSkybox = new Skybox("./res/images/skybox/right.jpg", "./res/images/skybox/left.jpg", "./res/images/skybox/top.jpg", "./res/images/skybox/bottom.jpg", "./res/images/skybox/front.jpg", "./res/images/skybox/back.jpg", "./res/shader/skybox_vert.txt", "./res/shader/skybox_frag.txt");
     return true;
 }
 
 void Scene::SetupTerrain()
 {
 	gameRenderer->TerrainSetup(gameTerrain->GetTotalData(), gameTerrain->GetIndicies(), gameTerrain->VAO, gameTerrain->VBO, gameTerrain->EBO);
+	gameRenderer->SkyboxSetup(gameSkybox->GetSkyVerts(), gameSkybox->GetCubeFaces(), gameSkybox->VAO, gameSkybox->VBO, gameSkybox->texture, gameSkybox->skyShader);
 }
 
 void Scene::UpdatePlayer(glm::vec3 position)
@@ -92,7 +92,7 @@ void Scene::UpdatePlayer(glm::vec3 position)
 	}
 
 	
-	std::cout << "Terrain Height at player position: " << gameTerrain->getAverageHeight(worldx, worldz) << " With Player XYZ: " << pos.x << "  -  " << pos.y << "  -  " << pos.z << std::endl;
+	//std::cout << "Terrain Height at player position: " << gameTerrain->getAverageHeight(worldx, worldz) << " With Player XYZ: " << pos.x << "  -  " << pos.y << "  -  " << pos.z << std::endl;
 	player.SetPos(pos);
 }
 

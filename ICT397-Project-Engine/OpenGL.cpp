@@ -1,6 +1,8 @@
-#include "GladRenderer.h"
+#include "OpenGL.h"
+
 #include "glad/glad.h"
-void GladRenderer::RenderTerrain(unsigned int VAO, int size)
+#include "stb_image.h"
+void OpenGL::RenderTerrain(unsigned int VAO, int size)
 {
     glPrimitiveRestartIndex(0xFFFFFFFFU);
     glEnable(GL_PRIMITIVE_RESTART);
@@ -11,7 +13,7 @@ void GladRenderer::RenderTerrain(unsigned int VAO, int size)
     glActiveTexture(GL_TEXTURE0);
 }
 
-void GladRenderer::BindTexture(std::vector<unsigned int> textures)
+void OpenGL::BindTexture(std::vector<unsigned int> textures)
 {
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, textures[0]);
@@ -25,23 +27,23 @@ void GladRenderer::BindTexture(std::vector<unsigned int> textures)
     glBindTexture(GL_TEXTURE_2D, textures[4]);
 }
 
-void GladRenderer::DepthTest()
+void OpenGL::DepthTest()
 {
     glEnable(GL_DEPTH_TEST);
 }
 
-void GladRenderer::RenderSkybox(unsigned int VAO, unsigned int texture)
+void OpenGL::RenderSkybox(unsigned int VAO, unsigned int texture)
 {
-	glDepthFunc(GL_LEQUAL);
-	glBindVertexArray(VAO);
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_CUBE_MAP, texture);
-	glDrawArrays(GL_TRIANGLES, 0, 36);
-	glBindVertexArray(0);
-	glDepthFunc(GL_LESS);
+    glDepthFunc(GL_LEQUAL);
+    glBindVertexArray(VAO);
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_CUBE_MAP, texture);
+    glDrawArrays(GL_TRIANGLES, 0, 36);
+    glBindVertexArray(0);
+    glDepthFunc(GL_LESS);
 }
 
-void GladRenderer::RenderModel(Shader& shader, glm::mat4 newModel, Mesh mesh)
+void OpenGL::RenderModel(Shader& shader, glm::mat4 newModel, Mesh mesh)
 {
     shader.setMat4("model", newModel);
     // bind appropriate textures
@@ -79,7 +81,7 @@ void GladRenderer::RenderModel(Shader& shader, glm::mat4 newModel, Mesh mesh)
     glActiveTexture(GL_TEXTURE0);
 }
 
-void GladRenderer::SetShader(Shader shader, View lens)
+void OpenGL::SetShader(Shader shader, View lens)
 {
     shader.use();
     shader.setMat4("projection", lens.GetProjection());
@@ -87,7 +89,7 @@ void GladRenderer::SetShader(Shader shader, View lens)
     shader.setMat4("model", lens.GetModel());
 }
 
-void GladRenderer::SetShaderSkybox(Shader shader, View lens)
+void OpenGL::SetShaderSkybox(Shader shader, View lens)
 {
     glm::mat4 viewSky = glm::mat4(glm::mat3(lens.GetSkyview()));
     shader.use();
@@ -95,7 +97,7 @@ void GladRenderer::SetShaderSkybox(Shader shader, View lens)
     shader.setMat4("projection", lens.GetProjection());
 }
 
-void GladRenderer::TerrainSetup(std::vector<glm::vec3> totalData, std::vector<unsigned int> Indices, unsigned int& VAO, unsigned int& VBO, unsigned int& EBO)
+void OpenGL::TerrainSetup(std::vector<glm::vec3> totalData, std::vector<unsigned int> Indices, unsigned int& VAO, unsigned int& VBO, unsigned int& EBO)
 {
     glGenVertexArrays(1, &VAO);
     glGenBuffers(1, &VBO);
@@ -124,4 +126,44 @@ void GladRenderer::TerrainSetup(std::vector<glm::vec3> totalData, std::vector<un
     //normal attributes
     glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, 12 * sizeof(float), (void*)(9 * sizeof(float)));
     glEnableVertexAttribArray(3);
+}
+
+void OpenGL::SkyboxSetup(std::vector <float> skyVerts, std::vector<std::string> faces, unsigned int& VAO, unsigned int& VBO, unsigned int& texture, Shader& skyShader)
+{
+    std::cout << "renderer size: " << skyVerts.size() << std::endl;
+    glGenVertexArrays(1, &VAO);
+    glGenBuffers(1, &VBO);
+    glBindVertexArray(VAO);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBufferData(GL_ARRAY_BUFFER, skyVerts.size() * sizeof(float), &skyVerts[0], GL_STATIC_DRAW);
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+
+    glGenTextures(1, &texture);
+    glBindTexture(GL_TEXTURE_CUBE_MAP, texture);
+
+    int width, height, nrChannels;
+    for (unsigned int i = 0; i < faces.size(); i++) {
+        unsigned char* data =
+            stbi_load(faces[i].c_str(), &width, &height, &nrChannels, 0);
+        if (data) {
+            glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGB, width,
+                height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+            stbi_image_free(data);
+        }
+        else {
+            std::cout << "Cubemap texture failed to load at path: " << faces[i]
+                << std::endl;
+            stbi_image_free(data);
+        }
+    }
+
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+
+    skyShader.use();
+    skyShader.setInt("skybox", 0);
 }
