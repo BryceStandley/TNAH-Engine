@@ -13,7 +13,6 @@ public:
 	/**
 	 * @brief gets and returns the instance of LuaManager
 	 * @return static instance of the LuaManager
-	 * return 
 	 */
 	static LuaManager& getInstance()
 	{

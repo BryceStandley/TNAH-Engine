@@ -2,6 +2,10 @@
 class Time
 {
 public:
+
+	/**
+	 * @brief default constructor used to initialise lastframe variable
+	 */
 	Time()
 	{
 		lastFrame = 0;
