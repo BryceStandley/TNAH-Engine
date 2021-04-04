@@ -65,7 +65,7 @@ bool Scene::Init(std::string fs, std::string vs, std::string t)
 	gameObjects.push_back(g);
 	g = MakeGameObject("./res/models/environment/Red_Tree.fbx", "./res/shader/modelV.glsl", "./res/shader/modelF.glsl", 0.01, glm::vec3(30, 2, 30));
 	gameObjects.push_back(g);
-	g = MakeGameObject("./res/models/environment/stone-oval.fbx", "./res/shader/modelV.glsl", "./res/shader/modelF.glsl", 0.01, glm::vec3(60, 2, 50));
+	g = MakeGameObject("./res/models/characters/Impling_With_Texture_No_Weapon.fbx", "./res/shader/modelV.glsl", "./res/shader/modelF.glsl", 0.01, glm::vec3(60, 2, 50));
 	gameObjects.push_back(g);
 	g = MakeGameObject("./res/models/tree/pine.fbx", "./res/shader/modelV.glsl", "./res/shader/modelF.glsl", 0.01, glm::vec3(70, 2, 50));
 	gameObjects.push_back(g);
