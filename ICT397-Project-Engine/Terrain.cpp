@@ -24,7 +24,6 @@ void Terrain::Init()
     LoadHeightField(filename, size);
     setScalingFactor(scaleX, scaleY, scaleZ);
     generateTerrain();
-    //textures
 }
 
 void Terrain::luaLoader()
@@ -176,15 +175,7 @@ float Terrain::getHeight(int xpos, int zpos) {
         return ((float)(terrainData[(zpos - 1 * size) + xpos]) * scaleY);
 }
 
-/**
-* 
-* 
-* \author Bryce Standley
-* \date   April 2021
-* \param xpos
-* \param zpos
-* \return average height around a given x and z point in the terrain
-*/
+
 float Terrain::getAverageHeight(int xpos, int zpos)
 {
     std::vector<float> heights;
@@ -287,7 +278,7 @@ void Terrain::generateTextures(Vertex& vertex)
     }
 }
 
-void Terrain::generateNormals(std::vector<unsigned int>& indices)
+void Terrain::generateNormals()
 {
     for (unsigned int z = 0; z < getSize(); ++z)
     {
@@ -319,7 +310,7 @@ void Terrain::generateTerrain()
     generateTextures(vertex);
 
     generateIndices(Indices);
-    generateNormals(Indices);
+    generateNormals();
 
     for (unsigned i = 0; i < vertex.position.size(); ++i)
     {

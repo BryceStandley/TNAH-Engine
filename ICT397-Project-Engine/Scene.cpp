@@ -45,12 +45,9 @@ bool Scene::Init(std::string fs, std::string vs, std::string t)
 	gameTerrain = new Terrain();
 	Shader s(vs.c_str(), fs.c_str());
 	gameTerrain->attachShader(s);
-	gameTerrain->Init();
-	//gameTerrain->LoadHeightField("test-heightmap.raw", 512);
-	//gameTerrain->setScalingFactor(1, 3, 1);
-
-	
+	gameTerrain->Init();	
 	gameTerrain->setTextures();
+
 	Player p;
 	player = p;
 	GameObject* g = MakeGameObject("./res/models/tokens/fbx/Free_Hit.fbx", "./res/shader/modelV.glsl", "./res/shader/modelF.glsl", 0.3, glm::vec3(0,0,0), true);
