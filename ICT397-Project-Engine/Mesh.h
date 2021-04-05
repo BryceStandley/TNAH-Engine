@@ -59,8 +59,6 @@ public:
         this->indices = indices;
         this->textures = textures;
         this->transform = transform;
-
-        setupMesh();
     }
 
         /**
@@ -105,11 +103,8 @@ public:
             /// always good practice to set everything back to defaults once configured.
         glActiveTexture(GL_TEXTURE0);
     }
-
-private:
-        /// render data 
     unsigned int VBO, EBO;
-    
+private:
 
         /**
         * @brief places mesh data into the buffers and arrays required to set up the mesh 

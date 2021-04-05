@@ -29,6 +29,7 @@ void Scene::Run(View lens)
 	//Models
 	for (int x = 0; x < gameObjects.size(); x++)
 	{
+		gameObjects[x]->Update(0.1);
 		gameRenderer->SetShader(gameObjects[x]->shader, lens);
 		for (int i = 0; i < gameObjects[x]->model.meshes.size(); i++)
 		{
@@ -48,9 +49,16 @@ bool Scene::Init(std::string fs, std::string vs, std::string t)
 	gameTerrain->Init();	
 	gameTerrain->setTextures();
 
+	gameTerrain->generateTerrain();
+	gameSkybox = new Skybox("./res/images/skybox/right.jpg", "./res/images/skybox/left.jpg", "./res/images/skybox/top.jpg", "./res/images/skybox/bottom.jpg", "./res/images/skybox/front.jpg", "./res/images/skybox/back.jpg", "./res/shader/skybox_vert.txt", "./res/shader/skybox_frag.txt");
+    return true;
+}
+
+void Scene::SetupTerrain()
+{
 	Player p;
 	player = p;
-	GameObject* g = MakeGameObject("./res/models/tokens/fbx/Free_Hit.fbx", "./res/shader/modelV.glsl", "./res/shader/modelF.glsl", 0.3, glm::vec3(0,0,0), true);
+	GameObject* g = MakeGameObject("./res/models/tokens/fbx/Free_Hit.fbx", "./res/shader/modelV.glsl", "./res/shader/modelF.glsl", 0.3, glm::vec3(0, 0, 0), true);
 	gameObjects.push_back(g);
 	g = MakeGameObject("./res/models/tokens/fbx/Free_Hit.fbx", "./res/shader/modelV.glsl", "./res/shader/modelF.glsl", 0.01, glm::vec3(50, 2, 50), true);
 	gameObjects.push_back(g);
@@ -62,14 +70,7 @@ bool Scene::Init(std::string fs, std::string vs, std::string t)
 	gameObjects.push_back(g);
 	g = MakeGameObject("./res/models/tree/pine.fbx", "./res/shader/modelV.glsl", "./res/shader/modelF.glsl", 0.01, glm::vec3(70, 2, 50), false);
 	gameObjects.push_back(g);
-
-	gameTerrain->generateTerrain();
-	gameSkybox = new Skybox("./res/images/skybox/right.jpg", "./res/images/skybox/left.jpg", "./res/images/skybox/top.jpg", "./res/images/skybox/bottom.jpg", "./res/images/skybox/front.jpg", "./res/images/skybox/back.jpg", "./res/shader/skybox_vert.txt", "./res/shader/skybox_frag.txt");
-    return true;
-}
-
-void Scene::SetupTerrain()
-{
+	
 	gameRenderer->TerrainSetup(gameTerrain->GetTotalData(), gameTerrain->GetIndicies(), gameTerrain->VAO, gameTerrain->VBO, gameTerrain->EBO);
 	gameRenderer->SkyboxSetup(gameSkybox->GetSkyVerts(), gameSkybox->GetCubeFaces(), gameSkybox->VAO, gameSkybox->VBO, gameSkybox->texture, gameSkybox->skyShader);
 }
@@ -99,8 +100,8 @@ void Scene::UpdatePlayer(glm::vec3 position)
 GameObject* Scene::MakeGameObject(std::string modelName, std::string shaderV, std::string shaderF, float s, glm::vec3 p, bool rotate)
 {
 	Shader ourShader(shaderV.c_str(), shaderF.c_str());
-	Model ourModel(modelName);
-	GameObject * obj = new GameObject();
+	Model ourModel(modelName, gameRenderer);
+	GameObject * obj = new Enemy();
 	obj->model = ourModel;
 	obj->shader = ourShader;
 	obj->SetPos(glm::vec3(p));

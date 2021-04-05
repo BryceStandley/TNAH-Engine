@@ -8,6 +8,7 @@ public:
 	GameObject() { pos = glm::vec3(0, 0, 0); scale = 0.2; rotate = false; }
 	GameObject(glm::vec3 p, glm::vec3 fixRot, glm::vec3 rot, float s) { pos = p; rotation = rot; scale = s; }
 	//GameObject(glm::vec3 pos, float colSize, float objSize);
+	virtual void Update(float time);
 	void SetRotation(glm::vec3 r) { rotation = r; }
 	void SetPos(glm::vec3 p) { pos = p; }
 	void SetScale(float size) { scale = size; }

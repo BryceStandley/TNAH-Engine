@@ -12,6 +12,9 @@ glm::mat4 GameObject::GenerateMatFour()
         m = glm::rotate(m, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
     }
 
+    m = glm::rotate(m, glm::radians(rotation.x), glm::vec3(1.0f, 0.0f, 0.0f));
+    m = glm::rotate(m, glm::radians(rotation.y), glm::vec3(0.0f, 1.0f, 0.0f));
+    m = glm::rotate(m, glm::radians(rotation.z), glm::vec3(0.0f, 0.0f, 1.0f));
 
     return m;
 }
@@ -19,4 +22,9 @@ glm::mat4 GameObject::GenerateMatFour()
 glm::mat4 GameObject::GenerateMatFourForMesh(int i)
 {
     return (GenerateMatFour() * model.meshes[i].transform);
+}
+
+void GameObject::Update(float time)
+{
+
 }
