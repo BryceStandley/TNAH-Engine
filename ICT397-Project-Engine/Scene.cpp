@@ -29,11 +29,15 @@ void Scene::Run(View lens)
 	//Models
 	for (int x = 0; x < gameObjects.size(); x++)
 	{
+		
 		gameObjects[x]->Update(0.1);
-		gameRenderer->SetShader(gameObjects[x]->shader, lens);
-		for (int i = 0; i < gameObjects[x]->model.meshes.size(); i++)
+		if (x != playerInd)
 		{
-			gameRenderer->RenderModel(gameObjects[x]->shader, gameObjects[x]->GenerateMatFourForMesh(i), gameObjects[x]->model.meshes[i]);
+			gameRenderer->SetShader(gameObjects[x]->shader, lens);
+			for (int i = 0; i < gameObjects[x]->model.meshes.size(); i++)
+			{
+				gameRenderer->RenderModel(gameObjects[x]->shader, gameObjects[x]->GenerateMatFourForMesh(i), gameObjects[x]->model.meshes[i]);
+			}
 		}
 	}
 
@@ -105,7 +109,7 @@ void Scene::UpdatePlayer(glm::vec3 position)
 		pos.y = gameObjects[playerInd]->GetPos().y;
 		pos.z = gameObjects[playerInd]->GetPos().z;
 	}
-
+	std::cout << "POS XYZ : " << gameObjects[playerInd]->GetPos().x << " - " << gameObjects[playerInd]->GetPos().y << " - " << gameObjects[playerInd]->GetPos().z << std::endl;
 	gameObjects[playerInd]->SetPos(pos);
 }
 
