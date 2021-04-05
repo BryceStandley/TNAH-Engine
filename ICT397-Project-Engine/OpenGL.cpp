@@ -89,6 +89,19 @@ void OpenGL::SetShader(Shader shader, View lens)
     shader.setMat4("model", lens.GetModel());
 }
 
+void OpenGL::SetShaderTerrain(Shader &shader, View lens)
+{
+    shader.use();
+    shader.setMat4("projection", lens.GetProjection());
+    shader.setMat4("view", lens.GetView());
+    glm::mat4 m = glm::mat4(1.0f);
+    m = glm::scale(m, glm::vec3(0.2f));
+    shader.setMat4("model", m);
+    shader.setVec3("lightColor", 1.0f, 1.0f, 1.0f);
+    shader.setVec3("lightPos", 48.0f, 5.0f, 45.3f);
+    shader.setVec3("viewPos", lens.GetPosition());
+}
+
 void OpenGL::SetShaderSkybox(Shader shader, View lens)
 {
     glm::mat4 viewSky = glm::mat4(glm::mat3(lens.GetSkyview()));

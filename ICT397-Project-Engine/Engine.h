@@ -20,6 +20,7 @@
 * @date 5/04/2021 Christopher Logan, Started
 *
 **/
+using namespace luabridge;
 class Engine
 {
 public:
@@ -28,19 +29,18 @@ public:
 	void Run();
 private:
 
-	void InitiliseScene();
+	void LuaScenes(std::string file, int i);
 
 		///Pointer for the window
 	Window* window;
 		///Holds the different scenes
-	std::vector<Scene> gameScenes;
+	std::vector<Scene*> gameScenes;
 
 		///Pointer for the renderer
 	Renderer * render;
 
 		///The current Scene
 	int currentScene;
-	int totalScenes;
 
 		///The running state of the game
 	bool running;

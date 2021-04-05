@@ -31,10 +31,10 @@ void GlfwWindow::Terminate()
     glfwTerminate();
 }
 
-bool GlfwWindow::GameInput(float deltaTime)
+void GlfwWindow::GameInput(float deltaTime)
 {
     if (glfwGetKey(gameWindow, gameInput.exit) == GLFW_PRESS)
-        return false;
+        glfwSetWindowShouldClose(gameWindow, true);
 
     if (glfwGetKey(gameWindow, gameInput.foward) == GLFW_PRESS)
         camera.ProcessKeyboard(FORWARD, deltaTime);
@@ -50,8 +50,6 @@ bool GlfwWindow::GameInput(float deltaTime)
         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     if (glfwGetKey(gameWindow, gameInput.wireOff) == GLFW_PRESS)
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-
-    return true;
 }
 
 void GlfwWindow::Clear()
@@ -142,4 +140,9 @@ void GlfwWindow::Update()
     Restart();
     lens.SetSkyview(camera.GetViewMatrix());
     lens.SetPosition(camera.Position);
+}
+
+bool GlfwWindow::Running()
+{
+    return glfwWindowShouldClose(gameWindow);
 }

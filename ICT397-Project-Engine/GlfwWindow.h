@@ -16,7 +16,7 @@ public:
 	~GlfwWindow() { Terminate(); }
 	virtual void Init(std::string title, int h, int w);
 	virtual void Buffer();
-	virtual bool GameInput(float deltaTime);
+	virtual void GameInput(float deltaTime);
 	virtual void Terminate();
 
 	virtual void FrameBuffer();
@@ -31,7 +31,7 @@ public:
 	virtual View GetLens() { return lens; }
 	virtual void Update();
 	virtual float GetTime() { return gametime.DeltaTime(); }
-
+	virtual bool Running();
 private:	
 	void Projection();
 	void Clear();

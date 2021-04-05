@@ -9,6 +9,7 @@
 
 #include "shader.h"
 #include "TextureLoader.h"
+#include "Input.h"
 
 
 	/**
@@ -77,6 +78,8 @@ public:
 	
 	
 	std::vector<glm::vec3> GetTotalData() { return totalData; }
+
+	void SetShader(Shader s) { shader = s; }
 	
 		/**
 		* @brief  default constructor that initialises the terrain object

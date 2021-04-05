@@ -4,6 +4,7 @@
 #include <iostream>
 #include <vector>
 #include "Shader.h"
+#include "Terrain.h"
 
 
 	/**
@@ -22,7 +23,7 @@ public:
 		/**
 		* @brief default constructor that initialises the object and sets the vertices of the skybox 
 		*/
-	Skybox() { SetSkyVerts(); }
+	Skybox();
 
 		/**
 		* @brief a constructor that takes in the paths to the images for each face of the skybox, as well as the paths to its vertex and fragment shader

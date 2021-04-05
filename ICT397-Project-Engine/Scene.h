@@ -23,26 +23,77 @@
 *
 *
 **/
-
 class Scene
 {
 public:
-	Player player;
-	Scene(std::string name) {}
-	Scene(std::string name, std::string fs, std::string vs, std::string t);
+		/**
+		* @brief Default constructor
+		*/
+	Scene() {}
+		/**
+		* @brief Name and Renderer constructor
+		* @param The name of the scene
+		* @param The renderer pointer
+		*/
+	Scene(std::string name, Renderer * render);
+
+		/**
+		* @brief Destructor
+		*/
 	~Scene();
+
+		/**
+		* @brief Runs the scene, setting up objects for rendering and changes
+		* @param lens - Holds information to do with the position of the camera, projects and views
+		*/
 	void Run(View lens);
-	bool Init(std::string fs, std::string vs, std::string t);
-	Terrain *GetTerrain() { return gameTerrain; }
-	Skybox* GetSkybox() { return gameSkybox; }
+
+		/**
+		* @brief Initilises the scene, setting up the terrain and skybox
+		*/
+	void Init();
+
+		/**
+		* @brief Gets the name of the current scene
+		* @return string
+		*/
 	std::string GetSceneName() const { return sceneName; }
-	GameObject *MakeGameObject(std::string modelName, std::string shaderV, std::string shaderF, float s, glm::vec3 p, bool rotate);
+
+		/**
+		* @brief Function that uses the game asset factory to create a new game object
+		* @param t - the type of game object it is
+		* @param modalName - the file path to load in the model
+		* @param shaderV - The vertex shader file path
+		* @param shaderF - The fragment shader file path
+		* @param scale - The scale of the object
+		* @param x - The x positon of the object
+		* @param y - The y position of the object
+		* @param z - The z position of the object
+		* @param rotate - Sets if the model needs to be rotated on entry
+		*/
+	void MakeGameObject(std::string t, std::string modelName, std::string shaderV, std::string shaderF, float scale, float x, float y, float z, bool rotate);
+
+		/**
+		* @brief Gets a gameobject from the game objects
+		* @param i - The indice of the game object
+		*/
 	GameObject *GetGameObject(int i) { return gameObjects[i]; }
+
+		/**
+		* @brief Updates the players position in relation to the world
+		* @param position - The position of the camera
+		*/
 	void UpdatePlayer(glm::vec3 position);
-	void SetupTerrain();
+
+		/**
+		* @brief Gets the playerInd value and returns it
+		*/
 	int GetPlayerIndice() { return playerInd; }
-	Renderer* gameRenderer;
+
 private:
+		///The game renderer that renders items
+	Renderer* gameRenderer;
+
 		///The scenes name
 	std::string sceneName;
 
@@ -64,6 +115,7 @@ private:
 		///The viewpoints of the camera and projections
 	View lens;
 
+		///The indice of the player game object
 	int playerInd;
 };
 

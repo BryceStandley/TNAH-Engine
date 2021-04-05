@@ -11,7 +11,7 @@ class Window
 public:
 	virtual void Init(std::string title, int h, int w) { }
 	virtual void Buffer() = 0;
-	virtual bool GameInput(float deltaTime) { return false; }
+	virtual void GameInput(float deltaTime) {}
 	virtual void Terminate() {}
 	virtual void FrameBuffer() {}
 	virtual void Projection(const glm::mat4& view, const glm::mat4& projection) {}
@@ -24,8 +24,6 @@ public:
 	virtual View GetLens() { return View(); }
 	virtual void Update() {}
 	virtual float GetTime() { return 0; }
-private:
-	Input gameInput;	
-	Terrain* t;
+	virtual bool Running() { return false; }
 };
 

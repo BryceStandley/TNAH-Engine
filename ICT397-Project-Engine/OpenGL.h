@@ -14,5 +14,6 @@ public:
 	virtual void SkyboxSetup(std::vector <float> skyVerts, std::vector<std::string> faces, unsigned int& VAO, unsigned int& VBO, unsigned int& texture, Shader& skyShader);
 	virtual unsigned int TextureFromFile(std::string path, const std::string& directory);
 	virtual void SetupMesh(unsigned int& VAO, unsigned int& VBO, unsigned int& EBO, std::vector<Vertex> vertices, std::vector<unsigned int> indices);
+	virtual void SetShaderTerrain(Shader &shader, View lens);
 };
 

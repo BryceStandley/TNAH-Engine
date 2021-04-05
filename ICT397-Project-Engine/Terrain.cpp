@@ -1,5 +1,4 @@
 #include "Terrain.h"
-#include "luaManager.h"
 #include <glad/glad.h>
 #include <vector>
 // pairs terrain object with fragment shader
@@ -33,7 +32,7 @@ void Terrain::luaLoader()
     lua_State* L = LuaManager::getInstance().getLuaState();
 
 
-    if (luaL_dofile(L, "terrain.lua")) 
+    if (luaL_dofile(L, "./res/scripts/terrain.lua")) 
     {
         std::cout << "File not found" << std::endl;
     }
@@ -45,6 +44,8 @@ void Terrain::luaLoader()
         std::string texture3;
         std::string texture4;
         std::string texture5;
+        std::string vertShader;
+        std::string fragShader;
         
         int tSize;
         int xScaler;
@@ -61,6 +62,8 @@ void Terrain::luaLoader()
         LuaRef tex3 = getGlobal(L, "tex3");
         LuaRef tex4 = getGlobal(L, "tex4");
         LuaRef tex5 = getGlobal(L, "detailMap");
+        LuaRef vs = getGlobal(L, "vs");
+        LuaRef fs = getGlobal(L, "fs");
 
         if (heightmap.isString())
         {
@@ -121,8 +124,20 @@ void Terrain::luaLoader()
             texture5 = tex5.cast<std::string>();
             this->tex5 = texture5;
         }
-    }
 
+        if(vs.isString())
+        {
+            vertShader = vs.cast<std::string>();
+        }
+
+        if (fs.isString())
+        {
+            fragShader = fs.cast<std::string>();
+        }
+
+        Shader shad(vertShader.c_str(), fragShader.c_str());
+        shader = shad;
+    }
 }
 
 

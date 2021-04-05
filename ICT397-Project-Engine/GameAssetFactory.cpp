@@ -1,15 +1,15 @@
 #include "GameAssetFactory.h"
 
-GameObject* GameAssetFactory::GetGameObject(GameObjectType t, std::string modelName, std::string shaderV, std::string shaderF, float scale, glm::vec3 position, bool rotate)
+GameObject* GameAssetFactory::GetGameObject(std::string type, std::string modelName, std::string shaderV, std::string shaderF, float scale, glm::vec3 position, bool rotate)
 {
-	if (t == TypePlayer && !playerMade)
+	if (type == "player" && !playerMade)
 	{
 		GameObject* obj = new Player();
 		obj->SetPos(glm::vec3(position));
 		playerMade = true;
 		return obj;
 	}
-	else if (t == TypeStatic)
+	else if (type == "static")
 	{
 		Shader ourShader(shaderV.c_str(), shaderF.c_str());
 		Model ourModel(modelName, renderer);
@@ -21,7 +21,7 @@ GameObject* GameAssetFactory::GetGameObject(GameObjectType t, std::string modelN
 		obj->rotate = rotate;
 		return obj;
 	}
-	else if (t == TypeEnemy)
+	else if (type == "enemy")
 	{
 		Shader ourShader(shaderV.c_str(), shaderF.c_str());
 		Model ourModel(modelName, renderer);
@@ -33,7 +33,7 @@ GameObject* GameAssetFactory::GetGameObject(GameObjectType t, std::string modelN
 		obj->rotate = rotate;
 		return obj;
 	}
-	else if (t == TypeToken)
+	else if (type == "token")
 	{
 		Shader ourShader(shaderV.c_str(), shaderF.c_str());
 		Model ourModel(modelName, renderer);

@@ -1,25 +1,30 @@
 #include "Scene.h"
-Scene::Scene(std::string name, std::string fs, std::string vs, std::string t)
+Scene::Scene(std::string name, Renderer * render)
 {
 	this->sceneName = name;
+	gameRenderer = render;
 
-	if (!Init(fs, vs, t))
-	{
-		std::cout << "SHADER::ERROR::INIT" << std::endl;
-	}
+	Init();
 }
 
 
 Scene::~Scene()
 {
-
+	delete[]gameRenderer;
+	delete[]gameTerrain;
+	delete[]gameSkybox;
+	for (int i = gameObjects.size()-1; i > 0; i--)
+		delete[]gameObjects[i];
+	delete[]factory;
 }
 
 void Scene::Run(View lens)
 {
 	//Terrain
-	gameRenderer->SetShader(gameTerrain->GetShader(), lens);
 	gameRenderer->BindTexture(gameTerrain->GetTextIds());
+	Shader t = gameTerrain->GetShader();
+	gameRenderer->SetShaderTerrain(t, lens);
+	gameTerrain->SetShader(t);
 	gameRenderer->RenderTerrain(gameTerrain->GetVAO(), gameTerrain->GetIndicesSize());
 
 	//Skybox
@@ -29,7 +34,6 @@ void Scene::Run(View lens)
 	//Models
 	for (int x = 0; x < gameObjects.size(); x++)
 	{
-		
 		gameObjects[x]->Update(0.1);
 		if (x != playerInd)
 		{
@@ -45,40 +49,16 @@ void Scene::Run(View lens)
 	UpdatePlayer(lens.GetPosition());
 }
 
-bool Scene::Init(std::string fs, std::string vs, std::string t)
+void Scene::Init()
 {
 	gameTerrain = new Terrain();
-	Shader s(vs.c_str(), fs.c_str());
-	gameTerrain->attachShader(s);
 	gameTerrain->Init();	
 	gameTerrain->setTextures();
 
 	gameTerrain->generateTerrain();
-	gameSkybox = new Skybox("./res/images/skybox/right.jpg", "./res/images/skybox/left.jpg", "./res/images/skybox/top.jpg", "./res/images/skybox/bottom.jpg", "./res/images/skybox/front.jpg", "./res/images/skybox/back.jpg", "./res/shader/skybox_vert.txt", "./res/shader/skybox_frag.txt");
-    return true;
-}
-
-void Scene::SetupTerrain()
-{
+	gameSkybox = new Skybox();
+	//gameSkybox = new Skybox("./res/images/skybox/right.jpg", "./res/images/skybox/left.jpg", "./res/images/skybox/top.jpg", "./res/images/skybox/bottom.jpg", "./res/images/skybox/front.jpg", "./res/images/skybox/back.jpg", "./res/shader/skybox_vert.txt", "./res/shader/skybox_frag.txt");
 	factory = new GameAssetFactory(gameRenderer);
-	Player p;
-	player = p;
-	GameObject* g;
-	g = factory->GetGameObject(TypeToken, "./res/models/tokens/fbx/Free_Hit.fbx", "./res/shader/modelV.glsl", "./res/shader/modelF.glsl", 0.01, glm::vec3(50, 2, 50), true);
-	gameObjects.push_back(g);
-	g = factory->GetGameObject(TypeToken, "./res/models/tokens/fbx/Free_Hit.fbx", "./res/shader/modelV.glsl", "./res/shader/modelF.glsl", 0.01, glm::vec3(50, 2, 50), true);
-	gameObjects.push_back(g);
-	g = factory->GetGameObject(TypeToken, "./res/models/tokens/fbx/Free_Hit.fbx", "./res/shader/modelV.glsl", "./res/shader/modelF.glsl", 0.01, glm::vec3(40, 2, 40), true);
-	gameObjects.push_back(g);
-	g = factory->GetGameObject(TypeStatic, "./res/models/environment/Red_Tree.fbx", "./res/shader/modelV.glsl", "./res/shader/modelF.glsl", 0.01, glm::vec3(30, 2, 30), false);
-	gameObjects.push_back(g);
-	g = factory->GetGameObject(TypeEnemy, "./res/models/characters/Impling_With_Texture_No_Weapon.fbx", "./res/shader/modelV.glsl", "./res/shader/modelF.glsl", 0.01, glm::vec3(60, 2, 50), false);
-	gameObjects.push_back(g);
-	g = factory->GetGameObject(TypeStatic, "./res/models/tree/pine.fbx", "./res/shader/modelV.glsl", "./res/shader/modelF.glsl", 0.01, glm::vec3(70, 2, 50), false);
-	gameObjects.push_back(g);
-	g = factory->GetGameObject(TypePlayer, "", "", "", 1, glm::vec3(0, 0, 0), false);
-	gameObjects.push_back(g);
-	
 	gameRenderer->TerrainSetup(gameTerrain->GetTotalData(), gameTerrain->GetIndicies(), gameTerrain->VAO, gameTerrain->VBO, gameTerrain->EBO);
 	gameRenderer->SkyboxSetup(gameSkybox->GetSkyVerts(), gameSkybox->GetCubeFaces(), gameSkybox->VAO, gameSkybox->VBO, gameSkybox->texture, gameSkybox->skyShader);
 
@@ -86,7 +66,6 @@ void Scene::SetupTerrain()
 	{
 		if (gameObjects[x]->GetType() == "player")
 		{
-			std::cout << "found player " << x << std::endl;
 			playerInd = x;
 			break;
 		}
@@ -109,20 +88,15 @@ void Scene::UpdatePlayer(glm::vec3 position)
 		pos.y = gameObjects[playerInd]->GetPos().y;
 		pos.z = gameObjects[playerInd]->GetPos().z;
 	}
-	std::cout << "POS XYZ : " << gameObjects[playerInd]->GetPos().x << " - " << gameObjects[playerInd]->GetPos().y << " - " << gameObjects[playerInd]->GetPos().z << std::endl;
+
 	gameObjects[playerInd]->SetPos(pos);
 }
 
-GameObject* Scene::MakeGameObject(std::string modelName, std::string shaderV, std::string shaderF, float s, glm::vec3 p, bool rotate)
+void Scene::MakeGameObject(std::string t, std::string modelName, std::string shaderV, std::string shaderF, float scale, float x, float y, float z, bool rotate)
 {
-	Shader ourShader(shaderV.c_str(), shaderF.c_str());
-	Model ourModel(modelName, gameRenderer);
-	GameObject * obj = new Enemy();
-	obj->model = ourModel;
-	obj->shader = ourShader;
-	obj->SetPos(glm::vec3(p));
-	obj->SetScale(s);
-	obj->rotate = rotate;
-
-	return obj;
+	GameObject* newGameObject = factory->GetGameObject(t, modelName, shaderV, shaderF, scale, glm::vec3(x, y, z), rotate);
+	if (newGameObject != nullptr)
+	{
+		gameObjects.push_back(newGameObject);
+	}
 }

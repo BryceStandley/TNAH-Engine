@@ -1,13 +1,25 @@
 #pragma once
 #include "GameObject.h"
+/**
+ * @class Enemy
+ * @brief Abstract GameObject class for enemies
+ *
+ * @author Christopher Logan
+ * @version 01
+ * @date 25/03/2021
+ *
+ * @todo Add enemy functionality
+ * 
+ * @bugs none to be seen
+ *
+ **/
 class Enemy : public GameObject
 {
 public:
-	void Update(float time)
-	{
-		SetType("enemy");
-		glm::vec3 r = GetRotation();
-		SetRotation(glm::vec3(0, r.y + time, 0));
-	}
+	/*
+	* @breif Updates the game object with functionality
+	* @param time - the time since the last frame (deltatime)
+	*/
+	void Update(float time);
 };
 

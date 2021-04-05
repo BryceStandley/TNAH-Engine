@@ -85,6 +85,7 @@
   <ItemGroup>
     <ClCompile Include="application.cpp" />
     <ClCompile Include="Callbacks.cpp" />
+    <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="GameAssetFactory.cpp" />
     <ClCompile Include="GameObject.cpp" />
