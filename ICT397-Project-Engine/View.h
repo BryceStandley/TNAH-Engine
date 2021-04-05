@@ -3,7 +3,9 @@
 
 	/**
 	* @class View
-	* @brief ...
+	* @brief Holds matrix and position information to allow 
+	* other parts of the engine to have access to this information,
+	* without sending their whole classes
 	*
 	* @author Christoper Logan
 	* @version 01

@@ -31,6 +31,7 @@ public:
 	virtual View GetLens() { return lens; }
 	virtual void Update();
 	virtual float GetTime() { return gametime.DeltaTime(); }
+
 private:	
 	void Projection();
 	void Clear();
