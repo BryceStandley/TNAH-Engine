@@ -48,7 +48,8 @@ void Engine::Run()
 
 		window->Update();
 		gameScenes[currentScene].Run(window->GetLens());
-		window->UpdateCamera(gameScenes[currentScene].player.GetPos());
+		glm::vec3 pos = gameScenes[currentScene].GetGameObject(gameScenes[currentScene].GetPlayerIndice())->GetPos();
+		window->UpdateCamera(pos);
 		//gameScenes[currentScene].player.Info();
 		running = window->GameInput(deltaTime);
 		window->MouseMove();

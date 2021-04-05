@@ -40,6 +40,7 @@ public:
 	GameObject *GetGameObject(int i) { return gameObjects[i]; }
 	void UpdatePlayer(glm::vec3 position);
 	void SetupTerrain();
+	int GetPlayerIndice() { return playerInd; }
 	Renderer* gameRenderer;
 private:
 		///The scenes name
@@ -62,5 +63,7 @@ private:
 
 		///The viewpoints of the camera and projections
 	View lens;
+
+	int playerInd;
 };
 

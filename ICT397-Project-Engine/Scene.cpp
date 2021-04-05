@@ -77,41 +77,36 @@ void Scene::SetupTerrain()
 	
 	gameRenderer->TerrainSetup(gameTerrain->GetTotalData(), gameTerrain->GetIndicies(), gameTerrain->VAO, gameTerrain->VBO, gameTerrain->EBO);
 	gameRenderer->SkyboxSetup(gameSkybox->GetSkyVerts(), gameSkybox->GetCubeFaces(), gameSkybox->VAO, gameSkybox->VBO, gameSkybox->texture, gameSkybox->skyShader);
-}
 
-void Scene::UpdatePlayer(glm::vec3 position)
-{
-	int playerIndice = NULL;
 	for (int x = 0; x < gameObjects.size(); x++)
 	{
 		if (gameObjects[x]->GetType() == "player")
 		{
 			std::cout << "found player " << x << std::endl;
-			playerIndice = x;
+			playerInd = x;
 			break;
 		}
 	}
+}
 
-	if (playerIndice != NULL)
-	{
-		glm::vec3 pos = position;
-		float worldx, worldz;
+void Scene::UpdatePlayer(glm::vec3 position)
+{
+	glm::vec3 pos = position;
+	float worldx, worldz;
 
-		worldx = (pos.x / 100.0f) * (float)gameTerrain->getSize();
-		worldz = (pos.z / 100.0f) * (float)gameTerrain->getSize();
+	worldx = (pos.x / 100.0f) * (float)gameTerrain->getSize();
+	worldz = (pos.z / 100.0f) * (float)gameTerrain->getSize();
 	
-		pos.y = 1.5f + ((gameTerrain->getAverageHeight(worldx, worldz) / gameTerrain->getSize()) * 100.0f);
+	pos.y = 1.5f + ((gameTerrain->getAverageHeight(worldx, worldz) / gameTerrain->getSize()) * 100.0f);
 
-		if (gameTerrain->getAverageHeight(worldx, worldz) >= 10.0f)
-		{
-			pos.x = gameObjects[playerIndice]->GetPos().x;
-			pos.y = gameObjects[playerIndice]->GetPos().y;
-			pos.z = gameObjects[playerIndice]->GetPos().z;
-		}
-
-		gameObjects[playerIndice]->SetPos(pos);
+	if (gameTerrain->getAverageHeight(worldx, worldz) >= 10.0f)
+	{
+		pos.x = gameObjects[playerInd]->GetPos().x;
+		pos.y = gameObjects[playerInd]->GetPos().y;
+		pos.z = gameObjects[playerInd]->GetPos().z;
 	}
 
+	gameObjects[playerInd]->SetPos(pos);
 }
 
 GameObject* Scene::MakeGameObject(std::string modelName, std::string shaderV, std::string shaderF, float s, glm::vec3 p, bool rotate)
