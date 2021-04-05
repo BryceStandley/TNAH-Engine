@@ -156,9 +156,11 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene, glm::mat4 transform)
     /// 4. height maps
     std::vector<TextureMesh> heightMaps = loadMaterialTextures(material, aiTextureType_AMBIENT, "texture_height");
     textures.insert(textures.end(), heightMaps.begin(), heightMaps.end());
+    Mesh temp(vertices, indices, textures, transform);
+    render->SetupMesh(temp.VAO, temp.VBO, temp.EBO, temp.vertices, temp.indices);
 
     /// return a mesh object created from the extracted mesh data
-    return Mesh(vertices, indices, textures, transform);
+    return temp;
 }
 
 
@@ -188,7 +190,7 @@ std::vector<TextureMesh> Model::loadMaterialTextures(aiMaterial* mat, aiTextureT
         {   /// if texture hasn't been loaded already, load it
 
             TextureMesh texture;
-            texture.id = TextureFromFile(str.C_Str(), this->directory);
+            texture.id = render->TextureFromFile(str.C_Str(), this->directory);
 
             texture.type = typeName;
             texture.path = str.C_Str();
@@ -197,51 +199,4 @@ std::vector<TextureMesh> Model::loadMaterialTextures(aiMaterial* mat, aiTextureT
         }
     }
     return textures;
-}
-
-
-unsigned int Model::TextureFromFile(const char* path, const std::string& directory)//, bool gamma)
-{
-    std::string filename = std::string(path);
-
-    std::cout << filename << std::endl; //debug
-
-    filename = directory + '/' + filename;
-
-    std::cout << filename << std::endl; //debug
-
-    stbi_set_flip_vertically_on_load(false);
-    unsigned int textureID;
-    glGenTextures(1, &textureID);
-
-    int width, height, nrComponents;
-    unsigned char* data = stbi_load(filename.c_str(), &width, &height, &nrComponents, 0);
-    if (data)
-    {
-        GLenum format;
-        if (nrComponents == 1)
-            format = GL_RED;
-        else if (nrComponents == 3)
-            format = GL_RGB;
-        else if (nrComponents == 4)
-            format = GL_RGBA;
-
-        glBindTexture(GL_TEXTURE_2D, textureID);
-        glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
-        glGenerateMipmap(GL_TEXTURE_2D);
-
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-        stbi_image_free(data);
-    }
-    else
-    {
-        std::cout << "Texture failed to load at path: " << path << std::endl;
-        stbi_image_free(data);
-    }
-
-    return textureID;
 }

@@ -22,7 +22,10 @@ public:
 	Model model;
 	Shader shader;
 	bool rotate;
+	void SetType(std::string t) { type = t; }
+	std::string GetType(){ return type; }
 private:
+	std::string type;
 	glm::vec3 pos;
 	glm::vec3 rotation;
 	float scale;

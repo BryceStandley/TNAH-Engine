@@ -1,13 +1,13 @@
 #pragma once
 #include "GameObject.h"
-class Enemy : public GameObject
+class Token : public GameObject
 {
 public:
 	void Update(float time)
 	{
-		SetType("enemy");
 		glm::vec3 r = GetRotation();
-		SetRotation(glm::vec3(0, r.y + time, 0));
+		SetRotation(glm::vec3(r.x + time, 0, 0));
+		SetType("token");
 	}
 };
 

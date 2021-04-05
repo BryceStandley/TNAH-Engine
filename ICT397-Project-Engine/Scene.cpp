@@ -56,19 +56,23 @@ bool Scene::Init(std::string fs, std::string vs, std::string t)
 
 void Scene::SetupTerrain()
 {
+	factory = new GameAssetFactory(gameRenderer);
 	Player p;
 	player = p;
-	GameObject* g = MakeGameObject("./res/models/tokens/fbx/Free_Hit.fbx", "./res/shader/modelV.glsl", "./res/shader/modelF.glsl", 0.3, glm::vec3(0, 0, 0), true);
+	GameObject* g;
+	g = factory->GetGameObject(TypeToken, "./res/models/tokens/fbx/Free_Hit.fbx", "./res/shader/modelV.glsl", "./res/shader/modelF.glsl", 0.01, glm::vec3(50, 2, 50), true);
 	gameObjects.push_back(g);
-	g = MakeGameObject("./res/models/tokens/fbx/Free_Hit.fbx", "./res/shader/modelV.glsl", "./res/shader/modelF.glsl", 0.01, glm::vec3(50, 2, 50), true);
+	g = factory->GetGameObject(TypeToken, "./res/models/tokens/fbx/Free_Hit.fbx", "./res/shader/modelV.glsl", "./res/shader/modelF.glsl", 0.01, glm::vec3(50, 2, 50), true);
 	gameObjects.push_back(g);
-	g = MakeGameObject("./res/models/tokens/fbx/Free_Hit.fbx", "./res/shader/modelV.glsl", "./res/shader/modelF.glsl", 0.01, glm::vec3(40, 2, 40), true);
+	g = factory->GetGameObject(TypeToken, "./res/models/tokens/fbx/Free_Hit.fbx", "./res/shader/modelV.glsl", "./res/shader/modelF.glsl", 0.01, glm::vec3(40, 2, 40), true);
 	gameObjects.push_back(g);
-	g = MakeGameObject("./res/models/environment/Red_Tree.fbx", "./res/shader/modelV.glsl", "./res/shader/modelF.glsl", 0.01, glm::vec3(30, 2, 30), false);
+	g = factory->GetGameObject(TypeStatic, "./res/models/environment/Red_Tree.fbx", "./res/shader/modelV.glsl", "./res/shader/modelF.glsl", 0.01, glm::vec3(30, 2, 30), false);
 	gameObjects.push_back(g);
-	g = MakeGameObject("./res/models/characters/Impling_With_Texture_No_Weapon.fbx", "./res/shader/modelV.glsl", "./res/shader/modelF.glsl", 0.01, glm::vec3(60, 2, 50), false);
+	g = factory->GetGameObject(TypeEnemy, "./res/models/characters/Impling_With_Texture_No_Weapon.fbx", "./res/shader/modelV.glsl", "./res/shader/modelF.glsl", 0.01, glm::vec3(60, 2, 50), false);
 	gameObjects.push_back(g);
-	g = MakeGameObject("./res/models/tree/pine.fbx", "./res/shader/modelV.glsl", "./res/shader/modelF.glsl", 0.01, glm::vec3(70, 2, 50), false);
+	g = factory->GetGameObject(TypeStatic, "./res/models/tree/pine.fbx", "./res/shader/modelV.glsl", "./res/shader/modelF.glsl", 0.01, glm::vec3(70, 2, 50), false);
+	gameObjects.push_back(g);
+	g = factory->GetGameObject(TypePlayer, "", "", "", 1, glm::vec3(0, 0, 0), false);
 	gameObjects.push_back(g);
 	
 	gameRenderer->TerrainSetup(gameTerrain->GetTotalData(), gameTerrain->GetIndicies(), gameTerrain->VAO, gameTerrain->VBO, gameTerrain->EBO);
@@ -77,24 +81,37 @@ void Scene::SetupTerrain()
 
 void Scene::UpdatePlayer(glm::vec3 position)
 {
-	glm::vec3 pos = position;
-	float worldx, worldz;
-
-	worldx = (pos.x / 100.0f) * (float)gameTerrain->getSize();
-	worldz = (pos.z / 100.0f) * (float)gameTerrain->getSize();
-	
-	pos.y = 1.5f + ((gameTerrain->getAverageHeight(worldx, worldz) / gameTerrain->getSize()) * 100.0f);
-
-	if (gameTerrain->getAverageHeight(worldx, worldz) >= 10.0f)
+	int playerIndice = NULL;
+	for (int x = 0; x < gameObjects.size(); x++)
 	{
-		pos.x = player.GetPos().x;
-		pos.y = player.GetPos().y;
-		pos.z = player.GetPos().z;
+		if (gameObjects[x]->GetType() == "player")
+		{
+			std::cout << "found player " << x << std::endl;
+			playerIndice = x;
+			break;
+		}
 	}
 
+	if (playerIndice != NULL)
+	{
+		glm::vec3 pos = position;
+		float worldx, worldz;
+
+		worldx = (pos.x / 100.0f) * (float)gameTerrain->getSize();
+		worldz = (pos.z / 100.0f) * (float)gameTerrain->getSize();
 	
-	//std::cout << "Terrain Height at player position: " << gameTerrain->getAverageHeight(worldx, worldz) << " With Player XYZ: " << pos.x << "  -  " << pos.y << "  -  " << pos.z << std::endl;
-	player.SetPos(pos);
+		pos.y = 1.5f + ((gameTerrain->getAverageHeight(worldx, worldz) / gameTerrain->getSize()) * 100.0f);
+
+		if (gameTerrain->getAverageHeight(worldx, worldz) >= 10.0f)
+		{
+			pos.x = gameObjects[playerIndice]->GetPos().x;
+			pos.y = gameObjects[playerIndice]->GetPos().y;
+			pos.z = gameObjects[playerIndice]->GetPos().z;
+		}
+
+		gameObjects[playerIndice]->SetPos(pos);
+	}
+
 }
 
 GameObject* Scene::MakeGameObject(std::string modelName, std::string shaderV, std::string shaderF, float s, glm::vec3 p, bool rotate)

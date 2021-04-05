@@ -1,19 +1,26 @@
 #pragma once
 #include <string>
-#include "GameObjects.h"
+#include "Static.h"
+#include "Player.h"
+#include "Enemy.h"
+#include "Token.h"
 
 enum GameObjectType
 {
 	TypeStatic,
 	TypePlayer,
-	TypeEnemy
+	TypeEnemy,
+	TypeToken
 };
 
 
 class GameAssetFactory
 {
 public:
-	GameObject* GetGameObject(GameObjectType t, std::string fileName, glm::vec3 position, float scale, glm::vec3 fixRotation, glm::vec3 rotation);
+	GameAssetFactory(Renderer* r) { renderer = r; playerMade = false; }
+	GameObject* GetGameObject(GameObjectType t, std::string modelName, std::string shaderV, std::string shaderF, float scale , glm::vec3 position, bool rotate);
 private:
+	bool playerMade;
+	Renderer* renderer;
 };
 

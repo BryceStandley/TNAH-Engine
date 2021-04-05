@@ -105,6 +105,7 @@
     <ClCompile Include="Terrain.cpp" />
     <ClCompile Include="TextureLoader.cpp" />
     <ClCompile Include="Time.cpp" />
+    <ClCompile Include="Token.cpp" />
     <ClCompile Include="View.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
@@ -131,6 +132,7 @@
     <ClInclude Include="Terrain.h" />
     <ClInclude Include="TextureLoader.h" />
     <ClInclude Include="Time.h" />
+    <ClInclude Include="Token.h" />
     <ClInclude Include="View.h" />
     <ClInclude Include="Window.h" />
     <ClInclude Include="Windows.h" />
