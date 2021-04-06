@@ -18,6 +18,10 @@ void GlfwWindow::Init(std::string title, int h, int w)
 
     /* Make the window's context current */
     glfwMakeContextCurrent(gameWindow);
+
+        ///locks the cursor to the window
+    glfwSetInputMode(gameWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    
 }
 
 void GlfwWindow::Buffer()
@@ -35,15 +39,14 @@ void GlfwWindow::GameInput(float deltaTime)
 {
     if (glfwGetKey(gameWindow, gameInput.exit) == GLFW_PRESS)
         glfwSetWindowShouldClose(gameWindow, true);
-
     if (glfwGetKey(gameWindow, gameInput.foward) == GLFW_PRESS)
-        camera.ProcessKeyboard(FORWARD, deltaTime);
+        camera.ProcessKeyboard(FORWARD, deltaTime * 5);
     if (glfwGetKey(gameWindow, gameInput.back) == GLFW_PRESS)
-        camera.ProcessKeyboard(BACKWARD, deltaTime);
+        camera.ProcessKeyboard(BACKWARD, deltaTime * 5);
     if (glfwGetKey(gameWindow, gameInput.left) == GLFW_PRESS)
-        camera.ProcessKeyboard(LEFT, deltaTime);
+        camera.ProcessKeyboard(LEFT, deltaTime * 5);
     if (glfwGetKey(gameWindow, gameInput.right) == GLFW_PRESS)
-        camera.ProcessKeyboard(RIGHT, deltaTime);
+        camera.ProcessKeyboard(RIGHT, deltaTime * 5);
     if (glfwGetKey(gameWindow, GLFW_KEY_P) == GLFW_PRESS)//P to reset camera to new position
         camera.Position = glm::vec3(100, 0, 0);
     if (glfwGetKey(gameWindow, gameInput.wireOn) == GLFW_PRESS)
