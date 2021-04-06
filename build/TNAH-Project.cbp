@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="TNAH-Project"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;CMake Files\..\;CMake Files\..\..\;CMake Files\..\..\..\;CMake Files\..\..\..\usr\;CMake Files\..\..\..\usr\local\;CMake Files\..\..\..\usr\local\lib\;CMake Files\..\..\..\usr\local\lib\cmake\;CMake Files\..\..\..\usr\local\lib\cmake\glfw3\;CMake Files\..\..\..\usr\local\lib\cmake\glm\;CMake Files\..\..\..\usr\local\lib\cmake\assimp-5.0\;CMake Files\ICT397-Project-Engine\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/Volumes/GITS/ICT397-Project/build"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j6 -f &quot;/Volumes/GITS/ICT397-Project/build/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j6 -f &quot;/Volumes/GITS/ICT397-Project/build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j6 -f &quot;/Volumes/GITS/ICT397-Project/build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j6 -f &quot;/Volumes/GITS/ICT397-Project/build/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/Volumes/GITS/ICT397-Project/build"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j6 -f &quot;/Volumes/GITS/ICT397-Project/build/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j6 -f &quot;/Volumes/GITS/ICT397-Project/build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j6 -f &quot;/Volumes/GITS/ICT397-Project/build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j6 -f &quot;/Volumes/GITS/ICT397-Project/build/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/Volumes/GITS/ICT397-Project/build"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j6 -f &quot;/Volumes/GITS/ICT397-Project/build/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j6 -f &quot;/Volumes/GITS/ICT397-Project/build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j6 -f &quot;/Volumes/GITS/ICT397-Project/build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j6 -f &quot;/Volumes/GITS/ICT397-Project/build/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="TNAH-Project">
+				<Option output="/Volumes/GITS/ICT397-Project/build/TNAH-Project" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Volumes/GITS/ICT397-Project/build"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Volumes/GITS/ICT397-Project/ICT397-Project-Engine/ICT397-Project-Engine"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/bin/../include/c++/v1"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/lib/clang/12.0.0/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j6 -f &quot;/Volumes/GITS/ICT397-Project/build/Makefile&quot;  VERBOSE=1 TNAH-Project"/>
+					<CompileFile command="/usr/bin/make -j6 -f &quot;/Volumes/GITS/ICT397-Project/build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j6 -f &quot;/Volumes/GITS/ICT397-Project/build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j6 -f &quot;/Volumes/GITS/ICT397-Project/build/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="TNAH-Project/fast">
+				<Option output="/Volumes/GITS/ICT397-Project/build/TNAH-Project" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Volumes/GITS/ICT397-Project/build"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Volumes/GITS/ICT397-Project/ICT397-Project-Engine/ICT397-Project-Engine"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/bin/../include/c++/v1"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/lib/clang/12.0.0/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j6 -f &quot;/Volumes/GITS/ICT397-Project/build/Makefile&quot;  VERBOSE=1 TNAH-Project/fast"/>
+					<CompileFile command="/usr/bin/make -j6 -f &quot;/Volumes/GITS/ICT397-Project/build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j6 -f &quot;/Volumes/GITS/ICT397-Project/build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j6 -f &quot;/Volumes/GITS/ICT397-Project/build/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/Volumes/GITS/ICT397-Project/ICT397-Project-Engine/Callbacks.cpp">
+			<Option target="TNAH-Project"/>
+		</Unit>
+		<Unit filename="/Volumes/GITS/ICT397-Project/ICT397-Project-Engine/Callbacks.h">
+			<Option target="TNAH-Project"/>
+		</Unit>
+		<Unit filename="/Volumes/GITS/ICT397-Project/ICT397-Project-Engine/Enemy.cpp">
+			<Option target="TNAH-Project"/>
+		</Unit>
+		<Unit filename="/Volumes/GITS/ICT397-Project/ICT397-Project-Engine/Enemy.h">
+			<Option target="TNAH-Project"/>
+		</Unit>
+		<Unit filename="/Volumes/GITS/ICT397-Project/ICT397-Project-Engine/Engine.cpp">
+			<Option target="TNAH-Project"/>
+		</Unit>
+		<Unit filename="/Volumes/GITS/ICT397-Project/ICT397-Project-Engine/Engine.h">
+			<Option target="TNAH-Project"/>
+		</Unit>
+		<Unit filename="/Volumes/GITS/ICT397-Project/ICT397-Project-Engine/GameAssetFactory.cpp">
+			<Option target="TNAH-Project"/>
+		</Unit>
+		<Unit filename="/Volumes/GITS/ICT397-Project/ICT397-Project-Engine/GameAssetFactory.h">
+			<Option target="TNAH-Project"/>
+		</Unit>
+		<Unit filename="/Volumes/GITS/ICT397-Project/ICT397-Project-Engine/GameManager.cpp">
+			<Option target="TNAH-Project"/>
+		</Unit>
+		<Unit filename="/Volumes/GITS/ICT397-Project/ICT397-Project-Engine/GameManager.h">
+			<Option target="TNAH-Project"/>
+		</Unit>
+		<Unit filename="/Volumes/GITS/ICT397-Project/ICT397-Project-Engine/GameObject.cpp">
+			<Option target="TNAH-Project"/>
+		</Unit>
+		<Unit filename="/Volumes/GITS/ICT397-Project/ICT397-Project-Engine/GameObject.h">
+			<Option target="TNAH-Project"/>
+		</Unit>
+		<Unit filename="/Volumes/GITS/ICT397-Project/ICT397-Project-Engine/GladRenderer.cpp">
+			<Option target="TNAH-Project"/>
+		</Unit>
+		<Unit filename="/Volumes/GITS/ICT397-Project/ICT397-Project-Engine/GladRenderer.h">
+			<Option target="TNAH-Project"/>
+		</Unit>
+		<Unit filename="/Volumes/GITS/ICT397-Project/ICT397-Project-Engine/GladSkybox.cpp">
+			<Option target="TNAH-Project"/>
+		</Unit>
+		<Unit filename="/Volumes/GITS/ICT397-Project/ICT397-Project-Engine/GladSkybox.h">
+			<Option target="TNAH-Project"/>
+		</Unit>
+		<Unit filename="/Volumes/GITS/ICT397-Project/ICT397-Project-Engine/GlewBuffer.cpp">
+			<Option target="TNAH-Project"/>
+		</Unit>
+		<Unit filename="/Volumes/GITS/ICT397-Project/ICT397-Project-Engine/GlewBuffer.h">
+			<Option target="TNAH-Project"/>
+		</Unit>
+		<Unit filename="/Volumes/GITS/ICT397-Project/ICT397-Project-Engine/GlewShader.cpp">
+			<Option target="TNAH-Project"/>
+		</Unit>
+		<Unit filename="/Volumes/GITS/ICT397-Project/ICT397-Project-Engine/GlewShader.h">
+			<Option target="TNAH-Project"/>
+		</Unit>
+		<Unit filename="/Volumes/GITS/ICT397-Project/ICT397-Project-Engine/GlfwWindow.cpp">
+			<Option target="TNAH-Project"/>
+		</Unit>
+		<Unit filename="/Volumes/GITS/ICT397-Project/ICT397-Project-Engine/GlfwWindow.h">
+			<Option target="TNAH-Project"/>
+		</Unit>
+		<Unit filename="/Volumes/GITS/ICT397-Project/ICT397-Project-Engine/Input.cpp">
+			<Option target="TNAH-Project"/>
+		</Unit>
+		<Unit filename="/Volumes/GITS/ICT397-Project/ICT397-Project-Engine/Input.h">
+			<Option target="TNAH-Project"/>
+		</Unit>
+		<Unit filename="/Volumes/GITS/ICT397-Project/ICT397-Project-Engine/Mesh.cpp">
+			<Option target="TNAH-Project"/>
+		</Unit>
+		<Unit filename="/Volumes/GITS/ICT397-Project/ICT397-Project-Engine/Mesh.h">
+			<Option target="TNAH-Project"/>
+		</Unit>
+		<Unit filename="/Volumes/GITS/ICT397-Project/ICT397-Project-Engine/Model.cpp">
+			<Option target="TNAH-Project"/>
+		</Unit>
+		<Unit filename="/Volumes/GITS/ICT397-Project/ICT397-Project-Engine/Model.h">
+			<Option target="TNAH-Project"/>
+		</Unit>
+		<Unit filename="/Volumes/GITS/ICT397-Project/ICT397-Project-Engine/Player.cpp">
+			<Option target="TNAH-Project"/>
+		</Unit>
+		<Unit filename="/Volumes/GITS/ICT397-Project/ICT397-Project-Engine/Player.h">
+			<Option target="TNAH-Project"/>
+		</Unit>
+		<Unit filename="/Volumes/GITS/ICT397-Project/ICT397-Project-Engine/Renderer.cpp">
+			<Option target="TNAH-Project"/>
+		</Unit>
+		<Unit filename="/Volumes/GITS/ICT397-Project/ICT397-Project-Engine/Renderer.h">
+			<Option target="TNAH-Project"/>
+		</Unit>
+		<Unit filename="/Volumes/GITS/ICT397-Project/ICT397-Project-Engine/Scene.cpp">
+			<Option target="TNAH-Project"/>
+		</Unit>
+		<Unit filename="/Volumes/GITS/ICT397-Project/ICT397-Project-Engine/Scene.h">
+			<Option target="TNAH-Project"/>
+		</Unit>
+		<Unit filename="/Volumes/GITS/ICT397-Project/ICT397-Project-Engine/Shader.cpp">
+			<Option target="TNAH-Project"/>
+		</Unit>
+		<Unit filename="/Volumes/GITS/ICT397-Project/ICT397-Project-Engine/Shader.h">
+			<Option target="TNAH-Project"/>
+		</Unit>
+		<Unit filename="/Volumes/GITS/ICT397-Project/ICT397-Project-Engine/Skybox.cpp">
+			<Option target="TNAH-Project"/>
+		</Unit>
+		<Unit filename="/Volumes/GITS/ICT397-Project/ICT397-Project-Engine/Skybox.h">
+			<Option target="TNAH-Project"/>
+		</Unit>
+		<Unit filename="/Volumes/GITS/ICT397-Project/ICT397-Project-Engine/Static.cpp">
+			<Option target="TNAH-Project"/>
+		</Unit>
+		<Unit filename="/Volumes/GITS/ICT397-Project/ICT397-Project-Engine/Static.h">
+			<Option target="TNAH-Project"/>
+		</Unit>
+		<Unit filename="/Volumes/GITS/ICT397-Project/ICT397-Project-Engine/Terrain.cpp">
+			<Option target="TNAH-Project"/>
+		</Unit>
+		<Unit filename="/Volumes/GITS/ICT397-Project/ICT397-Project-Engine/Terrain.h">
+			<Option target="TNAH-Project"/>
+		</Unit>
+		<Unit filename="/Volumes/GITS/ICT397-Project/ICT397-Project-Engine/Texture.cpp">
+			<Option target="TNAH-Project"/>
+		</Unit>
+		<Unit filename="/Volumes/GITS/ICT397-Project/ICT397-Project-Engine/Texture.h">
+			<Option target="TNAH-Project"/>
+		</Unit>
+		<Unit filename="/Volumes/GITS/ICT397-Project/ICT397-Project-Engine/TextureLoader.cpp">
+			<Option target="TNAH-Project"/>
+		</Unit>
+		<Unit filename="/Volumes/GITS/ICT397-Project/ICT397-Project-Engine/TextureLoader.h">
+			<Option target="TNAH-Project"/>
+		</Unit>
+		<Unit filename="/Volumes/GITS/ICT397-Project/ICT397-Project-Engine/Window.cpp">
+			<Option target="TNAH-Project"/>
+		</Unit>
+		<Unit filename="/Volumes/GITS/ICT397-Project/ICT397-Project-Engine/Window.h">
+			<Option target="TNAH-Project"/>
+		</Unit>
+		<Unit filename="/Volumes/GITS/ICT397-Project/ICT397-Project-Engine/application.cpp">
+			<Option target="TNAH-Project"/>
+		</Unit>
+		<Unit filename="/Volumes/GITS/ICT397-Project/ICT397-Project-Engine/glad.c">
+			<Option target="TNAH-Project"/>
+		</Unit>
+		<Unit filename="/Volumes/GITS/ICT397-Project/ICT397-Project-Engine/stb.cpp">
+			<Option target="TNAH-Project"/>
+		</Unit>
+		<Unit filename="/Volumes/GITS/ICT397-Project/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="/Volumes/GITS/ICT397-Project/../../../usr/local/lib/cmake/glfw3/GLFW3Config.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\usr\local\lib\cmake\glfw3\"/>
+		</Unit>
+		<Unit filename="/Volumes/GITS/ICT397-Project/../../../usr/local/lib/cmake/glfw3/GLFW3ConfigVersion.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\usr\local\lib\cmake\glfw3\"/>
+		</Unit>
+		<Unit filename="/Volumes/GITS/ICT397-Project/../../../usr/local/lib/cmake/glfw3/glfw3Targets-release.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\usr\local\lib\cmake\glfw3\"/>
+		</Unit>
+		<Unit filename="/Volumes/GITS/ICT397-Project/../../../usr/local/lib/cmake/glfw3/glfw3Targets.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\usr\local\lib\cmake\glfw3\"/>
+		</Unit>
+		<Unit filename="/Volumes/GITS/ICT397-Project/../../../usr/local/lib/cmake/glm/GLMConfig-version.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\usr\local\lib\cmake\glm\"/>
+		</Unit>
+		<Unit filename="/Volumes/GITS/ICT397-Project/../../../usr/local/lib/cmake/glm/GLMConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\usr\local\lib\cmake\glm\"/>
+		</Unit>
+		<Unit filename="/Volumes/GITS/ICT397-Project/../../../usr/local/lib/cmake/assimp-5.0/assimp-config-version.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\usr\local\lib\cmake\assimp-5.0\"/>
+		</Unit>
+		<Unit filename="/Volumes/GITS/ICT397-Project/../../../usr/local/lib/cmake/assimp-5.0/assimp-config.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\usr\local\lib\cmake\assimp-5.0\"/>
+		</Unit>
+		<Unit filename="/Volumes/GITS/ICT397-Project/../../../usr/local/lib/cmake/assimp-5.0/assimpTargets-release.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\usr\local\lib\cmake\assimp-5.0\"/>
+		</Unit>
+		<Unit filename="/Volumes/GITS/ICT397-Project/../../../usr/local/lib/cmake/assimp-5.0/assimpTargets.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\usr\local\lib\cmake\assimp-5.0\"/>
+		</Unit>
+		<Unit filename="/Volumes/GITS/ICT397-Project/ICT397-Project-Engine/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\ICT397-Project-Engine\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>
