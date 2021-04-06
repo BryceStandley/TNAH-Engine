@@ -2,6 +2,11 @@
 
 void GlfwWindow::Init(std::string title, int h, int w)
 {
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
     /* Create a windowed mode window and its OpenGL context */
     gameWindow = glfwCreateWindow(w, h, title.c_str(), NULL, NULL);
     if (!gameWindow)
@@ -19,7 +24,7 @@ void GlfwWindow::Init(std::string title, int h, int w)
     /* Make the window's context current */
     glfwMakeContextCurrent(gameWindow);
 
-        ///locks the cursor to the window
+    ///locks the cursor to the window
     glfwSetInputMode(gameWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     
 }

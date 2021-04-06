@@ -24,17 +24,14 @@ target_sources(${PROJECT_NAME} PRIVATE
     "View.h"
     "Window.h"
     "Windows.h"
-)
-
-
-target_sources(${PROJECT_NAME} PRIVATE
+    "BoundingBox.h"
+    "BoundingBox.cpp"
     "application.cpp"
     "Callbacks.cpp"
     "Enemy.cpp"
     "Engine.cpp"
     "GameAssetFactory.cpp"
     "GameObject.cpp"
-    "glad.c"
     "GlfwWindow.cpp"
     "Input.cpp"
     "luaManager.cpp"

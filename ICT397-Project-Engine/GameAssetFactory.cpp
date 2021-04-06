@@ -19,6 +19,10 @@ GameObject* GameAssetFactory::GetGameObject(std::string type, std::string modelN
 		obj->SetPos(glm::vec3(position));
 		obj->SetScale(scale);
 		obj->SetRotate(false);
+        BoundingBox box = BoundingBox();
+        box = box.GenerateBoundingBox(&ourModel.meshes[0]);
+        obj->SetBoundingBox(box);
+        obj->SetCollisionTag(BoundingBox::CollisionTag::STATIC_OBJECT);
 		return obj;
 	}
 	else if (type == "enemy")
@@ -31,6 +35,7 @@ GameObject* GameAssetFactory::GetGameObject(std::string type, std::string modelN
 		obj->SetPos(glm::vec3(position));
 		obj->SetScale(scale);
 		obj->SetRotate(false);
+		obj->SetCollisionTag(BoundingBox::CollisionTag::ENEMY);
 		return obj;
 	}
 	else if (type == "token")
@@ -44,6 +49,7 @@ GameObject* GameAssetFactory::GetGameObject(std::string type, std::string modelN
 		obj->SetScale(scale);
 		obj->SetRotate(true);
 		obj->SetSpeed(speed);
+		obj->SetCollisionTag(BoundingBox::CollisionTag::TOKEN);
 		return obj;
 	}
 	else

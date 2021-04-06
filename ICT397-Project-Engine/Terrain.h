@@ -5,9 +5,9 @@
 #include <vector>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
-#include <time.h>
+#include <ctime>
 
-#include "shader.h"
+#include "Shader.h"
 #include "TextureLoader.h"
 #include "Input.h"
 
@@ -49,10 +49,10 @@ private:
 		/// struct containing vectors that will hold specific vertex data
 	struct Vertex
 	{
-		std::vector<glm::vec3> position = {};
-		std::vector<glm::vec3> color = {};
-		std::vector<glm::vec3> texture = {};
-		std::vector<glm::vec3> normal = {};
+		std::vector<glm::vec3> position;
+		std::vector<glm::vec3> color;
+		std::vector<glm::vec3> texture;
+		std::vector<glm::vec3> normal;
 	};
 	
 		///the size of the heightfield along x and z - power of 2
@@ -63,9 +63,9 @@ private:
 	float maxHeight = 0.0f;
 	TextureLoader t;
 	bool wireFlag = false;
-	std::vector<unsigned int> Indices = {};
+	std::vector<unsigned int> Indices;
 	Vertex vertex{};
-	std::vector<glm::vec3> totalData = {};
+	std::vector<glm::vec3> totalData;
 	std::string filename;
 	std::string tex1, tex2, tex3, tex4, tex5;
 	

@@ -21,6 +21,10 @@
 * @version 01
 * @date 29/03/2021 Christopher Logan, Started
 *
+*@author Bryce Standley
+*@version 02
+*@date 06/04/2021 Bryce Standley, Ammended
+*
 *
 **/
 class Scene
@@ -90,6 +94,29 @@ public:
 		* @brief Gets the playerInd value and returns it
 		*/
 	int GetPlayerIndice() { return playerInd; }
+
+	/**
+	 * @brief Finds the playerInd value within the Scenes gameObjects
+	 */
+	void FindPlayerIndice();
+
+	/**
+	 * @brief Checks the players position against scene game objects for collisions
+	 * @param pos - current position the player has moved to
+	 * @return vec3 - new position if player collides with a object
+	 */
+	glm::vec3 CheckSceneCollision(glm::vec3 pos);
+
+	/**
+	 *
+	 * @param o
+	 * @param d
+	 * @param so
+	 * @param radius
+	 * @param ip
+	 * @return bool
+	 */
+	static bool intersectRaySegmentSphere(glm::vec3 o, glm::vec3 d, glm::vec3 so, float radius, glm::vec3 &ip);
 
 private:
 		///The game renderer that renders items

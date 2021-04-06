@@ -20,7 +20,7 @@ public:
 		/*
 		* @breif Default constructor
 		*/
-	Player() :GameObject(){}
+	Player() :GameObject(){ Update(0.0f);}
 
 		/*
 		* @breif Updates the game object with functionality

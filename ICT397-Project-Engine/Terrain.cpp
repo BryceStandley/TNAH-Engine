@@ -80,19 +80,19 @@ void Terrain::luaLoader()
         if (xScale.isNumber())
         {
             xScaler = xScale.cast<int>();
-            this->scaleX = xScaler;
+            this->scaleX = (float)xScaler;
         }
 
         if (yScale.isNumber())
         {
             yScaler = yScale.cast<int>();
-            this->scaleY = yScaler;
+            this->scaleY = (float)yScaler;
         }
 
         if (zScale.isNumber())
         {
             zScaler = zScale.cast<int>();
-            this->scaleZ = zScaler;
+            this->scaleZ = (float)zScaler;
         }
 
         if (tex1.isString())
@@ -155,8 +155,8 @@ bool Terrain::LoadHeightField(std::string filename, int size)
         std::cout << "File aint here brother" << std::endl;
         return false;
     }
-    if (terrainData)
-        delete[] terrainData;
+    //if (terrainData)
+    //    delete[] terrainData;
 
     if (size > 0)
     {
@@ -164,7 +164,7 @@ bool Terrain::LoadHeightField(std::string filename, int size)
         terrainData = new unsigned char[nSize];
     }
 
-    if (terrainData == NULL)
+    if (terrainData == nullptr)
         return false;
 
     file.seekg(0, std::ios::end);
@@ -226,7 +226,7 @@ unsigned char Terrain::getHeightColor(int xpos, int zpos) {
 
 bool Terrain::inBounds(int xpos, int zpos)
 {
-    if ((xpos >= 0 && xpos < size * scaleX) && (zpos >= 0 && zpos < size * scaleZ))
+    if ((xpos >= 0 && (float)xpos < (float)size * scaleX) && (zpos >= 0 && zpos < (float)size * scaleZ))
         return true;
     else
         return false;
@@ -243,7 +243,7 @@ void Terrain::generateVertices(Vertex& vertex)
     {
         for (unsigned int x = 0; x < getSize(); ++x)
         {
-            glm::vec3 positions(x * scaleX, getHeight(x, z) / 10.0f, z * scaleZ);
+            glm::vec3 positions((float)x * scaleX, getHeight((int)x, (int)z) / 10.0f, (float)z * scaleZ);
             vertex.position.push_back(positions);
         }
     }
@@ -262,7 +262,7 @@ void Terrain::generateIndices(std::vector<unsigned int>& indices)
                 indices.push_back((z * getSize()) + x + getSize());
             }
         }
-        indices.push_back(0xFFFFFFFFF);
+        indices.push_back(0xFFFFFFFF);
     }
 }
 
@@ -274,7 +274,7 @@ void Terrain::generateColors(Vertex& vertex)
     {
         for (unsigned int x = 0; x < getSize(); ++x)
         {
-            colorVal = (float)getHeightColor(x, z) / 255;
+            colorVal = (float)getHeightColor((int)x, (int)z) / 255;
             glm::vec3 color(0.0f, colorVal, 0.0f);
             vertex.color.push_back(color);
         }
@@ -288,7 +288,7 @@ void Terrain::generateTextures(Vertex& vertex)
     {
         for (unsigned int x = 0; x < getSize(); ++x)
         {
-            glm::vec3 tex(((float)x / getSize()) * 5.0f, 0.0f, ((float)z / getSize()) * 5.0f);
+            glm::vec3 tex(((float)x / (float)getSize()) * 5.0f, 0.0f, ((float)z / (float)getSize()) * 5.0f);
             vertex.texture.push_back(tex);
         }
     }

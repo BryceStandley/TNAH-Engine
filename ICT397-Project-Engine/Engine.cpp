@@ -72,18 +72,20 @@ Engine::Engine()
 
 	for (int i = 1; i <= amount; i++)
 	{
-		Scene* scene = new Scene("Scene " + i, render);
-		gameScenes.push_back(scene);
+	    Scene* scene = new Scene("Scene " + i, render);
+        gameScenes.push_back(scene);
 		std::string path = "./res/scripts/scene" + std::to_string(i) + ".lua";
 		std::cout << "Path: " << path << std::endl;
 		LuaScenes(path, i-1);
+		scene->FindPlayerIndice();
+
 	}
 
 }
 
 Engine::~Engine()
 {
-	if (window != NULL)
+	if (window != nullptr)
 		delete[] window;
 }
 

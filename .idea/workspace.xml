@@ -12,23 +12,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="127c4cee-4109-4dc5-a120-c50cf0ff91ca" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ICT397-Project-Engine/CMakeLists.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ICT397-Project-Engine/BoundingBox.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ICT397-Project-Engine/BoundingBox.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeCache.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeCache.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile2" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/TNAH-Project.dir/DependInfo.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/TNAH-Project.dir/DependInfo.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/TNAH-Project.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/TNAH-Project.dir/build.make" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/TNAH-Project.dir/cmake_clean.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/TNAH-Project.dir/cmake_clean.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/TNAH-Project.dir/flags.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/TNAH-Project.dir/flags.make" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/TNAH-Project.dir/link.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/TNAH-Project.dir/link.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/TNAH-Project.dir/progress.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/TNAH-Project.dir/progress.make" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/progress.marks" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/progress.marks" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Makefile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/TNAH-Project.cbp" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/TNAH-Project.cbp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/Engine.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Engine.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/GameAssetFactory.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/GameAssetFactory.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/GameAssetFactory.h" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/GameAssetFactory.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/GameObject.h" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/GameObject.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/GlfwWindow.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/GlfwWindow.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/Mesh.h" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Mesh.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/Model.h" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Model.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/Player.h" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Player.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/Scene.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Scene.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/Scene.h" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Scene.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/Terrain.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Terrain.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/Terrain.h" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Terrain.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/glad.c" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/glad.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/glad/glad.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/glad/glad.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,6 +40,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="ClangdSettings">
+    <option name="clangTidyViaClangd" value="false" />
     <option name="formatViaClangd" value="false" />
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
@@ -55,9 +60,11 @@
   </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="false" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -105,7 +112,7 @@
       <workItem from="1617542776306" duration="288000" />
       <workItem from="1617543087142" duration="1332000" />
       <workItem from="1617679490335" duration="5387000" />
-      <workItem from="1617688341665" duration="5077000" />
+      <workItem from="1617688341665" duration="29462000" />
     </task>
     <servers />
   </component>

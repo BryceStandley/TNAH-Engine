@@ -1,5 +1,6 @@
 #pragma once
 #include "Model.h"
+#include "BoundingBox.h"
 /**
  * @class GameObject
  * @brief Class that holds the main information of a game object, that is abstracted for more specific reasons
@@ -19,7 +20,7 @@ public:
 		/**
 		* @brief  Default constructor
 		*/
-	GameObject() { rotation = glm::vec3(0, 0, 0); rotate = false; pos = glm::vec3(0, 0, 0); scale = 0.2; rotate = false; speed = 0; }
+	GameObject() { rotation = glm::vec3(0, 0, 0); rotate = false; pos = glm::vec3(0, 0, 0); scale = 0.2; rotate = false; speed = 0; boundingBox = BoundingBox();}
 
 		/**
 		* @brief Constructor
@@ -28,7 +29,7 @@ public:
 		* @param rot - The new rotation
 		* @param s - The scale
 		*/
-	GameObject(glm::vec3 p, glm::vec3 fixRot, glm::vec3 rot, float s) { pos = p; rotation = rot; scale = s; speed = 0; rotate = false; }
+	GameObject(glm::vec3 p, glm::vec3 fixRot, glm::vec3 rot, float s) { pos = p; rotation = rot; scale = s; speed = 0; rotate = false; boundingBox = BoundingBox();}
 
 		/**
 		* @brief Updates the classes functionality
@@ -138,6 +139,34 @@ public:
 		* @return type
 		*/
 	std::string GetType(){ return type; }
+
+	/**
+	 * @brief Sets gameobject's bounding box object
+	 * @param b
+	 */
+	void SetBoundingBox(BoundingBox b){boundingBox = b;}
+
+	/**
+	 * @brief Gets a gameobjec's boundingbox object
+	 * @return BoundingBox
+	 */
+    BoundingBox GetBoundingBox(){return boundingBox;}
+
+
+    /**
+     * @brief Sets tag of a given object
+     * @param t
+     */
+    void SetCollisionTag(BoundingBox::CollisionTag t){tag = t;}
+
+    /**
+     * @brief Gets the objects tag
+     * @return tag
+     */
+    BoundingBox::CollisionTag GetTag(){return tag;}
+
+
+
 private:
 	Model model;
 	Shader shader;
@@ -147,5 +176,7 @@ private:
 	glm::vec3 pos;
 	glm::vec3 rotation;
 	float scale;
+    BoundingBox::CollisionTag tag;
+	BoundingBox boundingBox;
 };
 

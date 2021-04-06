@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "Token.h"
+#include "BoundingBox.h"
 /**
  * @class GameAssetFactory
  * @brief Holds the information so that game objects can be made in the engine
