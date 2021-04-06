@@ -34,6 +34,8 @@ bld/
 [Oo]bj/
 [Ll]og/
 [Ll]ogs/
+[Bb]uild/
+cmake-build-debug/
 
 # Visual Studio 2015/2017 cache/options directory
 .vs/
@@ -363,4 +365,3 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
-ICT397-Project-Engine/6cy5k8eqi.jpg
