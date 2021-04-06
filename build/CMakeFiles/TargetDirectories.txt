@@ -1,5 +1,0 @@
-/Volumes/GITS/ICT397-Project/build/CMakeFiles/rebuild_cache.dir
-/Volumes/GITS/ICT397-Project/build/CMakeFiles/edit_cache.dir
-/Volumes/GITS/ICT397-Project/build/CMakeFiles/TNAH-Project.dir
-/Volumes/GITS/ICT397-Project/build/ICT397-Project-Engine/CMakeFiles/rebuild_cache.dir
-/Volumes/GITS/ICT397-Project/build/ICT397-Project-Engine/CMakeFiles/edit_cache.dir
