@@ -9,7 +9,7 @@ class GameAssetFactory
 {
 public:
 	GameAssetFactory(Renderer* r) { renderer = r; playerMade = false; }
-	GameObject* GetGameObject(std::string t, std::string modelName, std::string shaderV, std::string shaderF, float scale , glm::vec3 position, bool rotate);
+	GameObject* GetGameObject(std::string t, std::string modelName, std::string shaderV, std::string shaderF, float scale , glm::vec3 position, float speed);
 private:
 	bool playerMade;
 	Renderer* renderer;

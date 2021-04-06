@@ -101,7 +101,7 @@ void Engine::Run()
 			deltaTime = window->GetTime();
 
 			window->Update();
-			gameScenes[currentScene]->Run(window->GetLens());
+			gameScenes[currentScene]->Run(window->GetLens(), deltaTime);
 			glm::vec3 pos = gameScenes[currentScene]->GetGameObject(gameScenes[currentScene]->GetPlayerIndice())->GetPos();
 			window->UpdateCamera(pos);
 			window->GameInput(deltaTime);

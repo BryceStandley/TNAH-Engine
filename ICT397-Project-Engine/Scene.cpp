@@ -18,7 +18,7 @@ Scene::~Scene()
 	delete[]factory;
 }
 
-void Scene::Run(View lens)
+void Scene::Run(View lens, float time)
 {
 	//Terrain
 	gameRenderer->BindTexture(gameTerrain->GetTextIds());
@@ -92,11 +92,15 @@ void Scene::UpdatePlayer(glm::vec3 position)
 	gameObjects[playerInd]->SetPos(pos);
 }
 
-void Scene::MakeGameObject(std::string t, std::string modelName, std::string shaderV, std::string shaderF, float scale, float x, float y, float z, bool rotate)
+void Scene::MakeGameObject(std::string t, std::string modelName, std::string shaderV, std::string shaderF, float scale, float x, float y, float z, float speed)
 {
-	GameObject* newGameObject = factory->GetGameObject(t, modelName, shaderV, shaderF, scale, glm::vec3(x, y, z), rotate);
+	GameObject* newGameObject = factory->GetGameObject(t, modelName, shaderV, shaderF, scale, glm::vec3(x, y, z), speed);
 	if (newGameObject != nullptr)
 	{
 		gameObjects.push_back(newGameObject);
+	}
+	else
+	{
+		std::cout << "ERROR::GAME_ASSET_FACTORY::TYPE_UNKNOWN" << std::endl;
 	}
 }

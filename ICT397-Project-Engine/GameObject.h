@@ -19,7 +19,7 @@ public:
 		/**
 		* @brief  Default constructor
 		*/
-	GameObject() { pos = glm::vec3(0, 0, 0); scale = 0.2; rotate = false; }
+	GameObject() { pos = glm::vec3(0, 0, 0); scale = 0.2; rotate = false; speed = 0; }
 
 		/**
 		* @brief Constructor
@@ -28,11 +28,13 @@ public:
 		* @param rot - The new rotation
 		* @param s - The scale
 		*/
-	GameObject(glm::vec3 p, glm::vec3 fixRot, glm::vec3 rot, float s) { pos = p; rotation = rot; scale = s; }
+	GameObject(glm::vec3 p, glm::vec3 fixRot, glm::vec3 rot, float s) { pos = p; rotation = rot; scale = s; speed = 0; }
 	virtual void Update(float time);
+	void SetSpeed(float s) { speed = s; }
 	void SetRotation(glm::vec3 r) { rotation = r; }
 	void SetPos(glm::vec3 p) { pos = p; }
 	void SetScale(float size) { scale = size; }
+	float GetSpeed() { return speed; }
 	glm::vec3 GetPos() const { return pos; }
 	glm::vec3 GetRotation() const { return rotation; }
 	float GetScale() const { return scale; }
@@ -45,6 +47,7 @@ public:
 	std::string GetType(){ return type; }
 private:
 	std::string type;
+	float speed;
 	glm::vec3 pos;
 	glm::vec3 rotation;
 	float scale;

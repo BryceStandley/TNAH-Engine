@@ -46,7 +46,7 @@ public:
 		* @brief Runs the scene, setting up objects for rendering and changes
 		* @param lens - Holds information to do with the position of the camera, projects and views
 		*/
-	void Run(View lens);
+	void Run(View lens, float time);
 
 		/**
 		* @brief Initilises the scene, setting up the terrain and skybox
@@ -70,8 +70,9 @@ public:
 		* @param y - The y position of the object
 		* @param z - The z position of the object
 		* @param rotate - Sets if the model needs to be rotated on entry
+		* @param speed - The speed at which it moves
 		*/
-	void MakeGameObject(std::string t, std::string modelName, std::string shaderV, std::string shaderF, float scale, float x, float y, float z, bool rotate);
+	void MakeGameObject(std::string t, std::string modelName, std::string shaderV, std::string shaderF, float scale, float x, float y, float z, float speed);
 
 		/**
 		* @brief Gets a gameobject from the game objects
