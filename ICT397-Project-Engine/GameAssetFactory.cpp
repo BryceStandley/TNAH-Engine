@@ -14,11 +14,11 @@ GameObject* GameAssetFactory::GetGameObject(std::string type, std::string modelN
 		Shader ourShader(shaderV.c_str(), shaderF.c_str());
 		Model ourModel(modelName, renderer);
 		GameObject* obj = new Static();
-		obj->model = ourModel;
-		obj->shader = ourShader;
+		obj->SetModel(ourModel);
+		obj->SetShader(ourShader);
 		obj->SetPos(glm::vec3(position));
 		obj->SetScale(scale);
-		obj->rotate = false;
+		obj->SetRotate(false);
 		return obj;
 	}
 	else if (type == "enemy")
@@ -26,11 +26,11 @@ GameObject* GameAssetFactory::GetGameObject(std::string type, std::string modelN
 		Shader ourShader(shaderV.c_str(), shaderF.c_str());
 		Model ourModel(modelName, renderer);
 		GameObject* obj = new Enemy();
-		obj->model = ourModel;
-		obj->shader = ourShader;
+		obj->SetModel(ourModel);
+		obj->SetShader(ourShader);
 		obj->SetPos(glm::vec3(position));
 		obj->SetScale(scale);
-		obj->rotate = false;
+		obj->SetRotate(false);
 		return obj;
 	}
 	else if (type == "token")
@@ -38,11 +38,11 @@ GameObject* GameAssetFactory::GetGameObject(std::string type, std::string modelN
 		Shader ourShader(shaderV.c_str(), shaderF.c_str());
 		Model ourModel(modelName, renderer);
 		GameObject* obj = new Token();
-		obj->model = ourModel;
-		obj->shader = ourShader;
+		obj->SetModel(ourModel);
+		obj->SetShader(ourShader);
 		obj->SetPos(glm::vec3(position));
 		obj->SetScale(scale);
-		obj->rotate = true;
+		obj->SetRotate(true);
 		obj->SetSpeed(speed);
 		return obj;
 	}

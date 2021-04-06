@@ -24,11 +24,27 @@ using namespace luabridge;
 class Engine
 {
 public:
+		/**
+		* @brief Default constructor
+		*/
 	Engine();
+
+		/**
+		* @brief Destructor
+		*/
 	~Engine();
+
+		/**
+		* @brief Runs the game loop
+		*/
 	void Run();
 private:
 
+		/**
+		* @brief Loads in a lua scene file, loading up all the assets
+		* @param file - The file path to the script
+		* @param i - The scene number
+		*/
 	void LuaScenes(std::string file, int i);
 
 		///Pointer for the window
