@@ -78,6 +78,7 @@ public:
      * @brief Collision tag used for collision checking on a object
      */
     enum CollisionTag{
+        PLAYER,
         TOKEN,
         STATIC_OBJECT,
         ENEMY

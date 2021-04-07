@@ -69,6 +69,9 @@ void Scene::Init()
 
 void Scene::UpdatePlayer(glm::vec3 position)
 {
+    //if the player hasn't moved, break, no need to do more work here
+    if(position == gameObjects[playerInd]->GetPos()) return;
+
 	glm::vec3 pos = position;
 	float worldx, worldz;
 
@@ -124,8 +127,9 @@ glm::vec3 Scene::CheckSceneCollision(glm::vec3 pos)
 
     for(auto &go : gameObjects)
     {
+        if(go->GetTag() == BoundingBox::PLAYER) continue;
         float distance = glm::distance(playerSphereOrigin, go->GetPos());
-        if(go->GetTag() == BoundingBox::TOKEN && distance < playerSphereRadius) {std::cout << "Token Hit" << std::endl; continue;}
+        if(go->GetTag() == BoundingBox::TOKEN && distance < playerSphereRadius) {std::cout << go->GetName() << " Hit with distance: " << distance << std::endl; continue;}
         if(go->GetTag() == BoundingBox::ENEMY && distance < playerSphereRadius) {std::cout << "Enemy Hit" << std::endl; continue;}
         if(go->GetTag() != BoundingBox::STATIC_OBJECT) continue;
         if(distance < playerSphereRadius)

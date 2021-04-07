@@ -66,6 +66,7 @@ public:
 		/**
 		* @brief Function that uses the game asset factory to create a new game object
 		* @param t - the type of game object it is
+		* @param n - Name of the object
 		* @param modalName - the file path to load in the model
 		* @param shaderV - The vertex shader file path
 		* @param shaderF - The fragment shader file path

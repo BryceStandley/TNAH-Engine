@@ -165,12 +165,24 @@ public:
      */
     BoundingBox::CollisionTag GetTag(){return tag;}
 
+    /**
+     * @brief Sets the name of a game object
+     * @param n
+     */
+    void SetName(std::string n) {name = n;}
+
+    /**
+     * @brief Gets the name of a Gameobject
+     * @return string name
+     */
+    std::string GetName(){return name;}
 
 
 private:
 	Model model;
 	Shader shader;
 	bool rotate;
+	std::string name;
 	std::string type;
 	float speed;
 	glm::vec3 pos;

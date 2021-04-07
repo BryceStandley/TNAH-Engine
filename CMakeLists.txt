@@ -36,4 +36,7 @@ add_subdirectory(${PROJECT_SOURCE_DIR}/ICT397-Project-Engine)
 target_link_libraries(${PROJECT_NAME} ${GLAD_LIBRARY} ${ASSIMP_LIBRARY} ${GLFW_LIBRARY} ${LUA_LIBRARY})
 
 # Copy resource files
-file(COPY ${PROJECT_SOURCE_DIR}/ICT397-Project-Engine/res DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+#file(COPY ${PROJECT_SOURCE_DIR}/ICT397-Project-Engine/res DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E create_symlink
+        ${PROJECT_SOURCE_DIR}/ICT397-Project-Engine/res ${CMAKE_CURRENT_BINARY_DIR}/res )
