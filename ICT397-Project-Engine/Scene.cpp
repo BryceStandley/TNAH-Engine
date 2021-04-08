@@ -48,7 +48,7 @@ void Scene::Run(View lens, float time)
 	}
 
 	//If game object is of type player
-	UpdatePlayer(lens.GetPosition());
+	UpdatePlayer(lens.GetPosition(), lens.GetRotation());
 }
 
 void Scene::Init()
@@ -67,8 +67,9 @@ void Scene::Init()
 
 }
 
-void Scene::UpdatePlayer(glm::vec3 position)
+void Scene::UpdatePlayer(glm::vec3 position, glm::vec3 rotation)
 {
+    //gameObjects[playerInd]->SetRotation(glm::vec3(rotation.y * -1, 90 + (rotation.x * -1), 0));
     //if the player hasn't moved, break, no need to do more work here
     if(position == gameObjects[playerInd]->GetPos()) return;
 

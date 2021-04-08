@@ -148,6 +148,7 @@ void GlfwWindow::Update()
     Restart();
     lens.SetSkyview(camera.GetViewMatrix());
     lens.SetPosition(camera.Position);
+    lens.SetRotation(glm::vec3(camera.Yaw, camera.Pitch, 0));
 }
 
 bool GlfwWindow::Running()

@@ -42,10 +42,16 @@ public:
 	void SetSkyview(const glm::mat4 s) { skyview = s; }
 
 		/**
-		* @brief sets the position matrix
-		* @param const p - represents the matrix that is assigned to the position
+		* @brief sets the position vector
+		* @param const p - represents the vector that is assigned to the position
 		*/
 	void SetPosition(const glm::vec3 p) { position = p; }
+
+		/**
+		* @brief sets the position vector
+		* @param const p - represents the vector that is assigned to the position
+		*/
+	void SetRotation(const glm::vec3 r) { rotation = r; }
 
 		/**
 		* @brief gets and returns the projection matrix
@@ -72,10 +78,16 @@ public:
 	glm::mat4 GetSkyview() { return skyview; }
 
 		/**
-		* @brief gets and returns the position matrix
-		* @returns glm::mat4
+		* @brief gets and returns the position vector
+		* @returns glm::vec3
 		*/
 	glm::vec3 GetPosition() { return position; }
+
+		/**
+		* @brief Gets and returns the rotation vector
+		* @returns glm::vec3
+		*/
+	glm::vec3 GetRotation() { return rotation; }
 
 private:
 	glm::mat4 projection;
@@ -83,5 +95,6 @@ private:
 	glm::mat4 model;
 	glm::mat4 skyview;
 	glm::vec3 position;
+	glm::vec3 rotation;
 };
 

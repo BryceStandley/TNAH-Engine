@@ -3,79 +3,46 @@
 #include <string>
 #include <iostream>
 #include "luaManager.h"
+/**
+ * @class Input
+ * @brief Holds the variables for the keys being pressed on the keyboard
+ *
+ * @author Christopher Logan
+ * @version 01
+ * @date 1/04/2021
+ *
+ *
+ * @bugs none to be seen
+ *
+ **/
 using namespace luabridge;
 class Input
 {
 public:
-	Input()
-	{
-		lua_State* L = LuaManager::getInstance().getLuaState();
+		/**
+		* @brief Default constructor that first checks to see if there is a lua file and use it, if not there is a default input scheme
+		*/
+	Input();
 
-		if (luaL_dofile(L, "./res/scripts/input.lua"))
-		{
-			std::cout << "ERROR::INPUT_LUA::FILE_WAS_NOT_FOUND::DEFAULT_INPUT" << std::endl;
-			foward = GLFW_KEY_W;
-			back = GLFW_KEY_S;
-			left = GLFW_KEY_A;
-			right = GLFW_KEY_D;
-			wireOn = GLFW_KEY_UP;
-			wireOff = GLFW_KEY_DOWN;
-			exit = GLFW_KEY_ESCAPE;
-		}
-		else
-		{
-			std::cout << "INPUT_LUA::FILE_FOUND::INPUT_SET" << std::endl;
-			LuaRef f = getGlobal(L, "foward");
-			LuaRef b = getGlobal(L, "back");
-			LuaRef l = getGlobal(L, "left");
-			LuaRef r = getGlobal(L, "right");
-			LuaRef on = getGlobal(L, "on");
-			LuaRef off = getGlobal(L, "off");
-			LuaRef ex = getGlobal(L, "exit");
-
-			if (f.isNumber())
-			{
-				foward = f.cast<int>();
-			}
-
-			if (b.isNumber())
-			{
-				back = b.cast<int>();
-			}
-
-			if (l.isNumber())
-			{
-				left = l.cast<int>();
-			}
-
-			if (r.isNumber())
-			{
-				right = r.cast<int>();
-			}
-
-			if (on.isNumber())
-			{
-				wireOn = on.cast<int>();
-			}
-
-			if (off.isNumber())
-			{
-				wireOff = off.cast<int>();
-			}
-
-			if (ex.isNumber())
-			{
-				exit = ex.cast<int>();
-			}
-		}
-	;}
-
+		///The foward input key
 	int foward;
+
+		///The backward input key
 	int back;
+	
+		///The left input key
 	int left;
+
+		///The right input key
 	int right;
+
+		///The wireframeOn input key
 	int wireOn;
+
+		///The wireframeOff input key
 	int wireOff;
+
+		///The exiting input key
 	int exit;
 };
 
