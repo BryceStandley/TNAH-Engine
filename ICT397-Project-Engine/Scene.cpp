@@ -73,27 +73,25 @@ void Scene::UpdatePlayer(glm::vec3 position, glm::vec3 rotation)
     //if the player hasn't moved, break, no need to do more work here
     if(position == gameObjects[playerInd]->GetPos()) return;
 
-	glm::vec3 pos = position;
-	float worldx, worldz;
+    position.y = WorldToTerrainPosition(position).y + 1.5f;
 
-	worldx = (pos.x / 100.0f) * (float)gameTerrain->getSize();
-	worldz = (pos.z / 100.0f) * (float)gameTerrain->getSize();
-	
-	pos.y = 1.5f + ((gameTerrain->getAverageHeight((int)worldx, (int)worldz) / gameTerrain->getSize()) * 100.0f);
-
-	if (gameTerrain->getAverageHeight((int)worldx, (int)worldz) >= 10.0f)
+	if (position.y >= 10.0f)
 	{
-		pos.x = gameObjects[playerInd]->GetPos().x;
-		pos.y = gameObjects[playerInd]->GetPos().y;
-		pos.z = gameObjects[playerInd]->GetPos().z;
+        position.x = gameObjects[playerInd]->GetPos().x;
+        position.y = gameObjects[playerInd]->GetPos().y;
+        position.z = gameObjects[playerInd]->GetPos().z;
 	}
-    pos = CheckSceneCollision(pos);
 
-	gameObjects[playerInd]->SetPos(pos);
+    position = CheckSceneCollision(position);
+
+	gameObjects[playerInd]->SetPos(position);
 }
 
 void Scene::MakeGameObject(std::string t, std::string modelName, std::string shaderV, std::string shaderF, float scale, float x, float y, float z, float speed)
 {
+    //Check the tarrain height to make sure the object isnt under the terrain;
+    y += WorldToTerrainPosition(glm::vec3(x,y,z)).y;
+
 	GameObject* newGameObject = factory->GetGameObject(t, modelName, shaderV, shaderF, scale, glm::vec3(x, y, z), speed);
 	if (newGameObject != nullptr)
 	{
@@ -101,7 +99,7 @@ void Scene::MakeGameObject(std::string t, std::string modelName, std::string sha
 	}
 	else
 	{
-		std::cout << "ERROR::GAME_ASSET_FACTORY::TYPE_UNKNOWN" << std::endl;
+		if(debugger.debugToConsole) std::cout << "Scene.cpp::ERROR::GAME_ASSET_FACTORY::TYPE_UNKNOWN" << std::endl;
 	}
 }
 
@@ -126,21 +124,36 @@ glm::vec3 Scene::CheckSceneCollision(glm::vec3 pos)
     int numberOfCollisions = 0;
     glm::vec3 shiftDelta = glm::vec3(0,0,0);
 
+    std::vector<GameObject *> gameObjectsToRemoveFromScene;
     for(auto &go : gameObjects)
     {
+        //Skip the player, we dont want collisions between the player and the player
         if(go->GetTag() == BoundingBox::PLAYER) continue;
+
         float distance = glm::distance(playerSphereOrigin, go->GetPos());
-        if(go->GetTag() == BoundingBox::TOKEN && distance < playerSphereRadius) {std::cout << go->GetName() << " Hit with distance: " << distance << std::endl; continue;}
-        if(go->GetTag() == BoundingBox::ENEMY && distance < playerSphereRadius) {std::cout << "Enemy Hit" << std::endl; continue;}
-        if(go->GetTag() != BoundingBox::STATIC_OBJECT) continue;
-        if(distance < playerSphereRadius)
+        if(go->GetTag() == BoundingBox::TOKEN && distance < playerSphereRadius)
         {
+            if(debugger.debugCollisionsToConsole) std::cout << "Scene.cpp::INFO::Token GameObject - " << go->GetName() << " Hit" << std::endl;
+            gameObjectsToRemoveFromScene.emplace_back(go);
+            continue;
+        }
+        if(go->GetTag() == BoundingBox::ENEMY && distance < playerSphereRadius) {
+            if(debugger.debugCollisionsToConsole) std::cout << "Scene.cpp::INFO::Enemy GameObject - " << go->GetName() << " Hit" << std::endl;
+            gameObjectsToRemoveFromScene.emplace_back(go);
+            continue;
+        }
+        if(go->GetTag() == BoundingBox::STATIC_OBJECT && distance < playerSphereRadius)
+        {
+            if(debugger.debugCollisionsToConsole) std::cout << "Scene.cpp::INFO::Static GameObject - " + go->GetName() +" hit" << std::endl;
+            //Simple Collisions/distance checking, More complex collision detection is work in progress
             glm::vec3 dir = go->GetPos() - playerSphereOrigin;
             //the player is too close to a object and will be stopped
             pos.x = player.x;
             pos.y = player.y;
             pos.z = player.z;
+
         }
+
 
         /*//Get the information about the bounding box of a gameobject
         BoundingBox box = go->GetBoundingBox();
@@ -200,6 +213,12 @@ glm::vec3 Scene::CheckSceneCollision(glm::vec3 pos)
         }
          */
     }
+    std::vector<GameObject*>::iterator removed;
+    for(auto &go : gameObjectsToRemoveFromScene)
+    {
+        //if(debugger.debugCollisionsToConsole) std::cout << "Scene.cpp::INFO::GameObject - " + go->GetName() +" hit and removed from scene" << std::endl;
+        removed = std::remove(gameObjects.begin(), gameObjects.end(), go);
+    }
 
     /*if(numberOfCollisions != 0)
     {
@@ -246,4 +265,14 @@ bool Scene::intersectRaySegmentSphere(glm::vec3 o, glm::vec3 d, glm::vec3 so, fl
         return false;
 
     return true;
+}
+
+glm::vec3 Scene::WorldToTerrainPosition(glm::vec3 p)
+{
+    float worldx, worldz, worldToTerrainScaleFactor;
+    worldToTerrainScaleFactor = 5.12;
+    worldx = p.x * worldToTerrainScaleFactor;
+    worldz = p.z * worldToTerrainScaleFactor;
+    p.y = (gameTerrain->getAverageHeight((int)worldx, (int)worldz) / worldToTerrainScaleFactor);
+    return p;
 }

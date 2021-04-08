@@ -185,11 +185,11 @@ unsigned int OpenGL::TextureFromFile(std::string path, const std::string& direct
 {
     std::string filename = path;
 
-    std::cout << filename << std::endl; //debug
+    if(debugger.debugToConsole) std::cout << "OpenGL.cpp::INFO::" << filename << std::endl; //debug
 
     filename = directory + '/' + filename;
 
-    std::cout << filename << std::endl; //debug
+    if(debugger.debugToConsole) std::cout << "OpenGL.cpp::INFO::" << filename << std::endl; //debug
 
     stbi_set_flip_vertically_on_load(false);
     unsigned int textureID;
@@ -220,7 +220,7 @@ unsigned int OpenGL::TextureFromFile(std::string path, const std::string& direct
     }
     else
     {
-        std::cout << "Texture failed to load at path: " << path << std::endl;
+        std::cout << "OpenGL.cpp::ERROR::Texture failed to load at path: " << path << std::endl;
         stbi_image_free(data);
     }
 

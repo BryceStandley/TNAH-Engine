@@ -1,5 +1,6 @@
 #pragma once
 #include "Renderer.h"
+#include "Debugging.h"
 class OpenGL : public Renderer
 {
 public:
@@ -15,5 +16,6 @@ public:
 	virtual unsigned int TextureFromFile(std::string path, const std::string& directory);
 	virtual void SetupMesh(unsigned int& VAO, unsigned int& VBO, unsigned int& EBO, std::vector<Vertex> vertices, std::vector<unsigned int> indices);
 	virtual void SetShaderTerrain(Shader &shader, View lens);
+	tnah::Debugging debugger;
 };
 

@@ -22,6 +22,8 @@
 #include "Callbacks.h"
 #include "OpenGL.h"
 
+#include "Debugging.h"
+
     /**
     * @class Model
     * @brief A class that represents a model in its entirety, allowing for multiple meshes and multiple textures if needed. 
@@ -40,6 +42,7 @@ public:
     Renderer* render;
     std::string directory;
     bool gammaCorrection;
+    tnah::Debugging debugger;
 
 
     /// default constructor

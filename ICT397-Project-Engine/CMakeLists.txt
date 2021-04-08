@@ -26,6 +26,8 @@ target_sources(${PROJECT_NAME} PRIVATE
     "Windows.h"
     "BoundingBox.h"
     "BoundingBox.cpp"
+    "Debugging.h"
+    "Debugging.cpp"
     "application.cpp"
     "Callbacks.cpp"
     "Enemy.cpp"

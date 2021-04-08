@@ -1,8 +1,9 @@
 --terrain.lua
-heightmap = "./res/heightmaps/test-heightmap.raw"
-terrainSize = 512
+--heightmap = "./res/heightmaps/test-heightmap.raw"
+heightmap = "./res/heightmaps/1kheightmap-3.raw"
+terrainSize = 1024
 xScale = 1
-yScale = 3
+yScale = 5
 zScale = 1
 
 tex1 = "./res/images/terrain/dirtTile.jpg"

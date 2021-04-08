@@ -8,6 +8,7 @@
 #include "camera.h"
 #include "Skybox.h"
 #include "OpenGL.h"
+#include "Debugging.h"
 
 /**
 * @class Scene
@@ -119,6 +120,18 @@ public:
 	 */
 	static bool intersectRaySegmentSphere(glm::vec3 o, glm::vec3 d, glm::vec3 so, float radius, glm::vec3 &ip);
 
+	/**
+	 * @brief Returns the scenes terrain data
+	 * @return terrain
+	 */
+	Terrain* GetSceneTerrain(){return gameTerrain;}
+
+	/**
+	 * @brief Converts a given world vec3 to terrain position for height/Y calculations
+	 * @return vec3 - position relative to the terrain
+	 */
+	glm::vec3 WorldToTerrainPosition(glm::vec3 p);
+
 private:
 		///The game renderer that renders items
 	Renderer* gameRenderer;
@@ -146,5 +159,7 @@ private:
 
 		///The indice of the player game object
 	int playerInd;
+
+	tnah::Debugging debugger;
 };
 

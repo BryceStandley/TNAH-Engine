@@ -31,7 +31,7 @@ unsigned int TextureLoader::loadTexture(std::string path)
     }
     else
     {
-        std::cout << "Texture failed to load at path: " << path << std::endl;
+        std::cout << "TextureLoader.cpp::Texture failed to load at path: " << path << std::endl;
         stbi_image_free(data);
     }
 

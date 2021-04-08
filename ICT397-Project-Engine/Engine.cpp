@@ -72,12 +72,19 @@ Engine::Engine()
 
 	for (int i = 1; i <= amount; i++)
 	{
-	    Scene* scene = new Scene("Scene " + i, render);
+	    Scene* scene = new Scene("Scene " + std::to_string(i), render);
         gameScenes.push_back(scene);
 		std::string path = "./res/scripts/scene" + std::to_string(i) + ".lua";
 		std::cout << "Path: " << path << std::endl;
 		LuaScenes(path, i-1);
 		scene->FindPlayerIndice();
+
+		//Making sure we set the players position to be above the terrain
+		glm::vec3 playerStartPos;
+        playerStartPos = scene->GetGameObject(scene->GetPlayerIndice())->GetPos();
+        playerStartPos.y = scene->WorldToTerrainPosition(playerStartPos).y + 1.5f;
+        scene->GetGameObject(scene->GetPlayerIndice())->SetPos(playerStartPos);
+		window->UpdateCamera(playerStartPos);
 
 	}
 
