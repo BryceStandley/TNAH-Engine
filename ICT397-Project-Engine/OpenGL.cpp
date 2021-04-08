@@ -13,6 +13,15 @@ void OpenGL::RenderTerrain(unsigned int VAO, int size)
     glActiveTexture(GL_TEXTURE0);
 }
 
+void OpenGL::RenderExitScreen(unsigned int VAO,unsigned int EBO, unsigned int texture) {
+    glBindVertexArray(VAO);
+    glActiveTexture(GL_TEXTURE5);
+    glBindTexture(GL_TEXTURE5, texture);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+    glBindVertexArray(0);
+}
+
 void OpenGL::BindTexture(std::vector<unsigned int> textures)
 {
     glActiveTexture(GL_TEXTURE0);
@@ -25,6 +34,7 @@ void OpenGL::BindTexture(std::vector<unsigned int> textures)
     glBindTexture(GL_TEXTURE_2D, textures[3]);
     glActiveTexture(GL_TEXTURE4);
     glBindTexture(GL_TEXTURE_2D, textures[4]);
+
 }
 
 void OpenGL::DepthTest()
@@ -108,6 +118,29 @@ void OpenGL::SetShaderSkybox(Shader shader, View lens)
     shader.use();
     shader.setMat4("view", viewSky);
     shader.setMat4("projection", lens.GetProjection());
+}
+
+void OpenGL::ExitScreenSetup(std::vector<glm::vec3> vertexData, std::vector<unsigned int> indices, unsigned int &VAO, unsigned int &VBO, unsigned int &EBO) {
+    glGenVertexArrays(1, &VAO);
+    glGenBuffers(1, &VBO);
+    glGenBuffers(1, &EBO);
+
+    glBindVertexArray(VAO);
+
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBufferData(GL_ARRAY_BUFFER, vertexData.size() * sizeof(glm::vec3), &vertexData[0], GL_STATIC_DRAW);
+
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_STATIC_DRAW);
+
+    //postion attributes
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 9 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
+
+    //texture attributes
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 9 * sizeof(float), (void*)(3 * sizeof(float)));
+    glEnableVertexAttribArray(1);
+
 }
 
 void OpenGL::TerrainSetup(std::vector<glm::vec3> totalData, std::vector<unsigned int> Indices, unsigned int& VAO, unsigned int& VBO, unsigned int& EBO)

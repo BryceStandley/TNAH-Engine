@@ -9,6 +9,7 @@
 #include "Skybox.h"
 #include "OpenGL.h"
 #include "Debugging.h"
+#include "ExitScreen.h"
 
 /**
 * @class Scene
@@ -132,6 +133,8 @@ public:
 	 */
 	glm::vec3 WorldToTerrainPosition(glm::vec3 p);
 
+	ExitScreen GetExitScreen(){return exitScreen;}
+
 private:
 		///The game renderer that renders items
 	Renderer* gameRenderer;
@@ -161,5 +164,7 @@ private:
 	int playerInd;
 
 	tnah::Debugging debugger;
+	ExitScreen exitScreen;
+	bool exitScreenDisplay = false;
 };
 

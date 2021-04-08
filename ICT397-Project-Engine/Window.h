@@ -5,6 +5,7 @@
 #include "camera.h"
 #include "View.h"
 #include "Time.h"
+#include "Scene.h"
 
 class Window
 {
@@ -25,5 +26,8 @@ public:
 	virtual void Update() {}
 	virtual float GetTime() { return 0; }
 	virtual bool Running() { return false; }
-};
 
+	virtual void SetCurrentScene(Scene* s) {}
+	virtual Scene* GetCurrentScene() { Scene* s  = new Scene(); return s; }
+    virtual void SetRefWindow(Window* w){};
+};

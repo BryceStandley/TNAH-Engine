@@ -26,6 +26,10 @@ void GlfwWindow::Init(std::string title, int h, int w)
 
     ///locks the cursor to the window
     glfwSetInputMode(gameWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+
+
+    glfwSetKeyCallback(gameWindow, SinglePressInputCallback);
+    glfwSetMouseButtonCallback(gameWindow, MouseButtonCallback);
     
 }
 
@@ -42,8 +46,6 @@ void GlfwWindow::Terminate()
 
 void GlfwWindow::GameInput(float deltaTime)
 {
-    if (glfwGetKey(gameWindow, gameInput.exit) == GLFW_PRESS)
-        glfwSetWindowShouldClose(gameWindow, true);
     if (glfwGetKey(gameWindow, gameInput.foward) == GLFW_PRESS)
         camera.ProcessKeyboard(FORWARD, deltaTime * 5);
     if (glfwGetKey(gameWindow, gameInput.back) == GLFW_PRESS)
@@ -52,12 +54,12 @@ void GlfwWindow::GameInput(float deltaTime)
         camera.ProcessKeyboard(LEFT, deltaTime * 5);
     if (glfwGetKey(gameWindow, gameInput.right) == GLFW_PRESS)
         camera.ProcessKeyboard(RIGHT, deltaTime * 5);
-    if (glfwGetKey(gameWindow, GLFW_KEY_P) == GLFW_PRESS)//P to reset camera to new position
-        camera.Position = glm::vec3(100, 0, 0);
+
     if (glfwGetKey(gameWindow, gameInput.wireOn) == GLFW_PRESS)
         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     if (glfwGetKey(gameWindow, gameInput.wireOff) == GLFW_PRESS)
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
 }
 
 void GlfwWindow::Clear()
@@ -154,4 +156,23 @@ void GlfwWindow::Update()
 bool GlfwWindow::Running()
 {
     return glfwWindowShouldClose(gameWindow);
+}
+
+bool exitScreenShowing = false;
+tnah::Debugging debugger;
+void SinglePressInputCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
+{
+
+    if(key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
+    {
+        exitScreenShowing = !exitScreenShowing;
+
+        if(debugger.debugToConsole) std::cout << "GlfwWindow.cpp::Exit::" << + exitScreenShowing << std::endl;
+    }
+}
+
+void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods)
+{
+    if(button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS)
+        if(exitScreenShowing) glfwSetWindowShouldClose(window, true);
 }

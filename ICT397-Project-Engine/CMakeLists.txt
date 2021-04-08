@@ -28,6 +28,8 @@ target_sources(${PROJECT_NAME} PRIVATE
     "BoundingBox.cpp"
     "Debugging.h"
     "Debugging.cpp"
+    "ExitScreen.cpp"
+    "ExitScreen.h"
     "application.cpp"
     "Callbacks.cpp"
     "Enemy.cpp"

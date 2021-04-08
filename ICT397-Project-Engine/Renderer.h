@@ -20,5 +20,7 @@ public:
 	virtual unsigned int TextureFromFile(std::string path, const std::string& directory) { return 0; }
 	virtual void SetupMesh(unsigned int& VAO, unsigned int& VBO, unsigned int& EBO, std::vector<Vertex> vertices, std::vector<unsigned int> indices) {}
 	virtual void SetShaderTerrain(Shader &shader, View lens) {}
+    virtual void RenderExitScreen(unsigned int VAO, unsigned int EBO, unsigned int texture){};
+    virtual void ExitScreenSetup(std::vector<glm::vec3> vertexData, std::vector<unsigned int> indicesData, unsigned int& VAO, unsigned int& VBO, unsigned int& EBO){};
 };
 

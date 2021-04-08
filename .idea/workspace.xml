@@ -11,30 +11,28 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="127c4cee-4109-4dc5-a120-c50cf0ff91ca" name="Default Changelist" comment="Fixed FBS files, added weapon to player(model placed wrong), fixed player checking collisions on it self">
-      <change afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Debugging.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Debugging.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+    <list default="true" id="127c4cee-4109-4dc5-a120-c50cf0ff91ca" name="Default Changelist" comment="Added Debugging, fixed small bugs">
+      <change afterPath="$PROJECT_DIR$/ICT397-Project-Engine/ExitScreen.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ICT397-Project-Engine/ExitScreen.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ICT397-Project-Engine/res/shader/exitScreenF.glsl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ICT397-Project-Engine/res/shader/exitScreenV.glsl" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/Callbacks.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Callbacks.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/Callbacks.h" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Callbacks.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/Engine.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Engine.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/Engine.h" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Engine.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/GlfwWindow.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/GlfwWindow.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/GlfwWindow.h" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/GlfwWindow.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/ICT397-Project-Engine.vcxproj" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/ICT397-Project-Engine.vcxproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/ICT397-Project-Engine.vcxproj.filters" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/ICT397-Project-Engine.vcxproj.filters" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/Model.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Model.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/Model.h" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Model.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/OpenGL.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/OpenGL.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/OpenGL.h" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/OpenGL.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/Renderer.h" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Renderer.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/Scene.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Scene.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/Scene.h" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Scene.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/Shader.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Shader.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/Shader.h" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Shader.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/TextureLoader.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/TextureLoader.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/Window.h" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Window.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/Windows.h" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Windows.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/res/models/environment/Green_Tree-WithTexture.fbx" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/res/models/environment/Green_Tree-WithTexture.fbx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/res/scripts/scene1.lua" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/res/scripts/scene1.lua" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/res/scripts/terrain.lua" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/res/scripts/terrain.lua" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/assimp/.editorconfig" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,6 +48,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="CMakeLists.txt" />
+        <option value="GLSL Shader" />
       </list>
     </option>
   </component>
@@ -86,12 +85,12 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true">
+    <configuration name="TNAH-Project" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="TNAH-Project" TARGET_NAME="TNAH-Project" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="TNAH-Project" RUN_TARGET_NAME="TNAH-Project">
       <method v="2">
-        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TNAH-Project" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="TNAH-Project" TARGET_NAME="TNAH-Project" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="TNAH-Project" RUN_TARGET_NAME="TNAH-Project">
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -116,7 +115,8 @@
       <workItem from="1617679490335" duration="5387000" />
       <workItem from="1617688341665" duration="29779000" />
       <workItem from="1617761170224" duration="4399000" />
-      <workItem from="1617845627237" duration="14432000" />
+      <workItem from="1617845627237" duration="14633000" />
+      <workItem from="1617870933720" duration="15361000" />
     </task>
     <task id="LOCAL-00001" summary="Added collisions with objects">
       <created>1617722294195</created>
@@ -139,7 +139,14 @@
       <option name="project" value="LOCAL" />
       <updated>1617845820988</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Added Debugging, fixed small bugs">
+      <created>1617870823142</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1617870823142</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -164,6 +171,7 @@
     <MESSAGE value="Added collisions with objects" />
     <MESSAGE value="Fixed FBS files, added weapon to player(model placed wrong), fixed player checking collisions on it self" />
     <MESSAGE value="Added files from last push that were missing" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added files from last push that were missing" />
+    <MESSAGE value="Added Debugging, fixed small bugs" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added Debugging, fixed small bugs" />
   </component>
 </project>

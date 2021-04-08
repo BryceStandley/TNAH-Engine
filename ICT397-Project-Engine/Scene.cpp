@@ -49,6 +49,11 @@ void Scene::Run(View lens, float time)
 
 	//If game object is of type player
 	UpdatePlayer(lens.GetPosition(), lens.GetRotation());
+
+	if(exitScreen.exitScreenDisplay)
+	{
+        gameRenderer->RenderExitScreen(exitScreen.VAO,exitScreen.EBO, exitScreen.tex);
+    }
 }
 
 void Scene::Init()
@@ -64,8 +69,12 @@ void Scene::Init()
 	gameRenderer->TerrainSetup(gameTerrain->GetTotalData(), gameTerrain->GetIndicies(), gameTerrain->VAO, gameTerrain->VBO, gameTerrain->EBO);
 	gameRenderer->SkyboxSetup(gameSkybox->GetSkyVerts(), gameSkybox->GetCubeFaces(), gameSkybox->VAO, gameSkybox->VBO, gameSkybox->texture, gameSkybox->skyShader);
 
+	exitScreen.Init();
+	gameRenderer->ExitScreenSetup(exitScreen.vertexData, exitScreen.indicesData, exitScreen.VAO, exitScreen.VBO, exitScreen.EBO);
+
 
 }
+
 
 void Scene::UpdatePlayer(glm::vec3 position, glm::vec3 rotation)
 {

@@ -38,6 +38,7 @@ public:
 		* @brief Runs the game loop
 		*/
 	void Run();
+
 private:
 
 		/**

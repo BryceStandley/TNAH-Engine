@@ -5,6 +5,7 @@ void framebufferCallback(GLFWwindow* window, int width, int height)
     glViewport(0, 0, width, height);
 }
 
+
 unsigned int TextureFromFile(const char* path, const std::string& directory)
 {
     std::string filename = std::string(path);

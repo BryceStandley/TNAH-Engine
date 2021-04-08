@@ -89,6 +89,7 @@
     <ClCompile Include="Debugging.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Engine.cpp" />
+    <ClCompile Include="ExitScreen.cpp" />
     <ClCompile Include="GameAssetFactory.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="glad.c" />
@@ -119,6 +120,7 @@
     <ClInclude Include="Debugging.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Engine.h" />
+    <ClInclude Include="ExitScreen.h" />
     <ClInclude Include="GameAssetFactory.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GlfwWindow.h" />

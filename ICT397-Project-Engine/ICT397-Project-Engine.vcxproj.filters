@@ -102,6 +102,9 @@
     <ClCompile Include="Debugging.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ExitScreen.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Renderer.h">
@@ -186,6 +189,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Debugging.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ExitScreen.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

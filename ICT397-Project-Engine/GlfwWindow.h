@@ -8,6 +8,7 @@
 
 #include "camera.h"
 #include "Shader.h"
+#include "Debugging.h"
 
 class GlfwWindow : public Window
 {
@@ -32,6 +33,16 @@ public:
 	virtual void Update();
 	virtual float GetTime() { return gametime.DeltaTime(); }
 	virtual bool Running();
+
+    /**
+     * @brief Gets the Input object of the window
+     * @return input object
+     */
+    Input GetGameInput(){return gameInput;}
+
+    virtual void SetCurrentScene(Scene* s){currentScene = s;}
+    virtual Scene* GetCurrentScene(){return currentScene;}
+
 private:	
 	void Projection();
 	void Clear();
@@ -47,5 +58,9 @@ private:
 	float lastX;
 	float lastY;
 	float firstMouse = true;
+	Scene* currentScene;
+
 };
 
+void SinglePressInputCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
+void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods);
