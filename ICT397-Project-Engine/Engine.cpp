@@ -85,6 +85,7 @@ Engine::Engine()
         playerStartPos.y = scene->WorldToTerrainPosition(playerStartPos, true).y + 1.5f;
         scene->GetGameObject(scene->GetPlayerIndice())->SetPos(playerStartPos);
 		window->UpdateCamera(playerStartPos);
+		scene->MoveObjectAwayFromPlayer();
 	}
 
 }

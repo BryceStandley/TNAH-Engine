@@ -47,7 +47,7 @@ end
 
 y = -0.2
 --Make 10 stones with random positions
-for i = 0, 10
+for i = 0, 15
 do
     x = math.random(50, 150)
     z = math.random(50, 150)

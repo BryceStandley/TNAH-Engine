@@ -124,6 +124,22 @@ void Scene::FindPlayerIndice()
     }
 }
 
+void Scene::MoveObjectAwayFromPlayer()
+{
+    for(auto &go : gameObjects)
+    {
+        if(go->GetTag() == BoundingBox::CollisionTag::PLAYER) continue;
+        if(glm::distance(go->GetPos(), gameObjects[playerInd]->GetPos()) < 3.0f)
+        {
+            glm::vec3 pos = go->GetPos();
+            pos.x += 3.0f;
+            pos.z += 3.0f;
+            pos.y = WorldToTerrainPosition(pos, true).y;
+            go->SetPos(pos);
+        }
+    }
+}
+
 glm::vec3 Scene::CheckSceneCollision(glm::vec3 pos)
 {
     glm::vec3 player = gameObjects[playerInd]->GetPos();
