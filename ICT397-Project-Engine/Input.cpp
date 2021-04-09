@@ -11,9 +11,8 @@ Input::Input()
 		back = GLFW_KEY_S;
 		left = GLFW_KEY_A;
 		right = GLFW_KEY_D;
-		wireOn = GLFW_KEY_UP;
-		wireOff = GLFW_KEY_DOWN;
-		exit = GLFW_KEY_ESCAPE;
+        toggle = GLFW_KEY_K;
+		exit = GLFW_KEY_Q;
 	}
 	else
 	{
@@ -22,8 +21,7 @@ Input::Input()
 		LuaRef b = getGlobal(L, "back");
 		LuaRef l = getGlobal(L, "left");
 		LuaRef r = getGlobal(L, "right");
-		LuaRef on = getGlobal(L, "on");
-		LuaRef off = getGlobal(L, "off");
+        LuaRef t = getGlobal(L, "toggle");
 		LuaRef ex = getGlobal(L, "exit");
 
 		if (f.isNumber())
@@ -46,14 +44,9 @@ Input::Input()
 			right = r.cast<int>();
 		}
 
-		if (on.isNumber())
+		if (t.isNumber())
 		{
-			wireOn = on.cast<int>();
-		}
-
-		if (off.isNumber())
-		{
-			wireOff = off.cast<int>();
+			toggle = t.cast<int>();
 		}
 
 		if (ex.isNumber())

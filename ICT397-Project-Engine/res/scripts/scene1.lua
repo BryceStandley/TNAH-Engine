@@ -21,11 +21,12 @@ end
 
 --These loops dont check if there is a model already in its place
 --Make 10 Yellow Trees with random positions
+y = -0.2
 for i = 0, 10
 do
     x = math.random(10, 190)
     z = math.random(10, 190)
-    cs:MakeGameObject("static",  "./res/models/environment/Yellow_Tree-With-Texture.fbx", "./res/shader/modelV.glsl", "./res/shader/modelF.glsl", 0.005,x, 0, z, 10);
+    cs:MakeGameObject("static",  "./res/models/environment/Yellow_Tree-With-Texture.fbx", "./res/shader/modelV.glsl", "./res/shader/modelF.glsl", 0.005,x, y, z, 10);
 end
 
 --Make 10 Red Trees with random positions
@@ -33,7 +34,7 @@ for i = 0, 10
 do
     x = math.random(10, 190)
     z = math.random(10, 190)
-    cs:MakeGameObject("static",  "./res/models/environment/Red_Tree-WithTexture.fbx", "./res/shader/modelV.glsl", "./res/shader/modelF.glsl", 0.005,x, 0, z, 10);
+    cs:MakeGameObject("static",  "./res/models/environment/Red_Tree-WithTexture.fbx", "./res/shader/modelV.glsl", "./res/shader/modelF.glsl", 0.005,x, y, z, 10);
 end
 
 --Make 10 Gree Trees with random positions
@@ -41,23 +42,25 @@ for i = 0, 10
 do
     x = math.random(10, 190)
     z = math.random(10, 190)
-    cs:MakeGameObject("static",  "./res/models/environment/Green_Tree-WithTexture.fbx", "./res/shader/modelV.glsl", "./res/shader/modelF.glsl", 0.005,x, 0, z, 10);
+    cs:MakeGameObject("static",  "./res/models/environment/Green_Tree-WithTexture.fbx", "./res/shader/modelV.glsl", "./res/shader/modelF.glsl", 0.005,x, y, z, 10);
 end
 
+y = -0.2
 --Make 10 stones with random positions
 for i = 0, 10
 do
-    x = math.random(40, 150)
-    z = math.random(40, 150)
-    cs:MakeGameObject("static",  "./res/models/environment/stone-diamond-tex.fbx", "./res/shader/modelV.glsl", "./res/shader/modelF.glsl", 0.02, x, 0, z, 10);
+    x = math.random(50, 150)
+    z = math.random(50, 150)
+    cs:MakeGameObject("static",  "./res/models/environment/stone-diamond-tex.fbx", "./res/shader/modelV.glsl", "./res/shader/modelF.glsl", 0.02, x, y, z, 10);
 end
 
+y = 0.2
 --Make 10 Enemy objects
 for i = 0, 10
 do
-    x = math.random(40, 150)
-    z = math.random(40, 150)
-    cs:MakeGameObject("enemy",  "./res/models/characters/Impling_With_Texture_No_Weapon.fbx", "./res/shader/modelV.glsl", "./res/shader/modelF.glsl", 0.0025, x, 0.2, z, 0);
+    x = math.random(50, 150)
+    z = math.random(50, 150)
+    cs:MakeGameObject("enemy",  "./res/models/characters/Impling_With_Texture_No_Weapon.fbx", "./res/shader/modelV.glsl", "./res/shader/modelF.glsl", 0.0025, x, y, z, 0);
 end
 
 

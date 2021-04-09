@@ -136,6 +136,12 @@ private:
 		///If the press exit display can be displayed
 	bool canPressExitDisplay = true;
 
+    ///If the wireframe display should be displayed
+    bool wireDisplay = false;
+
+    ///If the press wireframe display can be displayed
+    bool canPressWireDisplay = true;
+
 		//The game input manager
 	Input gameInput;
 

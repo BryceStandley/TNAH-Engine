@@ -82,7 +82,7 @@ Engine::Engine()
 		//Making sure we set the players position to be above the terrain
 		glm::vec3 playerStartPos;
         playerStartPos = scene->GetGameObject(scene->GetPlayerIndice())->GetPos();
-        playerStartPos.y = scene->WorldToTerrainPosition(playerStartPos).y + 1.5f;
+        playerStartPos.y = scene->WorldToTerrainPosition(playerStartPos, true).y + 1.5f;
         scene->GetGameObject(scene->GetPlayerIndice())->SetPos(playerStartPos);
 		window->UpdateCamera(playerStartPos);
 	}

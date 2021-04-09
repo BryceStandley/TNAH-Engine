@@ -82,7 +82,7 @@ void Scene::UpdatePlayer(glm::vec3 position, glm::vec3 rotation)
     //if the player hasn't moved, break, no need to do more work here
     if(position == gameObjects[playerInd]->GetPos()) return;
 
-    position.y = WorldToTerrainPosition(position).y + 1.5f;
+    position.y = WorldToTerrainPosition(position, true).y + 1.5f;
 
 	if (position.y >= 10.0f)
 	{
@@ -98,8 +98,8 @@ void Scene::UpdatePlayer(glm::vec3 position, glm::vec3 rotation)
 
 void Scene::MakeGameObject(std::string t, std::string modelName, std::string shaderV, std::string shaderF, float scale, float x, float y, float z, float speed)
 {
-    //Check the tarrain height to make sure the object isnt under the terrain;
-    y += WorldToTerrainPosition(glm::vec3(x,y,z)).y;
+    //Check the terrain height to make sure the object isn't under the terrain;
+    y += WorldToTerrainPosition(glm::vec3(x,y,z), true).y;
 
 	GameObject* newGameObject = factory->GetGameObject(t, modelName, shaderV, shaderF, scale, glm::vec3(x, y, z), speed);
 	if (newGameObject != nullptr)
@@ -276,12 +276,13 @@ bool Scene::intersectRaySegmentSphere(glm::vec3 o, glm::vec3 d, glm::vec3 so, fl
     return true;
 }
 
-glm::vec3 Scene::WorldToTerrainPosition(glm::vec3 p)
+glm::vec3 Scene::WorldToTerrainPosition(glm::vec3 p, bool average)
 {
     float worldx, worldz, worldToTerrainScaleFactor;
     worldToTerrainScaleFactor = 5.12;
     worldx = p.x * worldToTerrainScaleFactor;
     worldz = p.z * worldToTerrainScaleFactor;
-    p.y = (gameTerrain->getAverageHeight((int)worldx, (int)worldz) / worldToTerrainScaleFactor);
+    if(average) {p.y = (gameTerrain->getAverageHeight((int)worldx, (int)worldz) / worldToTerrainScaleFactor);}
+    else {p.y = (gameTerrain->getHeight((int)worldx, (int)worldz) / worldToTerrainScaleFactor);}
     return p;
 }

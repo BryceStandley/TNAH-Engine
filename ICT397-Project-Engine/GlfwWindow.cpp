@@ -2,8 +2,9 @@
 
 void GlfwWindow::Init(std::string title, int h, int w)
 {
+    //Set the GLFW Open GL Context to version 3.2
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
@@ -52,6 +53,17 @@ void GlfwWindow::GameInput(float deltaTime)
         canPressExitDisplay = true;
     }
 
+    if ((glfwGetKey(gameWindow, gameInput.toggle) == GLFW_PRESS) && canPressWireDisplay)
+    {
+        canPressWireDisplay = false;
+        wireDisplay = !wireDisplay;
+    }
+
+    if (glfwGetKey(gameWindow, gameInput.toggle) == GLFW_RELEASE)
+    {
+        canPressWireDisplay = true;
+    }
+
     if (!exitDisplay)
     {
         if (glfwGetKey(gameWindow, gameInput.foward) == GLFW_PRESS)
@@ -62,6 +74,8 @@ void GlfwWindow::GameInput(float deltaTime)
             camera.ProcessKeyboard(LEFT, deltaTime * 5);
         if (glfwGetKey(gameWindow, gameInput.right) == GLFW_PRESS)
             camera.ProcessKeyboard(RIGHT, deltaTime * 5);
+        if(wireDisplay){glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);}
+        else if (!wireDisplay){glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);}
     }
     else
     {
@@ -71,10 +85,7 @@ void GlfwWindow::GameInput(float deltaTime)
         }
     }
 
-    if (glfwGetKey(gameWindow, gameInput.wireOn) == GLFW_PRESS)
-        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-    if (glfwGetKey(gameWindow, gameInput.wireOff) == GLFW_PRESS)
-        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
 
 }
 

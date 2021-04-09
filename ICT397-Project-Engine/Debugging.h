@@ -12,6 +12,10 @@
 #include <string>
 #include <glm/glm.hpp>
 
+/**
+ * @class Debugging
+ * @brief helper functions and flags to aid in debugging aspects of the engine
+ */
 namespace tnah{
     class Debugging{
     public:

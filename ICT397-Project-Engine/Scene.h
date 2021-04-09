@@ -131,7 +131,7 @@ public:
 	 * @brief Converts a given world vec3 to terrain position for height/Y calculations
 	 * @return vec3 - position relative to the terrain
 	 */
-	glm::vec3 WorldToTerrainPosition(glm::vec3 p);
+	glm::vec3 WorldToTerrainPosition(glm::vec3 p, bool average);
 
 	ExitScreen GetExitScreen(){return exitScreen;}
 

@@ -4,11 +4,17 @@
  * @date 06/04/2021
  */
 
-#ifndef TNAH_PROJECT_BOUNDINGBOX_H
-#define TNAH_PROJECT_BOUNDINGBOX_H
+#ifndef BOUNDINGBOX_H
+#define BOUNDINGBOX_H
 #include <vector>
 #include <glm/glm.hpp>
 #include "Mesh.h"
+
+/**
+ * @class BoundingBox
+ * @brief Class to hold all collision and bounding box information of a game object
+ * @todo Implement bounding box collisions
+ */
 
 class BoundingBox {
 public:
@@ -19,44 +25,44 @@ public:
 
     /**
      * @brief Bounding box constructor with vertex and indice data
-     * @param v
-     * @param i
+     * @param vector vec3 v
+     * @param vector int i
      */
     BoundingBox(std::vector<glm::vec3> v, std::vector<int> i) {vertex = v; indice = i;};
 
     /**
      * @brief Sets the vertex data of a bounding box
-     * @param v
+     * @param vector vec3 v
      */
     void SetVertexData(std::vector<glm::vec3> v) {vertex = v;}
 
     /**
      * @brief Sets the indice data of a bounding box
-     * @param i
+     * @param vector int i
      */
     void SetIndiceData(std::vector<int> i) {indice = i;}
 
     /**
      * @brief Sets the normals data of a bounding box
-     * @param n
+     * @param vector vec3 n
      */
     void SetNormalsData(std::vector<glm::vec3> n) {normals = n;}
 
     /**
      * @brief Gets vertex data of a bounding box
-     * @return vec3
+     * @return vector vec3
      */
     std::vector<glm::vec3> GetVertexData(){return vertex;}
 
     /**
      * @brief Gets indice data of a bounding box
-     * @return int
+     * @return vector int
      */
     std::vector<int> GetIndiceData(){return indice;}
 
     /**
      * @brief Gets normal data of a bounding box
-     * @return vec3
+     * @return vector vec3
      */
     std::vector<glm::vec3> GetNormalData(){return normals;}
 
@@ -92,4 +98,4 @@ private:
 };
 
 
-#endif //TNAH_PROJECT_BOUNDINGBOX_H
+#endif //BOUNDINGBOX_H

@@ -36,11 +36,8 @@ public:
 		///The right input key
 	int right;
 
-		///The wireframeOn input key
-	int wireOn;
-
-		///The wireframeOff input key
-	int wireOff;
+	//Wireframe toggle
+    int toggle;
 
 		///The exiting input key
 	int exit;
