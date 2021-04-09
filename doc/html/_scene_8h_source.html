@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TNAH-ICT397-Project: ICT397-Project-Engine/Scene.h Source File</title>
+<title>TNAH-ICT397-Project: /Volumes/GITS/ICT397-Project/ICT397-Project-Engine/Scene.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -120,32 +120,34 @@ $(function() {
 <div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160; </div>
 <div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;    <span class="keywordtype">void</span> SetExitScreen(<a class="code" href="class_exit_screen.html">ExitScreen</a> screen) { exitScreen = screen; }</div>
 <div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160; </div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;    <a class="code" href="class_renderer.html">Renderer</a>* gameRenderer;</div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160; </div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;    std::string sceneName;</div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160; </div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;    <a class="code" href="class_game_asset_factory.html">GameAssetFactory</a> * factory;</div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160; </div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;    std::vector&lt;GameObject*&gt; gameObjects;</div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160; </div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;    <a class="code" href="class_terrain.html">Terrain</a> *gameTerrain;</div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160; </div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;    <a class="code" href="class_skybox.html">Skybox</a>* gameSkybox;</div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160; </div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;    <a class="code" href="class_texture_loader.html">TextureLoader</a> textureLoader;</div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160; </div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;    <a class="code" href="class_view.html">View</a> lens;</div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160; </div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;    <span class="keywordtype">int</span> playerInd;</div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160; </div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;    <a class="code" href="classtnah_1_1_debugging.html">tnah::Debugging</a> debugger;</div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160; </div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;    <a class="code" href="class_exit_screen.html">ExitScreen</a> exitScreen;</div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160; </div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;    <span class="keywordtype">bool</span> exitScreenDisplay = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;};</div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160; </div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_scene.html#a352d9a211260c4eb3a0552ff4f1d0d5d">MoveObjectAwayFromPlayer</a>();</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160; </div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;    <a class="code" href="class_renderer.html">Renderer</a>* gameRenderer;</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160; </div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;    std::string sceneName;</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160; </div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;    <a class="code" href="class_game_asset_factory.html">GameAssetFactory</a> * factory;</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160; </div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;    std::vector&lt;GameObject*&gt; gameObjects;</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160; </div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;    <a class="code" href="class_terrain.html">Terrain</a> *gameTerrain;</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160; </div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;    <a class="code" href="class_skybox.html">Skybox</a>* gameSkybox;</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160; </div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;    <a class="code" href="class_texture_loader.html">TextureLoader</a> textureLoader;</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160; </div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;    <a class="code" href="class_view.html">View</a> lens;</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160; </div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;    <span class="keywordtype">int</span> playerInd;</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160; </div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;    <a class="code" href="classtnah_1_1_debugging.html">tnah::Debugging</a> debugger;</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160; </div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;    <a class="code" href="class_exit_screen.html">ExitScreen</a> exitScreen;</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160; </div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;    <span class="keywordtype">bool</span> exitScreenDisplay = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;};</div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160; </div>
 <div class="ttc" id="aclass_exit_screen_html"><div class="ttname"><a href="class_exit_screen.html">ExitScreen</a></div><div class="ttdoc">Holds information about the exit screen and its functions.</div><div class="ttdef"><b>Definition:</b> ExitScreen.h:19</div></div>
 <div class="ttc" id="aclass_game_asset_factory_html"><div class="ttname"><a href="class_game_asset_factory.html">GameAssetFactory</a></div><div class="ttdoc">Holds the information so that game objects can be made in the engine by taking in values that allow u...</div><div class="ttdef"><b>Definition:</b> GameAssetFactory.h:22</div></div>
 <div class="ttc" id="aclass_game_object_html"><div class="ttname"><a href="class_game_object.html">GameObject</a></div><div class="ttdoc">Class that holds the main information of a game object, that is abstracted for more specific reasons.</div><div class="ttdef"><b>Definition:</b> GameObject.h:18</div></div>
@@ -154,7 +156,8 @@ $(function() {
 <div class="ttc" id="aclass_scene_html_a0f3009b2ffcd55c44ebb1d571bbdd101"><div class="ttname"><a href="class_scene.html#a0f3009b2ffcd55c44ebb1d571bbdd101">Scene::Init</a></div><div class="ttdeci">void Init()</div><div class="ttdoc">Initilises the scene, setting up the terrain and skybox.</div><div class="ttdef"><b>Definition:</b> Scene.cpp:62</div></div>
 <div class="ttc" id="aclass_scene_html_a15cb65348bc14aabb533fa568ef5068d"><div class="ttname"><a href="class_scene.html#a15cb65348bc14aabb533fa568ef5068d">Scene::GetSceneName</a></div><div class="ttdeci">std::string GetSceneName() const</div><div class="ttdoc">Gets the name of the current scene.</div><div class="ttdef"><b>Definition:</b> Scene.h:66</div></div>
 <div class="ttc" id="aclass_scene_html_a2072654e58d5fa003273c50d2eb0cac0"><div class="ttname"><a href="class_scene.html#a2072654e58d5fa003273c50d2eb0cac0">Scene::GetPlayerIndice</a></div><div class="ttdeci">int GetPlayerIndice()</div><div class="ttdoc">Gets the playerInd value and returns it.</div><div class="ttdef"><b>Definition:</b> Scene.h:99</div></div>
-<div class="ttc" id="aclass_scene_html_a33fbd9a1c5230c5591c4edf815361dc0"><div class="ttname"><a href="class_scene.html#a33fbd9a1c5230c5591c4edf815361dc0">Scene::WorldToTerrainPosition</a></div><div class="ttdeci">glm::vec3 WorldToTerrainPosition(glm::vec3 p, bool average)</div><div class="ttdoc">Converts a given world vec3 to terrain position for height/Y calculations.</div><div class="ttdef"><b>Definition:</b> Scene.cpp:279</div></div>
+<div class="ttc" id="aclass_scene_html_a33fbd9a1c5230c5591c4edf815361dc0"><div class="ttname"><a href="class_scene.html#a33fbd9a1c5230c5591c4edf815361dc0">Scene::WorldToTerrainPosition</a></div><div class="ttdeci">glm::vec3 WorldToTerrainPosition(glm::vec3 p, bool average)</div><div class="ttdoc">Converts a given world vec3 to terrain position for height/Y calculations.</div><div class="ttdef"><b>Definition:</b> Scene.cpp:295</div></div>
+<div class="ttc" id="aclass_scene_html_a352d9a211260c4eb3a0552ff4f1d0d5d"><div class="ttname"><a href="class_scene.html#a352d9a211260c4eb3a0552ff4f1d0d5d">Scene::MoveObjectAwayFromPlayer</a></div><div class="ttdeci">void MoveObjectAwayFromPlayer()</div><div class="ttdoc">moves all objects away from the player if they spawn to close to the player</div><div class="ttdef"><b>Definition:</b> Scene.cpp:127</div></div>
 <div class="ttc" id="aclass_scene_html_a3b8cec2e32546713915f8c6303c951f1"><div class="ttname"><a href="class_scene.html#a3b8cec2e32546713915f8c6303c951f1">Scene::~Scene</a></div><div class="ttdeci">~Scene()</div><div class="ttdoc">Destructor.</div><div class="ttdef"><b>Definition:</b> Scene.cpp:11</div></div>
 <div class="ttc" id="aclass_scene_html_a631c241c5336ea6e41e8502c5a597ad5"><div class="ttname"><a href="class_scene.html#a631c241c5336ea6e41e8502c5a597ad5">Scene::UpdatePlayer</a></div><div class="ttdeci">void UpdatePlayer(glm::vec3 position, glm::vec3 rotation)</div><div class="ttdoc">Updates the players position in relation to the world.</div><div class="ttdef"><b>Definition:</b> Scene.cpp:79</div></div>
 <div class="ttc" id="aclass_scene_html_aa64a0f18c537f9343d6fcda516377d92"><div class="ttname"><a href="class_scene.html#aa64a0f18c537f9343d6fcda516377d92">Scene::MakeGameObject</a></div><div class="ttdeci">void MakeGameObject(std::string t, std::string modelName, std::string shaderV, std::string shaderF, float scale, float x, float y, float z, float speed)</div><div class="ttdoc">Function that uses the game asset factory to create a new game object.</div><div class="ttdef"><b>Definition:</b> Scene.cpp:99</div></div>
@@ -163,8 +166,8 @@ $(function() {
 <div class="ttc" id="aclass_scene_html_acaa19d509c2a82c3493085c5f1217e15"><div class="ttname"><a href="class_scene.html#acaa19d509c2a82c3493085c5f1217e15">Scene::Run</a></div><div class="ttdeci">void Run(View lens, float time, bool exit)</div><div class="ttdoc">Runs the scene, setting up objects for rendering and changes.</div><div class="ttdef"><b>Definition:</b> Scene.cpp:21</div></div>
 <div class="ttc" id="aclass_scene_html_aceeecfaa17397132f8935fdc64ff50d1"><div class="ttname"><a href="class_scene.html#aceeecfaa17397132f8935fdc64ff50d1">Scene::GetGameObject</a></div><div class="ttdeci">GameObject * GetGameObject(int i)</div><div class="ttdoc">Gets a gameobject from the game objects.</div><div class="ttdef"><b>Definition:</b> Scene.h:88</div></div>
 <div class="ttc" id="aclass_scene_html_ad10176d75a9cc0da56626f682d083507"><div class="ttname"><a href="class_scene.html#ad10176d75a9cc0da56626f682d083507">Scene::Scene</a></div><div class="ttdeci">Scene()</div><div class="ttdoc">Default constructor.</div><div class="ttdef"><b>Definition:</b> Scene.h:38</div></div>
-<div class="ttc" id="aclass_scene_html_ada22f03b86c4537d89326586e69af23c"><div class="ttname"><a href="class_scene.html#ada22f03b86c4537d89326586e69af23c">Scene::intersectRaySegmentSphere</a></div><div class="ttdeci">static bool intersectRaySegmentSphere(glm::vec3 o, glm::vec3 d, glm::vec3 so, float radius, glm::vec3 &amp;ip)</div><div class="ttdef"><b>Definition:</b> Scene.cpp:243</div></div>
-<div class="ttc" id="aclass_scene_html_afad980b02acfeeb81c46786f1818bffc"><div class="ttname"><a href="class_scene.html#afad980b02acfeeb81c46786f1818bffc">Scene::CheckSceneCollision</a></div><div class="ttdeci">glm::vec3 CheckSceneCollision(glm::vec3 pos)</div><div class="ttdoc">Checks the players position against scene game objects for collisions.</div><div class="ttdef"><b>Definition:</b> Scene.cpp:127</div></div>
+<div class="ttc" id="aclass_scene_html_ada22f03b86c4537d89326586e69af23c"><div class="ttname"><a href="class_scene.html#ada22f03b86c4537d89326586e69af23c">Scene::intersectRaySegmentSphere</a></div><div class="ttdeci">static bool intersectRaySegmentSphere(glm::vec3 o, glm::vec3 d, glm::vec3 so, float radius, glm::vec3 &amp;ip)</div><div class="ttdef"><b>Definition:</b> Scene.cpp:259</div></div>
+<div class="ttc" id="aclass_scene_html_afad980b02acfeeb81c46786f1818bffc"><div class="ttname"><a href="class_scene.html#afad980b02acfeeb81c46786f1818bffc">Scene::CheckSceneCollision</a></div><div class="ttdeci">glm::vec3 CheckSceneCollision(glm::vec3 pos)</div><div class="ttdoc">Checks the players position against scene game objects for collisions.</div><div class="ttdef"><b>Definition:</b> Scene.cpp:143</div></div>
 <div class="ttc" id="aclass_skybox_html"><div class="ttname"><a href="class_skybox.html">Skybox</a></div><div class="ttdoc">A class that is responsible for creating a setting up a skybox.</div><div class="ttdef"><b>Definition:</b> Skybox.h:20</div></div>
 <div class="ttc" id="aclass_terrain_html"><div class="ttname"><a href="class_terrain.html">Terrain</a></div><div class="ttdoc">Terrain class that loads in a heightmap and generates terrain from it.</div><div class="ttdef"><b>Definition:</b> Terrain.h:35</div></div>
 <div class="ttc" id="aclass_texture_loader_html"><div class="ttname"><a href="class_texture_loader.html">TextureLoader</a></div><div class="ttdoc">A simple class that is used to load in textures from a given file path;.</div><div class="ttdef"><b>Definition:</b> TextureLoader.h:20</div></div>

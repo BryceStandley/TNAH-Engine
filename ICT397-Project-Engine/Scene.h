@@ -137,6 +137,11 @@ public:
 
 	void SetExitScreen(ExitScreen screen) { exitScreen = screen; }
 
+	/**
+	 * @brief moves all objects away from the player if they spawn to close to the player
+	 */
+    void MoveObjectAwayFromPlayer();
+
 private:
 		///The game renderer that renders items
 	Renderer* gameRenderer;

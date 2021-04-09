@@ -12,29 +12,170 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="127c4cee-4109-4dc5-a120-c50cf0ff91ca" name="Default Changelist" comment="Added Debugging, fixed small bugs">
-      <change afterPath="$PROJECT_DIR$/ICT397-Project-Engine/res/shader/skybox_frag.glsl" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ICT397-Project-Engine/res/shader/skybox_vert.glsl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_4_4_21,_8_42_PM_[Default_Changelist]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_4_4_21__8_42_PM__Default_Changelist_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/BoundingBox.h" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/BoundingBox.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/Callbacks.h" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Callbacks.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/Debugging.h" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Debugging.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/Engine.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Engine.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/GlfwWindow.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/GlfwWindow.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/GlfwWindow.h" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/GlfwWindow.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/Input.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Input.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/Input.h" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Input.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/Scene.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Scene.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/Scene.h" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Scene.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/camera.h" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/camera.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/res/models/environment/Green_Tree-WithTexture.fbx" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/res/models/environment/Green_Tree-WithTexture.fbx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/res/models/environment/Red_Tree-WithTexture.fbx" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/res/models/environment/Red_Tree-WithTexture.fbx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/res/models/environment/Yellow_Tree-With-Texture.fbx" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/res/models/environment/Yellow_Tree-With-Texture.fbx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/res/scripts/input.lua" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/res/scripts/input.lua" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/res/scripts/scene1.lua" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/res/scripts/scene1.lua" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/res/scripts/skybox.lua" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/res/scripts/skybox.lua" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/res/shader/exitScreenF.glsl" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/res/shader/exitScreenF.glsl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/res/shader/skybox_frag.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/res/shader/skybox_vert.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/_bounding_box_8h_source.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/_bounding_box_8h_source.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/_callbacks_8h_source.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/_callbacks_8h_source.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/_debugging_8h_source.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/_debugging_8h_source.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/_enemy_8h_source.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/_enemy_8h_source.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/_engine_8h_source.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/_engine_8h_source.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/_exit_screen_8h_source.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/_exit_screen_8h_source.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/_game_asset_factory_8h_source.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/_game_asset_factory_8h_source.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/_game_object_8h_source.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/_game_object_8h_source.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/_game_objects_8h_source.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/_game_objects_8h_source.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/_glfw_window_8h_source.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/_glfw_window_8h_source.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/_input_8h_source.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/_input_8h_source.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/_mesh_8h_source.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/_mesh_8h_source.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/_model_8h_source.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/_model_8h_source.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/_open_g_l_8h_source.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/_open_g_l_8h_source.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/_player_8h_source.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/_player_8h_source.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/_renderer_8h_source.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/_renderer_8h_source.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/_scene_8h_source.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/_scene_8h_source.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/_shader_8h_source.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/_shader_8h_source.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/_skybox_8h_source.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/_skybox_8h_source.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/_static_8h_source.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/_static_8h_source.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/_terrain_8h_source.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/_terrain_8h_source.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/_texture_loader_8h_source.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/_texture_loader_8h_source.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/_time_8h_source.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/_time_8h_source.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/_token_8h_source.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/_token_8h_source.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/_view_8h_source.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/_view_8h_source.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/_window_8h_source.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/_window_8h_source.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/_windows_8h_source.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/_windows_8h_source.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/camera_8h_source.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/camera_8h_source.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/class_bounding_box.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/class_bounding_box.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/class_camera.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/class_camera.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/class_debugging.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/class_debugging.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/class_enemy.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/class_enemy.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/class_engine.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/class_engine.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/class_exit_screen.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/class_exit_screen.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/class_game_asset_factory.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/class_game_asset_factory.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/class_game_object.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/class_game_object.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/class_glfw_window.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/class_glfw_window.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/class_input.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/class_input.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/class_lua_manager.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/class_lua_manager.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/class_mesh.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/class_mesh.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/class_model.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/class_model.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/class_open_g_l.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/class_open_g_l.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/class_player.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/class_player.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/class_renderer.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/class_renderer.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/class_scene-members.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/class_scene-members.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/class_scene.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/class_scene.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/class_shader.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/class_shader.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/class_skybox.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/class_skybox.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/class_static.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/class_static.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/class_terrain.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/class_terrain.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/class_texture_loader.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/class_texture_loader.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/class_time.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/class_time.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/class_token.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/class_token.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/class_view.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/class_view.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/class_window.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/class_window.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/classlua_manager.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/classlua_manager.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/classtnah_1_1_debugging.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/classtnah_1_1_debugging.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/dir_492deb8f30c21d9ebac9ab6ce6fb7949.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/dir_492deb8f30c21d9ebac9ab6ce6fb7949.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/functions_func.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/functions_func.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/functions_m.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/functions_m.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/lua_manager_8h_source.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/lua_manager_8h_source.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/search/all_10.js" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/search/all_10.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/search/all_11.js" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/search/all_11.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/search/all_12.js" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/search/all_12.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/search/all_13.js" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/search/all_13.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/search/all_14.js" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/search/all_14.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/search/all_9.js" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/search/all_9.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/search/all_a.js" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/search/all_a.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/search/all_b.js" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/search/all_b.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/search/all_c.js" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/search/all_c.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/search/all_d.js" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/search/all_d.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/search/all_e.js" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/search/all_e.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/search/all_f.js" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/search/all_f.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/search/classes_0.js" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/search/classes_0.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/search/classes_1.js" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/search/classes_1.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/search/classes_2.js" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/search/classes_2.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/search/classes_3.js" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/search/classes_3.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/search/classes_4.js" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/search/classes_4.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/search/classes_5.js" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/search/classes_5.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/search/classes_6.js" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/search/classes_6.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/search/classes_7.js" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/search/classes_7.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/search/classes_8.js" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/search/classes_8.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/search/classes_9.js" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/search/classes_9.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/search/classes_a.js" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/search/classes_a.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/search/classes_b.js" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/search/classes_b.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/search/classes_c.js" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/search/classes_c.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/search/classes_d.js" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/search/classes_d.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/search/classes_e.js" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/search/classes_e.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/search/enums_0.js" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/search/enums_0.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/search/functions_0.js" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/search/functions_0.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/search/functions_1.js" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/search/functions_1.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/search/functions_10.js" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/search/functions_10.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/search/functions_11.js" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/search/functions_11.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/search/functions_2.js" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/search/functions_2.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/search/functions_3.js" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/search/functions_3.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/search/functions_4.js" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/search/functions_4.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/search/functions_5.js" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/search/functions_5.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/search/functions_6.js" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/search/functions_6.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/search/functions_7.js" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/search/functions_7.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/search/functions_8.js" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/search/functions_8.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/search/functions_9.js" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/search/functions_9.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/search/functions_a.js" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/search/functions_a.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/search/functions_b.js" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/search/functions_b.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/search/functions_c.js" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/search/functions_c.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/search/functions_d.js" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/search/functions_d.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/search/functions_e.js" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/search/functions_e.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/search/functions_f.js" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/search/functions_f.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/search/pages_0.js" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/search/pages_0.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/search/variables_0.js" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/search/variables_0.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/search/variables_1.js" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/search/variables_1.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/search/variables_2.js" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/search/variables_2.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/search/variables_3.js" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/search/variables_3.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/search/variables_4.js" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/search/variables_4.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/search/variables_5.js" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/search/variables_5.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/search/variables_6.js" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/search/variables_6.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/search/variables_7.js" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/search/variables_7.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/search/variables_8.js" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/search/variables_8.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/search/variables_9.js" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/search/variables_9.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/search/variables_a.js" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/search/variables_a.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/search/variables_b.js" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/search/variables_b.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/search/variables_c.js" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/search/variables_c.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/search/variables_d.js" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/search/variables_d.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/stb__image_8h_source.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/stb__image_8h_source.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/struct_texture_mesh.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/struct_texture_mesh.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/struct_vertex.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/struct_vertex.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/html/structstbi__io__callbacks.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/html/structstbi__io__callbacks.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/latex/class_bounding_box.tex" beforeDir="false" afterPath="$PROJECT_DIR$/doc/latex/class_bounding_box.tex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/latex/class_camera.tex" beforeDir="false" afterPath="$PROJECT_DIR$/doc/latex/class_camera.tex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/latex/class_debugging.tex" beforeDir="false" afterPath="$PROJECT_DIR$/doc/latex/class_debugging.tex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/latex/class_enemy.tex" beforeDir="false" afterPath="$PROJECT_DIR$/doc/latex/class_enemy.tex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/latex/class_engine.tex" beforeDir="false" afterPath="$PROJECT_DIR$/doc/latex/class_engine.tex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/latex/class_exit_screen.tex" beforeDir="false" afterPath="$PROJECT_DIR$/doc/latex/class_exit_screen.tex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/latex/class_game_asset_factory.tex" beforeDir="false" afterPath="$PROJECT_DIR$/doc/latex/class_game_asset_factory.tex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/latex/class_game_object.tex" beforeDir="false" afterPath="$PROJECT_DIR$/doc/latex/class_game_object.tex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/latex/class_glfw_window.tex" beforeDir="false" afterPath="$PROJECT_DIR$/doc/latex/class_glfw_window.tex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/latex/class_input.tex" beforeDir="false" afterPath="$PROJECT_DIR$/doc/latex/class_input.tex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/latex/class_lua_manager.tex" beforeDir="false" afterPath="$PROJECT_DIR$/doc/latex/class_lua_manager.tex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/latex/class_mesh.tex" beforeDir="false" afterPath="$PROJECT_DIR$/doc/latex/class_mesh.tex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/latex/class_model.tex" beforeDir="false" afterPath="$PROJECT_DIR$/doc/latex/class_model.tex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/latex/class_open_g_l.tex" beforeDir="false" afterPath="$PROJECT_DIR$/doc/latex/class_open_g_l.tex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/latex/class_player.tex" beforeDir="false" afterPath="$PROJECT_DIR$/doc/latex/class_player.tex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/latex/class_renderer.tex" beforeDir="false" afterPath="$PROJECT_DIR$/doc/latex/class_renderer.tex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/latex/class_scene.tex" beforeDir="false" afterPath="$PROJECT_DIR$/doc/latex/class_scene.tex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/latex/class_shader.tex" beforeDir="false" afterPath="$PROJECT_DIR$/doc/latex/class_shader.tex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/latex/class_skybox.tex" beforeDir="false" afterPath="$PROJECT_DIR$/doc/latex/class_skybox.tex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/latex/class_static.tex" beforeDir="false" afterPath="$PROJECT_DIR$/doc/latex/class_static.tex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/latex/class_terrain.tex" beforeDir="false" afterPath="$PROJECT_DIR$/doc/latex/class_terrain.tex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/latex/class_texture_loader.tex" beforeDir="false" afterPath="$PROJECT_DIR$/doc/latex/class_texture_loader.tex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/latex/class_time.tex" beforeDir="false" afterPath="$PROJECT_DIR$/doc/latex/class_time.tex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/latex/class_token.tex" beforeDir="false" afterPath="$PROJECT_DIR$/doc/latex/class_token.tex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/latex/class_view.tex" beforeDir="false" afterPath="$PROJECT_DIR$/doc/latex/class_view.tex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/latex/class_window.tex" beforeDir="false" afterPath="$PROJECT_DIR$/doc/latex/class_window.tex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/latex/classlua_manager.tex" beforeDir="false" afterPath="$PROJECT_DIR$/doc/latex/classlua_manager.tex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/latex/classtnah_1_1_debugging.tex" beforeDir="false" afterPath="$PROJECT_DIR$/doc/latex/classtnah_1_1_debugging.tex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/latex/struct_texture_mesh.tex" beforeDir="false" afterPath="$PROJECT_DIR$/doc/latex/struct_texture_mesh.tex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/latex/struct_vertex.tex" beforeDir="false" afterPath="$PROJECT_DIR$/doc/latex/struct_vertex.tex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/latex/structstbi__io__callbacks.tex" beforeDir="false" afterPath="$PROJECT_DIR$/doc/latex/structstbi__io__callbacks.tex" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -93,11 +234,6 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -116,7 +252,9 @@
       <workItem from="1617845627237" duration="14633000" />
       <workItem from="1617870933720" duration="15572000" />
       <workItem from="1617930266433" duration="2298000" />
-      <workItem from="1617933871698" duration="3634000" />
+      <workItem from="1617933871698" duration="4708000" />
+      <workItem from="1617938749579" duration="1112000" />
+      <workItem from="1617940036370" duration="88000" />
     </task>
     <task id="LOCAL-00001" summary="Added collisions with objects">
       <created>1617722294195</created>
@@ -153,7 +291,21 @@
       <option name="project" value="LOCAL" />
       <updated>1617886633291</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Updated 3.2">
+      <created>1617937590200</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1617937590200</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Doxy files generated">
+      <created>1617938364547</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1617938364547</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -181,6 +333,7 @@
     <MESSAGE value="Added Debugging, fixed small bugs" />
     <MESSAGE value="Started to add ExitScreen Stuff but im cooked" />
     <MESSAGE value="Updated 3.2" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated 3.2" />
+    <MESSAGE value="Doxy files generated" />
+    <option name="LAST_COMMIT_MESSAGE" value="Doxy files generated" />
   </component>
 </project>
