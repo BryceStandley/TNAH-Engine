@@ -12,6 +12,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="127c4cee-4109-4dc5-a120-c50cf0ff91ca" name="Default Changelist" comment="Added Debugging, fixed small bugs">
+      <change afterPath="$PROJECT_DIR$/ICT397-Project-Engine/res/shader/skybox_frag.glsl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ICT397-Project-Engine/res/shader/skybox_vert.glsl" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/BoundingBox.h" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/BoundingBox.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/Callbacks.h" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Callbacks.h" afterDir="false" />
@@ -114,7 +116,7 @@
       <workItem from="1617845627237" duration="14633000" />
       <workItem from="1617870933720" duration="15572000" />
       <workItem from="1617930266433" duration="2298000" />
-      <workItem from="1617933871698" duration="3328000" />
+      <workItem from="1617933871698" duration="3634000" />
     </task>
     <task id="LOCAL-00001" summary="Added collisions with objects">
       <created>1617722294195</created>
@@ -178,6 +180,7 @@
     <MESSAGE value="Added files from last push that were missing" />
     <MESSAGE value="Added Debugging, fixed small bugs" />
     <MESSAGE value="Started to add ExitScreen Stuff but im cooked" />
-    <option name="LAST_COMMIT_MESSAGE" value="Started to add ExitScreen Stuff but im cooked" />
+    <MESSAGE value="Updated 3.2" />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated 3.2" />
   </component>
 </project>
