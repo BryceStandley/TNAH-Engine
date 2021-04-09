@@ -12,7 +12,7 @@ Input::Input()
 		left = GLFW_KEY_A;
 		right = GLFW_KEY_D;
         toggle = GLFW_KEY_K;
-		exit = GLFW_KEY_Q;
+		exit = GLFW_KEY_X;
 	}
 	else
 	{
