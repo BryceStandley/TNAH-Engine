@@ -55,8 +55,8 @@ do
 end
 
 y = 0.2
---Make 10 Enemy objects
-for i = 0, 10
+--Make 15 Enemy objects
+for i = 0, 15
 do
     x = math.random(50, 150)
     z = math.random(50, 150)
