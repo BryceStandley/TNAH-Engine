@@ -179,16 +179,37 @@ public:
 
 
 private:
+		///The model for the object and its meshes
 	Model model;
+
+		///The shader for the game object
 	Shader shader;
+
+		///If the object needs aditional rotations
 	bool rotate;
+
+		///The name of the object
 	std::string name;
+
+		///The type of object it is
 	std::string type;
+
+		///The speed of the object
 	float speed;
+
+		///The position of the pobject
 	glm::vec3 pos;
+
+		///The rotation of the object
 	glm::vec3 rotation;
+
+		///The scale of the object
 	float scale;
+
+		///The colliding tag of the object
     BoundingBox::CollisionTag tag;
+
+		///The bounding box for the object
 	BoundingBox boundingBox;
 };
 

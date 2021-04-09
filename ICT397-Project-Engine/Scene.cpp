@@ -18,42 +18,45 @@ Scene::~Scene()
 	delete[]factory;
 }
 
-void Scene::Run(View lens, float time)
+void Scene::Run(View lens, float time, bool exit)
 {
+    if (exitScreen.exitScreenDisplay)
+    {
+        exitScreen.Render(gameRenderer, lens);
+    }
+    else
+    {
+	    gameRenderer->BindTexture(gameTerrain->GetTextIds());
+	    Shader t = gameTerrain->GetShader();
+	    gameRenderer->SetShaderTerrain(t, lens);
+	    gameTerrain->SetShader(t);
+	    gameRenderer->RenderTerrain(gameTerrain->GetVAO(), gameTerrain->GetIndicesSize());
+
+	    //Skybox
+	    gameRenderer->SetShaderSkybox(gameSkybox->skyShader, lens);
+	    gameRenderer->RenderSkybox(gameSkybox->VAO, gameSkybox->texture);
+
+	    //Models
+	    for (int x = 0; x < gameObjects.size(); x++)
+	    {
+		    gameObjects[x]->Update(0.1);
+		    if (x != playerInd)
+		    {
+			    gameRenderer->SetShader(gameObjects[x]->GetShader(), lens);
+			    for (int i = 0; i < gameObjects[x]->GetModel().meshes.size(); i++)
+			    {
+				    Shader s = gameObjects[x]->GetShader();
+				    gameRenderer->RenderModel(s, gameObjects[x]->GenerateMatFourForMesh(i), gameObjects[x]->GetModel().meshes[i]);
+				    gameObjects[x]->SetShader(s);
+			    }
+		    }
+	    }
+    }
 	//Terrain
-	gameRenderer->BindTexture(gameTerrain->GetTextIds());
-	Shader t = gameTerrain->GetShader();
-	gameRenderer->SetShaderTerrain(t, lens);
-	gameTerrain->SetShader(t);
-	gameRenderer->RenderTerrain(gameTerrain->GetVAO(), gameTerrain->GetIndicesSize());
 
-	//Skybox
-	gameRenderer->SetShaderSkybox(gameSkybox->skyShader, lens);
-	gameRenderer->RenderSkybox(gameSkybox->VAO, gameSkybox->texture);
-
-	//Models
-	for (int x = 0; x < gameObjects.size(); x++)
-	{
-		gameObjects[x]->Update(0.1);
-		if (x != playerInd)
-		{
-			gameRenderer->SetShader(gameObjects[x]->GetShader(), lens);
-			for (int i = 0; i < gameObjects[x]->GetModel().meshes.size(); i++)
-			{
-				Shader s = gameObjects[x]->GetShader();
-				gameRenderer->RenderModel(s, gameObjects[x]->GenerateMatFourForMesh(i), gameObjects[x]->GetModel().meshes[i]);
-				gameObjects[x]->SetShader(s);
-			}
-		}
-	}
 
 	//If game object is of type player
 	UpdatePlayer(lens.GetPosition(), lens.GetRotation());
-
-	if(exitScreen.exitScreenDisplay)
-	{
-        gameRenderer->RenderExitScreen(exitScreen.VAO,exitScreen.EBO, exitScreen.tex);
-    }
 }
 
 void Scene::Init()
@@ -69,10 +72,7 @@ void Scene::Init()
 	gameRenderer->TerrainSetup(gameTerrain->GetTotalData(), gameTerrain->GetIndicies(), gameTerrain->VAO, gameTerrain->VBO, gameTerrain->EBO);
 	gameRenderer->SkyboxSetup(gameSkybox->GetSkyVerts(), gameSkybox->GetCubeFaces(), gameSkybox->VAO, gameSkybox->VBO, gameSkybox->texture, gameSkybox->skyShader);
 
-	exitScreen.Init();
-	gameRenderer->ExitScreenSetup(exitScreen.vertexData, exitScreen.indicesData, exitScreen.VAO, exitScreen.VBO, exitScreen.EBO);
-
-
+	exitScreen.Init("./res/models/group/photo.fbx", gameRenderer);
 }
 
 

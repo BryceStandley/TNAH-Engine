@@ -13,26 +13,25 @@
 #include <glm/glm.hpp>
 #include "TextureLoader.h"
 #include "Shader.h"
+#include "GameObject.h"
 
 class ExitScreen
 {
 public:
     ExitScreen() = default;
 
-    void Init();
-    //Renderer* renderer;
+    void Init(std::string name, Renderer* r);
+    Renderer* renderer;
     Shader shader;
-    std::vector<glm::vec3> vertexData;
-    std::vector<unsigned int> indicesData;
-    TextureLoader textureLoader;
-    bool exitScreenDisplay = false;
-    unsigned int tex;
-    unsigned int VAO = 0, VBO = 0, EBO = 0;
+    Model exitModel;
+
+    bool exitScreenDisplay;
 
     void SetExitScreenDisplay(bool i){exitScreenDisplay = i;}
 
     Shader GetShader(){return shader;}
 
+    void Render(Renderer* r, View lens);
 private:
 
 };

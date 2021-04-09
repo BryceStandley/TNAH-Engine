@@ -52,7 +52,7 @@ public:
 		* @brief Runs the scene, setting up objects for rendering and changes
 		* @param lens - Holds information to do with the position of the camera, projects and views
 		*/
-	void Run(View lens, float time);
+	void Run(View lens, float time, bool exit);
 
 		/**
 		* @brief Initilises the scene, setting up the terrain and skybox
@@ -135,6 +135,8 @@ public:
 
 	ExitScreen GetExitScreen(){return exitScreen;}
 
+	void SetExitScreen(ExitScreen screen) { exitScreen = screen; }
+
 private:
 		///The game renderer that renders items
 	Renderer* gameRenderer;
@@ -163,8 +165,13 @@ private:
 		///The indice of the player game object
 	int playerInd;
 
+		///Debugger
 	tnah::Debugging debugger;
+
+		///The exit screen
 	ExitScreen exitScreen;
+
+		///If the exit screen is displayed
 	bool exitScreenDisplay = false;
 };
 

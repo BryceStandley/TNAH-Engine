@@ -85,8 +85,6 @@ Engine::Engine()
         playerStartPos.y = scene->WorldToTerrainPosition(playerStartPos).y + 1.5f;
         scene->GetGameObject(scene->GetPlayerIndice())->SetPos(playerStartPos);
 		window->UpdateCamera(playerStartPos);
-		window->SetCurrentScene(scene);
-
 	}
 
 }
@@ -111,8 +109,10 @@ void Engine::Run()
 			deltaTime = window->GetTime();
 
 			window->Update();
-			gameScenes[currentScene]->GetExitScreen().SetExitScreenDisplay(true);
-			gameScenes[currentScene]->Run(window->GetLens(), deltaTime);
+			ExitScreen e = gameScenes[currentScene]->GetExitScreen();
+			e.SetExitScreenDisplay(window->GetDisplay());
+			gameScenes[currentScene]->SetExitScreen(e);
+			gameScenes[currentScene]->Run(window->GetLens(), deltaTime, false);
 			glm::vec3 pos = gameScenes[currentScene]->GetGameObject(gameScenes[currentScene]->GetPlayerIndice())->GetPos();
 			window->UpdateCamera(pos);
 			window->GameInput(deltaTime);

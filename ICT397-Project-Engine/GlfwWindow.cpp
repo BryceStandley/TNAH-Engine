@@ -26,11 +26,6 @@ void GlfwWindow::Init(std::string title, int h, int w)
 
     ///locks the cursor to the window
     glfwSetInputMode(gameWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-
-
-    glfwSetKeyCallback(gameWindow, SinglePressInputCallback);
-    glfwSetMouseButtonCallback(gameWindow, MouseButtonCallback);
-    
 }
 
 void GlfwWindow::Buffer()
@@ -46,14 +41,35 @@ void GlfwWindow::Terminate()
 
 void GlfwWindow::GameInput(float deltaTime)
 {
-    if (glfwGetKey(gameWindow, gameInput.foward) == GLFW_PRESS)
-        camera.ProcessKeyboard(FORWARD, deltaTime * 5);
-    if (glfwGetKey(gameWindow, gameInput.back) == GLFW_PRESS)
-        camera.ProcessKeyboard(BACKWARD, deltaTime * 5);
-    if (glfwGetKey(gameWindow, gameInput.left) == GLFW_PRESS)
-        camera.ProcessKeyboard(LEFT, deltaTime * 5);
-    if (glfwGetKey(gameWindow, gameInput.right) == GLFW_PRESS)
-        camera.ProcessKeyboard(RIGHT, deltaTime * 5);
+    if ((glfwGetKey(gameWindow, gameInput.exit) == GLFW_PRESS) && canPressExitDisplay)
+    {
+        canPressExitDisplay = false;
+        exitDisplay = !exitDisplay;
+    }
+
+    if (glfwGetKey(gameWindow, gameInput.exit) == GLFW_RELEASE)
+    {
+        canPressExitDisplay = true;
+    }
+
+    if (!exitDisplay)
+    {
+        if (glfwGetKey(gameWindow, gameInput.foward) == GLFW_PRESS)
+            camera.ProcessKeyboard(FORWARD, deltaTime * 5);
+        if (glfwGetKey(gameWindow, gameInput.back) == GLFW_PRESS)
+            camera.ProcessKeyboard(BACKWARD, deltaTime * 5);
+        if (glfwGetKey(gameWindow, gameInput.left) == GLFW_PRESS)
+            camera.ProcessKeyboard(LEFT, deltaTime * 5);
+        if (glfwGetKey(gameWindow, gameInput.right) == GLFW_PRESS)
+            camera.ProcessKeyboard(RIGHT, deltaTime * 5);
+    }
+    else
+    {
+        if (glfwGetMouseButton(gameWindow, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
+        {
+            glfwSetWindowShouldClose(gameWindow, true);
+        }
+    }
 
     if (glfwGetKey(gameWindow, gameInput.wireOn) == GLFW_PRESS)
         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -89,32 +105,6 @@ void GlfwWindow::Projection()
     lens.SetModel(glm::scale(lens.GetModel(), glm::vec3(0.2f))); // a smaller cube
 }
 
-void GlfwWindow::SetShaderTerrain(Shader shader)
-{
-    shader.use();
-    shader.setInt("texture0", 0);
-    shader.setInt("texture1", 1);
-    shader.setInt("texture2", 2);
-    shader.setInt("texture3", 3);
-    shader.setInt("texture4", 4);
-}
-
-void GlfwWindow::SetShaderSkybox(Shader shader)
-{
-    glm::mat4 viewSky = glm::mat4(glm::mat3(camera.GetViewMatrix()));
-    shader.use();
-    shader.setMat4("view", viewSky);
-    shader.setMat4("projection", lens.GetProjection());
-}
-
-void GlfwWindow::SetShader(Shader shader)
-{
-    shader.use();
-    shader.setMat4("projection", lens.GetProjection());
-    shader.setMat4("view", lens.GetView());
-    shader.setMat4("model", lens.GetModel());
-}
-
 void GlfwWindow::Restart()
 {
     glPrimitiveRestartIndex(0xFFFFFFFFU);
@@ -123,23 +113,24 @@ void GlfwWindow::Restart()
 
 void GlfwWindow::MouseMove()
 {
-    double xpos, ypos;
-    glfwGetCursorPos(gameWindow, &xpos, &ypos);
+    //if (!exitDisplay)
+        double xpos, ypos;
+        glfwGetCursorPos(gameWindow, &xpos, &ypos);
 
-    if (firstMouse)
-    {
+        if (firstMouse)
+        {
+            lastX = xpos;
+            lastY = ypos;
+            firstMouse = false;
+        }
+
+        float xoffset = xpos - lastX;
+        float yoffset = lastY - ypos; // reversed since y-coordinates go from bottom to top
+
         lastX = xpos;
         lastY = ypos;
-        firstMouse = false;
-    }
 
-    float xoffset = xpos - lastX;
-    float yoffset = lastY - ypos; // reversed since y-coordinates go from bottom to top
-
-    lastX = xpos;
-    lastY = ypos;
-
-    camera.ProcessMouseMovement(xoffset, yoffset);
+        camera.ProcessMouseMovement(xoffset, yoffset);
 }
 
 void GlfwWindow::Update()
@@ -156,23 +147,4 @@ void GlfwWindow::Update()
 bool GlfwWindow::Running()
 {
     return glfwWindowShouldClose(gameWindow);
-}
-
-bool exitScreenShowing = false;
-tnah::Debugging debugger;
-void SinglePressInputCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
-{
-
-    if(key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
-    {
-        exitScreenShowing = !exitScreenShowing;
-
-        if(debugger.debugToConsole) std::cout << "GlfwWindow.cpp::Exit::" << + exitScreenShowing << std::endl;
-    }
-}
-
-void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods)
-{
-    if(button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS)
-        if(exitScreenShowing) glfwSetWindowShouldClose(window, true);
 }

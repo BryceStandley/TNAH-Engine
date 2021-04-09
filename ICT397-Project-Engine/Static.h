@@ -15,6 +15,10 @@
 class Static : public GameObject
 {
 public:
+		/**
+		* @brief Update function that updates the functionality
+		* @param time - the time since the last frame
+		*/
 	void Update(float time);
 };
 
