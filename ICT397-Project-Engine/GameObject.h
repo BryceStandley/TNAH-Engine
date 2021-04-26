@@ -104,19 +104,6 @@ public:
 	float GetScale() const { return scale; }
 
 		/**
-		* @brief Generates the matrix for the model, taking into account scale, rotation, position
-		* @return mat4
-		*/
-	glm::mat4 GenerateMatFour();
-
-		/**
-		* @brief Generate the matrix for the model times the matrix for mesh i
-		* @param i - the point to the mesh
-		* @return mat4
-		*/
-	glm::mat4 GenerateMatFourForMesh(int i);
-
-		/**
 		* @brief Gets the model
 		* @return model
 		*/
@@ -177,6 +164,7 @@ public:
      */
     std::string GetName(){return name;}
 
+	virtual void Render(View lens, float time);
 
 private:
 		///The model for the object and its meshes

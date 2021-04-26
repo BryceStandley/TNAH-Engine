@@ -60,7 +60,7 @@ for i = 0, 15
 do
     x = math.random(50, 150)
     z = math.random(50, 150)
-    cs:MakeGameObject("enemy",  "./res/models/characters/Impling_With_Texture_No_Weapon.fbx", "./res/shader/modelV.glsl", "./res/shader/modelF.glsl", 0.0025, x, y, z, 0);
+    cs:MakeGameObject("enemy",  "res\\models\\Ogro\\Tris.md2", "./res/shader/modelV.glsl", "./res/shader/modelF.glsl", 0.05, x, y, z, 0);
 end
 
 

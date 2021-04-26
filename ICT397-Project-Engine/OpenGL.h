@@ -127,6 +127,8 @@ public:
 	* @param EBO - Another buffer
 	*/
 	virtual void ExitScreenSetup(std::vector<glm::vec3> vertexData, std::vector<unsigned int> indicesData, unsigned int& VAO, unsigned int& VBO, unsigned int& EBO);
+
+	unsigned int TextureFromFile(std::string path);
     tnah::Debugging debugger;
 };
 

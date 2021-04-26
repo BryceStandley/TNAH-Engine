@@ -42,13 +42,7 @@ void Scene::Run(View lens, float time, bool exit)
 		    gameObjects[x]->Update(0.1);
 		    if (x != playerInd)
 		    {
-			    gameRenderer->SetShader(gameObjects[x]->GetShader(), lens);
-			    for (int i = 0; i < gameObjects[x]->GetModel().meshes.size(); i++)
-			    {
-				    Shader s = gameObjects[x]->GetShader();
-				    gameRenderer->RenderModel(s, gameObjects[x]->GenerateMatFourForMesh(i), gameObjects[x]->GetModel().meshes[i]);
-				    gameObjects[x]->SetShader(s);
-			    }
+                gameObjects[x]->Render(lens, time);
 		    }
 	    }
     }
