@@ -336,3 +336,8 @@ unsigned int OpenGL::TextureFromFile(std::string path)
 
     return textureID;
 }
+
+void OpenGL::LoadModelMd2(Buffer& buffer, std::vector<Buffer> &vboBuffers)
+{
+
+}

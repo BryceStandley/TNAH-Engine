@@ -63,6 +63,9 @@ public:
     void LoadModel(std::string const& path);
     void Render(View lens, Shader &shader, glm::vec3 pos, glm::vec3 rot, float scale, bool rotate, float time);
 
+    void SetState(Md2Commands cmd) { currentState = md2Model.StartAnimation(cmd); }
+    Md2State GetState() const { return currentState; }
+
     Mesh* GetMesh(int i) { return &fbxModel.meshes[i]; }
 private:
     glm::mat4 GenerateMatFour(glm::vec3 pos, glm::vec3 rot, float scale, bool rotate);

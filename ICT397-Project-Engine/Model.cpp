@@ -10,7 +10,7 @@ void Model::LoadModel(std::string const& path)
     else if (md2)
     {
         md2Model.LoadModel(path.c_str(), "res\\models\\Ogro\\Ogrobase.jpg", "./res/shader/md2vert.vert", "./res/shader/md2frag.frag", gameRenderer);
-        currentState = md2Model.StartAnimation(RUN);
+        currentState = md2Model.StartAnimation(STAND);
     }
 }
 

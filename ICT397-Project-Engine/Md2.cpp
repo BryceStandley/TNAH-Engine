@@ -266,11 +266,8 @@ void Md2::LoadModel(const char* sFilename, const char* tFilename, const char* vS
 			vboFrameVertices[i].CreateBuffer();
 		}
 		vboTextureCoords.CreateBuffer();
-		int x = 0;
 		while (1)
 		{
-			x++;
-			//std::cout << "DEBUG - 5." << x << std::endl;
 			int action = commands[i];
 			if (action == 0)
 				break;
@@ -299,7 +296,7 @@ void Md2::LoadModel(const char* sFilename, const char* tFilename, const char* vS
 				}
 			}
 		}
-
+		
 		glGenVertexArrays(1, &VAO);
 		glBindVertexArray(VAO);
 

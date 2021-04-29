@@ -4,6 +4,7 @@
 #include "Shader.h"
 #include "Mesh.h"
 #include "View.h"
+#include "Buffer.h"
 /**
 * @class Renderer
 * @brief Contains the absract information for the Renderer.
@@ -133,5 +134,7 @@ public:
     virtual void ExitScreenSetup(std::vector<glm::vec3> vertexData, std::vector<unsigned int> indicesData, unsigned int& VAO, unsigned int& VBO, unsigned int& EBO){};
 
 	unsigned int TextureFromFile(std::string path) { return 0; }
+
+	virtual void LoadModelMd2(Buffer& buffer, std::vector<Buffer> &vboBuffers){}
 };
 

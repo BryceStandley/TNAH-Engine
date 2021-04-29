@@ -116,6 +116,10 @@ public:
 	static Md2State animationList[21];
 	unsigned int TextureFromFile(std::string path);
 	Shader shader;
+	Md2State GetState(Md2Commands state)
+	{
+		return StartAnimation(state);
+	}
 private:
 	unsigned int modelVAO, VAO, VBO, EBO, textureId;
 
@@ -133,5 +137,6 @@ private:
 
 	std::vector<int> renderModes;
 	std::vector<int> numRenderVertices;
+
 };
 

@@ -166,6 +166,8 @@ public:
 
 	virtual void Render(View lens, float time);
 
+	bool GetRotate() { return rotate; }
+
 private:
 		///The model for the object and its meshes
 	Model model;

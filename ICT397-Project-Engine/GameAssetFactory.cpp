@@ -45,7 +45,7 @@ GameObject* GameAssetFactory::GetGameObject(std::string type, std::string modelN
 		std::cout << "Enemy done" << std::endl;
 		Shader ourShader(shaderV.c_str(), shaderF.c_str());
 		Model ourModel(modelName, renderer, true);
-		GameObject* obj = new Enemy();
+		GameObject* obj = new Enemy(100.0f, 10.0f);
 		obj->SetModel(ourModel);
 		obj->SetShader(ourShader);
 		obj->SetPos(glm::vec3(position));
