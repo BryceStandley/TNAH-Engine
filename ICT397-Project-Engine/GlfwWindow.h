@@ -76,7 +76,8 @@ public:
 	virtual Camera GetCamera() { return camera; }
 
 		/**
-		* @brief Updates the camera position
+		* @brief 
+		s the camera position
 		*/
 	virtual void UpdateCamera(glm::vec3 p) { camera.Position = p; }
 

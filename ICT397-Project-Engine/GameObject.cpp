@@ -8,5 +8,5 @@ void GameObject::Update(float time)
 
 void GameObject::Render(View lens, float time)
 {
-    model.Render(lens, shader, pos, rotation, scale, rotate, time);
+    model.Render(lens, shader, pos, rotation, scale, rotate, time, 0);
 }

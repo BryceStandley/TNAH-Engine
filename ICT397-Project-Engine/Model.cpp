@@ -9,12 +9,12 @@ void Model::LoadModel(std::string const& path)
     }
     else if (md2)
     {
-        md2Model.LoadModel(path.c_str(), "res\\models\\Ogro\\Ogrobase.jpg", "./res/shader/md2vert.vert", "./res/shader/md2frag.frag", gameRenderer);
-        currentState = md2Model.StartAnimation(STAND);
+        md2Model.LoadModel(path.c_str(), "res\\models\\zarlag\\Zlwred.jpg", "./res/shader/md2vert.vert", "./res/shader/md2frag.frag", gameRenderer);
+        currentState = md2Model.StartAnimation(FALLBACK);
     }
 }
 
-void Model::Render(View lens, Shader &shader, glm::vec3 pos, glm::vec3 rot, float scale, bool rotate, float time)
+void Model::Render(View lens, Shader &shader, glm::vec3 pos, glm::vec3 rot, float scale, bool rotate, float time, float direction)
 {
     if (fbx)
     {
@@ -28,7 +28,7 @@ void Model::Render(View lens, Shader &shader, glm::vec3 pos, glm::vec3 rot, floa
     {
         if (animations)
         {
-            md2Model.RenderModel(&currentState, lens.GetProjection(), lens.GetView(), pos, 180.695f, 0, gameRenderer);
+            md2Model.RenderModel(&currentState, lens.GetProjection(), lens.GetView(), pos, 180.695f, direction, gameRenderer);
             md2Model.UpdateAnimation(&currentState, time, gameRenderer);
         }
         else

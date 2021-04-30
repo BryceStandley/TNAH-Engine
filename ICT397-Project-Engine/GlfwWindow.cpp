@@ -1,4 +1,5 @@
 #include "GlfwWindow.h"
+#include "Enemy.h"
 
 void GlfwWindow::Init(std::string title, int h, int w)
 {

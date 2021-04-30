@@ -54,13 +54,14 @@ do
     cs:MakeGameObject("static",  "./res/models/environment/stone-diamond-tex.fbx", "./res/shader/modelV.glsl", "./res/shader/modelF.glsl", 0.02, x, y, z, 10);
 end
 
-y = 0.2
+y = 1.2
 --Make 15 Enemy objects
-for i = 0, 15
+for i = 0, 2
 do
     x = math.random(50, 150)
     z = math.random(50, 150)
-    cs:MakeGameObject("enemy",  "res\\models\\Ogro\\Tris.md2", "./res/shader/modelV.glsl", "./res/shader/modelF.glsl", 0.05, x, y, z, 0);
+    cs:MakeGameObject("enemy",  "res\\models\\zarlag\\Tris.md2", "./res/shader/md2vert.vert", "./res/shader/md2frag.frag", 0.05, x, y, z, 0);
+	cs:MakeGameObject("enemy",  "res\\models\\zarlag\\Weapon.md2", "./res/shader/md2vert.vert", "./res/shader/md2frag.frag", 0.05, x, y, z, 0);
 end
 
 

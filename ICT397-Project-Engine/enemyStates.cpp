@@ -4,13 +4,15 @@
 #include <cstdlib>
 #include <ctime>
 
+
 // Use Wander as an idle function for now. 
 /******************************************************************************/
 void wander::Enter(Enemy* dude)
 {
 	std::cout << "Entering wander state" << std::endl;
-	dude->SetSate(SALUTE);
+	dude->SetSate(FALLBACK);
 	srand(static_cast<unsigned>(time(0)));
+	dude->globalFlag = false;
 	//start animation = STAND (could use walk animation which would be a slowed down run).
 }
 
@@ -42,13 +44,14 @@ void chase::Enter(Enemy* dude)
 
 void chase::Execute(Enemy* dude)
 {
+	float result = atan2(dude->velocity.z, dude->velocity.x);
 
-	if (dude->Distance())
+	if (dude->Distance() < 10.5)
 	{
 		std::cout << "reached her, time to shoot" << std::endl;
 		dude->getFSM()->changeState(&attack_state::getInstance());
 	}
-	else if (dude->Distance())
+	else if (dude->Distance() > 25.0f)
 	{
 		std::cout << "lost her - time to stop" << std::endl;
 		dude->getFSM()->changeState(&wander_state::getInstance());
@@ -56,10 +59,14 @@ void chase::Execute(Enemy* dude)
 	else 
 	{
 		std::cout << "chasing..." << std::endl;
+		glm::vec3 pos(dude->GetPos());
+		pos.x += (dude->velocity.x * 0.005);
+		pos.z += (dude->velocity.z * 0.005);
+		dude->SetPos(pos);
+
+		
 	}
-
-	//CHASE CODE GOES IN THIS FUNCTION
-
+	dude->direction = -result;
 }
 
 void chase::Exit(Enemy* dude)
@@ -71,21 +78,31 @@ void chase::Exit(Enemy* dude)
 void flee::Enter(Enemy* dude)
 {
 	std::cout << "entered flee state" << std::endl;
-
+	srand(static_cast<unsigned>(time(0)));
+	dude->SetSate(RUN);
 	//start animation = RUN
 }
 
 void flee::Execute(Enemy* dude)
 {
-	float distance = 24.0f;
+	dude->check++;
 	
-	if (dude->Distance() && dude->Distance() && !dude->hasToken())
+	//std::cout << "CHECK:  " << dude->check << std::endl;
+
+	if (dude->check > 1000)
+	{
+		dude->token = false;	
+	}
+
+	float res = atan2(-dude->velocity.z, -dude->velocity.x);
+
+	if (dude->Distance() > 10.5f && dude->Distance() < 25.0f && dude->token == false)
 	{
 		//token has worn off and within chasing distance of player
 		std::cout << "token worn off- within chasing distance" << std::endl;
 		dude->getFSM()->changeState(&chase_state::getInstance());
 	}
-	else if (dude->Distance() && dude->hasToken() == false)
+	else if (dude->Distance() < 10.5f && dude->token == false)
 	{
 		std::cout << "token worn off - within shooting distance" << std::endl;
 		dude->getFSM()->changeState(&attack_state::getInstance());
@@ -98,28 +115,14 @@ void flee::Execute(Enemy* dude)
 	else
 	{
 		std::cout << "running away..." << std::endl;
-	}
-/*
-	double f = rand() % 10 * .1;
-	if (f > 0.25) 
-	{
-		dude->hasToken() == false;
+		dude->velocity.y = 0.0f;
 
-		if (dude->hasToken() == false) 
-		{
-			std::cout << "Safe to attack her now!" << std::endl;
-			dude->getFSM()->changeState(&attack_state::getInstance());
-		}
-
-	}
-	else 
-	{
-		std::cout << "okay i got away " << std::endl;
-		dude->getFSM()->changeState(&wander_state::getInstance());
-	}
-*/
-	//FLEE CODE GOES HERE 
+		glm::vec3 pos(dude->GetPos());
+		pos -= (dude->velocity * (0.005f));
 		
+		dude->SetPos(pos);
+		dude->direction = -res;
+	}		
 }
 
 void flee::Exit(Enemy* dude)
@@ -137,6 +140,8 @@ void attack::Enter(Enemy* dude)
 
 void attack::Execute(Enemy* dude)
 {
+	float res = atan2(dude->velocity.z - 0.7f, dude->velocity.x);
+
 	if (dude->Distance() > 10.5)
 	{
 		std::cout << "COME BACK HERE" << std::endl;
@@ -145,25 +150,9 @@ void attack::Execute(Enemy* dude)
 	else 
 	{
 		std::cout << "shooting at her .." << std::endl;
-		//std::cout << "she hit me OUCH" << std::endl;
-		//dude->Damage(-10);
+		dude->direction = -res;
 	}
-
-
-
-	//if within 
-	//if (dude->hasToken() == true)
-	//{
-	//	std::cout << "FUCK, she is overpowered boys" << std::endl;
-	//	dude->getFSM()->changeState(&flee_state::getInstance());
-	//}
-	//else if (dude->hasToken() == false);
-	//{
-	//	std::cout << "shooting at her .." << std::endl;
-	//	std::cout << "she hit me OUCH" << std::endl;
-	//	dude->decreaseHealth(10);
-
-	//}
+	
 		
 }
 
@@ -192,14 +181,16 @@ void die::Exit(Enemy* dude) {}
 /******************************************************************************/
 void global::Enter(Enemy* dude)
 {
-	
 }
 
 void global::Execute(Enemy* dude)
 {
-	if (dude->hasToken() == true)
+	if (dude->token == true && dude->Distance() < 25 && dude->globalFlag == false) 
+	{
 		dude->getFSM()->changeState(&flee_state::getInstance());
-
+		dude->globalFlag = true;
+	}
+	
 	if (!dude->isAlive())
 		dude->getFSM()->changeState(&die_state::getInstance());
 }

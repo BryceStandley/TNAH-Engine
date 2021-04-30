@@ -27,14 +27,20 @@ public:
 		health = h;
 		ammo = a;
 		alive = true;
-		token = false;
-		std::cout << h << " " << a << std::endl;
+		
+		//std::cout << h << " " << a << std::endl;
 	}
 
 	~Enemy()
 	{
 		delete enemyFSM;
 	}
+
+	glm::vec3 velocity;
+	float direction = 0.0f;
+	bool globalFlag = false;
+	bool token = false;
+	int check = 0;
 
 	stateMachine<Enemy>* getFSM()const { return enemyFSM; }
 	/*
@@ -82,7 +88,7 @@ public:
 		{
 			Model temp = GetModel();
 			Shader s = GetShader();
-			temp.Render(lens, s, GetPos(), GetRotation(), GetScale(), GetRotate(), time);
+			temp.Render(lens, s, GetPos(), GetRotation(), GetScale(), GetRotate(), time, direction);
 			SetShader(s);
 			SetModel(temp);
 		}
@@ -101,24 +107,30 @@ public:
 	bool hasToken() { return token; }
 	bool isAlive() { return alive; }
 	bool killFSM = false;
+
 	float Distance()
 	{
-		float distance;
-		float x = (pPos.x - GetPos().x) * (pPos.x - GetPos().x);
-		float y = (pPos.y - GetPos().y) * (pPos.y - GetPos().y);
-		float z = (pPos.z - GetPos().z) * (pPos.z - GetPos().z);
+		glm::vec3 camPos(pPos.x, pPos.y, pPos.z);
+		glm::vec3 modelPos(GetPos().x, GetPos().y, GetPos().z);
 
-		distance = (x + y + z) / 2;
+		glm::vec3 norm = glm::normalize(camPos - modelPos);
+
+		velocity = (norm * 3.0f);
+		
+		float distance = glm::distance(camPos, modelPos);
 
 		return distance;
 	}
 
 private:
 	glm::vec3 pPos;
+	
+	
 	stateMachine<Enemy>* enemyFSM;
 	int health;
 	int ammo;
 	bool alive;
-	bool token;
+	//bool token = false;
+	
 };
 
