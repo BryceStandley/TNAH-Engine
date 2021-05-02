@@ -4,7 +4,7 @@
 -- Format cs:MakeGameObject(type, "modelfolder", "vertexshader", "fragmentshader", scale, x, y, z, speed);
 print("Scene 1 script loaded")
 
-cs:MakeGameObject("player", "./res/models/weapons/Bennelli_M4-Texture.fbx", "./res/shader/modelV.glsl", "./res/shader/modelF.glsl", 1, 100, 2, 100, 0);
+cs:MakeGameObject("player", "./res/models/weapons/Bennelli_M4-Texture.fbx", "./res/shader/modelV.glsl", "./res/shader/modelF.glsl", 0.001, 100, 2, 100, 0);
 y = 1--Y value for all tokens
 for i = 0, 5
 do

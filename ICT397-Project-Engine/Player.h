@@ -27,5 +27,17 @@ public:
 		* @param time - the time since the last frame (deltatime)
 		*/
 	void Update(float time);
+
+	virtual void Render(View lens, float time, Renderer* gameRenderer)
+	{
+		SetPos(lens.GetPosition());
+		std::cout << "lens rotatations xyz -> " << lens.GetRotation().x << " " << lens.GetRotation().y << " " << lens.GetRotation().z << std::endl;
+		SetRotation(glm::vec3(0.0f, lens.GetRotation().x, 0.0f));
+		Model temp = GetModel();
+		Shader s = GetShader();
+		temp.Render(lens, s, GetPos(), GetRotation(), GetScale(), false, time, 0, gameRenderer);
+		SetShader(s);
+		SetModel(temp);
+	}
 };
 

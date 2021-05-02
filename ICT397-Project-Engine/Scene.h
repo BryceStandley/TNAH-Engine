@@ -142,6 +142,12 @@ public:
 	 */
     void MoveObjectAwayFromPlayer();
 
+	void RunPlayer(View lens, float time, bool exit)
+	{
+		if(!exitScreen.exitScreenDisplay)
+			gameObjects[playerInd]->Render(lens, time, gameRenderer);
+	}
+
 private:
 		///The game renderer that renders items
 	Renderer* gameRenderer;

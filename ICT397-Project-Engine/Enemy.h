@@ -83,7 +83,7 @@ public:
 	void Render(View lens, float time, Renderer* gameRenderer)
 	{
 		pPos = lens.GetPosition();
-		std::cout << Distance() << std::endl;
+		//std::cout << Distance() << std::endl;
 		if (alive)
 		{
 			Model temp = GetModel();
