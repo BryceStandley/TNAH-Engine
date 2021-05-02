@@ -164,7 +164,7 @@ public:
      */
     std::string GetName(){return name;}
 
-	virtual void Render(View lens, float time);
+	virtual void Render(View lens, float time, Renderer* gameRenderer);
 
 	bool GetRotate() { return rotate; }
 

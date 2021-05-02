@@ -42,7 +42,7 @@ void Scene::Run(View lens, float time, bool exit)
 		    gameObjects[x]->Update(0.1);
 		    if (x != playerInd)
 		    {
-                gameObjects[x]->Render(lens, time);
+                gameObjects[x]->Render(lens, time, gameRenderer);
 		    }
 	    }
     }

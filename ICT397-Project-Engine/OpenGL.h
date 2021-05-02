@@ -1,6 +1,16 @@
 #pragma once
 #include "Renderer.h"
 #include "Debugging.h"
+
+struct ModelInfo
+{
+	std::vector<int> commands;
+	std::vector<Buffer> vboFrameVertices;
+	Buffer vboTextureCoords;
+	std::vector<int> renderModes;
+	std::vector<int> numRenderVertices;
+};
+
 /**
 * @class OpenGL
 * @brief The abstract OpenGL version of the renderer.
@@ -130,7 +140,10 @@ public:
 
 	unsigned int TextureFromFile(std::string path);
 
-	virtual void LoadModelMd2(Buffer& buffer, std::vector<Buffer> &vboBuffers);
+	virtual int LoadModel(int numFrames, std::vector<int> commands, unsigned int& VAO, v3 anorms[162], std::vector<std::vector<glm::vec3>> vertices, std::vector<std::vector<int>> normals);
     tnah::Debugging debugger;
+	virtual void RenderModel(int number, Md2State* animState, glm::mat4 proj, glm::mat4 view, glm::vec3 position, float rotation, float direction, unsigned int& VAO, unsigned int& textureId, Shader& shader);
+private:
+	std::vector<ModelInfo> vertexBuffer;
 };
 

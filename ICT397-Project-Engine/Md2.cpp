@@ -223,18 +223,18 @@ void Md2::LoadModel(const char* sFilename, const char* tFilename, const char* vS
 
 	if ((err = fopen_s(&fp, sFilename, "rb") != 0))
 	{
-		//std::cout << "ERROR OPENING FILE -> " << sFilename << std::endl;
+
 	}
 	else
 	{
-		//std::cout << "DEBUG - 1" << std::endl;
+
 		fread(&information, sizeof(Md2Values), 1, fp);
 
 		char* buffer = new char[information.numFrames * information.frameSize];
 		fseek(fp, information.ofsFrames, SEEK_SET);
 		fread(buffer, sizeof(char), information.numFrames * information.frameSize, fp);
 
-		//std::cout << "DEBUG - 2" << std::endl;
+
 		vertices.resize(information.numFrames, std::vector<glm::vec3>(information.numVerts));
 		normals.resize(information.numFrames, std::vector<int>(information.numVerts));
 
@@ -251,78 +251,12 @@ void Md2::LoadModel(const char* sFilename, const char* tFilename, const char* vS
 				normals[i][j] = frame_ptr->verts[j].light;
 			}
 		}
-		//std::cout << "DEBUG - 3" << std::endl;
+
 		commands.resize(information.numCmds);
 		fseek(fp, information.ofsCmds, SEEK_SET);
 		fread(&commands[0], sizeof(int), information.numCmds, fp);
 
-		int i = 0;
-		int iTotalVertices = 0;
-
-		//std::cout << "DEBUG - 4" << std::endl;
-		vboFrameVertices.resize(information.numFrames);
-		for (int i = 0; i < information.numFrames; i++)
-		{
-			vboFrameVertices[i].CreateBuffer();
-		}
-		vboTextureCoords.CreateBuffer();
-		while (1)
-		{
-			int action = commands[i];
-			if (action == 0)
-				break;
-
-			int renderMode = action < 0 ? GL_TRIANGLE_FAN : GL_TRIANGLE_STRIP;
-			int numVertices = action < 0 ? -action : action;
-			i++;
-
-			renderModes.push_back(renderMode);
-			numRenderVertices.push_back(numVertices);
-
-			for (int j = 0; j < numVertices; j++)
-			{
-				float s = *((float*)(&commands[i++]));
-				float t = *((float*)(&commands[i++]));
-				t = 1.0f - t;
-				int vi = commands[i++];
-
-				vboTextureCoords.AddData(&s, 4);
-				vboTextureCoords.AddData(&t, 4);
-
-				for (int k = 0; k < information.numFrames; k++)
-				{
-					vboFrameVertices[k].AddData(&vertices[k][vi], 12);
-					vboFrameVertices[k].AddData(&anorms[normals[k][vi]], 12);
-				}
-			}
-		}
-		
-		glGenVertexArrays(1, &VAO);
-		glBindVertexArray(VAO);
-
-		for (int i = 0; i < information.numFrames; i++)
-		{
-			vboFrameVertices[i].BindVBO();
-			vboFrameVertices[i].UploadData(GL_STATIC_DRAW);
-		}
-
-		vboFrameVertices[0].BindVBO();
-
-		glEnableVertexAttribArray(0);
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 2 * sizeof(glm::vec3), 0);
-		glEnableVertexAttribArray(3);
-		glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, 2 * sizeof(glm::vec3), 0);
-
-		glEnableVertexAttribArray(2);
-		glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 2 * sizeof(glm::vec3), (void*)(sizeof(glm::vec3)));
-		glEnableVertexAttribArray(4);
-		glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, 2 * sizeof(glm::vec3), (void*)(sizeof(glm::vec3)));
-
-		vboTextureCoords.BindVBO();
-		vboTextureCoords.UploadData(GL_STATIC_DRAW);
-
-		glEnableVertexAttribArray(1);
-		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(glm::vec2), 0);
+		number = gameRenderer->LoadModel(information.numFrames, commands, VAO, anorms, vertices, normals);
 
 		TextureLoader loader;
 		textureId = TextureFromFile(tFilename);
@@ -335,65 +269,7 @@ void Md2::LoadModel(const char* sFilename, const char* tFilename, const char* vS
 
 void Md2::RenderModel(Md2State* animState, glm::mat4 proj, glm::mat4 view, glm::vec3 position, float rotation, float direction, Renderer * gameRenderer)
 {
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, textureId);
-
-	shader.use();
-	shader.setInt("texture0", 0);
-	shader.setMat4("projection", proj);
-	shader.setMat4("view", view);
-
-	glm::mat4 model = glm::mat4(1.0f);
-	model = glm::translate(model, position);
-	model = glm::scale(model, glm::vec3(0.05f));
-	model = glm::rotate(model, rotation, glm::vec3(1, 0, 0));
-	model = glm::rotate(model, direction, glm::vec3(0, 0, 1));
-	shader.setMat4("model", model);
-	shader.setMat4("normal", model);
-
-	glBindVertexArray(VAO);
-
-	int iTotalOffset = 0;
-
-	if (animState == NULL)
-	{
-		glEnableVertexAttribArray(0);
-		vboFrameVertices[0].BindVBO();
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 2 * sizeof(glm::vec3), 0);
-		shader.setFloat("fInterpolation", -1.0f);
-
-		for (int i = 0; i < renderModes.size(); i++)
-		{
-			glDrawArrays(renderModes[i], iTotalOffset, numRenderVertices[i]);
-			iTotalOffset += numRenderVertices[i];
-		}
-	}
-	else
-	{
-		glEnableVertexAttribArray(0);
-		vboFrameVertices[animState->currFrame].BindVBO();
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 2 * sizeof(glm::vec3), 0);
-
-		glEnableVertexAttribArray(3);
-		vboFrameVertices[animState->nextFrame].BindVBO();
-		glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, 2 * sizeof(glm::vec3), 0);
-
-		glEnableVertexAttribArray(2);
-		vboFrameVertices[animState->currFrame].BindVBO();
-		glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 2 * sizeof(glm::vec3), 0);
-
-		glEnableVertexAttribArray(4);
-		vboFrameVertices[animState->nextFrame].BindVBO();
-		glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, 2 * sizeof(glm::vec3), 0);
-
-		shader.setFloat("fInterpolation", animState->interpol);
-		for (int i = 0; i < renderModes.size(); i++)
-		{
-			glDrawArrays(renderModes[i], iTotalOffset, numRenderVertices[i]);
-			iTotalOffset += numRenderVertices[i];
-		}
-	}
-	glBindTexture(GL_TEXTURE_2D, 0);
+	gameRenderer->RenderModel(number, animState, proj, view, position, rotation, direction, VAO, textureId, shader);
 }
 
 Md2State Md2::StartAnimation(Md2Commands type)

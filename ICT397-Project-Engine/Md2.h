@@ -48,21 +48,6 @@ struct Md2Animation
 	int fps;
 };
 
-// status animation
-struct Md2State
-{
-	int	startFrame;
-	int	endFrame;
-	int	fps;
-	float currTime;
-	float prevTime;
-	float interpol;
-	int	type;
-	int	currFrame;
-	int	nextFrame;
-
-};
-
 typedef enum {
 	STAND,
 	RUN,
@@ -94,6 +79,7 @@ typedef enum {
 #include "OpenGL.h"
 #include "Buffer.h"
 #include "TextureLoader.h"
+#include "Md2.h"
 #include <vector>
 #include <glm/gtc/matrix_transform.hpp>
 
@@ -126,17 +112,11 @@ private:
 	glm::vec3 position;
 
 	std::vector<unsigned int> uiFramesBuffer;
-
+	std::vector<int> commands;
 	Md2Values information;
 	std::vector<std::vector<glm::vec3>> vertices;
 	std::vector<std::vector<int>> normals;
-	std::vector<int> commands;
 
-	std::vector<Buffer> vboFrameVertices;
-	Buffer vboTextureCoords;
-
-	std::vector<int> renderModes;
-	std::vector<int> numRenderVertices;
-
+	int number;
 };
 
