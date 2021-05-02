@@ -31,13 +31,11 @@ public:
 	virtual void Render(View lens, float time, Renderer* gameRenderer)
 	{
 		glm::vec3 pos = lens.GetPosition();
-		pos.y -= 0.05;
-		SetPos(pos);
-		std::cout << "lens rotatations xyz -> " << lens.GetRotation().x << " " << lens.GetRotation().y * -1 << " " << lens.GetRotation().z << std::endl;
-		SetRotation(glm::vec3((180.0f + lens.GetRotation().x) * -1, lens.GetRotation().y, -90.0f));
+		pos.y -= 0.1;
+		SetRotation(glm::vec3(180.0f + lens.GetRotation().x * -1, -5 + lens.GetRotation().y * -1, lens.GetRotation().z + 270.0f));
 		Model temp = GetModel();
 		Shader s = GetShader();
-		temp.Render(lens, s, GetPos(), GetRotation(), GetScale(), true, time, 0, gameRenderer);
+		temp.Render(lens, s, pos, GetRotation(), GetScale(), true, time, 0, gameRenderer);
 		SetShader(s);
 		SetModel(temp);
 	}

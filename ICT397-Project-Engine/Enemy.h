@@ -83,6 +83,7 @@ public:
 	void Render(View lens, float time, Renderer* gameRenderer)
 	{
 		pPos = lens.GetPosition();
+		deltaTime = time;
 		//std::cout << Distance() << std::endl;
 		if (alive)
 		{
@@ -108,6 +109,8 @@ public:
 	bool isAlive() { return alive; }
 	bool killFSM = false;
 
+	float GetDeltaTime() const { return deltaTime; }
+
 	float Distance()
 	{
 		glm::vec3 camPos(pPos.x, pPos.y, pPos.z);
@@ -125,7 +128,7 @@ public:
 private:
 	glm::vec3 pPos;
 	
-	
+	float deltaTime;
 	stateMachine<Enemy>* enemyFSM;
 	int health;
 	int ammo;
