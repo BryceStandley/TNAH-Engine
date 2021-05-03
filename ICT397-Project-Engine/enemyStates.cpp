@@ -18,18 +18,10 @@ void wander::Enter(Enemy* dude)
 
 void wander::Execute(Enemy* dude)
 {
-	glm::vec3 wanderPosition(dude->GetPos() + glm::vec3(10.0f, 0.0f, 0.0f));
-	//glm::vec3 wanderNorm
-
 	if (dude->Distance() > 10.5f && dude->Distance() < 25.0f)
 	{
 		std::cout << "ahh fuck there's Zoom Girl. Gotta chase her" << std::endl;
 		dude->getFSM()->changeState(&chase_state::getInstance());
-	}
-	else if (dude->Distance() > 25.0f) 
-	{
-		std::cout << "Wandering back to position " << std::endl;
-		
 	}
 	
 	//WANDER CODE GOES HERE
@@ -47,11 +39,11 @@ void chase::Enter(Enemy* dude)
 	std::cout << "Entering chase state" << std::endl;
 	srand(static_cast<unsigned>(time(0)));
 	dude->SetSate(RUN);
+	//start animation = RUN
 }
 
 void chase::Execute(Enemy* dude)
 {
-	glm::vec3 pos(dude->GetPos());
 	float result = atan2(dude->velocity.z, dude->velocity.x);
 
 	if (dude->Distance() < 10.5)
@@ -63,13 +55,11 @@ void chase::Execute(Enemy* dude)
 	{
 		std::cout << "lost her - time to stop" << std::endl;
 		dude->getFSM()->changeState(&wander_state::getInstance());
-
-
 	}
 	else 
 	{
 		std::cout << "chasing..." << std::endl;
-		//glm::vec3 pos(dude->GetPos());
+		glm::vec3 pos(dude->GetPos());
 		pos.x += (dude->velocity.x * 0.005);
 		pos.z += (dude->velocity.z * 0.005);
 		dude->SetPos(pos);
