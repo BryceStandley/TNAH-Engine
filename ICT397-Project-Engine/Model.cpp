@@ -1,6 +1,6 @@
 #include "Model.h"
 
-void Model::LoadModel(std::string const& path, Renderer* gameRenderer)
+void Model::LoadModel(std::string const& path, Renderer* gameRenderer, std::string pathTexture)
 {
     if (fbx)
     {
@@ -9,7 +9,7 @@ void Model::LoadModel(std::string const& path, Renderer* gameRenderer)
     }
     else if (md2)
     {
-        md2Model.LoadModel(path.c_str(), "res\\models\\zarlag\\Zlwred.jpg", "./res/shader/md2vert.vert", "./res/shader/md2frag.frag", gameRenderer);
+        md2Model.LoadModel(path.c_str(), pathTexture.c_str(), "./res/shader/md2vert.vert", "./res/shader/md2frag.frag", gameRenderer);
         currentState = md2Model.StartAnimation(WALK);
     }
 }

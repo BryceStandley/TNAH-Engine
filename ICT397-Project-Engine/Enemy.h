@@ -35,6 +35,7 @@ public:
 			LuaRef alv = getGlobal(L, "alive");
 
 			LuaRef mod = getGlobal(L, "model");
+			LuaRef tex = getGlobal(L, "texture");
 			LuaRef vert = getGlobal(L, "vertShader");
 			LuaRef frag = getGlobal(L, "fragShader");
 
@@ -44,6 +45,7 @@ public:
 			std::string file;
 			std::string vertS;
 			std::string fragS;
+			std::string texture;
 			bool check = false, rotate = false;
 
 			if (type.isBool())
@@ -76,6 +78,11 @@ public:
 				fragS = frag.cast<std::string>();
 			}
 
+			if (tex.isString())
+			{
+				texture = tex.cast<std::string>();
+			}
+
 			if (hel.isNumber())
 			{
 				h = hel.cast<int>();
@@ -86,7 +93,7 @@ public:
 				a = amm.cast<int>();
 			}
 
-			Model tempModel(file, gameRenderer, check);
+			Model tempModel(file, gameRenderer, check, texture);
 			SetModel(tempModel);
 
 			Shader tempShader(vertS.c_str(), fragS.c_str());
@@ -102,6 +109,7 @@ public:
 			LuaRef alv = getGlobal(L, "alive");
 
 			LuaRef mod = getGlobal(L, "model");
+			LuaRef tex = getGlobal(L, "texture");
 			LuaRef vert = getGlobal(L, "vertShader");
 			LuaRef frag = getGlobal(L, "fragShader");
 
@@ -111,6 +119,7 @@ public:
 			std::string file;
 			std::string vertS;
 			std::string fragS;
+			std::string texture;
 			bool check = false, rotate = false;
 
 			if (type.isBool())
@@ -143,6 +152,11 @@ public:
 				fragS = frag.cast<std::string>();
 			}
 
+			if (tex.isString())
+			{
+				texture = tex.cast<std::string>();
+			}
+
 			if (hel.isNumber())
 			{
 				h = hel.cast<int>();
@@ -153,7 +167,7 @@ public:
 				a = amm.cast<int>();
 			}
 
-			Model tempModel(file, gameRenderer, check);
+			Model tempModel(file, gameRenderer, check, texture);
 			SetModel(tempModel);
 
 			Shader tempShader(vertS.c_str(), fragS.c_str());

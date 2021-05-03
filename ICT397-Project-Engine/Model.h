@@ -43,7 +43,14 @@ public:
     Model(std::string const& path, Renderer* r, bool check)
     {
         SetMd2(check);
-        LoadModel(path, r);
+        LoadModel(path, r, "");
+        animations = true;
+    }
+
+    Model(std::string const& path, Renderer* r, bool check, std::string pathTexture)
+    {
+        SetMd2(check);
+        LoadModel(path, r, pathTexture);
         animations = true;
     }
 
@@ -59,7 +66,7 @@ public:
             fbx = true;
         }
     }
-    void LoadModel(std::string const& path, Renderer* gameRenderer);
+    void LoadModel(std::string const& path, Renderer* gameRenderer, std::string pathTexture);
     //void Render(View lens, Shader& shader, glm::vec3 pos, glm::vec3 rot, float scale, bool rotate, float time);
     void Render(View lens, Shader &shader, glm::vec3 pos, glm::vec3 rot, float scale, bool rotate, float time, float direction, Renderer * gameRenderer);
 

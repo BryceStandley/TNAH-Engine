@@ -5,6 +5,7 @@ rotate = false;
 alive = true;
 
 model = "res\\models\\zarlag\\Weapon.md2";
+texture = "res\\models\\zarlag\\WEAPON.jpg";
 vertShader = "./res/shader/md2vert.vert";
 fragShader = "./res/shader/md2frag.frag";
 
