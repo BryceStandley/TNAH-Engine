@@ -118,6 +118,7 @@ void Engine::Run()
 			window->UpdateCamera(pos);
 			window->GameInput(deltaTime);
 			window->MouseMove();
+			gameScenes[currentScene]->RunPlayer(window->GetLens(), deltaTime, false);
 			window->Buffer();
 		}
 
