@@ -10,7 +10,7 @@ void Model::LoadModel(std::string const& path)
     else if (md2)
     {
         md2Model.LoadModel(path.c_str(), "res\\models\\zarlag\\Zlwred.jpg", "./res/shader/md2vert.vert", "./res/shader/md2frag.frag", gameRenderer);
-        currentState = md2Model.StartAnimation(FALLBACK);
+        currentState = md2Model.StartAnimation(WALK);
     }
 }
 

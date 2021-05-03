@@ -66,6 +66,7 @@ struct Md2State
 typedef enum {
 	STAND,
 	RUN,
+	WALK,
 	ATTACK,
 	PAIN_A,
 	PAIN_B,
@@ -84,7 +85,7 @@ typedef enum {
 	DEATH_FALLBACK,
 	DEATH_FALLFORWARD,
 	DEATH_FALLBACKSLOW,
-	BOOM,
+
 
 	MAX_ANIMATIONS
 

@@ -10,7 +10,7 @@
 void wander::Enter(Enemy* dude)
 {
 	std::cout << "Entering wander state" << std::endl;
-	dude->SetSate(FALLBACK);
+	dude->SetSate(WALK);
 	srand(static_cast<unsigned>(time(0)));
 	dude->globalFlag = false;
 	//start animation = STAND (could use walk animation which would be a slowed down run).

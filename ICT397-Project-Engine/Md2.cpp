@@ -5,6 +5,7 @@ Md2State Md2::animationList[21] =
 	// first, last, fps
 	{   0,  39,  9 },
 	{  40,  45, 10 },
+	{  40,  45,  5 },
 	{  46,  53, 10 },
 	{  54,  57,  7 },
 	{  58,  61,  7 },
@@ -23,13 +24,13 @@ Md2State Md2::animationList[21] =
 	{ 178, 183,  7 },
 	{ 184, 189,  7 },
 	{ 190, 197,  7 },
-	{ 198, 198,  5 },
 };
 
 std::string sMD2AnimationNames[MAX_ANIMATIONS] =
 {
 	"Stand",
 	"Run",
+	"Walk",
 	"Attack",
 	"Pain A",
 	"Pain B",
@@ -48,7 +49,6 @@ std::string sMD2AnimationNames[MAX_ANIMATIONS] =
 	"Death Fallback",
 	"Death Fall Forward",
 	"Death Fallback Slow",
-	"Boom"
 };
 
 v3 anorms[162] =
