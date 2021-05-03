@@ -1,6 +1,6 @@
 #include "Model.h"
 
-void Model::LoadModel(std::string const& path)
+void Model::LoadModel(std::string const& path, Renderer* gameRenderer)
 {
     if (fbx)
     {
@@ -14,7 +14,7 @@ void Model::LoadModel(std::string const& path)
     }
 }
 
-void Model::Render(View lens, Shader &shader, glm::vec3 pos, glm::vec3 rot, float scale, bool rotate, float time, float direction)
+void Model::Render(View lens, Shader &shader, glm::vec3 pos, glm::vec3 rot, float scale, bool rotate, float time, float direction, Renderer* gameRenderer)
 {
     if (fbx)
     {

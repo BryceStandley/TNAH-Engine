@@ -80,7 +80,7 @@ public:
 		}
 	}
 
-	void Render(View lens, float time)
+	void Render(View lens, float time, Renderer* gameRenderer)
 	{
 		pPos = lens.GetPosition();
 		std::cout << Distance() << std::endl;
@@ -88,7 +88,7 @@ public:
 		{
 			Model temp = GetModel();
 			Shader s = GetShader();
-			temp.Render(lens, s, GetPos(), GetRotation(), GetScale(), GetRotate(), time, direction);
+			temp.Render(lens, s, GetPos(), GetRotation(), GetScale(), GetRotate(), time, direction, gameRenderer);
 			SetShader(s);
 			SetModel(temp);
 		}

@@ -117,6 +117,9 @@
     <ClCompile Include="enemyStates.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Md2State.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Renderer.h">
@@ -225,6 +228,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="stateMachine.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Md2State.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -43,8 +43,7 @@ public:
     Model(std::string const& path, Renderer* r, bool check)
     {
         SetMd2(check);
-        gameRenderer = r;
-        LoadModel(path);
+        LoadModel(path, r);
         animations = true;
     }
 
@@ -60,9 +59,9 @@ public:
             fbx = true;
         }
     }
-    void LoadModel(std::string const& path);
+    void LoadModel(std::string const& path, Renderer* gameRenderer);
     //void Render(View lens, Shader& shader, glm::vec3 pos, glm::vec3 rot, float scale, bool rotate, float time);
-    void Render(View lens, Shader &shader, glm::vec3 pos, glm::vec3 rot, float scale, bool rotate, float time, float direction);
+    void Render(View lens, Shader &shader, glm::vec3 pos, glm::vec3 rot, float scale, bool rotate, float time, float direction, Renderer * gameRenderer);
 
     void SetState(Md2Commands cmd) { currentState = md2Model.StartAnimation(cmd); }
     Md2State GetState() const { return currentState; }
@@ -72,7 +71,6 @@ private:
     glm::mat4 GenerateMatFour(glm::vec3 pos, glm::vec3 rot, float scale, bool rotate);
     Fbx fbxModel;
     Md2 md2Model;
-    Renderer* gameRenderer = NULL;
     bool fbx;
     bool md2;
     Md2State currentState;

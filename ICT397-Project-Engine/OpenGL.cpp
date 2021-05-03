@@ -34,7 +34,6 @@ void OpenGL::BindTexture(std::vector<unsigned int> textures)
     glBindTexture(GL_TEXTURE_2D, textures[3]);
     glActiveTexture(GL_TEXTURE4);
     glBindTexture(GL_TEXTURE_2D, textures[4]);
-
 }
 
 void OpenGL::DepthTest()
@@ -337,7 +336,141 @@ unsigned int OpenGL::TextureFromFile(std::string path)
     return textureID;
 }
 
-void OpenGL::LoadModelMd2(Buffer& buffer, std::vector<Buffer> &vboBuffers)
+int OpenGL::LoadModel(int numFrames, std::vector<int> commands, unsigned int& VAO, v3 anorms[162], std::vector<std::vector<glm::vec3>> vertices, std::vector<std::vector<int>> normals)
 {
+    ModelInfo tempBuffer;
+    int num = vertexBuffer.size();
+    int i = 0;
+    int iTotalVertices = 0;
 
+    //std::cout << "DEBUG - 4" << std::endl;
+    tempBuffer.vboFrameVertices.resize(numFrames);
+    for (int i = 0; i < numFrames; i++)
+    {
+        tempBuffer.vboFrameVertices[i].CreateBuffer();
+    }
+    tempBuffer.vboTextureCoords.CreateBuffer();
+    while (1)
+    {
+        int action = commands[i];
+        if (action == 0)
+            break;
+
+        int renderMode = action < 0 ? GL_TRIANGLE_FAN : GL_TRIANGLE_STRIP;
+        int numVertices = action < 0 ? -action : action;
+        i++;
+
+        tempBuffer.renderModes.push_back(renderMode);
+        tempBuffer.numRenderVertices.push_back(numVertices);
+
+        for (int j = 0; j < numVertices; j++)
+        {
+            float s = *((float*)(&commands[i++]));
+            float t = *((float*)(&commands[i++]));
+            t = 1.0f - t;
+            int vi = commands[i++];
+
+            tempBuffer.vboTextureCoords.AddData(&s, 4);
+            tempBuffer.vboTextureCoords.AddData(&t, 4);
+
+            for (int k = 0; k < numFrames; k++)
+            {
+                tempBuffer.vboFrameVertices[k].AddData(&vertices[k][vi], 12);
+                tempBuffer.vboFrameVertices[k].AddData(&anorms[normals[k][vi]], 12);
+            }
+        }
+    }
+
+    glGenVertexArrays(1, &VAO);
+    glBindVertexArray(VAO);
+
+    for (int i = 0; i < numFrames; i++)
+    {
+        tempBuffer.vboFrameVertices[i].BindVBO();
+        tempBuffer.vboFrameVertices[i].UploadData(GL_STATIC_DRAW);
+    }
+
+    tempBuffer.vboFrameVertices[0].BindVBO();
+
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 2 * sizeof(glm::vec3), 0);
+    glEnableVertexAttribArray(3);
+    glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, 2 * sizeof(glm::vec3), 0);
+
+    glEnableVertexAttribArray(2);
+    glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 2 * sizeof(glm::vec3), (void*)(sizeof(glm::vec3)));
+    glEnableVertexAttribArray(4);
+    glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, 2 * sizeof(glm::vec3), (void*)(sizeof(glm::vec3)));
+
+    tempBuffer.vboTextureCoords.BindVBO();
+    tempBuffer.vboTextureCoords.UploadData(GL_STATIC_DRAW);
+
+    glEnableVertexAttribArray(1);
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(glm::vec2), 0);
+
+    vertexBuffer.push_back(tempBuffer);
+    return num;
+}
+
+void OpenGL::RenderModel(int number, Md2State* animState, glm::mat4 proj, glm::mat4 view, glm::vec3 position, float rotation, float direction, unsigned int& VAO, unsigned int &textureId, Shader& shader)
+{
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, textureId);
+
+    shader.use();
+    shader.setInt("texture0", 0);
+    shader.setMat4("projection", proj);
+    shader.setMat4("view", view);
+
+    glm::mat4 model = glm::mat4(1.0f);
+    model = glm::translate(model, position);
+    model = glm::scale(model, glm::vec3(0.05f));
+    model = glm::rotate(model, rotation, glm::vec3(1, 0, 0));
+    model = glm::rotate(model, direction, glm::vec3(0, 0, 1));
+    shader.setMat4("model", model);
+    shader.setMat4("normal", model);
+
+    glBindVertexArray(VAO);
+
+    int iTotalOffset = 0;
+
+    if (animState == NULL)
+    {
+        glEnableVertexAttribArray(0);
+        vertexBuffer[number].vboFrameVertices[0].BindVBO();
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 2 * sizeof(glm::vec3), 0);
+        shader.setFloat("fInterpolation", -1.0f);
+
+        for (int i = 0; i < vertexBuffer[number].renderModes.size(); i++)
+        {
+            glDrawArrays(vertexBuffer[number].renderModes[i], iTotalOffset, vertexBuffer[number].numRenderVertices[i]);
+            iTotalOffset += vertexBuffer[number].numRenderVertices[i];
+        }
+    }
+    else
+    {
+        glEnableVertexAttribArray(0);
+        vertexBuffer[number].vboFrameVertices[animState->currFrame].BindVBO();
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 2 * sizeof(glm::vec3), 0);
+
+        glEnableVertexAttribArray(3);
+        vertexBuffer[number].vboFrameVertices[animState->nextFrame].BindVBO();
+        glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, 2 * sizeof(glm::vec3), 0);
+
+        glEnableVertexAttribArray(2);
+        vertexBuffer[number].vboFrameVertices[animState->currFrame].BindVBO();
+        glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 2 * sizeof(glm::vec3), 0);
+
+        glEnableVertexAttribArray(4);
+        vertexBuffer[number].vboFrameVertices[animState->nextFrame].BindVBO();
+        glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, 2 * sizeof(glm::vec3), 0);
+
+        shader.setFloat("fInterpolation", animState->interpol);
+        for (int i = 0; i < vertexBuffer[number].renderModes.size(); i++)
+        {
+            glDrawArrays(vertexBuffer[number].renderModes[i], iTotalOffset, vertexBuffer[number].numRenderVertices[i]);
+            iTotalOffset += vertexBuffer[number].numRenderVertices[i];
+        }
+    }
+    glBindTexture(GL_TEXTURE_2D, 0);
 }
