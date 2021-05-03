@@ -90,12 +90,12 @@ void Scene::UpdatePlayer(glm::vec3 position, glm::vec3 rotation)
 	gameObjects[playerInd]->SetPos(position);
 }
 
-void Scene::MakeGameObject(std::string t, std::string modelName, std::string shaderV, std::string shaderF, float scale, float x, float y, float z, float speed)
+void Scene::MakeGameObject(std::string t, std::string script, float scale, float x, float y, float z)
 {
     //Check the terrain height to make sure the object isn't under the terrain;
     y += WorldToTerrainPosition(glm::vec3(x,y,z), true).y;
 
-	GameObject* newGameObject = factory->GetGameObject(t, modelName, shaderV, shaderF, scale, glm::vec3(x, y, z), speed);
+	GameObject* newGameObject = factory->GetGameObject(t, script, scale, glm::vec3(x, y, z));
 	if (newGameObject != nullptr)
 	{
 		gameObjects.push_back(newGameObject);

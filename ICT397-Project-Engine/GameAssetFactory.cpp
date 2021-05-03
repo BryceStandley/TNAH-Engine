@@ -1,23 +1,16 @@
 #include "GameAssetFactory.h"
 
-GameObject* GameAssetFactory::GetGameObject(std::string type, std::string modelName, std::string shaderV, std::string shaderF, float scale, glm::vec3 position, float speed)
+GameObject* GameAssetFactory::GetGameObject(std::string type, std::string script, float scale, glm::vec3 position)
 {
+	std::cout << "script -> " << script << std::endl;
 	if (type == "player" && !playerMade)
 	{
 		std::cout << "Player done" << std::endl;
-        Shader ourShader(shaderV.c_str(), shaderF.c_str());
-        Model ourModel(modelName, renderer, false);
-        GameObject* obj = new Player();
-        obj->SetModel(ourModel);
-        obj->SetShader(ourShader);
-        obj->SetPos(glm::vec3(position));
-        obj->SetScale(scale);
-        obj->SetRotate(false);
+        GameObject* obj = new Player(position, glm::vec3(0, 0, 0), scale, renderer, script);
         BoundingBox box = BoundingBox();
-        box = box.GenerateBoundingBox(ourModel.GetMesh(0));
+        box = box.GenerateBoundingBox(obj->GetModel().GetMesh(0));
         obj->SetBoundingBox(box);
         obj->SetCollisionTag(BoundingBox::CollisionTag::PLAYER);
-        obj->SetName("Player");
         playerMade = true;
         return obj;
 
@@ -25,16 +18,9 @@ GameObject* GameAssetFactory::GetGameObject(std::string type, std::string modelN
 	else if (type == "static")
 	{
 		std::cout << "static done" << std::endl;
-		Shader ourShader(shaderV.c_str(), shaderF.c_str());
-		Model ourModel(modelName, renderer, false);
-		GameObject* obj = new Static();
-		obj->SetModel(ourModel);
-		obj->SetShader(ourShader);
-		obj->SetPos(glm::vec3(position));
-		obj->SetScale(scale);
-		obj->SetRotate(false);
+		GameObject* obj = new Static(position, glm::vec3(0, 0, 0), scale, renderer, script);
         BoundingBox box = BoundingBox();
-        box = box.GenerateBoundingBox(ourModel.GetMesh(0));
+        box = box.GenerateBoundingBox(obj->GetModel().GetMesh(0));
         obj->SetBoundingBox(box);
         obj->SetCollisionTag(BoundingBox::CollisionTag::STATIC_OBJECT);
 		obj->SetName("StaticObject");
@@ -43,14 +29,7 @@ GameObject* GameAssetFactory::GetGameObject(std::string type, std::string modelN
 	else if (type == "enemy")
 	{
 		std::cout << "Enemy done" << std::endl;
-		Shader ourShader(shaderV.c_str(), shaderF.c_str());
-		Model ourModel(modelName, renderer, true);
-		GameObject* obj = new Enemy(100.0f, 10.0f);
-		obj->SetModel(ourModel);
-		obj->SetShader(ourShader);
-		obj->SetPos(glm::vec3(position));
-		obj->SetScale(scale);
-		obj->SetRotate(true);
+		GameObject* obj = new Enemy(position, glm::vec3(0, 0, 0), scale, renderer, script);
 		obj->SetCollisionTag(BoundingBox::CollisionTag::ENEMY);
 		obj->SetName("Enemy");
 		return obj;
@@ -58,15 +37,7 @@ GameObject* GameAssetFactory::GetGameObject(std::string type, std::string modelN
 	else if (type == "token")
 	{
 		std::cout << "token done" << std::endl;
-		Shader ourShader(shaderV.c_str(), shaderF.c_str());
-		Model ourModel(modelName, renderer, false);
-		GameObject* obj = new Token();
-		obj->SetModel(ourModel);
-		obj->SetShader(ourShader);
-		obj->SetPos(glm::vec3(position));
-		obj->SetScale(scale);
-		obj->SetRotate(true);
-		obj->SetSpeed(speed);
+		GameObject* obj = new Token(position, glm::vec3(0, 0, 0), scale, renderer, script);
 		obj->SetCollisionTag(BoundingBox::CollisionTag::TOKEN);
 		obj->SetName("Token");
 		return obj;

@@ -79,7 +79,7 @@ public:
 		* @param rotate - Sets if the model needs to be rotated on entry
 		* @param speed - The speed at which it moves
 		*/
-	void MakeGameObject(std::string t, std::string modelName, std::string shaderV, std::string shaderF, float scale, float x, float y, float z, float speed);
+	void MakeGameObject(std::string t, std::string script, float scale, float x, float y, float z);
 
 		/**
 		* @brief Gets a gameobject from the game objects

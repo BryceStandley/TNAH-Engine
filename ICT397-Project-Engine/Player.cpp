@@ -2,5 +2,5 @@
 
 void Player::Update(float time)
 {
-	SetType("player");
+
 }

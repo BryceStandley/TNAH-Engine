@@ -16,19 +16,161 @@
  * @bugs none to be seen
  *
  **/
+using namespace luabridge;
 class Enemy : public GameObject
 {
 public:
-	Enemy(float h, float a) : GameObject()
+	Enemy(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std::string script) : GameObject(p, rot, s, gameRenderer)
 	{
+		lua_State* L = LuaManager::getInstance().getLuaState();
+
+		int h = 50;
+		int a = 5;
+		bool living = true;
+
+		if (!luaL_dofile(L, script.c_str()))
+		{
+			LuaRef type = getGlobal(L, "check");
+			LuaRef rot = getGlobal(L, "rotate");
+			LuaRef alv = getGlobal(L, "alive");
+
+			LuaRef mod = getGlobal(L, "model");
+			LuaRef vert = getGlobal(L, "vertShader");
+			LuaRef frag = getGlobal(L, "fragShader");
+
+			LuaRef hel = getGlobal(L, "health");
+			LuaRef amm = getGlobal(L, "ammo");
+
+			std::string file;
+			std::string vertS;
+			std::string fragS;
+			bool check = false, rotate = false;
+
+			if (type.isBool())
+			{
+				check = type.cast<bool>();
+			}
+
+			if (rot.isBool())
+			{
+				rotate = rot.cast<bool>();
+			}
+
+			if (alv.isBool())
+			{
+				living = alv.cast<bool>();
+			}
+
+			if (mod.isString())
+			{
+				file = mod.cast<std::string>();
+			}
+
+			if (vert.isString())
+			{
+				vertS = vert.cast<std::string>();
+			}
+
+			if (frag.isString())
+			{
+				fragS = frag.cast<std::string>();
+			}
+
+			if (hel.isNumber())
+			{
+				h = hel.cast<int>();
+			}
+
+			if (amm.isNumber())
+			{
+				a = amm.cast<int>();
+			}
+
+			Model tempModel(file, gameRenderer, check);
+			SetModel(tempModel);
+
+			Shader tempShader(vertS.c_str(), fragS.c_str());
+			SetShader(tempShader);
+
+			SetRotate(rotate);
+		}
+		else if (!luaL_dofile(L, "./res/scripts/gameobjects/enemy_default.lua"))
+		{
+			std::cout << "Enemy script not found, loading default script" << std::endl;
+			LuaRef type = getGlobal(L, "check");
+			LuaRef rot = getGlobal(L, "rotate");
+			LuaRef alv = getGlobal(L, "alive");
+
+			LuaRef mod = getGlobal(L, "model");
+			LuaRef vert = getGlobal(L, "vertShader");
+			LuaRef frag = getGlobal(L, "fragShader");
+
+			LuaRef hel = getGlobal(L, "health");
+			LuaRef amm = getGlobal(L, "ammo");
+
+			std::string file;
+			std::string vertS;
+			std::string fragS;
+			bool check = false, rotate = false;
+
+			if (type.isBool())
+			{
+				check = type.cast<bool>();
+			}
+
+			if (rot.isBool())
+			{
+				rotate = rot.cast<bool>();
+			}
+
+			if (alv.isBool())
+			{
+				living = alv.cast<bool>();
+			}
+
+			if (mod.isString())
+			{
+				file = mod.cast<std::string>();
+			}
+
+			if (vert.isString())
+			{
+				vertS = vert.cast<std::string>();
+			}
+
+			if (frag.isString())
+			{
+				fragS = frag.cast<std::string>();
+			}
+
+			if (hel.isNumber())
+			{
+				h = hel.cast<int>();
+			}
+
+			if (amm.isNumber())
+			{
+				a = amm.cast<int>();
+			}
+
+			Model tempModel(file, gameRenderer, check);
+			SetModel(tempModel);
+
+			Shader tempShader(vertS.c_str(), fragS.c_str());
+			SetShader(tempShader);
+
+			SetRotate(rotate);
+		}
+		else
+		{
+			std::cout << "ERROR::NO_ENEMY_SCRIPTS_FOUND" << std::endl;
+		}
 		enemyFSM = new stateMachine<Enemy>(this);
 		enemyFSM->setCurrentState(&wander_state::getInstance());
 		enemyFSM->setGlobalState(&global_state::getInstance());
 		health = h;
 		ammo = a;
-		alive = true;
-		
-		//std::cout << h << " " << a << std::endl;
+		alive = living;
 	}
 
 	~Enemy()

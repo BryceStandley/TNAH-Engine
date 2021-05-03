@@ -39,7 +39,7 @@ public:
 		* @param speed - the speed of movement
 		* @return GameObject*
 		*/
-	GameObject* GetGameObject(std::string t, std::string modelName, std::string shaderV, std::string shaderF, float scale , glm::vec3 position, float speed);
+	GameObject* GetGameObject(std::string t, std::string script, float scale , glm::vec3 position);
 
 private:
 
