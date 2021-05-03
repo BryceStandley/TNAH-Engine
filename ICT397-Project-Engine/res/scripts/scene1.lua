@@ -4,19 +4,19 @@
 -- Format cs:MakeGameObject(type, "modelfolder", "vertexshader", "fragmentshader", scale, x, y, z, speed);
 print("Scene 1 script loaded")
 
-cs:MakeGameObject("player", "./res/models/weapons/Bennelli_M4-Texture.fbx", "./res/shader/modelV.glsl", "./res/shader/modelF.glsl", 0.001, 100, 2, 100, 0);
+cs:MakeGameObject("player", "./res/scripts/gameobjects/player_default.lua", 0.001, 100, 2, 100);
 y = 1--Y value for all tokens
 for i = 0, 5
 do
     x = math.random(40, 150)
     z = math.random(40, 150)
-    cs:MakeGameObject("token",  "./res/models/tokens/Free_Hit.fbx", "./res/shader/modelV.glsl", "./res/shader/modelF.glsl", 0.005, x, y, z, 10);
+    cs:MakeGameObject("token",  "./res/scripts/gameobjects/token_freehit.lua", 0.005, x, y, z);
     x = math.random(40, 150)
     z = math.random(40, 150)
-    cs:MakeGameObject("token", "./res/models/tokens/Speed_Up.fbx", "./res/shader/modelV.glsl", "./res/shader/modelF.glsl", 0.005, x, y, z, 10);
+    cs:MakeGameObject("token", "./res/scripts/gameobjects/token_speedup.lua", 0.005, x, y, z);
     x = math.random(40, 150)
     z = math.random(40, 150)
-    cs:MakeGameObject("token",  "./res/models/tokens/Double_Damage.fbx", "./res/shader/modelV.glsl", "./res/shader/modelF.glsl", 0.005, x, y, z, 10);
+    cs:MakeGameObject("token",  "./res/scripts/gameobjects/token_doubledmg.lua", 0.005, x, y, z);
 end
 
 --These loops dont check if there is a model already in its place
@@ -26,7 +26,7 @@ for i = 0, 10
 do
     x = math.random(10, 190)
     z = math.random(10, 190)
-    cs:MakeGameObject("static",  "./res/models/environment/Yellow_Tree-With-Texture.fbx", "./res/shader/modelV.glsl", "./res/shader/modelF.glsl", 0.005,x, y, z, 10);
+    cs:MakeGameObject("static", "./res/scripts/gameobjects/static_yellowtree.lua", 0.005,x, y, z);
 end
 
 --Make 10 Red Trees with random positions
@@ -34,7 +34,7 @@ for i = 0, 10
 do
     x = math.random(10, 190)
     z = math.random(10, 190)
-    cs:MakeGameObject("static",  "./res/models/environment/Red_Tree-WithTexture.fbx", "./res/shader/modelV.glsl", "./res/shader/modelF.glsl", 0.005,x, y, z, 10);
+    cs:MakeGameObject("static",  "./res/scripts/gameobjects/static_redtree.lua", 0.005,x, y, z);
 end
 
 --Make 10 Gree Trees with random positions
@@ -42,7 +42,7 @@ for i = 0, 10
 do
     x = math.random(10, 190)
     z = math.random(10, 190)
-    cs:MakeGameObject("static",  "./res/models/environment/Green_Tree-WithTexture.fbx", "./res/shader/modelV.glsl", "./res/shader/modelF.glsl", 0.005,x, y, z, 10);
+    cs:MakeGameObject("static",  "./res/scripts/gameobjects/static_greentree.lua", 0.005, x, y, z);
 end
 
 y = -0.2
@@ -51,7 +51,7 @@ for i = 0, 15
 do
     x = math.random(50, 150)
     z = math.random(50, 150)
-    cs:MakeGameObject("static",  "./res/models/environment/stone-diamond-tex.fbx", "./res/shader/modelV.glsl", "./res/shader/modelF.glsl", 0.02, x, y, z, 10);
+    cs:MakeGameObject("static",  "./res/scripts/gameobjects/static_stonediamond.lua", 0.02, x, y, z);
 end
 
 y = 1.2
@@ -60,8 +60,8 @@ for i = 0, 2
 do
     x = math.random(50, 150)
     z = math.random(50, 150)
-    cs:MakeGameObject("enemy",  "res\\models\\zarlag\\Tris.md2", "./res/shader/md2vert.vert", "./res/shader/md2frag.frag", 0.05, x, y, z, 0);
-	cs:MakeGameObject("enemy",  "res\\models\\zarlag\\Weapon.md2", "./res/shader/md2vert.vert", "./res/shader/md2frag.frag", 0.05, x, y, z, 0);
+    cs:MakeGameObject("enemy",  "./res/scripts/gameobjects/enemy_zarlag.lua", 0.05, x, y, z);
+	cs:MakeGameObject("enemy",  "./res/scripts/gameobjects/enemy_zarlagweapon.lua", 0.05, x, y, z);
 end
 
 
