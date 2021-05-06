@@ -26,13 +26,14 @@ public:
 
 		int h = 50;
 		int a = 5;
-		bool living = true;
+		bool living = true, weap = false;
 
 		if (!luaL_dofile(L, script.c_str()))
 		{
 			LuaRef type = getGlobal(L, "check");
 			LuaRef rot = getGlobal(L, "rotate");
 			LuaRef alv = getGlobal(L, "alive");
+			LuaRef weapon = getGlobal(L, "weapon");
 
 			LuaRef mod = getGlobal(L, "model");
 			LuaRef tex = getGlobal(L, "texture");
@@ -61,6 +62,11 @@ public:
 			if (alv.isBool())
 			{
 				living = alv.cast<bool>();
+			}
+
+			if (weapon.isBool())
+			{
+				weap = weapon.cast<bool>();
 			}
 
 			if (mod.isString())
@@ -100,6 +106,28 @@ public:
 			SetShader(tempShader);
 
 			SetRotate(rotate);
+
+			if (weap)
+			{
+				LuaRef WeapMod = getGlobal(L, "weaponModel");
+				LuaRef weapTex = getGlobal(L, "weaponTexture");
+
+				std::string weaponModel;
+				std::string weaponTexture;
+
+				if (WeapMod.isString())
+				{
+					weaponModel = WeapMod.cast<std::string>();
+				}
+
+				if (weapTex.isString())
+				{
+					weaponTexture = weapTex.cast<std::string>();
+				}
+
+				Model tempWeaponModel(weaponModel, gameRenderer, check, weaponTexture);
+				wModel = tempWeaponModel;
+			}
 		}
 		else if (!luaL_dofile(L, "./res/scripts/gameobjects/enemy_default.lua"))
 		{
@@ -107,6 +135,7 @@ public:
 			LuaRef type = getGlobal(L, "check");
 			LuaRef rot = getGlobal(L, "rotate");
 			LuaRef alv = getGlobal(L, "alive");
+			LuaRef weapon = getGlobal(L, "weapon");
 
 			LuaRef mod = getGlobal(L, "model");
 			LuaRef tex = getGlobal(L, "texture");
@@ -135,6 +164,11 @@ public:
 			if (alv.isBool())
 			{
 				living = alv.cast<bool>();
+			}
+
+			if (weapon.isBool())
+			{
+				weap = weapon.cast<bool>();
 			}
 
 			if (mod.isString())
@@ -174,6 +208,28 @@ public:
 			SetShader(tempShader);
 
 			SetRotate(rotate);
+
+			if (weap)
+			{
+				LuaRef WeapMod = getGlobal(L, "weaponModel");
+				LuaRef weapTex = getGlobal(L, "weaponTexture");
+
+				std::string weaponModel;
+				std::string weaponTexture;
+
+				if (WeapMod.isString())
+				{
+					weaponModel = WeapMod.cast<std::string>();
+				}
+
+				if (weapTex.isString())
+				{
+					weaponTexture = weapTex.cast<std::string>();
+				}
+
+				Model tempWeaponModel(weaponModel, gameRenderer, check, weaponTexture);
+				wModel = tempWeaponModel;
+			}
 		}
 		else
 		{
@@ -185,6 +241,7 @@ public:
 		health = h;
 		ammo = a;
 		alive = living;
+		hasWeapon = weap;
 	}
 
 	~Enemy()
@@ -246,6 +303,10 @@ public:
 			Model temp = GetModel();
 			Shader s = GetShader();
 			temp.Render(lens, s, GetPos(), GetRotation(), GetScale(), GetRotate(), time, direction, gameRenderer);
+			if (hasWeapon)
+			{
+				wModel.Render(lens, s, GetPos(), GetRotation(), GetScale(), GetRotate(), time, direction, gameRenderer);
+			}
 			SetShader(s);
 			SetModel(temp);
 		}
@@ -256,7 +317,7 @@ public:
 		Model temp = GetModel();
 		temp.SetState(state);
 		SetModel(temp);
-
+		wModel.SetState(state);
 	}
 
 	void GetDistance();
@@ -283,12 +344,13 @@ public:
 
 private:
 	glm::vec3 pPos;
-	
+	Model wModel;
 	float deltaTime;
 	stateMachine<Enemy>* enemyFSM;
 	int health;
 	int ammo;
 	bool alive;
+	bool hasWeapon;
 	//bool token = false;
 	
 };

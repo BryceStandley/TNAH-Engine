@@ -3,9 +3,12 @@
 check = true;
 rotate = false;
 alive = true;
+weapon = true;
 
 model = "res\\models\\zarlag\\Tris.md2";
 texture = "res\\models\\zarlag\\Zlwred.jpg";
+weaponModel = "res\\models\\zarlag\\Weapon.md2";
+weaponTexture = "res\\models\\zarlag\\WEAPON.jpg";
 vertShader = "./res/shader/md2vert.vert";
 fragShader = "./res/shader/md2frag.frag";
 
