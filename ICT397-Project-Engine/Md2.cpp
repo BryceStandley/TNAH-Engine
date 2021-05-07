@@ -5,8 +5,8 @@ Md2State Md2::animationList[21] =
 	// first, last, fps
 	{   0,  39,  9 },
 	{  40,  45, 10 },
-	{  40,  45,  5 },
-	{  46,  53, 10 },
+	{  40,  45,  7 },
+	{  46,  53,  8 },
 	{  54,  57,  7 },
 	{  58,  61,  7 },
 	{  62,  65,  7 },
@@ -22,7 +22,7 @@ Md2State Md2::animationList[21] =
 	{ 196, 172,  7 },
 	{ 173, 177,  5 },
 	{ 178, 183,  7 },
-	{ 184, 189,  7 },
+	{ 183, 183,  7 },
 	{ 190, 197,  7 },
 };
 
@@ -47,7 +47,7 @@ std::string sMD2AnimationNames[MAX_ANIMATIONS] =
 	"Crouch Pain",
 	"Crouch Death",
 	"Death Fallback",
-	"Death Fall Forward",
+	"Death",
 	"Death Fallback Slow",
 };
 

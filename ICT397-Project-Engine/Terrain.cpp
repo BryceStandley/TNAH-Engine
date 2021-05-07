@@ -11,6 +11,7 @@ Terrain::Terrain()
 
 Terrain::~Terrain()
 {
+    
     delete[] terrainData;
     glDeleteVertexArrays(1, &VAO);
     glDeleteBuffers(1, &VBO);

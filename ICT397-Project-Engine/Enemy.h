@@ -1,4 +1,5 @@
 #pragma once
+# define PI           3.14159265358979323846  /* pi */
 #include "GameObject.h"
 #include "state.h"
 #include "stateMachine.h"
@@ -16,342 +17,93 @@
  * @bugs none to be seen
  *
  **/
+
+inline double randFloat()
+{
+	return ((rand()) / (RAND_MAX + 1.0));
+}
+
+inline double randomClamped()
+{
+	return randFloat() - randFloat();
+}
+
 using namespace luabridge;
 class Enemy : public GameObject
 {
 public:
-	Enemy(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std::string script) : GameObject(p, rot, s, gameRenderer)
-	{
-		lua_State* L = LuaManager::getInstance().getLuaState();
+	Enemy(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std::string script);
+		
+	~Enemy();
 
-		int h = 50;
-		int a = 5;
-		bool living = true, weap = false;
-
-		if (!luaL_dofile(L, script.c_str()))
-		{
-			LuaRef type = getGlobal(L, "check");
-			LuaRef rot = getGlobal(L, "rotate");
-			LuaRef alv = getGlobal(L, "alive");
-			LuaRef weapon = getGlobal(L, "weapon");
-
-			LuaRef mod = getGlobal(L, "model");
-			LuaRef tex = getGlobal(L, "texture");
-			LuaRef vert = getGlobal(L, "vertShader");
-			LuaRef frag = getGlobal(L, "fragShader");
-
-			LuaRef hel = getGlobal(L, "health");
-			LuaRef amm = getGlobal(L, "ammo");
-
-			std::string file;
-			std::string vertS;
-			std::string fragS;
-			std::string texture;
-			bool check = false, rotate = false;
-
-			if (type.isBool())
-			{
-				check = type.cast<bool>();
-			}
-
-			if (rot.isBool())
-			{
-				rotate = rot.cast<bool>();
-			}
-
-			if (alv.isBool())
-			{
-				living = alv.cast<bool>();
-			}
-
-			if (weapon.isBool())
-			{
-				weap = weapon.cast<bool>();
-			}
-
-			if (mod.isString())
-			{
-				file = mod.cast<std::string>();
-			}
-
-			if (vert.isString())
-			{
-				vertS = vert.cast<std::string>();
-			}
-
-			if (frag.isString())
-			{
-				fragS = frag.cast<std::string>();
-			}
-
-			if (tex.isString())
-			{
-				texture = tex.cast<std::string>();
-			}
-
-			if (hel.isNumber())
-			{
-				h = hel.cast<int>();
-			}
-
-			if (amm.isNumber())
-			{
-				a = amm.cast<int>();
-			}
-
-			Model tempModel(file, gameRenderer, check, texture);
-			SetModel(tempModel);
-
-			Shader tempShader(vertS.c_str(), fragS.c_str());
-			SetShader(tempShader);
-
-			SetRotate(rotate);
-
-			if (weap)
-			{
-				LuaRef WeapMod = getGlobal(L, "weaponModel");
-				LuaRef weapTex = getGlobal(L, "weaponTexture");
-
-				std::string weaponModel;
-				std::string weaponTexture;
-
-				if (WeapMod.isString())
-				{
-					weaponModel = WeapMod.cast<std::string>();
-				}
-
-				if (weapTex.isString())
-				{
-					weaponTexture = weapTex.cast<std::string>();
-				}
-
-				Model tempWeaponModel(weaponModel, gameRenderer, check, weaponTexture);
-				wModel = tempWeaponModel;
-			}
-		}
-		else if (!luaL_dofile(L, "./res/scripts/gameobjects/enemy_default.lua"))
-		{
-			std::cout << "Enemy script not found, loading default script" << std::endl;
-			LuaRef type = getGlobal(L, "check");
-			LuaRef rot = getGlobal(L, "rotate");
-			LuaRef alv = getGlobal(L, "alive");
-			LuaRef weapon = getGlobal(L, "weapon");
-
-			LuaRef mod = getGlobal(L, "model");
-			LuaRef tex = getGlobal(L, "texture");
-			LuaRef vert = getGlobal(L, "vertShader");
-			LuaRef frag = getGlobal(L, "fragShader");
-
-			LuaRef hel = getGlobal(L, "health");
-			LuaRef amm = getGlobal(L, "ammo");
-
-			std::string file;
-			std::string vertS;
-			std::string fragS;
-			std::string texture;
-			bool check = false, rotate = false;
-
-			if (type.isBool())
-			{
-				check = type.cast<bool>();
-			}
-
-			if (rot.isBool())
-			{
-				rotate = rot.cast<bool>();
-			}
-
-			if (alv.isBool())
-			{
-				living = alv.cast<bool>();
-			}
-
-			if (weapon.isBool())
-			{
-				weap = weapon.cast<bool>();
-			}
-
-			if (mod.isString())
-			{
-				file = mod.cast<std::string>();
-			}
-
-			if (vert.isString())
-			{
-				vertS = vert.cast<std::string>();
-			}
-
-			if (frag.isString())
-			{
-				fragS = frag.cast<std::string>();
-			}
-
-			if (tex.isString())
-			{
-				texture = tex.cast<std::string>();
-			}
-
-			if (hel.isNumber())
-			{
-				h = hel.cast<int>();
-			}
-
-			if (amm.isNumber())
-			{
-				a = amm.cast<int>();
-			}
-
-			Model tempModel(file, gameRenderer, check, texture);
-			SetModel(tempModel);
-
-			Shader tempShader(vertS.c_str(), fragS.c_str());
-			SetShader(tempShader);
-
-			SetRotate(rotate);
-
-			if (weap)
-			{
-				LuaRef WeapMod = getGlobal(L, "weaponModel");
-				LuaRef weapTex = getGlobal(L, "weaponTexture");
-
-				std::string weaponModel;
-				std::string weaponTexture;
-
-				if (WeapMod.isString())
-				{
-					weaponModel = WeapMod.cast<std::string>();
-				}
-
-				if (weapTex.isString())
-				{
-					weaponTexture = weapTex.cast<std::string>();
-				}
-
-				Model tempWeaponModel(weaponModel, gameRenderer, check, weaponTexture);
-				wModel = tempWeaponModel;
-			}
-		}
-		else
-		{
-			std::cout << "ERROR::NO_ENEMY_SCRIPTS_FOUND" << std::endl;
-		}
-		enemyFSM = new stateMachine<Enemy>(this);
-		enemyFSM->setCurrentState(&wander_state::getInstance());
-		enemyFSM->setGlobalState(&global_state::getInstance());
-		health = h;
-		ammo = a;
-		alive = living;
-		hasWeapon = weap;
-	}
-
-	~Enemy()
-	{
-		delete enemyFSM;
-	}
-
-	glm::vec3 velocity;
+	glm::vec3 velocity = { 4.0f, 0.0f, 0.0f };
+	glm::vec3 enemyVelocity = { 5.0f, 0.0f, 0.0f };
 	float direction = 0.0f;
 	bool globalFlag = false;
-	bool token = false;
+	bool token = true;
+	bool deathAnim = false;
 	int check = 0;
 
 	stateMachine<Enemy>* getFSM()const { return enemyFSM; }
+
 	/*
 	* @breif Updates the game object with functionality
 	* @param time - the time since the last frame (deltatime)
 	*/
 	void Update(float time);
 
-	void Damage(int dmg)
-	{
-		health += dmg;
+	void Damage(int dmg);
+	
 
-		if (health > 100)
-		{
-			health = 100;
-		}
+	void Ammo(int amount);
+	
 
-		if (health <= 0)
-		{
-			health = 0;
-			alive = false;
-		}
-	}
+	void Render(View lens, float time, Renderer* gameRenderer);
 
-	void Ammo(int amount)
-	{
-		ammo += amount;
-
-		if (ammo > 50)
-		{
-			ammo = 50;
-		}
-
-		if (ammo <= 0)
-		{
-			ammo = 0;
-		}
-	}
-
-	void Render(View lens, float time, Renderer* gameRenderer)
-	{
-		pPos = lens.GetPosition();
-		deltaTime = time;
-		//std::cout << Distance() << std::endl;
-		if (alive)
-		{
-			Model temp = GetModel();
-			Shader s = GetShader();
-			temp.Render(lens, s, GetPos(), GetRotation(), GetScale(), GetRotate(), time, direction, gameRenderer);
-			if (hasWeapon)
-			{
-				wModel.Render(lens, s, GetPos(), GetRotation(), GetScale(), GetRotate(), time, direction, gameRenderer);
-			}
-			SetShader(s);
-			SetModel(temp);
-		}
-	}
-
-	void SetSate(Md2Commands state)
-	{
-		Model temp = GetModel();
-		temp.SetState(state);
-		SetModel(temp);
-		wModel.SetState(state);
-	}
-
-	void GetDistance();
+	void SetSate(Md2Commands state);
 
 	bool hasToken() { return token; }
 	bool isAlive() { return alive; }
+	
 	bool killFSM = false;
 
 	float GetDeltaTime() const { return deltaTime; }
 
-	float Distance()
-	{
-		glm::vec3 camPos(pPos.x, pPos.y, pPos.z);
-		glm::vec3 modelPos(GetPos().x, GetPos().y, GetPos().z);
+	float Distance();
+	
+	glm::vec3 getCamPos() { return pPos; }
 
-		glm::vec3 norm = glm::normalize(camPos - modelPos);
 
-		velocity = (norm * 3.0f);
-		
-		float distance = glm::distance(camPos, modelPos);
 
-		return distance;
-	}
+
+
+	bool moveTo(glm::vec3& curPos, const glm::vec3& targetPos, glm::vec3& curVelocity, float time, float offset);
+
+	void pursue(const glm::vec3& evaderPos, glm::vec3& pursuerPos, const glm::vec3& evaderVelocity, glm::vec3& pursuerVelocity, float time, float offset);
+	
+	bool flee(glm::vec3& curPos, const glm::vec3& pursuerPos, glm::vec3& curVelocity, float fleeSpeed, float time);
+
+	bool evade(glm::vec3& evaderPos, const glm::vec3& pursuerPos, glm::vec3& evaderVelocity, const glm::vec3& pursuerVelocity, float time);
+
+	void setWander(double wanderRadius, double wanderDistance, double wanderJitter);
+
+	bool wander(glm::vec3& position, glm::vec3& velocity, float time);
 
 private:
 	glm::vec3 pPos;
 	Model wModel;
-	float deltaTime;
+	float deltaTime = 0;
 	stateMachine<Enemy>* enemyFSM;
 	int health;
 	int ammo;
 	bool alive;
 	bool hasWeapon;
 	//bool token = false;
+
+	double wanderRadius = 0;
+	double wanderDistance = 0;
+	double wanderJitter = 0;
+	glm::vec3 wanderTarget = { 0.0f,0.0f,0.0f };
 	
 };
 

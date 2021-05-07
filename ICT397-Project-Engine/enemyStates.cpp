@@ -5,82 +5,76 @@
 #include <ctime>
 
 
-// Use Wander as an idle function for now. 
 /******************************************************************************/
+
 void wander::Enter(Enemy* dude)
 {
-	//std::cout << "Entering wander state" << std::endl;
 	dude->SetSate(WALK);
-	srand(static_cast<unsigned>(time(0)));
 	dude->globalFlag = false;
-	//start animation = STAND (could use walk animation which would be a slowed down run).
 }
 
 void wander::Execute(Enemy* dude)
 {
-	if (dude->Distance() > 10.5f && dude->Distance() < 25.0f)
+	double wanderRadius = 4;
+	double wanderDistance = 40;
+	double wanderJitter = 5;
+	
+	float result = atan2(dude->enemyVelocity.z, dude->enemyVelocity.x);
+	dude->setWander(wanderRadius, wanderDistance, wanderJitter);
+
+	if (dude->Distance() > 10.0f && dude->Distance() < 25.0f)
 	{
-		//std::cout << "ahh fuck there's Zoom Girl. Gotta chase her" << std::endl;
 		dude->getFSM()->changeState(&chase_state::getInstance());
 	}
-	
-	//WANDER CODE GOES HERE
-
+	else 
+	{
+		//std::cout << "Wandering" << std::endl;
+		glm::vec3 pos(dude->GetPos());
+		dude->wander(pos, dude->enemyVelocity, dude->GetDeltaTime());
+		pos.y = 2.5f;
+		dude->SetPos(pos);		
+		dude->direction = -result;
+	}
 }
 
-void wander::Exit(Enemy* dude)
-{
-	//std::cout << "exiting wander state" << std::endl;
-}
+void wander::Exit(Enemy* dude) {}
 
 /******************************************************************************/
+
 void chase::Enter(Enemy* dude)
 {
-	//std::cout << "Entering chase state" << std::endl;
-	srand(static_cast<unsigned>(time(0)));
 	dude->SetSate(RUN);
-	//start animation = RUN
 }
 
 void chase::Execute(Enemy* dude)
 {
 	float result = atan2(dude->velocity.z, dude->velocity.x);
 
-	if (dude->Distance() < 10.5)
+	if (dude->Distance() < 10)
 	{
-		//std::cout << "reached her, time to shoot" << std::endl;
 		dude->getFSM()->changeState(&attack_state::getInstance());
 	}
 	else if (dude->Distance() > 25.0f)
 	{
-		//std::cout << "lost her - time to stop" << std::endl;
 		dude->getFSM()->changeState(&wander_state::getInstance());
 	}
 	else 
 	{
-		//std::cout << "chasing..." << std::endl;
 		glm::vec3 pos(dude->GetPos());
-		pos.x += (dude->velocity.x * 0.005);
-		pos.z += (dude->velocity.z * 0.005);
+		dude->pursue(dude->getCamPos(), pos, dude->velocity, dude->enemyVelocity, dude->GetDeltaTime(), 0.0f);
+		pos.y = 2.5f;
 		dude->SetPos(pos);
-
-		
 	}
 	dude->direction = -result;
 }
 
-void chase::Exit(Enemy* dude)
-{
-	//std::cout << "exiting chase state" << std::endl;
-}
+void chase::Exit(Enemy* dude) {}
 
 /******************************************************************************/
+
 void flee::Enter(Enemy* dude)
 {
-	//std::cout << "entered flee state" << std::endl;
-	srand(static_cast<unsigned>(time(0)));
 	dude->SetSate(RUN);
-	//start animation = RUN
 }
 
 void flee::Execute(Enemy* dude)
@@ -91,7 +85,8 @@ void flee::Execute(Enemy* dude)
 
 	if (dude->check > 1000)
 	{
-		dude->token = false;	
+		//dude->token = false;
+		dude->getFSM()->changeState(&die_state::getInstance());
 	}
 
 	float res = atan2(-dude->velocity.z, -dude->velocity.x);
@@ -99,12 +94,11 @@ void flee::Execute(Enemy* dude)
 	if (dude->Distance() > 10.5f && dude->Distance() < 25.0f && dude->token == false)
 	{
 		//token has worn off and within chasing distance of player
-		//std::cout << "token worn off- within chasing distance" << std::endl;
 		dude->getFSM()->changeState(&chase_state::getInstance());
 	}
 	else if (dude->Distance() < 10.5f && dude->token == false)
 	{
-		//std::cout << "token worn off - within shooting distance" << std::endl;
+		//token has worn off and within shooting distance
 		dude->getFSM()->changeState(&attack_state::getInstance());
 	}
 	else if (dude->Distance() > 25.0f)
@@ -114,74 +108,66 @@ void flee::Execute(Enemy* dude)
 	}
 	else
 	{
-		//std::cout << "running away..." << std::endl;
-		dude->velocity.y = 0.0f;
-
 		glm::vec3 pos(dude->GetPos());
-		pos -= (dude->velocity * (0.005f));
-		
+		dude->evade(pos, dude->getCamPos(), dude->enemyVelocity, dude->velocity, dude->GetDeltaTime());
+		pos.y = 2.5f;
 		dude->SetPos(pos);
 		dude->direction = -res;
 	}		
 }
 
-void flee::Exit(Enemy* dude)
-{
-	//std::cout << "leaving flee state" << std::endl;
-}
+void flee::Exit(Enemy* dude) {}
 
 /******************************************************************************/
+
 void attack::Enter(Enemy* dude)
 {
-	//std::cout << "entered attack state" << std::endl;
 	dude->SetSate(ATTACK);
-	//start animation = ATTACK
 }
 
 void attack::Execute(Enemy* dude)
 {
-	float res = atan2(dude->velocity.z - 0.7f, dude->velocity.x);
+	float res = atan2(dude->velocity.z, dude->velocity.x);
 
 	if (dude->Distance() > 10.5)
 	{
-		//std::cout << "COME BACK HERE" << std::endl;
 		dude->getFSM()->changeState(&chase_state::getInstance());
 	}
 	else 
 	{
-		//std::cout << "shooting at her .." << std::endl;
 		dude->direction = -res;
 	}
-	
-		
 }
 
 void attack::Exit(Enemy* dude)
 {
-	//std::cout << "leaving attack state" << std::endl;
+	dude->SetSate(ATTACK);
 }
 
 /******************************************************************************/
+
 void die::Enter(Enemy* dude)
 {
-	//std::cout << "ARGHHH FUCK I DIED" << std::endl;
-
-	// do death animation here.
-	//remove/unload enemy model
-
+	if (dude->deathAnim == false)
+	{
+		dude->SetSate(DEATH_FALLBACK);
+		dude->deathAnim = true;
+		dude->getFSM()->changeState(&die_state::getInstance());
+	}
+	else
+		dude->SetSate(DEATH);		
 }
 
-void die::Execute(Enemy* dude)
-{	
+void die::Execute(Enemy* dude) 
+{
 	dude->killFSM = true;
 }
 
 void die::Exit(Enemy* dude) {}
 
 /******************************************************************************/
-void global::Enter(Enemy* dude)
-{
-}
+
+void global::Enter(Enemy* dude) {}
 
 void global::Execute(Enemy* dude)
 {
