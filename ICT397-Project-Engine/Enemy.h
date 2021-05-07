@@ -4,19 +4,7 @@
 #include "state.h"
 #include "stateMachine.h"
 #include "enemyStates.h"
-/**
- * @class Enemy
- * @brief Abstract GameObject class for enemies
- *
- * @author Christopher Logan
- * @version 01
- * @date 25/03/2021
- *
- * @todo Add enemy functionality
- * 
- * @bugs none to be seen
- *
- **/
+
 
 inline double randFloat()
 {
@@ -28,10 +16,25 @@ inline double randomClamped()
 	return randFloat() - randFloat();
 }
 
+
+	/**
+	 * @class Enemy
+	 * @brief Abstract GameObject class for enemies
+	 *
+	 * @author Christopher Logan
+	 * @version 01
+	 * @date 25/03/2021
+	 *
+	 * @todo Add enemy functionality
+	 *
+	 * @bugs none to be seen
+	 *
+	 **/
 using namespace luabridge;
 class Enemy : public GameObject
 {
 public:
+
 	Enemy(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std::string script);
 		
 	~Enemy();
