@@ -43,6 +43,8 @@ void Scene::Run(View lens, float time, bool exit)
 		    if (x != playerInd)
 		    {
                 gameObjects[x]->Render(lens, time, gameRenderer);
+                if(gameObjects[x]->GetType() == "enemy")
+                    UpdateGameObject(gameObjects[x]->GetPos(), x);
 		    }
 	    }
     }
@@ -72,8 +74,6 @@ void Scene::Init()
 
 void Scene::UpdatePlayer(glm::vec3 position, glm::vec3 rotation)
 {
-    //gameObjects[playerInd]->SetRotation(glm::vec3(rotation.y * -1, 90 + (rotation.x * -1), 0));
-    //if the player hasn't moved, break, no need to do more work here
     if(position == gameObjects[playerInd]->GetPos()) return;
 
     position.y = WorldToTerrainPosition(position, true).y + 1.5f;
@@ -88,6 +88,13 @@ void Scene::UpdatePlayer(glm::vec3 position, glm::vec3 rotation)
     position = CheckSceneCollision(position);
 
 	gameObjects[playerInd]->SetPos(position);
+}
+
+void Scene::UpdateGameObject(glm::vec3 position, int i)
+{
+    position.y = WorldToTerrainPosition(position, true).y + 1.5f;
+
+    gameObjects[i]->SetPos(position);
 }
 
 void Scene::MakeGameObject(std::string t, std::string script, float scale, float x, float y, float z)

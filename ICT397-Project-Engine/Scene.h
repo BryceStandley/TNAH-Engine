@@ -148,6 +148,8 @@ public:
 			gameObjects[playerInd]->Render(lens, time, gameRenderer);
 	}
 
+	void UpdateGameObject(glm::vec3 position, int i);
+
 private:
 		///The game renderer that renders items
 	Renderer* gameRenderer;

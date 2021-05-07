@@ -31,7 +31,7 @@ void wander::Execute(Enemy* dude)
 		//std::cout << "Wandering" << std::endl;
 		glm::vec3 pos(dude->GetPos());
 		dude->wander(pos, dude->enemyVelocity, dude->GetDeltaTime());
-		pos.y = 2.5f;
+		//pos.y = 2.5f;
 		dude->SetPos(pos);		
 		dude->direction = -result;
 	}
