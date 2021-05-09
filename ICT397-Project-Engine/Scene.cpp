@@ -45,6 +45,7 @@ void Scene::Run(View lens, float time, bool exit)
                 gameObjects[x]->Render(lens, time, gameRenderer);
                 if(gameObjects[x]->GetType() == "enemy")
                     UpdateGameObject(gameObjects[x]->GetPos(), x);
+                //if(gameObjects[x]->GetType() == "enemy" && gameObjects[x]->)
 		    }
 	    }
     }
@@ -92,7 +93,7 @@ void Scene::UpdatePlayer(glm::vec3 position, glm::vec3 rotation)
 
 void Scene::UpdateGameObject(glm::vec3 position, int i)
 {
-    position.y = WorldToTerrainPosition(position, true).y + 1.5f;
+    position.y = WorldToTerrainPosition(position, true).y + 1.2f;
 
     gameObjects[i]->SetPos(position);
 }

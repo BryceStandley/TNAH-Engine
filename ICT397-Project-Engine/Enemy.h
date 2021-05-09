@@ -43,8 +43,9 @@ public:
 	glm::vec3 enemyVelocity = { 5.0f, 0.0f, 0.0f };
 	float direction = 0.0f;
 	bool globalFlag = false;
-	bool token = true;
+	bool token = false;
 	bool deathAnim = false;
+	int timer = 0;
 	int check = 0;
 
 	stateMachine<Enemy>* getFSM()const { return enemyFSM; }
@@ -101,7 +102,6 @@ private:
 	int ammo;
 	bool alive;
 	bool hasWeapon;
-	//bool token = false;
 
 	double wanderRadius = 0;
 	double wanderDistance = 0;

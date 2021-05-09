@@ -10,7 +10,7 @@
 void wander::Enter(Enemy* dude)
 {
 	dude->SetSate(WALK);
-	dude->globalFlag = false;
+	std::cout << "WALKING" << std::endl;	
 }
 
 void wander::Execute(Enemy* dude)
@@ -24,14 +24,12 @@ void wander::Execute(Enemy* dude)
 
 	if (dude->Distance() > 10.0f && dude->Distance() < 25.0f)
 	{
-		dude->getFSM()->changeState(&chase_state::getInstance());
+		dude->getFSM()->changeState(&alert_state::getInstance());	
 	}
 	else 
 	{
-		//std::cout << "Wandering" << std::endl;
 		glm::vec3 pos(dude->GetPos());
 		dude->wander(pos, dude->enemyVelocity, dude->GetDeltaTime());
-		//pos.y = 2.5f;
 		dude->SetPos(pos);		
 		dude->direction = -result;
 	}
@@ -39,11 +37,40 @@ void wander::Execute(Enemy* dude)
 
 void wander::Exit(Enemy* dude) {}
 
+
+/******************************************************************************/
+
+void alert::Enter(Enemy* dude)
+{
+	dude->SetSate(POINTING); 
+	//this will then send a message out to other enemies within a distance 
+	// NOTE - It would be wise that when the message is sent, that it only affects enemies that aren't already in the alert OR chase state. 
+}
+
+void alert::Execute(Enemy* dude)
+{
+	float result = atan2(dude->velocity.z, dude->velocity.x);
+
+	if (dude->timer < 100)
+		dude->timer++;
+	else
+		dude->getFSM()->changeState(&chase_state::getInstance());
+
+	dude->direction = -result;
+}
+
+void alert::Exit(Enemy* dude) 
+{
+	dude->timer = 0;
+}
+
+
+
 /******************************************************************************/
 
 void chase::Enter(Enemy* dude)
 {
-	dude->SetSate(RUN);
+	dude->SetSate(RUN);	
 }
 
 void chase::Execute(Enemy* dude)
@@ -62,7 +89,6 @@ void chase::Execute(Enemy* dude)
 	{
 		glm::vec3 pos(dude->GetPos());
 		dude->pursue(dude->getCamPos(), pos, dude->velocity, dude->enemyVelocity, dude->GetDeltaTime(), 0.0f);
-		//pos.y = 2.5f;
 		dude->SetPos(pos);
 	}
 	dude->direction = -result;
@@ -110,7 +136,6 @@ void flee::Execute(Enemy* dude)
 	{
 		glm::vec3 pos(dude->GetPos());
 		dude->evade(pos, dude->getCamPos(), dude->enemyVelocity, dude->velocity, dude->GetDeltaTime());
-		//pos.y = 2.5f;
 		dude->SetPos(pos);
 		dude->direction = -res;
 	}		
