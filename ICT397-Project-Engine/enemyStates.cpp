@@ -62,7 +62,7 @@ void chase::Execute(Enemy* dude)
 	{
 		glm::vec3 pos(dude->GetPos());
 		dude->pursue(dude->getCamPos(), pos, dude->velocity, dude->enemyVelocity, dude->GetDeltaTime(), 0.0f);
-		pos.y = 2.5f;
+		//pos.y = 2.5f;
 		dude->SetPos(pos);
 	}
 	dude->direction = -result;
@@ -110,7 +110,7 @@ void flee::Execute(Enemy* dude)
 	{
 		glm::vec3 pos(dude->GetPos());
 		dude->evade(pos, dude->getCamPos(), dude->enemyVelocity, dude->velocity, dude->GetDeltaTime());
-		pos.y = 2.5f;
+		//pos.y = 2.5f;
 		dude->SetPos(pos);
 		dude->direction = -res;
 	}		
