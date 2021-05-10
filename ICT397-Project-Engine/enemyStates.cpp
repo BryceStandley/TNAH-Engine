@@ -53,7 +53,7 @@ void wander::Execute(Enemy* dude)
 			dude->moving = false;
 		else
 		{
-			dude->direction = -result;
+			dude->setDirection(-result);
 			dude->SetPos(curPos);
 		}
 	}
