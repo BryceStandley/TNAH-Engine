@@ -15,23 +15,43 @@ void wander::Enter(Enemy* dude)
 
 void wander::Execute(Enemy* dude)
 {
-	double wanderRadius = 4;
-	double wanderDistance = 40;
-	double wanderJitter = 5;
+	if (dude->getToken() == true && dude->getFSM()->getPreviousState() == &flee_state::getInstance()) 
+	{
+		dude->incrementCheck();
+		std::cout << "CHECK:  " << dude->getCheck() << std::endl;
+	}
+		
+
+	if (dude->getCheck() > 1000 && dude->getToken() == true)
+	{
+		dude->setToken(false);
+		//dude->setGlobalFlag(false);
+		//dude->getFSM()->changeState(&die_state::getInstance());
+	}
+
+	std::cout << "WANDER" << std::endl;
+	double wanderRadius = 5;
+	double wanderDistance = 35;
+	double wanderJitter = 1;
 	
 	float result = atan2(dude->enemyVelocity.z, dude->enemyVelocity.x);
 	dude->setWander(wanderRadius, wanderDistance, wanderJitter);
 
-	if (dude->Distance() > 10.0f && dude->Distance() < 25.0f)
+	if (dude->Distance() > 10.0f && dude->Distance() < 25.0f && dude->getToken() == false)
 	{
 		dude->getFSM()->changeState(&alert_state::getInstance());	
+	}
+	else if (dude->Distance() > 10.0f && dude->Distance() < 25.0f && dude->getToken() == true) 
+	{
+		dude->getFSM()->changeState(&flee_state::getInstance());
 	}
 	else 
 	{
 		glm::vec3 pos(dude->GetPos());
+
 		dude->wander(pos, dude->enemyVelocity, dude->GetDeltaTime());
-		dude->SetPos(pos);		
-		dude->direction = -result;
+		dude->SetPos(pos);
+		dude->setDirection(-result);
 	}
 }
 
@@ -49,21 +69,21 @@ void alert::Enter(Enemy* dude)
 
 void alert::Execute(Enemy* dude)
 {
-	float result = atan2(dude->velocity.z, dude->velocity.x);
+	std::cout << "ALERT" << std::endl;
+	float result = atan2(dude->getVelocity().z, dude->getVelocity().x);
 
-	if (dude->timer < 100)
-		dude->timer++;
+	if (dude->getTimer() < 100)
+		dude->incrementTimer();
 	else
 		dude->getFSM()->changeState(&chase_state::getInstance());
 
-	dude->direction = -result;
+	dude->setDirection(-result);
 }
 
 void alert::Exit(Enemy* dude) 
 {
-	dude->timer = 0;
+	dude->setTimer(0);
 }
-
 
 
 /******************************************************************************/
@@ -75,7 +95,8 @@ void chase::Enter(Enemy* dude)
 
 void chase::Execute(Enemy* dude)
 {
-	float result = atan2(dude->velocity.z, dude->velocity.x);
+	std::cout << "CHASE" << std::endl;
+	float result = atan2(dude->getVelocity().z, dude->getVelocity().x);
 
 	if (dude->Distance() < 10)
 	{
@@ -88,10 +109,12 @@ void chase::Execute(Enemy* dude)
 	else 
 	{
 		glm::vec3 pos(dude->GetPos());
-		dude->pursue(dude->getCamPos(), pos, dude->velocity, dude->enemyVelocity, dude->GetDeltaTime(), 0.0f);
+		glm::vec3 vel(dude->getEnemyVelocity());
+
+		dude->pursue(dude->getCamPos(), pos, dude->getVelocity(), vel, dude->GetDeltaTime(), 0.0f);
 		dude->SetPos(pos);
 	}
-	dude->direction = -result;
+	dude->setDirection(-result);
 }
 
 void chase::Exit(Enemy* dude) {}
@@ -105,24 +128,26 @@ void flee::Enter(Enemy* dude)
 
 void flee::Execute(Enemy* dude)
 {
-	dude->check++;
-	
-	//std::cout << "CHECK:  " << dude->check << std::endl;
+	std::cout << "FLEE" << std::endl;
+	dude->incrementCheck();
+	//std::cout << dude->incrementCheck() << std::endl;
+	std::cout << "CHECK:  " << dude->getCheck() << std::endl;
 
-	if (dude->check > 1000)
+	if (dude->getCheck() > 1000)
 	{
-		//dude->token = false;
-		dude->getFSM()->changeState(&die_state::getInstance());
+		dude->setToken(false);
+		//dude->globalFlag = false;
+		//dude->getFSM()->changeState(&die_state::getInstance());
 	}
 
-	float res = atan2(-dude->velocity.z, -dude->velocity.x);
+	float res = atan2(-dude->getVelocity().z, -dude->getVelocity().x);
 
-	if (dude->Distance() > 10.5f && dude->Distance() < 25.0f && dude->token == false)
+	if (dude->Distance() > 10.5f && dude->Distance() < 25.0f && dude->getToken() == false)
 	{
 		//token has worn off and within chasing distance of player
 		dude->getFSM()->changeState(&chase_state::getInstance());
 	}
-	else if (dude->Distance() < 10.5f && dude->token == false)
+	else if (dude->Distance() < 10.5f && dude->getToken() == false)
 	{
 		//token has worn off and within shooting distance
 		dude->getFSM()->changeState(&attack_state::getInstance());
@@ -135,9 +160,10 @@ void flee::Execute(Enemy* dude)
 	else
 	{
 		glm::vec3 pos(dude->GetPos());
-		dude->evade(pos, dude->getCamPos(), dude->enemyVelocity, dude->velocity, dude->GetDeltaTime());
+		glm::vec3 vel(dude->getEnemyVelocity());
+		dude->evade(pos, dude->getCamPos(), vel, dude->getVelocity(), dude->GetDeltaTime());
 		dude->SetPos(pos);
-		dude->direction = -res;
+		dude->setDirection(-res);
 	}		
 }
 
@@ -152,7 +178,8 @@ void attack::Enter(Enemy* dude)
 
 void attack::Execute(Enemy* dude)
 {
-	float res = atan2(dude->velocity.z, dude->velocity.x);
+	std::cout << "ATTACK" << std::endl;
+	float res = atan2(dude->getVelocity().z, dude->getVelocity().x);
 
 	if (dude->Distance() > 10.5)
 	{
@@ -160,7 +187,7 @@ void attack::Execute(Enemy* dude)
 	}
 	else 
 	{
-		dude->direction = -res;
+		dude->setDirection(-res);
 	}
 }
 
@@ -173,10 +200,11 @@ void attack::Exit(Enemy* dude)
 
 void die::Enter(Enemy* dude)
 {
-	if (dude->deathAnim == false)
+	std::cout << "DIE" << std::endl;
+	if (dude->getDeathAnim() == false)
 	{
 		dude->SetSate(DEATH_FALLBACK);
-		dude->deathAnim = true;
+		dude->setDeathAnim(true);
 		dude->getFSM()->changeState(&die_state::getInstance());
 	}
 	else
@@ -196,12 +224,12 @@ void global::Enter(Enemy* dude) {}
 
 void global::Execute(Enemy* dude)
 {
-	if (dude->token == true && dude->Distance() < 25 && dude->globalFlag == false) 
+	if (dude->getToken() == true && dude->Distance() < 25 && dude->getGlobalFlag() == false) 
 	{
+		std::cout << "GLOBAL" << std::endl;
 		dude->getFSM()->changeState(&flee_state::getInstance());
-		dude->globalFlag = true;
+		dude->setGlobalFlag(true);	///kills the repeat entry
 	}
-	
 	if (!dude->isAlive())
 		dude->getFSM()->changeState(&die_state::getInstance());
 }

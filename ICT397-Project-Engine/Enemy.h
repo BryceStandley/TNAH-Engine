@@ -39,15 +39,6 @@ public:
 		
 	~Enemy();
 
-	glm::vec3 velocity = { 4.0f, 0.0f, 0.0f };
-	glm::vec3 enemyVelocity = { 5.0f, 0.0f, 0.0f };
-	float direction = 0.0f;
-	bool globalFlag = false;
-	bool token = false;
-	bool deathAnim = false;
-	int timer = 0;
-	int check = 0;
-
 	stateMachine<Enemy>* getFSM()const { return enemyFSM; }
 
 	/**
@@ -66,7 +57,6 @@ public:
 
 	void SetSate(Md2Commands state);
 
-	bool hasToken() { return token; }
 	bool isAlive() { return alive; }
 	
 	bool killFSM = false;
@@ -77,6 +67,8 @@ public:
 	
 	glm::vec3 getCamPos() { return pPos; }
 
+	glm::vec3 enemyVelocity = { 5.0f, 0.0f, 0.0f };
+	glm::vec3 velocity = { 4.0f, 0.0f, 0.0f };
 
 
 
@@ -115,11 +107,144 @@ public:
 	bool flee(glm::vec3& curPos, const glm::vec3& pursuerPos, glm::vec3& curVelocity, float fleeSpeed, float time);
 
 
+
+		/**
+		* @brief allows the enemy to evade a pursuing entity. Serves as a flee that moves from the predicted future position of the pursuer
+		* @param evaderPos - the vector representing the current position of the enemy
+		* @param pursuerPos - the vector representing the position of the pursuer
+		* @param evaderVelocity - represents the velocity of the evader
+		* @param pursuerVelocity - represents the velocity of the pursuer
+		* @param time - represents the time
+		* @return bool
+		*/
 	bool evade(glm::vec3& evaderPos, const glm::vec3& pursuerPos, glm::vec3& evaderVelocity, const glm::vec3& pursuerVelocity, float time);
 
+
+
+		/**
+		* @brief a function used to set the values that will be used in the wander movement function
+		* @param wanderRadius - the radius of the wander circle
+		* @param wanderDistance - the distance the wander circle is projected in front of the agent
+		* @param wanderJitter - represents the max amount of the displacement
+		*/
 	void setWander(double wanderRadius, double wanderDistance, double wanderJitter);
 
+		/**
+		* @brief a function used to set the values that will be used in the wander movement function
+		* @param position - the position of the enemy
+		* @param velocity - the velocity of the enemy
+		* @param time - represents the time
+		* @return bool
+		*/
 	bool wander(glm::vec3& position, glm::vec3& velocity, float time);
+
+		/**
+		* @brief gets and returns the velocity vector
+		* @return glm::vec3
+		*/
+	glm::vec3 getVelocity() const { return velocity; }
+
+		/**
+		* @brief function that allows you to set the values of the velocity vector
+		* @param v - represents the vector value you want to assign to velocity
+		*/
+	void setVelocity(glm::vec3 v) { velocity = v;}
+
+		/**
+		* @brief gets and returns the enemy velocity vector
+		* @return glm::vec3
+		*/
+	glm::vec3 getEnemyVelocity() const { return enemyVelocity; }
+
+		/**
+		* @brief function that allows you to set the values of the enemyVelocity vector
+		* @param v - represents the vector value you want to assign to enemyVelocity
+		*/
+	void setEnemyVelocity(glm::vec3 v) { enemyVelocity = v; }
+
+		/**
+		* @brief gets and returns the direction in which the enemy is facing
+		* @return float
+		*/
+	float getDirection() const { return direction; }
+
+		/**
+		* @brief sets the direction in which the enemy is facing
+		* @param dir - reprsents the direction value you want to set
+		*/
+	void setDirection(float dir) { direction = dir;}
+
+		/**
+		* @brief gets and returns the value of the globalFlag (globalFlag is used to ensure that globalState changes don't get stuck in a loop)
+		* @return bool
+		*/
+	bool getGlobalFlag() const { return globalFlag; }
+
+		/**
+		* @brief sets the value of the globalFlag
+		* @param flag - represents the value you want to set globalFlag 
+		*/
+	void setGlobalFlag(bool flag) { globalFlag = flag; }
+
+		/**
+		* @brief gets and returns the value of the token
+		* @return bool
+		*/
+	bool getToken() const { return token; }
+
+		/**
+		* @brief sets the value of the token
+		* @param t - represents the value you want to set token
+		*/
+	void setToken(bool t) { token = t; }
+
+		/**
+		* @brief gets and returns the value of the deathAnim flag
+		* @return bool
+		*/
+	bool getDeathAnim() const { return deathAnim; }
+
+		/**
+		* @brief sets the value of the deathAnim boolean
+		* @param d - represents the value you want to set deathAnim
+		*/
+	void setDeathAnim(bool d) { deathAnim = d; }
+
+		/**
+		* @brief gets and returns the value of the timer
+		* @return int
+		*/
+	int getTimer() const { return timer; }
+
+		/**
+		* @brief sets the value of the timer
+		* @param t - represents the value you want to assign the timer
+		*/
+	void setTimer(int t) { timer = t; }
+
+		/**
+		* @brief increments the timer value
+		* @return int
+		*/
+	int incrementTimer() { return timer++; }
+
+		/**
+		* @brief gets and returns the value of the check
+		* @return int
+		*/
+	int getCheck() const { return check; }
+
+		/**
+		* @brief sets the value of the check
+		* @param c - represents the value you want to assign the check
+		*/
+	void setCheck(int c) { check = c; }
+
+		/**
+		* @brief increments the check value
+		* @return int
+		*/
+	int incrementCheck() { return check++; }
 
 private:
 	glm::vec3 pPos;
@@ -131,6 +256,14 @@ private:
 	bool alive;
 	bool hasWeapon;
 
+	bool token = false;
+	bool globalFlag = false;
+	bool deathAnim = false;
+
+
+	int timer = 0;
+	int check = 0;	
+	float direction = 0.0f;
 	double wanderRadius = 0;
 	double wanderDistance = 0;
 	double wanderJitter = 0;

@@ -309,6 +309,7 @@ float Enemy::Distance()
 	glm::vec3 norm = glm::normalize(camPos - modelPos);
 
 	velocity = (norm * 3.0f);
+	
 
 	float distance = glm::distance(camPos, modelPos);
 
