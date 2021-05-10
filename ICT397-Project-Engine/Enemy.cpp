@@ -235,6 +235,8 @@ void Enemy::Update(float time)
 {
 	SetType("enemy");
 
+	//std::cout << GetId() << " player has token = " << token << std::endl;
+
 	if (killFSM == false)
 		enemyFSM->update();
 	else 
@@ -313,6 +315,16 @@ float Enemy::Distance()
 
 	float distance = glm::distance(camPos, modelPos);
 
+	return distance;
+}
+
+float Enemy::DistanceBetween(glm::vec3 otherPos)
+{
+	glm::vec3 oPos = otherPos;
+	glm::vec3 modelPos(GetPos().x, GetPos().y, GetPos().z);
+
+	float distance = glm::distance(oPos, modelPos);
+	std::cout << "Distance: " << distance << "Positions other: " << " " << otherPos.x << " " << otherPos.y << " " << otherPos.z << ", Position enemy: " << modelPos.x << " " << modelPos.y << " " << modelPos.z << " " << std::endl;
 	return distance;
 }
 

@@ -114,6 +114,8 @@ public:
 		*/
 	virtual bool GetDisplay() { return exitDisplay; }
 
+	float GetCurrentTime() { return glfwGetTime(); }
+
 private:	
 
 		/**

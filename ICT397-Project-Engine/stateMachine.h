@@ -1,6 +1,7 @@
 #pragma once
 
 #include "state.h"
+#include "MessageDispatcher.h"
 
 	/**
 	* @class stateMachine
@@ -38,6 +39,17 @@ public:
 		previousState = nullptr;
 		currentState = nullptr;
 		globalState = nullptr;
+	}
+
+	//Handles the message and then 
+	bool handleMessage(const Telegram msg)
+	{
+		if (currentState)
+			return true;
+		else if (globalState)
+			return true;
+		else
+			return false;
 	}
 
 		/*

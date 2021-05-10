@@ -32,6 +32,9 @@ GameObject* GameAssetFactory::GetGameObject(std::string type, std::string script
 		GameObject* obj = new Enemy(position, glm::vec3(0, 0, 0), scale, renderer, script);
 		obj->SetCollisionTag(BoundingBox::CollisionTag::ENEMY);
 		obj->SetName("Enemy");
+		obj->SetType("enemy");
+		obj->SetId(id);
+		id++;
 		return obj;
 	}
 	else if (type == "token")

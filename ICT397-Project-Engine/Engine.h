@@ -4,6 +4,7 @@
 #include "Scene.h"
 #include "OpenGL.h"
 #include <vector>
+
 /**
 * @class Engine
 * @brief The hub of the entire engine, this class initialises every other

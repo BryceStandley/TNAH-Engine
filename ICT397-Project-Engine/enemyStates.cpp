@@ -39,11 +39,23 @@ void wander::Execute(Enemy* dude)
 
 	if (dude->Distance() > 10.0f && dude->Distance() < 25.0f && dude->getToken() == false)
 	{
+		dude->moving = false;
 		dude->getFSM()->changeState(&alert_state::getInstance());	
 	}
-	else if (dude->Distance() > 10.0f && dude->Distance() < 25.0f && dude->getToken() == true) 
+	else if (dude->Distance() > 10.0f && dude->Distance() < 25.0f && dude->getToken() == true)
 	{
 		dude->getFSM()->changeState(&flee_state::getInstance());
+	}
+	else if (dude->moving)
+	{
+		glm::vec3 curPos = dude->GetPos();
+		if (dude->moveTo(curPos, dude->newPos, dude->enemyVelocity, dude->GetDeltaTime(), 0))
+			dude->moving = false;
+		else
+		{
+			dude->direction = -result;
+			dude->SetPos(curPos);
+		}
 	}
 	else 
 	{
@@ -62,7 +74,8 @@ void wander::Exit(Enemy* dude) {}
 
 void alert::Enter(Enemy* dude)
 {
-	dude->SetSate(POINTING); 
+	dude->SetSate(POINTING);
+	singleton<MessageDispatcher>::getInstance().DisbatchMsgAllOfType(dude->GetId(), 1, "enemy");
 	//this will then send a message out to other enemies within a distance 
 	// NOTE - It would be wise that when the message is sent, that it only affects enemies that aren't already in the alert OR chase state. 
 }

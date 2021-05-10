@@ -1,6 +1,5 @@
 #pragma once
 # define PI           3.14159265358979323846  /* pi */
-#include "GameObject.h"
 #include "state.h"
 #include "stateMachine.h"
 #include "enemyStates.h"
@@ -42,10 +41,12 @@ public:
 	stateMachine<Enemy>* getFSM()const { return enemyFSM; }
 
 	/**
+	/*
 	* @brief Updates the game object with functionality
 	* @param time - the time since the last frame (deltatime)
 	*/
 	void Update(float time);
+
 
 	void Damage(int dmg);
 	
@@ -64,13 +65,29 @@ public:
 	float GetDeltaTime() const { return deltaTime; }
 
 	float Distance();
+
+	float DistanceBetween(glm::vec3 otherPos);
 	
 	glm::vec3 getCamPos() { return pPos; }
 
 	glm::vec3 enemyVelocity = { 5.0f, 0.0f, 0.0f };
 	glm::vec3 velocity = { 4.0f, 0.0f, 0.0f };
 
-
+	bool handleMessage(const Telegram message)
+	{
+		std::cout << message.sender << " has sent a message to " << GetId() << " " << message.msg << ", distance: " << DistanceBetween(message.pos) << std::endl;
+		if (enemyFSM->handleMessage(message))
+		{
+			if (DistanceBetween(message.pos) <= 1000.0f)
+			{
+				newPos = message.pos;
+				moving = true;
+			}
+			return true;
+		}
+		else
+			return false;
+	}
 
 		/**
 		* @brief allows the enemy to move from its current position to a specified target position
@@ -84,7 +101,7 @@ public:
 	bool moveTo(glm::vec3& curPos, const glm::vec3& targetPos, glm::vec3& curVelocity, float time, float offset);
 
 		/**
-		* @brief allows the enemy to pursuer an evading target
+		* @brief allows the enemy to pursue an evading target
 		* @param evaderPos - the vector representing the position of the evader (the first-person camera)
 		* @param pursuerPos - the vector representing the position of the pursuer (the enemy)
 		* @param evaderVelocity - represents the velocity of the evader
@@ -94,7 +111,6 @@ public:
 		*/
 	void pursue(const glm::vec3& evaderPos, glm::vec3& pursuerPos, const glm::vec3& evaderVelocity, glm::vec3& pursuerVelocity, float time, float offset);
 	
-
 		/**
 		* @brief allows the enemy to flee from a pursuing entity
 		* @param curPos - the vector representing the current position of the enemy
@@ -106,8 +122,6 @@ public:
 		*/
 	bool flee(glm::vec3& curPos, const glm::vec3& pursuerPos, glm::vec3& curVelocity, float fleeSpeed, float time);
 
-
-
 		/**
 		* @brief allows the enemy to evade a pursuing entity. Serves as a flee that moves from the predicted future position of the pursuer
 		* @param evaderPos - the vector representing the current position of the enemy
@@ -118,8 +132,6 @@ public:
 		* @return bool
 		*/
 	bool evade(glm::vec3& evaderPos, const glm::vec3& pursuerPos, glm::vec3& evaderVelocity, const glm::vec3& pursuerVelocity, float time);
-
-
 
 		/**
 		* @brief a function used to set the values that will be used in the wander movement function
@@ -246,6 +258,9 @@ public:
 		*/
 	int incrementCheck() { return check++; }
 
+	glm::vec3 newPos;
+	bool moving = false;
+
 private:
 	glm::vec3 pPos;
 	Model wModel;
@@ -268,6 +283,5 @@ private:
 	double wanderDistance = 0;
 	double wanderJitter = 0;
 	glm::vec3 wanderTarget = { 0.0f,0.0f,0.0f };
-	
 };
 
