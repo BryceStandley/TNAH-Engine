@@ -17,7 +17,7 @@ private:
 	}
 
 public:
-	void DisbatchMsg(double delay, int sender, int receiver, int msg, bool all)
+	void DisbatchMsgSingle(double delay, int sender, int receiver, int msg, bool all)
 	{
 		//Use singleton to get entity manager
 		GameObject* pReceiver = entityMan::getInstance().GetEntity(receiver);
@@ -34,6 +34,23 @@ public:
 			double currentTime = GameTimer::getInstance().curTime;
 			message.dispatchTime = currentTime + delay;
 			Priority.insert(message);
+		}
+	}
+
+	void DisbatchMsgAllOfType(int sender, int msg, std::string type)
+	{
+		int max = entityMan::getInstance().Size();
+		if (max < 1)
+		{
+			for (int i = 1; i < max; i++)
+			{
+				GameObject* pReceiver = entityMan::getInstance().GetEntity(i);
+				if (pReceiver->GetType() == "type")
+				{
+					Telegram message(0.0f, sender, pReceiver->GetId(), true, msg);
+					Discharge(pReceiver, message);
+				}
+			}
 		}
 	}
 

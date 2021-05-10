@@ -41,6 +41,7 @@ public:
 		globalState = nullptr;
 	}
 
+	//Handles the message and then 
 	bool handleMessage(const Telegram msg)
 	{
 		if (currentState)

@@ -77,10 +77,9 @@ public:
 	
 	glm::vec3 getCamPos() { return pPos; }
 
-
-
 	bool handleMessage(const Telegram message)
 	{
+		std::cout << message.sender << " has sent a message to " << GetId() << " " << message.msg << std::endl;
 		return enemyFSM->handleMessage(message);
 	}
 
@@ -163,6 +162,5 @@ private:
 	double wanderDistance = 0;
 	double wanderJitter = 0;
 	glm::vec3 wanderTarget = { 0.0f,0.0f,0.0f };
-	
 };
 

@@ -42,7 +42,8 @@ void wander::Exit(Enemy* dude) {}
 
 void alert::Enter(Enemy* dude)
 {
-	dude->SetSate(POINTING); 
+	dude->SetSate(POINTING);
+	singleton<MessageDispatcher>::getInstance().DisbatchMsgAllOfType(dude->GetId(), 1, "enemy");
 	//this will then send a message out to other enemies within a distance 
 	// NOTE - It would be wise that when the message is sent, that it only affects enemies that aren't already in the alert OR chase state. 
 }

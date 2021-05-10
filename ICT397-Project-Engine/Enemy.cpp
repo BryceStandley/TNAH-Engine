@@ -235,6 +235,8 @@ void Enemy::Update(float time)
 {
 	SetType("enemy");
 
+	//std::cout << GetId() << " player has token = " << token << std::endl;
+
 	if (killFSM == false)
 		enemyFSM->update();
 	else 

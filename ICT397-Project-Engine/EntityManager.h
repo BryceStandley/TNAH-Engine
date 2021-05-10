@@ -10,10 +10,13 @@ class EntityManager
 {
 private:
 	Objects entityMap;
+	int max = -1;
 
 public:
 	void RegisterEntity(GameObject* newEntity)
 	{
+		if (newEntity->GetId() > max)
+			max = newEntity->GetId();
 		std::cout << "Registered enemy -> " << newEntity->GetId() << std::endl;
 		entityMap.insert(std::make_pair(newEntity->GetId(), newEntity));
 	}
@@ -30,6 +33,11 @@ public:
 			return NULL;
 		else
 			return ent->second;
+	}
+
+	int Size()
+	{
+		return max;
 	}
 };
 
