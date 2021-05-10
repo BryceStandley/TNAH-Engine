@@ -18,6 +18,7 @@ public:
 		/**
 		* @brief gets and returns the instance of the class provided to the singleton
 		* @return static instance of the given class
+		*
 		*/
 	static T& getInstance()
 	{
