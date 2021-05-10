@@ -30,13 +30,13 @@ private:
 		 * @brief default constructor
 		 *
 		 */
-	singleton();
+	singleton() {}
 
 		/**
 		 * @brief destructor
 		 *
 		 */
-	~singleton();
+	~singleton() {}
 
 		/// Singletons shouldn't be cloneable
 	singleton(singleton const&) = delete;

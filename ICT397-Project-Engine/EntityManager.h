@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 #include <map>
-#include "GameObjects.h"
+#include "GameObject.h"
 
 typedef std::map<int, GameObject*> Objects;
 //typedef std::map<std::string, Objects> EntityMap;
@@ -14,6 +14,7 @@ private:
 public:
 	void RegisterEntity(GameObject* newEntity)
 	{
+		std::cout << "Registered enemy -> " << newEntity->GetId() << std::endl;
 		entityMap.insert(std::make_pair(newEntity->GetId(), newEntity));
 	}
 

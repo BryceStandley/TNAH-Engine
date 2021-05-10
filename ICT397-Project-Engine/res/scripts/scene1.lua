@@ -10,8 +10,8 @@ y = 1.2
 --Make 15 Enemy objects
 for i = 0, 2
 do
-    x = math.random(50, 150)
-    z = math.random(50, 150)
+    x = math.random(50, 100)
+    z = math.random(50, 100)
     cs:MakeGameObject("enemy",  "./res/scripts/gameobjects/enemy_zarlag.lua", 0.05, x, y, z);
 end
 

@@ -59,6 +59,8 @@ public:
 		*/
 	void Init();
 
+	void Load();
+
 		/**
 		* @brief Gets the name of the current scene
 		* @return string
