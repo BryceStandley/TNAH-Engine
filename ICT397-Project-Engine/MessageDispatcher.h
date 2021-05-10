@@ -21,11 +21,12 @@ public:
 	{
 		//Use singleton to get entity manager
 		GameObject* pReceiver = entityMan::getInstance().GetEntity(receiver);
+		glm::vec3 pos = entityMan::getInstance().GetEntity(sender)->GetPos();
 		if (pReceiver == NULL) {
 			std::cout << "\nWarning! No Receiver with ID of " << receiver << " found" << std::endl;
 			return;
 		}
-		Telegram message(0.0f, sender, receiver, all, msg);
+		Telegram message(0.0f, sender, receiver, all, msg, pos);
 		if (delay <= 0.0) {
 			Discharge(pReceiver, message);
 		}
@@ -40,14 +41,18 @@ public:
 	void DisbatchMsgAllOfType(int sender, int msg, std::string type)
 	{
 		int max = entityMan::getInstance().Size();
-		if (max < 1)
+		std::cout << "The max amount is " << max << std::endl;
+		if (max > 1)
 		{
-			for (int i = 1; i < max; i++)
+			std::cout << "past max was called" << std::endl;
+			glm::vec3 pos = entityMan::getInstance().GetEntity(sender)->GetPos();
+			for (int i = 1; i <= max; i++)
 			{
+				std::cout << "Loop called " << i << std::endl;
 				GameObject* pReceiver = entityMan::getInstance().GetEntity(i);
-				if (pReceiver->GetType() == "type")
+				if (pReceiver->GetType() == type && i != sender )
 				{
-					Telegram message(0.0f, sender, pReceiver->GetId(), true, msg);
+					Telegram message(0.0f, sender, i, true, msg, pos);
 					Discharge(pReceiver, message);
 				}
 			}

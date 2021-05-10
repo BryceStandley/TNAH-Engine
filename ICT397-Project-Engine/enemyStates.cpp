@@ -24,7 +24,19 @@ void wander::Execute(Enemy* dude)
 
 	if (dude->Distance() > 10.0f && dude->Distance() < 25.0f)
 	{
+		dude->moving = false;
 		dude->getFSM()->changeState(&alert_state::getInstance());	
+	}
+	else if (dude->moving)
+	{
+		glm::vec3 curPos = dude->GetPos();
+		if (dude->moveTo(curPos, dude->newPos, dude->enemyVelocity, dude->GetDeltaTime(), 0))
+			dude->moving = false;
+		else
+		{
+			dude->direction = -result;
+			dude->SetPos(curPos);
+		}
 	}
 	else 
 	{

@@ -74,13 +74,25 @@ public:
 	float GetDeltaTime() const { return deltaTime; }
 
 	float Distance();
+
+	float DistanceBetween(glm::vec3 otherPos);
 	
 	glm::vec3 getCamPos() { return pPos; }
 
 	bool handleMessage(const Telegram message)
 	{
-		std::cout << message.sender << " has sent a message to " << GetId() << " " << message.msg << std::endl;
-		return enemyFSM->handleMessage(message);
+		std::cout << message.sender << " has sent a message to " << GetId() << " " << message.msg << ", distance: " << DistanceBetween(message.pos) << std::endl;
+		if (enemyFSM->handleMessage(message))
+		{
+			if (DistanceBetween(message.pos) <= 1000.0f)
+			{
+				newPos = message.pos;
+				moving = true;
+			}
+			return true;
+		}
+		else
+			return false;
 	}
 
 
@@ -148,6 +160,8 @@ public:
 		*/
 	bool wander(glm::vec3& position, glm::vec3& velocity, float time);
 
+	glm::vec3 newPos;
+	bool moving = false;
 private:
 	glm::vec3 pPos;
 	Model wModel;

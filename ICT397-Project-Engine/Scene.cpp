@@ -55,8 +55,8 @@ void Scene::Run(View lens, float time, bool exit)
 		    if (x != playerInd)
 		    {
                 gameObjects[x]->Render(lens, time, gameRenderer);
-                //if(gameObjects[x]->GetType() == "enemy")
-                    //UpdateGameObject(gameObjects[x]->GetPos(), x);
+                if(gameObjects[x]->GetType() == "enemy")
+                    UpdateGameObject(gameObjects[x]->GetPos(), x);
                 //if(gameObjects[x]->GetType() == "enemy" && gameObjects[x]->)
 		    }
 	    }

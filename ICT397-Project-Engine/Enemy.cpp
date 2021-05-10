@@ -317,6 +317,16 @@ float Enemy::Distance()
 	return distance;
 }
 
+float Enemy::DistanceBetween(glm::vec3 otherPos)
+{
+	glm::vec3 oPos = otherPos;
+	glm::vec3 modelPos(GetPos().x, GetPos().y, GetPos().z);
+
+	float distance = glm::distance(oPos, modelPos);
+	std::cout << "Distance: " << distance << "Positions other: " << " " << otherPos.x << " " << otherPos.y << " " << otherPos.z << ", Position enemy: " << modelPos.x << " " << modelPos.y << " " << modelPos.z << " " << std::endl;
+	return distance;
+}
+
 bool Enemy::moveTo(glm::vec3& curPos, const glm::vec3& targetPos, glm::vec3& curVelocity, float time, float offset)
 {
 	//calc heading from character position to target
