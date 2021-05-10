@@ -24,6 +24,7 @@ public:
 		static T instance;
 		return instance;
 	}
+
 private:
 		/**
 		 * @brief default constructor

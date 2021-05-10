@@ -2,6 +2,8 @@
 #include "Model.h"
 #include "BoundingBox.h"
 #include "input.h"
+#include "Telegram.h"
+
 /**
  * @class GameObject
  * @brief Class that holds the main information of a game object, that is abstracted for more specific reasons
@@ -158,7 +160,15 @@ public:
 
 	bool GetRotate() { return rotate; }
 
+	int GetId() { return id; }
+
+	virtual bool handleMessage(const Telegram message)
+	{
+		return false;
+	}
+
 private:
+	int id;
 		///The model for the object and its meshes
 	Model model;
 

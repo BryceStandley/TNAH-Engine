@@ -79,7 +79,10 @@ public:
 
 
 
-
+	bool handleMessage(const Telegram message)
+	{
+		enemyFSM->handleMessage(msg);
+	}
 
 	bool moveTo(glm::vec3& curPos, const glm::vec3& targetPos, glm::vec3& curVelocity, float time, float offset);
 
