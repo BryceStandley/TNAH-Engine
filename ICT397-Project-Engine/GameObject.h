@@ -1,7 +1,8 @@
 #pragma once
 #include "Model.h"
 #include "BoundingBox.h"
-#include "input.h"
+#include "Input.h"
+#include "Debugger.h"
 #include "Telegram.h"
 
 /**

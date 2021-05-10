@@ -189,7 +189,7 @@ public:
 		SetType("player");
 		Update(0.0f);
 
-		std::cout << xRotatioonOffset << " " << yRotatioonOffset << " " << zRotatioonOffset << " " << yPositionOffset << std::endl;
+        if(Debugger::GetInstance()->debugToConsole) std::cout << xRotatioonOffset << " " << yRotatioonOffset << " " << zRotatioonOffset << " " << yPositionOffset << std::endl;
 	}
 
 		/*

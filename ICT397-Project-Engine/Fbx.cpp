@@ -39,12 +39,12 @@ void Fbx::loadModel(std::string const& path)
     /// check for errors
     if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) // if is Not Zero
     {
-        std::cout << "Model.cpp::ERROR::ASSIMP:: " << importer.GetErrorString() << std::endl;
+        if(Debugger::GetInstance()->debugToConsole) std::cout << "Model.cpp::ERROR::ASSIMP:: " << importer.GetErrorString() << std::endl;
         return;
     }
     /// retrieve the directory path of the filepath
     directory = path.substr(0, path.find_last_of('/'));
-    if (debugger.debugToConsole) std::cout << "Model.cpp::INFO::Dir: " << directory << ", number of meshes: " << scene->mNumMeshes << std::endl;
+    if (Debugger::GetInstance()->debugToConsole) std::cout << "Model.cpp::INFO::Dir: " << directory << ", number of meshes: " << scene->mNumMeshes << std::endl;
 
     processNode(scene->mRootNode, scene, to_glm(scene->mRootNode->mTransformation));
 }
@@ -168,7 +168,7 @@ std::vector<TextureMesh> Fbx::loadMaterialTextures(aiMaterial* mat, aiTextureTyp
 {
     std::vector<TextureMesh> textures;
     int count = mat->GetTextureCount(type);
-    if (debugger.debugToConsole) std::cout << "Model.cpp::INFO:: " << typeName << " " << count << std::endl;
+    if (Debugger::GetInstance()->debugToConsole) std::cout << "Model.cpp::INFO:: " << typeName << " " << count << std::endl;
 
     for (unsigned int i = 0; i < mat->GetTextureCount(type); i++)
     {

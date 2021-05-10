@@ -76,13 +76,14 @@ typedef enum {
 
 } Md2Commands;
 
-#include "shader.h"
+#include "Shader.h"
 #include "OpenGL.h"
 #include "Buffer.h"
 #include "TextureLoader.h"
 #include "Md2.h"
 #include <vector>
 #include <glm/gtc/matrix_transform.hpp>
+#include "Debugger.h"
 
 class Md2
 {

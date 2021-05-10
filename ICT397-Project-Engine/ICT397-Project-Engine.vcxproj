@@ -91,7 +91,7 @@
     <ClCompile Include="BoundingBox.cpp" />
     <ClCompile Include="Buffer.cpp" />
     <ClCompile Include="Callbacks.cpp" />
-    <ClCompile Include="Debugging.cpp" />
+    <ClCompile Include="Debugger.cpp" />
     <ClCompile Include="DynamicEnum.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="enemyStates.cpp" />
@@ -128,6 +128,7 @@
     <ClCompile Include="Token.cpp" />
     <ClCompile Include="View.cpp" />
     <ClCompile Include="Window.cpp" />
+    <ClCompile Include="Water.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BoundingBox.h" />

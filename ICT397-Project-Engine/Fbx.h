@@ -22,7 +22,7 @@
 #include "Callbacks.h"
 #include "OpenGL.h"
 
-#include "Debugging.h"
+#include "Debugger.h"
 
 /**
 * @class Fbx
@@ -46,7 +46,6 @@ public:
     Renderer* render;
     std::string directory;
     bool gammaCorrection;
-    tnah::Debugging debugger;
 
 
     /// default constructor

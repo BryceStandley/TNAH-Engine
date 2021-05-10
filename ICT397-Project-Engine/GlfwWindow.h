@@ -8,7 +8,6 @@
 
 #include "camera.h"
 #include "Shader.h"
-#include "Debugging.h"
 
 /**
  * @class GlfwWindow
@@ -116,6 +115,8 @@ public:
 
 	float GetCurrentTime() { return glfwGetTime(); }
 
+
+
 private:	
 
 		/**
@@ -144,6 +145,12 @@ private:
 
     ///If the press wireframe display can be displayed
     bool canPressWireDisplay = true;
+
+    ///If the wireframe display should be displayed
+    bool debugDisplay = false;
+
+    ///If the press wireframe display can be displayed
+    bool canPressDebugDisplay = true;
 
 		//The game input manager
 	Input gameInput;

@@ -8,7 +8,7 @@
 #include "camera.h"
 #include "Skybox.h"
 #include "OpenGL.h"
-#include "Debugging.h"
+#include "Debugger.h"
 #include "ExitScreen.h"
 
 /**
@@ -181,7 +181,7 @@ private:
 	int playerInd;
 
 		///Debugger
-	tnah::Debugging debugger;
+
 
 		///The exit screen
 	ExitScreen exitScreen;

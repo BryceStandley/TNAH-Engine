@@ -41,5 +41,8 @@ public:
 
 		///The exiting input key
 	int exit;
+
+    //The key to toggle the debug panel
+    int debug;
 };
 

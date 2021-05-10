@@ -157,7 +157,7 @@ public:
 			std::cout << "ERROR::NO_TOKEN_SCRIPTS_FOUND" << std::endl;
 		}
 
-		std::cout << "Token speed -> " << speed << std::endl;
+		if(Debugger::GetInstance()->debugToConsole) std::cout << "Token speed -> " << speed << std::endl;
 	}
 		/*
 		* @breif Updates the game object with functionality

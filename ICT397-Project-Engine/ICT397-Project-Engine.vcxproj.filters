@@ -99,7 +99,7 @@
     <ClCompile Include="BoundingBox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Debugging.cpp">
+    <ClCompile Include="Debugger.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ExitScreen.cpp">
@@ -141,6 +141,9 @@
     <ClCompile Include="Timer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Water.cpp">
+          <Filter>Source Files</Filter>
+        </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Renderer.h">
@@ -224,7 +227,7 @@
     <ClInclude Include="BoundingBox.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Debugging.h">
+    <ClInclude Include="Debugger.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ExitScreen.h">
@@ -275,6 +278,9 @@
     <ClInclude Include="Timer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+        <ClInclude Include="Water.h">
+          <Filter>Header Files</Filter>
+        </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\scripts\test.lua">

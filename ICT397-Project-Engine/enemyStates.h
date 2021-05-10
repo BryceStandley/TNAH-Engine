@@ -1,6 +1,7 @@
 #pragma once
 #include "singleton.h"
 #include "state.h"
+#include "Debugger.h"
 
 class Enemy;
 

@@ -6,6 +6,7 @@
 #include "View.h"
 #include "Time.h"
 #include "Scene.h"
+#include "Debugger.h"
 
 class Window
 {

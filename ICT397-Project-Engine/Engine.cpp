@@ -68,14 +68,17 @@ Engine::Engine()
 		render->DepthTest();
 	}
 
-	currentScene = 0;
+    gui.Init();
+
+
+    currentScene = 0;
 
 	for (int i = 1; i <= amount; i++)
 	{
 	    Scene* scene = new Scene("Scene " + std::to_string(i), render);
         gameScenes.push_back(scene);
 		std::string path = "./res/scripts/scene" + std::to_string(i) + ".lua";
-		std::cout << "Path: " << path << std::endl;
+		if(Debugger::GetInstance()->debugToConsole) std::cout << "Path: " << path << std::endl;
 		LuaScenes(path, i-1);
 		scene->FindPlayerIndice();
 
@@ -110,7 +113,13 @@ void Engine::Run()
 		{
 			//Add scene loading and deloading
 			GameTimer::getInstance().UpdateTime(window->GetCurrentTime());
-			deltaTime = window->GetTime();
+            //Imgui new frame
+            ImGui_ImplOpenGL3_NewFrame();
+            ImGui_ImplGlfw_NewFrame();
+            ImGui::NewFrame();
+
+            deltaTime = window->GetTime();
+
 
 			window->Update();
 			ExitScreen e = gameScenes[currentScene]->GetExitScreen();
@@ -122,6 +131,18 @@ void Engine::Run()
 			window->GameInput(deltaTime);
 			window->MouseMove();
 			gameScenes[currentScene]->RunPlayer(window->GetLens(), deltaTime, false);
+
+            //build GUI elements
+            if(Debugger::GetInstance()->drawDebugPanel)
+            {
+                gui.DrawDebugUI(window);
+            }
+
+
+            //Render GUI
+            ImGui::Render();
+            ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
 			window->Buffer();
 		}
 

@@ -2,7 +2,7 @@
 --6/04/21 Christopher Logan
 --07/04/2021 Bryce Standley - Added for loops for placing objects on the terrain
 -- Format cs:MakeGameObject(type, "modelfolder", "vertexshader", "fragmentshader", scale, x, y, z, speed);
-print("Scene 1 script loaded")
+--print("Scene 1 script loaded")
 
 cs:MakeGameObject("player", "./res/scripts/gameobjects/player_default.lua", 0.001, 100, 2, 100);
 

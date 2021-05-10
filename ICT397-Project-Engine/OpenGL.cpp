@@ -175,7 +175,7 @@ void OpenGL::TerrainSetup(std::vector<glm::vec3> totalData, std::vector<unsigned
 
 void OpenGL::SkyboxSetup(std::vector <float> skyVerts, std::vector<std::string> faces, unsigned int& VAO, unsigned int& VBO, unsigned int& texture, Shader& skyShader)
 {
-    std::cout << "renderer size: " << skyVerts.size() << std::endl;
+    if(Debugger::GetInstance()->debugToConsole) std::cout << "renderer size: " << skyVerts.size() << std::endl;
     glGenVertexArrays(1, &VAO);
     glGenBuffers(1, &VBO);
     glBindVertexArray(VAO);
@@ -217,11 +217,11 @@ unsigned int OpenGL::TextureFromFile(std::string path, const std::string& direct
 {
     std::string filename = path;
 
-    if(debugger.debugToConsole) std::cout << "OpenGL.cpp::INFO::" << filename << std::endl; //debug
+    if(Debugger::GetInstance()->debugToConsole) std::cout << "OpenGL.cpp::INFO::" << filename << std::endl; //debug
 
     filename = directory + '/' + filename;
 
-    if(debugger.debugToConsole) std::cout << "OpenGL.cpp::INFO::" << filename << std::endl; //debug
+    if(Debugger::GetInstance()->debugToConsole) std::cout << "OpenGL.cpp::INFO::" << filename << std::endl; //debug
 
     stbi_set_flip_vertically_on_load(false);
     unsigned int textureID;

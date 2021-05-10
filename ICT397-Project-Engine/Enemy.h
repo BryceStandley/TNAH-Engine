@@ -41,7 +41,7 @@ public:
 	stateMachine<Enemy>* getFSM()const { return enemyFSM; }
 
 	/**
-	/*
+	*
 	* @brief Updates the game object with functionality
 	* @param time - the time since the last frame (deltatime)
 	*/
@@ -75,7 +75,7 @@ public:
 
 	bool handleMessage(const Telegram message)
 	{
-		std::cout << message.sender << " has sent a message to " << GetId() << " " << message.msg << ", distance: " << DistanceBetween(message.pos) << std::endl;
+        if(Debugger::GetInstance()->debugToConsole) std::cout << message.sender << " has sent a message to " << GetId() << " " << message.msg << ", distance: " << DistanceBetween(message.pos) << std::endl;
 		if (enemyFSM->handleMessage(message))
 		{
 			if (DistanceBetween(message.pos) <= 1000.0f)

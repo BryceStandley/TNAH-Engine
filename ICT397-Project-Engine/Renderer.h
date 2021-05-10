@@ -6,6 +6,7 @@
 #include "Mesh.h"
 #include "View.h"
 #include "Buffer.h"
+#include "Debugger.h"
 typedef float v3[3];
 /**
 * @class Renderer

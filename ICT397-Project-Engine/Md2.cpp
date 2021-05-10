@@ -221,10 +221,19 @@ void Md2::LoadModel(const char* sFilename, const char* tFilename, const char* vS
 	FILE* fp;
 	errno_t err;
 
-	if ((err = fopen_s(&fp, sFilename, "rb") != 0))
-	{
+#if _WIN32
+    if((err = fopen_s(&fp, sFilename, "rb") != 0))
+    {
+        std::cout << "ERROR OPENING FILE -> " << sFilename << std::endl;
+    }
+#elif __APPLE__
 
-	}
+    fp = fopen(sFilename, "rb");
+    if (fp == nullptr)
+    {
+        std::cout << "ERROR OPENING FILE -> " << sFilename << std::endl;
+    }
+#endif
 	else
 	{
 
@@ -336,7 +345,7 @@ unsigned int Md2::TextureFromFile(std::string path)
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-		std::cout << "Texture loaded" << std::endl;
+        if(Debugger::GetInstance()->debugToConsole) std::cout << "Texture loaded" << std::endl;
 		stbi_image_free(data);
 	}
 	else

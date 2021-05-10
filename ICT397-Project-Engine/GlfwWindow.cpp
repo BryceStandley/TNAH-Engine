@@ -16,7 +16,7 @@ void GlfwWindow::Init(std::string title, int h, int w)
         glfwTerminate();
     }
 
-    std::cout << "GLFW Started!" << std::endl;
+    std::cout << "GLFWWINDOW::INFO::GLFW Started!" << std::endl;
 
     glm::vec3 l(0.0, 0.0f, 0.0f);
     lightPos = l;
@@ -28,6 +28,7 @@ void GlfwWindow::Init(std::string title, int h, int w)
 
     ///locks the cursor to the window
     glfwSetInputMode(gameWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    Debugger::GetInstance()->windowRef = gameWindow;
 }
 
 void GlfwWindow::Buffer()
@@ -47,6 +48,10 @@ void GlfwWindow::GameInput(float deltaTime)
     {
         canPressExitDisplay = false;
         exitDisplay = !exitDisplay;
+
+        //Making sure the debugger closes on the exit screen display
+        // todo: add false debugger call
+        Debugger::GetInstance()->drawDebugPanel = false;
     }
 
     if (glfwGetKey(gameWindow, gameInput.exit) == GLFW_RELEASE)
@@ -63,6 +68,27 @@ void GlfwWindow::GameInput(float deltaTime)
     if (glfwGetKey(gameWindow, gameInput.toggle) == GLFW_RELEASE)
     {
         canPressWireDisplay = true;
+    }
+
+    if (glfwGetKey(gameWindow, gameInput.debug) == GLFW_RELEASE)
+    {
+        canPressDebugDisplay = true;
+    }
+
+    if ((glfwGetKey(gameWindow, gameInput.debug) == GLFW_PRESS) && canPressDebugDisplay)
+    {
+        canPressDebugDisplay = false;
+        // todo: toggle debugger
+        Debugger::GetInstance()->drawDebugPanel = !Debugger::GetInstance()->drawDebugPanel;
+        if(Debugger::GetInstance()->drawDebugPanel)
+        {
+            glfwSetInputMode(gameWindow, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+        }
+        else
+        {
+            glfwSetInputMode(gameWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+        }
+
     }
 
     if (!exitDisplay)

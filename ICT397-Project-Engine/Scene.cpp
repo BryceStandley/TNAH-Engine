@@ -129,7 +129,7 @@ void Scene::MakeGameObject(std::string t, std::string script, float scale, float
 	}
 	else
 	{
-		if(debugger.debugToConsole) std::cout << "Scene.cpp::ERROR::GAME_ASSET_FACTORY::TYPE_UNKNOWN" << std::endl;
+		if(Debugger::GetInstance()->debugToConsole) std::cout << "Scene.cpp::ERROR::GAME_ASSET_FACTORY::TYPE_UNKNOWN" << std::endl;
 	}
 }
 
@@ -180,19 +180,19 @@ glm::vec3 Scene::CheckSceneCollision(glm::vec3 pos)
 
         if(go->GetTag() == BoundingBox::TOKEN && distance < playerSphereRadius)
         {
-            if(debugger.debugCollisionsToConsole) std::cout << "Scene.cpp::INFO::Token GameObject - " << go->GetName() << " Hit" << std::endl;
+            if(Debugger::GetInstance()->debugCollisionsToConsole) std::cout << "Scene.cpp::INFO::Token GameObject - " << go->GetName() << " Hit" << std::endl;
             gameObjectsToRemoveFromScene.emplace_back(go);
             continue;
         }
         if(go->GetTag() == BoundingBox::ENEMY && distance < playerSphereRadius) {
-            if(debugger.debugCollisionsToConsole) std::cout << "Scene.cpp::INFO::Enemy GameObject - " << go->GetName() << " Hit" << std::endl;
+            if(Debugger::GetInstance()->debugCollisionsToConsole) std::cout << "Scene.cpp::INFO::Enemy GameObject - " << go->GetName() << " Hit" << std::endl;
             gameObjectsToRemoveFromScene.emplace_back(go);
-            std::cout << "MODEL REMOVED" << std::endl;
+            if(Debugger::GetInstance()->debugToConsole) std::cout << "MODEL REMOVED" << std::endl;
             continue;
         }
         if(go->GetTag() == BoundingBox::STATIC_OBJECT && distance < playerSphereRadius)
         {
-            if(debugger.debugCollisionsToConsole) std::cout << "Scene.cpp::INFO::Static GameObject - " + go->GetName() +" hit" << std::endl;
+            if(Debugger::GetInstance()->debugCollisionsToConsole) std::cout << "Scene.cpp::INFO::Static GameObject - " + go->GetName() +" hit" << std::endl;
             //Simple Collisions/distance checking, More complex collision detection is work in progress
             glm::vec3 dir = go->GetPos() - playerSphereOrigin;
             //the player is too close to a object and will be stopped
@@ -264,7 +264,7 @@ glm::vec3 Scene::CheckSceneCollision(glm::vec3 pos)
     std::vector<GameObject*>::iterator removed;
     for(auto &go : gameObjectsToRemoveFromScene)
     {
-        //if(debugger.debugCollisionsToConsole) std::cout << "Scene.cpp::INFO::GameObject - " + go->GetName() +" hit and removed from scene" << std::endl;
+        //if(Debugger::GetInstance()->debugCollisionsToConsole) std::cout << "Scene.cpp::INFO::GameObject - " + go->GetName() +" hit and removed from scene" << std::endl;
         removed = std::remove(gameObjects.begin(), gameObjects.end(), go);
     }
 

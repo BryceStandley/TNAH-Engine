@@ -17,7 +17,7 @@ public:
 	{
 		if (newEntity->GetId() > max)
 			max = newEntity->GetId();
-		std::cout << "Registered enemy -> " << newEntity->GetId() << std::endl;
+        if(Debugger::GetInstance()->debugToConsole) std::cout << "Registered enemy -> " << newEntity->GetId() << std::endl;
 		entityMap.insert(std::make_pair(newEntity->GetId(), newEntity));
 	}
 

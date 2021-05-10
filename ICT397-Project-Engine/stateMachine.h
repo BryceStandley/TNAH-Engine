@@ -140,7 +140,7 @@ public:
 		*/
 	virtual ~stateMachine() 
 	{
-		std::cout << "STATE MACHINE" << std::endl; 
+        if(Debugger::GetInstance()->debugToConsole) std::cout << "STATE MACHINE" << std::endl;
 	}
 
 };

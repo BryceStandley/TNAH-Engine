@@ -10,7 +10,7 @@
 void wander::Enter(Enemy* dude)
 {
 	dude->SetSate(WALK);
-	std::cout << "WALKING" << std::endl;	
+	if(Debugger::GetInstance()->debugToConsole) std::cout <<"WALKING" << std::endl;
 }
 
 void wander::Execute(Enemy* dude)
@@ -18,7 +18,7 @@ void wander::Execute(Enemy* dude)
 	if (dude->getToken() == true && dude->getFSM()->getPreviousState() == &flee_state::getInstance()) 
 	{
 		dude->incrementCheck();
-		std::cout << "CHECK:  " << dude->getCheck() << std::endl;
+        if(Debugger::GetInstance()->debugToConsole)std::cout << "CHECK:  " << dude->getCheck() << std::endl;
 	}
 		
 
@@ -29,7 +29,7 @@ void wander::Execute(Enemy* dude)
 		//dude->getFSM()->changeState(&die_state::getInstance());
 	}
 
-	std::cout << "WANDER" << std::endl;
+    if(Debugger::GetInstance()->debugToConsole)std::cout << "WANDER" << std::endl;
 	double wanderRadius = 5;
 	double wanderDistance = 35;
 	double wanderJitter = 1;
@@ -82,7 +82,7 @@ void alert::Enter(Enemy* dude)
 
 void alert::Execute(Enemy* dude)
 {
-	std::cout << "ALERT" << std::endl;
+    if(Debugger::GetInstance()->debugToConsole)std::cout << "ALERT" << std::endl;
 	float result = atan2(dude->getVelocity().z, dude->getVelocity().x);
 
 	if (dude->getTimer() < 100)
@@ -108,7 +108,7 @@ void chase::Enter(Enemy* dude)
 
 void chase::Execute(Enemy* dude)
 {
-	std::cout << "CHASE" << std::endl;
+    if(Debugger::GetInstance()->debugToConsole) std::cout << "CHASE" << std::endl;
 	float result = atan2(dude->getVelocity().z, dude->getVelocity().x);
 
 	if (dude->Distance() < 10)
@@ -141,10 +141,10 @@ void flee::Enter(Enemy* dude)
 
 void flee::Execute(Enemy* dude)
 {
-	std::cout << "FLEE" << std::endl;
+    if(Debugger::GetInstance()->debugToConsole) std::cout << "FLEE" << std::endl;
 	dude->incrementCheck();
 	//std::cout << dude->incrementCheck() << std::endl;
-	std::cout << "CHECK:  " << dude->getCheck() << std::endl;
+    if(Debugger::GetInstance()->debugToConsole) std::cout << "CHECK:  " << dude->getCheck() << std::endl;
 
 	if (dude->getCheck() > 1000)
 	{
@@ -191,7 +191,7 @@ void attack::Enter(Enemy* dude)
 
 void attack::Execute(Enemy* dude)
 {
-	std::cout << "ATTACK" << std::endl;
+    if(Debugger::GetInstance()->debugToConsole) std::cout << "ATTACK" << std::endl;
 	float res = atan2(dude->getVelocity().z, dude->getVelocity().x);
 
 	if (dude->Distance() > 10.5)
@@ -213,7 +213,7 @@ void attack::Exit(Enemy* dude)
 
 void die::Enter(Enemy* dude)
 {
-	std::cout << "DIE" << std::endl;
+    if(Debugger::GetInstance()->debugToConsole) std::cout << "DIE" << std::endl;
 	if (dude->getDeathAnim() == false)
 	{
 		dude->SetSate(DEATH_FALLBACK);
@@ -239,7 +239,7 @@ void global::Execute(Enemy* dude)
 {
 	if (dude->getToken() == true && dude->Distance() < 25 && dude->getGlobalFlag() == false) 
 	{
-		std::cout << "GLOBAL" << std::endl;
+        if(Debugger::GetInstance()->debugToConsole) std::cout << "GLOBAL" << std::endl;
 		dude->getFSM()->changeState(&flee_state::getInstance());
 		dude->setGlobalFlag(true);	///kills the repeat entry
 	}

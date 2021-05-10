@@ -24,7 +24,7 @@
 #include "Fbx.h"
 #include "Md2.h"
 
-#include "Debugging.h"
+#include "Debugger.h"
 
     /**
     * @class Model

@@ -13,6 +13,7 @@ Input::Input()
 		right = GLFW_KEY_D;
         toggle = GLFW_KEY_K;
 		exit = GLFW_KEY_X;
+        debug = GLFW_KEY_P;
 	}
 	else
 	{
@@ -23,6 +24,7 @@ Input::Input()
 		LuaRef r = getGlobal(L, "right");
         LuaRef t = getGlobal(L, "toggle");
 		LuaRef ex = getGlobal(L, "exit");
+        LuaRef d = getGlobal(L, "debug");
 
 		if (f.isNumber())
 		{
@@ -53,5 +55,9 @@ Input::Input()
 		{
 			exit = ex.cast<int>();
 		}
+        if (d.isNumber())
+        {
+            debug = d.cast<int>();
+        }
 	}
 }

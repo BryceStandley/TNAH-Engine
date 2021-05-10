@@ -2,6 +2,7 @@
 #include <set>
 #include <string>
 #include "SingletonHeaders.h"
+#include "Debugger.h"
 
 #define SEND_MESSAGE_IMMEDIATELY = 0.0;
 #define SENDER_ID_IRRELEVANT = -1;
@@ -13,7 +14,7 @@ private:
 	void Discharge(GameObject* receiver, const Telegram msg)
 	{
 		if (!receiver->handleMessage(msg))
-			std::cout << "Message not handled" << std::endl;
+            if(Debugger::GetInstance()->debugToConsole) std::cout << "Message not handled" << std::endl;
 	}
 
 public:
@@ -23,7 +24,7 @@ public:
 		GameObject* pReceiver = entityMan::getInstance().GetEntity(receiver);
 		glm::vec3 pos = entityMan::getInstance().GetEntity(sender)->GetPos();
 		if (pReceiver == NULL) {
-			std::cout << "\nWarning! No Receiver with ID of " << receiver << " found" << std::endl;
+            if(Debugger::GetInstance()->debugToConsole) std::cout << "Warning! No Receiver with ID of " << receiver << " found" << std::endl;
 			return;
 		}
 		Telegram message(0.0f, sender, receiver, all, msg, pos);
@@ -41,14 +42,14 @@ public:
 	void DisbatchMsgAllOfType(int sender, int msg, std::string type)
 	{
 		int max = entityMan::getInstance().Size();
-		std::cout << "The max amount is " << max << std::endl;
+        if(Debugger::GetInstance()->debugToConsole) std::cout << "The max amount is " << max << std::endl;
 		if (max > 1)
 		{
-			std::cout << "past max was called" << std::endl;
+            if(Debugger::GetInstance()->debugToConsole) std::cout << "past max was called" << std::endl;
 			glm::vec3 pos = entityMan::getInstance().GetEntity(sender)->GetPos();
 			for (int i = 1; i <= max; i++)
 			{
-				std::cout << "Loop called " << i << std::endl;
+                if(Debugger::GetInstance()->debugToConsole) std::cout << "Loop called " << i << std::endl;
 				GameObject* pReceiver = entityMan::getInstance().GetEntity(i);
 				if (pReceiver->GetType() == type && i != sender )
 				{

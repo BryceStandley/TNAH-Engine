@@ -6,3 +6,4 @@ left = 65;
 right = 68;
 toggle = 75;
 exit = 88;
+debug = 80;

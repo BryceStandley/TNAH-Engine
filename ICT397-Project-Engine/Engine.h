@@ -4,6 +4,8 @@
 #include "Scene.h"
 #include "OpenGL.h"
 #include <vector>
+#include "GUI.h"
+#include "Debugger.h"
 
 /**
 * @class Engine
@@ -62,5 +64,10 @@ private:
 
 		///The running state of the game
 	bool running;
+
+    /**
+     * @brief GUI object used to access gui functions
+     */
+    GUI gui;
 };
 
