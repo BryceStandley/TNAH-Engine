@@ -51,10 +51,11 @@ public:
 	stateMachine<Enemy>* getFSM()const { return enemyFSM; }
 
 	/*
-	* @breif Updates the game object with functionality
+	* @brief Updates the game object with functionality
 	* @param time - the time since the last frame (deltatime)
 	*/
 	void Update(float time);
+
 
 	void Damage(int dmg);
 	
@@ -84,16 +85,69 @@ public:
 		enemyFSM->handleMessage(msg);
 	}
 
+
+		/**
+		* @brief allows the enemy to move from its current position to a specified target position
+		* @param curPos - the vector representing the current position of the enemy
+		* @param targetPos - the vector representing the target position to move to
+		* @param curVelocity - represents the enemy's current velocity
+		* @param time - represents the time used to calculate the displacement
+		* @param offset - the distance that the character should maintain between itself and its target
+		* @return bool
+		*/
 	bool moveTo(glm::vec3& curPos, const glm::vec3& targetPos, glm::vec3& curVelocity, float time, float offset);
 
+
+		/**
+		* @brief allows the enemy to pursue an evading target
+		* @param evaderPos - the vector representing the position of the evader (the first-person camera)
+		* @param pursuerPos - the vector representing the position of the pursuer (the enemy)
+		* @param evaderVelocity - represents the velocity of the evader
+		* @param pursuerVelocity - represent the velocity of the pursuer
+		* @param time - represents the time used to calculate the displacement
+		* @param offset - the distance that the enemy should maintain between itself and its target
+		*/
 	void pursue(const glm::vec3& evaderPos, glm::vec3& pursuerPos, const glm::vec3& evaderVelocity, glm::vec3& pursuerVelocity, float time, float offset);
 	
+		/**
+		* @brief allows the enemy to flee from a pursuing entity
+		* @param curPos - the vector representing the current position of the enemy
+		* @param pursuerPos - the vector representing the position of the pursuer
+		* @param curVelocity - represent the velocity of the pursuer
+		* @param fleeSpeed - represents the fleeSpeed that is used to set the velocity
+		* @param time - represents the time that is multiplied by velocity to update the current position
+		* @return bool
+		*/
 	bool flee(glm::vec3& curPos, const glm::vec3& pursuerPos, glm::vec3& curVelocity, float fleeSpeed, float time);
 
+
+		/**
+		* @brief allows the enemy to evade a pursuing entity. Serves as a flee that moves from the predicted future position of the pursuer
+		* @param evaderPos - the vector representing the current position of the enemy
+		* @param pursuerPos - the vector representing the position of the pursuer
+		* @param evaderVelocity - represents the velocity of the evader
+		* @param pursuerVelocity - represents the velocity of the pursuer
+		* @param time - represents the time
+		* @return bool
+		*/
 	bool evade(glm::vec3& evaderPos, const glm::vec3& pursuerPos, glm::vec3& evaderVelocity, const glm::vec3& pursuerVelocity, float time);
 
+
+		/**
+		* @brief a function used to set the values that will be used in the wander movement function
+		* @param wanderRadius - the radius of the wander circle
+		* @param wanderDistance - the distance the wander circle is projected in front of the agent
+		* @param wanderJitter - represents the max amount of the displacement
+		*/
 	void setWander(double wanderRadius, double wanderDistance, double wanderJitter);
 
+		/**
+		* @brief a function used to set the values that will be used in the wander movement function
+		* @param position - the position of the enemy
+		* @param velocity - the velocity of the enemy
+		* @param time - represents the time
+		* @return bool
+		*/
 	bool wander(glm::vec3& position, glm::vec3& velocity, float time);
 
 private:
