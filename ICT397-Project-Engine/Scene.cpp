@@ -18,6 +18,18 @@ Scene::~Scene()
 	delete[]factory;
 }
 
+void Scene::Load()
+{
+    if (gameObjects.size() > 0)
+    {
+        for (int i = 0; i < gameObjects.size(); i++)
+        {
+            if (gameObjects[i]->GetType() == "enemy")
+                entityMan::getInstance().RegisterEntity(gameObjects[i]);
+        }
+    }
+}
+
 void Scene::Run(View lens, float time, bool exit)
 {
     if (exitScreen.exitScreenDisplay)
@@ -94,6 +106,13 @@ void Scene::UpdatePlayer(glm::vec3 position, glm::vec3 rotation)
 void Scene::UpdateGameObject(glm::vec3 position, int i)
 {
     position.y = WorldToTerrainPosition(position, true).y + 1.2f;
+
+    if (position.y >= 10.0f)
+    {
+        position.x = gameObjects[i]->GetPos().x;
+        position.y = gameObjects[i]->GetPos().y;
+        position.z = gameObjects[i]->GetPos().z;
+    }
 
     gameObjects[i]->SetPos(position);
 }

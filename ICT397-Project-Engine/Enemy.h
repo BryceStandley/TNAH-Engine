@@ -1,6 +1,5 @@
 #pragma once
 # define PI           3.14159265358979323846  /* pi */
-#include "GameObject.h"
 #include "state.h"
 #include "stateMachine.h"
 #include "enemyStates.h"
@@ -81,7 +80,7 @@ public:
 
 	bool handleMessage(const Telegram message)
 	{
-		enemyFSM->handleMessage(msg);
+		return enemyFSM->handleMessage(message);
 	}
 
 	bool moveTo(glm::vec3& curPos, const glm::vec3& targetPos, glm::vec3& curVelocity, float time, float offset);

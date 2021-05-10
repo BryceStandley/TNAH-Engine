@@ -161,6 +161,7 @@ public:
 	bool GetRotate() { return rotate; }
 
 	int GetId() { return id; }
+	void SetId(int i) { id = i; }
 
 	virtual bool handleMessage(const Telegram message)
 	{

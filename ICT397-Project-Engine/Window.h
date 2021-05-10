@@ -86,4 +86,6 @@ public:
 	virtual bool GetDisplay() { return false; }
 
     virtual void SetRefWindow(Window* w){}
+
+	virtual float GetCurrentTime() { return 0; }
 };

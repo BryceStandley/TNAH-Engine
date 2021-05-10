@@ -1,7 +1,7 @@
 #pragma once
 #include <set>
 #include <string>
-#include "EntityManager.h"
+#include "SingletonHeaders.h"
 
 #define SEND_MESSAGE_IMMEDIATELY = 0.0;
 #define SENDER_ID_IRRELEVANT = -1;
@@ -20,7 +20,7 @@ public:
 	void DisbatchMsg(double delay, int sender, int receiver, int msg, bool all)
 	{
 		//Use singleton to get entity manager
-		GameObject* pReceiver = entityMan.GetEntityFromID(receiver);
+		GameObject* pReceiver = entityMan::getInstance().GetEntity(receiver);
 		if (pReceiver == NULL) {
 			std::cout << "\nWarning! No Receiver with ID of " << receiver << " found" << std::endl;
 			return;
@@ -31,7 +31,7 @@ public:
 		}
 		else {
 			//Need to make a timer
-			double currentTime = timer.getTime();
+			double currentTime = GameTimer::getInstance().curTime;
 			message.dispatchTime = currentTime + delay;
 			Priority.insert(message);
 		}
@@ -40,11 +40,11 @@ public:
 	void DispatchDelayedMessages()
 	{
 		//Need to make a timer
-		double currentTime = timer.getTime();
+		double currentTime = GameTimer::getInstance().curTime;
 		while (!Priority.empty() && (Priority.begin()->dispatchTime < currentTime) && (Priority.begin()->dispatchTime > 0))
 		{
 			const Telegram message = *Priority.begin();
-			GameObject* pReceiver = entityMan.GetEntityFromID(message.receiver);
+			GameObject* pReceiver = entityMan::getInstance().GetEntity(message.receiver);
 			Discharge(pReceiver, message);
 			Priority.erase(Priority.begin());
 		}

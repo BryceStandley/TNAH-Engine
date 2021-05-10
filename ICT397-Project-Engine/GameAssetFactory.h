@@ -5,6 +5,7 @@
 #include "Enemy.h"
 #include "Token.h"
 #include "BoundingBox.h"
+#include "singleton.h"
 /**
  * @class GameAssetFactory
  * @brief Holds the information so that game objects can be made in the engine
@@ -26,7 +27,7 @@ public:
 		* @brief Game asset factory contructor with the renderer
 		* @param r - The renderer for the game engine
 		*/
-	GameAssetFactory(Renderer* r) { renderer = r; playerMade = false; }
+	GameAssetFactory(Renderer* r) { renderer = r; playerMade = false; id = 1; }
 
 		/**
 		* @brief Creates the game object and returns it
@@ -48,5 +49,8 @@ private:
 
 		///The renderer for the engine
 	Renderer* renderer;
+
+		///ids for game objects
+	int id;
 };
 

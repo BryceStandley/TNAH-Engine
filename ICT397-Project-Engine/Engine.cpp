@@ -86,6 +86,7 @@ Engine::Engine()
         scene->GetGameObject(scene->GetPlayerIndice())->SetPos(playerStartPos);
 		window->UpdateCamera(playerStartPos);
 		scene->MoveObjectAwayFromPlayer();
+		scene->Load();
 	}
 
 }
@@ -107,6 +108,8 @@ void Engine::Run()
 	{
 		while (!window->Running())
 		{
+			//Add scene loading and deloading
+			GameTimer::getInstance().UpdateTime(window->GetCurrentTime());
 			deltaTime = window->GetTime();
 
 			window->Update();
