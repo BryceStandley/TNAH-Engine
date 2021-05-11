@@ -6,9 +6,12 @@
 
 cs:MakeGameObject("player", "./res/scripts/gameobjects/player_default.lua", 0.001, 100, 2, 100);
 
+
 cs:MakeGameObject("enemy",  "./res/scripts/gameobjects/enemy_zarlag.lua", 0.05, 50, 1.2, 50);
 cs:MakeGameObject("enemy",  "./res/scripts/gameobjects/enemy_zarlag.lua", 0.05, 30, 1.2, 70);
 cs:MakeGameObject("enemy",  "./res/scripts/gameobjects/enemy_zarlag.lua", 0.05, 90, 1.2, 70);
+
+cs:MakeGameObject("water",  "./res/scripts/gameobjects/static_water.lua", 0.05, 50, 0.5, 50);
 
 y = 1--Y value for all tokens
 for i = 0, 5

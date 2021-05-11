@@ -39,6 +39,7 @@ public:
      * @brief flag for enabling/disabling debug information about collisions in the console
      */
     bool debugCollisionsToConsole = false;
+    bool debugFSMToConsole = false;
 
     float ApplicationFramerate = 0.0f;
 

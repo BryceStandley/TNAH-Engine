@@ -64,21 +64,43 @@ public:
 
 	float GetDeltaTime() const { return deltaTime; }
 
+		/**
+		* @brief gets and returns the distance between the enemy and the first person player camera
+		* @return float
+		*/
 	float Distance();
 
+
+		/**
+		* @brief gets and returns the distance between a given position and an enemy position  
+		* @return float
+		*/
 	float DistanceBetween(glm::vec3 otherPos);
 	
-	glm::vec3 getCamPos() { return pPos; }
 
+		/**
+		* @brief gets and returns the position of the first person player camera
+		* @return glm::vec3
+		*/
+	glm::vec3 getCamPos() { return pPos; }
+	
+	/// enemyVelocity
 	glm::vec3 enemyVelocity = { 5.0f, 0.0f, 0.0f };
+
+	/// cam Velocity
 	glm::vec3 velocity = { 4.0f, 0.0f, 0.0f };
 
+		/**
+		* @brief allows the enemy to handle messages it receives from other entities
+		* @param message - represents the message sent to the enemy
+		* @return bool
+		*/
 	bool handleMessage(const Telegram message)
 	{
         if(Debugger::GetInstance()->debugToConsole) std::cout << message.sender << " has sent a message to " << GetId() << " " << message.msg << ", distance: " << DistanceBetween(message.pos) << std::endl;
 		if (enemyFSM->handleMessage(message))
 		{
-			if (DistanceBetween(message.pos) <= 1000.0f)
+			if (DistanceBetween(message.pos) <= 50.0f)
 			{
 				newPos = message.pos;
 				moving = true;
@@ -262,6 +284,7 @@ public:
 	bool moving = false;
 
 private:
+
 	glm::vec3 pPos;
 	Model wModel;
 	float deltaTime = 0;

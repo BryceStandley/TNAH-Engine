@@ -227,7 +227,7 @@ Enemy::Enemy(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std::s
 
 Enemy::~Enemy() 
 {
-    if(Debugger::GetInstance()->debugToConsole) std::cout << "FSM Deleted" << std::endl;
+    if(Debugger::GetInstance()->debugFSMToConsole) std::cout << "FSM Deleted" << std::endl;
 }
 
 
@@ -235,13 +235,13 @@ void Enemy::Update(float time)
 {
 	SetType("enemy");
 
-	//if(Debugger::GetInstance()->debugToConsole) std::cout << GetId() << " player has token = " << token << std::endl;
+	//if(Debugger::GetInstance()->debugFSMToConsole) std::cout << GetId() << " player has token = " << token << std::endl;
 
 	if (killFSM == false)
 		enemyFSM->update();
 	else 
 	{
-        if(Debugger::GetInstance()->debugToConsole) std::cout << "Should be destroyed" << std::endl;
+        if(Debugger::GetInstance()->debugFSMToConsole) std::cout << "Should be destroyed" << std::endl;
 	}
 }
 
@@ -280,7 +280,7 @@ void Enemy::Render(View lens, float time, Renderer* gameRenderer)
 {
 	pPos = lens.GetPosition();
 	deltaTime = time;
-    //if(Debugger::GetInstance()->debugToConsole) std::cout << Distance() << std::endl;
+    //if(Debugger::GetInstance()->debugFSMToConsole) std::cout << Distance() << std::endl;
 	if (alive)
 	{
 		Model temp = GetModel();
@@ -324,7 +324,7 @@ float Enemy::DistanceBetween(glm::vec3 otherPos)
 	glm::vec3 modelPos(GetPos().x, GetPos().y, GetPos().z);
 
 	float distance = glm::distance(oPos, modelPos);
-	if(Debugger::GetInstance()->debugToConsole) std::cout << "Distance: " << distance << " Positions other: " << " " << otherPos.x << " " << otherPos.y << " " << otherPos.z << ", Position enemy: " << modelPos.x << " " << modelPos.y << " " << modelPos.z << " " << std::endl;
+	if(Debugger::GetInstance()->debugFSMToConsole) std::cout << "Distance: " << distance << " Positions other: " << " " << otherPos.x << " " << otherPos.y << " " << otherPos.z << ", Position enemy: " << modelPos.x << " " << modelPos.y << " " << modelPos.z << " " << std::endl;
 	return distance;
 }
 
