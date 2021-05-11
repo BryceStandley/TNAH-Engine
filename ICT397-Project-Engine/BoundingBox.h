@@ -87,7 +87,8 @@ public:
         PLAYER,
         TOKEN,
         STATIC_OBJECT,
-        ENEMY
+        ENEMY,
+        WATER
     };
 
 

@@ -32,6 +32,7 @@ void GUI::DrawDebugUI(Window* w)
     ImGui::Text("FPS: %.1f", ImGui::GetIO().Framerate);
     ImGui::Checkbox("Debug to Console", &Debugger::GetInstance()->debugToConsole);
     ImGui::Checkbox("Debug Collisions to Console", &Debugger::GetInstance()->debugCollisionsToConsole);
+    ImGui::Checkbox("Debug FSM to Console", &Debugger::GetInstance()->debugFSMToConsole);
     //Add ImGui::Text() fields here to add more data to the debug window
 
 

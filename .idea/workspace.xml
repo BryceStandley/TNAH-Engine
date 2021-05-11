@@ -12,7 +12,23 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="127c4cee-4109-4dc5-a120-c50cf0ff91ca" name="Default Changelist" comment="Rebuilt Debugging" />
+    <list default="true" id="127c4cee-4109-4dc5-a120-c50cf0ff91ca" name="Default Changelist" comment="Fixed windows build">
+      <change afterPath="$PROJECT_DIR$/ICT397-Project-Engine/res/scripts/gameobjects/static_water.lua" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/BoundingBox.h" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/BoundingBox.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/Debugger.h" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Debugger.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/Enemy.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Enemy.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/GUI.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/GUI.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/GameAssetFactory.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/GameAssetFactory.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/GameAssetFactory.h" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/GameAssetFactory.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/MessageDispatcher.h" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/MessageDispatcher.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/Scene.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Scene.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/Water.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Water.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/Water.h" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Water.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/enemyStates.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/enemyStates.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/res/scripts/scene1.lua" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/res/scripts/scene1.lua" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/res/scripts/terrain.lua" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/res/scripts/terrain.lua" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -33,6 +49,7 @@
       <list>
         <option value="CMakeLists.txt" />
         <option value="GLSL Shader" />
+        <option value="NewLua" />
       </list>
     </option>
   </component>
@@ -79,6 +96,11 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
     <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
         <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -110,6 +132,7 @@
       <workItem from="1620654560226" duration="130000" />
       <workItem from="1620654886839" duration="637000" />
       <workItem from="1620656308982" duration="5332000" />
+      <workItem from="1620704299091" duration="4317000" />
     </task>
     <task id="LOCAL-00001" summary="Added collisions with objects">
       <created>1617722294195</created>
@@ -167,7 +190,14 @@
       <option name="project" value="LOCAL" />
       <updated>1620661488628</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Fixed windows build">
+      <created>1620704367075</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1620704367075</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -197,6 +227,7 @@
     <MESSAGE value="Updated 3.2" />
     <MESSAGE value="Doxy files generated" />
     <MESSAGE value="Rebuilt Debugging" />
-    <option name="LAST_COMMIT_MESSAGE" value="Rebuilt Debugging" />
+    <MESSAGE value="Fixed windows build" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed windows build" />
   </component>
 </project>

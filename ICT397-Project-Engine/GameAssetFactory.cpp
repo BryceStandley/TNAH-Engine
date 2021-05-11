@@ -45,6 +45,14 @@ GameObject* GameAssetFactory::GetGameObject(std::string type, std::string script
 		obj->SetName("Token");
 		return obj;
 	}
+	else if(type == "water")
+    {
+        if(Debugger::GetInstance()->debugToConsole) std::cout << "water done" << std::endl;
+        GameObject* obj = new Water(position, glm::vec3(0, 0, 0), scale, renderer, script);
+        obj->SetCollisionTag(BoundingBox::CollisionTag::WATER);
+        obj->SetName("Water");
+        return obj;
+    }
 	else
 		return nullptr;
 }
