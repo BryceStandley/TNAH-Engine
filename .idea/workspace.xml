@@ -12,209 +12,7 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="127c4cee-4109-4dc5-a120-c50cf0ff91ca" name="Default Changelist" comment="Added Debugging, fixed small bugs">
-      <change afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Debugger.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Debugger.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ICT397-Project-Engine/GUI.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ICT397-Project-Engine/GUI.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Water.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Water.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ICT397-Project-Engine/imgui/imconfig.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ICT397-Project-Engine/imgui/imgui.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ICT397-Project-Engine/imgui/imgui.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ICT397-Project-Engine/imgui/imgui_demo.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ICT397-Project-Engine/imgui/imgui_draw.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ICT397-Project-Engine/imgui/imgui_impl_glfw.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ICT397-Project-Engine/imgui/imgui_impl_glfw.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ICT397-Project-Engine/imgui/imgui_impl_opengl3.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ICT397-Project-Engine/imgui/imgui_impl_opengl3.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ICT397-Project-Engine/imgui/imgui_internal.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ICT397-Project-Engine/imgui/imgui_tables.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ICT397-Project-Engine/imgui/imgui_widgets.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ICT397-Project-Engine/imgui/imstb_rectpack.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ICT397-Project-Engine/imgui/imstb_textedit.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ICT397-Project-Engine/imgui/imstb_truetype.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ICT397-Project-Engine/res/shader/waterFragment.glsl" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ICT397-Project-Engine/res/shader/waterVertex.glsl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/Debugging.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/Debugging.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/Enemy.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Enemy.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/Enemy.h" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Enemy.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/Engine.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Engine.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/Engine.h" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Engine.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/EntityManager.h" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/EntityManager.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/Fbx.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Fbx.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/Fbx.h" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Fbx.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/GameAssetFactory.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/GameAssetFactory.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/GameObject.h" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/GameObject.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/GlfwWindow.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/GlfwWindow.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/GlfwWindow.h" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/GlfwWindow.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/ICT397-Project-Engine.vcxproj" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/ICT397-Project-Engine.vcxproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/ICT397-Project-Engine.vcxproj.filters" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/ICT397-Project-Engine.vcxproj.filters" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/Input.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Input.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/Input.h" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Input.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/Md2.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Md2.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/Md2.h" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Md2.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/MessageDispatcher.h" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/MessageDispatcher.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/Model.h" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Model.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/OpenGL.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/OpenGL.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/OpenGL.h" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/OpenGL.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/Player.h" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Player.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/Renderer.h" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Renderer.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/Scene.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Scene.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/Scene.h" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Scene.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/Shader.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Shader.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/Shader.h" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Shader.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/Token.h" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Token.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/Window.h" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Window.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/Windows.h" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Windows.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/enemyStates.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/enemyStates.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/enemyStates.h" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/enemyStates.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/res/scripts/gameobjects/enemy_zarlag.lua" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/res/scripts/gameobjects/enemy_zarlag.lua" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/res/scripts/gameobjects/enemy_zarlagweapon.lua" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/res/scripts/gameobjects/enemy_zarlagweapon.lua" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/res/scripts/input.lua" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/res/scripts/input.lua" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/res/scripts/scene1.lua" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/res/scripts/scene1.lua" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/stateMachine.h" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/stateMachine.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/GL/eglew.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/GL/glew.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/GL/glxew.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/GL/wglew.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/glad/glad.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/glad/glad.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/luabridge/List.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/LuaBridge/List.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/luabridge/LuaBridge.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/LuaBridge/LuaBridge.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/luabridge/Map.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/LuaBridge/Map.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/luabridge/RefCountedObject.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/LuaBridge/RefCountedObject.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/luabridge/RefCountedPtr.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/LuaBridge/RefCountedPtr.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/luabridge/UnorderedMap.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/LuaBridge/UnorderedMap.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/luabridge/Vector.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/LuaBridge/Vector.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/luabridge/detail/CFunctions.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/LuaBridge/detail/CFunctions.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/luabridge/detail/ClassInfo.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/LuaBridge/detail/ClassInfo.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/luabridge/detail/Config.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/LuaBridge/detail/Config.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/luabridge/detail/Constructor.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/LuaBridge/detail/Constructor.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/luabridge/detail/FuncTraits.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/LuaBridge/detail/FuncTraits.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/luabridge/detail/Iterator.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/LuaBridge/detail/Iterator.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/luabridge/detail/LuaException.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/LuaBridge/detail/LuaException.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/luabridge/detail/LuaHelpers.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/LuaBridge/detail/LuaHelpers.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/luabridge/detail/LuaRef.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/LuaBridge/detail/LuaRef.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/luabridge/detail/Namespace.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/LuaBridge/detail/Namespace.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/luabridge/detail/Security.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/LuaBridge/detail/Security.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/luabridge/detail/Stack.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/LuaBridge/detail/Stack.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/luabridge/detail/TypeList.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/LuaBridge/detail/TypeList.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/luabridge/detail/TypeTraits.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/LuaBridge/detail/TypeTraits.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/luabridge/detail/Userdata.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/LuaBridge/detail/Userdata.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/luabridge/detail/dump.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/LuaBridge/detail/dump.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/body/CollisionBody.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/body/RigidBody.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/collision/Collider.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/collision/CollisionCallback.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/collision/ContactManifold.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/collision/ContactManifoldInfo.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/collision/ContactPair.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/collision/ContactPointInfo.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/collision/HalfEdgeStructure.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/collision/OverlapCallback.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/collision/PolygonVertexArray.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/collision/PolyhedronMesh.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/collision/RaycastInfo.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/collision/TriangleMesh.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/collision/TriangleVertexArray.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/collision/broadphase/DynamicAABBTree.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/collision/narrowphase/CapsuleVsCapsuleAlgorithm.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/collision/narrowphase/CapsuleVsCapsuleNarrowPhaseInfoBatch.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/collision/narrowphase/CapsuleVsConvexPolyhedronAlgorithm.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/collision/narrowphase/CollisionDispatch.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/collision/narrowphase/ConvexPolyhedronVsConvexPolyhedronAlgorithm.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/collision/narrowphase/GJK/GJKAlgorithm.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/collision/narrowphase/GJK/VoronoiSimplex.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/collision/narrowphase/NarrowPhaseAlgorithm.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/collision/narrowphase/NarrowPhaseInfoBatch.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/collision/narrowphase/NarrowPhaseInput.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/collision/narrowphase/SAT/SATAlgorithm.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/collision/narrowphase/SphereVsCapsuleAlgorithm.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/collision/narrowphase/SphereVsCapsuleNarrowPhaseInfoBatch.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/collision/narrowphase/SphereVsConvexPolyhedronAlgorithm.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/collision/narrowphase/SphereVsSphereAlgorithm.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/collision/narrowphase/SphereVsSphereNarrowPhaseInfoBatch.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/collision/shapes/AABB.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/collision/shapes/BoxShape.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/collision/shapes/CapsuleShape.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/collision/shapes/CollisionShape.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/collision/shapes/ConcaveMeshShape.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/collision/shapes/ConcaveShape.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/collision/shapes/ConvexMeshShape.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/collision/shapes/ConvexPolyhedronShape.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/collision/shapes/ConvexShape.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/collision/shapes/HeightFieldShape.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/collision/shapes/SphereShape.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/collision/shapes/TriangleShape.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/components/BallAndSocketJointComponents.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/components/ColliderComponents.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/components/CollisionBodyComponents.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/components/Components.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/components/FixedJointComponents.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/components/HingeJointComponents.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/components/JointComponents.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/components/RigidBodyComponents.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/components/SliderJointComponents.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/components/TransformComponents.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/configuration.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/constraint/BallAndSocketJoint.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/constraint/ContactPoint.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/constraint/FixedJoint.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/constraint/HingeJoint.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/constraint/Joint.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/constraint/SliderJoint.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/containers/Deque.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/containers/LinkedList.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/containers/List.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/containers/Map.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/containers/Pair.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/containers/Set.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/containers/Stack.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/containers/containers_common.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/decimal.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/engine/Entity.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/engine/EntityManager.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/engine/EventListener.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/engine/Island.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/engine/Islands.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/engine/Material.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/engine/OverlappingPairs.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/engine/PhysicsCommon.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/engine/PhysicsWorld.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/engine/Timer.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/mathematics/Matrix2x2.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/mathematics/Matrix3x3.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/mathematics/Quaternion.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/mathematics/Ray.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/mathematics/Transform.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/mathematics/Vector2.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/mathematics/Vector3.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/mathematics/mathematics.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/mathematics/mathematics_functions.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/memory/DefaultAllocator.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/memory/HeapAllocator.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/memory/MemoryAllocator.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/memory/MemoryManager.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/memory/PoolAllocator.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/memory/SingleFrameAllocator.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/reactphysics3d.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/systems/BroadPhaseSystem.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/systems/CollisionDetectionSystem.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/systems/ConstraintSolverSystem.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/systems/ContactSolverSystem.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/systems/DynamicsSystem.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/systems/SolveBallAndSocketJointSystem.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/systems/SolveFixedJointSystem.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/systems/SolveHingeJointSystem.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/systems/SolveSliderJointSystem.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/utils/DebugRenderer.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/utils/DefaultLogger.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/utils/Logger.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/reactphysics3d/utils/Profiler.h" beforeDir="false" />
-    </list>
+    <list default="true" id="127c4cee-4109-4dc5-a120-c50cf0ff91ca" name="Default Changelist" comment="Rebuilt Debugging" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -276,11 +74,6 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="TNAH-Project" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="TNAH-Project" TARGET_NAME="TNAH-Project" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="TNAH-Project" RUN_TARGET_NAME="TNAH-Project">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -316,7 +109,7 @@
       <workItem from="1620652364911" duration="2187000" />
       <workItem from="1620654560226" duration="130000" />
       <workItem from="1620654886839" duration="637000" />
-      <workItem from="1620656308982" duration="5014000" />
+      <workItem from="1620656308982" duration="5332000" />
     </task>
     <task id="LOCAL-00001" summary="Added collisions with objects">
       <created>1617722294195</created>
@@ -367,7 +160,14 @@
       <option name="project" value="LOCAL" />
       <updated>1617938364547</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Rebuilt Debugging">
+      <created>1620661488628</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1620661488628</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -378,19 +178,7 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State>
-              <option name="FILTERS">
-                <map>
-                  <entry key="branch">
-                    <value>
-                      <list>
-                        <option value="origin/ai" />
-                      </list>
-                    </value>
-                  </entry>
-                </map>
-              </option>
-            </State>
+            <State />
           </value>
         </entry>
       </map>
@@ -408,6 +196,7 @@
     <MESSAGE value="Started to add ExitScreen Stuff but im cooked" />
     <MESSAGE value="Updated 3.2" />
     <MESSAGE value="Doxy files generated" />
-    <option name="LAST_COMMIT_MESSAGE" value="Doxy files generated" />
+    <MESSAGE value="Rebuilt Debugging" />
+    <option name="LAST_COMMIT_MESSAGE" value="Rebuilt Debugging" />
   </component>
 </project>
