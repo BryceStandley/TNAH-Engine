@@ -93,14 +93,16 @@ void GlfwWindow::GameInput(float deltaTime)
 
     if (!exitDisplay)
     {
+        float speed = singleton<Manager>::getInstance().speed;
+
         if (glfwGetKey(gameWindow, gameInput.foward) == GLFW_PRESS)
-            camera.ProcessKeyboard(FORWARD, deltaTime * 5);
+            camera.ProcessKeyboard(FORWARD, deltaTime * speed);
         if (glfwGetKey(gameWindow, gameInput.back) == GLFW_PRESS)
-            camera.ProcessKeyboard(BACKWARD, deltaTime * 5);
+            camera.ProcessKeyboard(BACKWARD, deltaTime * speed);
         if (glfwGetKey(gameWindow, gameInput.left) == GLFW_PRESS)
-            camera.ProcessKeyboard(LEFT, deltaTime * 5);
+            camera.ProcessKeyboard(LEFT, deltaTime * speed);
         if (glfwGetKey(gameWindow, gameInput.right) == GLFW_PRESS)
-            camera.ProcessKeyboard(RIGHT, deltaTime * 5);
+            camera.ProcessKeyboard(RIGHT, deltaTime * speed);
         if(wireDisplay){glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);}
         else if (!wireDisplay){glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);}
     }

@@ -1,6 +1,7 @@
 #pragma once
 #include "GameObject.h"
-
+#include "Manager.h"
+#include "singleton.h"
 /**
  * @class Player
  * @brief Abstract GameObject class for the player
