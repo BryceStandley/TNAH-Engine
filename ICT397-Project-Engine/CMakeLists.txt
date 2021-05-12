@@ -40,6 +40,7 @@ target_sources(${PROJECT_NAME} PRIVATE
         singleton.h
         state.h
         stateMachine.h
+        Weapon.cpp
         )
 
 target_include_directories(${PROJECT_NAME} PRIVATE ${PROJECT_SOURCE_DIR}/include)

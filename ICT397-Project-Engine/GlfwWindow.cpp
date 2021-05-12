@@ -16,7 +16,7 @@ void GlfwWindow::Init(std::string title, int h, int w)
         glfwTerminate();
     }
 
-    std::cout << "GLFWWINDOW::INFO::GLFW Started!" << std::endl;
+    std::cout << "GLFW-WINDOW::INFO::GLFW Started!" << std::endl;
 
     glm::vec3 l(0.0, 0.0f, 0.0f);
     lightPos = l;
@@ -50,7 +50,6 @@ void GlfwWindow::GameInput(float deltaTime)
         exitDisplay = !exitDisplay;
 
         //Making sure the debugger closes on the exit screen display
-        // todo: add false debugger call
         Debugger::GetInstance()->drawDebugPanel = false;
     }
 
@@ -78,7 +77,6 @@ void GlfwWindow::GameInput(float deltaTime)
     if ((glfwGetKey(gameWindow, gameInput.debug) == GLFW_PRESS) && canPressDebugDisplay)
     {
         canPressDebugDisplay = false;
-        // todo: toggle debugger
         Debugger::GetInstance()->drawDebugPanel = !Debugger::GetInstance()->drawDebugPanel;
         if(Debugger::GetInstance()->drawDebugPanel)
         {
@@ -106,18 +104,14 @@ void GlfwWindow::GameInput(float deltaTime)
         if(wireDisplay){glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);}
         else if (!wireDisplay){glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);}
 
-        if ((glfwGetMouseButton(gameWindow, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS) && canFireWeapon)
+        if ((glfwGetMouseButton(gameWindow, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS))
         {
-            canFireWeapon = false;
-            fireWeapon = !fireWeapon;
-            if(Debugger::GetInstance()->debugToConsole) std::cout << "pew pew" << std::endl;
+            fireWeapon = true;
         }
 
         if (glfwGetMouseButton(gameWindow, GLFW_MOUSE_BUTTON_LEFT) == GLFW_RELEASE)
         {
-            canFireWeapon = true;
-            fireWeapon = !fireWeapon;
-            if(Debugger::GetInstance()->debugToConsole) std::cout << "no more pew pew" << std::endl;
+            fireWeapon = false;
         }
     }
     else
@@ -197,6 +191,7 @@ void GlfwWindow::Update()
     lens.SetSkyview(camera.GetViewMatrix());
     lens.SetPosition(camera.Position);
     lens.SetRotation(glm::vec3(camera.Yaw, camera.Pitch, 0));
+    lens.SetForward(camera.Front);
 }
 
 bool GlfwWindow::Running()

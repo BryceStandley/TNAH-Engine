@@ -40,6 +40,8 @@ public:
      */
     bool debugCollisionsToConsole = false;
     bool debugFSMToConsole = false;
+    bool debugWeapons = false;
+    bool debugTokensToConsole = false;
 
     float ApplicationFramerate = 0.0f;
 

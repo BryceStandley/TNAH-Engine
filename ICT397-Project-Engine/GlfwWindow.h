@@ -117,6 +117,8 @@ public:
 
 	float GetCurrentTime() { return glfwGetTime(); }
 
+	virtual bool GetWeaponFire() {return fireWeapon;}
+
 
 
 private:	
@@ -154,7 +156,7 @@ private:
     ///If the press wireframe display can be displayed
     bool canPressDebugDisplay = true;
 
-	bool canFireWeapon = true;
+	bool canFireWeapon = false;
 
 	bool fireWeapon = false;
 

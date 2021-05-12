@@ -93,6 +93,7 @@ Engine::Engine()
 		scene->MoveObjectAwayFromPlayer();
 		scene->Load();
 
+
 	}
 
 }
@@ -128,6 +129,11 @@ void Engine::Run()
 			ExitScreen e = gameScenes[currentScene]->GetExitScreen();
 			e.SetExitScreenDisplay(window->GetDisplay());
 			gameScenes[currentScene]->SetExitScreen(e);
+
+			Weapon w = gameScenes[currentScene]->GetPlayerWeapon();
+			w.firingWeapon = window->GetWeaponFire();
+			gameScenes[currentScene]->SetPlayerWeapon(w);
+
 			gameScenes[currentScene]->Run(window->GetLens(), deltaTime, false);
 			glm::vec3 pos = gameScenes[currentScene]->GetGameObject(gameScenes[currentScene]->GetPlayerIndice())->GetPos();
 			window->UpdateCamera(pos);

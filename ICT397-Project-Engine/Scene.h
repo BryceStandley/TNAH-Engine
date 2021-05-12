@@ -10,6 +10,7 @@
 #include "OpenGL.h"
 #include "Debugger.h"
 #include "ExitScreen.h"
+#include "Weapon.h"
 
 /**
 * @class Scene
@@ -154,6 +155,11 @@ public:
 
     glm::vec3 EnemyObstacleAvoidance(GameObject* self, glm::vec3 newPosition);
 
+    void FireWeapon(glm::vec3 weaponStartPos, glm::vec3 forward, float fireDistance);
+
+    void SetPlayerWeapon(Weapon w){playerWeapon = w;}
+    Weapon GetPlayerWeapon(){return playerWeapon;}
+
 private:
 		///The game renderer that renders items
 	Renderer* gameRenderer;
@@ -184,7 +190,8 @@ private:
 		///The indice of the player game object
 	int playerInd;
 
-		///Debugger
+	///Player Weapon
+	Weapon playerWeapon;
 
 
 		///The exit screen
