@@ -2,5 +2,9 @@
 
 void Player::Update(float time)
 {
-	singleton<Manager>::getInstance().speed = 10;
+	if (singleton<Manager>::getInstance().token == "SpeedUp")
+		singleton<Manager>::getInstance().speed = 10;
+	else
+		singleton<Manager>::getInstance().speed = 5;
+	std::cout << "Token = " << singleton<Manager>::getInstance().token << ", Duration = " << singleton<Manager>::getInstance().timer << std::endl;
 }

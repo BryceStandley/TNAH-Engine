@@ -32,13 +32,14 @@ public:
 			LuaRef tType = getGlobal(L, "type");
 
 			LuaRef sp = getGlobal(L, "speed");
+			LuaRef dur = getGlobal(L, "duration");
 
 			std::string file;
 			std::string vertS;
 			std::string fragS;
 			std::string tokType;
 			bool check = false, rotate = false;
-			float s;
+			float s, d;
 
 			if (type.isBool())
 			{
@@ -75,6 +76,11 @@ public:
 				s = sp.cast<float>();
 			}
 
+			if (dur.isNumber())
+			{
+				d = dur.cast<float>();
+			}
+
 			Model tempModel(file, gameRenderer, check);
 			SetModel(tempModel);
 
@@ -85,6 +91,7 @@ public:
 
 			tokenType = tokType;
 			speed = s;
+			duration = d;
 		}
 		else if (!luaL_dofile(L, "./res/scripts/gameobjects/token_default.lua"))
 		{
@@ -98,13 +105,14 @@ public:
 			LuaRef tType = getGlobal(L, "type");
 
 			LuaRef sp = getGlobal(L, "speed");
+			LuaRef dur = getGlobal(L, "duration");
 
 			std::string file;
 			std::string vertS;
 			std::string fragS;
 			std::string tokType;
 			bool check = false, rotate = false;
-			float s;
+			float s, d;
 
 			if (type.isBool())
 			{
@@ -141,6 +149,11 @@ public:
 				s = sp.cast<float>();
 			}
 
+			if (dur.isNumber())
+			{
+				d = dur.cast<float>();
+			}
+
 			Model tempModel(file, gameRenderer, check);
 			SetModel(tempModel);
 
@@ -151,6 +164,7 @@ public:
 
 			tokenType = tokType;
 			speed = s;
+			duration = d;
 		}
 		else
 		{
@@ -164,9 +178,17 @@ public:
 		* @param time - the time since the last frame (deltatime)
 		*/
 	void Update(float time);
+	
+	virtual void Kill()
+	{
+		std::cout << tokenType << std::endl;
+		singleton<Manager>::getInstance().token = tokenType;
+		singleton<Manager>::getInstance().timer = duration;
+	}
 
 private:
 	std::string tokenType;
 	float speed;
+	float duration;
 };
 

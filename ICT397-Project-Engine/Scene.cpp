@@ -38,6 +38,7 @@ void Scene::Run(View lens, float time, bool exit)
     }
     else
     {
+        singleton<Manager>::getInstance().Update(time);
 	    gameRenderer->BindTexture(gameTerrain->GetTextIds());
 	    Shader t = gameTerrain->GetShader();
 	    gameRenderer->SetShaderTerrain(t, lens);
@@ -181,6 +182,7 @@ glm::vec3 Scene::CheckSceneCollision(glm::vec3 pos)
         if(go->GetTag() == BoundingBox::TOKEN && distance < playerSphereRadius)
         {
             if(Debugger::GetInstance()->debugCollisionsToConsole) std::cout << "Scene.cpp::INFO::Token GameObject - " << go->GetName() << " Hit" << std::endl;
+            go->Kill();
             gameObjectsToRemoveFromScene.emplace_back(go);
             continue;
         }

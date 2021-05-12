@@ -10,3 +10,4 @@ fragShader = "./res/shader/modelF.glsl";
 type = "FreeHit";
 
 speed = 10;
+duration = 30;
