@@ -106,6 +106,8 @@ void Scene::UpdatePlayer(glm::vec3 position, glm::vec3 rotation)
 
 void Scene::UpdateGameObject(glm::vec3 position, int i)
 {
+    position = EnemyObstacleAvoidance(gameObjects[i], position);
+
     position.y = WorldToTerrainPosition(position, true).y + 1.2f;
 
     if (position.y >= 10.0f)
@@ -160,6 +162,22 @@ void Scene::MoveObjectAwayFromPlayer()
             go->SetPos(pos);
         }
     }
+}
+
+glm::vec3 Scene::EnemyObstacleAvoidance(GameObject* self, glm::vec3 newPosition)
+{
+    for(auto &go : gameObjects)
+    {
+        if(go->GetTag() == BoundingBox::CollisionTag::PLAYER) continue;// dont check against the player
+        if(go == self) continue; // dont check against it self
+        if(go->GetTag() == BoundingBox::CollisionTag::TOKEN) continue;
+        while(glm::distance(newPosition, go->GetPos()) < 2.0f)
+        {
+            newPosition.x += 0.5f;
+        }
+    }
+    return newPosition;
+
 }
 
 glm::vec3 Scene::CheckSceneCollision(glm::vec3 pos)

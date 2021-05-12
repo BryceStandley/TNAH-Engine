@@ -153,11 +153,15 @@ private:
     ///If the press wireframe display can be displayed
     bool canPressDebugDisplay = true;
 
+	bool canFireWeapon = true;
+
+	bool fireWeapon = false;
+
 		//The game input manager
 	Input gameInput;
 
 		///The window
-	GLFWwindow* gameWindow = NULL;
+	GLFWwindow* gameWindow = nullptr;
 
 		///Light positioning
 	glm::vec3 lightPos;

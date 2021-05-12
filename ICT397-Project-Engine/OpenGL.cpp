@@ -474,3 +474,67 @@ void OpenGL::RenderModel(int number, Md2State* animState, glm::mat4 proj, glm::m
     }
     glBindTexture(GL_TEXTURE_2D, 0);
 }
+
+/*void OpenGL::SetupWater(Water* water)
+{
+    unsigned int FBO;
+    glGenFramebuffers(1, &FBO);
+    glBindFramebuffer(GL_FRAMEBUFFER, FBO);
+    glDrawBuffer(GL_COLOR_ATTACHMENT0);
+    water->SetFBO(FBO);
+
+    unsigned int DBO;
+    glGenRenderbuffers(1, &DBO);
+    glBindRenderbuffer(GL_RENDERBUFFER, DBO);
+    glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_ATTACHMENT, water->GetSize(), water->GetSize());
+    glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, DBO);
+    water->SetDBO(DBO);
+
+    unsigned int colour;
+    glGenTextures(1, &colour);
+    glBindTexture(GL_TEXTURE_2D, colour);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, water->GetSize(), water->GetSize(), 0, GL_RGB, GL_UNSIGNED_BYTE, nullptr);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, colour, 0);
+    water->SetColourTextureID(colour);
+
+    unsigned int depth;
+    glGenTextures(1, &depth);
+    glBindTexture(GL_TEXTURE_2D, depth);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT32, water->GetSize(), water->GetSize(), 0, GL_DEPTH_COMPONENT, GL_FLOAT, nullptr);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glFramebufferTexture(GL_FRAMEBUFFER, GL_DEPTH_COMPONENT, depth, 0);
+    water->SetDepthTextureID(depth);
+
+    //Enable the clipping plane for the water
+    glEnable(GL_CLIP_DISTANCE0);
+}
+
+void OpenGL::BindWater(Water* water)
+{
+    //bind framebuffer
+    glBindTexture(GL_TEXTURE_2D, 0);
+    glBindFramebuffer(GL_FRAMEBUFFER, water->GetFBO());
+    glViewport(0,0, water->GetSize(), water->GetSize());
+}
+
+void OpenGL::UnBindWater()
+{
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+    GLint viewport[4];
+    glGetIntegerv(GL_VIEWPORT, viewport);
+    glViewport(0,0, viewport[2], viewport[3]);
+}
+
+void OpenGL::RenderWater(Water* water)
+{
+
+
+
+    // do stuff
+
+    // unbind framebuffer and set the view port back to the default
+
+}*/

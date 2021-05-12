@@ -152,6 +152,8 @@ public:
 
 	void UpdateGameObject(glm::vec3 position, int i);
 
+    glm::vec3 EnemyObstacleAvoidance(GameObject* self, glm::vec3 newPosition);
+
 private:
 		///The game renderer that renders items
 	Renderer* gameRenderer;
@@ -170,6 +172,8 @@ private:
 
 		///The games skybox
 	Skybox* gameSkybox;
+
+	GameObject* gameWater;
 
 		///The texture loader for the game
 	TextureLoader textureLoader;

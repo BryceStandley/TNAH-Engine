@@ -246,7 +246,7 @@ void Enemy::Update(float time)
 		if (getTimer() != 400) 
 		{
 			incrementTimer();
-			std::cout << "TIMER: " << getTimer() << std::endl;
+            if(Debugger::GetInstance()->debugToConsole) std::cout << "TIMER: " << getTimer() << std::endl;
 		}
 		else if (getTimer() == 400)
 		{

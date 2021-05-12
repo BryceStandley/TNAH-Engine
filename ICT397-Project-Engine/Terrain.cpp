@@ -195,7 +195,13 @@ float Terrain::getHeight(int xpos, int zpos) {
 float Terrain::getAverageHeight(int xpos, int zpos)
 {
     std::vector<float> heights;
+
+    //stopping the position over flowing
+    if(xpos > getSize()) xpos = getSize() - 2;
+    if(zpos > getSize()) zpos = getSize() - 2;
+
     heights.push_back(getHeight(xpos, zpos) / 10.0f);
+
 
     heights.push_back(getHeight(xpos - 1 , zpos - 1) / 10.0f);
     heights.push_back(getHeight(xpos, zpos - 1) / 10.0f);
@@ -214,7 +220,7 @@ float Terrain::getAverageHeight(int xpos, int zpos)
         tot += h;
     }
 
-    return tot / heights.size();
+    return tot / (float)heights.size();
 }
 
 unsigned char Terrain::getHeightColor(int xpos, int zpos) {

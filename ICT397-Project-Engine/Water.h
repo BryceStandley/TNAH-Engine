@@ -107,12 +107,59 @@ public:
         {
             std::cout << "ERROR::NO_WATER_SCRIPTS_FOUND" << std::endl;
         }
+
+        FBO = 0;
+        DBO = 0;
+        colourTextureID = 0;
+        depthTextureID = 0;
+        size = 100;
     }
     /**
     * @brief Update function that updates the functionality
     * @param time - the time since the last frame
     */
     void Update(float time);
+
+    /**
+     * @brief Sets the water FBO
+     * @param f
+     */
+    void SetFBO(unsigned int f) {FBO = f;}
+
+    /**
+     * @brief Gets the Water FBO
+     * @return FBO
+     */
+    unsigned int GetFBO(){return FBO;}
+
+    void SetDBO(unsigned int d){DBO = d;}
+    unsigned int GetDBO(){return DBO;}
+
+
+    void SetColourTextureID(unsigned int c) {colourTextureID = c;}
+    unsigned int GetColourTextureID(){return colourTextureID;}
+
+    void SetDepthTextureID(unsigned int d) {depthTextureID = d;}
+    unsigned int GetDepthTextureID(){return depthTextureID;}
+
+    void SetSize(int s) { size = s;}
+
+    int GetSize(){return size;}
+private:
+    ///Framebuffer id
+    unsigned int FBO{};
+
+    ///Depthbuffer id
+    unsigned int DBO{};
+
+    ///Colour buffer texture id
+    unsigned int colourTextureID{};
+
+    ///Depth buffer texture id
+    unsigned int depthTextureID{};
+
+    ///Size of the water in pixels
+    int size{};
 
 };
 

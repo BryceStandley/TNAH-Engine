@@ -2,6 +2,8 @@
 
 Engine::Engine()
 {
+    Debugger::GetInstance()->debugToConsole = false;
+
 	lua_State* L = LuaManager::getInstance().getLuaState();
 	int amount = 1;
 	int width = 600;
@@ -90,6 +92,7 @@ Engine::Engine()
 		window->UpdateCamera(playerStartPos);
 		scene->MoveObjectAwayFromPlayer();
 		scene->Load();
+
 	}
 
 }
