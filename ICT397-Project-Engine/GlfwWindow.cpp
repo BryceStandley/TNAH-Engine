@@ -105,21 +105,19 @@ void GlfwWindow::GameInput(float deltaTime)
             camera.ProcessKeyboard(RIGHT, deltaTime * speed);
         if(wireDisplay){glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);}
         else if (!wireDisplay){glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);}
-        if(glfwGetMouseButton(gameWindow, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
-            std::cout << "pew pew" << std::endl;
 
         if ((glfwGetMouseButton(gameWindow, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS) && canFireWeapon)
         {
             canFireWeapon = false;
             fireWeapon = !fireWeapon;
-            std::cout << "pew pew" << std::endl;
+            if(Debugger::GetInstance()->debugToConsole) std::cout << "pew pew" << std::endl;
         }
 
         if (glfwGetMouseButton(gameWindow, GLFW_MOUSE_BUTTON_LEFT) == GLFW_RELEASE)
         {
             canFireWeapon = true;
             fireWeapon = !fireWeapon;
-            std::cout << "no more pew pew" << std::endl;
+            if(Debugger::GetInstance()->debugToConsole) std::cout << "no more pew pew" << std::endl;
         }
     }
     else

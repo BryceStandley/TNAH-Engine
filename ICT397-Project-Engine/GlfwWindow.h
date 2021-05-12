@@ -9,6 +9,7 @@
 #include "camera.h"
 #include "Shader.h"
 #include "Manager.h"
+#include "Debugger.h"
 
 /**
  * @class GlfwWindow
