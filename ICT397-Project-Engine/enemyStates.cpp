@@ -191,6 +191,8 @@ void attack::Enter(Enemy* dude)
 
 void attack::Execute(Enemy* dude)
 {
+	dude->decreaseHealth(2);
+
     if(Debugger::GetInstance()->debugFSMToConsole) std::cout << "ATTACK" << std::endl;
 	float res = atan2(dude->getVelocity().z, dude->getVelocity().x);
 
@@ -213,6 +215,10 @@ void attack::Exit(Enemy* dude)
 
 void die::Enter(Enemy* dude)
 {
+	//dude->setTimer(1); // resets timer
+	
+	std::cout << "DEATH ANIM " << dude->getDeathAnim()  << std::endl;
+
     if(Debugger::GetInstance()->debugFSMToConsole) std::cout << "DIE" << std::endl;
 	if (dude->getDeathAnim() == false)
 	{
@@ -237,13 +243,16 @@ void global::Enter(Enemy* dude) {}
 
 void global::Execute(Enemy* dude)
 {
+	//if hit with bullet
+		//decreaseHealth(50)
+
 	if (dude->getToken() == true && dude->Distance() < 25 && dude->getGlobalFlag() == false) 
 	{
         if(Debugger::GetInstance()->debugFSMToConsole) std::cout << "GLOBAL" << std::endl;
 		dude->getFSM()->changeState(&flee_state::getInstance());
 		dude->setGlobalFlag(true);	///kills the repeat entry
 	}
-	if (!dude->isAlive())
+	if (dude->getHealth() == 0)
 		dude->getFSM()->changeState(&die_state::getInstance());
 }
 

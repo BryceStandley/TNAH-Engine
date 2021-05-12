@@ -2,5 +2,4 @@
 
 void Player::Update(float time)
 {
-
 }

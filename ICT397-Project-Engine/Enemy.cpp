@@ -241,39 +241,30 @@ void Enemy::Update(float time)
 		enemyFSM->update();
 	else 
 	{
-        if(Debugger::GetInstance()->debugFSMToConsole) std::cout << "Should be destroyed" << std::endl;
+		if (Debugger::GetInstance()->debugFSMToConsole) std::cout << "Should be destroyed" << std::endl;
+
+		if (getTimer() != 400) 
+		{
+			incrementTimer();
+			std::cout << "TIMER: " << getTimer() << std::endl;
+		}
+		else if (getTimer() == 400)
+		{
+			alive = false;
+		}
 	}
 }
 
-void Enemy::Damage(int dmg) 
+void Enemy::decreaseHealth(int health)
 {
-	health += dmg;
+	this->health -= health;
 
-	if (health > 100)
+	if (this->health < 0) 
 	{
-		health = 100;
+		this->health = 0;
+		//alive = false;
 	}
 
-	if (health <= 0)
-	{
-		health = 0;
-		alive = false;
-	}
-}
-
-void Enemy::Ammo(int amount) 
-{
-	ammo += amount;
-
-	if (ammo > 50)
-	{
-		ammo = 50;
-	}
-
-	if (ammo <= 0)
-	{
-		ammo = 0;
-	}
 }
 
 void Enemy::Render(View lens, float time, Renderer* gameRenderer)

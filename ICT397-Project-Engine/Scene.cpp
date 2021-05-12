@@ -171,28 +171,28 @@ glm::vec3 Scene::CheckSceneCollision(glm::vec3 pos)
     glm::vec3 shiftDelta = glm::vec3(0,0,0);
 
     std::vector<GameObject *> gameObjectsToRemoveFromScene;
-    for(auto &go : gameObjects)
+    for (auto& go : gameObjects)
     {
         //Skip the player, we dont want collisions between the player and the player
-        if(go->GetTag() == BoundingBox::PLAYER) continue;
+        if (go->GetTag() == BoundingBox::PLAYER) continue;
 
         float distance = glm::distance(playerSphereOrigin, go->GetPos());
 
-        if(go->GetTag() == BoundingBox::TOKEN && distance < playerSphereRadius)
+        if (go->GetTag() == BoundingBox::TOKEN && distance < playerSphereRadius)
         {
-            if(Debugger::GetInstance()->debugCollisionsToConsole) std::cout << "Scene.cpp::INFO::Token GameObject - " << go->GetName() << " Hit" << std::endl;
+            if (Debugger::GetInstance()->debugCollisionsToConsole) std::cout << "Scene.cpp::INFO::Token GameObject - " << go->GetName() << " Hit" << std::endl;
             gameObjectsToRemoveFromScene.emplace_back(go);
             continue;
         }
-        if(go->GetTag() == BoundingBox::ENEMY && distance < playerSphereRadius) {
-            if(Debugger::GetInstance()->debugCollisionsToConsole) std::cout << "Scene.cpp::INFO::Enemy GameObject - " << go->GetName() << " Hit" << std::endl;
-            gameObjectsToRemoveFromScene.emplace_back(go);
-            if(Debugger::GetInstance()->debugToConsole) std::cout << "MODEL REMOVED" << std::endl;
-            continue;
-        }
-        if(go->GetTag() == BoundingBox::STATIC_OBJECT && distance < playerSphereRadius)
+        //if(go->GetTag() == BoundingBox::ENEMY && distance < playerSphereRadius) {
+          //  if(Debugger::GetInstance()->debugCollisionsToConsole) std::cout << "Scene.cpp::INFO::Enemy GameObject - " << go->GetName() << " Hit" << std::endl;
+            //gameObjectsToRemoveFromScene.emplace_back(go);
+            //if(Debugger::GetInstance()->debugToConsole) std::cout << "MODEL REMOVED" << std::endl;
+            //continue;
+        //}
+        if (go->GetTag() == BoundingBox::STATIC_OBJECT && distance < playerSphereRadius || go->GetTag() == BoundingBox::ENEMY && distance < playerSphereRadius)
         {
-            if(Debugger::GetInstance()->debugCollisionsToConsole) std::cout << "Scene.cpp::INFO::Static GameObject - " + go->GetName() +" hit" << std::endl;
+            if (Debugger::GetInstance()->debugCollisionsToConsole) std::cout << "Scene.cpp::INFO::Static GameObject - " + go->GetName() + " hit" << std::endl;
             //Simple Collisions/distance checking, More complex collision detection is work in progress
             glm::vec3 dir = go->GetPos() - playerSphereOrigin;
             //the player is too close to a object and will be stopped
@@ -201,6 +201,7 @@ glm::vec3 Scene::CheckSceneCollision(glm::vec3 pos)
             pos.z = player.z;
 
         }
+    
 
 
         /*//Get the information about the bounding box of a gameobject

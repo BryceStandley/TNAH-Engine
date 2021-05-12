@@ -47,18 +47,15 @@ public:
 	*/
 	void Update(float time);
 
+	int getHealth() { return health;}
 
-	void Damage(int dmg);
-	
-
-	void Ammo(int amount);
-	
+	void decreaseHealth(int health);
 
 	void Render(View lens, float time, Renderer* gameRenderer);
 
 	void SetSate(Md2Commands state);
 
-	bool isAlive() { return alive; }
+	void setAlive(bool a) { alive = a; }
 	
 	bool killFSM = false;
 
@@ -85,7 +82,7 @@ public:
 	glm::vec3 getCamPos() { return pPos; }
 	
 	/// enemyVelocity
-	glm::vec3 enemyVelocity = { 5.0f, 0.0f, 0.0f };
+	glm::vec3 enemyVelocity = { 6.0f, 0.0f, 0.0f };
 
 	/// cam Velocity
 	glm::vec3 velocity = { 4.0f, 0.0f, 0.0f };
