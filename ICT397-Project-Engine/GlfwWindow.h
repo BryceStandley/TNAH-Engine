@@ -5,9 +5,10 @@
 #include "Window.h"
 #include <iostream>
 #include "Callbacks.h"
-
+#include "singleton.h"
 #include "camera.h"
 #include "Shader.h"
+#include "Manager.h"
 
 /**
  * @class GlfwWindow

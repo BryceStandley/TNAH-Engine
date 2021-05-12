@@ -4,6 +4,8 @@
 #include "Input.h"
 #include "Debugger.h"
 #include "Telegram.h"
+#include "Manager.h"
+#include "singleton.h"
 
 /**
  * @class GameObject
@@ -167,6 +169,11 @@ public:
 	virtual bool handleMessage(const Telegram message)
 	{
 		return false;
+	}
+
+	virtual void Kill()
+	{
+
 	}
 
 private:
