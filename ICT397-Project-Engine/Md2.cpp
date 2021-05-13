@@ -236,14 +236,10 @@ void Md2::LoadModel(const char* sFilename, const char* tFilename, const char* vS
 #endif
 	else
 	{
-
 		fread(&information, sizeof(Md2Values), 1, fp);
-
 		char* buffer = new char[information.numFrames * information.frameSize];
 		fseek(fp, information.ofsFrames, SEEK_SET);
 		fread(buffer, sizeof(char), information.numFrames * information.frameSize, fp);
-
-
 		vertices.resize(information.numFrames, std::vector<glm::vec3>(information.numVerts));
 		normals.resize(information.numFrames, std::vector<int>(information.numVerts));
 
@@ -256,27 +252,25 @@ void Md2::LoadModel(const char* sFilename, const char* tFilename, const char* vS
 				vertices[i][j].x = frame_ptr->translate[0] + (float(frame_ptr->verts[j].verts[0]) * frame_ptr->scale[0]);
 				vertices[i][j].y = frame_ptr->translate[1] + (float(frame_ptr->verts[j].verts[1]) * frame_ptr->scale[1]);
 				vertices[i][j].z = frame_ptr->translate[2] + (float(frame_ptr->verts[j].verts[2]) * frame_ptr->scale[2]);
-
-				normals[i][j] = frame_ptr->verts[j].light;
 			}
 		}
-
 		commands.resize(information.numCmds);
 		fseek(fp, information.ofsCmds, SEEK_SET);
 		fread(&commands[0], sizeof(int), information.numCmds, fp);
 
 		number = gameRenderer->LoadModel(information.numFrames, commands, VAO, anorms, vertices, normals);
-
 		TextureLoader loader;
 		textureId = TextureFromFile(tFilename);
 
 		Shader s(vShader, fShader);
 		shader = s;
+
+		delete[]buffer;
 	}
 }
 
 
-void Md2::RenderModel(Md2State* animState, glm::mat4 proj, glm::mat4 view, glm::vec3 position, float rotation, float direction, Renderer * gameRenderer)
+void Md2::RenderModel(Md2State* animState, glm::mat4 proj, glm::mat4 view, glm::vec3 position, glm::vec3 rotation, float direction, Renderer * gameRenderer)
 {
 	gameRenderer->RenderModel(number, animState, proj, view, position, rotation, direction, VAO, textureId, shader);
 }

@@ -5,8 +5,11 @@ Player::Player(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std:
 	lua_State* L = LuaManager::getInstance().getLuaState();
     bool bull = false;
 
+    std::cout << "Made it 1" << std::endl;
+
     if(!luaL_dofile(L, script.c_str()))
     {
+        std::cout << "Made it 2" << std::endl;
         LuaRef type = getGlobal(L, "check");
         LuaRef rot = getGlobal(L, "rotate");
         LuaRef bullet = getGlobal(L, "bullet");
@@ -29,6 +32,7 @@ Player::Player(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std:
         float xr = 0, yr = 0, zr = 0, yp = 0;
         bool check = false, rotate = false;
 
+        std::cout << "Made it 3" << std::endl;
         if (type.isBool())
         {
             check = type.cast<bool>();
@@ -83,9 +87,11 @@ Player::Player(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std:
         {
             yp = yPos.cast<float>();
         }
-
-        Model tempModel(file, gameRenderer, check, texture);
+        std::cout << "Made it 4 -> check = " << check << std::endl;
+        Model tempModel(file, gameRenderer, check, texture, false);
+        std::cout << "Made it 4-5" << std::endl;
         SetModel(tempModel);
+        std::cout << "Made it 5" << std::endl;
 
         Shader tempShader(vertS.c_str(), fragS.c_str());
         SetShader(tempShader);
@@ -96,9 +102,10 @@ Player::Player(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std:
 
         yPositionOffset = yp;
         SetRotate(rotate);
-
+        std::cout << "Made it 6" << std::endl;
         if(bull)
         {
+            std::cout << "Made it 7" << std::endl;
             LuaRef bulletMod = getGlobal(L, "bulletModel");
             LuaRef bulletTex = getGlobal(L, "bulletTexture");
 
@@ -114,9 +121,10 @@ Player::Player(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std:
             {
                 bulletTexture = bulletTex.cast<std::string>();
             }
-
-            Model tempBulletModel(bulletModel, gameRenderer, check, bulletTexture);
+            std::cout << "Made it 8" << std::endl;
+            Model tempBulletModel(bulletModel, gameRenderer, check, bulletTexture, false);
             bModel = tempBulletModel;
+            std::cout << "Made it 9" << std::endl;
         }
 
 
@@ -201,7 +209,7 @@ Player::Player(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std:
             yp = yPos.cast<float>();
         }
 
-        Model tempModel(file, gameRenderer, check, texture);
+        Model tempModel(file, gameRenderer, check, texture, false);
         SetModel(tempModel);
 
         Shader tempShader(vertS.c_str(), fragS.c_str());
@@ -232,7 +240,7 @@ Player::Player(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std:
                 bulletTexture = bulletTex.cast<std::string>();
             }
 
-            Model tempBulletModel(bulletModel, gameRenderer, check, bulletTexture);
+            Model tempBulletModel(bulletModel, gameRenderer, check, bulletTexture, false);
             bModel = tempBulletModel;
         }
 	}
@@ -268,3 +276,17 @@ void Player::Update(float time)
     if(Debugger::GetInstance()->debugTokensToConsole) std::cout << "Token = " << singleton<Manager>::getInstance().token << ", Duration = " << singleton<Manager>::getInstance().timer << std::endl;
 */
  }
+
+void Player::Render(View lens, float time, Renderer* gameRenderer)
+{
+    glm::vec3 pos = lens.GetPosition();
+    pos.y += yPositionOffset;
+    //SetRotation(glm::vec3(xRotatioonOffset + lens.GetRotation().x * -1, yRotatioonOffset + lens.GetRotation().y * -1, lens.GetRotation().z + zRotatioonOffset));
+
+    SetRotation(glm::vec3(yRotatioonOffset + lens.GetRotation().y * -1, xRotatioonOffset + lens.GetRotation().x *-1, zRotatioonOffset + lens.GetRotation().z *-1));
+    Model temp = GetModel();
+    Shader s = GetShader();
+    temp.Render(lens, s, pos, GetRotation(), GetScale(), GetRotate(), time, 0, gameRenderer);
+    SetShader(s);
+    SetModel(temp);
+}

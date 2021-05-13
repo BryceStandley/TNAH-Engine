@@ -92,7 +92,7 @@ public:
 
 	void LoadModel(const char* sFilename, const char* tFilename, const char* vShader, const char* fShader, Renderer* gameRenderer);
 
-	void RenderModel(Md2State* animState, glm::mat4 proj, glm::mat4 view, glm::vec3 position, float rotation, float direction, Renderer * gameRenderer);
+	void RenderModel(Md2State* animState, glm::mat4 proj, glm::mat4 view, glm::vec3 position, glm::vec3 rotation, float direction, Renderer * gameRenderer);
 
 	Md2State StartAnimation(Md2Commands type);
 	void UpdateAnimation(Md2State* animState, float fTimePassed, Renderer* gameRenderer);

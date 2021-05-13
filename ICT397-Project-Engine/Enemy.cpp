@@ -79,7 +79,7 @@ Enemy::Enemy(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std::s
 			a = amm.cast<int>();
 		}
 
-		Model tempModel(file, gameRenderer, check, texture);
+		Model tempModel(file, gameRenderer, check, texture, true);
 		SetModel(tempModel);
 
 		Shader tempShader(vertS.c_str(), fragS.c_str());
@@ -105,7 +105,7 @@ Enemy::Enemy(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std::s
 				weaponTexture = weapTex.cast<std::string>();
 			}
 
-			Model tempWeaponModel(weaponModel, gameRenderer, check, weaponTexture);
+			Model tempWeaponModel(weaponModel, gameRenderer, check, weaponTexture, true);
 			wModel = tempWeaponModel;
 		}
 	}
@@ -181,7 +181,7 @@ Enemy::Enemy(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std::s
 			a = amm.cast<int>();
 		}
 
-		Model tempModel(file, gameRenderer, check, texture);
+		Model tempModel(file, gameRenderer, check, texture, true);
 		SetModel(tempModel);
 
 		Shader tempShader(vertS.c_str(), fragS.c_str());
@@ -207,7 +207,7 @@ Enemy::Enemy(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std::s
 				weaponTexture = weapTex.cast<std::string>();
 			}
 
-			Model tempWeaponModel(weaponModel, gameRenderer, check, weaponTexture);
+			Model tempWeaponModel(weaponModel, gameRenderer, check, weaponTexture, true);
 			wModel = tempWeaponModel;
 		}
 	}
