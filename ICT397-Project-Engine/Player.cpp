@@ -191,4 +191,5 @@ void Player::Update(float time)
 	else
 		singleton<Manager>::getInstance().speed = 5;
 	if(Debugger::GetInstance()->debugTokensToConsole) std::cout << "Token = " << singleton<Manager>::getInstance().token << ", Duration = " << singleton<Manager>::getInstance().timer << std::endl;
+	*/
 }

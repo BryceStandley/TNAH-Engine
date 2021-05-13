@@ -41,6 +41,7 @@ public:
 
 	void setMultiplier(int m) { multiplier = m; }
 
+	bool hasToken = false;
 	int token = 0;
 
 	//void decreaseHealth(int h) {h}
@@ -53,13 +54,13 @@ public:
 		*/
 	void Update(float time);
 
-	virtual void Render(View lens, float time, Renderer* gameRenderer);
+	//virtual void Render(View lens, float time, Renderer* gameRenderer);
 
 private:
 	
 	stateMachine<Player>* playerFSM;
 
-	int health = 100;
+	int health = 80;
 	int points = 0;
 	int multiplier = 1;
 
