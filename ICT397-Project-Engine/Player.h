@@ -69,5 +69,6 @@ private:
 	float yRotatioonOffset;
 	float zRotatioonOffset;
 	float yPositionOffset;
+    Model bModel;
 };
 

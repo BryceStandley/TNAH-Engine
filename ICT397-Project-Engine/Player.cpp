@@ -3,163 +3,238 @@
 Player::Player(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std::string script) : GameObject(p, rot, s, gameRenderer)
 {
 	lua_State* L = LuaManager::getInstance().getLuaState();
+    bool bull = false;
 
-	if (!luaL_dofile(L, script.c_str()))
-	{
-		LuaRef type = getGlobal(L, "check");
-		LuaRef rot = getGlobal(L, "rotate");
-		LuaRef mod = getGlobal(L, "model");
-		LuaRef vert = getGlobal(L, "vertShader");
-		LuaRef frag = getGlobal(L, "fragShader");
+    if(!luaL_dofile(L, script.c_str()))
+    {
+        LuaRef type = getGlobal(L, "check");
+        LuaRef rot = getGlobal(L, "rotate");
+        LuaRef bullet = getGlobal(L, "bullet");
 
-		LuaRef xRot = getGlobal(L, "xRotOffset");
-		LuaRef yRot = getGlobal(L, "yRotOffset");
-		LuaRef zRot = getGlobal(L, "zRotOffset");
+        LuaRef mod = getGlobal(L, "model");
+        LuaRef tex = getGlobal(L, "texture");
+        LuaRef vert = getGlobal(L, "vertShader");
+        LuaRef frag = getGlobal(L, "fragShader");
 
-		LuaRef yPos = getGlobal(L, "yPosOffset");
+        LuaRef xRot = getGlobal(L, "xRotOffset");
+        LuaRef yRot = getGlobal(L, "yRotOffset");
+        LuaRef zRot = getGlobal(L, "zRotOffset");
 
-		std::string file;
-		std::string vertS;
-		std::string fragS;
-		float xr = 0, yr = 0, zr = 0, yp = 0;
-		bool check = false, rotate = false;
+        LuaRef yPos = getGlobal(L, "yPosOffset");
 
-		if (type.isBool())
-		{
-			check = type.cast<bool>();
-		}
+        std::string file;
+        std::string vertS;
+        std::string fragS;
+        std::string texture;
+        float xr = 0, yr = 0, zr = 0, yp = 0;
+        bool check = false, rotate = false;
 
-		if (rot.isBool())
-		{
-			rotate = rot.cast<bool>();
-		}
+        if (type.isBool())
+        {
+            check = type.cast<bool>();
+        }
 
-		if (mod.isString())
-		{
-			file = mod.cast<std::string>();
-		}
+        if (rot.isBool())
+        {
+            rotate = rot.cast<bool>();
+        }
 
-		if (vert.isString())
-		{
-			vertS = vert.cast<std::string>();
-		}
+        if(bullet.isBool())
+        {
+            bull = bullet.cast<bool>();
+        }
 
-		if (frag.isString())
-		{
-			fragS = frag.cast<std::string>();
-		}
+        if (mod.isString())
+        {
+            file = mod.cast<std::string>();
+        }
 
-		if (xRot.isNumber())
-		{
-			xr = xRot.cast<float>();
-		}
+        if (vert.isString())
+        {
+            vertS = vert.cast<std::string>();
+        }
 
-		if (yRot.isNumber())
-		{
-			yr = yRot.cast<float>();
-		}
+        if (frag.isString())
+        {
+            fragS = frag.cast<std::string>();
+        }
 
-		if (zRot.isNumber())
-		{
-			zr = zRot.cast<float>();
-		}
+        if(tex.isString())
+        {
+            texture = tex.cast<std::string>();
+        }
 
-		if (yPos.isNumber())
-		{
-			yp = yPos.cast<float>();
-		}
+        if (xRot.isNumber())
+        {
+            xr = xRot.cast<float>();
+        }
 
-		Model tempModel(file, gameRenderer, check);
-		SetModel(tempModel);
+        if (yRot.isNumber())
+        {
+            yr = yRot.cast<float>();
+        }
 
-		Shader tempShader(vertS.c_str(), fragS.c_str());
-		SetShader(tempShader);
+        if (zRot.isNumber())
+        {
+            zr = zRot.cast<float>();
+        }
 
-		xRotatioonOffset = xr;
-		yRotatioonOffset = yr;
-		zRotatioonOffset = zr;
+        if (yPos.isNumber())
+        {
+            yp = yPos.cast<float>();
+        }
 
-		yPositionOffset = yp;
-		SetRotate(rotate);
-	}
-	else if (!luaL_dofile(L, "./res/scripts/gameobjects/player_default.lua"))
-	{
-		std::cout << "Player script not found, loading default script" << std::endl;
-		LuaRef type = getGlobal(L, "check");
-		LuaRef rot = getGlobal(L, "rotate");
-		LuaRef mod = getGlobal(L, "model");
-		LuaRef vert = getGlobal(L, "vertShader");
-		LuaRef frag = getGlobal(L, "fragShader");
+        Model tempModel(file, gameRenderer, check, texture);
+        SetModel(tempModel);
 
-		LuaRef xRot = getGlobal(L, "zRotOffset");
-		LuaRef yRot = getGlobal(L, "yRotOffset");
-		LuaRef zRot = getGlobal(L, "zRotOffset");
+        Shader tempShader(vertS.c_str(), fragS.c_str());
+        SetShader(tempShader);
 
-		LuaRef yPos = getGlobal(L, "yPosOffset");
+        xRotatioonOffset = xr;
+        yRotatioonOffset = yr;
+        zRotatioonOffset = zr;
 
-		std::string file;
-		std::string vertS;
-		std::string fragS;
-		float xr = 0, yr = 0, zr = 0, yp = 0;
-		bool check = false, rotate = false;
+        yPositionOffset = yp;
+        SetRotate(rotate);
 
-		if (type.isBool())
-		{
-			check = type.cast<bool>();
-		}
+        if(bull)
+        {
+            LuaRef bulletMod = getGlobal(L, "bulletModel");
+            LuaRef bulletTex = getGlobal(L, "bulletTexture");
 
-		if (rot.isBool())
-		{
-			rotate = rot.cast<bool>();
-		}
+            std::string bulletModel;
+            std::string bulletTexture;
 
-		if (mod.isString())
-		{
-			file = mod.cast<std::string>();
-		}
+            if(bulletMod.isString())
+            {
+                bulletModel = bulletMod.cast<std::string>();
+            }
 
-		if (vert.isString())
-		{
-			vertS = vert.cast<std::string>();
-		}
+            if(bulletTex.isString())
+            {
+                bulletTexture = bulletTex.cast<std::string>();
+            }
 
-		if (frag.isString())
-		{
-			fragS = frag.cast<std::string>();
-		}
+            Model tempBulletModel(bulletModel, gameRenderer, check, bulletTexture);
+            bModel = tempBulletModel;
+        }
 
-		if (xRot.isNumber())
-		{
-			xr = xRot.cast<float>();
-		}
 
-		if (yRot.isNumber())
-		{
-			yr = yRot.cast<float>();
-		}
+    }
+    else if (!luaL_dofile(L, "./res/scripts/gameobjects/player_default.lua"))
+    {
+        std::cout << "Player script not found, loading default script" << std::endl;
+        LuaRef type = getGlobal(L, "check");
+        LuaRef rot = getGlobal(L, "rotate");
+        LuaRef bullet = getGlobal(L, "bullet");
 
-		if (zRot.isNumber())
-		{
-			zr = zRot.cast<float>();
-		}
+        LuaRef mod = getGlobal(L, "model");
+        LuaRef tex = getGlobal(L, "texture");
+        LuaRef vert = getGlobal(L, "vertShader");
+        LuaRef frag = getGlobal(L, "fragShader");
 
-		if (yPos.isNumber())
-		{
-			yp = yPos.cast<float>();
-		}
+        LuaRef xRot = getGlobal(L, "xRotOffset");
+        LuaRef yRot = getGlobal(L, "yRotOffset");
+        LuaRef zRot = getGlobal(L, "zRotOffset");
 
-		Model tempModel(file, gameRenderer, check);
-		SetModel(tempModel);
+        LuaRef yPos = getGlobal(L, "yPosOffset");
 
-		Shader tempShader(vertS.c_str(), fragS.c_str());
-		SetShader(tempShader);
+        std::string file;
+        std::string vertS;
+        std::string fragS;
+        std::string texture;
+        float xr = 0, yr = 0, zr = 0, yp = 0;
+        bool check = false, rotate = false;
 
-		xRotatioonOffset = xr;
-		yRotatioonOffset = yr;
-		zRotatioonOffset = zr;
+        if (type.isBool())
+        {
+            check = type.cast<bool>();
+        }
 
-		yPositionOffset = yp;
-		SetRotate(rotate);
+        if (rot.isBool())
+        {
+            rotate = rot.cast<bool>();
+        }
+
+        if(bullet.isBool())
+        {
+            bull = bullet.cast<bool>();
+        }
+
+        if (mod.isString())
+        {
+            file = mod.cast<std::string>();
+        }
+
+        if(tex.isString())
+        {
+            texture = tex.cast<std::string>();
+        }
+
+        if (vert.isString())
+        {
+            vertS = vert.cast<std::string>();
+        }
+
+        if (frag.isString())
+        {
+            fragS = frag.cast<std::string>();
+        }
+
+        if (xRot.isNumber())
+        {
+            xr = xRot.cast<float>();
+        }
+
+        if (yRot.isNumber())
+        {
+            yr = yRot.cast<float>();
+        }
+
+        if (zRot.isNumber())
+        {
+            zr = zRot.cast<float>();
+        }
+
+        if (yPos.isNumber())
+        {
+            yp = yPos.cast<float>();
+        }
+
+        Model tempModel(file, gameRenderer, check, texture);
+        SetModel(tempModel);
+
+        Shader tempShader(vertS.c_str(), fragS.c_str());
+        SetShader(tempShader);
+
+        xRotatioonOffset = xr;
+        yRotatioonOffset = yr;
+        zRotatioonOffset = zr;
+
+        yPositionOffset = yp;
+        SetRotate(rotate);
+
+        if(bull)
+        {
+            LuaRef bulletMod = getGlobal(L, "bulletModel");
+            LuaRef bulletTex = getGlobal(L, "bulletTexture");
+
+            std::string bulletModel;
+            std::string bulletTexture;
+
+            if(bulletMod.isString())
+            {
+                bulletModel = bulletMod.cast<std::string>();
+            }
+
+            if(bulletTex.isString())
+            {
+                bulletTexture = bulletTex.cast<std::string>();
+            }
+
+            Model tempBulletModel(bulletModel, gameRenderer, check, bulletTexture);
+            bModel = tempBulletModel;
+        }
 	}
 	else
 	{
@@ -190,6 +265,6 @@ void Player::Update(float time)
 		
 	else
 		singleton<Manager>::getInstance().speed = 5;
-	if(Debugger::GetInstance()->debugTokensToConsole) std::cout << "Token = " << singleton<Manager>::getInstance().token << ", Duration = " << singleton<Manager>::getInstance().timer << std::endl;
-	*/
-}
+    if(Debugger::GetInstance()->debugTokensToConsole) std::cout << "Token = " << singleton<Manager>::getInstance().token << ", Duration = " << singleton<Manager>::getInstance().timer << std::endl;
+*/
+ }

@@ -12,24 +12,18 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="127c4cee-4109-4dc5-a120-c50cf0ff91ca" name="Default Changelist" comment="Enemy avoidance">
-      <change afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Weapon.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Weapon.h" afterDir="false" />
+    <list default="true" id="127c4cee-4109-4dc5-a120-c50cf0ff91ca" name="Default Changelist" comment="Added Weapon firing">
+      <change afterPath="$PROJECT_DIR$/ICT397-Project-Engine/res/models/weapons/Bennelli_M4.md2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ICT397-Project-Engine/res/models/weapons/Textures_Guns.pcx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ICT397-Project-Engine/res/models/weapons/bullet.md2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ICT397-Project-Engine/res/models/weapons/shotgun.blend" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/Debugger.h" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Debugger.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/Engine.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Engine.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/GUI.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/GUI.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/GlfwWindow.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/GlfwWindow.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/GlfwWindow.h" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/GlfwWindow.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/ICT397-Project-Engine.vcxproj" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/ICT397-Project-Engine.vcxproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/ICT397-Project-Engine.vcxproj.filters" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/ICT397-Project-Engine.vcxproj.filters" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/Player.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Player.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/Scene.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Scene.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/Scene.h" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Scene.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/View.h" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/View.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/Window.h" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Window.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/Player.h" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Player.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/res/scripts/gameobjects/player_default.lua" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/res/scripts/gameobjects/player_default.lua" afterDir="false" />
     </list>
+    <list id="a9a6d380-d2a4-494a-9253-49e1f116c041" name="Revert &quot;Merge branch 'Testing' of /Users/brycestandley/GITS/ICT397-Project with conflicts.&quot;" comment="Revert &quot;Merge branch 'Testing' of /Users/brycestandley/GITS/ICT397-Project with conflicts.&quot;&#10;&#10;This reverts commit 77c835d5" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -55,6 +49,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="fba80899d9e541b102c9c46dd6e3b3aae0ecffdf" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="SAVE_CHANGES_POLICY" value="STASH" />
   </component>
@@ -94,12 +93,12 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+    <configuration name="TNAH-Project" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="TNAH-Project" TARGET_NAME="TNAH-Project" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="TNAH-Project" RUN_TARGET_NAME="TNAH-Project">
       <method v="2">
-        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TNAH-Project" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="TNAH-Project" TARGET_NAME="TNAH-Project" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="TNAH-Project" RUN_TARGET_NAME="TNAH-Project">
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
