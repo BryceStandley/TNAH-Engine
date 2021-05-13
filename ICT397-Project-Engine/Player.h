@@ -53,7 +53,7 @@ public:
 		*/
 	void Update(float time);
 
-	virtual void Render(View lens, float time, Renderer* gameRenderer);
+	//virtual void Render(View lens, float time, Renderer* gameRenderer);
 
 private:
 	
@@ -68,5 +68,6 @@ private:
 	float yRotatioonOffset;
 	float zRotatioonOffset;
 	float yPositionOffset;
+    Model bModel;
 };
 

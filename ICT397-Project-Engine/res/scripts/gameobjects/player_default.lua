@@ -3,9 +3,14 @@
 
 check = false;
 rotate = true;
+bullet = true;
 model = "./res/models/weapons/Bennelli_M4-Texture.fbx";
-vertShader = "./res/shader/modelV.glsl";
-fragShader = "./res/shader/modelF.glsl";
+--model = "./res/models/weapons/Bennelli_M4.md2";
+texture = "./res/models/weapons/Textures_Guns.png";
+bulletModel = "./res/models/weapons/bullet.md2";
+bulletTexture = "./res/models/weapons/Textures_Guns.png";
+vertShader = "./res/shader/md2vert.vert";
+fragShader = "./res/shader/md2frag.frag";
 
 xRotOffset = 180.0;
 yRotOffset = -5.0;
