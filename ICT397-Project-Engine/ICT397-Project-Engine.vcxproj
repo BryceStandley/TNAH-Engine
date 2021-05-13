@@ -139,6 +139,7 @@
     <ClCompile Include="View.cpp" />
     <ClCompile Include="Window.cpp" />
     <ClCompile Include="Water.cpp" />
+    <ClCompile Include="Weapon.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BoundingBox.h" />
@@ -196,6 +197,7 @@
     <ClInclude Include="View.h" />
     <ClInclude Include="Window.h" />
     <ClInclude Include="Windows.h" />
+    <ClInclude Include="Weapon.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="res\scripts\test.lua" />

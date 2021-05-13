@@ -9,6 +9,7 @@
 #include "camera.h"
 #include "Shader.h"
 #include "Manager.h"
+#include "Debugger.h"
 
 /**
  * @class GlfwWindow
@@ -116,6 +117,8 @@ public:
 
 	float GetCurrentTime() { return glfwGetTime(); }
 
+	virtual bool GetWeaponFire() {return fireWeapon;}
+
 
 
 private:	
@@ -153,11 +156,15 @@ private:
     ///If the press wireframe display can be displayed
     bool canPressDebugDisplay = true;
 
+	bool canFireWeapon = false;
+
+	bool fireWeapon = false;
+
 		//The game input manager
 	Input gameInput;
 
 		///The window
-	GLFWwindow* gameWindow = NULL;
+	GLFWwindow* gameWindow = nullptr;
 
 		///Light positioning
 	glm::vec3 lightPos;

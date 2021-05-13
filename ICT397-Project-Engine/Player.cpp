@@ -190,41 +190,5 @@ void Player::Update(float time)
 		
 	else
 		singleton<Manager>::getInstance().speed = 5;
-
-	if (singleton<Manager>::getInstance().token == "HealthRefill")
-		if (health < 100)
-		{
-			std::cout << "Healed back to full health" << std::endl;
-			health = 100;
-		}
-		else
-			std::cout << "Already at full health - no effect" << std::endl;
-
-
-	if (singleton<Manager>::getInstance().token == "DoublePoints") 
-	{
-		setMultiplier(2);
-		increasePoints(50);
-
-	}
-	else 
-	{
-		setMultiplier(1);
-	}
-
-	*/
-	//std::cout << "POINTS: " << getPoints() << std::endl;
-	//std::cout << "Token = " << singleton<Manager>::getInstance().token << ", Duration = " << singleton<Manager>::getInstance().timer << std::endl;
-}
-
-void Player::Render(View lens, float time, Renderer* gameRenderer)
-{
-	glm::vec3 pos = lens.GetPosition();
-	pos.y += yPositionOffset;
-	SetRotation(glm::vec3(xRotatioonOffset + lens.GetRotation().x * -1, yRotatioonOffset + lens.GetRotation().y * -1, lens.GetRotation().z + zRotatioonOffset));
-	Model temp = GetModel();
-	Shader s = GetShader();
-	temp.Render(lens, s, pos, GetRotation(), GetScale(), GetRotate(), time, 0, gameRenderer);
-	SetShader(s);
-	SetModel(temp);
+	if(Debugger::GetInstance()->debugTokensToConsole) std::cout << "Token = " << singleton<Manager>::getInstance().token << ", Duration = " << singleton<Manager>::getInstance().timer << std::endl;
 }

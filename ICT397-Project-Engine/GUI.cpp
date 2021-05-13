@@ -33,6 +33,7 @@ void GUI::DrawDebugUI(Window* w)
     ImGui::Checkbox("Debug to Console", &Debugger::GetInstance()->debugToConsole);
     ImGui::Checkbox("Debug Collisions to Console", &Debugger::GetInstance()->debugCollisionsToConsole);
     ImGui::Checkbox("Debug FSM to Console", &Debugger::GetInstance()->debugFSMToConsole);
+    ImGui::Checkbox("Debug Weapons to Console", &Debugger::GetInstance()->debugWeapons);
     //Add ImGui::Text() fields here to add more data to the debug window
 
 

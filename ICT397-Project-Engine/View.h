@@ -53,6 +53,8 @@ public:
 		*/
 	void SetRotation(const glm::vec3 r) { rotation = r; }
 
+	void SetForward(const glm::vec3 f) { forward = f; }
+
 		/**
 		* @brief gets and returns the projection matrix
 		* @returns glm::mat4 
@@ -89,6 +91,8 @@ public:
 		*/
 	glm::vec3 GetRotation() { return rotation; }
 
+	glm::vec3 GetForward() {return forward;}
+
 private:
 	glm::mat4 projection;
 	glm::mat4 view;
@@ -96,5 +100,6 @@ private:
 	glm::mat4 skyview;
 	glm::vec3 position;
 	glm::vec3 rotation;
+	glm::vec3 forward;
 };
 

@@ -61,6 +61,14 @@ void Scene::Run(View lens, float time, bool exit)
                 //if(gameObjects[x]->GetType() == "enemy" && gameObjects[x]->)
 		    }
 	    }
+
+	    //if the player is firing, fire the weapon duh
+	    if(playerWeapon.firingWeapon && playerWeapon.canFireWeapon)
+        {
+	        playerWeapon.canFireWeapon = false;
+            FireWeapon(gameObjects[playerInd]->GetPos(), lens.GetForward(), 10.0f);
+        }
+
     }
 	//Terrain
 
@@ -106,6 +114,8 @@ void Scene::UpdatePlayer(glm::vec3 position, glm::vec3 rotation)
 
 void Scene::UpdateGameObject(glm::vec3 position, int i)
 {
+    position = EnemyObstacleAvoidance(gameObjects[i], position);
+
     position.y = WorldToTerrainPosition(position, true).y + 1.2f;
 
     if (position.y >= 10.0f)
@@ -160,6 +170,61 @@ void Scene::MoveObjectAwayFromPlayer()
             go->SetPos(pos);
         }
     }
+}
+
+glm::vec3 Scene::EnemyObstacleAvoidance(GameObject* self, glm::vec3 newPosition)
+{
+    for(auto &go : gameObjects)
+    {
+        if(go->GetTag() == BoundingBox::CollisionTag::PLAYER) continue;// dont check against the player
+        if(go == self) continue; // dont check against it self
+        if(go->GetTag() == BoundingBox::CollisionTag::TOKEN) continue;
+        while(glm::distance(newPosition, go->GetPos()) < 2.0f)
+        {
+            newPosition.x += 0.5f;
+        }
+    }
+    return newPosition;
+
+}
+
+void Scene::FireWeapon(glm::vec3 weaponStartPos, glm::vec3 forward, float fireDistance)
+{
+    //Raycasting would be super good right now but we can use a makeshift raycast here instead
+
+    //trigger animation
+    //find a position vector from the player to a set distance forward from the camera
+    //Check if there was a enemy anywhere along the vector between the player and the end point of the ray
+    //stop checking if we hit a enemy even if were not at the end
+    //deal damage to the enemy
+    //refresh the fire timer
+
+
+    playerWeapon.canFireWeapon = true;
+    glm::vec3 directionVector = forward * fireDistance;
+    glm::vec3 finalEndPoint = weaponStartPos + directionVector;
+    bool enemyHit = false;
+    float i = 1;
+    while(i < fireDistance)
+    {
+        glm::vec3 point = weaponStartPos + (forward * i);
+
+        for(auto* go : gameObjects)
+        {
+            if(go->GetTag() == BoundingBox::ENEMY && glm::distance(go->GetPos(), point) < 0.5f)
+            {
+                //hit the enemy, trigger damage
+                if(Debugger::GetInstance()->debugWeapons) std::cout << "Scene.cpp::INFO::Player Shot Enemy!" << std::endl;
+                enemyHit = true;
+                break;
+            }
+        }
+        if(enemyHit) break;
+
+        i += 0.1f;
+    }
+    //reset some sort of firerate timer
+
 }
 
 glm::vec3 Scene::CheckSceneCollision(glm::vec3 pos)

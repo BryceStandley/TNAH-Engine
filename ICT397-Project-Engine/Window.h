@@ -85,6 +85,7 @@ public:
 		* @return exitDisplay
 		*/
 	virtual bool GetDisplay() { return false; }
+    virtual bool GetWeaponFire() {return false;}
 
     virtual void SetRefWindow(Window* w){}
 

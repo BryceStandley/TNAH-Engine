@@ -12,22 +12,23 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="127c4cee-4109-4dc5-a120-c50cf0ff91ca" name="Default Changelist" comment="Fixed windows build">
-      <change afterPath="$PROJECT_DIR$/ICT397-Project-Engine/res/scripts/gameobjects/static_water.lua" afterDir="false" />
+    <list default="true" id="127c4cee-4109-4dc5-a120-c50cf0ff91ca" name="Default Changelist" comment="Enemy avoidance">
+      <change afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Weapon.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Weapon.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/BoundingBox.h" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/BoundingBox.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/CMakeLists.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/Debugger.h" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Debugger.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/Enemy.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Enemy.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/Engine.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Engine.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/GUI.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/GUI.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/GameAssetFactory.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/GameAssetFactory.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/GameAssetFactory.h" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/GameAssetFactory.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/MessageDispatcher.h" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/MessageDispatcher.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/GlfwWindow.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/GlfwWindow.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/GlfwWindow.h" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/GlfwWindow.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/ICT397-Project-Engine.vcxproj" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/ICT397-Project-Engine.vcxproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/ICT397-Project-Engine.vcxproj.filters" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/ICT397-Project-Engine.vcxproj.filters" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/Player.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Player.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/Scene.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Scene.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/Water.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Water.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/Water.h" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Water.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/enemyStates.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/enemyStates.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/res/scripts/scene1.lua" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/res/scripts/scene1.lua" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/res/scripts/terrain.lua" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/res/scripts/terrain.lua" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/Scene.h" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Scene.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/View.h" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/View.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/Window.h" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Window.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,6 +56,7 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="SAVE_CHANGES_POLICY" value="STASH" />
   </component>
   <component name="ProjectId" id="1qhE8nkWeMDWoZ2e30lMq39kUEW" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -75,6 +77,7 @@
     <property name="cf.first.check.clang-format" value="false" />
     <property name="cidr.known.project.marker" value="true" />
     <property name="cmake.loaded.for.project" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -83,7 +86,7 @@
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
+    <property name="settings.editor.selected.configurable" value="vcs.Git" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -91,12 +94,12 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration name="TNAH-Project" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="TNAH-Project" TARGET_NAME="TNAH-Project" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="TNAH-Project" RUN_TARGET_NAME="TNAH-Project">
+    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+    <configuration name="TNAH-Project" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="TNAH-Project" TARGET_NAME="TNAH-Project" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="TNAH-Project" RUN_TARGET_NAME="TNAH-Project">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -132,7 +135,12 @@
       <workItem from="1620654560226" duration="130000" />
       <workItem from="1620654886839" duration="637000" />
       <workItem from="1620656308982" duration="5332000" />
-      <workItem from="1620704299091" duration="4317000" />
+      <workItem from="1620704299091" duration="4504000" />
+      <workItem from="1620789594496" duration="990000" />
+      <workItem from="1620790967722" duration="655000" />
+      <workItem from="1620792056464" duration="8611000" />
+      <workItem from="1620811466263" duration="5471000" />
+      <workItem from="1620819107174" duration="5704000" />
     </task>
     <task id="LOCAL-00001" summary="Added collisions with objects">
       <created>1617722294195</created>
@@ -197,7 +205,21 @@
       <option name="project" value="LOCAL" />
       <updated>1620704367075</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Water plane">
+      <created>1620711871838</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1620711871838</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Enemy avoidance">
+      <created>1620817062842</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1620817062842</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -228,6 +250,8 @@
     <MESSAGE value="Doxy files generated" />
     <MESSAGE value="Rebuilt Debugging" />
     <MESSAGE value="Fixed windows build" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed windows build" />
+    <MESSAGE value="Water plane" />
+    <MESSAGE value="Enemy avoidance" />
+    <option name="LAST_COMMIT_MESSAGE" value="Enemy avoidance" />
   </component>
 </project>
