@@ -246,7 +246,7 @@ void Enemy::Update(float time)
 		if (getTimer() != 400) 
 		{
 			incrementTimer();
-			std::cout << "TIMER: " << getTimer() << std::endl;
+			//std::cout << "TIMER: " << getTimer() << std::endl;
 		}
 		else if (getTimer() == 400)
 		{
@@ -262,7 +262,6 @@ void Enemy::decreaseHealth(int health)
 	if (this->health < 0) 
 	{
 		this->health = 0;
-		//alive = false;
 	}
 
 }

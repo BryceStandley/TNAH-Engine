@@ -121,6 +121,7 @@
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="OpenGL.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="playerStates.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Shader.cpp" />
@@ -174,6 +175,7 @@
     <ClInclude Include="Model.h" />
     <ClInclude Include="OpenGL.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="playerStates.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Shader.h" />

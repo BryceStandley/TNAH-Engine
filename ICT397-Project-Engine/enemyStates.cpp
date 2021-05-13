@@ -9,6 +9,8 @@
 
 void wander::Enter(Enemy* dude)
 {
+	dude->count++;
+	std::cout << "COUNT: " << dude->count << std::endl;
 	dude->SetSate(WALK);
 	if(Debugger::GetInstance()->debugFSMToConsole) std::cout <<"WALKING" << std::endl;
 }

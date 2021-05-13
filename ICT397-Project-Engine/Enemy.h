@@ -59,6 +59,8 @@ public:
 	
 	bool killFSM = false;
 
+	int count = 0;
+
 	float GetDeltaTime() const { return deltaTime; }
 
 		/**
