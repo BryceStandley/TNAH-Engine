@@ -113,7 +113,7 @@ void chase::Execute(Enemy* dude)
     if(Debugger::GetInstance()->debugFSMToConsole) std::cout << "CHASE" << std::endl;
 	float result = atan2(dude->getVelocity().z, dude->getVelocity().x);
 
-	if (dude->Distance() < 10)
+	if (dude->Distance() < 10 && dude->getCamPos().y - dude->GetPos().y < 2)
 	{
 		dude->getFSM()->changeState(&attack_state::getInstance());
 	}
@@ -162,7 +162,7 @@ void flee::Execute(Enemy* dude)
 		//token has worn off and within chasing distance of player
 		dude->getFSM()->changeState(&chase_state::getInstance());
 	}
-	else if (dude->Distance() < 10.5f && dude->getToken() == false)
+	else if (dude->Distance() < 10.0f && dude->getCamPos().y - dude->GetPos().y < 2 && dude->getToken() == false)
 	{
 		//token has worn off and within shooting distance
 		dude->getFSM()->changeState(&attack_state::getInstance());
@@ -193,6 +193,8 @@ void attack::Enter(Enemy* dude)
 
 void attack::Execute(Enemy* dude)
 {
+	std::cout << "CAM POS: " << dude->getCamPos().y << " ENEMY POS: " << dude->GetPos().y << std::endl;
+
 	dude->decreaseHealth(2);
 
     if(Debugger::GetInstance()->debugFSMToConsole) std::cout << "ATTACK" << std::endl;

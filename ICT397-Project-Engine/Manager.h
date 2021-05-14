@@ -11,6 +11,7 @@ public:
 	{
 		if (timer <= 0)
 		{
+			//prevToken = token;
 			token = "none";
 			timer = 0;
 		}

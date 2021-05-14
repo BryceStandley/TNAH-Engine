@@ -67,7 +67,7 @@ void SpeedUp::Execute(Player* dude)
 	if (singleton<Manager>::getInstance().token == "SpeedUp" && singleton<Manager>::getInstance().timer != 0)
 	{
 		singleton<Manager>::getInstance().speed = 10;
-		std::cout << "Token = " << singleton<Manager>::getInstance().token << ", Duration = " << singleton<Manager>::getInstance().timer << std::endl;
+		std::cout << "Token = " << singleton<Manager>::getInstance().token  << ", Duration = " << singleton<Manager>::getInstance().timer << std::endl;
 	}
 	else
 	{
@@ -75,6 +75,18 @@ void SpeedUp::Execute(Player* dude)
 		singleton<Manager>::getInstance().speed = 5;
 		dude->getFSM()->changeState(&main_state::getInstance());
 	}
+
+
+	if (singleton<Manager>::getInstance().token == "DoublePoints")
+		dude->getFSM()->changeState(&points_state::getInstance());
+
+	if (singleton<Manager>::getInstance().token == "HealthRefill")
+		dude->getFSM()->changeState(&health_state::getInstance());
+
+	if (singleton<Manager>::getInstance().token == "DoubleDamage")
+		dude->getFSM()->changeState(&damage_state::getInstance());
+
+
 }
 
 void SpeedUp::Exit(Player* dude)
@@ -96,10 +108,29 @@ void doublePoints::Enter(Player* dude)
 
 void doublePoints::Execute(Player* dude)
 {
-	if (singleton<Manager>::getInstance().timer != 0)
-		std::cout << "Token = " << singleton<Manager>::getInstance().token << ", Duration = " << singleton<Manager>::getInstance().timer << std::endl;
+	if (singleton<Manager>::getInstance().token == "DoublePoints" && singleton<Manager>::getInstance().timer != 0) 
+	{
+		//if (singleton<Manager>::getInstance().sameToken == true) 
+		//{
+			//dude->getFSM()->changeState(&points_state::getInstance());
+			std::cout << "Token = " << singleton<Manager>::getInstance().token << ", Duration = " << singleton<Manager>::getInstance().timer << std::endl;
+		//	singleton<Manager>::getInstance().sameToken = true;
+
+		//}
+		//else if
+		
+	}
 	else
 		dude->getFSM()->changeState(&main_state::getInstance());
+
+	if (singleton<Manager>::getInstance().token == "SpeedUp")
+		dude->getFSM()->changeState(&speed_state::getInstance());
+
+	if (singleton<Manager>::getInstance().token == "HealthRefill")
+		dude->getFSM()->changeState(&health_state::getInstance());
+
+	if (singleton<Manager>::getInstance().token == "DoubleDamage")
+		dude->getFSM()->changeState(&damage_state::getInstance());
 }
 
 void doublePoints::Exit(Player* dude)
@@ -132,6 +163,7 @@ void main::Enter(Player* dude)
 
 void main::Execute(Player* dude)
 {
+	//std::cout << "Token = " << singleton<Manager>::getInstance().token << ", Duration = " << singleton<Manager>::getInstance().timer << std::endl;
 }
 
 void main::Exit(Player* dude)
@@ -149,7 +181,8 @@ void glob::Enter(Player* dude)
 void glob::Execute(Player* dude)
 {
 	if (singleton<Manager>::getInstance().token == "SpeedUp" && dude->hasToken == true)
-	{	
+	{
+		//if(dude->getFSM()->isInState(speed_state::getInstance))
 		dude->getFSM()->changeState(&speed_state::getInstance());	
 	}
 
