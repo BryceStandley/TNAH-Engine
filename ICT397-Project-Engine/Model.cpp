@@ -28,12 +28,13 @@ void Model::Render(View lens, Shader &shader, glm::vec3 pos, glm::vec3 rot, floa
     {
         if (animations)
         {
-            md2Model.RenderModel(&currentState, lens.GetProjection(), lens.GetView(), pos, 180.695f, direction, gameRenderer);
+            rot.x = 180.695f;
+            md2Model.RenderModel(&currentState, lens.GetProjection(), lens.GetView(), pos, rot, direction, gameRenderer);
             md2Model.UpdateAnimation(&currentState, time, gameRenderer);
         }
         else
         {
-            md2Model.RenderModel(NULL, lens.GetProjection(), lens.GetView(), pos, rot.x, 0, gameRenderer);
+            md2Model.RenderModel(NULL, lens.GetProjection(), lens.GetView(), pos, rot, 0, gameRenderer);
         }
     }
 }

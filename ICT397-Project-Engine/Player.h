@@ -2,6 +2,7 @@
 #include "state.h"
 #include "stateMachine.h"
 #include "playerStates.h"
+#include "Debugger.h"
 
 /**
  * @class Player
@@ -58,7 +59,7 @@ public:
 		*/
 	void Update(float time);
 
-	//virtual void Render(View lens, float time, Renderer* gameRenderer);
+	virtual void Render(View lens, float time, Renderer* gameRenderer);
 
 private:
 	

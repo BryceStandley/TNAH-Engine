@@ -8,9 +8,9 @@ GameObject* GameAssetFactory::GetGameObject(std::string type, std::string script
         if(Debugger::GetInstance()->debugToConsole) std::cout << "Player done" << std::endl;
         GameObject* obj = new Player(position, glm::vec3(0, 0, 0), scale, renderer, script);
         BoundingBox box = BoundingBox();
-        box = box.GenerateBoundingBox(obj->GetModel().GetMesh(0));
-        obj->SetBoundingBox(box);
-        obj->SetCollisionTag(BoundingBox::CollisionTag::PLAYER);
+        //box = box.GenerateBoundingBox(obj->GetModel().GetMesh(0));
+        //obj->SetBoundingBox(box);
+        //obj->SetCollisionTag(BoundingBox::CollisionTag::PLAYER);
         playerMade = true;
         return obj;
 

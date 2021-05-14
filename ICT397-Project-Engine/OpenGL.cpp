@@ -350,33 +350,37 @@ int OpenGL::LoadModel(int numFrames, std::vector<int> commands, unsigned int& VA
         tempBuffer.vboFrameVertices[i].CreateBuffer();
     }
     tempBuffer.vboTextureCoords.CreateBuffer();
-    while (1)
+
+    if (commands.size() > 0)
     {
-        int action = commands[i];
-        if (action == 0)
-            break;
-
-        int renderMode = action < 0 ? GL_TRIANGLE_FAN : GL_TRIANGLE_STRIP;
-        int numVertices = action < 0 ? -action : action;
-        i++;
-
-        tempBuffer.renderModes.push_back(renderMode);
-        tempBuffer.numRenderVertices.push_back(numVertices);
-
-        for (int j = 0; j < numVertices; j++)
+        while (1)
         {
-            float s = *((float*)(&commands[i++]));
-            float t = *((float*)(&commands[i++]));
-            t = 1.0f - t;
-            int vi = commands[i++];
+            int action = commands[i];
+            if (action == 0)
+                break;
 
-            tempBuffer.vboTextureCoords.AddData(&s, 4);
-            tempBuffer.vboTextureCoords.AddData(&t, 4);
+            int renderMode = action < 0 ? GL_TRIANGLE_FAN : GL_TRIANGLE_STRIP;
+            int numVertices = action < 0 ? -action : action;
+            i++;
 
-            for (int k = 0; k < numFrames; k++)
+            tempBuffer.renderModes.push_back(renderMode);
+            tempBuffer.numRenderVertices.push_back(numVertices);
+
+            for (int j = 0; j < numVertices; j++)
             {
-                tempBuffer.vboFrameVertices[k].AddData(&vertices[k][vi], 12);
-                tempBuffer.vboFrameVertices[k].AddData(&anorms[normals[k][vi]], 12);
+                float s = *((float*)(&commands[i++]));
+                float t = *((float*)(&commands[i++]));
+                t = 1.0f - t;
+                int vi = commands[i++];
+
+                tempBuffer.vboTextureCoords.AddData(&s, 4);
+                tempBuffer.vboTextureCoords.AddData(&t, 4);
+
+                for (int k = 0; k < numFrames; k++)
+                {
+                    tempBuffer.vboFrameVertices[k].AddData(&vertices[k][vi], 12);
+                    tempBuffer.vboFrameVertices[k].AddData(&anorms[normals[k][vi]], 12);
+                }
             }
         }
     }
@@ -412,7 +416,7 @@ int OpenGL::LoadModel(int numFrames, std::vector<int> commands, unsigned int& VA
     return num;
 }
 
-void OpenGL::RenderModel(int number, Md2State* animState, glm::mat4 proj, glm::mat4 view, glm::vec3 position, float rotation, float direction, unsigned int& VAO, unsigned int &textureId, Shader& shader)
+void OpenGL::RenderModel(int number, Md2State* animState, glm::mat4 proj, glm::mat4 view, glm::vec3 position, glm::vec3 rotation, float direction, unsigned int& VAO, unsigned int &textureId, Shader& shader)
 {
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, textureId);
@@ -425,7 +429,9 @@ void OpenGL::RenderModel(int number, Md2State* animState, glm::mat4 proj, glm::m
     glm::mat4 model = glm::mat4(1.0f);
     model = glm::translate(model, position);
     model = glm::scale(model, glm::vec3(0.05f));
-    model = glm::rotate(model, rotation, glm::vec3(1, 0, 0));
+    model = glm::rotate(model, rotation.x, glm::vec3(1, 0, 0));
+    model = glm::rotate(model, rotation.y, glm::vec3(0, 1, 0));
+    model = glm::rotate(model, rotation.z, glm::vec3(0, 0, 1));
     model = glm::rotate(model, direction, glm::vec3(0, 0, 1));
     shader.setMat4("model", model);
     shader.setMat4("normal", model);

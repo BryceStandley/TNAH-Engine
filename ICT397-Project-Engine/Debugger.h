@@ -42,6 +42,8 @@ public:
     bool debugFSMToConsole = false;
     bool debugWeapons = false;
     bool debugTokensToConsole = false;
+    bool debugAnimationsToConsole = false;
+    bool debugMD2ToConsole = false;
 
     float ApplicationFramerate = 0.0f;
 
