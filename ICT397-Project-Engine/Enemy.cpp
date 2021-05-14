@@ -241,7 +241,7 @@ void Enemy::Update(float time)
 		enemyFSM->update();
 	else 
 	{
-		if (Debugger::GetInstance()->debugFSMToConsole) std::cout << "Should be destroyed" << std::endl;
+		//if (Debugger::GetInstance()->debugFSMToConsole) std::cout << "Should be destroyed" << std::endl;
 
 		if (getTimer() != 400) 
 		{

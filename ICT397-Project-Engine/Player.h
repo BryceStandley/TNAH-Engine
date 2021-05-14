@@ -41,7 +41,11 @@ public:
 
 	void setMultiplier(int m) { multiplier = m; }
 
-	bool hasToken = false;
+	int getDamage() { return damage; }
+	void setDamage(int d) { damage = d; }
+
+
+	bool hasToken = true;
 	int token = 0;
 
 	//void decreaseHealth(int h) {h}
@@ -60,14 +64,15 @@ private:
 	
 	stateMachine<Player>* playerFSM;
 
-	int health = 80;
+	int health = 100;
 	int points = 0;
 	int multiplier = 1;
+	int damage = 50;
 
 
-	float xRotatioonOffset;
-	float yRotatioonOffset;
-	float zRotatioonOffset;
+	float xRotationOffset;
+	float yRotationOffset;
+	float zRotationOffset;
 	float yPositionOffset;
     Model bModel;
 };

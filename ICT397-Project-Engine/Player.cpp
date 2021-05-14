@@ -90,9 +90,9 @@ Player::Player(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std:
         Shader tempShader(vertS.c_str(), fragS.c_str());
         SetShader(tempShader);
 
-        xRotatioonOffset = xr;
-        yRotatioonOffset = yr;
-        zRotatioonOffset = zr;
+        xRotationOffset = xr;
+        yRotationOffset = yr;
+        zRotationOffset = zr;
 
         yPositionOffset = yp;
         SetRotate(rotate);
@@ -207,9 +207,9 @@ Player::Player(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std:
         Shader tempShader(vertS.c_str(), fragS.c_str());
         SetShader(tempShader);
 
-        xRotatioonOffset = xr;
-        yRotatioonOffset = yr;
-        zRotatioonOffset = zr;
+        xRotationOffset = xr;
+        yRotationOffset = yr;
+        zRotationOffset = zr;
 
         yPositionOffset = yp;
         SetRotate(rotate);
@@ -242,13 +242,13 @@ Player::Player(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std:
 	}
 
 	playerFSM = new stateMachine<Player>(this);
-	playerFSM->setCurrentState(&glob_state::getInstance());
-	//playerFSM->setGlobalState(&death_state::getInstance());
+	playerFSM->setCurrentState(&main_state::getInstance());
+	playerFSM->setGlobalState(&glob_state::getInstance());
 
 	SetType("player");
 	Update(0.0f);
 
-	if (Debugger::GetInstance()->debugToConsole) std::cout << xRotatioonOffset << " " << yRotatioonOffset << " " << zRotatioonOffset << " " << yPositionOffset << std::endl;
+	if (Debugger::GetInstance()->debugToConsole) std::cout << xRotationOffset << " " << yRotationOffset << " " << zRotationOffset << " " << yPositionOffset << std::endl;
 }
 
 void Player::Update(float time)
