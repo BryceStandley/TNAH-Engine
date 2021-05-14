@@ -17,6 +17,6 @@ void ExitScreen::Render(Renderer* r, View lens)
     glm::vec3 rot = lens.GetRotation();
     rot.x *= -1;
     lens.SetRotation(rot);
-    exitModel.Render(lens, shader, lens.GetPosition(), lens.GetRotation(), 2, true, 0, 0, r);
+    exitModel.Render(lens, shader, lens.GetPosition(), lens.GetRotation(), 2, true, 0, 0, r, false);
 }
 

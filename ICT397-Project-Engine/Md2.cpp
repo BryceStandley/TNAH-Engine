@@ -277,6 +277,11 @@ void Md2::RenderModel(Md2State* animState, glm::mat4 proj, glm::mat4 view, glm::
 	gameRenderer->RenderModel(number, animState, proj, view, genFour, direction, VAO, textureId, shader);
 }
 
+void Md2::RenderModel(Md2State* animState, glm::mat4 proj, glm::mat4 view, glm::vec3 pos, glm::vec3 rot, float direction, Renderer* gameRenderer)
+{
+	gameRenderer->RenderModel(number, animState, proj, view, pos, rot, direction, VAO, textureId, shader);
+}
+
 Md2State Md2::StartAnimation(Md2Commands type)
 {
 	Md2State res;

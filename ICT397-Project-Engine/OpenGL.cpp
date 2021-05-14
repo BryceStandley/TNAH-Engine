@@ -476,6 +476,71 @@ void OpenGL::RenderModel(int number, Md2State* animState, glm::mat4 proj, glm::m
     glBindTexture(GL_TEXTURE_2D, 0);
 }
 
+void OpenGL::RenderModel(int number, Md2State* animState, glm::mat4 proj, glm::mat4 view, glm::vec3 position, glm::vec3 rotation, float direction, unsigned int& VAO, unsigned int &textureId, Shader& shader)
+{
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, textureId);
+
+    shader.use();
+    shader.setInt("texture0", 0);
+    shader.setMat4("projection", proj);
+    shader.setMat4("view", view);
+
+    glm::mat4 model = glm::mat4(1.0f);
+    model = glm::translate(model, position);
+    model = glm::scale(model, glm::vec3(0.05f));
+    model = glm::rotate(model, rotation.x, glm::vec3(1, 0, 0));
+    model = glm::rotate(model, rotation.y, glm::vec3(0, 1, 0));
+    model = glm::rotate(model, rotation.z, glm::vec3(0, 0, 1));
+    model = glm::rotate(model, direction, glm::vec3(0, 0, 1));
+    shader.setMat4("model", model);
+    shader.setMat4("normal", model);
+
+    glBindVertexArray(VAO);
+
+    int iTotalOffset = 0;
+
+    if (animState == NULL)
+    {
+        glEnableVertexAttribArray(0);
+        vertexBuffer[number].vboFrameVertices[0].BindVBO();
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 2 * sizeof(glm::vec3), 0);
+        shader.setFloat("fInterpolation", -1.0f);
+
+        for (int i = 0; i < vertexBuffer[number].renderModes.size(); i++)
+        {
+            glDrawArrays(vertexBuffer[number].renderModes[i], iTotalOffset, vertexBuffer[number].numRenderVertices[i]);
+            iTotalOffset += vertexBuffer[number].numRenderVertices[i];
+        }
+    }
+    else
+    {
+        glEnableVertexAttribArray(0);
+        vertexBuffer[number].vboFrameVertices[animState->currFrame].BindVBO();
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 2 * sizeof(glm::vec3), 0);
+
+        glEnableVertexAttribArray(3);
+        vertexBuffer[number].vboFrameVertices[animState->nextFrame].BindVBO();
+        glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, 2 * sizeof(glm::vec3), 0);
+
+        glEnableVertexAttribArray(2);
+        vertexBuffer[number].vboFrameVertices[animState->currFrame].BindVBO();
+        glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 2 * sizeof(glm::vec3), 0);
+
+        glEnableVertexAttribArray(4);
+        vertexBuffer[number].vboFrameVertices[animState->nextFrame].BindVBO();
+        glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, 2 * sizeof(glm::vec3), 0);
+
+        shader.setFloat("fInterpolation", animState->interpol);
+        for (int i = 0; i < vertexBuffer[number].renderModes.size(); i++)
+        {
+            glDrawArrays(vertexBuffer[number].renderModes[i], iTotalOffset, vertexBuffer[number].numRenderVertices[i]);
+            iTotalOffset += vertexBuffer[number].numRenderVertices[i];
+        }
+    }
+    glBindTexture(GL_TEXTURE_2D, 0);
+}
+
 /*void OpenGL::SetupWater(Water* water)
 {
     unsigned int FBO;

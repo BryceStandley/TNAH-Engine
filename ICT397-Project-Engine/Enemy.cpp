@@ -275,10 +275,10 @@ void Enemy::Render(View lens, float time, Renderer* gameRenderer)
 	{
 		Model temp = GetModel();
 		Shader s = GetShader();
-		temp.Render(lens, s, GetPos(), GetRotation(), GetScale(), GetRotate(), time, direction, gameRenderer);
+		temp.Render(lens, s, GetPos(), GetRotation(), GetScale(), GetRotate(), time, direction, gameRenderer, false);
 		if (hasWeapon)
 		{
-			wModel.Render(lens, s, GetPos(), GetRotation(), GetScale(), GetRotate(), time, direction, gameRenderer);
+			wModel.Render(lens, s, GetPos(), GetRotation(), GetScale(), GetRotate(), time, direction, gameRenderer, false);
 		}
 		SetShader(s);
 		SetModel(temp);

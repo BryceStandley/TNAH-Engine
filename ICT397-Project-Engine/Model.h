@@ -68,7 +68,7 @@ public:
     }
     void LoadModel(std::string const& path, Renderer* gameRenderer, std::string pathTexture);
     //void Render(View lens, Shader& shader, glm::vec3 pos, glm::vec3 rot, float scale, bool rotate, float time);
-    void Render(View lens, Shader &shader, glm::vec3 pos, glm::vec3 rot, float scale, bool rotate, float time, float direction, Renderer * gameRenderer);
+    void Render(View lens, Shader &shader, glm::vec3 pos, glm::vec3 rot, float scale, bool rotate, float time, float direction, Renderer * gameRenderer, bool p);
 
     void SetState(Md2Commands cmd) { currentState = md2Model.StartAnimation(cmd); }
     Md2State GetState() const { return currentState; }

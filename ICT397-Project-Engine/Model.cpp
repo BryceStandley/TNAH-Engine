@@ -14,7 +14,7 @@ void Model::LoadModel(std::string const& path, Renderer* gameRenderer, std::stri
     }
 }
 
-void Model::Render(View lens, Shader &shader, glm::vec3 pos, glm::vec3 rot, float scale, bool rotate, float time, float direction, Renderer* gameRenderer)
+void Model::Render(View lens, Shader &shader, glm::vec3 pos, glm::vec3 rot, float scale, bool rotate, float time, float direction, Renderer* gameRenderer, bool p)
 {
     if (fbx)
     {
@@ -29,7 +29,10 @@ void Model::Render(View lens, Shader &shader, glm::vec3 pos, glm::vec3 rot, floa
         if (animations)
         {
             rot.x = 180.695f;
-            md2Model.RenderModel(&currentState, lens.GetProjection(), lens.GetView(), GenerateMatFour(pos, rot, scale, rotate), direction, gameRenderer);
+            if(p)
+                md2Model.RenderModel(&currentState, lens.GetProjection(), lens.GetView(), GenerateMatFour(pos, rot, scale, rotate), direction, gameRenderer);
+            else
+                md2Model.RenderModel(&currentState, lens.GetProjection(), lens.GetView(), pos, rot, direction, gameRenderer);
             md2Model.UpdateAnimation(&currentState, time, gameRenderer);
         }
         else
