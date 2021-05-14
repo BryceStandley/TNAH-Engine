@@ -33,9 +33,12 @@ using namespace luabridge;
 class Enemy : public GameObject
 {
 public:
-
-	Enemy(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std::string script);
-		
+	float value;
+	Enemy(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std::string script, bool first);
+	void Print()
+	{
+		std::cout << "bruh" << std::endl;
+	}
 	~Enemy();
 
 	stateMachine<Enemy>* getFSM()const { return enemyFSM; }
@@ -284,7 +287,7 @@ public:
 	bool moving = false;
 
 private:
-
+	LuaRef function = NULL;
 	glm::vec3 pPos;
 	Model wModel;
 	float deltaTime = 0;

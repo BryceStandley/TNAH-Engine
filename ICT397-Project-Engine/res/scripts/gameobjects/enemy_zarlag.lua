@@ -14,3 +14,18 @@ fragShader = "./res/shader/md2frag.frag";
 
 health = 100;
 ammo = 10;
+
+wander = {}
+
+wander[1] = function (object)
+local a = object:getDeltaTime
+print (a) 
+end
+
+wander[2] = function ()
+
+end
+
+wander[3] = function ()
+
+end

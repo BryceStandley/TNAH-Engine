@@ -154,8 +154,42 @@ void Engine::LuaScenes(std::string file, int i)
 {
 	{
 		lua_State* L = LuaManager::getInstance().getLuaState();
-		getGlobalNamespace(L).beginClass<Scene>("scene").addFunction("MakeGameObject", &Scene::MakeGameObject).endClass();
+		getGlobalNamespace(L).beginClass<Scene>("scene").addFunction("MakeGameObject", &Scene::MakeGameObject).endClass().beginClass<GameObject>("GameObject").endClass().deriveClass<Enemy, GameObject>("Enemy")
+			//.addProperty("enemyVelocity", &Enemy::enemyVelocity)
+			//.addProperty("newPos", &Enemy::newPos)
+			//.addProperty("Print", &Enemy::Print)
+			//.addFunction("getFSM", &Enemy::getFSM)
+			.addFunction("Print", &Enemy::Print)
+			.endClass();
+
+			//.beginClass<stateMachine<Enemy>>("EnemyState")
+			//.addFunction("GetPrevState", &stateMachine<Enemy>::getPreviousState)
+			//.addFunction("GetPrevState", &stateMachine<Enemy>::getCurrentState)
+			//.addFunction("GetPrevState", &stateMachine<Enemy>::getGlobalState)
+			//.endClass()
+			//.beginClass<wander_state>("wander_state")
+			//.addStaticFunction("get_wander_state", &wander_state::getInstance)
+			//.endClass()
+			//.beginClass<alert_state>("alert_state")
+			//.addStaticFunction("get_alert_state", &alert_state::getInstance)
+			//.endClass()
+			//.beginClass<chase_state>("chase_state")
+			//.addStaticFunction("get_chase_state", &chase_state::getInstance)
+			//.endClass()
+			//.beginClass<flee_state>("flee_state")
+			//.addStaticFunction("get_flee_state", &flee_state::getInstance)
+			//.endClass()
+			//.beginClass<attack_state>("attack_state")
+			//.addStaticFunction("get_attack_state", &attack_state::getInstance)
+			//.endClass()
+			//.beginClass<die_state>("die_state")
+			//.addStaticFunction("get_die_state", &die_state::getInstance)
+			//.endClass()
+			//.beginClass<global_state>("global_state")
+			//.addStaticFunction("get_global_state", &global_state::getInstance)
+			//.endClass();
 		setGlobal(L, gameScenes[i], "cs");
+
 		if (luaL_dofile(L, file.c_str()))
 		{
 			std::cout << "Scene lua file not found" << std::endl;

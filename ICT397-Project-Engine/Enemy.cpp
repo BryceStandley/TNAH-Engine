@@ -1,6 +1,6 @@
 #include "Enemy.h"
 
-Enemy::Enemy(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std::string script) : GameObject(p, rot, s, gameRenderer)
+Enemy::Enemy(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std::string script, bool first) : GameObject(p, rot, s, gameRenderer)
 {
 	lua_State* L = LuaManager::getInstance().getLuaState();
 
@@ -10,6 +10,8 @@ Enemy::Enemy(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std::s
 
 	if (!luaL_dofile(L, script.c_str()))
 	{
+		function = getGlobal(L, "wander");
+
 		LuaRef type = getGlobal(L, "check");
 		LuaRef rot = getGlobal(L, "rotate");
 		LuaRef alv = getGlobal(L, "alive");
@@ -112,6 +114,7 @@ Enemy::Enemy(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std::s
 	else if (!luaL_dofile(L, "./res/scripts/gameobjects/enemy_default.lua"))
 	{
 		std::cout << "Enemy script not found, loading default script" << std::endl;
+		function = getGlobal(L, "wanderEnter");
 		LuaRef type = getGlobal(L, "check");
 		LuaRef rot = getGlobal(L, "rotate");
 		LuaRef alv = getGlobal(L, "alive");
@@ -234,9 +237,11 @@ Enemy::~Enemy()
 void Enemy::Update(float time)
 {
 	SetType("enemy");
-
 	//if(Debugger::GetInstance()->debugFSMToConsole) std::cout << GetId() << " player has token = " << token << std::endl;
-
+	if (function.isTable())
+	{
+		function[1](this);
+	}
 	if (killFSM == false)
 		enemyFSM->update();
 	else 
