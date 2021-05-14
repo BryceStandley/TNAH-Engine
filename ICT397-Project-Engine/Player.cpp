@@ -5,11 +5,8 @@ Player::Player(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std:
 	lua_State* L = LuaManager::getInstance().getLuaState();
     bool bull = false;
 
-    if(Debugger::GetInstance()->debugMD2ToConsole) std::cout << "Made it 1" << std::endl;
-
     if(!luaL_dofile(L, script.c_str()))
     {
-        if(Debugger::GetInstance()->debugMD2ToConsole) std::cout << "Made it 2" << std::endl;
         LuaRef type = getGlobal(L, "check");
         LuaRef rot = getGlobal(L, "rotate");
         LuaRef bullet = getGlobal(L, "bullet");
@@ -32,7 +29,6 @@ Player::Player(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std:
         float xr = 0, yr = 0, zr = 0, yp = 0;
         bool check = false, rotate = false;
 
-        if(Debugger::GetInstance()->debugMD2ToConsole) std::cout << "Made it 3" << std::endl;
         if (type.isBool())
         {
             check = type.cast<bool>();
@@ -43,7 +39,7 @@ Player::Player(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std:
             rotate = rot.cast<bool>();
         }
 
-        if(bullet.isBool())
+        if (bullet.isBool())
         {
             bull = bullet.cast<bool>();
         }
@@ -51,6 +47,11 @@ Player::Player(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std:
         if (mod.isString())
         {
             file = mod.cast<std::string>();
+        }
+
+        if (tex.isString())
+        {
+            texture = tex.cast<std::string>();
         }
 
         if (vert.isString())
@@ -61,11 +62,6 @@ Player::Player(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std:
         if (frag.isString())
         {
             fragS = frag.cast<std::string>();
-        }
-
-        if(tex.isString())
-        {
-            texture = tex.cast<std::string>();
         }
 
         if (xRot.isNumber())
@@ -87,11 +83,9 @@ Player::Player(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std:
         {
             yp = yPos.cast<float>();
         }
-        if(Debugger::GetInstance()->debugMD2ToConsole) std::cout << "Made it 4 -> check = " << check << std::endl;
-        Model tempModel(file, gameRenderer, check, texture, false);
-        if(Debugger::GetInstance()->debugMD2ToConsole) std::cout << "Made it 4-5" << std::endl;
+
+        Model tempModel(file, gameRenderer, check, texture, true);
         SetModel(tempModel);
-        if(Debugger::GetInstance()->debugMD2ToConsole) std::cout << "Made it 5" << std::endl;
 
         Shader tempShader(vertS.c_str(), fragS.c_str());
         SetShader(tempShader);
@@ -102,29 +96,27 @@ Player::Player(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std:
 
         yPositionOffset = yp;
         SetRotate(rotate);
-        if(Debugger::GetInstance()->debugMD2ToConsole) std::cout << "Made it 6" << std::endl;
-        if(bull)
+
+        if (bull)
         {
-            if(Debugger::GetInstance()->debugMD2ToConsole) std::cout << "Made it 7" << std::endl;
             LuaRef bulletMod = getGlobal(L, "bulletModel");
             LuaRef bulletTex = getGlobal(L, "bulletTexture");
 
             std::string bulletModel;
             std::string bulletTexture;
 
-            if(bulletMod.isString())
+            if (bulletMod.isString())
             {
                 bulletModel = bulletMod.cast<std::string>();
             }
 
-            if(bulletTex.isString())
+            if (bulletTex.isString())
             {
                 bulletTexture = bulletTex.cast<std::string>();
             }
-            if(Debugger::GetInstance()->debugMD2ToConsole) std::cout << "Made it 8" << std::endl;
-            Model tempBulletModel(bulletModel, gameRenderer, check, bulletTexture, false);
+
+            Model tempBulletModel(bulletModel, gameRenderer, check, bulletTexture, true);
             bModel = tempBulletModel;
-            if(Debugger::GetInstance()->debugMD2ToConsole) std::cout << "Made it 9" << std::endl;
         }
 
 
@@ -209,7 +201,7 @@ Player::Player(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std:
             yp = yPos.cast<float>();
         }
 
-        Model tempModel(file, gameRenderer, check, texture, false);
+        Model tempModel(file, gameRenderer, check, texture, true);
         SetModel(tempModel);
 
         Shader tempShader(vertS.c_str(), fragS.c_str());
@@ -240,7 +232,7 @@ Player::Player(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std:
                 bulletTexture = bulletTex.cast<std::string>();
             }
 
-            Model tempBulletModel(bulletModel, gameRenderer, check, bulletTexture, false);
+            Model tempBulletModel(bulletModel, gameRenderer, check, bulletTexture, true);
             bModel = tempBulletModel;
         }
 	}
@@ -255,6 +247,7 @@ Player::Player(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std:
 
 	SetType("player");
 	Update(0.0f);
+    SetSate(SHOOT);
 
 	if (Debugger::GetInstance()->debugToConsole) std::cout << xRotationOffset << " " << yRotationOffset << " " << zRotationOffset << " " << yPositionOffset << std::endl;
 }
@@ -281,12 +274,21 @@ void Player::Render(View lens, float time, Renderer* gameRenderer)
 {
     glm::vec3 pos = lens.GetPosition();
     pos.y += yPositionOffset;
-    //SetRotation(glm::vec3(xRotatioonOffset + lens.GetRotation().x * -1, yRotatioonOffset + lens.GetRotation().y * -1, lens.GetRotation().z + zRotatioonOffset));
-
-    SetRotation(glm::vec3(yRotatioonOffset + lens.GetRotation().y * -1, xRotatioonOffset + lens.GetRotation().x *-1, zRotatioonOffset + lens.GetRotation().z *-1));
+    SetRotation(glm::vec3(xRotationOffset + lens.GetRotation().x * -1, yRotationOffset + lens.GetRotation().y, lens.GetRotation().z + zRotationOffset));
+    //SetRotation(glm::vec3(lens.GetRotation().x * -1, lens.GetRotation().y * -1, lens.GetRotation().z));
+    std::cout << GetRotation().x << " " << GetRotation().y << " " << GetRotation().z << " " << std::endl;
     Model temp = GetModel();
     Shader s = GetShader();
+    bModel.Render(lens, s, pos, GetRotation(), GetScale(), GetRotate(), time, 0, gameRenderer);
     temp.Render(lens, s, pos, GetRotation(), GetScale(), GetRotate(), time, 0, gameRenderer);
     SetShader(s);
     SetModel(temp);
+}
+
+void Player::SetSate(Md2Commands state)
+{
+    Model temp = GetModel();
+    temp.SetState(state);
+    SetModel(temp);
+    bModel.SetState(state);
 }
