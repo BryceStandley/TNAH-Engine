@@ -1,6 +1,6 @@
 #include "Md2.h"
 
-Md2State Md2::animationList[21] =
+Md2State Md2::animationList[22] =
 {
 	// first, last, fps
 	{   0,  39,  9 },
@@ -24,6 +24,7 @@ Md2State Md2::animationList[21] =
 	{ 178, 183,  7 },
 	{ 183, 183,  7 },
 	{ 190, 197,  7 },
+	{ 0, 17,  9 },
 };
 
 std::string sMD2AnimationNames[MAX_ANIMATIONS] =
@@ -49,6 +50,7 @@ std::string sMD2AnimationNames[MAX_ANIMATIONS] =
 	"Death Fallback",
 	"Death",
 	"Death Fallback Slow",
+	"Shoot",
 };
 
 v3 anorms[162] =
@@ -270,9 +272,9 @@ void Md2::LoadModel(const char* sFilename, const char* tFilename, const char* vS
 }
 
 
-void Md2::RenderModel(Md2State* animState, glm::mat4 proj, glm::mat4 view, glm::vec3 position, glm::vec3 rotation, float direction, Renderer * gameRenderer)
+void Md2::RenderModel(Md2State* animState, glm::mat4 proj, glm::mat4 view, glm::mat4 genFour, float direction, Renderer * gameRenderer)
 {
-	gameRenderer->RenderModel(number, animState, proj, view, position, rotation, direction, VAO, textureId, shader);
+	gameRenderer->RenderModel(number, animState, proj, view, genFour, direction, VAO, textureId, shader);
 }
 
 Md2State Md2::StartAnimation(Md2Commands type)

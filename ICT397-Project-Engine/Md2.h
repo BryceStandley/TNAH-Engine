@@ -70,6 +70,7 @@ typedef enum {
 	DEATH_FALLBACK,
 	DEATH,
 	DEATH_FALLBACKSLOW,
+	SHOOT,
 
 
 	MAX_ANIMATIONS
@@ -92,7 +93,7 @@ public:
 
 	void LoadModel(const char* sFilename, const char* tFilename, const char* vShader, const char* fShader, Renderer* gameRenderer);
 
-	void RenderModel(Md2State* animState, glm::mat4 proj, glm::mat4 view, glm::vec3 position, glm::vec3 rotation, float direction, Renderer * gameRenderer);
+	void RenderModel(Md2State* animState, glm::mat4 proj, glm::mat4 view, glm::mat4 genFour, float direction, Renderer * gameRenderer);
 
 	Md2State StartAnimation(Md2Commands type);
 	void UpdateAnimation(Md2State* animState, float fTimePassed, Renderer* gameRenderer);
@@ -101,7 +102,7 @@ public:
 	glm::vec3 GetPos() { return position; }
 	void setPos(glm::vec3 p) { position = p; }
 
-	static Md2State animationList[21];
+	static Md2State animationList[22];
 	unsigned int TextureFromFile(std::string path);
 	Shader shader;
 	Md2State GetState(Md2Commands state)

@@ -12,9 +12,9 @@ bulletTexture = "./res/models/weapons/Textures_Guns.png";
 vertShader = "./res/shader/md2vert.vert";
 fragShader = "./res/shader/md2frag.frag";
 
-xRotOffset = 180.0;
-yRotOffset = -5.0;
-zRotOffset = 270.0;
+xRotOffset = 0;
+yRotOffset = 80;
+zRotOffset = 0;
 
-yPosOffset = -0.1;
+yPosOffset = -0.02;
 

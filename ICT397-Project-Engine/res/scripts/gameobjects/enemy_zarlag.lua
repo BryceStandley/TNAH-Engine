@@ -1,7 +1,7 @@
 --enemy_zarlag.lua
 
 check = true;
-rotate = false;
+rotate = true;
 alive = true;
 weapon = true;
 

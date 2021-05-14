@@ -49,16 +49,12 @@ public:
 
     Model(std::string const& path, Renderer* r, bool check, std::string pathTexture, bool anim)
     {
-        if(Debugger::GetInstance()->debugMD2ToConsole) std::cout << "Made it 4.1" << std::endl;
         SetMd2(check);
-        if(Debugger::GetInstance()->debugMD2ToConsole) std::cout << "Made it 4.3" << std::endl;
         LoadModel(path, r, pathTexture);
-        if(Debugger::GetInstance()->debugMD2ToConsole) std::cout << "Made it 4.7" << std::endl;
         animations = anim;
     }
 
     void SetMd2(bool check) {
-        if(Debugger::GetInstance()->debugMD2ToConsole) std::cout << "Made it 4.2" << std::endl;
         if (check)
         {
             md2 = true;

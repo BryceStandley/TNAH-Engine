@@ -416,7 +416,7 @@ int OpenGL::LoadModel(int numFrames, std::vector<int> commands, unsigned int& VA
     return num;
 }
 
-void OpenGL::RenderModel(int number, Md2State* animState, glm::mat4 proj, glm::mat4 view, glm::vec3 position, glm::vec3 rotation, float direction, unsigned int& VAO, unsigned int &textureId, Shader& shader)
+void OpenGL::RenderModel(int number, Md2State* animState, glm::mat4 proj, glm::mat4 view, glm::mat4 genFour, float direction, unsigned int& VAO, unsigned int &textureId, Shader& shader)
 {
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, textureId);
@@ -426,12 +426,7 @@ void OpenGL::RenderModel(int number, Md2State* animState, glm::mat4 proj, glm::m
     shader.setMat4("projection", proj);
     shader.setMat4("view", view);
 
-    glm::mat4 model = glm::mat4(1.0f);
-    model = glm::translate(model, position);
-    model = glm::scale(model, glm::vec3(0.05f));
-    model = glm::rotate(model, rotation.x, glm::vec3(1, 0, 0));
-    model = glm::rotate(model, rotation.y, glm::vec3(0, 1, 0));
-    model = glm::rotate(model, rotation.z, glm::vec3(0, 0, 1));
+    glm::mat4 model = genFour;
     model = glm::rotate(model, direction, glm::vec3(0, 0, 1));
     shader.setMat4("model", model);
     shader.setMat4("normal", model);

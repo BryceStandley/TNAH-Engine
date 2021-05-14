@@ -61,6 +61,8 @@ public:
 
 	virtual void Render(View lens, float time, Renderer* gameRenderer);
 
+	void SetSate(Md2Commands state);
+
 private:
 	
 	stateMachine<Player>* playerFSM;

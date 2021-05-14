@@ -10,7 +10,7 @@ void Model::LoadModel(std::string const& path, Renderer* gameRenderer, std::stri
     else if (md2)
     {
         md2Model.LoadModel(path.c_str(), pathTexture.c_str(), "./res/shader/md2vert.vert", "./res/shader/md2frag.frag", gameRenderer);
-        currentState = md2Model.StartAnimation(WALK);
+        currentState = md2Model.StartAnimation(STAND);
     }
 }
 
@@ -29,12 +29,12 @@ void Model::Render(View lens, Shader &shader, glm::vec3 pos, glm::vec3 rot, floa
         if (animations)
         {
             rot.x = 180.695f;
-            md2Model.RenderModel(&currentState, lens.GetProjection(), lens.GetView(), pos, rot, direction, gameRenderer);
+            md2Model.RenderModel(&currentState, lens.GetProjection(), lens.GetView(), GenerateMatFour(pos, rot, scale, rotate), direction, gameRenderer);
             md2Model.UpdateAnimation(&currentState, time, gameRenderer);
         }
         else
         {
-            md2Model.RenderModel(NULL, lens.GetProjection(), lens.GetView(), pos, rot, 0, gameRenderer);
+            md2Model.RenderModel(NULL, lens.GetProjection(), lens.GetView(), GenerateMatFour(pos, rot, scale, rotate), 0, gameRenderer);
         }
     }
 }
@@ -57,3 +57,4 @@ glm::mat4 Model::GenerateMatFour(glm::vec3 pos, glm::vec3 rot, float scale, bool
 
     return m;
 }
+
