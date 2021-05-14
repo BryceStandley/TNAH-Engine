@@ -219,7 +219,7 @@ void die::Enter(Enemy* dude)
 {
 	//dude->setTimer(1); // resets timer
 	
-	std::cout << "DEATH ANIM " << dude->getDeathAnim()  << std::endl;
+	if(Debugger::GetInstance()->debugAnimationsToConsole) std::cout << "DEATH ANIM " << dude->getDeathAnim()  << std::endl;
 
     if(Debugger::GetInstance()->debugFSMToConsole) std::cout << "DIE" << std::endl;
 	if (dude->getDeathAnim() == false)

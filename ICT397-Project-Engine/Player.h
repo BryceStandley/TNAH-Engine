@@ -2,6 +2,7 @@
 #include "state.h"
 #include "stateMachine.h"
 #include "playerStates.h"
+#include "Debugger.h"
 
 /**
  * @class Player

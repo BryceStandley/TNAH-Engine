@@ -49,12 +49,12 @@ void token::Execute(Player* dude)
 		if (singleton<Manager>::getInstance().token == "SpeedUp" && singleton<Manager>::getInstance().timer != 0)
 		{
 			singleton<Manager>::getInstance().speed = 10;
-			std::cout << "Token = " << singleton<Manager>::getInstance().token << ", Duration = " << singleton<Manager>::getInstance().timer << std::endl;
+            if(Debugger::GetInstance()->debugTokensToConsole) std::cout << "Token = " << singleton<Manager>::getInstance().token << ", Duration = " << singleton<Manager>::getInstance().timer << std::endl;
 			//dude->increasePoints(50);
 		}
 		else
 		{
-			std::cout << "TOKEN EXPIRED" << std::endl;
+            if(Debugger::GetInstance()->debugTokensToConsole) std::cout << "TOKEN EXPIRED" << std::endl;
 			singleton<Manager>::getInstance().speed = 5;
 			dude->getFSM()->changeState(&glob_state::getInstance());
 		}
@@ -64,9 +64,13 @@ void token::Execute(Player* dude)
 	if (dude->token == 1) 
 	{
 		if (singleton<Manager>::getInstance().timer != 0)
-			std::cout << "Token = " << singleton<Manager>::getInstance().token << ", Duration = " << singleton<Manager>::getInstance().timer << std::endl;
-		else
-			dude->getFSM()->changeState(&glob_state::getInstance());
+        {
+            if(Debugger::GetInstance()->debugTokensToConsole) std::cout << "Token = " << singleton<Manager>::getInstance().token << ", Duration = " << singleton<Manager>::getInstance().timer << std::endl;
+        }
+        else
+        {
+            dude->getFSM()->changeState(&glob_state::getInstance());
+        }
 	}
 
 	if (dude->token == 2) 
@@ -101,8 +105,8 @@ void death::Exit(Player* dude) {}
 
 void glob::Enter(Player* dude) 
 {
-	std::cout << "Global State" << std::endl;
-	std::cout << "TOTAL POINTS = " << dude->getPoints() << std::endl;
+    if(Debugger::GetInstance()->debugTokensToConsole) std::cout << "Global State" << std::endl;
+    if(Debugger::GetInstance()->debugTokensToConsole) std::cout << "TOTAL POINTS = " << dude->getPoints() << std::endl;
 }
 
 void glob::Execute(Player* dude)
