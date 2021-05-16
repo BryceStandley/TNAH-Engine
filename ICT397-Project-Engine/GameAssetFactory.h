@@ -43,6 +43,8 @@ public:
 		*/
 	GameObject* GetGameObject(std::string t, std::string script, float scale , glm::vec3 position);
 
+	void ResetFactory();
+
 private:
 
 		///if the player game object has been made

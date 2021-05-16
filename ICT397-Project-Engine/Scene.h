@@ -62,6 +62,8 @@ public:
 
 	void Load();
 
+	void Unload();
+
 		/**
 		* @brief Gets the name of the current scene
 		* @return string
@@ -199,5 +201,6 @@ private:
 
 		///If the exit screen is displayed
 	bool exitScreenDisplay = false;
+	bool loaded;
 };
 

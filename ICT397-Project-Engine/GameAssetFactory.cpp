@@ -58,3 +58,10 @@ GameObject* GameAssetFactory::GetGameObject(std::string type, std::string script
 	else
 		return nullptr;
 }
+
+void GameAssetFactory::ResetFactory()
+{
+	playerMade = false; 
+	first = true; 
+	id = 1;
+}

@@ -3,7 +3,7 @@ Scene::Scene(std::string name, Renderer * render)
 {
 	this->sceneName = name;
 	gameRenderer = render;
-
+    loaded = false;
 	Init();
 }
 
@@ -13,9 +13,17 @@ Scene::~Scene()
 	delete[]gameRenderer;
 	delete[]gameTerrain;
 	delete[]gameSkybox;
-	for (int i = gameObjects.size()-1; i > 0; i--)
-		delete[]gameObjects[i];
+    gameObjects.clear();
 	delete[]factory;
+}
+
+void Scene::Unload()
+{
+    //Entity, asset manager, gameobjects
+    gameObjects.clear();
+    factory->ResetFactory();
+    singleton<Manager>::getInstance().Reset();
+    loaded = false;
 }
 
 void Scene::Load()
@@ -28,6 +36,8 @@ void Scene::Load()
                 entityMan::getInstance().RegisterEntity(gameObjects[i]);
         }
     }
+
+    loaded = true;
 }
 
 void Scene::Run(View lens, float time, bool exit)
