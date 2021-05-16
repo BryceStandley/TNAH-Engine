@@ -10,7 +10,7 @@ void Model::LoadModel(std::string const& path, Renderer* gameRenderer, std::stri
     else if (md2)
     {
         md2Model.LoadModel(path.c_str(), pathTexture.c_str(), "./res/shader/md2vert.vert", "./res/shader/md2frag.frag", gameRenderer);
-        currentState = md2Model.StartAnimation(STAND);
+        currentState = md2Model.StartAnimation(WALK);
     }
 }
 

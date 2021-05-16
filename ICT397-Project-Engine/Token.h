@@ -170,7 +170,7 @@ public:
 		{
 			std::cout << "ERROR::NO_TOKEN_SCRIPTS_FOUND" << std::endl;
 		}
-
+		spin = glm::vec3(0, 0, 0);
 		if(Debugger::GetInstance()->debugToConsole) std::cout << "Token speed -> " << speed << std::endl;
 	}
 		/*
@@ -186,9 +186,20 @@ public:
 		singleton<Manager>::getInstance().timer = duration;
 	}
 
+	void Render(View lens, float time, Renderer* gameRenderer)
+	{
+		Model temp = GetModel();
+		Shader s = GetShader();
+		spin.x += speed * time;
+		if (spin.x >= 360)
+			spin.x = 0;
+		temp.Render(lens, s, GetPos(), spin, GetScale(), GetRotate(), time, 0, gameRenderer, false);
+	}
+
 private:
 	std::string tokenType;
 	float speed;
 	float duration;
+	glm::vec3 spin;
 };
 

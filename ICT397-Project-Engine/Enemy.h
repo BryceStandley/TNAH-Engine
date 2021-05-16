@@ -69,6 +69,11 @@ public:
 		killFSM = k;
 	}
 
+	bool isAlive()
+	{
+		return alive;
+	}
+
 	float GetDeltaTime() const { return deltaTime; }
 
 		/**
