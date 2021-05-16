@@ -196,6 +196,7 @@
     <ClInclude Include="Windows.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="res\scripts\gameobjects\enemy_zarlag.lua" />
     <None Include="res\scripts\test.lua" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

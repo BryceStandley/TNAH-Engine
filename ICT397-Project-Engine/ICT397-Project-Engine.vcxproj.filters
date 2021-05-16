@@ -343,5 +343,8 @@
     <None Include="res\scripts\test.lua">
       <Filter>Scripts</Filter>
     </None>
+    <None Include="res\scripts\gameobjects\enemy_zarlag.lua">
+      <Filter>Scripts</Filter>
+    </None>
   </ItemGroup>
 </Project>

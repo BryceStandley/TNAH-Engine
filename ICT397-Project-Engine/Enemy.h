@@ -35,9 +35,9 @@ class Enemy : public GameObject
 public:
 	float value;
 	Enemy(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std::string script, bool first);
-	void Print()
+	void Print(glm::vec3 p)
 	{
-		std::cout << "bruh" << std::endl;
+		std::cout << "print: " << p.x << " " << p.y << " " << p.z << std::endl;
 	}
 	~Enemy();
 
@@ -59,11 +59,17 @@ public:
 
 	void Render(View lens, float time, Renderer* gameRenderer);
 
-	void SetSate(Md2Commands state);
+	void SetSate(int num);
 
 	bool isAlive() { return alive; }
 	
 	bool killFSM = false;
+
+
+	void SetKillFSM(bool k)
+	{
+		killFSM = k;
+	}
 
 	float GetDeltaTime() const { return deltaTime; }
 
@@ -123,7 +129,7 @@ public:
 		* @param offset - the distance that the character should maintain between itself and its target
 		* @return bool
 		*/
-	bool moveTo(glm::vec3& curPos, const glm::vec3& targetPos, glm::vec3& curVelocity, float time, float offset);
+	bool moveTo(glm::vec3& curPos, const glm::vec3& targetPos, glm::vec3& curVelocity, float time, float offset, std::string type);
 
 		/**
 		* @brief allows the enemy to pursue an evading target
@@ -134,7 +140,7 @@ public:
 		* @param time - represents the time used to calculate the displacement
 		* @param offset - the distance that the enemy should maintain between itself and its target
 		*/
-	void pursue(const glm::vec3& evaderPos, glm::vec3& pursuerPos, const glm::vec3& evaderVelocity, glm::vec3& pursuerVelocity, float time, float offset);
+	void pursue(const glm::vec3& evaderPos, glm::vec3& pursuerPos, const glm::vec3& evaderVelocity, glm::vec3& pursuerVelocity, float time, float offset, std::string type);
 	
 		/**
 		* @brief allows the enemy to flee from a pursuing entity
@@ -145,7 +151,7 @@ public:
 		* @param time - represents the time that is multiplied by velocity to update the current position
 		* @return bool
 		*/
-	bool flee(glm::vec3& curPos, const glm::vec3& pursuerPos, glm::vec3& curVelocity, float fleeSpeed, float time);
+	bool flee(glm::vec3& curPos, const glm::vec3& pursuerPos, glm::vec3& curVelocity, float fleeSpeed, float time, std::string type);
 
 		/**
 		* @brief allows the enemy to evade a pursuing entity. Serves as a flee that moves from the predicted future position of the pursuer
@@ -156,7 +162,7 @@ public:
 		* @param time - represents the time
 		* @return bool
 		*/
-	bool evade(glm::vec3& evaderPos, const glm::vec3& pursuerPos, glm::vec3& evaderVelocity, const glm::vec3& pursuerVelocity, float time);
+	bool evade(glm::vec3& evaderPos, const glm::vec3& pursuerPos, glm::vec3& evaderVelocity, const glm::vec3& pursuerVelocity, float time, std::string type);
 
 		/**
 		* @brief a function used to set the values that will be used in the wander movement function
@@ -173,7 +179,7 @@ public:
 		* @param time - represents the time
 		* @return bool
 		*/
-	bool wander(glm::vec3& position, glm::vec3& velocity, float time);
+	bool wander(glm::vec3& position, glm::vec3& velocity, float time, std::string type);
 
 		/**
 		* @brief gets and returns the velocity vector
@@ -283,11 +289,110 @@ public:
 		*/
 	int incrementCheck() { return check++; }
 
+	void ChangeState(std::string state)
+	{
+		if (state == "wander")
+		{
+			getFSM()->changeState(&wander_state::getInstance());
+		}
+		else if (state == "alert")
+		{
+			getFSM()->changeState(&alert_state::getInstance());
+		}
+		else if (state == "chase")
+		{
+			getFSM()->changeState(&chase_state::getInstance());
+		}
+		else if (state == "flee")
+		{
+			getFSM()->changeState(&flee_state::getInstance());
+		}
+		else if (state == "attack")
+		{
+			getFSM()->changeState(&attack_state::getInstance());
+		}
+		else if (state == "die")
+		{
+			getFSM()->changeState(&die_state::getInstance());
+		}
+		else if (state == "global")
+		{
+			getFSM()->changeState(&global_state::getInstance());
+		}
+	}
+
+	bool CheckPrevState(std::string state)
+	{
+		if (state == "wander")
+		{
+			return getFSM()->getPreviousState() == &wander_state::getInstance();
+		}
+		else if (state == "alert")
+		{
+			return getFSM()->getPreviousState() == &alert_state::getInstance();
+		}
+		else if (state == "chase")
+		{
+			return getFSM()->getPreviousState() == &chase_state::getInstance();
+		}
+		else if (state == "flee")
+		{
+			return getFSM()->getPreviousState() == &flee_state::getInstance();
+		}
+		else if (state == "attack")
+		{
+			return getFSM()->getPreviousState() == &attack_state::getInstance();
+		}
+		else if (state == "die")
+		{
+			return getFSM()->getPreviousState() == &die_state::getInstance();
+		}
+		else if (state == "global")
+		{
+			return getFSM()->getPreviousState() == &global_state::getInstance();
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
+	float LookDirection(std::string type)
+	{
+		if (type == "player")
+		{
+			return atan2(getVelocity().z, getVelocity().x);
+		}
+		else
+		{
+			return atan2(enemyVelocity.z, enemyVelocity.x);
+		}
+	}
+
+	void SendMessage(int message, std::string type)
+	{
+		singleton<MessageDispatcher>::getInstance().DisbatchMsgAllOfType(GetId(), message, type);
+	}
+
+	void SetMoving(bool m) { moving = m; }
+	bool GetMoving() { return moving; }
+
+	glm::vec3 getNewPos() { return newPos; }
+	void setNewPos(glm::vec3 p) { newPos = p; }
+
 	glm::vec3 newPos;
 	bool moving = false;
 
+	LuaRef wanderLua = NULL;
+	LuaRef alert = NULL;
+	LuaRef chase = NULL;
+	LuaRef fleeLua = NULL;
+	LuaRef attack = NULL;
+	LuaRef die = NULL;
+	LuaRef global = NULL;
+
 private:
-	LuaRef function = NULL;
+
 	glm::vec3 pPos;
 	Model wModel;
 	float deltaTime = 0;
