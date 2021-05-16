@@ -29,12 +29,14 @@ GameObject* GameAssetFactory::GetGameObject(std::string type, std::string script
 	else if (type == "enemy")
 	{
         if(Debugger::GetInstance()->debugToConsole) std::cout << "Enemy done" << std::endl;
-		GameObject* obj = new Enemy(position, glm::vec3(0, 0, 0), scale, renderer, script);
+		GameObject* obj = new Enemy(position, glm::vec3(0, 0, 0), scale, renderer, script, first);
 		obj->SetCollisionTag(BoundingBox::CollisionTag::ENEMY);
 		obj->SetName("Enemy");
 		obj->SetType("enemy");
 		obj->SetId(id);
 		id++;
+		if (first)
+			first = false;
 		return obj;
 	}
 	else if (type == "token")

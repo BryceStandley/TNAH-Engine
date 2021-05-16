@@ -28,7 +28,7 @@ public:
 		* @brief Game asset factory contructor with the renderer
 		* @param r - The renderer for the game engine
 		*/
-	GameAssetFactory(Renderer* r) { renderer = r; playerMade = false; id = 1; }
+	GameAssetFactory(Renderer* r) { renderer = r; playerMade = false; first = true; id = 1; }
 
 		/**
 		* @brief Creates the game object and returns it
@@ -47,6 +47,8 @@ private:
 
 		///if the player game object has been made
 	bool playerMade;
+
+	bool first;
 
 		///The renderer for the engine
 	Renderer* renderer;

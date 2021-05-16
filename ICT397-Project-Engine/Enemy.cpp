@@ -1,6 +1,6 @@
 #include "Enemy.h"
 
-Enemy::Enemy(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std::string script) : GameObject(p, rot, s, gameRenderer)
+Enemy::Enemy(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std::string script, bool first) : GameObject(p, rot, s, gameRenderer)
 {
 	lua_State* L = LuaManager::getInstance().getLuaState();
 
@@ -10,6 +10,14 @@ Enemy::Enemy(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std::s
 
 	if (!luaL_dofile(L, script.c_str()))
 	{
+		wanderLua = getGlobal(L, "wander");
+		alert = getGlobal(L, "alert");
+		chase = getGlobal(L, "chase");
+		fleeLua = getGlobal(L, "flee");
+		attack = getGlobal(L, "attack");
+		die = getGlobal(L, "die");
+		global = getGlobal(L, "global");
+
 		LuaRef type = getGlobal(L, "check");
 		LuaRef rot = getGlobal(L, "rotate");
 		LuaRef alv = getGlobal(L, "alive");
@@ -234,9 +242,11 @@ Enemy::~Enemy()
 void Enemy::Update(float time)
 {
 	SetType("enemy");
-
 	//if(Debugger::GetInstance()->debugFSMToConsole) std::cout << GetId() << " player has token = " << token << std::endl;
-
+	//if (function.isTable())
+	//{
+	//	function[1](this);
+	//}
 	if (killFSM == false)
 		enemyFSM->update();
 	else 
@@ -285,9 +295,79 @@ void Enemy::Render(View lens, float time, Renderer* gameRenderer)
 	}
 }
 
-void Enemy::SetSate(Md2Commands state)
+void Enemy::SetSate(int num)
 {
 	Model temp = GetModel();
+	Md2Commands state;
+	switch (num)
+	{
+	case 0:
+		state = STAND;
+		break;
+	case 1:
+		state = RUN;
+		break;
+	case 2:
+		state = WALK;
+		break;
+	case 3:
+		state = ATTACK;
+		break;
+	case 4:
+		state = PAIN_A;
+		break;
+	case 5:
+		state = PAIN_B;
+		break;
+	case 6:
+		state = PAIN_C;
+		break;
+	case 7:
+		state = JUMP;
+		break;
+	case 8:
+		state = FLIP;
+		break;
+	case 9:
+		state = SALUTE;
+		break;
+	case 10:
+		state = FALLBACK;
+		break;
+	case 11:
+		state = WAVE;
+		break;
+	case 12:
+		state = POINTING;
+		break;
+	case 13:
+		state = CROUCH_STAND;
+		break;
+	case 14:
+		state = CROUCH_WALK;
+		break;
+	case 15:
+		state = CROUCH_ATTACK;
+		break;
+	case 16:
+		state = CROUCH_PAIN;
+		break;
+	case 17:
+		state = CROUCH_DEATH;
+		break;
+	case 18:
+		state = DEATH_FALLBACK;
+		break;
+	case 19:
+		state = DEATH;
+		break;
+	case 20:
+		state = DEATH_FALLBACKSLOW;
+		break;
+	default:
+		state = WALK;
+		break;
+	}
 	temp.SetState(state);
 	SetModel(temp);
 	wModel.SetState(state);
@@ -318,7 +398,7 @@ float Enemy::DistanceBetween(glm::vec3 otherPos)
 	return distance;
 }
 
-bool Enemy::moveTo(glm::vec3& curPos, const glm::vec3& targetPos, glm::vec3& curVelocity, float time, float offset)
+bool Enemy::moveTo(glm::vec3& curPos, const glm::vec3& targetPos, glm::vec3& curVelocity, float time, float offset, std::string type)
 {
 	//calc heading from character position to target
 	glm::vec3 target = targetPos - curPos;
@@ -332,6 +412,11 @@ bool Enemy::moveTo(glm::vec3& curPos, const glm::vec3& targetPos, glm::vec3& cur
 	glm::vec3 displacement = curVelocity * time;
 	glm::vec3 newPos = curPos + displacement;
 
+	if (type == "Player")
+		setVelocity(curVelocity);
+	else
+		setEnemyVelocity(curVelocity);
+
 	// calculate real target position
 	glm::vec3 realTargetPos = targetPos - target * offset;
 
@@ -339,7 +424,7 @@ bool Enemy::moveTo(glm::vec3& curPos, const glm::vec3& targetPos, glm::vec3& cur
 	glm::vec3 toRealTarget = realTargetPos - newPos;
 	toRealTarget = glm::normalize(toRealTarget);
 
-	if (toRealTarget.x == 0 && toRealTarget.y == 0 && toRealTarget.z)
+	if (toRealTarget.x == 0 && toRealTarget.y == 0 && toRealTarget.z == 0)
 	{
 		curPos = realTargetPos;
 		return true;
@@ -352,13 +437,14 @@ bool Enemy::moveTo(glm::vec3& curPos, const glm::vec3& targetPos, glm::vec3& cur
 		curPos = realTargetPos;
 		return true;
 	}
-
+	//std::cout << curPos.x << " " << curPos.y << " " << curPos.z << " | " << newPos.x << " " << newPos.y << " " << newPos.z << std::endl;
 	// newPos has not yet passed realTargetPos
 	curPos = newPos;
+	SetPos(curPos);
 	return false;
 }
 
-void Enemy::pursue(const glm::vec3& evaderPos, glm::vec3& pursuerPos, const glm::vec3& evaderVelocity, glm::vec3& pursuerVelocity, float time, float offset)
+void Enemy::pursue(const glm::vec3& evaderPos, glm::vec3& pursuerPos, const glm::vec3& evaderVelocity, glm::vec3& pursuerVelocity, float time, float offset, std::string type)
 {
 	double lookAheadTime;
 
@@ -382,18 +468,18 @@ void Enemy::pursue(const glm::vec3& evaderPos, glm::vec3& pursuerPos, const glm:
 	//determine if evader is facing pursuer
 	if ((relativeHeading < -0.95) || glm::length(evaderVelocity) == 1)
 	{
-		moveTo(pursuerPos, evaderPos, pursuerVelocity, time, offset);
+		moveTo(pursuerPos, evaderPos, pursuerVelocity, time, offset, type);
 		//std::cout << "In eyesight" << std::endl;
 	}
 	else
 	{
 		lookAheadTime = (glm::length(toEvader)) / (glm::length(evaderVelocity) + glm::length(pursuerVelocity));
-		moveTo(pursuerPos, evaderPos + evaderVelocity * (float)lookAheadTime, pursuerVelocity, time, offset);
+		moveTo(pursuerPos, evaderPos + evaderVelocity * (float)lookAheadTime, pursuerVelocity, time, offset, type);
 		//std::cout << "outta eyesight" << std::endl;
 	}
 }
 
-bool Enemy::flee(glm::vec3& curPos, const glm::vec3& pursuerPos, glm::vec3& curVelocity, float fleeSpeed, float time)
+bool Enemy::flee(glm::vec3& curPos, const glm::vec3& pursuerPos, glm::vec3& curVelocity, float fleeSpeed, float time, std::string type)
 {
 	glm::vec3 fromPursuer = curPos - pursuerPos;
 
@@ -408,14 +494,14 @@ bool Enemy::flee(glm::vec3& curPos, const glm::vec3& pursuerPos, glm::vec3& curV
 	return true;
 }
 
-bool Enemy::evade(glm::vec3& evaderPos, const glm::vec3& pursuerPos, glm::vec3& evaderVelocity, const glm::vec3& pursuerVelocity, float time)
+bool Enemy::evade(glm::vec3& evaderPos, const glm::vec3& pursuerPos, glm::vec3& evaderVelocity, const glm::vec3& pursuerVelocity, float time, std::string type)
 {
 	//distance between pursuer and evader
 	glm::vec3 toPursuer = pursuerPos - evaderPos;
 
 	float lookAheadTime = toPursuer.length() / (evaderVelocity.length() + pursuerVelocity.length());
 
-	return(flee(evaderPos, pursuerPos + pursuerVelocity * lookAheadTime, evaderVelocity, evaderVelocity.length(), time));
+	return(flee(evaderPos, pursuerPos + pursuerVelocity * lookAheadTime, evaderVelocity, evaderVelocity.length(), time, type));
 }
 
 void Enemy::setWander(double wanderRadius, double wanderDistance, double wanderJitter)
@@ -427,15 +513,12 @@ void Enemy::setWander(double wanderRadius, double wanderDistance, double wanderJ
 	wanderTarget = { cos(theta), 0, sin(theta) };
 }
 
-bool Enemy::wander(glm::vec3& position, glm::vec3& velocity, float time)
+bool Enemy::wander(glm::vec3& position, glm::vec3& velocity, float time, std::string type)
 {
 	float jitter = wanderJitter * time;
-
 	wanderTarget += glm::vec3(randomClamped() * jitter, 0.0, randomClamped() * jitter);
-
 	//reproject the new vector back on to a unit circle
 	wanderTarget = glm::normalize(wanderTarget);
-
 	glm::vec3 heading(velocity);
 	heading = glm::normalize(heading);
 
@@ -443,9 +526,8 @@ bool Enemy::wander(glm::vec3& position, glm::vec3& velocity, float time)
 
 	//project the wanderTarget to the enlarged wander circle in the world
 	glm::vec3 targetWorld = wanderCircleWorldCentre + (wanderTarget * (float)wanderRadius);
-
 	//move to the new target position
-	moveTo(position, targetWorld, velocity, deltaTime, 0);
+	moveTo(position, targetWorld, velocity, deltaTime, 0, type);
 	return true;
 }
 
