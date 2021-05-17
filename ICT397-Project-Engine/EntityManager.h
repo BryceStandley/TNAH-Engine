@@ -26,6 +26,12 @@ public:
 		entityMap.erase(entity->GetId());
 	}
 
+	void ClearEntitys()
+	{
+		entityMap.clear();
+		max = -1;
+	}
+
 	GameObject* GetEntity(int id)
 	{
 		Objects::const_iterator ent = entityMap.find(id);

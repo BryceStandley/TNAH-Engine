@@ -171,9 +171,9 @@ public:
 		return false;
 	}
 
-	virtual void Kill()
+	virtual bool Kill()
 	{
-
+		return false;
 	}
 
 private:

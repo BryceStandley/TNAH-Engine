@@ -377,6 +377,11 @@ public:
 		singleton<MessageDispatcher>::getInstance().DisbatchMsgAllOfType(GetId(), message, type);
 	}
 
+	bool Kill()
+	{
+		return !alive;
+	}
+
 	void SetMoving(bool m) { moving = m; }
 	bool GetMoving() { return moving; }
 

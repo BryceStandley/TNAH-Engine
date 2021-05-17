@@ -49,7 +49,7 @@ private:
 		* @param file - The file path to the script
 		* @param i - The scene number
 		*/
-	void LuaScenes(std::string file, int i);
+	void LoadScene(std::string file);
 
 		///Pointer for the window
 	Window* window;

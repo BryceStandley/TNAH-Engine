@@ -179,11 +179,12 @@ public:
 		*/
 	void Update(float time);
 	
-	virtual void Kill()
+	virtual bool Kill()
 	{
 		std::cout << tokenType << std::endl;
 		singleton<Manager>::getInstance().token = tokenType;
 		singleton<Manager>::getInstance().timer = duration;
+		return false;
 	}
 
 	void Render(View lens, float time, Renderer* gameRenderer)

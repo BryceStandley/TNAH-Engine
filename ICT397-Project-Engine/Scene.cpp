@@ -23,11 +23,26 @@ void Scene::Unload()
     gameObjects.clear();
     factory->ResetFactory();
     singleton<Manager>::getInstance().Reset();
+    entityMan::getInstance().ClearEntitys();
     loaded = false;
 }
 
-void Scene::Load()
+void Scene::Load(std::string file)
 {
+    lua_State* L = LuaManager::getInstance().getLuaState();
+    setGlobal(L, this, "cs");
+
+    if (luaL_dofile(L, file.c_str()))
+    {
+        std::cout << "Scene lua file not found" << std::endl;
+    }
+    else
+    {
+        std::cout << "WOORLD::RUNNING" << std::endl;
+    }
+
+    FindPlayerIndice();
+
     if (gameObjects.size() > 0)
     {
         for (int i = 0; i < gameObjects.size(); i++)
@@ -48,37 +63,53 @@ void Scene::Run(View lens, float time, bool exit)
     }
     else
     {
-        singleton<Manager>::getInstance().Update(time);
-	    gameRenderer->BindTexture(gameTerrain->GetTextIds());
-	    Shader t = gameTerrain->GetShader();
-	    gameRenderer->SetShaderTerrain(t, lens);
-	    gameTerrain->SetShader(t);
-	    gameRenderer->RenderTerrain(gameTerrain->GetVAO(), gameTerrain->GetIndicesSize());
-
-	    //Skybox
-	    gameRenderer->SetShaderSkybox(gameSkybox->skyShader, lens);
-	    gameRenderer->RenderSkybox(gameSkybox->VAO, gameSkybox->texture);
-
-	    //Models
-	    for (int x = 0; x < gameObjects.size(); x++)
-	    {
-		    gameObjects[x]->Update(0.1);
-		    if (x != playerInd)
-		    {
-                gameObjects[x]->Render(lens, time, gameRenderer);
-                if(gameObjects[x]->GetType() == "enemy")
-                    UpdateGameObject(gameObjects[x]->GetPos(), x);
-                //if(gameObjects[x]->GetType() == "enemy" && gameObjects[x]->)
-		    }
-	    }
-
-	    //if the player is firing, fire the weapon duh
-	    if(playerWeapon.firingWeapon && playerWeapon.canFireWeapon)
+        if (loaded)
         {
-	        playerWeapon.canFireWeapon = false;
-            FireWeapon(gameObjects[playerInd]->GetPos(), lens.GetForward(), 10.0f);
-        }
+            singleton<Manager>::getInstance().Update(time);
+            gameRenderer->BindTexture(gameTerrain->GetTextIds());
+            Shader t = gameTerrain->GetShader();
+            gameRenderer->SetShaderTerrain(t, lens);
+            gameTerrain->SetShader(t);
+            gameRenderer->RenderTerrain(gameTerrain->GetVAO(), gameTerrain->GetIndicesSize());
 
+            //Skybox
+            gameRenderer->SetShaderSkybox(gameSkybox->skyShader, lens);
+            gameRenderer->RenderSkybox(gameSkybox->VAO, gameSkybox->texture);
+
+            std::vector<GameObject*> gameObjectsToRemoveFromScene;
+            //Models
+            for (int x = 0; x < gameObjects.size(); x++)
+            {
+                gameObjects[x]->Update(0.1);
+                if (x != playerInd)
+                {
+                    gameObjects[x]->Render(lens, time, gameRenderer);
+                    if (gameObjects[x]->GetType() == "enemy")
+                    {
+                        UpdateGameObject(gameObjects[x]->GetPos(), x);
+                        if (gameObjects[x]->Kill())
+                        {
+                            gameObjectsToRemoveFromScene.emplace_back(gameObjects[x]);
+                        }
+                    }
+                    //if(gameObjects[x]->GetType() == "enemy" && gameObjects[x]->)
+                }
+            }
+
+            std::vector<GameObject*>::iterator removed;
+            for (auto& go : gameObjectsToRemoveFromScene)
+            {
+                //if(Debugger::GetInstance()->debugCollisionsToConsole) std::cout << "Scene.cpp::INFO::GameObject - " + go->GetName() +" hit and removed from scene" << std::endl;
+                removed = std::remove(gameObjects.begin(), gameObjects.end(), go);
+            }
+
+            //if the player is firing, fire the weapon duh
+            if (playerWeapon.firingWeapon && playerWeapon.canFireWeapon)
+            {
+                playerWeapon.canFireWeapon = false;
+                FireWeapon(gameObjects[playerInd]->GetPos(), lens.GetForward(), 10.0f);
+            }
+        }
     }
 	//Terrain
 

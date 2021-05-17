@@ -60,7 +60,7 @@ public:
 		*/
 	void Init();
 
-	void Load();
+	void Load(std::string file);
 
 	void Unload();
 
@@ -149,8 +149,11 @@ public:
 
 	void RunPlayer(View lens, float time, bool exit)
 	{
-		if(!exitScreen.exitScreenDisplay)
-			gameObjects[playerInd]->Render(lens, time, gameRenderer);
+		if (loaded)
+		{
+			if (!exitScreen.exitScreenDisplay)
+				gameObjects[playerInd]->Render(lens, time, gameRenderer);
+		}
 	}
 
 	void UpdateGameObject(glm::vec3 position, int i);
