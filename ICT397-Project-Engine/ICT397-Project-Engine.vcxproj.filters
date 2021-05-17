@@ -13,11 +13,20 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Scripts">
-      <UniqueIdentifier>{b62b1cae-539a-4d9f-b118-23c53b0d5f6b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ImGui">
       <UniqueIdentifier>{5610827f-8fb7-4397-84e1-81ddb7a6e5bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\lua scripts">
+      <UniqueIdentifier>{bdb1dfb8-92ed-4607-aaa0-b64bc4dc6282}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\lua scripts\gameobjects">
+      <UniqueIdentifier>{6b4c398e-079a-4671-bc22-861d544c9d51}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\lua scripts\menus">
+      <UniqueIdentifier>{663430d8-1ad6-4921-947a-59a3380f5882}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\shaders">
+      <UniqueIdentifier>{6eb92fe7-da8c-4da9-9a4c-3cff0713431a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -178,6 +187,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="playerStates.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DebugGUI.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuGUI.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -350,13 +365,115 @@
     <ClInclude Include="playerStates.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="DebugGUI.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuGUI.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="res\scripts\test.lua">
-      <Filter>Scripts</Filter>
+    <None Include="res\scripts\engine.lua">
+      <Filter>Resource Files\lua scripts</Filter>
     </None>
-    <None Include="res\scripts\gameobjects\enemy_zarlag.lua">
-      <Filter>Scripts</Filter>
+    <None Include="res\scripts\input.lua">
+      <Filter>Resource Files\lua scripts</Filter>
+    </None>
+    <None Include="res\scripts\scene1 old.lua">
+      <Filter>Resource Files\lua scripts</Filter>
+    </None>
+    <None Include="res\scripts\scene1.lua">
+      <Filter>Resource Files\lua scripts</Filter>
+    </None>
+    <None Include="res\scripts\skybox.lua">
+      <Filter>Resource Files\lua scripts</Filter>
+    </None>
+    <None Include="res\scripts\terrain.lua">
+      <Filter>Resource Files\lua scripts</Filter>
+    </None>
+    <None Include="res\scripts\gameobjects\enemy_default.lua">
+      <Filter>Resource Files\lua scripts\gameobjects</Filter>
+    </None>
+    <None Include="res\scripts\gameobjects\enemy_zarlagweapon.lua">
+      <Filter>Resource Files\lua scripts\gameobjects</Filter>
+    </None>
+    <None Include="res\scripts\gameobjects\player_default.lua">
+      <Filter>Resource Files\lua scripts\gameobjects</Filter>
+    </None>
+    <None Include="res\scripts\gameobjects\static_default.lua">
+      <Filter>Resource Files\lua scripts\gameobjects</Filter>
+    </None>
+    <None Include="res\scripts\gameobjects\static_greentree.lua">
+      <Filter>Resource Files\lua scripts\gameobjects</Filter>
+    </None>
+    <None Include="res\scripts\gameobjects\static_redtree.lua">
+      <Filter>Resource Files\lua scripts\gameobjects</Filter>
+    </None>
+    <None Include="res\scripts\gameobjects\static_stonediamond.lua">
+      <Filter>Resource Files\lua scripts\gameobjects</Filter>
+    </None>
+    <None Include="res\scripts\gameobjects\static_water.lua">
+      <Filter>Resource Files\lua scripts\gameobjects</Filter>
+    </None>
+    <None Include="res\scripts\gameobjects\static_yellowtree.lua">
+      <Filter>Resource Files\lua scripts\gameobjects</Filter>
+    </None>
+    <None Include="res\scripts\gameobjects\token_default.lua">
+      <Filter>Resource Files\lua scripts\gameobjects</Filter>
+    </None>
+    <None Include="res\scripts\gameobjects\token_doubledmg.lua">
+      <Filter>Resource Files\lua scripts\gameobjects</Filter>
+    </None>
+    <None Include="res\scripts\gameobjects\token_doublepoints.lua">
+      <Filter>Resource Files\lua scripts\gameobjects</Filter>
+    </None>
+    <None Include="res\scripts\gameobjects\token_freehit.lua">
+      <Filter>Resource Files\lua scripts\gameobjects</Filter>
+    </None>
+    <None Include="res\scripts\gameobjects\token_healthrefill.lua">
+      <Filter>Resource Files\lua scripts\gameobjects</Filter>
+    </None>
+    <None Include="res\scripts\gameobjects\token_speedup.lua">
+      <Filter>Resource Files\lua scripts\gameobjects</Filter>
+    </None>
+    <None Include="res\scripts\menus\debug.lua">
+      <Filter>Resource Files\lua scripts\menus</Filter>
+    </None>
+    <None Include="res\shader\exitScreenF.glsl">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="res\shader\exitScreenV.glsl">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="res\shader\fragment.glsl">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="res\shader\md2frag.frag">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="res\shader\md2vert.vert">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="res\shader\modelF.glsl">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="res\shader\modelV.glsl">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="res\shader\skybox_frag.glsl">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="res\shader\skybox_vert.glsl">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="res\shader\vertex.glsl">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="res\shader\waterFragment.glsl">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="res\shader\waterVertex.glsl">
+      <Filter>Resource Files\shaders</Filter>
     </None>
   </ItemGroup>
 </Project>

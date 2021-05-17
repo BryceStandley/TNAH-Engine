@@ -39,7 +39,7 @@ public:
 			std::string fragS;
 			std::string tokType;
 			bool check = false, rotate = false;
-			float s, d;
+			float s = 0, d = 0;
 
 			if (type.isBool())
 			{

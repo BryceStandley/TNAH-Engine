@@ -119,6 +119,8 @@ public:
 
 	virtual bool GetWeaponFire() {return fireWeapon;}
 
+	GLFWwindow* GetGameWindow() { return gameWindow; }
+
 
 
 private:	

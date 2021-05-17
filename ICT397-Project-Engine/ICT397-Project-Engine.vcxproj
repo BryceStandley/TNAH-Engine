@@ -92,6 +92,7 @@
     <ClCompile Include="Buffer.cpp" />
     <ClCompile Include="Callbacks.cpp" />
     <ClCompile Include="Debugger.cpp" />
+    <ClCompile Include="DebugGUI.cpp" />
     <ClCompile Include="DynamicEnum.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="enemyStates.cpp" />
@@ -116,6 +117,7 @@
     <ClCompile Include="Manager.cpp" />
     <ClCompile Include="Md2.cpp" />
     <ClCompile Include="Md2State.cpp" />
+    <ClCompile Include="MenuGUI.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="MessageDispatcher.cpp" />
     <ClCompile Include="Model.cpp" />
@@ -147,6 +149,7 @@
     <ClInclude Include="Callbacks.h" />
     <ClInclude Include="camera.h" />
     <ClInclude Include="Debugging.h" />
+    <ClInclude Include="DebugGUI.h" />
     <ClInclude Include="DynamicEnum.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="enemyStates.h" />
@@ -171,6 +174,7 @@
     <ClInclude Include="Manager.h" />
     <ClInclude Include="Md2.h" />
     <ClInclude Include="Md2State.h" />
+    <ClInclude Include="MenuGUI.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="MessageDispatcher.h" />
     <ClInclude Include="Model.h" />
@@ -200,8 +204,40 @@
     <ClInclude Include="Weapon.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="res\scripts\gameobjects\enemy_zarlag.lua" />
-    <None Include="res\scripts\test.lua" />
+    <None Include="res\scripts\engine.lua" />
+    <None Include="res\scripts\gameobjects\enemy_default.lua" />
+    <None Include="res\scripts\gameobjects\enemy_zarlagweapon.lua" />
+    <None Include="res\scripts\gameobjects\player_default.lua" />
+    <None Include="res\scripts\gameobjects\static_default.lua" />
+    <None Include="res\scripts\gameobjects\static_greentree.lua" />
+    <None Include="res\scripts\gameobjects\static_redtree.lua" />
+    <None Include="res\scripts\gameobjects\static_stonediamond.lua" />
+    <None Include="res\scripts\gameobjects\static_water.lua" />
+    <None Include="res\scripts\gameobjects\static_yellowtree.lua" />
+    <None Include="res\scripts\gameobjects\token_default.lua" />
+    <None Include="res\scripts\gameobjects\token_doubledmg.lua" />
+    <None Include="res\scripts\gameobjects\token_doublepoints.lua" />
+    <None Include="res\scripts\gameobjects\token_freehit.lua" />
+    <None Include="res\scripts\gameobjects\token_healthrefill.lua" />
+    <None Include="res\scripts\gameobjects\token_speedup.lua" />
+    <None Include="res\scripts\input.lua" />
+    <None Include="res\scripts\menus\debug.lua" />
+    <None Include="res\scripts\scene1 old.lua" />
+    <None Include="res\scripts\scene1.lua" />
+    <None Include="res\scripts\skybox.lua" />
+    <None Include="res\scripts\terrain.lua" />
+    <None Include="res\shader\exitScreenF.glsl" />
+    <None Include="res\shader\exitScreenV.glsl" />
+    <None Include="res\shader\fragment.glsl" />
+    <None Include="res\shader\md2frag.frag" />
+    <None Include="res\shader\md2vert.vert" />
+    <None Include="res\shader\modelF.glsl" />
+    <None Include="res\shader\modelV.glsl" />
+    <None Include="res\shader\skybox_frag.glsl" />
+    <None Include="res\shader\skybox_vert.glsl" />
+    <None Include="res\shader\vertex.glsl" />
+    <None Include="res\shader\waterFragment.glsl" />
+    <None Include="res\shader\waterVertex.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

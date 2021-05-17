@@ -4,4 +4,5 @@ width = 720;
 height = 1280;
 name = "ICT397 - Game Engine";
 amount = 1;
+debugMode = true;
 

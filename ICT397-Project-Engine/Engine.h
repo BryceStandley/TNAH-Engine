@@ -4,7 +4,7 @@
 #include "Scene.h"
 #include "OpenGL.h"
 #include <vector>
-#include "GUI.h"
+#include "DebugGUI.h"
 #include "Debugger.h"
 
 /**
@@ -66,8 +66,10 @@ private:
 	bool running;
 
     /**
-     * @brief GUI object used to access gui functions
+     * @brief Debug GUI object used to access the gui debugger
      */
-    GUI gui;
+	DebugGUI* debugGui;
+
+
 };
 

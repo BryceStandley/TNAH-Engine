@@ -2,12 +2,11 @@
 
 Engine::Engine()
 {
-    Debugger::GetInstance()->debugToConsole = false;
-
 	lua_State* L = LuaManager::getInstance().getLuaState();
 	int amount = 1;
 	int width = 600;
 	int height = 800;
+	bool debugMode = false;
 	std::string name = "Error loading name";
 
 	if (luaL_dofile(L, "./res/scripts/engine.lua"))
@@ -17,6 +16,7 @@ Engine::Engine()
 		width = 600;
 		height = 800;
 		name = "Error loading name";
+		debugMode = false;
 	}
 	else
 	{
@@ -25,6 +25,7 @@ Engine::Engine()
 		LuaRef h = getGlobal(L, "height");
 		LuaRef n = getGlobal(L, "name");
 		LuaRef a = getGlobal(L, "amount");
+		LuaRef d = getGlobal(L, "debugMode");
 
 		if (w.isNumber())
 		{
@@ -45,6 +46,8 @@ Engine::Engine()
 		{
 			name = n.cast<std::string>();
 		}
+
+		if (d.isBool()) { debugMode = d.cast<bool>(); }
 	}
 
 	if (glfwInit())
@@ -70,7 +73,9 @@ Engine::Engine()
 		render->DepthTest();
 	}
 
-    gui.Init();
+	//Init the debug gui if its enabled
+	if (debugMode) { debugGui = new DebugGUI("./res/scripts/menus/debug.lua"); }
+	if (debugGui) { debugGui->Init((GlfwWindow*)window); }
 
 
     currentScene = 0;
@@ -142,9 +147,9 @@ void Engine::Run()
 			gameScenes[currentScene]->RunPlayer(window->GetLens(), deltaTime, false);
 
             //build GUI elements
-            if(Debugger::GetInstance()->drawDebugPanel)
+            if(debugGui && Debugger::GetInstance()->drawDebugPanel)
             {
-                gui.DrawDebugUI(window);
+				debugGui->Draw();
             }
 
 
