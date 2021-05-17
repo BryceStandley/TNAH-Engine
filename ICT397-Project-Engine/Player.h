@@ -73,7 +73,11 @@ public:
 
 	virtual void Render(View lens, float time, Renderer* gameRenderer);
 
-	void SetSate(Md2Commands state);
+	void SetState(Md2Commands state);
+
+	void FireWeapon();
+
+	void BackToIdle();
 
 private:
 	

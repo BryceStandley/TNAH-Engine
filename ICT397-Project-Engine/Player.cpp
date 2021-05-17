@@ -247,7 +247,7 @@ Player::Player(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std:
 
 	SetType("player");
 	Update(0.0f);
-    SetSate(SHOOT);
+    SetState(IDLE);
 
 	if (Debugger::GetInstance()->debugToConsole) std::cout << xRotationOffset << " " << yRotationOffset << " " << zRotationOffset << " " << yPositionOffset << std::endl;
 }
@@ -272,10 +272,20 @@ void Player::Render(View lens, float time, Renderer* gameRenderer)
     SetModel(temp);
 }
 
-void Player::SetSate(Md2Commands state)
+void Player::SetState(Md2Commands state)
 {
     Model temp = GetModel();
     temp.SetState(state);
     SetModel(temp);
     bModel.SetState(state);
+}
+
+void Player::FireWeapon()
+{
+    SetState(SHOOT);
+}
+
+void Player::BackToIdle()
+{
+    SetState(IDLE);
 }

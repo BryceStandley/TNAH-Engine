@@ -41,6 +41,7 @@ void Scene::Run(View lens, float time, bool exit)
     else
     {
         singleton<Manager>::getInstance().Update(time);
+        singleton<Manager>::getInstance().UpdateWeapon(time);
 	    gameRenderer->BindTexture(gameTerrain->GetTextIds());
 	    Shader t = gameTerrain->GetShader();
 	    gameRenderer->SetShaderTerrain(t, lens);
@@ -67,8 +68,21 @@ void Scene::Run(View lens, float time, bool exit)
 	    //if the player is firing, fire the weapon duh
 	    if(playerWeapon.firingWeapon && playerWeapon.canFireWeapon)
         {
+            playerWeapon.firingWeapon = false;
+            singleton<Manager>::getInstance().weaponTimer = 5.0f / 17.0f;
+            singleton<Manager>::getInstance().fireWeapon = false;
 	        playerWeapon.canFireWeapon = false;
+            Player* p = (Player*)gameObjects[playerInd];
+            p->FireWeapon();
             FireWeapon(gameObjects[playerInd]->GetPos(), lens.GetForward(), 10.0f);
+        }
+
+        //if the timer is 0 and we can fire again
+        if (singleton<Manager>::getInstance().weaponTimer <= 0)
+        {
+            Player* p = (Player*)gameObjects[playerInd];
+            p->BackToIdle();
+            playerWeapon.canFireWeapon = true;
         }
 
     }

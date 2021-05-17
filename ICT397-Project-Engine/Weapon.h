@@ -9,6 +9,7 @@ public:
     bool firingWeapon = false;
     bool canFireWeapon = true;
     bool isEnemy = false;
+    float lastFireTime = 0;
 
 };
 
