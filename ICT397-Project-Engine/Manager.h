@@ -1,5 +1,12 @@
 #pragma once
 #include<string>
+
+typedef enum
+{
+	easy,
+	normal,
+	hard
+} Difficulty;
 class Manager
 {
 public:
@@ -9,7 +16,7 @@ public:
 	bool fireWeapon = false;
 	float weaponTimer = 0;
 	float timer = 0;
-
+	Difficulty difficulty = normal;
 	void Update(float time)
 	{
 		if (timer <= 0)
@@ -36,6 +43,14 @@ public:
 		{
 			weaponTimer -= time;
 		}
+	}
+
+	void Reset()
+	{
+		speed = 5;
+		token = "none";
+		timer = 0;
+		difficulty = normal;
 	}
 };
 

@@ -171,11 +171,18 @@ public:
 		return false;
 	}
 
-	virtual void Kill()
+	virtual bool Kill()
 	{
-
+		return false;
 	}
 
+	std::string GetScriptName() const { return scriptName; }
+	void SetScriptName(const std::string name) { scriptName = name; }
+
+	virtual std::string StreamValues()
+	{
+		return GetType() + " " + GetScriptName() + " " + std::to_string(GetScale()) + " " + std::to_string(pos.x) + " " + std::to_string(pos.y) + " " + std::to_string(pos.z) + "\n";
+	}
 private:
 	int id;
 		///The model for the object and its meshes
@@ -208,5 +215,8 @@ private:
 
 		///The bounding box for the object
 	BoundingBox boundingBox;
+
+		///The name for the script used for the game object
+	std::string scriptName;
 };
 

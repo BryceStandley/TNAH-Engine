@@ -28,7 +28,7 @@ public:
 		* @brief Game asset factory contructor with the renderer
 		* @param r - The renderer for the game engine
 		*/
-	GameAssetFactory(Renderer* r) { renderer = r; playerMade = false; first = true; id = 1; }
+	GameAssetFactory(Renderer* r) { renderer = r; playerMade = false; first = true; id = 0; }
 
 		/**
 		* @brief Creates the game object and returns it
@@ -42,6 +42,21 @@ public:
 		* @return GameObject*
 		*/
 	GameObject* GetGameObject(std::string t, std::string script, float scale , glm::vec3 position);
+
+		/**
+		* @brief Creates the game object and returns it
+		* @param t - The type of object it is, if it does not fit it will return nullptr
+		* @param modelName - The model filepath
+		* @param shaderV - The vertex shader
+		* @param shaderF - the fragment shader
+		* @param scale - The object scale
+		* @param position -  The inital position
+		* @param speed - the speed of movement
+		* @return GameObject*
+		*/
+	GameObject* GetGameObjectSave(std::string t, std::string script, float scale , glm::vec3 position, float health, float ammo, std::string state);
+
+	void ResetFactory();
 
 private:
 
