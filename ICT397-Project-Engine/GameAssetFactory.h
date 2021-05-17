@@ -54,7 +54,7 @@ public:
 		* @param speed - the speed of movement
 		* @return GameObject*
 		*/
-	GameObject* GetGameObjectSave(std::string t, std::string script, float scale , glm::vec3 position, float health, float ammo, std::string state);
+	GameObject* GetGameObjectSave(std::string t, std::string script, float scale , glm::vec3 position, float health, float ammo, std::string state, int savedPoints, int savedTokens, int savedKills);
 
 	void ResetFactory();
 

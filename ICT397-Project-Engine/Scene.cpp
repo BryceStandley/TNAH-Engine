@@ -73,40 +73,36 @@ void Scene::LoadSaveFile()
                 {
                     std::string script, state;
                     float scale, x, y, z, health;
-                    file >> script >> scale >> x >> y >> z >> health >> state;
-                    std::cout << script << " " << scale << " " << x << " " << y << " " << z << " " << health << " " << state << std::endl;
-                    MakeSaveGameObject(type, script, scale, x, y, z, health, 0, state);
+                    int points, kills, tokens;
+                    file >> script >> scale >> x >> y >> z >> health >> state >> points >> kills >> tokens;
+                    MakeSaveGameObject(type, script, scale, x, y, z, health, 0, state, points, tokens, kills);
                 }
                 else if (type == "enemy")
                 {
                     std::string script, state;
                     float scale, x, y, z, health, ammo;
                     file >> script >> scale >> x >> y >> z >> health >> ammo >> state;
-                    std::cout << script << " " << scale << " " << x << " " << y << " " << z << " " << health << " " << ammo << " " << state << std::endl;
-                    MakeSaveGameObject(type, script, scale, x, y, z, health, ammo, state);
+                    MakeSaveGameObject(type, script, scale, x, y, z, health, ammo, state, 0, 0, 0);
                 }
                 else if (type == "token")
                 {
                     std::string script;
                     float scale, x, y, z;
                     file >> script >> scale >> x >> y >> z;
-                    std::cout << script << " " << scale << " " << x << " " << y << " " << z << std::endl;
-                    MakeSaveGameObject(type, script, scale, x, y, z, 0, 0, "");
+                    MakeSaveGameObject(type, script, scale, x, y, z, 0, 0, "", 0, 0, 0);
                 }
                 else if (type == "static")
                 {
                     std::string script;
                     float scale, x, y, z;
                     file >> script >> scale >> x >> y >> z;
-                    std::cout << script << " " << scale << " " << x << " " << y << " " << z << std::endl;
-                    MakeSaveGameObject(type, script, scale, x, y, z, 0, 0, "");
+                    MakeSaveGameObject(type, script, scale, x, y, z, 0, 0, "", 0, 0, 0);
                 }
                 else if (type == "water")
                 {
                     float scale, x, y, z;
                     file >> scale >> x >> y >> z;
-                    std::cout << "Water " << scale << " " << x << " " << y << " " << z << std::endl;
-                    MakeSaveGameObject(type, "", scale, x, y, z, 0, 0, "");
+                    //MakeSaveGameObject(type, "", scale, x, y, z, 0, 0, "");
                 }
             }
         }
@@ -162,6 +158,7 @@ void Scene::Run(View lens, float time, bool exit)
                         if (gameObjects[x]->Kill())
                         {
                             gameObjectsToRemoveFromScene.emplace_back(gameObjects[x]);
+                            singleton<EntityManager>::getInstance().RemoveEntity(gameObjects[x]);
                         }
                     }
                 }
@@ -274,12 +271,9 @@ void Scene::MakeGameObject(std::string t, std::string script, float scale, float
 	}
 }
 
-void Scene::MakeSaveGameObject(std::string t, std::string script, float scale, float x, float y, float z, float health, float ammo, std::string state)
+void Scene::MakeSaveGameObject(std::string t, std::string script, float scale, float x, float y, float z, float health, float ammo, std::string state, int savedPoints, int savedTokens, int savedKills)
 {
-    //Check the terrain height to make sure the object isn't under the terrain;
-    if (t != "water") y += WorldToTerrainPosition(glm::vec3(x, y, z), true).y;
-
-    GameObject* newGameObject = factory->GetGameObjectSave(t, script, scale, glm::vec3(x, y, z), health, ammo, state);
+    GameObject* newGameObject = factory->GetGameObjectSave(t, script, scale, glm::vec3(x, y, z), health, ammo, state, savedPoints, savedTokens, savedKills);
     if (newGameObject != nullptr)
     {
         gameObjects.push_back(newGameObject);

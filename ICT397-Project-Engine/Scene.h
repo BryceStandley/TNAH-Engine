@@ -192,7 +192,7 @@ private:
 		* @param rotate - Sets if the model needs to be rotated on entry
 		* @param speed - The speed at which it moves
 		*/
-	void MakeSaveGameObject(std::string t, std::string script, float scale, float x, float y, float z, float health, float ammo, std::string state);
+	void MakeSaveGameObject(std::string t, std::string script, float scale, float x, float y, float z, float health, float ammo, std::string state, int savedPoints, int savedTokens, int savedKills);
 		///The game renderer that renders items
 	Renderer* gameRenderer;
 

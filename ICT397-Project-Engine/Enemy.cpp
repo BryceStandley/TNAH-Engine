@@ -437,6 +437,7 @@ Enemy::Enemy(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std::s
 	}
 	enemyFSM = new stateMachine<Enemy>(this);
 	enemyFSM->setCurrentState(&wander_state::getInstance());
+	ChangeState(state);
 	enemyFSM->setGlobalState(&global_state::getInstance());
 	health = h;
 	ammo = a;

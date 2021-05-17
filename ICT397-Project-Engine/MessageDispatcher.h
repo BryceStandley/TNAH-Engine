@@ -45,7 +45,7 @@ public:
 		if (max > 1)
 		{
 			glm::vec3 pos = entityMan::getInstance().GetEntity(sender)->GetPos();
-			for (int i = 0; i <= max; i++)
+			for (int i = 0; i < max; i++)
 			{
 				GameObject* pReceiver = entityMan::getInstance().GetEntity(entityMan::getInstance().NumberedPos(i));
 				if (pReceiver->GetType() == type && i != sender )

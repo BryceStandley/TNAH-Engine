@@ -249,12 +249,12 @@ Player::Player(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std:
 
 	SetType("player");
 	Update(0.0f);
-    SetSate(SHOOT);
+    SetState(SHOOT);
 
 	if (Debugger::GetInstance()->debugToConsole) std::cout << xRotationOffset << " " << yRotationOffset << " " << zRotationOffset << " " << yPositionOffset << std::endl;
 }
 
-Player::Player(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std::string script, float h, std::string state) : GameObject(p, rot, s, gameRenderer)
+Player::Player(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std::string script, float h, std::string state, int savedPoints, int savedTokens, int savedKills) : GameObject(p, rot, s, gameRenderer)
 {
     SetScriptName(script);
 	lua_State* L = LuaManager::getInstance().getLuaState();
@@ -503,6 +503,9 @@ Player::Player(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std:
 	SetType("player");
 	Update(0.0f);
     SetState(IDLE);
+    kills = savedKills;
+    points = savedPoints;
+    tokensCollected = savedTokens;
 
 	if (Debugger::GetInstance()->debugToConsole) std::cout << xRotationOffset << " " << yRotationOffset << " " << zRotationOffset << " " << yPositionOffset << std::endl;
 }

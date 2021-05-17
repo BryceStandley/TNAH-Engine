@@ -62,13 +62,13 @@ GameObject* GameAssetFactory::GetGameObject(std::string type, std::string script
 		return nullptr;
 }
 
-GameObject* GameAssetFactory::GetGameObjectSave(std::string type, std::string script, float scale, glm::vec3 position, float health, float ammo, std::string state)
+GameObject* GameAssetFactory::GetGameObjectSave(std::string type, std::string script, float scale, glm::vec3 position, float health, float ammo, std::string state, int savedPoints, int savedTokens, int savedKills)
 {
     if(Debugger::GetInstance()->debugToConsole) std::cout << "script -> " << script << std::endl;
 	if (type == "player" && !playerMade)
 	{
         if(Debugger::GetInstance()->debugToConsole) std::cout << "Player done" << std::endl;
-        GameObject* obj = new Player(position, glm::vec3(0, 0, 0), scale, renderer, script, health, state);
+        GameObject* obj = new Player(position, glm::vec3(0, 0, 0), scale, renderer, script, health, state, savedPoints, savedTokens, savedKills);
         BoundingBox box = BoundingBox();
         //box = box.GenerateBoundingBox(obj->GetModel().GetMesh(0));
         //obj->SetBoundingBox(box);

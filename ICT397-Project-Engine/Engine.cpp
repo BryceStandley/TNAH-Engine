@@ -140,7 +140,6 @@ Engine::Engine()
 	if(Debugger::GetInstance()->debugToConsole) std::cout << "Path: " << path << std::endl;
 	
 	//LoadScene(path);
-	//gameScenes[0]->SaveGame();
 	gameScenes[0]->LoadSaveFile();
 }
 
@@ -200,7 +199,7 @@ void Engine::Run()
 
 			window->Buffer();
 		}
-
+		gameScenes[0]->SaveGame();
 		std::cout << "CLOSING::ENGINE_WILL_EXIT" << std::endl;
 	}
 }
