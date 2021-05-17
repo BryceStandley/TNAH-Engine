@@ -24,7 +24,7 @@ public:
 		* @breif Default constructor
 		*/
 	Player(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std::string script);
-
+	Player(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std::string script, float h, std::string state);
 	stateMachine<Player>* getFSM()const { return playerFSM; }
 
 	int getHealth() { return health; }
@@ -62,6 +62,11 @@ public:
 	virtual void Render(View lens, float time, Renderer* gameRenderer);
 
 	void SetSate(Md2Commands state);
+
+	virtual std::string StreamValues()
+	{
+		return GetType() + " " + GetScriptName() + " " + std::to_string(GetScale()) + " " + std::to_string(GetPos().x) + " " + std::to_string(GetPos().y) + " " + std::to_string(GetPos().z) + " " + std::to_string(health) + " STATE" + "\n";
+	}
 
 private:
 	

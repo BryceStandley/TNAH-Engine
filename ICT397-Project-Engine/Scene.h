@@ -62,6 +62,8 @@ public:
 
 	void Load(std::string file);
 
+	void LoadSaveFile();
+
 	void Unload();
 
 		/**
@@ -147,14 +149,7 @@ public:
 	 */
     void MoveObjectAwayFromPlayer();
 
-	void RunPlayer(View lens, float time, bool exit)
-	{
-		if (loaded)
-		{
-			if (!exitScreen.exitScreenDisplay)
-				gameObjects[playerInd]->Render(lens, time, gameRenderer);
-		}
-	}
+	void RunPlayer(View lens, float time, bool exit);
 
 	void UpdateGameObject(glm::vec3 position, int i);
 
@@ -164,8 +159,38 @@ public:
 
     void SetPlayerWeapon(Weapon w){playerWeapon = w;}
     Weapon GetPlayerWeapon(){return playerWeapon;}
+	
+	void SaveGame()
+	{
+		std::ofstream savefile("./res/save.sav");
+		if (savefile.is_open())
+		{
+			for (int i = 0; i < gameObjects.size(); i++)
+			{
+				savefile << gameObjects[i]->StreamValues();
+			}
+		}
+
+		savefile.close();
+	}
 
 private:
+
+		/**
+		* @brief Function that uses the game asset factory to create a new game object
+		* @param t - the type of game object it is
+		* @param n - Name of the object
+		* @param modalName - the file path to load in the model
+		* @param shaderV - The vertex shader file path
+		* @param shaderF - The fragment shader file path
+		* @param scale - The scale of the object
+		* @param x - The x positon of the object
+		* @param y - The y position of the object
+		* @param z - The z position of the object
+		* @param rotate - Sets if the model needs to be rotated on entry
+		* @param speed - The speed at which it moves
+		*/
+	void MakeSaveGameObject(std::string t, std::string script, float scale, float x, float y, float z, float health, float ammo, std::string state);
 		///The game renderer that renders items
 	Renderer* gameRenderer;
 

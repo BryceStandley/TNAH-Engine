@@ -20,7 +20,7 @@ public:
 	Token(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std::string script) : GameObject(p, rot, s, gameRenderer)
 	{
 		lua_State* L = LuaManager::getInstance().getLuaState();
-
+		SetScriptName(script);
 		if (!luaL_dofile(L, script.c_str()))
 		{
 			LuaRef type = getGlobal(L, "check");

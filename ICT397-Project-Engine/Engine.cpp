@@ -131,7 +131,9 @@ Engine::Engine()
 	std::string path = "./res/scripts/scene.lua";
 	if(Debugger::GetInstance()->debugToConsole) std::cout << "Path: " << path << std::endl;
 	
-	LoadScene(path);
+	//LoadScene(path);
+	//gameScenes[0]->SaveGame();
+	gameScenes[0]->LoadSaveFile();
 }
 
 Engine::~Engine()

@@ -10,26 +10,27 @@ class EntityManager
 {
 private:
 	Objects entityMap;
-	int max = -1;
+	std::vector<int> pos;
 
 public:
 	void RegisterEntity(GameObject* newEntity)
 	{
-		if (newEntity->GetId() > max)
-			max = newEntity->GetId();
-        if(Debugger::GetInstance()->debugToConsole) std::cout << "Registered enemy -> " << newEntity->GetId() << std::endl;
 		entityMap.insert(std::make_pair(newEntity->GetId(), newEntity));
+		pos.push_back(newEntity->GetId());
 	}
 
 	void RemoveEntity(GameObject* entity)
 	{
+		int removeId = entity->GetId();
 		entityMap.erase(entity->GetId());
+		std::vector<int>::iterator r;
+		r = std::remove(pos.begin(), pos.end(), removeId);
 	}
 
 	void ClearEntitys()
 	{
 		entityMap.clear();
-		max = -1;
+		pos.clear();
 	}
 
 	GameObject* GetEntity(int id)
@@ -43,7 +44,12 @@ public:
 
 	int Size()
 	{
-		return max;
+		return pos.size();
+	}
+
+	int NumberedPos(int i)
+	{
+		return pos[i];
 	}
 };
 

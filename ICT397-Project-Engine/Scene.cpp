@@ -29,30 +29,101 @@ void Scene::Unload()
 
 void Scene::Load(std::string file)
 {
-    lua_State* L = LuaManager::getInstance().getLuaState();
-    setGlobal(L, this, "cs");
-
-    if (luaL_dofile(L, file.c_str()))
+    if (!loaded)
     {
-        std::cout << "Scene lua file not found" << std::endl;
-    }
-    else
-    {
-        std::cout << "WOORLD::RUNNING" << std::endl;
-    }
+        lua_State* L = LuaManager::getInstance().getLuaState();
+        setGlobal(L, this, "cs");
 
-    FindPlayerIndice();
-
-    if (gameObjects.size() > 0)
-    {
-        for (int i = 0; i < gameObjects.size(); i++)
+        if (luaL_dofile(L, file.c_str()))
         {
-            if (gameObjects[i]->GetType() == "enemy")
-                entityMan::getInstance().RegisterEntity(gameObjects[i]);
+            std::cout << "Scene lua file not found" << std::endl;
         }
-    }
+        else
+        {
+            std::cout << "WOORLD::RUNNING" << std::endl;
+        }
 
-    loaded = true;
+        FindPlayerIndice();
+
+        if (gameObjects.size() > 0)
+        {
+            for (int i = 0; i < gameObjects.size(); i++)
+            {
+                if (gameObjects[i]->GetType() == "enemy")
+                    entityMan::getInstance().RegisterEntity(gameObjects[i]);
+            }
+        }
+
+        loaded = true;
+    }
+}
+
+void Scene::LoadSaveFile()
+{
+    if (!loaded)
+    {
+        std::ifstream file("./res/save.sav");
+        if (file.is_open())
+        {
+            std::string type;
+
+            while (file >> type)
+            {
+                if (type == "player")
+                {
+                    std::string script, state;
+                    float scale, x, y, z, health;
+                    file >> script >> scale >> x >> y >> z >> health >> state;
+                    std::cout << script << " " << scale << " " << x << " " << y << " " << z << " " << health << " " << state << std::endl;
+                    MakeSaveGameObject(type, script, scale, x, y, z, health, 0, state);
+                }
+                else if (type == "enemy")
+                {
+                    std::string script, state;
+                    float scale, x, y, z, health, ammo;
+                    file >> script >> scale >> x >> y >> z >> health >> ammo >> state;
+                    std::cout << script << " " << scale << " " << x << " " << y << " " << z << " " << health << " " << ammo << " " << state << std::endl;
+                    MakeSaveGameObject(type, script, scale, x, y, z, health, ammo, state);
+                }
+                else if (type == "token")
+                {
+                    std::string script;
+                    float scale, x, y, z;
+                    file >> script >> scale >> x >> y >> z;
+                    std::cout << script << " " << scale << " " << x << " " << y << " " << z << std::endl;
+                    MakeSaveGameObject(type, script, scale, x, y, z, 0, 0, "");
+                }
+                else if (type == "static")
+                {
+                    std::string script;
+                    float scale, x, y, z;
+                    file >> script >> scale >> x >> y >> z;
+                    std::cout << script << " " << scale << " " << x << " " << y << " " << z << std::endl;
+                    MakeSaveGameObject(type, script, scale, x, y, z, 0, 0, "");
+                }
+                else if (type == "water")
+                {
+                    float scale, x, y, z;
+                    file >> scale >> x >> y >> z;
+                    std::cout << "Water " << scale << " " << x << " " << y << " " << z << std::endl;
+                    MakeSaveGameObject(type, "", scale, x, y, z, 0, 0, "");
+                }
+            }
+        }
+
+        FindPlayerIndice();
+
+        if (gameObjects.size() > 0)
+        {
+            for (int i = 0; i < gameObjects.size(); i++)
+            {
+                if (gameObjects[i]->GetType() == "enemy")
+                    entityMan::getInstance().RegisterEntity(gameObjects[i]);
+            }
+        }
+
+        loaded = true;
+    }
 }
 
 void Scene::Run(View lens, float time, bool exit)
@@ -92,7 +163,6 @@ void Scene::Run(View lens, float time, bool exit)
                             gameObjectsToRemoveFromScene.emplace_back(gameObjects[x]);
                         }
                     }
-                    //if(gameObjects[x]->GetType() == "enemy" && gameObjects[x]->)
                 }
             }
 
@@ -183,6 +253,22 @@ void Scene::MakeGameObject(std::string t, std::string script, float scale, float
 	{
 		if(Debugger::GetInstance()->debugToConsole) std::cout << "Scene.cpp::ERROR::GAME_ASSET_FACTORY::TYPE_UNKNOWN" << std::endl;
 	}
+}
+
+void Scene::MakeSaveGameObject(std::string t, std::string script, float scale, float x, float y, float z, float health, float ammo, std::string state)
+{
+    //Check the terrain height to make sure the object isn't under the terrain;
+    if (t != "water") y += WorldToTerrainPosition(glm::vec3(x, y, z), true).y;
+
+    GameObject* newGameObject = factory->GetGameObjectSave(t, script, scale, glm::vec3(x, y, z), health, ammo, state);
+    if (newGameObject != nullptr)
+    {
+        gameObjects.push_back(newGameObject);
+    }
+    else
+    {
+        if (Debugger::GetInstance()->debugToConsole) std::cout << "Scene.cpp::ERROR::GAME_ASSET_FACTORY::TYPE_UNKNOWN" << std::endl;
+    }
 }
 
 void Scene::FindPlayerIndice()
@@ -433,4 +519,13 @@ glm::vec3 Scene::WorldToTerrainPosition(glm::vec3 p, bool average)
     if(average) {p.y = (gameTerrain->getAverageHeight((int)worldx, (int)worldz) / worldToTerrainScaleFactor);}
     else {p.y = (gameTerrain->getHeight((int)worldx, (int)worldz) / worldToTerrainScaleFactor);}
     return p;
+}
+
+void Scene::RunPlayer(View lens, float time, bool exit)
+{
+    if (loaded)
+    {
+        if (!exitScreen.exitScreenDisplay)
+            gameObjects[playerInd]->Render(lens, time, gameRenderer);
+    }
 }

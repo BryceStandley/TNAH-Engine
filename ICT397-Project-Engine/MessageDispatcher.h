@@ -42,15 +42,12 @@ public:
 	void DisbatchMsgAllOfType(int sender, int msg, std::string type)
 	{
 		int max = entityMan::getInstance().Size();
-        if(Debugger::GetInstance()->debugFSMToConsole) std::cout << "The max amount is " << max << std::endl;
 		if (max > 1)
 		{
-            if(Debugger::GetInstance()->debugFSMToConsole) std::cout << "past max was called" << std::endl;
 			glm::vec3 pos = entityMan::getInstance().GetEntity(sender)->GetPos();
-			for (int i = 1; i <= max; i++)
+			for (int i = 0; i <= max; i++)
 			{
-                if(Debugger::GetInstance()->debugFSMToConsole) std::cout << "Loop called " << i << std::endl;
-				GameObject* pReceiver = entityMan::getInstance().GetEntity(i);
+				GameObject* pReceiver = entityMan::getInstance().GetEntity(entityMan::getInstance().NumberedPos(i));
 				if (pReceiver->GetType() == type && i != sender )
 				{
 					Telegram message(0.0f, sender, i, true, msg, pos);

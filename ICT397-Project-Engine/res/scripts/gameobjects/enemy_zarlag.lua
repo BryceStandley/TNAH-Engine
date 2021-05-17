@@ -186,7 +186,7 @@ die[2] = function (Enemy)
 end
 
 die[3] = function (Enemy)
-	print("die 3")
+	
 end
 
 global = {}

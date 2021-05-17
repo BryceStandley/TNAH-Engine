@@ -35,10 +35,8 @@ class Enemy : public GameObject
 public:
 	float value;
 	Enemy(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std::string script, bool first);
-	void Print(glm::vec3 p)
-	{
-		std::cout << "print: " << p.x << " " << p.y << " " << p.z << std::endl;
-	}
+	Enemy(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std::string script, float h, float a, std::string state);
+	void Print(glm::vec3 p);
 	~Enemy();
 
 	stateMachine<Enemy>* getFSM()const { return enemyFSM; }
@@ -64,15 +62,9 @@ public:
 
 	int count = 0;
 
-	void SetKillFSM(bool k)
-	{
-		killFSM = k;
-	}
+	void SetKillFSM(bool k);
 
-	bool isAlive()
-	{
-		return alive;
-	}
+	bool isAlive();
 
 	float GetDeltaTime() const { return deltaTime; }
 
@@ -107,21 +99,7 @@ public:
 		* @param message - represents the message sent to the enemy
 		* @return bool
 		*/
-	bool handleMessage(const Telegram message)
-	{
-        if(Debugger::GetInstance()->debugToConsole) std::cout << message.sender << " has sent a message to " << GetId() << " " << message.msg << ", distance: " << DistanceBetween(message.pos) << std::endl;
-		if (enemyFSM->handleMessage(message))
-		{
-			if (DistanceBetween(message.pos) <= 50.0f)
-			{
-				newPos = message.pos;
-				moving = true;
-			}
-			return true;
-		}
-		else
-			return false;
-	}
+	bool handleMessage(const Telegram message);
 
 		/**
 		* @brief allows the enemy to move from its current position to a specified target position
@@ -292,101 +270,26 @@ public:
 		*/
 	int incrementCheck() { return check++; }
 
-	void ChangeState(std::string state)
-	{
-		if (state == "wander")
-		{
-			getFSM()->changeState(&wander_state::getInstance());
-		}
-		else if (state == "alert")
-		{
-			getFSM()->changeState(&alert_state::getInstance());
-		}
-		else if (state == "chase")
-		{
-			getFSM()->changeState(&chase_state::getInstance());
-		}
-		else if (state == "flee")
-		{
-			getFSM()->changeState(&flee_state::getInstance());
-		}
-		else if (state == "attack")
-		{
-			getFSM()->changeState(&attack_state::getInstance());
-		}
-		else if (state == "die")
-		{
-			getFSM()->changeState(&die_state::getInstance());
-		}
-		else if (state == "global")
-		{
-			getFSM()->changeState(&global_state::getInstance());
-		}
-	}
+	void ChangeState(std::string state);
 
-	bool CheckPrevState(std::string state)
-	{
-		if (state == "wander")
-		{
-			return getFSM()->getPreviousState() == &wander_state::getInstance();
-		}
-		else if (state == "alert")
-		{
-			return getFSM()->getPreviousState() == &alert_state::getInstance();
-		}
-		else if (state == "chase")
-		{
-			return getFSM()->getPreviousState() == &chase_state::getInstance();
-		}
-		else if (state == "flee")
-		{
-			return getFSM()->getPreviousState() == &flee_state::getInstance();
-		}
-		else if (state == "attack")
-		{
-			return getFSM()->getPreviousState() == &attack_state::getInstance();
-		}
-		else if (state == "die")
-		{
-			return getFSM()->getPreviousState() == &die_state::getInstance();
-		}
-		else if (state == "global")
-		{
-			return getFSM()->getPreviousState() == &global_state::getInstance();
-		}
-		else
-		{
-			return false;
-		}
-	}
+	bool CheckPrevState(std::string state);
 	
-	float LookDirection(std::string type)
-	{
-		if (type == "player")
-		{
-			return atan2(getVelocity().z, getVelocity().x);
-		}
-		else
-		{
-			return atan2(enemyVelocity.z, enemyVelocity.x);
-		}
-	}
+	float LookDirection(std::string type);
 
-	void SendMessage(int message, std::string type)
-	{
-		singleton<MessageDispatcher>::getInstance().DisbatchMsgAllOfType(GetId(), message, type);
-	}
+	void SendMessage(int message, std::string type);
 
-	bool Kill()
-	{
-		return !alive;
-	}
+	bool Kill();
 
 	void SetMoving(bool m) { moving = m; }
 	bool GetMoving() { return moving; }
 
 	glm::vec3 getNewPos() { return newPos; }
 	void setNewPos(glm::vec3 p) { newPos = p; }
+
+	virtual std::string StreamValues()
+	{
+		return GetType() + " " + GetScriptName() + " " + std::to_string(GetScale()) + " " + std::to_string(GetPos().x) + " " + std::to_string(GetPos().y) + " " + std::to_string(GetPos().z) + " " + std::to_string(health) + " " + std::to_string(ammo) +  "  " + "STATE" + "\n";
+	}
 
 	glm::vec3 newPos;
 	bool moving = false;
