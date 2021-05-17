@@ -122,42 +122,43 @@ public:
 		*/
 	std::string GetType(){ return type; }
 
-	/**
-	 * @brief Sets gameobject's bounding box object
-	 * @param b
-	 */
+		 /**
+		 * @brief Sets gameobject's bounding box object
+		 * @param b
+		 */
 	void SetBoundingBox(BoundingBox b){boundingBox = b;}
 
-	/**
-	 * @brief Gets a gameobjec's boundingbox object
-	 * @return BoundingBox
-	 */
+		 /**
+		 * @brief Gets a gameobjec's boundingbox object
+		 * @return BoundingBox
+		 */
     BoundingBox GetBoundingBox(){return boundingBox;}
 
 
-    /**
-     * @brief Sets tag of a given object
-     * @param t
-     */
+		 /**
+		 * @brief Sets tag of a given object
+		 * @param t
+		 */
     void SetCollisionTag(BoundingBox::CollisionTag t){tag = t;}
 
-    /**
-     * @brief Gets the objects tag
-     * @return tag
-     */
+		 /**
+		 * @brief Gets the objects tag
+		 * @return tag
+		 */
     BoundingBox::CollisionTag GetTag(){return tag;}
 
-    /**
-     * @brief Sets the name of a game object
-     * @param n
-     */
+		 /**
+		 * @brief Sets the name of a game object
+		 * @param n
+		 */
     void SetName(std::string n) {name = n;}
 
-    /**
-     * @brief Gets the name of a Gameobject
-     * @return string name
-     */
+		 /**
+		 * @brief Gets the name of a Gameobject
+		 * @return string name
+		 */
     std::string GetName(){return name;}
+
 
 	virtual void Render(View lens, float time, Renderer* gameRenderer);
 

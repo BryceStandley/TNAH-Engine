@@ -72,11 +72,36 @@ public:
 	virtual void Exit(Enemy* dude);
 };
 
+	/**
+	* @class chase
+	* @brief A derived class that inherits from the state class. Represents the Chase state of the Enemy FSM
+	*
+	* @author Dylan Blereau
+	* @version 01
+	* @date 27/04/2021 Dylan Blereau, Started
+	*
+	*
+	**/
 class chase : public State<Enemy>
 {
 public:
+
+		/**
+		* @brief virtual function that represents the entry point of the state
+		* @param dude - a pointer to the Enemy object
+		*/
 	virtual void Enter(Enemy* dude);
+
+		/**
+		* @brief virtual function that represents the execute point of the state
+		* @param dude - a pointer to the Enemy object
+		*/
 	virtual void Execute(Enemy* dude);
+
+		/**
+		* @brief virtual function that represents the exit point of the state
+		* @param dude - a pointer to the Enemy object
+		*/
 	virtual void Exit(Enemy* dude);
 };
 

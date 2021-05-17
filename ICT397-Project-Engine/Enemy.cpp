@@ -1,6 +1,6 @@
 #include "Enemy.h"
 
-Enemy::Enemy(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std::string script, bool first) : GameObject(p, rot, s, gameRenderer)
+Enemy::Enemy(glm::vec3 p, glm::vec3 rot, Renderer* gameRenderer, std::string script) : GameObject(p, rot, 0, gameRenderer)
 {
 	lua_State* L = LuaManager::getInstance().getLuaState();
 
@@ -295,7 +295,7 @@ void Enemy::Render(View lens, float time, Renderer* gameRenderer)
 	}
 }
 
-void Enemy::SetSate(int num)
+void Enemy::SetState(int num)
 {
 	Model temp = GetModel();
 	Md2Commands state;

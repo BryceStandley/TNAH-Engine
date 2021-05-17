@@ -15,7 +15,6 @@ inline double randomClamped()
 	return randFloat() - randFloat();
 }
 
-
 	/**
 	 * @class Enemy
 	 * @brief Abstract GameObject class for enemies
@@ -27,53 +26,111 @@ inline double randomClamped()
 	 * @todo Add enemy functionality
 	 *
 	 * @bugs none to be seen
+	 * 
+	 * @author Dylan Blereau
+	 * @version 02
+	 * @date 05/05/21
+	 * 
+	 * @brief Added enemy FSM and messaging functionality
 	 *
 	 **/
 using namespace luabridge;
 class Enemy : public GameObject
 {
 public:
-	float value;
-	Enemy(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std::string script, bool first);
+
+		/**
+		* @brief Enemy constructor that takes various parameters 
+		* @param p - reperesents the vector position
+		* @param rot - represents the rotation vector
+		* @param gameRenderer - a pointer to the game engine renderer
+		* @param script - a string repesenting the path to the enemy lua script 
+		*/
+	Enemy(glm::vec3 p, glm::vec3 rot, Renderer* gameRenderer, std::string script);
+	
+
+		/**
+		* @brief Prints the x,y,z values of a given position 
+		* @param p - reperesents the vector position 
+		*/
 	void Print(glm::vec3 p)
 	{
 		std::cout << "print: " << p.x << " " << p.y << " " << p.z << std::endl;
 	}
+	
+		/**
+		* @brief destructor that deallocates resource upon deletion of enemy object
+		*/
 	~Enemy();
 
+		/**
+		* @brief gets and returns the finite state machine of the enemy
+		* @return stateMachine<Enemy>*
+		*/
 	stateMachine<Enemy>* getFSM()const { return enemyFSM; }
 
-	/**
-	*
-	* @brief Updates the game object with functionality
-	* @param time - the time since the last frame (deltatime)
-	*/
+		/**
+		* @brief Updates the game object with functionality
+		* @param time - the time since the last frame (deltatime)
+		*/
 	void Update(float time);
 
+
+		/**
+		* @brief gets and returns the health value of the enemy
+		* @return stateMachine<Enemy>*
+		*/
 	int getHealth() { return health;}
 
+		/**
+		* @brief decreases the value of health by the integer provided as a parameter
+		* @param health - represents the value that health will be decreased by
+		*/
 	void decreaseHealth(int health);
 
+
+		/**
+		* @brief makes use of the view information and graphics renderer to render the enemy to the screen
+		* @param lens - holds the information that allows you to project and view the model 
+		* @param time - represents deltatime, which is the difference between the previous frame and the current frame 
+		* @param - a pointer to the renderer which is used to render the enemy model 
+		*/
 	void Render(View lens, float time, Renderer* gameRenderer);
 
-	void SetSate(int num);
+		/**
+		* @brief sets the animation state to the value provided as parameter, whether it be an integer or an enumerated type
+		* @param num - represents the num or enum that belongs to an animation state 
+		*/
+	void SetState(int num);
 
+		/**
+		* @brief sets the boolean value of the alive variable
+		* @param a - represents the value that will be assigned to the alive boolean variable
+		*/
 	void setAlive(bool a) { alive = a; }
 	
-	bool killFSM = false;
-
-	int count = 0;
-
+		/**
+		* @brief sets the boolean value of the killFSM variable
+		* @param k - represents the value that will be assigned to the killFSM boolean variable
+		*/
 	void SetKillFSM(bool k)
 	{
 		killFSM = k;
 	}
 
+		/**
+		* @brief gets and returns the alive boolean value
+		* @return bool
+		*/
 	bool isAlive()
 	{
 		return alive;
 	}
-
+	
+		/**
+		* @brief gets and returns the value of deletaTime
+		* @return float
+		*/
 	float GetDeltaTime() const { return deltaTime; }
 
 		/**
@@ -292,6 +349,11 @@ public:
 		*/
 	int incrementCheck() { return check++; }
 
+
+		/**
+		* @brief a function that changes the FSM state to the state name which is provided as a parameter
+		* @param state - represents the state that the fsm will change state to 
+		*/
 	void ChangeState(std::string state)
 	{
 		if (state == "wander")
@@ -324,6 +386,11 @@ public:
 		}
 	}
 
+		/**
+		* @brief a function that returns the previous state so long as the state parameter provided matches a valid state, otherwise it returns false
+		* @param state - represents the state that the fsm will check to see if its the previous state
+		* @return bool
+		*/
 	bool CheckPrevState(std::string state)
 	{
 		if (state == "wander")
@@ -360,6 +427,11 @@ public:
 		}
 	}
 	
+		/**
+		* @brief a function that returns the looking direction of the enemy dependant on which string is provided
+		* @param type - represents the type of thing that should be looked at (which in this case in the enemy looking at the player)
+		* @return float
+		*/
 	float LookDirection(std::string type)
 	{
 		if (type == "player")
@@ -372,20 +444,42 @@ public:
 		}
 	}
 
+		/**
+		* @brief a function that will send a message from the enemy to a specified gameObject type
+		* @param message - refers to the message being sent
+		* @param type - refers to the type of gameobject the message is being sent to 
+		*/
 	void SendMessage(int message, std::string type)
 	{
 		singleton<MessageDispatcher>::getInstance().DisbatchMsgAllOfType(GetId(), message, type);
 	}
 
+		/**
+		* @brief sets the value of the moving boolean value, which is set to true when the enemy is moving towards the enemy that has seen the player and called for their help
+		* @param m - represents the value you want to assign the moving boolean
+		*/
 	void SetMoving(bool m) { moving = m; }
+
+		/**
+		* @brief gets and returns the value of moving
+		* @return bool
+		*/
 	bool GetMoving() { return moving; }
 
+		/**
+		* @brief gets and returns the the newPos vector
+		* @return glm::vec3
+		*/
 	glm::vec3 getNewPos() { return newPos; }
+
+		/**
+		* @brief sets the value of the newPos vector
+		* @param p - represents the value you want to assign the newPos vector
+		*/
 	void setNewPos(glm::vec3 p) { newPos = p; }
 
+	
 	glm::vec3 newPos;
-	bool moving = false;
-
 	LuaRef wanderLua = NULL;
 	LuaRef alert = NULL;
 	LuaRef chase = NULL;
@@ -405,10 +499,11 @@ private:
 	bool alive;
 	bool hasWeapon;
 
+	bool moving = false;
 	bool token = false;
 	bool globalFlag = false;
 	bool deathAnim = false;
-
+	bool killFSM = false;
 
 	int timer = 0;
 	int check = 0;	
