@@ -34,7 +34,9 @@ void Scene::Run(View lens, float time, bool exit)
 {
     if (exitScreen.exitScreenDisplay)
     {
-        exitScreen.Render(gameRenderer, lens);
+        //exitScreen.Render(gameRenderer, lens);
+
+        endScreenGUI->Draw();
     }
     else
     {
@@ -70,7 +72,9 @@ void Scene::Run(View lens, float time, bool exit)
         }
 
     }
-	//Terrain
+	//GameUI
+
+    if (gameGui) { gameGui->Draw((Player*)gameObjects[playerInd]); }
 
 
 	//If game object is of type player
@@ -91,6 +95,9 @@ void Scene::Init()
 	gameRenderer->SkyboxSetup(gameSkybox->GetSkyVerts(), gameSkybox->GetCubeFaces(), gameSkybox->VAO, gameSkybox->VBO, gameSkybox->texture, gameSkybox->skyShader);
 
 	exitScreen.Init("./res/models/group/photo.fbx", gameRenderer);
+
+    gameGui = new GameGUI("./res/scripts/menus/game.lua");
+    endScreenGUI = new EndScreenGUI("./res/scripts/menus/endScreen.lua");
 }
 
 

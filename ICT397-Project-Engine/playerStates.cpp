@@ -11,7 +11,7 @@ void doubleDamage::Enter(Player* dude)
 	dude->increasePoints(50);
 	dude->setDamage(dude->getDamage() * 2);
 
-	std::cout << "DAMAGE WITH TOKEN: " << dude->getDamage() << std::endl;
+    if(Debugger::GetInstance()->debugTokensToConsole) std::cout << "DAMAGE WITH TOKEN: " << dude->getDamage() << std::endl;
 
 	singleton<Manager>::getInstance().prevToken = "DoubleDamage";
 	singleton<Manager>::getInstance().token = "none";
@@ -22,11 +22,11 @@ void doubleDamage::Execute(Player* dude)
 {
 	if (singleton<Manager>::getInstance().prevToken == "DoubleDamage" && singleton<Manager>::getInstance().timer != 0)
 	{
-		std::cout << "Token = " << singleton<Manager>::getInstance().prevToken << ", Duration = " << singleton<Manager>::getInstance().timer << std::endl;
+        if(Debugger::GetInstance()->debugTokensToConsole) std::cout << "Token = " << singleton<Manager>::getInstance().prevToken << ", Duration = " << singleton<Manager>::getInstance().timer << std::endl;
 	}
 	else
 	{
-		std::cout << "TOKEN EXPIRED" << std::endl;
+        if(Debugger::GetInstance()->debugTokensToConsole)std::cout << "TOKEN EXPIRED" << std::endl;
 		dude->getFSM()->changeState(&main_state::getInstance());
 	}
 
@@ -34,7 +34,7 @@ void doubleDamage::Execute(Player* dude)
 
 	if (singleton<Manager>::getInstance().token == "DoubleDamage" && singleton<Manager>::getInstance().prevToken == "DoubleDamage")
 	{
-		std::cout << "Token Double Up" << std::endl;
+        if(Debugger::GetInstance()->debugTokensToConsole) std::cout << "Token Double Up" << std::endl;
 		dude->getFSM()->changeState(&damage_state::getInstance());
 	}
 
@@ -51,7 +51,7 @@ void doubleDamage::Execute(Player* dude)
 void doubleDamage::Exit(Player* dude)
 {
 	dude->setDamage(dude->getDamage() / 2);
-	std::cout << "DAMAGE AFTER TOKEN: " << dude->getDamage();
+    if(Debugger::GetInstance()->debugTokensToConsole) std::cout << "DAMAGE AFTER TOKEN: " << dude->getDamage();
 }
 
 /******************************************************************************/
@@ -60,17 +60,17 @@ void healthRefill::Enter(Player* dude)
 {
 	dude->hasToken = false;
 	dude->incrementTokensCollected();
-	std::cout << "In Health Refill State" << std::endl;
+    if(Debugger::GetInstance()->debugTokensToConsole) std::cout << "In Health Refill State" << std::endl;
 
 	dude->increasePoints(50);
 
 	if (dude->getHealth() < 100)
 	{
-		std::cout << "Healed back to full health" << std::endl;
+        if(Debugger::GetInstance()->debugTokensToConsole) std::cout << "Healed back to full health" << std::endl;
 		dude->setHealth(100);
 	}
 	else
-		std::cout << "Already at full health - no effect" << std::endl;
+    if(Debugger::GetInstance()->debugTokensToConsole) std::cout << "Already at full health - no effect" << std::endl;
 	
 }
 
@@ -81,7 +81,7 @@ void healthRefill::Execute(Player* dude)
 
 void healthRefill::Exit(Player* dude)
 {
-	std::cout << "Exiting Health Refill State" << std::endl;
+    if(Debugger::GetInstance()->debugTokensToConsole) std::cout << "Exiting Health Refill State" << std::endl;
 }
 
 /******************************************************************************/
@@ -89,7 +89,7 @@ void healthRefill::Exit(Player* dude)
 void SpeedUp::Enter(Player* dude)
 {
 	dude->hasToken = false;
-	std::cout << "This should only happen once mate" << std::endl;
+    if(Debugger::GetInstance()->debugTokensToConsole) std::cout << "This should only happen once mate" << std::endl;
 	dude->incrementTokensCollected();
 	dude->increasePoints(50);
 
@@ -103,11 +103,11 @@ void SpeedUp::Execute(Player* dude)
 	if (singleton<Manager>::getInstance().prevToken == "SpeedUp" && singleton<Manager>::getInstance().timer != 0)
 	{
 		singleton<Manager>::getInstance().speed = 10;
-		std::cout << "Token = " << singleton<Manager>::getInstance().prevToken << ", Duration = " << singleton<Manager>::getInstance().timer << std::endl;
+        if(Debugger::GetInstance()->debugTokensToConsole) std::cout << "Token = " << singleton<Manager>::getInstance().prevToken << ", Duration = " << singleton<Manager>::getInstance().timer << std::endl;
 	}
 	else
 	{
-		std::cout << "TOKEN EXPIRED" << std::endl;
+        if(Debugger::GetInstance()->debugTokensToConsole) std::cout << "TOKEN EXPIRED" << std::endl;
 		singleton<Manager>::getInstance().speed = 5;
 		dude->getFSM()->changeState(&main_state::getInstance());
 	}
@@ -116,7 +116,7 @@ void SpeedUp::Execute(Player* dude)
 
 	if (singleton<Manager>::getInstance().token == "SpeedUp" && singleton<Manager>::getInstance().prevToken == "SpeedUp") 
 	{
-		std::cout << "Token Double Up" << std::endl;
+        if(Debugger::GetInstance()->debugTokensToConsole) std::cout << "Token Double Up" << std::endl;
 		dude->getFSM()->changeState(&speed_state::getInstance());
 	}
 
@@ -141,7 +141,7 @@ void doublePoints::Enter(Player* dude)
 {
 	dude->hasToken = false;
 	dude->incrementTokensCollected();
-	std::cout << "In Double Points State" << std::endl;
+    if(Debugger::GetInstance()->debugTokensToConsole) std::cout << "In Double Points State" << std::endl;
 
 	dude->increasePoints(50);
 
@@ -155,14 +155,14 @@ void doublePoints::Execute(Player* dude)
 {
 	if (singleton<Manager>::getInstance().prevToken == "DoublePoints" && singleton<Manager>::getInstance().timer != 0) 
 	{
-		std::cout << "Token = " << singleton<Manager>::getInstance().prevToken << ", Duration = " << singleton<Manager>::getInstance().timer << std::endl;		
+        if(Debugger::GetInstance()->debugTokensToConsole) std::cout << "Token = " << singleton<Manager>::getInstance().prevToken << ", Duration = " << singleton<Manager>::getInstance().timer << std::endl;
 	}
 	else
 		dude->getFSM()->changeState(&main_state::getInstance());
 
 	if (singleton<Manager>::getInstance().token == "DoublePoints" && singleton<Manager>::getInstance().prevToken == "DoublePoints")
 	{
-		std::cout << "Token Double Up" << std::endl;
+        if(Debugger::GetInstance()->debugTokensToConsole) std::cout << "Token Double Up" << std::endl;
 		dude->getFSM()->changeState(&points_state::getInstance());
 	}
 
@@ -178,7 +178,7 @@ void doublePoints::Execute(Player* dude)
 
 void doublePoints::Exit(Player* dude)
 {
-	std::cout << "Double Points State" << std::endl;
+    if(Debugger::GetInstance()->debugTokensToConsole) std::cout << "Double Points State" << std::endl;
 	dude->setMultiplier(1); //resets multiplier
 }
 
@@ -190,7 +190,7 @@ void death::Enter(Player* dude)
 
 void death::Execute(Player* dude)
 {
-	std::cout << "DEAD" << std::endl;
+    if(Debugger::GetInstance()->debugTokensToConsole) std::cout << "DEAD" << std::endl;
 	//display score menu 
 }
 

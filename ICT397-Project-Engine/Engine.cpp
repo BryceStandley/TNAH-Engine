@@ -73,9 +73,12 @@ Engine::Engine()
 		render->DepthTest();
 	}
 
+	//Init ImGui Only needs to be done once
+	GUI gui;
+	gui.Init((GlfwWindow*)window);
+
 	//Init the debug gui if its enabled
 	if (debugMode) { debugGui = new DebugGUI("./res/scripts/menus/debug.lua"); }
-	if (debugGui) { debugGui->Init((GlfwWindow*)window); }
 
 
     currentScene = 0;

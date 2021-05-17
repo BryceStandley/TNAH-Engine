@@ -11,6 +11,8 @@
 #include "Debugger.h"
 #include "ExitScreen.h"
 #include "Weapon.h"
+#include "GameGUI.h"
+#include "EndScreenGUI.h"
 
 /**
 * @class Scene
@@ -199,5 +201,9 @@ private:
 
 		///If the exit screen is displayed
 	bool exitScreenDisplay = false;
+
+
+	GameGUI* gameGui;
+	EndScreenGUI* endScreenGUI;
 };
 

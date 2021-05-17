@@ -1,6 +1,7 @@
 #ifndef GUI_H
 #define GUI_H
 #include "Debugger.h"
+#include <string>
 #include "GlfwWindow.h"
 #include "imgui/imgui.h"
 #include "imgui/imgui_impl_glfw.h"
@@ -13,6 +14,8 @@
 class GUI
 {
 public:
+
+    virtual void Init(GlfwWindow* win);
 
     virtual void Draw() {}
 

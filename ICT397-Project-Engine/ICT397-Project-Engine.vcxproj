@@ -94,6 +94,7 @@
     <ClCompile Include="Debugger.cpp" />
     <ClCompile Include="DebugGUI.cpp" />
     <ClCompile Include="DynamicEnum.cpp" />
+    <ClCompile Include="EndScreenGUI.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="enemyStates.cpp" />
     <ClCompile Include="Engine.cpp" />
@@ -101,6 +102,7 @@
     <ClCompile Include="ExitScreen.cpp" />
     <ClCompile Include="Fbx.cpp" />
     <ClCompile Include="GameAssetFactory.cpp" />
+    <ClCompile Include="GameGUI.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="glad.c" />
     <ClCompile Include="GlfwWindow.cpp" />
@@ -151,6 +153,7 @@
     <ClInclude Include="Debugging.h" />
     <ClInclude Include="DebugGUI.h" />
     <ClInclude Include="DynamicEnum.h" />
+    <ClInclude Include="EndScreenGUI.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="enemyStates.h" />
     <ClInclude Include="Engine.h" />
@@ -158,6 +161,7 @@
     <ClInclude Include="ExitScreen.h" />
     <ClInclude Include="Fbx.h" />
     <ClInclude Include="GameAssetFactory.h" />
+    <ClInclude Include="GameGUI.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GlfwWindow.h" />
     <ClInclude Include="GUI.h" />
@@ -204,6 +208,7 @@
     <ClInclude Include="Weapon.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\.gitignore" />
     <None Include="res\scripts\engine.lua" />
     <None Include="res\scripts\gameobjects\enemy_default.lua" />
     <None Include="res\scripts\gameobjects\enemy_zarlagweapon.lua" />
@@ -222,6 +227,8 @@
     <None Include="res\scripts\gameobjects\token_speedup.lua" />
     <None Include="res\scripts\input.lua" />
     <None Include="res\scripts\menus\debug.lua" />
+    <None Include="res\scripts\menus\endScreen.lua" />
+    <None Include="res\scripts\menus\game.lua" />
     <None Include="res\scripts\scene1 old.lua" />
     <None Include="res\scripts\scene1.lua" />
     <None Include="res\scripts\skybox.lua" />

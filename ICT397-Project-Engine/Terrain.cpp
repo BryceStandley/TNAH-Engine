@@ -187,6 +187,8 @@ void Terrain::setScalingFactor(float xScale, float yScale, float zScale) {
 float Terrain::getHeight(int xpos, int zpos) {
     if (xpos < 0) { xpos = 0; }
     if (zpos < 0) { zpos = 0; }
+    if(xpos > size) {xpos = size;}
+    if(zpos > size) { zpos = size;}
     if (inBounds(xpos, zpos))
         return ((float)(terrainData[(zpos * size) + xpos]) * scaleY);
     else
