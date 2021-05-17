@@ -9,4 +9,5 @@ vertShader = "./res/shader/modelV.glsl";
 fragShader = "./res/shader/modelF.glsl";
 type = "DoublePoints";
 
+speed = 200;
 duration = 30;

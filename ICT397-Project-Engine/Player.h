@@ -12,8 +12,16 @@
  * @version 01
  * @date 25/03/2021
  *
- *
  * @bugs none to be seen
+ * @todo need to add player fsm and functionality
+ * 
+ * @brief Added FSM and functionality 
+ * 
+ * @author Dylan Blereau
+ * @version 02
+ * @date 17/05/2021
+ * 
+ * @br
  *
  **/
 using namespace luabridge;
@@ -33,10 +41,7 @@ public:
 
 	int getPoints() { return points; }
 
-	void increasePoints(int p) {
-		points += p * multiplier;
-		//multiplier = 0;
-	}
+	void increasePoints(int p) {points += p * multiplier;}
 
 	int getMultiplier() { return multiplier; }
 
@@ -45,9 +50,16 @@ public:
 	int getDamage() { return damage; }
 	void setDamage(int d) { damage = d; }
 
+	int getKills() { return kills = 0; }
+	void incrementKillCount(){ kills++; }
+
+	int getTokensCollected() { return tokensCollected; }
+	void incrementTokensCollected() { tokensCollected++; }
+
+
 
 	bool hasToken = true;
-	int token = 0;
+	
 
 	//void decreaseHealth(int h) {h}
 
@@ -71,6 +83,8 @@ private:
 	int points = 0;
 	int multiplier = 1;
 	int damage = 50;
+	int kills = 0;
+	int tokensCollected = 0;
 
 
 	float xRotationOffset;

@@ -9,4 +9,5 @@ vertShader = "./res/shader/modelV.glsl";
 fragShader = "./res/shader/modelF.glsl";
 type = "HealthRefill";
 
+speed = 200;
 duration = 0.001;

@@ -25,6 +25,11 @@ do
     x = math.random(40, 150)
     z = math.random(40, 150)
     cs:MakeGameObject("token",  "./res/scripts/gameobjects/token_healthrefill.lua", 0.005, x, y, z);
+	x = math.random(40, 150)
+    z = math.random(40, 150)
+    cs:MakeGameObject("token",  "./res/scripts/gameobjects/token_doubledmg.lua", 0.005, x, y, z);
+	
+	
 end
 
 --These loops dont check if there is a model already in its place

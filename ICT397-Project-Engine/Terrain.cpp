@@ -191,7 +191,6 @@ float Terrain::getHeight(int xpos, int zpos) {
         return ((float)(terrainData[(zpos - 1 * size) + xpos]) * scaleY);
 }
 
-
 float Terrain::getAverageHeight(int xpos, int zpos)
 {
     std::vector<float> heights;

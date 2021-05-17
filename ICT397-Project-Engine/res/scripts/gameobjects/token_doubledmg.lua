@@ -7,7 +7,7 @@ rotate = true;
 model = "./res/models/tokens/Double_Damage.fbx";
 vertShader = "./res/shader/modelV.glsl";
 fragShader = "./res/shader/modelF.glsl";
-type = "DoubleDmg";
+type = "DoubleDamage";
 
-speed = 10;
+speed = 200;
 duration = 30;

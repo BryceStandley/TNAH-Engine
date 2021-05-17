@@ -9,5 +9,5 @@ vertShader = "./res/shader/modelV.glsl";
 fragShader = "./res/shader/modelF.glsl";
 type = "SpeedUp";
 
-speed = 10;
+speed = 200;
 duration = 30;
