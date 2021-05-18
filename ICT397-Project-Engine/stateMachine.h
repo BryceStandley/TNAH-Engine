@@ -41,7 +41,11 @@ public:
 		globalState = nullptr;
 	}
 
-	//Handles the message and then 
+		/*
+		* @brief function that handles a message
+		* @param msg - the message being handled
+		* @return bool
+		*/
 	bool handleMessage(const Telegram msg)
 	{
 		if (currentState)
@@ -106,7 +110,6 @@ public:
 	{
 		currentState = previousState;
 	}
-
 
 		/*
 		* @brief gets and returns the previousState of the state machine

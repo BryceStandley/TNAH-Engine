@@ -1,4 +1,4 @@
-// status animation
+	/// status animation
 struct Md2State
 {
 	int	startFrame;

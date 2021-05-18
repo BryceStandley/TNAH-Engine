@@ -72,13 +72,22 @@ private:
 
 public:
 	
-
-
+		/**
+		* @brief gets and returns a vector containing all indice values
+		* @returns std::vector<unsigned int>
+		*/
 	std::vector<unsigned int> GetIndicies() { return Indices; }
 	
-	
+		/**
+		* @brief gets and returns and vector containing the totalData
+		* @returns std::vector<glm::vec3>
+		*/
 	std::vector<glm::vec3> GetTotalData() { return totalData; }
 
+		/**
+		* @brief sets the terrain shader to the shader provided to the function as a parameter
+		* @param s - the shader object
+		*/
 	void SetShader(Shader s) { shader = s; }
 	
 		/**
@@ -226,7 +235,7 @@ public:
 	void generateTextures(Vertex& vertex);
 
 
-	/**
+		/**
 		* @brief Generates vertex normals 
 		*/
 	void generateNormals();

@@ -47,16 +47,25 @@ public:
 		* @param script - a string repesenting the path to the enemy lua script 
 		*/
 	Enemy(glm::vec3 p, glm::vec3 rot, Renderer* gameRenderer, std::string script);
+
+		/**
+		* @brief Enemy constructor that takes various parameters
+		* @param p - reperesents the vector position
+		* @param rot - represents the rotation vector
+		* @param s - represents the enemy scale
+		* @param gameRenderer - a pointer to the game engine renderer
+		* @param script - a string repesenting the path to the enemy lua script
+		* @param h - represents the enemy health
+		* @param a - represents the enemy ammo
+		* @param state - reperesents the enemy state
+		*/
 	Enemy(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std::string script, float h, float a, std::string state);
 
 		/**
 		* @brief Prints the x,y,z values of a given position 
 		* @param p - reperesents the vector position 
 		*/
-	void Print(glm::vec3 p)
-	{
-		std::cout << "print: " << p.x << " " << p.y << " " << p.z << std::endl;
-	}
+	void Print(glm::vec3 p);
 	
 		/**
 		* @brief destructor that deallocates resource upon deletion of enemy object
@@ -88,12 +97,11 @@ public:
 		*/
 	void decreaseHealth(int health);
 
-
 		/**
 		* @brief makes use of the view information and graphics renderer to render the enemy to the screen
 		* @param lens - holds the information that allows you to project and view the model 
 		* @param time - represents deltatime, which is the difference between the previous frame and the current frame 
-		* @param - a pointer to the renderer which is used to render the enemy model 
+		* @param gameRenderer - a pointer to the renderer which is used to render the enemy model 
 		*/
 	void Render(View lens, float time, Renderer* gameRenderer);
 
@@ -113,19 +121,13 @@ public:
 		* @brief sets the boolean value of the killFSM variable
 		* @param k - represents the value that will be assigned to the killFSM boolean variable
 		*/
-	void SetKillFSM(bool k)
-	{
-		killFSM = k;
-	}
+	void SetKillFSM(bool k);
 
 		/**
 		* @brief gets and returns the alive boolean value
 		* @return bool
 		*/
-	bool isAlive()
-	{
-		return alive;
-	}
+	bool isAlive();
 	
 		/**
 		* @brief gets and returns the value of deletaTime
@@ -336,8 +338,8 @@ public:
 	int incrementCheck() { return check++; }
 
 		/**
-		* @brief a function that returns the previous state so long as the state parameter provided matches a valid state, otherwise it returns false
-		* @param state - represents the state that the fsm will check to see if its the previous state
+		* @brief a function that changes the enemy state to the state provided to the function provided as a parameter
+		* @param state - represents the state that the fsm will change to
 		* @return bool
 		*/
 	void ChangeState(std::string state);
@@ -363,19 +365,49 @@ public:
 		*/
 	void SendMessage(int message, std::string type);
 
-	bool Kill();
-
+		/**
+		* @brief sets the value of the moving boolean value, which is set to true when the enemy is moving towards the enemy that has seen the player and called for their help
+		* @param m - represents the value you want to assign the moving boolean
+		*/
 	void SetMoving(bool m) { moving = m; }
+
+		/**
+		* @brief gets and returns the value of moving
+		* @return bool
+		*/
 	bool GetMoving() { return moving; }
 
+		/**
+		* @brief gets and returns the the newPos vector
+		* @return glm::vec3
+		*/
 	glm::vec3 getNewPos() { return newPos; }
-	void setNewPos(glm::vec3 p) { newPos = p; }
 
+		/**
+		* @brief sets the value of the newPos vector
+		* @param p - represents the value you want to assign the newPos vector
+		*/
+	void setNewPos(glm::vec3 p) { newPos = p; }
+	
+		/**
+		* @brief returns the killFSM bool value
+		* @return bool
+		*/
+	bool Kill();
+
+		/**
+		* @brief returns a string of data that is required for saving
+		* @return std::string
+		*/
 	virtual std::string StreamValues()
 	{
 		return GetType() + " " + GetScriptName() + " " + std::to_string(GetScale()) + " " + std::to_string(GetPos().x) + " " + std::to_string(GetPos().y) + " " + std::to_string(GetPos().z) + " " + std::to_string(health) + " " + std::to_string(ammo) +  " " + ReturnState() + "\n";
 	}
 
+		/**
+		* @brief returns the string value of the state that the FSM is currently in
+		* @return std::string
+		*/
 	std::string ReturnState()
 	{
 		if (getFSM()->getCurrentState() == &global_state::getInstance())
