@@ -24,8 +24,8 @@ public:
 		*/
 	Input();
 
-		///The foward input key
-	int foward;
+		///The forward input key
+	int forward;
 
 		///The backward input key
 	int back;
@@ -44,5 +44,8 @@ public:
 
     //The key to toggle the debug panel
     int debug;
+
+    ///Key to toggle the pause menu
+    int pause;
 };
 

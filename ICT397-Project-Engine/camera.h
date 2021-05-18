@@ -50,6 +50,8 @@ public:
     float MouseSensitivity;
     float Zoom;
 
+    bool disabled = false;
+
 
         /**
         * @brief a constructor that allows you to set various variables for the camera
@@ -106,6 +108,7 @@ public:
         */
     void ProcessKeyboard(Camera_Movement direction, float deltaTime)
     {
+        if(disabled) return;
         float velocity = MovementSpeed * deltaTime;
         if (direction == FORWARD)
             Position += Front * velocity;
@@ -126,6 +129,7 @@ public:
         */
     void ProcessMouseMovement(float xoffset, float yoffset, GLboolean constrainPitch = true)
     {
+        if(disabled) return;
         xoffset *= MouseSensitivity;
         yoffset *= MouseSensitivity;
 
@@ -151,6 +155,7 @@ public:
         */
     void ProcessMouseScroll(float yoffset)
     {
+        if(disabled) return;
         Zoom -= (float)yoffset;
         if (Zoom < 1.0f)
             Zoom = 1.0f;

@@ -10,7 +10,7 @@ DebugGUI::DebugGUI(std::string scriptPath)
         luabridge::LuaRef fr = getGlobal(L, "fps");
         luabridge::LuaRef con = getGlobal(L, "console");
         luabridge::LuaRef col = getGlobal(L, "collisions");
-        luabridge::LuaRef wep = getGlobal(L, "wepapon");
+        luabridge::LuaRef wep = getGlobal(L, "weapons");
         luabridge::LuaRef anim = getGlobal(L, "animations");
         luabridge::LuaRef md = getGlobal(L, "md2");
         luabridge::LuaRef tok = getGlobal(L, "token");

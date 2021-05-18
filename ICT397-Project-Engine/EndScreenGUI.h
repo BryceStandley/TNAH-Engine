@@ -1,13 +1,14 @@
 #pragma once
+#include <glad/glad.h>
 #include "GUI.h"
-#include "TextureLoader.h"
+
 
 class EndScreenGUI : public GUI
 {
 public:
-	EndScreenGUI(std::string scriptPath);
+	explicit EndScreenGUI(std::string scriptPath);
 
-	virtual void Draw();
+	void Draw() override;
 
 	bool LoadTextureFromFile(std::string filename, GLuint* out_texture, int* out_width, int* out_height);
 

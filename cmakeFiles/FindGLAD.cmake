@@ -1,4 +1,4 @@
-IF(!WIN32)
+IF(APPLE)
     find_library(GLAD_LIBRARY
             NAMES libglad.a
             PATHS
@@ -8,7 +8,7 @@ IF(!WIN32)
             PATH_SUFFIXES lib src
             NO_DEFAULT_PATH
             )
-ENDIF(!WIN32)
+ENDIF(APPLE)
 
 
 if(GLAD_LIBRARY)
