@@ -4,6 +4,10 @@
 
 class Weapon {
 public:
+
+        /**
+        * @brief default constructor
+        */
     Weapon(){}
 
     bool firingWeapon = false;

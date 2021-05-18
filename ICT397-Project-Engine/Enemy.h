@@ -66,7 +66,10 @@ public:
 		* @brief Prints the x,y,z values of a given position
 		* @param p - reperesents the vector position
 		*/
-	void Print(glm::vec3 p);
+	void Print(glm::vec3 p) 
+	{
+		std::cout << p.x << " " << p.y << " " << p.z << std::endl;
+	}
 	
 		/**
 		* @brief destructor that deallocates resource upon deletion of enemy object
@@ -114,7 +117,7 @@ public:
 		* @brief makes use of the view information and graphics renderer to render the enemy to the screen
 		* @param lens - holds the information that allows you to project and view the model 
 		* @param time - represents deltatime, which is the difference between the previous frame and the current frame 
-		* @param - a pointer to the renderer which is used to render the enemy model 
+		* @param gameRenderer - a pointer to the renderer which is used to render the enemy model 
 		*/
 	void Render(View lens, float time, Renderer* gameRenderer);
 
@@ -134,13 +137,16 @@ public:
 		* @brief sets the boolean value of the killFSM variable
 		* @param k - represents the value that will be assigned to the killFSM boolean variable
 		*/
-	void SetKillFSM(bool k);
+	void SetKillFSM(bool k) 
+	{
+		killFSM = k;
+	};
 
 		/**
 		* @brief gets and returns the alive boolean value
 		* @return bool
 		*/
-	bool isAlive();
+	bool isAlive() { return alive; };
 	
 		/**
 		* @brief gets and returns the value of deletaTime
@@ -408,10 +414,7 @@ public:
 		*/
 	bool Kill();
 
-		/**
-		* @brief returns a string of data that is required for saving
-		* @return std::string
-		*/
+		
 	virtual std::string StreamValues()
 	{
 		return GetType() + " " + GetScriptName() + " " + std::to_string(GetScale()) + " " + std::to_string(GetPos().x) + " " + std::to_string(GetPos().y) + " " + std::to_string(GetPos().z) + " " + std::to_string(health) + " " + std::to_string(ammo) +  " " + ReturnState() + "\n";

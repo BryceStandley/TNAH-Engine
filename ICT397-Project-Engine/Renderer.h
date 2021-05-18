@@ -8,18 +8,18 @@
 #include "Buffer.h"
 #include "Debugger.h"
 typedef float v3[3];
-/**
-* @class Renderer
-* @brief Contains the absract information for the Renderer.
-* The class holds all the functions that would be used to set up models and render them, it does not however provide any functionality
-* and would be used to setup a API, such as OpenGL or directX.
-*
-* @author Christoper Logan
-* @version 01
-* @date 15/03/2021 Christopher Logan, Started
-*
-*
-**/
+	/**
+	* @class Renderer
+	* @brief Contains the absract information for the Renderer.
+	* The class holds all the functions that would be used to set up models and render them, it does not however provide any functionality
+	* and would be used to setup a API, such as OpenGL or directX.
+	*
+	* @author Christoper Logan
+	* @version 01
+	* @date 15/03/2021 Christopher Logan, Started
+	*
+	*
+	**/
 class Renderer
 {
 public:

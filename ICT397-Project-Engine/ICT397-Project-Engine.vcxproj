@@ -116,6 +116,7 @@
     <ClCompile Include="imgui\imgui_widgets.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="luaManager.cpp" />
+    <ClCompile Include="MainMenuGUI.cpp" />
     <ClCompile Include="Manager.cpp" />
     <ClCompile Include="Md2.cpp" />
     <ClCompile Include="Md2State.cpp" />
@@ -175,6 +176,7 @@
     <ClInclude Include="imgui\imstb_truetype.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="luaManager.h" />
+    <ClInclude Include="MainMenuGUI.h" />
     <ClInclude Include="Manager.h" />
     <ClInclude Include="Md2.h" />
     <ClInclude Include="Md2State.h" />

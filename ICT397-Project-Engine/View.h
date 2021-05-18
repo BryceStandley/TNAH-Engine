@@ -48,11 +48,15 @@ public:
 	void SetPosition(const glm::vec3 p) { position = p; }
 
 		/**
-		* @brief sets the position vector
-		* @param const p - represents the vector that is assigned to the position
+		* @brief sets the rotation vector
+		* @param const r - represents the vector that is assigned to the rotation
 		*/
 	void SetRotation(const glm::vec3 r) { rotation = r; }
 
+		/**
+		* @brief sets the forward vector
+		* @param const f - represents the value that is assigned to the forward vector
+		*/
 	void SetForward(const glm::vec3 f) { forward = f; }
 
 		/**
@@ -91,6 +95,10 @@ public:
 		*/
 	glm::vec3 GetRotation() { return rotation; }
 
+		/**
+		* @brief Gets and returns the forward vector
+		* @returns glm::vec3
+		*/
 	glm::vec3 GetForward() {return forward;}
 
 private:
