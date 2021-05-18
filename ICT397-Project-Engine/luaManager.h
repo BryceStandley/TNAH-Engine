@@ -1,4 +1,4 @@
-
+#pragma once
 #include <lua/lua.hpp>
 
 #include <LuaBridge/LuaBridge.h>

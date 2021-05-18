@@ -56,8 +56,8 @@ bool EndScreenGUI::LoadTextureFromFile(std::string filename, GLuint* out_texture
 	// Load from file
 	int image_width = 0;
 	int image_height = 0;
-	unsigned char* image_data = stbi_load(filename.c_str() , &image_width, &image_height, NULL, 4);
-	if (image_data == NULL)
+	unsigned char* image_data = stbi_load(filename.c_str() , &image_width, &image_height, nullptr, 4);
+	if (image_data == nullptr)
 		return false;
 
 	// Create a OpenGL texture identifier

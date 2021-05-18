@@ -852,19 +852,3 @@ bool Enemy::handleMessage(const Telegram message)
 	else
 		return false;
 }
-
-
-void Enemy::SetKillFSM(bool k)
-{
-	killFSM = k;
-}
-
-bool Enemy::isAlive()
-{
-	return alive;
-}
-
-void Enemy::Print(glm::vec3 p)
-{
-	std::cout << "print: " << p.x << " " << p.y << " " << p.z << std::endl;
-}

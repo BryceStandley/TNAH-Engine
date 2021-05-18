@@ -24,7 +24,7 @@ void GameGUI::Draw(Player* dude)
 
 	ImVec2 windowSize = ImGui::GetIO().DisplaySize;
 	ImVec2 windowPos;
-	windowPos.x = (windowSize.x / 2.0f) - (ImGui::GetWindowWidth() / 1.0f);
+	windowPos.x = (windowSize.x / 2.0f) - ImGui::GetWindowWidth();
 
 	ImGuiWindowFlags window_flags = 0;
 

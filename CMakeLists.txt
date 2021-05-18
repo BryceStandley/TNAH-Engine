@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.15)
 
 # Set the project details.
 set(PROJECT_NAME TNAH-Project)
-project(${PROJECT_NAME} LANGUAGES CXX  C)
+project(${PROJECT_NAME} LANGUAGES CXX)
 
 # Setting Find cmake files path
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmakeFiles)
@@ -22,7 +22,7 @@ unset(${LUA_LIBRARY} CACHE)
 
 # Finding required lib's using FindXXX.cmake files in /cmakeFiles
 message("")
-find_package(OpenGL REQUIRED)
+#find_package(OpenGL REQUIRED)
 find_package(GLAD REQUIRED)
 find_package(ASSIMP REQUIRED)
 find_package(GLFW REQUIRED)
@@ -32,16 +32,15 @@ message("")
 # Adding Source Directory
 add_subdirectory(${PROJECT_SOURCE_DIR}/ICT397-Project-Engine)
 
+# Linking lib files to compiler
 if(WIN32)
-    set("LIBS" ${ASSIMP_LIBRARY} ${GLFW_LIBRARY} ${LUA_LIBRARY} )
-ELSE()
-    set("LIBS" ${ASSIMP_LIBRARY} ${GLFW_LIBRARY} ${LUA_LIBRARY} ${GLAD_LIBRARY}  )
+    target_link_libraries(${PROJECT_NAME} ${ASSIMP_LIBRARY} ${GLFW_LIBRARY} ${LUA_LIBRARY} )
+ELSE(APPLE)
+    target_link_libraries(${PROJECT_NAME}  ${ASSIMP_LIBRARY} ${GLFW_LIBRARY} ${LUA_LIBRARY} ${GLAD_LIBRARY}  )
 ENDIF()
 
-target_include_directories(${PROJECT_NAME} PRIVATE ${PROJECT_SOURCE_DIR}/include)
 
-# Linking lib files to compiler
-target_link_libraries(${PROJECT_NAME} ${LIBS})
+
 
 # Copy resource files
 if(!WIN32)

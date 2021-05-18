@@ -3,6 +3,7 @@
 Engine::Engine()
 {
 	lua_State* L = LuaManager::getInstance().getLuaState();
+
 	getGlobalNamespace(L)
 		.beginClass<Scene>("scene")
 			.addFunction("MakeGameObject", &Scene::MakeGameObject)
@@ -54,6 +55,7 @@ Engine::Engine()
 			.addFunction("isAlive", &Enemy::isAlive)
 			.addFunction("getGlobalFlag", &Enemy::getGlobalFlag)
 		.endClass();
+
 
 	int amount = 1;
 	int width = 600;
@@ -139,8 +141,8 @@ Engine::Engine()
 	std::string path = "./res/scripts/scene.lua";
 	if(Debugger::GetInstance()->debugToConsole) std::cout << "Path: " << path << std::endl;
 	
-	//LoadScene(path);
-	gameScenes[0]->LoadSaveFile();
+	LoadScene(path);
+	MainMenuGUI::GetInstance()->DisplayMainMenu();
 }
 
 Engine::~Engine()
@@ -168,38 +170,56 @@ void Engine::Run()
             ImGui::NewFrame();
 
             deltaTime = window->GetTime();
+            window->Update();
 
-
-			window->Update();
-			ExitScreen e = gameScenes[currentScene]->GetExitScreen();
-			e.SetExitScreenDisplay(window->GetDisplay());
-			gameScenes[currentScene]->SetExitScreen(e);
-
-			Weapon w = gameScenes[currentScene]->GetPlayerWeapon();
-			w.firingWeapon = window->GetWeaponFire();
-			gameScenes[currentScene]->SetPlayerWeapon(w);
-
-			gameScenes[currentScene]->Run(window->GetLens(), deltaTime, false);
-			glm::vec3 pos = gameScenes[currentScene]->GetGameObject(gameScenes[currentScene]->GetPlayerIndice())->GetPos();
-			window->UpdateCamera(pos);
-			window->GameInput(deltaTime);
-			window->MouseMove();
-			gameScenes[currentScene]->RunPlayer(window->GetLens(), deltaTime, false);
-
-            //build GUI elements
-            if(debugGui && Debugger::GetInstance()->drawDebugPanel)
+            if(MainMenuGUI::GetInstance()->loadGameClicked)
             {
-				debugGui->Draw();
+                gameScenes[0]->LoadSaveFile();
+                MainMenuGUI::GetInstance()->loadGameClicked = false;
             }
 
+
+
+                ExitScreen e = gameScenes[currentScene]->GetExitScreen();
+                e.SetExitScreenDisplay(window->GetDisplay());
+                gameScenes[currentScene]->SetExitScreen(e);
+
+                Weapon w = gameScenes[currentScene]->GetPlayerWeapon();
+                w.firingWeapon = window->GetWeaponFire();
+                gameScenes[currentScene]->SetPlayerWeapon(w);
+
+
+                gameScenes[currentScene]->Run(window->GetLens(), deltaTime, false);
+                glm::vec3 pos = gameScenes[currentScene]->GetGameObject(gameScenes[currentScene]->GetPlayerIndice())->GetPos();
+                window->UpdateCamera(pos);
+                window->GameInput(deltaTime);
+                window->MouseMove();
+            if(!MainMenuGUI::GetInstance()->displayingAMenu)
+            {
+                gameScenes[currentScene]->RunPlayer(window->GetLens(), deltaTime, false);
+
+                //build GUI elements
+                if(debugGui && Debugger::GetInstance()->drawDebugPanel)
+                {
+                    debugGui->Draw();
+                }
+            }
 
             //Render GUI
             ImGui::Render();
             ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
 			window->Buffer();
+
+            if(MainMenuGUI::GetInstance()->saveGameClicked)
+            {
+
+                MainMenuGUI::GetInstance()->saveGameClicked = false;
+            }
+
 		}
-		gameScenes[0]->SaveGame();
+		//todo: Add a auto save option in settings manager and use it to trigger save
+        gameScenes[0]->SaveGame();
 		std::cout << "CLOSING::ENGINE_WILL_EXIT" << std::endl;
 	}
 }

@@ -13,6 +13,7 @@
 #include "Weapon.h"
 #include "GameGUI.h"
 #include "EndScreenGUI.h"
+#include "MainMenuGUI.h"
 
 /**
 * @class Scene
@@ -233,6 +234,7 @@ private:
 	bool exitScreenDisplay = false;
 	GameGUI* gameGui;
 	EndScreenGUI* endScreenGUI;
+	MainMenuGUI* mainMenuGui;
 	bool loaded;
 };
 

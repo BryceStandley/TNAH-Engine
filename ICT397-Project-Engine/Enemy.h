@@ -15,6 +15,7 @@ inline double randomClamped()
 	return randFloat() - randFloat();
 }
 
+
 	/**
 	 * @class Enemy
 	 * @brief Abstract GameObject class for enemies
@@ -26,11 +27,11 @@ inline double randomClamped()
 	 * @todo Add enemy functionality
 	 *
 	 * @bugs none to be seen
-	 * 
+	 *
 	 * @author Dylan Blereau
 	 * @version 02
 	 * @date 05/05/21
-	 * 
+	 *
 	 * @brief Added enemy FSM and messaging functionality
 	 *
 	 **/
@@ -40,11 +41,11 @@ class Enemy : public GameObject
 public:
 
 		/**
-		* @brief Enemy constructor that takes various parameters 
+		* @brief Enemy constructor that takes various parameters
 		* @param p - reperesents the vector position
 		* @param rot - represents the rotation vector
 		* @param gameRenderer - a pointer to the game engine renderer
-		* @param script - a string repesenting the path to the enemy lua script 
+		* @param script - a string repesenting the path to the enemy lua script
 		*/
 	Enemy(glm::vec3 p, glm::vec3 rot, Renderer* gameRenderer, std::string script);
 
@@ -62,8 +63,8 @@ public:
 	Enemy(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std::string script, float h, float a, std::string state);
 
 		/**
-		* @brief Prints the x,y,z values of a given position 
-		* @param p - reperesents the vector position 
+		* @brief Prints the x,y,z values of a given position
+		* @param p - reperesents the vector position
 		*/
 	void Print(glm::vec3 p);
 	
@@ -91,7 +92,19 @@ public:
 		*/
 	int getHealth() { return health;}
 
-		/**
+	/**
+	 * @brief Gets the position of the game object
+	 * @return pPos - position of the game object
+	 */
+
+    glm::vec3 GetPos() const { return GameObject::GetPos(); }
+    /**
+     * @brief Sets the position of the game object
+     * @param p - the glm::vec3 position to be set
+     */
+    void SetPos(glm::vec3 p) { GameObject::SetPos(p); }
+
+        /**
 		* @brief decreases the value of health by the integer provided as a parameter
 		* @param health - represents the value that health will be decreased by
 		*/
@@ -101,13 +114,13 @@ public:
 		* @brief makes use of the view information and graphics renderer to render the enemy to the screen
 		* @param lens - holds the information that allows you to project and view the model 
 		* @param time - represents deltatime, which is the difference between the previous frame and the current frame 
-		* @param gameRenderer - a pointer to the renderer which is used to render the enemy model 
+		* @param - a pointer to the renderer which is used to render the enemy model 
 		*/
 	void Render(View lens, float time, Renderer* gameRenderer);
 
 		/**
 		* @brief sets the animation state to the value provided as parameter, whether it be an integer or an enumerated type
-		* @param num - represents the num or enum that belongs to an animation state 
+		* @param num - represents the num or enum that belongs to an animation state
 		*/
 	void SetState(int num);
 

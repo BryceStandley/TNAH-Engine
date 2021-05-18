@@ -40,17 +40,17 @@ void Scene::Load(std::string file)
         }
         else
         {
-            std::cout << "WOORLD::RUNNING" << std::endl;
+            std::cout << "WORLD::RUNNING" << std::endl;
         }
 
         FindPlayerIndice();
 
-        if (gameObjects.size() > 0)
+        if (gameObjects.empty())
         {
-            for (int i = 0; i < gameObjects.size(); i++)
+            for (auto & gameObject : gameObjects)
             {
-                if (gameObjects[i]->GetType() == "enemy")
-                    entityMan::getInstance().RegisterEntity(gameObjects[i]);
+                if (gameObject->GetType() == "enemy")
+                    entityMan::getInstance().RegisterEntity(gameObject);
             }
         }
 
@@ -109,12 +109,12 @@ void Scene::LoadSaveFile()
 
         FindPlayerIndice();
 
-        if (gameObjects.size() > 0)
+        if (gameObjects.empty())
         {
-            for (int i = 0; i < gameObjects.size(); i++)
+            for (auto & gameObject : gameObjects)
             {
-                if (gameObjects[i]->GetType() == "enemy")
-                    entityMan::getInstance().RegisterEntity(gameObjects[i]);
+                if (gameObject->GetType() == "enemy")
+                    entityMan::getInstance().RegisterEntity(gameObject);
             }
         }
 
@@ -126,11 +126,9 @@ void Scene::Run(View lens, float time, bool exit)
 {
     if (exitScreen.exitScreenDisplay)
     {
-        //exitScreen.Render(gameRenderer, lens);
-
         endScreenGUI->Draw();
     }
-    else
+    else if(!mainMenuGui->displayMainMenu && !mainMenuGui->displayPauseMenu && !mainMenuGui->displaySettings)
     {
         singleton<Manager>::getInstance().Update(time);
         singleton<Manager>::getInstance().UpdateWeapon(time);
@@ -140,65 +138,67 @@ void Scene::Run(View lens, float time, bool exit)
         gameTerrain->SetShader(t);
         gameRenderer->RenderTerrain(gameTerrain->GetVAO(), gameTerrain->GetIndicesSize());
 
-            //Skybox
-            gameRenderer->SetShaderSkybox(gameSkybox->skyShader, lens);
-            gameRenderer->RenderSkybox(gameSkybox->VAO, gameSkybox->texture);
+        //Skybox
+        gameRenderer->SetShaderSkybox(gameSkybox->skyShader, lens);
+        gameRenderer->RenderSkybox(gameSkybox->VAO, gameSkybox->texture);
 
-            std::vector<GameObject*> gameObjectsToRemoveFromScene;
-            //Models
-            for (int x = 0; x < gameObjects.size(); x++)
+        std::vector<GameObject*> gameObjectsToRemoveFromScene;
+        //Models
+        for (int x = 0; x < gameObjects.size(); x++)
+        {
+            gameObjects[x]->Update(0.1);
+            if (x != playerInd)
             {
-                gameObjects[x]->Update(0.1);
-                if (x != playerInd)
+                gameObjects[x]->Render(lens, time, gameRenderer);
+                if (gameObjects[x]->GetType() == "enemy")
                 {
-                    gameObjects[x]->Render(lens, time, gameRenderer);
-                    if (gameObjects[x]->GetType() == "enemy")
+                    UpdateGameObject(gameObjects[x]->GetPos(), x);
+                    if (gameObjects[x]->Kill())
                     {
-                        UpdateGameObject(gameObjects[x]->GetPos(), x);
-                        if (gameObjects[x]->Kill())
-                        {
-                            gameObjectsToRemoveFromScene.emplace_back(gameObjects[x]);
-                            singleton<EntityManager>::getInstance().RemoveEntity(gameObjects[x]);
-                        }
+                        gameObjectsToRemoveFromScene.emplace_back(gameObjects[x]);
+                        singleton<EntityManager>::getInstance().RemoveEntity(gameObjects[x]);
                     }
                 }
             }
+        }
 
-            std::vector<GameObject*>::iterator removed;
-            for (auto& go : gameObjectsToRemoveFromScene)
-            {
-                //if(Debugger::GetInstance()->debugCollisionsToConsole) std::cout << "Scene.cpp::INFO::GameObject - " + go->GetName() +" hit and removed from scene" << std::endl;
-                removed = std::remove(gameObjects.begin(), gameObjects.end(), go);
-            }
+        std::vector<GameObject*>::iterator removed;
+        for (auto& go : gameObjectsToRemoveFromScene)
+        {
+            //if(Debugger::GetInstance()->debugCollisionsToConsole) std::cout << "Scene.cpp::INFO::GameObject - " + go->GetName() +" hit and removed from scene" << std::endl;
+            removed = std::remove(gameObjects.begin(), gameObjects.end(), go);
+        }
 
-            //if the player is firing, fire the weapon duh
-            if (playerWeapon.firingWeapon && playerWeapon.canFireWeapon)
-            {
-                playerWeapon.firingWeapon = false;
-                singleton<Manager>::getInstance().weaponTimer = 5.0f / 17.0f;
-                singleton<Manager>::getInstance().fireWeapon = false;
-                playerWeapon.canFireWeapon = false;
-                Player* p = (Player*)gameObjects[playerInd];
-                p->FireWeapon();
-                FireWeapon(gameObjects[playerInd]->GetPos(), lens.GetForward(), 10.0f);
-            }
+        //if the player is firing, fire the weapon duh
+        if (playerWeapon.firingWeapon && playerWeapon.canFireWeapon && singleton<Manager>::getInstance().weaponTimer <= 0)
+        {
+            playerWeapon.firingWeapon = false;
+            singleton<Manager>::getInstance().weaponTimer = 5.0f / 17.0f;
+            singleton<Manager>::getInstance().fireWeapon = false;
+            playerWeapon.canFireWeapon = false;
+            auto* p = (Player*)gameObjects[playerInd];
+            p->FireWeapon();
+            FireWeapon(gameObjects[playerInd]->GetPos(), lens.GetForward(), 10.0f);
+        }
 
-            //if the timer is 0 and we can fire again
-            if (singleton<Manager>::getInstance().weaponTimer <= 0)
-            {
-                Player* p = (Player*)gameObjects[playerInd];
-                p->BackToIdle();
-                playerWeapon.canFireWeapon = true;
-            }
+        //if the timer is 0 and we can fire again
+        if (singleton<Manager>::getInstance().weaponTimer <= 0)
+        {
+            auto* p = (Player*)gameObjects[playerInd];
+            p->BackToIdle();
+            playerWeapon.canFireWeapon = true;
+        }
 
+        //GameUI
+        if (gameGui) { gameGui->Draw((Player*)gameObjects[playerInd]); }
+
+        //If game object is of type player
+        UpdatePlayer(lens.GetPosition(), lens.GetRotation());
     }
-    //GameUI
-
-    if (gameGui) { gameGui->Draw((Player*)gameObjects[playerInd]); }
-
-
-	//If game object is of type player
-	UpdatePlayer(lens.GetPosition(), lens.GetRotation());
+    else
+    {
+        mainMenuGui->Draw();
+    }
 }
 
 void Scene::Init()
@@ -218,6 +218,7 @@ void Scene::Init()
 
     gameGui = new GameGUI("./res/scripts/menus/game.lua");
     endScreenGUI = new EndScreenGUI("./res/scripts/menus/endScreen.lua");
+    mainMenuGui = MainMenuGUI::GetInstance();
 }
 
 

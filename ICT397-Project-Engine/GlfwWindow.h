@@ -10,6 +10,7 @@
 #include "Shader.h"
 #include "Manager.h"
 #include "Debugger.h"
+#include "MainMenuGUI.h"
 
 /**
  * @class GlfwWindow
@@ -163,6 +164,8 @@ private:
 	bool canFireWeapon = false;
 
 	bool fireWeapon = false;
+
+	bool canPressPauseButton = false;
 
 		//The game input manager
 	Input gameInput;

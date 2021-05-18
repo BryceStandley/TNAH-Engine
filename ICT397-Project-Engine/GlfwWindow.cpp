@@ -49,6 +49,7 @@ void GlfwWindow::Terminate()
 
 void GlfwWindow::GameInput(float deltaTime)
 {
+    MainMenuGUI* mainMenuGui = MainMenuGUI::GetInstance();
     if ((glfwGetKey(gameWindow, gameInput.exit) == GLFW_PRESS) && canPressExitDisplay)
     {
         canPressExitDisplay = false;
@@ -85,43 +86,99 @@ void GlfwWindow::GameInput(float deltaTime)
         Debugger::GetInstance()->drawDebugPanel = !Debugger::GetInstance()->drawDebugPanel;
         if(Debugger::GetInstance()->drawDebugPanel)
         {
+            mainMenuGui->displayingAMenu = true;
+            camera.disabled = true;
             glfwSetInputMode(gameWindow, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
         }
         else
         {
+            mainMenuGui->displayingAMenu = false;
+            camera.disabled = false;
             glfwSetInputMode(gameWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
         }
+    }
 
+    if(!mainMenuGui->mainMenuClosed)
+    {
+        if(mainMenuGui->displayMainMenu)
+        {
+            camera.disabled = true;
+            glfwSetInputMode(gameWindow, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+        }
+        else if(!mainMenuGui->displayMainMenu)
+        {
+            glfwSetInputMode(gameWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+            camera.disabled = false;
+            mainMenuGui->mainMenuClosed = true;
+        }
+    }
+
+
+    if ((glfwGetKey(gameWindow, gameInput.pause) == GLFW_PRESS) && canPressPauseButton && !mainMenuGui->displaySettings)
+    {
+        canPressPauseButton = false;
+        mainMenuGui->canDisplayPauseMenu = !mainMenuGui->canDisplayPauseMenu;
+
+        if(mainMenuGui->canDisplayPauseMenu)
+        {
+            mainMenuGui->DisplayPauseMenu();
+            camera.disabled = true;
+            glfwSetInputMode(gameWindow, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+        }
+        else if(!mainMenuGui->canDisplayPauseMenu)
+        {
+            mainMenuGui->HideMenus();
+            glfwSetInputMode(gameWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+            camera.disabled = false;
+
+        }
+
+    }
+
+    if(glfwGetKey(gameWindow, gameInput.pause) == GLFW_RELEASE)
+    {
+        canPressPauseButton = true;
+    }
+
+    if(mainMenuGui->quitClicked)
+    {
+        //the quit button was pressed in the pause menu, we should quit the application
+        glfwSetWindowShouldClose(gameWindow, true);
     }
 
     if (!exitDisplay)
     {
-        float speed = singleton<Manager>::getInstance().speed;
 
-        if (glfwGetKey(gameWindow, gameInput.foward) == GLFW_PRESS)
-            camera.ProcessKeyboard(FORWARD, deltaTime * speed);
-        if (glfwGetKey(gameWindow, gameInput.back) == GLFW_PRESS)
-            camera.ProcessKeyboard(BACKWARD, deltaTime * speed);
-        if (glfwGetKey(gameWindow, gameInput.left) == GLFW_PRESS)
-            camera.ProcessKeyboard(LEFT, deltaTime * speed);
-        if (glfwGetKey(gameWindow, gameInput.right) == GLFW_PRESS)
-            camera.ProcessKeyboard(RIGHT, deltaTime * speed);
-        if(wireDisplay){glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);}
-        else if (!wireDisplay){glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);}
-
-        if ((glfwGetMouseButton(gameWindow, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS))
+        if(!mainMenuGui->displayingAMenu)
         {
-            fireWeapon = true;
-        }
+            float speed = singleton<Manager>::getInstance().speed;
 
-        if (glfwGetMouseButton(gameWindow, GLFW_MOUSE_BUTTON_LEFT) == GLFW_RELEASE)
-        {
-            fireWeapon = false;
+            if (glfwGetKey(gameWindow, gameInput.forward) == GLFW_PRESS)
+                camera.ProcessKeyboard(FORWARD, deltaTime * speed);
+            if (glfwGetKey(gameWindow, gameInput.back) == GLFW_PRESS)
+                camera.ProcessKeyboard(BACKWARD, deltaTime * speed);
+            if (glfwGetKey(gameWindow, gameInput.left) == GLFW_PRESS)
+                camera.ProcessKeyboard(LEFT, deltaTime * speed);
+            if (glfwGetKey(gameWindow, gameInput.right) == GLFW_PRESS)
+                camera.ProcessKeyboard(RIGHT, deltaTime * speed);
+            if (wireDisplay) { glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); }
+            else if (!wireDisplay) { glPolygonMode(GL_FRONT_AND_BACK, GL_FILL); }
+
+
+
+            if ((glfwGetMouseButton(gameWindow, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS &&
+                 !mainMenuGui->displayingAMenu)) {
+                fireWeapon = true;
+            }
+
+            if (glfwGetMouseButton(gameWindow, GLFW_MOUSE_BUTTON_LEFT) == GLFW_RELEASE) {
+                fireWeapon = false;
+            }
         }
     }
     else
     {
-        if (glfwGetMouseButton(gameWindow, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
+        if ((glfwGetMouseButton(gameWindow, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS))
         {
             glfwSetWindowShouldClose(gameWindow, true);
 
