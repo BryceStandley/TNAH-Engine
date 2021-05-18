@@ -195,6 +195,12 @@
     <ClCompile Include="MenuGUI.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GameGUI.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EndScreenGUI.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Renderer.h">
@@ -371,6 +377,12 @@
     <ClInclude Include="MenuGUI.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="GameGUI.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EndScreenGUI.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\scripts\engine.lua">
@@ -474,6 +486,13 @@
     </None>
     <None Include="res\shader\waterVertex.glsl">
       <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="..\.gitignore" />
+    <None Include="res\scripts\menus\game.lua">
+      <Filter>Resource Files\lua scripts\menus</Filter>
+    </None>
+    <None Include="res\scripts\menus\endScreen.lua">
+      <Filter>Resource Files\lua scripts\menus</Filter>
     </None>
   </ItemGroup>
 </Project>

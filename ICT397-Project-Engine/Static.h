@@ -18,6 +18,7 @@ class Static : public GameObject
 public:
 	Static(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std::string script) : GameObject(p, rot, s, gameRenderer)
 	{
+		SetScriptName(script);
 		lua_State* L = LuaManager::getInstance().getLuaState();
 
 		if (!luaL_dofile(L, script.c_str()))

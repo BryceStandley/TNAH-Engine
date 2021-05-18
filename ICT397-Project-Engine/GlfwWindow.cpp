@@ -3,6 +3,9 @@
 
 void GlfwWindow::Init(std::string title, int h, int w)
 {
+    //Store the window size in a vec 2 for gui refrences
+    windowSize = glm::vec2(w, h);
+
     //Set the GLFW Open GL Context to version 3.2
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
@@ -29,6 +32,8 @@ void GlfwWindow::Init(std::string title, int h, int w)
     ///locks the cursor to the window
     glfwSetInputMode(gameWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     Debugger::GetInstance()->windowRef = gameWindow;
+
+    
 }
 
 void GlfwWindow::Buffer()

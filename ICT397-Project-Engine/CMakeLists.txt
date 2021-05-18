@@ -1,4 +1,5 @@
 target_sources(${PROJECT_NAME} PRIVATE
+        glad.c
         application.cpp
         BoundingBox.cpp
         Callbacks.cpp
@@ -10,7 +11,6 @@ target_sources(${PROJECT_NAME} PRIVATE
         GameAssetFactory.cpp
         GameObject.cpp
         GameObjects.cpp
-        glad.c
         GlfwWindow.cpp
         GUI.cpp
         Input.cpp
@@ -42,9 +42,12 @@ target_sources(${PROJECT_NAME} PRIVATE
         stateMachine.h
         Weapon.cpp
         playerStates.cpp
+        DebugGUI.cpp
+        MenuGUI.cpp
+
         )
 
-target_include_directories(${PROJECT_NAME} PRIVATE ${PROJECT_SOURCE_DIR}/include)
+
 
 #imgui includes
 target_sources(${PROJECT_NAME} PRIVATE

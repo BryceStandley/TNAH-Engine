@@ -153,7 +153,7 @@ public:
 		* @brief Get method that returns the total size of indices
 		* @return int
 		*/
-	int GetIndicesSize() const { return Indices.size(); }
+	int GetIndicesSize() const { return (int)Indices.size(); }
 
 		/**
 		* @brief Gets and returns the height (y-value) for a position in the terrain using given x and z values

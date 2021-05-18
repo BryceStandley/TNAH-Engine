@@ -1,6 +1,6 @@
 #include "Md2.h"
 
-Md2State Md2::animationList[22] =
+Md2State Md2::animationList[23] =
 {
 	// first, last, fps
 	{   0,  39,  9 },
@@ -24,7 +24,8 @@ Md2State Md2::animationList[22] =
 	{ 178, 183,  7 },
 	{ 183, 183,  7 },
 	{ 190, 197,  7 },
-	{ 0, 17,  9 },
+	{ 0, 17,  60 },
+	{ 0,  0,  0},
 };
 
 std::string sMD2AnimationNames[MAX_ANIMATIONS] =
@@ -51,6 +52,7 @@ std::string sMD2AnimationNames[MAX_ANIMATIONS] =
 	"Death",
 	"Death Fallback Slow",
 	"Shoot",
+	"Idle",
 };
 
 v3 anorms[162] =

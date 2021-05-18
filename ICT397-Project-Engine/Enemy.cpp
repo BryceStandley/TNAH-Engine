@@ -3,7 +3,7 @@
 Enemy::Enemy(glm::vec3 p, glm::vec3 rot, Renderer* gameRenderer, std::string script) : GameObject(p, rot, 0, gameRenderer)
 {
 	lua_State* L = LuaManager::getInstance().getLuaState();
-
+	SetScriptName(script);
 	int h = 50;
 	int a = 5;
 	bool living = true, weap = false;
@@ -35,6 +35,7 @@ Enemy::Enemy(glm::vec3 p, glm::vec3 rot, Renderer* gameRenderer, std::string scr
 		std::string vertS;
 		std::string fragS;
 		std::string texture;
+
 		bool check = false, rotate = false;
 
 		if (type.isBool())
@@ -232,6 +233,219 @@ Enemy::Enemy(glm::vec3 p, glm::vec3 rot, Renderer* gameRenderer, std::string scr
 	hasWeapon = weap;
 }
 
+Enemy::Enemy(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std::string script, float h, float a, std::string state) : GameObject(p, rot, s, gameRenderer)
+{
+	lua_State* L = LuaManager::getInstance().getLuaState();
+	SetScriptName(script);
+	bool living = true, weap = false;
+
+	if (!luaL_dofile(L, script.c_str()))
+	{
+		wanderLua = getGlobal(L, "wander");
+		alert = getGlobal(L, "alert");
+		chase = getGlobal(L, "chase");
+		fleeLua = getGlobal(L, "flee");
+		attack = getGlobal(L, "attack");
+		die = getGlobal(L, "die");
+		global = getGlobal(L, "global");
+
+		LuaRef type = getGlobal(L, "check");
+		LuaRef rot = getGlobal(L, "rotate");
+		LuaRef alv = getGlobal(L, "alive");
+		LuaRef weapon = getGlobal(L, "weapon");
+
+		LuaRef mod = getGlobal(L, "model");
+		LuaRef tex = getGlobal(L, "texture");
+		LuaRef vert = getGlobal(L, "vertShader");
+		LuaRef frag = getGlobal(L, "fragShader");
+
+		LuaRef hel = getGlobal(L, "health");
+		LuaRef amm = getGlobal(L, "ammo");
+
+		std::string file;
+		std::string vertS;
+		std::string fragS;
+		std::string texture;
+
+		bool check = false, rotate = false;
+
+		if (type.isBool())
+		{
+			check = type.cast<bool>();
+		}
+
+		if (rot.isBool())
+		{
+			rotate = rot.cast<bool>();
+		}
+
+		if (alv.isBool())
+		{
+			living = alv.cast<bool>();
+		}
+
+		if (weapon.isBool())
+		{
+			weap = weapon.cast<bool>();
+		}
+
+		if (mod.isString())
+		{
+			file = mod.cast<std::string>();
+		}
+
+		if (vert.isString())
+		{
+			vertS = vert.cast<std::string>();
+		}
+
+		if (frag.isString())
+		{
+			fragS = frag.cast<std::string>();
+		}
+
+		if (tex.isString())
+		{
+			texture = tex.cast<std::string>();
+		}
+
+		Model tempModel(file, gameRenderer, check, texture, true);
+		SetModel(tempModel);
+
+		Shader tempShader(vertS.c_str(), fragS.c_str());
+		SetShader(tempShader);
+
+		SetRotate(rotate);
+
+		if (weap)
+		{
+			LuaRef WeapMod = getGlobal(L, "weaponModel");
+			LuaRef weapTex = getGlobal(L, "weaponTexture");
+
+			std::string weaponModel;
+			std::string weaponTexture;
+
+			if (WeapMod.isString())
+			{
+				weaponModel = WeapMod.cast<std::string>();
+			}
+
+			if (weapTex.isString())
+			{
+				weaponTexture = weapTex.cast<std::string>();
+			}
+
+			Model tempWeaponModel(weaponModel, gameRenderer, check, weaponTexture, true);
+			wModel = tempWeaponModel;
+		}
+	}
+	else if (!luaL_dofile(L, "./res/scripts/gameobjects/enemy_default.lua"))
+	{
+		std::cout << "Enemy script not found, loading default script" << std::endl;
+		LuaRef type = getGlobal(L, "check");
+		LuaRef rot = getGlobal(L, "rotate");
+		LuaRef alv = getGlobal(L, "alive");
+		LuaRef weapon = getGlobal(L, "weapon");
+
+		LuaRef mod = getGlobal(L, "model");
+		LuaRef tex = getGlobal(L, "texture");
+		LuaRef vert = getGlobal(L, "vertShader");
+		LuaRef frag = getGlobal(L, "fragShader");
+
+		LuaRef hel = getGlobal(L, "health");
+		LuaRef amm = getGlobal(L, "ammo");
+
+		std::string file;
+		std::string vertS;
+		std::string fragS;
+		std::string texture;
+		bool check = false, rotate = false;
+
+		if (type.isBool())
+		{
+			check = type.cast<bool>();
+		}
+
+		if (rot.isBool())
+		{
+			rotate = rot.cast<bool>();
+		}
+
+		if (alv.isBool())
+		{
+			living = alv.cast<bool>();
+		}
+
+		if (weapon.isBool())
+		{
+			weap = weapon.cast<bool>();
+		}
+
+		if (mod.isString())
+		{
+			file = mod.cast<std::string>();
+		}
+
+		if (vert.isString())
+		{
+			vertS = vert.cast<std::string>();
+		}
+
+		if (frag.isString())
+		{
+			fragS = frag.cast<std::string>();
+		}
+
+		if (tex.isString())
+		{
+			texture = tex.cast<std::string>();
+		}
+
+		Model tempModel(file, gameRenderer, check, texture, true);
+		SetModel(tempModel);
+
+		Shader tempShader(vertS.c_str(), fragS.c_str());
+		SetShader(tempShader);
+
+		SetRotate(rotate);
+
+		if (weap)
+		{
+			LuaRef WeapMod = getGlobal(L, "weaponModel");
+			LuaRef weapTex = getGlobal(L, "weaponTexture");
+
+			std::string weaponModel;
+			std::string weaponTexture;
+
+			if (WeapMod.isString())
+			{
+				weaponModel = WeapMod.cast<std::string>();
+			}
+
+			if (weapTex.isString())
+			{
+				weaponTexture = weapTex.cast<std::string>();
+			}
+
+			Model tempWeaponModel(weaponModel, gameRenderer, check, weaponTexture, true);
+			wModel = tempWeaponModel;
+		}
+	}
+	else
+	{
+		std::cout << "ERROR::NO_ENEMY_SCRIPTS_FOUND" << std::endl;
+	}
+	enemyFSM = new stateMachine<Enemy>(this);
+	enemyFSM->setCurrentState(&wander_state::getInstance());
+	ChangeState(state);
+	enemyFSM->setGlobalState(&global_state::getInstance());
+	health = h;
+	ammo = a;
+	alive = living;
+	hasWeapon = weap;
+	//Set state
+}
+
 
 Enemy::~Enemy() 
 {
@@ -427,6 +641,7 @@ bool Enemy::moveTo(glm::vec3& curPos, const glm::vec3& targetPos, glm::vec3& cur
 	if (toRealTarget.x == 0 && toRealTarget.y == 0 && toRealTarget.z == 0)
 	{
 		curPos = realTargetPos;
+		SetPos(curPos);
 		return true;
 	}
 
@@ -435,6 +650,7 @@ bool Enemy::moveTo(glm::vec3& curPos, const glm::vec3& targetPos, glm::vec3& cur
 	if (dp < 0.0)
 	{
 		curPos = realTargetPos;
+		SetPos(curPos);
 		return true;
 	}
 	//std::cout << curPos.x << " " << curPos.y << " " << curPos.z << " | " << newPos.x << " " << newPos.y << " " << newPos.z << std::endl;
@@ -531,4 +747,124 @@ bool Enemy::wander(glm::vec3& position, glm::vec3& velocity, float time, std::st
 	return true;
 }
 
+void Enemy::ChangeState(std::string state)
+{
+	if (state == "wander")
+	{
+		getFSM()->changeState(&wander_state::getInstance());
+	}
+	else if (state == "alert")
+	{
+		getFSM()->changeState(&alert_state::getInstance());
+	}
+	else if (state == "chase")
+	{
+		getFSM()->changeState(&chase_state::getInstance());
+	}
+	else if (state == "flee")
+	{
+		getFSM()->changeState(&flee_state::getInstance());
+	}
+	else if (state == "attack")
+	{
+		getFSM()->changeState(&attack_state::getInstance());
+	}
+	else if (state == "die")
+	{
+		getFSM()->changeState(&die_state::getInstance());
+	}
+	else if (state == "global")
+	{
+		getFSM()->changeState(&global_state::getInstance());
+	}
+}
 
+bool Enemy::CheckPrevState(std::string state)
+{
+	if (state == "wander")
+	{
+		return getFSM()->getPreviousState() == &wander_state::getInstance();
+	}
+	else if (state == "alert")
+	{
+		return getFSM()->getPreviousState() == &alert_state::getInstance();
+	}
+	else if (state == "chase")
+	{
+		return getFSM()->getPreviousState() == &chase_state::getInstance();
+	}
+	else if (state == "flee")
+	{
+		return getFSM()->getPreviousState() == &flee_state::getInstance();
+	}
+	else if (state == "attack")
+	{
+		return getFSM()->getPreviousState() == &attack_state::getInstance();
+	}
+	else if (state == "die")
+	{
+		return getFSM()->getPreviousState() == &die_state::getInstance();
+	}
+	else if (state == "global")
+	{
+		return getFSM()->getPreviousState() == &global_state::getInstance();
+	}
+	else
+	{
+		return false;
+	}
+}
+
+float Enemy::LookDirection(std::string type)
+{
+	if (type == "player")
+	{
+		return atan2(getVelocity().z, getVelocity().x);
+	}
+	else
+	{
+		return atan2(enemyVelocity.z, enemyVelocity.x);
+	}
+}
+
+void Enemy::SendMessage(int message, std::string type)
+{
+	singleton<MessageDispatcher>::getInstance().DisbatchMsgAllOfType(GetId(), message, type);
+}
+
+bool Enemy::Kill()
+{
+	return killFSM;
+}
+
+bool Enemy::handleMessage(const Telegram message)
+{
+	if (Debugger::GetInstance()->debugToConsole) std::cout << message.sender << " has sent a message to " << GetId() << " " << message.msg << ", distance: " << DistanceBetween(message.pos) << std::endl;
+	if (enemyFSM->handleMessage(message))
+	{
+		if (DistanceBetween(message.pos) <= 50.0f)
+		{
+			newPos = message.pos;
+			moving = true;
+		}
+		return true;
+	}
+	else
+		return false;
+}
+
+
+void Enemy::SetKillFSM(bool k)
+{
+	killFSM = k;
+}
+
+bool Enemy::isAlive()
+{
+	return alive;
+}
+
+void Enemy::Print(glm::vec3 p)
+{
+	std::cout << "print: " << p.x << " " << p.y << " " << p.z << std::endl;
+}

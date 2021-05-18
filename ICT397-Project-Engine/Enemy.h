@@ -47,7 +47,7 @@ public:
 		* @param script - a string repesenting the path to the enemy lua script 
 		*/
 	Enemy(glm::vec3 p, glm::vec3 rot, Renderer* gameRenderer, std::string script);
-	
+	Enemy(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std::string script, float h, float a, std::string state);
 
 		/**
 		* @brief Prints the x,y,z values of a given position 
@@ -164,21 +164,7 @@ public:
 		* @param message - represents the message sent to the enemy
 		* @return bool
 		*/
-	bool handleMessage(const Telegram message)
-	{
-        if(Debugger::GetInstance()->debugToConsole) std::cout << message.sender << " has sent a message to " << GetId() << " " << message.msg << ", distance: " << DistanceBetween(message.pos) << std::endl;
-		if (enemyFSM->handleMessage(message))
-		{
-			if (DistanceBetween(message.pos) <= 50.0f)
-			{
-				newPos = message.pos;
-				moving = true;
-			}
-			return true;
-		}
-		else
-			return false;
-	}
+	bool handleMessage(const Telegram message);
 
 		/**
 		* @brief allows the enemy to move from its current position to a specified target position
@@ -349,136 +335,83 @@ public:
 		*/
 	int incrementCheck() { return check++; }
 
-
 		/**
-		* @brief a function that changes the FSM state to the state name which is provided as a parameter
-		* @param state - represents the state that the fsm will change state to 
+		* @brief a function that returns the previous state so long as the state parameter provided matches a valid state, otherwise it returns false
+		* @param state - represents the state that the fsm will check to see if its the previous state
+		* @return bool
 		*/
-	void ChangeState(std::string state)
-	{
-		if (state == "wander")
-		{
-			getFSM()->changeState(&wander_state::getInstance());
-		}
-		else if (state == "alert")
-		{
-			getFSM()->changeState(&alert_state::getInstance());
-		}
-		else if (state == "chase")
-		{
-			getFSM()->changeState(&chase_state::getInstance());
-		}
-		else if (state == "flee")
-		{
-			getFSM()->changeState(&flee_state::getInstance());
-		}
-		else if (state == "attack")
-		{
-			getFSM()->changeState(&attack_state::getInstance());
-		}
-		else if (state == "die")
-		{
-			getFSM()->changeState(&die_state::getInstance());
-		}
-		else if (state == "global")
-		{
-			getFSM()->changeState(&global_state::getInstance());
-		}
-	}
+	void ChangeState(std::string state);
 
 		/**
 		* @brief a function that returns the previous state so long as the state parameter provided matches a valid state, otherwise it returns false
 		* @param state - represents the state that the fsm will check to see if its the previous state
 		* @return bool
 		*/
-	bool CheckPrevState(std::string state)
-	{
-		if (state == "wander")
-		{
-			return getFSM()->getPreviousState() == &wander_state::getInstance();
-		}
-		else if (state == "alert")
-		{
-			return getFSM()->getPreviousState() == &alert_state::getInstance();
-		}
-		else if (state == "chase")
-		{
-			return getFSM()->getPreviousState() == &chase_state::getInstance();
-		}
-		else if (state == "flee")
-		{
-			return getFSM()->getPreviousState() == &flee_state::getInstance();
-		}
-		else if (state == "attack")
-		{
-			return getFSM()->getPreviousState() == &attack_state::getInstance();
-		}
-		else if (state == "die")
-		{
-			return getFSM()->getPreviousState() == &die_state::getInstance();
-		}
-		else if (state == "global")
-		{
-			return getFSM()->getPreviousState() == &global_state::getInstance();
-		}
-		else
-		{
-			return false;
-		}
-	}
+	bool CheckPrevState(std::string state);
 	
 		/**
 		* @brief a function that returns the looking direction of the enemy dependant on which string is provided
 		* @param type - represents the type of thing that should be looked at (which in this case in the enemy looking at the player)
 		* @return float
 		*/
-	float LookDirection(std::string type)
-	{
-		if (type == "player")
-		{
-			return atan2(getVelocity().z, getVelocity().x);
-		}
-		else
-		{
-			return atan2(enemyVelocity.z, enemyVelocity.x);
-		}
-	}
+	float LookDirection(std::string type);
 
 		/**
 		* @brief a function that will send a message from the enemy to a specified gameObject type
 		* @param message - refers to the message being sent
-		* @param type - refers to the type of gameobject the message is being sent to 
+		* @param type - refers to the type of gameobject the message is being sent to
 		*/
-	void SendMessage(int message, std::string type)
-	{
-		singleton<MessageDispatcher>::getInstance().DisbatchMsgAllOfType(GetId(), message, type);
-	}
+	void SendMessage(int message, std::string type);
 
-		/**
-		* @brief sets the value of the moving boolean value, which is set to true when the enemy is moving towards the enemy that has seen the player and called for their help
-		* @param m - represents the value you want to assign the moving boolean
-		*/
+	bool Kill();
+
 	void SetMoving(bool m) { moving = m; }
-
-		/**
-		* @brief gets and returns the value of moving
-		* @return bool
-		*/
 	bool GetMoving() { return moving; }
 
-		/**
-		* @brief gets and returns the the newPos vector
-		* @return glm::vec3
-		*/
 	glm::vec3 getNewPos() { return newPos; }
-
-		/**
-		* @brief sets the value of the newPos vector
-		* @param p - represents the value you want to assign the newPos vector
-		*/
 	void setNewPos(glm::vec3 p) { newPos = p; }
 
-	
+	virtual std::string StreamValues()
+	{
+		return GetType() + " " + GetScriptName() + " " + std::to_string(GetScale()) + " " + std::to_string(GetPos().x) + " " + std::to_string(GetPos().y) + " " + std::to_string(GetPos().z) + " " + std::to_string(health) + " " + std::to_string(ammo) +  " " + ReturnState() + "\n";
+	}
+
+	std::string ReturnState()
+	{
+		if (getFSM()->getCurrentState() == &global_state::getInstance())
+		{
+			return "global";
+		}
+		else if (getFSM()->getCurrentState() == &wander_state::getInstance())
+		{
+			return "wander";
+		}
+		else if (getFSM()->getCurrentState() == &chase_state::getInstance())
+		{
+			return "chase";
+		}
+		else if (getFSM()->getCurrentState() == &flee_state::getInstance())
+		{
+			return "flee";
+		}
+		else if (getFSM()->getCurrentState() == &alert_state::getInstance())
+		{
+			return "alert";
+		}
+		else if (getFSM()->getCurrentState() == &die_state::getInstance())
+		{
+			return "die";
+		}
+		else if (getFSM()->getCurrentState() == &attack_state::getInstance())
+		{
+			return "attack";
+		}
+		else
+		{
+			return "";
+		}
+	}
+
 	glm::vec3 newPos;
 	LuaRef wanderLua = NULL;
 	LuaRef alert = NULL;

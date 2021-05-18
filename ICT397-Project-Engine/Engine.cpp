@@ -3,6 +3,58 @@
 Engine::Engine()
 {
 	lua_State* L = LuaManager::getInstance().getLuaState();
+	getGlobalNamespace(L)
+		.beginClass<Scene>("scene")
+			.addFunction("MakeGameObject", &Scene::MakeGameObject)
+		.endClass()
+		.beginClass<glm::vec3>("vec3")
+		.endClass()
+		.beginClass<GameObject>("GameObject")
+			.addFunction("FS", &GameObject::GetScale)
+		.endClass()
+		.deriveClass<Enemy, GameObject>("Enemy")
+			.addData("enemyVelocity", &Enemy::enemyVelocity)
+			.addData("newPos", &Enemy::newPos)
+			.addFunction("getFSM", &Enemy::getFSM)
+			.addFunction("SetState", &Enemy::SetSate)
+			.addFunction("Print", &Enemy::Print)
+			.addFunction("GetDeltaTime", &Enemy::GetDeltaTime)
+			.addFunction("getToken", &Enemy::getToken)
+			.addFunction("CheckPrevState", &Enemy::CheckPrevState)
+			.addFunction("incrementCheck", &Enemy::incrementCheck)
+			.addFunction("getCheck", &Enemy::getCheck)
+			.addFunction("setToken", &Enemy::setToken)
+			.addFunction("setGlobalFlag", &Enemy::setGlobalFlag)
+			.addFunction("ChangeState", &Enemy::ChangeState)
+			.addFunction("LookDirection", &Enemy::LookDirection)
+			.addFunction("setWander", &Enemy::setWander)
+			.addFunction("Distance", &Enemy::Distance)
+			.addFunction("GetPos", &Enemy::GetPos)
+			.addFunction("SetPos", &Enemy::SetPos)
+			.addFunction("setDirection", &Enemy::setDirection)
+			.addFunction("wander", &Enemy::wander)
+			.addFunction("SetMoving", &Enemy::SetMoving)
+			.addFunction("GetMoving", &Enemy::GetMoving)
+			.addFunction("getEnemyVelocity", &Enemy::getEnemyVelocity)
+			.addFunction("getVelocity", &Enemy::getVelocity)
+			.addFunction("getNewPos", &Enemy::getNewPos)
+			.addFunction("moveTo", &Enemy::moveTo)
+			.addFunction("setEnemyVelocity", &Enemy::setEnemyVelocity)
+			.addFunction("setNewPos", &Enemy::setNewPos)
+			.addFunction("SendMessage", &Enemy::SendMessage)
+			.addFunction("getTimer", &Enemy::getTimer)
+			.addFunction("setTimer", &Enemy::setTimer)
+			.addFunction("incrementTimer", &Enemy::incrementTimer)
+			.addFunction("pursue", &Enemy::pursue)
+			.addFunction("getCamPos", &Enemy::getCamPos)
+			.addFunction("evade", &Enemy::evade)
+			.addFunction("getDeathAnim", &Enemy::getDeathAnim)
+			.addFunction("setDeathAnim", &Enemy::setDeathAnim)
+			.addFunction("SetKillFSM", &Enemy::SetKillFSM)
+			.addFunction("isAlive", &Enemy::isAlive)
+			.addFunction("getGlobalFlag", &Enemy::getGlobalFlag)
+		.endClass();
+
 	int amount = 1;
 	int width = 600;
 	int height = 800;
@@ -73,34 +125,22 @@ Engine::Engine()
 		render->DepthTest();
 	}
 
+	//Init ImGui Only needs to be done once
+	GUI gui;
+	gui.Init((GlfwWindow*)window);
+
 	//Init the debug gui if its enabled
 	if (debugMode) { debugGui = new DebugGUI("./res/scripts/menus/debug.lua"); }
-	if (debugGui) { debugGui->Init((GlfwWindow*)window); }
 
 
     currentScene = 0;
-
-	for (int i = 1; i <= amount; i++)
-	{
-	    Scene* scene = new Scene("Scene " + std::to_string(i), render);
-        gameScenes.push_back(scene);
-		std::string path = "./res/scripts/scene" + std::to_string(i) + ".lua";
-		if(Debugger::GetInstance()->debugToConsole) std::cout << "Path: " << path << std::endl;
-		LuaScenes(path, i-1);
-		scene->FindPlayerIndice();
-
-		//Making sure we set the players position to be above the terrain
-		glm::vec3 playerStartPos;
-        playerStartPos = scene->GetGameObject(scene->GetPlayerIndice())->GetPos();
-        playerStartPos.y = scene->WorldToTerrainPosition(playerStartPos, true).y + 1.5f;
-        scene->GetGameObject(scene->GetPlayerIndice())->SetPos(playerStartPos);
-		window->UpdateCamera(playerStartPos);
-		scene->MoveObjectAwayFromPlayer();
-		scene->Load();
-
-
-	}
-
+	Scene* scene = new Scene("World", render);
+    gameScenes.push_back(scene);
+	std::string path = "./res/scripts/scene.lua";
+	if(Debugger::GetInstance()->debugToConsole) std::cout << "Path: " << path << std::endl;
+	
+	//LoadScene(path);
+	gameScenes[0]->LoadSaveFile();
 }
 
 Engine::~Engine()
@@ -159,93 +199,18 @@ void Engine::Run()
 
 			window->Buffer();
 		}
-
+		gameScenes[0]->SaveGame();
 		std::cout << "CLOSING::ENGINE_WILL_EXIT" << std::endl;
 	}
 }
 
-void Engine::LuaScenes(std::string file, int i)
+void Engine::LoadScene(std::string file)
 {
-	{
-		lua_State* L = LuaManager::getInstance().getLuaState();
-		getGlobalNamespace(L).beginClass<Scene>("scene").addFunction("MakeGameObject", &Scene::MakeGameObject).endClass().beginClass<glm::vec3>("vec3").endClass().beginClass<GameObject>("GameObject").addFunction("FS", &GameObject::GetScale).endClass().deriveClass<Enemy, GameObject>("Enemy")
-			.addData("enemyVelocity", &Enemy::enemyVelocity)
-			.addData("newPos", &Enemy::newPos)
-			.addFunction("getFSM", &Enemy::getFSM)
-			.addFunction("SetState", &Enemy::SetState)
-			.addFunction("Print", &Enemy::Print)
-			.addFunction("GetDeltaTime", &Enemy::GetDeltaTime)
-			.addFunction("getToken", &Enemy::getToken)
-			.addFunction("CheckPrevState", &Enemy::CheckPrevState)
-			.addFunction("incrementCheck", &Enemy::incrementCheck)
-			.addFunction("getCheck", &Enemy::getCheck)
-			.addFunction("setToken", &Enemy::setToken)
-			.addFunction("setGlobalFlag", &Enemy::setGlobalFlag)
-			.addFunction("ChangeState", &Enemy::ChangeState)
-			.addFunction("LookDirection", &Enemy::LookDirection)
-			.addFunction("setWander", &Enemy::setWander)
-			.addFunction("Distance", &Enemy::Distance)
-			.addFunction("GetPos", &Enemy::GetPos)
-			.addFunction("SetPos", &Enemy::SetPos)
-			.addFunction("setDirection", &Enemy::setDirection)
-			.addFunction("wander", &Enemy::wander)
-			.addFunction("SetMoving", &Enemy::SetMoving)
-			.addFunction("GetMoving", &Enemy::GetMoving)
-			.addFunction("getEnemyVelocity", &Enemy::getEnemyVelocity)
-			.addFunction("getVelocity", &Enemy::getVelocity)
-			.addFunction("getNewPos", &Enemy::getNewPos)
-			.addFunction("moveTo", &Enemy::moveTo)
-			.addFunction("setEnemyVelocity", &Enemy::setEnemyVelocity)
-			.addFunction("setNewPos", &Enemy::setNewPos)
-			.addFunction("SendMessage", &Enemy::SendMessage)
-			.addFunction("getTimer", &Enemy::getTimer)
-			.addFunction("setTimer", &Enemy::setTimer)
-			.addFunction("incrementTimer", &Enemy::incrementTimer)
-			.addFunction("pursue", &Enemy::pursue)
-			.addFunction("getCamPos", &Enemy::getCamPos)
-			.addFunction("evade", &Enemy::evade)
-			.addFunction("getDeathAnim", &Enemy::getDeathAnim)
-			.addFunction("setDeathAnim", &Enemy::setDeathAnim)
-			.addFunction("SetKillFSM", &Enemy::SetKillFSM)
-			.addFunction("isAlive", &Enemy::isAlive)
-			.addFunction("getGlobalFlag", &Enemy::getGlobalFlag)
-			.endClass();
-
-			//.beginClass<stateMachine<Enemy>>("EnemyState")
-			//.addFunction("GetPrevState", &stateMachine<Enemy>::getPreviousState)
-			//.addFunction("GetPrevState", &stateMachine<Enemy>::getCurrentState)
-			//.addFunction("GetPrevState", &stateMachine<Enemy>::getGlobalState)
-			//.endClass()
-			//.beginClass<wander_state>("wander_state")
-			//.addStaticFunction("get_wander_state", &wander_state::getInstance)
-			//.endClass()
-			//.beginClass<alert_state>("alert_state")
-			//.addStaticFunction("get_alert_state", &alert_state::getInstance)
-			//.endClass()
-			//.beginClass<chase_state>("chase_state")
-			//.addStaticFunction("get_chase_state", &chase_state::getInstance)
-			//.endClass()
-			//.beginClass<flee_state>("flee_state")
-			//.addStaticFunction("get_flee_state", &flee_state::getInstance)
-			//.endClass()
-			//.beginClass<attack_state>("attack_state")
-			//.addStaticFunction("get_attack_state", &attack_state::getInstance)
-			//.endClass()
-			//.beginClass<die_state>("die_state")
-			//.addStaticFunction("get_die_state", &die_state::getInstance)
-			//.endClass()
-			//.beginClass<global_state>("global_state")
-			//.addStaticFunction("get_global_state", &global_state::getInstance)
-			//.endClass();
-		setGlobal(L, gameScenes[i], "cs");
-
-		if (luaL_dofile(L, file.c_str()))
-		{
-			std::cout << "Scene lua file not found" << std::endl;
-		}
-		else
-		{
-			std::cout << "SCENE_" << i + 1 << "::RUNNING" << std::endl;
-		}
-	}
+	gameScenes[0]->Load(file);
+	glm::vec3 playerStartPos;
+	playerStartPos = gameScenes[0]->GetGameObject(gameScenes[0]->GetPlayerIndice())->GetPos();
+	playerStartPos.y = gameScenes[0]->WorldToTerrainPosition(playerStartPos, true).y + 1.5f;
+	gameScenes[0]->GetGameObject(gameScenes[0]->GetPlayerIndice())->SetPos(playerStartPos);
+	window->UpdateCamera(playerStartPos);
+	gameScenes[0]->MoveObjectAwayFromPlayer();
 }

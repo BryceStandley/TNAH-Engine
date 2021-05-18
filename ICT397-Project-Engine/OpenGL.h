@@ -1,5 +1,6 @@
 #pragma once
 #include "Renderer.h"
+#include "GlfwWindow.h"
 
 struct ModelInfo
 {
@@ -146,7 +147,12 @@ public:
 
 
 
+	GlfwWindow* GetGlfwWindow() { return applicationWindow; }
+	void SetGlfwWindow(GlfwWindow* g) { applicationWindow = g; }
+
 private:
 	std::vector<ModelInfo> vertexBuffer;
+
+	GlfwWindow* applicationWindow;
 };
 

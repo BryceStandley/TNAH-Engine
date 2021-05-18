@@ -3,7 +3,7 @@ Scene::Scene(std::string name, Renderer * render)
 {
 	this->sceneName = name;
 	gameRenderer = render;
-
+    loaded = false;
 	Init();
 }
 
@@ -13,20 +13,112 @@ Scene::~Scene()
 	delete[]gameRenderer;
 	delete[]gameTerrain;
 	delete[]gameSkybox;
-	for (int i = gameObjects.size()-1; i > 0; i--)
-		delete[]gameObjects[i];
+    gameObjects.clear();
 	delete[]factory;
 }
 
-void Scene::Load()
+void Scene::Unload()
 {
-    if (gameObjects.size() > 0)
+    //Entity, asset manager, gameobjects
+    gameObjects.clear();
+    factory->ResetFactory();
+    singleton<Manager>::getInstance().Reset();
+    entityMan::getInstance().ClearEntitys();
+    loaded = false;
+}
+
+void Scene::Load(std::string file)
+{
+    if (!loaded)
     {
-        for (int i = 0; i < gameObjects.size(); i++)
+        lua_State* L = LuaManager::getInstance().getLuaState();
+        setGlobal(L, this, "cs");
+
+        if (luaL_dofile(L, file.c_str()))
         {
-            if (gameObjects[i]->GetType() == "enemy")
-                entityMan::getInstance().RegisterEntity(gameObjects[i]);
+            std::cout << "Scene lua file not found" << std::endl;
         }
+        else
+        {
+            std::cout << "WOORLD::RUNNING" << std::endl;
+        }
+
+        FindPlayerIndice();
+
+        if (gameObjects.size() > 0)
+        {
+            for (int i = 0; i < gameObjects.size(); i++)
+            {
+                if (gameObjects[i]->GetType() == "enemy")
+                    entityMan::getInstance().RegisterEntity(gameObjects[i]);
+            }
+        }
+
+        loaded = true;
+    }
+}
+
+void Scene::LoadSaveFile()
+{
+    if (!loaded)
+    {
+        std::ifstream file("./res/save.sav");
+        if (file.is_open())
+        {
+            std::string type;
+
+            while (file >> type)
+            {
+                if (type == "player")
+                {
+                    std::string script, state;
+                    float scale, x, y, z, health;
+                    int points, kills, tokens;
+                    file >> script >> scale >> x >> y >> z >> health >> state >> points >> kills >> tokens;
+                    MakeSaveGameObject(type, script, scale, x, y, z, health, 0, state, points, tokens, kills);
+                }
+                else if (type == "enemy")
+                {
+                    std::string script, state;
+                    float scale, x, y, z, health, ammo;
+                    file >> script >> scale >> x >> y >> z >> health >> ammo >> state;
+                    MakeSaveGameObject(type, script, scale, x, y, z, health, ammo, state, 0, 0, 0);
+                }
+                else if (type == "token")
+                {
+                    std::string script;
+                    float scale, x, y, z;
+                    file >> script >> scale >> x >> y >> z;
+                    MakeSaveGameObject(type, script, scale, x, y, z, 0, 0, "", 0, 0, 0);
+                }
+                else if (type == "static")
+                {
+                    std::string script;
+                    float scale, x, y, z;
+                    file >> script >> scale >> x >> y >> z;
+                    MakeSaveGameObject(type, script, scale, x, y, z, 0, 0, "", 0, 0, 0);
+                }
+                else if (type == "water")
+                {
+                    float scale, x, y, z;
+                    file >> scale >> x >> y >> z;
+                    //MakeSaveGameObject(type, "", scale, x, y, z, 0, 0, "");
+                }
+            }
+        }
+
+        FindPlayerIndice();
+
+        if (gameObjects.size() > 0)
+        {
+            for (int i = 0; i < gameObjects.size(); i++)
+            {
+                if (gameObjects[i]->GetType() == "enemy")
+                    entityMan::getInstance().RegisterEntity(gameObjects[i]);
+            }
+        }
+
+        loaded = true;
     }
 }
 
@@ -34,43 +126,75 @@ void Scene::Run(View lens, float time, bool exit)
 {
     if (exitScreen.exitScreenDisplay)
     {
-        exitScreen.Render(gameRenderer, lens);
+        //exitScreen.Render(gameRenderer, lens);
+
+        endScreenGUI->Draw();
     }
     else
     {
         singleton<Manager>::getInstance().Update(time);
-	    gameRenderer->BindTexture(gameTerrain->GetTextIds());
-	    Shader t = gameTerrain->GetShader();
-	    gameRenderer->SetShaderTerrain(t, lens);
-	    gameTerrain->SetShader(t);
-	    gameRenderer->RenderTerrain(gameTerrain->GetVAO(), gameTerrain->GetIndicesSize());
+        singleton<Manager>::getInstance().UpdateWeapon(time);
+        gameRenderer->BindTexture(gameTerrain->GetTextIds());
+        Shader t = gameTerrain->GetShader();
+        gameRenderer->SetShaderTerrain(t, lens);
+        gameTerrain->SetShader(t);
+        gameRenderer->RenderTerrain(gameTerrain->GetVAO(), gameTerrain->GetIndicesSize());
 
-	    //Skybox
-	    gameRenderer->SetShaderSkybox(gameSkybox->skyShader, lens);
-	    gameRenderer->RenderSkybox(gameSkybox->VAO, gameSkybox->texture);
+            //Skybox
+            gameRenderer->SetShaderSkybox(gameSkybox->skyShader, lens);
+            gameRenderer->RenderSkybox(gameSkybox->VAO, gameSkybox->texture);
 
-	    //Models
-	    for (int x = 0; x < gameObjects.size(); x++)
-	    {
-		    gameObjects[x]->Update(0.1);
-		    if (x != playerInd)
-		    {
-                gameObjects[x]->Render(lens, time, gameRenderer);
-                if(gameObjects[x]->GetType() == "enemy")
-                    UpdateGameObject(gameObjects[x]->GetPos(), x);
-                //if(gameObjects[x]->GetType() == "enemy" && gameObjects[x]->)
-		    }
-	    }
+            std::vector<GameObject*> gameObjectsToRemoveFromScene;
+            //Models
+            for (int x = 0; x < gameObjects.size(); x++)
+            {
+                gameObjects[x]->Update(0.1);
+                if (x != playerInd)
+                {
+                    gameObjects[x]->Render(lens, time, gameRenderer);
+                    if (gameObjects[x]->GetType() == "enemy")
+                    {
+                        UpdateGameObject(gameObjects[x]->GetPos(), x);
+                        if (gameObjects[x]->Kill())
+                        {
+                            gameObjectsToRemoveFromScene.emplace_back(gameObjects[x]);
+                            singleton<EntityManager>::getInstance().RemoveEntity(gameObjects[x]);
+                        }
+                    }
+                }
+            }
 
-	    //if the player is firing, fire the weapon duh
-	    if(playerWeapon.firingWeapon && playerWeapon.canFireWeapon)
-        {
-	        playerWeapon.canFireWeapon = false;
-            FireWeapon(gameObjects[playerInd]->GetPos(), lens.GetForward(), 10.0f);
-        }
+            std::vector<GameObject*>::iterator removed;
+            for (auto& go : gameObjectsToRemoveFromScene)
+            {
+                //if(Debugger::GetInstance()->debugCollisionsToConsole) std::cout << "Scene.cpp::INFO::GameObject - " + go->GetName() +" hit and removed from scene" << std::endl;
+                removed = std::remove(gameObjects.begin(), gameObjects.end(), go);
+            }
+
+            //if the player is firing, fire the weapon duh
+            if (playerWeapon.firingWeapon && playerWeapon.canFireWeapon)
+            {
+                playerWeapon.firingWeapon = false;
+                singleton<Manager>::getInstance().weaponTimer = 5.0f / 17.0f;
+                singleton<Manager>::getInstance().fireWeapon = false;
+                playerWeapon.canFireWeapon = false;
+                Player* p = (Player*)gameObjects[playerInd];
+                p->FireWeapon();
+                FireWeapon(gameObjects[playerInd]->GetPos(), lens.GetForward(), 10.0f);
+            }
+
+            //if the timer is 0 and we can fire again
+            if (singleton<Manager>::getInstance().weaponTimer <= 0)
+            {
+                Player* p = (Player*)gameObjects[playerInd];
+                p->BackToIdle();
+                playerWeapon.canFireWeapon = true;
+            }
 
     }
-	//Terrain
+    //GameUI
+
+    if (gameGui) { gameGui->Draw((Player*)gameObjects[playerInd]); }
 
 
 	//If game object is of type player
@@ -91,6 +215,9 @@ void Scene::Init()
 	gameRenderer->SkyboxSetup(gameSkybox->GetSkyVerts(), gameSkybox->GetCubeFaces(), gameSkybox->VAO, gameSkybox->VBO, gameSkybox->texture, gameSkybox->skyShader);
 
 	exitScreen.Init("./res/models/group/photo.fbx", gameRenderer);
+
+    gameGui = new GameGUI("./res/scripts/menus/game.lua");
+    endScreenGUI = new EndScreenGUI("./res/scripts/menus/endScreen.lua");
 }
 
 
@@ -142,6 +269,19 @@ void Scene::MakeGameObject(std::string t, std::string script, float scale, float
 	{
 		if(Debugger::GetInstance()->debugToConsole) std::cout << "Scene.cpp::ERROR::GAME_ASSET_FACTORY::TYPE_UNKNOWN" << std::endl;
 	}
+}
+
+void Scene::MakeSaveGameObject(std::string t, std::string script, float scale, float x, float y, float z, float health, float ammo, std::string state, int savedPoints, int savedTokens, int savedKills)
+{
+    GameObject* newGameObject = factory->GetGameObjectSave(t, script, scale, glm::vec3(x, y, z), health, ammo, state, savedPoints, savedTokens, savedKills);
+    if (newGameObject != nullptr)
+    {
+        gameObjects.push_back(newGameObject);
+    }
+    else
+    {
+        if (Debugger::GetInstance()->debugToConsole) std::cout << "Scene.cpp::ERROR::GAME_ASSET_FACTORY::TYPE_UNKNOWN" << std::endl;
+    }
 }
 
 void Scene::FindPlayerIndice()
@@ -392,4 +532,13 @@ glm::vec3 Scene::WorldToTerrainPosition(glm::vec3 p, bool average)
     if(average) {p.y = (gameTerrain->getAverageHeight((int)worldx, (int)worldz) / worldToTerrainScaleFactor);}
     else {p.y = (gameTerrain->getHeight((int)worldx, (int)worldz) / worldToTerrainScaleFactor);}
     return p;
+}
+
+void Scene::RunPlayer(View lens, float time, bool exit)
+{
+    if (loaded)
+    {
+        if (!exitScreen.exitScreenDisplay)
+            gameObjects[playerInd]->Render(lens, time, gameRenderer);
+    }
 }

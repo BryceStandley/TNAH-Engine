@@ -56,15 +56,6 @@ DebugGUI::DebugGUI(std::string scriptPath)
     }
 }
 
-void DebugGUI::Init(GlfwWindow* win)
-{
-    w = win;
-    IMGUI_CHECKVERSION();
-    ImGui::CreateContext();
-    ImGui_ImplGlfw_InitForOpenGL(w->GetGameWindow(), true);
-    ImGui_ImplOpenGL3_Init(glsl_version);
-    ImGui::StyleColorsDark();
-}
 
 void DebugGUI::Draw()
 {

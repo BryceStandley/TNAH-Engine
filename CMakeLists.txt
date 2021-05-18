@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.15)
 
 # Set the project details.
 set(PROJECT_NAME TNAH-Project)
-project(${PROJECT_NAME} LANGUAGES CXX)
+project(${PROJECT_NAME} LANGUAGES CXX  C)
 
 # Setting Find cmake files path
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmakeFiles)
@@ -32,11 +32,21 @@ message("")
 # Adding Source Directory
 add_subdirectory(${PROJECT_SOURCE_DIR}/ICT397-Project-Engine)
 
+if(WIN32)
+    set("LIBS" ${ASSIMP_LIBRARY} ${GLFW_LIBRARY} ${LUA_LIBRARY} )
+ELSE()
+    set("LIBS" ${ASSIMP_LIBRARY} ${GLFW_LIBRARY} ${LUA_LIBRARY} ${GLAD_LIBRARY}  )
+ENDIF()
+
+target_include_directories(${PROJECT_NAME} PRIVATE ${PROJECT_SOURCE_DIR}/include)
+
 # Linking lib files to compiler
-target_link_libraries(${PROJECT_NAME} ${GLAD_LIBRARY} ${ASSIMP_LIBRARY} ${GLFW_LIBRARY} ${LUA_LIBRARY})
+target_link_libraries(${PROJECT_NAME} ${LIBS})
 
 # Copy resource files
+if(!WIN32)
 #file(COPY ${PROJECT_SOURCE_DIR}/ICT397-Project-Engine/res DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E create_symlink
         ${PROJECT_SOURCE_DIR}/ICT397-Project-Engine/res ${CMAKE_CURRENT_BINARY_DIR}/res )
+ENDIF(!WIN32)

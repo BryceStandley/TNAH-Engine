@@ -71,6 +71,7 @@ typedef enum {
 	DEATH,
 	DEATH_FALLBACKSLOW,
 	SHOOT,
+	IDLE,
 
 
 	MAX_ANIMATIONS
@@ -102,7 +103,7 @@ public:
 	glm::vec3 GetPos() { return position; }
 	void setPos(glm::vec3 p) { position = p; }
 
-	static Md2State animationList[22];
+	static Md2State animationList[23];
 	unsigned int TextureFromFile(std::string path);
 	Shader shader;
 	Md2State GetState(Md2Commands state)

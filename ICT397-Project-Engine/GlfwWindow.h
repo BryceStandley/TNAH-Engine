@@ -115,11 +115,13 @@ public:
 		*/
 	virtual bool GetDisplay() { return exitDisplay; }
 
-	float GetCurrentTime() { return glfwGetTime(); }
+	float GetCurrentTime() { return (float)glfwGetTime(); }
 
 	virtual bool GetWeaponFire() {return fireWeapon;}
 
 	GLFWwindow* GetGameWindow() { return gameWindow; }
+
+	glm::vec2 GetWindowSize() { return windowSize; }
 
 
 
@@ -191,4 +193,7 @@ private:
 
 		///If the mouse has been used yet
 	float firstMouse = true;
+
+	glm::vec2 windowSize;
+
 };
