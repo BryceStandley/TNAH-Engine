@@ -23,7 +23,7 @@ void GlfwWindow::Init(std::string title, int h, int w)
 
     glm::vec3 l(0.0, 0.0f, 0.0f);
     lightPos = l;
-    Camera c(0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 90.0f, -37.0f);
+    Camera c(0.0f, 1.5f, 0.0f, 0.0f, 1.0f, 0.0f, 90.0f, -37.0f);
     camera = c;
 
     /* Make the window's context current */
@@ -86,13 +86,11 @@ void GlfwWindow::GameInput(float deltaTime)
         Debugger::GetInstance()->drawDebugPanel = !Debugger::GetInstance()->drawDebugPanel;
         if(Debugger::GetInstance()->drawDebugPanel)
         {
-            mainMenuGui->displayingAMenu = true;
             camera.disabled = true;
             glfwSetInputMode(gameWindow, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
         }
         else
         {
-            mainMenuGui->displayingAMenu = false;
             camera.disabled = false;
             glfwSetInputMode(gameWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
         }
@@ -100,7 +98,7 @@ void GlfwWindow::GameInput(float deltaTime)
 
     if(!mainMenuGui->mainMenuClosed)
     {
-        if(mainMenuGui->displayMainMenu)
+        if(mainMenuGui->displayMainMenu || mainMenuGui->displaySettings)
         {
             camera.disabled = true;
             glfwSetInputMode(gameWindow, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
@@ -146,7 +144,7 @@ void GlfwWindow::GameInput(float deltaTime)
         glfwSetWindowShouldClose(gameWindow, true);
     }
 
-    if (!exitDisplay)
+    if (!exitDisplay && !mainMenuGui->endScreenButtonClicked)
     {
 
         if(!mainMenuGui->displayingAMenu)

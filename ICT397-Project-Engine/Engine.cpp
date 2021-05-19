@@ -133,22 +133,20 @@ Engine::Engine()
 
 	//Init the debug gui if its enabled
 	if (debugMode) { debugGui = new DebugGUI("./res/scripts/menus/debug.lua"); }
-
+    mainMenuGui = MainMenuGUI::GetInstance();
 
     currentScene = 0;
 	Scene* scene = new Scene("World", render);
     gameScenes.push_back(scene);
-	std::string path = "./res/scripts/scene.lua";
-	if(Debugger::GetInstance()->debugToConsole) std::cout << "Path: " << path << std::endl;
-	
-	LoadScene(path);
-	MainMenuGUI::GetInstance()->DisplayMainMenu();
+
+
+    mainMenuGui->DisplayMainMenu();
+    mainMenuGui->previousMenu = MainMenuGUI::MainMenu;
 }
 
 Engine::~Engine()
 {
-	if (window != nullptr)
-		delete[] window;
+    if (window != nullptr) { delete[] window; }
 }
 
 void Engine::Run()
@@ -172,16 +170,25 @@ void Engine::Run()
             deltaTime = window->GetTime();
             window->Update();
 
-            if(MainMenuGUI::GetInstance()->loadGameClicked)
+            if(mainMenuGui->newGameClicked)
             {
-                gameScenes[0]->LoadSaveFile();
-                MainMenuGUI::GetInstance()->loadGameClicked = false;
+                std::string path = "./res/scripts/scene.lua";
+                LoadScene(path);
+                mainMenuGui->newGameClicked = false;
+                mainMenuGui->HideMenus();
             }
 
+            if(mainMenuGui->loadGameClicked)
+            {
+                gameScenes[0]->LoadSaveFile();
+                mainMenuGui->loadGameClicked = false;
+                mainMenuGui->HideMenus();
+            }
 
-
+            //Check if a scene is loaded before trying to render or run the scene per frame
                 ExitScreen e = gameScenes[currentScene]->GetExitScreen();
                 e.SetExitScreenDisplay(window->GetDisplay());
+                if(mainMenuGui->endScreenButtonClicked) e.exitScreenDisplay = mainMenuGui->endScreenButtonClicked;
                 gameScenes[currentScene]->SetExitScreen(e);
 
                 Weapon w = gameScenes[currentScene]->GetPlayerWeapon();
@@ -190,32 +197,38 @@ void Engine::Run()
 
 
                 gameScenes[currentScene]->Run(window->GetLens(), deltaTime, false);
-                glm::vec3 pos = gameScenes[currentScene]->GetGameObject(gameScenes[currentScene]->GetPlayerIndice())->GetPos();
-                window->UpdateCamera(pos);
+                if(gameScenes[currentScene]->loaded)
+                {
+	                glm::vec3 pos = gameScenes[currentScene]->GetGameObject(
+			                gameScenes[currentScene]->GetPlayerIndice())->GetPos();
+	                window->UpdateCamera(pos);
+                }
                 window->GameInput(deltaTime);
                 window->MouseMove();
-            if(!MainMenuGUI::GetInstance()->displayingAMenu)
-            {
-                gameScenes[currentScene]->RunPlayer(window->GetLens(), deltaTime, false);
 
-                //build GUI elements
-                if(debugGui && Debugger::GetInstance()->drawDebugPanel)
+                if (!mainMenuGui->displayingAMenu)
                 {
-                    debugGui->Draw();
+                    gameScenes[currentScene]->RunPlayer(window->GetLens(), deltaTime, false);
+                    //build GUI elements
+                    if (debugGui && Debugger::GetInstance()->drawDebugPanel)
+                    {
+                        debugGui->Draw();
+                    }
                 }
-            }
 
-            //Render GUI
-            ImGui::Render();
-            ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+                if (mainMenuGui->saveGameClicked)
+                {
+                    gameScenes[0]->SaveGame();
+                    mainMenuGui->saveGameClicked = false;
+                }
 
-			window->Buffer();
+                //Render GUI
+                ImGui::Render();
+                ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
-            if(MainMenuGUI::GetInstance()->saveGameClicked)
-            {
+                window->Buffer();
 
-                MainMenuGUI::GetInstance()->saveGameClicked = false;
-            }
+
 
 		}
 		//todo: Add a auto save option in settings manager and use it to trigger save

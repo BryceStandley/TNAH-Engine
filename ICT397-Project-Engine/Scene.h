@@ -177,6 +177,8 @@ public:
 		savefile.close();
 	}
 
+    bool loaded;
+
 private:
 
 		/**
@@ -235,6 +237,6 @@ private:
 	GameGUI* gameGui;
 	EndScreenGUI* endScreenGUI;
 	MainMenuGUI* mainMenuGui;
-	bool loaded;
+
 };
 

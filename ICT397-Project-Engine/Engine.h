@@ -70,6 +70,8 @@ private:
      */
 	DebugGUI* debugGui;
 
+	MainMenuGUI* mainMenuGui;
+
 
 };
 

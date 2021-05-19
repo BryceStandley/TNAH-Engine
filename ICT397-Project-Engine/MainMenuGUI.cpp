@@ -20,11 +20,17 @@ MainMenuGUI::MainMenuGUI(std::string scriptPath)
         luabridge::LuaRef p = luabridge::getGlobal(L, "displayPauseMenu");
         luabridge::LuaRef s = luabridge::getGlobal(L, "displaySettings");
         luabridge::LuaRef image = luabridge::getGlobal(L, "gameNameImagePath");
+        luabridge::LuaRef pausedImage = luabridge::getGlobal(L, "pausedImagePath");
+        luabridge::LuaRef settingImage = luabridge::getGlobal(L, "settingsImagePath");
+
+
 
         if (m.isBool()) displayMainMenu = m.cast<bool>();
         if (p.isBool()) displayPauseMenu = p.cast<bool>();
         if (s.isBool()) displaySettings = s.cast<bool>();
         if (image.isString()) gameNameImagePath = image.cast<std::string>();
+        if (pausedImage.isString()) pausedImagePath = pausedImage.cast<std::string>();
+        if (settingImage.isString()) settingsImagePath = settingImage.cast<std::string>();
 
     }
     else
@@ -34,12 +40,22 @@ MainMenuGUI::MainMenuGUI(std::string scriptPath)
         displaySettings = false;
         displayingAMenu = true;
         gameNameImagePath = "./res/images/ZOOM.png";
+        pausedImagePath = "./res/images/paused.png";
+        settingsImagePath = "./res/images/settings.png";
     }
 
     bool ret = LoadTextureFromFile(gameNameImagePath, &my_image_texture, &my_image_width, &my_image_height);
     IM_ASSERT(ret);
 
+    ret = LoadTextureFromFile(pausedImagePath, &pausedTexture, &pausedWidth, &pausedHeight);
+    IM_ASSERT(ret);
+
+    ret = LoadTextureFromFile(settingsImagePath, &settingsTexture, &settingsWidth, &settingsHeight);
+    IM_ASSERT(ret);
+
     imageAspec = (float)my_image_height / (float)my_image_width;
+    pausedImageAspect = (float)pausedHeight / (float)pausedWidth;
+    settingsImageAspect = (float)settingsHeight / (float)settingsWidth;
 }
 
 void MainMenuGUI::Draw()
@@ -60,7 +76,7 @@ void MainMenuGUI::Draw()
 
     windowName = "GameMenus";
     ImGui::SetNextWindowSize(size); // fill the whole application window
-    ImGui::SetNextWindowPos(ImVec2(size.x / 3.0f , 0), true); // set to draw from the top left corner
+    ImGui::SetNextWindowPos(ImVec2(size.x / 3.0f , (size.y / 5.0f)), true); // set to draw from the top left corner
     ImGui::Begin(windowName.c_str(), open_ptr, window_flags); //Create the window
 
     ImVec2 centerPos = ImVec2(0, 20.0f);
@@ -72,7 +88,7 @@ void MainMenuGUI::Draw()
         ImGui::Image((void*)(intptr_t)my_image_texture, ImVec2(centerPos.x, centerPos.x * imageAspec));
         if(ImGui::Button("NEW GAME", centerPos))
         {
-            HideMenus();
+            newGameClicked = true;
         }
         if(ImGui::Button("LOAD GAME", centerPos))
         {
@@ -80,7 +96,12 @@ void MainMenuGUI::Draw()
         }
         if(ImGui::Button("SETTINGS", centerPos))
         {
+            previousMenu = MainMenu;
             DisplaySettings();
+        }
+        if(ImGui::Button("CLOSE SCREEN", centerPos))
+        {
+            endScreenButtonClicked = true;
         }
         if(ImGui::Button("QUIT", centerPos))
         {
@@ -90,16 +111,19 @@ void MainMenuGUI::Draw()
     else if(displayPauseMenu)
     {
         //draw the pause menu
-        ImVec2 titleSize = ImGui::CalcTextSize("PAUSED.");
-        ImGui::SameLine((centerPos.x / 2) - titleSize.x / 2);
-        ImGui::Text("PAUSED");
+        ImGui::Image((void*)(intptr_t)pausedTexture, ImVec2(centerPos.x, centerPos.x * pausedImageAspect));
         if(ImGui::Button("SAVE GAME", centerPos))
         {
             saveGameClicked = true;
         }
         if(ImGui::Button("SETTINGS", centerPos))
         {
+            previousMenu = PauseMenu;
             DisplaySettings();
+        }
+        if(ImGui::Button("CLOSE SCREEN", centerPos))
+        {
+            endScreenButtonClicked = true;
         }
         if(ImGui::Button("QUIT", centerPos))
         {
@@ -110,14 +134,24 @@ void MainMenuGUI::Draw()
     {
         //todo: add settings manager
         //draw the settings menu
-        ImVec2 titleSize = ImGui::CalcTextSize("SETTINGS.");
-        ImGui::SameLine((centerPos.x / 2) - titleSize.x / 2);
-        ImGui::Text("SETTINGS");
-        //ImGui::Checkbox("FULLSCREEN", false);
+        ImGui::Image((void*)(intptr_t)settingsTexture, ImVec2(centerPos.x, centerPos.x * settingsImageAspect));
 
         if(ImGui::Button("BACK", centerPos))
         {
-            DisplayPauseMenu();
+            if(previousMenu == MainMenu)
+            {
+                previousMenu = SettingsMenu;
+                DisplayMainMenu();
+            }
+            else if(previousMenu == PauseMenu)
+            {
+                previousMenu = SettingsMenu;
+                DisplayPauseMenu();
+            }
+        }
+        if(ImGui::Button("CLOSE SCREEN", centerPos))
+        {
+            endScreenButtonClicked = true;
         }
 
         if(ImGui::Button("QUIT", centerPos))
@@ -147,6 +181,7 @@ void MainMenuGUI::DisplayMainMenu()
     displayMainMenu = true;
     displayPauseMenu = false;
     displaySettings = false;
+    canDisplayPauseMenu = false;
 }
 void MainMenuGUI::DisplayPauseMenu()
 {
@@ -161,6 +196,15 @@ void MainMenuGUI::HideMenus()
     displayPauseMenu = false;
     displayMainMenu = false;
     displaySettings = false;
+}
+
+void MainMenuGUI::DisplaySettingsFromMainMenu()
+{
+    displayingAMenu = true;
+    displaySettings = true;
+    displayMainMenu = true;
+    displayPauseMenu = false;
+    canDisplayPauseMenu = false;
 }
 
 

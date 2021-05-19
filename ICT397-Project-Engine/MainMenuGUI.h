@@ -20,6 +20,7 @@ public:
     void DisplaySettings();
     void DisplayMainMenu();
     void DisplayPauseMenu();
+    void DisplaySettingsFromMainMenu();
 
     void HideMenus();
 
@@ -30,8 +31,18 @@ public:
     bool mainMenuClosed = false;
     bool quitClicked = false;
     bool saveGameClicked = false;
-    bool loadGameClicked = true;
+    bool loadGameClicked = false;
+    bool newGameClicked = false;
+    bool endScreenButtonClicked = false;
 
+    enum PreviousMenu
+    {
+        MainMenu,
+        PauseMenu,
+        SettingsMenu
+    };
+
+    PreviousMenu previousMenu;
     /**
      * @brief toggled when any menu is active
      */
@@ -42,6 +53,18 @@ public:
     int my_image_height = 0;
     GLuint my_image_texture = 0;
     float imageAspec = 0;
+
+	std::string pausedImagePath = "./res/images/paused.png";
+	int pausedWidth = 0;
+	int pausedHeight = 0;
+	GLuint pausedTexture = 0;
+	float pausedImageAspect = 0;
+
+	std::string settingsImagePath = "./res/images/settings.png";
+	int settingsWidth = 0;
+	int settingsHeight = 0;
+	GLuint settingsTexture = 0;
+	float settingsImageAspect = 0;
 
 protected:
     explicit MainMenuGUI(std::string scriptPath);

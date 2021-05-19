@@ -624,7 +624,7 @@ bool Enemy::moveTo(glm::vec3& curPos, const glm::vec3& targetPos, glm::vec3& cur
 	//calc new velocity and new character position
 	curVelocity = target * glm::length(curVelocity);
 	glm::vec3 displacement = curVelocity * time;
-	glm::vec3 newPos = curPos + displacement;
+	glm::vec3 vec = curPos + displacement;
 
 	if (type == "Player")
 		setVelocity(curVelocity);
@@ -634,28 +634,40 @@ bool Enemy::moveTo(glm::vec3& curPos, const glm::vec3& targetPos, glm::vec3& cur
 	// calculate real target position
 	glm::vec3 realTargetPos = targetPos - target * offset;
 
-	// calculate the direction from newPos to realTargetPos
-	glm::vec3 toRealTarget = realTargetPos - newPos;
+	// calculate the direction from vec to realTargetPos
+	glm::vec3 toRealTarget = realTargetPos - vec;
 	toRealTarget = glm::normalize(toRealTarget);
 
 	if (toRealTarget.x == 0 && toRealTarget.y == 0 && toRealTarget.z == 0)
 	{
+		if(realTargetPos.y < 10.0f)
+		{
+			curPos = realTargetPos;
+		}
 		curPos = realTargetPos;
 		SetPos(curPos);
 		return true;
 	}
 
-	//check to see whether newPos has gone pass the realTargetPos
+	//check to see whether vec has gone pass the realTargetPos
 	float dp = glm::dot(toRealTarget, target);
 	if (dp < 0.0)
 	{
-		curPos = realTargetPos;
+		if(realTargetPos.y < 10.0f)
+		{
+			curPos = realTargetPos;
+		}
+
 		SetPos(curPos);
 		return true;
 	}
-	//std::cout << curPos.x << " " << curPos.y << " " << curPos.z << " | " << newPos.x << " " << newPos.y << " " << newPos.z << std::endl;
-	// newPos has not yet passed realTargetPos
-	curPos = newPos;
+	//std::cout << curPos.x << " " << curPos.y << " " << curPos.z << " | " << vec.x << " " << vec.y << " " << vec.z << std::endl;
+	// vec has not yet passed realTargetPos
+	if(vec.y < 10.0f)
+	{
+		curPos = vec;
+	}
+
 	SetPos(curPos);
 	return false;
 }

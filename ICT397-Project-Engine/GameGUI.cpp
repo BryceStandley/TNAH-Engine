@@ -24,7 +24,7 @@ void GameGUI::Draw(Player* dude)
 
 	ImVec2 windowSize = ImGui::GetIO().DisplaySize;
 	ImVec2 windowPos;
-	windowPos.x = (windowSize.x / 2.0f) - ImGui::GetWindowWidth();
+	windowPos.x = 0;
 
 	ImGuiWindowFlags window_flags = 0;
 
@@ -44,7 +44,7 @@ void GameGUI::Draw(Player* dude)
 	ImGui::Begin(windowName.c_str(), open_ptr,  window_flags); //Create the window
 	//Set scale for the font only for the game ui
 	ImGui::SetWindowFontScale(2.0f);
-	ImGui::Text("Points: %d    Tokens: %d     Kill Count: %d     Health: %d ", dude->getPoints(), dude->getTokensCollected(), dude->getKills(), dude->getHealth());
+	ImGui::Text("Points: %d     Tokens: %d      Current Token: %s      Kill Count: %d      Health: %d", dude->getPoints(),dude->getTokensCollected(), singleton<Manager>::getInstance().prevToken.c_str(), dude->getKills(), dude->getHealth());
 
 	ImGui::End();
 }
