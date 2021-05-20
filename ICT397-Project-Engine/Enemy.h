@@ -468,6 +468,24 @@ public:
 	LuaRef attack = NULL;
 	LuaRef die = NULL;
 	LuaRef global = NULL;
+	LuaRef init = NULL;
+
+	std::string getDifficulty()
+	{
+		switch (singleton<Manager>::getInstance().difficulty)
+		{
+		case hard:
+			return "Hard";
+		case normal:
+			return "Normal";
+		case easy:
+			return "Easy";
+		default:
+			break;
+		}
+	}
+
+
 
 private:
 

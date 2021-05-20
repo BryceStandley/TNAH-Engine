@@ -237,6 +237,6 @@ private:
 	GameGUI* gameGui;
 	EndScreenGUI* endScreenGUI;
 	MainMenuGUI* mainMenuGui;
-
+	std::vector<glm::vec3> spawnPoints;
 };
 

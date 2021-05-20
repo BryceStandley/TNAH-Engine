@@ -7,6 +7,7 @@ typedef enum
 	normal,
 	hard
 } Difficulty;
+
 class Manager
 {
 public:
@@ -16,7 +17,7 @@ public:
 	bool fireWeapon = false;
 	float weaponTimer = 0;
 	float timer = 0;
-	Difficulty difficulty = normal;
+	Difficulty difficulty = hard;
 	void Update(float time)
 	{
 		if (timer <= 0)

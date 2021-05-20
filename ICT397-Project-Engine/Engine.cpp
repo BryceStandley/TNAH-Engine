@@ -54,6 +54,7 @@ Engine::Engine()
 			.addFunction("SetKillFSM", &Enemy::SetKillFSM)
 			.addFunction("isAlive", &Enemy::isAlive)
 			.addFunction("getGlobalFlag", &Enemy::getGlobalFlag)
+			.addFunction("getDifficulty", &Enemy::getDifficulty)
 		.endClass();
 
 

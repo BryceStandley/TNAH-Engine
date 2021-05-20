@@ -45,7 +45,7 @@ void Scene::Load(std::string file)
 
         FindPlayerIndice();
 
-        if (gameObjects.empty())
+        if (!gameObjects.empty())
         {
             for (auto & gameObject : gameObjects)
             {
@@ -109,7 +109,7 @@ void Scene::LoadSaveFile()
 
         FindPlayerIndice();
 
-        if (gameObjects.empty())
+        if (!gameObjects.empty())
         {
             for (auto & gameObject : gameObjects)
             {
@@ -167,6 +167,7 @@ void Scene::Run(View lens, float time, bool exit)
         {
             //if(Debugger::GetInstance()->debugCollisionsToConsole) std::cout << "Scene.cpp::INFO::GameObject - " + go->GetName() +" hit and removed from scene" << std::endl;
             removed = std::remove(gameObjects.begin(), gameObjects.end(), go);
+            //Spawn New GameObject
         }
 
         //if the player is firing, fire the weapon duh
@@ -219,6 +220,7 @@ void Scene::Init()
     gameGui = new GameGUI("./res/scripts/menus/game.lua");
     endScreenGUI = new EndScreenGUI("./res/scripts/menus/endScreen.lua");
     mainMenuGui = MainMenuGUI::GetInstance();
+    //spawnPoints.push_back(glm::vec3())
 }
 
 

@@ -14,6 +14,24 @@ fragShader = "./res/shader/md2frag.frag";
 
 health = 100;
 ammo = 10;
+distance = 25.0;
+damage = 10;
+
+setup = function (Enemy)
+	print(Enemy:getDifficulty());
+	if string.match(Enemy:getDifficulty(), "Hard") then
+		distance = 200.0;
+		health = 200.0;
+		damage = 20;
+		print("hard")
+	elseif string.match(Enemy:getDifficulty(), "Easy") then
+		distance = 20.0;
+		health = 100.0;
+		damage = 5;
+		print("Easy")
+	end
+end
+
 
 wander = {}
 
@@ -26,21 +44,15 @@ wander[2] = function (Enemy)
 		Enemy:incrementCheck()
 	end
 	
-	if Enemy:getCheck() > 1000 and Enemy:getToken() then
-		Enemy:setToken(false)
-		Enemy:setGlobalFlag(false)
-		Enemy:ChangeState("die")
-	end
-	
 	wanderRadius = 5.0
 	wanderDistance = 35.0
 	wanderJitter = 1.0
 	result = Enemy:LookDirection("enemy")
 	Enemy:setWander(wanderRadius, wanderDistance, wanderJitter)
-	if Enemy:Distance() > 10.0 and Enemy:Distance() < 25.0 and not Enemy:getToken() then
+	if Enemy:Distance() > 10.0 and Enemy:Distance() < distance and not Enemy:getToken() then
 		Enemy:SetMoving(false)
 		Enemy:ChangeState("alert")	
-	elseif Enemy:Distance() > 10.0 and Enemy:Distance() < 25.0 and Enemy:getToken() then
+	elseif Enemy:Distance() > 10.0 and Enemy:Distance() < distance and Enemy:getToken() then
 		Enemy:SetMoving(false)
 		Enemy:ChangeState("flee")
 	elseif Enemy:GetMoving() then
@@ -96,10 +108,8 @@ end
 flee[2] = function (Enemy)
 	Enemy:incrementCheck();
 
-	if Enemy:getCheck() > 1000 then
-		Enemy:setToken(false)
-		Enemy:setGlobalFlag(false)
-		Enemy:ChangeState("die")
+	if not Enemy:getCheck() then
+		Enemy:ChangeState("wander")
 	end
 
 	res = Enemy:LookDirection("enemy")
@@ -133,7 +143,7 @@ chase[2] = function (Enemy)
 
 	if Enemy:Distance() < 10.0 then
 		Enemy:ChangeState("attack")
-	elseif Enemy:Distance() > 25.0 then
+	elseif Enemy:Distance() > distance then
 		Enemy:ChangeState("wander")
 	else 
 		pos = Enemy:GetPos()
