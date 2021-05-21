@@ -65,7 +65,7 @@ public:
 
 	void Load(std::string file);
 
-	void LoadSaveFile();
+	bool LoadSaveFile();
 
 	void Unload();
 
@@ -207,6 +207,12 @@ private:
 
 		///The vector that holds each game object
 	std::vector<GameObject*> gameObjects;
+
+	///Vector to track all enemy objects in the scene
+	std::vector<GameObject*> enemyObjects;
+
+	///Vector to track all static objects in the scene
+	std::vector<GameObject*> staticObjects;
 
 		///The games terrain
 	Terrain *gameTerrain;

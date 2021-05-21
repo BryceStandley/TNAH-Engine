@@ -58,7 +58,7 @@ void Scene::Load(std::string file)
     }
 }
 
-void Scene::LoadSaveFile()
+bool Scene::LoadSaveFile()
 {
     if (!loaded)
     {
@@ -105,21 +105,27 @@ void Scene::LoadSaveFile()
                     //MakeSaveGameObject(type, "", scale, x, y, z, 0, 0, "");
                 }
             }
+
+
+	        FindPlayerIndice();
+
+	        if (!gameObjects.empty())
+	        {
+		        for (auto & gameObject : gameObjects)
+		        {
+			        if (gameObject->GetType() == "enemy")
+				        entityMan::getInstance().RegisterEntity(gameObject);
+		        }
+	        }
+
+	        loaded = true;
+	        return true;
+
         }
 
-        FindPlayerIndice();
 
-        if (!gameObjects.empty())
-        {
-            for (auto & gameObject : gameObjects)
-            {
-                if (gameObject->GetType() == "enemy")
-                    entityMan::getInstance().RegisterEntity(gameObject);
-            }
-        }
-
-        loaded = true;
     }
+    return false;
 }
 
 void Scene::Run(View lens, float time, bool exit)
@@ -128,7 +134,7 @@ void Scene::Run(View lens, float time, bool exit)
     {
         endScreenGUI->Draw();
     }
-    else if(!mainMenuGui->displayMainMenu && !mainMenuGui->displayPauseMenu && !mainMenuGui->displaySettings)
+    else if(!mainMenuGui->displayMainMenu && !mainMenuGui->displayPauseMenu && !mainMenuGui->displaySettings && !mainMenuGui->displayDifficulty && !mainMenuGui->displayControls)
     {
         singleton<Manager>::getInstance().Update(time);
         singleton<Manager>::getInstance().UpdateWeapon(time);
@@ -179,7 +185,7 @@ void Scene::Run(View lens, float time, bool exit)
             playerWeapon.canFireWeapon = false;
             auto* p = (Player*)gameObjects[playerInd];
             p->FireWeapon();
-            FireWeapon(gameObjects[playerInd]->GetPos(), lens.GetForward(), 10.0f);
+            FireWeapon(gameObjects[playerInd]->GetPos(), lens.GetForward(), 100.0f);
         }
 
         //if the timer is 0 and we can fire again
@@ -267,6 +273,8 @@ void Scene::MakeGameObject(std::string t, std::string script, float scale, float
 	if (newGameObject != nullptr)
 	{
 		gameObjects.push_back(newGameObject);
+		if(t == "enemy") {enemyObjects.emplace_back(newGameObject);}
+		else if(t == "static" || t == "token") { staticObjects.emplace_back(newGameObject);}
 	}
 	else
 	{
@@ -280,6 +288,8 @@ void Scene::MakeSaveGameObject(std::string t, std::string script, float scale, f
     if (newGameObject != nullptr)
     {
         gameObjects.push_back(newGameObject);
+        if(t == "enemy") {enemyObjects.emplace_back(newGameObject);}
+        else if(t == "static" || t == "token") { staticObjects.emplace_back(newGameObject);}
     }
     else
     {
@@ -317,10 +327,10 @@ void Scene::MoveObjectAwayFromPlayer()
 
 glm::vec3 Scene::EnemyObstacleAvoidance(GameObject* self, glm::vec3 newPosition)
 {
-    for(auto &go : gameObjects)
+    for(auto &go : staticObjects)
     {
-        if(go->GetTag() == BoundingBox::CollisionTag::PLAYER) continue;// dont check against the player
-        if(go == self) continue; // dont check against it self
+        //if(go->GetTag() == BoundingBox::CollisionTag::PLAYER) continue;// dont check against the player
+        //if(go == self) continue; // dont check against it self
         if(go->GetTag() == BoundingBox::CollisionTag::TOKEN) continue;
         while(glm::distance(newPosition, go->GetPos()) < 2.0f)
         {
@@ -333,40 +343,51 @@ glm::vec3 Scene::EnemyObstacleAvoidance(GameObject* self, glm::vec3 newPosition)
 
 void Scene::FireWeapon(glm::vec3 weaponStartPos, glm::vec3 forward, float fireDistance)
 {
-    //Raycasting would be super good right now but we can use a makeshift raycast here instead
-
-    //trigger animation
-    //find a position vector from the player to a set distance forward from the camera
-    //Check if there was a enemy anywhere along the vector between the player and the end point of the ray
-    //stop checking if we hit a enemy even if were not at the end
-    //deal damage to the enemy
-    //refresh the fire timer
-
 
     playerWeapon.canFireWeapon = true;
     glm::vec3 directionVector = forward * fireDistance;
     glm::vec3 finalEndPoint = weaponStartPos + directionVector;
     bool enemyHit = false;
     float i = 1;
+    std::vector<GameObject*> deadEnemyObjects;
     while(i < fireDistance)
     {
         glm::vec3 point = weaponStartPos + (forward * i);
 
-        for(auto* go : gameObjects)
+        for(auto* go : enemyObjects)
         {
-            if(go->GetTag() == BoundingBox::ENEMY && glm::distance(go->GetPos(), point) < 0.5f)
+            if(go->GetTag() == BoundingBox::ENEMY && glm::distance(go->GetPos(), point) <= 0.5f)
             {
                 //hit the enemy, trigger damage
                 if(Debugger::GetInstance()->debugWeapons) std::cout << "Scene.cpp::INFO::Player Shot Enemy!" << std::endl;
                 enemyHit = true;
+                auto* e = (Enemy*)go;
+                e->decreaseHealth(25); // take 25 health from the enemy ie 4 shots to kill the enemy
+                if(e->getHealth() <= 0)
+                {
+                	e->Kill();
+                	deadEnemyObjects.emplace_back(go);
+                	auto* p = (Player*)gameObjects[playerInd];
+                	p->incrementKillCount();
+                }
                 break;
             }
         }
         if(enemyHit) break;
 
-        i += 0.1f;
+        i += 0.5f;
     }
-    //reset some sort of firerate timer
+
+    if(!deadEnemyObjects.empty())
+    {
+	    std::vector<GameObject*>::iterator removed;
+    	for(auto* go : deadEnemyObjects)
+	    {
+    		removed = std::remove(gameObjects.begin(), gameObjects.end(), go);
+	    }
+    }
+
+
 
 }
 
@@ -380,7 +401,7 @@ glm::vec3 Scene::CheckSceneCollision(glm::vec3 pos)
     glm::vec3 shiftDelta = glm::vec3(0,0,0);
 
     std::vector<GameObject *> gameObjectsToRemoveFromScene;
-    for (auto& go : gameObjects)
+    for (auto& go : staticObjects)
     {
         //Skip the player, we dont want collisions between the player and the player
         if (go->GetTag() == BoundingBox::PLAYER) continue;

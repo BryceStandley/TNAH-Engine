@@ -1,16 +1,17 @@
 #pragma once
 #include<string>
 
-typedef enum
-{
-	easy,
-	normal,
-	hard
-} Difficulty;
+
 
 class Manager
 {
 public:
+	typedef enum
+	{
+		easy,
+		normal,
+		hard
+	} Difficulty;
 	float speed = 5;
 	std::string token = "none";
 	std::string prevToken = "none";

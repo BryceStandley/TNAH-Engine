@@ -1,6 +1,7 @@
 #pragma once
 #include "GUI.h"
 #include "Player.h"
+#include "MainMenuGUI.h"
 class GameGUI : public GUI
 {
 
@@ -9,6 +10,9 @@ public:
 	GameGUI(std::string scriptPath);
 
 	virtual void Draw(Player* dude);
+
+	bool displayGameUI = true;
+	bool displayDeathScreen = false;
 
 private:
 	/**
@@ -20,5 +24,10 @@ private:
 	 * @brief Reference to the game window for GUI events
 	 */
 	GlfwWindow* w;
+
+	/**
+	 * @brief Reference to the main menu GUI object
+	 */
+	MainMenuGUI* mainMenuGui;
 };
 

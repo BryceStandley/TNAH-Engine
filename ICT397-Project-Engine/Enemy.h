@@ -474,11 +474,11 @@ public:
 	{
 		switch (singleton<Manager>::getInstance().difficulty)
 		{
-		case hard:
+		case Manager::Difficulty::hard:
 			return "Hard";
-		case normal:
+		case Manager::Difficulty::normal:
 			return "Normal";
-		case easy:
+		case Manager::Difficulty::easy:
 			return "Easy";
 		default:
 			break;
