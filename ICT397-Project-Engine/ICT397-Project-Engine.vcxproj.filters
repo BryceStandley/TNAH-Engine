@@ -326,16 +326,10 @@
     <ClInclude Include="Telegram.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SIngletons.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="SingletonHeaders.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Timer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Debugging.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Weapon.h">

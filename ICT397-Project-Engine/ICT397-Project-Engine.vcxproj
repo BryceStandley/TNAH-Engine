@@ -151,7 +151,6 @@
     <ClInclude Include="Buffer.h" />
     <ClInclude Include="Callbacks.h" />
     <ClInclude Include="camera.h" />
-    <ClInclude Include="Debugging.h" />
     <ClInclude Include="DebugGUI.h" />
     <ClInclude Include="DynamicEnum.h" />
     <ClInclude Include="EndScreenGUI.h" />
@@ -192,7 +191,6 @@
     <ClInclude Include="Shader.h" />
     <ClInclude Include="singleton.h" />
     <ClInclude Include="SingletonHeaders.h" />
-    <ClInclude Include="SIngletons.h" />
     <ClInclude Include="Skybox.h" />
     <ClInclude Include="state.h" />
     <ClInclude Include="stateMachine.h" />
