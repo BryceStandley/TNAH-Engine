@@ -18,6 +18,7 @@ Enemy::Enemy(glm::vec3 p, glm::vec3 rot, Renderer* gameRenderer, std::string scr
 		die = getGlobal(L, "die");
 		global = getGlobal(L, "global");
 
+		LuaRef setup = getGlobal(L, "setup");
 		LuaRef type = getGlobal(L, "check");
 		LuaRef rot = getGlobal(L, "rotate");
 		LuaRef alv = getGlobal(L, "alive");
@@ -37,6 +38,11 @@ Enemy::Enemy(glm::vec3 p, glm::vec3 rot, Renderer* gameRenderer, std::string scr
 		std::string texture;
 
 		bool check = false, rotate = false;
+
+		if (setup.isFunction())
+		{
+			setup(this);
+		}
 
 		if (type.isBool())
 		{
@@ -455,12 +461,19 @@ Enemy::~Enemy()
 
 void Enemy::Update(float time)
 {
-	SetType("enemy");
+
 	//if(Debugger::GetInstance()->debugFSMToConsole) std::cout << GetId() << " player has token = " << token << std::endl;
 	//if (function.isTable())
 	//{
 	//	function[1](this);
 	//}
+	if (singleton<Manager>::getInstance().prevToken == "DoublePoints")
+	{
+		setToken(true);
+	}
+	else
+		setToken(false);
+
 	if (killFSM == false)
 		enemyFSM->update();
 	else 
@@ -718,7 +731,7 @@ bool Enemy::flee(glm::vec3& curPos, const glm::vec3& pursuerPos, glm::vec3& curV
 
 	fromPursuer = glm::normalize(fromPursuer);
 	curVelocity = fromPursuer * fleeSpeed;
-	curPos += curVelocity * time;
+	SetPos(curPos + curVelocity * time);
 	return true;
 }
 
@@ -854,7 +867,7 @@ bool Enemy::handleMessage(const Telegram message)
 	if (Debugger::GetInstance()->debugToConsole) std::cout << message.sender << " has sent a message to " << GetId() << " " << message.msg << ", distance: " << DistanceBetween(message.pos) << std::endl;
 	if (enemyFSM->handleMessage(message))
 	{
-		if (DistanceBetween(message.pos) <= 50.0f)
+		if (DistanceBetween(message.pos) <= 1000.0f)
 		{
 			newPos = message.pos;
 			moving = true;

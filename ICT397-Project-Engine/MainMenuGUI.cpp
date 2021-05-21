@@ -22,6 +22,8 @@ MainMenuGUI::MainMenuGUI(std::string scriptPath)
         luabridge::LuaRef image = luabridge::getGlobal(L, "gameNameImagePath");
         luabridge::LuaRef pausedImage = luabridge::getGlobal(L, "pausedImagePath");
         luabridge::LuaRef settingImage = luabridge::getGlobal(L, "settingsImagePath");
+	    luabridge::LuaRef diff = luabridge::getGlobal(L, "diffImagePath");
+	    luabridge::LuaRef control = luabridge::getGlobal(L, "controlsImagePath");
 
 
 
@@ -31,6 +33,8 @@ MainMenuGUI::MainMenuGUI(std::string scriptPath)
         if (image.isString()) gameNameImagePath = image.cast<std::string>();
         if (pausedImage.isString()) pausedImagePath = pausedImage.cast<std::string>();
         if (settingImage.isString()) settingsImagePath = settingImage.cast<std::string>();
+	    if (diff.isString()) diffImagePath = diff.cast<std::string>();
+	    if (control.isString()) controlsImagePath = control.cast<std::string>();
 
     }
     else
@@ -42,6 +46,8 @@ MainMenuGUI::MainMenuGUI(std::string scriptPath)
         gameNameImagePath = "./res/images/ZOOM.png";
         pausedImagePath = "./res/images/paused.png";
         settingsImagePath = "./res/images/settings.png";
+        diffImagePath = "./res/images/difficulty.png";
+        controlsImagePath = "./res/images/controls.png";
     }
 
     bool ret = LoadTextureFromFile(gameNameImagePath, &my_image_texture, &my_image_width, &my_image_height);
@@ -53,9 +59,19 @@ MainMenuGUI::MainMenuGUI(std::string scriptPath)
     ret = LoadTextureFromFile(settingsImagePath, &settingsTexture, &settingsWidth, &settingsHeight);
     IM_ASSERT(ret);
 
+	ret = LoadTextureFromFile(diffImagePath, &diffTexture, &diffWidth, &diffHeight);
+	IM_ASSERT(ret);
+
+	ret = LoadTextureFromFile(controlsImagePath, &controlsTexture, &controlsWidth, &controlsHeight);
+	IM_ASSERT(ret);
+
     imageAspec = (float)my_image_height / (float)my_image_width;
     pausedImageAspect = (float)pausedHeight / (float)pausedWidth;
     settingsImageAspect = (float)settingsHeight / (float)settingsWidth;
+    diffImageAspect = (float)diffHeight / (float)diffWidth;
+    controlsImageAspect = (float)controlsHeight / (float)controlsWidth;
+
+    settingsManager = SettingsManager::GetInstance();
 }
 
 void MainMenuGUI::Draw()
@@ -88,11 +104,17 @@ void MainMenuGUI::Draw()
         ImGui::Image((void*)(intptr_t)my_image_texture, ImVec2(centerPos.x, centerPos.x * imageAspec));
         if(ImGui::Button("NEW GAME", centerPos))
         {
-            newGameClicked = true;
+        	previousMenu = MainMenu;
+        	DisplayDifficultyMenu();
         }
         if(ImGui::Button("LOAD GAME", centerPos))
         {
             loadGameClicked = true;
+        }
+        if(ImGui::Button("CONTROLS", centerPos))
+        {
+        	previousMenu = MainMenu;
+        	DisplayControlsMenu();
         }
         if(ImGui::Button("SETTINGS", centerPos))
         {
@@ -107,6 +129,12 @@ void MainMenuGUI::Draw()
         {
             quitClicked = true;
         }
+        if(noSaveFileFound)
+        {
+	        ImGui::SetWindowFontScale(2.0f);
+	        ImGui::Text("       No Save Found!");
+	        ImGui::SetWindowFontScale(1.0f);
+        }
     }
     else if(displayPauseMenu)
     {
@@ -115,7 +143,13 @@ void MainMenuGUI::Draw()
         if(ImGui::Button("SAVE GAME", centerPos))
         {
             saveGameClicked = true;
+            showSavedText = true;
         }
+	    if(ImGui::Button("CONTROLS", centerPos))
+	    {
+		    previousMenu = PauseMenu;
+		    DisplayControlsMenu();
+	    }
         if(ImGui::Button("SETTINGS", centerPos))
         {
             previousMenu = PauseMenu;
@@ -129,12 +163,24 @@ void MainMenuGUI::Draw()
         {
             quitClicked = true;
         }
+        if(saveGameClicked || showSavedText)
+        {
+        	ImGui::SetWindowFontScale(2.0f);
+	        ImGui::Text("         Saved!");
+	        ImGui::SetWindowFontScale(1.0f);
+        }
     }
     else if(displaySettings)
     {
         //todo: add settings manager
         //draw the settings menu
         ImGui::Image((void*)(intptr_t)settingsTexture, ImVec2(centerPos.x, centerPos.x * settingsImageAspect));
+
+        ImGui::Checkbox("FULLSCREEN", &settingsManager->fullscreen);
+        if(settingsManager->fullscreen)
+        {
+        	settingsManager->toggledFullscreen = true;
+        }
 
         if(ImGui::Button("BACK", centerPos))
         {
@@ -159,9 +205,66 @@ void MainMenuGUI::Draw()
             quitClicked = true;
         }
     }
+    else if(displayDifficulty)
+    {
+	    ImGui::Image((void*)(intptr_t)diffTexture, ImVec2(centerPos.x, centerPos.x * diffImageAspect));
+	    if(ImGui::Button("EASY", centerPos))
+	    {
+		    //set game to easy
+		    singleton<Manager>::getInstance().difficulty = Manager::Difficulty::easy;
+		    newGameClicked = true;
+	    }
+	    if(ImGui::Button("NORMAL", centerPos))
+	    {
+		    //set to NORMAL
+			singleton<Manager>::getInstance().difficulty = Manager::Difficulty::normal;
+		    newGameClicked = true;
+	    }
+	    if(ImGui::Button("HARD", centerPos))
+	    {
+		    //set to hard
+		    singleton<Manager>::getInstance().difficulty = Manager::Difficulty::hard;
+		    newGameClicked = true;
+	    }
+	    if(ImGui::Button("BACK", centerPos))
+	    {
+		    if(previousMenu == MainMenu)
+		    {
+			    previousMenu = DifficultyMenu;
+			    DisplayMainMenu();
+		    }
+	    }
+    }
+    else if(displayControls)
+    {
+    	//Display a controls text image
+	    ImGui::Image((void*)(intptr_t)controlsTexture, ImVec2(centerPos.x, centerPos.x * controlsImageAspect));
+        ImGui::Text("Key: W                 Action: Movement Forward");
+	    ImGui::Text("Key: S                 Action: Movement Backwards");
+	    ImGui::Text("Key: A                 Action: Movement Left");
+	    ImGui::Text("Key: D                 Action: Movement Right");
+	    ImGui::Text("Key: K                 Action: Toggle Wireframe View");
+	    ImGui::Text("Key: X                 Action: Program Exit View");
+	    ImGui::Text("Key: ESC               Action: Menu Open");
+	    ImGui::Text("Key: Left Mouse        Action: Fire Weapon / Navigate Menu");
+	    ImGui::Text("Mouse Movement         Action: Camera Look");
 
+	    if(ImGui::Button("BACK", centerPos))
+	    {
 
+	    	if(previousMenu == MainMenu)
+		    {
+			    previousMenu = ControlsMenu;
+	    		DisplayMainMenu();
+		    }
+	    	else if(previousMenu == PauseMenu)
+		    {
+			    previousMenu = ControlsMenu;
+	    		DisplayPauseMenu();
+		    }
+	    }
 
+    }
 
     ImGui::End();
 }
@@ -190,23 +293,39 @@ void MainMenuGUI::DisplayPauseMenu()
     displaySettings = false;
     displayMainMenu = false;
 }
+
+void MainMenuGUI::DisplayDifficultyMenu()
+{
+	displayingAMenu = true;
+	displayMainMenu = false;
+	displayDifficulty = true;
+	displayPauseMenu = false;
+	displaySettings = false;
+	canDisplayPauseMenu = false;
+}
+
+void MainMenuGUI::DisplayControlsMenu()
+{
+	displayingAMenu = true;
+	displayControls = true;
+	displayMainMenu = false;
+	displayDifficulty = false;
+	displayPauseMenu = false;
+	displaySettings = false;
+	canDisplayPauseMenu = false;
+}
+
+
 void MainMenuGUI::HideMenus()
 {
     displayingAMenu = false;
     displayPauseMenu = false;
     displayMainMenu = false;
     displaySettings = false;
+    showSavedText = false;
+    displayDifficulty = false;
+    displayControls =  false;
 }
-
-void MainMenuGUI::DisplaySettingsFromMainMenu()
-{
-    displayingAMenu = true;
-    displaySettings = true;
-    displayMainMenu = true;
-    displayPauseMenu = false;
-    canDisplayPauseMenu = false;
-}
-
 
 
 // Simple helper function to load an image into a OpenGL texture with common settings

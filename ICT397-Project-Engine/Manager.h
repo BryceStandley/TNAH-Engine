@@ -1,22 +1,24 @@
 #pragma once
 #include<string>
 
-typedef enum
-{
-	easy,
-	normal,
-	hard
-} Difficulty;
+
+
 class Manager
 {
 public:
+	typedef enum
+	{
+		easy,
+		normal,
+		hard
+	} Difficulty;
 	float speed = 5;
 	std::string token = "none";
 	std::string prevToken = "none";
 	bool fireWeapon = false;
 	float weaponTimer = 0;
 	float timer = 0;
-	Difficulty difficulty = normal;
+	Difficulty difficulty = hard;
 	void Update(float time)
 	{
 		if (timer <= 0)

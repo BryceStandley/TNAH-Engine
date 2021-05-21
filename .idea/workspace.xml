@@ -15,20 +15,16 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="127c4cee-4109-4dc5-a120-c50cf0ff91ca" name="Default Changelist" comment="Added basic menu system">
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
+    <list default="true" id="127c4cee-4109-4dc5-a120-c50cf0ff91ca" name="Default Changelist" comment="Fixed Bugs, Added Controls and Difficulty menus">
+      <change afterPath="$PROJECT_DIR$/ICT397-Project-Engine/SettingsManager.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ICT397-Project-Engine/SettingsManager.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/Enemy.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Enemy.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/Engine.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Engine.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/Engine.h" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Engine.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/GameGUI.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/GameGUI.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/GlfwWindow.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/GlfwWindow.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/ICT397-Project-Engine.vcxproj" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/ICT397-Project-Engine.vcxproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/ICT397-Project-Engine.vcxproj.filters" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/ICT397-Project-Engine.vcxproj.filters" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/MainMenuGUI.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/MainMenuGUI.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/MainMenuGUI.h" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/MainMenuGUI.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/Scene.h" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Scene.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/res/save.sav" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/res/save.sav" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/res/scripts/menus/mainMenu.lua" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/res/scripts/menus/mainMenu.lua" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/res/scripts/scene.lua" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/res/scripts/scene.lua" afterDir="false" />
     </list>
     <list id="a9a6d380-d2a4-494a-9253-49e1f116c041" name="Revert &quot;Merge branch 'Testing' of /Users/brycestandley/GITS/ICT397-Project with conflicts.&quot;" comment="Revert &quot;Merge branch 'Testing' of /Users/brycestandley/GITS/ICT397-Project with conflicts.&quot;&#10;&#10;This reverts commit 77c835d5" />
     <option name="SHOW_DIALOG" value="false" />
@@ -104,6 +100,11 @@
     </key>
   </component>
   <component name="RunManager">
+    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="TNAH-Project" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="TNAH-Project" TARGET_NAME="TNAH-Project" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="TNAH-Project" RUN_TARGET_NAME="TNAH-Project">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -148,7 +149,9 @@
       <workItem from="1620819107174" duration="5704000" />
       <workItem from="1620952203729" duration="1624000" />
       <workItem from="1621226892581" duration="4096000" />
-      <workItem from="1621388045367" duration="6100000" />
+      <workItem from="1621388045367" duration="6750000" />
+      <workItem from="1621559642847" duration="7623000" />
+      <workItem from="1621568199580" duration="904000" />
     </task>
     <task id="LOCAL-00001" summary="Added collisions with objects">
       <created>1617722294195</created>
@@ -241,7 +244,21 @@
       <option name="project" value="LOCAL" />
       <updated>1621323539540</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="fixes to the menus and fixed some bugs">
+      <created>1621394455544</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1621394455544</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Fixed Bugs, Added Controls and Difficulty menus">
+      <created>1621568019966</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1621568019966</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -252,7 +269,49 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="origin/Testing" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="origin/Testing" />
+                </option>
+              </RecentGroup>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="origin/dev" />
+                </option>
+              </RecentGroup>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="origin/CheckingEx" />
+                </option>
+              </RecentGroup>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="origin/LOADING" />
+                </option>
+              </RecentGroup>
+            </list>
           </value>
         </entry>
       </map>
@@ -276,6 +335,8 @@
     <MESSAGE value="Enemy avoidance" />
     <MESSAGE value="Added new weapon md2 file with animations. Will fix texture later" />
     <MESSAGE value="Added basic menu system" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added basic menu system" />
+    <MESSAGE value="fixes to the menus and fixed some bugs" />
+    <MESSAGE value="Fixed Bugs, Added Controls and Difficulty menus" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed Bugs, Added Controls and Difficulty menus" />
   </component>
 </project>

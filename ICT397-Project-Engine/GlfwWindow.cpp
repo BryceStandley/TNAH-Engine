@@ -50,55 +50,57 @@ void GlfwWindow::Terminate()
 void GlfwWindow::GameInput(float deltaTime)
 {
     MainMenuGUI* mainMenuGui = MainMenuGUI::GetInstance();
-    if ((glfwGetKey(gameWindow, gameInput.exit) == GLFW_PRESS) && canPressExitDisplay)
+    if(!mainMenuGui->displayMainMenu)
     {
-        canPressExitDisplay = false;
-        exitDisplay = !exitDisplay;
+	    if ((glfwGetKey(gameWindow, gameInput.exit) == GLFW_PRESS) && canPressExitDisplay)
+	    {
+		    canPressExitDisplay = false;
+		    exitDisplay = !exitDisplay;
 
-        //Making sure the debugger closes on the exit screen display
-        Debugger::GetInstance()->drawDebugPanel = false;
-    }
+		    //Making sure the debugger closes on the exit screen display
+		    Debugger::GetInstance()->drawDebugPanel = false;
+	    }
 
-    if (glfwGetKey(gameWindow, gameInput.exit) == GLFW_RELEASE)
-    {
-        canPressExitDisplay = true;
-    }
+	    if (glfwGetKey(gameWindow, gameInput.exit) == GLFW_RELEASE)
+	    {
+		    canPressExitDisplay = true;
+	    }
 
-    if ((glfwGetKey(gameWindow, gameInput.toggle) == GLFW_PRESS) && canPressWireDisplay)
-    {
-        canPressWireDisplay = false;
-        wireDisplay = !wireDisplay;
-    }
+	    if ((glfwGetKey(gameWindow, gameInput.toggle) == GLFW_PRESS) && canPressWireDisplay)
+	    {
+		    canPressWireDisplay = false;
+		    wireDisplay = !wireDisplay;
+	    }
 
-    if (glfwGetKey(gameWindow, gameInput.toggle) == GLFW_RELEASE)
-    {
-        canPressWireDisplay = true;
-    }
+	    if (glfwGetKey(gameWindow, gameInput.toggle) == GLFW_RELEASE)
+	    {
+		    canPressWireDisplay = true;
+	    }
 
-    if (glfwGetKey(gameWindow, gameInput.debug) == GLFW_RELEASE)
-    {
-        canPressDebugDisplay = true;
-    }
+	    if (glfwGetKey(gameWindow, gameInput.debug) == GLFW_RELEASE)
+	    {
+		    canPressDebugDisplay = true;
+	    }
 
-    if ((glfwGetKey(gameWindow, gameInput.debug) == GLFW_PRESS) && canPressDebugDisplay)
-    {
-        canPressDebugDisplay = false;
-        Debugger::GetInstance()->drawDebugPanel = !Debugger::GetInstance()->drawDebugPanel;
-        if(Debugger::GetInstance()->drawDebugPanel)
-        {
-            camera.disabled = true;
-            glfwSetInputMode(gameWindow, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
-        }
-        else
-        {
-            camera.disabled = false;
-            glfwSetInputMode(gameWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-        }
+	    if ((glfwGetKey(gameWindow, gameInput.debug) == GLFW_PRESS) && canPressDebugDisplay)
+	    {
+		    canPressDebugDisplay = false;
+		    Debugger::GetInstance()->drawDebugPanel = !Debugger::GetInstance()->drawDebugPanel;
+		    if (Debugger::GetInstance()->drawDebugPanel)
+		    {
+			    camera.disabled = true;
+			    glfwSetInputMode(gameWindow, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+		    } else
+		    {
+			    camera.disabled = false;
+			    glfwSetInputMode(gameWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+		    }
+	    }
     }
 
     if(!mainMenuGui->mainMenuClosed)
     {
-        if(mainMenuGui->displayMainMenu || mainMenuGui->displaySettings)
+        if(mainMenuGui->displayMainMenu || mainMenuGui->displaySettings || mainMenuGui->displayDifficulty || mainMenuGui->displayControls)
         {
             camera.disabled = true;
             glfwSetInputMode(gameWindow, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
@@ -112,7 +114,7 @@ void GlfwWindow::GameInput(float deltaTime)
     }
 
 
-    if ((glfwGetKey(gameWindow, gameInput.pause) == GLFW_PRESS) && canPressPauseButton && !mainMenuGui->displaySettings)
+    if ((glfwGetKey(gameWindow, gameInput.pause) == GLFW_PRESS) && canPressPauseButton && !mainMenuGui->displaySettings && !mainMenuGui->displayMainMenu && !mainMenuGui->displayControls)
     {
         canPressPauseButton = false;
         mainMenuGui->canDisplayPauseMenu = !mainMenuGui->canDisplayPauseMenu;

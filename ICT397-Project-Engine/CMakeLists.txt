@@ -47,6 +47,7 @@ target_sources(${PROJECT_NAME} PRIVATE
         GameGUI.cpp
         EndScreenGUI.cpp
         MainMenuGUI.cpp
+        SettingsManager.cpp
         )
 
 target_include_directories(${PROJECT_NAME} PRIVATE ${PROJECT_SOURCE_DIR}/include)

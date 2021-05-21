@@ -7,6 +7,9 @@
 #include "imgui/imgui_internal.h"
 #include "luaManager.h"
 #include "stb_image.h"
+#include "singleton.h"
+#include "Manager.h"
+#include "SettingsManager.h"
 
 class MainMenuGUI
 {
@@ -20,18 +23,25 @@ public:
     void DisplaySettings();
     void DisplayMainMenu();
     void DisplayPauseMenu();
-    void DisplaySettingsFromMainMenu();
+	void DisplayDifficultyMenu();
+	void DisplayControlsMenu();
+
+
 
     void HideMenus();
 
     bool displayMainMenu = true;
     bool displayPauseMenu = false;
     bool displaySettings = false;
+	bool displayDifficulty = false;
+	bool displayControls = false;
     bool canDisplayPauseMenu = false;
     bool mainMenuClosed = false;
     bool quitClicked = false;
     bool saveGameClicked = false;
+    bool showSavedText = false;
     bool loadGameClicked = false;
+    bool noSaveFileFound = false;
     bool newGameClicked = false;
     bool endScreenButtonClicked = false;
 
@@ -39,10 +49,19 @@ public:
     {
         MainMenu,
         PauseMenu,
-        SettingsMenu
+        SettingsMenu,
+	    DifficultyMenu,
+	    ControlsMenu
     };
 
     PreviousMenu previousMenu;
+
+    /**
+     * @brief Easy access to the settings manager
+     */
+    SettingsManager* settingsManager;
+
+
     /**
      * @brief toggled when any menu is active
      */
@@ -65,6 +84,18 @@ public:
 	int settingsHeight = 0;
 	GLuint settingsTexture = 0;
 	float settingsImageAspect = 0;
+
+	std::string diffImagePath = "./res/images/difficulty.png";
+	int diffWidth = 0;
+	int diffHeight = 0;
+	GLuint diffTexture = 0;
+	float diffImageAspect = 0;
+
+	std::string controlsImagePath = "./res/images/controls.png";
+	int controlsWidth = 0;
+	int controlsHeight = 0;
+	GLuint controlsTexture = 0;
+	float controlsImageAspect = 0;
 
 protected:
     explicit MainMenuGUI(std::string scriptPath);

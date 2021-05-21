@@ -54,6 +54,7 @@ Engine::Engine()
 			.addFunction("SetKillFSM", &Enemy::SetKillFSM)
 			.addFunction("isAlive", &Enemy::isAlive)
 			.addFunction("getGlobalFlag", &Enemy::getGlobalFlag)
+			.addFunction("getDifficulty", &Enemy::getDifficulty)
 		.endClass();
 
 
@@ -180,9 +181,15 @@ void Engine::Run()
 
             if(mainMenuGui->loadGameClicked)
             {
-                gameScenes[0]->LoadSaveFile();
-                mainMenuGui->loadGameClicked = false;
-                mainMenuGui->HideMenus();
+                if(gameScenes[0]->LoadSaveFile())
+                {
+	                mainMenuGui->loadGameClicked = false;
+	                mainMenuGui->HideMenus();
+                }
+                else
+                {
+                	mainMenuGui->noSaveFileFound = true;
+                }
             }
 
             //Check if a scene is loaded before trying to render or run the scene per frame
@@ -231,8 +238,7 @@ void Engine::Run()
 
 
 		}
-		//todo: Add a auto save option in settings manager and use it to trigger save
-        gameScenes[0]->SaveGame();
+		if(!mainMenuGui->noSaveFileFound) gameScenes[0]->SaveGame();
 		std::cout << "CLOSING::ENGINE_WILL_EXIT" << std::endl;
 	}
 }
