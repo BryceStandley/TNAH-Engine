@@ -145,6 +145,7 @@
     <ClCompile Include="Window.cpp" />
     <ClCompile Include="Water.cpp" />
     <ClCompile Include="Weapon.cpp" />
+    <ClCompile Include="SettingsManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BoundingBox.h" />
@@ -208,6 +209,7 @@
     <ClInclude Include="Window.h" />
     <ClInclude Include="Windows.h" />
     <ClInclude Include="Weapon.h" />
+    <ClInclude Include="SettingsManager.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\.gitignore" />

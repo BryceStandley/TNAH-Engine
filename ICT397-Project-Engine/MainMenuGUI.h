@@ -9,6 +9,7 @@
 #include "stb_image.h"
 #include "singleton.h"
 #include "Manager.h"
+#include "SettingsManager.h"
 
 class MainMenuGUI
 {
@@ -54,6 +55,13 @@ public:
     };
 
     PreviousMenu previousMenu;
+
+    /**
+     * @brief Easy access to the settings manager
+     */
+    SettingsManager* settingsManager;
+
+
     /**
      * @brief toggled when any menu is active
      */

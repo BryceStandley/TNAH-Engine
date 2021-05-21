@@ -70,6 +70,8 @@ MainMenuGUI::MainMenuGUI(std::string scriptPath)
     settingsImageAspect = (float)settingsHeight / (float)settingsWidth;
     diffImageAspect = (float)diffHeight / (float)diffWidth;
     controlsImageAspect = (float)controlsHeight / (float)controlsWidth;
+
+    settingsManager = SettingsManager::GetInstance();
 }
 
 void MainMenuGUI::Draw()
@@ -173,6 +175,12 @@ void MainMenuGUI::Draw()
         //todo: add settings manager
         //draw the settings menu
         ImGui::Image((void*)(intptr_t)settingsTexture, ImVec2(centerPos.x, centerPos.x * settingsImageAspect));
+
+        ImGui::Checkbox("FULLSCREEN", &settingsManager->fullscreen);
+        if(settingsManager->fullscreen)
+        {
+        	settingsManager->toggledFullscreen = true;
+        }
 
         if(ImGui::Button("BACK", centerPos))
         {
