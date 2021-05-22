@@ -15,18 +15,16 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="127c4cee-4109-4dc5-a120-c50cf0ff91ca" name="Default Changelist" comment="Fixed Bugs, Added Controls and Difficulty menus">
-      <change afterPath="$PROJECT_DIR$/ICT397-Project-Engine/SettingsManager.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ICT397-Project-Engine/SettingsManager.h" afterDir="false" />
+    <list default="true" id="127c4cee-4109-4dc5-a120-c50cf0ff91ca" name="Default Changelist" comment="Started to add settings manager and options">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/ICT397-Project-Engine.vcxproj" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/ICT397-Project-Engine.vcxproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/ICT397-Project-Engine.vcxproj.filters" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/ICT397-Project-Engine.vcxproj.filters" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/MainMenuGUI.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/MainMenuGUI.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/MainMenuGUI.h" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/MainMenuGUI.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/Manager.h" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Manager.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/Scene.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Scene.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/Token.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Token.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/playerStates.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/playerStates.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/res/save.sav" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/res/save.sav" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/res/shader/waterFragment.glsl" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/res/shader/waterFragment.glsl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/res/shader/waterVertex.glsl" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/res/shader/waterVertex.glsl" afterDir="false" />
     </list>
-    <list id="a9a6d380-d2a4-494a-9253-49e1f116c041" name="Revert &quot;Merge branch 'Testing' of /Users/brycestandley/GITS/ICT397-Project with conflicts.&quot;" comment="Revert &quot;Merge branch 'Testing' of /Users/brycestandley/GITS/ICT397-Project with conflicts.&quot;&#10;&#10;This reverts commit 77c835d5" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -100,12 +98,12 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+    <configuration name="TNAH-Project" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="TNAH-Project" TARGET_NAME="TNAH-Project" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="TNAH-Project" RUN_TARGET_NAME="TNAH-Project">
       <method v="2">
-        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TNAH-Project" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="TNAH-Project" TARGET_NAME="TNAH-Project" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="TNAH-Project" RUN_TARGET_NAME="TNAH-Project">
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -151,7 +149,8 @@
       <workItem from="1621226892581" duration="4096000" />
       <workItem from="1621388045367" duration="6750000" />
       <workItem from="1621559642847" duration="7623000" />
-      <workItem from="1621568199580" duration="904000" />
+      <workItem from="1621568199580" duration="954000" />
+      <workItem from="1621647046588" duration="6180000" />
     </task>
     <task id="LOCAL-00001" summary="Added collisions with objects">
       <created>1617722294195</created>
@@ -258,7 +257,14 @@
       <option name="project" value="LOCAL" />
       <updated>1621568019966</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="Started to add settings manager and options">
+      <created>1621569141936</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1621569141937</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -337,6 +343,7 @@
     <MESSAGE value="Added basic menu system" />
     <MESSAGE value="fixes to the menus and fixed some bugs" />
     <MESSAGE value="Fixed Bugs, Added Controls and Difficulty menus" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed Bugs, Added Controls and Difficulty menus" />
+    <MESSAGE value="Started to add settings manager and options" />
+    <option name="LAST_COMMIT_MESSAGE" value="Started to add settings manager and options" />
   </component>
 </project>

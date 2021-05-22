@@ -15,10 +15,15 @@ public:
 	float speed = 5;
 	std::string token = "none";
 	std::string prevToken = "none";
+
 	bool fireWeapon = false;
 	float weaponTimer = 0;
 	float timer = 0;
 	Difficulty difficulty = hard;
+
+	float enemyDeathTimer = 0;
+	bool hasKills = false;
+
 	void Update(float time)
 	{
 		if (timer <= 0)
@@ -44,6 +49,19 @@ public:
 		else
 		{
 			weaponTimer -= time;
+		}
+	}
+
+	void UpdateEnemyDeath(float time)
+	{
+		if (enemyDeathTimer <= 0)
+		{
+			hasKills = true;
+			enemyDeathTimer = 0;
+		}
+		else
+		{
+			enemyDeathTimer -= time;
 		}
 	}
 

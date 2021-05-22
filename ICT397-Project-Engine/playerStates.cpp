@@ -201,9 +201,9 @@ void death::Exit(Player* dude) {}
 void main::Enter(Player* dude)
 {
 	dude->hasToken = true;
-	std::cout << "TOTAL POINTS " << dude->getPoints() << std::endl;
-	std::cout << "TOKENS COLLECTED " << dude->getTokensCollected() << std::endl;
-	std::cout << "KILL COUNT " << dude->getKills() << std::endl;
+	//std::cout << "TOTAL POINTS " << dude->getPoints() << std::endl;
+	//std::cout << "TOKENS COLLECTED " << dude->getTokensCollected() << std::endl;
+	//std::cout << "KILL COUNT " << dude->getKills() << std::endl;
 }
 
 void main::Execute(Player* dude)

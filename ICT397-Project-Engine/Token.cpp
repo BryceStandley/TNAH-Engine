@@ -160,7 +160,7 @@ Token::Token(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std::s
 
 bool Token::Kill()
 {
-	std::cout << tokenType << std::endl;
+	//std::cout << tokenType << std::endl;
 	singleton<Manager>::getInstance().token = tokenType;
 	singleton<Manager>::getInstance().timer = duration;
 	return false;

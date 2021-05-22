@@ -138,6 +138,7 @@ void Scene::Run(View lens, float time, bool exit)
     {
         singleton<Manager>::getInstance().Update(time);
         singleton<Manager>::getInstance().UpdateWeapon(time);
+        singleton<Manager>::getInstance().UpdateEnemyDeath(time);
         gameRenderer->BindTexture(gameTerrain->GetTextIds());
         Shader t = gameTerrain->GetShader();
         gameRenderer->SetShaderTerrain(t, lens);
@@ -149,24 +150,26 @@ void Scene::Run(View lens, float time, bool exit)
         gameRenderer->RenderSkybox(gameSkybox->VAO, gameSkybox->texture);
 
         std::vector<GameObject*> gameObjectsToRemoveFromScene;
-        //Models
-        for (int x = 0; x < gameObjects.size(); x++)
-        {
-            gameObjects[x]->Update(0.1);
-            if (x != playerInd)
-            {
-                gameObjects[x]->Render(lens, time, gameRenderer);
-                if (gameObjects[x]->GetType() == "enemy")
-                {
-                    UpdateGameObject(gameObjects[x]->GetPos(), x);
-                    if (gameObjects[x]->Kill())
-                    {
-                        gameObjectsToRemoveFromScene.emplace_back(gameObjects[x]);
-                        singleton<EntityManager>::getInstance().RemoveEntity(gameObjects[x]);
-                    }
-                }
-            }
-        }
+
+//Models
+	    for (int x = 0; x < gameObjects.size(); x++)
+	    {
+		    gameObjects[x]->Update(0.1);
+		    if (x != playerInd)
+		    {
+			    gameObjects[x]->Render(lens, time, gameRenderer);
+			    if (gameObjects[x]->GetType() == "enemy")
+			    {
+				    UpdateGameObject(gameObjects[x]->GetPos(), x);
+				    if (gameObjects[x]->Kill())
+				    {
+					    gameObjectsToRemoveFromScene.emplace_back(gameObjects[x]);
+					    singleton<EntityManager>::getInstance().RemoveEntity(gameObjects[x]);
+				    }
+			    }
+		    }
+	    }
+
 
         std::vector<GameObject*>::iterator removed;
         for (auto& go : gameObjectsToRemoveFromScene)
@@ -175,6 +178,19 @@ void Scene::Run(View lens, float time, bool exit)
             removed = std::remove(gameObjects.begin(), gameObjects.end(), go);
             //Spawn New GameObject
         }
+
+		if(singleton<Manager>::getInstance().enemyDeathTimer <= 0 && singleton<Manager>::getInstance().hasKills)
+		{
+			for( auto* go : gameObjects)
+			{
+				if(go->GetTag() == BoundingBox::ENEMY)
+				{
+					auto* e = (Enemy*)go;
+					//e->SetKillFSM(true);
+				}
+			}
+		}
+
 
         //if the player is firing, fire the weapon duh
         if (playerWeapon.firingWeapon && playerWeapon.canFireWeapon && singleton<Manager>::getInstance().weaponTimer <= 0)
@@ -185,7 +201,7 @@ void Scene::Run(View lens, float time, bool exit)
             playerWeapon.canFireWeapon = false;
             auto* p = (Player*)gameObjects[playerInd];
             p->FireWeapon();
-            FireWeapon(gameObjects[playerInd]->GetPos(), lens.GetForward(), 100.0f);
+            FireWeapon(gameObjects[playerInd]->GetPos(), lens.GetForward(), 15.0f);
         }
 
         //if the timer is 0 and we can fire again
@@ -261,7 +277,7 @@ void Scene::UpdateGameObject(glm::vec3 position, int i)
         position.z = gameObjects[i]->GetPos().z;
     }
 
-    gameObjects[i]->SetPos(position);
+	gameObjects[i]->SetPos(position);
 }
 
 void Scene::MakeGameObject(std::string t, std::string script, float scale, float x, float y, float z)
@@ -273,8 +289,6 @@ void Scene::MakeGameObject(std::string t, std::string script, float scale, float
 	if (newGameObject != nullptr)
 	{
 		gameObjects.push_back(newGameObject);
-		if(t == "enemy") {enemyObjects.emplace_back(newGameObject);}
-		else if(t == "static" || t == "token") { staticObjects.emplace_back(newGameObject);}
 	}
 	else
 	{
@@ -287,9 +301,7 @@ void Scene::MakeSaveGameObject(std::string t, std::string script, float scale, f
     GameObject* newGameObject = factory->GetGameObjectSave(t, script, scale, glm::vec3(x, y, z), health, ammo, state, savedPoints, savedTokens, savedKills);
     if (newGameObject != nullptr)
     {
-        gameObjects.push_back(newGameObject);
-        if(t == "enemy") {enemyObjects.emplace_back(newGameObject);}
-        else if(t == "static" || t == "token") { staticObjects.emplace_back(newGameObject);}
+		gameObjects.push_back(newGameObject);
     }
     else
     {
@@ -327,10 +339,10 @@ void Scene::MoveObjectAwayFromPlayer()
 
 glm::vec3 Scene::EnemyObstacleAvoidance(GameObject* self, glm::vec3 newPosition)
 {
-    for(auto &go : staticObjects)
+    for(auto &go : gameObjects)
     {
-        //if(go->GetTag() == BoundingBox::CollisionTag::PLAYER) continue;// dont check against the player
-        //if(go == self) continue; // dont check against it self
+        if(go->GetTag() == BoundingBox::CollisionTag::PLAYER) continue;// dont check against the player
+        if(go == self) continue; // dont check against it self
         if(go->GetTag() == BoundingBox::CollisionTag::TOKEN) continue;
         while(glm::distance(newPosition, go->GetPos()) < 2.0f)
         {
@@ -354,23 +366,35 @@ void Scene::FireWeapon(glm::vec3 weaponStartPos, glm::vec3 forward, float fireDi
     {
         glm::vec3 point = weaponStartPos + (forward * i);
 
-        for(auto* go : enemyObjects)
+        for(auto* go : gameObjects)
         {
-            if(go->GetTag() == BoundingBox::ENEMY && glm::distance(go->GetPos(), point) <= 0.5f)
+            if(go->GetTag() == BoundingBox::ENEMY)
             {
-                //hit the enemy, trigger damage
-                if(Debugger::GetInstance()->debugWeapons) std::cout << "Scene.cpp::INFO::Player Shot Enemy!" << std::endl;
-                enemyHit = true;
-                auto* e = (Enemy*)go;
-                e->decreaseHealth(25); // take 25 health from the enemy ie 4 shots to kill the enemy
-                if(e->getHealth() <= 0)
-                {
-                	e->Kill();
-                	deadEnemyObjects.emplace_back(go);
-                	auto* p = (Player*)gameObjects[playerInd];
-                	p->incrementKillCount();
-                }
-                break;
+	            auto *e = (Enemy *) go;
+	            //Add some sort of check to see if the enemy has died already
+	            //if(e->getFSM()->getCurrentState() == State<)
+            	glm::vec3 enemyPosXZ = e->GetPos();
+            	enemyPosXZ.y = point.y;
+            	if(glm::distance(enemyPosXZ, point) <= 0.5f)
+	            {
+		            //hit the enemy, trigger damage
+		            if (Debugger::GetInstance()->debugWeapons)
+			            //std::cout << "Scene.cpp::INFO::Player Shot Enemy!" << std::endl;
+		            enemyHit = true;
+
+		            e->decreaseHealth(25); // take 25 health from the enemy ie 4 shots to kill the enemy
+		            std::cout << e->getHealth() << std::endl;
+		            if (e->getHealth() <= 0)
+		            {
+		            	//trigger death animation
+		            	e->SetState(19);
+			            singleton<Manager>::getInstance().enemyDeathTimer = 5.0f / 17.0f;
+			            //e->SetKillFSM(true);
+			            auto *p = (Player *) gameObjects[playerInd];
+			            p->incrementKillCount();
+		            }
+		            break;
+	            }
             }
         }
         if(enemyHit) break;
@@ -401,7 +425,7 @@ glm::vec3 Scene::CheckSceneCollision(glm::vec3 pos)
     glm::vec3 shiftDelta = glm::vec3(0,0,0);
 
     std::vector<GameObject *> gameObjectsToRemoveFromScene;
-    for (auto& go : staticObjects)
+    for (auto& go : gameObjects)
     {
         //Skip the player, we dont want collisions between the player and the player
         if (go->GetTag() == BoundingBox::PLAYER) continue;
@@ -415,12 +439,7 @@ glm::vec3 Scene::CheckSceneCollision(glm::vec3 pos)
             gameObjectsToRemoveFromScene.emplace_back(go);
             continue;
         }
-        //if(go->GetTag() == BoundingBox::ENEMY && distance < playerSphereRadius) {
-          //  if(Debugger::GetInstance()->debugCollisionsToConsole) std::cout << "Scene.cpp::INFO::Enemy GameObject - " << go->GetName() << " Hit" << std::endl;
-            //gameObjectsToRemoveFromScene.emplace_back(go);
-            //if(Debugger::GetInstance()->debugToConsole) std::cout << "MODEL REMOVED" << std::endl;
-            //continue;
-        //}
+
         if (go->GetTag() == BoundingBox::STATIC_OBJECT && distance < playerSphereRadius || go->GetTag() == BoundingBox::ENEMY && distance < playerSphereRadius)
         {
             if (Debugger::GetInstance()->debugCollisionsToConsole) std::cout << "Scene.cpp::INFO::Static GameObject - " + go->GetName() + " hit" << std::endl;
