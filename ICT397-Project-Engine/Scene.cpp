@@ -154,14 +154,14 @@ void Scene::Run(View lens, float time, bool exit)
 //Models
 	    for (int x = 0; x < gameObjects.size(); x++)
 	    {
-		    gameObjects[x]->Update(0.1);
+		    gameObjects[x]->Update(time);
 		    if (x != playerInd)
 		    {
 			    gameObjects[x]->Render(lens, time, gameRenderer);
 			    if (gameObjects[x]->GetType() == "enemy")
 			    {
 				    UpdateGameObject(gameObjects[x]->GetPos(), x);
-				    if (gameObjects[x]->Kill())
+				    if (!gameObjects[x]->Kill())
 				    {
 					    gameObjectsToRemoveFromScene.emplace_back(gameObjects[x]);
 					    singleton<EntityManager>::getInstance().RemoveEntity(gameObjects[x]);
@@ -170,14 +170,19 @@ void Scene::Run(View lens, float time, bool exit)
 		    }
 	    }
 
+        //std::cout << gameObjects.size() << std::endl;
+
 
         std::vector<GameObject*>::iterator removed;
-        for (auto& go : gameObjectsToRemoveFromScene)
-        {
-            //if(Debugger::GetInstance()->debugCollisionsToConsole) std::cout << "Scene.cpp::INFO::GameObject - " + go->GetName() +" hit and removed from scene" << std::endl;
-            removed = std::remove(gameObjects.begin(), gameObjects.end(), go);
-            //Spawn New GameObject
-        }
+            for (auto& go : gameObjectsToRemoveFromScene)
+            {
+                //if(Debugger::GetInstance()->debugCollisionsToConsole) std::cout << "Scene.cpp::INFO::GameObject - " + go->GetName() +" hit and removed from scene" << std::endl;
+                removed = std::remove(gameObjects.begin(), gameObjects.end(), go);
+                gameObjects.erase(removed);
+                MakeGameObject("enemy", "./res/scripts/gameobjects/enemy_zarlag.lua", 0.05, 50, 1.2, 50);
+                entityMan::getInstance().RegisterEntity(gameObjects[gameObjects.size() - 1]);
+                //Spawn New GameObject
+            }
 
 		if(singleton<Manager>::getInstance().enemyDeathTimer <= 0 && singleton<Manager>::getInstance().hasKills)
 		{
@@ -203,7 +208,7 @@ void Scene::Run(View lens, float time, bool exit)
             p->FireWeapon();
             FireWeapon(gameObjects[playerInd]->GetPos(), lens.GetForward(), 15.0f);
         }
-
+        
         //if the timer is 0 and we can fire again
         if (singleton<Manager>::getInstance().weaponTimer <= 0)
         {
@@ -211,7 +216,6 @@ void Scene::Run(View lens, float time, bool exit)
             p->BackToIdle();
             playerWeapon.canFireWeapon = true;
         }
-
         //GameUI
         if (gameGui) { gameGui->Draw((Player*)gameObjects[playerInd]); }
 
@@ -388,9 +392,11 @@ void Scene::FireWeapon(glm::vec3 weaponStartPos, glm::vec3 forward, float fireDi
 		            {
 		            	//trigger death animation
 		            	e->SetState(19);
+                        e->startTimer = true;
 			            singleton<Manager>::getInstance().enemyDeathTimer = 5.0f / 17.0f;
 			            //e->SetKillFSM(true);
 			            auto *p = (Player *) gameObjects[playerInd];
+                        
 			            p->incrementKillCount();
 		            }
 		            break;
@@ -517,6 +523,7 @@ glm::vec3 Scene::CheckSceneCollision(glm::vec3 pos)
     {
         //if(Debugger::GetInstance()->debugCollisionsToConsole) std::cout << "Scene.cpp::INFO::GameObject - " + go->GetName() +" hit and removed from scene" << std::endl;
         removed = std::remove(gameObjects.begin(), gameObjects.end(), go);
+        gameObjects.erase(removed);
     }
 
     /*if(numberOfCollisions != 0)

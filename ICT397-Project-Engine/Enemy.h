@@ -485,7 +485,7 @@ public:
 		}
 	}
 
-
+	bool startTimer;
 
 private:
 
@@ -511,5 +511,6 @@ private:
 	double wanderDistance = 0;
 	double wanderJitter = 0;
 	glm::vec3 wanderTarget = { 0.0f,0.0f,0.0f };
+	float deathtimer;
 };
 

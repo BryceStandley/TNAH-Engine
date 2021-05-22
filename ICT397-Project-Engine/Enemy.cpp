@@ -237,6 +237,8 @@ Enemy::Enemy(glm::vec3 p, glm::vec3 rot, Renderer* gameRenderer, std::string scr
 	ammo = a;
 	alive = living;
 	hasWeapon = weap;
+	startTimer = false;
+	deathtimer = 2;
 }
 
 Enemy::Enemy(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std::string script, float h, float a, std::string state) : GameObject(p, rot, s, gameRenderer)
@@ -449,6 +451,8 @@ Enemy::Enemy(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std::s
 	ammo = a;
 	alive = living;
 	hasWeapon = weap;
+	startTimer = false;
+	deathtimer = 2;
 	//Set state
 }
 
@@ -467,27 +471,39 @@ void Enemy::Update(float time)
 	//{
 	//	function[1](this);
 	//}
-	if (singleton<Manager>::getInstance().prevToken == "DoublePoints")
+	if (alive)
 	{
-		setToken(true);
-	}
-	else
-		setToken(false);
-
-	if (killFSM == false)
-		enemyFSM->update();
-	else 
-	{
-		//if (Debugger::GetInstance()->debugFSMToConsole) std::cout << "Should be destroyed" << std::endl;
-
-		if (getTimer() != 400) 
+		if (!startTimer)
 		{
-			incrementTimer();
-            if(Debugger::GetInstance()->debugToConsole) std::cout << "TIMER: " << getTimer() << std::endl;
+			if (singleton<Manager>::getInstance().prevToken == "DoublePoints" && singleton<Manager>::getInstance().timer <= 0)
+			{
+				setToken(true);
+			}
+			else
+				setToken(false);
+
+			if (killFSM == false)
+				enemyFSM->update();
+			else
+			{
+				//if (Debugger::GetInstance()->debugFSMToConsole) std::cout << "Should be destroyed" << std::endl;
+				std::cout << "hi2.1" << std::endl;
+				if (getTimer() != 400)
+				{
+					incrementTimer();
+					if (Debugger::GetInstance()->debugToConsole) std::cout << "TIMER: " << getTimer() << std::endl;
+				}
+				else if (getTimer() == 400)
+				{
+					alive = false;
+				}
+			}
 		}
-		else if (getTimer() == 400)
+		else
 		{
-			alive = false;
+			deathtimer -= time;
+			if (deathtimer <= 0)
+				alive = false;
 		}
 	}
 }
@@ -859,7 +875,7 @@ void Enemy::SendMessage(int message, std::string type)
 
 bool Enemy::Kill()
 {
-	return killFSM;
+	return alive;
 }
 
 bool Enemy::handleMessage(const Telegram message)

@@ -26,6 +26,7 @@ public:
 		entityMap.erase(entity->GetId());
 		std::vector<int>::iterator r;
 		r = std::remove(pos.begin(), pos.end(), removeId);
+		pos.erase(r);
 	}
 
 	void ClearEntitys()

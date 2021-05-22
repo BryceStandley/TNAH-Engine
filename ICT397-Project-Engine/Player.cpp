@@ -519,9 +519,7 @@ void Player::Render(View lens, float time, Renderer* gameRenderer)
 {
     glm::vec3 pos = lens.GetPosition();
     pos.y += yPositionOffset;
-    SetRotation(glm::vec3(xRotationOffset + lens.GetRotation().x * -1, yRotationOffset + lens.GetRotation().y, -1*lens.GetRotation().x + zRotationOffset));
-    //SetRotation(glm::vec3(lens.GetRotation().x * -1, lens.GetRotation().y * -1, lens.GetRotation().z));
-
+    SetRotation(glm::vec3(lens.GetRotation().y , 180 + lens.GetRotation().x *-1, lens.GetRotation().z));
     Model temp = GetModel();
     Shader s = GetShader();
     bModel.Render(lens, s, pos, GetRotation(), GetScale(), GetRotate(), time, 0, gameRenderer, true);
