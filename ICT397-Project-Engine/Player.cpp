@@ -518,8 +518,8 @@ void Player::Update(float time)
 void Player::Render(View lens, float time, Renderer* gameRenderer)
 {
     glm::vec3 pos = lens.GetPosition();
-    pos.y += yPositionOffset;
-    SetRotation(glm::vec3(lens.GetRotation().y , 180 + lens.GetRotation().x *-1, lens.GetRotation().z));
+    pos.y -= 0.05;
+    SetRotation(glm::vec3(lens.GetRotation().z , 180 + lens.GetRotation().x *-1, -1 * lens.GetRotation().y));
     Model temp = GetModel();
     Shader s = GetShader();
     bModel.Render(lens, s, pos, GetRotation(), GetScale(), GetRotate(), time, 0, gameRenderer, true);

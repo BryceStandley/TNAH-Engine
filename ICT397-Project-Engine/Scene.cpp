@@ -178,8 +178,22 @@ void Scene::Run(View lens, float time, bool exit)
             {
                 //if(Debugger::GetInstance()->debugCollisionsToConsole) std::cout << "Scene.cpp::INFO::GameObject - " + go->GetName() +" hit and removed from scene" << std::endl;
                 removed = std::remove(gameObjects.begin(), gameObjects.end(), go);
+                glm::vec3 pp = gameObjects[playerInd]->GetPos();
                 gameObjects.erase(removed);
-                MakeGameObject("enemy", "./res/scripts/gameobjects/enemy_zarlag.lua", 0.05, 50, 1.2, 50);
+                int chosenOne = 0;
+                float distance = 0;
+                for (int i = 0; i < spawnPoints.size(); i++)
+                {
+                    float newDistance = glm::distance(pp, spawnPoints[i]);
+
+                    if (newDistance > distance)
+                    {
+                        distance = newDistance;
+                        chosenOne = i;
+                    }
+                }
+
+                MakeGameObject("enemy", "./res/scripts/gameobjects/enemy_zarlag.lua", 0.05, spawnPoints[chosenOne].x, spawnPoints[chosenOne].y, spawnPoints[chosenOne].z);
                 entityMan::getInstance().RegisterEntity(gameObjects[gameObjects.size() - 1]);
                 //Spawn New GameObject
             }
@@ -246,7 +260,10 @@ void Scene::Init()
     gameGui = new GameGUI("./res/scripts/menus/game.lua");
     endScreenGUI = new EndScreenGUI("./res/scripts/menus/endScreen.lua");
     mainMenuGui = MainMenuGUI::GetInstance();
-    //spawnPoints.push_back(glm::vec3())
+    spawnPoints.push_back(glm::vec3(60, 1.2, 40));
+    spawnPoints.push_back(glm::vec3(40, 1.2, 60));
+    spawnPoints.push_back(glm::vec3(50, 1.2, 80));
+    spawnPoints.push_back(glm::vec3(100, 1.2, 50));
 }
 
 
