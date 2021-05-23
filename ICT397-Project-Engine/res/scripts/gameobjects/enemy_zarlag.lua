@@ -112,7 +112,7 @@ flee[2] = function (Enemy)
 		Enemy:ChangeState("wander")
 	end
 
-	res = Enemy:LookDirection("enemy")
+	res = Enemy:LookDirection("playerOpp")
 
 	if Enemy:Distance() > 10.5 and Enemy:Distance() < 25.0 and not Enemy:getToken() then
 		Enemy:ChangeState("chase")

@@ -475,7 +475,7 @@ void Enemy::Update(float time)
 	{
 		if (!startTimer)
 		{
-			if (singleton<Manager>::getInstance().prevToken == "DoublePoints" && singleton<Manager>::getInstance().timer <= 0)
+			if (singleton<Manager>::getInstance().prevToken == "DoubleDamage" && singleton<Manager>::getInstance().timer >= 0)
 			{
 				setToken(true);
 			}
@@ -861,6 +861,10 @@ float Enemy::LookDirection(std::string type)
 	if (type == "player")
 	{
 		return atan2(getVelocity().z, getVelocity().x);
+	}
+	else if (type == "playerOpp")
+	{
+		return atan2(-getVelocity().z, -getVelocity().x);
 	}
 	else
 	{
