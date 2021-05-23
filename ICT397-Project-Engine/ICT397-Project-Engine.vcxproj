@@ -216,11 +216,11 @@
     <None Include="res\scripts\gameobjects\enemy_zarlagweapon.lua" />
     <None Include="res\scripts\gameobjects\player_default.lua" />
     <None Include="res\scripts\gameobjects\static_default.lua" />
-    <None Include="res\scripts\gameobjects\static_greentree.lua" />
-    <None Include="res\scripts\gameobjects\static_redtree.lua" />
-    <None Include="res\scripts\gameobjects\static_stonediamond.lua" />
-    <None Include="res\scripts\gameobjects\static_water.lua" />
-    <None Include="res\scripts\gameobjects\static_yellowtree.lua" />
+    <None Include="res\scripts\gameobjects\static_stone1.lua" />
+    <None Include="res\scripts\gameobjects\static_stone2.lua" />
+    <None Include="res\scripts\gameobjects\static_tree1.lua" />
+    <None Include="res\scripts\gameobjects\static_tree2.lua" />
+    <None Include="res\scripts\gameobjects\static_tree3.lua" />
     <None Include="res\scripts\gameobjects\token_default.lua" />
     <None Include="res\scripts\gameobjects\token_doubledmg.lua" />
     <None Include="res\scripts\gameobjects\token_doublepoints.lua" />
@@ -231,8 +231,7 @@
     <None Include="res\scripts\menus\debug.lua" />
     <None Include="res\scripts\menus\endScreen.lua" />
     <None Include="res\scripts\menus\game.lua" />
-    <None Include="res\scripts\scene1 old.lua" />
-    <None Include="res\scripts\scene1.lua" />
+    <None Include="res\scripts\scene.lua" />
     <None Include="res\scripts\skybox.lua" />
     <None Include="res\scripts\terrain.lua" />
     <None Include="res\shader\exitScreenF.glsl" />

@@ -6,8 +6,9 @@
 --terrainSize = 3072
 
 -- 1k height map
-heightmap = "./res/heightmaps/1kheightmap-3.raw"
-terrainSize = 1024
+--heightmap = "./res/heightmaps/1kheightmap-3.raw"
+heightmap = "./res/heightmaps/1-5k.raw"
+terrainSize = 1024 * 1.5;
 
 xScale = 1
 yScale = 5

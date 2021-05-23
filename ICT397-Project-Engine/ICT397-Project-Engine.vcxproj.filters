@@ -397,12 +397,6 @@
     <None Include="res\scripts\input.lua">
       <Filter>Resource Files\lua scripts</Filter>
     </None>
-    <None Include="res\scripts\scene1 old.lua">
-      <Filter>Resource Files\lua scripts</Filter>
-    </None>
-    <None Include="res\scripts\scene1.lua">
-      <Filter>Resource Files\lua scripts</Filter>
-    </None>
     <None Include="res\scripts\skybox.lua">
       <Filter>Resource Files\lua scripts</Filter>
     </None>
@@ -419,21 +413,6 @@
       <Filter>Resource Files\lua scripts\gameobjects</Filter>
     </None>
     <None Include="res\scripts\gameobjects\static_default.lua">
-      <Filter>Resource Files\lua scripts\gameobjects</Filter>
-    </None>
-    <None Include="res\scripts\gameobjects\static_greentree.lua">
-      <Filter>Resource Files\lua scripts\gameobjects</Filter>
-    </None>
-    <None Include="res\scripts\gameobjects\static_redtree.lua">
-      <Filter>Resource Files\lua scripts\gameobjects</Filter>
-    </None>
-    <None Include="res\scripts\gameobjects\static_stonediamond.lua">
-      <Filter>Resource Files\lua scripts\gameobjects</Filter>
-    </None>
-    <None Include="res\scripts\gameobjects\static_water.lua">
-      <Filter>Resource Files\lua scripts\gameobjects</Filter>
-    </None>
-    <None Include="res\scripts\gameobjects\static_yellowtree.lua">
       <Filter>Resource Files\lua scripts\gameobjects</Filter>
     </None>
     <None Include="res\scripts\gameobjects\token_default.lua">
@@ -499,6 +478,24 @@
     </None>
     <None Include="res\scripts\menus\endScreen.lua">
       <Filter>Resource Files\lua scripts\menus</Filter>
+    </None>
+    <None Include="res\scripts\scene.lua">
+      <Filter>Resource Files\lua scripts</Filter>
+    </None>
+    <None Include="res\scripts\gameobjects\static_tree3.lua">
+      <Filter>Resource Files\lua scripts\gameobjects</Filter>
+    </None>
+    <None Include="res\scripts\gameobjects\static_stone1.lua">
+      <Filter>Resource Files\lua scripts\gameobjects</Filter>
+    </None>
+    <None Include="res\scripts\gameobjects\static_stone2.lua">
+      <Filter>Resource Files\lua scripts\gameobjects</Filter>
+    </None>
+    <None Include="res\scripts\gameobjects\static_tree1.lua">
+      <Filter>Resource Files\lua scripts\gameobjects</Filter>
+    </None>
+    <None Include="res\scripts\gameobjects\static_tree2.lua">
+      <Filter>Resource Files\lua scripts\gameobjects</Filter>
     </None>
   </ItemGroup>
 </Project>

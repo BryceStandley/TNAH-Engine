@@ -273,7 +273,7 @@ void Scene::UpdatePlayer(glm::vec3 position, glm::vec3 rotation)
 
     position.y = WorldToTerrainPosition(position, true).y + 1.5f;
 
-	if (position.y >= 10.0f)
+	if (position.y >= 100.0f)
 	{
         position.x = gameObjects[playerInd]->GetPos().x;
         position.y = gameObjects[playerInd]->GetPos().y;
