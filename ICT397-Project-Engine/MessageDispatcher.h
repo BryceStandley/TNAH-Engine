@@ -51,7 +51,6 @@ public:
 				GameObject* pReceiver = entityMan::getInstance().GetEntity(entityMan::getInstance().NumberedPos(i));
 				if (pReceiver->GetType() == type && i != sender )
 				{
-					std::cout << "Message send " << type << std::endl;
 					Telegram message(0.0f, sender, i, true, msg, pos);
 					Discharge(pReceiver, message);
 				}
