@@ -111,7 +111,7 @@ public:
 		* @brief gets and returns the player kill count
 		* @return int
 		*/
-	int getKills() { return kills = 0; }
+	int getKills() { return kills; }
 
 
 		/*
@@ -175,6 +175,8 @@ public:
 		return GetType() + " " + GetScriptName() + " " + std::to_string(GetScale()) + " " + std::to_string(GetPos().x) + " " + std::to_string(GetPos().y) + " " + std::to_string(GetPos().z) + " " + std::to_string(health) + " STATE" + " " + std::to_string(points) + " " + std::to_string(kills) + " " + std::to_string(tokensCollected) + "\n";
 	}
 
+	void Reset();
+
 private:
 	
 	stateMachine<Player>* playerFSM;
@@ -182,7 +184,7 @@ private:
 	int health = 100;
 	int points = 0;
 	int multiplier = 1;
-	int damage = 50;
+	int damage = 20;
 	int kills = 0;
 	int tokensCollected = 0;
 

@@ -460,6 +460,19 @@ public:
 		}
 	}
 
+	/**
+	 * @brief Gets the accuracy factor of an enemy
+	 * @return accuracy factor
+	 */
+	float GetAccuracy(){return accuracyFactor;}
+
+
+	bool GetAliveStatus() { return alive; }
+	void SetAliveStatus(bool s) { alive = s; }
+	int GetDamage() { return damage; }
+	void SetFireWeapon(bool f) { fireWeapon = f; }
+	bool GetFireWeapon() { return fireWeapon; }
+
 	glm::vec3 newPos;
 	LuaRef wanderLua = NULL;
 	LuaRef alert = NULL;
@@ -512,5 +525,9 @@ private:
 	double wanderJitter = 0;
 	glm::vec3 wanderTarget = { 0.0f,0.0f,0.0f };
 	float deathtimer;
+	float weaponTimer;
+	bool fireWeapon = false;
+	float accuracyFactor;
+	int damage;
 };
 

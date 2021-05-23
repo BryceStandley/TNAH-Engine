@@ -112,9 +112,14 @@ void GlfwWindow::GameInput(float deltaTime)
             mainMenuGui->mainMenuClosed = true;
         }
     }
+    else if(mainMenuGui->displayDeathScreen)
+    {
+	    camera.disabled = true;
+	    glfwSetInputMode(gameWindow, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+    }
 
 
-    if ((glfwGetKey(gameWindow, gameInput.pause) == GLFW_PRESS) && canPressPauseButton && !mainMenuGui->displaySettings && !mainMenuGui->displayMainMenu && !mainMenuGui->displayControls)
+    if ((glfwGetKey(gameWindow, gameInput.pause) == GLFW_PRESS) && canPressPauseButton && !mainMenuGui->displaySettings && !mainMenuGui->displayMainMenu && !mainMenuGui->displayControls && !mainMenuGui->displayDeathScreen)
     {
         canPressPauseButton = false;
         mainMenuGui->canDisplayPauseMenu = !mainMenuGui->canDisplayPauseMenu;

@@ -121,13 +121,10 @@ void MainMenuGUI::Draw()
             previousMenu = MainMenu;
             DisplaySettings();
         }
-        if(ImGui::Button("CLOSE SCREEN", centerPos))
-        {
-            endScreenButtonClicked = true;
-        }
+
         if(ImGui::Button("QUIT", centerPos))
         {
-            quitClicked = true;
+	        endScreenButtonClicked = true;
         }
         if(noSaveFileFound)
         {
@@ -155,13 +152,10 @@ void MainMenuGUI::Draw()
             previousMenu = PauseMenu;
             DisplaySettings();
         }
-        if(ImGui::Button("CLOSE SCREEN", centerPos))
-        {
-            endScreenButtonClicked = true;
-        }
+
         if(ImGui::Button("QUIT", centerPos))
         {
-            quitClicked = true;
+	        endScreenButtonClicked = true;
         }
         if(saveGameClicked || showSavedText)
         {
@@ -195,14 +189,10 @@ void MainMenuGUI::Draw()
                 DisplayPauseMenu();
             }
         }
-        if(ImGui::Button("CLOSE SCREEN", centerPos))
-        {
-            endScreenButtonClicked = true;
-        }
 
         if(ImGui::Button("QUIT", centerPos))
         {
-            quitClicked = true;
+	        endScreenButtonClicked = true;
         }
     }
     else if(displayDifficulty)
@@ -269,6 +259,17 @@ void MainMenuGUI::Draw()
     ImGui::End();
 }
 
+void MainMenuGUI::DisplayDeathScreen()
+{
+	displayingAMenu = true;
+	displayDeathScreen = true;
+	displaySettings = false;
+	displayMainMenu = false;
+	displayPauseMenu = false;
+	canDisplayPauseMenu = false;
+}
+
+
 void MainMenuGUI::DisplaySettings()
 {
     displayingAMenu = true;
@@ -319,6 +320,7 @@ void MainMenuGUI::DisplayControlsMenu()
 void MainMenuGUI::HideMenus()
 {
     displayingAMenu = false;
+    displayDeathScreen = false;
     displayPauseMenu = false;
     displayMainMenu = false;
     displaySettings = false;

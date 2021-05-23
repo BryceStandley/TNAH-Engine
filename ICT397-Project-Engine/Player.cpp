@@ -515,6 +515,15 @@ void Player::Update(float time)
 	playerFSM->update();
  }
 
+void Player::Reset()
+{
+	kills = 0;
+	SetPos(glm::vec3(153, 15, 153));
+	points = 0;
+	tokensCollected = 0;
+	health = 100;
+}
+
 void Player::Render(View lens, float time, Renderer* gameRenderer)
 {
     glm::vec3 pos = lens.GetPosition();

@@ -31,6 +31,8 @@ Enemy::Enemy(glm::vec3 p, glm::vec3 rot, Renderer* gameRenderer, std::string scr
 
 		LuaRef hel = getGlobal(L, "health");
 		LuaRef amm = getGlobal(L, "ammo");
+		LuaRef acc = getGlobal(L, "accuracy");
+		LuaRef dam = getGlobal(L, "damage");
 
 		std::string file;
 		std::string vertS;
@@ -94,6 +96,16 @@ Enemy::Enemy(glm::vec3 p, glm::vec3 rot, Renderer* gameRenderer, std::string scr
 			a = amm.cast<int>();
 		}
 
+		if (acc.isNumber())
+		{
+			accuracyFactor = acc.cast<float>();
+		}
+
+		if (dam.isNumber())
+		{
+			damage = dam.cast<int>();
+		}
+
 		Model tempModel(file, gameRenderer, check, texture, true);
 		SetModel(tempModel);
 
@@ -196,6 +208,7 @@ Enemy::Enemy(glm::vec3 p, glm::vec3 rot, Renderer* gameRenderer, std::string scr
 			a = amm.cast<int>();
 		}
 
+
 		Model tempModel(file, gameRenderer, check, texture, true);
 		SetModel(tempModel);
 
@@ -239,6 +252,9 @@ Enemy::Enemy(glm::vec3 p, glm::vec3 rot, Renderer* gameRenderer, std::string scr
 	hasWeapon = weap;
 	startTimer = false;
 	deathtimer = 2;
+	weaponTimer = 0.5f;
+	accuracyFactor = 0.35f;
+	damage = 10;
 }
 
 Enemy::Enemy(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std::string script, float h, float a, std::string state) : GameObject(p, rot, s, gameRenderer)
@@ -269,6 +285,9 @@ Enemy::Enemy(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std::s
 
 		LuaRef hel = getGlobal(L, "health");
 		LuaRef amm = getGlobal(L, "ammo");
+		LuaRef acc = getGlobal(L, "accuracy");
+		LuaRef dam = getGlobal(L, "damage");
+
 
 		std::string file;
 		std::string vertS;
@@ -362,6 +381,7 @@ Enemy::Enemy(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std::s
 
 		LuaRef hel = getGlobal(L, "health");
 		LuaRef amm = getGlobal(L, "ammo");
+		LuaRef acc = getGlobal(L, "accuracy");
 
 		std::string file;
 		std::string vertS;
@@ -453,6 +473,9 @@ Enemy::Enemy(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std::s
 	hasWeapon = weap;
 	startTimer = false;
 	deathtimer = 2;
+	weaponTimer = 0.5f;
+	accuracyFactor = 0.35f;
+	damage = 10;
 	//Set state
 }
 
@@ -496,6 +519,17 @@ void Enemy::Update(float time)
 				else if (getTimer() == 400)
 				{
 					alive = false;
+				}
+			}
+
+			if(GetModel().GetState().type == 3)
+			{
+				//If were attacking
+				weaponTimer -= time;
+				if(weaponTimer <= 0)
+				{
+					weaponTimer = 0.5f;
+					fireWeapon = true;
 				}
 			}
 		}

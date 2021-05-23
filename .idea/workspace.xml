@@ -15,15 +15,35 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="127c4cee-4109-4dc5-a120-c50cf0ff91ca" name="Default Changelist" comment="Started to add settings manager and options">
+    <list default="true" id="127c4cee-4109-4dc5-a120-c50cf0ff91ca" name="Default Changelist" comment="Fixed token bug fixed firing hit issues">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/Manager.h" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Manager.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/DebugGUI.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/DebugGUI.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/Debugger.h" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Debugger.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/Enemy.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Enemy.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/Enemy.h" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Enemy.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/GameGUI.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/GameGUI.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/GameGUI.h" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/GameGUI.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/GlfwWindow.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/GlfwWindow.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/MainMenuGUI.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/MainMenuGUI.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/MainMenuGUI.h" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/MainMenuGUI.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/Player.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Player.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/Player.h" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Player.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/Scene.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Scene.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/Token.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Token.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/playerStates.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/playerStates.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/Scene.h" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Scene.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/res/models/environment/Stone1.fbx" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/res/models/environment/Stone1.fbx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/res/models/environment/Stone2.fbx" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/res/models/environment/Stone2.fbx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/res/models/environment/Tree1.fbx" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/res/models/environment/Tree1.fbx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/res/models/environment/Tree2.fbx" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/res/models/environment/Tree2.fbx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/res/models/environment/Tree3.fbx" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/res/models/environment/Tree3.fbx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/res/models/weapons/Bennelli_M4.md2" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/res/models/weapons/Bennelli_M4.md2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/res/models/weapons/bullet.md2" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/res/models/weapons/bullet.md2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/res/models/weapons/shotgun.blend" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/res/models/weapons/shotgun.blend" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/res/models/weapons/shotgun.blend1" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/res/models/weapons/shotgun.blend1" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/res/save.sav" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/res/save.sav" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/res/shader/waterFragment.glsl" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/res/shader/waterFragment.glsl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/res/shader/waterVertex.glsl" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/res/shader/waterVertex.glsl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/res/scripts/gameobjects/enemy_zarlag.lua" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/res/scripts/gameobjects/enemy_zarlag.lua" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/res/scripts/gameobjects/static_tree3.lua" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/res/scripts/gameobjects/static_tree3.lua" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/res/scripts/scene.lua" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/res/scripts/scene.lua" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/res/scripts/terrain.lua" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/res/scripts/terrain.lua" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -103,11 +123,6 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
     <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
         <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -150,7 +165,8 @@
       <workItem from="1621388045367" duration="6750000" />
       <workItem from="1621559642847" duration="7623000" />
       <workItem from="1621568199580" duration="954000" />
-      <workItem from="1621647046588" duration="6180000" />
+      <workItem from="1621647046588" duration="6246000" />
+      <workItem from="1621780575152" duration="13571000" />
     </task>
     <task id="LOCAL-00001" summary="Added collisions with objects">
       <created>1617722294195</created>
@@ -264,7 +280,14 @@
       <option name="project" value="LOCAL" />
       <updated>1621569141937</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="Fixed token bug fixed firing hit issues">
+      <created>1621657695264</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1621657695264</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -344,6 +367,7 @@
     <MESSAGE value="fixes to the menus and fixed some bugs" />
     <MESSAGE value="Fixed Bugs, Added Controls and Difficulty menus" />
     <MESSAGE value="Started to add settings manager and options" />
-    <option name="LAST_COMMIT_MESSAGE" value="Started to add settings manager and options" />
+    <MESSAGE value="Fixed token bug fixed firing hit issues" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed token bug fixed firing hit issues" />
   </component>
 </project>

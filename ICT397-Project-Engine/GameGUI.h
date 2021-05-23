@@ -14,6 +14,11 @@ public:
 	bool displayGameUI = true;
 	bool displayDeathScreen = false;
 
+	void HideGameUI();
+	void DisplayDeathScreen();
+
+	void DisplayGameUI();
+
 private:
 	/**
 	 * \brief style of the game UI

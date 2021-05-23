@@ -68,12 +68,15 @@ void DebugGUI::Draw()
     ImGui::Begin(windowName.c_str()); //Create the window
 
     ImGui::Text("FPS: %.1f", ImGui::GetIO().Framerate);
-    ImGui::Checkbox("Debug to Console", &Debugger::GetInstance()->debugToConsole);
+	ImGui::Checkbox("Sticky FPS", &Debugger::GetInstance()->stickyFPSCounter);
+    ImGui::Checkbox("Debug Basics to Console", &Debugger::GetInstance()->debugToConsole);
     ImGui::Checkbox("Debug Collisions to Console", &Debugger::GetInstance()->debugCollisionsToConsole);
     ImGui::Checkbox("Debug FSM to Console", &Debugger::GetInstance()->debugFSMToConsole);
     ImGui::Checkbox("Debug Weapons to Console", &Debugger::GetInstance()->debugWeapons);
     ImGui::Checkbox("Debug Animations to Console", &Debugger::GetInstance()->debugAnimationsToConsole);
     ImGui::Checkbox("Debug MD2 to Console", &Debugger::GetInstance()->debugMD2ToConsole);
+	ImGui::Checkbox("Debug Tokens to Console", &Debugger::GetInstance()->debugTokensToConsole);
+    ImGui::Checkbox("Debug Player Position to Screen", &Debugger::GetInstance()->debugPlayerPos);
     //Add ImGui::Text() fields here to add more data to the debug window
 
 

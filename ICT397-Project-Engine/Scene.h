@@ -160,6 +160,8 @@ public:
 
     void FireWeapon(glm::vec3 weaponStartPos, glm::vec3 forward, float fireDistance);
 
+	void EnemyFireWeapon(GameObject* enemy, float fireDistance);
+
     void SetPlayerWeapon(Weapon w){playerWeapon = w;}
     Weapon GetPlayerWeapon(){return playerWeapon;}
 	

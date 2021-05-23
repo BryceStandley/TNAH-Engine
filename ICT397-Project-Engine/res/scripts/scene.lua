@@ -4,7 +4,7 @@
 -- Format cs:MakeGameObject(type, "modelfolder", "vertexshader", "fragmentshader", scale, x, y, z, speed);
 --print("Scene 1 script loaded")
 
-cs:MakeGameObject("player", "./res/scripts/gameobjects/player_default.lua", 0.075, 100, 3.5, 100);
+cs:MakeGameObject("player", "./res/scripts/gameobjects/player_default.lua", 0.075, 153, 3.5, 153);
 cs:MakeGameObject("static",  "./res/scripts/gameobjects/static_tree3.lua", 0.005, 40, 1.2, 40);
 
 
@@ -17,17 +17,17 @@ cs:MakeGameObject("water",  "./res/scripts/gameobjects/static_water.lua", 0.05, 
 y = 1--Y value for all tokens
 for i = 0, 2
 do
-    x = math.random(40, 150)
-    z = math.random(40, 150)
+    x = math.random(40, 280)
+    z = math.random(40, 280)
     cs:MakeGameObject("token",  "./res/scripts/gameobjects/token_doublepoints.lua", 0.005, x, y, z);
-    x = math.random(40, 150)
-    z = math.random(40, 150)
+    x = math.random(40, 280)
+    z = math.random(40, 280)
     cs:MakeGameObject("token", "./res/scripts/gameobjects/token_speedup.lua", 0.005, x, y, z);
-    x = math.random(40, 150)
-    z = math.random(40, 150)
+    x = math.random(40, 280)
+    z = math.random(40, 280)
     cs:MakeGameObject("token",  "./res/scripts/gameobjects/token_healthrefill.lua", 0.005, x, y, z);
-	x = math.random(40, 150)
-    z = math.random(40, 150)
+    x = math.random(40, 280)
+    z = math.random(40, 280)
     cs:MakeGameObject("token",  "./res/scripts/gameobjects/token_doubledmg.lua", 0.005, x, y, z);
 	
 	
@@ -38,24 +38,39 @@ end
 y = -0.2
 for i = 0, 10
 do
-    x = math.random(10, 190)
-    z = math.random(10, 190)
-    cs:MakeGameObject("static", "./res/scripts/gameobjects/static_tree3.lua", 0.05,x, y, z);
+    x = math.random(40, 280)
+    z = math.random(40, 280)
+    cs:MakeGameObject("static", "./res/scripts/gameobjects/static_tree3.lua", 0.04,x, y, z);
 end
 
 --Make 10 Red Trees with random positions
 for i = 0, 10
 do
-    x = math.random(10, 190)
-    z = math.random(10, 190)
-    cs:MakeGameObject("static",  "./res/scripts/gameobjects/static_tree3.lua", 0.05,x, y, z);
+    x = math.random(40, 280)
+    z = math.random(40, 280)
+    cs:MakeGameObject("static",  "./res/scripts/gameobjects/static_tree2.lua", 0.04,x, y, z);
+end
+
+for i = 0, 10
+do
+    x = math.random(40, 280)
+    z = math.random(40, 280)
+    cs:MakeGameObject("static",  "./res/scripts/gameobjects/static_tree1.lua", 0.04,x, y, z);
 end
 
 y = -0.2
 --Make 10 stones with random positions
 for i = 0, 15
 do
-    x = math.random(50, 150)
-    z = math.random(50, 150)
+    x = math.random(40, 280)
+    z = math.random(40, 280)
     cs:MakeGameObject("static",  "./res/scripts/gameobjects/static_stone2.lua", 0.02, x, y, z);
+end
+
+--Make 10 stones with random positions
+for i = 0, 15
+do
+    x = math.random(40, 280)
+    z = math.random(40, 280)
+    cs:MakeGameObject("static",  "./res/scripts/gameobjects/static_stone1.lua", 0.02, x, y, z);
 end

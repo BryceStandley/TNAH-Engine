@@ -25,6 +25,7 @@ public:
     void DisplayPauseMenu();
 	void DisplayDifficultyMenu();
 	void DisplayControlsMenu();
+	void DisplayDeathScreen();
 
 
 
@@ -35,6 +36,7 @@ public:
     bool displaySettings = false;
 	bool displayDifficulty = false;
 	bool displayControls = false;
+	bool displayDeathScreen = false;
     bool canDisplayPauseMenu = false;
     bool mainMenuClosed = false;
     bool quitClicked = false;

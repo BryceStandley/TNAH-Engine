@@ -1,5 +1,5 @@
---static_default.lua
---Default static script if given script isnt found
+--static_tree3.lua
+--Default static script for tree3 model
 
 check = false;
 rotate = false;

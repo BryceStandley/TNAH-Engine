@@ -151,7 +151,7 @@ void Scene::Run(View lens, float time, bool exit)
 
         std::vector<GameObject*> gameObjectsToRemoveFromScene;
 
-//Models
+		//Models
 	    for (int x = 0; x < gameObjects.size(); x++)
 	    {
 		    gameObjects[x]->Update(time);
@@ -160,7 +160,9 @@ void Scene::Run(View lens, float time, bool exit)
 			    gameObjects[x]->Render(lens, time, gameRenderer);
 			    if (gameObjects[x]->GetType() == "enemy")
 			    {
-				    UpdateGameObject(gameObjects[x]->GetPos(), x);
+				    auto* e = (Enemy*)gameObjects[x];
+				    UpdateGameObject(e->GetPos(), x);
+				    if(e->GetFireWeapon()) { EnemyFireWeapon(e, 5); }
 				    if (!gameObjects[x]->Kill())
 				    {
 					    gameObjectsToRemoveFromScene.emplace_back(gameObjects[x]);
@@ -230,6 +232,9 @@ void Scene::Run(View lens, float time, bool exit)
             p->BackToIdle();
             playerWeapon.canFireWeapon = true;
         }
+
+
+
         //GameUI
         if (gameGui) { gameGui->Draw((Player*)gameObjects[playerInd]); }
 
@@ -260,10 +265,10 @@ void Scene::Init()
     gameGui = new GameGUI("./res/scripts/menus/game.lua");
     endScreenGUI = new EndScreenGUI("./res/scripts/menus/endScreen.lua");
     mainMenuGui = MainMenuGUI::GetInstance();
-    spawnPoints.push_back(glm::vec3(60, 1.2, 40));
-    spawnPoints.push_back(glm::vec3(40, 1.2, 60));
-    spawnPoints.push_back(glm::vec3(50, 1.2, 80));
-    spawnPoints.push_back(glm::vec3(100, 1.2, 50));
+    spawnPoints.emplace_back(glm::vec3(60, 1.2, 40));
+    spawnPoints.emplace_back(glm::vec3(40, 1.2, 60));
+    spawnPoints.emplace_back(glm::vec3(50, 1.2, 80));
+    spawnPoints.emplace_back(glm::vec3(100, 1.2, 50));
 }
 
 
@@ -273,7 +278,7 @@ void Scene::UpdatePlayer(glm::vec3 position, glm::vec3 rotation)
 
     position.y = WorldToTerrainPosition(position, true).y + 1.5f;
 
-	if (position.y >= 100.0f)
+	if (position.y >= 14.0f)
 	{
         position.x = gameObjects[playerInd]->GetPos().x;
         position.y = gameObjects[playerInd]->GetPos().y;
@@ -291,7 +296,7 @@ void Scene::UpdateGameObject(glm::vec3 position, int i)
 
     position.y = WorldToTerrainPosition(position, true).y + 1.2f;
 
-    if (position.y >= 10.0f)
+    if (position.y >= 15.0f)
     {
         position.x = gameObjects[i]->GetPos().x;
         position.y = gameObjects[i]->GetPos().y;
@@ -367,7 +372,7 @@ glm::vec3 Scene::EnemyObstacleAvoidance(GameObject* self, glm::vec3 newPosition)
         if(go->GetTag() == BoundingBox::CollisionTag::TOKEN) continue;
         while(glm::distance(newPosition, go->GetPos()) < 2.0f)
         {
-            newPosition.x += 0.5f;
+            newPosition.x += 0.1f;
         }
     }
     return newPosition;
@@ -378,6 +383,7 @@ void Scene::FireWeapon(glm::vec3 weaponStartPos, glm::vec3 forward, float fireDi
 {
 
     playerWeapon.canFireWeapon = true;
+    forward = glm::normalize(forward);
     glm::vec3 directionVector = forward * fireDistance;
     glm::vec3 finalEndPoint = weaponStartPos + directionVector;
     bool enemyHit = false;
@@ -392,28 +398,24 @@ void Scene::FireWeapon(glm::vec3 weaponStartPos, glm::vec3 forward, float fireDi
             if(go->GetTag() == BoundingBox::ENEMY)
             {
 	            auto *e = (Enemy *) go;
-	            //Add some sort of check to see if the enemy has died already
-	            //if(e->getFSM()->getCurrentState() == State<)
-            	glm::vec3 enemyPosXZ = e->GetPos();
-            	enemyPosXZ.y = point.y;
-            	if(glm::distance(enemyPosXZ, point) <= 0.5f)
+
+            	glm::vec3 eme = e->GetPos();
+            	eme.y = point.y;
+	            //std::cout << "Distance: " << glm::distance(eme, point) << " Point: " << Debugger::GetInstance()->DebugVec3(point) << " Player: " << Debugger::GetInstance()->DebugVec3(eme) << std::endl;
+            	if(glm::distance(eme, point) <= 0.5f && !e->startTimer )
 	            {
 		            //hit the enemy, trigger damage
 		            if (Debugger::GetInstance()->debugWeapons)
 			            //std::cout << "Scene.cpp::INFO::Player Shot Enemy!" << std::endl;
 		            enemyHit = true;
-
-		            e->decreaseHealth(25); // take 25 health from the enemy ie 4 shots to kill the enemy
-		            std::cout << e->getHealth() << std::endl;
+		            auto* p = (Player*) gameObjects[playerInd];
+		            e->decreaseHealth(p->getDamage());
 		            if (e->getHealth() <= 0)
 		            {
 		            	//trigger death animation
 		            	e->SetState(19);
                         e->startTimer = true;
 			            singleton<Manager>::getInstance().enemyDeathTimer = 5.0f / 17.0f;
-			            //e->SetKillFSM(true);
-			            auto *p = (Player *) gameObjects[playerInd];
-                        
 			            p->incrementKillCount();
 		            }
 		            break;
@@ -424,7 +426,6 @@ void Scene::FireWeapon(glm::vec3 weaponStartPos, glm::vec3 forward, float fireDi
 
         i += 0.5f;
     }
-
     if(!deadEnemyObjects.empty())
     {
 	    std::vector<GameObject*>::iterator removed;
@@ -433,9 +434,41 @@ void Scene::FireWeapon(glm::vec3 weaponStartPos, glm::vec3 forward, float fireDi
     		removed = std::remove(gameObjects.begin(), gameObjects.end(), go);
 	    }
     }
+}
+
+void Scene::EnemyFireWeapon(GameObject* enemy, float fireDistance)
+{
+	auto *p = (Player *) gameObjects[playerInd];
+	auto *e = (Enemy *) enemy;
+	e->SetFireWeapon(false);
+	//glm::vec3 forward = e->GetPos() - (p->GetPos() * (e->GetAccuracy() * (0.1f + static_cast <float> (rand()) / ( static_cast <float> (RAND_MAX/(1.0))))));
+	glm::vec3 forward = p->GetPos() - e->GetPos();
+	forward = glm::normalize(forward);
+
+	glm::vec3 directionVector = forward * fireDistance;
+	glm::vec3 finalEndPoint = e->GetPos() + directionVector;
+	float i = 1;
+	while (i < fireDistance)
+	{
+		glm::vec3 point = e->GetPos() + (forward * i);
+
+		glm::vec3 pl = p->GetPos();
+		pl.y = point.y;
+		if (rand() % 100 <= (100 * e->GetAccuracy() * 0.5f))  //glm::distance(pl, point) <= e->GetAccuracy())
+		{
+			e->decreaseHealth(p->getDamage());
+			p->setHealth(p->getHealth() - e->GetDamage());
+			if (p->getHealth() <= 0)
+			{
+				// tell the player to die
+				gameGui->DisplayDeathScreen();
+			}
+			break;
+		}
 
 
-
+		i += 0.5f;
+	}
 }
 
 glm::vec3 Scene::CheckSceneCollision(glm::vec3 pos)

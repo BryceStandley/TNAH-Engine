@@ -16,19 +16,22 @@ health = 100;
 ammo = 10;
 distance = 25.0;
 damage = 10;
+accuracy = 0.35;
 
 setup = function (Enemy)
-	print(Enemy:getDifficulty());
+	--print(Enemy:getDifficulty());
 	if string.match(Enemy:getDifficulty(), "Hard") then
 		distance = 200.0;
 		health = 200.0;
 		damage = 20;
-		print("hard")
+		accuracy = 0.5;
+		--print("hard")
 	elseif string.match(Enemy:getDifficulty(), "Easy") then
 		distance = 20.0;
 		health = 100.0;
 		damage = 5;
-		print("Easy")
+		accuracy = 0.2
+		--print("Easy")
 	end
 end
 

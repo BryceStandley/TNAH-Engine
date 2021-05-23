@@ -44,6 +44,8 @@ public:
     bool debugTokensToConsole = false;
     bool debugAnimationsToConsole = false;
     bool debugMD2ToConsole = false;
+	bool debugPlayerPos = false;
+	bool stickyFPSCounter = false;
 
     float ApplicationFramerate = 0.0f;
 
