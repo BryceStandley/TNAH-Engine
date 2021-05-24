@@ -17,7 +17,7 @@ public:
 	{
 		entityMap.insert(std::make_pair(newEntity->GetId(), newEntity));
 		pos.push_back(newEntity->GetId());
-		std::cout << newEntity->GetId() << std::endl;
+		//std::cout << newEntity->GetId() << std::endl;
 	}
 
 	void RemoveEntity(GameObject* entity)

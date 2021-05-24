@@ -10,5 +10,10 @@ void main()
 {
     FragColor = texture(texture_diffuse1, TexCoords);
 	FragColor = texture(texture_specular1, TexCoords);
+
+    if(FragColor.a < 0.1)
+    {
+        discard;
+    }
 	
 }

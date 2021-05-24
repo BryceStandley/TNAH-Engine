@@ -9,7 +9,7 @@ cs:MakeGameObject("static",  "./res/scripts/gameobjects/static_tree3.lua", 0.005
 
 
 
-for i = 0, 20
+for i = 0, 10
 do
     x = math.random(40, 180)
     z = math.random(40, 180)
