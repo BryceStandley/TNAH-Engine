@@ -8,10 +8,13 @@ cs:MakeGameObject("player", "./res/scripts/gameobjects/player_default.lua", 0.07
 cs:MakeGameObject("static",  "./res/scripts/gameobjects/static_tree3.lua", 0.005, 40, 1.2, 40);
 
 
-cs:MakeGameObject("enemy",  "./res/scripts/gameobjects/enemy_zarlag.lua", 0.05, 50, 1.2, 50);
-cs:MakeGameObject("enemy",  "./res/scripts/gameobjects/enemy_zarlag.lua", 0.05, 30, 1.2, 70);
-cs:MakeGameObject("enemy",  "./res/scripts/gameobjects/enemy_zarlag.lua", 0.05, 90, 1.2, 70);
 
+for i = 0, 20
+do
+    x = math.random(40, 180)
+    z = math.random(40, 180)
+    cs:MakeGameObject("enemy",  "./res/scripts/gameobjects/enemy_zarlag.lua", 0.05, x, 1.2, z);   
+end
 cs:MakeGameObject("water",  "./res/scripts/gameobjects/static_water.lua", 0.05, 50, 0.5, 50);
 
 y = 1--Y value for all tokens
