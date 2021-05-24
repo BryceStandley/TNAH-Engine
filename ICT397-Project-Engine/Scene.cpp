@@ -415,6 +415,7 @@ void Scene::FireWeapon(glm::vec3 weaponStartPos, glm::vec3 forward, float fireDi
 		            	//trigger death animation
 		            	e->SetState(19);
                         e->startTimer = true;
+                        p->increasePoints(50);
 			            singleton<Manager>::getInstance().enemyDeathTimer = 5.0f / 17.0f;
 			            p->incrementKillCount();
 		            }
