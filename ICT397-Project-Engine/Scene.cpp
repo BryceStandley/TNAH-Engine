@@ -166,7 +166,6 @@ void Scene::Run(View lens, float time, bool exit)
 				    if (!gameObjects[x]->Kill())
 				    {
 					    gameObjectsToRemoveFromScene.emplace_back(gameObjects[x]);
-					    singleton<EntityManager>::getInstance().RemoveEntity(gameObjects[x]);
 				    }
 			    }
 		    }
@@ -195,8 +194,8 @@ void Scene::Run(View lens, float time, bool exit)
                     }
                 }
 
-                MakeGameObject("enemy", "./res/scripts/gameobjects/enemy_zarlag.lua", 0.05, spawnPoints[chosenOne].x, spawnPoints[chosenOne].y, spawnPoints[chosenOne].z);
-                entityMan::getInstance().RegisterEntity(gameObjects[gameObjects.size() - 1]);
+                auto* e = (Enemy*)go;
+                e->ResetEnemy(spawnPoints[chosenOne]);
                 //Spawn New GameObject
             }
 

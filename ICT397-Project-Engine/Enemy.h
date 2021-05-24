@@ -472,6 +472,7 @@ public:
 	int GetDamage() { return damage; }
 	void SetFireWeapon(bool f) { fireWeapon = f; }
 	bool GetFireWeapon() { return fireWeapon; }
+	void ResetEnemy(glm::vec3 spawn);
 
 	glm::vec3 newPos;
 	LuaRef wanderLua = NULL;
@@ -507,6 +508,7 @@ private:
 	float deltaTime = 0;
 	stateMachine<Enemy>* enemyFSM;
 	int health;
+	int healthHold;
 	int ammo;
 	bool alive;
 	bool hasWeapon;

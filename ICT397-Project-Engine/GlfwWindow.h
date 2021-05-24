@@ -124,7 +124,7 @@ public:
 
 	glm::vec2 GetWindowSize() { return windowSize; }
 
-
+	void ToggleFullScreen(bool change);
 
 private:	
 
@@ -198,5 +198,6 @@ private:
 	float firstMouse = true;
 
 	glm::vec2 windowSize;
+
 
 };

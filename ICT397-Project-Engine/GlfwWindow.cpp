@@ -13,7 +13,8 @@ void GlfwWindow::Init(std::string title, int h, int w)
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
     /* Create a windowed mode window and its OpenGL context */
-    gameWindow = glfwCreateWindow(w, h, title.c_str(), NULL, NULL);
+    gameWindow = glfwCreateWindow(w, h, title.c_str(), glfwGetPrimaryMonitor(), NULL);
+
     if (!gameWindow)
     {
         glfwTerminate();
@@ -264,4 +265,9 @@ void GlfwWindow::Update()
 bool GlfwWindow::Running()
 {
     return glfwWindowShouldClose(gameWindow);
+}
+
+void GlfwWindow::ToggleFullScreen(bool change)
+{
+    glfwSetWindowMonitor(gameWindow, change ? glfwGetPrimaryMonitor() : NULL, 0, 0, windowSize.x, windowSize.y, GLFW_DONT_CARE);
 }

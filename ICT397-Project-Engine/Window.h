@@ -90,4 +90,6 @@ public:
     virtual void SetRefWindow(Window* w){}
 
 	virtual float GetCurrentTime() { return 0; }
+
+	virtual void ToggleFullScreen(bool change) { }
 };
