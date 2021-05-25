@@ -18,7 +18,6 @@ Engine::Engine()
 			.addData("newPos", &Enemy::newPos)
 			.addFunction("getFSM", &Enemy::getFSM)
 			.addFunction("SetState", &Enemy::SetState)
-			.addFunction("Print", &Enemy::Print)
 			.addFunction("GetDeltaTime", &Enemy::GetDeltaTime)
 			.addFunction("getToken", &Enemy::getToken)
 			.addFunction("CheckPrevState", &Enemy::CheckPrevState)
@@ -260,3 +259,4 @@ void Engine::LoadScene(std::string file)
 	window->UpdateCamera(playerStartPos);
 	gameScenes[0]->MoveObjectAwayFromPlayer();
 }
+

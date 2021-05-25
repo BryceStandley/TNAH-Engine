@@ -21,12 +21,20 @@ std::string Debugger::DebugVec3(glm::vec3 a)
 
 void Debugger::OpenLogger()
 {
+	errno_t err;
+#if _WIN32
+	if ((err = fopen_s(&logFile, logFilePath.c_str(), "w") != 0))
+	{
+		std::cout << "ENGINE::Debugger.cpp::Log file failed to load at path: " + logFilePath << std::endl;
+	}
+#elif __APPLE__
+
 	logFile = fopen(logFilePath.c_str(), "w");
 	if (logFile == nullptr)
 	{
-		std::cout << "ENGINE::Debugger.cpp::Log file failed to load at path: " + logFilePath <<  std::endl;
+		std::cout << "ENGINE::Debugger.cpp::Log file failed to load at path: " + logFilePath << std::endl;
 	}
-
+#endif
 }
 
 void Debugger::AppendLogger(std::string fromFile, std::string outputString)
@@ -35,10 +43,15 @@ void Debugger::AppendLogger(std::string fromFile, std::string outputString)
 
 	std::string ty = LogTypeToString(type);
 
-	std::string s;
+	std::string s, t;
 	auto time = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
 	s = " " + fromFile + " :: " + outputString + "\n";
-	std::string t = ctime(&time);
+#if _WIN32
+	char buffer[256];
+	t = ctime_s(buffer, 256, &time);
+#elif _APPLE_
+	t = ctime(&time);
+#endif
 	t.erase(std::remove(t.begin(), t.end(), '\n'), t.end());
 	//time, type, string to append
 	fprintf(logFile, "%s :: %s :: %s",t.c_str(), ty.c_str(), s.c_str());

@@ -14,10 +14,12 @@
 #include <GLFW/glfw3.h>
 #include <fstream>
 #include <ctime>
+#include <time.h>
 #include <cstdio>
 #include <cstdlib>
 #include <algorithm>
 #include <regex>
+#include <chrono>
 
 
 /**

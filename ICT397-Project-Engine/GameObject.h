@@ -159,32 +159,64 @@ public:
 		 */
     std::string GetName(){return name;}
 
-
+		 /**
+		 * @brief Renders the game object
+		 * @param lens - The lens values for projection, positons, ect
+		 * @param time - The deltatime value
+		 * @param gameRenderer - the renderer pointer itself
+		 */
 	virtual void Render(View lens, float time, Renderer* gameRenderer);
 
+		 /**
+		 * @brief Gets the rotate bool
+		 * @return true if the object needs to be rotated when rendering
+		 */
 	bool GetRotate() { return rotate; }
 
+		 /**
+		 * @brief Gets the id
+		 * @return the game object id
+		 */
 	int GetId() { return id; }
+
+		 /**
+		 * @brief Sets the id
+		 * @param i - the id to be set
+		 */
 	void SetId(int i) { id = i; }
 
-	virtual bool handleMessage(const Telegram message)
-	{
-		return false;
-	}
+		 /**
+		 * @brief Handles messages from other game objects
+		 * @return false by default
+		 */
+	virtual bool handleMessage(const Telegram message){ return false; }
 
-	virtual bool Kill()
-	{
-		return false;
-	}
+		 /**
+		 * @brief Kill information used in other game objects
+		 * @return false by default
+		 */
+	virtual bool Kill(){ return false; }
 
+		 /**
+		 * @brief Gets the script name
+		 * @return scriptName
+		 */
 	std::string GetScriptName() const { return scriptName; }
+
+		 /**
+		 * @brief Sets the script name
+		 * @param name - The script name being set
+		 */
 	void SetScriptName(const std::string name) { scriptName = name; }
 
-	virtual std::string StreamValues()
-	{
-		return GetType() + " " + GetScriptName() + " " + std::to_string(GetScale()) + " " + std::to_string(pos.x) + " " + std::to_string(pos.y) + " " + std::to_string(pos.z) + "\n";
-	}
+		 /**
+		 * @brief Returns the streamed values for the game object
+		 * @return streamed Values of the game object
+		 */
+	virtual std::string StreamValues();
+
 private:
+	///The game objects id
 	int id;
 		///The model for the object and its meshes
 	Model model;

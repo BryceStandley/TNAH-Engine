@@ -175,17 +175,29 @@ public:
 		return GetType() + " " + GetScriptName() + " " + std::to_string(GetScale()) + " " + std::to_string(GetPos().x) + " " + std::to_string(GetPos().y) + " " + std::to_string(GetPos().z) + " " + std::to_string(health) + " STATE" + " " + std::to_string(points) + " " + std::to_string(kills) + " " + std::to_string(tokensCollected) + "\n";
 	}
 
+	///Resets the player game object
 	void Reset();
 
 private:
 	
+	///Player finite state machine
 	stateMachine<Player>* playerFSM;
 
+	///Player health 
 	int health = 100;
+	///Current points
 	int points = 0;
+
+	///Points multiplier
 	int multiplier = 1;
+
+	///Player damage
 	int damage = 20;
+
+	///Kills
 	int kills = 0;
+
+	///Tokens colleected
 	int tokensCollected = 0;
 
 

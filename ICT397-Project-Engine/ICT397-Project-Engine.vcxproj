@@ -152,6 +152,7 @@
     <ClInclude Include="Buffer.h" />
     <ClInclude Include="Callbacks.h" />
     <ClInclude Include="camera.h" />
+    <ClInclude Include="Debugger.h" />
     <ClInclude Include="DebugGUI.h" />
     <ClInclude Include="DynamicEnum.h" />
     <ClInclude Include="EndScreenGUI.h" />

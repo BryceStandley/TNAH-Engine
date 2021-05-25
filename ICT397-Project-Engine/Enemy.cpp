@@ -995,3 +995,60 @@ void Enemy::ResetEnemy(glm::vec3 spawn)
 	startTimer = false;
 	deathtimer = 2;
 }
+
+std::string Enemy::ReturnState()
+{
+	if (getFSM()->getCurrentState() == &global_state::getInstance())
+	{
+		return "global";
+	}
+	else if (getFSM()->getCurrentState() == &wander_state::getInstance())
+	{
+		return "wander";
+	}
+	else if (getFSM()->getCurrentState() == &chase_state::getInstance())
+	{
+		return "chase";
+	}
+	else if (getFSM()->getCurrentState() == &flee_state::getInstance())
+	{
+		return "flee";
+	}
+	else if (getFSM()->getCurrentState() == &alert_state::getInstance())
+	{
+		return "alert";
+	}
+	else if (getFSM()->getCurrentState() == &die_state::getInstance())
+	{
+		return "die";
+	}
+	else if (getFSM()->getCurrentState() == &attack_state::getInstance())
+	{
+		return "attack";
+	}
+	else
+	{
+		return "";
+	}
+}
+
+std::string Enemy::StreamValues()
+{
+	return GetType() + " " + GetScriptName() + " " + std::to_string(GetScale()) + " " + std::to_string(GetPos().x) + " " + std::to_string(GetPos().y) + " " + std::to_string(GetPos().z) + " " + std::to_string(health) + " " + std::to_string(ammo) + " " + ReturnState() + "\n";
+}
+
+
+std::string Enemy::getDifficulty()
+{
+	switch (singleton<Manager>::getInstance().difficulty)
+	{
+	case Manager::Difficulty::hard:
+		return "Hard";
+	case Manager::Difficulty::normal:
+		return "Normal";
+	case Manager::Difficulty::easy:
+		return "Easy";
+	default:
+		break;
+	}
+}

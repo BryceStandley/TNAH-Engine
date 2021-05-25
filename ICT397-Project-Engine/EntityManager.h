@@ -6,52 +6,62 @@
 typedef std::map<int, GameObject*> Objects;
 //typedef std::map<std::string, Objects> EntityMap;
 
+	/**
+	 * @class EntityManager
+	 * @brief Managers the entities for messages, storing them into a map with their ID and GameObject Pointers
+	 *
+	 * @author Christopher Logan
+	 * @version 01
+	 * @date 10/05/2021
+	 *
+	 **/
+
 class EntityManager
 {
 private:
+	///Int, GameObject* map for holding the gameobjects
 	Objects entityMap;
+	///Vector that holds the positions on the current map
 	std::vector<int> pos;
 
 public:
-	void RegisterEntity(GameObject* newEntity)
-	{
-		entityMap.insert(std::make_pair(newEntity->GetId(), newEntity));
-		pos.push_back(newEntity->GetId());
-		//std::cout << newEntity->GetId() << std::endl;
-	}
 
-	void RemoveEntity(GameObject* entity)
-	{
-		int removeId = entity->GetId();
-		entityMap.erase(entity->GetId());
-		std::vector<int>::iterator r;
-		r = std::remove(pos.begin(), pos.end(), removeId);
-		pos.erase(r);
-	}
+	
+		/**
+		* @brief Registers a new game object to the entity map
+		* @param newEntity - Add that new gameobject to the entity map
+		*/
+	void RegisterEntity(GameObject* newEntity);
 
-	void ClearEntitys()
-	{
-		entityMap.clear();
-		pos.clear();
-	}
+		/**
+		* @brief Removes the given game object from the map
+		* @param entity - removes that given gameobject from the map
+		*/
+	void RemoveEntity(GameObject* entity);
 
-	GameObject* GetEntity(int id)
-	{
-		Objects::const_iterator ent = entityMap.find(id);
-		if (ent == entityMap.end())
-			return NULL;
-		else
-			return ent->second;
-	}
+		/**
+		* @brief Clears the entity map and pos vector
+		*/
+	void ClearEntitys();
 
-	int Size()
-	{
-		return pos.size();
-	}
+		/**
+		* @brief Returns the game object from the ID location
+		* @param id - The id which is being searched for
+		* @return gameobject if one is found, otherwise null
+		*/
+	GameObject* GetEntity(int id);
 
-	int NumberedPos(int i)
-	{
-		return pos[i];
-	}
+		/**
+		* @brief The size of the map/vector
+		* @returns map size
+		*/
+	int Size();
+
+		/**
+		* @brief Gets the value in the map point i
+		* @param i - The point being checked
+		* @return map key at position i
+		*/
+	int NumberedPos(int i);
 };
 

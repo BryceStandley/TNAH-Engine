@@ -61,15 +61,6 @@ public:
 		* @param state - reperesents the enemy state
 		*/
 	Enemy(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std::string script, float h, float a, std::string state);
-
-		/**
-		* @brief Prints the x,y,z values of a given position
-		* @param p - reperesents the vector position
-		*/
-	void Print(glm::vec3 p) 
-	{
-		std::cout << p.x << " " << p.y << " " << p.z << std::endl;
-	}
 	
 		/**
 		* @brief destructor that deallocates resource upon deletion of enemy object
@@ -415,50 +406,13 @@ public:
 	bool Kill();
 
 		
-	virtual std::string StreamValues()
-	{
-		return GetType() + " " + GetScriptName() + " " + std::to_string(GetScale()) + " " + std::to_string(GetPos().x) + " " + std::to_string(GetPos().y) + " " + std::to_string(GetPos().z) + " " + std::to_string(health) + " " + std::to_string(ammo) +  " " + ReturnState() + "\n";
-	}
+	virtual std::string StreamValues();
 
 		/**
 		* @brief returns the string value of the state that the FSM is currently in
 		* @return std::string
 		*/
-	std::string ReturnState()
-	{
-		if (getFSM()->getCurrentState() == &global_state::getInstance())
-		{
-			return "global";
-		}
-		else if (getFSM()->getCurrentState() == &wander_state::getInstance())
-		{
-			return "wander";
-		}
-		else if (getFSM()->getCurrentState() == &chase_state::getInstance())
-		{
-			return "chase";
-		}
-		else if (getFSM()->getCurrentState() == &flee_state::getInstance())
-		{
-			return "flee";
-		}
-		else if (getFSM()->getCurrentState() == &alert_state::getInstance())
-		{
-			return "alert";
-		}
-		else if (getFSM()->getCurrentState() == &die_state::getInstance())
-		{
-			return "die";
-		}
-		else if (getFSM()->getCurrentState() == &attack_state::getInstance())
-		{
-			return "attack";
-		}
-		else
-		{
-			return "";
-		}
-	}
+	std::string ReturnState();
 
 	/**
 	 * @brief Gets the accuracy factor of an enemy
@@ -466,70 +420,159 @@ public:
 	 */
 	float GetAccuracy(){return accuracyFactor;}
 
-
+	/**
+	 * @brief Returns if the enemy is alive or not
+	 * @return bool alive
+	 */
 	bool GetAliveStatus() { return alive; }
+
+	/**
+	 * @brief Sets the alive value for the enemy
+	 * @param bool s which is then set to alive
+	 */
 	void SetAliveStatus(bool s) { alive = s; }
+
+	/**
+	 * @brief Gets Damage value for the enemy
+	 * @return int damage
+	 */
 	int GetDamage() { return damage; }
+
+	/**
+	 * @brief Sets if the weapon is firing or not
+	 * @param bool f which is set to fireweapon
+	 */
 	void SetFireWeapon(bool f) { fireWeapon = f; }
+
+	/**
+	 * @brief Gets if the weapon is firing
+	 * @return bool fireweapon
+	 */
 	bool GetFireWeapon() { return fireWeapon; }
+
+
+	/**
+	 * @brief Resets the enemy object, mainly used for pooling so that we dont need to allocate memory for new enemies each time we spawn one, we just reset the one that died
+	 * @param vec3 spawn which is used to set the new reset positions of the enemy
+	 */
 	void ResetEnemy(glm::vec3 spawn);
 
+	/**
+	 * @brief returns the current game difficulty as a string
+	 * @return string difficulty
+	 */
+	std::string getDifficulty();
+
+	///the position the enemy is heading too
 	glm::vec3 newPos;
+
+	///Wander lua reference
 	LuaRef wanderLua = NULL;
+
+	///alert lua reference
 	LuaRef alert = NULL;
+
+	///chase lua reference
 	LuaRef chase = NULL;
+
+	///flee lua reference
 	LuaRef fleeLua = NULL;
+
+	///attack lua reference
 	LuaRef attack = NULL;
+
+	///die lua reference
 	LuaRef die = NULL;
+
+	///global lua reference
 	LuaRef global = NULL;
+
+	///initilise lua reference
 	LuaRef init = NULL;
 
-	std::string getDifficulty()
-	{
-		switch (singleton<Manager>::getInstance().difficulty)
-		{
-		case Manager::Difficulty::hard:
-			return "Hard";
-		case Manager::Difficulty::normal:
-			return "Normal";
-		case Manager::Difficulty::easy:
-			return "Easy";
-		default:
-			break;
-		}
-	}
-
+	///Time for when the enemy will despawn
 	bool startTimer;
 
 private:
 
+	///The position of the player
 	glm::vec3 pPos;
+
+	///The weaponModel
 	Model wModel;
+
+	///Delta time
 	float deltaTime = 0;
+
+	///The ai state machine for enemy
 	stateMachine<Enemy>* enemyFSM;
+
+	///The enemies health
 	int health;
+
+	///The held value for health
 	int healthHold;
+
+	///The ammo count for enemy
 	int ammo;
+
+	///If the enemy is alive
 	bool alive;
+
+	///If the enemy has recieved a message
 	bool hasWeapon;
 
+
+	///If the enemy is moving
 	bool moving = false;
+
+	///If the player has a token
 	bool token = false;
+
+	///If the global flag is true
 	bool globalFlag = false;
+
+	///If the global flag 
 	bool deathAnim = false;
+
+	///Kill state machine
 	bool killFSM = false;
 
+
+	///Timer
 	int timer = 0;
+
+	///Checker
 	int check = 0;	
+
+	///Direction it is facing
 	float direction = 0.0f;
+
+	///The wander radius
 	double wanderRadius = 0;
+
+	///The wander distance
 	double wanderDistance = 0;
+
+	///The wander jitter
 	double wanderJitter = 0;
+
+	///The wander target
 	glm::vec3 wanderTarget = { 0.0f,0.0f,0.0f };
+
+	///The death timer
 	float deathtimer;
+
+	///The weapon timer
 	float weaponTimer;
+
+	///Fire weapon bool
 	bool fireWeapon = false;
+
+	///The accuracy value
 	float accuracyFactor;
+
+	///The damage
 	int damage;
 };
 
