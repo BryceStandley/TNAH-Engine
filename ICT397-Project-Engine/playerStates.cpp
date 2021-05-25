@@ -11,7 +11,10 @@ void doubleDamage::Enter(Player* dude)
 	dude->increasePoints(50);
 	dude->setDamage(dude->getDamage() * 2);
 
-    if(Debugger::GetInstance()->debugTokensToConsole) std::cout << "DAMAGE WITH TOKEN: " << dude->getDamage() << std::endl;
+    if(Debugger::GetInstance()->debugTokensToConsole)
+    {
+	    std::cout << "DAMAGE WITH TOKEN: " << dude->getDamage() << std::endl;
+    }
 
 	singleton<Manager>::getInstance().prevToken = "DoubleDamage";
 	singleton<Manager>::getInstance().token = "none";

@@ -7,7 +7,6 @@ DebugGUI::DebugGUI(std::string scriptPath)
 
     if (!luaL_dofile(L, scriptPath.c_str()))
     {
-        luabridge::LuaRef fr = getGlobal(L, "fps");
         luabridge::LuaRef con = getGlobal(L, "console");
         luabridge::LuaRef col = getGlobal(L, "collisions");
         luabridge::LuaRef wep = getGlobal(L, "weapons");
@@ -15,8 +14,9 @@ DebugGUI::DebugGUI(std::string scriptPath)
         luabridge::LuaRef md = getGlobal(L, "md2");
         luabridge::LuaRef tok = getGlobal(L, "token");
         luabridge::LuaRef fs = getGlobal(L, "fsm");
+	    luabridge::LuaRef logPath = getGlobal(L, "logPath");
+	    luabridge::LuaRef logT = getGlobal(L, "logType");
 
-        if (fr.isBool()) { fps = fr.cast<bool>(); }
         if (con.isBool()) { console = con.cast<bool>(); }
         if (col.isBool()) { collisions = col.cast<bool>(); }
         if (wep.isBool()) { weapons = wep.cast<bool>(); }
@@ -24,6 +24,8 @@ DebugGUI::DebugGUI(std::string scriptPath)
         if (md.isBool()) { md2 = md.cast<bool>(); }
         if (tok.isBool()) { token = tok.cast<bool>(); }
         if (fs.isBool()) { fsm = fs.cast<bool>(); }
+        if(logPath.isString()) {logFilePath = logPath.cast<std::string>();}
+        if(logT.isNumber()) { logType = logT.cast<int>(); }
 
         Debugger::GetInstance()->debugToConsole = console;
         Debugger::GetInstance()->debugCollisionsToConsole = collisions;
@@ -32,11 +34,60 @@ DebugGUI::DebugGUI(std::string scriptPath)
         Debugger::GetInstance()->debugMD2ToConsole = md2;
         Debugger::GetInstance()->debugFSMToConsole = fsm;
         Debugger::GetInstance()->debugTokensToConsole = token;
+        Debugger::GetInstance()->logFilePath = logFilePath;
+
+	    switch (logType)
+	    {
+		    case 0:
+			    Debugger::GetInstance()->debugInfoToLogFile = true;
+			    Debugger::GetInstance()->debugWarningToLogFile = false;
+			    Debugger::GetInstance()->debugEngineToLogFile = false;
+			    Debugger::GetInstance()->debugErrorsToLogFile = false;
+			    Debugger::GetInstance()->type = Debugger::LogType::INFO;
+			    break;
+		    case 1:
+			    Debugger::GetInstance()->debugWarningToLogFile = true;
+			    Debugger::GetInstance()->debugInfoToLogFile = false;
+			    Debugger::GetInstance()->debugEngineToLogFile = false;
+			    Debugger::GetInstance()->debugErrorsToLogFile = false;
+			    Debugger::GetInstance()->type = Debugger::LogType::WARNING;
+			    break;
+		    case 2:
+			    Debugger::GetInstance()->debugEngineToLogFile = true;
+			    Debugger::GetInstance()->debugWarningToLogFile = false;
+			    Debugger::GetInstance()->debugInfoToLogFile = false;
+			    Debugger::GetInstance()->debugErrorsToLogFile = false;
+			    Debugger::GetInstance()->type = Debugger::LogType::ENGINE;
+			    break;
+		    case 3:
+			    Debugger::GetInstance()->debugErrorsToLogFile = true;
+			    Debugger::GetInstance()->debugEngineToLogFile = false;
+			    Debugger::GetInstance()->debugWarningToLogFile = false;
+			    Debugger::GetInstance()->debugInfoToLogFile = false;
+			    Debugger::GetInstance()->type = Debugger::LogType::ERROR;
+			    break;
+		    case 4:
+			    Debugger::GetInstance()->debugEngineToLogFile = true;
+			    Debugger::GetInstance()->debugWarningToLogFile = true;
+			    Debugger::GetInstance()->debugInfoToLogFile = true;
+			    Debugger::GetInstance()->debugErrorsToLogFile = true;
+			    Debugger::GetInstance()->type = Debugger::LogType::ALL;
+			    break;
+		    default:
+			    Debugger::GetInstance()->debugEngineToLogFile = true;
+			    Debugger::GetInstance()->debugWarningToLogFile = false;
+			    Debugger::GetInstance()->debugInfoToLogFile = false;
+			    Debugger::GetInstance()->debugErrorsToLogFile = false;
+			    Debugger::GetInstance()->type = Debugger::LogType::ENGINE;
+			    break;
+	    }
+
+
+
     }
     else
     {
         std::cout << "DebugGUI.cpp::Error Reading script file, Defaults loaded" << std::endl;
-        fps = true;
         console = false;
         collisions = false;
         weapons = false;
@@ -53,12 +104,18 @@ DebugGUI::DebugGUI(std::string scriptPath)
         Debugger::GetInstance()->debugMD2ToConsole = md2;
         Debugger::GetInstance()->debugFSMToConsole = fsm;
         Debugger::GetInstance()->debugTokensToConsole = token;
+        Debugger::GetInstance()->type = Debugger::LogType::ENGINE;
+        Debugger::GetInstance()->debugEngineToLogFile = true;
     }
 }
 
 
 void DebugGUI::Draw()
 {
+	static const char* logTypes[]{"INFO", "WARNING", "ENGINE", "ERROR", "ALL"};
+	static int selectedType = 2;
+
+
     std::string windowName = "Debug";
 
     //Set window size and position before creating the window context from imgui
@@ -77,7 +134,53 @@ void DebugGUI::Draw()
     ImGui::Checkbox("Debug MD2 to Console", &Debugger::GetInstance()->debugMD2ToConsole);
 	ImGui::Checkbox("Debug Tokens to Console", &Debugger::GetInstance()->debugTokensToConsole);
     ImGui::Checkbox("Debug Player Position to Screen", &Debugger::GetInstance()->debugPlayerPos);
-    //Add ImGui::Text() fields here to add more data to the debug window
+    ImGui::Combo("LogType", &selectedType, logTypes, IM_ARRAYSIZE(logTypes));
+
+	switch (selectedType)
+	{
+		case 0:
+			Debugger::GetInstance()->debugInfoToLogFile = true;
+			Debugger::GetInstance()->debugWarningToLogFile = false;
+			Debugger::GetInstance()->debugEngineToLogFile = false;
+			Debugger::GetInstance()->debugErrorsToLogFile = false;
+			Debugger::GetInstance()->type = Debugger::LogType::INFO;
+			break;
+		case 1:
+			Debugger::GetInstance()->debugWarningToLogFile = true;
+			Debugger::GetInstance()->debugInfoToLogFile = false;
+			Debugger::GetInstance()->debugEngineToLogFile = false;
+			Debugger::GetInstance()->debugErrorsToLogFile = false;
+			Debugger::GetInstance()->type = Debugger::LogType::WARNING;
+			break;
+		case 2:
+			Debugger::GetInstance()->debugEngineToLogFile = true;
+			Debugger::GetInstance()->debugWarningToLogFile = false;
+			Debugger::GetInstance()->debugInfoToLogFile = false;
+			Debugger::GetInstance()->debugErrorsToLogFile = false;
+			Debugger::GetInstance()->type = Debugger::LogType::ENGINE;
+			break;
+		case 3:
+			Debugger::GetInstance()->debugErrorsToLogFile = true;
+			Debugger::GetInstance()->debugEngineToLogFile = false;
+			Debugger::GetInstance()->debugWarningToLogFile = false;
+			Debugger::GetInstance()->debugInfoToLogFile = false;
+			Debugger::GetInstance()->type = Debugger::LogType::ERROR;
+			break;
+		case 4:
+			Debugger::GetInstance()->debugEngineToLogFile = true;
+			Debugger::GetInstance()->debugWarningToLogFile = true;
+			Debugger::GetInstance()->debugInfoToLogFile = true;
+			Debugger::GetInstance()->debugErrorsToLogFile = true;
+			Debugger::GetInstance()->type = Debugger::LogType::ALL;
+			break;
+		default:
+			Debugger::GetInstance()->debugEngineToLogFile = true;
+			Debugger::GetInstance()->debugWarningToLogFile = false;
+			Debugger::GetInstance()->debugInfoToLogFile = false;
+			Debugger::GetInstance()->debugErrorsToLogFile = false;
+			Debugger::GetInstance()->type = Debugger::LogType::ENGINE;
+			break;
+	}
 
 
     ImGui::End();

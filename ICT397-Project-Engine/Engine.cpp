@@ -128,12 +128,15 @@ Engine::Engine()
 		render->DepthTest();
 	}
 
+
+
 	//Init ImGui Only needs to be done once
 	GUI gui;
 	gui.Init((GlfwWindow*)window);
 
 	//Init the debug gui if its enabled
 	if (debugMode) { debugGui = new DebugGUI("./res/scripts/menus/debug.lua"); }
+	Debugger::GetInstance()->OpenLogger();
     mainMenuGui = MainMenuGUI::GetInstance();
 
     currentScene = 0;
@@ -161,6 +164,9 @@ void Engine::Run()
 	{
 		while (!window->Running())
 		{
+			//checked every frame in case the user change's the settings
+			SettingsManager::GetInstance()->ToggleFullscreen();
+
 			//Add scene loading and deloading
 			GameTimer::getInstance().UpdateTime(window->GetCurrentTime());
             //Imgui new frame
@@ -240,6 +246,7 @@ void Engine::Run()
 		}
 		if(!mainMenuGui->noSaveFileFound) gameScenes[0]->SaveGame();
 		std::cout << "CLOSING::ENGINE_WILL_EXIT" << std::endl;
+		Debugger::GetInstance()->CloseLogger();
 	}
 }
 

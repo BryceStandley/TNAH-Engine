@@ -171,10 +171,6 @@ void MainMenuGUI::Draw()
         ImGui::Image((void*)(intptr_t)settingsTexture, ImVec2(centerPos.x, centerPos.x * settingsImageAspect));
 
         ImGui::Checkbox("FULLSCREEN", &settingsManager->fullscreen);
-        if(settingsManager->fullscreen)
-        {
-        	settingsManager->toggledFullscreen = true;
-        }
 
         if(ImGui::Button("BACK", centerPos))
         {

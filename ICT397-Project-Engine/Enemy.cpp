@@ -483,14 +483,29 @@ Enemy::Enemy(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std::s
 
 Enemy::~Enemy() 
 {
-    if(Debugger::GetInstance()->debugFSMToConsole) std::cout << "FSM Deleted" << std::endl;
+    if(Debugger::GetInstance()->debugFSMToConsole)
+    {
+	    std::cout << "FSM Deleted" << std::endl;
+    }
+    else if(Debugger::GetInstance()->debugInfoToLogFile)
+    {
+    	Debugger::GetInstance()->AppendLogger("Enemy.cpp", "Enemy FSM Deleted");
+    }
 }
 
 
 void Enemy::Update(float time)
 {
 
-	//if(Debugger::GetInstance()->debugFSMToConsole) std::cout << GetId() << " player has token = " << token << std::endl;
+	if(Debugger::GetInstance()->debugFSMToConsole)
+	{
+		std::cout << GetId() << " player has token = " << token << std::endl;
+	}
+	else if(Debugger::GetInstance()->debugInfoToLogFile)
+	{
+		Debugger::GetInstance()->AppendLogger("Enemy.cpp", std::to_string(GetId()) +" player has token = " + std::to_string(token));
+	}
+
 	//if (function.isTable())
 	//{
 	//	function[1](this);
@@ -510,12 +525,26 @@ void Enemy::Update(float time)
 				enemyFSM->update();
 			else
 			{
-				//if (Debugger::GetInstance()->debugFSMToConsole) std::cout << "Should be destroyed" << std::endl;
+				if (Debugger::GetInstance()->debugFSMToConsole)
+				{
+					std::cout << "Should be destroyed" << std::endl;
+				}
+				else if(Debugger::GetInstance()->debugInfoToLogFile)
+				{
+					Debugger::GetInstance()->AppendLogger("Enemy.cpp", "Enemy FSM Should be destroyed");
+				}
 				std::cout << "hi2.1" << std::endl;
 				if (getTimer() != 400)
 				{
 					incrementTimer();
-					if (Debugger::GetInstance()->debugToConsole) std::cout << "TIMER: " << getTimer() << std::endl;
+					if (Debugger::GetInstance()->debugToConsole)
+					{
+						std::cout << "TIMER: " << getTimer() << std::endl;
+					}
+					else if(Debugger::GetInstance()->debugInfoToLogFile)
+					{
+						Debugger::GetInstance()->AppendLogger("Enemy.cpp", "Timer: " + std::to_string(getTimer()));
+					}
 				}
 				else if (getTimer() == 400)
 				{
@@ -672,7 +701,17 @@ float Enemy::DistanceBetween(glm::vec3 otherPos)
 	glm::vec3 modelPos(GetPos().x, GetPos().y, GetPos().z);
 
 	float distance = glm::distance(oPos, modelPos);
-	if(Debugger::GetInstance()->debugFSMToConsole) std::cout << "Distance: " << distance << " Positions other: " << " " << otherPos.x << " " << otherPos.y << " " << otherPos.z << ", Position enemy: " << modelPos.x << " " << modelPos.y << " " << modelPos.z << " " << std::endl;
+	if(Debugger::GetInstance()->debugFSMToConsole)
+	{
+		std::cout << "Distance: " << distance << " Positions other: " << " " << otherPos.x << " " << otherPos.y << " "
+		          << otherPos.z << ", Position enemy: " << modelPos.x << " " << modelPos.y << " " << modelPos.z << " "
+		          << std::endl;
+	}
+	else if(Debugger::GetInstance()->debugInfoToLogFile)
+	{
+		Debugger::GetInstance()->AppendLogger("Enemy.cpp", "Distance: " + std::to_string(distance) + " Positions other: " + Debugger::GetInstance()->DebugVec3(otherPos) + ", Position enemy: " + Debugger::GetInstance()->DebugVec3(modelPos));
+	}
+
 	return distance;
 }
 
@@ -919,7 +958,18 @@ bool Enemy::Kill()
 
 bool Enemy::handleMessage(const Telegram message)
 {
-	if (Debugger::GetInstance()->debugToConsole) std::cout << message.sender << " has sent a message to " << GetId() << " " << message.msg << ", distance: " << DistanceBetween(message.pos) << std::endl;
+	if (Debugger::GetInstance()->debugToConsole)
+	{
+		std::cout << message.sender << " has sent a message to " << GetId() << " " << message.msg << ", distance: " << DistanceBetween(message.pos) << std::endl;
+	}
+	else if(Debugger::GetInstance()->debugInfoToLogFile)
+	{
+		std::string s;
+		s += std::to_string(message.sender) + " has sent a message to " + std::to_string(GetId()) + " " + std::to_string(message.msg) + ", distance: " + std::to_string(DistanceBetween(message.pos));
+		Debugger::GetInstance()->AppendLogger("Enemy.cpp", s);
+	}
+
+
 	if (enemyFSM->handleMessage(message))
 	{
 		if (DistanceBetween(message.pos) <= 1000.0f)

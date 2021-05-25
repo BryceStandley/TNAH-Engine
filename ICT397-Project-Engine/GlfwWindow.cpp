@@ -13,7 +13,7 @@ void GlfwWindow::Init(std::string title, int h, int w)
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
     /* Create a windowed mode window and its OpenGL context */
-    gameWindow = glfwCreateWindow(w, h, title.c_str(), glfwGetPrimaryMonitor(), NULL);
+    gameWindow = glfwCreateWindow(w, h, title.c_str(),NULL, NULL);
 
     if (!gameWindow)
     {
@@ -21,6 +21,7 @@ void GlfwWindow::Init(std::string title, int h, int w)
     }
 
     std::cout << "GLFW-WINDOW::INFO::GLFW Started!" << std::endl;
+    SettingsManager::GetInstance()->windowSize = glm::vec2(w, h);
 
     glm::vec3 l(0.0, 0.0f, 0.0f);
     lightPos = l;
@@ -33,6 +34,7 @@ void GlfwWindow::Init(std::string title, int h, int w)
     ///locks the cursor to the window
     glfwSetInputMode(gameWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     Debugger::GetInstance()->windowRef = gameWindow;
+    SettingsManager::GetInstance()->windowRef = gameWindow;
 
     
 }

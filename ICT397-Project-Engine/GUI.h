@@ -10,7 +10,13 @@
 
 #include <LuaBridge/LuaBridge.h>
 
-
+/**
+ * @brief Base class for all GUI
+ * @file GUI.h
+ * @author Bryce Standley
+ * @date MAY 2021
+ *
+ */
 class GUI
 {
 public:

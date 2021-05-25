@@ -273,6 +273,20 @@ void Terrain::generateIndices(std::vector<unsigned int>& indices)
         }
         indices.push_back(0xFFFFFFFF);
     }
+    /*
+	for (unsigned int x = 0; x < getSize() - 1; ++x)
+	{
+		for (unsigned int z = 0; z < getSize() - 1; ++z) {
+			indices.push_back((x * getSize() + z));             // 0
+			indices.push_back(((x * getSize() + 1) + z));       // 1
+			indices.push_back((((x + 1) * getSize()) + z));     // 3
+
+			indices.push_back(((x * getSize() + 1) + z));       // 1
+			indices.push_back(((x + 1) * getSize()) + (z + 1)); // 2
+			indices.push_back((((x + 1) * getSize()) + z));     // 3
+		}
+	}*/
+
 }
 
 void Terrain::generateColors(Vertex& vertex)
