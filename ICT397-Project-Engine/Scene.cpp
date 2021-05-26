@@ -179,9 +179,7 @@ void Scene::Run(View lens, float time, bool exit)
             for (auto& go : gameObjectsToRemoveFromScene)
             {
                 //if(Debugger::GetInstance()->debugCollisionsToConsole) std::cout << "Scene.cpp::INFO::GameObject - " + go->GetName() +" hit and removed from scene" << std::endl;
-                removed = std::remove(gameObjects.begin(), gameObjects.end(), go);
                 glm::vec3 pp = gameObjects[playerInd]->GetPos();
-                gameObjects.erase(removed);
                 int chosenOne = 0;
                 float distance = 0;
                 for (int i = 0; i < spawnPoints.size(); i++)
@@ -269,10 +267,11 @@ void Scene::Init()
     gameGui = new GameGUI("./res/scripts/menus/game.lua");
     endScreenGUI = new EndScreenGUI("./res/scripts/menus/endScreen.lua");
     mainMenuGui = MainMenuGUI::GetInstance();
-    spawnPoints.emplace_back(glm::vec3(60, 1.2, 40));
-    spawnPoints.emplace_back(glm::vec3(40, 1.2, 60));
-    spawnPoints.emplace_back(glm::vec3(50, 1.2, 80));
-    spawnPoints.emplace_back(glm::vec3(100, 1.2, 50));
+    spawnPoints.emplace_back(glm::vec3(514, 20, 393));
+    spawnPoints.emplace_back(glm::vec3(421, 20, 164));
+    spawnPoints.emplace_back(glm::vec3(246, 31, 94));
+    spawnPoints.emplace_back(glm::vec3(66, 30, 353));
+    spawnPoints.emplace_back(glm::vec3(408, 9, 50));
 }
 
 

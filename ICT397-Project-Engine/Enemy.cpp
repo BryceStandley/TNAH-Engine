@@ -247,6 +247,7 @@ Enemy::Enemy(glm::vec3 p, glm::vec3 rot, Renderer* gameRenderer, std::string scr
 	enemyFSM->setCurrentState(&wander_state::getInstance());
 	enemyFSM->setGlobalState(&global_state::getInstance());
 	health = h;
+	healthHold = h;
 	ammo = a;
 	alive = living;
 	hasWeapon = weap;
@@ -986,11 +987,12 @@ bool Enemy::handleMessage(const Telegram message)
 void Enemy::ResetEnemy(glm::vec3 spawn)
 {
 	SetPos(spawn);
+	health = healthHold;
+	std::cout << healthHold << std::endl;
 	enemyFSM = new stateMachine<Enemy>(this);
 	enemyFSM->setCurrentState(&wander_state::getInstance());
 	enemyFSM->setGlobalState(&global_state::getInstance());
 	SetState(2);
-	health = healthHold;
 	alive = true;
 	startTimer = false;
 	deathtimer = 2;
