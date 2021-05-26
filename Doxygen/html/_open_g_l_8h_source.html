@@ -5,10 +5,14 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TNAH-ICT397-Project: /Volumes/GITS/ICT397-Project/ICT397-Project-Engine/OpenGL.h Source File</title>
+<title>TNAH-Engine-ICT397: ICT397-Project-Engine/OpenGL.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -22,8 +26,8 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="TNAH-2.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">TNAH-ICT397-Project
-   &#160;<span id="projectnumber">1</span>
+   <div id="projectname">TNAH-Engine-ICT397
+   &#160;<span id="projectnumber">2</span>
    </div>
   </td>
  </tr>
@@ -47,6 +51,23 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('_open_g_l_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -61,76 +82,116 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="dir_492deb8f30c21d9ebac9ab6ce6fb7949.html">ICT397-Project-Engine</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="headertitle">
 <div class="title">OpenGL.h</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &quot;Renderer.h&quot;</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &quot;Debugging.h&quot;</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="class_open_g_l.html">   16</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_open_g_l.html">OpenGL</a> : <span class="keyword">public</span> <a class="code" href="class_renderer.html">Renderer</a></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;{</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_open_g_l.html#ad0222ac664fbb5018065732b5ff0f699">RenderTerrain</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> VAO, <span class="keywordtype">int</span> size);</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_open_g_l.html#af73c3c12c76274a45f3d4245d2d9d11a">RenderModel</a>(<a class="code" href="class_shader.html">Shader</a>&amp; shader, glm::mat4 newModel, <a class="code" href="class_mesh.html">Mesh</a> mesh);</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_open_g_l.html#a09dc5a5ab1ab540607820efafc9d534d">BindTexture</a>(std::vector&lt;unsigned int&gt; textures);</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_open_g_l.html#a3fcb6ffd9e2933c821ce79c0402ad211">DepthTest</a>();</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_open_g_l.html#a78930c5422a4b13cdddd9980a1b5216e">RenderSkybox</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> VAO, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> texture);</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_open_g_l.html#a9e1ffb565600b03b7fa57f6370ff592b">SetShader</a>(<a class="code" href="class_shader.html">Shader</a> shader, <a class="code" href="class_view.html">View</a> lens);</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_open_g_l.html#ad3aff4310ee768707a5813e5133e41aa">SetShaderSkybox</a>(<a class="code" href="class_shader.html">Shader</a> shader, <a class="code" href="class_view.html">View</a> lens);</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_open_g_l.html#a94ada51533a316920282d45879bde0fc">TerrainSetup</a>(std::vector&lt;glm::vec3&gt; totalData, std::vector&lt;unsigned int&gt; Indices, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>&amp; VAO, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>&amp; VBO, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>&amp; EBO);</div>
+<a href="_open_g_l_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_renderer_8h.html">Renderer.h</a>&quot;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_glfw_window_8h.html">GlfwWindow.h</a>&quot;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
+<div class="line"><a name="l00005"></a><span class="lineno"><a class="line" href="struct_model_info.html">    5</a></span>&#160;<span class="keyword">struct </span><a class="code" href="struct_model_info.html">ModelInfo</a></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
+<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="struct_model_info.html#a7c1442419d73c4a2c3906d9ae93f77af">    7</a></span>&#160;    std::vector&lt;int&gt; <a class="code" href="struct_model_info.html#a7c1442419d73c4a2c3906d9ae93f77af">commands</a>;</div>
+<div class="line"><a name="l00008"></a><span class="lineno"><a class="line" href="struct_model_info.html#a6e7204bdbf5e59783d6a1f04d02becc4">    8</a></span>&#160;    std::vector&lt;Buffer&gt; <a class="code" href="struct_model_info.html#a6e7204bdbf5e59783d6a1f04d02becc4">vboFrameVertices</a>;</div>
+<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="struct_model_info.html#a90f77534f86e4ba1aed4b882ae4bce28">    9</a></span>&#160;    <a class="code" href="class_buffer.html">Buffer</a> <a class="code" href="struct_model_info.html#a90f77534f86e4ba1aed4b882ae4bce28">vboTextureCoords</a>;</div>
+<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="struct_model_info.html#ae3e0e94472298ef84d83d776bb616a54">   10</a></span>&#160;    std::vector&lt;int&gt; <a class="code" href="struct_model_info.html#ae3e0e94472298ef84d83d776bb616a54">renderModes</a>;</div>
+<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="struct_model_info.html#a535724588b835d301a5e8553783356ef">   11</a></span>&#160;    std::vector&lt;int&gt; <a class="code" href="struct_model_info.html#a535724588b835d301a5e8553783356ef">numRenderVertices</a>;</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;};</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="class_open_g_l.html">   26</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_open_g_l.html">OpenGL</a> : <span class="keyword">public</span> <a class="code" href="class_renderer.html">Renderer</a></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;{</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_open_g_l.html#ad0222ac664fbb5018065732b5ff0f699">RenderTerrain</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> VAO, <span class="keywordtype">int</span> size);</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_open_g_l.html#af73c3c12c76274a45f3d4245d2d9d11a">RenderModel</a>(<a class="code" href="class_shader.html">Shader</a>&amp; shader, glm::mat4 newModel, <a class="code" href="class_mesh.html">Mesh</a> mesh);</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_open_g_l.html#a09dc5a5ab1ab540607820efafc9d534d">BindTexture</a>(std::vector&lt;unsigned int&gt; textures);</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_open_g_l.html#a3fcb6ffd9e2933c821ce79c0402ad211">DepthTest</a>();</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_open_g_l.html#a78930c5422a4b13cdddd9980a1b5216e">RenderSkybox</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> VAO, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> texture);</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_open_g_l.html#a9e1ffb565600b03b7fa57f6370ff592b">SetShader</a>(<a class="code" href="class_shader.html">Shader</a> shader, <a class="code" href="class_view.html">View</a> lens);</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_open_g_l.html#ad3aff4310ee768707a5813e5133e41aa">SetShaderSkybox</a>(<a class="code" href="class_shader.html">Shader</a> shader, <a class="code" href="class_view.html">View</a> lens);</div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_open_g_l.html#affd50e6ec6e2a1cef5f54d08b904f834">SkyboxSetup</a>(std::vector&lt;float&gt; skyVerts, std::vector&lt;std::string&gt; faces, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>&amp; VAO, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>&amp; VBO, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>&amp; texture, <a class="code" href="class_shader.html">Shader</a>&amp; skyShader);</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="class_open_g_l.html#aaea0f9919293a301acbaf5854c2f4f90">TextureFromFile</a>(std::string path, <span class="keyword">const</span> std::string&amp; directory);</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_open_g_l.html#a0635ac48f5d06ce636e2adca774dd3b5">SetupMesh</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>&amp; VAO, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>&amp; VBO, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>&amp; EBO, std::vector&lt;Vertex&gt; vertices, std::vector&lt;unsigned int&gt; indices);</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_open_g_l.html#a94ada51533a316920282d45879bde0fc">TerrainSetup</a>(std::vector&lt;glm::vec3&gt; totalData, std::vector&lt;unsigned int&gt; Indices, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>&amp; VAO, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>&amp; VBO, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>&amp; EBO);</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_open_g_l.html#affd50e6ec6e2a1cef5f54d08b904f834">SkyboxSetup</a>(std::vector&lt;float&gt; skyVerts, std::vector&lt;std::string&gt; faces, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>&amp; VAO, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>&amp; VBO, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>&amp; texture, <a class="code" href="class_shader.html">Shader</a>&amp; skyShader);</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="class_open_g_l.html#aaea0f9919293a301acbaf5854c2f4f90">TextureFromFile</a>(std::string path, <span class="keyword">const</span> std::string&amp; directory);</div>
 <div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_open_g_l.html#a121c5cdb62e37ae54455f1f799d5c449">SetShaderTerrain</a>(<a class="code" href="class_shader.html">Shader</a>&amp; shader, <a class="code" href="class_view.html">View</a> lens);</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160; </div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_open_g_l.html#a1aa8e3b718d4635acd8bdbff39920c5a">RenderExitScreen</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> VAO, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> EBO, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> texture);</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160; </div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_open_g_l.html#aebd9611b84f6496a5b075b1714fb3d4b">ExitScreenSetup</a>(std::vector&lt;glm::vec3&gt; vertexData, std::vector&lt;unsigned int&gt; indicesData, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>&amp; VAO, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>&amp; VBO, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>&amp; EBO);</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    <a class="code" href="classtnah_1_1_debugging.html">tnah::Debugging</a> debugger;</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;};</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160; </div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_open_g_l.html#a0635ac48f5d06ce636e2adca774dd3b5">SetupMesh</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>&amp; VAO, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>&amp; VBO, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>&amp; EBO, std::vector&lt;Vertex&gt; vertices, std::vector&lt;unsigned int&gt; indices);</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160; </div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_open_g_l.html#a121c5cdb62e37ae54455f1f799d5c449">SetShaderTerrain</a>(<a class="code" href="class_shader.html">Shader</a>&amp; shader, <a class="code" href="class_view.html">View</a> lens);</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160; </div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_open_g_l.html#a1aa8e3b718d4635acd8bdbff39920c5a">RenderExitScreen</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> VAO, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> EBO, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> texture);</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160; </div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_open_g_l.html#aebd9611b84f6496a5b075b1714fb3d4b">ExitScreenSetup</a>(std::vector&lt;glm::vec3&gt; vertexData, std::vector&lt;unsigned int&gt; indicesData, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>&amp; VAO, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>&amp; VBO, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>&amp; EBO);</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160; </div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="class_open_g_l.html#aaea0f9919293a301acbaf5854c2f4f90">TextureFromFile</a>(std::string path);</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160; </div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="class_open_g_l.html#ae91179c1433c7d8a4237cabc7fa2aa87">LoadModel</a>(<span class="keywordtype">int</span> numFrames, std::vector&lt;int&gt; commands, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>&amp; VAO, <a class="code" href="_md2_8h.html#acf5f91efba7d6057c5897630b7ec39fa">v3</a> <a class="code" href="_md2_8cpp.html#ac5bea0747461c7a8e51b84f54ae66215">anorms</a>[162], std::vector&lt;std::vector&lt;glm::vec3&gt;&gt; vertices, std::vector&lt;std::vector&lt;int&gt;&gt; normals);</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160; </div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_open_g_l.html#af73c3c12c76274a45f3d4245d2d9d11a">RenderModel</a>(<span class="keywordtype">int</span> number, <a class="code" href="struct_md2_state.html">Md2State</a>* animState, glm::mat4 proj, glm::mat4 view, glm::mat4 genFour, <span class="keywordtype">float</span> direction, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>&amp; VAO, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>&amp; textureId, <a class="code" href="class_shader.html">Shader</a>&amp; shader);</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_open_g_l.html#af73c3c12c76274a45f3d4245d2d9d11a">RenderModel</a>(<span class="keywordtype">int</span> number, <a class="code" href="struct_md2_state.html">Md2State</a>* animState, glm::mat4 proj, glm::mat4 view, glm::vec3 position, glm::vec3 rotation, <span class="keywordtype">float</span> direction, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>&amp; VAO, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>&amp; textureId, <a class="code" href="class_shader.html">Shader</a>&amp; shader);</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160; </div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160; </div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160; </div>
+<div class="line"><a name="l00150"></a><span class="lineno"><a class="line" href="class_open_g_l.html#a471a096ab21f2552a9a279f25e101e8f">  150</a></span>&#160;    <a class="code" href="class_glfw_window.html">GlfwWindow</a>* <a class="code" href="class_open_g_l.html#a471a096ab21f2552a9a279f25e101e8f">GetGlfwWindow</a>() { <span class="keywordflow">return</span> applicationWindow; }</div>
+<div class="line"><a name="l00151"></a><span class="lineno"><a class="line" href="class_open_g_l.html#a313973a3e955e2dfbae3089346a93a03">  151</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_open_g_l.html#a313973a3e955e2dfbae3089346a93a03">SetGlfwWindow</a>(<a class="code" href="class_glfw_window.html">GlfwWindow</a>* g) { applicationWindow = g; }</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160; </div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;    std::vector&lt;ModelInfo&gt; vertexBuffer;</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160; </div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;    <a class="code" href="class_glfw_window.html">GlfwWindow</a>* applicationWindow;</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;};</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160; </div>
+<div class="ttc" id="a_glfw_window_8h_html"><div class="ttname"><a href="_glfw_window_8h.html">GlfwWindow.h</a></div></div>
+<div class="ttc" id="a_md2_8cpp_html_ac5bea0747461c7a8e51b84f54ae66215"><div class="ttname"><a href="_md2_8cpp.html#ac5bea0747461c7a8e51b84f54ae66215">anorms</a></div><div class="ttdeci">v3 anorms[162]</div><div class="ttdef"><b>Definition:</b> Md2.cpp:58</div></div>
+<div class="ttc" id="a_md2_8h_html_acf5f91efba7d6057c5897630b7ec39fa"><div class="ttname"><a href="_md2_8h.html#acf5f91efba7d6057c5897630b7ec39fa">v3</a></div><div class="ttdeci">float v3[3]</div><div class="ttdef"><b>Definition:</b> Md2.h:2</div></div>
+<div class="ttc" id="a_renderer_8h_html"><div class="ttname"><a href="_renderer_8h.html">Renderer.h</a></div></div>
+<div class="ttc" id="aclass_buffer_html"><div class="ttname"><a href="class_buffer.html">Buffer</a></div><div class="ttdef"><b>Definition:</b> Buffer.h:6</div></div>
+<div class="ttc" id="aclass_glfw_window_html"><div class="ttname"><a href="class_glfw_window.html">GlfwWindow</a></div><div class="ttdoc">The abstracted window class that is used for the window facade. This class holds all the Glfw window ...</div><div class="ttdef"><b>Definition:</b> GlfwWindow.h:33</div></div>
 <div class="ttc" id="aclass_mesh_html"><div class="ttname"><a href="class_mesh.html">Mesh</a></div><div class="ttdoc">A class that uses mesh data to setup and draw all the meshes that a model is made of.</div><div class="ttdef"><b>Definition:</b> Mesh.h:40</div></div>
-<div class="ttc" id="aclass_open_g_l_html"><div class="ttname"><a href="class_open_g_l.html">OpenGL</a></div><div class="ttdoc">The abstract OpenGL version of the renderer. Uses the Renderer parent class to have an abstract openg...</div><div class="ttdef"><b>Definition:</b> OpenGL.h:17</div></div>
-<div class="ttc" id="aclass_open_g_l_html_a0635ac48f5d06ce636e2adca774dd3b5"><div class="ttname"><a href="class_open_g_l.html#a0635ac48f5d06ce636e2adca774dd3b5">OpenGL::SetupMesh</a></div><div class="ttdeci">virtual void SetupMesh(unsigned int &amp;VAO, unsigned int &amp;VBO, unsigned int &amp;EBO, std::vector&lt; Vertex &gt; vertices, std::vector&lt; unsigned int &gt; indices)</div><div class="ttdoc">Sets an objects mesh.</div><div class="ttdef"><b>Definition:</b> OpenGL.cpp:263</div></div>
+<div class="ttc" id="aclass_open_g_l_html"><div class="ttname"><a href="class_open_g_l.html">OpenGL</a></div><div class="ttdoc">The abstract OpenGL version of the renderer. Uses the Renderer parent class to have an abstract openg...</div><div class="ttdef"><b>Definition:</b> OpenGL.h:27</div></div>
+<div class="ttc" id="aclass_open_g_l_html_a0635ac48f5d06ce636e2adca774dd3b5"><div class="ttname"><a href="class_open_g_l.html#a0635ac48f5d06ce636e2adca774dd3b5">OpenGL::SetupMesh</a></div><div class="ttdeci">virtual void SetupMesh(unsigned int &amp;VAO, unsigned int &amp;VBO, unsigned int &amp;EBO, std::vector&lt; Vertex &gt; vertices, std::vector&lt; unsigned int &gt; indices)</div><div class="ttdoc">Sets an objects mesh.</div><div class="ttdef"><b>Definition:</b> OpenGL.cpp:262</div></div>
 <div class="ttc" id="aclass_open_g_l_html_a09dc5a5ab1ab540607820efafc9d534d"><div class="ttname"><a href="class_open_g_l.html#a09dc5a5ab1ab540607820efafc9d534d">OpenGL::BindTexture</a></div><div class="ttdeci">virtual void BindTexture(std::vector&lt; unsigned int &gt; textures)</div><div class="ttdoc">Binds textures to memory.</div><div class="ttdef"><b>Definition:</b> OpenGL.cpp:25</div></div>
-<div class="ttc" id="aclass_open_g_l_html_a121c5cdb62e37ae54455f1f799d5c449"><div class="ttname"><a href="class_open_g_l.html#a121c5cdb62e37ae54455f1f799d5c449">OpenGL::SetShaderTerrain</a></div><div class="ttdeci">virtual void SetShaderTerrain(Shader &amp;shader, View lens)</div><div class="ttdoc">Sets up the shader for the terrain.</div><div class="ttdef"><b>Definition:</b> OpenGL.cpp:102</div></div>
+<div class="ttc" id="aclass_open_g_l_html_a121c5cdb62e37ae54455f1f799d5c449"><div class="ttname"><a href="class_open_g_l.html#a121c5cdb62e37ae54455f1f799d5c449">OpenGL::SetShaderTerrain</a></div><div class="ttdeci">virtual void SetShaderTerrain(Shader &amp;shader, View lens)</div><div class="ttdoc">Sets up the shader for the terrain.</div><div class="ttdef"><b>Definition:</b> OpenGL.cpp:101</div></div>
 <div class="ttc" id="aclass_open_g_l_html_a1aa8e3b718d4635acd8bdbff39920c5a"><div class="ttname"><a href="class_open_g_l.html#a1aa8e3b718d4635acd8bdbff39920c5a">OpenGL::RenderExitScreen</a></div><div class="ttdeci">virtual void RenderExitScreen(unsigned int VAO, unsigned int EBO, unsigned int texture)</div><div class="ttdoc">Rends the exit model.</div><div class="ttdef"><b>Definition:</b> OpenGL.cpp:16</div></div>
-<div class="ttc" id="aclass_open_g_l_html_a3fcb6ffd9e2933c821ce79c0402ad211"><div class="ttname"><a href="class_open_g_l.html#a3fcb6ffd9e2933c821ce79c0402ad211">OpenGL::DepthTest</a></div><div class="ttdeci">virtual void DepthTest()</div><div class="ttdoc">Calls the depth test.</div><div class="ttdef"><b>Definition:</b> OpenGL.cpp:40</div></div>
-<div class="ttc" id="aclass_open_g_l_html_a78930c5422a4b13cdddd9980a1b5216e"><div class="ttname"><a href="class_open_g_l.html#a78930c5422a4b13cdddd9980a1b5216e">OpenGL::RenderSkybox</a></div><div class="ttdeci">virtual void RenderSkybox(unsigned int VAO, unsigned int texture)</div><div class="ttdoc">Renders the sky box.</div><div class="ttdef"><b>Definition:</b> OpenGL.cpp:45</div></div>
-<div class="ttc" id="aclass_open_g_l_html_a94ada51533a316920282d45879bde0fc"><div class="ttname"><a href="class_open_g_l.html#a94ada51533a316920282d45879bde0fc">OpenGL::TerrainSetup</a></div><div class="ttdeci">virtual void TerrainSetup(std::vector&lt; glm::vec3 &gt; totalData, std::vector&lt; unsigned int &gt; Indices, unsigned int &amp;VAO, unsigned int &amp;VBO, unsigned int &amp;EBO)</div><div class="ttdoc">Sets up the terrain data.</div><div class="ttdef"><b>Definition:</b> OpenGL.cpp:146</div></div>
-<div class="ttc" id="aclass_open_g_l_html_a9e1ffb565600b03b7fa57f6370ff592b"><div class="ttname"><a href="class_open_g_l.html#a9e1ffb565600b03b7fa57f6370ff592b">OpenGL::SetShader</a></div><div class="ttdeci">virtual void SetShader(Shader shader, View lens)</div><div class="ttdoc">Sets the shader and uses it.</div><div class="ttdef"><b>Definition:</b> OpenGL.cpp:94</div></div>
-<div class="ttc" id="aclass_open_g_l_html_aaea0f9919293a301acbaf5854c2f4f90"><div class="ttname"><a href="class_open_g_l.html#aaea0f9919293a301acbaf5854c2f4f90">OpenGL::TextureFromFile</a></div><div class="ttdeci">virtual unsigned int TextureFromFile(std::string path, const std::string &amp;directory)</div><div class="ttdoc">Sets up the skybox.</div><div class="ttdef"><b>Definition:</b> OpenGL.cpp:217</div></div>
+<div class="ttc" id="aclass_open_g_l_html_a313973a3e955e2dfbae3089346a93a03"><div class="ttname"><a href="class_open_g_l.html#a313973a3e955e2dfbae3089346a93a03">OpenGL::SetGlfwWindow</a></div><div class="ttdeci">void SetGlfwWindow(GlfwWindow *g)</div><div class="ttdef"><b>Definition:</b> OpenGL.h:151</div></div>
+<div class="ttc" id="aclass_open_g_l_html_a3fcb6ffd9e2933c821ce79c0402ad211"><div class="ttname"><a href="class_open_g_l.html#a3fcb6ffd9e2933c821ce79c0402ad211">OpenGL::DepthTest</a></div><div class="ttdeci">virtual void DepthTest()</div><div class="ttdoc">Calls the depth test.</div><div class="ttdef"><b>Definition:</b> OpenGL.cpp:39</div></div>
+<div class="ttc" id="aclass_open_g_l_html_a471a096ab21f2552a9a279f25e101e8f"><div class="ttname"><a href="class_open_g_l.html#a471a096ab21f2552a9a279f25e101e8f">OpenGL::GetGlfwWindow</a></div><div class="ttdeci">GlfwWindow * GetGlfwWindow()</div><div class="ttdef"><b>Definition:</b> OpenGL.h:150</div></div>
+<div class="ttc" id="aclass_open_g_l_html_a78930c5422a4b13cdddd9980a1b5216e"><div class="ttname"><a href="class_open_g_l.html#a78930c5422a4b13cdddd9980a1b5216e">OpenGL::RenderSkybox</a></div><div class="ttdeci">virtual void RenderSkybox(unsigned int VAO, unsigned int texture)</div><div class="ttdoc">Renders the sky box.</div><div class="ttdef"><b>Definition:</b> OpenGL.cpp:44</div></div>
+<div class="ttc" id="aclass_open_g_l_html_a94ada51533a316920282d45879bde0fc"><div class="ttname"><a href="class_open_g_l.html#a94ada51533a316920282d45879bde0fc">OpenGL::TerrainSetup</a></div><div class="ttdeci">virtual void TerrainSetup(std::vector&lt; glm::vec3 &gt; totalData, std::vector&lt; unsigned int &gt; Indices, unsigned int &amp;VAO, unsigned int &amp;VBO, unsigned int &amp;EBO)</div><div class="ttdoc">Sets up the terrain data.</div><div class="ttdef"><b>Definition:</b> OpenGL.cpp:145</div></div>
+<div class="ttc" id="aclass_open_g_l_html_a9e1ffb565600b03b7fa57f6370ff592b"><div class="ttname"><a href="class_open_g_l.html#a9e1ffb565600b03b7fa57f6370ff592b">OpenGL::SetShader</a></div><div class="ttdeci">virtual void SetShader(Shader shader, View lens)</div><div class="ttdoc">Sets the shader and uses it.</div><div class="ttdef"><b>Definition:</b> OpenGL.cpp:93</div></div>
+<div class="ttc" id="aclass_open_g_l_html_aaea0f9919293a301acbaf5854c2f4f90"><div class="ttname"><a href="class_open_g_l.html#aaea0f9919293a301acbaf5854c2f4f90">OpenGL::TextureFromFile</a></div><div class="ttdeci">virtual unsigned int TextureFromFile(std::string path, const std::string &amp;directory)</div><div class="ttdoc">grabs a texture from a specified file path</div><div class="ttdef"><b>Definition:</b> OpenGL.cpp:216</div></div>
 <div class="ttc" id="aclass_open_g_l_html_ad0222ac664fbb5018065732b5ff0f699"><div class="ttname"><a href="class_open_g_l.html#ad0222ac664fbb5018065732b5ff0f699">OpenGL::RenderTerrain</a></div><div class="ttdeci">virtual void RenderTerrain(unsigned int VAO, int size)</div><div class="ttdoc">Renders the games terrain.</div><div class="ttdef"><b>Definition:</b> OpenGL.cpp:5</div></div>
-<div class="ttc" id="aclass_open_g_l_html_ad3aff4310ee768707a5813e5133e41aa"><div class="ttname"><a href="class_open_g_l.html#ad3aff4310ee768707a5813e5133e41aa">OpenGL::SetShaderSkybox</a></div><div class="ttdeci">virtual void SetShaderSkybox(Shader shader, View lens)</div><div class="ttdoc">Sets the shader and uses it for the skybox.</div><div class="ttdef"><b>Definition:</b> OpenGL.cpp:115</div></div>
-<div class="ttc" id="aclass_open_g_l_html_aebd9611b84f6496a5b075b1714fb3d4b"><div class="ttname"><a href="class_open_g_l.html#aebd9611b84f6496a5b075b1714fb3d4b">OpenGL::ExitScreenSetup</a></div><div class="ttdeci">virtual void ExitScreenSetup(std::vector&lt; glm::vec3 &gt; vertexData, std::vector&lt; unsigned int &gt; indicesData, unsigned int &amp;VAO, unsigned int &amp;VBO, unsigned int &amp;EBO)</div><div class="ttdoc">Sets up the exit screen.</div><div class="ttdef"><b>Definition:</b> OpenGL.cpp:123</div></div>
-<div class="ttc" id="aclass_open_g_l_html_af73c3c12c76274a45f3d4245d2d9d11a"><div class="ttname"><a href="class_open_g_l.html#af73c3c12c76274a45f3d4245d2d9d11a">OpenGL::RenderModel</a></div><div class="ttdeci">virtual void RenderModel(Shader &amp;shader, glm::mat4 newModel, Mesh mesh)</div><div class="ttdoc">Renders the games model.</div><div class="ttdef"><b>Definition:</b> OpenGL.cpp:56</div></div>
-<div class="ttc" id="aclass_open_g_l_html_affd50e6ec6e2a1cef5f54d08b904f834"><div class="ttname"><a href="class_open_g_l.html#affd50e6ec6e2a1cef5f54d08b904f834">OpenGL::SkyboxSetup</a></div><div class="ttdeci">virtual void SkyboxSetup(std::vector&lt; float &gt; skyVerts, std::vector&lt; std::string &gt; faces, unsigned int &amp;VAO, unsigned int &amp;VBO, unsigned int &amp;texture, Shader &amp;skyShader)</div><div class="ttdoc">Sets up the skybox.</div><div class="ttdef"><b>Definition:</b> OpenGL.cpp:177</div></div>
-<div class="ttc" id="aclass_renderer_html"><div class="ttname"><a href="class_renderer.html">Renderer</a></div><div class="ttdoc">Contains the absract information for the Renderer. The class holds all the functions that would be us...</div><div class="ttdef"><b>Definition:</b> Renderer.h:20</div></div>
+<div class="ttc" id="aclass_open_g_l_html_ad3aff4310ee768707a5813e5133e41aa"><div class="ttname"><a href="class_open_g_l.html#ad3aff4310ee768707a5813e5133e41aa">OpenGL::SetShaderSkybox</a></div><div class="ttdeci">virtual void SetShaderSkybox(Shader shader, View lens)</div><div class="ttdoc">Sets the shader and uses it for the skybox.</div><div class="ttdef"><b>Definition:</b> OpenGL.cpp:114</div></div>
+<div class="ttc" id="aclass_open_g_l_html_ae91179c1433c7d8a4237cabc7fa2aa87"><div class="ttname"><a href="class_open_g_l.html#ae91179c1433c7d8a4237cabc7fa2aa87">OpenGL::LoadModel</a></div><div class="ttdeci">virtual int LoadModel(int numFrames, std::vector&lt; int &gt; commands, unsigned int &amp;VAO, v3 anorms[162], std::vector&lt; std::vector&lt; glm::vec3 &gt;&gt; vertices, std::vector&lt; std::vector&lt; int &gt;&gt; normals)</div><div class="ttdef"><b>Definition:</b> OpenGL.cpp:339</div></div>
+<div class="ttc" id="aclass_open_g_l_html_aebd9611b84f6496a5b075b1714fb3d4b"><div class="ttname"><a href="class_open_g_l.html#aebd9611b84f6496a5b075b1714fb3d4b">OpenGL::ExitScreenSetup</a></div><div class="ttdeci">virtual void ExitScreenSetup(std::vector&lt; glm::vec3 &gt; vertexData, std::vector&lt; unsigned int &gt; indicesData, unsigned int &amp;VAO, unsigned int &amp;VBO, unsigned int &amp;EBO)</div><div class="ttdoc">Sets up the exit screen.</div><div class="ttdef"><b>Definition:</b> OpenGL.cpp:122</div></div>
+<div class="ttc" id="aclass_open_g_l_html_af73c3c12c76274a45f3d4245d2d9d11a"><div class="ttname"><a href="class_open_g_l.html#af73c3c12c76274a45f3d4245d2d9d11a">OpenGL::RenderModel</a></div><div class="ttdeci">virtual void RenderModel(Shader &amp;shader, glm::mat4 newModel, Mesh mesh)</div><div class="ttdoc">Renders the games model.</div><div class="ttdef"><b>Definition:</b> OpenGL.cpp:55</div></div>
+<div class="ttc" id="aclass_open_g_l_html_affd50e6ec6e2a1cef5f54d08b904f834"><div class="ttname"><a href="class_open_g_l.html#affd50e6ec6e2a1cef5f54d08b904f834">OpenGL::SkyboxSetup</a></div><div class="ttdeci">virtual void SkyboxSetup(std::vector&lt; float &gt; skyVerts, std::vector&lt; std::string &gt; faces, unsigned int &amp;VAO, unsigned int &amp;VBO, unsigned int &amp;texture, Shader &amp;skyShader)</div><div class="ttdoc">Sets up the skybox.</div><div class="ttdef"><b>Definition:</b> OpenGL.cpp:176</div></div>
+<div class="ttc" id="aclass_renderer_html"><div class="ttname"><a href="class_renderer.html">Renderer</a></div><div class="ttdoc">Contains the absract information for the Renderer. The class holds all the functions that would be us...</div><div class="ttdef"><b>Definition:</b> Renderer.h:24</div></div>
 <div class="ttc" id="aclass_shader_html"><div class="ttname"><a href="class_shader.html">Shader</a></div><div class="ttdoc">A class that is responsible for shaders, allowing you to open/use shaders and set uniforms of various...</div><div class="ttdef"><b>Definition:</b> Shader.h:24</div></div>
 <div class="ttc" id="aclass_view_html"><div class="ttname"><a href="class_view.html">View</a></div><div class="ttdoc">Holds matrix and position information to allow other parts of the engine to have access to this infor...</div><div class="ttdef"><b>Definition:</b> View.h:17</div></div>
-<div class="ttc" id="aclasstnah_1_1_debugging_html"><div class="ttname"><a href="classtnah_1_1_debugging.html">tnah::Debugging</a></div><div class="ttdef"><b>Definition:</b> Debugging.h:20</div></div>
+<div class="ttc" id="astruct_md2_state_html"><div class="ttname"><a href="struct_md2_state.html">Md2State</a></div><div class="ttdoc">status animation</div><div class="ttdef"><b>Definition:</b> Md2State.h:3</div></div>
+<div class="ttc" id="astruct_model_info_html"><div class="ttname"><a href="struct_model_info.html">ModelInfo</a></div><div class="ttdef"><b>Definition:</b> OpenGL.h:6</div></div>
+<div class="ttc" id="astruct_model_info_html_a535724588b835d301a5e8553783356ef"><div class="ttname"><a href="struct_model_info.html#a535724588b835d301a5e8553783356ef">ModelInfo::numRenderVertices</a></div><div class="ttdeci">std::vector&lt; int &gt; numRenderVertices</div><div class="ttdef"><b>Definition:</b> OpenGL.h:11</div></div>
+<div class="ttc" id="astruct_model_info_html_a6e7204bdbf5e59783d6a1f04d02becc4"><div class="ttname"><a href="struct_model_info.html#a6e7204bdbf5e59783d6a1f04d02becc4">ModelInfo::vboFrameVertices</a></div><div class="ttdeci">std::vector&lt; Buffer &gt; vboFrameVertices</div><div class="ttdef"><b>Definition:</b> OpenGL.h:8</div></div>
+<div class="ttc" id="astruct_model_info_html_a7c1442419d73c4a2c3906d9ae93f77af"><div class="ttname"><a href="struct_model_info.html#a7c1442419d73c4a2c3906d9ae93f77af">ModelInfo::commands</a></div><div class="ttdeci">std::vector&lt; int &gt; commands</div><div class="ttdef"><b>Definition:</b> OpenGL.h:7</div></div>
+<div class="ttc" id="astruct_model_info_html_a90f77534f86e4ba1aed4b882ae4bce28"><div class="ttname"><a href="struct_model_info.html#a90f77534f86e4ba1aed4b882ae4bce28">ModelInfo::vboTextureCoords</a></div><div class="ttdeci">Buffer vboTextureCoords</div><div class="ttdef"><b>Definition:</b> OpenGL.h:9</div></div>
+<div class="ttc" id="astruct_model_info_html_ae3e0e94472298ef84d83d776bb616a54"><div class="ttname"><a href="struct_model_info.html#ae3e0e94472298ef84d83d776bb616a54">ModelInfo::renderModes</a></div><div class="ttdeci">std::vector&lt; int &gt; renderModes</div><div class="ttdef"><b>Definition:</b> OpenGL.h:10</div></div>
 </div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_492deb8f30c21d9ebac9ab6ce6fb7949.html">ICT397-Project-Engine</a></li><li class="navelem"><a class="el" href="_open_g_l_8h.html">OpenGL.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
 </body>
 </html>

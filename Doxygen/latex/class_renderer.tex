@@ -9,12 +9,10 @@ Contains the absract information for the \mbox{\hyperlink{class_renderer}{Render
 
 {\ttfamily \#include $<$Renderer.\+h$>$}
 
-Inheritance diagram for Renderer\+:\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[height=2.000000cm]{class_renderer}
-\end{center}
-\end{figure}
+
+
+Inheritance diagram for Renderer\+:
+% FIG 0
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -24,7 +22,6 @@ virtual void \mbox{\hyperlink{class_renderer_a50f434d31fea7a8feedd0b7077f8ab1b}{
 \begin{DoxyCompactList}\small\item\em Renders the games model. \end{DoxyCompactList}\item 
 virtual void \mbox{\hyperlink{class_renderer_a259e569689938bea487d31727791b963}{Bind\+Texture}} (std\+::vector$<$ unsigned int $>$ textures)
 \begin{DoxyCompactList}\small\item\em Binds textures to memory. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{class_renderer_a02beced87878dd00ad9370c2b524c4ad}\label{class_renderer_a02beced87878dd00ad9370c2b524c4ad}} 
 virtual void \mbox{\hyperlink{class_renderer_a02beced87878dd00ad9370c2b524c4ad}{Depth\+Test}} ()
 \begin{DoxyCompactList}\small\item\em Calls the depth test. \end{DoxyCompactList}\item 
 virtual void \mbox{\hyperlink{class_renderer_a73ad38f16da2f99d3a044b6fc2758694}{Render\+Skybox}} (unsigned int VAO, unsigned int texture)
@@ -46,7 +43,17 @@ virtual void \mbox{\hyperlink{class_renderer_a9c07e92b290c5abcb77941815823943e}{
 virtual void \mbox{\hyperlink{class_renderer_a023aa7491efa15df16a0750cd5ed516a}{Render\+Exit\+Screen}} (unsigned int VAO, unsigned int EBO, unsigned int texture)
 \begin{DoxyCompactList}\small\item\em Rends the exit model. \end{DoxyCompactList}\item 
 virtual void \mbox{\hyperlink{class_renderer_aff31437b9015103fec2d09b00979aed7}{Exit\+Screen\+Setup}} (std\+::vector$<$ glm\+::vec3 $>$ vertex\+Data, std\+::vector$<$ unsigned int $>$ indices\+Data, unsigned int \&VAO, unsigned int \&VBO, unsigned int \&EBO)
-\begin{DoxyCompactList}\small\item\em Sets up the exit screen. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Sets up the exit screen. \end{DoxyCompactList}\item 
+unsigned int \mbox{\hyperlink{class_renderer_a7af80c77df12a67838b0a1aea7393fcd}{Texture\+From\+File}} (std\+::string path)
+\item 
+virtual int \mbox{\hyperlink{class_renderer_a441f883bb48f39e015d54c83ef805c99}{Load\+Model}} (int num\+Frames, std\+::vector$<$ int $>$ commands, unsigned int \&VAO, \mbox{\hyperlink{_renderer_8h_acf5f91efba7d6057c5897630b7ec39fa}{v3}} \mbox{\hyperlink{_md2_8cpp_ac5bea0747461c7a8e51b84f54ae66215}{anorms}}\mbox{[}162\mbox{]}, std\+::vector$<$ std\+::vector$<$ glm\+::vec3 $>$$>$ vertices, std\+::vector$<$ std\+::vector$<$ int $>$$>$ normals)
+\item 
+virtual void \mbox{\hyperlink{class_renderer_a1595d5b35688c46bb7a2dcf154ac1c71}{Render\+Model}} (int number, \mbox{\hyperlink{struct_md2_state}{Md2\+State}} $\ast$anim\+State, glm\+::mat4 proj, glm\+::mat4 view, glm\+::mat4 gen\+Four, float direction, unsigned int \&VAO, unsigned int \&texture\+Id, \mbox{\hyperlink{class_shader}{Shader}} \&shader)
+\item 
+virtual void \mbox{\hyperlink{class_renderer_a01fff21b97aae0ab948b50f2476e639d}{Render\+Model}} (int number, \mbox{\hyperlink{struct_md2_state}{Md2\+State}} $\ast$anim\+State, glm\+::mat4 proj, glm\+::mat4 view, glm\+::vec3 position, glm\+::vec3 rotation, float direction, unsigned int \&VAO, unsigned int \&texture\+Id, \mbox{\hyperlink{class_shader}{Shader}} \&shader)
+\item 
+virtual void \mbox{\hyperlink{class_renderer_a11fdf26547245affa20b6015796e126d}{Set\+Glfw\+Window}} ()
+\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -83,6 +90,20 @@ Binds textures to memory.
 
 Reimplemented in \mbox{\hyperlink{class_open_g_l_a09dc5a5ab1ab540607820efafc9d534d}{Open\+GL}}.
 
+\mbox{\Hypertarget{class_renderer_a02beced87878dd00ad9370c2b524c4ad}\label{class_renderer_a02beced87878dd00ad9370c2b524c4ad}} 
+\index{Renderer@{Renderer}!DepthTest@{DepthTest}}
+\index{DepthTest@{DepthTest}!Renderer@{Renderer}}
+\doxysubsubsection{\texorpdfstring{DepthTest()}{DepthTest()}}
+{\footnotesize\ttfamily virtual void Renderer\+::\+Depth\+Test (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Calls the depth test. 
+
+
+
+Reimplemented in \mbox{\hyperlink{class_open_g_l_a3fcb6ffd9e2933c821ce79c0402ad211}{Open\+GL}}.
+
 \mbox{\Hypertarget{class_renderer_aff31437b9015103fec2d09b00979aed7}\label{class_renderer_aff31437b9015103fec2d09b00979aed7}} 
 \index{Renderer@{Renderer}!ExitScreenSetup@{ExitScreenSetup}}
 \index{ExitScreenSetup@{ExitScreenSetup}!Renderer@{Renderer}}
@@ -110,6 +131,16 @@ Sets up the exit screen.
 
 Reimplemented in \mbox{\hyperlink{class_open_g_l_aebd9611b84f6496a5b075b1714fb3d4b}{Open\+GL}}.
 
+\mbox{\Hypertarget{class_renderer_a441f883bb48f39e015d54c83ef805c99}\label{class_renderer_a441f883bb48f39e015d54c83ef805c99}} 
+\index{Renderer@{Renderer}!LoadModel@{LoadModel}}
+\index{LoadModel@{LoadModel}!Renderer@{Renderer}}
+\doxysubsubsection{\texorpdfstring{LoadModel()}{LoadModel()}}
+{\footnotesize\ttfamily virtual int Renderer\+::\+Load\+Model (\begin{DoxyParamCaption}\item[{int}]{num\+Frames,  }\item[{std\+::vector$<$ int $>$}]{commands,  }\item[{unsigned int \&}]{VAO,  }\item[{\mbox{\hyperlink{_renderer_8h_acf5f91efba7d6057c5897630b7ec39fa}{v3}}}]{anorms\mbox{[}162\mbox{]},  }\item[{std\+::vector$<$ std\+::vector$<$ glm\+::vec3 $>$$>$}]{vertices,  }\item[{std\+::vector$<$ std\+::vector$<$ int $>$$>$}]{normals }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented in \mbox{\hyperlink{class_open_g_l_ae91179c1433c7d8a4237cabc7fa2aa87}{Open\+GL}}.
+
 \mbox{\Hypertarget{class_renderer_a023aa7491efa15df16a0750cd5ed516a}\label{class_renderer_a023aa7491efa15df16a0750cd5ed516a}} 
 \index{Renderer@{Renderer}!RenderExitScreen@{RenderExitScreen}}
 \index{RenderExitScreen@{RenderExitScreen}!Renderer@{Renderer}}
@@ -133,10 +164,30 @@ Rends the exit model.
 
 Reimplemented in \mbox{\hyperlink{class_open_g_l_a1aa8e3b718d4635acd8bdbff39920c5a}{Open\+GL}}.
 
+\mbox{\Hypertarget{class_renderer_a1595d5b35688c46bb7a2dcf154ac1c71}\label{class_renderer_a1595d5b35688c46bb7a2dcf154ac1c71}} 
+\index{Renderer@{Renderer}!RenderModel@{RenderModel}}
+\index{RenderModel@{RenderModel}!Renderer@{Renderer}}
+\doxysubsubsection{\texorpdfstring{RenderModel()}{RenderModel()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily virtual void Renderer\+::\+Render\+Model (\begin{DoxyParamCaption}\item[{int}]{number,  }\item[{\mbox{\hyperlink{struct_md2_state}{Md2\+State}} $\ast$}]{anim\+State,  }\item[{glm\+::mat4}]{proj,  }\item[{glm\+::mat4}]{view,  }\item[{glm\+::mat4}]{gen\+Four,  }\item[{float}]{direction,  }\item[{unsigned int \&}]{VAO,  }\item[{unsigned int \&}]{texture\+Id,  }\item[{\mbox{\hyperlink{class_shader}{Shader}} \&}]{shader }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented in \mbox{\hyperlink{class_open_g_l_abd21c569fe2bbdbc80414e8f2dbdc08c}{Open\+GL}}.
+
+\mbox{\Hypertarget{class_renderer_a01fff21b97aae0ab948b50f2476e639d}\label{class_renderer_a01fff21b97aae0ab948b50f2476e639d}} 
+\index{Renderer@{Renderer}!RenderModel@{RenderModel}}
+\index{RenderModel@{RenderModel}!Renderer@{Renderer}}
+\doxysubsubsection{\texorpdfstring{RenderModel()}{RenderModel()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily virtual void Renderer\+::\+Render\+Model (\begin{DoxyParamCaption}\item[{int}]{number,  }\item[{\mbox{\hyperlink{struct_md2_state}{Md2\+State}} $\ast$}]{anim\+State,  }\item[{glm\+::mat4}]{proj,  }\item[{glm\+::mat4}]{view,  }\item[{glm\+::vec3}]{position,  }\item[{glm\+::vec3}]{rotation,  }\item[{float}]{direction,  }\item[{unsigned int \&}]{VAO,  }\item[{unsigned int \&}]{texture\+Id,  }\item[{\mbox{\hyperlink{class_shader}{Shader}} \&}]{shader }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented in \mbox{\hyperlink{class_open_g_l_a6e739507fe6fb9f98641ac3a22629a0d}{Open\+GL}}.
+
 \mbox{\Hypertarget{class_renderer_a50f434d31fea7a8feedd0b7077f8ab1b}\label{class_renderer_a50f434d31fea7a8feedd0b7077f8ab1b}} 
 \index{Renderer@{Renderer}!RenderModel@{RenderModel}}
 \index{RenderModel@{RenderModel}!Renderer@{Renderer}}
-\doxysubsubsection{\texorpdfstring{RenderModel()}{RenderModel()}}
+\doxysubsubsection{\texorpdfstring{RenderModel()}{RenderModel()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
 {\footnotesize\ttfamily virtual void Renderer\+::\+Render\+Model (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_shader}{Shader}} \&}]{shader,  }\item[{glm\+::mat4}]{new\+Model,  }\item[{\mbox{\hyperlink{class_mesh}{Mesh}}}]{mesh }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
 
 
@@ -197,6 +248,12 @@ Renders the games terrain.
 
 
 Reimplemented in \mbox{\hyperlink{class_open_g_l_ad0222ac664fbb5018065732b5ff0f699}{Open\+GL}}.
+
+\mbox{\Hypertarget{class_renderer_a11fdf26547245affa20b6015796e126d}\label{class_renderer_a11fdf26547245affa20b6015796e126d}} 
+\index{Renderer@{Renderer}!SetGlfwWindow@{SetGlfwWindow}}
+\index{SetGlfwWindow@{SetGlfwWindow}!Renderer@{Renderer}}
+\doxysubsubsection{\texorpdfstring{SetGlfwWindow()}{SetGlfwWindow()}}
+{\footnotesize\ttfamily virtual void Renderer\+::\+Set\+Glfw\+Window (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
 
 \mbox{\Hypertarget{class_renderer_a0eebf54fd91ea19b54da3bf1ba944a0f}\label{class_renderer_a0eebf54fd91ea19b54da3bf1ba944a0f}} 
 \index{Renderer@{Renderer}!SetShader@{SetShader}}
@@ -346,10 +403,16 @@ Sets up the terrain data.
 
 Reimplemented in \mbox{\hyperlink{class_open_g_l_a94ada51533a316920282d45879bde0fc}{Open\+GL}}.
 
+\mbox{\Hypertarget{class_renderer_a7af80c77df12a67838b0a1aea7393fcd}\label{class_renderer_a7af80c77df12a67838b0a1aea7393fcd}} 
+\index{Renderer@{Renderer}!TextureFromFile@{TextureFromFile}}
+\index{TextureFromFile@{TextureFromFile}!Renderer@{Renderer}}
+\doxysubsubsection{\texorpdfstring{TextureFromFile()}{TextureFromFile()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily unsigned int Renderer\+::\+Texture\+From\+File (\begin{DoxyParamCaption}\item[{std\+::string}]{path }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
 \mbox{\Hypertarget{class_renderer_aa553a67d535a2bbbb530fa225b89f389}\label{class_renderer_aa553a67d535a2bbbb530fa225b89f389}} 
 \index{Renderer@{Renderer}!TextureFromFile@{TextureFromFile}}
 \index{TextureFromFile@{TextureFromFile}!Renderer@{Renderer}}
-\doxysubsubsection{\texorpdfstring{TextureFromFile()}{TextureFromFile()}}
+\doxysubsubsection{\texorpdfstring{TextureFromFile()}{TextureFromFile()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
 {\footnotesize\ttfamily virtual unsigned int Renderer\+::\+Texture\+From\+File (\begin{DoxyParamCaption}\item[{std\+::string}]{path,  }\item[{const std\+::string \&}]{directory }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
 
 
@@ -374,4 +437,4 @@ Reimplemented in \mbox{\hyperlink{class_open_g_l_aaea0f9919293a301acbaf5854c2f4f
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-/\+Volumes/\+GITS/\+ICT397-\/\+Project/\+ICT397-\/\+Project-\/\+Engine/Renderer.\+h\end{DoxyCompactItemize}
+ICT397-\/\+Project-\/\+Engine/\mbox{\hyperlink{_renderer_8h}{Renderer.\+h}}\end{DoxyCompactItemize}

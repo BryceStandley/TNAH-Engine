@@ -4,7 +4,7 @@
  * @date 08/04/2021
  * @version 1
  */
-
+#pragma once
 #ifndef DEBUGGING_H
 #define DEBUGGING_H
 
@@ -22,6 +22,7 @@
 #include <chrono>
 
 
+
 /**
  * @class Debugger
  * @brief helper functions and flags to aid in debugging aspects of the engine
@@ -37,6 +38,13 @@ public:
      * @return string - string value with each XYZ of a given vec3
      */
     std::string DebugVec3(glm::vec3 a);
+
+    /**
+     * @brief Calculates and returns the vec3 position of the player in terrain coords
+     * @param playerPosition
+     * @return vec3 of the players position in relation to the terrain vertex data
+     */
+    glm::vec3 ConvertPlayerToTerrainPosition(glm::vec3 playerPosition, float terrainSize, float vertexHeight);
 
     /**
      * @brief Used to open the log file and save its pointer
@@ -95,7 +103,7 @@ public:
 	/**
 	 * @brief flag for enabling/disabling debug information about player position in the the game screen
 	 */
-	bool debugPlayerPos = false;
+	bool debugPlayerPos = true;
 
 	/**
 	 * @brief flag for enabling/disabling debug information about framerate in the game screen
@@ -126,6 +134,11 @@ public:
 	 * @brief flag for enabling/disabling the debug panel
 	 */
     bool drawDebugPanel = false;
+
+    /**
+     * @brief flag for enabling and disabling the player Y position clipping
+     */
+    bool noPlayerYClip = true;
 
 	/**
 	 * @brief reference to a GLFW window

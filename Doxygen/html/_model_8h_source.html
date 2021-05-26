@@ -5,10 +5,14 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TNAH-ICT397-Project: /Volumes/GITS/ICT397-Project/ICT397-Project-Engine/Model.h Source File</title>
+<title>TNAH-Engine-ICT397: ICT397-Project-Engine/Model.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -22,8 +26,8 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="TNAH-2.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">TNAH-ICT397-Project
-   &#160;<span id="projectnumber">1</span>
+   <div id="projectname">TNAH-Engine-ICT397
+   &#160;<span id="projectnumber">2</span>
    </div>
   </td>
  </tr>
@@ -47,6 +51,23 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('_model_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -61,27 +82,22 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="dir_492deb8f30c21d9ebac9ab6ce6fb7949.html">ICT397-Project-Engine</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="headertitle">
 <div class="title">Model.h</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;glad/glad.h&gt;</span></div>
+<a href="_model_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;glad/glad.h&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &lt;glm/glm.hpp&gt;</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;glm/gtc/matrix_transform.hpp&gt;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include&lt;glm/gtx/matrix_decompose.hpp&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;stb_image.h&quot;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="stb__image_8h.html">stb_image.h</a>&quot;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;assimp/Importer.hpp&gt;</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;assimp/scene.h&gt;</span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;assimp/postprocess.h&gt;</span></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &quot;Mesh.h&quot;</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &quot;Shader.h&quot;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_mesh_8h.html">Mesh.h</a>&quot;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_shader_8h.html">Shader.h</a>&quot;</span></div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
@@ -92,64 +108,105 @@ $(function() {
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#include &quot;Callbacks.h&quot;</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#include &quot;OpenGL.h&quot;</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">#include &quot;Debugging.h&quot;</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_callbacks_8h.html">Callbacks.h</a>&quot;</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_open_g_l_8h.html">OpenGL.h</a>&quot;</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_fbx_8h.html">Fbx.h</a>&quot;</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_md2_8h.html">Md2.h</a>&quot;</span></div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="class_model.html">   36</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_model.html">Model</a></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;{</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="class_model.html#a267021b95b442bb3febb9de80c7a470e">   40</a></span>&#160;    std::vector&lt;TextureMesh&gt; <a class="code" href="class_model.html#a267021b95b442bb3febb9de80c7a470e">textures_loaded</a>;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    std::vector&lt;Mesh&gt;    meshes;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <a class="code" href="class_renderer.html">Renderer</a>* render;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    std::string directory;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keywordtype">bool</span> gammaCorrection;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <a class="code" href="classtnah_1_1_debugging.html">tnah::Debugging</a> debugger;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_debugger_8h.html">Debugger.h</a>&quot;</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="class_model.html">   38</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_model.html">Model</a></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;{</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="class_model.html#ae3b375de5f6df4faf74a95d64748e048">   46</a></span>&#160;    <a class="code" href="class_model.html#ae3b375de5f6df4faf74a95d64748e048">Model</a>() {}</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="class_model.html#ae3b375de5f6df4faf74a95d64748e048">   49</a></span>&#160;    <a class="code" href="class_model.html#ae3b375de5f6df4faf74a95d64748e048">Model</a>() {}</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
-<div class="line"><a name="l00057"></a><span class="lineno"><a class="line" href="class_model.html#aefd7030ec24cc6950c72444b2f742fbf">   57</a></span>&#160;    <a class="code" href="class_model.html#aefd7030ec24cc6950c72444b2f742fbf">Model</a>(std::string <span class="keyword">const</span>&amp; path, <a class="code" href="class_renderer.html">Renderer</a>* r, <span class="keywordtype">bool</span> gamma = <span class="keyword">false</span>) : gammaCorrection(gamma)</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    {</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        render = r;</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        loadModel(path);</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
+<div class="line"><a name="l00056"></a><span class="lineno"><a class="line" href="class_model.html#a847c62dac3bf0195861fd466d0be8157">   56</a></span>&#160;    <a class="code" href="class_model.html#a847c62dac3bf0195861fd466d0be8157">Model</a>(std::string <span class="keyword">const</span>&amp; path, <a class="code" href="class_renderer.html">Renderer</a>* r, <span class="keywordtype">bool</span> check)</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    {</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        <a class="code" href="class_model.html#acbbf433d601d583cc5a346deef9310d6">SetMd2</a>(check);</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <a class="code" href="class_model.html#a1c049fa03d56f57421414e31862da9f5">LoadModel</a>(path, r, <span class="stringliteral">&quot;&quot;</span>);</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        animations = <span class="keyword">true</span>;</div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    }</div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_model.html#a03ca89b270c98d161291786b137281a6">Draw</a>(<a class="code" href="class_shader.html">Shader</a>&amp; shader, glm::mat4 model);</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    glm::mat4 to_glm(aiMatrix4x4t&lt;float&gt; m);</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
+<div class="line"><a name="l00073"></a><span class="lineno"><a class="line" href="class_model.html#ad30000e7f6d3f6771d8e3c0b56a4bdc0">   73</a></span>&#160;    <a class="code" href="class_model.html#ad30000e7f6d3f6771d8e3c0b56a4bdc0">Model</a>(std::string <span class="keyword">const</span>&amp; path, <a class="code" href="class_renderer.html">Renderer</a>* r, <span class="keywordtype">bool</span> check, std::string pathTexture, <span class="keywordtype">bool</span> anim)</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    {</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        <a class="code" href="class_model.html#acbbf433d601d583cc5a346deef9310d6">SetMd2</a>(check);</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        <a class="code" href="class_model.html#a1c049fa03d56f57421414e31862da9f5">LoadModel</a>(path, r, pathTexture);</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        animations = anim;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    }</div>
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    glm::vec3 to_glm(aiVector3t&lt;float&gt; v);</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    glm::quat to_glm(aiQuaterniont&lt;float&gt; q);</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160; </div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    <span class="keywordtype">void</span> loadModel(std::string <span class="keyword">const</span>&amp; path);</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <span class="keywordtype">void</span> processNode(aiNode* node, <span class="keyword">const</span> aiScene* scene, glm::mat4 transform);</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160; </div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    <a class="code" href="class_mesh.html">Mesh</a> processMesh(aiMesh* mesh, <span class="keyword">const</span> aiScene* scene, glm::mat4 transform);</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160; </div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    std::vector&lt;TextureMesh&gt; loadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName);</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160; </div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;};</div>
+<div class="line"><a name="l00085"></a><span class="lineno"><a class="line" href="class_model.html#acbbf433d601d583cc5a346deef9310d6">   85</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_model.html#acbbf433d601d583cc5a346deef9310d6">SetMd2</a>(<span class="keywordtype">bool</span> check) {</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        <span class="keywordflow">if</span> (check)</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        {</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;            md2 = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;            fbx = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        }</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        {</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;            md2 = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;            fbx = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        }</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    }</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_model.html#a1c049fa03d56f57421414e31862da9f5">LoadModel</a>(std::string <span class="keyword">const</span>&amp; path, <a class="code" href="class_renderer.html">Renderer</a>* gameRenderer, std::string pathTexture);</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    <span class="comment">//void Render(View lens, Shader&amp; shader, glm::vec3 pos, glm::vec3 rot, float scale, bool rotate, float time);</span></div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160; </div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_model.html#a95878dc77a7f1ed7f13f2383f880c8ca">Render</a>(<a class="code" href="class_view.html">View</a> lens, <a class="code" href="class_shader.html">Shader</a> &amp;shader, glm::vec3 pos, glm::vec3 rot, <span class="keywordtype">float</span> scale, <span class="keywordtype">bool</span> rotate, <span class="keywordtype">float</span> time, <span class="keywordtype">float</span> direction, <a class="code" href="class_renderer.html">Renderer</a> * gameRenderer, <span class="keywordtype">bool</span> p);</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160; </div>
+<div class="line"><a name="l00128"></a><span class="lineno"><a class="line" href="class_model.html#abeacaeec6265bc2565031e4badc91123">  128</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_model.html#abeacaeec6265bc2565031e4badc91123">SetState</a>(<a class="code" href="_md2_8h.html#af5d799eba8960b05ab838f5cd3e5f41f">Md2Commands</a> cmd) { currentState = md2Model.<a class="code" href="class_md2.html#a70daec3c09693e106cfb2a00c3f13c06">StartAnimation</a>(cmd); }</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160; </div>
+<div class="line"><a name="l00134"></a><span class="lineno"><a class="line" href="class_model.html#a481be20d5a6b5eb63e63cf17e5b2c006">  134</a></span>&#160;    <a class="code" href="struct_md2_state.html">Md2State</a> <a class="code" href="class_model.html#a481be20d5a6b5eb63e63cf17e5b2c006">GetState</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> currentState; }</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160; </div>
+<div class="line"><a name="l00140"></a><span class="lineno"><a class="line" href="class_model.html#a87701bd40c275476bc6b84d62301a2fe">  140</a></span>&#160;    <a class="code" href="class_mesh.html">Mesh</a>* <a class="code" href="class_model.html#a87701bd40c275476bc6b84d62301a2fe">GetMesh</a>(<span class="keywordtype">int</span> i) { <span class="keywordflow">return</span> &amp;fbxModel.<a class="code" href="class_fbx.html#a0f78e9d159ecbbb63b265faec933b943">meshes</a>[i]; }</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160; </div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160; </div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;    glm::mat4 GenerateMatFour(glm::vec3 pos, glm::vec3 rot, <span class="keywordtype">float</span> scale, <span class="keywordtype">bool</span> rotate);</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;    <a class="code" href="class_fbx.html">Fbx</a> fbxModel;</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;    <a class="code" href="class_md2.html">Md2</a> md2Model;</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;    <span class="keywordtype">bool</span> fbx;</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;    <span class="keywordtype">bool</span> md2;</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;    <a class="code" href="struct_md2_state.html">Md2State</a> currentState;</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;    <span class="keywordtype">bool</span> animations;</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;};</div>
+<div class="ttc" id="a_callbacks_8h_html"><div class="ttname"><a href="_callbacks_8h.html">Callbacks.h</a></div></div>
+<div class="ttc" id="a_debugger_8h_html"><div class="ttname"><a href="_debugger_8h.html">Debugger.h</a></div></div>
+<div class="ttc" id="a_fbx_8h_html"><div class="ttname"><a href="_fbx_8h.html">Fbx.h</a></div></div>
+<div class="ttc" id="a_md2_8h_html"><div class="ttname"><a href="_md2_8h.html">Md2.h</a></div></div>
+<div class="ttc" id="a_md2_8h_html_af5d799eba8960b05ab838f5cd3e5f41f"><div class="ttname"><a href="_md2_8h.html#af5d799eba8960b05ab838f5cd3e5f41f">Md2Commands</a></div><div class="ttdeci">Md2Commands</div><div class="ttdef"><b>Definition:</b> Md2.h:51</div></div>
+<div class="ttc" id="a_mesh_8h_html"><div class="ttname"><a href="_mesh_8h.html">Mesh.h</a></div></div>
+<div class="ttc" id="a_open_g_l_8h_html"><div class="ttname"><a href="_open_g_l_8h.html">OpenGL.h</a></div></div>
+<div class="ttc" id="a_shader_8h_html"><div class="ttname"><a href="_shader_8h.html">Shader.h</a></div></div>
+<div class="ttc" id="aclass_fbx_html"><div class="ttname"><a href="class_fbx.html">Fbx</a></div><div class="ttdoc">A class that represents a model in its entirety, allowing for multiple meshes and multiple textures i...</div><div class="ttdef"><b>Definition:</b> Fbx.h:41</div></div>
+<div class="ttc" id="aclass_fbx_html_a0f78e9d159ecbbb63b265faec933b943"><div class="ttname"><a href="class_fbx.html#a0f78e9d159ecbbb63b265faec933b943">Fbx::meshes</a></div><div class="ttdeci">std::vector&lt; Mesh &gt; meshes</div><div class="ttdef"><b>Definition:</b> Fbx.h:45</div></div>
+<div class="ttc" id="aclass_md2_html"><div class="ttname"><a href="class_md2.html">Md2</a></div><div class="ttdoc">A class responsible for loading, rendering and animating MD2 models.</div><div class="ttdef"><b>Definition:</b> Md2.h:101</div></div>
+<div class="ttc" id="aclass_md2_html_a70daec3c09693e106cfb2a00c3f13c06"><div class="ttname"><a href="class_md2.html#a70daec3c09693e106cfb2a00c3f13c06">Md2::StartAnimation</a></div><div class="ttdeci">Md2State StartAnimation(Md2Commands type)</div><div class="ttdoc">starts the models animation specified by the type given as a parameter</div><div class="ttdef"><b>Definition:</b> Md2.cpp:287</div></div>
 <div class="ttc" id="aclass_mesh_html"><div class="ttname"><a href="class_mesh.html">Mesh</a></div><div class="ttdoc">A class that uses mesh data to setup and draw all the meshes that a model is made of.</div><div class="ttdef"><b>Definition:</b> Mesh.h:40</div></div>
-<div class="ttc" id="aclass_model_html"><div class="ttname"><a href="class_model.html">Model</a></div><div class="ttdoc">A class that represents a model in its entirety, allowing for multiple meshes and multiple textures i...</div><div class="ttdef"><b>Definition:</b> Model.h:37</div></div>
-<div class="ttc" id="aclass_model_html_a03ca89b270c98d161291786b137281a6"><div class="ttname"><a href="class_model.html#a03ca89b270c98d161291786b137281a6">Model::Draw</a></div><div class="ttdeci">void Draw(Shader &amp;shader, glm::mat4 model)</div><div class="ttdoc">draws the model, and thus all it meshes</div><div class="ttdef"><b>Definition:</b> Model.cpp:3</div></div>
-<div class="ttc" id="aclass_model_html_a267021b95b442bb3febb9de80c7a470e"><div class="ttname"><a href="class_model.html#a267021b95b442bb3febb9de80c7a470e">Model::textures_loaded</a></div><div class="ttdeci">std::vector&lt; TextureMesh &gt; textures_loaded</div><div class="ttdoc">model data</div><div class="ttdef"><b>Definition:</b> Model.h:40</div></div>
-<div class="ttc" id="aclass_model_html_ae3b375de5f6df4faf74a95d64748e048"><div class="ttname"><a href="class_model.html#ae3b375de5f6df4faf74a95d64748e048">Model::Model</a></div><div class="ttdeci">Model()</div><div class="ttdoc">default constructor</div><div class="ttdef"><b>Definition:</b> Model.h:49</div></div>
-<div class="ttc" id="aclass_model_html_aefd7030ec24cc6950c72444b2f742fbf"><div class="ttname"><a href="class_model.html#aefd7030ec24cc6950c72444b2f742fbf">Model::Model</a></div><div class="ttdeci">Model(std::string const &amp;path, Renderer *r, bool gamma=false)</div><div class="ttdoc">constructor that loads in the model from the given path</div><div class="ttdef"><b>Definition:</b> Model.h:57</div></div>
-<div class="ttc" id="aclass_renderer_html"><div class="ttname"><a href="class_renderer.html">Renderer</a></div><div class="ttdoc">Contains the absract information for the Renderer. The class holds all the functions that would be us...</div><div class="ttdef"><b>Definition:</b> Renderer.h:20</div></div>
+<div class="ttc" id="aclass_model_html"><div class="ttname"><a href="class_model.html">Model</a></div><div class="ttdoc">Holds the model information of objects, can be md2 or Fbx models.</div><div class="ttdef"><b>Definition:</b> Model.h:39</div></div>
+<div class="ttc" id="aclass_model_html_a1c049fa03d56f57421414e31862da9f5"><div class="ttname"><a href="class_model.html#a1c049fa03d56f57421414e31862da9f5">Model::LoadModel</a></div><div class="ttdeci">void LoadModel(std::string const &amp;path, Renderer *gameRenderer, std::string pathTexture)</div><div class="ttdoc">Function responible for loading the model.</div><div class="ttdef"><b>Definition:</b> Model.cpp:3</div></div>
+<div class="ttc" id="aclass_model_html_a481be20d5a6b5eb63e63cf17e5b2c006"><div class="ttname"><a href="class_model.html#a481be20d5a6b5eb63e63cf17e5b2c006">Model::GetState</a></div><div class="ttdeci">Md2State GetState() const</div><div class="ttdoc">gets and returns the current Md2State of the Model</div><div class="ttdef"><b>Definition:</b> Model.h:134</div></div>
+<div class="ttc" id="aclass_model_html_a847c62dac3bf0195861fd466d0be8157"><div class="ttname"><a href="class_model.html#a847c62dac3bf0195861fd466d0be8157">Model::Model</a></div><div class="ttdeci">Model(std::string const &amp;path, Renderer *r, bool check)</div><div class="ttdoc">Model constructor that takes various parameters.</div><div class="ttdef"><b>Definition:</b> Model.h:56</div></div>
+<div class="ttc" id="aclass_model_html_a87701bd40c275476bc6b84d62301a2fe"><div class="ttname"><a href="class_model.html#a87701bd40c275476bc6b84d62301a2fe">Model::GetMesh</a></div><div class="ttdeci">Mesh * GetMesh(int i)</div><div class="ttdoc">gets and returns a pointer to the Mesh of the Model</div><div class="ttdef"><b>Definition:</b> Model.h:140</div></div>
+<div class="ttc" id="aclass_model_html_a95878dc77a7f1ed7f13f2383f880c8ca"><div class="ttname"><a href="class_model.html#a95878dc77a7f1ed7f13f2383f880c8ca">Model::Render</a></div><div class="ttdeci">void Render(View lens, Shader &amp;shader, glm::vec3 pos, glm::vec3 rot, float scale, bool rotate, float time, float direction, Renderer *gameRenderer, bool p)</div><div class="ttdoc">makes use of the view information and graphics renderer among other things to render the model</div><div class="ttdef"><b>Definition:</b> Model.cpp:17</div></div>
+<div class="ttc" id="aclass_model_html_abeacaeec6265bc2565031e4badc91123"><div class="ttname"><a href="class_model.html#abeacaeec6265bc2565031e4badc91123">Model::SetState</a></div><div class="ttdeci">void SetState(Md2Commands cmd)</div><div class="ttdoc">sets the animation state of the model to the command provided as parameter</div><div class="ttdef"><b>Definition:</b> Model.h:128</div></div>
+<div class="ttc" id="aclass_model_html_acbbf433d601d583cc5a346deef9310d6"><div class="ttname"><a href="class_model.html#acbbf433d601d583cc5a346deef9310d6">Model::SetMd2</a></div><div class="ttdeci">void SetMd2(bool check)</div><div class="ttdoc">Function that will set the model to MD2 is the boolean provided is true, otherwise it will assign the...</div><div class="ttdef"><b>Definition:</b> Model.h:85</div></div>
+<div class="ttc" id="aclass_model_html_ad30000e7f6d3f6771d8e3c0b56a4bdc0"><div class="ttname"><a href="class_model.html#ad30000e7f6d3f6771d8e3c0b56a4bdc0">Model::Model</a></div><div class="ttdeci">Model(std::string const &amp;path, Renderer *r, bool check, std::string pathTexture, bool anim)</div><div class="ttdoc">Model constructor that takes various parameters.</div><div class="ttdef"><b>Definition:</b> Model.h:73</div></div>
+<div class="ttc" id="aclass_model_html_ae3b375de5f6df4faf74a95d64748e048"><div class="ttname"><a href="class_model.html#ae3b375de5f6df4faf74a95d64748e048">Model::Model</a></div><div class="ttdeci">Model()</div><div class="ttdoc">default constructor</div><div class="ttdef"><b>Definition:</b> Model.h:46</div></div>
+<div class="ttc" id="aclass_renderer_html"><div class="ttname"><a href="class_renderer.html">Renderer</a></div><div class="ttdoc">Contains the absract information for the Renderer. The class holds all the functions that would be us...</div><div class="ttdef"><b>Definition:</b> Renderer.h:24</div></div>
 <div class="ttc" id="aclass_shader_html"><div class="ttname"><a href="class_shader.html">Shader</a></div><div class="ttdoc">A class that is responsible for shaders, allowing you to open/use shaders and set uniforms of various...</div><div class="ttdef"><b>Definition:</b> Shader.h:24</div></div>
-<div class="ttc" id="aclasstnah_1_1_debugging_html"><div class="ttname"><a href="classtnah_1_1_debugging.html">tnah::Debugging</a></div><div class="ttdef"><b>Definition:</b> Debugging.h:20</div></div>
+<div class="ttc" id="aclass_view_html"><div class="ttname"><a href="class_view.html">View</a></div><div class="ttdoc">Holds matrix and position information to allow other parts of the engine to have access to this infor...</div><div class="ttdef"><b>Definition:</b> View.h:17</div></div>
+<div class="ttc" id="astb__image_8h_html"><div class="ttname"><a href="stb__image_8h.html">stb_image.h</a></div></div>
+<div class="ttc" id="astruct_md2_state_html"><div class="ttname"><a href="struct_md2_state.html">Md2State</a></div><div class="ttdoc">status animation</div><div class="ttdef"><b>Definition:</b> Md2State.h:3</div></div>
 </div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_492deb8f30c21d9ebac9ab6ce6fb7949.html">ICT397-Project-Engine</a></li><li class="navelem"><a class="el" href="_model_8h.html">Model.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
 </body>
 </html>

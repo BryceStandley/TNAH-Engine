@@ -9,35 +9,33 @@ Holds information about the exit screen and its functions.
 
 {\ttfamily \#include $<$Exit\+Screen.\+h$>$}
 
+
+
+Collaboration diagram for Exit\+Screen\+:
+% FIG 0
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_exit_screen_af2e39b9b9745d7365c188160627147bb}\label{class_exit_screen_af2e39b9b9745d7365c188160627147bb}} 
-void {\bfseries Init} (std\+::string name, \mbox{\hyperlink{class_renderer}{Renderer}} $\ast$r)
+\mbox{\hyperlink{class_exit_screen_a433bb8f719c96603dabb2c844a5fd18b}{Exit\+Screen}} ()=default
 \item 
-\mbox{\Hypertarget{class_exit_screen_a78d384b110c5c4ef9dc9cd038e0c1b67}\label{class_exit_screen_a78d384b110c5c4ef9dc9cd038e0c1b67}} 
-void {\bfseries Set\+Exit\+Screen\+Display} (bool i)
+void \mbox{\hyperlink{class_exit_screen_af2e39b9b9745d7365c188160627147bb}{Init}} (std\+::string name, \mbox{\hyperlink{class_renderer}{Renderer}} $\ast$r)
 \item 
-\mbox{\Hypertarget{class_exit_screen_ad83f27410f76a8d6666117d76327f847}\label{class_exit_screen_ad83f27410f76a8d6666117d76327f847}} 
-\mbox{\hyperlink{class_shader}{Shader}} {\bfseries Get\+Shader} ()
+void \mbox{\hyperlink{class_exit_screen_a78d384b110c5c4ef9dc9cd038e0c1b67}{Set\+Exit\+Screen\+Display}} (bool i)
 \item 
-\mbox{\Hypertarget{class_exit_screen_a16168ab0c84ba63c7605bbda40f71a4d}\label{class_exit_screen_a16168ab0c84ba63c7605bbda40f71a4d}} 
-void {\bfseries Render} (\mbox{\hyperlink{class_renderer}{Renderer}} $\ast$r, \mbox{\hyperlink{class_view}{View}} lens)
+\mbox{\hyperlink{class_shader}{Shader}} \mbox{\hyperlink{class_exit_screen_ad83f27410f76a8d6666117d76327f847}{Get\+Shader}} ()
+\item 
+void \mbox{\hyperlink{class_exit_screen_a16168ab0c84ba63c7605bbda40f71a4d}{Render}} (\mbox{\hyperlink{class_renderer}{Renderer}} $\ast$r, \mbox{\hyperlink{class_view}{View}} lens)
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_exit_screen_a6e43233a65e1dc70c79b559aff3b62ec}\label{class_exit_screen_a6e43233a65e1dc70c79b559aff3b62ec}} 
-\mbox{\hyperlink{class_renderer}{Renderer}} $\ast$ {\bfseries renderer}
+\mbox{\hyperlink{class_renderer}{Renderer}} $\ast$ \mbox{\hyperlink{class_exit_screen_a6e43233a65e1dc70c79b559aff3b62ec}{renderer}}
 \item 
-\mbox{\Hypertarget{class_exit_screen_a48eff61e1c2c263627d13dbcc17f1827}\label{class_exit_screen_a48eff61e1c2c263627d13dbcc17f1827}} 
-\mbox{\hyperlink{class_shader}{Shader}} {\bfseries shader}
+\mbox{\hyperlink{class_shader}{Shader}} \mbox{\hyperlink{class_exit_screen_a48eff61e1c2c263627d13dbcc17f1827}{shader}}
 \item 
-\mbox{\Hypertarget{class_exit_screen_aab617b3f35e300d0bda2fc1df299d7c2}\label{class_exit_screen_aab617b3f35e300d0bda2fc1df299d7c2}} 
-\mbox{\hyperlink{class_model}{Model}} {\bfseries exit\+Model}
+\mbox{\hyperlink{class_model}{Model}} \mbox{\hyperlink{class_exit_screen_aab617b3f35e300d0bda2fc1df299d7c2}{exit\+Model}}
 \item 
-\mbox{\Hypertarget{class_exit_screen_a497d704276fc11ea61af9c9262e1494d}\label{class_exit_screen_a497d704276fc11ea61af9c9262e1494d}} 
-bool {\bfseries exit\+Screen\+Display}
+bool \mbox{\hyperlink{class_exit_screen_a497d704276fc11ea61af9c9262e1494d}{exit\+Screen\+Display}}
 \end{DoxyCompactItemize}
 
 
@@ -55,7 +53,70 @@ Bryce Standley
 \end{DoxyVersion}
 
 
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_exit_screen_a433bb8f719c96603dabb2c844a5fd18b}\label{class_exit_screen_a433bb8f719c96603dabb2c844a5fd18b}} 
+\index{ExitScreen@{ExitScreen}!ExitScreen@{ExitScreen}}
+\index{ExitScreen@{ExitScreen}!ExitScreen@{ExitScreen}}
+\doxysubsubsection{\texorpdfstring{ExitScreen()}{ExitScreen()}}
+{\footnotesize\ttfamily Exit\+Screen\+::\+Exit\+Screen (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_exit_screen_ad83f27410f76a8d6666117d76327f847}\label{class_exit_screen_ad83f27410f76a8d6666117d76327f847}} 
+\index{ExitScreen@{ExitScreen}!GetShader@{GetShader}}
+\index{GetShader@{GetShader}!ExitScreen@{ExitScreen}}
+\doxysubsubsection{\texorpdfstring{GetShader()}{GetShader()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_shader}{Shader}} Exit\+Screen\+::\+Get\+Shader (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{class_exit_screen_af2e39b9b9745d7365c188160627147bb}\label{class_exit_screen_af2e39b9b9745d7365c188160627147bb}} 
+\index{ExitScreen@{ExitScreen}!Init@{Init}}
+\index{Init@{Init}!ExitScreen@{ExitScreen}}
+\doxysubsubsection{\texorpdfstring{Init()}{Init()}}
+{\footnotesize\ttfamily void Exit\+Screen\+::\+Init (\begin{DoxyParamCaption}\item[{std\+::string}]{name,  }\item[{\mbox{\hyperlink{class_renderer}{Renderer}} $\ast$}]{r }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_exit_screen_a16168ab0c84ba63c7605bbda40f71a4d}\label{class_exit_screen_a16168ab0c84ba63c7605bbda40f71a4d}} 
+\index{ExitScreen@{ExitScreen}!Render@{Render}}
+\index{Render@{Render}!ExitScreen@{ExitScreen}}
+\doxysubsubsection{\texorpdfstring{Render()}{Render()}}
+{\footnotesize\ttfamily void Exit\+Screen\+::\+Render (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_renderer}{Renderer}} $\ast$}]{r,  }\item[{\mbox{\hyperlink{class_view}{View}}}]{lens }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_exit_screen_a78d384b110c5c4ef9dc9cd038e0c1b67}\label{class_exit_screen_a78d384b110c5c4ef9dc9cd038e0c1b67}} 
+\index{ExitScreen@{ExitScreen}!SetExitScreenDisplay@{SetExitScreenDisplay}}
+\index{SetExitScreenDisplay@{SetExitScreenDisplay}!ExitScreen@{ExitScreen}}
+\doxysubsubsection{\texorpdfstring{SetExitScreenDisplay()}{SetExitScreenDisplay()}}
+{\footnotesize\ttfamily void Exit\+Screen\+::\+Set\+Exit\+Screen\+Display (\begin{DoxyParamCaption}\item[{bool}]{i }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{class_exit_screen_aab617b3f35e300d0bda2fc1df299d7c2}\label{class_exit_screen_aab617b3f35e300d0bda2fc1df299d7c2}} 
+\index{ExitScreen@{ExitScreen}!exitModel@{exitModel}}
+\index{exitModel@{exitModel}!ExitScreen@{ExitScreen}}
+\doxysubsubsection{\texorpdfstring{exitModel}{exitModel}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_model}{Model}} Exit\+Screen\+::exit\+Model}
+
+\mbox{\Hypertarget{class_exit_screen_a497d704276fc11ea61af9c9262e1494d}\label{class_exit_screen_a497d704276fc11ea61af9c9262e1494d}} 
+\index{ExitScreen@{ExitScreen}!exitScreenDisplay@{exitScreenDisplay}}
+\index{exitScreenDisplay@{exitScreenDisplay}!ExitScreen@{ExitScreen}}
+\doxysubsubsection{\texorpdfstring{exitScreenDisplay}{exitScreenDisplay}}
+{\footnotesize\ttfamily bool Exit\+Screen\+::exit\+Screen\+Display}
+
+\mbox{\Hypertarget{class_exit_screen_a6e43233a65e1dc70c79b559aff3b62ec}\label{class_exit_screen_a6e43233a65e1dc70c79b559aff3b62ec}} 
+\index{ExitScreen@{ExitScreen}!renderer@{renderer}}
+\index{renderer@{renderer}!ExitScreen@{ExitScreen}}
+\doxysubsubsection{\texorpdfstring{renderer}{renderer}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_renderer}{Renderer}}$\ast$ Exit\+Screen\+::renderer}
+
+\mbox{\Hypertarget{class_exit_screen_a48eff61e1c2c263627d13dbcc17f1827}\label{class_exit_screen_a48eff61e1c2c263627d13dbcc17f1827}} 
+\index{ExitScreen@{ExitScreen}!shader@{shader}}
+\index{shader@{shader}!ExitScreen@{ExitScreen}}
+\doxysubsubsection{\texorpdfstring{shader}{shader}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_shader}{Shader}} Exit\+Screen\+::shader}
+
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-/\+Volumes/\+GITS/\+ICT397-\/\+Project/\+ICT397-\/\+Project-\/\+Engine/Exit\+Screen.\+h\item 
-/\+Volumes/\+GITS/\+ICT397-\/\+Project/\+ICT397-\/\+Project-\/\+Engine/Exit\+Screen.\+cpp\end{DoxyCompactItemize}
+ICT397-\/\+Project-\/\+Engine/\mbox{\hyperlink{_exit_screen_8h}{Exit\+Screen.\+h}}\item 
+ICT397-\/\+Project-\/\+Engine/\mbox{\hyperlink{_exit_screen_8cpp}{Exit\+Screen.\+cpp}}\end{DoxyCompactItemize}

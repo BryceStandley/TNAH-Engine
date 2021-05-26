@@ -12,31 +12,32 @@ Contains the aspects of a game that would be held in a scene, this being game\+O
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_scene_ad10176d75a9cc0da56626f682d083507}\label{class_scene_ad10176d75a9cc0da56626f682d083507}} 
 \mbox{\hyperlink{class_scene_ad10176d75a9cc0da56626f682d083507}{Scene}} ()
 \begin{DoxyCompactList}\small\item\em Default constructor. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{class_scene_ae5c2a906a6c191c0a84397ae3d1aac9e}{Scene}} (std\+::string name, \mbox{\hyperlink{class_renderer}{Renderer}} $\ast$render)
 \begin{DoxyCompactList}\small\item\em Name and \mbox{\hyperlink{class_renderer}{Renderer}} constructor. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{class_scene_a3b8cec2e32546713915f8c6303c951f1}\label{class_scene_a3b8cec2e32546713915f8c6303c951f1}} 
 \mbox{\hyperlink{class_scene_a3b8cec2e32546713915f8c6303c951f1}{$\sim$\+Scene}} ()
 \begin{DoxyCompactList}\small\item\em Destructor. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{class_scene_acaa19d509c2a82c3493085c5f1217e15}{Run}} (\mbox{\hyperlink{class_view}{View}} lens, float time, bool exit)
 \begin{DoxyCompactList}\small\item\em Runs the scene, setting up objects for rendering and changes. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{class_scene_a0f3009b2ffcd55c44ebb1d571bbdd101}\label{class_scene_a0f3009b2ffcd55c44ebb1d571bbdd101}} 
 void \mbox{\hyperlink{class_scene_a0f3009b2ffcd55c44ebb1d571bbdd101}{Init}} ()
 \begin{DoxyCompactList}\small\item\em Initilises the scene, setting up the terrain and skybox. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_scene_a0edd1fabca8d13cb5cd63f2f3354750a}{Load}} (std\+::string file)
+\item 
+bool \mbox{\hyperlink{class_scene_ad0a8f2efd59165c5d06a4987fc2a0e11}{Load\+Save\+File}} ()
+\item 
+void \mbox{\hyperlink{class_scene_a4eb18dc3cb3966dc71c0d3374bf82ee6}{Unload}} ()
+\item 
 std\+::string \mbox{\hyperlink{class_scene_a15cb65348bc14aabb533fa568ef5068d}{Get\+Scene\+Name}} () const
 \begin{DoxyCompactList}\small\item\em Gets the name of the current scene. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{class_scene_aa64a0f18c537f9343d6fcda516377d92}{Make\+Game\+Object}} (std\+::string t, std\+::string model\+Name, std\+::string shaderV, std\+::string shaderF, float scale, float x, float y, float z, float speed)
+void \mbox{\hyperlink{class_scene_aa368a085e818a495826718959087f3dd}{Make\+Game\+Object}} (std\+::string t, std\+::string script, float scale, float x, float y, float z)
 \begin{DoxyCompactList}\small\item\em Function that uses the game asset factory to create a new game object. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{class_game_object}{Game\+Object}} $\ast$ \mbox{\hyperlink{class_scene_aceeecfaa17397132f8935fdc64ff50d1}{Get\+Game\+Object}} (int i)
 \begin{DoxyCompactList}\small\item\em Gets a gameobject from the game objects. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{class_scene_a631c241c5336ea6e41e8502c5a597ad5}{Update\+Player}} (glm\+::vec3 position, glm\+::vec3 rotation)
 \begin{DoxyCompactList}\small\item\em Updates the players position in relation to the world. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{class_scene_a2072654e58d5fa003273c50d2eb0cac0}\label{class_scene_a2072654e58d5fa003273c50d2eb0cac0}} 
 int \mbox{\hyperlink{class_scene_a2072654e58d5fa003273c50d2eb0cac0}{Get\+Player\+Indice}} ()
 \begin{DoxyCompactList}\small\item\em Gets the player\+Ind value and returns it. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{class_scene_aa8cec41531b3bc08e1c264e6e9f0341a}\label{class_scene_aa8cec41531b3bc08e1c264e6e9f0341a}} 
 void \mbox{\hyperlink{class_scene_aa8cec41531b3bc08e1c264e6e9f0341a}{Find\+Player\+Indice}} ()
 \begin{DoxyCompactList}\small\item\em Finds the player\+Ind value within the Scenes game\+Objects. \end{DoxyCompactList}\item 
 glm\+::vec3 \mbox{\hyperlink{class_scene_afad980b02acfeeb81c46786f1818bffc}{Check\+Scene\+Collision}} (glm\+::vec3 pos)
@@ -45,19 +46,37 @@ glm\+::vec3 \mbox{\hyperlink{class_scene_afad980b02acfeeb81c46786f1818bffc}{Chec
 \begin{DoxyCompactList}\small\item\em Returns the scenes terrain data. \end{DoxyCompactList}\item 
 glm\+::vec3 \mbox{\hyperlink{class_scene_a33fbd9a1c5230c5591c4edf815361dc0}{World\+To\+Terrain\+Position}} (glm\+::vec3 p, bool average)
 \begin{DoxyCompactList}\small\item\em Converts a given world vec3 to terrain position for height/Y calculations. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{class_scene_ac2b3bd209bb14fb0b7b3429a1f9f41e7}\label{class_scene_ac2b3bd209bb14fb0b7b3429a1f9f41e7}} 
-\mbox{\hyperlink{class_exit_screen}{Exit\+Screen}} {\bfseries Get\+Exit\+Screen} ()
+\mbox{\hyperlink{class_exit_screen}{Exit\+Screen}} \mbox{\hyperlink{class_scene_ac2b3bd209bb14fb0b7b3429a1f9f41e7}{Get\+Exit\+Screen}} ()
 \item 
-\mbox{\Hypertarget{class_scene_a41f6c923fa7d9163d712a8407007980b}\label{class_scene_a41f6c923fa7d9163d712a8407007980b}} 
-void {\bfseries Set\+Exit\+Screen} (\mbox{\hyperlink{class_exit_screen}{Exit\+Screen}} screen)
+void \mbox{\hyperlink{class_scene_a41f6c923fa7d9163d712a8407007980b}{Set\+Exit\+Screen}} (\mbox{\hyperlink{class_exit_screen}{Exit\+Screen}} screen)
 \item 
-\mbox{\Hypertarget{class_scene_a352d9a211260c4eb3a0552ff4f1d0d5d}\label{class_scene_a352d9a211260c4eb3a0552ff4f1d0d5d}} 
 void \mbox{\hyperlink{class_scene_a352d9a211260c4eb3a0552ff4f1d0d5d}{Move\+Object\+Away\+From\+Player}} ()
-\begin{DoxyCompactList}\small\item\em moves all objects away from the player if they spawn to close to the player \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em moves all objects away from the player if they spawn to close to the player \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_scene_a40f074172d5a81db26af939b3619fda5}{Run\+Player}} (\mbox{\hyperlink{class_view}{View}} lens, float time, bool exit)
+\item 
+void \mbox{\hyperlink{class_scene_a6e19a83bf09b67483416f16ceb2d159f}{Update\+Game\+Object}} (glm\+::vec3 position, int i)
+\item 
+glm\+::vec3 \mbox{\hyperlink{class_scene_a3c2a6d17f596588d71083a4ef7249637}{Enemy\+Obstacle\+Avoidance}} (\mbox{\hyperlink{class_game_object}{Game\+Object}} $\ast$self, glm\+::vec3 new\+Position)
+\item 
+void \mbox{\hyperlink{class_scene_a647c76b034c59296c317e55845eb1c09}{Fire\+Weapon}} (glm\+::vec3 weapon\+Start\+Pos, glm\+::vec3 forward, float fire\+Distance)
+\item 
+void \mbox{\hyperlink{class_scene_afb72f3d0fc00e8e9cf30c169733ddc31}{Enemy\+Fire\+Weapon}} (\mbox{\hyperlink{class_game_object}{Game\+Object}} $\ast$enemy, float fire\+Distance)
+\item 
+void \mbox{\hyperlink{class_scene_a37137ee9528ac401ece6dfe869f3f2bb}{Set\+Player\+Weapon}} (\mbox{\hyperlink{class_weapon}{Weapon}} w)
+\item 
+\mbox{\hyperlink{class_weapon}{Weapon}} \mbox{\hyperlink{class_scene_a4c4291345de9e29909962adb2828dd71}{Get\+Player\+Weapon}} ()
+\item 
+void \mbox{\hyperlink{class_scene_a9fa61ab877c849207a5a2ba191b59bd6}{Save\+Game}} ()
+\end{DoxyCompactItemize}
 \doxysubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 static bool \mbox{\hyperlink{class_scene_ada22f03b86c4537d89326586e69af23c}{intersect\+Ray\+Segment\+Sphere}} (glm\+::vec3 o, glm\+::vec3 d, glm\+::vec3 so, float radius, glm\+::vec3 \&ip)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{class_scene_a689ac3c0a55817bdad97b2bc8bdec5bd}{loaded}}
 \end{DoxyCompactItemize}
 
 
@@ -87,10 +106,20 @@ Bryce Standley
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_scene_ad10176d75a9cc0da56626f682d083507}\label{class_scene_ad10176d75a9cc0da56626f682d083507}} 
+\index{Scene@{Scene}!Scene@{Scene}}
+\index{Scene@{Scene}!Scene@{Scene}}
+\doxysubsubsection{\texorpdfstring{Scene()}{Scene()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Scene\+::\+Scene (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Default constructor. 
+
 \mbox{\Hypertarget{class_scene_ae5c2a906a6c191c0a84397ae3d1aac9e}\label{class_scene_ae5c2a906a6c191c0a84397ae3d1aac9e}} 
 \index{Scene@{Scene}!Scene@{Scene}}
 \index{Scene@{Scene}!Scene@{Scene}}
-\doxysubsubsection{\texorpdfstring{Scene()}{Scene()}}
+\doxysubsubsection{\texorpdfstring{Scene()}{Scene()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
 {\footnotesize\ttfamily Scene\+::\+Scene (\begin{DoxyParamCaption}\item[{std\+::string}]{name,  }\item[{\mbox{\hyperlink{class_renderer}{Renderer}} $\ast$}]{render }\end{DoxyParamCaption})}
 
 
@@ -104,6 +133,16 @@ Name and \mbox{\hyperlink{class_renderer}{Renderer}} constructor.
 {\em The} & renderer pointer \\
 \hline
 \end{DoxyParams}
+\mbox{\Hypertarget{class_scene_a3b8cec2e32546713915f8c6303c951f1}\label{class_scene_a3b8cec2e32546713915f8c6303c951f1}} 
+\index{Scene@{Scene}!````~Scene@{$\sim$Scene}}
+\index{````~Scene@{$\sim$Scene}!Scene@{Scene}}
+\doxysubsubsection{\texorpdfstring{$\sim$Scene()}{~Scene()}}
+{\footnotesize\ttfamily Scene\+::$\sim$\+Scene (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Destructor. 
+
 
 
 \doxysubsection{Member Function Documentation}
@@ -125,6 +164,40 @@ Checks the players position against scene game objects for collisions.
 \begin{DoxyReturn}{Returns}
 vec3 -\/ new position if player collides with a object 
 \end{DoxyReturn}
+\mbox{\Hypertarget{class_scene_afb72f3d0fc00e8e9cf30c169733ddc31}\label{class_scene_afb72f3d0fc00e8e9cf30c169733ddc31}} 
+\index{Scene@{Scene}!EnemyFireWeapon@{EnemyFireWeapon}}
+\index{EnemyFireWeapon@{EnemyFireWeapon}!Scene@{Scene}}
+\doxysubsubsection{\texorpdfstring{EnemyFireWeapon()}{EnemyFireWeapon()}}
+{\footnotesize\ttfamily void Scene\+::\+Enemy\+Fire\+Weapon (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_game_object}{Game\+Object}} $\ast$}]{enemy,  }\item[{float}]{fire\+Distance }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_scene_a3c2a6d17f596588d71083a4ef7249637}\label{class_scene_a3c2a6d17f596588d71083a4ef7249637}} 
+\index{Scene@{Scene}!EnemyObstacleAvoidance@{EnemyObstacleAvoidance}}
+\index{EnemyObstacleAvoidance@{EnemyObstacleAvoidance}!Scene@{Scene}}
+\doxysubsubsection{\texorpdfstring{EnemyObstacleAvoidance()}{EnemyObstacleAvoidance()}}
+{\footnotesize\ttfamily glm\+::vec3 Scene\+::\+Enemy\+Obstacle\+Avoidance (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_game_object}{Game\+Object}} $\ast$}]{self,  }\item[{glm\+::vec3}]{new\+Position }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_scene_aa8cec41531b3bc08e1c264e6e9f0341a}\label{class_scene_aa8cec41531b3bc08e1c264e6e9f0341a}} 
+\index{Scene@{Scene}!FindPlayerIndice@{FindPlayerIndice}}
+\index{FindPlayerIndice@{FindPlayerIndice}!Scene@{Scene}}
+\doxysubsubsection{\texorpdfstring{FindPlayerIndice()}{FindPlayerIndice()}}
+{\footnotesize\ttfamily void Scene\+::\+Find\+Player\+Indice (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Finds the player\+Ind value within the Scenes game\+Objects. 
+
+\mbox{\Hypertarget{class_scene_a647c76b034c59296c317e55845eb1c09}\label{class_scene_a647c76b034c59296c317e55845eb1c09}} 
+\index{Scene@{Scene}!FireWeapon@{FireWeapon}}
+\index{FireWeapon@{FireWeapon}!Scene@{Scene}}
+\doxysubsubsection{\texorpdfstring{FireWeapon()}{FireWeapon()}}
+{\footnotesize\ttfamily void Scene\+::\+Fire\+Weapon (\begin{DoxyParamCaption}\item[{glm\+::vec3}]{weapon\+Start\+Pos,  }\item[{glm\+::vec3}]{forward,  }\item[{float}]{fire\+Distance }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_scene_ac2b3bd209bb14fb0b7b3429a1f9f41e7}\label{class_scene_ac2b3bd209bb14fb0b7b3429a1f9f41e7}} 
+\index{Scene@{Scene}!GetExitScreen@{GetExitScreen}}
+\index{GetExitScreen@{GetExitScreen}!Scene@{Scene}}
+\doxysubsubsection{\texorpdfstring{GetExitScreen()}{GetExitScreen()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_exit_screen}{Exit\+Screen}} Scene\+::\+Get\+Exit\+Screen (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
 \mbox{\Hypertarget{class_scene_aceeecfaa17397132f8935fdc64ff50d1}\label{class_scene_aceeecfaa17397132f8935fdc64ff50d1}} 
 \index{Scene@{Scene}!GetGameObject@{GetGameObject}}
 \index{GetGameObject@{GetGameObject}!Scene@{Scene}}
@@ -140,6 +213,22 @@ Gets a gameobject from the game objects.
 {\em i} & -\/ The indice of the game object \\
 \hline
 \end{DoxyParams}
+\mbox{\Hypertarget{class_scene_a2072654e58d5fa003273c50d2eb0cac0}\label{class_scene_a2072654e58d5fa003273c50d2eb0cac0}} 
+\index{Scene@{Scene}!GetPlayerIndice@{GetPlayerIndice}}
+\index{GetPlayerIndice@{GetPlayerIndice}!Scene@{Scene}}
+\doxysubsubsection{\texorpdfstring{GetPlayerIndice()}{GetPlayerIndice()}}
+{\footnotesize\ttfamily int Scene\+::\+Get\+Player\+Indice (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the player\+Ind value and returns it. 
+
+\mbox{\Hypertarget{class_scene_a4c4291345de9e29909962adb2828dd71}\label{class_scene_a4c4291345de9e29909962adb2828dd71}} 
+\index{Scene@{Scene}!GetPlayerWeapon@{GetPlayerWeapon}}
+\index{GetPlayerWeapon@{GetPlayerWeapon}!Scene@{Scene}}
+\doxysubsubsection{\texorpdfstring{GetPlayerWeapon()}{GetPlayerWeapon()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_weapon}{Weapon}} Scene\+::\+Get\+Player\+Weapon (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
 \mbox{\Hypertarget{class_scene_a15cb65348bc14aabb533fa568ef5068d}\label{class_scene_a15cb65348bc14aabb533fa568ef5068d}} 
 \index{Scene@{Scene}!GetSceneName@{GetSceneName}}
 \index{GetSceneName@{GetSceneName}!Scene@{Scene}}
@@ -166,6 +255,16 @@ Returns the scenes terrain data.
 \begin{DoxyReturn}{Returns}
 terrain 
 \end{DoxyReturn}
+\mbox{\Hypertarget{class_scene_a0f3009b2ffcd55c44ebb1d571bbdd101}\label{class_scene_a0f3009b2ffcd55c44ebb1d571bbdd101}} 
+\index{Scene@{Scene}!Init@{Init}}
+\index{Init@{Init}!Scene@{Scene}}
+\doxysubsubsection{\texorpdfstring{Init()}{Init()}}
+{\footnotesize\ttfamily void Scene\+::\+Init (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Initilises the scene, setting up the terrain and skybox. 
+
 \mbox{\Hypertarget{class_scene_ada22f03b86c4537d89326586e69af23c}\label{class_scene_ada22f03b86c4537d89326586e69af23c}} 
 \index{Scene@{Scene}!intersectRaySegmentSphere@{intersectRaySegmentSphere}}
 \index{intersectRaySegmentSphere@{intersectRaySegmentSphere}!Scene@{Scene}}
@@ -188,11 +287,23 @@ terrain
 \begin{DoxyReturn}{Returns}
 bool 
 \end{DoxyReturn}
-\mbox{\Hypertarget{class_scene_aa64a0f18c537f9343d6fcda516377d92}\label{class_scene_aa64a0f18c537f9343d6fcda516377d92}} 
+\mbox{\Hypertarget{class_scene_a0edd1fabca8d13cb5cd63f2f3354750a}\label{class_scene_a0edd1fabca8d13cb5cd63f2f3354750a}} 
+\index{Scene@{Scene}!Load@{Load}}
+\index{Load@{Load}!Scene@{Scene}}
+\doxysubsubsection{\texorpdfstring{Load()}{Load()}}
+{\footnotesize\ttfamily void Scene\+::\+Load (\begin{DoxyParamCaption}\item[{std\+::string}]{file }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_scene_ad0a8f2efd59165c5d06a4987fc2a0e11}\label{class_scene_ad0a8f2efd59165c5d06a4987fc2a0e11}} 
+\index{Scene@{Scene}!LoadSaveFile@{LoadSaveFile}}
+\index{LoadSaveFile@{LoadSaveFile}!Scene@{Scene}}
+\doxysubsubsection{\texorpdfstring{LoadSaveFile()}{LoadSaveFile()}}
+{\footnotesize\ttfamily bool Scene\+::\+Load\+Save\+File (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_scene_aa368a085e818a495826718959087f3dd}\label{class_scene_aa368a085e818a495826718959087f3dd}} 
 \index{Scene@{Scene}!MakeGameObject@{MakeGameObject}}
 \index{MakeGameObject@{MakeGameObject}!Scene@{Scene}}
 \doxysubsubsection{\texorpdfstring{MakeGameObject()}{MakeGameObject()}}
-{\footnotesize\ttfamily void Scene\+::\+Make\+Game\+Object (\begin{DoxyParamCaption}\item[{std\+::string}]{t,  }\item[{std\+::string}]{model\+Name,  }\item[{std\+::string}]{shaderV,  }\item[{std\+::string}]{shaderF,  }\item[{float}]{scale,  }\item[{float}]{x,  }\item[{float}]{y,  }\item[{float}]{z,  }\item[{float}]{speed }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void Scene\+::\+Make\+Game\+Object (\begin{DoxyParamCaption}\item[{std\+::string}]{t,  }\item[{std\+::string}]{script,  }\item[{float}]{scale,  }\item[{float}]{x,  }\item[{float}]{y,  }\item[{float}]{z }\end{DoxyParamCaption})}
 
 
 
@@ -223,6 +334,16 @@ Function that uses the game asset factory to create a new game object.
 {\em speed} & -\/ The speed at which it moves \\
 \hline
 \end{DoxyParams}
+\mbox{\Hypertarget{class_scene_a352d9a211260c4eb3a0552ff4f1d0d5d}\label{class_scene_a352d9a211260c4eb3a0552ff4f1d0d5d}} 
+\index{Scene@{Scene}!MoveObjectAwayFromPlayer@{MoveObjectAwayFromPlayer}}
+\index{MoveObjectAwayFromPlayer@{MoveObjectAwayFromPlayer}!Scene@{Scene}}
+\doxysubsubsection{\texorpdfstring{MoveObjectAwayFromPlayer()}{MoveObjectAwayFromPlayer()}}
+{\footnotesize\ttfamily void Scene\+::\+Move\+Object\+Away\+From\+Player (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+moves all objects away from the player if they spawn to close to the player 
+
 \mbox{\Hypertarget{class_scene_acaa19d509c2a82c3493085c5f1217e15}\label{class_scene_acaa19d509c2a82c3493085c5f1217e15}} 
 \index{Scene@{Scene}!Run@{Run}}
 \index{Run@{Run}!Scene@{Scene}}
@@ -238,6 +359,42 @@ Runs the scene, setting up objects for rendering and changes.
 {\em lens} & -\/ Holds information to do with the position of the camera, projects and views \\
 \hline
 \end{DoxyParams}
+\mbox{\Hypertarget{class_scene_a40f074172d5a81db26af939b3619fda5}\label{class_scene_a40f074172d5a81db26af939b3619fda5}} 
+\index{Scene@{Scene}!RunPlayer@{RunPlayer}}
+\index{RunPlayer@{RunPlayer}!Scene@{Scene}}
+\doxysubsubsection{\texorpdfstring{RunPlayer()}{RunPlayer()}}
+{\footnotesize\ttfamily void Scene\+::\+Run\+Player (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_view}{View}}}]{lens,  }\item[{float}]{time,  }\item[{bool}]{exit }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_scene_a9fa61ab877c849207a5a2ba191b59bd6}\label{class_scene_a9fa61ab877c849207a5a2ba191b59bd6}} 
+\index{Scene@{Scene}!SaveGame@{SaveGame}}
+\index{SaveGame@{SaveGame}!Scene@{Scene}}
+\doxysubsubsection{\texorpdfstring{SaveGame()}{SaveGame()}}
+{\footnotesize\ttfamily void Scene\+::\+Save\+Game (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{class_scene_a41f6c923fa7d9163d712a8407007980b}\label{class_scene_a41f6c923fa7d9163d712a8407007980b}} 
+\index{Scene@{Scene}!SetExitScreen@{SetExitScreen}}
+\index{SetExitScreen@{SetExitScreen}!Scene@{Scene}}
+\doxysubsubsection{\texorpdfstring{SetExitScreen()}{SetExitScreen()}}
+{\footnotesize\ttfamily void Scene\+::\+Set\+Exit\+Screen (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_exit_screen}{Exit\+Screen}}}]{screen }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{class_scene_a37137ee9528ac401ece6dfe869f3f2bb}\label{class_scene_a37137ee9528ac401ece6dfe869f3f2bb}} 
+\index{Scene@{Scene}!SetPlayerWeapon@{SetPlayerWeapon}}
+\index{SetPlayerWeapon@{SetPlayerWeapon}!Scene@{Scene}}
+\doxysubsubsection{\texorpdfstring{SetPlayerWeapon()}{SetPlayerWeapon()}}
+{\footnotesize\ttfamily void Scene\+::\+Set\+Player\+Weapon (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_weapon}{Weapon}}}]{w }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{class_scene_a4eb18dc3cb3966dc71c0d3374bf82ee6}\label{class_scene_a4eb18dc3cb3966dc71c0d3374bf82ee6}} 
+\index{Scene@{Scene}!Unload@{Unload}}
+\index{Unload@{Unload}!Scene@{Scene}}
+\doxysubsubsection{\texorpdfstring{Unload()}{Unload()}}
+{\footnotesize\ttfamily void Scene\+::\+Unload (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_scene_a6e19a83bf09b67483416f16ceb2d159f}\label{class_scene_a6e19a83bf09b67483416f16ceb2d159f}} 
+\index{Scene@{Scene}!UpdateGameObject@{UpdateGameObject}}
+\index{UpdateGameObject@{UpdateGameObject}!Scene@{Scene}}
+\doxysubsubsection{\texorpdfstring{UpdateGameObject()}{UpdateGameObject()}}
+{\footnotesize\ttfamily void Scene\+::\+Update\+Game\+Object (\begin{DoxyParamCaption}\item[{glm\+::vec3}]{position,  }\item[{int}]{i }\end{DoxyParamCaption})}
+
 \mbox{\Hypertarget{class_scene_a631c241c5336ea6e41e8502c5a597ad5}\label{class_scene_a631c241c5336ea6e41e8502c5a597ad5}} 
 \index{Scene@{Scene}!UpdatePlayer@{UpdatePlayer}}
 \index{UpdatePlayer@{UpdatePlayer}!Scene@{Scene}}
@@ -268,7 +425,16 @@ vec3 -\/ position relative to the terrain
 \end{DoxyReturn}
 
 
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{class_scene_a689ac3c0a55817bdad97b2bc8bdec5bd}\label{class_scene_a689ac3c0a55817bdad97b2bc8bdec5bd}} 
+\index{Scene@{Scene}!loaded@{loaded}}
+\index{loaded@{loaded}!Scene@{Scene}}
+\doxysubsubsection{\texorpdfstring{loaded}{loaded}}
+{\footnotesize\ttfamily bool Scene\+::loaded}
+
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-/\+Volumes/\+GITS/\+ICT397-\/\+Project/\+ICT397-\/\+Project-\/\+Engine/Scene.\+h\item 
-/\+Volumes/\+GITS/\+ICT397-\/\+Project/\+ICT397-\/\+Project-\/\+Engine/Scene.\+cpp\end{DoxyCompactItemize}
+ICT397-\/\+Project-\/\+Engine/\mbox{\hyperlink{_scene_8h}{Scene.\+h}}\item 
+ICT397-\/\+Project-\/\+Engine/\mbox{\hyperlink{_scene_8cpp}{Scene.\+cpp}}\end{DoxyCompactItemize}

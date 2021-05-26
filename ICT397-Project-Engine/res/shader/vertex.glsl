@@ -20,8 +20,8 @@ void main()
 	FragPos = vec3(model * vec4(aPos, 1.0f));
 	gl_Position = projection * view * model * vec4(aPos, 1.0f);
 	Normal = mat3(transpose(inverse(model))) * aNormal;
-	//ourColor = aColor;
+
 	texCoord = vec2(aTexCoord.x, aTexCoord.z);
-	height = aColor.y *255;
+	height = aColor.y * 255;
 	
 }

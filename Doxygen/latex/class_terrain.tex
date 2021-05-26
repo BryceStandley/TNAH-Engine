@@ -12,19 +12,14 @@
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_terrain_ae6515958ec443db2c36b07e7938cd67f}\label{class_terrain_ae6515958ec443db2c36b07e7938cd67f}} 
-std\+::vector$<$ unsigned int $>$ {\bfseries Get\+Indicies} ()
-\item 
-\mbox{\Hypertarget{class_terrain_a40aed738a629bfc4bdacd9d319dca8e3}\label{class_terrain_a40aed738a629bfc4bdacd9d319dca8e3}} 
-std\+::vector$<$ glm\+::vec3 $>$ {\bfseries Get\+Total\+Data} ()
-\item 
-\mbox{\Hypertarget{class_terrain_aea73b47c73faf1945e85e06c144e7e0e}\label{class_terrain_aea73b47c73faf1945e85e06c144e7e0e}} 
-void {\bfseries Set\+Shader} (\mbox{\hyperlink{class_shader}{Shader}} s)
-\item 
-\mbox{\Hypertarget{class_terrain_a7160a06ab07a86ed97d23374405e8ef6}\label{class_terrain_a7160a06ab07a86ed97d23374405e8ef6}} 
+std\+::vector$<$ unsigned int $>$ \mbox{\hyperlink{class_terrain_ae6515958ec443db2c36b07e7938cd67f}{Get\+Indicies}} ()
+\begin{DoxyCompactList}\small\item\em gets and returns a vector containing all indice values \end{DoxyCompactList}\item 
+std\+::vector$<$ glm\+::vec3 $>$ \mbox{\hyperlink{class_terrain_a40aed738a629bfc4bdacd9d319dca8e3}{Get\+Total\+Data}} ()
+\begin{DoxyCompactList}\small\item\em gets and returns and vector containing the total\+Data \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_terrain_aea73b47c73faf1945e85e06c144e7e0e}{Set\+Shader}} (\mbox{\hyperlink{class_shader}{Shader}} s)
+\begin{DoxyCompactList}\small\item\em sets the terrain shader to the shader provided to the function as a parameter \end{DoxyCompactList}\item 
 \mbox{\hyperlink{class_terrain_a7160a06ab07a86ed97d23374405e8ef6}{Terrain}} ()
 \begin{DoxyCompactList}\small\item\em default constructor that initialises the terrain object \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{class_terrain_a2f7f0a2aee54886324ccf48a6f321de0}\label{class_terrain_a2f7f0a2aee54886324ccf48a6f321de0}} 
 \mbox{\hyperlink{class_terrain_a2f7f0a2aee54886324ccf48a6f321de0}{$\sim$\+Terrain}} ()
 \begin{DoxyCompactList}\small\item\em destructor that deallocates terrain memory when object is detroyed \end{DoxyCompactList}\item 
 unsigned int \mbox{\hyperlink{class_terrain_a410cd0467a5f67e8be7de27265d9010c}{Get\+VAO}} () const
@@ -33,10 +28,8 @@ std\+::vector$<$ unsigned int $>$ \mbox{\hyperlink{class_terrain_af14ef5128a9a2e
 \begin{DoxyCompactList}\small\item\em Get method that a vector containing texture IDs. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{class_shader}{Shader}} \mbox{\hyperlink{class_terrain_acdd24f95ab3ca7a9146b32a31f4def35}{Get\+Shader}} () const
 \begin{DoxyCompactList}\small\item\em Get method that returns a shader object. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{class_terrain_a70fac68a7900a4bddbf5c4b35b57b6f9}\label{class_terrain_a70fac68a7900a4bddbf5c4b35b57b6f9}} 
 void \mbox{\hyperlink{class_terrain_a70fac68a7900a4bddbf5c4b35b57b6f9}{Init}} ()
 \begin{DoxyCompactList}\small\item\em A function that calls all the functions required to initialise the terrain. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{class_terrain_ac8f074502cb581199a1eb57eceab6395}\label{class_terrain_ac8f074502cb581199a1eb57eceab6395}} 
 void \mbox{\hyperlink{class_terrain_ac8f074502cb581199a1eb57eceab6395}{lua\+Loader}} ()
 \begin{DoxyCompactList}\small\item\em loads an instance of lua and uses it to assign values from a lua script to terrain variables \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{class_terrain_ab901804353705f46fe0feb28d06ddc34}{attach\+Shader}} (\mbox{\hyperlink{class_shader}{Shader}} shad)
@@ -55,10 +48,8 @@ unsigned char \mbox{\hyperlink{class_terrain_a32f65a30b78665629dc04fe6670d5812}{
 \begin{DoxyCompactList}\small\item\em Gets and returns the height (y-\/value) color for a position in the terrain using given x and z values. \end{DoxyCompactList}\item 
 bool \mbox{\hyperlink{class_terrain_a163e75f11a483ff2ac18c8cd9d5ffe64}{in\+Bounds}} (int x, int y)
 \begin{DoxyCompactList}\small\item\em Checks if x and y coordinates are within the required range. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{class_terrain_ace82a14b31791205a9289441d6688947}\label{class_terrain_ace82a14b31791205a9289441d6688947}} 
 void \mbox{\hyperlink{class_terrain_ace82a14b31791205a9289441d6688947}{generate\+Terrain}} ()
 \begin{DoxyCompactList}\small\item\em Generates the terrain by generating the positions, colors, texture coords, indices and placing them in a vector. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{class_terrain_ad689326d663662c6b11959247d4a87bb}\label{class_terrain_ad689326d663662c6b11959247d4a87bb}} 
 void \mbox{\hyperlink{class_terrain_ad689326d663662c6b11959247d4a87bb}{set\+Textures}} ()
 \begin{DoxyCompactList}\small\item\em Sets the textures that the terrain will use to implement multitexturing and detail mapping. \end{DoxyCompactList}\item 
 float \mbox{\hyperlink{class_terrain_a219c33a4b4a0567ff06f587019549d4f}{get\+Average\+Height}} (int xpos, int zpos)
@@ -71,34 +62,26 @@ void \mbox{\hyperlink{class_terrain_a789357e39c96b4a751d0151ce27f6e87}{generate\
 \begin{DoxyCompactList}\small\item\em Generates color vertices. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{class_terrain_a02a57605b8d5dfca13a4916ad4c19415}{generate\+Textures}} (\mbox{\hyperlink{struct_vertex}{Vertex}} \&vertex)
 \begin{DoxyCompactList}\small\item\em Generates texture vertices. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{class_terrain_ab49954895f9ec0814d10b2bc99736ecb}\label{class_terrain_ab49954895f9ec0814d10b2bc99736ecb}} 
 void \mbox{\hyperlink{class_terrain_ab49954895f9ec0814d10b2bc99736ecb}{generate\+Normals}} ()
 \begin{DoxyCompactList}\small\item\em Generates vertex normals. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_terrain_acdb369701d8b26be0499dfede75f195c}\label{class_terrain_acdb369701d8b26be0499dfede75f195c}} 
-unsigned int {\bfseries VAO} = 0
+unsigned int \mbox{\hyperlink{class_terrain_acdb369701d8b26be0499dfede75f195c}{VAO}} = 0
 \item 
-\mbox{\Hypertarget{class_terrain_ad30db2e625ef7a10e9e167e4c8fdfaa0}\label{class_terrain_ad30db2e625ef7a10e9e167e4c8fdfaa0}} 
-unsigned int {\bfseries VBO} = 0
+unsigned int \mbox{\hyperlink{class_terrain_ad30db2e625ef7a10e9e167e4c8fdfaa0}{VBO}} = 0
 \item 
-\mbox{\Hypertarget{class_terrain_ae5b0a3981e125281e8b34a684539bf19}\label{class_terrain_ae5b0a3981e125281e8b34a684539bf19}} 
-unsigned int {\bfseries EBO} = 0
+unsigned int \mbox{\hyperlink{class_terrain_ae5b0a3981e125281e8b34a684539bf19}{EBO}} = 0
 \end{DoxyCompactItemize}
 \doxysubsection*{Protected Attributes}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_terrain_a84685b0b5451a926e2178668045d7507}\label{class_terrain_a84685b0b5451a926e2178668045d7507}} 
 unsigned char $\ast$ \mbox{\hyperlink{class_terrain_a84685b0b5451a926e2178668045d7507}{terrain\+Data}}
 \begin{DoxyCompactList}\small\item\em data of the heightfield \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{class_terrain_a8e3269d072b2be6caa40070f66d37458}\label{class_terrain_a8e3269d072b2be6caa40070f66d37458}} 
 float \mbox{\hyperlink{class_terrain_a8e3269d072b2be6caa40070f66d37458}{scaleX}}
 \begin{DoxyCompactList}\small\item\em value that will scale the x value \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{class_terrain_a2f3f1479e2bd7980efe3947bf1fb5dd7}\label{class_terrain_a2f3f1479e2bd7980efe3947bf1fb5dd7}} 
 float \mbox{\hyperlink{class_terrain_a2f3f1479e2bd7980efe3947bf1fb5dd7}{scaleY}}
 \begin{DoxyCompactList}\small\item\em value that will scale the y value \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{class_terrain_a7ce825d4ce496e3ae19fe750dd29af49}\label{class_terrain_a7ce825d4ce496e3ae19fe750dd29af49}} 
 float \mbox{\hyperlink{class_terrain_a7ce825d4ce496e3ae19fe750dd29af49}{scaleZ}}
 \begin{DoxyCompactList}\small\item\em value that will scale the z value \end{DoxyCompactList}\end{DoxyCompactItemize}
 
@@ -116,7 +99,7 @@ Dylan Blereau
 10/03/2021 Dylan Blereau, Started
 \end{DoxyDate}
 \begin{DoxyRefDesc}{Todo}
-\item[\mbox{\hyperlink{todo__todo000004}{Todo}}]break down generate\+Terrain function @bugs nothing major currently\end{DoxyRefDesc}
+\item[\mbox{\hyperlink{todo__todo000005}{Todo}}]break down generate\+Terrain function @bugs nothing major currently\end{DoxyRefDesc}
 
 
 \begin{DoxyAuthor}{Author}
@@ -129,6 +112,29 @@ Dylan Blereau
 02/04/2021 Dylan Blereau, Started
 \end{DoxyDate}
 added scripting and fixed generate\+Terrain @bugs none currently 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_terrain_a7160a06ab07a86ed97d23374405e8ef6}\label{class_terrain_a7160a06ab07a86ed97d23374405e8ef6}} 
+\index{Terrain@{Terrain}!Terrain@{Terrain}}
+\index{Terrain@{Terrain}!Terrain@{Terrain}}
+\doxysubsubsection{\texorpdfstring{Terrain()}{Terrain()}}
+{\footnotesize\ttfamily Terrain\+::\+Terrain (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+default constructor that initialises the terrain object 
+
+\mbox{\Hypertarget{class_terrain_a2f7f0a2aee54886324ccf48a6f321de0}\label{class_terrain_a2f7f0a2aee54886324ccf48a6f321de0}} 
+\index{Terrain@{Terrain}!````~Terrain@{$\sim$Terrain}}
+\index{````~Terrain@{$\sim$Terrain}!Terrain@{Terrain}}
+\doxysubsubsection{\texorpdfstring{$\sim$Terrain()}{~Terrain()}}
+{\footnotesize\ttfamily Terrain\+::$\sim$\+Terrain (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+destructor that deallocates terrain memory when object is detroyed 
+
+
 
 \doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{class_terrain_ab901804353705f46fe0feb28d06ddc34}\label{class_terrain_ab901804353705f46fe0feb28d06ddc34}} 
@@ -176,6 +182,26 @@ Generates indices.
 {\em \&indices} & -\/ reference to a vector of unsigned ints \\
 \hline
 \end{DoxyParams}
+\mbox{\Hypertarget{class_terrain_ab49954895f9ec0814d10b2bc99736ecb}\label{class_terrain_ab49954895f9ec0814d10b2bc99736ecb}} 
+\index{Terrain@{Terrain}!generateNormals@{generateNormals}}
+\index{generateNormals@{generateNormals}!Terrain@{Terrain}}
+\doxysubsubsection{\texorpdfstring{generateNormals()}{generateNormals()}}
+{\footnotesize\ttfamily void Terrain\+::generate\+Normals (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Generates vertex normals. 
+
+\mbox{\Hypertarget{class_terrain_ace82a14b31791205a9289441d6688947}\label{class_terrain_ace82a14b31791205a9289441d6688947}} 
+\index{Terrain@{Terrain}!generateTerrain@{generateTerrain}}
+\index{generateTerrain@{generateTerrain}!Terrain@{Terrain}}
+\doxysubsubsection{\texorpdfstring{generateTerrain()}{generateTerrain()}}
+{\footnotesize\ttfamily void Terrain\+::generate\+Terrain (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Generates the terrain by generating the positions, colors, texture coords, indices and placing them in a vector. 
+
 \mbox{\Hypertarget{class_terrain_a02a57605b8d5dfca13a4916ad4c19415}\label{class_terrain_a02a57605b8d5dfca13a4916ad4c19415}} 
 \index{Terrain@{Terrain}!generateTextures@{generateTextures}}
 \index{generateTextures@{generateTextures}!Terrain@{Terrain}}
@@ -285,6 +311,19 @@ Get method that returns the total size of indices.
 \begin{DoxyReturn}{Returns}
 int 
 \end{DoxyReturn}
+\mbox{\Hypertarget{class_terrain_ae6515958ec443db2c36b07e7938cd67f}\label{class_terrain_ae6515958ec443db2c36b07e7938cd67f}} 
+\index{Terrain@{Terrain}!GetIndicies@{GetIndicies}}
+\index{GetIndicies@{GetIndicies}!Terrain@{Terrain}}
+\doxysubsubsection{\texorpdfstring{GetIndicies()}{GetIndicies()}}
+{\footnotesize\ttfamily std\+::vector$<$unsigned int$>$ Terrain\+::\+Get\+Indicies (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+gets and returns a vector containing all indice values 
+
+\begin{DoxyReturn}{Returns}
+std\+::vector$<$unsigned int$>$ 
+\end{DoxyReturn}
 \mbox{\Hypertarget{class_terrain_acdd24f95ab3ca7a9146b32a31f4def35}\label{class_terrain_acdd24f95ab3ca7a9146b32a31f4def35}} 
 \index{Terrain@{Terrain}!GetShader@{GetShader}}
 \index{GetShader@{GetShader}!Terrain@{Terrain}}
@@ -324,6 +363,19 @@ Get method that a vector containing texture IDs.
 \begin{DoxyReturn}{Returns}
 vector$<$unsigned int$>$ 
 \end{DoxyReturn}
+\mbox{\Hypertarget{class_terrain_a40aed738a629bfc4bdacd9d319dca8e3}\label{class_terrain_a40aed738a629bfc4bdacd9d319dca8e3}} 
+\index{Terrain@{Terrain}!GetTotalData@{GetTotalData}}
+\index{GetTotalData@{GetTotalData}!Terrain@{Terrain}}
+\doxysubsubsection{\texorpdfstring{GetTotalData()}{GetTotalData()}}
+{\footnotesize\ttfamily std\+::vector$<$glm\+::vec3$>$ Terrain\+::\+Get\+Total\+Data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+gets and returns and vector containing the total\+Data 
+
+\begin{DoxyReturn}{Returns}
+std\+::vector$<$glm\+::vec3$>$ 
+\end{DoxyReturn}
 \mbox{\Hypertarget{class_terrain_a410cd0467a5f67e8be7de27265d9010c}\label{class_terrain_a410cd0467a5f67e8be7de27265d9010c}} 
 \index{Terrain@{Terrain}!GetVAO@{GetVAO}}
 \index{GetVAO@{GetVAO}!Terrain@{Terrain}}
@@ -357,6 +409,16 @@ Checks if x and y coordinates are within the required range.
 \begin{DoxyReturn}{Returns}
 bool 
 \end{DoxyReturn}
+\mbox{\Hypertarget{class_terrain_a70fac68a7900a4bddbf5c4b35b57b6f9}\label{class_terrain_a70fac68a7900a4bddbf5c4b35b57b6f9}} 
+\index{Terrain@{Terrain}!Init@{Init}}
+\index{Init@{Init}!Terrain@{Terrain}}
+\doxysubsubsection{\texorpdfstring{Init()}{Init()}}
+{\footnotesize\ttfamily void Terrain\+::\+Init (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+A function that calls all the functions required to initialise the terrain. 
+
 \mbox{\Hypertarget{class_terrain_ad0fcded992cdf72b72eee4cdad6af59e}\label{class_terrain_ad0fcded992cdf72b72eee4cdad6af59e}} 
 \index{Terrain@{Terrain}!LoadHeightField@{LoadHeightField}}
 \index{LoadHeightField@{LoadHeightField}!Terrain@{Terrain}}
@@ -377,6 +439,16 @@ loads in a heightmap from a file and places that data into the terrain\+Data var
 \begin{DoxyReturn}{Returns}
 bool 
 \end{DoxyReturn}
+\mbox{\Hypertarget{class_terrain_ac8f074502cb581199a1eb57eceab6395}\label{class_terrain_ac8f074502cb581199a1eb57eceab6395}} 
+\index{Terrain@{Terrain}!luaLoader@{luaLoader}}
+\index{luaLoader@{luaLoader}!Terrain@{Terrain}}
+\doxysubsubsection{\texorpdfstring{luaLoader()}{luaLoader()}}
+{\footnotesize\ttfamily void Terrain\+::lua\+Loader (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+loads an instance of lua and uses it to assign values from a lua script to terrain variables 
+
 \mbox{\Hypertarget{class_terrain_aed836a6c149a66a61914674516079a4d}\label{class_terrain_aed836a6c149a66a61914674516079a4d}} 
 \index{Terrain@{Terrain}!setScalingFactor@{setScalingFactor}}
 \index{setScalingFactor@{setScalingFactor}!Terrain@{Terrain}}
@@ -396,9 +468,95 @@ allows for the individual values of the heightmap to be scaled if needed
 {\em z\+Scale} & -\/ represents the scaling factor that will be applied to the heightmap on the z-\/axis \\
 \hline
 \end{DoxyParams}
+\mbox{\Hypertarget{class_terrain_aea73b47c73faf1945e85e06c144e7e0e}\label{class_terrain_aea73b47c73faf1945e85e06c144e7e0e}} 
+\index{Terrain@{Terrain}!SetShader@{SetShader}}
+\index{SetShader@{SetShader}!Terrain@{Terrain}}
+\doxysubsubsection{\texorpdfstring{SetShader()}{SetShader()}}
+{\footnotesize\ttfamily void Terrain\+::\+Set\+Shader (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_shader}{Shader}}}]{s }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+sets the terrain shader to the shader provided to the function as a parameter 
+
+
+\begin{DoxyParams}{Parameters}
+{\em s} & -\/ the shader object \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_terrain_ad689326d663662c6b11959247d4a87bb}\label{class_terrain_ad689326d663662c6b11959247d4a87bb}} 
+\index{Terrain@{Terrain}!setTextures@{setTextures}}
+\index{setTextures@{setTextures}!Terrain@{Terrain}}
+\doxysubsubsection{\texorpdfstring{setTextures()}{setTextures()}}
+{\footnotesize\ttfamily void Terrain\+::set\+Textures (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Sets the textures that the terrain will use to implement multitexturing and detail mapping. 
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{class_terrain_ae5b0a3981e125281e8b34a684539bf19}\label{class_terrain_ae5b0a3981e125281e8b34a684539bf19}} 
+\index{Terrain@{Terrain}!EBO@{EBO}}
+\index{EBO@{EBO}!Terrain@{Terrain}}
+\doxysubsubsection{\texorpdfstring{EBO}{EBO}}
+{\footnotesize\ttfamily unsigned int Terrain\+::\+EBO = 0}
+
+\mbox{\Hypertarget{class_terrain_a8e3269d072b2be6caa40070f66d37458}\label{class_terrain_a8e3269d072b2be6caa40070f66d37458}} 
+\index{Terrain@{Terrain}!scaleX@{scaleX}}
+\index{scaleX@{scaleX}!Terrain@{Terrain}}
+\doxysubsubsection{\texorpdfstring{scaleX}{scaleX}}
+{\footnotesize\ttfamily float Terrain\+::scaleX\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+value that will scale the x value 
+
+\mbox{\Hypertarget{class_terrain_a2f3f1479e2bd7980efe3947bf1fb5dd7}\label{class_terrain_a2f3f1479e2bd7980efe3947bf1fb5dd7}} 
+\index{Terrain@{Terrain}!scaleY@{scaleY}}
+\index{scaleY@{scaleY}!Terrain@{Terrain}}
+\doxysubsubsection{\texorpdfstring{scaleY}{scaleY}}
+{\footnotesize\ttfamily float Terrain\+::scaleY\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+value that will scale the y value 
+
+\mbox{\Hypertarget{class_terrain_a7ce825d4ce496e3ae19fe750dd29af49}\label{class_terrain_a7ce825d4ce496e3ae19fe750dd29af49}} 
+\index{Terrain@{Terrain}!scaleZ@{scaleZ}}
+\index{scaleZ@{scaleZ}!Terrain@{Terrain}}
+\doxysubsubsection{\texorpdfstring{scaleZ}{scaleZ}}
+{\footnotesize\ttfamily float Terrain\+::scaleZ\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+value that will scale the z value 
+
+\mbox{\Hypertarget{class_terrain_a84685b0b5451a926e2178668045d7507}\label{class_terrain_a84685b0b5451a926e2178668045d7507}} 
+\index{Terrain@{Terrain}!terrainData@{terrainData}}
+\index{terrainData@{terrainData}!Terrain@{Terrain}}
+\doxysubsubsection{\texorpdfstring{terrainData}{terrainData}}
+{\footnotesize\ttfamily unsigned char$\ast$ Terrain\+::terrain\+Data\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+data of the heightfield 
+
+\mbox{\Hypertarget{class_terrain_acdb369701d8b26be0499dfede75f195c}\label{class_terrain_acdb369701d8b26be0499dfede75f195c}} 
+\index{Terrain@{Terrain}!VAO@{VAO}}
+\index{VAO@{VAO}!Terrain@{Terrain}}
+\doxysubsubsection{\texorpdfstring{VAO}{VAO}}
+{\footnotesize\ttfamily unsigned int Terrain\+::\+VAO = 0}
+
+\mbox{\Hypertarget{class_terrain_ad30db2e625ef7a10e9e167e4c8fdfaa0}\label{class_terrain_ad30db2e625ef7a10e9e167e4c8fdfaa0}} 
+\index{Terrain@{Terrain}!VBO@{VBO}}
+\index{VBO@{VBO}!Terrain@{Terrain}}
+\doxysubsubsection{\texorpdfstring{VBO}{VBO}}
+{\footnotesize\ttfamily unsigned int Terrain\+::\+VBO = 0}
+
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-/\+Volumes/\+GITS/\+ICT397-\/\+Project/\+ICT397-\/\+Project-\/\+Engine/Terrain.\+h\item 
-/\+Volumes/\+GITS/\+ICT397-\/\+Project/\+ICT397-\/\+Project-\/\+Engine/Terrain.\+cpp\end{DoxyCompactItemize}
+ICT397-\/\+Project-\/\+Engine/\mbox{\hyperlink{_terrain_8h}{Terrain.\+h}}\item 
+ICT397-\/\+Project-\/\+Engine/\mbox{\hyperlink{_terrain_8cpp}{Terrain.\+cpp}}\end{DoxyCompactItemize}

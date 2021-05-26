@@ -5,10 +5,14 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TNAH-ICT397-Project: Model Class Reference</title>
+<title>TNAH-Engine-ICT397: Model Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -22,8 +26,8 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="TNAH-2.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">TNAH-ICT397-Project
-   &#160;<span id="projectnumber">1</span>
+   <div id="projectname">TNAH-Engine-ICT397
+   &#160;<span id="projectnumber">2</span>
    </div>
   </td>
  </tr>
@@ -47,6 +51,23 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('class_model.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -61,65 +82,85 @@ $(function() {
 </iframe>
 </div>
 
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="class_model-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">Model Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>A class that represents a model in its entirety, allowing for multiple meshes and multiple textures if needed.  
+<p>Holds the model information of objects, can be md2 or <a class="el" href="class_fbx.html" title="A class that represents a model in its entirety, allowing for multiple meshes and multiple textures i...">Fbx</a> models.  
  <a href="class_model.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="_model_8h_source.html">Model.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ae3b375de5f6df4faf74a95d64748e048"><td class="memItemLeft" align="right" valign="top"><a id="ae3b375de5f6df4faf74a95d64748e048"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_model.html#ae3b375de5f6df4faf74a95d64748e048">Model</a> ()</td></tr>
-<tr class="memdesc:ae3b375de5f6df4faf74a95d64748e048"><td class="mdescLeft">&#160;</td><td class="mdescRight">default constructor <br /></td></tr>
+<tr class="memitem:ae3b375de5f6df4faf74a95d64748e048"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_model.html#ae3b375de5f6df4faf74a95d64748e048">Model</a> ()</td></tr>
+<tr class="memdesc:ae3b375de5f6df4faf74a95d64748e048"><td class="mdescLeft">&#160;</td><td class="mdescRight">default constructor  <a href="class_model.html#ae3b375de5f6df4faf74a95d64748e048">More...</a><br /></td></tr>
 <tr class="separator:ae3b375de5f6df4faf74a95d64748e048"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aefd7030ec24cc6950c72444b2f742fbf"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_model.html#aefd7030ec24cc6950c72444b2f742fbf">Model</a> (std::string const &amp;path, <a class="el" href="class_renderer.html">Renderer</a> *r, bool gamma=false)</td></tr>
-<tr class="memdesc:aefd7030ec24cc6950c72444b2f742fbf"><td class="mdescLeft">&#160;</td><td class="mdescRight">constructor that loads in the model from the given path  <a href="class_model.html#aefd7030ec24cc6950c72444b2f742fbf">More...</a><br /></td></tr>
-<tr class="separator:aefd7030ec24cc6950c72444b2f742fbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a03ca89b270c98d161291786b137281a6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_model.html#a03ca89b270c98d161291786b137281a6">Draw</a> (<a class="el" href="class_shader.html">Shader</a> &amp;shader, glm::mat4 model)</td></tr>
-<tr class="memdesc:a03ca89b270c98d161291786b137281a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">draws the model, and thus all it meshes  <a href="class_model.html#a03ca89b270c98d161291786b137281a6">More...</a><br /></td></tr>
-<tr class="separator:a03ca89b270c98d161291786b137281a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:a267021b95b442bb3febb9de80c7a470e"><td class="memItemLeft" align="right" valign="top"><a id="a267021b95b442bb3febb9de80c7a470e"></a>
-std::vector&lt; <a class="el" href="struct_texture_mesh.html">TextureMesh</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_model.html#a267021b95b442bb3febb9de80c7a470e">textures_loaded</a></td></tr>
-<tr class="memdesc:a267021b95b442bb3febb9de80c7a470e"><td class="mdescLeft">&#160;</td><td class="mdescRight">model data <br /></td></tr>
-<tr class="separator:a267021b95b442bb3febb9de80c7a470e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a538e42901dcfba59471072a48a162163"><td class="memItemLeft" align="right" valign="top"><a id="a538e42901dcfba59471072a48a162163"></a>
-std::vector&lt; <a class="el" href="class_mesh.html">Mesh</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>meshes</b></td></tr>
-<tr class="separator:a538e42901dcfba59471072a48a162163"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a56b4b97a9314aaf8185aa64d5a24eac0"><td class="memItemLeft" align="right" valign="top"><a id="a56b4b97a9314aaf8185aa64d5a24eac0"></a>
-<a class="el" href="class_renderer.html">Renderer</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>render</b></td></tr>
-<tr class="separator:a56b4b97a9314aaf8185aa64d5a24eac0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5ea3aa111c7a7d179e93dcc0bb567701"><td class="memItemLeft" align="right" valign="top"><a id="a5ea3aa111c7a7d179e93dcc0bb567701"></a>
-std::string&#160;</td><td class="memItemRight" valign="bottom"><b>directory</b></td></tr>
-<tr class="separator:a5ea3aa111c7a7d179e93dcc0bb567701"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad77d358db2ff46758774b8a621f60db3"><td class="memItemLeft" align="right" valign="top"><a id="ad77d358db2ff46758774b8a621f60db3"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>gammaCorrection</b></td></tr>
-<tr class="separator:ad77d358db2ff46758774b8a621f60db3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a83c2330d37043dce8b1ff67ac525d2b6"><td class="memItemLeft" align="right" valign="top"><a id="a83c2330d37043dce8b1ff67ac525d2b6"></a>
-<a class="el" href="classtnah_1_1_debugging.html">tnah::Debugging</a>&#160;</td><td class="memItemRight" valign="bottom"><b>debugger</b></td></tr>
-<tr class="separator:a83c2330d37043dce8b1ff67ac525d2b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a847c62dac3bf0195861fd466d0be8157"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_model.html#a847c62dac3bf0195861fd466d0be8157">Model</a> (std::string const &amp;path, <a class="el" href="class_renderer.html">Renderer</a> *r, bool check)</td></tr>
+<tr class="memdesc:a847c62dac3bf0195861fd466d0be8157"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_model.html" title="Holds the model information of objects, can be md2 or Fbx models.">Model</a> constructor that takes various parameters.  <a href="class_model.html#a847c62dac3bf0195861fd466d0be8157">More...</a><br /></td></tr>
+<tr class="separator:a847c62dac3bf0195861fd466d0be8157"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad30000e7f6d3f6771d8e3c0b56a4bdc0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_model.html#ad30000e7f6d3f6771d8e3c0b56a4bdc0">Model</a> (std::string const &amp;path, <a class="el" href="class_renderer.html">Renderer</a> *r, bool check, std::string pathTexture, bool anim)</td></tr>
+<tr class="memdesc:ad30000e7f6d3f6771d8e3c0b56a4bdc0"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_model.html" title="Holds the model information of objects, can be md2 or Fbx models.">Model</a> constructor that takes various parameters.  <a href="class_model.html#ad30000e7f6d3f6771d8e3c0b56a4bdc0">More...</a><br /></td></tr>
+<tr class="separator:ad30000e7f6d3f6771d8e3c0b56a4bdc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acbbf433d601d583cc5a346deef9310d6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_model.html#acbbf433d601d583cc5a346deef9310d6">SetMd2</a> (bool check)</td></tr>
+<tr class="memdesc:acbbf433d601d583cc5a346deef9310d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function that will set the model to MD2 is the boolean provided is true, otherwise it will assign the model to be an FBX.  <a href="class_model.html#acbbf433d601d583cc5a346deef9310d6">More...</a><br /></td></tr>
+<tr class="separator:acbbf433d601d583cc5a346deef9310d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1c049fa03d56f57421414e31862da9f5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_model.html#a1c049fa03d56f57421414e31862da9f5">LoadModel</a> (std::string const &amp;path, <a class="el" href="class_renderer.html">Renderer</a> *gameRenderer, std::string pathTexture)</td></tr>
+<tr class="memdesc:a1c049fa03d56f57421414e31862da9f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function responible for loading the model.  <a href="class_model.html#a1c049fa03d56f57421414e31862da9f5">More...</a><br /></td></tr>
+<tr class="separator:a1c049fa03d56f57421414e31862da9f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a95878dc77a7f1ed7f13f2383f880c8ca"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_model.html#a95878dc77a7f1ed7f13f2383f880c8ca">Render</a> (<a class="el" href="class_view.html">View</a> lens, <a class="el" href="class_shader.html">Shader</a> &amp;shader, glm::vec3 pos, glm::vec3 rot, float scale, bool rotate, float time, float direction, <a class="el" href="class_renderer.html">Renderer</a> *gameRenderer, bool p)</td></tr>
+<tr class="memdesc:a95878dc77a7f1ed7f13f2383f880c8ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">makes use of the view information and graphics renderer among other things to render the model  <a href="class_model.html#a95878dc77a7f1ed7f13f2383f880c8ca">More...</a><br /></td></tr>
+<tr class="separator:a95878dc77a7f1ed7f13f2383f880c8ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abeacaeec6265bc2565031e4badc91123"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_model.html#abeacaeec6265bc2565031e4badc91123">SetState</a> (<a class="el" href="_md2_8h.html#af5d799eba8960b05ab838f5cd3e5f41f">Md2Commands</a> cmd)</td></tr>
+<tr class="memdesc:abeacaeec6265bc2565031e4badc91123"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the animation state of the model to the command provided as parameter  <a href="class_model.html#abeacaeec6265bc2565031e4badc91123">More...</a><br /></td></tr>
+<tr class="separator:abeacaeec6265bc2565031e4badc91123"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a481be20d5a6b5eb63e63cf17e5b2c006"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_md2_state.html">Md2State</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_model.html#a481be20d5a6b5eb63e63cf17e5b2c006">GetState</a> () const</td></tr>
+<tr class="memdesc:a481be20d5a6b5eb63e63cf17e5b2c006"><td class="mdescLeft">&#160;</td><td class="mdescRight">gets and returns the current <a class="el" href="struct_md2_state.html" title="status animation">Md2State</a> of the <a class="el" href="class_model.html" title="Holds the model information of objects, can be md2 or Fbx models.">Model</a>  <a href="class_model.html#a481be20d5a6b5eb63e63cf17e5b2c006">More...</a><br /></td></tr>
+<tr class="separator:a481be20d5a6b5eb63e63cf17e5b2c006"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a87701bd40c275476bc6b84d62301a2fe"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_mesh.html">Mesh</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_model.html#a87701bd40c275476bc6b84d62301a2fe">GetMesh</a> (int i)</td></tr>
+<tr class="memdesc:a87701bd40c275476bc6b84d62301a2fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">gets and returns a pointer to the <a class="el" href="class_mesh.html" title="A class that uses mesh data to setup and draw all the meshes that a model is made of.">Mesh</a> of the <a class="el" href="class_model.html" title="Holds the model information of objects, can be md2 or Fbx models.">Model</a>  <a href="class_model.html#a87701bd40c275476bc6b84d62301a2fe">More...</a><br /></td></tr>
+<tr class="separator:a87701bd40c275476bc6b84d62301a2fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>A class that represents a model in its entirety, allowing for multiple meshes and multiple textures if needed. </p>
-<dl class="section author"><dt>Author</dt><dd>Dylan Blereau </dd></dl>
+<div class="textblock"><p>Holds the model information of objects, can be md2 or <a class="el" href="class_fbx.html" title="A class that represents a model in its entirety, allowing for multiple meshes and multiple textures i...">Fbx</a> models. </p>
+<dl class="section author"><dt>Author</dt><dd>Christopher Logan </dd></dl>
 <dl class="section version"><dt>Version</dt><dd>01 </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>24/03/2021 Dylan Blereau, Started </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>25/04/2021 </dd></dl>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="aefd7030ec24cc6950c72444b2f742fbf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aefd7030ec24cc6950c72444b2f742fbf">&#9670;&nbsp;</a></span>Model()</h2>
+<a id="ae3b375de5f6df4faf74a95d64748e048"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae3b375de5f6df4faf74a95d64748e048">&#9670;&nbsp;</a></span>Model() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Model::Model </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>default constructor </p>
+
+</div>
+</div>
+<a id="a847c62dac3bf0195861fd466d0be8157"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a847c62dac3bf0195861fd466d0be8157">&#9670;&nbsp;</a></span>Model() <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -143,7 +184,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>gammaCorrection</b></
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>gamma</em> = <code>false</code>&#160;</td>
+          <td class="paramname"><em>check</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -158,12 +199,77 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>gammaCorrection</b></
 </table>
 </div><div class="memdoc">
 
-<p>constructor that loads in the model from the given path </p>
+<p><a class="el" href="class_model.html" title="Holds the model information of objects, can be md2 or Fbx models.">Model</a> constructor that takes various parameters. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">path</td><td>- represents the model path </td></tr>
-    <tr><td class="paramname">r</td><td>- pointer to a renderer object </td></tr>
-    <tr><td class="paramname">gamma</td><td>- determines whether or not gamma correction is applied </td></tr>
+    <tr><td class="paramname">path</td><td>- represents the path to the model </td></tr>
+    <tr><td class="paramname">r</td><td>- a pointer to the renderer </td></tr>
+    <tr><td class="paramname">check</td><td>- a boolean variable that checks if the model is MD2 or FBX </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ad30000e7f6d3f6771d8e3c0b56a4bdc0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad30000e7f6d3f6771d8e3c0b56a4bdc0">&#9670;&nbsp;</a></span>Model() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Model::Model </td>
+          <td>(</td>
+          <td class="paramtype">std::string const &amp;&#160;</td>
+          <td class="paramname"><em>path</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_renderer.html">Renderer</a> *&#160;</td>
+          <td class="paramname"><em>r</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>check</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>pathTexture</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>anim</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><a class="el" href="class_model.html" title="Holds the model information of objects, can be md2 or Fbx models.">Model</a> constructor that takes various parameters. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">path</td><td>- represents the path to the model </td></tr>
+    <tr><td class="paramname">r</td><td>- a pointer to the renderer </td></tr>
+    <tr><td class="paramname">check</td><td>- a boolean variable that checks if the model is MD2 or FBX </td></tr>
+    <tr><td class="paramname">pathTexture</td><td>- a string representing the path to the model texture @bool anim - a boolean flag indicating whether or not animations are true or false </td></tr>
   </table>
   </dd>
 </dl>
@@ -171,23 +277,86 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>gammaCorrection</b></
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a03ca89b270c98d161291786b137281a6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a03ca89b270c98d161291786b137281a6">&#9670;&nbsp;</a></span>Draw()</h2>
+<a id="a87701bd40c275476bc6b84d62301a2fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a87701bd40c275476bc6b84d62301a2fe">&#9670;&nbsp;</a></span>GetMesh()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_mesh.html">Mesh</a>* Model::GetMesh </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>i</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>gets and returns a pointer to the <a class="el" href="class_mesh.html" title="A class that uses mesh data to setup and draw all the meshes that a model is made of.">Mesh</a> of the <a class="el" href="class_model.html" title="Holds the model information of objects, can be md2 or Fbx models.">Model</a> </p>
+<dl class="section return"><dt>Returns</dt><dd>Mesh* </dd></dl>
+
+</div>
+</div>
+<a id="a481be20d5a6b5eb63e63cf17e5b2c006"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a481be20d5a6b5eb63e63cf17e5b2c006">&#9670;&nbsp;</a></span>GetState()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_md2_state.html">Md2State</a> Model::GetState </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>gets and returns the current <a class="el" href="struct_md2_state.html" title="status animation">Md2State</a> of the <a class="el" href="class_model.html" title="Holds the model information of objects, can be md2 or Fbx models.">Model</a> </p>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="struct_md2_state.html" title="status animation">Md2State</a> </dd></dl>
+
+</div>
+</div>
+<a id="a1c049fa03d56f57421414e31862da9f5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1c049fa03d56f57421414e31862da9f5">&#9670;&nbsp;</a></span>LoadModel()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void Model::Draw </td>
+          <td class="memname">void Model::LoadModel </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_shader.html">Shader</a> &amp;&#160;</td>
-          <td class="paramname"><em>shader</em>, </td>
+          <td class="paramtype">std::string const &amp;&#160;</td>
+          <td class="paramname"><em>path</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">glm::mat4&#160;</td>
-          <td class="paramname"><em>model</em>&#160;</td>
+          <td class="paramtype"><a class="el" href="class_renderer.html">Renderer</a> *&#160;</td>
+          <td class="paramname"><em>gameRenderer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>pathTexture</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -197,11 +366,173 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>gammaCorrection</b></
       </table>
 </div><div class="memdoc">
 
-<p>draws the model, and thus all it meshes </p>
+<p>Function responible for loading the model. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">shader</td><td>- represents the models shader object </td></tr>
-    <tr><td class="paramname">model</td><td>- represents the model matrix </td></tr>
+    <tr><td class="paramname">path</td><td>- represents the filepath to the model </td></tr>
+    <tr><td class="paramname">gameRenderer</td><td>- represents a pointer to the gameRenderer </td></tr>
+    <tr><td class="paramname">pathTexture</td><td>- a string that represents the path to the models texture </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a95878dc77a7f1ed7f13f2383f880c8ca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a95878dc77a7f1ed7f13f2383f880c8ca">&#9670;&nbsp;</a></span>Render()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Model::Render </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_view.html">View</a>&#160;</td>
+          <td class="paramname"><em>lens</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_shader.html">Shader</a> &amp;&#160;</td>
+          <td class="paramname"><em>shader</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">glm::vec3&#160;</td>
+          <td class="paramname"><em>pos</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">glm::vec3&#160;</td>
+          <td class="paramname"><em>rot</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>scale</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>rotate</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>time</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>direction</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_renderer.html">Renderer</a> *&#160;</td>
+          <td class="paramname"><em>gameRenderer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>p</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>makes use of the view information and graphics renderer among other things to render the model </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">lens</td><td>- holds the information that allows you to project and view the model </td></tr>
+    <tr><td class="paramname">shader</td><td>- represents the shader object used by the model </td></tr>
+    <tr><td class="paramname">pos</td><td>- the vec3 position of the model </td></tr>
+    <tr><td class="paramname">rot</td><td>- rotation vector of the model </td></tr>
+    <tr><td class="paramname">scale</td><td>- scale of the object </td></tr>
+    <tr><td class="paramname">rotate</td><td>- bool value confirming whether or not the model rotates </td></tr>
+    <tr><td class="paramname">time</td><td>- represents deltatime, which is the difference between the previous frame and the current frame </td></tr>
+    <tr><td class="paramname">direction</td><td>- the direction of the model </td></tr>
+    <tr><td class="paramname">gameRenderer</td><td>- a pointer to the renderer which is used to render the enemy model </td></tr>
+    <tr><td class="paramname">p</td><td>- represents if player exists or not </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="acbbf433d601d583cc5a346deef9310d6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acbbf433d601d583cc5a346deef9310d6">&#9670;&nbsp;</a></span>SetMd2()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Model::SetMd2 </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>check</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Function that will set the model to MD2 is the boolean provided is true, otherwise it will assign the model to be an FBX. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">check</td><td>- represents the check to see if the model is MD2 or not </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="abeacaeec6265bc2565031e4badc91123"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abeacaeec6265bc2565031e4badc91123">&#9670;&nbsp;</a></span>SetState()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Model::SetState </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="_md2_8h.html#af5d799eba8960b05ab838f5cd3e5f41f">Md2Commands</a>&#160;</td>
+          <td class="paramname"><em>cmd</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>sets the animation state of the model to the command provided as parameter </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cmd</td><td>- represents the animation state that the function will provide the start animation function </td></tr>
   </table>
   </dd>
 </dl>
@@ -209,13 +540,17 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>gammaCorrection</b></
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>/Volumes/GITS/ICT397-Project/ICT397-Project-Engine/<a class="el" href="_model_8h_source.html">Model.h</a></li>
-<li>/Volumes/GITS/ICT397-Project/ICT397-Project-Engine/Model.cpp</li>
+<li>ICT397-Project-Engine/<a class="el" href="_model_8h_source.html">Model.h</a></li>
+<li>ICT397-Project-Engine/<a class="el" href="_model_8cpp.html">Model.cpp</a></li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="class_model.html">Model</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
 </body>
 </html>

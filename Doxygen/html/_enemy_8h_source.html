@@ -5,10 +5,14 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TNAH-ICT397-Project: /Volumes/GITS/ICT397-Project/ICT397-Project-Engine/Enemy.h Source File</title>
+<title>TNAH-Engine-ICT397: ICT397-Project-Engine/Enemy.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -22,8 +26,8 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="TNAH-2.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">TNAH-ICT397-Project
-   &#160;<span id="projectnumber">1</span>
+   <div id="projectname">TNAH-Engine-ICT397
+   &#160;<span id="projectnumber">2</span>
    </div>
   </td>
  </tr>
@@ -47,6 +51,23 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('_enemy_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -61,35 +82,339 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="dir_492deb8f30c21d9ebac9ab6ce6fb7949.html">ICT397-Project-Engine</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="headertitle">
 <div class="title">Enemy.h</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &quot;GameObject.h&quot;</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="class_enemy.html">   16</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_enemy.html">Enemy</a> : <span class="keyword">public</span> <a class="code" href="class_game_object.html">GameObject</a></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;{</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="comment">/*</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">    * @breif Updates the game object with functionality</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">    * @param time - the time since the last frame (deltatime)</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">    */</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_enemy.html#aaa82099578cf100fadda6c2d87c8e076">Update</a>(<span class="keywordtype">float</span> time);</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;};</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="ttc" id="aclass_enemy_html"><div class="ttname"><a href="class_enemy.html">Enemy</a></div><div class="ttdoc">Abstract GameObject class for enemies.</div><div class="ttdef"><b>Definition:</b> Enemy.h:17</div></div>
-<div class="ttc" id="aclass_enemy_html_aaa82099578cf100fadda6c2d87c8e076"><div class="ttname"><a href="class_enemy.html#aaa82099578cf100fadda6c2d87c8e076">Enemy::Update</a></div><div class="ttdeci">void Update(float time)</div><div class="ttdoc">Updates the classes functionality.</div><div class="ttdef"><b>Definition:</b> Enemy.cpp:3</div></div>
-<div class="ttc" id="aclass_game_object_html"><div class="ttname"><a href="class_game_object.html">GameObject</a></div><div class="ttdoc">Class that holds the main information of a game object, that is abstracted for more specific reasons.</div><div class="ttdef"><b>Definition:</b> GameObject.h:18</div></div>
+<a href="_enemy_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno"><a class="line" href="_enemy_8h.html#a598a3330b3c21701223ee0ca14316eca">    2</a></span>&#160;<span class="preprocessor"># define PI           3.14159265358979323846  </span><span class="comment">/* pi */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="state_8h.html">state.h</a>&quot;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="state_machine_8h.html">stateMachine.h</a>&quot;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="enemy_states_8h.html">enemyStates.h</a>&quot;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
+<div class="line"><a name="l00008"></a><span class="lineno"><a class="line" href="_enemy_8h.html#a656d5241fcab4d8ef3e23e6644a8498b">    8</a></span>&#160;<span class="keyword">inline</span> <span class="keywordtype">double</span> <a class="code" href="_enemy_8h.html#a656d5241fcab4d8ef3e23e6644a8498b">randFloat</a>()</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    <span class="keywordflow">return</span> ((rand()) / (RAND_MAX + 1.0));</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;}</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
+<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="_enemy_8h.html#a961ea51b7e356dfd4afeeb878fc06041">   13</a></span>&#160;<span class="keyword">inline</span> <span class="keywordtype">double</span> <a class="code" href="_enemy_8h.html#a961ea51b7e356dfd4afeeb878fc06041">randomClamped</a>()</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;{</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="_enemy_8h.html#a656d5241fcab4d8ef3e23e6644a8498b">randFloat</a>() - <a class="code" href="_enemy_8h.html#a656d5241fcab4d8ef3e23e6644a8498b">randFloat</a>();</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;}</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="keyword">using namespace </span>luabridge;</div>
+<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="class_enemy.html">   39</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_enemy.html">Enemy</a> : <span class="keyword">public</span> <a class="code" href="class_game_object.html">GameObject</a></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;{</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <a class="code" href="class_enemy.html">Enemy</a>(glm::vec3 p, glm::vec3 rot, <a class="code" href="class_renderer.html">Renderer</a>* gameRenderer, std::string script);</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <a class="code" href="class_enemy.html">Enemy</a>(glm::vec3 p, glm::vec3 rot, <span class="keywordtype">float</span> s, <a class="code" href="class_renderer.html">Renderer</a>* gameRenderer, std::string script, <span class="keywordtype">float</span> h, <span class="keywordtype">float</span> a, std::string <a class="code" href="classstate.html">state</a>);</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
+<div class="line"><a name="l00069"></a><span class="lineno"><a class="line" href="class_enemy.html#aaeab7f5c09f92eb6a4d752aee9800959">   69</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_enemy.html#aaeab7f5c09f92eb6a4d752aee9800959">Print</a>(glm::vec3 p) </div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    {</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        std::cout &lt;&lt; p.x &lt;&lt; <span class="stringliteral">&quot; &quot;</span> &lt;&lt; p.y &lt;&lt; <span class="stringliteral">&quot; &quot;</span> &lt;&lt; p.z &lt;&lt; std::endl;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    }</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    </div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    ~<a class="code" href="class_enemy.html">Enemy</a>();</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
+<div class="line"><a name="l00083"></a><span class="lineno"><a class="line" href="class_enemy.html#ac216deb271b5bd35a886783500aadd84">   83</a></span>&#160;    <a class="code" href="classstate_machine.html">stateMachine&lt;Enemy&gt;</a>* <a class="code" href="class_enemy.html#ac216deb271b5bd35a886783500aadd84">getFSM</a>()<span class="keyword">const </span>{ <span class="keywordflow">return</span> enemyFSM; }</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keywordtype">void</span> Update(<span class="keywordtype">float</span> time);</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
+<div class="line"><a name="l00096"></a><span class="lineno"><a class="line" href="class_enemy.html#a46341636350ca2bc6aac929b2a84f215">   96</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="class_enemy.html#a46341636350ca2bc6aac929b2a84f215">getHealth</a>() { <span class="keywordflow">return</span> health;}</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
+<div class="line"><a name="l00103"></a><span class="lineno"><a class="line" href="class_enemy.html#a577c864252d94cfe4f592a975547d4b5">  103</a></span>&#160;    glm::vec3 <a class="code" href="class_enemy.html#a577c864252d94cfe4f592a975547d4b5">GetPos</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <a class="code" href="class_game_object.html#aa9f5812ad1460871ebceb188cc9aaa96">GameObject::GetPos</a>(); }</div>
+<div class="line"><a name="l00108"></a><span class="lineno"><a class="line" href="class_enemy.html#a74abe45981ed89e34ec3e6927d9c5c8c">  108</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_enemy.html#a74abe45981ed89e34ec3e6927d9c5c8c">SetPos</a>(glm::vec3 p) { <a class="code" href="class_game_object.html#aaa26dd3d19a1476a0230dc0235d5c6be">GameObject::SetPos</a>(p); }</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160; </div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <span class="keywordtype">void</span> decreaseHealth(<span class="keywordtype">int</span> health);</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160; </div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="namespace_im_gui.html#ab51a164f547317c16c441f1599e3946d">Render</a>(<a class="code" href="class_view.html">View</a> lens, <span class="keywordtype">float</span> time, <a class="code" href="class_renderer.html">Renderer</a>* gameRenderer);</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160; </div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    <span class="keywordtype">void</span> SetState(<span class="keywordtype">int</span> num);</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160; </div>
+<div class="line"><a name="l00134"></a><span class="lineno"><a class="line" href="class_enemy.html#a6598a4e0625abcc158fa8f70ed42b34e">  134</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_enemy.html#a6598a4e0625abcc158fa8f70ed42b34e">setAlive</a>(<span class="keywordtype">bool</span> a) { alive = a; }</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    </div>
+<div class="line"><a name="l00140"></a><span class="lineno"><a class="line" href="class_enemy.html#a29f690a587f3c992a537042c4b2ea5dc">  140</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_enemy.html#a29f690a587f3c992a537042c4b2ea5dc">SetKillFSM</a>(<span class="keywordtype">bool</span> k) </div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;    {</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;        killFSM = k;</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;    };</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160; </div>
+<div class="line"><a name="l00149"></a><span class="lineno"><a class="line" href="class_enemy.html#a2cce7194016cb90b9e457b3da131fd8a">  149</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="class_enemy.html#a2cce7194016cb90b9e457b3da131fd8a">isAlive</a>() { <span class="keywordflow">return</span> alive; };</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;    </div>
+<div class="line"><a name="l00155"></a><span class="lineno"><a class="line" href="class_enemy.html#a9a2b8640b75830bed7db68fdf78ef3d2">  155</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="class_enemy.html#a9a2b8640b75830bed7db68fdf78ef3d2">GetDeltaTime</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> deltaTime; }</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160; </div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;    <span class="keywordtype">float</span> Distance();</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160; </div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160; </div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;    <span class="keywordtype">float</span> DistanceBetween(glm::vec3 otherPos);</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;    </div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160; </div>
+<div class="line"><a name="l00175"></a><span class="lineno"><a class="line" href="class_enemy.html#acd0f76589659a9b4e0be58aa49b5f802">  175</a></span>&#160;    glm::vec3 <a class="code" href="class_enemy.html#acd0f76589659a9b4e0be58aa49b5f802">getCamPos</a>() { <span class="keywordflow">return</span> pPos; }</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;    </div>
+<div class="line"><a name="l00178"></a><span class="lineno"><a class="line" href="class_enemy.html#a4a8101b0b3a0fa4a862e6dd071927676">  178</a></span>&#160;    glm::vec3 enemyVelocity = { 6.0f, 0.0f, 0.0f };</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160; </div>
+<div class="line"><a name="l00181"></a><span class="lineno"><a class="line" href="class_enemy.html#a73529a10a7aa7adb28a74529d48e1192">  181</a></span>&#160;    glm::vec3 velocity = { 4.0f, 0.0f, 0.0f };</div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160; </div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;    <span class="keywordtype">bool</span> handleMessage(<span class="keyword">const</span> <a class="code" href="struct_telegram.html">Telegram</a> <a class="code" href="classsingleton.html">message</a>);</div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160; </div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;    <span class="keywordtype">bool</span> moveTo(glm::vec3&amp; curPos, <span class="keyword">const</span> glm::vec3&amp; targetPos, glm::vec3&amp; curVelocity, <span class="keywordtype">float</span> time, <span class="keywordtype">float</span> offset, std::string type);</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160; </div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;    <span class="keywordtype">void</span> pursue(<span class="keyword">const</span> glm::vec3&amp; evaderPos, glm::vec3&amp; pursuerPos, <span class="keyword">const</span> glm::vec3&amp; evaderVelocity, glm::vec3&amp; pursuerVelocity, <span class="keywordtype">float</span> time, <span class="keywordtype">float</span> offset, std::string type);</div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;    </div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classflee.html">flee</a>(glm::vec3&amp; curPos, <span class="keyword">const</span> glm::vec3&amp; pursuerPos, glm::vec3&amp; curVelocity, <span class="keywordtype">float</span> fleeSpeed, <span class="keywordtype">float</span> time, std::string type);</div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160; </div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;    <span class="keywordtype">bool</span> evade(glm::vec3&amp; evaderPos, <span class="keyword">const</span> glm::vec3&amp; pursuerPos, glm::vec3&amp; evaderVelocity, <span class="keyword">const</span> glm::vec3&amp; pursuerVelocity, <span class="keywordtype">float</span> time, std::string type);</div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160; </div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;    <span class="keywordtype">void</span> setWander(<span class="keywordtype">double</span> wanderRadius, <span class="keywordtype">double</span> wanderDistance, <span class="keywordtype">double</span> wanderJitter);</div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160; </div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classwander.html">wander</a>(glm::vec3&amp; position, glm::vec3&amp; velocity, <span class="keywordtype">float</span> time, std::string type);</div>
+<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160; </div>
+<div class="line"><a name="l00255"></a><span class="lineno"><a class="line" href="class_enemy.html#a4fec81242274841c382f32b02fdf0a40">  255</a></span>&#160;    glm::vec3 <a class="code" href="class_enemy.html#a4fec81242274841c382f32b02fdf0a40">getVelocity</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> velocity; }</div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160; </div>
+<div class="line"><a name="l00261"></a><span class="lineno"><a class="line" href="class_enemy.html#a8410dd9b89bff7d721af005d6284b80c">  261</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_enemy.html#a8410dd9b89bff7d721af005d6284b80c">setVelocity</a>(glm::vec3 v) { velocity = v;}</div>
+<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160; </div>
+<div class="line"><a name="l00267"></a><span class="lineno"><a class="line" href="class_enemy.html#a5dd8733c7fdb074daf1f053090acedfb">  267</a></span>&#160;    glm::vec3 <a class="code" href="class_enemy.html#a5dd8733c7fdb074daf1f053090acedfb">getEnemyVelocity</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> enemyVelocity; }</div>
+<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160; </div>
+<div class="line"><a name="l00273"></a><span class="lineno"><a class="line" href="class_enemy.html#a2f903df691de1c3557fd2faa74ae8d78">  273</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_enemy.html#a2f903df691de1c3557fd2faa74ae8d78">setEnemyVelocity</a>(glm::vec3 v) { enemyVelocity = v; }</div>
+<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160; </div>
+<div class="line"><a name="l00279"></a><span class="lineno"><a class="line" href="class_enemy.html#a77a74af6c580978969fce6e0367f91c0">  279</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="class_enemy.html#a77a74af6c580978969fce6e0367f91c0">getDirection</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> direction; }</div>
+<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160; </div>
+<div class="line"><a name="l00285"></a><span class="lineno"><a class="line" href="class_enemy.html#a878feb211351f52e64b9c27b00ca3629">  285</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_enemy.html#a878feb211351f52e64b9c27b00ca3629">setDirection</a>(<span class="keywordtype">float</span> dir) { direction = dir;}</div>
+<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160; </div>
+<div class="line"><a name="l00291"></a><span class="lineno"><a class="line" href="class_enemy.html#a9b0879cd0e2edca02db45ce09839de03">  291</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="class_enemy.html#a9b0879cd0e2edca02db45ce09839de03">getGlobalFlag</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> globalFlag; }</div>
+<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160; </div>
+<div class="line"><a name="l00297"></a><span class="lineno"><a class="line" href="class_enemy.html#aa85fa1ba3aec84f36a072a24315db922">  297</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_enemy.html#aa85fa1ba3aec84f36a072a24315db922">setGlobalFlag</a>(<span class="keywordtype">bool</span> flag) { globalFlag = flag; }</div>
+<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160; </div>
+<div class="line"><a name="l00303"></a><span class="lineno"><a class="line" href="class_enemy.html#ad41bb64e354fcd25e97d4a97e3d70d4f">  303</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="class_enemy.html#ad41bb64e354fcd25e97d4a97e3d70d4f">getToken</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> token; }</div>
+<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160; </div>
+<div class="line"><a name="l00309"></a><span class="lineno"><a class="line" href="class_enemy.html#a9c4478a4920116aba556a7320afd09b4">  309</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_enemy.html#a9c4478a4920116aba556a7320afd09b4">setToken</a>(<span class="keywordtype">bool</span> t) { token = t; }</div>
+<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160; </div>
+<div class="line"><a name="l00315"></a><span class="lineno"><a class="line" href="class_enemy.html#afe9c462d6457e13fe7c35a0661249578">  315</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="class_enemy.html#afe9c462d6457e13fe7c35a0661249578">getDeathAnim</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> deathAnim; }</div>
+<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160; </div>
+<div class="line"><a name="l00321"></a><span class="lineno"><a class="line" href="class_enemy.html#a665c2f529dc84809bf8be5e93d19c015">  321</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_enemy.html#a665c2f529dc84809bf8be5e93d19c015">setDeathAnim</a>(<span class="keywordtype">bool</span> d) { deathAnim = d; }</div>
+<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160; </div>
+<div class="line"><a name="l00327"></a><span class="lineno"><a class="line" href="class_enemy.html#a9628e768b1ef212995484cdfd3d2fea7">  327</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="class_enemy.html#a9628e768b1ef212995484cdfd3d2fea7">getTimer</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> timer; }</div>
+<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160; </div>
+<div class="line"><a name="l00333"></a><span class="lineno"><a class="line" href="class_enemy.html#affa586c312c78a562ec5130073330de1">  333</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_enemy.html#affa586c312c78a562ec5130073330de1">setTimer</a>(<span class="keywordtype">int</span> t) { timer = t; }</div>
+<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160; </div>
+<div class="line"><a name="l00339"></a><span class="lineno"><a class="line" href="class_enemy.html#a8848fe440fb23e58fcc39d4e96199034">  339</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="class_enemy.html#a8848fe440fb23e58fcc39d4e96199034">incrementTimer</a>() { <span class="keywordflow">return</span> timer++; }</div>
+<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160; </div>
+<div class="line"><a name="l00345"></a><span class="lineno"><a class="line" href="class_enemy.html#adf46a61ca173e7ea674024edb1ce6ad3">  345</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="class_enemy.html#adf46a61ca173e7ea674024edb1ce6ad3">getCheck</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> check; }</div>
+<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160; </div>
+<div class="line"><a name="l00351"></a><span class="lineno"><a class="line" href="class_enemy.html#a675d4718c1ef3d71bfb9dcec2fc7a102">  351</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_enemy.html#a675d4718c1ef3d71bfb9dcec2fc7a102">setCheck</a>(<span class="keywordtype">int</span> c) { check = c; }</div>
+<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160; </div>
+<div class="line"><a name="l00357"></a><span class="lineno"><a class="line" href="class_enemy.html#a537e8b909fe462c74d136d6271e907e8">  357</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="class_enemy.html#a537e8b909fe462c74d136d6271e907e8">incrementCheck</a>() { <span class="keywordflow">return</span> check++; }</div>
+<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160; </div>
+<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;    <span class="keywordtype">void</span> ChangeState(std::string <a class="code" href="classstate.html">state</a>);</div>
+<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160; </div>
+<div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;    <span class="keywordtype">bool</span> CheckPrevState(std::string <a class="code" href="classstate.html">state</a>);</div>
+<div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160;    </div>
+<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;    <span class="keywordtype">float</span> LookDirection(std::string type);</div>
+<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160; </div>
+<div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;    <span class="keywordtype">void</span> SendMessage(<span class="keywordtype">int</span> <a class="code" href="classsingleton.html">message</a>, std::string type);</div>
+<div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160; </div>
+<div class="line"><a name="l00391"></a><span class="lineno"><a class="line" href="class_enemy.html#a807cd3be6023eef6f1e8b9734730aae0">  391</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_enemy.html#a807cd3be6023eef6f1e8b9734730aae0">SetMoving</a>(<span class="keywordtype">bool</span> m) { moving = m; }</div>
+<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160; </div>
+<div class="line"><a name="l00397"></a><span class="lineno"><a class="line" href="class_enemy.html#a4dd3f15c29111e4fc5da276c8ea5715c">  397</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="class_enemy.html#a4dd3f15c29111e4fc5da276c8ea5715c">GetMoving</a>() { <span class="keywordflow">return</span> moving; }</div>
+<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160; </div>
+<div class="line"><a name="l00403"></a><span class="lineno"><a class="line" href="class_enemy.html#a5a44af124e289a91d430299be612625c">  403</a></span>&#160;    glm::vec3 <a class="code" href="class_enemy.html#a5a44af124e289a91d430299be612625c">getNewPos</a>() { <span class="keywordflow">return</span> newPos; }</div>
+<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160; </div>
+<div class="line"><a name="l00409"></a><span class="lineno"><a class="line" href="class_enemy.html#a6189fba91b8dc458e5c324f9545f9c58">  409</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_enemy.html#a6189fba91b8dc458e5c324f9545f9c58">setNewPos</a>(glm::vec3 p) { newPos = p; }</div>
+<div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160;    </div>
+<div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160;    <span class="keywordtype">bool</span> Kill();</div>
+<div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160; </div>
+<div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;        </div>
+<div class="line"><a name="l00418"></a><span class="lineno"><a class="line" href="class_enemy.html#a9a2315b140d7235886b046559ac81801">  418</a></span>&#160;    <span class="keyword">virtual</span> std::string <a class="code" href="class_enemy.html#a9a2315b140d7235886b046559ac81801">StreamValues</a>()</div>
+<div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160;    {</div>
+<div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;        <span class="keywordflow">return</span> GetType() + <span class="stringliteral">&quot; &quot;</span> + GetScriptName() + <span class="stringliteral">&quot; &quot;</span> + std::to_string(GetScale()) + <span class="stringliteral">&quot; &quot;</span> + std::to_string(GetPos().x) + <span class="stringliteral">&quot; &quot;</span> + std::to_string(GetPos().y) + <span class="stringliteral">&quot; &quot;</span> + std::to_string(GetPos().z) + <span class="stringliteral">&quot; &quot;</span> + std::to_string(health) + <span class="stringliteral">&quot; &quot;</span> + std::to_string(ammo) +  <span class="stringliteral">&quot; &quot;</span> + ReturnState() + <span class="stringliteral">&quot;\n&quot;</span>;</div>
+<div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;    }</div>
+<div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160; </div>
+<div class="line"><a name="l00427"></a><span class="lineno"><a class="line" href="class_enemy.html#ae5a35caba056f8f4843476734bcc7f64">  427</a></span>&#160;    std::string <a class="code" href="class_enemy.html#ae5a35caba056f8f4843476734bcc7f64">ReturnState</a>()</div>
+<div class="line"><a name="l00428"></a><span class="lineno">  428</span>&#160;    {</div>
+<div class="line"><a name="l00429"></a><span class="lineno">  429</span>&#160;        <span class="keywordflow">if</span> (getFSM()-&gt;getCurrentState() == &amp;<a class="code" href="classsingleton.html#abe6a9e4cb548454cfb5d15f425553ae1">global_state::getInstance</a>())</div>
+<div class="line"><a name="l00430"></a><span class="lineno">  430</span>&#160;        {</div>
+<div class="line"><a name="l00431"></a><span class="lineno">  431</span>&#160;            <span class="keywordflow">return</span> <span class="stringliteral">&quot;global&quot;</span>;</div>
+<div class="line"><a name="l00432"></a><span class="lineno">  432</span>&#160;        }</div>
+<div class="line"><a name="l00433"></a><span class="lineno">  433</span>&#160;        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (getFSM()-&gt;getCurrentState() == &amp;<a class="code" href="classsingleton.html#abe6a9e4cb548454cfb5d15f425553ae1">wander_state::getInstance</a>())</div>
+<div class="line"><a name="l00434"></a><span class="lineno">  434</span>&#160;        {</div>
+<div class="line"><a name="l00435"></a><span class="lineno">  435</span>&#160;            <span class="keywordflow">return</span> <span class="stringliteral">&quot;wander&quot;</span>;</div>
+<div class="line"><a name="l00436"></a><span class="lineno">  436</span>&#160;        }</div>
+<div class="line"><a name="l00437"></a><span class="lineno">  437</span>&#160;        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (getFSM()-&gt;getCurrentState() == &amp;<a class="code" href="classsingleton.html#abe6a9e4cb548454cfb5d15f425553ae1">chase_state::getInstance</a>())</div>
+<div class="line"><a name="l00438"></a><span class="lineno">  438</span>&#160;        {</div>
+<div class="line"><a name="l00439"></a><span class="lineno">  439</span>&#160;            <span class="keywordflow">return</span> <span class="stringliteral">&quot;chase&quot;</span>;</div>
+<div class="line"><a name="l00440"></a><span class="lineno">  440</span>&#160;        }</div>
+<div class="line"><a name="l00441"></a><span class="lineno">  441</span>&#160;        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (getFSM()-&gt;getCurrentState() == &amp;<a class="code" href="classsingleton.html#abe6a9e4cb548454cfb5d15f425553ae1">flee_state::getInstance</a>())</div>
+<div class="line"><a name="l00442"></a><span class="lineno">  442</span>&#160;        {</div>
+<div class="line"><a name="l00443"></a><span class="lineno">  443</span>&#160;            <span class="keywordflow">return</span> <span class="stringliteral">&quot;flee&quot;</span>;</div>
+<div class="line"><a name="l00444"></a><span class="lineno">  444</span>&#160;        }</div>
+<div class="line"><a name="l00445"></a><span class="lineno">  445</span>&#160;        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (getFSM()-&gt;getCurrentState() == &amp;<a class="code" href="classsingleton.html#abe6a9e4cb548454cfb5d15f425553ae1">alert_state::getInstance</a>())</div>
+<div class="line"><a name="l00446"></a><span class="lineno">  446</span>&#160;        {</div>
+<div class="line"><a name="l00447"></a><span class="lineno">  447</span>&#160;            <span class="keywordflow">return</span> <span class="stringliteral">&quot;alert&quot;</span>;</div>
+<div class="line"><a name="l00448"></a><span class="lineno">  448</span>&#160;        }</div>
+<div class="line"><a name="l00449"></a><span class="lineno">  449</span>&#160;        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (getFSM()-&gt;getCurrentState() == &amp;<a class="code" href="classsingleton.html#abe6a9e4cb548454cfb5d15f425553ae1">die_state::getInstance</a>())</div>
+<div class="line"><a name="l00450"></a><span class="lineno">  450</span>&#160;        {</div>
+<div class="line"><a name="l00451"></a><span class="lineno">  451</span>&#160;            <span class="keywordflow">return</span> <span class="stringliteral">&quot;die&quot;</span>;</div>
+<div class="line"><a name="l00452"></a><span class="lineno">  452</span>&#160;        }</div>
+<div class="line"><a name="l00453"></a><span class="lineno">  453</span>&#160;        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (getFSM()-&gt;getCurrentState() == &amp;<a class="code" href="classsingleton.html#abe6a9e4cb548454cfb5d15f425553ae1">attack_state::getInstance</a>())</div>
+<div class="line"><a name="l00454"></a><span class="lineno">  454</span>&#160;        {</div>
+<div class="line"><a name="l00455"></a><span class="lineno">  455</span>&#160;            <span class="keywordflow">return</span> <span class="stringliteral">&quot;attack&quot;</span>;</div>
+<div class="line"><a name="l00456"></a><span class="lineno">  456</span>&#160;        }</div>
+<div class="line"><a name="l00457"></a><span class="lineno">  457</span>&#160;        <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00458"></a><span class="lineno">  458</span>&#160;        {</div>
+<div class="line"><a name="l00459"></a><span class="lineno">  459</span>&#160;            <span class="keywordflow">return</span> <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a name="l00460"></a><span class="lineno">  460</span>&#160;        }</div>
+<div class="line"><a name="l00461"></a><span class="lineno">  461</span>&#160;    }</div>
+<div class="line"><a name="l00462"></a><span class="lineno">  462</span>&#160; </div>
+<div class="line"><a name="l00467"></a><span class="lineno"><a class="line" href="class_enemy.html#a9e64f471fdb5039946a50a6a74614e97">  467</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="class_enemy.html#a9e64f471fdb5039946a50a6a74614e97">GetAccuracy</a>(){<span class="keywordflow">return</span> accuracyFactor;}</div>
+<div class="line"><a name="l00468"></a><span class="lineno">  468</span>&#160; </div>
+<div class="line"><a name="l00469"></a><span class="lineno">  469</span>&#160; </div>
+<div class="line"><a name="l00470"></a><span class="lineno"><a class="line" href="class_enemy.html#a880ddfe9c7e948676452149545c34f28">  470</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="class_enemy.html#a880ddfe9c7e948676452149545c34f28">GetAliveStatus</a>() { <span class="keywordflow">return</span> alive; }</div>
+<div class="line"><a name="l00471"></a><span class="lineno"><a class="line" href="class_enemy.html#a5833d5aee482c074a881184b7b522e52">  471</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_enemy.html#a5833d5aee482c074a881184b7b522e52">SetAliveStatus</a>(<span class="keywordtype">bool</span> s) { alive = s; }</div>
+<div class="line"><a name="l00472"></a><span class="lineno"><a class="line" href="class_enemy.html#a12c7db0b6db5c4f7ba466f6330b8af0b">  472</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="class_enemy.html#a12c7db0b6db5c4f7ba466f6330b8af0b">GetDamage</a>() { <span class="keywordflow">return</span> damage; }</div>
+<div class="line"><a name="l00473"></a><span class="lineno"><a class="line" href="class_enemy.html#a9a4f701ee66574f013870ba2f58f99ef">  473</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_enemy.html#a9a4f701ee66574f013870ba2f58f99ef">SetFireWeapon</a>(<span class="keywordtype">bool</span> f) { fireWeapon = f; }</div>
+<div class="line"><a name="l00474"></a><span class="lineno"><a class="line" href="class_enemy.html#a3a5ea46ab549f61383dcf43ad4a30ffa">  474</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="class_enemy.html#a3a5ea46ab549f61383dcf43ad4a30ffa">GetFireWeapon</a>() { <span class="keywordflow">return</span> fireWeapon; }</div>
+<div class="line"><a name="l00475"></a><span class="lineno">  475</span>&#160;    <span class="keywordtype">void</span> ResetEnemy(glm::vec3 spawn);</div>
+<div class="line"><a name="l00476"></a><span class="lineno">  476</span>&#160; </div>
+<div class="line"><a name="l00477"></a><span class="lineno"><a class="line" href="class_enemy.html#a6e2103451585da73bd05a1b221debee7">  477</a></span>&#160;    glm::vec3 <a class="code" href="class_enemy.html#a6e2103451585da73bd05a1b221debee7">newPos</a>;</div>
+<div class="line"><a name="l00478"></a><span class="lineno"><a class="line" href="class_enemy.html#a01cf82f420199d1ed1665081fc540296">  478</a></span>&#160;    LuaRef wanderLua = NULL;</div>
+<div class="line"><a name="l00479"></a><span class="lineno"><a class="line" href="class_enemy.html#a631e645c448403883cbc6df4ccb752c9">  479</a></span>&#160;    LuaRef <a class="code" href="classalert.html">alert</a> = NULL;</div>
+<div class="line"><a name="l00480"></a><span class="lineno"><a class="line" href="class_enemy.html#a77a88b3a51821d3d7c631f48eebff53c">  480</a></span>&#160;    LuaRef <a class="code" href="classchase.html">chase</a> = NULL;</div>
+<div class="line"><a name="l00481"></a><span class="lineno"><a class="line" href="class_enemy.html#a9a70ce9c69991fd48ace6dda9206523c">  481</a></span>&#160;    LuaRef fleeLua = NULL;</div>
+<div class="line"><a name="l00482"></a><span class="lineno"><a class="line" href="class_enemy.html#ae26672f2922c44976b3e553d870a2bd8">  482</a></span>&#160;    LuaRef <a class="code" href="classattack.html">attack</a> = NULL;</div>
+<div class="line"><a name="l00483"></a><span class="lineno"><a class="line" href="class_enemy.html#aba514d317786cb163692da1592acd371">  483</a></span>&#160;    LuaRef <a class="code" href="classdie.html">die</a> = NULL;</div>
+<div class="line"><a name="l00484"></a><span class="lineno"><a class="line" href="class_enemy.html#ac8668e21e47251b44773a0b6032d6d22">  484</a></span>&#160;    LuaRef <a class="code" href="classglobal.html">global</a> = NULL;</div>
+<div class="line"><a name="l00485"></a><span class="lineno"><a class="line" href="class_enemy.html#aa50957f1e068151dbf7b26459c297f72">  485</a></span>&#160;    LuaRef init = NULL;</div>
+<div class="line"><a name="l00486"></a><span class="lineno">  486</span>&#160; </div>
+<div class="line"><a name="l00487"></a><span class="lineno"><a class="line" href="class_enemy.html#acf4a35676d149ac6df64cc0bb11e5aed">  487</a></span>&#160;    std::string <a class="code" href="class_enemy.html#acf4a35676d149ac6df64cc0bb11e5aed">getDifficulty</a>()</div>
+<div class="line"><a name="l00488"></a><span class="lineno">  488</span>&#160;    {</div>
+<div class="line"><a name="l00489"></a><span class="lineno">  489</span>&#160;        <span class="keywordflow">switch</span> (<a class="code" href="classsingleton.html">singleton&lt;Manager&gt;::getInstance</a>().difficulty)</div>
+<div class="line"><a name="l00490"></a><span class="lineno">  490</span>&#160;        {</div>
+<div class="line"><a name="l00491"></a><span class="lineno">  491</span>&#160;        <span class="keywordflow">case</span> Manager::Difficulty::hard:</div>
+<div class="line"><a name="l00492"></a><span class="lineno">  492</span>&#160;            <span class="keywordflow">return</span> <span class="stringliteral">&quot;Hard&quot;</span>;</div>
+<div class="line"><a name="l00493"></a><span class="lineno">  493</span>&#160;        <span class="keywordflow">case</span> Manager::Difficulty::normal:</div>
+<div class="line"><a name="l00494"></a><span class="lineno">  494</span>&#160;            <span class="keywordflow">return</span> <span class="stringliteral">&quot;Normal&quot;</span>;</div>
+<div class="line"><a name="l00495"></a><span class="lineno">  495</span>&#160;        <span class="keywordflow">case</span> Manager::Difficulty::easy:</div>
+<div class="line"><a name="l00496"></a><span class="lineno">  496</span>&#160;            <span class="keywordflow">return</span> <span class="stringliteral">&quot;Easy&quot;</span>;</div>
+<div class="line"><a name="l00497"></a><span class="lineno">  497</span>&#160;        <span class="keywordflow">default</span>:</div>
+<div class="line"><a name="l00498"></a><span class="lineno">  498</span>&#160;            <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00499"></a><span class="lineno">  499</span>&#160;        }</div>
+<div class="line"><a name="l00500"></a><span class="lineno">  500</span>&#160;    }</div>
+<div class="line"><a name="l00501"></a><span class="lineno">  501</span>&#160; </div>
+<div class="line"><a name="l00502"></a><span class="lineno"><a class="line" href="class_enemy.html#aa5be702e4371963de69f7dc7859c14d1">  502</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="class_enemy.html#aa5be702e4371963de69f7dc7859c14d1">startTimer</a>;</div>
+<div class="line"><a name="l00503"></a><span class="lineno">  503</span>&#160; </div>
+<div class="line"><a name="l00504"></a><span class="lineno">  504</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00505"></a><span class="lineno">  505</span>&#160; </div>
+<div class="line"><a name="l00506"></a><span class="lineno">  506</span>&#160;    glm::vec3 pPos;</div>
+<div class="line"><a name="l00507"></a><span class="lineno">  507</span>&#160;    <a class="code" href="class_model.html">Model</a> wModel;</div>
+<div class="line"><a name="l00508"></a><span class="lineno">  508</span>&#160;    <span class="keywordtype">float</span> deltaTime = 0;</div>
+<div class="line"><a name="l00509"></a><span class="lineno">  509</span>&#160;    <a class="code" href="classstate_machine.html">stateMachine&lt;Enemy&gt;</a>* enemyFSM;</div>
+<div class="line"><a name="l00510"></a><span class="lineno">  510</span>&#160;    <span class="keywordtype">int</span> health;</div>
+<div class="line"><a name="l00511"></a><span class="lineno">  511</span>&#160;    <span class="keywordtype">int</span> healthHold;</div>
+<div class="line"><a name="l00512"></a><span class="lineno">  512</span>&#160;    <span class="keywordtype">int</span> ammo;</div>
+<div class="line"><a name="l00513"></a><span class="lineno">  513</span>&#160;    <span class="keywordtype">bool</span> alive;</div>
+<div class="line"><a name="l00514"></a><span class="lineno">  514</span>&#160;    <span class="keywordtype">bool</span> hasWeapon;</div>
+<div class="line"><a name="l00515"></a><span class="lineno">  515</span>&#160; </div>
+<div class="line"><a name="l00516"></a><span class="lineno">  516</span>&#160;    <span class="keywordtype">bool</span> moving = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00517"></a><span class="lineno">  517</span>&#160;    <span class="keywordtype">bool</span> token = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00518"></a><span class="lineno">  518</span>&#160;    <span class="keywordtype">bool</span> globalFlag = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00519"></a><span class="lineno">  519</span>&#160;    <span class="keywordtype">bool</span> deathAnim = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00520"></a><span class="lineno">  520</span>&#160;    <span class="keywordtype">bool</span> killFSM = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00521"></a><span class="lineno">  521</span>&#160; </div>
+<div class="line"><a name="l00522"></a><span class="lineno">  522</span>&#160;    <span class="keywordtype">int</span> timer = 0;</div>
+<div class="line"><a name="l00523"></a><span class="lineno">  523</span>&#160;    <span class="keywordtype">int</span> check = 0;  </div>
+<div class="line"><a name="l00524"></a><span class="lineno">  524</span>&#160;    <span class="keywordtype">float</span> direction = 0.0f;</div>
+<div class="line"><a name="l00525"></a><span class="lineno">  525</span>&#160;    <span class="keywordtype">double</span> wanderRadius = 0;</div>
+<div class="line"><a name="l00526"></a><span class="lineno">  526</span>&#160;    <span class="keywordtype">double</span> wanderDistance = 0;</div>
+<div class="line"><a name="l00527"></a><span class="lineno">  527</span>&#160;    <span class="keywordtype">double</span> wanderJitter = 0;</div>
+<div class="line"><a name="l00528"></a><span class="lineno">  528</span>&#160;    glm::vec3 wanderTarget = { 0.0f,0.0f,0.0f };</div>
+<div class="line"><a name="l00529"></a><span class="lineno">  529</span>&#160;    <span class="keywordtype">float</span> deathtimer;</div>
+<div class="line"><a name="l00530"></a><span class="lineno">  530</span>&#160;    <span class="keywordtype">float</span> weaponTimer;</div>
+<div class="line"><a name="l00531"></a><span class="lineno">  531</span>&#160;    <span class="keywordtype">bool</span> fireWeapon = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00532"></a><span class="lineno">  532</span>&#160;    <span class="keywordtype">float</span> accuracyFactor;</div>
+<div class="line"><a name="l00533"></a><span class="lineno">  533</span>&#160;    <span class="keywordtype">int</span> damage;</div>
+<div class="line"><a name="l00534"></a><span class="lineno">  534</span>&#160;};</div>
+<div class="line"><a name="l00535"></a><span class="lineno">  535</span>&#160; </div>
+<div class="ttc" id="a_enemy_8h_html_a656d5241fcab4d8ef3e23e6644a8498b"><div class="ttname"><a href="_enemy_8h.html#a656d5241fcab4d8ef3e23e6644a8498b">randFloat</a></div><div class="ttdeci">double randFloat()</div><div class="ttdef"><b>Definition:</b> Enemy.h:8</div></div>
+<div class="ttc" id="a_enemy_8h_html_a961ea51b7e356dfd4afeeb878fc06041"><div class="ttname"><a href="_enemy_8h.html#a961ea51b7e356dfd4afeeb878fc06041">randomClamped</a></div><div class="ttdeci">double randomClamped()</div><div class="ttdef"><b>Definition:</b> Enemy.h:13</div></div>
+<div class="ttc" id="aclass_enemy_html"><div class="ttname"><a href="class_enemy.html">Enemy</a></div><div class="ttdoc">Abstract GameObject class for enemies.</div><div class="ttdef"><b>Definition:</b> Enemy.h:40</div></div>
+<div class="ttc" id="aclass_enemy_html_a12c7db0b6db5c4f7ba466f6330b8af0b"><div class="ttname"><a href="class_enemy.html#a12c7db0b6db5c4f7ba466f6330b8af0b">Enemy::GetDamage</a></div><div class="ttdeci">int GetDamage()</div><div class="ttdef"><b>Definition:</b> Enemy.h:472</div></div>
+<div class="ttc" id="aclass_enemy_html_a29f690a587f3c992a537042c4b2ea5dc"><div class="ttname"><a href="class_enemy.html#a29f690a587f3c992a537042c4b2ea5dc">Enemy::SetKillFSM</a></div><div class="ttdeci">void SetKillFSM(bool k)</div><div class="ttdoc">sets the boolean value of the killFSM variable</div><div class="ttdef"><b>Definition:</b> Enemy.h:140</div></div>
+<div class="ttc" id="aclass_enemy_html_a2cce7194016cb90b9e457b3da131fd8a"><div class="ttname"><a href="class_enemy.html#a2cce7194016cb90b9e457b3da131fd8a">Enemy::isAlive</a></div><div class="ttdeci">bool isAlive()</div><div class="ttdoc">gets and returns the alive boolean value</div><div class="ttdef"><b>Definition:</b> Enemy.h:149</div></div>
+<div class="ttc" id="aclass_enemy_html_a2f903df691de1c3557fd2faa74ae8d78"><div class="ttname"><a href="class_enemy.html#a2f903df691de1c3557fd2faa74ae8d78">Enemy::setEnemyVelocity</a></div><div class="ttdeci">void setEnemyVelocity(glm::vec3 v)</div><div class="ttdoc">function that allows you to set the values of the enemyVelocity vector</div><div class="ttdef"><b>Definition:</b> Enemy.h:273</div></div>
+<div class="ttc" id="aclass_enemy_html_a3a5ea46ab549f61383dcf43ad4a30ffa"><div class="ttname"><a href="class_enemy.html#a3a5ea46ab549f61383dcf43ad4a30ffa">Enemy::GetFireWeapon</a></div><div class="ttdeci">bool GetFireWeapon()</div><div class="ttdef"><b>Definition:</b> Enemy.h:474</div></div>
+<div class="ttc" id="aclass_enemy_html_a46341636350ca2bc6aac929b2a84f215"><div class="ttname"><a href="class_enemy.html#a46341636350ca2bc6aac929b2a84f215">Enemy::getHealth</a></div><div class="ttdeci">int getHealth()</div><div class="ttdoc">gets and returns the health value of the enemy</div><div class="ttdef"><b>Definition:</b> Enemy.h:96</div></div>
+<div class="ttc" id="aclass_enemy_html_a4dd3f15c29111e4fc5da276c8ea5715c"><div class="ttname"><a href="class_enemy.html#a4dd3f15c29111e4fc5da276c8ea5715c">Enemy::GetMoving</a></div><div class="ttdeci">bool GetMoving()</div><div class="ttdoc">gets and returns the value of moving</div><div class="ttdef"><b>Definition:</b> Enemy.h:397</div></div>
+<div class="ttc" id="aclass_enemy_html_a4fec81242274841c382f32b02fdf0a40"><div class="ttname"><a href="class_enemy.html#a4fec81242274841c382f32b02fdf0a40">Enemy::getVelocity</a></div><div class="ttdeci">glm::vec3 getVelocity() const</div><div class="ttdoc">gets and returns the velocity vector</div><div class="ttdef"><b>Definition:</b> Enemy.h:255</div></div>
+<div class="ttc" id="aclass_enemy_html_a537e8b909fe462c74d136d6271e907e8"><div class="ttname"><a href="class_enemy.html#a537e8b909fe462c74d136d6271e907e8">Enemy::incrementCheck</a></div><div class="ttdeci">int incrementCheck()</div><div class="ttdoc">increments the check value</div><div class="ttdef"><b>Definition:</b> Enemy.h:357</div></div>
+<div class="ttc" id="aclass_enemy_html_a577c864252d94cfe4f592a975547d4b5"><div class="ttname"><a href="class_enemy.html#a577c864252d94cfe4f592a975547d4b5">Enemy::GetPos</a></div><div class="ttdeci">glm::vec3 GetPos() const</div><div class="ttdoc">Gets the position of the game object.</div><div class="ttdef"><b>Definition:</b> Enemy.h:103</div></div>
+<div class="ttc" id="aclass_enemy_html_a5833d5aee482c074a881184b7b522e52"><div class="ttname"><a href="class_enemy.html#a5833d5aee482c074a881184b7b522e52">Enemy::SetAliveStatus</a></div><div class="ttdeci">void SetAliveStatus(bool s)</div><div class="ttdef"><b>Definition:</b> Enemy.h:471</div></div>
+<div class="ttc" id="aclass_enemy_html_a5a44af124e289a91d430299be612625c"><div class="ttname"><a href="class_enemy.html#a5a44af124e289a91d430299be612625c">Enemy::getNewPos</a></div><div class="ttdeci">glm::vec3 getNewPos()</div><div class="ttdoc">gets and returns the the newPos vector</div><div class="ttdef"><b>Definition:</b> Enemy.h:403</div></div>
+<div class="ttc" id="aclass_enemy_html_a5dd8733c7fdb074daf1f053090acedfb"><div class="ttname"><a href="class_enemy.html#a5dd8733c7fdb074daf1f053090acedfb">Enemy::getEnemyVelocity</a></div><div class="ttdeci">glm::vec3 getEnemyVelocity() const</div><div class="ttdoc">gets and returns the enemy velocity vector</div><div class="ttdef"><b>Definition:</b> Enemy.h:267</div></div>
+<div class="ttc" id="aclass_enemy_html_a6189fba91b8dc458e5c324f9545f9c58"><div class="ttname"><a href="class_enemy.html#a6189fba91b8dc458e5c324f9545f9c58">Enemy::setNewPos</a></div><div class="ttdeci">void setNewPos(glm::vec3 p)</div><div class="ttdoc">sets the value of the newPos vector</div><div class="ttdef"><b>Definition:</b> Enemy.h:409</div></div>
+<div class="ttc" id="aclass_enemy_html_a6598a4e0625abcc158fa8f70ed42b34e"><div class="ttname"><a href="class_enemy.html#a6598a4e0625abcc158fa8f70ed42b34e">Enemy::setAlive</a></div><div class="ttdeci">void setAlive(bool a)</div><div class="ttdoc">sets the boolean value of the alive variable</div><div class="ttdef"><b>Definition:</b> Enemy.h:134</div></div>
+<div class="ttc" id="aclass_enemy_html_a665c2f529dc84809bf8be5e93d19c015"><div class="ttname"><a href="class_enemy.html#a665c2f529dc84809bf8be5e93d19c015">Enemy::setDeathAnim</a></div><div class="ttdeci">void setDeathAnim(bool d)</div><div class="ttdoc">sets the value of the deathAnim boolean</div><div class="ttdef"><b>Definition:</b> Enemy.h:321</div></div>
+<div class="ttc" id="aclass_enemy_html_a675d4718c1ef3d71bfb9dcec2fc7a102"><div class="ttname"><a href="class_enemy.html#a675d4718c1ef3d71bfb9dcec2fc7a102">Enemy::setCheck</a></div><div class="ttdeci">void setCheck(int c)</div><div class="ttdoc">sets the value of the check</div><div class="ttdef"><b>Definition:</b> Enemy.h:351</div></div>
+<div class="ttc" id="aclass_enemy_html_a6e2103451585da73bd05a1b221debee7"><div class="ttname"><a href="class_enemy.html#a6e2103451585da73bd05a1b221debee7">Enemy::newPos</a></div><div class="ttdeci">glm::vec3 newPos</div><div class="ttdef"><b>Definition:</b> Enemy.h:477</div></div>
+<div class="ttc" id="aclass_enemy_html_a74abe45981ed89e34ec3e6927d9c5c8c"><div class="ttname"><a href="class_enemy.html#a74abe45981ed89e34ec3e6927d9c5c8c">Enemy::SetPos</a></div><div class="ttdeci">void SetPos(glm::vec3 p)</div><div class="ttdoc">Sets the position of the game object.</div><div class="ttdef"><b>Definition:</b> Enemy.h:108</div></div>
+<div class="ttc" id="aclass_enemy_html_a77a74af6c580978969fce6e0367f91c0"><div class="ttname"><a href="class_enemy.html#a77a74af6c580978969fce6e0367f91c0">Enemy::getDirection</a></div><div class="ttdeci">float getDirection() const</div><div class="ttdoc">gets and returns the direction in which the enemy is facing</div><div class="ttdef"><b>Definition:</b> Enemy.h:279</div></div>
+<div class="ttc" id="aclass_enemy_html_a807cd3be6023eef6f1e8b9734730aae0"><div class="ttname"><a href="class_enemy.html#a807cd3be6023eef6f1e8b9734730aae0">Enemy::SetMoving</a></div><div class="ttdeci">void SetMoving(bool m)</div><div class="ttdoc">sets the value of the moving boolean value, which is set to true when the enemy is moving towards the...</div><div class="ttdef"><b>Definition:</b> Enemy.h:391</div></div>
+<div class="ttc" id="aclass_enemy_html_a8410dd9b89bff7d721af005d6284b80c"><div class="ttname"><a href="class_enemy.html#a8410dd9b89bff7d721af005d6284b80c">Enemy::setVelocity</a></div><div class="ttdeci">void setVelocity(glm::vec3 v)</div><div class="ttdoc">function that allows you to set the values of the velocity vector</div><div class="ttdef"><b>Definition:</b> Enemy.h:261</div></div>
+<div class="ttc" id="aclass_enemy_html_a878feb211351f52e64b9c27b00ca3629"><div class="ttname"><a href="class_enemy.html#a878feb211351f52e64b9c27b00ca3629">Enemy::setDirection</a></div><div class="ttdeci">void setDirection(float dir)</div><div class="ttdoc">sets the direction in which the enemy is facing</div><div class="ttdef"><b>Definition:</b> Enemy.h:285</div></div>
+<div class="ttc" id="aclass_enemy_html_a880ddfe9c7e948676452149545c34f28"><div class="ttname"><a href="class_enemy.html#a880ddfe9c7e948676452149545c34f28">Enemy::GetAliveStatus</a></div><div class="ttdeci">bool GetAliveStatus()</div><div class="ttdef"><b>Definition:</b> Enemy.h:470</div></div>
+<div class="ttc" id="aclass_enemy_html_a8848fe440fb23e58fcc39d4e96199034"><div class="ttname"><a href="class_enemy.html#a8848fe440fb23e58fcc39d4e96199034">Enemy::incrementTimer</a></div><div class="ttdeci">int incrementTimer()</div><div class="ttdoc">increments the timer value</div><div class="ttdef"><b>Definition:</b> Enemy.h:339</div></div>
+<div class="ttc" id="aclass_enemy_html_a9628e768b1ef212995484cdfd3d2fea7"><div class="ttname"><a href="class_enemy.html#a9628e768b1ef212995484cdfd3d2fea7">Enemy::getTimer</a></div><div class="ttdeci">int getTimer() const</div><div class="ttdoc">gets and returns the value of the timer</div><div class="ttdef"><b>Definition:</b> Enemy.h:327</div></div>
+<div class="ttc" id="aclass_enemy_html_a9a2315b140d7235886b046559ac81801"><div class="ttname"><a href="class_enemy.html#a9a2315b140d7235886b046559ac81801">Enemy::StreamValues</a></div><div class="ttdeci">virtual std::string StreamValues()</div><div class="ttdef"><b>Definition:</b> Enemy.h:418</div></div>
+<div class="ttc" id="aclass_enemy_html_a9a2b8640b75830bed7db68fdf78ef3d2"><div class="ttname"><a href="class_enemy.html#a9a2b8640b75830bed7db68fdf78ef3d2">Enemy::GetDeltaTime</a></div><div class="ttdeci">float GetDeltaTime() const</div><div class="ttdoc">gets and returns the value of deletaTime</div><div class="ttdef"><b>Definition:</b> Enemy.h:155</div></div>
+<div class="ttc" id="aclass_enemy_html_a9a4f701ee66574f013870ba2f58f99ef"><div class="ttname"><a href="class_enemy.html#a9a4f701ee66574f013870ba2f58f99ef">Enemy::SetFireWeapon</a></div><div class="ttdeci">void SetFireWeapon(bool f)</div><div class="ttdef"><b>Definition:</b> Enemy.h:473</div></div>
+<div class="ttc" id="aclass_enemy_html_a9b0879cd0e2edca02db45ce09839de03"><div class="ttname"><a href="class_enemy.html#a9b0879cd0e2edca02db45ce09839de03">Enemy::getGlobalFlag</a></div><div class="ttdeci">bool getGlobalFlag() const</div><div class="ttdoc">gets and returns the value of the globalFlag (globalFlag is used to ensure that globalState changes d...</div><div class="ttdef"><b>Definition:</b> Enemy.h:291</div></div>
+<div class="ttc" id="aclass_enemy_html_a9c4478a4920116aba556a7320afd09b4"><div class="ttname"><a href="class_enemy.html#a9c4478a4920116aba556a7320afd09b4">Enemy::setToken</a></div><div class="ttdeci">void setToken(bool t)</div><div class="ttdoc">sets the value of the token</div><div class="ttdef"><b>Definition:</b> Enemy.h:309</div></div>
+<div class="ttc" id="aclass_enemy_html_a9e64f471fdb5039946a50a6a74614e97"><div class="ttname"><a href="class_enemy.html#a9e64f471fdb5039946a50a6a74614e97">Enemy::GetAccuracy</a></div><div class="ttdeci">float GetAccuracy()</div><div class="ttdoc">Gets the accuracy factor of an enemy.</div><div class="ttdef"><b>Definition:</b> Enemy.h:467</div></div>
+<div class="ttc" id="aclass_enemy_html_aa5be702e4371963de69f7dc7859c14d1"><div class="ttname"><a href="class_enemy.html#aa5be702e4371963de69f7dc7859c14d1">Enemy::startTimer</a></div><div class="ttdeci">bool startTimer</div><div class="ttdef"><b>Definition:</b> Enemy.h:502</div></div>
+<div class="ttc" id="aclass_enemy_html_aa85fa1ba3aec84f36a072a24315db922"><div class="ttname"><a href="class_enemy.html#aa85fa1ba3aec84f36a072a24315db922">Enemy::setGlobalFlag</a></div><div class="ttdeci">void setGlobalFlag(bool flag)</div><div class="ttdoc">sets the value of the globalFlag</div><div class="ttdef"><b>Definition:</b> Enemy.h:297</div></div>
+<div class="ttc" id="aclass_enemy_html_aaeab7f5c09f92eb6a4d752aee9800959"><div class="ttname"><a href="class_enemy.html#aaeab7f5c09f92eb6a4d752aee9800959">Enemy::Print</a></div><div class="ttdeci">void Print(glm::vec3 p)</div><div class="ttdoc">Prints the x,y,z values of a given position.</div><div class="ttdef"><b>Definition:</b> Enemy.h:69</div></div>
+<div class="ttc" id="aclass_enemy_html_ac216deb271b5bd35a886783500aadd84"><div class="ttname"><a href="class_enemy.html#ac216deb271b5bd35a886783500aadd84">Enemy::getFSM</a></div><div class="ttdeci">stateMachine&lt; Enemy &gt; * getFSM() const</div><div class="ttdoc">gets and returns the finite state machine of the enemy</div><div class="ttdef"><b>Definition:</b> Enemy.h:83</div></div>
+<div class="ttc" id="aclass_enemy_html_acd0f76589659a9b4e0be58aa49b5f802"><div class="ttname"><a href="class_enemy.html#acd0f76589659a9b4e0be58aa49b5f802">Enemy::getCamPos</a></div><div class="ttdeci">glm::vec3 getCamPos()</div><div class="ttdoc">gets and returns the position of the first person player camera</div><div class="ttdef"><b>Definition:</b> Enemy.h:175</div></div>
+<div class="ttc" id="aclass_enemy_html_acf4a35676d149ac6df64cc0bb11e5aed"><div class="ttname"><a href="class_enemy.html#acf4a35676d149ac6df64cc0bb11e5aed">Enemy::getDifficulty</a></div><div class="ttdeci">std::string getDifficulty()</div><div class="ttdef"><b>Definition:</b> Enemy.h:487</div></div>
+<div class="ttc" id="aclass_enemy_html_ad41bb64e354fcd25e97d4a97e3d70d4f"><div class="ttname"><a href="class_enemy.html#ad41bb64e354fcd25e97d4a97e3d70d4f">Enemy::getToken</a></div><div class="ttdeci">bool getToken() const</div><div class="ttdoc">gets and returns the value of the token</div><div class="ttdef"><b>Definition:</b> Enemy.h:303</div></div>
+<div class="ttc" id="aclass_enemy_html_adf46a61ca173e7ea674024edb1ce6ad3"><div class="ttname"><a href="class_enemy.html#adf46a61ca173e7ea674024edb1ce6ad3">Enemy::getCheck</a></div><div class="ttdeci">int getCheck() const</div><div class="ttdoc">gets and returns the value of the check</div><div class="ttdef"><b>Definition:</b> Enemy.h:345</div></div>
+<div class="ttc" id="aclass_enemy_html_ae5a35caba056f8f4843476734bcc7f64"><div class="ttname"><a href="class_enemy.html#ae5a35caba056f8f4843476734bcc7f64">Enemy::ReturnState</a></div><div class="ttdeci">std::string ReturnState()</div><div class="ttdoc">returns the string value of the state that the FSM is currently in</div><div class="ttdef"><b>Definition:</b> Enemy.h:427</div></div>
+<div class="ttc" id="aclass_enemy_html_afe9c462d6457e13fe7c35a0661249578"><div class="ttname"><a href="class_enemy.html#afe9c462d6457e13fe7c35a0661249578">Enemy::getDeathAnim</a></div><div class="ttdeci">bool getDeathAnim() const</div><div class="ttdoc">gets and returns the value of the deathAnim flag</div><div class="ttdef"><b>Definition:</b> Enemy.h:315</div></div>
+<div class="ttc" id="aclass_enemy_html_affa586c312c78a562ec5130073330de1"><div class="ttname"><a href="class_enemy.html#affa586c312c78a562ec5130073330de1">Enemy::setTimer</a></div><div class="ttdeci">void setTimer(int t)</div><div class="ttdoc">sets the value of the timer</div><div class="ttdef"><b>Definition:</b> Enemy.h:333</div></div>
+<div class="ttc" id="aclass_game_object_html"><div class="ttname"><a href="class_game_object.html">GameObject</a></div><div class="ttdoc">Class that holds the main information of a game object, that is abstracted for more specific reasons.</div><div class="ttdef"><b>Definition:</b> GameObject.h:25</div></div>
+<div class="ttc" id="aclass_game_object_html_aa9f5812ad1460871ebceb188cc9aaa96"><div class="ttname"><a href="class_game_object.html#aa9f5812ad1460871ebceb188cc9aaa96">GameObject::GetPos</a></div><div class="ttdeci">glm::vec3 GetPos() const</div><div class="ttdoc">Gets the position value.</div><div class="ttdef"><b>Definition:</b> GameObject.h:87</div></div>
+<div class="ttc" id="aclass_game_object_html_aaa26dd3d19a1476a0230dc0235d5c6be"><div class="ttname"><a href="class_game_object.html#aaa26dd3d19a1476a0230dc0235d5c6be">GameObject::SetPos</a></div><div class="ttdeci">void SetPos(glm::vec3 p)</div><div class="ttdoc">Sets the position.</div><div class="ttdef"><b>Definition:</b> GameObject.h:75</div></div>
+<div class="ttc" id="aclass_model_html"><div class="ttname"><a href="class_model.html">Model</a></div><div class="ttdoc">Holds the model information of objects, can be md2 or Fbx models.</div><div class="ttdef"><b>Definition:</b> Model.h:39</div></div>
+<div class="ttc" id="aclass_renderer_html"><div class="ttname"><a href="class_renderer.html">Renderer</a></div><div class="ttdoc">Contains the absract information for the Renderer. The class holds all the functions that would be us...</div><div class="ttdef"><b>Definition:</b> Renderer.h:24</div></div>
+<div class="ttc" id="aclass_view_html"><div class="ttname"><a href="class_view.html">View</a></div><div class="ttdoc">Holds matrix and position information to allow other parts of the engine to have access to this infor...</div><div class="ttdef"><b>Definition:</b> View.h:17</div></div>
+<div class="ttc" id="aclassalert_html"><div class="ttname"><a href="classalert.html">alert</a></div><div class="ttdoc">A derived class that inherits from the state class. Represents the Die state of the Enemy FSM.</div><div class="ttdef"><b>Definition:</b> enemyStates.h:53</div></div>
+<div class="ttc" id="aclassattack_html"><div class="ttname"><a href="classattack.html">attack</a></div><div class="ttdoc">A derived class that inherits from the state class. Represents the Attack state of the Enemy FSM.</div><div class="ttdef"><b>Definition:</b> enemyStates.h:153</div></div>
+<div class="ttc" id="aclasschase_html"><div class="ttname"><a href="classchase.html">chase</a></div><div class="ttdoc">A derived class that inherits from the state class. Represents the Chase state of the Enemy FSM.</div><div class="ttdef"><b>Definition:</b> enemyStates.h:86</div></div>
+<div class="ttc" id="aclassdie_html"><div class="ttname"><a href="classdie.html">die</a></div><div class="ttdoc">A derived class that inherits from the state class. Represents the Die state of the Enemy FSM.</div><div class="ttdef"><b>Definition:</b> enemyStates.h:187</div></div>
+<div class="ttc" id="aclassflee_html"><div class="ttname"><a href="classflee.html">flee</a></div><div class="ttdoc">A derived class that inherits from the state class. Represents the Flee state of the Enemy FSM.</div><div class="ttdef"><b>Definition:</b> enemyStates.h:119</div></div>
+<div class="ttc" id="aclassglobal_html"><div class="ttname"><a href="classglobal.html">global</a></div><div class="ttdoc">A derived class that inherits from the state class. Represents the Global state of the Enemy FSM.</div><div class="ttdef"><b>Definition:</b> enemyStates.h:221</div></div>
+<div class="ttc" id="aclasssingleton_html"><div class="ttname"><a href="classsingleton.html">singleton</a></div><div class="ttdoc">A templated class that uses the singleton design pattern to provide one instance of any specified cla...</div><div class="ttdef"><b>Definition:</b> singleton.h:15</div></div>
+<div class="ttc" id="aclasssingleton_html_abe6a9e4cb548454cfb5d15f425553ae1"><div class="ttname"><a href="classsingleton.html#abe6a9e4cb548454cfb5d15f425553ae1">singleton::getInstance</a></div><div class="ttdeci">static T &amp; getInstance()</div><div class="ttdoc">gets and returns the instance of the class provided to the singleton</div><div class="ttdef"><b>Definition:</b> singleton.h:23</div></div>
+<div class="ttc" id="aclassstate_html"><div class="ttname"><a href="classstate.html">state</a></div><div class="ttdoc">An abstract class that provides a common interface to all state classes. It is templated so that clas...</div></div>
+<div class="ttc" id="aclassstate_machine_html"><div class="ttname"><a href="classstate_machine.html">stateMachine&lt; Enemy &gt;</a></div></div>
+<div class="ttc" id="aclasswander_html"><div class="ttname"><a href="classwander.html">wander</a></div><div class="ttdoc">A derived class that inherits from the state class. Represents the Wander state of the Enemy FSM.</div><div class="ttdef"><b>Definition:</b> enemyStates.h:20</div></div>
+<div class="ttc" id="aenemy_states_8h_html"><div class="ttname"><a href="enemy_states_8h.html">enemyStates.h</a></div></div>
+<div class="ttc" id="anamespace_im_gui_html_ab51a164f547317c16c441f1599e3946d"><div class="ttname"><a href="namespace_im_gui.html#ab51a164f547317c16c441f1599e3946d">ImGui::Render</a></div><div class="ttdeci">IMGUI_API void Render()</div><div class="ttdef"><b>Definition:</b> imgui.cpp:4434</div></div>
+<div class="ttc" id="astate_8h_html"><div class="ttname"><a href="state_8h.html">state.h</a></div></div>
+<div class="ttc" id="astate_machine_8h_html"><div class="ttname"><a href="state_machine_8h.html">stateMachine.h</a></div></div>
+<div class="ttc" id="astruct_telegram_html"><div class="ttname"><a href="struct_telegram.html">Telegram</a></div><div class="ttdef"><b>Definition:</b> Telegram.h:4</div></div>
 </div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_492deb8f30c21d9ebac9ab6ce6fb7949.html">ICT397-Project-Engine</a></li><li class="navelem"><a class="el" href="_enemy_8h.html">Enemy.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
 </body>
 </html>

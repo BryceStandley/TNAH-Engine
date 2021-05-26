@@ -19,6 +19,16 @@ std::string Debugger::DebugVec3(glm::vec3 a)
     return b;
 }
 
+glm::vec3 Debugger::ConvertPlayerToTerrainPosition(glm::vec3 playerPosition, float terrainSize, float vertexHeight)
+{
+	float worldx, worldz, worldToTerrainScaleFactor;
+	worldToTerrainScaleFactor = terrainSize / 409.0f;
+	worldx = playerPosition.x * worldToTerrainScaleFactor;
+	worldz = playerPosition.z * worldToTerrainScaleFactor;
+	glm::vec3 terrainPos = glm::vec3(worldx, vertexHeight, worldz);
+	return terrainPos;
+}
+
 void Debugger::OpenLogger()
 {
 	errno_t err;

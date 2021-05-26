@@ -1,0 +1,22 @@
+digraph "Graphical Class Hierarchy"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node0 [label="State\< Enemy \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_state.html",tooltip=" "];
+  Node0 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 [label="alert",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classalert.html",tooltip="A derived class that inherits from the state class. Represents the Die state of the Enemy FSM."];
+  Node0 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="attack",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classattack.html",tooltip="A derived class that inherits from the state class. Represents the Attack state of the Enemy FSM."];
+  Node0 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="chase",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classchase.html",tooltip="A derived class that inherits from the state class. Represents the Chase state of the Enemy FSM."];
+  Node0 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="die",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classdie.html",tooltip="A derived class that inherits from the state class. Represents the Die state of the Enemy FSM."];
+  Node0 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="flee",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classflee.html",tooltip="A derived class that inherits from the state class. Represents the Flee state of the Enemy FSM."];
+  Node0 -> Node6 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="global",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classglobal.html",tooltip="A derived class that inherits from the state class. Represents the Global state of the Enemy FSM."];
+  Node0 -> Node7 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 [label="wander",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classwander.html",tooltip="A derived class that inherits from the state class. Represents the Wander state of the Enemy FSM."];
+}

@@ -23,10 +23,10 @@ vec4 mountain = texture(texture2, texCoord);
 vec4 snow = texture(texture3, texCoord);
 vec4 detail = texture(texture4, texCoord);
 
-int dirtStart = 40;
-int grassStart = 75;
-int mountainStart = 150;
-int snowStart = 200;
+int dirtStart = 0;
+int grassStart = 40;
+int mountainStart = 80;
+int snowStart = 250;
 
 void main()
 {

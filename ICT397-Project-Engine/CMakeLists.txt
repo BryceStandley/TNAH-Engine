@@ -48,6 +48,7 @@ target_sources(${PROJECT_NAME} PRIVATE
         EndScreenGUI.cpp
         MainMenuGUI.cpp
         SettingsManager.cpp
+        EntityManager.cpp
         )
 
 target_include_directories(${PROJECT_NAME} PRIVATE ${PROJECT_SOURCE_DIR}/include)
@@ -61,4 +62,8 @@ target_sources(${PROJECT_NAME} PRIVATE
         imgui/imgui_impl_opengl3.cpp
         imgui/imgui_tables.cpp
         imgui/imgui_widgets.cpp
+        )
+
+target_sources(${PROJECT_NAME} PRIVATE
+        tga/tga.cpp
         )

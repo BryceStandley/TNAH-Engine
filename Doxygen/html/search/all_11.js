@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['vertex_168',['Vertex',['../struct_vertex.html',1,'']]],
-  ['vertices_169',['vertices',['../class_mesh.html#a6465a888c97232a39e12aad008c969c3',1,'Mesh']]],
-  ['view_170',['View',['../class_view.html',1,'']]]
+  ['quitclicked_3168',['quitClicked',['../group___main_menu_toggles.html#gabe13b91174b00634752b9dff075f0f49',1,'MainMenuGUI']]]
 ];

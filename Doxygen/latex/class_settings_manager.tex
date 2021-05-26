@@ -1,0 +1,119 @@
+\hypertarget{class_settings_manager}{}\doxysection{Settings\+Manager Class Reference}
+\label{class_settings_manager}\index{SettingsManager@{SettingsManager}}
+
+
+{\ttfamily \#include $<$Settings\+Manager.\+h$>$}
+
+
+
+Collaboration diagram for Settings\+Manager\+:
+% FIG 0
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_settings_manager_a845228c50b0bb231ce966aedbcf7e4c1}{Toggle\+Fullscreen}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{class_settings_manager}{Settings\+Manager}} $\ast$ \mbox{\hyperlink{class_settings_manager_a12338ff674491e29937459b949152692}{Get\+Instance}} ()
+\begin{DoxyCompactList}\small\item\em Singelton return of a single static settings manager object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{class_settings_manager_acb36c57790d8ed5a8e290f3e731203a2}{fullscreen}} = false
+\begin{DoxyCompactList}\small\item\em Toggle for enabling/disabling the funscreen mode. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_settings_manager_a1a69611c50c4df438821184e6b90338c}{toggled\+Fullscreen}} = false
+\item 
+GLFWwindow $\ast$ \mbox{\hyperlink{class_settings_manager_ae1751fc36deb61e0a431d93a96b361a4}{window\+Ref}}
+\begin{DoxyCompactList}\small\item\em Reference to the GLFW window to enable and disable settings. \end{DoxyCompactList}\item 
+glm\+::vec2 \mbox{\hyperlink{class_settings_manager_a8fd1e02d33b3e90c4e0a1bc93294b767}{window\+Size}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_settings_manager_a07295ed235508bb4dcd0e7a040ef01db}{Settings\+Manager}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{class_settings_manager}{Settings\+Manager}} $\ast$ \mbox{\hyperlink{class_settings_manager_a70fb547f91d329638ad9b122b9d7d818}{instance}} = nullptr
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_settings_manager_a07295ed235508bb4dcd0e7a040ef01db}\label{class_settings_manager_a07295ed235508bb4dcd0e7a040ef01db}} 
+\index{SettingsManager@{SettingsManager}!SettingsManager@{SettingsManager}}
+\index{SettingsManager@{SettingsManager}!SettingsManager@{SettingsManager}}
+\doxysubsubsection{\texorpdfstring{SettingsManager()}{SettingsManager()}}
+{\footnotesize\ttfamily Settings\+Manager\+::\+Settings\+Manager (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_settings_manager_a12338ff674491e29937459b949152692}\label{class_settings_manager_a12338ff674491e29937459b949152692}} 
+\index{SettingsManager@{SettingsManager}!GetInstance@{GetInstance}}
+\index{GetInstance@{GetInstance}!SettingsManager@{SettingsManager}}
+\doxysubsubsection{\texorpdfstring{GetInstance()}{GetInstance()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_settings_manager}{Settings\+Manager}} $\ast$ Settings\+Manager\+::\+Get\+Instance (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Singelton return of a single static settings manager object. 
+
+\begin{DoxyReturn}{Returns}
+instance 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_settings_manager_a845228c50b0bb231ce966aedbcf7e4c1}\label{class_settings_manager_a845228c50b0bb231ce966aedbcf7e4c1}} 
+\index{SettingsManager@{SettingsManager}!ToggleFullscreen@{ToggleFullscreen}}
+\index{ToggleFullscreen@{ToggleFullscreen}!SettingsManager@{SettingsManager}}
+\doxysubsubsection{\texorpdfstring{ToggleFullscreen()}{ToggleFullscreen()}}
+{\footnotesize\ttfamily void Settings\+Manager\+::\+Toggle\+Fullscreen (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{class_settings_manager_acb36c57790d8ed5a8e290f3e731203a2}\label{class_settings_manager_acb36c57790d8ed5a8e290f3e731203a2}} 
+\index{SettingsManager@{SettingsManager}!fullscreen@{fullscreen}}
+\index{fullscreen@{fullscreen}!SettingsManager@{SettingsManager}}
+\doxysubsubsection{\texorpdfstring{fullscreen}{fullscreen}}
+{\footnotesize\ttfamily bool Settings\+Manager\+::fullscreen = false}
+
+
+
+Toggle for enabling/disabling the funscreen mode. 
+
+\mbox{\Hypertarget{class_settings_manager_a70fb547f91d329638ad9b122b9d7d818}\label{class_settings_manager_a70fb547f91d329638ad9b122b9d7d818}} 
+\index{SettingsManager@{SettingsManager}!instance@{instance}}
+\index{instance@{instance}!SettingsManager@{SettingsManager}}
+\doxysubsubsection{\texorpdfstring{instance}{instance}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_settings_manager}{Settings\+Manager}} $\ast$ Settings\+Manager\+::instance = nullptr\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [protected]}}
+
+\mbox{\Hypertarget{class_settings_manager_a1a69611c50c4df438821184e6b90338c}\label{class_settings_manager_a1a69611c50c4df438821184e6b90338c}} 
+\index{SettingsManager@{SettingsManager}!toggledFullscreen@{toggledFullscreen}}
+\index{toggledFullscreen@{toggledFullscreen}!SettingsManager@{SettingsManager}}
+\doxysubsubsection{\texorpdfstring{toggledFullscreen}{toggledFullscreen}}
+{\footnotesize\ttfamily bool Settings\+Manager\+::toggled\+Fullscreen = false}
+
+\mbox{\Hypertarget{class_settings_manager_ae1751fc36deb61e0a431d93a96b361a4}\label{class_settings_manager_ae1751fc36deb61e0a431d93a96b361a4}} 
+\index{SettingsManager@{SettingsManager}!windowRef@{windowRef}}
+\index{windowRef@{windowRef}!SettingsManager@{SettingsManager}}
+\doxysubsubsection{\texorpdfstring{windowRef}{windowRef}}
+{\footnotesize\ttfamily GLFWwindow$\ast$ Settings\+Manager\+::window\+Ref}
+
+
+
+Reference to the GLFW window to enable and disable settings. 
+
+\mbox{\Hypertarget{class_settings_manager_a8fd1e02d33b3e90c4e0a1bc93294b767}\label{class_settings_manager_a8fd1e02d33b3e90c4e0a1bc93294b767}} 
+\index{SettingsManager@{SettingsManager}!windowSize@{windowSize}}
+\index{windowSize@{windowSize}!SettingsManager@{SettingsManager}}
+\doxysubsubsection{\texorpdfstring{windowSize}{windowSize}}
+{\footnotesize\ttfamily glm\+::vec2 Settings\+Manager\+::window\+Size}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+ICT397-\/\+Project-\/\+Engine/\mbox{\hyperlink{_settings_manager_8h}{Settings\+Manager.\+h}}\item 
+ICT397-\/\+Project-\/\+Engine/\mbox{\hyperlink{_settings_manager_8cpp}{Settings\+Manager.\+cpp}}\end{DoxyCompactItemize}

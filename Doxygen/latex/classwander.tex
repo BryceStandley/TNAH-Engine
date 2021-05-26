@@ -1,0 +1,108 @@
+\hypertarget{classwander}{}\doxysection{wander Class Reference}
+\label{classwander}\index{wander@{wander}}
+
+
+A derived class that inherits from the state class. Represents the Wander state of the \mbox{\hyperlink{class_enemy}{Enemy}} FSM.  
+
+
+
+
+{\ttfamily \#include $<$enemy\+States.\+h$>$}
+
+
+
+Inheritance diagram for wander\+:
+% FIG 0
+
+
+Collaboration diagram for wander\+:
+% FIG 1
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \mbox{\hyperlink{classwander_ad71e74cbab5bc066654e41111c26b0f7}{Enter}} (\mbox{\hyperlink{class_enemy}{Enemy}} $\ast$dude)
+\begin{DoxyCompactList}\small\item\em virtual function that represents the entry point of the state \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classwander_a3425d3fdfa2c2c4d60d82c3e4e80e50b}{Execute}} (\mbox{\hyperlink{class_enemy}{Enemy}} $\ast$dude)
+\begin{DoxyCompactList}\small\item\em virtual function that represents the execute point of the state \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classwander_a7b0441ed6988c3f391c0a8219470634b}{Exit}} (\mbox{\hyperlink{class_enemy}{Enemy}} $\ast$dude)
+\begin{DoxyCompactList}\small\item\em virtual function that represents the exit point of the state \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A derived class that inherits from the state class. Represents the Wander state of the \mbox{\hyperlink{class_enemy}{Enemy}} FSM. 
+
+\begin{DoxyAuthor}{Author}
+Dylan Blereau 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+01 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+27/04/2021 Dylan Blereau, Started 
+\end{DoxyDate}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classwander_ad71e74cbab5bc066654e41111c26b0f7}\label{classwander_ad71e74cbab5bc066654e41111c26b0f7}} 
+\index{wander@{wander}!Enter@{Enter}}
+\index{Enter@{Enter}!wander@{wander}}
+\doxysubsubsection{\texorpdfstring{Enter()}{Enter()}}
+{\footnotesize\ttfamily void wander\+::\+Enter (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_enemy}{Enemy}} $\ast$}]{dude }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+virtual function that represents the entry point of the state 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dude} & -\/ a pointer to the \mbox{\hyperlink{class_enemy}{Enemy}} object \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_state_aab4cca8d69092deacf053cf2b12e4cd6}{State$<$ Enemy $>$}}.
+
+\mbox{\Hypertarget{classwander_a3425d3fdfa2c2c4d60d82c3e4e80e50b}\label{classwander_a3425d3fdfa2c2c4d60d82c3e4e80e50b}} 
+\index{wander@{wander}!Execute@{Execute}}
+\index{Execute@{Execute}!wander@{wander}}
+\doxysubsubsection{\texorpdfstring{Execute()}{Execute()}}
+{\footnotesize\ttfamily void wander\+::\+Execute (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_enemy}{Enemy}} $\ast$}]{dude }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+virtual function that represents the execute point of the state 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dude} & -\/ a pointer to the \mbox{\hyperlink{class_enemy}{Enemy}} object \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_state_a7b7e948b4fe83e3686564e453ed0c406}{State$<$ Enemy $>$}}.
+
+\mbox{\Hypertarget{classwander_a7b0441ed6988c3f391c0a8219470634b}\label{classwander_a7b0441ed6988c3f391c0a8219470634b}} 
+\index{wander@{wander}!Exit@{Exit}}
+\index{Exit@{Exit}!wander@{wander}}
+\doxysubsubsection{\texorpdfstring{Exit()}{Exit()}}
+{\footnotesize\ttfamily void wander\+::\+Exit (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_enemy}{Enemy}} $\ast$}]{dude }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+virtual function that represents the exit point of the state 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dude} & -\/ a pointer to the \mbox{\hyperlink{class_enemy}{Enemy}} object \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_state_aa086d08513a4adb59848deec250fbcae}{State$<$ Enemy $>$}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+ICT397-\/\+Project-\/\+Engine/\mbox{\hyperlink{enemy_states_8h}{enemy\+States.\+h}}\item 
+ICT397-\/\+Project-\/\+Engine/\mbox{\hyperlink{enemy_states_8cpp}{enemy\+States.\+cpp}}\end{DoxyCompactItemize}

@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['vertex_206',['Vertex',['../struct_vertex.html',1,'']]],
-  ['view_207',['View',['../class_view.html',1,'']]]
+  ['renderer_4382',['Renderer',['../class_renderer.html',1,'']]]
 ];

@@ -12,7 +12,7 @@ A class that uses mesh data to setup and draw all the meshes that a model is mad
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{class_mesh_a275660491077369b14bde0f77d3bbf48}{Mesh}} (std\+::vector$<$ \mbox{\hyperlink{struct_vertex}{Vertex}} $>$ \mbox{\hyperlink{class_mesh_a6465a888c97232a39e12aad008c969c3}{vertices}}, std\+::vector$<$ unsigned int $>$ indices, std\+::vector$<$ \mbox{\hyperlink{struct_texture_mesh}{Texture\+Mesh}} $>$ textures, glm\+::mat4 \&transform)
+\mbox{\hyperlink{class_mesh_a275660491077369b14bde0f77d3bbf48}{Mesh}} (std\+::vector$<$ \mbox{\hyperlink{struct_vertex}{Vertex}} $>$ \mbox{\hyperlink{class_mesh_a6465a888c97232a39e12aad008c969c3}{vertices}}, std\+::vector$<$ unsigned int $>$ \mbox{\hyperlink{class_mesh_a26632e27b772f24b069a738e7983b9da}{indices}}, std\+::vector$<$ \mbox{\hyperlink{struct_texture_mesh}{Texture\+Mesh}} $>$ \mbox{\hyperlink{class_mesh_addee01ad2316533ccfc67bbfa99b929f}{textures}}, glm\+::mat4 \&\mbox{\hyperlink{class_mesh_a1bd63c0a8e3e7b47b500a58ae37b346c}{transform}})
 \begin{DoxyCompactList}\small\item\em A constructor that takes in mesh data and uses said data to set up the mesh by calling the setup\+Mesh function. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{class_mesh_ae5a32a9bc54c191d247638d09c050cbf}{Draw}} (\mbox{\hyperlink{class_shader}{Shader}} \&shader)
 \begin{DoxyCompactList}\small\item\em A function that binds each texture (if the mesh has more than one) and draws the mesh ~\newline
@@ -20,26 +20,19 @@ void \mbox{\hyperlink{class_mesh_ae5a32a9bc54c191d247638d09c050cbf}{Draw}} (\mbo
 \doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_mesh_a6465a888c97232a39e12aad008c969c3}\label{class_mesh_a6465a888c97232a39e12aad008c969c3}} 
 std\+::vector$<$ \mbox{\hyperlink{struct_vertex}{Vertex}} $>$ \mbox{\hyperlink{class_mesh_a6465a888c97232a39e12aad008c969c3}{vertices}}
 \begin{DoxyCompactList}\small\item\em mesh Data \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{class_mesh_a26632e27b772f24b069a738e7983b9da}\label{class_mesh_a26632e27b772f24b069a738e7983b9da}} 
-std\+::vector$<$ unsigned int $>$ {\bfseries indices}
+std\+::vector$<$ unsigned int $>$ \mbox{\hyperlink{class_mesh_a26632e27b772f24b069a738e7983b9da}{indices}}
 \item 
-\mbox{\Hypertarget{class_mesh_addee01ad2316533ccfc67bbfa99b929f}\label{class_mesh_addee01ad2316533ccfc67bbfa99b929f}} 
-std\+::vector$<$ \mbox{\hyperlink{struct_texture_mesh}{Texture\+Mesh}} $>$ {\bfseries textures}
+std\+::vector$<$ \mbox{\hyperlink{struct_texture_mesh}{Texture\+Mesh}} $>$ \mbox{\hyperlink{class_mesh_addee01ad2316533ccfc67bbfa99b929f}{textures}}
 \item 
-\mbox{\Hypertarget{class_mesh_a1bd63c0a8e3e7b47b500a58ae37b346c}\label{class_mesh_a1bd63c0a8e3e7b47b500a58ae37b346c}} 
-glm\+::mat4 {\bfseries transform}
+glm\+::mat4 \mbox{\hyperlink{class_mesh_a1bd63c0a8e3e7b47b500a58ae37b346c}{transform}}
 \item 
-\mbox{\Hypertarget{class_mesh_a79afa055e485fb65b1a7aa5b8eda2940}\label{class_mesh_a79afa055e485fb65b1a7aa5b8eda2940}} 
-unsigned int {\bfseries VAO}
+unsigned int \mbox{\hyperlink{class_mesh_a79afa055e485fb65b1a7aa5b8eda2940}{VAO}}
 \item 
-\mbox{\Hypertarget{class_mesh_af08e5f92b0cf587817841104c16fa803}\label{class_mesh_af08e5f92b0cf587817841104c16fa803}} 
-unsigned int {\bfseries VBO}
+unsigned int \mbox{\hyperlink{class_mesh_af08e5f92b0cf587817841104c16fa803}{VBO}}
 \item 
-\mbox{\Hypertarget{class_mesh_a25262f446aea3107da7c23f126a81faa}\label{class_mesh_a25262f446aea3107da7c23f126a81faa}} 
-unsigned int {\bfseries EBO}
+unsigned int \mbox{\hyperlink{class_mesh_a25262f446aea3107da7c23f126a81faa}{EBO}}
 \end{DoxyCompactItemize}
 
 
@@ -108,6 +101,55 @@ draw mesh
 
 always good practice to set everything back to defaults once configured.
 
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{class_mesh_a25262f446aea3107da7c23f126a81faa}\label{class_mesh_a25262f446aea3107da7c23f126a81faa}} 
+\index{Mesh@{Mesh}!EBO@{EBO}}
+\index{EBO@{EBO}!Mesh@{Mesh}}
+\doxysubsubsection{\texorpdfstring{EBO}{EBO}}
+{\footnotesize\ttfamily unsigned int Mesh\+::\+EBO}
+
+\mbox{\Hypertarget{class_mesh_a26632e27b772f24b069a738e7983b9da}\label{class_mesh_a26632e27b772f24b069a738e7983b9da}} 
+\index{Mesh@{Mesh}!indices@{indices}}
+\index{indices@{indices}!Mesh@{Mesh}}
+\doxysubsubsection{\texorpdfstring{indices}{indices}}
+{\footnotesize\ttfamily std\+::vector$<$unsigned int$>$ Mesh\+::indices}
+
+\mbox{\Hypertarget{class_mesh_addee01ad2316533ccfc67bbfa99b929f}\label{class_mesh_addee01ad2316533ccfc67bbfa99b929f}} 
+\index{Mesh@{Mesh}!textures@{textures}}
+\index{textures@{textures}!Mesh@{Mesh}}
+\doxysubsubsection{\texorpdfstring{textures}{textures}}
+{\footnotesize\ttfamily std\+::vector$<$\mbox{\hyperlink{struct_texture_mesh}{Texture\+Mesh}}$>$ Mesh\+::textures}
+
+\mbox{\Hypertarget{class_mesh_a1bd63c0a8e3e7b47b500a58ae37b346c}\label{class_mesh_a1bd63c0a8e3e7b47b500a58ae37b346c}} 
+\index{Mesh@{Mesh}!transform@{transform}}
+\index{transform@{transform}!Mesh@{Mesh}}
+\doxysubsubsection{\texorpdfstring{transform}{transform}}
+{\footnotesize\ttfamily glm\+::mat4 Mesh\+::transform}
+
+\mbox{\Hypertarget{class_mesh_a79afa055e485fb65b1a7aa5b8eda2940}\label{class_mesh_a79afa055e485fb65b1a7aa5b8eda2940}} 
+\index{Mesh@{Mesh}!VAO@{VAO}}
+\index{VAO@{VAO}!Mesh@{Mesh}}
+\doxysubsubsection{\texorpdfstring{VAO}{VAO}}
+{\footnotesize\ttfamily unsigned int Mesh\+::\+VAO}
+
+\mbox{\Hypertarget{class_mesh_af08e5f92b0cf587817841104c16fa803}\label{class_mesh_af08e5f92b0cf587817841104c16fa803}} 
+\index{Mesh@{Mesh}!VBO@{VBO}}
+\index{VBO@{VBO}!Mesh@{Mesh}}
+\doxysubsubsection{\texorpdfstring{VBO}{VBO}}
+{\footnotesize\ttfamily unsigned int Mesh\+::\+VBO}
+
+\mbox{\Hypertarget{class_mesh_a6465a888c97232a39e12aad008c969c3}\label{class_mesh_a6465a888c97232a39e12aad008c969c3}} 
+\index{Mesh@{Mesh}!vertices@{vertices}}
+\index{vertices@{vertices}!Mesh@{Mesh}}
+\doxysubsubsection{\texorpdfstring{vertices}{vertices}}
+{\footnotesize\ttfamily std\+::vector$<$\mbox{\hyperlink{struct_vertex}{Vertex}}$>$ Mesh\+::vertices}
+
+
+
+mesh Data 
+
+
+
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-/\+Volumes/\+GITS/\+ICT397-\/\+Project/\+ICT397-\/\+Project-\/\+Engine/Mesh.\+h\end{DoxyCompactItemize}
+ICT397-\/\+Project-\/\+Engine/\mbox{\hyperlink{_mesh_8h}{Mesh.\+h}}\end{DoxyCompactItemize}

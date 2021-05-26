@@ -1,15 +1,21 @@
 #pragma once
+#ifndef TERRAIN_H
+#define TERRAIN_H
 #include <iostream>
 #include <fstream>
 #include <string>
 #include <vector>
 #include <glm/glm.hpp>
+#include <glm/gtx/normal.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <ctime>
+#include <cmath>
 
 #include "Shader.h"
 #include "TextureLoader.h"
 #include "Input.h"
+
+#include "tga/tga.h"
 
 
 	/**
@@ -23,14 +29,25 @@
 	 * @todo break down generateTerrain function
 	 * @bugs nothing major currently
 	 * 
-	 * @author Dylan Blereau
-	 * @version 02
+	 * @authors Dylan Blereau, Bryce Standley
+	 * @version 03
 	 * @date 02/04/2021 Dylan Blereau, Started
+	 * @date MAY 2021 Bryce Standley, improvements
 	 * 
 	 * @brief added scripting and fixed generateTerrain
 	 * @bugs none currently
+	 *
+	 *
 	 * 
 	 **/
+
+#define TERRAIN_ERROR_INVALID_PARAM		-5
+#define TERRAIN_ERROR_LOADING_IMAGE		-4
+#define TERRAIN_ERROR_MEMORY_PROBLEM	-3
+#define	TERRAIN_ERROR_NOT_SAVED			-2
+#define TERRAIN_ERROR_NOT_INITIALISED	-1
+#define TERRAIN_OK						 0
+
 class Terrain
 {
 
@@ -56,7 +73,13 @@ private:
 	};
 	
 		///the size of the heightfield along x and z - power of 2
-	int size; 
+	int size;
+	int sizeX;
+	int sizeZ;
+	std::vector<float> terrainHeights;
+	int smoothingPasses = 1;
+	float MAX_PIXEL_COLOUR = 256 * 256 * 256;
+	float MAX_HEIGHT = 40.0f;
 	std::vector<unsigned int> texIds;
 	Shader shader;
 	float minHeight = 0.0f;
@@ -68,9 +91,12 @@ private:
 	std::vector<glm::vec3> totalData;
 	std::string filename;
 	std::string tex1, tex2, tex3, tex4, tex5;
-	
+	float maxYValue = 0;
+	float secondMaxYValue = 0;
 
 public:
+
+	float GetMaxYValue(){ return maxYValue; }
 	
 		/**
 		* @brief gets and returns a vector containing all indice values
@@ -120,7 +146,8 @@ public:
 		*/
 	Shader GetShader() const { return shader; }
 
-		/**
+
+	/**
 		* @brief A function that calls all the functions required to initialise the terrain
 		*/
 	void Init();
@@ -178,7 +205,7 @@ public:
 		* @param zpos - represents the position on the z-axis
 		* @return unsigned char
 		*/
-	unsigned char getHeightColor(int xpos, int zpos);
+	float getHeightColor(int xpos, int zpos);
 
 		/**
 		* @brief Checks if x and y coordinates are within the required range
@@ -216,6 +243,39 @@ public:
 		*/
 	void generateVertices(Vertex& vertex);
 
+	/**
+	 * @brief Smooths out the terrain data to remove all roughness
+	 * @param vert
+	 */
+	void SmoothTerrain(Vertex& vert, float smoothFactor);
+
+	/**
+	 * @brief Interpolates between two float values using Cosine interpolation
+	 * @param a
+	 * @param b
+	 * @param blend
+	 * @return interpolated output between a and b using blend factor
+	 */
+	float Interpolate(float a, float b, float blend);
+
+	glm::vec3 GetScales() {return glm::vec3(scaleX, scaleY, scaleZ);}
+
+	/**
+	 * @brief Sets the height of a given position on the terrain
+	 * @param xPos
+	 * @param zPos
+	 * @param newHeight
+	 */
+	void SetVertexHeight(int xPos, int zPos, float newHeight);
+
+	/**
+	 * @brief Gets the final height value of the terrain at a set x,z position
+	 * @param xPos
+	 * @param zPos
+	 * @return float y value
+	 */
+	float GetVertexHeight(int xPos, int zPos);
+
 		/**
 		* @brief Generates indices
 		* @param &indices - reference to a vector of unsigned ints
@@ -240,4 +300,5 @@ public:
 		*/
 	void generateNormals();
 };
+#endif //TERRAIN_H
 

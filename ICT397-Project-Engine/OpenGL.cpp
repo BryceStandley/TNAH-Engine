@@ -8,7 +8,7 @@ void OpenGL::RenderTerrain(unsigned int VAO, int size)
     glEnable(GL_PRIMITIVE_RESTART);
 
     glBindVertexArray(VAO);
-    glDrawElements(GL_TRIANGLE_STRIP, size, GL_UNSIGNED_INT, 0);
+    glDrawElements(GL_TRIANGLES, size, GL_UNSIGNED_INT, 0);
     glBindVertexArray(0);
     glActiveTexture(GL_TEXTURE0);
 }
@@ -107,7 +107,7 @@ void OpenGL::SetShaderTerrain(Shader &shader, View lens)
     m = glm::scale(m, glm::vec3(0.2f));
     shader.setMat4("model", m);
     shader.setVec3("lightColor", 1.0f, 1.0f, 1.0f);
-    shader.setVec3("lightPos", 48.0f, 5.0f, 45.3f);
+    shader.setVec3("lightPos", (256 * 12) / 2.0, 100.0f, (256 * 12) / 2.0);
     shader.setVec3("viewPos", lens.GetPosition());
 }
 

@@ -1,0 +1,23 @@
+\hypertarget{_glfw_window_8h}{}\doxysection{ICT397-\/\+Project-\/\+Engine/\+Glfw\+Window.h File Reference}
+\label{_glfw_window_8h}\index{ICT397-\/Project-\/Engine/GlfwWindow.h@{ICT397-\/Project-\/Engine/GlfwWindow.h}}
+{\ttfamily \#include $<$glad/glad.\+h$>$}\newline
+{\ttfamily \#include $<$GLFW/glfw3.\+h$>$}\newline
+{\ttfamily \#include $<$glm/glm.\+hpp$>$}\newline
+{\ttfamily \#include \char`\"{}Window.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include \char`\"{}Callbacks.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}singleton.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}camera.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Shader.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Manager.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Debugger.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Main\+Menu\+GUI.\+h\char`\"{}}\newline
+Include dependency graph for Glfw\+Window.\+h\+:
+% FIG 0
+This graph shows which files directly or indirectly include this file\+:
+% FIG 1
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_glfw_window}{Glfw\+Window}}
+\begin{DoxyCompactList}\small\item\em The abstracted window class that is used for the window facade. This class holds all the Glfw window information inside of it and it is an abstract class of \mbox{\hyperlink{class_window}{Window}}. It is this way as it allows us to swap the potential window system if we ever wanted to add DirectX or Vulkan. The class handles all aspects of the window, anything that would require it such as size, inputs, camera, time, projections and window updates. \end{DoxyCompactList}\end{DoxyCompactItemize}

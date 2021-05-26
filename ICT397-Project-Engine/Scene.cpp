@@ -171,7 +171,8 @@ void Scene::Run(View lens, float time, bool exit)
 		    }
 	    }
 
-        //std::cout << gameObjects.size() << std::endl;
+	    //If game object is of type player
+	    UpdatePlayer(lens.GetPosition(), lens.GetRotation());
 
 
         std::vector<GameObject*>::iterator removed;
@@ -235,10 +236,13 @@ void Scene::Run(View lens, float time, bool exit)
 
 
         //GameUI
-        if (gameGui) { gameGui->Draw((Player*)gameObjects[playerInd]); }
+        if (gameGui)
+        {
+        	auto* p = (Player*)gameObjects[playerInd];
+        	gameGui->terrainHeight = PlayerToTerrainPosition(p->GetPos()).y;
+        	gameGui->Draw(p);
+        }
 
-        //If game object is of type player
-        UpdatePlayer(lens.GetPosition(), lens.GetRotation());
     }
     else
     {
@@ -253,6 +257,7 @@ void Scene::Init()
 	gameTerrain->setTextures();
 
 	gameTerrain->generateTerrain();
+
 	gameSkybox = new Skybox();
 	//gameSkybox = new Skybox("./res/images/skybox/right.jpg", "./res/images/skybox/left.jpg", "./res/images/skybox/top.jpg", "./res/images/skybox/bottom.jpg", "./res/images/skybox/front.jpg", "./res/images/skybox/back.jpg", "./res/shader/skybox_vert.txt", "./res/shader/skybox_frag.txt");
 	factory = new GameAssetFactory(gameRenderer);
@@ -277,7 +282,7 @@ void Scene::UpdatePlayer(glm::vec3 position, glm::vec3 rotation)
 
     position.y = WorldToTerrainPosition(position, true).y + 1.5f;
 
-	if (position.y >= 14.0f)
+	if (position.y >= 25.0f && !Debugger::GetInstance()->noPlayerYClip)
 	{
         position.x = gameObjects[playerInd]->GetPos().x;
         position.y = gameObjects[playerInd]->GetPos().y;
@@ -295,7 +300,7 @@ void Scene::UpdateGameObject(glm::vec3 position, int i)
 
     position.y = WorldToTerrainPosition(position, true).y + 1.2f;
 
-    if (position.y >= 15.0f)
+    if (position.y >= 25.0f)
     {
         position.x = gameObjects[i]->GetPos().x;
         position.y = gameObjects[i]->GetPos().y;
@@ -308,7 +313,7 @@ void Scene::UpdateGameObject(glm::vec3 position, int i)
 void Scene::MakeGameObject(std::string t, std::string script, float scale, float x, float y, float z)
 {
     //Check the terrain height to make sure the object isn't under the terrain;
-    if(t != "water") y += WorldToTerrainPosition(glm::vec3(x,y,z), true).y;
+    if(t != "water") y = WorldToTerrainPosition(glm::vec3(x,y,z), true).y - y;
 
 	GameObject* newGameObject = factory->GetGameObject(t, script, scale, glm::vec3(x, y, z));
 	if (newGameObject != nullptr)
@@ -323,6 +328,9 @@ void Scene::MakeGameObject(std::string t, std::string script, float scale, float
 
 void Scene::MakeSaveGameObject(std::string t, std::string script, float scale, float x, float y, float z, float health, float ammo, std::string state, int savedPoints, int savedTokens, int savedKills)
 {
+	//Check the terrain height to make sure the object isn't under the terrain;
+	if(t != "water") y += WorldToTerrainPosition(glm::vec3(x,y,z), false).y;
+
     GameObject* newGameObject = factory->GetGameObjectSave(t, script, scale, glm::vec3(x, y, z), health, ammo, state, savedPoints, savedTokens, savedKills);
     if (newGameObject != nullptr)
     {
@@ -625,13 +633,38 @@ bool Scene::intersectRaySegmentSphere(glm::vec3 o, glm::vec3 d, glm::vec3 so, fl
 
 glm::vec3 Scene::WorldToTerrainPosition(glm::vec3 p, bool average)
 {
-    float worldx, worldz, worldToTerrainScaleFactor;
-    worldToTerrainScaleFactor = 5.12;
-    worldx = p.x * worldToTerrainScaleFactor;
-    worldz = p.z * worldToTerrainScaleFactor;
-    if(average) {p.y = (gameTerrain->getAverageHeight((int)worldx, (int)worldz) / worldToTerrainScaleFactor);}
-    else {p.y = (gameTerrain->getHeight((int)worldx, (int)worldz) / worldToTerrainScaleFactor);}
+	//std::cout << "Updaing position" << Debugger::GetInstance()->DebugVec3(p) << std::endl;
+    float worldx, worldz;
+    worldx = Remap(p.x, 0, 52.0f * gameTerrain->GetScales().x, 0, (float)gameTerrain->getSize() - 1);
+    worldz = Remap(p.z, 0, 52.0f * gameTerrain->GetScales().z, 0, (float)gameTerrain->getSize() - 1);
+    if(average)
+    {
+    	float y = (gameTerrain->getAverageHeight((int)worldx, (int)worldz));
+    	y = Remap(y, 0, 290.0, 0, 82.0f);
+    	p.y = y;
+    }
+    else
+    {
+    	//p.y = (gameTerrain->GetVertexHeight((int)worldx, (int)worldz) / (worldToTerrainScaleFactor * gameTerrain->GetScales().y));
+    	float y = gameTerrain->GetVertexHeight((int)worldx, (int)worldz);
+    	p.y = Remap(y, 0, (float)290.0f, 0, 82.0f);
+    }
     return p;
+}
+
+float Scene::Remap(float value, float oldMin, float oldMax, float newMin, float newMax)
+{
+	float out = newMin + (newMax - newMin) * ((value - oldMin) / (oldMax - oldMin));
+	return out;
+}
+
+glm::vec3 Scene::PlayerToTerrainPosition(glm::vec3 p)
+{
+	float worldx, worldy, worldz;
+	worldx = Remap(p.x, 0, (CAMERA_TO_WORLD_FACTOR * (gameTerrain->getSize() / 128.0f)) * gameTerrain->GetScales().x, 0, (float)gameTerrain->getSize() - 1);
+	worldz = Remap(p.z, 0, (CAMERA_TO_WORLD_FACTOR * (gameTerrain->getSize() / 128.0f)) * gameTerrain->GetScales().z, 0, (float)gameTerrain->getSize() - 1);
+	worldy = gameTerrain->GetVertexHeight(worldx, worldz);
+	return glm::vec3(worldx, worldy, worldz);
 }
 
 void Scene::RunPlayer(View lens, float time, bool exit)

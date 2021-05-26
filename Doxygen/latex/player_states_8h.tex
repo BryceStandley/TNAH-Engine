@@ -1,0 +1,104 @@
+\hypertarget{player_states_8h}{}\doxysection{ICT397-\/\+Project-\/\+Engine/player\+States.h File Reference}
+\label{player_states_8h}\index{ICT397-\/Project-\/Engine/playerStates.h@{ICT397-\/Project-\/Engine/playerStates.h}}
+{\ttfamily \#include \char`\"{}singleton.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}state.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Debugger.\+h\char`\"{}}\newline
+Include dependency graph for player\+States.\+h\+:
+% FIG 0
+This graph shows which files directly or indirectly include this file\+:
+% FIG 1
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classdouble_damage}{double\+Damage}}
+\begin{DoxyCompactList}\small\item\em A derived class that inherits from the state class. Represents the \mbox{\hyperlink{classdouble_damage}{double\+Damage}} state of the \mbox{\hyperlink{class_player}{Player}} FSM. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classhealth_refill}{health\+Refill}}
+\begin{DoxyCompactList}\small\item\em A derived class that inherits from the state class. Represents the \mbox{\hyperlink{classhealth_refill}{health\+Refill}} state of the \mbox{\hyperlink{class_player}{Player}} FSM. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{class_speed_up}{Speed\+Up}}
+\begin{DoxyCompactList}\small\item\em A derived class that inherits from the state class. Represents the \mbox{\hyperlink{class_speed_up}{Speed\+Up}} state of the \mbox{\hyperlink{class_player}{Player}} FSM. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classdouble_points}{double\+Points}}
+\begin{DoxyCompactList}\small\item\em A derived class that inherits from the state class. Represents the \mbox{\hyperlink{classdouble_points}{double\+Points}} state of the \mbox{\hyperlink{class_player}{Player}} FSM. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classmain}{main}}
+\begin{DoxyCompactList}\small\item\em A derived class that inherits from the state class. Represents the main state of the \mbox{\hyperlink{class_player}{Player}} FSM. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classdeath}{death}}
+\begin{DoxyCompactList}\small\item\em A derived class that inherits from the state class. Represents the death state of the \mbox{\hyperlink{class_player}{Player}} FSM. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classglob}{glob}}
+\begin{DoxyCompactList}\small\item\em A derived class that inherits from the state class. Represents the glob (global) state of the \mbox{\hyperlink{class_player}{Player}} FSM. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef \mbox{\hyperlink{classsingleton}{singleton}}$<$ \mbox{\hyperlink{classmain}{main}} $>$ \mbox{\hyperlink{player_states_8h_a716984ee30bf151b8243073646a84409}{main\+\_\+state}}
+\begin{DoxyCompactList}\small\item\em singletons made for each state ensuring only one instance of each state per FSM \end{DoxyCompactList}\item 
+typedef \mbox{\hyperlink{classsingleton}{singleton}}$<$ \mbox{\hyperlink{classdouble_damage}{double\+Damage}} $>$ \mbox{\hyperlink{player_states_8h_a3a52a395c03a06037578c83ebaa04497}{damage\+\_\+state}}
+\begin{DoxyCompactList}\small\item\em tokens \end{DoxyCompactList}\item 
+typedef \mbox{\hyperlink{classsingleton}{singleton}}$<$ \mbox{\hyperlink{classhealth_refill}{health\+Refill}} $>$ \mbox{\hyperlink{player_states_8h_a31da14dc522d83e05cb508b790d9d67a}{health\+\_\+state}}
+\item 
+typedef \mbox{\hyperlink{classsingleton}{singleton}}$<$ \mbox{\hyperlink{class_speed_up}{Speed\+Up}} $>$ \mbox{\hyperlink{player_states_8h_af52951bcf8cf4f2a46d7cec3b210352b}{speed\+\_\+state}}
+\item 
+typedef \mbox{\hyperlink{classsingleton}{singleton}}$<$ \mbox{\hyperlink{classdouble_points}{double\+Points}} $>$ \mbox{\hyperlink{player_states_8h_ad17f0c0a8deb2a057cb65fa93f70c890}{points\+\_\+state}}
+\item 
+typedef \mbox{\hyperlink{classsingleton}{singleton}}$<$ \mbox{\hyperlink{classdeath}{death}} $>$ \mbox{\hyperlink{player_states_8h_a1968ec06141f1912a11e85223982c3ce}{death\+\_\+state}}
+\begin{DoxyCompactList}\small\item\em death \end{DoxyCompactList}\item 
+typedef \mbox{\hyperlink{classsingleton}{singleton}}$<$ \mbox{\hyperlink{classglob}{glob}} $>$ \mbox{\hyperlink{player_states_8h_affd7170415d9d85fb90efd5ff976021f}{glob\+\_\+state}}
+\begin{DoxyCompactList}\small\item\em global \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Typedef Documentation}
+\mbox{\Hypertarget{player_states_8h_a3a52a395c03a06037578c83ebaa04497}\label{player_states_8h_a3a52a395c03a06037578c83ebaa04497}} 
+\index{playerStates.h@{playerStates.h}!damage\_state@{damage\_state}}
+\index{damage\_state@{damage\_state}!playerStates.h@{playerStates.h}}
+\doxysubsubsection{\texorpdfstring{damage\_state}{damage\_state}}
+{\footnotesize\ttfamily typedef \mbox{\hyperlink{classsingleton}{singleton}}$<$\mbox{\hyperlink{classdouble_damage}{double\+Damage}}$>$ \mbox{\hyperlink{player_states_8h_a3a52a395c03a06037578c83ebaa04497}{damage\+\_\+state}}}
+
+
+
+tokens 
+
+\mbox{\Hypertarget{player_states_8h_a1968ec06141f1912a11e85223982c3ce}\label{player_states_8h_a1968ec06141f1912a11e85223982c3ce}} 
+\index{playerStates.h@{playerStates.h}!death\_state@{death\_state}}
+\index{death\_state@{death\_state}!playerStates.h@{playerStates.h}}
+\doxysubsubsection{\texorpdfstring{death\_state}{death\_state}}
+{\footnotesize\ttfamily typedef \mbox{\hyperlink{classsingleton}{singleton}}$<$\mbox{\hyperlink{classdeath}{death}}$>$ \mbox{\hyperlink{player_states_8h_a1968ec06141f1912a11e85223982c3ce}{death\+\_\+state}}}
+
+
+
+death 
+
+\mbox{\Hypertarget{player_states_8h_affd7170415d9d85fb90efd5ff976021f}\label{player_states_8h_affd7170415d9d85fb90efd5ff976021f}} 
+\index{playerStates.h@{playerStates.h}!glob\_state@{glob\_state}}
+\index{glob\_state@{glob\_state}!playerStates.h@{playerStates.h}}
+\doxysubsubsection{\texorpdfstring{glob\_state}{glob\_state}}
+{\footnotesize\ttfamily typedef \mbox{\hyperlink{classsingleton}{singleton}}$<$\mbox{\hyperlink{classglob}{glob}}$>$ \mbox{\hyperlink{player_states_8h_affd7170415d9d85fb90efd5ff976021f}{glob\+\_\+state}}}
+
+
+
+global 
+
+\mbox{\Hypertarget{player_states_8h_a31da14dc522d83e05cb508b790d9d67a}\label{player_states_8h_a31da14dc522d83e05cb508b790d9d67a}} 
+\index{playerStates.h@{playerStates.h}!health\_state@{health\_state}}
+\index{health\_state@{health\_state}!playerStates.h@{playerStates.h}}
+\doxysubsubsection{\texorpdfstring{health\_state}{health\_state}}
+{\footnotesize\ttfamily typedef \mbox{\hyperlink{classsingleton}{singleton}}$<$\mbox{\hyperlink{classhealth_refill}{health\+Refill}}$>$ \mbox{\hyperlink{player_states_8h_a31da14dc522d83e05cb508b790d9d67a}{health\+\_\+state}}}
+
+\mbox{\Hypertarget{player_states_8h_a716984ee30bf151b8243073646a84409}\label{player_states_8h_a716984ee30bf151b8243073646a84409}} 
+\index{playerStates.h@{playerStates.h}!main\_state@{main\_state}}
+\index{main\_state@{main\_state}!playerStates.h@{playerStates.h}}
+\doxysubsubsection{\texorpdfstring{main\_state}{main\_state}}
+{\footnotesize\ttfamily typedef \mbox{\hyperlink{classsingleton}{singleton}}$<$\mbox{\hyperlink{classmain}{main}}$>$ \mbox{\hyperlink{player_states_8h_a716984ee30bf151b8243073646a84409}{main\+\_\+state}}}
+
+
+
+singletons made for each state ensuring only one instance of each state per FSM 
+
+\mbox{\Hypertarget{player_states_8h_ad17f0c0a8deb2a057cb65fa93f70c890}\label{player_states_8h_ad17f0c0a8deb2a057cb65fa93f70c890}} 
+\index{playerStates.h@{playerStates.h}!points\_state@{points\_state}}
+\index{points\_state@{points\_state}!playerStates.h@{playerStates.h}}
+\doxysubsubsection{\texorpdfstring{points\_state}{points\_state}}
+{\footnotesize\ttfamily typedef \mbox{\hyperlink{classsingleton}{singleton}}$<$\mbox{\hyperlink{classdouble_points}{double\+Points}}$>$ \mbox{\hyperlink{player_states_8h_ad17f0c0a8deb2a057cb65fa93f70c890}{points\+\_\+state}}}
+
+\mbox{\Hypertarget{player_states_8h_af52951bcf8cf4f2a46d7cec3b210352b}\label{player_states_8h_af52951bcf8cf4f2a46d7cec3b210352b}} 
+\index{playerStates.h@{playerStates.h}!speed\_state@{speed\_state}}
+\index{speed\_state@{speed\_state}!playerStates.h@{playerStates.h}}
+\doxysubsubsection{\texorpdfstring{speed\_state}{speed\_state}}
+{\footnotesize\ttfamily typedef \mbox{\hyperlink{classsingleton}{singleton}}$<$\mbox{\hyperlink{class_speed_up}{Speed\+Up}}$>$ \mbox{\hyperlink{player_states_8h_af52951bcf8cf4f2a46d7cec3b210352b}{speed\+\_\+state}}}
+

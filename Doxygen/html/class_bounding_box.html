@@ -5,10 +5,14 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TNAH-ICT397-Project: BoundingBox Class Reference</title>
+<title>TNAH-Engine-ICT397: BoundingBox Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -22,8 +26,8 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="TNAH-2.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">TNAH-ICT397-Project
-   &#160;<span id="projectnumber">1</span>
+   <div id="projectname">TNAH-Engine-ICT397
+   &#160;<span id="projectnumber">2</span>
    </div>
   </td>
  </tr>
@@ -47,6 +51,23 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('class_bounding_box.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -61,7 +82,6 @@ $(function() {
 </iframe>
 </div>
 
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-types">Public Types</a> &#124;
@@ -79,19 +99,22 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a7740a55cd572b82e1692e9f9d9a286c3"><td class="memItemLeft" align="right" valign="top"><a id="a7740a55cd572b82e1692e9f9d9a286c3"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bounding_box.html#a7740a55cd572b82e1692e9f9d9a286c3">CollisionTag</a> { <b>PLAYER</b>
-, <b>TOKEN</b>
-, <b>STATIC_OBJECT</b>
-, <b>ENEMY</b>
+<tr class="memitem:a7740a55cd572b82e1692e9f9d9a286c3"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bounding_box.html#a7740a55cd572b82e1692e9f9d9a286c3">CollisionTag</a> { <br />
+&#160;&#160;<a class="el" href="class_bounding_box.html#a7740a55cd572b82e1692e9f9d9a286c3a7b1d0daf07dde2c377bd7895e11c943f">PLAYER</a>
+, <a class="el" href="class_bounding_box.html#a7740a55cd572b82e1692e9f9d9a286c3a30c0b05af3c6a5b6c746bf4f69adbf75">TOKEN</a>
+, <a class="el" href="class_bounding_box.html#a7740a55cd572b82e1692e9f9d9a286c3a396df71c7410d0378b2c841d3f5833c5">STATIC_OBJECT</a>
+, <a class="el" href="class_bounding_box.html#a7740a55cd572b82e1692e9f9d9a286c3a710b3b550ed07b2bcb3e8b168c870ce2">ENEMY</a>
+, <br />
+&#160;&#160;<a class="el" href="class_bounding_box.html#a7740a55cd572b82e1692e9f9d9a286c3a08e938628501449eadad912690132b76">WATER</a>
+<br />
  }</td></tr>
-<tr class="memdesc:a7740a55cd572b82e1692e9f9d9a286c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collision tag used for collision checking on a object. <br /></td></tr>
+<tr class="memdesc:a7740a55cd572b82e1692e9f9d9a286c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collision tag used for collision checking on a object.  <a href="class_bounding_box.html#a7740a55cd572b82e1692e9f9d9a286c3">More...</a><br /></td></tr>
 <tr class="separator:a7740a55cd572b82e1692e9f9d9a286c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a4323fc64a71cee220dac92746a2bfe5e"><td class="memItemLeft" align="right" valign="top"><a id="a4323fc64a71cee220dac92746a2bfe5e"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bounding_box.html#a4323fc64a71cee220dac92746a2bfe5e">BoundingBox</a> ()=default</td></tr>
-<tr class="memdesc:a4323fc64a71cee220dac92746a2bfe5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bounding box constructor with empty objects. <br /></td></tr>
+<tr class="memitem:a4323fc64a71cee220dac92746a2bfe5e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bounding_box.html#a4323fc64a71cee220dac92746a2bfe5e">BoundingBox</a> ()=default</td></tr>
+<tr class="memdesc:a4323fc64a71cee220dac92746a2bfe5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bounding box constructor with empty objects.  <a href="class_bounding_box.html#a4323fc64a71cee220dac92746a2bfe5e">More...</a><br /></td></tr>
 <tr class="separator:a4323fc64a71cee220dac92746a2bfe5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3a733edb48ff238da35368e473892f8d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bounding_box.html#a3a733edb48ff238da35368e473892f8d">BoundingBox</a> (std::vector&lt; glm::vec3 &gt; v, std::vector&lt; int &gt; i)</td></tr>
 <tr class="memdesc:a3a733edb48ff238da35368e473892f8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bounding box constructor with vertex and indice data.  <a href="class_bounding_box.html#a3a733edb48ff238da35368e473892f8d">More...</a><br /></td></tr>
@@ -117,9 +140,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ab296f5ae8c91a36892f030c8c62814f6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_bounding_box.html">BoundingBox</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bounding_box.html#ab296f5ae8c91a36892f030c8c62814f6">GenerateBoundingBox</a> (<a class="el" href="class_mesh.html">Mesh</a> *mesh)</td></tr>
 <tr class="memdesc:ab296f5ae8c91a36892f030c8c62814f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Takes a mesh and generates a basix bounding box based off min and max values of the mesh in X,Y,Z directions.  <a href="class_bounding_box.html#ab296f5ae8c91a36892f030c8c62814f6">More...</a><br /></td></tr>
 <tr class="separator:ab296f5ae8c91a36892f030c8c62814f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af296a5334106dad59f911db18e128d71"><td class="memItemLeft" align="right" valign="top"><a id="af296a5334106dad59f911db18e128d71"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bounding_box.html#af296a5334106dad59f911db18e128d71">GenerateBoundingBoxNormals</a> ()</td></tr>
-<tr class="memdesc:af296a5334106dad59f911db18e128d71"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generates normals of the bounding box. <br /></td></tr>
+<tr class="memitem:af296a5334106dad59f911db18e128d71"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bounding_box.html#af296a5334106dad59f911db18e128d71">GenerateBoundingBoxNormals</a> ()</td></tr>
+<tr class="memdesc:af296a5334106dad59f911db18e128d71"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generates normals of the bounding box.  <a href="class_bounding_box.html#af296a5334106dad59f911db18e128d71">More...</a><br /></td></tr>
 <tr class="separator:af296a5334106dad59f911db18e128d71"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -127,9 +149,60 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <dl class="section author"><dt>Author</dt><dd>Bryce Standley </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>06/04/2021</dd></dl>
 <p>Class to hold all collision and bounding box information of a game object </p><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000001">Todo:</a></b></dt><dd>Implement bounding box collisions </dd></dl>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+</div><h2 class="groupheader">Member Enumeration Documentation</h2>
+<a id="a7740a55cd572b82e1692e9f9d9a286c3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7740a55cd572b82e1692e9f9d9a286c3">&#9670;&nbsp;</a></span>CollisionTag</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="class_bounding_box.html#a7740a55cd572b82e1692e9f9d9a286c3">BoundingBox::CollisionTag</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Collision tag used for collision checking on a object. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a7740a55cd572b82e1692e9f9d9a286c3a7b1d0daf07dde2c377bd7895e11c943f"></a>PLAYER&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a7740a55cd572b82e1692e9f9d9a286c3a30c0b05af3c6a5b6c746bf4f69adbf75"></a>TOKEN&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a7740a55cd572b82e1692e9f9d9a286c3a396df71c7410d0378b2c841d3f5833c5"></a>STATIC_OBJECT&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a7740a55cd572b82e1692e9f9d9a286c3a710b3b550ed07b2bcb3e8b168c870ce2"></a>ENEMY&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a7740a55cd572b82e1692e9f9d9a286c3a08e938628501449eadad912690132b76"></a>WATER&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a4323fc64a71cee220dac92746a2bfe5e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4323fc64a71cee220dac92746a2bfe5e">&#9670;&nbsp;</a></span>BoundingBox() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">BoundingBox::BoundingBox </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Bounding box constructor with empty objects. </p>
+
+</div>
+</div>
 <a id="a3a733edb48ff238da35368e473892f8d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3a733edb48ff238da35368e473892f8d">&#9670;&nbsp;</a></span>BoundingBox()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a3a733edb48ff238da35368e473892f8d">&#9670;&nbsp;</a></span>BoundingBox() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -198,6 +271,25 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>boundingBox </dd></dl>
+
+</div>
+</div>
+<a id="af296a5334106dad59f911db18e128d71"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af296a5334106dad59f911db18e128d71">&#9670;&nbsp;</a></span>GenerateBoundingBoxNormals()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void BoundingBox::GenerateBoundingBoxNormals </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Generates normals of the bounding box. </p>
 
 </div>
 </div>
@@ -388,13 +480,17 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>/Volumes/GITS/ICT397-Project/ICT397-Project-Engine/<a class="el" href="_bounding_box_8h_source.html">BoundingBox.h</a></li>
-<li>/Volumes/GITS/ICT397-Project/ICT397-Project-Engine/BoundingBox.cpp</li>
+<li>ICT397-Project-Engine/<a class="el" href="_bounding_box_8h_source.html">BoundingBox.h</a></li>
+<li>ICT397-Project-Engine/<a class="el" href="_bounding_box_8cpp.html">BoundingBox.cpp</a></li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="class_bounding_box.html">BoundingBox</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
 </body>
 </html>

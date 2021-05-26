@@ -23,7 +23,9 @@ void \mbox{\hyperlink{class_view_a4c22964a4853a292392adeb9e752fa59}{Set\+Skyview
 void \mbox{\hyperlink{class_view_a5cabc1de78f8d2d8c4ad826515306c16}{Set\+Position}} (const glm\+::vec3 p)
 \begin{DoxyCompactList}\small\item\em sets the position vector \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{class_view_a995e6d4d78333ceeb68022e830fd2c9c}{Set\+Rotation}} (const glm\+::vec3 r)
-\begin{DoxyCompactList}\small\item\em sets the position vector \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em sets the rotation vector \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_view_aae1618617fa96ec310383d6c68074568}{Set\+Forward}} (const glm\+::vec3 f)
+\begin{DoxyCompactList}\small\item\em sets the forward vector \end{DoxyCompactList}\item 
 glm\+::mat4 \mbox{\hyperlink{class_view_aa878a4bc822f2e5c6999e8b4be727a2b}{Get\+Projection}} ()
 \begin{DoxyCompactList}\small\item\em gets and returns the projection matrix \end{DoxyCompactList}\item 
 glm\+::mat4 \mbox{\hyperlink{class_view_ad8b28c769712d05576aa6e316f04ad32}{Get\+View}} ()
@@ -35,7 +37,9 @@ glm\+::mat4 \mbox{\hyperlink{class_view_aa827036992f7d21b5ee9341c6a789950}{Get\+
 glm\+::vec3 \mbox{\hyperlink{class_view_a835202e230f4d672dc2201aed7f60f64}{Get\+Position}} ()
 \begin{DoxyCompactList}\small\item\em gets and returns the position vector \end{DoxyCompactList}\item 
 glm\+::vec3 \mbox{\hyperlink{class_view_a1b339ef9cbd73976e3458e1975ebbbc3}{Get\+Rotation}} ()
-\begin{DoxyCompactList}\small\item\em Gets and returns the rotation vector. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Gets and returns the rotation vector. \end{DoxyCompactList}\item 
+glm\+::vec3 \mbox{\hyperlink{class_view_a31ea821222ee1c99aa16162ca7c91154}{Get\+Forward}} ()
+\begin{DoxyCompactList}\small\item\em Gets and returns the forward vector. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -53,6 +57,19 @@ Christoper Logan
 
 
 \doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_view_a31ea821222ee1c99aa16162ca7c91154}\label{class_view_a31ea821222ee1c99aa16162ca7c91154}} 
+\index{View@{View}!GetForward@{GetForward}}
+\index{GetForward@{GetForward}!View@{View}}
+\doxysubsubsection{\texorpdfstring{GetForward()}{GetForward()}}
+{\footnotesize\ttfamily glm\+::vec3 View\+::\+Get\+Forward (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets and returns the forward vector. 
+
+\begin{DoxyReturn}{Returns}
+glm\+::vec3 
+\end{DoxyReturn}
 \mbox{\Hypertarget{class_view_a9aa38aadb27fc4f30fc31af7bceeeff2}\label{class_view_a9aa38aadb27fc4f30fc31af7bceeeff2}} 
 \index{View@{View}!GetModel@{GetModel}}
 \index{GetModel@{GetModel}!View@{View}}
@@ -131,6 +148,21 @@ gets and returns the view matrix
 \begin{DoxyReturn}{Returns}
 glm\+::mat4 
 \end{DoxyReturn}
+\mbox{\Hypertarget{class_view_aae1618617fa96ec310383d6c68074568}\label{class_view_aae1618617fa96ec310383d6c68074568}} 
+\index{View@{View}!SetForward@{SetForward}}
+\index{SetForward@{SetForward}!View@{View}}
+\doxysubsubsection{\texorpdfstring{SetForward()}{SetForward()}}
+{\footnotesize\ttfamily void View\+::\+Set\+Forward (\begin{DoxyParamCaption}\item[{const glm\+::vec3}]{f }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+sets the forward vector 
+
+
+\begin{DoxyParams}{Parameters}
+{\em const} & f -\/ represents the value that is assigned to the forward vector \\
+\hline
+\end{DoxyParams}
 \mbox{\Hypertarget{class_view_adc8f6f6b4600b85fa0db20cd44d0a2b6}\label{class_view_adc8f6f6b4600b85fa0db20cd44d0a2b6}} 
 \index{View@{View}!SetModel@{SetModel}}
 \index{SetModel@{SetModel}!View@{View}}
@@ -184,11 +216,11 @@ sets the projection matrix
 
 
 
-sets the position vector 
+sets the rotation vector 
 
 
 \begin{DoxyParams}{Parameters}
-{\em const} & p -\/ represents the vector that is assigned to the position \\
+{\em const} & r -\/ represents the vector that is assigned to the rotation \\
 \hline
 \end{DoxyParams}
 \mbox{\Hypertarget{class_view_a4c22964a4853a292392adeb9e752fa59}\label{class_view_a4c22964a4853a292392adeb9e752fa59}} 
@@ -225,4 +257,4 @@ sets the view matrix
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-/\+Volumes/\+GITS/\+ICT397-\/\+Project/\+ICT397-\/\+Project-\/\+Engine/View.\+h\end{DoxyCompactItemize}
+ICT397-\/\+Project-\/\+Engine/\mbox{\hyperlink{_view_8h}{View.\+h}}\end{DoxyCompactItemize}

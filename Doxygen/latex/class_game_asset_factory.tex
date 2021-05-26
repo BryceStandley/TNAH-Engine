@@ -14,8 +14,12 @@ Holds the information so that game objects can be made in the engine by taking i
 \item 
 \mbox{\hyperlink{class_game_asset_factory_a9cb4442d737225d8b9184d90baf670e4}{Game\+Asset\+Factory}} (\mbox{\hyperlink{class_renderer}{Renderer}} $\ast$r)
 \begin{DoxyCompactList}\small\item\em Game asset factory contructor with the renderer. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{class_game_object}{Game\+Object}} $\ast$ \mbox{\hyperlink{class_game_asset_factory_a0a77bb4c2a89af355cfcab20309c578a}{Get\+Game\+Object}} (std\+::string t, std\+::string model\+Name, std\+::string shaderV, std\+::string shaderF, float scale, glm\+::vec3 position, float speed)
-\begin{DoxyCompactList}\small\item\em Creates the game object and returns it. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\mbox{\hyperlink{class_game_object}{Game\+Object}} $\ast$ \mbox{\hyperlink{class_game_asset_factory_adf24ecaf355d032057fb10da885c99d5}{Get\+Game\+Object}} (std\+::string t, std\+::string script, float scale, glm\+::vec3 position)
+\begin{DoxyCompactList}\small\item\em Creates the game object and returns it. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_game_object}{Game\+Object}} $\ast$ \mbox{\hyperlink{class_game_asset_factory_a5da86fa85724b718ba5a6f7a6595b74b}{Get\+Game\+Object\+Save}} (std\+::string t, std\+::string script, float scale, glm\+::vec3 position, float health, float ammo, std\+::string \mbox{\hyperlink{classstate}{state}}, int saved\+Points, int saved\+Tokens, int saved\+Kills)
+\begin{DoxyCompactList}\small\item\em Creates the game object and returns it. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_game_asset_factory_a331752fe367067ef942567d5b63017eb}{Reset\+Factory}} ()
+\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -51,11 +55,11 @@ Game asset factory contructor with the renderer.
 
 
 \doxysubsection{Member Function Documentation}
-\mbox{\Hypertarget{class_game_asset_factory_a0a77bb4c2a89af355cfcab20309c578a}\label{class_game_asset_factory_a0a77bb4c2a89af355cfcab20309c578a}} 
+\mbox{\Hypertarget{class_game_asset_factory_adf24ecaf355d032057fb10da885c99d5}\label{class_game_asset_factory_adf24ecaf355d032057fb10da885c99d5}} 
 \index{GameAssetFactory@{GameAssetFactory}!GetGameObject@{GetGameObject}}
 \index{GetGameObject@{GetGameObject}!GameAssetFactory@{GameAssetFactory}}
 \doxysubsubsection{\texorpdfstring{GetGameObject()}{GetGameObject()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{class_game_object}{Game\+Object}} $\ast$ Game\+Asset\+Factory\+::\+Get\+Game\+Object (\begin{DoxyParamCaption}\item[{std\+::string}]{t,  }\item[{std\+::string}]{model\+Name,  }\item[{std\+::string}]{shaderV,  }\item[{std\+::string}]{shaderF,  }\item[{float}]{scale,  }\item[{glm\+::vec3}]{position,  }\item[{float}]{speed }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_game_object}{Game\+Object}} $\ast$ Game\+Asset\+Factory\+::\+Get\+Game\+Object (\begin{DoxyParamCaption}\item[{std\+::string}]{t,  }\item[{std\+::string}]{script,  }\item[{float}]{scale,  }\item[{glm\+::vec3}]{position }\end{DoxyParamCaption})}
 
 
 
@@ -81,9 +85,45 @@ Creates the game object and returns it.
 \begin{DoxyReturn}{Returns}
 Game\+Object$\ast$ 
 \end{DoxyReturn}
+\mbox{\Hypertarget{class_game_asset_factory_a5da86fa85724b718ba5a6f7a6595b74b}\label{class_game_asset_factory_a5da86fa85724b718ba5a6f7a6595b74b}} 
+\index{GameAssetFactory@{GameAssetFactory}!GetGameObjectSave@{GetGameObjectSave}}
+\index{GetGameObjectSave@{GetGameObjectSave}!GameAssetFactory@{GameAssetFactory}}
+\doxysubsubsection{\texorpdfstring{GetGameObjectSave()}{GetGameObjectSave()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_game_object}{Game\+Object}} $\ast$ Game\+Asset\+Factory\+::\+Get\+Game\+Object\+Save (\begin{DoxyParamCaption}\item[{std\+::string}]{t,  }\item[{std\+::string}]{script,  }\item[{float}]{scale,  }\item[{glm\+::vec3}]{position,  }\item[{float}]{health,  }\item[{float}]{ammo,  }\item[{std\+::string}]{state,  }\item[{int}]{saved\+Points,  }\item[{int}]{saved\+Tokens,  }\item[{int}]{saved\+Kills }\end{DoxyParamCaption})}
+
+
+
+Creates the game object and returns it. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em t} & -\/ The type of object it is, if it does not fit it will return nullptr \\
+\hline
+{\em model\+Name} & -\/ The model filepath \\
+\hline
+{\em shaderV} & -\/ The vertex shader \\
+\hline
+{\em shaderF} & -\/ the fragment shader \\
+\hline
+{\em scale} & -\/ The object scale \\
+\hline
+{\em position} & -\/ The inital position \\
+\hline
+{\em speed} & -\/ the speed of movement \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Game\+Object$\ast$ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_game_asset_factory_a331752fe367067ef942567d5b63017eb}\label{class_game_asset_factory_a331752fe367067ef942567d5b63017eb}} 
+\index{GameAssetFactory@{GameAssetFactory}!ResetFactory@{ResetFactory}}
+\index{ResetFactory@{ResetFactory}!GameAssetFactory@{GameAssetFactory}}
+\doxysubsubsection{\texorpdfstring{ResetFactory()}{ResetFactory()}}
+{\footnotesize\ttfamily void Game\+Asset\+Factory\+::\+Reset\+Factory (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-/\+Volumes/\+GITS/\+ICT397-\/\+Project/\+ICT397-\/\+Project-\/\+Engine/Game\+Asset\+Factory.\+h\item 
-/\+Volumes/\+GITS/\+ICT397-\/\+Project/\+ICT397-\/\+Project-\/\+Engine/Game\+Asset\+Factory.\+cpp\end{DoxyCompactItemize}
+ICT397-\/\+Project-\/\+Engine/\mbox{\hyperlink{_game_asset_factory_8h}{Game\+Asset\+Factory.\+h}}\item 
+ICT397-\/\+Project-\/\+Engine/\mbox{\hyperlink{_game_asset_factory_8cpp}{Game\+Asset\+Factory.\+cpp}}\end{DoxyCompactItemize}

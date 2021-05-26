@@ -64,6 +64,7 @@ void Terrain::luaLoader()
         LuaRef tex5 = getGlobal(L, "detailMap");
         LuaRef vs = getGlobal(L, "vs");
         LuaRef fs = getGlobal(L, "fs");
+        LuaRef sp = getGlobal(L, "smoothingPasses");
 
         if (heightmap.isString())
         {
@@ -135,6 +136,11 @@ void Terrain::luaLoader()
             fragShader = fs.cast<std::string>();
         }
 
+        if(sp.isNumber())
+        {
+        	smoothingPasses = sp.cast<int>();
+        }
+
         Shader shad(vertShader.c_str(), fragShader.c_str());
         shader = shad;
     }
@@ -148,16 +154,13 @@ void Terrain::attachShader(Shader shad)
 
 bool Terrain::LoadHeightField(std::string filename, int size)
 {
-    std::ifstream file(filename, std::ios::binary);
+    /*std::ifstream file(filename, std::ios::binary);
 
     if (!file)
     {
         std::cout << "File aint here brother" << std::endl;
         return false;
     }
-    //if (terrainData)
-    //    delete[] terrainData;
-
     if (size > 0)
     {
         int nSize = size * size;
@@ -176,6 +179,87 @@ bool Terrain::LoadHeightField(std::string filename, int size)
     this->size = size;
 
     return true;
+
+	tgaInfo *info;
+	int mode,aux;
+	float pointHeight;
+
+	// if a terrain already exists, destroy it.
+	if (terrainData != NULL)
+		terrainData = NULL;
+
+	// load the image, using the tgalib
+	info = tgaLoad(filename);
+
+	// check to see if the image was properly loaded
+	// remember: only greyscale, RGB or RGBA noncompressed images
+	if (info->status != TGA_OK)
+		return(info->status);
+
+	// if the image is RGB, convert it to greyscale.
+	// mode will store the image's number of components
+	mode = info->pixelDepth / 8;
+	if (mode == 3) {
+		tgaRGBtoGreyscale(info);
+		mode = 1;
+	}
+
+	// set the width and height of the terrain
+	sizeX = info->width; // width
+	sizeZ = info->height; // length
+
+	// alocate memory for the terrain, and check for errors
+	terrainHeights = (float *)malloc(sizeX * sizeZ * sizeof(float));
+	if (terrainHeights == NULL)
+		return(TERRAIN_ERROR_MEMORY_PROBLEM);
+
+
+	// fill arrays
+	for (int i = 0 ; i < sizeX; i++)
+	{
+		for (int j = 0; j < sizeZ; j++)
+		{
+			// compute the height as a value between 0.0 and 1.0
+			aux = mode * (i * sizeZ + j);
+			pointHeight = (float) info->imageData[aux + (mode - 1)] / 256.0f;
+			terrainHeights[i * sizeZ + j] = pointHeight;
+		}
+	}
+
+	// free the image's memory
+	tgaDestroy(info);
+
+	return(TERRAIN_OK);*/
+
+	stbi_set_flip_vertically_on_load(1);
+	int width, height, bytesPerPixel;
+	const auto imageData = stbi_load(filename.c_str(), &width, &height, &bytesPerPixel, 0);
+	if (imageData == nullptr)
+	{
+		// Return empty vector in case of failure
+		std::cout << "Failed to load heightmap image " << filename << "!" << std::endl;
+	}
+
+	std::vector<float> result;
+	auto pixelPtr = &imageData[0];
+	for (auto z = 0; z < height; ++z)
+	{
+		for (auto x = 0; x < width; ++x)
+		{
+			result.emplace_back((float(*pixelPtr) / 255.0f) * MAX_HEIGHT);
+			pixelPtr += bytesPerPixel;
+		}
+	}
+
+	stbi_image_free(imageData);
+	terrainHeights = result;
+	sizeX = width;
+	sizeZ = height;
+	stbi_set_flip_vertically_on_load(0);
+	return true;
+
+
+
 }
 
 void Terrain::setScalingFactor(float xScale, float yScale, float zScale) {
@@ -187,12 +271,42 @@ void Terrain::setScalingFactor(float xScale, float yScale, float zScale) {
 float Terrain::getHeight(int xpos, int zpos) {
     if (xpos < 0) { xpos = 0; }
     if (zpos < 0) { zpos = 0; }
-    if(xpos > size) {xpos = size;}
-    if(zpos > size) { zpos = size;}
+    if(xpos > sizeX) {xpos = sizeX;}
+    if(zpos > sizeZ) { zpos = sizeZ;}
     if (inBounds(xpos, zpos))
-        return ((float)(terrainData[(zpos * size) + xpos]) * scaleY);
+    {
+        return terrainHeights[zpos * sizeZ + xpos];
+    }
     else
-        return ((float)(terrainData[(zpos - 1 * size) + xpos]) * scaleY);
+    {
+	    return terrainHeights[zpos - 1  * sizeZ + xpos];
+    }
+}
+
+float Terrain::GetVertexHeight(int xPos, int zPos)
+{
+	if (xPos < 0) { xPos = 0; }
+	if (zPos < 0) { zPos = 0; }
+	if(xPos > sizeX) {xPos = sizeX;}
+	if(zPos > sizeZ) { zPos = sizeZ;}
+	if(inBounds(xPos, zPos))
+	{
+		return vertex.position[(zPos * sizeZ) + xPos].y;
+	}
+	else
+	{
+		return vertex.position[(zPos - 1 * sizeZ) + xPos].y;
+	}
+}
+
+void Terrain::SetVertexHeight(int xPos, int zPos, float newHeight)
+{
+	if (inBounds(xPos, zPos))
+		vertex.position[(zPos * sizeZ) + xPos].y = newHeight;
+		 //terrainData[(zPos * size) + xPos] = (newHeight * scaleY);
+	else
+		//terrainData[(zPos - 1 * size) + xPos] = newHeight * scaleY;
+		vertex.position[(zPos - 1 * sizeZ) + xPos].y = newHeight;
 }
 
 float Terrain::getAverageHeight(int xpos, int zpos)
@@ -200,22 +314,22 @@ float Terrain::getAverageHeight(int xpos, int zpos)
     std::vector<float> heights;
 
     //stopping the position over flowing
-    if(xpos > getSize()) xpos = getSize() - 2;
-    if(zpos > getSize()) zpos = getSize() - 2;
+    if(xpos > sizeX) xpos = sizeX - 2;
+    if(zpos > sizeZ) zpos = sizeZ - 2;
 
-    heights.push_back(getHeight(xpos, zpos) / 10.0f);
+    heights.push_back(GetVertexHeight(xpos, zpos));
 
 
-    heights.push_back(getHeight(xpos - 1 , zpos - 1) / 10.0f);
-    heights.push_back(getHeight(xpos, zpos - 1) / 10.0f);
-    heights.push_back(getHeight(xpos + 1, zpos - 1) / 10.0f);
+    heights.push_back(GetVertexHeight(xpos - 1 , zpos - 1));
+    heights.push_back(GetVertexHeight(xpos, zpos - 1));
+    heights.push_back(GetVertexHeight(xpos + 1, zpos - 1));
 
-    heights.push_back(getHeight(xpos - 1, zpos) / 10.0f);
-    heights.push_back(getHeight(xpos + 1, zpos) / 10.0f);
+    heights.push_back(GetVertexHeight(xpos - 1, zpos) );
+    heights.push_back(GetVertexHeight(xpos + 1, zpos));
 
-    heights.push_back(getHeight(xpos - 1, zpos + 1) / 10.0f);
-    heights.push_back(getHeight(xpos, zpos + 1) / 10.0f);
-    heights.push_back(getHeight(xpos + 1, zpos + 1) / 10.0f);
+    heights.push_back(GetVertexHeight(xpos - 1, zpos + 1));
+    heights.push_back(GetVertexHeight(xpos, zpos + 1));
+    heights.push_back(GetVertexHeight(xpos + 1, zpos + 1));
 
     float tot = 0.0f;
     for (float h : heights)
@@ -226,16 +340,16 @@ float Terrain::getAverageHeight(int xpos, int zpos)
     return tot / (float)heights.size();
 }
 
-unsigned char Terrain::getHeightColor(int xpos, int zpos) {
+float Terrain::getHeightColor(int xpos, int zpos) {
     if (inBounds(xpos, zpos)) {
-        return terrainData[zpos * size + xpos];
+        return terrainHeights[(zpos * sizeZ) + xpos];
     }
     return 1;
 }
 
 bool Terrain::inBounds(int xpos, int zpos)
 {
-    if ((xpos >= 0 && (float)xpos < (float)size * scaleX) && (zpos >= 0 && zpos < (float)size * scaleZ))
+    if (xpos > 0 && xpos < sizeX && zpos >= 0 && zpos < sizeZ)
         return true;
     else
         return false;
@@ -248,35 +362,79 @@ int Terrain::getSize()
 
 void Terrain::generateVertices(Vertex& vertex)
 {
-    for (unsigned int z = 0; z < getSize(); ++z)
+	//TerrainHeightScale(0, MAX_HEIGHT);
+
+    for (unsigned int z = 0; z < sizeZ; ++z)
     {
-        for (unsigned int x = 0; x < getSize(); ++x)
+        for (unsigned int x = 0; x < sizeX; ++x)
         {
-            glm::vec3 positions((float)x * scaleX, getHeight((int)x, (int)z) / 10.0f, (float)z * scaleZ);
+            glm::vec3 positions((float)x * scaleX, getHeight((int)x, (int)z) * scaleY, (float)z * scaleZ);
             vertex.position.push_back(positions);
         }
     }
 }
 
+
+
+
+void Terrain::SmoothTerrain(Vertex& vert, float smoothFactor)
+{
+	for(int z = 0; z < sizeZ; ++z)
+	{
+		for(int x = 0; x < sizeX; ++x)
+		{
+			float corners = (GetVertexHeight(x-1, z-1) + GetVertexHeight(x + 1, z - 1) + GetVertexHeight(x - 1, z + 1) +
+					GetVertexHeight(x + 1, z + 1)) / 16.0f;
+			float sides = (GetVertexHeight(x - 1, z) + GetVertexHeight(x + 1, z) + GetVertexHeight(x, z - 1) +
+					GetVertexHeight(x, z + 1)) / 8.0f;
+			float center = GetVertexHeight(x,z) / 4.0f;
+			float newHeight = (corners + sides + center);
+			if(newHeight > maxYValue) { maxYValue = newHeight;}
+			if(newHeight < maxYValue && newHeight > secondMaxYValue) { secondMaxYValue = newHeight;}
+			SetVertexHeight(x, z, newHeight);
+		}
+	}
+
+/*
+	for(int x = 1; x < size - 1; ++x)
+	{
+		for(int z = 1; z < size - 1; ++z)
+		{
+			float inX = (float)x / 4.0f;
+			float inZ = (float)z / 4.0f;
+			int intX =  x;
+			int intZ =  z;
+			float fracX = inX - intX;
+			float fracZ = inZ - intZ;
+
+			float v1 = GetVertexHeight(intX, intZ);
+			float v2 = GetVertexHeight(intX + 1, intZ);
+			float v3 = GetVertexHeight(intX, intZ + 1);
+			float v4 = GetVertexHeight(intX + 1, intZ + 1);
+			float i1 = Interpolate(v1, v2, fracX);
+			float i2 = Interpolate(v3, v4, fracX);
+			float newHeight = Interpolate(i1, i2, fracZ) / 5.0f;
+
+			SetVertexHeight(x, z, newHeight);
+		}
+	}
+ */
+
+}
+
+float Terrain::Interpolate(float a, float b, float blend)
+{
+	double theta = blend * M_PI;
+	float f = (float) (1.0f - cos(theta)) * 0.5f;
+	return a * (1.0f - f) + b * f;
+}
+
 void Terrain::generateIndices(std::vector<unsigned int>& indices)
 {
-    for (unsigned int z = 0; z < getSize(); ++z)
-    {
-        for (unsigned int x = 0; x < getSize(); ++x)
-        {
-            if (z + 1 < getSize())
-            {
-                indices.push_back((z * getSize() + x));
 
-                indices.push_back((z * getSize()) + x + getSize());
-            }
-        }
-        indices.push_back(0xFFFFFFFF);
-    }
-    /*
-	for (unsigned int x = 0; x < getSize() - 1; ++x)
+	for (unsigned int z = 0; z < sizeZ - 1; ++z)
 	{
-		for (unsigned int z = 0; z < getSize() - 1; ++z) {
+		for (unsigned int x = 0; x < sizeX - 1; ++x) {
 			indices.push_back((x * getSize() + z));             // 0
 			indices.push_back(((x * getSize() + 1) + z));       // 1
 			indices.push_back((((x + 1) * getSize()) + z));     // 3
@@ -285,7 +443,7 @@ void Terrain::generateIndices(std::vector<unsigned int>& indices)
 			indices.push_back(((x + 1) * getSize()) + (z + 1)); // 2
 			indices.push_back((((x + 1) * getSize()) + z));     // 3
 		}
-	}*/
+	}
 
 }
 
@@ -293,11 +451,11 @@ void Terrain::generateColors(Vertex& vertex)
 {
     float colorVal = 0.0f;
 
-    for (unsigned int z = 0; z < getSize(); ++z)
+    for (int z = 0; z < sizeZ; ++z)
     {
-        for (unsigned int x = 0; x < getSize(); ++x)
+        for (int x = 0; x < sizeX; ++x)
         {
-            colorVal = (float)getHeightColor((int)x, (int)z) / 255;
+            colorVal = GetVertexHeight(x, z) / 255.0f;
             glm::vec3 color(0.0f, colorVal, 0.0f);
             vertex.color.push_back(color);
         }
@@ -307,14 +465,34 @@ void Terrain::generateColors(Vertex& vertex)
 void Terrain::generateTextures(Vertex& vertex)
 {
 
-    for (unsigned int z = 0; z < getSize(); ++z)
-    {
-        for (unsigned int x = 0; x < getSize(); ++x)
-        {
-            glm::vec3 tex(((float)x / (float)getSize()) * 5.0f, 0.0f, ((float)z / (float)getSize()) * 5.0f);
-            vertex.texture.push_back(tex);
-        }
-    }
+	unsigned int tracker = 0;
+	float prevx = vertex.position[0].x;
+	int s = 1;
+	int x = 0;
+	int z = 0;
+	glm::vec3 texCoords;
+	for (auto &vert : vertex.position) {
+		if (static_cast<int>(prevx) != static_cast<int>(vert.x))
+		{
+			x++;
+			z = 0;
+			prevx = vert.x;
+		}
+		if (tracker == 0)
+		{
+			texCoords.x = static_cast<float>(x) / static_cast<float>(s);
+			texCoords.y = static_cast<float>(z) / static_cast<float>(s);
+			tracker++;
+		}
+		else
+		{
+			texCoords.x = static_cast<float>(x) / static_cast<float>(s);
+			texCoords.y = static_cast<float>(z) / static_cast<float>(s);
+			tracker = 0;
+		}
+		z++;
+		vertex.texture.push_back(texCoords);
+	}
 }
 
 void Terrain::generateNormals()
@@ -339,12 +517,20 @@ void Terrain::generateNormals()
             vertex.normal.push_back(normalized);
         }
     }
+
 }
 
 // generates the terrain by placing position, colour and texture vertices into a vector
 void Terrain::generateTerrain()
 {
     generateVertices(vertex);
+
+	//run the smoother how ever many times
+	for(int i = 0; i < smoothingPasses; i++)
+	{
+		SmoothTerrain(vertex, 0);
+	}
+
     generateColors(vertex);
     generateTextures(vertex);
 
@@ -359,6 +545,9 @@ void Terrain::generateTerrain()
         totalData.push_back(-vertex.normal[i]);
 
     }
+
+
+
 }
 
 void Terrain::setTextures()

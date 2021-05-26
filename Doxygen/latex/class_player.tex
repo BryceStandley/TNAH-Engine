@@ -9,17 +9,66 @@ Abstract \mbox{\hyperlink{class_game_object}{Game\+Object}} class for the player
 
 {\ttfamily \#include $<$Player.\+h$>$}
 
-Inheritance diagram for Player\+:\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[height=2.000000cm]{class_player}
-\end{center}
-\end{figure}
+
+
+Inheritance diagram for Player\+:
+% FIG 0
+
+
+Collaboration diagram for Player\+:
+% FIG 1
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
+\mbox{\hyperlink{class_player_ac204abf9ae8857f439dbc837e554d603}{Player}} (glm\+::vec3 p, glm\+::vec3 rot, float s, \mbox{\hyperlink{class_renderer}{Renderer}} $\ast$game\+Renderer, std\+::string script)
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{class_player}{Player}} constructor that takes various parameters. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_player_a43d404b8624c70074388509952298c5d}{Player}} (glm\+::vec3 p, glm\+::vec3 rot, float s, \mbox{\hyperlink{class_renderer}{Renderer}} $\ast$game\+Renderer, std\+::string script, float h, std\+::string \mbox{\hyperlink{classstate}{state}}, int saved\+Points, int saved\+Tokens, int saved\+Kills)
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{class_player}{Player}} constructor that takes various parameters. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classstate_machine}{state\+Machine}}$<$ \mbox{\hyperlink{class_player}{Player}} $>$ $\ast$ \mbox{\hyperlink{class_player_adc2c478ebf8bcc7976886b37089d2351}{get\+FSM}} () const
+\begin{DoxyCompactList}\small\item\em gets and returns the finite state machine of the player \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_player_abcb15d249bed9a4ab0ab86b52b0d747a}{get\+Health}} ()
+\item 
+void \mbox{\hyperlink{class_player_ab5f485fe076e2e29b84c83e143011ab3}{set\+Health}} (int h)
+\item 
+int \mbox{\hyperlink{class_player_ab98ee3c0e10f7b2b65ad43b2a2929445}{get\+Points}} ()
+\item 
+void \mbox{\hyperlink{class_player_a6a928c2bf11c424aa497ac6177ff978a}{increase\+Points}} (int p)
+\item 
+int \mbox{\hyperlink{class_player_ab52a0916c96957764231394403161e8e}{get\+Multiplier}} ()
+\item 
+void \mbox{\hyperlink{class_player_ad3d6283e1d83515d54b4ef3997c9b893}{set\+Multiplier}} (int m)
+\item 
+int \mbox{\hyperlink{class_player_a42c3782e95e76ae9aa4123d1610c9ee2}{get\+Damage}} ()
+\item 
+void \mbox{\hyperlink{class_player_a9d0d0439d464bf062702b41a6e982e19}{set\+Damage}} (int d)
+\item 
+int \mbox{\hyperlink{class_player_ab6da4a036a3b5535ecdb59d712ac387e}{get\+Kills}} ()
+\item 
+void \mbox{\hyperlink{class_player_a059046d04af1968922a03feb8334bf03}{increment\+Kill\+Count}} ()
+\item 
+int \mbox{\hyperlink{class_player_a236e0d7c41bc0c3871342c0c59526aa0}{get\+Tokens\+Collected}} ()
+\item 
+void \mbox{\hyperlink{class_player_a30068e208ea5830b5fe7b55c2b092417}{increment\+Tokens\+Collected}} ()
+\item 
 void \mbox{\hyperlink{class_player_a4dbbe55f79b10545ee6b2e6c7e0b4bc9}{Update}} (float time)
-\begin{DoxyCompactList}\small\item\em Updates the classes functionality. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Updates the classes functionality. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_player_a4d188ed5267504af8c15c0b86d3a601d}{Render}} (\mbox{\hyperlink{class_view}{View}} lens, float time, \mbox{\hyperlink{class_renderer}{Renderer}} $\ast$game\+Renderer)
+\begin{DoxyCompactList}\small\item\em makes use of the view information and graphics renderer to render the player to the screen \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_player_a7f2f602458cae632074ff1eb0187ebd0}{Set\+State}} (\mbox{\hyperlink{_md2_8h_af5d799eba8960b05ab838f5cd3e5f41f}{Md2\+Commands}} \mbox{\hyperlink{classstate}{state}})
+\begin{DoxyCompactList}\small\item\em sets the animation state to the value provided as a parameter \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_player_a9e601e74854eae877306d504b0a206bc}{Fire\+Weapon}} ()
+\begin{DoxyCompactList}\small\item\em sets the shooting animation when the weapon is fired \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_player_a225d31613bd354dfc6586ce922c539da}{Back\+To\+Idle}} ()
+\begin{DoxyCompactList}\small\item\em sets the idle animation when the weapon is not being fired \end{DoxyCompactList}\item 
+virtual std\+::string \mbox{\hyperlink{class_player_a3cdef360cdac88dfcec938b33938205b}{Stream\+Values}} ()
+\begin{DoxyCompactList}\small\item\em returns a string of data that is required for saving \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_player_a22a0d2b901622c497b677b7c75fafe45}{Reset}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{class_player_a4c3593edc37cd8a321b4947c15bf9058}{has\+Token}} = true
+\begin{DoxyCompactList}\small\item\em check if player has token or not \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -34,9 +83,249 @@ Christopher Logan
 \begin{DoxyDate}{Date}
 25/03/2021
 \end{DoxyDate}
-@bugs none to be seen 
+@bugs none to be seen \begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000004}{Todo}}]need to add player fsm and functionality\end{DoxyRefDesc}
+
+
+Added FSM and functionality
+
+\begin{DoxyAuthor}{Author}
+Dylan Blereau 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+02 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+17/05/2021 
+\end{DoxyDate}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_player_ac204abf9ae8857f439dbc837e554d603}\label{class_player_ac204abf9ae8857f439dbc837e554d603}} 
+\index{Player@{Player}!Player@{Player}}
+\index{Player@{Player}!Player@{Player}}
+\doxysubsubsection{\texorpdfstring{Player()}{Player()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Player\+::\+Player (\begin{DoxyParamCaption}\item[{glm\+::vec3}]{p,  }\item[{glm\+::vec3}]{rot,  }\item[{float}]{s,  }\item[{\mbox{\hyperlink{class_renderer}{Renderer}} $\ast$}]{game\+Renderer,  }\item[{std\+::string}]{script }\end{DoxyParamCaption})}
+
+
+
+\mbox{\hyperlink{class_player}{Player}} constructor that takes various parameters. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & -\/ reperesents the position vector \\
+\hline
+{\em rot} & -\/ represents the rotation vector \\
+\hline
+{\em s} & -\/ represents the player scale \\
+\hline
+{\em game\+Renderer} & -\/ a pointer to the game engine renderer \\
+\hline
+{\em script} & -\/ a string repesenting the path to the enemy lua script \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_player_a43d404b8624c70074388509952298c5d}\label{class_player_a43d404b8624c70074388509952298c5d}} 
+\index{Player@{Player}!Player@{Player}}
+\index{Player@{Player}!Player@{Player}}
+\doxysubsubsection{\texorpdfstring{Player()}{Player()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Player\+::\+Player (\begin{DoxyParamCaption}\item[{glm\+::vec3}]{p,  }\item[{glm\+::vec3}]{rot,  }\item[{float}]{s,  }\item[{\mbox{\hyperlink{class_renderer}{Renderer}} $\ast$}]{game\+Renderer,  }\item[{std\+::string}]{script,  }\item[{float}]{h,  }\item[{std\+::string}]{state,  }\item[{int}]{saved\+Points,  }\item[{int}]{saved\+Tokens,  }\item[{int}]{saved\+Kills }\end{DoxyParamCaption})}
+
+
+
+\mbox{\hyperlink{class_player}{Player}} constructor that takes various parameters. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & -\/ reperesents the position vector \\
+\hline
+{\em rot} & -\/ represents the rotation vector \\
+\hline
+{\em s} & -\/ represents the player scale \\
+\hline
+{\em game\+Renderer} & -\/ a pointer to the game engine renderer \\
+\hline
+{\em script} & -\/ a string repesenting the path to the enemy lua script \\
+\hline
+{\em h} & -\/ represents player health \\
+\hline
+{\em state} & -\/ represents the player state \\
+\hline
+{\em saved\+Points} & -\/ refers to the value of saved points \\
+\hline
+{\em save\+Tokens} & -\/ refers to the value of saved tokens \\
+\hline
+{\em saved\+Kills} & -\/ refers to the value of saved kills \\
+\hline
+\end{DoxyParams}
+
 
 \doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_player_a225d31613bd354dfc6586ce922c539da}\label{class_player_a225d31613bd354dfc6586ce922c539da}} 
+\index{Player@{Player}!BackToIdle@{BackToIdle}}
+\index{BackToIdle@{BackToIdle}!Player@{Player}}
+\doxysubsubsection{\texorpdfstring{BackToIdle()}{BackToIdle()}}
+{\footnotesize\ttfamily void Player\+::\+Back\+To\+Idle (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+sets the idle animation when the weapon is not being fired 
+
+\mbox{\Hypertarget{class_player_a9e601e74854eae877306d504b0a206bc}\label{class_player_a9e601e74854eae877306d504b0a206bc}} 
+\index{Player@{Player}!FireWeapon@{FireWeapon}}
+\index{FireWeapon@{FireWeapon}!Player@{Player}}
+\doxysubsubsection{\texorpdfstring{FireWeapon()}{FireWeapon()}}
+{\footnotesize\ttfamily void Player\+::\+Fire\+Weapon (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+sets the shooting animation when the weapon is fired 
+
+\mbox{\Hypertarget{class_player_a42c3782e95e76ae9aa4123d1610c9ee2}\label{class_player_a42c3782e95e76ae9aa4123d1610c9ee2}} 
+\index{Player@{Player}!getDamage@{getDamage}}
+\index{getDamage@{getDamage}!Player@{Player}}
+\doxysubsubsection{\texorpdfstring{getDamage()}{getDamage()}}
+{\footnotesize\ttfamily int Player\+::get\+Damage (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{class_player_adc2c478ebf8bcc7976886b37089d2351}\label{class_player_adc2c478ebf8bcc7976886b37089d2351}} 
+\index{Player@{Player}!getFSM@{getFSM}}
+\index{getFSM@{getFSM}!Player@{Player}}
+\doxysubsubsection{\texorpdfstring{getFSM()}{getFSM()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classstate_machine}{state\+Machine}}$<$\mbox{\hyperlink{class_player}{Player}}$>$$\ast$ Player\+::get\+FSM (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+gets and returns the finite state machine of the player 
+
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{classstate_machine}{state\+Machine$<$\+Player$>$}}$\ast$ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_player_abcb15d249bed9a4ab0ab86b52b0d747a}\label{class_player_abcb15d249bed9a4ab0ab86b52b0d747a}} 
+\index{Player@{Player}!getHealth@{getHealth}}
+\index{getHealth@{getHealth}!Player@{Player}}
+\doxysubsubsection{\texorpdfstring{getHealth()}{getHealth()}}
+{\footnotesize\ttfamily int Player\+::get\+Health (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{class_player_ab6da4a036a3b5535ecdb59d712ac387e}\label{class_player_ab6da4a036a3b5535ecdb59d712ac387e}} 
+\index{Player@{Player}!getKills@{getKills}}
+\index{getKills@{getKills}!Player@{Player}}
+\doxysubsubsection{\texorpdfstring{getKills()}{getKills()}}
+{\footnotesize\ttfamily int Player\+::get\+Kills (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{class_player_ab52a0916c96957764231394403161e8e}\label{class_player_ab52a0916c96957764231394403161e8e}} 
+\index{Player@{Player}!getMultiplier@{getMultiplier}}
+\index{getMultiplier@{getMultiplier}!Player@{Player}}
+\doxysubsubsection{\texorpdfstring{getMultiplier()}{getMultiplier()}}
+{\footnotesize\ttfamily int Player\+::get\+Multiplier (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{class_player_ab98ee3c0e10f7b2b65ad43b2a2929445}\label{class_player_ab98ee3c0e10f7b2b65ad43b2a2929445}} 
+\index{Player@{Player}!getPoints@{getPoints}}
+\index{getPoints@{getPoints}!Player@{Player}}
+\doxysubsubsection{\texorpdfstring{getPoints()}{getPoints()}}
+{\footnotesize\ttfamily int Player\+::get\+Points (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{class_player_a236e0d7c41bc0c3871342c0c59526aa0}\label{class_player_a236e0d7c41bc0c3871342c0c59526aa0}} 
+\index{Player@{Player}!getTokensCollected@{getTokensCollected}}
+\index{getTokensCollected@{getTokensCollected}!Player@{Player}}
+\doxysubsubsection{\texorpdfstring{getTokensCollected()}{getTokensCollected()}}
+{\footnotesize\ttfamily int Player\+::get\+Tokens\+Collected (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{class_player_a6a928c2bf11c424aa497ac6177ff978a}\label{class_player_a6a928c2bf11c424aa497ac6177ff978a}} 
+\index{Player@{Player}!increasePoints@{increasePoints}}
+\index{increasePoints@{increasePoints}!Player@{Player}}
+\doxysubsubsection{\texorpdfstring{increasePoints()}{increasePoints()}}
+{\footnotesize\ttfamily void Player\+::increase\+Points (\begin{DoxyParamCaption}\item[{int}]{p }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{class_player_a059046d04af1968922a03feb8334bf03}\label{class_player_a059046d04af1968922a03feb8334bf03}} 
+\index{Player@{Player}!incrementKillCount@{incrementKillCount}}
+\index{incrementKillCount@{incrementKillCount}!Player@{Player}}
+\doxysubsubsection{\texorpdfstring{incrementKillCount()}{incrementKillCount()}}
+{\footnotesize\ttfamily void Player\+::increment\+Kill\+Count (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{class_player_a30068e208ea5830b5fe7b55c2b092417}\label{class_player_a30068e208ea5830b5fe7b55c2b092417}} 
+\index{Player@{Player}!incrementTokensCollected@{incrementTokensCollected}}
+\index{incrementTokensCollected@{incrementTokensCollected}!Player@{Player}}
+\doxysubsubsection{\texorpdfstring{incrementTokensCollected()}{incrementTokensCollected()}}
+{\footnotesize\ttfamily void Player\+::increment\+Tokens\+Collected (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{class_player_a4d188ed5267504af8c15c0b86d3a601d}\label{class_player_a4d188ed5267504af8c15c0b86d3a601d}} 
+\index{Player@{Player}!Render@{Render}}
+\index{Render@{Render}!Player@{Player}}
+\doxysubsubsection{\texorpdfstring{Render()}{Render()}}
+{\footnotesize\ttfamily void Player\+::\+Render (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_view}{View}}}]{lens,  }\item[{float}]{time,  }\item[{\mbox{\hyperlink{class_renderer}{Renderer}} $\ast$}]{game\+Renderer }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+makes use of the view information and graphics renderer to render the player to the screen 
+
+
+\begin{DoxyParams}{Parameters}
+{\em lens} & -\/ holds the information that allows you to project and view the model \\
+\hline
+{\em time} & -\/ represents deltatime, which is the difference between the previous frame and the current frame \\
+\hline
+{\em game\+Renderer} & -\/ a pointer to the renderer which is used to render the enemy model \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \mbox{\hyperlink{class_game_object_a00835df0feb28562c4910a7a68771b36}{Game\+Object}}.
+
+\mbox{\Hypertarget{class_player_a22a0d2b901622c497b677b7c75fafe45}\label{class_player_a22a0d2b901622c497b677b7c75fafe45}} 
+\index{Player@{Player}!Reset@{Reset}}
+\index{Reset@{Reset}!Player@{Player}}
+\doxysubsubsection{\texorpdfstring{Reset()}{Reset()}}
+{\footnotesize\ttfamily void Player\+::\+Reset (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_player_a9d0d0439d464bf062702b41a6e982e19}\label{class_player_a9d0d0439d464bf062702b41a6e982e19}} 
+\index{Player@{Player}!setDamage@{setDamage}}
+\index{setDamage@{setDamage}!Player@{Player}}
+\doxysubsubsection{\texorpdfstring{setDamage()}{setDamage()}}
+{\footnotesize\ttfamily void Player\+::set\+Damage (\begin{DoxyParamCaption}\item[{int}]{d }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{class_player_ab5f485fe076e2e29b84c83e143011ab3}\label{class_player_ab5f485fe076e2e29b84c83e143011ab3}} 
+\index{Player@{Player}!setHealth@{setHealth}}
+\index{setHealth@{setHealth}!Player@{Player}}
+\doxysubsubsection{\texorpdfstring{setHealth()}{setHealth()}}
+{\footnotesize\ttfamily void Player\+::set\+Health (\begin{DoxyParamCaption}\item[{int}]{h }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{class_player_ad3d6283e1d83515d54b4ef3997c9b893}\label{class_player_ad3d6283e1d83515d54b4ef3997c9b893}} 
+\index{Player@{Player}!setMultiplier@{setMultiplier}}
+\index{setMultiplier@{setMultiplier}!Player@{Player}}
+\doxysubsubsection{\texorpdfstring{setMultiplier()}{setMultiplier()}}
+{\footnotesize\ttfamily void Player\+::set\+Multiplier (\begin{DoxyParamCaption}\item[{int}]{m }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{class_player_a7f2f602458cae632074ff1eb0187ebd0}\label{class_player_a7f2f602458cae632074ff1eb0187ebd0}} 
+\index{Player@{Player}!SetState@{SetState}}
+\index{SetState@{SetState}!Player@{Player}}
+\doxysubsubsection{\texorpdfstring{SetState()}{SetState()}}
+{\footnotesize\ttfamily void Player\+::\+Set\+State (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_md2_8h_af5d799eba8960b05ab838f5cd3e5f41f}{Md2\+Commands}}}]{state }\end{DoxyParamCaption})}
+
+
+
+sets the animation state to the value provided as a parameter 
+
+
+\begin{DoxyParams}{Parameters}
+{\em state} & -\/ represents the animation state \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_player_a3cdef360cdac88dfcec938b33938205b}\label{class_player_a3cdef360cdac88dfcec938b33938205b}} 
+\index{Player@{Player}!StreamValues@{StreamValues}}
+\index{StreamValues@{StreamValues}!Player@{Player}}
+\doxysubsubsection{\texorpdfstring{StreamValues()}{StreamValues()}}
+{\footnotesize\ttfamily virtual std\+::string Player\+::\+Stream\+Values (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+returns a string of data that is required for saving 
+
+\begin{DoxyReturn}{Returns}
+std\+::string 
+\end{DoxyReturn}
+
+
+Reimplemented from \mbox{\hyperlink{class_game_object_afc257e6c22279dbadcc9b06cfa6511dd}{Game\+Object}}.
+
 \mbox{\Hypertarget{class_player_a4dbbe55f79b10545ee6b2e6c7e0b4bc9}\label{class_player_a4dbbe55f79b10545ee6b2e6c7e0b4bc9}} 
 \index{Player@{Player}!Update@{Update}}
 \index{Update@{Update}!Player@{Player}}
@@ -58,7 +347,20 @@ Reimplemented from \mbox{\hyperlink{class_game_object_aecdbe6a05d3183236f1bbec09
 
 
 
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{class_player_a4c3593edc37cd8a321b4947c15bf9058}\label{class_player_a4c3593edc37cd8a321b4947c15bf9058}} 
+\index{Player@{Player}!hasToken@{hasToken}}
+\index{hasToken@{hasToken}!Player@{Player}}
+\doxysubsubsection{\texorpdfstring{hasToken}{hasToken}}
+{\footnotesize\ttfamily bool Player\+::has\+Token = true}
+
+
+
+check if player has token or not 
+
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-/\+Volumes/\+GITS/\+ICT397-\/\+Project/\+ICT397-\/\+Project-\/\+Engine/Player.\+h\item 
-/\+Volumes/\+GITS/\+ICT397-\/\+Project/\+ICT397-\/\+Project-\/\+Engine/Player.\+cpp\end{DoxyCompactItemize}
+ICT397-\/\+Project-\/\+Engine/\mbox{\hyperlink{_player_8h}{Player.\+h}}\item 
+ICT397-\/\+Project-\/\+Engine/\mbox{\hyperlink{_player_8cpp}{Player.\+cpp}}\end{DoxyCompactItemize}

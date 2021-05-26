@@ -134,6 +134,7 @@ void DebugGUI::Draw()
     ImGui::Checkbox("Debug MD2 to Console", &Debugger::GetInstance()->debugMD2ToConsole);
 	ImGui::Checkbox("Debug Tokens to Console", &Debugger::GetInstance()->debugTokensToConsole);
     ImGui::Checkbox("Debug Player Position to Screen", &Debugger::GetInstance()->debugPlayerPos);
+    ImGui::Checkbox("No Player Y Position Clip", &Debugger::GetInstance()->noPlayerYClip);
     ImGui::Combo("LogType", &selectedType, logTypes, IM_ARRAYSIZE(logTypes));
 
 	switch (selectedType)

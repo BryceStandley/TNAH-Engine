@@ -5,10 +5,14 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TNAH-ICT397-Project: Terrain Class Reference</title>
+<title>TNAH-Engine-ICT397: Terrain Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -22,8 +26,8 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="TNAH-2.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">TNAH-ICT397-Project
-   &#160;<span id="projectnumber">1</span>
+   <div id="projectname">TNAH-Engine-ICT397
+   &#160;<span id="projectnumber">2</span>
    </div>
   </td>
  </tr>
@@ -47,6 +51,23 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('class_terrain.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -61,7 +82,6 @@ $(function() {
 </iframe>
 </div>
 
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
@@ -81,22 +101,20 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ae6515958ec443db2c36b07e7938cd67f"><td class="memItemLeft" align="right" valign="top"><a id="ae6515958ec443db2c36b07e7938cd67f"></a>
-std::vector&lt; unsigned int &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>GetIndicies</b> ()</td></tr>
+<tr class="memitem:ae6515958ec443db2c36b07e7938cd67f"><td class="memItemLeft" align="right" valign="top">std::vector&lt; unsigned int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_terrain.html#ae6515958ec443db2c36b07e7938cd67f">GetIndicies</a> ()</td></tr>
+<tr class="memdesc:ae6515958ec443db2c36b07e7938cd67f"><td class="mdescLeft">&#160;</td><td class="mdescRight">gets and returns a vector containing all indice values  <a href="class_terrain.html#ae6515958ec443db2c36b07e7938cd67f">More...</a><br /></td></tr>
 <tr class="separator:ae6515958ec443db2c36b07e7938cd67f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a40aed738a629bfc4bdacd9d319dca8e3"><td class="memItemLeft" align="right" valign="top"><a id="a40aed738a629bfc4bdacd9d319dca8e3"></a>
-std::vector&lt; glm::vec3 &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>GetTotalData</b> ()</td></tr>
+<tr class="memitem:a40aed738a629bfc4bdacd9d319dca8e3"><td class="memItemLeft" align="right" valign="top">std::vector&lt; glm::vec3 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_terrain.html#a40aed738a629bfc4bdacd9d319dca8e3">GetTotalData</a> ()</td></tr>
+<tr class="memdesc:a40aed738a629bfc4bdacd9d319dca8e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">gets and returns and vector containing the totalData  <a href="class_terrain.html#a40aed738a629bfc4bdacd9d319dca8e3">More...</a><br /></td></tr>
 <tr class="separator:a40aed738a629bfc4bdacd9d319dca8e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aea73b47c73faf1945e85e06c144e7e0e"><td class="memItemLeft" align="right" valign="top"><a id="aea73b47c73faf1945e85e06c144e7e0e"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>SetShader</b> (<a class="el" href="class_shader.html">Shader</a> s)</td></tr>
+<tr class="memitem:aea73b47c73faf1945e85e06c144e7e0e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_terrain.html#aea73b47c73faf1945e85e06c144e7e0e">SetShader</a> (<a class="el" href="class_shader.html">Shader</a> s)</td></tr>
+<tr class="memdesc:aea73b47c73faf1945e85e06c144e7e0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the terrain shader to the shader provided to the function as a parameter  <a href="class_terrain.html#aea73b47c73faf1945e85e06c144e7e0e">More...</a><br /></td></tr>
 <tr class="separator:aea73b47c73faf1945e85e06c144e7e0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7160a06ab07a86ed97d23374405e8ef6"><td class="memItemLeft" align="right" valign="top"><a id="a7160a06ab07a86ed97d23374405e8ef6"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_terrain.html#a7160a06ab07a86ed97d23374405e8ef6">Terrain</a> ()</td></tr>
-<tr class="memdesc:a7160a06ab07a86ed97d23374405e8ef6"><td class="mdescLeft">&#160;</td><td class="mdescRight">default constructor that initialises the terrain object <br /></td></tr>
+<tr class="memitem:a7160a06ab07a86ed97d23374405e8ef6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_terrain.html#a7160a06ab07a86ed97d23374405e8ef6">Terrain</a> ()</td></tr>
+<tr class="memdesc:a7160a06ab07a86ed97d23374405e8ef6"><td class="mdescLeft">&#160;</td><td class="mdescRight">default constructor that initialises the terrain object  <a href="class_terrain.html#a7160a06ab07a86ed97d23374405e8ef6">More...</a><br /></td></tr>
 <tr class="separator:a7160a06ab07a86ed97d23374405e8ef6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2f7f0a2aee54886324ccf48a6f321de0"><td class="memItemLeft" align="right" valign="top"><a id="a2f7f0a2aee54886324ccf48a6f321de0"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_terrain.html#a2f7f0a2aee54886324ccf48a6f321de0">~Terrain</a> ()</td></tr>
-<tr class="memdesc:a2f7f0a2aee54886324ccf48a6f321de0"><td class="mdescLeft">&#160;</td><td class="mdescRight">destructor that deallocates terrain memory when object is detroyed <br /></td></tr>
+<tr class="memitem:a2f7f0a2aee54886324ccf48a6f321de0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_terrain.html#a2f7f0a2aee54886324ccf48a6f321de0">~Terrain</a> ()</td></tr>
+<tr class="memdesc:a2f7f0a2aee54886324ccf48a6f321de0"><td class="mdescLeft">&#160;</td><td class="mdescRight">destructor that deallocates terrain memory when object is detroyed  <a href="class_terrain.html#a2f7f0a2aee54886324ccf48a6f321de0">More...</a><br /></td></tr>
 <tr class="separator:a2f7f0a2aee54886324ccf48a6f321de0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a410cd0467a5f67e8be7de27265d9010c"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_terrain.html#a410cd0467a5f67e8be7de27265d9010c">GetVAO</a> () const</td></tr>
 <tr class="memdesc:a410cd0467a5f67e8be7de27265d9010c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get method that returns the <a class="el" href="struct_vertex.html" title="struct containing all vertices required to generate a mesh">Vertex</a> Array Object.  <a href="class_terrain.html#a410cd0467a5f67e8be7de27265d9010c">More...</a><br /></td></tr>
@@ -107,13 +125,11 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>SetShader</b> (<a cla
 <tr class="memitem:acdd24f95ab3ca7a9146b32a31f4def35"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_shader.html">Shader</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_terrain.html#acdd24f95ab3ca7a9146b32a31f4def35">GetShader</a> () const</td></tr>
 <tr class="memdesc:acdd24f95ab3ca7a9146b32a31f4def35"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get method that returns a shader object.  <a href="class_terrain.html#acdd24f95ab3ca7a9146b32a31f4def35">More...</a><br /></td></tr>
 <tr class="separator:acdd24f95ab3ca7a9146b32a31f4def35"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a70fac68a7900a4bddbf5c4b35b57b6f9"><td class="memItemLeft" align="right" valign="top"><a id="a70fac68a7900a4bddbf5c4b35b57b6f9"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_terrain.html#a70fac68a7900a4bddbf5c4b35b57b6f9">Init</a> ()</td></tr>
-<tr class="memdesc:a70fac68a7900a4bddbf5c4b35b57b6f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">A function that calls all the functions required to initialise the terrain. <br /></td></tr>
+<tr class="memitem:a70fac68a7900a4bddbf5c4b35b57b6f9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_terrain.html#a70fac68a7900a4bddbf5c4b35b57b6f9">Init</a> ()</td></tr>
+<tr class="memdesc:a70fac68a7900a4bddbf5c4b35b57b6f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">A function that calls all the functions required to initialise the terrain.  <a href="class_terrain.html#a70fac68a7900a4bddbf5c4b35b57b6f9">More...</a><br /></td></tr>
 <tr class="separator:a70fac68a7900a4bddbf5c4b35b57b6f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac8f074502cb581199a1eb57eceab6395"><td class="memItemLeft" align="right" valign="top"><a id="ac8f074502cb581199a1eb57eceab6395"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_terrain.html#ac8f074502cb581199a1eb57eceab6395">luaLoader</a> ()</td></tr>
-<tr class="memdesc:ac8f074502cb581199a1eb57eceab6395"><td class="mdescLeft">&#160;</td><td class="mdescRight">loads an instance of lua and uses it to assign values from a lua script to terrain variables <br /></td></tr>
+<tr class="memitem:ac8f074502cb581199a1eb57eceab6395"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_terrain.html#ac8f074502cb581199a1eb57eceab6395">luaLoader</a> ()</td></tr>
+<tr class="memdesc:ac8f074502cb581199a1eb57eceab6395"><td class="mdescLeft">&#160;</td><td class="mdescRight">loads an instance of lua and uses it to assign values from a lua script to terrain variables  <a href="class_terrain.html#ac8f074502cb581199a1eb57eceab6395">More...</a><br /></td></tr>
 <tr class="separator:ac8f074502cb581199a1eb57eceab6395"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab901804353705f46fe0feb28d06ddc34"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_terrain.html#ab901804353705f46fe0feb28d06ddc34">attachShader</a> (<a class="el" href="class_shader.html">Shader</a> shad)</td></tr>
 <tr class="memdesc:ab901804353705f46fe0feb28d06ddc34"><td class="mdescLeft">&#160;</td><td class="mdescRight">Attaches shader to the terrain.  <a href="class_terrain.html#ab901804353705f46fe0feb28d06ddc34">More...</a><br /></td></tr>
@@ -139,13 +155,11 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="memitem:a163e75f11a483ff2ac18c8cd9d5ffe64"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_terrain.html#a163e75f11a483ff2ac18c8cd9d5ffe64">inBounds</a> (int x, int y)</td></tr>
 <tr class="memdesc:a163e75f11a483ff2ac18c8cd9d5ffe64"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if x and y coordinates are within the required range.  <a href="class_terrain.html#a163e75f11a483ff2ac18c8cd9d5ffe64">More...</a><br /></td></tr>
 <tr class="separator:a163e75f11a483ff2ac18c8cd9d5ffe64"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ace82a14b31791205a9289441d6688947"><td class="memItemLeft" align="right" valign="top"><a id="ace82a14b31791205a9289441d6688947"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_terrain.html#ace82a14b31791205a9289441d6688947">generateTerrain</a> ()</td></tr>
-<tr class="memdesc:ace82a14b31791205a9289441d6688947"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generates the terrain by generating the positions, colors, texture coords, indices and placing them in a vector. <br /></td></tr>
+<tr class="memitem:ace82a14b31791205a9289441d6688947"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_terrain.html#ace82a14b31791205a9289441d6688947">generateTerrain</a> ()</td></tr>
+<tr class="memdesc:ace82a14b31791205a9289441d6688947"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generates the terrain by generating the positions, colors, texture coords, indices and placing them in a vector.  <a href="class_terrain.html#ace82a14b31791205a9289441d6688947">More...</a><br /></td></tr>
 <tr class="separator:ace82a14b31791205a9289441d6688947"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad689326d663662c6b11959247d4a87bb"><td class="memItemLeft" align="right" valign="top"><a id="ad689326d663662c6b11959247d4a87bb"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_terrain.html#ad689326d663662c6b11959247d4a87bb">setTextures</a> ()</td></tr>
-<tr class="memdesc:ad689326d663662c6b11959247d4a87bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the textures that the terrain will use to implement multitexturing and detail mapping. <br /></td></tr>
+<tr class="memitem:ad689326d663662c6b11959247d4a87bb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_terrain.html#ad689326d663662c6b11959247d4a87bb">setTextures</a> ()</td></tr>
+<tr class="memdesc:ad689326d663662c6b11959247d4a87bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the textures that the terrain will use to implement multitexturing and detail mapping.  <a href="class_terrain.html#ad689326d663662c6b11959247d4a87bb">More...</a><br /></td></tr>
 <tr class="separator:ad689326d663662c6b11959247d4a87bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a219c33a4b4a0567ff06f587019549d4f"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_terrain.html#a219c33a4b4a0567ff06f587019549d4f">getAverageHeight</a> (int xpos, int zpos)</td></tr>
 <tr class="memdesc:a219c33a4b4a0567ff06f587019549d4f"><td class="mdescLeft">&#160;</td><td class="mdescRight">gets and returns the average height around a given x and z point  <a href="class_terrain.html#a219c33a4b4a0567ff06f587019549d4f">More...</a><br /></td></tr>
@@ -162,40 +176,32 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="memitem:a02a57605b8d5dfca13a4916ad4c19415"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_terrain.html#a02a57605b8d5dfca13a4916ad4c19415">generateTextures</a> (<a class="el" href="struct_vertex.html">Vertex</a> &amp;vertex)</td></tr>
 <tr class="memdesc:a02a57605b8d5dfca13a4916ad4c19415"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generates texture vertices.  <a href="class_terrain.html#a02a57605b8d5dfca13a4916ad4c19415">More...</a><br /></td></tr>
 <tr class="separator:a02a57605b8d5dfca13a4916ad4c19415"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab49954895f9ec0814d10b2bc99736ecb"><td class="memItemLeft" align="right" valign="top"><a id="ab49954895f9ec0814d10b2bc99736ecb"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_terrain.html#ab49954895f9ec0814d10b2bc99736ecb">generateNormals</a> ()</td></tr>
-<tr class="memdesc:ab49954895f9ec0814d10b2bc99736ecb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generates vertex normals. <br /></td></tr>
+<tr class="memitem:ab49954895f9ec0814d10b2bc99736ecb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_terrain.html#ab49954895f9ec0814d10b2bc99736ecb">generateNormals</a> ()</td></tr>
+<tr class="memdesc:ab49954895f9ec0814d10b2bc99736ecb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generates vertex normals.  <a href="class_terrain.html#ab49954895f9ec0814d10b2bc99736ecb">More...</a><br /></td></tr>
 <tr class="separator:ab49954895f9ec0814d10b2bc99736ecb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:acdb369701d8b26be0499dfede75f195c"><td class="memItemLeft" align="right" valign="top"><a id="acdb369701d8b26be0499dfede75f195c"></a>
-unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>VAO</b> = 0</td></tr>
+<tr class="memitem:acdb369701d8b26be0499dfede75f195c"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_terrain.html#acdb369701d8b26be0499dfede75f195c">VAO</a> = 0</td></tr>
 <tr class="separator:acdb369701d8b26be0499dfede75f195c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad30db2e625ef7a10e9e167e4c8fdfaa0"><td class="memItemLeft" align="right" valign="top"><a id="ad30db2e625ef7a10e9e167e4c8fdfaa0"></a>
-unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>VBO</b> = 0</td></tr>
+<tr class="memitem:ad30db2e625ef7a10e9e167e4c8fdfaa0"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_terrain.html#ad30db2e625ef7a10e9e167e4c8fdfaa0">VBO</a> = 0</td></tr>
 <tr class="separator:ad30db2e625ef7a10e9e167e4c8fdfaa0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae5b0a3981e125281e8b34a684539bf19"><td class="memItemLeft" align="right" valign="top"><a id="ae5b0a3981e125281e8b34a684539bf19"></a>
-unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>EBO</b> = 0</td></tr>
+<tr class="memitem:ae5b0a3981e125281e8b34a684539bf19"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_terrain.html#ae5b0a3981e125281e8b34a684539bf19">EBO</a> = 0</td></tr>
 <tr class="separator:ae5b0a3981e125281e8b34a684539bf19"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
-<tr class="memitem:a84685b0b5451a926e2178668045d7507"><td class="memItemLeft" align="right" valign="top"><a id="a84685b0b5451a926e2178668045d7507"></a>
-unsigned char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_terrain.html#a84685b0b5451a926e2178668045d7507">terrainData</a></td></tr>
-<tr class="memdesc:a84685b0b5451a926e2178668045d7507"><td class="mdescLeft">&#160;</td><td class="mdescRight">data of the heightfield <br /></td></tr>
+<tr class="memitem:a84685b0b5451a926e2178668045d7507"><td class="memItemLeft" align="right" valign="top">unsigned char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_terrain.html#a84685b0b5451a926e2178668045d7507">terrainData</a></td></tr>
+<tr class="memdesc:a84685b0b5451a926e2178668045d7507"><td class="mdescLeft">&#160;</td><td class="mdescRight">data of the heightfield  <a href="class_terrain.html#a84685b0b5451a926e2178668045d7507">More...</a><br /></td></tr>
 <tr class="separator:a84685b0b5451a926e2178668045d7507"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8e3269d072b2be6caa40070f66d37458"><td class="memItemLeft" align="right" valign="top"><a id="a8e3269d072b2be6caa40070f66d37458"></a>
-float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_terrain.html#a8e3269d072b2be6caa40070f66d37458">scaleX</a></td></tr>
-<tr class="memdesc:a8e3269d072b2be6caa40070f66d37458"><td class="mdescLeft">&#160;</td><td class="mdescRight">value that will scale the x value <br /></td></tr>
+<tr class="memitem:a8e3269d072b2be6caa40070f66d37458"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_terrain.html#a8e3269d072b2be6caa40070f66d37458">scaleX</a></td></tr>
+<tr class="memdesc:a8e3269d072b2be6caa40070f66d37458"><td class="mdescLeft">&#160;</td><td class="mdescRight">value that will scale the x value  <a href="class_terrain.html#a8e3269d072b2be6caa40070f66d37458">More...</a><br /></td></tr>
 <tr class="separator:a8e3269d072b2be6caa40070f66d37458"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2f3f1479e2bd7980efe3947bf1fb5dd7"><td class="memItemLeft" align="right" valign="top"><a id="a2f3f1479e2bd7980efe3947bf1fb5dd7"></a>
-float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_terrain.html#a2f3f1479e2bd7980efe3947bf1fb5dd7">scaleY</a></td></tr>
-<tr class="memdesc:a2f3f1479e2bd7980efe3947bf1fb5dd7"><td class="mdescLeft">&#160;</td><td class="mdescRight">value that will scale the y value <br /></td></tr>
+<tr class="memitem:a2f3f1479e2bd7980efe3947bf1fb5dd7"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_terrain.html#a2f3f1479e2bd7980efe3947bf1fb5dd7">scaleY</a></td></tr>
+<tr class="memdesc:a2f3f1479e2bd7980efe3947bf1fb5dd7"><td class="mdescLeft">&#160;</td><td class="mdescRight">value that will scale the y value  <a href="class_terrain.html#a2f3f1479e2bd7980efe3947bf1fb5dd7">More...</a><br /></td></tr>
 <tr class="separator:a2f3f1479e2bd7980efe3947bf1fb5dd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7ce825d4ce496e3ae19fe750dd29af49"><td class="memItemLeft" align="right" valign="top"><a id="a7ce825d4ce496e3ae19fe750dd29af49"></a>
-float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_terrain.html#a7ce825d4ce496e3ae19fe750dd29af49">scaleZ</a></td></tr>
-<tr class="memdesc:a7ce825d4ce496e3ae19fe750dd29af49"><td class="mdescLeft">&#160;</td><td class="mdescRight">value that will scale the z value <br /></td></tr>
+<tr class="memitem:a7ce825d4ce496e3ae19fe750dd29af49"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_terrain.html#a7ce825d4ce496e3ae19fe750dd29af49">scaleZ</a></td></tr>
+<tr class="memdesc:a7ce825d4ce496e3ae19fe750dd29af49"><td class="mdescLeft">&#160;</td><td class="mdescRight">value that will scale the z value  <a href="class_terrain.html#a7ce825d4ce496e3ae19fe750dd29af49">More...</a><br /></td></tr>
 <tr class="separator:a7ce825d4ce496e3ae19fe750dd29af49"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -203,12 +209,51 @@ float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cla
 <dl class="section author"><dt>Author</dt><dd>Dylan Blereau </dd></dl>
 <dl class="section version"><dt>Version</dt><dd>01 </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>10/03/2021 Dylan Blereau, Started</dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000004">Todo:</a></b></dt><dd>break down generateTerrain function @bugs nothing major currently</dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000005">Todo:</a></b></dt><dd>break down generateTerrain function @bugs nothing major currently</dd></dl>
 <dl class="section author"><dt>Author</dt><dd>Dylan Blereau </dd></dl>
 <dl class="section version"><dt>Version</dt><dd>02 </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>02/04/2021 Dylan Blereau, Started</dd></dl>
 <p>added scripting and fixed generateTerrain @bugs none currently </p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a7160a06ab07a86ed97d23374405e8ef6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7160a06ab07a86ed97d23374405e8ef6">&#9670;&nbsp;</a></span>Terrain()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Terrain::Terrain </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>default constructor that initialises the terrain object </p>
+
+</div>
+</div>
+<a id="a2f7f0a2aee54886324ccf48a6f321de0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2f7f0a2aee54886324ccf48a6f321de0">&#9670;&nbsp;</a></span>~Terrain()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Terrain::~Terrain </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>destructor that deallocates terrain memory when object is detroyed </p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
 <a id="ab901804353705f46fe0feb28d06ddc34"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab901804353705f46fe0feb28d06ddc34">&#9670;&nbsp;</a></span>attachShader()</h2>
 
@@ -284,6 +329,44 @@ float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cla
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="ab49954895f9ec0814d10b2bc99736ecb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab49954895f9ec0814d10b2bc99736ecb">&#9670;&nbsp;</a></span>generateNormals()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Terrain::generateNormals </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Generates vertex normals. </p>
+
+</div>
+</div>
+<a id="ace82a14b31791205a9289441d6688947"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ace82a14b31791205a9289441d6688947">&#9670;&nbsp;</a></span>generateTerrain()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Terrain::generateTerrain </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Generates the terrain by generating the positions, colors, texture coords, indices and placing them in a vector. </p>
 
 </div>
 </div>
@@ -483,6 +566,34 @@ float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cla
 
 </div>
 </div>
+<a id="ae6515958ec443db2c36b07e7938cd67f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae6515958ec443db2c36b07e7938cd67f">&#9670;&nbsp;</a></span>GetIndicies()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;unsigned int&gt; Terrain::GetIndicies </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>gets and returns a vector containing all indice values </p>
+<dl class="section return"><dt>Returns</dt><dd>std::vector&lt;unsigned int&gt; </dd></dl>
+
+</div>
+</div>
 <a id="acdd24f95ab3ca7a9146b32a31f4def35"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#acdd24f95ab3ca7a9146b32a31f4def35">&#9670;&nbsp;</a></span>GetShader()</h2>
 
@@ -559,6 +670,34 @@ float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cla
 
 </div>
 </div>
+<a id="a40aed738a629bfc4bdacd9d319dca8e3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a40aed738a629bfc4bdacd9d319dca8e3">&#9670;&nbsp;</a></span>GetTotalData()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;glm::vec3&gt; Terrain::GetTotalData </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>gets and returns and vector containing the totalData </p>
+<dl class="section return"><dt>Returns</dt><dd>std::vector&lt;glm::vec3&gt; </dd></dl>
+
+</div>
+</div>
 <a id="a410cd0467a5f67e8be7de27265d9010c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a410cd0467a5f67e8be7de27265d9010c">&#9670;&nbsp;</a></span>GetVAO()</h2>
 
@@ -625,6 +764,25 @@ float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cla
 
 </div>
 </div>
+<a id="a70fac68a7900a4bddbf5c4b35b57b6f9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a70fac68a7900a4bddbf5c4b35b57b6f9">&#9670;&nbsp;</a></span>Init()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Terrain::Init </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>A function that calls all the functions required to initialise the terrain. </p>
+
+</div>
+</div>
 <a id="ad0fcded992cdf72b72eee4cdad6af59e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad0fcded992cdf72b72eee4cdad6af59e">&#9670;&nbsp;</a></span>LoadHeightField()</h2>
 
@@ -660,6 +818,25 @@ float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cla
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>bool </dd></dl>
+
+</div>
+</div>
+<a id="ac8f074502cb581199a1eb57eceab6395"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac8f074502cb581199a1eb57eceab6395">&#9670;&nbsp;</a></span>luaLoader()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Terrain::luaLoader </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>loads an instance of lua and uses it to assign values from a lua script to terrain variables </p>
 
 </div>
 </div>
@@ -707,14 +884,210 @@ float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cla
 
 </div>
 </div>
+<a id="aea73b47c73faf1945e85e06c144e7e0e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aea73b47c73faf1945e85e06c144e7e0e">&#9670;&nbsp;</a></span>SetShader()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Terrain::SetShader </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_shader.html">Shader</a>&#160;</td>
+          <td class="paramname"><em>s</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>sets the terrain shader to the shader provided to the function as a parameter </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">s</td><td>- the shader object </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ad689326d663662c6b11959247d4a87bb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad689326d663662c6b11959247d4a87bb">&#9670;&nbsp;</a></span>setTextures()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Terrain::setTextures </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the textures that the terrain will use to implement multitexturing and detail mapping. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="ae5b0a3981e125281e8b34a684539bf19"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae5b0a3981e125281e8b34a684539bf19">&#9670;&nbsp;</a></span>EBO</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int Terrain::EBO = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8e3269d072b2be6caa40070f66d37458"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8e3269d072b2be6caa40070f66d37458">&#9670;&nbsp;</a></span>scaleX</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float Terrain::scaleX</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>value that will scale the x value </p>
+
+</div>
+</div>
+<a id="a2f3f1479e2bd7980efe3947bf1fb5dd7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2f3f1479e2bd7980efe3947bf1fb5dd7">&#9670;&nbsp;</a></span>scaleY</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float Terrain::scaleY</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>value that will scale the y value </p>
+
+</div>
+</div>
+<a id="a7ce825d4ce496e3ae19fe750dd29af49"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7ce825d4ce496e3ae19fe750dd29af49">&#9670;&nbsp;</a></span>scaleZ</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float Terrain::scaleZ</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>value that will scale the z value </p>
+
+</div>
+</div>
+<a id="a84685b0b5451a926e2178668045d7507"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a84685b0b5451a926e2178668045d7507">&#9670;&nbsp;</a></span>terrainData</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned char* Terrain::terrainData</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>data of the heightfield </p>
+
+</div>
+</div>
+<a id="acdb369701d8b26be0499dfede75f195c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acdb369701d8b26be0499dfede75f195c">&#9670;&nbsp;</a></span>VAO</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int Terrain::VAO = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad30db2e625ef7a10e9e167e4c8fdfaa0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad30db2e625ef7a10e9e167e4c8fdfaa0">&#9670;&nbsp;</a></span>VBO</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int Terrain::VBO = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>/Volumes/GITS/ICT397-Project/ICT397-Project-Engine/<a class="el" href="_terrain_8h_source.html">Terrain.h</a></li>
-<li>/Volumes/GITS/ICT397-Project/ICT397-Project-Engine/Terrain.cpp</li>
+<li>ICT397-Project-Engine/<a class="el" href="_terrain_8h_source.html">Terrain.h</a></li>
+<li>ICT397-Project-Engine/<a class="el" href="_terrain_8cpp.html">Terrain.cpp</a></li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="class_terrain.html">Terrain</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
 </body>
 </html>

@@ -12,30 +12,27 @@ Holds the variables for the keys being pressed on the keyboard.
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_input_abae3f379d3f157cf42dc857309832dba}\label{class_input_abae3f379d3f157cf42dc857309832dba}} 
 \mbox{\hyperlink{class_input_abae3f379d3f157cf42dc857309832dba}{Input}} ()
 \begin{DoxyCompactList}\small\item\em Default constructor that first checks to see if there is a lua file and use it, if not there is a default input scheme. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_input_a8614942f47094c28a85e19b4b2c649cc}\label{class_input_a8614942f47094c28a85e19b4b2c649cc}} 
-int \mbox{\hyperlink{class_input_a8614942f47094c28a85e19b4b2c649cc}{foward}}
-\begin{DoxyCompactList}\small\item\em The foward input key. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{class_input_a32222aaec07a709520f60251aac01d80}\label{class_input_a32222aaec07a709520f60251aac01d80}} 
+int \mbox{\hyperlink{class_input_a1af65b50caf9b232e73528c5711f3a97}{forward}}
+\begin{DoxyCompactList}\small\item\em The forward input key. \end{DoxyCompactList}\item 
 int \mbox{\hyperlink{class_input_a32222aaec07a709520f60251aac01d80}{back}}
 \begin{DoxyCompactList}\small\item\em The backward input key. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{class_input_aa5becba821fbe9c146c332091ebcc6f2}\label{class_input_aa5becba821fbe9c146c332091ebcc6f2}} 
 int \mbox{\hyperlink{class_input_aa5becba821fbe9c146c332091ebcc6f2}{left}}
 \begin{DoxyCompactList}\small\item\em The left input key. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{class_input_a481ae9265fafe80dad6850a24980bfb5}\label{class_input_a481ae9265fafe80dad6850a24980bfb5}} 
 int \mbox{\hyperlink{class_input_a481ae9265fafe80dad6850a24980bfb5}{right}}
 \begin{DoxyCompactList}\small\item\em The right input key. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{class_input_a95190cab0c0e854f73ace1fc4c56cdf7}\label{class_input_a95190cab0c0e854f73ace1fc4c56cdf7}} 
-int {\bfseries toggle}
+int \mbox{\hyperlink{class_input_a95190cab0c0e854f73ace1fc4c56cdf7}{toggle}}
 \item 
-\mbox{\Hypertarget{class_input_aabe34546d199c811ce34171af37155e5}\label{class_input_aabe34546d199c811ce34171af37155e5}} 
 int \mbox{\hyperlink{class_input_aabe34546d199c811ce34171af37155e5}{exit}}
-\begin{DoxyCompactList}\small\item\em The exiting input key. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em The exiting input key. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_input_a86e399a0b1934f2310e9d2d2180c7255}{debug}}
+\item 
+int \mbox{\hyperlink{class_input_a59c3cea350441855b46a19411e8893b6}{pause}}
+\begin{DoxyCompactList}\small\item\em Key to toggle the pause menu. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -52,7 +49,95 @@ Christopher Logan
 \end{DoxyDate}
 @bugs none to be seen 
 
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_input_abae3f379d3f157cf42dc857309832dba}\label{class_input_abae3f379d3f157cf42dc857309832dba}} 
+\index{Input@{Input}!Input@{Input}}
+\index{Input@{Input}!Input@{Input}}
+\doxysubsubsection{\texorpdfstring{Input()}{Input()}}
+{\footnotesize\ttfamily Input\+::\+Input (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Default constructor that first checks to see if there is a lua file and use it, if not there is a default input scheme. 
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{class_input_a32222aaec07a709520f60251aac01d80}\label{class_input_a32222aaec07a709520f60251aac01d80}} 
+\index{Input@{Input}!back@{back}}
+\index{back@{back}!Input@{Input}}
+\doxysubsubsection{\texorpdfstring{back}{back}}
+{\footnotesize\ttfamily int Input\+::back}
+
+
+
+The backward input key. 
+
+\mbox{\Hypertarget{class_input_a86e399a0b1934f2310e9d2d2180c7255}\label{class_input_a86e399a0b1934f2310e9d2d2180c7255}} 
+\index{Input@{Input}!debug@{debug}}
+\index{debug@{debug}!Input@{Input}}
+\doxysubsubsection{\texorpdfstring{debug}{debug}}
+{\footnotesize\ttfamily int Input\+::debug}
+
+\mbox{\Hypertarget{class_input_aabe34546d199c811ce34171af37155e5}\label{class_input_aabe34546d199c811ce34171af37155e5}} 
+\index{Input@{Input}!exit@{exit}}
+\index{exit@{exit}!Input@{Input}}
+\doxysubsubsection{\texorpdfstring{exit}{exit}}
+{\footnotesize\ttfamily int Input\+::exit}
+
+
+
+The exiting input key. 
+
+\mbox{\Hypertarget{class_input_a1af65b50caf9b232e73528c5711f3a97}\label{class_input_a1af65b50caf9b232e73528c5711f3a97}} 
+\index{Input@{Input}!forward@{forward}}
+\index{forward@{forward}!Input@{Input}}
+\doxysubsubsection{\texorpdfstring{forward}{forward}}
+{\footnotesize\ttfamily int Input\+::forward}
+
+
+
+The forward input key. 
+
+\mbox{\Hypertarget{class_input_aa5becba821fbe9c146c332091ebcc6f2}\label{class_input_aa5becba821fbe9c146c332091ebcc6f2}} 
+\index{Input@{Input}!left@{left}}
+\index{left@{left}!Input@{Input}}
+\doxysubsubsection{\texorpdfstring{left}{left}}
+{\footnotesize\ttfamily int Input\+::left}
+
+
+
+The left input key. 
+
+\mbox{\Hypertarget{class_input_a59c3cea350441855b46a19411e8893b6}\label{class_input_a59c3cea350441855b46a19411e8893b6}} 
+\index{Input@{Input}!pause@{pause}}
+\index{pause@{pause}!Input@{Input}}
+\doxysubsubsection{\texorpdfstring{pause}{pause}}
+{\footnotesize\ttfamily int Input\+::pause}
+
+
+
+Key to toggle the pause menu. 
+
+\mbox{\Hypertarget{class_input_a481ae9265fafe80dad6850a24980bfb5}\label{class_input_a481ae9265fafe80dad6850a24980bfb5}} 
+\index{Input@{Input}!right@{right}}
+\index{right@{right}!Input@{Input}}
+\doxysubsubsection{\texorpdfstring{right}{right}}
+{\footnotesize\ttfamily int Input\+::right}
+
+
+
+The right input key. 
+
+\mbox{\Hypertarget{class_input_a95190cab0c0e854f73ace1fc4c56cdf7}\label{class_input_a95190cab0c0e854f73ace1fc4c56cdf7}} 
+\index{Input@{Input}!toggle@{toggle}}
+\index{toggle@{toggle}!Input@{Input}}
+\doxysubsubsection{\texorpdfstring{toggle}{toggle}}
+{\footnotesize\ttfamily int Input\+::toggle}
+
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-/\+Volumes/\+GITS/\+ICT397-\/\+Project/\+ICT397-\/\+Project-\/\+Engine/Input.\+h\item 
-/\+Volumes/\+GITS/\+ICT397-\/\+Project/\+ICT397-\/\+Project-\/\+Engine/Input.\+cpp\end{DoxyCompactItemize}
+ICT397-\/\+Project-\/\+Engine/\mbox{\hyperlink{_input_8h}{Input.\+h}}\item 
+ICT397-\/\+Project-\/\+Engine/\mbox{\hyperlink{_input_8cpp}{Input.\+cpp}}\end{DoxyCompactItemize}

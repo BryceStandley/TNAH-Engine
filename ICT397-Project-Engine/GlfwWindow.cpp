@@ -23,9 +23,9 @@ void GlfwWindow::Init(std::string title, int h, int w)
     std::cout << "GLFW-WINDOW::INFO::GLFW Started!" << std::endl;
     SettingsManager::GetInstance()->windowSize = glm::vec2(w, h);
 
-    glm::vec3 l(0.0, 0.0f, 0.0f);
+    glm::vec3 l((256 * 12) / 2.0, 100.0f, (256 * 12) / 2.0);
     lightPos = l;
-    Camera c(0.0f, 1.5f, 0.0f, 0.0f, 1.0f, 0.0f, 90.0f, -37.0f);
+    Camera c((52.0f * 12) / 2, 1.5f, (52.0f * 12) / 2, 0.0f, 1.0f, 0.0f, 90.0f, -37.0f);
     camera = c;
 
     /* Make the window's context current */
@@ -175,7 +175,7 @@ void GlfwWindow::GameInput(float deltaTime)
 
 
             if ((glfwGetMouseButton(gameWindow, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS &&
-                 !mainMenuGui->displayingAMenu)) {
+                 !mainMenuGui->displayingAMenu && !Debugger::GetInstance()->drawDebugPanel)) {
                 fireWeapon = true;
             }
 

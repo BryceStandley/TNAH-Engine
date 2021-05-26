@@ -6,13 +6,14 @@
 --terrainSize = 3072
 
 -- 1k height map
-heightmap = "./res/heightmaps/1kheightmap-3.raw"
---heightmap = "./res/heightmaps/1-5k.raw"
-terrainSize = 1024;
+--heightmap = "./res/heightmaps/1kheightmap-6-128.raw"
+--heightmap = "./res/heightmaps/1k-128.raw"
+heightmap = "./res/heightmaps/1k.tga"
+terrainSize = 256;
 
-xScale = 1
-yScale = 5
-zScale = 1
+xScale = 12;
+yScale = 12;
+zScale = 12;
 
 tex1 = "./res/images/terrain/dirtTile.jpg"
 tex2 = "./res/images/terrain/grassTile.jpg"
@@ -22,3 +23,4 @@ detailMap = "./res/images/terrain/detailMap.jpg"
 
 vs = "./res/shader/vertex.glsl"
 fs = "./res/shader/fragment.glsl"
+smoothingPasses = 0;

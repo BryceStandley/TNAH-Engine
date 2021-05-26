@@ -33,6 +33,8 @@
 *
 *
 **/
+
+#define CAMERA_TO_WORLD_FACTOR 128.0f / 26.0f
 class Scene
 {
 public:
@@ -142,6 +144,24 @@ public:
 	 * @return vec3 - position relative to the terrain
 	 */
 	glm::vec3 WorldToTerrainPosition(glm::vec3 p, bool average);
+
+	/**
+	 * @brief Converts the players position into terrain position
+	 * @param p
+	 * @return
+	 */
+	glm::vec3 PlayerToTerrainPosition(glm::vec3 p);
+
+	/**
+	 * @brief Remaps a value from one range to another
+	 * @param value - value to remap
+	 * @param oldMin - old min value
+	 * @param oldMax - old max value
+	 * @param newMin  - new min value
+	 * @param newMax - new max value
+	 * @return output - new value in the same range of the old values but within the new values
+	 */
+	float Remap(float value, float oldMin, float oldMax, float newMin, float newMax);
 
 	ExitScreen GetExitScreen(){return exitScreen;}
 

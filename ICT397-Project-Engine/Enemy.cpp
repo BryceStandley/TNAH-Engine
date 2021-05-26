@@ -743,7 +743,7 @@ bool Enemy::moveTo(glm::vec3& curPos, const glm::vec3& targetPos, glm::vec3& cur
 
 	if (toRealTarget.x == 0 && toRealTarget.y == 0 && toRealTarget.z == 0)
 	{
-		if(realTargetPos.y < 10.0f)
+		if(realTargetPos.y < 25.0f)
 		{
 			curPos = realTargetPos;
 		}
@@ -756,7 +756,7 @@ bool Enemy::moveTo(glm::vec3& curPos, const glm::vec3& targetPos, glm::vec3& cur
 	float dp = glm::dot(toRealTarget, target);
 	if (dp < 0.0)
 	{
-		if(realTargetPos.y < 10.0f)
+		if(realTargetPos.y < 25.0f)
 		{
 			curPos = realTargetPos;
 		}
@@ -766,7 +766,7 @@ bool Enemy::moveTo(glm::vec3& curPos, const glm::vec3& targetPos, glm::vec3& cur
 	}
 	//std::cout << curPos.x << " " << curPos.y << " " << curPos.z << " | " << vec.x << " " << vec.y << " " << vec.z << std::endl;
 	// vec has not yet passed realTargetPos
-	if(vec.y < 10.0f)
+	if(vec.y < 25.0f)
 	{
 		curPos = vec;
 	}

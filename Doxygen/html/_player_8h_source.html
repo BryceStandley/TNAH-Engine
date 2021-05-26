@@ -5,10 +5,14 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TNAH-ICT397-Project: /Volumes/GITS/ICT397-Project/ICT397-Project-Engine/Player.h Source File</title>
+<title>TNAH-Engine-ICT397: ICT397-Project-Engine/Player.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -22,8 +26,8 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="TNAH-2.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">TNAH-ICT397-Project
-   &#160;<span id="projectnumber">1</span>
+   <div id="projectname">TNAH-Engine-ICT397
+   &#160;<span id="projectnumber">2</span>
    </div>
   </td>
  </tr>
@@ -47,6 +51,23 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('_player_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -61,42 +82,179 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="dir_492deb8f30c21d9ebac9ab6ce6fb7949.html">ICT397-Project-Engine</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="headertitle">
 <div class="title">Player.h</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &quot;GameObject.h&quot;</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="class_player.html">   17</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_player.html">Player</a> : <span class="keyword">public</span> <a class="code" href="class_game_object.html">GameObject</a></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;{</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        <span class="comment">/*</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">        * @breif Default constructor</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">        */</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <a class="code" href="class_player.html">Player</a>() :<a class="code" href="class_game_object.html#a0348e3ee2e83d56eafca7a3547f432c4">GameObject</a>(){ <a class="code" href="class_player.html#a4dbbe55f79b10545ee6b2e6c7e0b4bc9">Update</a>(0.0f);}</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        <span class="comment">/*</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">        * @breif Updates the game object with functionality</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment">        * @param time - the time since the last frame (deltatime)</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment">        */</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_player.html#a4dbbe55f79b10545ee6b2e6c7e0b4bc9">Update</a>(<span class="keywordtype">float</span> time);</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;};</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="ttc" id="aclass_game_object_html"><div class="ttname"><a href="class_game_object.html">GameObject</a></div><div class="ttdoc">Class that holds the main information of a game object, that is abstracted for more specific reasons.</div><div class="ttdef"><b>Definition:</b> GameObject.h:18</div></div>
-<div class="ttc" id="aclass_game_object_html_a0348e3ee2e83d56eafca7a3547f432c4"><div class="ttname"><a href="class_game_object.html#a0348e3ee2e83d56eafca7a3547f432c4">GameObject::GameObject</a></div><div class="ttdeci">GameObject()</div><div class="ttdoc">Default constructor.</div><div class="ttdef"><b>Definition:</b> GameObject.h:23</div></div>
-<div class="ttc" id="aclass_player_html"><div class="ttname"><a href="class_player.html">Player</a></div><div class="ttdoc">Abstract GameObject class for the player.</div><div class="ttdef"><b>Definition:</b> Player.h:18</div></div>
-<div class="ttc" id="aclass_player_html_a4dbbe55f79b10545ee6b2e6c7e0b4bc9"><div class="ttname"><a href="class_player.html#a4dbbe55f79b10545ee6b2e6c7e0b4bc9">Player::Update</a></div><div class="ttdeci">void Update(float time)</div><div class="ttdoc">Updates the classes functionality.</div><div class="ttdef"><b>Definition:</b> Player.cpp:3</div></div>
+<a href="_player_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="state_8h.html">state.h</a>&quot;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="state_machine_8h.html">stateMachine.h</a>&quot;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="player_states_8h.html">playerStates.h</a>&quot;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_debugger_8h.html">Debugger.h</a>&quot;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keyword">using namespace </span>luabridge;</div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="class_player.html">   27</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_player.html">Player</a> : <span class="keyword">public</span> <a class="code" href="class_game_object.html">GameObject</a></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;{</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <a class="code" href="class_player.html">Player</a>(glm::vec3 p, glm::vec3 rot, <span class="keywordtype">float</span> s, <a class="code" href="class_renderer.html">Renderer</a>* gameRenderer, std::string script);</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <a class="code" href="class_player.html">Player</a>(glm::vec3 p, glm::vec3 rot, <span class="keywordtype">float</span> s, <a class="code" href="class_renderer.html">Renderer</a>* gameRenderer, std::string script, <span class="keywordtype">float</span> h, std::string <a class="code" href="classstate.html">state</a>, <span class="keywordtype">int</span> savedPoints, <span class="keywordtype">int</span> savedTokens, <span class="keywordtype">int</span> savedKills);</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    </div>
+<div class="line"><a name="l00059"></a><span class="lineno"><a class="line" href="class_player.html#adc2c478ebf8bcc7976886b37089d2351">   59</a></span>&#160;    <a class="code" href="classstate_machine.html">stateMachine&lt;Player&gt;</a>* <a class="code" href="class_player.html#adc2c478ebf8bcc7976886b37089d2351">getFSM</a>()<span class="keyword">const </span>{ <span class="keywordflow">return</span> playerFSM; }</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        <span class="comment">/*</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="comment">        * @brief gets and returns the player health value</span></div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="comment">        * @return int </span></div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="comment">        */</span></div>
+<div class="line"><a name="l00066"></a><span class="lineno"><a class="line" href="class_player.html#abcb15d249bed9a4ab0ab86b52b0d747a">   66</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="class_player.html#abcb15d249bed9a4ab0ab86b52b0d747a">getHealth</a>() { <span class="keywordflow">return</span> health; }</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        <span class="comment">/*</span></div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="comment">        * @brief sets the health value of the player</span></div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="comment">        * @param int h - refers to the value that health will be set to</span></div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="comment">        */</span></div>
+<div class="line"><a name="l00072"></a><span class="lineno"><a class="line" href="class_player.html#ab5f485fe076e2e29b84c83e143011ab3">   72</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_player.html#ab5f485fe076e2e29b84c83e143011ab3">setHealth</a>(<span class="keywordtype">int</span> h) { health = h; }</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        <span class="comment">/*</span></div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="comment">        * @brief gets and returns the player points value</span></div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="comment">        * @return int</span></div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="comment">        */</span></div>
+<div class="line"><a name="l00078"></a><span class="lineno"><a class="line" href="class_player.html#ab98ee3c0e10f7b2b65ad43b2a2929445">   78</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="class_player.html#ab98ee3c0e10f7b2b65ad43b2a2929445">getPoints</a>() { <span class="keywordflow">return</span> points; }</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        <span class="comment">/*</span></div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="comment">        * @brief increases the points value, multiplying the value passed in as a parameter by the current points multiplier</span></div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="comment">        * @param int p - refers to value that will be added onto the current points value</span></div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="comment">        */</span></div>
+<div class="line"><a name="l00084"></a><span class="lineno"><a class="line" href="class_player.html#a6a928c2bf11c424aa497ac6177ff978a">   84</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_player.html#a6a928c2bf11c424aa497ac6177ff978a">increasePoints</a>(<span class="keywordtype">int</span> p) {points += p * multiplier;}</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        <span class="comment">/*</span></div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="comment">        * @brief gets and returns the points multiplier value</span></div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="comment">        * @return int</span></div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="comment">        */</span></div>
+<div class="line"><a name="l00090"></a><span class="lineno"><a class="line" href="class_player.html#ab52a0916c96957764231394403161e8e">   90</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="class_player.html#ab52a0916c96957764231394403161e8e">getMultiplier</a>() { <span class="keywordflow">return</span> multiplier; }</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        <span class="comment">/*</span></div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;<span class="comment">        * @brief sets the points multiplier value</span></div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="comment">        * @param int m - refers to value you want to set the multiplier to</span></div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;<span class="comment">        */</span></div>
+<div class="line"><a name="l00096"></a><span class="lineno"><a class="line" href="class_player.html#ad3d6283e1d83515d54b4ef3997c9b893">   96</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_player.html#ad3d6283e1d83515d54b4ef3997c9b893">setMultiplier</a>(<span class="keywordtype">int</span> m) { multiplier = m; }</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        <span class="comment">/*</span></div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;<span class="comment">        * @brief gets and returns the player damage value</span></div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;<span class="comment">        * @return int</span></div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;<span class="comment">        */</span></div>
+<div class="line"><a name="l00102"></a><span class="lineno"><a class="line" href="class_player.html#a42c3782e95e76ae9aa4123d1610c9ee2">  102</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="class_player.html#a42c3782e95e76ae9aa4123d1610c9ee2">getDamage</a>() { <span class="keywordflow">return</span> damage; }</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        <span class="comment">/*</span></div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;<span class="comment">        * @brief sets the damage value</span></div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="comment">        * @param int d - refers to the value that damage will be set</span></div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;<span class="comment">        */</span></div>
+<div class="line"><a name="l00108"></a><span class="lineno"><a class="line" href="class_player.html#a9d0d0439d464bf062702b41a6e982e19">  108</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_player.html#a9d0d0439d464bf062702b41a6e982e19">setDamage</a>(<span class="keywordtype">int</span> d) { damage = d; }</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160; </div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        <span class="comment">/*</span></div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;<span class="comment">        * @brief gets and returns the player kill count</span></div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;<span class="comment">        * @return int</span></div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;<span class="comment">        */</span></div>
+<div class="line"><a name="l00114"></a><span class="lineno"><a class="line" href="class_player.html#ab6da4a036a3b5535ecdb59d712ac387e">  114</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="class_player.html#ab6da4a036a3b5535ecdb59d712ac387e">getKills</a>() { <span class="keywordflow">return</span> kills; }</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160; </div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160; </div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;        <span class="comment">/*</span></div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;<span class="comment">        * @brief increments the player kill count</span></div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;<span class="comment">        */</span></div>
+<div class="line"><a name="l00120"></a><span class="lineno"><a class="line" href="class_player.html#a059046d04af1968922a03feb8334bf03">  120</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_player.html#a059046d04af1968922a03feb8334bf03">incrementKillCount</a>(){ kills++; }</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160; </div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;        <span class="comment">/*</span></div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;<span class="comment">        * @brief gets and returns the amount of tokens collected by the player</span></div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;<span class="comment">        * @return int</span></div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;<span class="comment">        */</span></div>
+<div class="line"><a name="l00126"></a><span class="lineno"><a class="line" href="class_player.html#a236e0d7c41bc0c3871342c0c59526aa0">  126</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="class_player.html#a236e0d7c41bc0c3871342c0c59526aa0">getTokensCollected</a>() { <span class="keywordflow">return</span> tokensCollected; }</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160; </div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;        <span class="comment">/*</span></div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;<span class="comment">        * @brief increments the tokens collected value</span></div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;<span class="comment">        */</span></div>
+<div class="line"><a name="l00131"></a><span class="lineno"><a class="line" href="class_player.html#a30068e208ea5830b5fe7b55c2b092417">  131</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_player.html#a30068e208ea5830b5fe7b55c2b092417">incrementTokensCollected</a>() { tokensCollected++; }</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160; </div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160; </div>
+<div class="line"><a name="l00135"></a><span class="lineno"><a class="line" href="class_player.html#a4c3593edc37cd8a321b4947c15bf9058">  135</a></span>&#160;    <span class="keywordtype">bool</span> hasToken = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160; </div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160; </div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;        <span class="comment">/*</span></div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;<span class="comment">        * @breif Updates the game object with functionality</span></div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;<span class="comment">        * @param time - the time since the last frame (deltatime)</span></div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;<span class="comment">        */</span></div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;    <span class="keywordtype">void</span> Update(<span class="keywordtype">float</span> time);</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160; </div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="namespace_im_gui.html#ab51a164f547317c16c441f1599e3946d">Render</a>(<a class="code" href="class_view.html">View</a> lens, <span class="keywordtype">float</span> time, <a class="code" href="class_renderer.html">Renderer</a>* gameRenderer);</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160; </div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;    <span class="keywordtype">void</span> SetState(<a class="code" href="_md2_8h.html#af5d799eba8960b05ab838f5cd3e5f41f">Md2Commands</a> <a class="code" href="classstate.html">state</a>);</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160; </div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160; </div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;    <span class="keywordtype">void</span> FireWeapon();</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160; </div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;    <span class="keywordtype">void</span> BackToIdle();</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160; </div>
+<div class="line"><a name="l00173"></a><span class="lineno"><a class="line" href="class_player.html#a3cdef360cdac88dfcec938b33938205b">  173</a></span>&#160;    <span class="keyword">virtual</span> std::string <a class="code" href="class_player.html#a3cdef360cdac88dfcec938b33938205b">StreamValues</a>()</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;    {</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;        <span class="keywordflow">return</span> GetType() + <span class="stringliteral">&quot; &quot;</span> + GetScriptName() + <span class="stringliteral">&quot; &quot;</span> + std::to_string(GetScale()) + <span class="stringliteral">&quot; &quot;</span> + std::to_string(GetPos().x) + <span class="stringliteral">&quot; &quot;</span> + std::to_string(GetPos().y) + <span class="stringliteral">&quot; &quot;</span> + std::to_string(GetPos().z) + <span class="stringliteral">&quot; &quot;</span> + std::to_string(health) + <span class="stringliteral">&quot; STATE&quot;</span> + <span class="stringliteral">&quot; &quot;</span> + std::to_string(points) + <span class="stringliteral">&quot; &quot;</span> + std::to_string(kills) + <span class="stringliteral">&quot; &quot;</span> + std::to_string(tokensCollected) + <span class="stringliteral">&quot;\n&quot;</span>;</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;    }</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160; </div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;    <span class="keywordtype">void</span> Reset();</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160; </div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;    </div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;    <a class="code" href="classstate_machine.html">stateMachine&lt;Player&gt;</a>* playerFSM;</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160; </div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;    <span class="keywordtype">int</span> health = 100;</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;    <span class="keywordtype">int</span> points = 0;</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;    <span class="keywordtype">int</span> multiplier = 1;</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;    <span class="keywordtype">int</span> damage = 20;</div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;    <span class="keywordtype">int</span> kills = 0;</div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;    <span class="keywordtype">int</span> tokensCollected = 0;</div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160; </div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160; </div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;    <span class="keywordtype">float</span> xRotationOffset;</div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;    <span class="keywordtype">float</span> yRotationOffset;</div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;    <span class="keywordtype">float</span> zRotationOffset;</div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;    <span class="keywordtype">float</span> yPositionOffset;</div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;    <a class="code" href="class_model.html">Model</a> bModel;</div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;};</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160; </div>
+<div class="ttc" id="a_debugger_8h_html"><div class="ttname"><a href="_debugger_8h.html">Debugger.h</a></div></div>
+<div class="ttc" id="a_md2_8h_html_af5d799eba8960b05ab838f5cd3e5f41f"><div class="ttname"><a href="_md2_8h.html#af5d799eba8960b05ab838f5cd3e5f41f">Md2Commands</a></div><div class="ttdeci">Md2Commands</div><div class="ttdef"><b>Definition:</b> Md2.h:51</div></div>
+<div class="ttc" id="aclass_game_object_html"><div class="ttname"><a href="class_game_object.html">GameObject</a></div><div class="ttdoc">Class that holds the main information of a game object, that is abstracted for more specific reasons.</div><div class="ttdef"><b>Definition:</b> GameObject.h:25</div></div>
+<div class="ttc" id="aclass_model_html"><div class="ttname"><a href="class_model.html">Model</a></div><div class="ttdoc">Holds the model information of objects, can be md2 or Fbx models.</div><div class="ttdef"><b>Definition:</b> Model.h:39</div></div>
+<div class="ttc" id="aclass_player_html"><div class="ttname"><a href="class_player.html">Player</a></div><div class="ttdoc">Abstract GameObject class for the player.</div><div class="ttdef"><b>Definition:</b> Player.h:28</div></div>
+<div class="ttc" id="aclass_player_html_a059046d04af1968922a03feb8334bf03"><div class="ttname"><a href="class_player.html#a059046d04af1968922a03feb8334bf03">Player::incrementKillCount</a></div><div class="ttdeci">void incrementKillCount()</div><div class="ttdef"><b>Definition:</b> Player.h:120</div></div>
+<div class="ttc" id="aclass_player_html_a236e0d7c41bc0c3871342c0c59526aa0"><div class="ttname"><a href="class_player.html#a236e0d7c41bc0c3871342c0c59526aa0">Player::getTokensCollected</a></div><div class="ttdeci">int getTokensCollected()</div><div class="ttdef"><b>Definition:</b> Player.h:126</div></div>
+<div class="ttc" id="aclass_player_html_a30068e208ea5830b5fe7b55c2b092417"><div class="ttname"><a href="class_player.html#a30068e208ea5830b5fe7b55c2b092417">Player::incrementTokensCollected</a></div><div class="ttdeci">void incrementTokensCollected()</div><div class="ttdef"><b>Definition:</b> Player.h:131</div></div>
+<div class="ttc" id="aclass_player_html_a3cdef360cdac88dfcec938b33938205b"><div class="ttname"><a href="class_player.html#a3cdef360cdac88dfcec938b33938205b">Player::StreamValues</a></div><div class="ttdeci">virtual std::string StreamValues()</div><div class="ttdoc">returns a string of data that is required for saving</div><div class="ttdef"><b>Definition:</b> Player.h:173</div></div>
+<div class="ttc" id="aclass_player_html_a42c3782e95e76ae9aa4123d1610c9ee2"><div class="ttname"><a href="class_player.html#a42c3782e95e76ae9aa4123d1610c9ee2">Player::getDamage</a></div><div class="ttdeci">int getDamage()</div><div class="ttdef"><b>Definition:</b> Player.h:102</div></div>
+<div class="ttc" id="aclass_player_html_a6a928c2bf11c424aa497ac6177ff978a"><div class="ttname"><a href="class_player.html#a6a928c2bf11c424aa497ac6177ff978a">Player::increasePoints</a></div><div class="ttdeci">void increasePoints(int p)</div><div class="ttdef"><b>Definition:</b> Player.h:84</div></div>
+<div class="ttc" id="aclass_player_html_a9d0d0439d464bf062702b41a6e982e19"><div class="ttname"><a href="class_player.html#a9d0d0439d464bf062702b41a6e982e19">Player::setDamage</a></div><div class="ttdeci">void setDamage(int d)</div><div class="ttdef"><b>Definition:</b> Player.h:108</div></div>
+<div class="ttc" id="aclass_player_html_ab52a0916c96957764231394403161e8e"><div class="ttname"><a href="class_player.html#ab52a0916c96957764231394403161e8e">Player::getMultiplier</a></div><div class="ttdeci">int getMultiplier()</div><div class="ttdef"><b>Definition:</b> Player.h:90</div></div>
+<div class="ttc" id="aclass_player_html_ab5f485fe076e2e29b84c83e143011ab3"><div class="ttname"><a href="class_player.html#ab5f485fe076e2e29b84c83e143011ab3">Player::setHealth</a></div><div class="ttdeci">void setHealth(int h)</div><div class="ttdef"><b>Definition:</b> Player.h:72</div></div>
+<div class="ttc" id="aclass_player_html_ab6da4a036a3b5535ecdb59d712ac387e"><div class="ttname"><a href="class_player.html#ab6da4a036a3b5535ecdb59d712ac387e">Player::getKills</a></div><div class="ttdeci">int getKills()</div><div class="ttdef"><b>Definition:</b> Player.h:114</div></div>
+<div class="ttc" id="aclass_player_html_ab98ee3c0e10f7b2b65ad43b2a2929445"><div class="ttname"><a href="class_player.html#ab98ee3c0e10f7b2b65ad43b2a2929445">Player::getPoints</a></div><div class="ttdeci">int getPoints()</div><div class="ttdef"><b>Definition:</b> Player.h:78</div></div>
+<div class="ttc" id="aclass_player_html_abcb15d249bed9a4ab0ab86b52b0d747a"><div class="ttname"><a href="class_player.html#abcb15d249bed9a4ab0ab86b52b0d747a">Player::getHealth</a></div><div class="ttdeci">int getHealth()</div><div class="ttdef"><b>Definition:</b> Player.h:66</div></div>
+<div class="ttc" id="aclass_player_html_ad3d6283e1d83515d54b4ef3997c9b893"><div class="ttname"><a href="class_player.html#ad3d6283e1d83515d54b4ef3997c9b893">Player::setMultiplier</a></div><div class="ttdeci">void setMultiplier(int m)</div><div class="ttdef"><b>Definition:</b> Player.h:96</div></div>
+<div class="ttc" id="aclass_player_html_adc2c478ebf8bcc7976886b37089d2351"><div class="ttname"><a href="class_player.html#adc2c478ebf8bcc7976886b37089d2351">Player::getFSM</a></div><div class="ttdeci">stateMachine&lt; Player &gt; * getFSM() const</div><div class="ttdoc">gets and returns the finite state machine of the player</div><div class="ttdef"><b>Definition:</b> Player.h:59</div></div>
+<div class="ttc" id="aclass_renderer_html"><div class="ttname"><a href="class_renderer.html">Renderer</a></div><div class="ttdoc">Contains the absract information for the Renderer. The class holds all the functions that would be us...</div><div class="ttdef"><b>Definition:</b> Renderer.h:24</div></div>
+<div class="ttc" id="aclass_view_html"><div class="ttname"><a href="class_view.html">View</a></div><div class="ttdoc">Holds matrix and position information to allow other parts of the engine to have access to this infor...</div><div class="ttdef"><b>Definition:</b> View.h:17</div></div>
+<div class="ttc" id="aclassstate_html"><div class="ttname"><a href="classstate.html">state</a></div><div class="ttdoc">An abstract class that provides a common interface to all state classes. It is templated so that clas...</div></div>
+<div class="ttc" id="aclassstate_machine_html"><div class="ttname"><a href="classstate_machine.html">stateMachine&lt; Player &gt;</a></div></div>
+<div class="ttc" id="anamespace_im_gui_html_ab51a164f547317c16c441f1599e3946d"><div class="ttname"><a href="namespace_im_gui.html#ab51a164f547317c16c441f1599e3946d">ImGui::Render</a></div><div class="ttdeci">IMGUI_API void Render()</div><div class="ttdef"><b>Definition:</b> imgui.cpp:4434</div></div>
+<div class="ttc" id="aplayer_states_8h_html"><div class="ttname"><a href="player_states_8h.html">playerStates.h</a></div></div>
+<div class="ttc" id="astate_8h_html"><div class="ttname"><a href="state_8h.html">state.h</a></div></div>
+<div class="ttc" id="astate_machine_8h_html"><div class="ttname"><a href="state_machine_8h.html">stateMachine.h</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_492deb8f30c21d9ebac9ab6ce6fb7949.html">ICT397-Project-Engine</a></li><li class="navelem"><a class="el" href="_player_8h.html">Player.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
 </body>
 </html>

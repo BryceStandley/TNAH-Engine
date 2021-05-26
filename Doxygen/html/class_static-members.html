@@ -5,10 +5,14 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TNAH-ICT397-Project: Member List</title>
+<title>TNAH-Engine-ICT397: Member List</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -22,8 +26,8 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="TNAH-2.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">TNAH-ICT397-Project
-   &#160;<span id="projectnumber">1</span>
+   <div id="projectname">TNAH-Engine-ICT397
+   &#160;<span id="projectnumber">2</span>
    </div>
   </td>
  </tr>
@@ -47,6 +51,23 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('class_static.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -61,7 +82,6 @@ $(function() {
 </iframe>
 </div>
 
-</div><!-- top -->
 <div class="header">
   <div class="headertitle">
 <div class="title">Static Member List</div>  </div>
@@ -71,35 +91,44 @@ $(function() {
 <p>This is the complete list of members for <a class="el" href="class_static.html">Static</a>, including all inherited members.</p>
 <table class="directory">
   <tr class="even"><td class="entry"><a class="el" href="class_game_object.html#a0348e3ee2e83d56eafca7a3547f432c4">GameObject</a>()</td><td class="entry"><a class="el" href="class_game_object.html">GameObject</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_game_object.html#a8d18c04a83c6d3e2ca739846c21d0980">GameObject</a>(glm::vec3 p, glm::vec3 fixRot, glm::vec3 rot, float s)</td><td class="entry"><a class="el" href="class_game_object.html">GameObject</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_game_object.html#aa0574dca2178d2320e3bbd7fe3e90d0a">GenerateMatFour</a>()</td><td class="entry"><a class="el" href="class_game_object.html">GameObject</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_game_object.html#ac23fb7ddb23c697e36ce31bc937a3181">GenerateMatFourForMesh</a>(int i)</td><td class="entry"><a class="el" href="class_game_object.html">GameObject</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="class_game_object.html#ab529877fc9d0a21f0b2133131513621a">GameObject</a>(glm::vec3 p, glm::vec3 rot, float s, Renderer *gameRenderer)</td><td class="entry"><a class="el" href="class_game_object.html">GameObject</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_game_object.html#ac39b74a6714f875b33014a45164920db">GetBoundingBox</a>()</td><td class="entry"><a class="el" href="class_game_object.html">GameObject</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_game_object.html#a4d2dd39231dc5fa8c9c9b29b91f8ec95">GetModel</a>()</td><td class="entry"><a class="el" href="class_game_object.html">GameObject</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_game_object.html#a74ce03d596c95cf6ebb8105c02260e7f">GetName</a>()</td><td class="entry"><a class="el" href="class_game_object.html">GameObject</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_game_object.html#aa9f5812ad1460871ebceb188cc9aaa96">GetPos</a>() const</td><td class="entry"><a class="el" href="class_game_object.html">GameObject</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="class_game_object.html#a3e5f61bc1a1348752b50b9d1bb27a4fc">GetId</a>()</td><td class="entry"><a class="el" href="class_game_object.html">GameObject</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_game_object.html#a4d2dd39231dc5fa8c9c9b29b91f8ec95">GetModel</a>()</td><td class="entry"><a class="el" href="class_game_object.html">GameObject</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="class_game_object.html#a74ce03d596c95cf6ebb8105c02260e7f">GetName</a>()</td><td class="entry"><a class="el" href="class_game_object.html">GameObject</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_game_object.html#aa9f5812ad1460871ebceb188cc9aaa96">GetPos</a>() const</td><td class="entry"><a class="el" href="class_game_object.html">GameObject</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="class_game_object.html#a4a7682157d4735ce950f5c64781344ee">GetRotate</a>()</td><td class="entry"><a class="el" href="class_game_object.html">GameObject</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_game_object.html#afe52aedcc4f6e746f3ccd18d413f88fb">GetRotation</a>() const</td><td class="entry"><a class="el" href="class_game_object.html">GameObject</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
   <tr><td class="entry"><a class="el" href="class_game_object.html#a0fb90bbb74c8988d23e865280a065901">GetScale</a>() const</td><td class="entry"><a class="el" href="class_game_object.html">GameObject</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_game_object.html#a9e6726449a23ca4b04467305bd4ddd95">GetShader</a>()</td><td class="entry"><a class="el" href="class_game_object.html">GameObject</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_game_object.html#a3f2b756ddd208ae302add9cafe14a41b">GetSpeed</a>()</td><td class="entry"><a class="el" href="class_game_object.html">GameObject</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_game_object.html#aefd6e5a65e63a17967a3cd9c146c1c27">GetScriptName</a>() const</td><td class="entry"><a class="el" href="class_game_object.html">GameObject</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="class_game_object.html#a9e6726449a23ca4b04467305bd4ddd95">GetShader</a>()</td><td class="entry"><a class="el" href="class_game_object.html">GameObject</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_game_object.html#a68fc36617a4888fe60b1b2d1572b3639">GetTag</a>()</td><td class="entry"><a class="el" href="class_game_object.html">GameObject</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
   <tr><td class="entry"><a class="el" href="class_game_object.html#a16923ded4375011aaf9631a13c775f10">GetType</a>()</td><td class="entry"><a class="el" href="class_game_object.html">GameObject</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_game_object.html#a94626dd233a6f7a0b10e2638f386934a">SetBoundingBox</a>(BoundingBox b)</td><td class="entry"><a class="el" href="class_game_object.html">GameObject</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_game_object.html#a09d08654806a1c0e625993dcea744d61">SetCollisionTag</a>(BoundingBox::CollisionTag t)</td><td class="entry"><a class="el" href="class_game_object.html">GameObject</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_game_object.html#aad9c0f74168667fcdbc1bcea06d169c5">handleMessage</a>(const Telegram message)</td><td class="entry"><a class="el" href="class_game_object.html">GameObject</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="class_game_object.html#ae6a441c142f2eb71b9a44bd39258dd91">Kill</a>()</td><td class="entry"><a class="el" href="class_game_object.html">GameObject</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_game_object.html#a00835df0feb28562c4910a7a68771b36">Render</a>(View lens, float time, Renderer *gameRenderer)</td><td class="entry"><a class="el" href="class_game_object.html">GameObject</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="class_game_object.html#a94626dd233a6f7a0b10e2638f386934a">SetBoundingBox</a>(BoundingBox b)</td><td class="entry"><a class="el" href="class_game_object.html">GameObject</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_game_object.html#a09d08654806a1c0e625993dcea744d61">SetCollisionTag</a>(BoundingBox::CollisionTag t)</td><td class="entry"><a class="el" href="class_game_object.html">GameObject</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="class_game_object.html#a3fdc779479da3311be0f92531cb442f4">SetId</a>(int i)</td><td class="entry"><a class="el" href="class_game_object.html">GameObject</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_game_object.html#a7d7bf2fb47b279323455347c841f0383">SetModel</a>(Model m)</td><td class="entry"><a class="el" href="class_game_object.html">GameObject</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
   <tr><td class="entry"><a class="el" href="class_game_object.html#a3183b6bda0347ffc1196d07d4f26337c">SetName</a>(std::string n)</td><td class="entry"><a class="el" href="class_game_object.html">GameObject</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_game_object.html#aaa26dd3d19a1476a0230dc0235d5c6be">SetPos</a>(glm::vec3 p)</td><td class="entry"><a class="el" href="class_game_object.html">GameObject</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
   <tr><td class="entry"><a class="el" href="class_game_object.html#a91946921e81dbd19ace843fef8790b94">SetRotate</a>(bool r)</td><td class="entry"><a class="el" href="class_game_object.html">GameObject</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_game_object.html#aaf2a73a659d80bcb523f7ea4e58dd02f">SetRotation</a>(glm::vec3 r)</td><td class="entry"><a class="el" href="class_game_object.html">GameObject</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
   <tr><td class="entry"><a class="el" href="class_game_object.html#ac87b80ff4dd9eb7be6c7363e4e621e09">SetScale</a>(float size)</td><td class="entry"><a class="el" href="class_game_object.html">GameObject</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_game_object.html#a8cd08c4c2a53a087716e7a8d4c25b632">SetShader</a>(Shader s)</td><td class="entry"><a class="el" href="class_game_object.html">GameObject</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_game_object.html#a50e3f2ab4c70e7681e093263659bc945">SetSpeed</a>(float s)</td><td class="entry"><a class="el" href="class_game_object.html">GameObject</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_game_object.html#a8b2810245ce2055d8cd7b4668fe1871b">SetScriptName</a>(const std::string name)</td><td class="entry"><a class="el" href="class_game_object.html">GameObject</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="class_game_object.html#a8cd08c4c2a53a087716e7a8d4c25b632">SetShader</a>(Shader s)</td><td class="entry"><a class="el" href="class_game_object.html">GameObject</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_game_object.html#a2b8cd8b76bb89306c78371eb921df67a">SetType</a>(std::string t)</td><td class="entry"><a class="el" href="class_game_object.html">GameObject</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="class_static.html#a350b4c9f59e4d313c4b9331988f828e4">Static</a>(glm::vec3 p, glm::vec3 rot, float s, Renderer *gameRenderer, std::string script)</td><td class="entry"><a class="el" href="class_static.html">Static</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_game_object.html#afc257e6c22279dbadcc9b06cfa6511dd">StreamValues</a>()</td><td class="entry"><a class="el" href="class_game_object.html">GameObject</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
   <tr><td class="entry"><a class="el" href="class_static.html#a98bea25c7c325a310f875b7a302b79ac">Update</a>(float time)</td><td class="entry"><a class="el" href="class_static.html">Static</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
 </table></div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
 </body>
 </html>

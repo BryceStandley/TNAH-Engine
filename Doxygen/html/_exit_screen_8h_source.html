@@ -5,10 +5,14 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TNAH-ICT397-Project: /Volumes/GITS/ICT397-Project/ICT397-Project-Engine/ExitScreen.h Source File</title>
+<title>TNAH-Engine-ICT397: ICT397-Project-Engine/ExitScreen.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -22,8 +26,8 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="TNAH-2.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">TNAH-ICT397-Project
-   &#160;<span id="projectnumber">1</span>
+   <div id="projectname">TNAH-Engine-ICT397
+   &#160;<span id="projectnumber">2</span>
    </div>
   </td>
  </tr>
@@ -47,6 +51,23 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('_exit_screen_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -61,59 +82,71 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="dir_492deb8f30c21d9ebac9ab6ce6fb7949.html">ICT397-Project-Engine</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="headertitle">
 <div class="title">ExitScreen.h</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160; </div>
+<a href="_exit_screen_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160; </div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#ifndef EXITSCREEN_H</span></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#define EXITSCREEN_H</span></div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &quot;OpenGL.h&quot;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_open_g_l_8h.html">OpenGL.h</a>&quot;</span></div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;glm/glm.hpp&gt;</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &quot;TextureLoader.h&quot;</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &quot;Shader.h&quot;</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &quot;GameObject.h&quot;</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_texture_loader_8h.html">TextureLoader.h</a>&quot;</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_shader_8h.html">Shader.h</a>&quot;</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_game_object_8h.html">GameObject.h</a>&quot;</span></div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
 <div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="class_exit_screen.html">   18</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_exit_screen.html">ExitScreen</a></div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;{</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <a class="code" href="class_exit_screen.html">ExitScreen</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="class_exit_screen.html#a433bb8f719c96603dabb2c844a5fd18b">   21</a></span>&#160;    <a class="code" href="class_exit_screen.html#a433bb8f719c96603dabb2c844a5fd18b">ExitScreen</a>() = <span class="keywordflow">default</span>;</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keywordtype">void</span> Init(std::string name, <a class="code" href="class_renderer.html">Renderer</a>* r);</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <a class="code" href="class_renderer.html">Renderer</a>* renderer;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <a class="code" href="class_shader.html">Shader</a> shader;</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <a class="code" href="class_model.html">Model</a> exitModel;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_exit_screen.html#af2e39b9b9745d7365c188160627147bb">Init</a>(std::string name, <a class="code" href="class_renderer.html">Renderer</a>* r);</div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="class_exit_screen.html#a6e43233a65e1dc70c79b559aff3b62ec">   24</a></span>&#160;    <a class="code" href="class_renderer.html">Renderer</a>* <a class="code" href="class_exit_screen.html#a6e43233a65e1dc70c79b559aff3b62ec">renderer</a>;</div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="class_exit_screen.html#a48eff61e1c2c263627d13dbcc17f1827">   25</a></span>&#160;    <a class="code" href="class_shader.html">Shader</a> <a class="code" href="class_exit_screen.html#a48eff61e1c2c263627d13dbcc17f1827">shader</a>;</div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="class_exit_screen.html#aab617b3f35e300d0bda2fc1df299d7c2">   26</a></span>&#160;    <a class="code" href="class_model.html">Model</a> <a class="code" href="class_exit_screen.html#aab617b3f35e300d0bda2fc1df299d7c2">exitModel</a>;</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keywordtype">bool</span> exitScreenDisplay;</div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="class_exit_screen.html#a497d704276fc11ea61af9c9262e1494d">   28</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="class_exit_screen.html#a497d704276fc11ea61af9c9262e1494d">exitScreenDisplay</a>;</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keywordtype">void</span> SetExitScreenDisplay(<span class="keywordtype">bool</span> i){exitScreenDisplay = i;}</div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="class_exit_screen.html#a78d384b110c5c4ef9dc9cd038e0c1b67">   30</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_exit_screen.html#a78d384b110c5c4ef9dc9cd038e0c1b67">SetExitScreenDisplay</a>(<span class="keywordtype">bool</span> i){<a class="code" href="class_exit_screen.html#a497d704276fc11ea61af9c9262e1494d">exitScreenDisplay</a> = i;}</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <a class="code" href="class_shader.html">Shader</a> GetShader(){<span class="keywordflow">return</span> shader;}</div>
+<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="class_exit_screen.html#ad83f27410f76a8d6666117d76327f847">   32</a></span>&#160;    <a class="code" href="class_shader.html">Shader</a> <a class="code" href="class_exit_screen.html#ad83f27410f76a8d6666117d76327f847">GetShader</a>(){<span class="keywordflow">return</span> <a class="code" href="class_exit_screen.html#a48eff61e1c2c263627d13dbcc17f1827">shader</a>;}</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keywordtype">void</span> Render(<a class="code" href="class_renderer.html">Renderer</a>* r, <a class="code" href="class_view.html">View</a> lens);</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_exit_screen.html#a16168ab0c84ba63c7605bbda40f71a4d">Render</a>(<a class="code" href="class_renderer.html">Renderer</a>* r, <a class="code" href="class_view.html">View</a> lens);</div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="keyword">private</span>:</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;};</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="preprocessor">#endif </span><span class="comment">//EXITSCREEN_H</span></div>
+<div class="ttc" id="a_game_object_8h_html"><div class="ttname"><a href="_game_object_8h.html">GameObject.h</a></div></div>
+<div class="ttc" id="a_open_g_l_8h_html"><div class="ttname"><a href="_open_g_l_8h.html">OpenGL.h</a></div></div>
+<div class="ttc" id="a_shader_8h_html"><div class="ttname"><a href="_shader_8h.html">Shader.h</a></div></div>
+<div class="ttc" id="a_texture_loader_8h_html"><div class="ttname"><a href="_texture_loader_8h.html">TextureLoader.h</a></div></div>
 <div class="ttc" id="aclass_exit_screen_html"><div class="ttname"><a href="class_exit_screen.html">ExitScreen</a></div><div class="ttdoc">Holds information about the exit screen and its functions.</div><div class="ttdef"><b>Definition:</b> ExitScreen.h:19</div></div>
-<div class="ttc" id="aclass_model_html"><div class="ttname"><a href="class_model.html">Model</a></div><div class="ttdoc">A class that represents a model in its entirety, allowing for multiple meshes and multiple textures i...</div><div class="ttdef"><b>Definition:</b> Model.h:37</div></div>
-<div class="ttc" id="aclass_renderer_html"><div class="ttname"><a href="class_renderer.html">Renderer</a></div><div class="ttdoc">Contains the absract information for the Renderer. The class holds all the functions that would be us...</div><div class="ttdef"><b>Definition:</b> Renderer.h:20</div></div>
+<div class="ttc" id="aclass_exit_screen_html_a16168ab0c84ba63c7605bbda40f71a4d"><div class="ttname"><a href="class_exit_screen.html#a16168ab0c84ba63c7605bbda40f71a4d">ExitScreen::Render</a></div><div class="ttdeci">void Render(Renderer *r, View lens)</div><div class="ttdef"><b>Definition:</b> ExitScreen.cpp:15</div></div>
+<div class="ttc" id="aclass_exit_screen_html_a433bb8f719c96603dabb2c844a5fd18b"><div class="ttname"><a href="class_exit_screen.html#a433bb8f719c96603dabb2c844a5fd18b">ExitScreen::ExitScreen</a></div><div class="ttdeci">ExitScreen()=default</div></div>
+<div class="ttc" id="aclass_exit_screen_html_a48eff61e1c2c263627d13dbcc17f1827"><div class="ttname"><a href="class_exit_screen.html#a48eff61e1c2c263627d13dbcc17f1827">ExitScreen::shader</a></div><div class="ttdeci">Shader shader</div><div class="ttdef"><b>Definition:</b> ExitScreen.h:25</div></div>
+<div class="ttc" id="aclass_exit_screen_html_a497d704276fc11ea61af9c9262e1494d"><div class="ttname"><a href="class_exit_screen.html#a497d704276fc11ea61af9c9262e1494d">ExitScreen::exitScreenDisplay</a></div><div class="ttdeci">bool exitScreenDisplay</div><div class="ttdef"><b>Definition:</b> ExitScreen.h:28</div></div>
+<div class="ttc" id="aclass_exit_screen_html_a6e43233a65e1dc70c79b559aff3b62ec"><div class="ttname"><a href="class_exit_screen.html#a6e43233a65e1dc70c79b559aff3b62ec">ExitScreen::renderer</a></div><div class="ttdeci">Renderer * renderer</div><div class="ttdef"><b>Definition:</b> ExitScreen.h:24</div></div>
+<div class="ttc" id="aclass_exit_screen_html_a78d384b110c5c4ef9dc9cd038e0c1b67"><div class="ttname"><a href="class_exit_screen.html#a78d384b110c5c4ef9dc9cd038e0c1b67">ExitScreen::SetExitScreenDisplay</a></div><div class="ttdeci">void SetExitScreenDisplay(bool i)</div><div class="ttdef"><b>Definition:</b> ExitScreen.h:30</div></div>
+<div class="ttc" id="aclass_exit_screen_html_aab617b3f35e300d0bda2fc1df299d7c2"><div class="ttname"><a href="class_exit_screen.html#aab617b3f35e300d0bda2fc1df299d7c2">ExitScreen::exitModel</a></div><div class="ttdeci">Model exitModel</div><div class="ttdef"><b>Definition:</b> ExitScreen.h:26</div></div>
+<div class="ttc" id="aclass_exit_screen_html_ad83f27410f76a8d6666117d76327f847"><div class="ttname"><a href="class_exit_screen.html#ad83f27410f76a8d6666117d76327f847">ExitScreen::GetShader</a></div><div class="ttdeci">Shader GetShader()</div><div class="ttdef"><b>Definition:</b> ExitScreen.h:32</div></div>
+<div class="ttc" id="aclass_exit_screen_html_af2e39b9b9745d7365c188160627147bb"><div class="ttname"><a href="class_exit_screen.html#af2e39b9b9745d7365c188160627147bb">ExitScreen::Init</a></div><div class="ttdeci">void Init(std::string name, Renderer *r)</div><div class="ttdef"><b>Definition:</b> ExitScreen.cpp:3</div></div>
+<div class="ttc" id="aclass_model_html"><div class="ttname"><a href="class_model.html">Model</a></div><div class="ttdoc">Holds the model information of objects, can be md2 or Fbx models.</div><div class="ttdef"><b>Definition:</b> Model.h:39</div></div>
+<div class="ttc" id="aclass_renderer_html"><div class="ttname"><a href="class_renderer.html">Renderer</a></div><div class="ttdoc">Contains the absract information for the Renderer. The class holds all the functions that would be us...</div><div class="ttdef"><b>Definition:</b> Renderer.h:24</div></div>
 <div class="ttc" id="aclass_shader_html"><div class="ttname"><a href="class_shader.html">Shader</a></div><div class="ttdoc">A class that is responsible for shaders, allowing you to open/use shaders and set uniforms of various...</div><div class="ttdef"><b>Definition:</b> Shader.h:24</div></div>
 <div class="ttc" id="aclass_view_html"><div class="ttname"><a href="class_view.html">View</a></div><div class="ttdoc">Holds matrix and position information to allow other parts of the engine to have access to this infor...</div><div class="ttdef"><b>Definition:</b> View.h:17</div></div>
 </div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_492deb8f30c21d9ebac9ab6ce6fb7949.html">ICT397-Project-Engine</a></li><li class="navelem"><a class="el" href="_exit_screen_8h.html">ExitScreen.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
 </body>
 </html>

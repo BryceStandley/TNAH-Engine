@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['debugging_181',['Debugging',['../class_debugging.html',1,'Debugging'],['../classtnah_1_1_debugging.html',1,'tnah::Debugging']]]
+  ['camera_4214',['Camera',['../class_camera.html',1,'']]],
+  ['chase_4215',['chase',['../classchase.html',1,'']]]
 ];

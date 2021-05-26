@@ -12,17 +12,18 @@ Class to control and generate boudningbox information for a given object.
 \doxysubsection*{Public Types}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_bounding_box_a7740a55cd572b82e1692e9f9d9a286c3}\label{class_bounding_box_a7740a55cd572b82e1692e9f9d9a286c3}} 
-enum \mbox{\hyperlink{class_bounding_box_a7740a55cd572b82e1692e9f9d9a286c3}{Collision\+Tag}} \{ {\bfseries PLAYER}
-, {\bfseries TOKEN}
-, {\bfseries STATIC\+\_\+\+OBJECT}
-, {\bfseries ENEMY}
+enum \mbox{\hyperlink{class_bounding_box_a7740a55cd572b82e1692e9f9d9a286c3}{Collision\+Tag}} \{ \newline
+\mbox{\hyperlink{class_bounding_box_a7740a55cd572b82e1692e9f9d9a286c3a7b1d0daf07dde2c377bd7895e11c943f}{PLAYER}}
+, \mbox{\hyperlink{class_bounding_box_a7740a55cd572b82e1692e9f9d9a286c3a30c0b05af3c6a5b6c746bf4f69adbf75}{TOKEN}}
+, \mbox{\hyperlink{class_bounding_box_a7740a55cd572b82e1692e9f9d9a286c3a396df71c7410d0378b2c841d3f5833c5}{STATIC\+\_\+\+OBJECT}}
+, \mbox{\hyperlink{class_bounding_box_a7740a55cd572b82e1692e9f9d9a286c3a710b3b550ed07b2bcb3e8b168c870ce2}{ENEMY}}
+, \newline
+\mbox{\hyperlink{class_bounding_box_a7740a55cd572b82e1692e9f9d9a286c3a08e938628501449eadad912690132b76}{WATER}}
  \}
 \begin{DoxyCompactList}\small\item\em Collision tag used for collision checking on a object. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_bounding_box_a4323fc64a71cee220dac92746a2bfe5e}\label{class_bounding_box_a4323fc64a71cee220dac92746a2bfe5e}} 
 \mbox{\hyperlink{class_bounding_box_a4323fc64a71cee220dac92746a2bfe5e}{Bounding\+Box}} ()=default
 \begin{DoxyCompactList}\small\item\em Bounding box constructor with empty objects. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{class_bounding_box_a3a733edb48ff238da35368e473892f8d}{Bounding\+Box}} (std\+::vector$<$ glm\+::vec3 $>$ v, std\+::vector$<$ int $>$ i)
@@ -41,7 +42,6 @@ std\+::vector$<$ glm\+::vec3 $>$ \mbox{\hyperlink{class_bounding_box_a3258430e70
 \begin{DoxyCompactList}\small\item\em Gets normal data of a bounding box. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{class_bounding_box}{Bounding\+Box}} \mbox{\hyperlink{class_bounding_box_ab296f5ae8c91a36892f030c8c62814f6}{Generate\+Bounding\+Box}} (\mbox{\hyperlink{class_mesh}{Mesh}} $\ast$mesh)
 \begin{DoxyCompactList}\small\item\em Takes a mesh and generates a basix bounding box based off min and max values of the mesh in X,Y,Z directions. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{class_bounding_box_af296a5334106dad59f911db18e128d71}\label{class_bounding_box_af296a5334106dad59f911db18e128d71}} 
 void \mbox{\hyperlink{class_bounding_box_af296a5334106dad59f911db18e128d71}{Generate\+Bounding\+Box\+Normals}} ()
 \begin{DoxyCompactList}\small\item\em Generates normals of the bounding box. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
@@ -59,11 +59,56 @@ Class to hold all collision and bounding box information of a game object \begin
 \item[\mbox{\hyperlink{todo__todo000001}{Todo}}]Implement bounding box collisions \end{DoxyRefDesc}
 
 
+\doxysubsection{Member Enumeration Documentation}
+\mbox{\Hypertarget{class_bounding_box_a7740a55cd572b82e1692e9f9d9a286c3}\label{class_bounding_box_a7740a55cd572b82e1692e9f9d9a286c3}} 
+\index{BoundingBox@{BoundingBox}!CollisionTag@{CollisionTag}}
+\index{CollisionTag@{CollisionTag}!BoundingBox@{BoundingBox}}
+\doxysubsubsection{\texorpdfstring{CollisionTag}{CollisionTag}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{class_bounding_box_a7740a55cd572b82e1692e9f9d9a286c3}{Bounding\+Box\+::\+Collision\+Tag}}}
+
+
+
+Collision tag used for collision checking on a object. 
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PLAYER@{PLAYER}!BoundingBox@{BoundingBox}}\index{BoundingBox@{BoundingBox}!PLAYER@{PLAYER}}}\mbox{\Hypertarget{class_bounding_box_a7740a55cd572b82e1692e9f9d9a286c3a7b1d0daf07dde2c377bd7895e11c943f}\label{class_bounding_box_a7740a55cd572b82e1692e9f9d9a286c3a7b1d0daf07dde2c377bd7895e11c943f}} 
+PLAYER&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN@{TOKEN}!BoundingBox@{BoundingBox}}\index{BoundingBox@{BoundingBox}!TOKEN@{TOKEN}}}\mbox{\Hypertarget{class_bounding_box_a7740a55cd572b82e1692e9f9d9a286c3a30c0b05af3c6a5b6c746bf4f69adbf75}\label{class_bounding_box_a7740a55cd572b82e1692e9f9d9a286c3a30c0b05af3c6a5b6c746bf4f69adbf75}} 
+TOKEN&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{STATIC\_OBJECT@{STATIC\_OBJECT}!BoundingBox@{BoundingBox}}\index{BoundingBox@{BoundingBox}!STATIC\_OBJECT@{STATIC\_OBJECT}}}\mbox{\Hypertarget{class_bounding_box_a7740a55cd572b82e1692e9f9d9a286c3a396df71c7410d0378b2c841d3f5833c5}\label{class_bounding_box_a7740a55cd572b82e1692e9f9d9a286c3a396df71c7410d0378b2c841d3f5833c5}} 
+STATIC\+\_\+\+OBJECT&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ENEMY@{ENEMY}!BoundingBox@{BoundingBox}}\index{BoundingBox@{BoundingBox}!ENEMY@{ENEMY}}}\mbox{\Hypertarget{class_bounding_box_a7740a55cd572b82e1692e9f9d9a286c3a710b3b550ed07b2bcb3e8b168c870ce2}\label{class_bounding_box_a7740a55cd572b82e1692e9f9d9a286c3a710b3b550ed07b2bcb3e8b168c870ce2}} 
+ENEMY&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{WATER@{WATER}!BoundingBox@{BoundingBox}}\index{BoundingBox@{BoundingBox}!WATER@{WATER}}}\mbox{\Hypertarget{class_bounding_box_a7740a55cd572b82e1692e9f9d9a286c3a08e938628501449eadad912690132b76}\label{class_bounding_box_a7740a55cd572b82e1692e9f9d9a286c3a08e938628501449eadad912690132b76}} 
+WATER&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
 \doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_bounding_box_a4323fc64a71cee220dac92746a2bfe5e}\label{class_bounding_box_a4323fc64a71cee220dac92746a2bfe5e}} 
+\index{BoundingBox@{BoundingBox}!BoundingBox@{BoundingBox}}
+\index{BoundingBox@{BoundingBox}!BoundingBox@{BoundingBox}}
+\doxysubsubsection{\texorpdfstring{BoundingBox()}{BoundingBox()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Bounding\+Box\+::\+Bounding\+Box (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+
+
+Bounding box constructor with empty objects. 
+
 \mbox{\Hypertarget{class_bounding_box_a3a733edb48ff238da35368e473892f8d}\label{class_bounding_box_a3a733edb48ff238da35368e473892f8d}} 
 \index{BoundingBox@{BoundingBox}!BoundingBox@{BoundingBox}}
 \index{BoundingBox@{BoundingBox}!BoundingBox@{BoundingBox}}
-\doxysubsubsection{\texorpdfstring{BoundingBox()}{BoundingBox()}}
+\doxysubsubsection{\texorpdfstring{BoundingBox()}{BoundingBox()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
 {\footnotesize\ttfamily Bounding\+Box\+::\+Bounding\+Box (\begin{DoxyParamCaption}\item[{std\+::vector$<$ glm\+::vec3 $>$}]{v,  }\item[{std\+::vector$<$ int $>$}]{i }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
@@ -98,6 +143,16 @@ Takes a mesh and generates a basix bounding box based off min and max values of 
 \begin{DoxyReturn}{Returns}
 bounding\+Box 
 \end{DoxyReturn}
+\mbox{\Hypertarget{class_bounding_box_af296a5334106dad59f911db18e128d71}\label{class_bounding_box_af296a5334106dad59f911db18e128d71}} 
+\index{BoundingBox@{BoundingBox}!GenerateBoundingBoxNormals@{GenerateBoundingBoxNormals}}
+\index{GenerateBoundingBoxNormals@{GenerateBoundingBoxNormals}!BoundingBox@{BoundingBox}}
+\doxysubsubsection{\texorpdfstring{GenerateBoundingBoxNormals()}{GenerateBoundingBoxNormals()}}
+{\footnotesize\ttfamily void Bounding\+Box\+::\+Generate\+Bounding\+Box\+Normals (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Generates normals of the bounding box. 
+
 \mbox{\Hypertarget{class_bounding_box_a003cb0aa90915f5763bc5d3f394c7ae1}\label{class_bounding_box_a003cb0aa90915f5763bc5d3f394c7ae1}} 
 \index{BoundingBox@{BoundingBox}!GetIndiceData@{GetIndiceData}}
 \index{GetIndiceData@{GetIndiceData}!BoundingBox@{BoundingBox}}
@@ -186,5 +241,5 @@ Sets the vertex data of a bounding box.
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-/\+Volumes/\+GITS/\+ICT397-\/\+Project/\+ICT397-\/\+Project-\/\+Engine/Bounding\+Box.\+h\item 
-/\+Volumes/\+GITS/\+ICT397-\/\+Project/\+ICT397-\/\+Project-\/\+Engine/Bounding\+Box.\+cpp\end{DoxyCompactItemize}
+ICT397-\/\+Project-\/\+Engine/\mbox{\hyperlink{_bounding_box_8h}{Bounding\+Box.\+h}}\item 
+ICT397-\/\+Project-\/\+Engine/\mbox{\hyperlink{_bounding_box_8cpp}{Bounding\+Box.\+cpp}}\end{DoxyCompactItemize}

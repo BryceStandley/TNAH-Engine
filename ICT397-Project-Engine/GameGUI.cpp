@@ -87,6 +87,10 @@ void GameGUI::Draw(Player* dude)
 		{
 			ImGui::SetWindowFontScale(1.0f);
 			ImGui::Text("Current Player Position: %s", Debugger::GetInstance()->DebugVec3(dude->GetPos()).c_str());
+			float worldx, worldz;
+			worldx = Remap(dude->GetPos().x, 0, 52.0f * 12, 0, (float)256 - 1);
+			worldz = Remap(dude->GetPos().z, 0, 52.0f * 12, 0, (float)256 - 1);
+			ImGui::Text("Current Terrain Position: %s", Debugger::GetInstance()->DebugVec3(glm::vec3(worldx, terrainHeight, worldz)).c_str());
 
 		}
 		if(Debugger::GetInstance()->stickyFPSCounter)
@@ -129,4 +133,10 @@ void GameGUI::Draw(Player* dude)
 		}
 	}
 	ImGui::End();
+}
+
+float GameGUI::Remap(float value, float oldMin, float oldMax, float newMin, float newMax)
+{
+	float out = newMin + (newMax - newMin) * ((value - oldMin) / (oldMax - oldMin));
+	return out;
 }

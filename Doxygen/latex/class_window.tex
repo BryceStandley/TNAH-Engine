@@ -1,53 +1,81 @@
 \hypertarget{class_window}{}\doxysection{Window Class Reference}
 \label{class_window}\index{Window@{Window}}
-Inheritance diagram for Window\+:\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[height=2.000000cm]{class_window}
-\end{center}
-\end{figure}
+
+
+{\ttfamily \#include $<$Window.\+h$>$}
+
+
+
+Inheritance diagram for Window\+:
+% FIG 0
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 virtual void \mbox{\hyperlink{class_window_ae1188b3d644b1b6d45412d8720db645a}{Init}} (std\+::string title, int h, int w)
 \begin{DoxyCompactList}\small\item\em Initilises the window class, setting the title height and width. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{class_window_a6708ad97540d29ab601e147791f2203b}\label{class_window_a6708ad97540d29ab601e147791f2203b}} 
 virtual void \mbox{\hyperlink{class_window_a6708ad97540d29ab601e147791f2203b}{Buffer}} ()=0
 \begin{DoxyCompactList}\small\item\em Calls the buffer. \end{DoxyCompactList}\item 
 virtual void \mbox{\hyperlink{class_window_a85e230de0295fd74f2260eeef1f15be0}{Game\+Input}} (float delta\+Time)
 \begin{DoxyCompactList}\small\item\em Holds the game input logic for the keyboard, uses the input variable to set the actual keys. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{class_window_a0ffed0d5fd1a43f99f2e90cd5c9edd88}\label{class_window_a0ffed0d5fd1a43f99f2e90cd5c9edd88}} 
 virtual void \mbox{\hyperlink{class_window_a0ffed0d5fd1a43f99f2e90cd5c9edd88}{Terminate}} ()
 \begin{DoxyCompactList}\small\item\em Sets the termination information for the class. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{class_window_aa175f74b089fd41c864e48b0d176c9d8}\label{class_window_aa175f74b089fd41c864e48b0d176c9d8}} 
 virtual void \mbox{\hyperlink{class_window_aa175f74b089fd41c864e48b0d176c9d8}{Frame\+Buffer}} ()
 \begin{DoxyCompactList}\small\item\em Calls the frame buffer. \end{DoxyCompactList}\item 
 virtual \mbox{\hyperlink{class_camera}{Camera}} \mbox{\hyperlink{class_window_a5a1d5cd3a1ba7e737f422471741414af}{Get\+Camera}} ()
 \begin{DoxyCompactList}\small\item\em Getter for the camera. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{class_window_a572a96619286755b1744195205389223}\label{class_window_a572a96619286755b1744195205389223}} 
 virtual void \mbox{\hyperlink{class_window_a572a96619286755b1744195205389223}{Update\+Camera}} (glm\+::vec3 p)
 \begin{DoxyCompactList}\small\item\em Updates the camera position. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{class_window_af171c7ce271483cd2f2c47640409a090}\label{class_window_af171c7ce271483cd2f2c47640409a090}} 
 virtual void \mbox{\hyperlink{class_window_af171c7ce271483cd2f2c47640409a090}{Mouse\+Move}} ()
 \begin{DoxyCompactList}\small\item\em Sets mouse movmenet. \end{DoxyCompactList}\item 
 virtual \mbox{\hyperlink{class_view}{View}} \mbox{\hyperlink{class_window_a755bd419e3b090dbdb712ea620f4ae43}{Get\+Lens}} ()
 \begin{DoxyCompactList}\small\item\em Getter for the lens. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{class_window_a8df526b71e0a4d291fe0b9c3bc04ba25}\label{class_window_a8df526b71e0a4d291fe0b9c3bc04ba25}} 
 virtual void \mbox{\hyperlink{class_window_a8df526b71e0a4d291fe0b9c3bc04ba25}{Update}} ()
 \begin{DoxyCompactList}\small\item\em Updates the window for things such as time, lens values. \end{DoxyCompactList}\item 
 virtual float \mbox{\hyperlink{class_window_ae6fe179add364bac4e4a6ebf6e47339d}{Get\+Time}} ()
 \begin{DoxyCompactList}\small\item\em Getter for delta\+Time. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{class_window_a48e457e979afccb76e81cbab7e10415f}\label{class_window_a48e457e979afccb76e81cbab7e10415f}} 
 virtual bool \mbox{\hyperlink{class_window_a48e457e979afccb76e81cbab7e10415f}{Running}} ()
 \begin{DoxyCompactList}\small\item\em Checks if the window is running still. \end{DoxyCompactList}\item 
 virtual bool \mbox{\hyperlink{class_window_a39670d39ced6d75e3e995fdac01e2b86}{Get\+Display}} ()
 \begin{DoxyCompactList}\small\item\em Gets the display value. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{class_window_a2836a19bf40c2d2664744c2015ad9f4a}\label{class_window_a2836a19bf40c2d2664744c2015ad9f4a}} 
-virtual void {\bfseries Set\+Ref\+Window} (\mbox{\hyperlink{class_window}{Window}} $\ast$w)
+virtual bool \mbox{\hyperlink{class_window_abfaff49602adad5256cafae87f28325f}{Get\+Weapon\+Fire}} ()
+\item 
+virtual void \mbox{\hyperlink{class_window_a2836a19bf40c2d2664744c2015ad9f4a}{Set\+Ref\+Window}} (\mbox{\hyperlink{class_window}{Window}} $\ast$w)
+\item 
+virtual float \mbox{\hyperlink{class_window_a32ad8206fc028e38a6630ed54a415c9c}{Get\+Current\+Time}} ()
+\item 
+virtual void \mbox{\hyperlink{class_window_a03a0199785c3a7128f3ea39e7c821201}{Toggle\+Full\+Screen}} (bool change)
 \end{DoxyCompactItemize}
 
 
 \doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_window_a6708ad97540d29ab601e147791f2203b}\label{class_window_a6708ad97540d29ab601e147791f2203b}} 
+\index{Window@{Window}!Buffer@{Buffer}}
+\index{Buffer@{Buffer}!Window@{Window}}
+\doxysubsubsection{\texorpdfstring{Buffer()}{Buffer()}}
+{\footnotesize\ttfamily virtual void Window\+::\+Buffer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Calls the buffer. 
+
+
+
+Implemented in \mbox{\hyperlink{class_glfw_window_a58836c0c8a7a845c034c35a356228a5c}{Glfw\+Window}}.
+
+\mbox{\Hypertarget{class_window_aa175f74b089fd41c864e48b0d176c9d8}\label{class_window_aa175f74b089fd41c864e48b0d176c9d8}} 
+\index{Window@{Window}!FrameBuffer@{FrameBuffer}}
+\index{FrameBuffer@{FrameBuffer}!Window@{Window}}
+\doxysubsubsection{\texorpdfstring{FrameBuffer()}{FrameBuffer()}}
+{\footnotesize\ttfamily virtual void Window\+::\+Frame\+Buffer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Calls the frame buffer. 
+
+
+
+Reimplemented in \mbox{\hyperlink{class_glfw_window_ae1e713dd0893afc2acdbc52bf5e245c6}{Glfw\+Window}}.
+
 \mbox{\Hypertarget{class_window_a85e230de0295fd74f2260eeef1f15be0}\label{class_window_a85e230de0295fd74f2260eeef1f15be0}} 
 \index{Window@{Window}!GameInput@{GameInput}}
 \index{GameInput@{GameInput}!Window@{Window}}
@@ -83,6 +111,16 @@ camera
 
 
 Reimplemented in \mbox{\hyperlink{class_glfw_window_a5b2265a049448950a699a731a19c1447}{Glfw\+Window}}.
+
+\mbox{\Hypertarget{class_window_a32ad8206fc028e38a6630ed54a415c9c}\label{class_window_a32ad8206fc028e38a6630ed54a415c9c}} 
+\index{Window@{Window}!GetCurrentTime@{GetCurrentTime}}
+\index{GetCurrentTime@{GetCurrentTime}!Window@{Window}}
+\doxysubsubsection{\texorpdfstring{GetCurrentTime()}{GetCurrentTime()}}
+{\footnotesize\ttfamily virtual float Window\+::\+Get\+Current\+Time (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented in \mbox{\hyperlink{class_glfw_window_a9f659c99df857214567ad93aa957301b}{Glfw\+Window}}.
 
 \mbox{\Hypertarget{class_window_a39670d39ced6d75e3e995fdac01e2b86}\label{class_window_a39670d39ced6d75e3e995fdac01e2b86}} 
 \index{Window@{Window}!GetDisplay@{GetDisplay}}
@@ -135,6 +173,16 @@ game\+Time.\+Deta\+Time()
 
 Reimplemented in \mbox{\hyperlink{class_glfw_window_a6e71052cdc03129b4b4b9ad8865d78af}{Glfw\+Window}}.
 
+\mbox{\Hypertarget{class_window_abfaff49602adad5256cafae87f28325f}\label{class_window_abfaff49602adad5256cafae87f28325f}} 
+\index{Window@{Window}!GetWeaponFire@{GetWeaponFire}}
+\index{GetWeaponFire@{GetWeaponFire}!Window@{Window}}
+\doxysubsubsection{\texorpdfstring{GetWeaponFire()}{GetWeaponFire()}}
+{\footnotesize\ttfamily virtual bool Window\+::\+Get\+Weapon\+Fire (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented in \mbox{\hyperlink{class_glfw_window_a02da5ffde4ecd009cd08925676954379}{Glfw\+Window}}.
+
 \mbox{\Hypertarget{class_window_ae1188b3d644b1b6d45412d8720db645a}\label{class_window_ae1188b3d644b1b6d45412d8720db645a}} 
 \index{Window@{Window}!Init@{Init}}
 \index{Init@{Init}!Window@{Window}}
@@ -158,8 +206,94 @@ Initilises the window class, setting the title height and width.
 
 Reimplemented in \mbox{\hyperlink{class_glfw_window_a0c70795c4b6a12d9266dc84dee3c1e79}{Glfw\+Window}}.
 
+\mbox{\Hypertarget{class_window_af171c7ce271483cd2f2c47640409a090}\label{class_window_af171c7ce271483cd2f2c47640409a090}} 
+\index{Window@{Window}!MouseMove@{MouseMove}}
+\index{MouseMove@{MouseMove}!Window@{Window}}
+\doxysubsubsection{\texorpdfstring{MouseMove()}{MouseMove()}}
+{\footnotesize\ttfamily virtual void Window\+::\+Mouse\+Move (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Sets mouse movmenet. 
+
+
+
+Reimplemented in \mbox{\hyperlink{class_glfw_window_af987835669f9188ecb1195aec60a1021}{Glfw\+Window}}.
+
+\mbox{\Hypertarget{class_window_a48e457e979afccb76e81cbab7e10415f}\label{class_window_a48e457e979afccb76e81cbab7e10415f}} 
+\index{Window@{Window}!Running@{Running}}
+\index{Running@{Running}!Window@{Window}}
+\doxysubsubsection{\texorpdfstring{Running()}{Running()}}
+{\footnotesize\ttfamily virtual bool Window\+::\+Running (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Checks if the window is running still. 
+
+
+
+Reimplemented in \mbox{\hyperlink{class_glfw_window_aa539c3120ee9a6a93acf4275f129985d}{Glfw\+Window}}.
+
+\mbox{\Hypertarget{class_window_a2836a19bf40c2d2664744c2015ad9f4a}\label{class_window_a2836a19bf40c2d2664744c2015ad9f4a}} 
+\index{Window@{Window}!SetRefWindow@{SetRefWindow}}
+\index{SetRefWindow@{SetRefWindow}!Window@{Window}}
+\doxysubsubsection{\texorpdfstring{SetRefWindow()}{SetRefWindow()}}
+{\footnotesize\ttfamily virtual void Window\+::\+Set\+Ref\+Window (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_window}{Window}} $\ast$}]{w }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+\mbox{\Hypertarget{class_window_a0ffed0d5fd1a43f99f2e90cd5c9edd88}\label{class_window_a0ffed0d5fd1a43f99f2e90cd5c9edd88}} 
+\index{Window@{Window}!Terminate@{Terminate}}
+\index{Terminate@{Terminate}!Window@{Window}}
+\doxysubsubsection{\texorpdfstring{Terminate()}{Terminate()}}
+{\footnotesize\ttfamily virtual void Window\+::\+Terminate (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Sets the termination information for the class. 
+
+
+
+Reimplemented in \mbox{\hyperlink{class_glfw_window_a3faa02511991ec58e420253f34a3079b}{Glfw\+Window}}.
+
+\mbox{\Hypertarget{class_window_a03a0199785c3a7128f3ea39e7c821201}\label{class_window_a03a0199785c3a7128f3ea39e7c821201}} 
+\index{Window@{Window}!ToggleFullScreen@{ToggleFullScreen}}
+\index{ToggleFullScreen@{ToggleFullScreen}!Window@{Window}}
+\doxysubsubsection{\texorpdfstring{ToggleFullScreen()}{ToggleFullScreen()}}
+{\footnotesize\ttfamily virtual void Window\+::\+Toggle\+Full\+Screen (\begin{DoxyParamCaption}\item[{bool}]{change }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented in \mbox{\hyperlink{class_glfw_window_a20ea3e5b3e75fd4af0363fffa98e333e}{Glfw\+Window}}.
+
+\mbox{\Hypertarget{class_window_a8df526b71e0a4d291fe0b9c3bc04ba25}\label{class_window_a8df526b71e0a4d291fe0b9c3bc04ba25}} 
+\index{Window@{Window}!Update@{Update}}
+\index{Update@{Update}!Window@{Window}}
+\doxysubsubsection{\texorpdfstring{Update()}{Update()}}
+{\footnotesize\ttfamily virtual void Window\+::\+Update (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Updates the window for things such as time, lens values. 
+
+
+
+Reimplemented in \mbox{\hyperlink{class_glfw_window_ad3638697ddef18438e225187819258e7}{Glfw\+Window}}.
+
+\mbox{\Hypertarget{class_window_a572a96619286755b1744195205389223}\label{class_window_a572a96619286755b1744195205389223}} 
+\index{Window@{Window}!UpdateCamera@{UpdateCamera}}
+\index{UpdateCamera@{UpdateCamera}!Window@{Window}}
+\doxysubsubsection{\texorpdfstring{UpdateCamera()}{UpdateCamera()}}
+{\footnotesize\ttfamily virtual void Window\+::\+Update\+Camera (\begin{DoxyParamCaption}\item[{glm\+::vec3}]{p }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Updates the camera position. 
+
+
+
+Reimplemented in \mbox{\hyperlink{class_glfw_window_a43f83bb9b7191a229b695c4050ad3a3c}{Glfw\+Window}}.
+
 
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-/\+Volumes/\+GITS/\+ICT397-\/\+Project/\+ICT397-\/\+Project-\/\+Engine/Window.\+h\end{DoxyCompactItemize}
+ICT397-\/\+Project-\/\+Engine/\mbox{\hyperlink{_window_8h}{Window.\+h}}\end{DoxyCompactItemize}

@@ -1,0 +1,352 @@
+\hypertarget{class_main_menu_g_u_i}{}\doxysection{Main\+Menu\+GUI Class Reference}
+\label{class_main_menu_g_u_i}\index{MainMenuGUI@{MainMenuGUI}}
+
+
+{\ttfamily \#include $<$Main\+Menu\+GUI.\+h$>$}
+
+
+
+Collaboration diagram for Main\+Menu\+GUI\+:
+% FIG 0
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{class_main_menu_g_u_i_a11b09bcf143e837542cc47519ef9c084}{Previous\+Menu}} \{ \newline
+\mbox{\hyperlink{class_main_menu_g_u_i_a11b09bcf143e837542cc47519ef9c084ac86ec317870f7dec58705d0ba63f9335}{Main\+Menu}}
+, \mbox{\hyperlink{class_main_menu_g_u_i_a11b09bcf143e837542cc47519ef9c084a034fbbc9f2b26feb9a52177e328d8449}{Pause\+Menu}}
+, \mbox{\hyperlink{class_main_menu_g_u_i_a11b09bcf143e837542cc47519ef9c084a9b493bd1c86cd9fbcf13fa3ab8a7e762}{Settings\+Menu}}
+, \mbox{\hyperlink{class_main_menu_g_u_i_a11b09bcf143e837542cc47519ef9c084ad06043177c6bd5bb20e3e36e51cf59ce}{Difficulty\+Menu}}
+, \newline
+\mbox{\hyperlink{class_main_menu_g_u_i_a11b09bcf143e837542cc47519ef9c084a7fbbb083f590ffb9a3b38d3672a7c1d8}{Controls\+Menu}}
+ \}
+\begin{DoxyCompactList}\small\item\em Enum to track the last menu visible to the user. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_main_menu_g_u_i_aafe475018868b29372e87d210621f4c0}{Draw}} ()
+\begin{DoxyCompactList}\small\item\em Draw main menu function. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_main_menu_g_u_i_a06c998c1b05008bbf3f50242b63dba2c}{Load\+Texture\+From\+File}} (std\+::string filename, GLuint $\ast$out\+\_\+texture, int $\ast$out\+\_\+width, int $\ast$out\+\_\+height)
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{namespace_im_gui}{Im\+Gui}} Texture loader. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_main_menu_g_u_i_aa9e79a2e06dc13c84412ef5d0b619805}{Display\+Settings}} ()
+\begin{DoxyCompactList}\small\item\em Toggles different bools to display the settings menu. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_main_menu_g_u_i_a0502033e686286fea0ff4f2418cceb0f}{Display\+Main\+Menu}} ()
+\begin{DoxyCompactList}\small\item\em Toggles different bools to display the main menu. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_main_menu_g_u_i_a64f24a6057e891ea1570ef0bdc93cb9f}{Display\+Pause\+Menu}} ()
+\begin{DoxyCompactList}\small\item\em Toggles different bools to display the pause menu. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_main_menu_g_u_i_aa17884bc383bda8f73682c49c770ce25}{Display\+Difficulty\+Menu}} ()
+\begin{DoxyCompactList}\small\item\em Toggles different bools to display the difficulty menu. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_main_menu_g_u_i_afbcf2928e15ae32fa52eeb9a376dce64}{Display\+Controls\+Menu}} ()
+\begin{DoxyCompactList}\small\item\em Toggles different bools to display the controls menu. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_main_menu_g_u_i_ae745fb5ee98603825008733d56eb3fb9}{Display\+Death\+Screen}} ()
+\begin{DoxyCompactList}\small\item\em Toggles different bools to display the death screen. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_main_menu_g_u_i_a42cccc308306b690140398b96fa7501a}{Hide\+Menus}} ()
+\begin{DoxyCompactList}\small\item\em Toggles different bools to hide all menus. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{class_main_menu_g_u_i}{Main\+Menu\+GUI}} $\ast$ \mbox{\hyperlink{class_main_menu_g_u_i_a589ace1193edc7b5238a9970b1eac5ae}{Get\+Instance}} ()
+\begin{DoxyCompactList}\small\item\em Singleton get function. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{group___main_menu_toggles_ga98d29fe21edf6ed34115b972870425d6}{display\+Main\+Menu}} = true
+\item 
+bool \mbox{\hyperlink{group___main_menu_toggles_gaff9551af83cfb53461820dfc03739160}{display\+Pause\+Menu}} = false
+\item 
+bool \mbox{\hyperlink{group___main_menu_toggles_ga905676699e5d9ac855639ecb3f988153}{display\+Settings}} = false
+\item 
+bool \mbox{\hyperlink{group___main_menu_toggles_gab929f3c8b99d785e06bdde28af521e96}{display\+Difficulty}} = false
+\item 
+bool \mbox{\hyperlink{group___main_menu_toggles_ga96f2abb1086d5f99a2078134a34db4fa}{display\+Controls}} = false
+\item 
+bool \mbox{\hyperlink{group___main_menu_toggles_ga4461bf4bc90448bb4206d70f51ad2507}{display\+Death\+Screen}} = false
+\item 
+bool \mbox{\hyperlink{group___main_menu_toggles_ga5b2c739f107a26bc38a9c65f0c7ce49c}{can\+Display\+Pause\+Menu}} = false
+\item 
+bool \mbox{\hyperlink{group___main_menu_toggles_ga9c122f1428857b6384854daca8efa38a}{main\+Menu\+Closed}} = false
+\item 
+bool \mbox{\hyperlink{group___main_menu_toggles_gabe13b91174b00634752b9dff075f0f49}{quit\+Clicked}} = false
+\item 
+bool \mbox{\hyperlink{group___main_menu_toggles_ga16b5218b6051ee3cefbb5452a2ead786}{save\+Game\+Clicked}} = false
+\item 
+bool \mbox{\hyperlink{group___main_menu_toggles_gaf82c42f7e1be5fd2122e280d311db926}{show\+Saved\+Text}} = false
+\item 
+bool \mbox{\hyperlink{group___main_menu_toggles_ga0c0292115a42b2da13866df9c58b2750}{load\+Game\+Clicked}} = false
+\item 
+bool \mbox{\hyperlink{group___main_menu_toggles_gae8feff8d939db58028261aecf6546f03}{no\+Save\+File\+Found}} = false
+\item 
+bool \mbox{\hyperlink{group___main_menu_toggles_gabddeeede4387ae682ec557c23196b268}{new\+Game\+Clicked}} = false
+\item 
+bool \mbox{\hyperlink{group___main_menu_toggles_ga6027d6804583f5424ba1f4eb27d4b25c}{end\+Screen\+Button\+Clicked}} = false
+\item 
+bool \mbox{\hyperlink{group___main_menu_toggles_gacfde87ae268291fbce28b9a6c2990c85}{displaying\+AMenu}} = false
+\item 
+\mbox{\hyperlink{class_main_menu_g_u_i_a11b09bcf143e837542cc47519ef9c084}{Previous\+Menu}} \mbox{\hyperlink{class_main_menu_g_u_i_a1dbd7d82cff6bfef2995328a490ae6c2}{previous\+Menu}}
+\begin{DoxyCompactList}\small\item\em Previous menu object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_settings_manager}{Settings\+Manager}} $\ast$ \mbox{\hyperlink{class_main_menu_g_u_i_af6ec7558488558fa34b127451fe63073}{settings\+Manager}}
+\begin{DoxyCompactList}\small\item\em Easy access to the settings manager. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{group___menu_image_information_ga11d87e157ca7f205056fc8a8929a7e5b}{game\+Name\+Image\+Path}} = \char`\"{}./res/images/ZOOM.\+png\char`\"{}
+\item 
+int \mbox{\hyperlink{group___menu_image_information_gab7d1720dd109f31d2b99a46df2db7394}{my\+\_\+image\+\_\+width}} = 0
+\item 
+int \mbox{\hyperlink{group___menu_image_information_ga7c7dd8f2ec1f635ae3adb9c87ef465ac}{my\+\_\+image\+\_\+height}} = 0
+\item 
+GLuint \mbox{\hyperlink{group___menu_image_information_gac518b1fd5815fc39500b4293da4cab0c}{my\+\_\+image\+\_\+texture}} = 0
+\item 
+float \mbox{\hyperlink{group___menu_image_information_gab3c2b98425e7bc59962b0cba97efc108}{image\+Aspec}} = 0
+\item 
+std\+::string \mbox{\hyperlink{group___menu_image_information_ga4a2f740e1ca36a8ad6c73560e95d262e}{paused\+Image\+Path}} = \char`\"{}./res/images/paused.\+png\char`\"{}
+\item 
+int \mbox{\hyperlink{group___menu_image_information_ga95c3d48c41623c6321d5b4c84a2ed497}{paused\+Width}} = 0
+\item 
+int \mbox{\hyperlink{group___menu_image_information_ga1e5fa19582e6a1b6f760448331b814d4}{paused\+Height}} = 0
+\item 
+GLuint \mbox{\hyperlink{group___menu_image_information_ga2543e311a303c2dfffcc24ac06ee7b26}{paused\+Texture}} = 0
+\item 
+float \mbox{\hyperlink{group___menu_image_information_gaba1accf9f69a16430b6be16f54d3f7c2}{paused\+Image\+Aspect}} = 0
+\item 
+std\+::string \mbox{\hyperlink{group___menu_image_information_gaa468e3dde771b7ffb30271f03827f4ba}{settings\+Image\+Path}} = \char`\"{}./res/images/settings.\+png\char`\"{}
+\item 
+int \mbox{\hyperlink{class_main_menu_g_u_i_aa8380a76c8e1dbfc1234f5f16e3ef54b}{settings\+Width}} = 0
+\item 
+int \mbox{\hyperlink{group___menu_image_information_ga23abcbd0e9fc357f7a7b6e505fecdee2}{settings\+Height}} = 0
+\item 
+GLuint \mbox{\hyperlink{group___menu_image_information_gab3a50a48fd9e1ce1be488051d13ec959}{settings\+Texture}} = 0
+\item 
+float \mbox{\hyperlink{group___menu_image_information_ga60c8d92fa61b7bb8c35f51c8092cb091}{settings\+Image\+Aspect}} = 0
+\item 
+std\+::string \mbox{\hyperlink{group___menu_image_information_gad1146aea23aaf21390d2bdfbd59231c4}{diff\+Image\+Path}} = \char`\"{}./res/images/difficulty.\+png\char`\"{}
+\item 
+int \mbox{\hyperlink{group___menu_image_information_gab7c388f42ec46c097238f74f55233991}{diff\+Width}} = 0
+\item 
+int \mbox{\hyperlink{group___menu_image_information_ga0694fa32a80b731a41528ffe4aadd6e3}{diff\+Height}} = 0
+\item 
+GLuint \mbox{\hyperlink{group___menu_image_information_ga54d962b8a06fe4353c0a8c3ec5a9271c}{diff\+Texture}} = 0
+\item 
+float \mbox{\hyperlink{group___menu_image_information_ga9a6cde12900d80122a8bbe77d885626c}{diff\+Image\+Aspect}} = 0
+\item 
+std\+::string \mbox{\hyperlink{group___menu_image_information_ga9be449c0b571edd2af718b859e700b41}{controls\+Image\+Path}} = \char`\"{}./res/images/controls.\+png\char`\"{}
+\item 
+int \mbox{\hyperlink{group___menu_image_information_gab236c2e2538edd0e6cafbf433ce4bec4}{controls\+Width}} = 0
+\item 
+int \mbox{\hyperlink{group___menu_image_information_ga8cb2662f4198483070afa0a71ecba244}{controls\+Height}} = 0
+\item 
+GLuint \mbox{\hyperlink{group___menu_image_information_gac6db320eabf39d10bfe5e04801712265}{controls\+Texture}} = 0
+\item 
+float \mbox{\hyperlink{group___menu_image_information_gac0a1ce1edd3db7fbd1ff3a91559dc7da}{controls\+Image\+Aspect}} = 0
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_main_menu_g_u_i_a4f94124b22a4f134c747bdc8885a6747}{Main\+Menu\+GUI}} (std\+::string script\+Path)
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{class_main_menu_g_u_i}{Main\+Menu\+GUI}} $\ast$ \mbox{\hyperlink{class_main_menu_g_u_i_affd2240902bee2a8c79c0842456e369b}{instance}} = 0
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Enumeration Documentation}
+\mbox{\Hypertarget{class_main_menu_g_u_i_a11b09bcf143e837542cc47519ef9c084}\label{class_main_menu_g_u_i_a11b09bcf143e837542cc47519ef9c084}} 
+\index{MainMenuGUI@{MainMenuGUI}!PreviousMenu@{PreviousMenu}}
+\index{PreviousMenu@{PreviousMenu}!MainMenuGUI@{MainMenuGUI}}
+\doxysubsubsection{\texorpdfstring{PreviousMenu}{PreviousMenu}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{class_main_menu_g_u_i_a11b09bcf143e837542cc47519ef9c084}{Main\+Menu\+GUI\+::\+Previous\+Menu}}}
+
+
+
+Enum to track the last menu visible to the user. 
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MainMenu@{MainMenu}!MainMenuGUI@{MainMenuGUI}}\index{MainMenuGUI@{MainMenuGUI}!MainMenu@{MainMenu}}}\mbox{\Hypertarget{class_main_menu_g_u_i_a11b09bcf143e837542cc47519ef9c084ac86ec317870f7dec58705d0ba63f9335}\label{class_main_menu_g_u_i_a11b09bcf143e837542cc47519ef9c084ac86ec317870f7dec58705d0ba63f9335}} 
+Main\+Menu&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PauseMenu@{PauseMenu}!MainMenuGUI@{MainMenuGUI}}\index{MainMenuGUI@{MainMenuGUI}!PauseMenu@{PauseMenu}}}\mbox{\Hypertarget{class_main_menu_g_u_i_a11b09bcf143e837542cc47519ef9c084a034fbbc9f2b26feb9a52177e328d8449}\label{class_main_menu_g_u_i_a11b09bcf143e837542cc47519ef9c084a034fbbc9f2b26feb9a52177e328d8449}} 
+Pause\+Menu&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SettingsMenu@{SettingsMenu}!MainMenuGUI@{MainMenuGUI}}\index{MainMenuGUI@{MainMenuGUI}!SettingsMenu@{SettingsMenu}}}\mbox{\Hypertarget{class_main_menu_g_u_i_a11b09bcf143e837542cc47519ef9c084a9b493bd1c86cd9fbcf13fa3ab8a7e762}\label{class_main_menu_g_u_i_a11b09bcf143e837542cc47519ef9c084a9b493bd1c86cd9fbcf13fa3ab8a7e762}} 
+Settings\+Menu&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DifficultyMenu@{DifficultyMenu}!MainMenuGUI@{MainMenuGUI}}\index{MainMenuGUI@{MainMenuGUI}!DifficultyMenu@{DifficultyMenu}}}\mbox{\Hypertarget{class_main_menu_g_u_i_a11b09bcf143e837542cc47519ef9c084ad06043177c6bd5bb20e3e36e51cf59ce}\label{class_main_menu_g_u_i_a11b09bcf143e837542cc47519ef9c084ad06043177c6bd5bb20e3e36e51cf59ce}} 
+Difficulty\+Menu&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ControlsMenu@{ControlsMenu}!MainMenuGUI@{MainMenuGUI}}\index{MainMenuGUI@{MainMenuGUI}!ControlsMenu@{ControlsMenu}}}\mbox{\Hypertarget{class_main_menu_g_u_i_a11b09bcf143e837542cc47519ef9c084a7fbbb083f590ffb9a3b38d3672a7c1d8}\label{class_main_menu_g_u_i_a11b09bcf143e837542cc47519ef9c084a7fbbb083f590ffb9a3b38d3672a7c1d8}} 
+Controls\+Menu&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_main_menu_g_u_i_a4f94124b22a4f134c747bdc8885a6747}\label{class_main_menu_g_u_i_a4f94124b22a4f134c747bdc8885a6747}} 
+\index{MainMenuGUI@{MainMenuGUI}!MainMenuGUI@{MainMenuGUI}}
+\index{MainMenuGUI@{MainMenuGUI}!MainMenuGUI@{MainMenuGUI}}
+\doxysubsubsection{\texorpdfstring{MainMenuGUI()}{MainMenuGUI()}}
+{\footnotesize\ttfamily Main\+Menu\+GUI\+::\+Main\+Menu\+GUI (\begin{DoxyParamCaption}\item[{std\+::string}]{script\+Path }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}, {\ttfamily [protected]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_main_menu_g_u_i_afbcf2928e15ae32fa52eeb9a376dce64}\label{class_main_menu_g_u_i_afbcf2928e15ae32fa52eeb9a376dce64}} 
+\index{MainMenuGUI@{MainMenuGUI}!DisplayControlsMenu@{DisplayControlsMenu}}
+\index{DisplayControlsMenu@{DisplayControlsMenu}!MainMenuGUI@{MainMenuGUI}}
+\doxysubsubsection{\texorpdfstring{DisplayControlsMenu()}{DisplayControlsMenu()}}
+{\footnotesize\ttfamily void Main\+Menu\+GUI\+::\+Display\+Controls\+Menu (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Toggles different bools to display the controls menu. 
+
+\mbox{\Hypertarget{class_main_menu_g_u_i_ae745fb5ee98603825008733d56eb3fb9}\label{class_main_menu_g_u_i_ae745fb5ee98603825008733d56eb3fb9}} 
+\index{MainMenuGUI@{MainMenuGUI}!DisplayDeathScreen@{DisplayDeathScreen}}
+\index{DisplayDeathScreen@{DisplayDeathScreen}!MainMenuGUI@{MainMenuGUI}}
+\doxysubsubsection{\texorpdfstring{DisplayDeathScreen()}{DisplayDeathScreen()}}
+{\footnotesize\ttfamily void Main\+Menu\+GUI\+::\+Display\+Death\+Screen (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Toggles different bools to display the death screen. 
+
+\mbox{\Hypertarget{class_main_menu_g_u_i_aa17884bc383bda8f73682c49c770ce25}\label{class_main_menu_g_u_i_aa17884bc383bda8f73682c49c770ce25}} 
+\index{MainMenuGUI@{MainMenuGUI}!DisplayDifficultyMenu@{DisplayDifficultyMenu}}
+\index{DisplayDifficultyMenu@{DisplayDifficultyMenu}!MainMenuGUI@{MainMenuGUI}}
+\doxysubsubsection{\texorpdfstring{DisplayDifficultyMenu()}{DisplayDifficultyMenu()}}
+{\footnotesize\ttfamily void Main\+Menu\+GUI\+::\+Display\+Difficulty\+Menu (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Toggles different bools to display the difficulty menu. 
+
+\mbox{\Hypertarget{class_main_menu_g_u_i_a0502033e686286fea0ff4f2418cceb0f}\label{class_main_menu_g_u_i_a0502033e686286fea0ff4f2418cceb0f}} 
+\index{MainMenuGUI@{MainMenuGUI}!DisplayMainMenu@{DisplayMainMenu}}
+\index{DisplayMainMenu@{DisplayMainMenu}!MainMenuGUI@{MainMenuGUI}}
+\doxysubsubsection{\texorpdfstring{DisplayMainMenu()}{DisplayMainMenu()}}
+{\footnotesize\ttfamily void Main\+Menu\+GUI\+::\+Display\+Main\+Menu (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Toggles different bools to display the main menu. 
+
+\mbox{\Hypertarget{class_main_menu_g_u_i_a64f24a6057e891ea1570ef0bdc93cb9f}\label{class_main_menu_g_u_i_a64f24a6057e891ea1570ef0bdc93cb9f}} 
+\index{MainMenuGUI@{MainMenuGUI}!DisplayPauseMenu@{DisplayPauseMenu}}
+\index{DisplayPauseMenu@{DisplayPauseMenu}!MainMenuGUI@{MainMenuGUI}}
+\doxysubsubsection{\texorpdfstring{DisplayPauseMenu()}{DisplayPauseMenu()}}
+{\footnotesize\ttfamily void Main\+Menu\+GUI\+::\+Display\+Pause\+Menu (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Toggles different bools to display the pause menu. 
+
+\mbox{\Hypertarget{class_main_menu_g_u_i_aa9e79a2e06dc13c84412ef5d0b619805}\label{class_main_menu_g_u_i_aa9e79a2e06dc13c84412ef5d0b619805}} 
+\index{MainMenuGUI@{MainMenuGUI}!DisplaySettings@{DisplaySettings}}
+\index{DisplaySettings@{DisplaySettings}!MainMenuGUI@{MainMenuGUI}}
+\doxysubsubsection{\texorpdfstring{DisplaySettings()}{DisplaySettings()}}
+{\footnotesize\ttfamily void Main\+Menu\+GUI\+::\+Display\+Settings (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Toggles different bools to display the settings menu. 
+
+\mbox{\Hypertarget{class_main_menu_g_u_i_aafe475018868b29372e87d210621f4c0}\label{class_main_menu_g_u_i_aafe475018868b29372e87d210621f4c0}} 
+\index{MainMenuGUI@{MainMenuGUI}!Draw@{Draw}}
+\index{Draw@{Draw}!MainMenuGUI@{MainMenuGUI}}
+\doxysubsubsection{\texorpdfstring{Draw()}{Draw()}}
+{\footnotesize\ttfamily void Main\+Menu\+GUI\+::\+Draw (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Draw main menu function. 
+
+\mbox{\Hypertarget{class_main_menu_g_u_i_a589ace1193edc7b5238a9970b1eac5ae}\label{class_main_menu_g_u_i_a589ace1193edc7b5238a9970b1eac5ae}} 
+\index{MainMenuGUI@{MainMenuGUI}!GetInstance@{GetInstance}}
+\index{GetInstance@{GetInstance}!MainMenuGUI@{MainMenuGUI}}
+\doxysubsubsection{\texorpdfstring{GetInstance()}{GetInstance()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_main_menu_g_u_i}{Main\+Menu\+GUI}} $\ast$ Main\+Menu\+GUI\+::\+Get\+Instance (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Singleton get function. 
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_main_menu_g_u_i_a42cccc308306b690140398b96fa7501a}\label{class_main_menu_g_u_i_a42cccc308306b690140398b96fa7501a}} 
+\index{MainMenuGUI@{MainMenuGUI}!HideMenus@{HideMenus}}
+\index{HideMenus@{HideMenus}!MainMenuGUI@{MainMenuGUI}}
+\doxysubsubsection{\texorpdfstring{HideMenus()}{HideMenus()}}
+{\footnotesize\ttfamily void Main\+Menu\+GUI\+::\+Hide\+Menus (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Toggles different bools to hide all menus. 
+
+\mbox{\Hypertarget{class_main_menu_g_u_i_a06c998c1b05008bbf3f50242b63dba2c}\label{class_main_menu_g_u_i_a06c998c1b05008bbf3f50242b63dba2c}} 
+\index{MainMenuGUI@{MainMenuGUI}!LoadTextureFromFile@{LoadTextureFromFile}}
+\index{LoadTextureFromFile@{LoadTextureFromFile}!MainMenuGUI@{MainMenuGUI}}
+\doxysubsubsection{\texorpdfstring{LoadTextureFromFile()}{LoadTextureFromFile()}}
+{\footnotesize\ttfamily bool Main\+Menu\+GUI\+::\+Load\+Texture\+From\+File (\begin{DoxyParamCaption}\item[{std\+::string}]{filename,  }\item[{GLuint $\ast$}]{out\+\_\+texture,  }\item[{int $\ast$}]{out\+\_\+width,  }\item[{int $\ast$}]{out\+\_\+height }\end{DoxyParamCaption})}
+
+
+
+\mbox{\hyperlink{namespace_im_gui}{Im\+Gui}} Texture loader. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & \\
+\hline
+{\em out\+\_\+texture} & \\
+\hline
+{\em out\+\_\+width} & \\
+\hline
+{\em out\+\_\+height} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{class_main_menu_g_u_i_affd2240902bee2a8c79c0842456e369b}\label{class_main_menu_g_u_i_affd2240902bee2a8c79c0842456e369b}} 
+\index{MainMenuGUI@{MainMenuGUI}!instance@{instance}}
+\index{instance@{instance}!MainMenuGUI@{MainMenuGUI}}
+\doxysubsubsection{\texorpdfstring{instance}{instance}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_main_menu_g_u_i}{Main\+Menu\+GUI}} $\ast$ Main\+Menu\+GUI\+::instance = 0\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [protected]}}
+
+\mbox{\Hypertarget{class_main_menu_g_u_i_a1dbd7d82cff6bfef2995328a490ae6c2}\label{class_main_menu_g_u_i_a1dbd7d82cff6bfef2995328a490ae6c2}} 
+\index{MainMenuGUI@{MainMenuGUI}!previousMenu@{previousMenu}}
+\index{previousMenu@{previousMenu}!MainMenuGUI@{MainMenuGUI}}
+\doxysubsubsection{\texorpdfstring{previousMenu}{previousMenu}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_main_menu_g_u_i_a11b09bcf143e837542cc47519ef9c084}{Previous\+Menu}} Main\+Menu\+GUI\+::previous\+Menu}
+
+
+
+Previous menu object. 
+
+\mbox{\Hypertarget{class_main_menu_g_u_i_af6ec7558488558fa34b127451fe63073}\label{class_main_menu_g_u_i_af6ec7558488558fa34b127451fe63073}} 
+\index{MainMenuGUI@{MainMenuGUI}!settingsManager@{settingsManager}}
+\index{settingsManager@{settingsManager}!MainMenuGUI@{MainMenuGUI}}
+\doxysubsubsection{\texorpdfstring{settingsManager}{settingsManager}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_settings_manager}{Settings\+Manager}}$\ast$ Main\+Menu\+GUI\+::settings\+Manager}
+
+
+
+Easy access to the settings manager. 
+
+\mbox{\Hypertarget{class_main_menu_g_u_i_aa8380a76c8e1dbfc1234f5f16e3ef54b}\label{class_main_menu_g_u_i_aa8380a76c8e1dbfc1234f5f16e3ef54b}} 
+\index{MainMenuGUI@{MainMenuGUI}!settingsWidth@{settingsWidth}}
+\index{settingsWidth@{settingsWidth}!MainMenuGUI@{MainMenuGUI}}
+\doxysubsubsection{\texorpdfstring{settingsWidth}{settingsWidth}}
+{\footnotesize\ttfamily int Main\+Menu\+GUI\+::settings\+Width = 0}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+ICT397-\/\+Project-\/\+Engine/\mbox{\hyperlink{_main_menu_g_u_i_8h}{Main\+Menu\+GUI.\+h}}\item 
+ICT397-\/\+Project-\/\+Engine/\mbox{\hyperlink{_main_menu_g_u_i_8cpp}{Main\+Menu\+GUI.\+cpp}}\end{DoxyCompactItemize}
