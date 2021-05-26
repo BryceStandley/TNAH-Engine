@@ -279,7 +279,7 @@ float Terrain::getHeight(int xpos, int zpos) {
     }
     else
     {
-	    return terrainHeights[zpos - 1  * sizeZ + xpos];
+	    return terrainHeights[((zpos - 1)  * sizeZ) + xpos];
     }
 }
 
@@ -295,7 +295,7 @@ float Terrain::GetVertexHeight(int xPos, int zPos)
 	}
 	else
 	{
-		return vertex.position[(zPos - 1 * sizeZ) + xPos].y;
+		return vertex.position[((zPos - 1) * sizeZ) + xPos].y;
 	}
 }
 
@@ -349,7 +349,9 @@ float Terrain::getHeightColor(int xpos, int zpos) {
 
 bool Terrain::inBounds(int xpos, int zpos)
 {
-    if (xpos > 0 && xpos < sizeX && zpos >= 0 && zpos < sizeZ)
+
+
+    if ((xpos >= 0 && (float)xpos < (float)sizeX * scaleX) && (zpos >= 0 && zpos < (float)sizeZ * scaleZ))
         return true;
     else
         return false;

@@ -10,12 +10,12 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <ctime>
 #include <cmath>
+#include <corecrt_math_defines.h>
 
 #include "Shader.h"
 #include "TextureLoader.h"
 #include "Input.h"
 
-#include "tga/tga.h"
 
 
 	/**
