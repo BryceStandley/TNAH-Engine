@@ -5,6 +5,9 @@
 
 *._*
 *.DS_Store
+*.ini
+*.sav
+*.log
 
 # User-specific files
 *.rsuser

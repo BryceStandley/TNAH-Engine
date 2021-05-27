@@ -413,6 +413,8 @@ void Terrain::SmoothTerrain(Vertex& vert, float smoothFactor)
 			float center = GetVertexHeight(x,z) / 4.0f;
 			float newHeight = (corners + sides + center);
 
+            if (newHeight > highestPoint.y) { highestPoint = glm::vec3(x, newHeight, z); }
+            if (newHeight < lowestPoint.y) { lowestPoint = glm::vec3(x, newHeight, z); }
 			SetVertexHeight(x, z, newHeight);
 		}
 	}

@@ -96,7 +96,7 @@ private:
 	std::string filename;
 	std::string tex1, tex2, tex3, tex4, tex5;
 	glm::vec3 highestPoint = glm::vec3(0,0,0);
-	glm::vec3 lowestPoint = glm::vec3(0,0,0);
+	glm::vec3 lowestPoint = glm::vec3(1000,1000,1000);
 
 public:
 

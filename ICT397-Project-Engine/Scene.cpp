@@ -280,9 +280,10 @@ void Scene::UpdatePlayer(glm::vec3 position, glm::vec3 rotation, float time)
     if(position == gameObjects[playerInd]->GetPos()) return;
 
     glm::vec3 newPos = WorldToTerrainPosition(position, true);
-	newPos.y += 2.0f;
+    newPos.y += Lerp(1.5f, 3.0f, time * 4.0f);
 
-	newPos.y = Lerp(position.y, newPos.y, time);
+	//newPos.y = Lerp(newPos.y + 2.0f, newPos.y + 3.0f,  time * 2.0f );
+
 
 	if (newPos.y >= 25.0f && !Debugger::GetInstance()->noPlayerYClip)
 	{
@@ -290,7 +291,12 @@ void Scene::UpdatePlayer(glm::vec3 position, glm::vec3 rotation, float time)
 		newPos.y = gameObjects[playerInd]->GetPos().y;
 		newPos.z = gameObjects[playerInd]->GetPos().z;
 	}
-
+    
+   /* if (newPos.y < WorldToTerrainPosition(newPos, false).y + 1.0f)
+    {
+        newPos.y = WorldToTerrainPosition(newPos, false).y + 2.0f;
+    }
+    */
 	newPos = CheckSceneCollision(newPos);
 
 	gameObjects[playerInd]->SetPos(newPos);
@@ -316,14 +322,14 @@ glm::vec3 Scene::WorldToTerrainPosition(glm::vec3 p, bool average)
 	if(average)
 	{
 		float y = (gameTerrain->getAverageHeight((int)worldx, (int)worldz));
-		y = Remap(y, 0, gameTerrain->GetMaxHeight().y, 0, 82.0f);
+		y = Remap(y, gameTerrain->GetMinHeight().y, gameTerrain->GetMaxHeight().y, 2, 80.0f);
 		p.y = y;
 	}
 	else
 	{
 		//p.y = (gameTerrain->GetVertexHeight((int)worldx, (int)worldz) / (worldToTerrainScaleFactor * gameTerrain->GetScales().y));
 		float y = gameTerrain->GetVertexHeight((int)worldx, (int)worldz);
-		p.y = Remap(y, 0, gameTerrain->GetMaxHeight().y, 0, 82.0f);
+		p.y = Remap(y, gameTerrain->GetMinHeight().y, gameTerrain->GetMaxHeight().y, 2, 80.0f);
 	}
 	return p;
 }
@@ -504,7 +510,7 @@ void Scene::EnemyFireWeapon(GameObject* enemy, float fireDistance)
 		pl.y = point.y;
 		if (rand() % 100 <= (100 * e->GetAccuracy() * 0.5f))  //glm::distance(pl, point) <= e->GetAccuracy())
 		{
-			e->decreaseHealth(p->getDamage());
+
 			p->setHealth(p->getHealth() - e->GetDamage());
 			if (p->getHealth() <= 0)
 			{
