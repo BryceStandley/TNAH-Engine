@@ -267,11 +267,11 @@ void Scene::Init()
     gameGui = new GameGUI("./res/scripts/menus/game.lua");
     endScreenGUI = new EndScreenGUI("./res/scripts/menus/endScreen.lua");
     mainMenuGui = MainMenuGUI::GetInstance();
-    spawnPoints.emplace_back(glm::vec3(514, 20, 393));
-    spawnPoints.emplace_back(glm::vec3(421, 20, 164));
-    spawnPoints.emplace_back(glm::vec3(246, 31, 94));
-    spawnPoints.emplace_back(glm::vec3(66, 30, 353));
-    spawnPoints.emplace_back(glm::vec3(408, 9, 50));
+    spawnPoints.emplace_back(glm::vec3(409, 4.5, 262));
+    spawnPoints.emplace_back(glm::vec3(137, 8, 372));
+    spawnPoints.emplace_back(glm::vec3(184, 11, 201));
+    spawnPoints.emplace_back(glm::vec3(312, 6, 312));
+    spawnPoints.emplace_back(glm::vec3(312, 6, 436));
 }
 
 
