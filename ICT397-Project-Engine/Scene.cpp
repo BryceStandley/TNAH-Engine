@@ -282,9 +282,7 @@ void Scene::UpdatePlayer(glm::vec3 position, glm::vec3 rotation, float time)
     glm::vec3 newPos = WorldToTerrainPosition(position, true);
 	newPos.y += 2.0f;
 
-    newPos.x = Lerp(position.x, newPos.x, time);
 	newPos.y = Lerp(position.y, newPos.y, time);
-	newPos.z = Lerp(position.z, newPos.z, time);
 
 	if (newPos.y >= 25.0f && !Debugger::GetInstance()->noPlayerYClip)
 	{

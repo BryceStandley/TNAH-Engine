@@ -23,7 +23,7 @@ do
     z = math.random(minZ, maxZ)
     cs:MakeGameObject("enemy",  "./res/scripts/gameobjects/enemy_zarlag.lua", 0.05, x, 1.2, z);   
 end
-cs:MakeGameObject("water",  "./res/scripts/gameobjects/static_water.lua", 0.05, 50, 0.5, 50);
+cs:MakeGameObject("water",  "./res/scripts/gameobjects/static_water.lua", 0.05, playerX, 0.5, playerZ);
 
 y = 1--Y value for all tokens
 for i = 0, 2
