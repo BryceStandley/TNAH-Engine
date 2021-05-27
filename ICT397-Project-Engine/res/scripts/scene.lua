@@ -12,12 +12,12 @@ cs:MakeGameObject("player", "./res/scripts/gameobjects/player_default.lua", 0.07
 --Make this static object invisible to the plyer
 cs:MakeGameObject("static",  "./res/scripts/gameobjects/static_tree3.lua", 0.005, -100, 1.2, -100);
 
-minX = (52 * 12) / 6;
-maxX = minX + (minX * 3);
+minX = 120;
+maxX = 430;
 minZ = minX;
 maxZ = maxX;
 
-for i = 0, 10
+for i = 0, 1
 do
     x = math.random(minX, maxX)
     z = math.random(minZ, maxZ)

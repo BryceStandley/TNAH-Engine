@@ -10,7 +10,9 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <ctime>
 #include <cmath>
+#if _WIN32_
 #include <corecrt_math_defines.h>
+#endif
 
 #include "Shader.h"
 #include "TextureLoader.h"
@@ -91,12 +93,13 @@ private:
 	std::vector<glm::vec3> totalData;
 	std::string filename;
 	std::string tex1, tex2, tex3, tex4, tex5;
-	float maxYValue = 0;
-	float secondMaxYValue = 0;
+	glm::vec3 highestPoint = glm::vec3(0,0,0);
+	glm::vec3 lowestPoint = glm::vec3(0,0,0);
 
 public:
 
-	float GetMaxYValue(){ return maxYValue; }
+	glm::vec3 GetMaxHeight(){ return highestPoint; }
+	glm::vec3 GetMinHeight(){ return lowestPoint; }
 	
 		/**
 		* @brief gets and returns a vector containing all indice values

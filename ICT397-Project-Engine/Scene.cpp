@@ -161,7 +161,7 @@ void Scene::Run(View lens, float time, bool exit)
 			    if (gameObjects[x]->GetType() == "enemy")
 			    {
 				    auto* e = (Enemy*)gameObjects[x];
-				    UpdateGameObject(e->GetPos(), x);
+				    UpdateGameObject(e->GetPos(), x, time);
 				    if(e->GetFireWeapon()) { EnemyFireWeapon(e, 5); }
 				    if (!gameObjects[x]->Kill())
 				    {
@@ -171,8 +171,7 @@ void Scene::Run(View lens, float time, bool exit)
 		    }
 	    }
 
-	    //If game object is of type player
-	    UpdatePlayer(lens.GetPosition(), lens.GetRotation());
+
 
 
         std::vector<GameObject*>::iterator removed;
@@ -231,7 +230,8 @@ void Scene::Run(View lens, float time, bool exit)
             playerWeapon.canFireWeapon = true;
         }
 
-
+	    //If game object is of type player
+	    UpdatePlayer(lens.GetPosition(), lens.GetRotation(), time);
 
         //GameUI
         if (gameGui)
@@ -275,44 +275,87 @@ void Scene::Init()
 }
 
 
-void Scene::UpdatePlayer(glm::vec3 position, glm::vec3 rotation)
+void Scene::UpdatePlayer(glm::vec3 position, glm::vec3 rotation, float time)
 {
     if(position == gameObjects[playerInd]->GetPos()) return;
 
-    position.y = WorldToTerrainPosition(position, true).y + 1.5f;
+    glm::vec3 newPos = WorldToTerrainPosition(position, true);
+	newPos.y += 2.0f;
 
-	if (position.y >= 25.0f && !Debugger::GetInstance()->noPlayerYClip)
+    newPos.x = Lerp(position.x, newPos.x, time);
+	newPos.y = Lerp(position.y, newPos.y, time);
+	newPos.z = Lerp(position.z, newPos.z, time);
+
+	if (newPos.y >= 25.0f && !Debugger::GetInstance()->noPlayerYClip)
 	{
-        position.x = gameObjects[playerInd]->GetPos().x;
-        position.y = gameObjects[playerInd]->GetPos().y;
-        position.z = gameObjects[playerInd]->GetPos().z;
+		newPos.x = gameObjects[playerInd]->GetPos().x;
+		newPos.y = gameObjects[playerInd]->GetPos().y;
+		newPos.z = gameObjects[playerInd]->GetPos().z;
 	}
 
-    position = CheckSceneCollision(position);
+	newPos = CheckSceneCollision(newPos);
 
-	gameObjects[playerInd]->SetPos(position);
+	gameObjects[playerInd]->SetPos(newPos);
+}
+float Scene::Lerp(float a, float b, float t)
+{
+	return (a * (1.0f - t)) + (b * t);
 }
 
-void Scene::UpdateGameObject(glm::vec3 position, int i)
+float Scene::Interpolate(float a, float b, float blend)
+{
+	double theta = blend * M_PI;
+	float f = (float) (1.0f - cos(theta)) * 0.5f;
+	return a * (1.0f - f) + b * f;
+}
+
+glm::vec3 Scene::WorldToTerrainPosition(glm::vec3 p, bool average)
+{
+	//std::cout << "Updaing position" << Debugger::GetInstance()->DebugVec3(p) << std::endl;
+	float worldx, worldz;
+	worldx = Remap(p.x, 0, 52.0f * gameTerrain->GetScales().x, 0, (float)gameTerrain->getSize());
+	worldz = Remap(p.z, 0, 52.0f * gameTerrain->GetScales().z, 0, (float)gameTerrain->getSize());
+	if(average)
+	{
+		float y = (gameTerrain->getAverageHeight((int)worldx, (int)worldz));
+		y = Remap(y, 0, gameTerrain->GetMaxHeight().y, 0, 82.0f);
+		p.y = y;
+	}
+	else
+	{
+		//p.y = (gameTerrain->GetVertexHeight((int)worldx, (int)worldz) / (worldToTerrainScaleFactor * gameTerrain->GetScales().y));
+		float y = gameTerrain->GetVertexHeight((int)worldx, (int)worldz);
+		p.y = Remap(y, 0, gameTerrain->GetMaxHeight().y, 0, 82.0f);
+	}
+	return p;
+}
+
+
+void Scene::UpdateGameObject(glm::vec3 position, int i, float time)
 {
     position = EnemyObstacleAvoidance(gameObjects[i], position);
 
-    position.y = WorldToTerrainPosition(position, true).y + 1.2f;
+	glm::vec3 newPos = WorldToTerrainPosition(position, true);
+	newPos.y += 1.2f;
 
-    if (position.y >= 25.0f)
+	newPos.x = Lerp(position.x, newPos.x, time);
+	newPos.y = Lerp(position.y, newPos.y, time);
+	newPos.z = Lerp(position.z, newPos.z, time);
+
+    if (newPos.y >= 25.0f)
     {
-        position.x = gameObjects[i]->GetPos().x;
-        position.y = gameObjects[i]->GetPos().y;
-        position.z = gameObjects[i]->GetPos().z;
+	    newPos.x = gameObjects[i]->GetPos().x;
+	    newPos.y = gameObjects[i]->GetPos().y;
+	    newPos.z = gameObjects[i]->GetPos().z;
     }
 
-	gameObjects[i]->SetPos(position);
+	gameObjects[i]->SetPos(newPos);
 }
 
 void Scene::MakeGameObject(std::string t, std::string script, float scale, float x, float y, float z)
 {
     //Check the terrain height to make sure the object isn't under the terrain;
-    if(t != "water") y = WorldToTerrainPosition(glm::vec3(x,y,z), true).y - y;
+    if(t != "water") y = WorldToTerrainPosition(glm::vec3(x,y,z), false).y;
 
 	GameObject* newGameObject = factory->GetGameObject(t, script, scale, glm::vec3(x, y, z));
 	if (newGameObject != nullptr)
@@ -630,26 +673,7 @@ bool Scene::intersectRaySegmentSphere(glm::vec3 o, glm::vec3 d, glm::vec3 so, fl
     return true;
 }
 
-glm::vec3 Scene::WorldToTerrainPosition(glm::vec3 p, bool average)
-{
-	//std::cout << "Updaing position" << Debugger::GetInstance()->DebugVec3(p) << std::endl;
-    float worldx, worldz;
-    worldx = Remap(p.x, 0, 52.0f * gameTerrain->GetScales().x, 0, (float)gameTerrain->getSize() - 1);
-    worldz = Remap(p.z, 0, 52.0f * gameTerrain->GetScales().z, 0, (float)gameTerrain->getSize() - 1);
-    if(average)
-    {
-    	float y = (gameTerrain->getAverageHeight((int)worldx, (int)worldz));
-    	y = Remap(y, 0, 290.0, 0, 82.0f);
-    	p.y = y;
-    }
-    else
-    {
-    	//p.y = (gameTerrain->GetVertexHeight((int)worldx, (int)worldz) / (worldToTerrainScaleFactor * gameTerrain->GetScales().y));
-    	float y = gameTerrain->GetVertexHeight((int)worldx, (int)worldz);
-    	p.y = Remap(y, 0, (float)290.0f, 0, 82.0f);
-    }
-    return p;
-}
+
 
 float Scene::Remap(float value, float oldMin, float oldMax, float newMin, float newMax)
 {
@@ -660,8 +684,8 @@ float Scene::Remap(float value, float oldMin, float oldMax, float newMin, float 
 glm::vec3 Scene::PlayerToTerrainPosition(glm::vec3 p)
 {
 	float worldx, worldy, worldz;
-	worldx = Remap(p.x, 0, (CAMERA_TO_WORLD_FACTOR * (gameTerrain->getSize() / 128.0f)) * gameTerrain->GetScales().x, 0, (float)gameTerrain->getSize() - 1);
-	worldz = Remap(p.z, 0, (CAMERA_TO_WORLD_FACTOR * (gameTerrain->getSize() / 128.0f)) * gameTerrain->GetScales().z, 0, (float)gameTerrain->getSize() - 1);
+	worldx = Remap(p.x, 0, 52.0f * gameTerrain->GetScales().x, 0, (float)gameTerrain->getSize() - 1);
+	worldz = Remap(p.z, 0, 52.0f * gameTerrain->GetScales().z, 0, (float)gameTerrain->getSize() - 1);
 	worldy = gameTerrain->GetVertexHeight(worldx, worldz);
 	return glm::vec3(worldx, worldy, worldz);
 }
