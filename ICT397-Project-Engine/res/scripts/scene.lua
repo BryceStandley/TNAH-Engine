@@ -12,18 +12,18 @@ cs:MakeGameObject("player", "./res/scripts/gameobjects/player_default.lua", 0.07
 --Make this static object invisible to the plyer
 cs:MakeGameObject("static",  "./res/scripts/gameobjects/static_tree3.lua", 0.005, -100, 1.2, -100);
 
-minX = (52 * 12) / 6;
-maxX = minX + (minX * 3);
+minX = 120;
+maxX = 430;
 minZ = minX;
 maxZ = maxX;
 
-for i = 0, 10
+for i = 0, 1
 do
     x = math.random(minX, maxX)
     z = math.random(minZ, maxZ)
     cs:MakeGameObject("enemy",  "./res/scripts/gameobjects/enemy_zarlag.lua", 0.05, x, 1.2, z);   
 end
-cs:MakeGameObject("water",  "./res/scripts/gameobjects/static_water.lua", 0.05, 50, 0.5, 50);
+cs:MakeGameObject("water",  "./res/scripts/gameobjects/static_water.lua", 0.05, playerX, 0.5, playerZ);
 
 y = 1--Y value for all tokens
 for i = 0, 2

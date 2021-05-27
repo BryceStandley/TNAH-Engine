@@ -25,7 +25,7 @@ void GlfwWindow::Init(std::string title, int h, int w)
 
     glm::vec3 l((256 * 12) / 2.0, 100.0f, (256 * 12) / 2.0);
     lightPos = l;
-    Camera c((52.0f * 12) / 2, 1.5f, (52.0f * 12) / 2, 0.0f, 1.0f, 0.0f, 90.0f, -37.0f);
+    Camera c((52.0f * 12) / 2, 4.0f, (52.0f * 12) / 2, 0.0f, 1.0f, 0.0f, 90.0f, -37.0f);
     camera = c;
 
     /* Make the window's context current */

@@ -1,7 +1,7 @@
 --Debug script to easily set and display debug commands in the engine
 --Bryce Standley
 
-console = true;
+console = false;
 collisions  = false;
 weapons  = false;
 animations  = false;

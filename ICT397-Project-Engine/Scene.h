@@ -14,6 +14,8 @@
 #include "GameGUI.h"
 #include "EndScreenGUI.h"
 #include "MainMenuGUI.h"
+#include <cmath>
+#include <math.h>
 
 /**
 * @class Scene
@@ -69,6 +71,10 @@ public:
 
 	bool LoadSaveFile();
 
+	float Lerp(float a, float b, float t);
+
+	float Interpolate(float a, float b, float blend);
+
 	void Unload();
 
 		/**
@@ -103,7 +109,7 @@ public:
 		* @brief Updates the players position in relation to the world
 		* @param position - The position of the camera
 		*/
-	void UpdatePlayer(glm::vec3 position, glm::vec3 rotation);
+	void UpdatePlayer(glm::vec3 position, glm::vec3 rotation, float time);
 
 		/**
 		* @brief Gets the playerInd value and returns it
@@ -174,7 +180,7 @@ public:
 
 	void RunPlayer(View lens, float time, bool exit);
 
-	void UpdateGameObject(glm::vec3 position, int i);
+	void UpdateGameObject(glm::vec3 position, int i, float time);
 
     glm::vec3 EnemyObstacleAvoidance(GameObject* self, glm::vec3 newPosition);
 

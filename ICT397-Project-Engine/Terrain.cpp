@@ -317,6 +317,25 @@ float Terrain::getAverageHeight(int xpos, int zpos)
     if(xpos > sizeX) xpos = sizeX - 2;
     if(zpos > sizeZ) zpos = sizeZ - 2;
 
+
+	float inX = (float)xpos / 4.0f;
+	float inZ = (float)zpos / 4.0f;
+	int intX =  xpos;
+	int intZ =  zpos;
+	float fracX = inX - intX;
+	float fracZ = inZ - intZ;
+
+	float v1 = GetVertexHeight(intX, intZ);
+	float v2 = GetVertexHeight(intX + 1, intZ);
+	float v3 = GetVertexHeight(intX, intZ + 1);
+	float v4 = GetVertexHeight(intX + 1, intZ + 1);
+	float i1 = Interpolate(v1, v2, fracX);
+	float i2 = Interpolate(v3, v4, fracX);
+	return Interpolate(i1, i2, fracZ);
+
+/*
+
+
     heights.push_back(GetVertexHeight(xpos, zpos));
 
 
@@ -337,7 +356,7 @@ float Terrain::getAverageHeight(int xpos, int zpos)
         tot += h;
     }
 
-    return tot / (float)heights.size();
+    return tot / (float)heights.size();*/
 }
 
 float Terrain::getHeightColor(int xpos, int zpos) {
@@ -372,6 +391,8 @@ void Terrain::generateVertices(Vertex& vertex)
         {
             glm::vec3 positions((float)x * scaleX, getHeight((int)x, (int)z) * scaleY, (float)z * scaleZ);
             vertex.position.push_back(positions);
+	        if(positions.y > highestPoint.y) { highestPoint = glm::vec3(x, positions.y, z);}
+	        if(positions.y < lowestPoint.y) { lowestPoint = glm::vec3(x, positions.y, z);}
         }
     }
 }
@@ -391,8 +412,7 @@ void Terrain::SmoothTerrain(Vertex& vert, float smoothFactor)
 					GetVertexHeight(x, z + 1)) / 8.0f;
 			float center = GetVertexHeight(x,z) / 4.0f;
 			float newHeight = (corners + sides + center);
-			if(newHeight > maxYValue) { maxYValue = newHeight;}
-			if(newHeight < maxYValue && newHeight > secondMaxYValue) { secondMaxYValue = newHeight;}
+
 			SetVertexHeight(x, z, newHeight);
 		}
 	}
