@@ -15,6 +15,7 @@
 #include "EndScreenGUI.h"
 #include "MainMenuGUI.h"
 #include <cmath>
+#define _USE_MATH_DEFINES
 #include <math.h>
 
 /**

@@ -1,6 +1,7 @@
 #pragma once
 #ifndef TERRAIN_H
 #define TERRAIN_H
+#define _USE_MATH_DEFINES
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -11,6 +12,7 @@
 #include <ctime>
 #include <cmath>
 #if _WIN32_
+#include <math.h>
 #include <corecrt_math_defines.h>
 #endif
 
