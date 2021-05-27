@@ -12,6 +12,7 @@ public:
 		normal,
 		hard
 	} Difficulty;
+
 	float speed = 5;
 	std::string token = "none";
 	std::string prevToken = "none";

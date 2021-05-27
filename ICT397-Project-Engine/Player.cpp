@@ -8,6 +8,14 @@ Player::Player(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std:
 
     if(!luaL_dofile(L, script.c_str()))
     {
+        dd = getGlobal(L, "doubleDamage");
+        refill = getGlobal(L, "healthRefill");
+        speedBoost = getGlobal(L, "speedBoost");
+        death = getGlobal(L, "death");
+        dp = getGlobal(L, "doublePoints");
+        global = getGlobal(L, "global");
+        mainState = getGlobal(L, "mainState");
+
         LuaRef type = getGlobal(L, "check");
         LuaRef rot = getGlobal(L, "rotate");
         LuaRef bullet = getGlobal(L, "bullet");
@@ -124,7 +132,14 @@ Player::Player(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std:
     }
     else if (!luaL_dofile(L, "./res/scripts/gameobjects/player_default.lua"))
     {
-        std::cout << "Player script not found, loading default script" << std::endl;
+        dd = getGlobal(L, "doubleDamage");
+        refill = getGlobal(L, "healthRefill");
+        speedBoost = getGlobal(L, "speedBoost");
+        death = getGlobal(L, "death");
+        dp = getGlobal(L, "doublePoints");
+        global = getGlobal(L, "global");
+        mainState = getGlobal(L, "mainState");
+
         LuaRef type = getGlobal(L, "check");
         LuaRef rot = getGlobal(L, "rotate");
         LuaRef bullet = getGlobal(L, "bullet");
@@ -553,4 +568,36 @@ void Player::FireWeapon()
 void Player::BackToIdle()
 {
     SetState(IDLE);
+}
+
+void Player::ChangeState(std::string state)
+{
+    if (state == "doubleDamage")
+    {
+        getFSM()->changeState(&singleton<doubleDamage>::getInstance());
+    }
+    else if (state == "healthRefill")
+    {
+        getFSM()->changeState(&singleton<healthRefill>::getInstance());
+    }
+    else if (state == "speedBoost")
+    {
+        getFSM()->changeState(&singleton<SpeedUp>::getInstance());
+    }
+    else if (state == "doublePoints")
+    {
+        getFSM()->changeState(&singleton<doublePoints>::getInstance());
+    }
+    else if (state == "death")
+    {
+        getFSM()->changeState(&singleton<deathState>::getInstance());
+    }
+    else if (state == "main")
+    {
+        getFSM()->changeState(&singleton<main>::getInstance());
+    }
+    else if (state == "global")
+    {
+        getFSM()->changeState(&singleton<glob>::getInstance());
+    }
 }

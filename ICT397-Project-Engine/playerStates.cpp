@@ -6,253 +6,182 @@
 
 void doubleDamage::Enter(Player* dude)
 {
-	dude->hasToken = false;
-	dude->incrementTokensCollected();
-	dude->increasePoints(50);
-	dude->setDamage(dude->getDamage() * 2);
-
-    if(Debugger::GetInstance()->debugTokensToConsole)
-    {
-	    std::cout << "DAMAGE WITH TOKEN: " << dude->getDamage() << std::endl;
-    }
-
-	singleton<Manager>::getInstance().prevToken = "DoubleDamage";
-	singleton<Manager>::getInstance().token = "none";
-
+	if (dude->dd.isTable())
+	{
+		dude->dd[1](dude);
+	}
 }
 
 void doubleDamage::Execute(Player* dude)
 {
-	if (singleton<Manager>::getInstance().prevToken == "DoubleDamage" && singleton<Manager>::getInstance().timer != 0)
+	if (dude->dd.isTable())
 	{
-        if(Debugger::GetInstance()->debugTokensToConsole) std::cout << "Token = " << singleton<Manager>::getInstance().prevToken << ", Duration = " << singleton<Manager>::getInstance().timer << std::endl;
+		dude->dd[2](dude);
 	}
-	else
-	{
-        if(Debugger::GetInstance()->debugTokensToConsole)std::cout << "TOKEN EXPIRED" << std::endl;
-		dude->getFSM()->changeState(&main_state::getInstance());
-	}
-
-
-
-	if (singleton<Manager>::getInstance().token == "DoubleDamage" && singleton<Manager>::getInstance().prevToken == "DoubleDamage")
-	{
-        if(Debugger::GetInstance()->debugTokensToConsole) std::cout << "Token Double Up" << std::endl;
-		dude->getFSM()->changeState(&damage_state::getInstance());
-	}
-
-	if (singleton<Manager>::getInstance().token == "DoublePoints")
-		dude->getFSM()->changeState(&points_state::getInstance());
-
-	if (singleton<Manager>::getInstance().token == "HealthRefill")
-		dude->getFSM()->changeState(&health_state::getInstance());
-
-	if (singleton<Manager>::getInstance().token == "SpeedUp")
-		dude->getFSM()->changeState(&speed_state::getInstance());
 }
 
 void doubleDamage::Exit(Player* dude)
 {
-	dude->setDamage(dude->getDamage() / 2);
-    if(Debugger::GetInstance()->debugTokensToConsole) std::cout << "DAMAGE AFTER TOKEN: " << dude->getDamage();
+	if (dude->dd.isTable())
+	{
+		dude->dd[3](dude);
+	}
 }
 
 /******************************************************************************/
 
 void healthRefill::Enter(Player* dude)
 {
-	dude->hasToken = false;
-	dude->incrementTokensCollected();
-    if(Debugger::GetInstance()->debugTokensToConsole) std::cout << "In Health Refill State" << std::endl;
-
-	dude->increasePoints(50);
-
-	if (dude->getHealth() < 100)
+	if (dude->refill.isTable())
 	{
-        if(Debugger::GetInstance()->debugTokensToConsole) std::cout << "Healed back to full health" << std::endl;
-		dude->setHealth(100);
+		dude->refill[1](dude);
 	}
-	else
-    if(Debugger::GetInstance()->debugTokensToConsole) std::cout << "Already at full health - no effect" << std::endl;
-	
 }
 
 void healthRefill::Execute(Player* dude)
 {
-	dude->getFSM()->changeState(&main_state::getInstance());
+	if (dude->refill.isTable())
+	{
+		dude->refill[2](dude);
+	}
 }
 
 void healthRefill::Exit(Player* dude)
 {
-    if(Debugger::GetInstance()->debugTokensToConsole) std::cout << "Exiting Health Refill State" << std::endl;
+	if (dude->refill.isTable())
+	{
+		dude->refill[3](dude);
+	}
 }
 
 /******************************************************************************/
 
 void SpeedUp::Enter(Player* dude)
 {
-	dude->hasToken = false;
-    if(Debugger::GetInstance()->debugTokensToConsole) std::cout << "This should only happen once mate" << std::endl;
-	dude->incrementTokensCollected();
-	dude->increasePoints(50);
-
-	singleton<Manager>::getInstance().prevToken = "SpeedUp";
-	singleton<Manager>::getInstance().token = "none";
+	if (dude->speedBoost.isTable())
+	{
+		dude->speedBoost[1](dude);
+	}
 }
 
 void SpeedUp::Execute(Player* dude)
 {
 	
-	if (singleton<Manager>::getInstance().prevToken == "SpeedUp" && singleton<Manager>::getInstance().timer != 0)
+	if (dude->speedBoost.isTable())
 	{
-		singleton<Manager>::getInstance().speed = 10;
-        if(Debugger::GetInstance()->debugTokensToConsole) std::cout << "Token = " << singleton<Manager>::getInstance().prevToken << ", Duration = " << singleton<Manager>::getInstance().timer << std::endl;
+		dude->speedBoost[2](dude);
 	}
-	else
-	{
-        if(Debugger::GetInstance()->debugTokensToConsole) std::cout << "TOKEN EXPIRED" << std::endl;
-		singleton<Manager>::getInstance().speed = 5;
-		dude->getFSM()->changeState(&main_state::getInstance());
-	}
-
-	
-
-	if (singleton<Manager>::getInstance().token == "SpeedUp" && singleton<Manager>::getInstance().prevToken == "SpeedUp") 
-	{
-        if(Debugger::GetInstance()->debugTokensToConsole) std::cout << "Token Double Up" << std::endl;
-		dude->getFSM()->changeState(&speed_state::getInstance());
-	}
-
-	if (singleton<Manager>::getInstance().token == "DoublePoints")
-		dude->getFSM()->changeState(&points_state::getInstance());
-
-	if (singleton<Manager>::getInstance().token == "HealthRefill")
-		dude->getFSM()->changeState(&health_state::getInstance());
-
-	if (singleton<Manager>::getInstance().token == "DoubleDamage")
-		dude->getFSM()->changeState(&damage_state::getInstance());
 }
 
 void SpeedUp::Exit(Player* dude)
 {
-	singleton<Manager>::getInstance().speed = 5;
+	if (dude->speedBoost.isTable())
+	{
+		dude->speedBoost[3](dude);
+	}
 }
 
 /******************************************************************************/
 
 void doublePoints::Enter(Player* dude)
 {
-	dude->hasToken = false;
-	dude->incrementTokensCollected();
-    if(Debugger::GetInstance()->debugTokensToConsole) std::cout << "In Double Points State" << std::endl;
-
-	dude->increasePoints(50);
-
-	dude->setMultiplier(2);
-
-	singleton<Manager>::getInstance().prevToken = "DoublePoints";
-	singleton<Manager>::getInstance().token = "none";
+	if (dude->dp.isTable())
+	{
+		dude->dp[1](dude);
+	}
 }
 
 void doublePoints::Execute(Player* dude)
 {
-	if (singleton<Manager>::getInstance().prevToken == "DoublePoints" && singleton<Manager>::getInstance().timer != 0) 
+	if (dude->dp.isTable())
 	{
-        if(Debugger::GetInstance()->debugTokensToConsole) std::cout << "Token = " << singleton<Manager>::getInstance().prevToken << ", Duration = " << singleton<Manager>::getInstance().timer << std::endl;
+		dude->dp[2](dude);
 	}
-	else
-		dude->getFSM()->changeState(&main_state::getInstance());
-
-	if (singleton<Manager>::getInstance().token == "DoublePoints" && singleton<Manager>::getInstance().prevToken == "DoublePoints")
-	{
-        if(Debugger::GetInstance()->debugTokensToConsole) std::cout << "Token Double Up" << std::endl;
-		dude->getFSM()->changeState(&points_state::getInstance());
-	}
-
-	if (singleton<Manager>::getInstance().token == "SpeedUp")
-		dude->getFSM()->changeState(&speed_state::getInstance());
-
-	if (singleton<Manager>::getInstance().token == "HealthRefill")
-		dude->getFSM()->changeState(&health_state::getInstance());
-
-	if (singleton<Manager>::getInstance().token == "DoubleDamage")
-		dude->getFSM()->changeState(&damage_state::getInstance());
 }
 
 void doublePoints::Exit(Player* dude)
 {
-    if(Debugger::GetInstance()->debugTokensToConsole) std::cout << "Double Points State" << std::endl;
-	dude->setMultiplier(1); //resets multiplier
+	if (dude->dp.isTable())
+	{
+		dude->dp[3](dude);
+	}
 }
 
 /******************************************************************************/
 
-void death::Enter(Player* dude)
+void deathState::Enter(Player* dude)
 {
+	if (dude->death.isTable())
+	{
+		dude->death[1](dude);
+	}
 }
 
-void death::Execute(Player* dude)
+void deathState::Execute(Player* dude)
 {
-    if(Debugger::GetInstance()->debugTokensToConsole) std::cout << "DEAD" << std::endl;
-	//display score menu 
+	if (dude->death.isTable())
+	{
+		dude->death[2](dude);
+	}
 }
 
-void death::Exit(Player* dude) {}
+void deathState::Exit(Player* dude)
+{	
+	if (dude->death.isTable())
+	{
+		dude->death[3](dude);
+	}
+}
 
 /******************************************************************************/
 
 void main::Enter(Player* dude)
 {
-	dude->hasToken = true;
-	//std::cout << "TOTAL POINTS " << dude->getPoints() << std::endl;
-	//std::cout << "TOKENS COLLECTED " << dude->getTokensCollected() << std::endl;
-	//std::cout << "KILL COUNT " << dude->getKills() << std::endl;
+	if (dude->mainState.isTable())
+	{
+		dude->mainState[1](dude);
+	}
 }
 
 void main::Execute(Player* dude)
 {
+	if (dude->mainState.isTable())
+	{
+		dude->mainState[2](dude);
+	}
 }
 
 void main::Exit(Player* dude)
 {
-
+	if (dude->mainState.isTable())
+	{
+		dude->mainState[3](dude);
+	}
 }
 
 /******************************************************************************/
 
 void glob::Enter(Player* dude) 
 {
-	std::cout << "Global State" << std::endl;
+	if (dude->global.isTable())
+	{
+		dude->global[1](dude);
+	}
 }
 
 void glob::Execute(Player* dude)
 {
-	if (singleton<Manager>::getInstance().token == "SpeedUp" && dude->hasToken == true)
+	if (dude->global.isTable())
 	{
-		dude->getFSM()->changeState(&speed_state::getInstance());	
-	}
-
-	if (singleton<Manager>::getInstance().token == "DoublePoints" && dude->hasToken == true)
-	{
-
-		dude->getFSM()->changeState(&points_state::getInstance());
-	}
-
-	if(singleton<Manager>::getInstance().token == "HealthRefill" && dude->hasToken == true)
-	{
-		dude->getFSM()->changeState(&health_state::getInstance());
-	}
-
-	if (singleton<Manager>::getInstance().token == "DoubleDamage" && dude->hasToken == true)
-	{
-		dude->getFSM()->changeState(&damage_state::getInstance());
-	}
-
-	if (dude->getHealth() == 0) 
-	{
-		dude->getFSM()->changeState(&death_state::getInstance());
+		dude->global[2](dude);
 	}
 
 }
 
-void glob::Exit(Player* dude) {}
+void glob::Exit(Player* dude)
+{
+	if (dude->global.isTable())
+	{
+		dude->global[3](dude);
+	}
+}

@@ -178,6 +178,25 @@ public:
 	///Resets the player game object
 	void Reset();
 
+	void SetToken(bool tok) { hasToken = tok; }
+	bool GetToken() { return hasToken; }
+
+	void SetInstanceToken(std::string str) { singleton<Manager>::getInstance().token = str; }
+	std::string GetInstanceToken() { return singleton<Manager>::getInstance().token; }
+	std::string GetPrevInstanceToken() { return singleton<Manager>::getInstance().prevToken; }
+	void SetPrevInstanceToken(std::string str) { singleton<Manager>::getInstance().prevToken = str; }
+	float GetInstanceTimer() { return singleton<Manager>::getInstance().timer; }
+	void SetInstanceSpeed(float speed) { singleton<Manager>::getInstance().speed = speed; }
+
+	void ChangeState(std::string state);
+
+	LuaRef dd = NULL;
+	LuaRef refill = NULL;
+	LuaRef speedBoost = NULL;
+	LuaRef death = NULL;
+	LuaRef dp = NULL;
+	LuaRef global = NULL;
+	LuaRef mainState = NULL;
 private:
 	
 	///Player finite state machine
@@ -199,7 +218,6 @@ private:
 
 	///Tokens colleected
 	int tokensCollected = 0;
-
 
 	float xRotationOffset;
 	float yRotationOffset;

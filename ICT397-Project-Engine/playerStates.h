@@ -186,7 +186,7 @@ public:
 	*
 	*
 	**/
-class death :public State<Player>
+class deathState :public State<Player>
 {
 public:
 
@@ -255,7 +255,7 @@ typedef  singleton<SpeedUp> speed_state;
 typedef  singleton<doublePoints> points_state;
 
 	/// death
-typedef  singleton<death> death_state;
+typedef  singleton<deathState> death_state;
 
 
 	/// global
