@@ -7,6 +7,7 @@ Enemy::Enemy(glm::vec3 p, glm::vec3 rot, Renderer* gameRenderer, std::string scr
 	int h = 50;
 	int a = 5;
 	bool living = true, weap = false;
+	LuaRef setup = NULL;
 
 	if (!luaL_dofile(L, script.c_str()))
 	{
@@ -18,7 +19,7 @@ Enemy::Enemy(glm::vec3 p, glm::vec3 rot, Renderer* gameRenderer, std::string scr
 		die = getGlobal(L, "die");
 		global = getGlobal(L, "global");
 
-		LuaRef setup = getGlobal(L, "setup");
+		setup = getGlobal(L, "setup");
 		LuaRef type = getGlobal(L, "check");
 		LuaRef rot = getGlobal(L, "rotate");
 		LuaRef alv = getGlobal(L, "alive");
@@ -40,11 +41,6 @@ Enemy::Enemy(glm::vec3 p, glm::vec3 rot, Renderer* gameRenderer, std::string scr
 		std::string texture;
 
 		bool check = false, rotate = false;
-
-		if (setup.isFunction())
-		{
-			setup(this);
-		}
 
 		if (type.isBool())
 		{
@@ -138,7 +134,15 @@ Enemy::Enemy(glm::vec3 p, glm::vec3 rot, Renderer* gameRenderer, std::string scr
 	}
 	else if (!luaL_dofile(L, "./res/scripts/gameobjects/enemy_default.lua"))
 	{
-		std::cout << "Enemy script not found, loading default script" << std::endl;
+				wanderLua = getGlobal(L, "wander");
+		alert = getGlobal(L, "alert");
+		chase = getGlobal(L, "chase");
+		fleeLua = getGlobal(L, "flee");
+		attack = getGlobal(L, "attack");
+		die = getGlobal(L, "die");
+		global = getGlobal(L, "global");
+
+		setup = getGlobal(L, "setup");
 		LuaRef type = getGlobal(L, "check");
 		LuaRef rot = getGlobal(L, "rotate");
 		LuaRef alv = getGlobal(L, "alive");
@@ -151,11 +155,14 @@ Enemy::Enemy(glm::vec3 p, glm::vec3 rot, Renderer* gameRenderer, std::string scr
 
 		LuaRef hel = getGlobal(L, "health");
 		LuaRef amm = getGlobal(L, "ammo");
+		LuaRef acc = getGlobal(L, "accuracy");
+		LuaRef dam = getGlobal(L, "damage");
 
 		std::string file;
 		std::string vertS;
 		std::string fragS;
 		std::string texture;
+
 		bool check = false, rotate = false;
 
 		if (type.isBool())
@@ -208,6 +215,15 @@ Enemy::Enemy(glm::vec3 p, glm::vec3 rot, Renderer* gameRenderer, std::string scr
 			a = amm.cast<int>();
 		}
 
+		if (acc.isNumber())
+		{
+			accuracyFactor = acc.cast<float>();
+		}
+
+		if (dam.isNumber())
+		{
+			damage = dam.cast<int>();
+		}
 
 		Model tempModel(file, gameRenderer, check, texture, true);
 		SetModel(tempModel);
@@ -256,6 +272,10 @@ Enemy::Enemy(glm::vec3 p, glm::vec3 rot, Renderer* gameRenderer, std::string scr
 	weaponTimer = 0.5f;
 	accuracyFactor = 0.35f;
 	damage = 10;
+	if (setup.isFunction())
+	{
+		setup(this);
+	}
 }
 
 Enemy::Enemy(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std::string script, float h, float a, std::string state) : GameObject(p, rot, s, gameRenderer)
@@ -263,7 +283,7 @@ Enemy::Enemy(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std::s
 	lua_State* L = LuaManager::getInstance().getLuaState();
 	SetScriptName(script);
 	bool living = true, weap = false;
-
+	LuaRef setup = NULL;
 	if (!luaL_dofile(L, script.c_str()))
 	{
 		wanderLua = getGlobal(L, "wander");
@@ -274,6 +294,7 @@ Enemy::Enemy(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std::s
 		die = getGlobal(L, "die");
 		global = getGlobal(L, "global");
 
+		setup = getGlobal(L, "setup");
 		LuaRef type = getGlobal(L, "check");
 		LuaRef rot = getGlobal(L, "rotate");
 		LuaRef alv = getGlobal(L, "alive");
@@ -288,7 +309,6 @@ Enemy::Enemy(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std::s
 		LuaRef amm = getGlobal(L, "ammo");
 		LuaRef acc = getGlobal(L, "accuracy");
 		LuaRef dam = getGlobal(L, "damage");
-
 
 		std::string file;
 		std::string vertS;
@@ -335,6 +355,26 @@ Enemy::Enemy(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std::s
 		if (tex.isString())
 		{
 			texture = tex.cast<std::string>();
+		}
+
+		if (hel.isNumber())
+		{
+			h = hel.cast<int>();
+		}
+
+		if (amm.isNumber())
+		{
+			a = amm.cast<int>();
+		}
+
+		if (acc.isNumber())
+		{
+			accuracyFactor = acc.cast<float>();
+		}
+
+		if (dam.isNumber())
+		{
+			damage = dam.cast<int>();
 		}
 
 		Model tempModel(file, gameRenderer, check, texture, true);
@@ -369,7 +409,15 @@ Enemy::Enemy(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std::s
 	}
 	else if (!luaL_dofile(L, "./res/scripts/gameobjects/enemy_default.lua"))
 	{
-		std::cout << "Enemy script not found, loading default script" << std::endl;
+		wanderLua = getGlobal(L, "wander");
+		alert = getGlobal(L, "alert");
+		chase = getGlobal(L, "chase");
+		fleeLua = getGlobal(L, "flee");
+		attack = getGlobal(L, "attack");
+		die = getGlobal(L, "die");
+		global = getGlobal(L, "global");
+
+		setup = getGlobal(L, "setup");
 		LuaRef type = getGlobal(L, "check");
 		LuaRef rot = getGlobal(L, "rotate");
 		LuaRef alv = getGlobal(L, "alive");
@@ -383,11 +431,13 @@ Enemy::Enemy(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std::s
 		LuaRef hel = getGlobal(L, "health");
 		LuaRef amm = getGlobal(L, "ammo");
 		LuaRef acc = getGlobal(L, "accuracy");
+		LuaRef dam = getGlobal(L, "damage");
 
 		std::string file;
 		std::string vertS;
 		std::string fragS;
 		std::string texture;
+
 		bool check = false, rotate = false;
 
 		if (type.isBool())
@@ -428,6 +478,26 @@ Enemy::Enemy(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std::s
 		if (tex.isString())
 		{
 			texture = tex.cast<std::string>();
+		}
+
+		if (hel.isNumber())
+		{
+			h = hel.cast<int>();
+		}
+
+		if (amm.isNumber())
+		{
+			a = amm.cast<int>();
+		}
+
+		if (acc.isNumber())
+		{
+			accuracyFactor = acc.cast<float>();
+		}
+
+		if (dam.isNumber())
+		{
+			damage = dam.cast<int>();
 		}
 
 		Model tempModel(file, gameRenderer, check, texture, true);
@@ -478,6 +548,10 @@ Enemy::Enemy(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std::s
 	weaponTimer = 0.5f;
 	accuracyFactor = 0.35f;
 	damage = 10;
+	if (setup.isFunction())
+	{
+		setup(this);
+	}
 	//Set state
 }
 

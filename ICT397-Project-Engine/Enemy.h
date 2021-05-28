@@ -82,9 +82,16 @@ public:
 
 		/**
 		* @brief gets and returns the health value of the enemy
-		* @return stateMachine<Enemy>*
+		* @return int health
 		*/
 	int getHealth() { return health;}
+
+
+		/**
+		* @brief sets the health value for the enemy
+		* @param int h
+		*/
+	void setHealth(int h) { health = h; healthHold = health; }
 
 	/**
 	 * @brief Gets the position of the game object
@@ -421,6 +428,12 @@ public:
 	float GetAccuracy(){return accuracyFactor;}
 
 	/**
+	 * @brief Sets the accuracy factor of an enemy
+	 * @param a for the accuracy value
+	 */
+	void SetAccuracy(float a) { accuracyFactor = a; }
+
+	/**
 	 * @brief Returns if the enemy is alive or not
 	 * @return bool alive
 	 */
@@ -437,6 +450,12 @@ public:
 	 * @return int damage
 	 */
 	int GetDamage() { return damage; }
+
+	/**
+	 * @brief sets Damage value for the enemy
+	 * @param int damage
+	 */
+	void SetDamage(int d) { damage = d; }
 
 	/**
 	 * @brief Sets if the weapon is firing or not

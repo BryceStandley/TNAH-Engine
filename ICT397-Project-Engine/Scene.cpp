@@ -66,6 +66,22 @@ bool Scene::LoadSaveFile()
         if (file.is_open())
         {
             std::string type;
+            std::string dif;
+
+            file >> dif;
+            if (dif == "hard")
+            {
+                singleton<Manager>::getInstance().difficulty = Manager::Difficulty::hard;
+            }
+            else if (dif == "easy")
+            {
+                singleton<Manager>::getInstance().difficulty = Manager::Difficulty::easy;
+            }
+            else
+            {
+                singleton<Manager>::getInstance().difficulty = Manager::Difficulty::normal;
+            }
+
 
             while (file >> type)
             {

@@ -275,8 +275,16 @@ Player::Player(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std:
 	lua_State* L = LuaManager::getInstance().getLuaState();
     bool bull = false;
 
-    if(!luaL_dofile(L, script.c_str()))
+    if (!luaL_dofile(L, script.c_str()))
     {
+        dd = getGlobal(L, "doubleDamage");
+        refill = getGlobal(L, "healthRefill");
+        speedBoost = getGlobal(L, "speedBoost");
+        death = getGlobal(L, "death");
+        dp = getGlobal(L, "doublePoints");
+        global = getGlobal(L, "global");
+        mainState = getGlobal(L, "mainState");
+
         LuaRef type = getGlobal(L, "check");
         LuaRef rot = getGlobal(L, "rotate");
         LuaRef bullet = getGlobal(L, "bullet");
@@ -388,12 +396,19 @@ Player::Player(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std:
             Model tempBulletModel(bulletModel, gameRenderer, check, bulletTexture, true);
             bModel = tempBulletModel;
         }
-
+        health = 100;
 
     }
     else if (!luaL_dofile(L, "./res/scripts/gameobjects/player_default.lua"))
     {
-        std::cout << "Player script not found, loading default script" << std::endl;
+        dd = getGlobal(L, "doubleDamage");
+        refill = getGlobal(L, "healthRefill");
+        speedBoost = getGlobal(L, "speedBoost");
+        death = getGlobal(L, "death");
+        dp = getGlobal(L, "doublePoints");
+        global = getGlobal(L, "global");
+        mainState = getGlobal(L, "mainState");
+
         LuaRef type = getGlobal(L, "check");
         LuaRef rot = getGlobal(L, "rotate");
         LuaRef bullet = getGlobal(L, "bullet");
@@ -426,7 +441,7 @@ Player::Player(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std:
             rotate = rot.cast<bool>();
         }
 
-        if(bullet.isBool())
+        if (bullet.isBool())
         {
             bull = bullet.cast<bool>();
         }
@@ -436,7 +451,7 @@ Player::Player(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std:
             file = mod.cast<std::string>();
         }
 
-        if(tex.isString())
+        if (tex.isString())
         {
             texture = tex.cast<std::string>();
         }
@@ -484,7 +499,7 @@ Player::Player(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std:
         yPositionOffset = yp;
         SetRotate(rotate);
 
-        if(bull)
+        if (bull)
         {
             LuaRef bulletMod = getGlobal(L, "bulletModel");
             LuaRef bulletTex = getGlobal(L, "bulletTexture");
@@ -492,12 +507,12 @@ Player::Player(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std:
             std::string bulletModel;
             std::string bulletTexture;
 
-            if(bulletMod.isString())
+            if (bulletMod.isString())
             {
                 bulletModel = bulletMod.cast<std::string>();
             }
 
-            if(bulletTex.isString())
+            if (bulletTex.isString())
             {
                 bulletTexture = bulletTex.cast<std::string>();
             }
@@ -505,11 +520,12 @@ Player::Player(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std:
             Model tempBulletModel(bulletModel, gameRenderer, check, bulletTexture, true);
             bModel = tempBulletModel;
         }
-	}
-	else
-	{
-		std::cout << "ERROR::NO_PLAYER_SCRIPTS_FOUND" << std::endl;
-	}
+        health = 100;
+    }
+    else
+    {
+        std::cout << "ERROR::NO_PLAYER_SCRIPTS_FOUND" << std::endl;
+    }
 
 	playerFSM = new stateMachine<Player>(this);
 	playerFSM->setCurrentState(&main_state::getInstance());

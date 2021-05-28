@@ -197,6 +197,21 @@ public:
 		std::ofstream savefile("./res/save.sav");
 		if (savefile.is_open())
 		{
+			switch (singleton<Manager>::getInstance().difficulty)
+			{
+				case Manager::Difficulty::hard:
+					savefile << "hard\n";
+					break;
+				case Manager::Difficulty::normal:
+					savefile << "normal\n";
+					break;
+				case Manager::Difficulty::easy:
+					savefile << "easy\n";
+					break;
+				default:
+					break;
+			}
+
 			for (int i = 0; i < gameObjects.size(); i++)
 			{
 				savefile << gameObjects[i]->StreamValues();
