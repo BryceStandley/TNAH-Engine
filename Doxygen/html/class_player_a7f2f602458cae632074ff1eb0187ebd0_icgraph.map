@@ -1,0 +1,6 @@
+<map id="Player::SetState" name="Player::SetState">
+<area shape="rect" id="node1" title="sets the animation state to the value provided as a parameter" alt="" coords="191,56,309,83"/>
+<area shape="rect" id="node2" href="$class_player.html#a225d31613bd354dfc6586ce922c539da" title="sets the idle animation when the weapon is not being fired" alt="" coords="9,5,139,32"/>
+<area shape="rect" id="node3" href="$class_player.html#a9e601e74854eae877306d504b0a206bc" title="sets the shooting animation when the weapon is fired" alt="" coords="5,56,143,83"/>
+<area shape="rect" id="node4" href="$class_player.html#ac204abf9ae8857f439dbc837e554d603" title="Player constructor that takes various parameters." alt="" coords="22,107,126,133"/>
+</map>

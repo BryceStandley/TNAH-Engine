@@ -1,7 +1,0 @@
-digraph "Camera"
-{
- // LATEX_PDF_SIZE
-  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
-  node [fontname="Helvetica",fontsize="10",shape=record];
-  Node1 [label="{Camera\n|+ Position\l+ Front\l+ Up\l+ Right\l+ WorldUp\l+ Yaw\l+ Pitch\l+ MovementSpeed\l+ MouseSensitivity\l+ Zoom\l+ disabled\l|+ Camera()\l+ Camera()\l+ GetViewMatrix()\l+ ProcessKeyboard()\l+ ProcessMouseMovement()\l+ ProcessMouseScroll()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="A camera class that processes input and calculates the corresponding Euler Angles,..."];
-}

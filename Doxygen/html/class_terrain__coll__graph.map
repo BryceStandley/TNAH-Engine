@@ -1,0 +1,3 @@
+<map id="Terrain" name="Terrain">
+<area shape="rect" id="node1" title="Terrain class that loads in a heightmap and generates terrain from it." alt="" coords="5,5,131,317"/>
+</map>

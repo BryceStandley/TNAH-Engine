@@ -33,7 +33,7 @@ BoundingBox BoundingBox::GenerateBoundingBox(Mesh* mesh)
     box.emplace_back(glm::vec3(minX, minY, minZ));
 
     size = glm::vec3(maxX-minX, maxY-minY, maxZ-minZ);
-    origin = glm::vec3((minX+maxX)/2, (minY + maxY)/2, (minZ + maxZ)/2);
+    origin = glm::vec3((minX+maxX)/2, (minY + maxY), (minZ + maxZ)/2);
     transform = glm::translate(glm::mat4(1), origin) * glm::scale(glm::mat4(1), size);
 
     //index of all the triangles

@@ -1,0 +1,6 @@
+<map id="Enemy::Enemy" name="Enemy::Enemy">
+<area shape="rect" id="node1" title="Enemy constructor that takes various parameters." alt="" coords="5,56,117,83"/>
+<area shape="rect" id="node2" href="$class_enemy.html#aede6ce203cb0c46f6d984ab1f261b689" title="a function that changes the enemy state to the state provided to the function provided as a parameter" alt="" coords="165,5,312,32"/>
+<area shape="rect" id="node3" href="$class_model.html#ad30000e7f6d3f6771d8e3c0b56a4bdc0" title="Model constructor that takes various parameters." alt="" coords="189,56,289,83"/>
+<area shape="rect" id="node4" href="$class_shader.html#aa732beb72038e86aca70a34c369a255e" title="A constructor that takes in paths to the shaders and generates them." alt="" coords="183,107,295,133"/>
+</map>

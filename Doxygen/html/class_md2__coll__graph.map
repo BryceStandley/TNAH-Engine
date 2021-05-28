@@ -1,0 +1,5 @@
+<map id="Md2" name="Md2">
+<area shape="rect" id="node1" title="A class responsible for loading, rendering and animating MD2 models." alt="" coords="39,351,180,560"/>
+<area shape="rect" id="node2" href="$class_shader.html" title="A class that is responsible for shaders, allowing you to open/use shaders and set uniforms of various..." alt="" coords="5,5,96,288"/>
+<area shape="rect" id="node3" href="$struct_md2_state.html" title="status animation" alt="" coords="121,49,218,244"/>
+</map>

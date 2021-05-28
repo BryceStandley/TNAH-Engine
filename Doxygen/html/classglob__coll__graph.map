@@ -1,0 +1,5 @@
+<map id="glob" name="glob">
+<area shape="rect" id="node1" title="A derived class that inherits from the state class. Represents the glob (global) state of the Player ..." alt="" coords="17,360,108,467"/>
+<area shape="rect" id="node2" href="$class_state.html" title=" " alt="" coords="5,189,120,311"/>
+<area shape="rect" id="node3" href="$class_state.html" title=" " alt="" coords="8,5,117,127"/>
+</map>

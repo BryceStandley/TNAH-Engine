@@ -1,0 +1,4 @@
+<map id="Enemy::handleMessage" name="Enemy::handleMessage">
+<area shape="rect" id="node1" title="allows the enemy to handle messages it receives from other entities" alt="" coords="5,5,168,32"/>
+<area shape="rect" id="node2" href="$class_debugger.html#a3178f40262f4cc7e562771544aadf35c" title="Appends a string to the log file with current time of the system and information where the append cam..." alt="" coords="216,5,384,32"/>
+</map>

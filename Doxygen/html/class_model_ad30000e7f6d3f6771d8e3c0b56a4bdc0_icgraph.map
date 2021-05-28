@@ -1,0 +1,5 @@
+<map id="Model::Model" name="Model::Model">
+<area shape="rect" id="node1" title="Model constructor that takes various parameters." alt="" coords="165,31,265,57"/>
+<area shape="rect" id="node2" href="$class_enemy.html#a8ae3869e9654e6f16d3546025483d33d" title="Enemy constructor that takes various parameters." alt="" coords="5,5,117,32"/>
+<area shape="rect" id="node3" href="$class_player.html#ac204abf9ae8857f439dbc837e554d603" title="Player constructor that takes various parameters." alt="" coords="9,56,113,83"/>
+</map>

@@ -1,7 +1,0 @@
-digraph "View"
-{
- // LATEX_PDF_SIZE
-  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
-  node [fontname="Helvetica",fontsize="10",shape=record];
-  Node1 [label="{View\n||+ SetProjection()\l+ SetView()\l+ SetModel()\l+ SetSkyview()\l+ SetPosition()\l+ SetRotation()\l+ SetForward()\l+ GetProjection()\l+ GetView()\l+ GetModel()\l+ GetSkyview()\l+ GetPosition()\l+ GetRotation()\l+ GetForward()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Holds matrix and position information to allow other parts of the engine to have access to this infor..."];
-}

@@ -1,9 +1,0 @@
-digraph "GlfwWindow"
-{
- // LATEX_PDF_SIZE
-  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
-  node [fontname="Helvetica",fontsize="10",shape=record];
-  Node1 [label="{GlfwWindow\n||+ GlfwWindow()\l+ ~GlfwWindow()\l+ Init()\l+ Buffer()\l+ GameInput()\l+ Terminate()\l+ FrameBuffer()\l+ GetCamera()\l+ UpdateCamera()\l+ MouseMove()\land 10 more...\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="The abstracted window class that is used for the window facade. This class holds all the Glfw window ..."];
-  Node2 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid",arrowtail="onormal"];
-  Node2 [label="{Window\n||+ Init()\l+ Buffer()\l+ GameInput()\l+ Terminate()\l+ FrameBuffer()\l+ GetCamera()\l+ UpdateCamera()\l+ MouseMove()\l+ GetLens()\l+ Update()\land 7 more...\l}",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_window.html",tooltip=" "];
-}

@@ -1,0 +1,4 @@
+<map id="Md2::LoadModel" name="Md2::LoadModel">
+<area shape="rect" id="node1" title="Loads the MD2 model." alt="" coords="5,5,124,32"/>
+<area shape="rect" id="node2" href="$class_shader.html#aa732beb72038e86aca70a34c369a255e" title="A constructor that takes in paths to the shaders and generates them." alt="" coords="172,5,284,32"/>
+</map>

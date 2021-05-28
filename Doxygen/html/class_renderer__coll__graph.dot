@@ -1,7 +1,0 @@
-digraph "Renderer"
-{
- // LATEX_PDF_SIZE
-  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
-  node [fontname="Helvetica",fontsize="10",shape=record];
-  Node1 [label="{Renderer\n||+ RenderTerrain()\l+ RenderModel()\l+ BindTexture()\l+ DepthTest()\l+ RenderSkybox()\l+ SetShader()\l+ SetShaderSkybox()\l+ TerrainSetup()\l+ SkyboxSetup()\l+ TextureFromFile()\land 9 more...\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Contains the absract information for the Renderer. The class holds all the functions that would be us..."];
-}

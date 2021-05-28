@@ -1,0 +1,5 @@
+<map id="Shader::setInt" name="Shader::setInt">
+<area shape="rect" id="node1" title="sets an integer for use in the shader program" alt="" coords="209,31,312,57"/>
+<area shape="rect" id="node2" href="$class_terrain.html#ad689326d663662c6b11959247d4a87bb" title="Sets the textures that the terrain will use to implement multitexturing and detail mapping." alt="" coords="15,5,152,32"/>
+<area shape="rect" id="node3" href="$class_open_g_l.html#affd50e6ec6e2a1cef5f54d08b904f834" title="Sets up the skybox." alt="" coords="5,56,161,83"/>
+</map>

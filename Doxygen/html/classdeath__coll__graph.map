@@ -1,0 +1,3 @@
+<map id="death" name="death">
+<area shape="rect" id="node1" title="A derived class that inherits from the state class. Represents the death state of the Player FSM." alt="" coords="5,5,60,83"/>
+</map>

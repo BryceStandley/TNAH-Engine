@@ -1,0 +1,4 @@
+<map id="Shader::setVec3" name="Shader::setVec3">
+<area shape="rect" id="node1" title="sets a vec3 for use in the shader program (Overloaded to allow three floats to define the vec3)" alt="" coords="232,5,351,32"/>
+<area shape="rect" id="node2" href="$class_open_g_l.html#a121c5cdb62e37ae54455f1f799d5c449" title="Sets up the shader for the terrain." alt="" coords="5,5,184,32"/>
+</map>

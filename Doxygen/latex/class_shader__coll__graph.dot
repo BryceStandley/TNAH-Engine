@@ -1,7 +1,0 @@
-digraph "Shader"
-{
- // LATEX_PDF_SIZE
-  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
-  node [fontname="Helvetica",fontsize="10",shape=record];
-  Node1 [label="{Shader\n|+ ID\l|+ Shader()\l+ Shader()\l+ use()\l+ setBool()\l+ setInt()\l+ setFloat()\l+ setVec2()\l+ setVec2()\l+ setVec3()\l+ setVec3()\l+ setVec4()\l+ setVec4()\l+ setMat2()\l+ setMat3()\l+ setMat4()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="A class that is responsible for shaders, allowing you to open/use shaders and set uniforms of various..."];
-}

@@ -1,0 +1,5 @@
+<map id="OpenGL::SetShaderTerrain" name="OpenGL::SetShaderTerrain">
+<area shape="rect" id="node1" title="Sets up the shader for the terrain." alt="" coords="5,31,184,57"/>
+<area shape="rect" id="node2" href="$class_shader.html#a90092c25b7dc23964c465b93887300f9" title="sets a vec3 for use in the shader program (Overloaded to allow three floats to define the vec3)" alt="" coords="232,5,351,32"/>
+<area shape="rect" id="node3" href="$class_shader.html#a870fa9f13d69e558815d6fd351a469dc" title="Allows you to activate and use the shader" alt="" coords="245,56,337,83"/>
+</map>

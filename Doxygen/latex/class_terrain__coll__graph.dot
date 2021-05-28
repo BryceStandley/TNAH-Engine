@@ -1,7 +1,0 @@
-digraph "Terrain"
-{
- // LATEX_PDF_SIZE
-  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
-  node [fontname="Helvetica",fontsize="10",shape=record];
-  Node1 [label="{Terrain\n|+ VAO\l+ VBO\l+ EBO\l# terrainData\l# scaleX\l# scaleY\l# scaleZ\l|+ GetMaxHeight()\l+ GetMinHeight()\l+ GetIndicies()\l+ GetTotalData()\l+ SetShader()\l+ Terrain()\l+ ~Terrain()\l+ GetVAO()\l+ GetTextIds()\l+ GetShader()\land 23 more...\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Terrain class that loads in a heightmap and generates terrain from it."];
-}

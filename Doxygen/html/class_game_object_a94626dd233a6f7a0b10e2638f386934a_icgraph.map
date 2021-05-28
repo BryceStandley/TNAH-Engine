@@ -1,0 +1,5 @@
+<map id="GameObject::SetBoundingBox" name="GameObject::SetBoundingBox">
+<area shape="rect" id="node1" title="Sets gameobject&#39;s bounding box object." alt="" coords="252,46,452,73"/>
+<area shape="rect" id="node2" href="$class_game_asset_factory.html#adf24ecaf355d032057fb10da885c99d5" title="Creates the game object and returns it." alt="" coords="5,5,204,47"/>
+<area shape="rect" id="node3" href="$class_game_asset_factory.html#a5da86fa85724b718ba5a6f7a6595b74b" title="Creates the game object and returns it." alt="" coords="5,71,204,112"/>
+</map>
