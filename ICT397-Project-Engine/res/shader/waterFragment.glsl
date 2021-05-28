@@ -1,15 +1,19 @@
 #version 330 core
+out vec4 FragColor;
 
-//in vec2 textureCoords;
-in vec4 vertexColour;
-in vec3 FragPos;
+in vec2 TexCoords;
 
-out vec4 out_Color;
+uniform sampler2D texture_diffuse1;
+uniform sampler2D texture_specular1;
 
-
-void main(void)
+void main()
 {
+    FragColor = texture(texture_diffuse1, TexCoords);
+    FragColor = texture(texture_specular1, TexCoords);
 
-    //out_Color = vec4(0.0, 0.0, 1.0, 1.0);
-    out_Color = vertexColour;
+    if(FragColor.a < 0.1)
+    {
+        discard;
+    }
+
 }

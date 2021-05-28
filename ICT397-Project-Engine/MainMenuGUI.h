@@ -114,6 +114,8 @@ public:
     bool endScreenButtonClicked = false;
 	/** @ingroup MainMenuToggles */
 	bool displayingAMenu = false;
+	/** @ingroup MainMenuToggles */
+	bool playAgainClicked = false;
 
 	/**
 	 * @brief Enum to track the last menu visible to the user

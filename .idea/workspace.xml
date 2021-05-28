@@ -17,8 +17,22 @@
   <component name="ChangeListManager">
     <list default="true" id="127c4cee-4109-4dc5-a120-c50cf0ff91ca" name="Default Changelist" comment="fixed camera clipping and position- not perfect but it works good enough for now">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/Debugger.h" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Debugger.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/Engine.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Engine.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/GameGUI.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/GameGUI.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/GameGUI.h" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/GameGUI.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/GlfwWindow.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/GlfwWindow.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/MainMenuGUI.h" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/MainMenuGUI.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/Player.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Player.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/Scene.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Scene.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/res/save.sav" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/res/save.sav" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/Scene.h" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Scene.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/res/models/environment/Stone1.fbx" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/res/models/environment/Stone1.fbx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/res/models/environment/Stone2.fbx" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/res/models/environment/Stone2.fbx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/res/models/environment/Tree1.fbx" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/res/models/environment/Tree1.fbx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/res/models/environment/Tree2.fbx" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/res/models/environment/Tree2.fbx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/res/models/environment/Tree3.fbx" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/res/models/environment/Tree3.fbx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/res/models/environment/water.fbx" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/res/models/environment/water.fbx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/res/save.sav" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/res/scripts/scene.lua" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/res/scripts/scene.lua" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/res/shader/waterFragment.glsl" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/res/shader/waterFragment.glsl" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/res/shader/waterVertex.glsl" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/res/shader/waterVertex.glsl" afterDir="false" />
@@ -100,12 +114,12 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+    <configuration name="TNAH-Project" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="TNAH-Project" TARGET_NAME="TNAH-Project" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="TNAH-Project" RUN_TARGET_NAME="TNAH-Project">
       <method v="2">
-        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TNAH-Project" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="TNAH-Project" TARGET_NAME="TNAH-Project" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="TNAH-Project" RUN_TARGET_NAME="TNAH-Project">
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -161,6 +175,7 @@
       <workItem from="1622080831526" duration="1250000" />
       <workItem from="1622083931750" duration="298000" />
       <workItem from="1622084277117" duration="4453000" />
+      <workItem from="1622162086356" duration="7487000" />
     </task>
     <task id="LOCAL-00001" summary="Added collisions with objects">
       <created>1617722294195</created>

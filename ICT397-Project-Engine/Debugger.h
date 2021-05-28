@@ -103,7 +103,7 @@ public:
 	/**
 	 * @brief flag for enabling/disabling debug information about player position in the the game screen
 	 */
-	bool debugPlayerPos = true;
+	bool debugPlayerPos = false;
 
 	/**
 	 * @brief flag for enabling/disabling debug information about framerate in the game screen

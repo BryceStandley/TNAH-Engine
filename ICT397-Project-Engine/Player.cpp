@@ -549,7 +549,7 @@ void Player::Update(float time)
 void Player::Reset()
 {
 	kills = 0;
-	SetPos(glm::vec3(153, 15, 153));
+	SetPos(glm::vec3((52.0f * 12) / 2, 4.0f, (52.0f * 12) / 2));
 	points = 0;
 	tokensCollected = 0;
 	health = 100;

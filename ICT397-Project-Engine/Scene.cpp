@@ -20,10 +20,11 @@ Scene::~Scene()
 void Scene::Unload()
 {
     //Entity, asset manager, gameobjects
-    gameObjects.clear();
+    gameObjects.erase(gameObjects.begin(), gameObjects.end());
     factory->ResetFactory();
     singleton<Manager>::getInstance().Reset();
     entityMan::getInstance().ClearEntitys();
+    mainMenuGui->displayDeathScreen = false;
     loaded = false;
 }
 
@@ -44,6 +45,8 @@ void Scene::Load(std::string file)
         }
 
         FindPlayerIndice();
+	    Player* p = (Player*)gameObjects[playerInd];
+	    p->Reset();
 
         if (!gameObjects.empty())
         {
@@ -53,7 +56,7 @@ void Scene::Load(std::string file)
                     entityMan::getInstance().RegisterEntity(gameObject);
             }
         }
-
+		gameGui->DisplayGameUI();
         loaded = true;
     }
 }
@@ -124,6 +127,7 @@ bool Scene::LoadSaveFile()
 
 
 	        FindPlayerIndice();
+
 
 	        if (!gameObjects.empty())
 	        {
@@ -253,7 +257,7 @@ void Scene::Run(View lens, float time, bool exit)
         if (gameGui)
         {
         	auto* p = (Player*)gameObjects[playerInd];
-        	gameGui->terrainHeight = PlayerToTerrainPosition(p->GetPos()).y;
+        	gameGui->terrainHeight = PlayerToTerrainPosition(p->GetPos(), glm::vec3(0,0,0)).y;
         	gameGui->Draw(p);
         }
 
@@ -293,12 +297,15 @@ void Scene::Init()
 
 void Scene::UpdatePlayer(glm::vec3 position, glm::vec3 rotation, float time)
 {
+	if(playerStartPosition == glm::vec3(-1000,-1000, -1000)) { playerStartPosition = position;}
     if(position == gameObjects[playerInd]->GetPos()) return;
 
-    glm::vec3 newPos = WorldToTerrainPosition(position, true);
+    glm::vec3 newPos = WorldToTerrainPosition(position, false);
     newPos.y += Lerp(1.5f, 3.0f, time * 4.0f);
 
 	//newPos.y = Lerp(newPos.y + 2.0f, newPos.y + 3.0f,  time * 2.0f );
+
+	//newPos.y = BilinearInterpolation(position);
 
 
 	if (newPos.y >= 25.0f && !Debugger::GetInstance()->noPlayerYClip)
@@ -316,6 +323,19 @@ void Scene::UpdatePlayer(glm::vec3 position, glm::vec3 rotation, float time)
 	newPos = CheckSceneCollision(newPos);
 
 	gameObjects[playerInd]->SetPos(newPos);
+	//std::cout << "Player to water distance: " << glm::distance(newPos, gameObjects[waterIndex]->GetPos()) << std::endl;
+	if(glm::distance(newPos, gameObjects[waterIndex]->GetPos()) < 15.0f)
+	{
+		//take 10 health from the player if they get to close to the water
+		Player* p = (Player*)gameObjects[playerInd];
+		p->setHealth(p->getHealth() - 10);
+		if (p->getHealth() <= 0)
+		{
+			p->setHealth(0);
+			// tell the player to die
+			gameGui->DisplayDeathScreen();
+		}
+	}
 }
 float Scene::Lerp(float a, float b, float t)
 {
@@ -328,6 +348,24 @@ float Scene::Interpolate(float a, float b, float blend)
 	float f = (float) (1.0f - cos(theta)) * 0.5f;
 	return a * (1.0f - f) + b * f;
 }
+
+float Scene::BilinearInterpolation(glm::vec3 p)
+{
+	int intX =  p.x;
+	int intZ =  p.z;
+	float fracX = p.x - intX;
+	float fracZ = p.z - intZ;
+
+	float v1 = PlayerToTerrainPosition(glm::vec3(intX, 0, intZ), glm::vec3(0,0,0)).y;
+	float v2 = PlayerToTerrainPosition(glm::vec3(intX, 0, intZ), glm::vec3(1,0,0)).y;
+	float v3 = PlayerToTerrainPosition(glm::vec3(intX, 0, intZ + 1), glm::vec3(0,0,1)).y;
+	float v4 = PlayerToTerrainPosition(glm::vec3(intX, 0, intZ), glm::vec3(1,0,1)).y;
+	float i1 = Interpolate(v1, v2, fracX);
+	float i2 = Interpolate(v3, v4, fracX);
+	float newHeight = Interpolate(i1, i2, fracZ);
+	return  newHeight;
+}
+
 
 glm::vec3 Scene::WorldToTerrainPosition(glm::vec3 p, bool average)
 {
@@ -375,12 +413,13 @@ void Scene::UpdateGameObject(glm::vec3 position, int i, float time)
 void Scene::MakeGameObject(std::string t, std::string script, float scale, float x, float y, float z)
 {
     //Check the terrain height to make sure the object isn't under the terrain;
-    if(t != "water") y = WorldToTerrainPosition(glm::vec3(x,y,z), false).y;
+    y += WorldToTerrainPosition(glm::vec3(x,y,z), false).y;
 
 	GameObject* newGameObject = factory->GetGameObject(t, script, scale, glm::vec3(x, y, z));
 	if (newGameObject != nullptr)
 	{
 		gameObjects.push_back(newGameObject);
+		if(t == "water") { waterIndex = (int)gameObjects.size() - 1;}
 	}
 	else
 	{
@@ -391,7 +430,7 @@ void Scene::MakeGameObject(std::string t, std::string script, float scale, float
 void Scene::MakeSaveGameObject(std::string t, std::string script, float scale, float x, float y, float z, float health, float ammo, std::string state, int savedPoints, int savedTokens, int savedKills)
 {
 	//Check the terrain height to make sure the object isn't under the terrain;
-	if(t != "water") y += WorldToTerrainPosition(glm::vec3(x,y,z), false).y;
+	y += WorldToTerrainPosition(glm::vec3(x,y,z), false).y;
 
     GameObject* newGameObject = factory->GetGameObjectSave(t, script, scale, glm::vec3(x, y, z), health, ammo, state, savedPoints, savedTokens, savedKills);
     if (newGameObject != nullptr)
@@ -701,12 +740,12 @@ float Scene::Remap(float value, float oldMin, float oldMax, float newMin, float 
 	return out;
 }
 
-glm::vec3 Scene::PlayerToTerrainPosition(glm::vec3 p)
+glm::vec3 Scene::PlayerToTerrainPosition(glm::vec3 p, glm::vec3 terrainPosMovement)
 {
 	float worldx, worldy, worldz;
 	worldx = Remap(p.x, 0, 52.0f * gameTerrain->GetScales().x, 0, (float)gameTerrain->getSize() - 1);
 	worldz = Remap(p.z, 0, 52.0f * gameTerrain->GetScales().z, 0, (float)gameTerrain->getSize() - 1);
-	worldy = gameTerrain->GetVertexHeight(worldx, worldz);
+	worldy = gameTerrain->GetVertexHeight(worldx + terrainPosMovement.x , worldz + terrainPosMovement.z);
 	return glm::vec3(worldx, worldy, worldz);
 }
 

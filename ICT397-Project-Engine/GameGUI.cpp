@@ -79,7 +79,7 @@ void GameGUI::Draw(Player* dude)
 		ImGui::SetNextWindowSize(ImVec2(0, 0));
 		ImGui::SetNextWindowPos(ImVec2(windowPos.x, 0), true);
 		ImGui::Begin(windowName.c_str(), open_ptr,  window_flags); //Create the window
-		ImGui::SetWindowFontScale(2.0f);
+		ImGui::SetWindowFontScale(1.5f);
 		ImGui::Text("Points: %d     Tokens: %d      Current Token: %s      Kill Count: %d      Health: %d",
 		            dude->getPoints(), dude->getTokensCollected(), currentToken.c_str(),
 		            dude->getKills(), dude->getHealth());
@@ -123,9 +123,8 @@ void GameGUI::Draw(Player* dude)
 
 		if(ImGui::Button("PLAY AGAIN", centerPos))
 		{
-			//reset the player and stats
-			dude->Reset();
-			DisplayGameUI();
+			MainMenuGUI::GetInstance()->DisplayMainMenu();
+			mainMenuGui->playAgainClicked = true;
 		}
 		if(ImGui::Button("QUIT", centerPos))
 		{
@@ -134,6 +133,7 @@ void GameGUI::Draw(Player* dude)
 	}
 	ImGui::End();
 }
+
 
 float GameGUI::Remap(float value, float oldMin, float oldMax, float newMin, float newMax)
 {

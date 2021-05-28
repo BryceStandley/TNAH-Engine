@@ -37,7 +37,6 @@
 *
 **/
 
-#define CAMERA_TO_WORLD_FACTOR 128.0f / 26.0f
 class Scene
 {
 public:
@@ -154,10 +153,11 @@ public:
 
 	/**
 	 * @brief Converts the players position into terrain position
-	 * @param p
+	 * @param p - players position
+	 * @param terrainPosMovement - How much to check on each axis. p.x + 1 doesnt map to the same as terrainX + 1
 	 * @return
 	 */
-	glm::vec3 PlayerToTerrainPosition(glm::vec3 p);
+	glm::vec3 PlayerToTerrainPosition(glm::vec3 p, glm::vec3 terrainPosMovement);
 
 	/**
 	 * @brief Remaps a value from one range to another
@@ -169,6 +169,13 @@ public:
 	 * @return output - new value in the same range of the old values but within the new values
 	 */
 	float Remap(float value, float oldMin, float oldMax, float newMin, float newMax);
+
+	/**
+	 * @brief Uses biliniear interpolation to output a new position
+	 * @param p
+	 * @return
+	 */
+	float BilinearInterpolation(glm::vec3 p);
 
 	ExitScreen GetExitScreen(){return exitScreen;}
 
@@ -284,9 +291,22 @@ private:
 
 		///If the exit screen is displayed
 	bool exitScreenDisplay = false;
+
+	///Game ui pointer
 	GameGUI* gameGui;
+
+	///End screen pointer
 	EndScreenGUI* endScreenGUI;
+
+	///Main Menu pointer
 	MainMenuGUI* mainMenuGui;
+
+	///Spawnpoints vector
 	std::vector<glm::vec3> spawnPoints;
+
+	///Water reference index
+	int waterIndex;
+
+	glm::vec3 playerStartPosition = glm::vec3(-1000,-1000, -1000);
 };
 

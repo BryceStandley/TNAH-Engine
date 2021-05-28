@@ -19,6 +19,7 @@ public:
 
 	void DisplayGameUI();
 
+
 	float terrainHeight;
 
 	/**

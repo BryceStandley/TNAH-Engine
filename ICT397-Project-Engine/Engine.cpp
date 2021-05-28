@@ -199,10 +199,28 @@ void Engine::Run()
 
             if(mainMenuGui->newGameClicked)
             {
-                std::string path = "./res/scripts/scene.lua";
-                LoadScene(path);
-                mainMenuGui->newGameClicked = false;
-                mainMenuGui->HideMenus();
+            	if(!gameScenes[0]->loaded)
+	            {
+		            std::string path = "./res/scripts/scene.lua";
+		            LoadScene(path);
+		            mainMenuGui->newGameClicked = false;
+		            mainMenuGui->HideMenus();
+	            }
+            	else if(mainMenuGui->playAgainClicked)
+	            {
+            		window->UpdateCamera(glm::vec3((52.0f * 12) / 2, 4.0f, (52.0f * 12) / 2));
+
+					gameScenes.clear();
+		            currentScene = 0;
+		            Scene* scene = new Scene("World", render);
+		            gameScenes.push_back(scene);
+
+		            std::string path = "./res/scripts/scene.lua";
+		            LoadScene(path);
+		            mainMenuGui->newGameClicked = false;
+		            mainMenuGui->playAgainClicked = false;
+		            mainMenuGui->HideMenus();
+	            }
             }
 
             if(mainMenuGui->loadGameClicked)

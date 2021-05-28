@@ -23,7 +23,7 @@ do
     z = math.random(minZ, maxZ)
     cs:MakeGameObject("enemy",  "./res/scripts/gameobjects/enemy_zarlag.lua", 0.05, x, 1.2, z);   
 end
-cs:MakeGameObject("water",  "./res/scripts/gameobjects/static_water.lua", 0.05, playerX, 0.5, playerZ);
+cs:MakeGameObject("water",  "./res/scripts/gameobjects/static_water.lua", 0.03, 420, -0.6, 401);
 
 y = 1--Y value for all tokens
 for i = 0, 2
@@ -46,7 +46,7 @@ end
 
 --These loops dont check if there is a model already in its place
 --Make 10 Yellow Trees with random positions
-y = 0
+y = -1
 for i = 0, 10
 do
     x = math.random(minX, maxX)
@@ -69,9 +69,9 @@ do
     cs:MakeGameObject("static",  "./res/scripts/gameobjects/static_tree1.lua", 0.04,x, y, z);
 end
 
-y = 0
+y = -1
 --Make 10 stones with random positions
-for i = 0, 15
+for i = 0, 10
 do
     x = math.random(minX, maxX)
     z = math.random(minZ, maxZ)
@@ -79,7 +79,7 @@ do
 end
 
 --Make 10 stones with random positions
-for i = 0, 15
+for i = 0, 10
 do
     x = math.random(minX, maxX)
     z = math.random(minZ, maxZ)
