@@ -11,8 +11,13 @@ Contains the aspects of a game that would be held in a scene, this being game\+O
 
 
 
-Collaboration diagram for Scene\+:
-% FIG 0
+Collaboration diagram for Scene\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=236pt]{class_scene__coll__graph}
+\end{center}
+\end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -141,7 +146,7 @@ Bryce Standley
 \end{DoxyDate}
 
 
-Definition at line 40 of file Scene.\+h.
+Definition at line 44 of file Scene.\+h.
 
 
 
@@ -200,25 +205,25 @@ Uses biliniear interpolation to output a new position.
 \end{DoxyReturn}
 
 
-Definition at line 349 of file Scene.\+cpp.
+Definition at line 352 of file Scene.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{350 \{}
-\DoxyCodeLine{351     \textcolor{keywordtype}{int} intX =  p.x;}
-\DoxyCodeLine{352     \textcolor{keywordtype}{int} intZ =  p.z;}
-\DoxyCodeLine{353     \textcolor{keywordtype}{float} fracX = p.x -\/ intX;}
-\DoxyCodeLine{354     \textcolor{keywordtype}{float} fracZ = p.z -\/ intZ;}
-\DoxyCodeLine{355 }
-\DoxyCodeLine{356     \textcolor{keywordtype}{float} v1 = \mbox{\hyperlink{class_scene_a5e23c09bde148bb02664586fdf16280e}{PlayerToTerrainPosition}}(glm::vec3(intX, 0, intZ), glm::vec3(0,0,0)).y;}
-\DoxyCodeLine{357     \textcolor{keywordtype}{float} v2 = \mbox{\hyperlink{class_scene_a5e23c09bde148bb02664586fdf16280e}{PlayerToTerrainPosition}}(glm::vec3(intX, 0, intZ), glm::vec3(1,0,0)).y;}
-\DoxyCodeLine{358     \textcolor{keywordtype}{float} v3 = \mbox{\hyperlink{class_scene_a5e23c09bde148bb02664586fdf16280e}{PlayerToTerrainPosition}}(glm::vec3(intX, 0, intZ + 1), glm::vec3(0,0,1)).y;}
-\DoxyCodeLine{359     \textcolor{keywordtype}{float} v4 = \mbox{\hyperlink{class_scene_a5e23c09bde148bb02664586fdf16280e}{PlayerToTerrainPosition}}(glm::vec3(intX, 0, intZ), glm::vec3(1,0,1)).y;}
-\DoxyCodeLine{360     \textcolor{keywordtype}{float} i1 = \mbox{\hyperlink{class_scene_ac241b2bf200e99c36e6b2ee194c37845}{Interpolate}}(v1, v2, fracX);}
-\DoxyCodeLine{361     \textcolor{keywordtype}{float} i2 = \mbox{\hyperlink{class_scene_ac241b2bf200e99c36e6b2ee194c37845}{Interpolate}}(v3, v4, fracX);}
-\DoxyCodeLine{362     \textcolor{keywordtype}{float} newHeight = \mbox{\hyperlink{class_scene_ac241b2bf200e99c36e6b2ee194c37845}{Interpolate}}(i1, i2, fracZ);}
-\DoxyCodeLine{363     \textcolor{keywordflow}{return}  newHeight;}
-\DoxyCodeLine{364 \}}
+\DoxyCodeLine{353 \{}
+\DoxyCodeLine{354     \textcolor{keywordtype}{int} intX =  p.x;}
+\DoxyCodeLine{355     \textcolor{keywordtype}{int} intZ =  p.z;}
+\DoxyCodeLine{356     \textcolor{keywordtype}{float} fracX = p.x -\/ intX;}
+\DoxyCodeLine{357     \textcolor{keywordtype}{float} fracZ = p.z -\/ intZ;}
+\DoxyCodeLine{358 }
+\DoxyCodeLine{359     \textcolor{keywordtype}{float} v1 = \mbox{\hyperlink{class_scene_a5e23c09bde148bb02664586fdf16280e}{PlayerToTerrainPosition}}(glm::vec3(intX, 0, intZ), glm::vec3(0,0,0)).y;}
+\DoxyCodeLine{360     \textcolor{keywordtype}{float} v2 = \mbox{\hyperlink{class_scene_a5e23c09bde148bb02664586fdf16280e}{PlayerToTerrainPosition}}(glm::vec3(intX, 0, intZ), glm::vec3(1,0,0)).y;}
+\DoxyCodeLine{361     \textcolor{keywordtype}{float} v3 = \mbox{\hyperlink{class_scene_a5e23c09bde148bb02664586fdf16280e}{PlayerToTerrainPosition}}(glm::vec3(intX, 0, intZ + 1), glm::vec3(0,0,1)).y;}
+\DoxyCodeLine{362     \textcolor{keywordtype}{float} v4 = \mbox{\hyperlink{class_scene_a5e23c09bde148bb02664586fdf16280e}{PlayerToTerrainPosition}}(glm::vec3(intX, 0, intZ), glm::vec3(1,0,1)).y;}
+\DoxyCodeLine{363     \textcolor{keywordtype}{float} i1 = \mbox{\hyperlink{class_scene_ac241b2bf200e99c36e6b2ee194c37845}{Interpolate}}(v1, v2, fracX);}
+\DoxyCodeLine{364     \textcolor{keywordtype}{float} i2 = \mbox{\hyperlink{class_scene_ac241b2bf200e99c36e6b2ee194c37845}{Interpolate}}(v3, v4, fracX);}
+\DoxyCodeLine{365     \textcolor{keywordtype}{float} newHeight = \mbox{\hyperlink{class_scene_ac241b2bf200e99c36e6b2ee194c37845}{Interpolate}}(i1, i2, fracZ);}
+\DoxyCodeLine{366     \textcolor{keywordflow}{return}  newHeight;}
+\DoxyCodeLine{367 \}}
 
 \end{DoxyCode}
 \mbox{\Hypertarget{class_scene_afad980b02acfeeb81c46786f1818bffc}\label{class_scene_afad980b02acfeeb81c46786f1818bffc}} 
@@ -241,124 +246,124 @@ vec3 -\/ new position if player collides with a object
 \end{DoxyReturn}
 
 
-Definition at line 578 of file Scene.\+cpp.
+Definition at line 582 of file Scene.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{579 \{}
-\DoxyCodeLine{580     glm::vec3 player = gameObjects[playerInd]-\/>GetPos();}
-\DoxyCodeLine{581     glm::vec3 playerSphereOrigin(pos.x, pos.y -\/ 0.75f, pos.z);}
-\DoxyCodeLine{582     \textcolor{keywordtype}{float} playerSphereRadius = 2.0f;}
-\DoxyCodeLine{583 }
-\DoxyCodeLine{584     \textcolor{keywordtype}{int} numberOfCollisions = 0;}
-\DoxyCodeLine{585     glm::vec3 shiftDelta = glm::vec3(0,0,0);}
-\DoxyCodeLine{586 }
-\DoxyCodeLine{587     std::vector<GameObject *> gameObjectsToRemoveFromScene;}
-\DoxyCodeLine{588     \textcolor{keywordflow}{for} (\textcolor{keyword}{auto}\& go : gameObjects)}
-\DoxyCodeLine{589     \{}
-\DoxyCodeLine{590         \textcolor{comment}{//Skip the player, we dont want collisions between the player and the player}}
-\DoxyCodeLine{591         \textcolor{keywordflow}{if} (go-\/>GetTag() == BoundingBox::PLAYER) \textcolor{keywordflow}{continue};}
-\DoxyCodeLine{592 }
-\DoxyCodeLine{593         \textcolor{keywordtype}{float} distance = glm::distance(playerSphereOrigin, go-\/>GetPos());}
-\DoxyCodeLine{594 }
-\DoxyCodeLine{595         \textcolor{keywordflow}{if} (go-\/>GetTag() == BoundingBox::TOKEN \&\& distance < playerSphereRadius)}
-\DoxyCodeLine{596         \{}
-\DoxyCodeLine{597             \textcolor{keywordflow}{if}(Debugger::GetInstance()-\/>debugCollisionsToConsole) std::cout << \textcolor{stringliteral}{"{}Scene.cpp::INFO::Token GameObject -\/ "{}} << go-\/>GetName() << \textcolor{stringliteral}{"{} Hit"{}} << std::endl;}
-\DoxyCodeLine{598             go-\/>Kill();}
-\DoxyCodeLine{599             gameObjectsToRemoveFromScene.emplace\_back(go);}
-\DoxyCodeLine{600             \textcolor{keywordflow}{continue};}
-\DoxyCodeLine{601         \}}
-\DoxyCodeLine{602 }
-\DoxyCodeLine{603         \textcolor{keywordflow}{if} (go-\/>GetTag() == BoundingBox::STATIC\_OBJECT \&\& distance < playerSphereRadius || go-\/>GetTag() == BoundingBox::ENEMY \&\& distance < playerSphereRadius)}
-\DoxyCodeLine{604         \{}
-\DoxyCodeLine{605             \textcolor{keywordflow}{if} (Debugger::GetInstance()-\/>debugCollisionsToConsole) std::cout << \textcolor{stringliteral}{"{}Scene.cpp::INFO::Static GameObject -\/ "{}} + go-\/>GetName() + \textcolor{stringliteral}{"{} hit"{}} << std::endl;}
-\DoxyCodeLine{606             \textcolor{comment}{//Simple Collisions/distance checking, More complex collision detection is work in progress}}
-\DoxyCodeLine{607             glm::vec3 dir = go-\/>GetPos() -\/ playerSphereOrigin;}
-\DoxyCodeLine{608             \textcolor{comment}{//the player is too close to a object and will be stopped}}
-\DoxyCodeLine{609             pos.x = player.x;}
-\DoxyCodeLine{610             pos.y = player.y;}
-\DoxyCodeLine{611             pos.z = player.z;}
-\DoxyCodeLine{612 }
-\DoxyCodeLine{613         \}}
-\DoxyCodeLine{614     }
-\DoxyCodeLine{615 }
+\DoxyCodeLine{583 \{}
+\DoxyCodeLine{584     glm::vec3 player = gameObjects[playerInd]-\/>GetPos();}
+\DoxyCodeLine{585     glm::vec3 playerSphereOrigin(pos.x, pos.y -\/ 0.75f, pos.z);}
+\DoxyCodeLine{586     \textcolor{keywordtype}{float} playerSphereRadius = 2.0f;}
+\DoxyCodeLine{587 }
+\DoxyCodeLine{588     \textcolor{keywordtype}{int} numberOfCollisions = 0;}
+\DoxyCodeLine{589     glm::vec3 shiftDelta = glm::vec3(0,0,0);}
+\DoxyCodeLine{590 }
+\DoxyCodeLine{591     std::vector<GameObject *> gameObjectsToRemoveFromScene;}
+\DoxyCodeLine{592     \textcolor{keywordflow}{for} (\textcolor{keyword}{auto}\& go : gameObjects)}
+\DoxyCodeLine{593     \{}
+\DoxyCodeLine{594         \textcolor{comment}{//Skip the player, we dont want collisions between the player and the player}}
+\DoxyCodeLine{595         \textcolor{keywordflow}{if} (go-\/>GetTag() == BoundingBox::PLAYER) \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{596 }
+\DoxyCodeLine{597         \textcolor{keywordtype}{float} distance = glm::distance(playerSphereOrigin, go-\/>GetPos());}
+\DoxyCodeLine{598 }
+\DoxyCodeLine{599         \textcolor{keywordflow}{if} (go-\/>GetTag() == BoundingBox::TOKEN \&\& distance < playerSphereRadius)}
+\DoxyCodeLine{600         \{}
+\DoxyCodeLine{601             \textcolor{keywordflow}{if}(Debugger::GetInstance()-\/>debugCollisionsToConsole) std::cout << \textcolor{stringliteral}{"{}Scene.cpp::INFO::Token GameObject -\/ "{}} << go-\/>GetName() << \textcolor{stringliteral}{"{} Hit"{}} << std::endl;}
+\DoxyCodeLine{602             go-\/>Kill();}
+\DoxyCodeLine{603             gameObjectsToRemoveFromScene.emplace\_back(go);}
+\DoxyCodeLine{604             \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{605         \}}
+\DoxyCodeLine{606 }
+\DoxyCodeLine{607         \textcolor{keywordflow}{if} (go-\/>GetTag() == BoundingBox::STATIC\_OBJECT \&\& distance < playerSphereRadius || go-\/>GetTag() == BoundingBox::ENEMY \&\& distance < playerSphereRadius)}
+\DoxyCodeLine{608         \{}
+\DoxyCodeLine{609             \textcolor{keywordflow}{if} (Debugger::GetInstance()-\/>debugCollisionsToConsole) std::cout << \textcolor{stringliteral}{"{}Scene.cpp::INFO::Static GameObject -\/ "{}} + go-\/>GetName() + \textcolor{stringliteral}{"{} hit"{}} << std::endl;}
+\DoxyCodeLine{610             \textcolor{comment}{//Simple Collisions/distance checking, More complex collision detection is work in progress}}
+\DoxyCodeLine{611             glm::vec3 dir = go-\/>GetPos() -\/ playerSphereOrigin;}
+\DoxyCodeLine{612             \textcolor{comment}{//the player is too close to a object and will be stopped}}
+\DoxyCodeLine{613             pos.x = player.x;}
+\DoxyCodeLine{614             pos.y = player.y;}
+\DoxyCodeLine{615             pos.z = player.z;}
 \DoxyCodeLine{616 }
-\DoxyCodeLine{617         \textcolor{comment}{/*//Get the information about the bounding box of a gameobject}}
-\DoxyCodeLine{618 \textcolor{comment}{        BoundingBox box = go-\/>GetBoundingBox();}}
-\DoxyCodeLine{619 \textcolor{comment}{        std::vector<glm::vec3> vertex = box.GetVertexData();}}
-\DoxyCodeLine{620 \textcolor{comment}{        std::vector<int> index = box.GetIndiceData();}}
-\DoxyCodeLine{621 \textcolor{comment}{        std::vector<glm::vec3> normal = box.GetNormalData();}}
-\DoxyCodeLine{622 \textcolor{comment}{        int numberOfTriangles = (int)index.size()/3;}}
-\DoxyCodeLine{623 \textcolor{comment}{}}
-\DoxyCodeLine{624 \textcolor{comment}{        for(int i = 0; i < numberOfTriangles; i++)}}
-\DoxyCodeLine{625 \textcolor{comment}{        \{}}
-\DoxyCodeLine{626 \textcolor{comment}{            bool outsidePlane = false;}}
-\DoxyCodeLine{627 \textcolor{comment}{            bool outsideAllVerts = false;}}
-\DoxyCodeLine{628 \textcolor{comment}{            bool outsideAllEdges = false;}}
-\DoxyCodeLine{629 \textcolor{comment}{}}
-\DoxyCodeLine{630 \textcolor{comment}{            //find points}}
-\DoxyCodeLine{631 \textcolor{comment}{            glm::vec3 a = vertex[i];}}
-\DoxyCodeLine{632 \textcolor{comment}{            glm::vec3 b = vertex[i+1];}}
-\DoxyCodeLine{633 \textcolor{comment}{            glm::vec3 c = vertex[i+2];}}
-\DoxyCodeLine{634 \textcolor{comment}{}}
-\DoxyCodeLine{635 \textcolor{comment}{            //find vectors between points}}
-\DoxyCodeLine{636 \textcolor{comment}{            glm::vec3 ab = b -\/ a;}}
-\DoxyCodeLine{637 \textcolor{comment}{            glm::vec3 ac = c -\/ a;}}
-\DoxyCodeLine{638 \textcolor{comment}{            glm::vec3 bc = c -\/ b;}}
-\DoxyCodeLine{639 \textcolor{comment}{}}
-\DoxyCodeLine{640 \textcolor{comment}{            //find normal of the required triangle}}
-\DoxyCodeLine{641 \textcolor{comment}{            glm::vec3 pN = glm::cross(ab, ac);}}
-\DoxyCodeLine{642 \textcolor{comment}{}}
-\DoxyCodeLine{643 \textcolor{comment}{            //check the normal is horizontal to the player}}
-\DoxyCodeLine{644 \textcolor{comment}{            if(pN.y > 0.1f) continue;}}
-\DoxyCodeLine{645 \textcolor{comment}{}}
-\DoxyCodeLine{646 \textcolor{comment}{            //Find the sphere to plane distance}}
-\DoxyCodeLine{647 \textcolor{comment}{            float d = glm::dot(-\/((a + b + c) / 3.0f), pN);}}
-\DoxyCodeLine{648 \textcolor{comment}{}}
-\DoxyCodeLine{649 \textcolor{comment}{            float ppd = glm::dot(pN, playerSphereOrigin) + d;//add square root if d isnt normalized}}
-\DoxyCodeLine{650 \textcolor{comment}{}}
-\DoxyCodeLine{651 \textcolor{comment}{            //player Shphere is outside the triangles plane}}
-\DoxyCodeLine{652 \textcolor{comment}{            if(ppd > playerSphereRadius) \{outsidePlane = true; continue;\}}}
-\DoxyCodeLine{653 \textcolor{comment}{}}
-\DoxyCodeLine{654 \textcolor{comment}{            bool outsideA = pow(glm::distance(a, playerSphereOrigin), 2) > pow(playerSphereRadius, 2);}}
-\DoxyCodeLine{655 \textcolor{comment}{            bool outsideB = pow(glm::distance(b, playerSphereOrigin), 2) > pow(playerSphereRadius,2);}}
-\DoxyCodeLine{656 \textcolor{comment}{            bool outsideC = pow(glm::distance(c, playerSphereOrigin), 2) > pow(playerSphereRadius,2);}}
+\DoxyCodeLine{617         \}}
+\DoxyCodeLine{618     }
+\DoxyCodeLine{619 }
+\DoxyCodeLine{620 }
+\DoxyCodeLine{621         \textcolor{comment}{/*//Get the information about the bounding box of a gameobject}}
+\DoxyCodeLine{622 \textcolor{comment}{        BoundingBox box = go-\/>GetBoundingBox();}}
+\DoxyCodeLine{623 \textcolor{comment}{        std::vector<glm::vec3> vertex = box.GetVertexData();}}
+\DoxyCodeLine{624 \textcolor{comment}{        std::vector<int> index = box.GetIndiceData();}}
+\DoxyCodeLine{625 \textcolor{comment}{        std::vector<glm::vec3> normal = box.GetNormalData();}}
+\DoxyCodeLine{626 \textcolor{comment}{        int numberOfTriangles = (int)index.size()/3;}}
+\DoxyCodeLine{627 \textcolor{comment}{}}
+\DoxyCodeLine{628 \textcolor{comment}{        for(int i = 0; i < numberOfTriangles; i++)}}
+\DoxyCodeLine{629 \textcolor{comment}{        \{}}
+\DoxyCodeLine{630 \textcolor{comment}{            bool outsidePlane = false;}}
+\DoxyCodeLine{631 \textcolor{comment}{            bool outsideAllVerts = false;}}
+\DoxyCodeLine{632 \textcolor{comment}{            bool outsideAllEdges = false;}}
+\DoxyCodeLine{633 \textcolor{comment}{}}
+\DoxyCodeLine{634 \textcolor{comment}{            //find points}}
+\DoxyCodeLine{635 \textcolor{comment}{            glm::vec3 a = vertex[i];}}
+\DoxyCodeLine{636 \textcolor{comment}{            glm::vec3 b = vertex[i+1];}}
+\DoxyCodeLine{637 \textcolor{comment}{            glm::vec3 c = vertex[i+2];}}
+\DoxyCodeLine{638 \textcolor{comment}{}}
+\DoxyCodeLine{639 \textcolor{comment}{            //find vectors between points}}
+\DoxyCodeLine{640 \textcolor{comment}{            glm::vec3 ab = b -\/ a;}}
+\DoxyCodeLine{641 \textcolor{comment}{            glm::vec3 ac = c -\/ a;}}
+\DoxyCodeLine{642 \textcolor{comment}{            glm::vec3 bc = c -\/ b;}}
+\DoxyCodeLine{643 \textcolor{comment}{}}
+\DoxyCodeLine{644 \textcolor{comment}{            //find normal of the required triangle}}
+\DoxyCodeLine{645 \textcolor{comment}{            glm::vec3 pN = glm::cross(ab, ac);}}
+\DoxyCodeLine{646 \textcolor{comment}{}}
+\DoxyCodeLine{647 \textcolor{comment}{            //check the normal is horizontal to the player}}
+\DoxyCodeLine{648 \textcolor{comment}{            if(pN.y > 0.1f) continue;}}
+\DoxyCodeLine{649 \textcolor{comment}{}}
+\DoxyCodeLine{650 \textcolor{comment}{            //Find the sphere to plane distance}}
+\DoxyCodeLine{651 \textcolor{comment}{            float d = glm::dot(-\/((a + b + c) / 3.0f), pN);}}
+\DoxyCodeLine{652 \textcolor{comment}{}}
+\DoxyCodeLine{653 \textcolor{comment}{            float ppd = glm::dot(pN, playerSphereOrigin) + d;//add square root if d isnt normalized}}
+\DoxyCodeLine{654 \textcolor{comment}{}}
+\DoxyCodeLine{655 \textcolor{comment}{            //player Shphere is outside the triangles plane}}
+\DoxyCodeLine{656 \textcolor{comment}{            if(ppd > playerSphereRadius) \{outsidePlane = true; continue;\}}}
 \DoxyCodeLine{657 \textcolor{comment}{}}
-\DoxyCodeLine{658 \textcolor{comment}{            //sphere is outside of the triangle points}}
-\DoxyCodeLine{659 \textcolor{comment}{            if(outsideA \&\& outsideB \&\& outsideC) outsideAllVerts = true;}}
-\DoxyCodeLine{660 \textcolor{comment}{}}
-\DoxyCodeLine{661 \textcolor{comment}{            glm::vec3 ip;}}
-\DoxyCodeLine{662 \textcolor{comment}{}}
-\DoxyCodeLine{663 \textcolor{comment}{            if(!intersectRaySegmentSphere(a, ab, playerSphereOrigin, pow(playerSphereRadius,2), ip) \&\&}}
-\DoxyCodeLine{664 \textcolor{comment}{                !intersectRaySegmentSphere(b, ac, playerSphereOrigin, pow(playerSphereRadius,2), ip) \&\&}}
-\DoxyCodeLine{665 \textcolor{comment}{                !intersectRaySegmentSphere(c, bc, playerSphereOrigin, pow(playerSphereRadius,2), ip)) outsideAllEdges = true;}}
+\DoxyCodeLine{658 \textcolor{comment}{            bool outsideA = pow(glm::distance(a, playerSphereOrigin), 2) > pow(playerSphereRadius, 2);}}
+\DoxyCodeLine{659 \textcolor{comment}{            bool outsideB = pow(glm::distance(b, playerSphereOrigin), 2) > pow(playerSphereRadius,2);}}
+\DoxyCodeLine{660 \textcolor{comment}{            bool outsideC = pow(glm::distance(c, playerSphereOrigin), 2) > pow(playerSphereRadius,2);}}
+\DoxyCodeLine{661 \textcolor{comment}{}}
+\DoxyCodeLine{662 \textcolor{comment}{            //sphere is outside of the triangle points}}
+\DoxyCodeLine{663 \textcolor{comment}{            if(outsideA \&\& outsideB \&\& outsideC) outsideAllVerts = true;}}
+\DoxyCodeLine{664 \textcolor{comment}{}}
+\DoxyCodeLine{665 \textcolor{comment}{            glm::vec3 ip;}}
 \DoxyCodeLine{666 \textcolor{comment}{}}
-\DoxyCodeLine{667 \textcolor{comment}{            if(outsideAllEdges \&\& outsideAllVerts) continue;}}
-\DoxyCodeLine{668 \textcolor{comment}{}}
-\DoxyCodeLine{669 \textcolor{comment}{            numberOfCollisions++;}}
-\DoxyCodeLine{670 \textcolor{comment}{            shiftDelta += pN * (playerSphereRadius -\/ ppd);}}
-\DoxyCodeLine{671 \textcolor{comment}{}}
-\DoxyCodeLine{672 \textcolor{comment}{        \}}}
-\DoxyCodeLine{673 \textcolor{comment}{         */}}
-\DoxyCodeLine{674     \}}
-\DoxyCodeLine{675     std::vector<GameObject*>::iterator removed;}
-\DoxyCodeLine{676     \textcolor{keywordflow}{for}(\textcolor{keyword}{auto} \&go : gameObjectsToRemoveFromScene)}
-\DoxyCodeLine{677     \{}
-\DoxyCodeLine{678         \textcolor{comment}{//if(Debugger::GetInstance()-\/>debugCollisionsToConsole) std::cout << "{}Scene.cpp::INFO::GameObject -\/ "{} + go-\/>GetName() +"{} hit and removed from scene"{} << std::endl;}}
-\DoxyCodeLine{679         removed = std::remove(gameObjects.begin(), gameObjects.end(), go);}
-\DoxyCodeLine{680         gameObjects.erase(removed);}
-\DoxyCodeLine{681     \}}
-\DoxyCodeLine{682 }
-\DoxyCodeLine{683     \textcolor{comment}{/*if(numberOfCollisions != 0)}}
-\DoxyCodeLine{684 \textcolor{comment}{    \{}}
-\DoxyCodeLine{685 \textcolor{comment}{        shiftDelta /= numberOfCollisions;}}
-\DoxyCodeLine{686 \textcolor{comment}{        glm::normalize(shiftDelta);}}
-\DoxyCodeLine{687 \textcolor{comment}{}}
-\DoxyCodeLine{688 \textcolor{comment}{        pos += shiftDelta;}}
-\DoxyCodeLine{689 \textcolor{comment}{    \}*/}}
-\DoxyCodeLine{690 }
-\DoxyCodeLine{691     \textcolor{keywordflow}{return} pos;}
-\DoxyCodeLine{692 \}}
+\DoxyCodeLine{667 \textcolor{comment}{            if(!intersectRaySegmentSphere(a, ab, playerSphereOrigin, pow(playerSphereRadius,2), ip) \&\&}}
+\DoxyCodeLine{668 \textcolor{comment}{                !intersectRaySegmentSphere(b, ac, playerSphereOrigin, pow(playerSphereRadius,2), ip) \&\&}}
+\DoxyCodeLine{669 \textcolor{comment}{                !intersectRaySegmentSphere(c, bc, playerSphereOrigin, pow(playerSphereRadius,2), ip)) outsideAllEdges = true;}}
+\DoxyCodeLine{670 \textcolor{comment}{}}
+\DoxyCodeLine{671 \textcolor{comment}{            if(outsideAllEdges \&\& outsideAllVerts) continue;}}
+\DoxyCodeLine{672 \textcolor{comment}{}}
+\DoxyCodeLine{673 \textcolor{comment}{            numberOfCollisions++;}}
+\DoxyCodeLine{674 \textcolor{comment}{            shiftDelta += pN * (playerSphereRadius -\/ ppd);}}
+\DoxyCodeLine{675 \textcolor{comment}{}}
+\DoxyCodeLine{676 \textcolor{comment}{        \}}}
+\DoxyCodeLine{677 \textcolor{comment}{         */}}
+\DoxyCodeLine{678     \}}
+\DoxyCodeLine{679     std::vector<GameObject*>::iterator removed;}
+\DoxyCodeLine{680     \textcolor{keywordflow}{for}(\textcolor{keyword}{auto} \&go : gameObjectsToRemoveFromScene)}
+\DoxyCodeLine{681     \{}
+\DoxyCodeLine{682         \textcolor{comment}{//if(Debugger::GetInstance()-\/>debugCollisionsToConsole) std::cout << "{}Scene.cpp::INFO::GameObject -\/ "{} + go-\/>GetName() +"{} hit and removed from scene"{} << std::endl;}}
+\DoxyCodeLine{683         removed = std::remove(gameObjects.begin(), gameObjects.end(), go);}
+\DoxyCodeLine{684         gameObjects.erase(removed);}
+\DoxyCodeLine{685     \}}
+\DoxyCodeLine{686 }
+\DoxyCodeLine{687     \textcolor{comment}{/*if(numberOfCollisions != 0)}}
+\DoxyCodeLine{688 \textcolor{comment}{    \{}}
+\DoxyCodeLine{689 \textcolor{comment}{        shiftDelta /= numberOfCollisions;}}
+\DoxyCodeLine{690 \textcolor{comment}{        glm::normalize(shiftDelta);}}
+\DoxyCodeLine{691 \textcolor{comment}{}}
+\DoxyCodeLine{692 \textcolor{comment}{        pos += shiftDelta;}}
+\DoxyCodeLine{693 \textcolor{comment}{    \}*/}}
+\DoxyCodeLine{694 }
+\DoxyCodeLine{695     \textcolor{keywordflow}{return} pos;}
+\DoxyCodeLine{696 \}}
 
 \end{DoxyCode}
 \mbox{\Hypertarget{class_scene_aceeecfaa17397132f8935fdc64ff50d1}\label{class_scene_aceeecfaa17397132f8935fdc64ff50d1}} 
@@ -378,11 +383,11 @@ Gets a gameobject from the game objects.
 \end{DoxyParams}
 
 
-Definition at line 125 of file Scene.\+h.
+Definition at line 129 of file Scene.\+h.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{125 \{ \textcolor{keywordflow}{return} gameObjects[i]; \}}
+\DoxyCodeLine{129 \{ \textcolor{keywordflow}{return} gameObjects[i]; \}}
 
 \end{DoxyCode}
 \mbox{\Hypertarget{class_scene_a15cb65348bc14aabb533fa568ef5068d}\label{class_scene_a15cb65348bc14aabb533fa568ef5068d}} 
@@ -400,11 +405,11 @@ string
 \end{DoxyReturn}
 
 
-Definition at line 103 of file Scene.\+h.
+Definition at line 107 of file Scene.\+h.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{103 \{ \textcolor{keywordflow}{return} sceneName; \}}
+\DoxyCodeLine{107 \{ \textcolor{keywordflow}{return} sceneName; \}}
 
 \end{DoxyCode}
 \mbox{\Hypertarget{class_scene_abc9e94d27c41c5b27110446791e39284}\label{class_scene_abc9e94d27c41c5b27110446791e39284}} 
@@ -422,11 +427,11 @@ terrain
 \end{DoxyReturn}
 
 
-Definition at line 165 of file Scene.\+h.
+Definition at line 169 of file Scene.\+h.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{165 \{\textcolor{keywordflow}{return} gameTerrain;\}}
+\DoxyCodeLine{169 \{\textcolor{keywordflow}{return} gameTerrain;\}}
 
 \end{DoxyCode}
 \mbox{\Hypertarget{class_scene_ada22f03b86c4537d89326586e69af23c}\label{class_scene_ada22f03b86c4537d89326586e69af23c}} 
@@ -453,44 +458,44 @@ bool
 \end{DoxyReturn}
 
 
-Definition at line 694 of file Scene.\+cpp.
+Definition at line 698 of file Scene.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{695 \{}
-\DoxyCodeLine{696     \textcolor{comment}{//we pass in d non-\/normalized to keep it's length}}
-\DoxyCodeLine{697     \textcolor{comment}{//then we use that length later to compare the intersection point to make sure}}
-\DoxyCodeLine{698     \textcolor{comment}{//we're within the actual ray segment}}
-\DoxyCodeLine{699     \textcolor{keyword}{auto} l = (float)sqrt(pow(d.x,2) + pow(d.y, 2) + pow(d.z, 2));}
-\DoxyCodeLine{700     d /= l;}
-\DoxyCodeLine{701 }
-\DoxyCodeLine{702     glm::vec3 m = o -\/ so;}
-\DoxyCodeLine{703     \textcolor{keywordtype}{float} b = glm::dot(m, d);}
-\DoxyCodeLine{704     \textcolor{keywordtype}{float} c = glm::dot(m, m) -\/ radius;}
+\DoxyCodeLine{699 \{}
+\DoxyCodeLine{700     \textcolor{comment}{//we pass in d non-\/normalized to keep it's length}}
+\DoxyCodeLine{701     \textcolor{comment}{//then we use that length later to compare the intersection point to make sure}}
+\DoxyCodeLine{702     \textcolor{comment}{//we're within the actual ray segment}}
+\DoxyCodeLine{703     \textcolor{keyword}{auto} l = (float)sqrt(pow(d.x,2) + pow(d.y, 2) + pow(d.z, 2));}
+\DoxyCodeLine{704     d /= l;}
 \DoxyCodeLine{705 }
-\DoxyCodeLine{706     \textcolor{comment}{// Exit if r’s origin outside s (c > 0) and r pointing away from s (b > 0)}}
-\DoxyCodeLine{707     \textcolor{keywordflow}{if}(c > 0.0f \&\& b > 0.0f)}
-\DoxyCodeLine{708         \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
-\DoxyCodeLine{709     \textcolor{keywordtype}{float} discr = b*b -\/ c;}
-\DoxyCodeLine{710 }
-\DoxyCodeLine{711     \textcolor{comment}{// A negative discriminant corresponds to ray missing sphere}}
-\DoxyCodeLine{712     \textcolor{keywordflow}{if}(discr < 0.0f)}
-\DoxyCodeLine{713         \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{706     glm::vec3 m = o -\/ so;}
+\DoxyCodeLine{707     \textcolor{keywordtype}{float} b = glm::dot(m, d);}
+\DoxyCodeLine{708     \textcolor{keywordtype}{float} c = glm::dot(m, m) -\/ radius;}
+\DoxyCodeLine{709 }
+\DoxyCodeLine{710     \textcolor{comment}{// Exit if r’s origin outside s (c > 0) and r pointing away from s (b > 0)}}
+\DoxyCodeLine{711     \textcolor{keywordflow}{if}(c > 0.0f \&\& b > 0.0f)}
+\DoxyCodeLine{712         \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{713     \textcolor{keywordtype}{float} discr = b*b -\/ c;}
 \DoxyCodeLine{714 }
-\DoxyCodeLine{715     \textcolor{comment}{// Ray now found to intersect sphere, compute smallest t value of intersection}}
-\DoxyCodeLine{716     \textcolor{keywordtype}{float} t = -\/b -\/ sqrtf(discr);}
-\DoxyCodeLine{717 }
-\DoxyCodeLine{718     \textcolor{comment}{// If t is negative, ray started inside sphere so clamp t to zero}}
-\DoxyCodeLine{719     \textcolor{keywordflow}{if}(t < 0.0f)}
-\DoxyCodeLine{720         t = 0.0f;}
-\DoxyCodeLine{721     ip = o + (d * t);}
-\DoxyCodeLine{722 }
-\DoxyCodeLine{723     \textcolor{comment}{//here's that last segment check I was talking about}}
-\DoxyCodeLine{724     \textcolor{keywordflow}{if}(t > l)}
-\DoxyCodeLine{725         \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{715     \textcolor{comment}{// A negative discriminant corresponds to ray missing sphere}}
+\DoxyCodeLine{716     \textcolor{keywordflow}{if}(discr < 0.0f)}
+\DoxyCodeLine{717         \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{718 }
+\DoxyCodeLine{719     \textcolor{comment}{// Ray now found to intersect sphere, compute smallest t value of intersection}}
+\DoxyCodeLine{720     \textcolor{keywordtype}{float} t = -\/b -\/ sqrtf(discr);}
+\DoxyCodeLine{721 }
+\DoxyCodeLine{722     \textcolor{comment}{// If t is negative, ray started inside sphere so clamp t to zero}}
+\DoxyCodeLine{723     \textcolor{keywordflow}{if}(t < 0.0f)}
+\DoxyCodeLine{724         t = 0.0f;}
+\DoxyCodeLine{725     ip = o + (d * t);}
 \DoxyCodeLine{726 }
-\DoxyCodeLine{727     \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
-\DoxyCodeLine{728 \}}
+\DoxyCodeLine{727     \textcolor{comment}{//here's that last segment check I was talking about}}
+\DoxyCodeLine{728     \textcolor{keywordflow}{if}(t > l)}
+\DoxyCodeLine{729         \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{730 }
+\DoxyCodeLine{731     \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{732 \}}
 
 \end{DoxyCode}
 \mbox{\Hypertarget{class_scene_aa368a085e818a495826718959087f3dd}\label{class_scene_aa368a085e818a495826718959087f3dd}} 
@@ -530,25 +535,25 @@ Function that uses the game asset factory to create a new game object.
 \end{DoxyParams}
 
 
-Definition at line 408 of file Scene.\+cpp.
+Definition at line 411 of file Scene.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{409 \{}
-\DoxyCodeLine{410     \textcolor{comment}{//Check the terrain height to make sure the object isn't under the terrain;}}
-\DoxyCodeLine{411     y += \mbox{\hyperlink{class_scene_a33fbd9a1c5230c5591c4edf815361dc0}{WorldToTerrainPosition}}(glm::vec3(x,y,z), \textcolor{keyword}{false}).y;}
-\DoxyCodeLine{412 }
-\DoxyCodeLine{413     \mbox{\hyperlink{class_game_object}{GameObject}}* newGameObject = factory-\/>\mbox{\hyperlink{class_game_asset_factory_adf24ecaf355d032057fb10da885c99d5}{GetGameObject}}(t, script, scale, glm::vec3(x, y, z));}
-\DoxyCodeLine{414     \textcolor{keywordflow}{if} (newGameObject != \textcolor{keyword}{nullptr})}
-\DoxyCodeLine{415     \{}
-\DoxyCodeLine{416         gameObjects.push\_back(newGameObject);}
-\DoxyCodeLine{417         \textcolor{keywordflow}{if}(t == \textcolor{stringliteral}{"{}water"{}}) \{ waterIndex = (int)gameObjects.size() -\/ 1;\}}
-\DoxyCodeLine{418     \}}
-\DoxyCodeLine{419     \textcolor{keywordflow}{else}}
-\DoxyCodeLine{420     \{}
-\DoxyCodeLine{421         \textcolor{keywordflow}{if}(Debugger::GetInstance()-\/>debugToConsole) std::cout << \textcolor{stringliteral}{"{}Scene.cpp::ERROR::GAME\_ASSET\_FACTORY::TYPE\_UNKNOWN"{}} << std::endl;}
-\DoxyCodeLine{422     \}}
-\DoxyCodeLine{423 \}}
+\DoxyCodeLine{412 \{}
+\DoxyCodeLine{413     \textcolor{comment}{//Check the terrain height to make sure the object isn't under the terrain;}}
+\DoxyCodeLine{414     y += \mbox{\hyperlink{class_scene_a33fbd9a1c5230c5591c4edf815361dc0}{WorldToTerrainPosition}}(glm::vec3(x,y,z), \textcolor{keyword}{false}).y;}
+\DoxyCodeLine{415 }
+\DoxyCodeLine{416     \mbox{\hyperlink{class_game_object}{GameObject}}* newGameObject = factory-\/>\mbox{\hyperlink{class_game_asset_factory_adf24ecaf355d032057fb10da885c99d5}{GetGameObject}}(t, script, scale, glm::vec3(x, y, z));}
+\DoxyCodeLine{417     \textcolor{keywordflow}{if} (newGameObject != \textcolor{keyword}{nullptr})}
+\DoxyCodeLine{418     \{}
+\DoxyCodeLine{419         gameObjects.push\_back(newGameObject);}
+\DoxyCodeLine{420         \textcolor{keywordflow}{if}(t == \textcolor{stringliteral}{"{}water"{}}) \{ waterIndex = (int)gameObjects.size() -\/ 1;\}}
+\DoxyCodeLine{421     \}}
+\DoxyCodeLine{422     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{423     \{}
+\DoxyCodeLine{424         \textcolor{keywordflow}{if}(Debugger::GetInstance()-\/>debugToConsole) std::cout << \textcolor{stringliteral}{"{}Scene.cpp::ERROR::GAME\_ASSET\_FACTORY::TYPE\_UNKNOWN"{}} << std::endl;}
+\DoxyCodeLine{425     \}}
+\DoxyCodeLine{426 \}}
 
 \end{DoxyCode}
 \mbox{\Hypertarget{class_scene_a5e23c09bde148bb02664586fdf16280e}\label{class_scene_a5e23c09bde148bb02664586fdf16280e}} 
@@ -573,17 +578,17 @@ Converts the players position into terrain position.
 \end{DoxyReturn}
 
 
-Definition at line 738 of file Scene.\+cpp.
+Definition at line 742 of file Scene.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{739 \{}
-\DoxyCodeLine{740     \textcolor{keywordtype}{float} worldx, worldy, worldz;}
-\DoxyCodeLine{741     worldx = \mbox{\hyperlink{class_scene_a76ef6acde64562ef534ffaa2d7f8f226}{Remap}}(p.x, 0, 52.0f * gameTerrain-\/>GetScales().x, 0, (\textcolor{keywordtype}{float})gameTerrain-\/>\mbox{\hyperlink{class_terrain_a88a02349cfd6085b2447cff2512ba965}{getSize}}() -\/ 1);}
-\DoxyCodeLine{742     worldz = \mbox{\hyperlink{class_scene_a76ef6acde64562ef534ffaa2d7f8f226}{Remap}}(p.z, 0, 52.0f * gameTerrain-\/>GetScales().z, 0, (\textcolor{keywordtype}{float})gameTerrain-\/>\mbox{\hyperlink{class_terrain_a88a02349cfd6085b2447cff2512ba965}{getSize}}() -\/ 1);}
-\DoxyCodeLine{743     worldy = gameTerrain-\/>\mbox{\hyperlink{class_terrain_acfed93a5a537a0ce7202ffa426d6907b}{GetVertexHeight}}(worldx + terrainPosMovement.x , worldz + terrainPosMovement.z);}
-\DoxyCodeLine{744     \textcolor{keywordflow}{return} glm::vec3(worldx, worldy, worldz);}
-\DoxyCodeLine{745 \}}
+\DoxyCodeLine{743 \{}
+\DoxyCodeLine{744     \textcolor{keywordtype}{float} worldx, worldy, worldz;}
+\DoxyCodeLine{745     worldx = \mbox{\hyperlink{class_scene_a76ef6acde64562ef534ffaa2d7f8f226}{Remap}}(p.x, 0, 52.0f * gameTerrain-\/>GetScales().x, 0, (\textcolor{keywordtype}{float})gameTerrain-\/>\mbox{\hyperlink{class_terrain_a88a02349cfd6085b2447cff2512ba965}{getSize}}() -\/ 1);}
+\DoxyCodeLine{746     worldz = \mbox{\hyperlink{class_scene_a76ef6acde64562ef534ffaa2d7f8f226}{Remap}}(p.z, 0, 52.0f * gameTerrain-\/>GetScales().z, 0, (\textcolor{keywordtype}{float})gameTerrain-\/>\mbox{\hyperlink{class_terrain_a88a02349cfd6085b2447cff2512ba965}{getSize}}() -\/ 1);}
+\DoxyCodeLine{747     worldy = gameTerrain-\/>\mbox{\hyperlink{class_terrain_acfed93a5a537a0ce7202ffa426d6907b}{GetVertexHeight}}(worldx + terrainPosMovement.x , worldz + terrainPosMovement.z);}
+\DoxyCodeLine{748     \textcolor{keywordflow}{return} glm::vec3(worldx, worldy, worldz);}
+\DoxyCodeLine{749 \}}
 
 \end{DoxyCode}
 \mbox{\Hypertarget{class_scene_a76ef6acde64562ef534ffaa2d7f8f226}\label{class_scene_a76ef6acde64562ef534ffaa2d7f8f226}} 
@@ -614,14 +619,14 @@ output -\/ new value in the same range of the old values but within the new valu
 \end{DoxyReturn}
 
 
-Definition at line 732 of file Scene.\+cpp.
+Definition at line 736 of file Scene.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{733 \{}
-\DoxyCodeLine{734     \textcolor{keywordtype}{float} out = newMin + (newMax -\/ newMin) * ((value -\/ oldMin) / (oldMax -\/ oldMin));}
-\DoxyCodeLine{735     \textcolor{keywordflow}{return} out;}
-\DoxyCodeLine{736 \}}
+\DoxyCodeLine{737 \{}
+\DoxyCodeLine{738     \textcolor{keywordtype}{float} out = newMin + (newMax -\/ newMin) * ((value -\/ oldMin) / (oldMax -\/ oldMin));}
+\DoxyCodeLine{739     \textcolor{keywordflow}{return} out;}
+\DoxyCodeLine{740 \}}
 
 \end{DoxyCode}
 \mbox{\Hypertarget{class_scene_acaa19d509c2a82c3493085c5f1217e15}\label{class_scene_acaa19d509c2a82c3493085c5f1217e15}} 
@@ -641,136 +646,141 @@ Runs the scene, setting up objects for rendering and changes.
 \end{DoxyParams}
 
 
-Definition at line 148 of file Scene.\+cpp.
+Definition at line 150 of file Scene.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{149 \{}
-\DoxyCodeLine{150     \textcolor{keywordflow}{if} (exitScreen.exitScreenDisplay)}
-\DoxyCodeLine{151     \{}
-\DoxyCodeLine{152         endScreenGUI-\/>\mbox{\hyperlink{class_end_screen_g_u_i_acc5a1425f9e7694474855caec83e1dc1}{Draw}}();}
-\DoxyCodeLine{153     \}}
-\DoxyCodeLine{154     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(!mainMenuGui-\/>displayMainMenu \&\& !mainMenuGui-\/>displayPauseMenu \&\& !mainMenuGui-\/>displaySettings \&\& !mainMenuGui-\/>displayDifficulty \&\& !mainMenuGui-\/>displayControls)}
-\DoxyCodeLine{155     \{}
-\DoxyCodeLine{156         \mbox{\hyperlink{classsingleton_abe6a9e4cb548454cfb5d15f425553ae1}{singleton<Manager>::getInstance}}().Update(time);}
-\DoxyCodeLine{157         \mbox{\hyperlink{classsingleton_abe6a9e4cb548454cfb5d15f425553ae1}{singleton<Manager>::getInstance}}().UpdateWeapon(time);}
-\DoxyCodeLine{158         \mbox{\hyperlink{classsingleton_abe6a9e4cb548454cfb5d15f425553ae1}{singleton<Manager>::getInstance}}().UpdateEnemyDeath(time);}
-\DoxyCodeLine{159         gameRenderer-\/>\mbox{\hyperlink{class_renderer_a259e569689938bea487d31727791b963}{BindTexture}}(gameTerrain-\/>\mbox{\hyperlink{class_terrain_af14ef5128a9a2eb28f36fc2762ea4d47}{GetTextIds}}());}
-\DoxyCodeLine{160         \mbox{\hyperlink{class_shader}{Shader}} t = gameTerrain-\/>\mbox{\hyperlink{class_terrain_acdd24f95ab3ca7a9146b32a31f4def35}{GetShader}}();}
-\DoxyCodeLine{161         gameRenderer-\/>\mbox{\hyperlink{class_renderer_a9c07e92b290c5abcb77941815823943e}{SetShaderTerrain}}(t, lens);}
-\DoxyCodeLine{162         gameTerrain-\/>\mbox{\hyperlink{class_terrain_aea73b47c73faf1945e85e06c144e7e0e}{SetShader}}(t);}
-\DoxyCodeLine{163         gameRenderer-\/>\mbox{\hyperlink{class_renderer_a959836fa3882bc0941997d7cbdef10c6}{RenderTerrain}}(gameTerrain-\/>\mbox{\hyperlink{class_terrain_a410cd0467a5f67e8be7de27265d9010c}{GetVAO}}(), gameTerrain-\/>\mbox{\hyperlink{class_terrain_ac9fca6f4b667cedfcd627779593a75b5}{GetIndicesSize}}());}
-\DoxyCodeLine{164 }
-\DoxyCodeLine{165         \textcolor{comment}{//Skybox}}
-\DoxyCodeLine{166         gameRenderer-\/>\mbox{\hyperlink{class_renderer_a224d12fd102ab83e02c768dc7a6dce0d}{SetShaderSkybox}}(gameSkybox-\/>\mbox{\hyperlink{class_skybox_a002fa94c3d27b98a51ea6608fa079d7f}{skyShader}}, lens);}
-\DoxyCodeLine{167         gameRenderer-\/>\mbox{\hyperlink{class_renderer_a73ad38f16da2f99d3a044b6fc2758694}{RenderSkybox}}(gameSkybox-\/>VAO, gameSkybox-\/>texture);}
-\DoxyCodeLine{168 }
-\DoxyCodeLine{169         std::vector<GameObject*> gameObjectsToRemoveFromScene;}
+\DoxyCodeLine{151 \{}
+\DoxyCodeLine{152     \textcolor{keywordflow}{if} (exitScreen.exitScreenDisplay)}
+\DoxyCodeLine{153     \{}
+\DoxyCodeLine{154         endScreenGUI-\/>\mbox{\hyperlink{class_end_screen_g_u_i_acc5a1425f9e7694474855caec83e1dc1}{Draw}}();}
+\DoxyCodeLine{155     \}}
+\DoxyCodeLine{156     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(!mainMenuGui-\/>displayMainMenu \&\& !mainMenuGui-\/>displayPauseMenu \&\& !mainMenuGui-\/>displaySettings \&\& !mainMenuGui-\/>displayDifficulty \&\& !mainMenuGui-\/>displayControls)}
+\DoxyCodeLine{157     \{}
+\DoxyCodeLine{158         \mbox{\hyperlink{classsingleton_abe6a9e4cb548454cfb5d15f425553ae1}{singleton<Manager>::getInstance}}().Update(time);}
+\DoxyCodeLine{159         \mbox{\hyperlink{classsingleton_abe6a9e4cb548454cfb5d15f425553ae1}{singleton<Manager>::getInstance}}().UpdateWeapon(time);}
+\DoxyCodeLine{160         \mbox{\hyperlink{classsingleton_abe6a9e4cb548454cfb5d15f425553ae1}{singleton<Manager>::getInstance}}().UpdateEnemyDeath(time);}
+\DoxyCodeLine{161         gameRenderer-\/>\mbox{\hyperlink{class_renderer_a259e569689938bea487d31727791b963}{BindTexture}}(gameTerrain-\/>\mbox{\hyperlink{class_terrain_af14ef5128a9a2eb28f36fc2762ea4d47}{GetTextIds}}());}
+\DoxyCodeLine{162         \mbox{\hyperlink{class_shader}{Shader}} t = gameTerrain-\/>\mbox{\hyperlink{class_terrain_acdd24f95ab3ca7a9146b32a31f4def35}{GetShader}}();}
+\DoxyCodeLine{163         gameRenderer-\/>\mbox{\hyperlink{class_renderer_a9c07e92b290c5abcb77941815823943e}{SetShaderTerrain}}(t, lens);}
+\DoxyCodeLine{164         gameTerrain-\/>\mbox{\hyperlink{class_terrain_aea73b47c73faf1945e85e06c144e7e0e}{SetShader}}(t);}
+\DoxyCodeLine{165         gameRenderer-\/>\mbox{\hyperlink{class_renderer_a959836fa3882bc0941997d7cbdef10c6}{RenderTerrain}}(gameTerrain-\/>\mbox{\hyperlink{class_terrain_a410cd0467a5f67e8be7de27265d9010c}{GetVAO}}(), gameTerrain-\/>\mbox{\hyperlink{class_terrain_ac9fca6f4b667cedfcd627779593a75b5}{GetIndicesSize}}());}
+\DoxyCodeLine{166 }
+\DoxyCodeLine{167         \textcolor{comment}{//Skybox}}
+\DoxyCodeLine{168         gameRenderer-\/>\mbox{\hyperlink{class_renderer_a224d12fd102ab83e02c768dc7a6dce0d}{SetShaderSkybox}}(gameSkybox-\/>\mbox{\hyperlink{class_skybox_a002fa94c3d27b98a51ea6608fa079d7f}{skyShader}}, lens);}
+\DoxyCodeLine{169         gameRenderer-\/>\mbox{\hyperlink{class_renderer_a73ad38f16da2f99d3a044b6fc2758694}{RenderSkybox}}(gameSkybox-\/>VAO, gameSkybox-\/>texture);}
 \DoxyCodeLine{170 }
-\DoxyCodeLine{171         \textcolor{comment}{//Models}}
-\DoxyCodeLine{172         \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} x = 0; x < gameObjects.size(); x++)}
-\DoxyCodeLine{173         \{}
-\DoxyCodeLine{174             gameObjects[x]-\/>Update(time);}
-\DoxyCodeLine{175             \textcolor{keywordflow}{if} (x != playerInd)}
-\DoxyCodeLine{176             \{}
-\DoxyCodeLine{177                 gameObjects[x]-\/>Render(lens, time, gameRenderer);}
-\DoxyCodeLine{178                 \textcolor{keywordflow}{if} (gameObjects[x]-\/>GetType() == \textcolor{stringliteral}{"{}enemy"{}})}
-\DoxyCodeLine{179                 \{}
-\DoxyCodeLine{180                     \textcolor{keyword}{auto}* e = (\mbox{\hyperlink{class_enemy}{Enemy}}*)gameObjects[x];}
-\DoxyCodeLine{181                     \mbox{\hyperlink{class_scene_ac11406a5032adf93d078a5fd3e96a4c8}{UpdateGameObject}}(e-\/>GetPos(), x, time);}
-\DoxyCodeLine{182                     \textcolor{keywordflow}{if}(e-\/>GetFireWeapon()) \{ \mbox{\hyperlink{class_scene_afb72f3d0fc00e8e9cf30c169733ddc31}{EnemyFireWeapon}}(e, 5); \}}
-\DoxyCodeLine{183                     \textcolor{keywordflow}{if} (!gameObjects[x]-\/>Kill())}
-\DoxyCodeLine{184                     \{}
-\DoxyCodeLine{185                         gameObjectsToRemoveFromScene.emplace\_back(gameObjects[x]);}
-\DoxyCodeLine{186                     \}}
-\DoxyCodeLine{187                 \}}
-\DoxyCodeLine{188             \}}
-\DoxyCodeLine{189         \}}
-\DoxyCodeLine{190 }
-\DoxyCodeLine{191 }
+\DoxyCodeLine{171         std::vector<GameObject*> gameObjectsToRemoveFromScene;}
+\DoxyCodeLine{172 }
+\DoxyCodeLine{173         \textcolor{comment}{//Models}}
+\DoxyCodeLine{174         \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} x = 0; x < gameObjects.size(); x++)}
+\DoxyCodeLine{175         \{}
+\DoxyCodeLine{176             gameObjects[x]-\/>Update(time);}
+\DoxyCodeLine{177             \textcolor{keywordflow}{if} (x != playerInd)}
+\DoxyCodeLine{178             \{}
+\DoxyCodeLine{179                 gameObjects[x]-\/>Render(lens, time, gameRenderer);}
+\DoxyCodeLine{180                 \textcolor{keywordflow}{if} (gameObjects[x]-\/>GetType() == \textcolor{stringliteral}{"{}enemy"{}})}
+\DoxyCodeLine{181                 \{}
+\DoxyCodeLine{182                     \textcolor{keyword}{auto}* e = (\mbox{\hyperlink{class_enemy}{Enemy}}*)gameObjects[x];}
+\DoxyCodeLine{183                     \mbox{\hyperlink{class_scene_ac11406a5032adf93d078a5fd3e96a4c8}{UpdateGameObject}}(e-\/>GetPos(), x, time);}
+\DoxyCodeLine{184                     \textcolor{keywordflow}{if}(e-\/>GetFireWeapon()) \{ \mbox{\hyperlink{class_scene_afb72f3d0fc00e8e9cf30c169733ddc31}{EnemyFireWeapon}}(e, 5); \}}
+\DoxyCodeLine{185                     \textcolor{keywordflow}{if} (!gameObjects[x]-\/>Kill())}
+\DoxyCodeLine{186                     \{}
+\DoxyCodeLine{187                         gameObjectsToRemoveFromScene.emplace\_back(gameObjects[x]);}
+\DoxyCodeLine{188                     \}}
+\DoxyCodeLine{189                 \}}
+\DoxyCodeLine{190             \}}
+\DoxyCodeLine{191         \}}
 \DoxyCodeLine{192 }
 \DoxyCodeLine{193 }
-\DoxyCodeLine{194         std::vector<GameObject*>::iterator removed;}
-\DoxyCodeLine{195             \textcolor{keywordflow}{for} (\textcolor{keyword}{auto}\& go : gameObjectsToRemoveFromScene)}
-\DoxyCodeLine{196             \{}
-\DoxyCodeLine{197                 \textcolor{comment}{//if(Debugger::GetInstance()-\/>debugCollisionsToConsole) std::cout << "{}Scene.cpp::INFO::GameObject -\/ "{} + go-\/>GetName() +"{} hit and removed from scene"{} << std::endl;}}
-\DoxyCodeLine{198                 glm::vec3 pp = gameObjects[playerInd]-\/>GetPos();}
-\DoxyCodeLine{199                 \textcolor{keywordtype}{int} chosenOne = 0;}
-\DoxyCodeLine{200                 \textcolor{keywordtype}{float} distance = 0;}
-\DoxyCodeLine{201                 \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < spawnPoints.size(); i++)}
-\DoxyCodeLine{202                 \{}
-\DoxyCodeLine{203                     \textcolor{keywordtype}{float} newDistance = glm::distance(pp, spawnPoints[i]);}
-\DoxyCodeLine{204 }
-\DoxyCodeLine{205                     \textcolor{keywordflow}{if} (newDistance > distance)}
-\DoxyCodeLine{206                     \{}
-\DoxyCodeLine{207                         distance = newDistance;}
-\DoxyCodeLine{208                         chosenOne = i;}
-\DoxyCodeLine{209                     \}}
-\DoxyCodeLine{210                 \}}
-\DoxyCodeLine{211 }
-\DoxyCodeLine{212                 \textcolor{keyword}{auto}* e = (\mbox{\hyperlink{class_enemy}{Enemy}}*)go;}
-\DoxyCodeLine{213                 e-\/>ResetEnemy(spawnPoints[chosenOne]);}
-\DoxyCodeLine{214                 \textcolor{comment}{//Spawn New GameObject}}
-\DoxyCodeLine{215             \}}
-\DoxyCodeLine{216 }
-\DoxyCodeLine{217         \textcolor{keywordflow}{if}(\mbox{\hyperlink{classsingleton}{singleton<Manager>::getInstance}}().enemyDeathTimer <= 0 \&\& \mbox{\hyperlink{classsingleton_abe6a9e4cb548454cfb5d15f425553ae1}{singleton<Manager>::getInstance}}().hasKills)}
-\DoxyCodeLine{218         \{}
-\DoxyCodeLine{219             \textcolor{keywordflow}{for}( \textcolor{keyword}{auto}* go : gameObjects)}
-\DoxyCodeLine{220             \{}
-\DoxyCodeLine{221                 \textcolor{keywordflow}{if}(go-\/>GetTag() == BoundingBox::ENEMY)}
-\DoxyCodeLine{222                 \{}
-\DoxyCodeLine{223                     \textcolor{keyword}{auto}* e = (\mbox{\hyperlink{class_enemy}{Enemy}}*)go;}
-\DoxyCodeLine{224                     \textcolor{comment}{//e-\/>SetKillFSM(true);}}
-\DoxyCodeLine{225                 \}}
-\DoxyCodeLine{226             \}}
-\DoxyCodeLine{227         \}}
-\DoxyCodeLine{228 }
-\DoxyCodeLine{229 }
-\DoxyCodeLine{230         \textcolor{comment}{//if the player is firing, fire the weapon duh}}
-\DoxyCodeLine{231         \textcolor{keywordflow}{if} (playerWeapon.firingWeapon \&\& playerWeapon.canFireWeapon \&\& \mbox{\hyperlink{classsingleton}{singleton<Manager>::getInstance}}().weaponTimer <= 0)}
-\DoxyCodeLine{232         \{}
-\DoxyCodeLine{233             playerWeapon.firingWeapon = \textcolor{keyword}{false};}
-\DoxyCodeLine{234             \mbox{\hyperlink{classsingleton_abe6a9e4cb548454cfb5d15f425553ae1}{singleton<Manager>::getInstance}}().weaponTimer = 5.0f / 17.0f;}
-\DoxyCodeLine{235             \mbox{\hyperlink{classsingleton_abe6a9e4cb548454cfb5d15f425553ae1}{singleton<Manager>::getInstance}}().fireWeapon = \textcolor{keyword}{false};}
-\DoxyCodeLine{236             playerWeapon.canFireWeapon = \textcolor{keyword}{false};}
-\DoxyCodeLine{237             \textcolor{keyword}{auto}* p = (\mbox{\hyperlink{class_player}{Player}}*)gameObjects[playerInd];}
-\DoxyCodeLine{238             p-\/>FireWeapon();}
-\DoxyCodeLine{239             \mbox{\hyperlink{class_scene_a647c76b034c59296c317e55845eb1c09}{FireWeapon}}(gameObjects[playerInd]-\/>GetPos(), lens.\mbox{\hyperlink{class_view_a31ea821222ee1c99aa16162ca7c91154}{GetForward}}(), 15.0f);}
-\DoxyCodeLine{240         \}}
-\DoxyCodeLine{241         }
-\DoxyCodeLine{242         \textcolor{comment}{//if the timer is 0 and we can fire again}}
-\DoxyCodeLine{243         \textcolor{keywordflow}{if} (\mbox{\hyperlink{classsingleton}{singleton<Manager>::getInstance}}().weaponTimer <= 0)}
-\DoxyCodeLine{244         \{}
-\DoxyCodeLine{245             \textcolor{keyword}{auto}* p = (\mbox{\hyperlink{class_player}{Player}}*)gameObjects[playerInd];}
-\DoxyCodeLine{246             p-\/>BackToIdle();}
-\DoxyCodeLine{247             playerWeapon.canFireWeapon = \textcolor{keyword}{true};}
-\DoxyCodeLine{248         \}}
-\DoxyCodeLine{249 }
-\DoxyCodeLine{250         \textcolor{comment}{//If game object is of type player}}
-\DoxyCodeLine{251         \mbox{\hyperlink{class_scene_a882624494d7ecfaf43405d4423d12fc4}{UpdatePlayer}}(lens.\mbox{\hyperlink{class_view_a835202e230f4d672dc2201aed7f60f64}{GetPosition}}(), lens.\mbox{\hyperlink{class_view_a1b339ef9cbd73976e3458e1975ebbbc3}{GetRotation}}(), time);}
-\DoxyCodeLine{252 }
-\DoxyCodeLine{253         \textcolor{comment}{//GameUI}}
-\DoxyCodeLine{254         \textcolor{keywordflow}{if} (gameGui)}
-\DoxyCodeLine{255         \{}
-\DoxyCodeLine{256             \textcolor{keyword}{auto}* p = (\mbox{\hyperlink{class_player}{Player}}*)gameObjects[playerInd];}
-\DoxyCodeLine{257             gameGui-\/>terrainHeight = \mbox{\hyperlink{class_scene_a5e23c09bde148bb02664586fdf16280e}{PlayerToTerrainPosition}}(p-\/>GetPos(), glm::vec3(0,0,0)).y;}
-\DoxyCodeLine{258             gameGui-\/>Draw(p);}
-\DoxyCodeLine{259         \}}
-\DoxyCodeLine{260 }
-\DoxyCodeLine{261     \}}
-\DoxyCodeLine{262     \textcolor{keywordflow}{else}}
-\DoxyCodeLine{263     \{}
-\DoxyCodeLine{264         mainMenuGui-\/>\mbox{\hyperlink{class_main_menu_g_u_i_aafe475018868b29372e87d210621f4c0}{Draw}}();}
-\DoxyCodeLine{265     \}}
-\DoxyCodeLine{266 \}}
+\DoxyCodeLine{194 }
+\DoxyCodeLine{195 }
+\DoxyCodeLine{196         std::vector<GameObject*>::iterator removed;}
+\DoxyCodeLine{197             \textcolor{keywordflow}{for} (\textcolor{keyword}{auto}\& go : gameObjectsToRemoveFromScene)}
+\DoxyCodeLine{198             \{}
+\DoxyCodeLine{199                 \textcolor{comment}{//if(Debugger::GetInstance()-\/>debugCollisionsToConsole) std::cout << "{}Scene.cpp::INFO::GameObject -\/ "{} + go-\/>GetName() +"{} hit and removed from scene"{} << std::endl;}}
+\DoxyCodeLine{200                 glm::vec3 pp = gameObjects[playerInd]-\/>GetPos();}
+\DoxyCodeLine{201                 \textcolor{keywordtype}{int} chosenOne = 0;}
+\DoxyCodeLine{202                 \textcolor{keywordtype}{float} distance = 0;}
+\DoxyCodeLine{203                 \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < spawnPoints.size(); i++)}
+\DoxyCodeLine{204                 \{}
+\DoxyCodeLine{205                     \textcolor{keywordtype}{float} newDistance = glm::distance(pp, spawnPoints[i]);}
+\DoxyCodeLine{206 }
+\DoxyCodeLine{207                     \textcolor{keywordflow}{if} (newDistance > distance)}
+\DoxyCodeLine{208                     \{}
+\DoxyCodeLine{209                         distance = newDistance;}
+\DoxyCodeLine{210                         chosenOne = i;}
+\DoxyCodeLine{211                     \}}
+\DoxyCodeLine{212                 \}}
+\DoxyCodeLine{213 }
+\DoxyCodeLine{214                 \textcolor{keyword}{auto}* e = (\mbox{\hyperlink{class_enemy}{Enemy}}*)go;}
+\DoxyCodeLine{215                 e-\/>ResetEnemy(spawnPoints[chosenOne]);}
+\DoxyCodeLine{216                 \textcolor{comment}{//Spawn New GameObject}}
+\DoxyCodeLine{217             \}}
+\DoxyCodeLine{218 }
+\DoxyCodeLine{219         \textcolor{keywordflow}{if}(\mbox{\hyperlink{classsingleton}{singleton<Manager>::getInstance}}().enemyDeathTimer <= 0 \&\& \mbox{\hyperlink{classsingleton_abe6a9e4cb548454cfb5d15f425553ae1}{singleton<Manager>::getInstance}}().hasKills)}
+\DoxyCodeLine{220         \{}
+\DoxyCodeLine{221             \textcolor{keywordflow}{for}( \textcolor{keyword}{auto}* go : gameObjects)}
+\DoxyCodeLine{222             \{}
+\DoxyCodeLine{223                 \textcolor{keywordflow}{if}(go-\/>GetTag() == BoundingBox::ENEMY)}
+\DoxyCodeLine{224                 \{}
+\DoxyCodeLine{225                     \textcolor{keyword}{auto}* e = (\mbox{\hyperlink{class_enemy}{Enemy}}*)go;}
+\DoxyCodeLine{226                     \textcolor{comment}{//e-\/>SetKillFSM(true);}}
+\DoxyCodeLine{227                 \}}
+\DoxyCodeLine{228             \}}
+\DoxyCodeLine{229         \}}
+\DoxyCodeLine{230 }
+\DoxyCodeLine{231 }
+\DoxyCodeLine{232         \textcolor{comment}{//if the player is firing, fire the weapon duh}}
+\DoxyCodeLine{233         \textcolor{keywordflow}{if} (playerWeapon.firingWeapon \&\& playerWeapon.canFireWeapon \&\& \mbox{\hyperlink{classsingleton}{singleton<Manager>::getInstance}}().weaponTimer <= 0)}
+\DoxyCodeLine{234         \{}
+\DoxyCodeLine{235             playerWeapon.firingWeapon = \textcolor{keyword}{false};}
+\DoxyCodeLine{236             \mbox{\hyperlink{classsingleton_abe6a9e4cb548454cfb5d15f425553ae1}{singleton<Manager>::getInstance}}().weaponTimer = 5.0f / 17.0f;}
+\DoxyCodeLine{237             \mbox{\hyperlink{classsingleton_abe6a9e4cb548454cfb5d15f425553ae1}{singleton<Manager>::getInstance}}().fireWeapon = \textcolor{keyword}{false};}
+\DoxyCodeLine{238             playerWeapon.canFireWeapon = \textcolor{keyword}{false};}
+\DoxyCodeLine{239             \textcolor{keyword}{auto}* p = (\mbox{\hyperlink{class_player}{Player}}*)gameObjects[playerInd];}
+\DoxyCodeLine{240             p-\/>FireWeapon();}
+\DoxyCodeLine{241             \mbox{\hyperlink{class_scene_a647c76b034c59296c317e55845eb1c09}{FireWeapon}}(gameObjects[playerInd]-\/>GetPos(), lens.\mbox{\hyperlink{class_view_a31ea821222ee1c99aa16162ca7c91154}{GetForward}}(), 15.0f);}
+\DoxyCodeLine{242         \}}
+\DoxyCodeLine{243         }
+\DoxyCodeLine{244         \textcolor{comment}{//if the timer is 0 and we can fire again}}
+\DoxyCodeLine{245         \textcolor{keywordflow}{if} (\mbox{\hyperlink{classsingleton}{singleton<Manager>::getInstance}}().weaponTimer <= 0)}
+\DoxyCodeLine{246         \{}
+\DoxyCodeLine{247             \textcolor{keyword}{auto}* p = (\mbox{\hyperlink{class_player}{Player}}*)gameObjects[playerInd];}
+\DoxyCodeLine{248             p-\/>BackToIdle();}
+\DoxyCodeLine{249             playerWeapon.canFireWeapon = \textcolor{keyword}{true};}
+\DoxyCodeLine{250         \}}
+\DoxyCodeLine{251 }
+\DoxyCodeLine{252         \textcolor{comment}{//If game object is of type player}}
+\DoxyCodeLine{253         \mbox{\hyperlink{class_scene_a882624494d7ecfaf43405d4423d12fc4}{UpdatePlayer}}(lens.\mbox{\hyperlink{class_view_a835202e230f4d672dc2201aed7f60f64}{GetPosition}}(), lens.\mbox{\hyperlink{class_view_a1b339ef9cbd73976e3458e1975ebbbc3}{GetRotation}}(), time);}
+\DoxyCodeLine{254 }
+\DoxyCodeLine{255         \textcolor{comment}{//GameUI}}
+\DoxyCodeLine{256         \textcolor{keywordflow}{if} (gameGui)}
+\DoxyCodeLine{257         \{}
+\DoxyCodeLine{258             \textcolor{keyword}{auto}* p = (\mbox{\hyperlink{class_player}{Player}}*)gameObjects[playerInd];}
+\DoxyCodeLine{259             gameGui-\/>terrainHeight = \mbox{\hyperlink{class_scene_a5e23c09bde148bb02664586fdf16280e}{PlayerToTerrainPosition}}(p-\/>GetPos(), glm::vec3(0,0,0)).y;}
+\DoxyCodeLine{260             gameGui-\/>Draw(p);}
+\DoxyCodeLine{261         \}}
+\DoxyCodeLine{262 }
+\DoxyCodeLine{263     \}}
+\DoxyCodeLine{264     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{265     \{}
+\DoxyCodeLine{266         mainMenuGui-\/>\mbox{\hyperlink{class_main_menu_g_u_i_aafe475018868b29372e87d210621f4c0}{Draw}}();}
+\DoxyCodeLine{267     \}}
+\DoxyCodeLine{268 \}}
 
 \end{DoxyCode}
 
 
 References Main\+Menu\+GUI\+::\+Draw(), End\+Screen\+GUI\+::\+Draw(), Renderer\+::\+Render\+Skybox(), Renderer\+::\+Set\+Shader\+Skybox(), Renderer\+::\+Set\+Shader\+Terrain(), and Skybox\+::sky\+Shader.
 
-Here is the call graph for this function\+:
-% FIG 1
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_scene_acaa19d509c2a82c3493085c5f1217e15_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{class_scene_a882624494d7ecfaf43405d4423d12fc4}\label{class_scene_a882624494d7ecfaf43405d4423d12fc4}} 
 \index{Scene@{Scene}!UpdatePlayer@{UpdatePlayer}}
 \index{UpdatePlayer@{UpdatePlayer}!Scene@{Scene}}
@@ -788,51 +798,52 @@ Updates the players position in relation to the world.
 \end{DoxyParams}
 
 
-Definition at line 295 of file Scene.\+cpp.
+Definition at line 297 of file Scene.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{296 \{}
-\DoxyCodeLine{297     \textcolor{keywordflow}{if}(playerStartPosition == glm::vec3(-\/1000,-\/1000, -\/1000)) \{ playerStartPosition = position;\}}
-\DoxyCodeLine{298     \textcolor{keywordflow}{if}(position == gameObjects[playerInd]-\/>GetPos()) \textcolor{keywordflow}{return};}
-\DoxyCodeLine{299 }
-\DoxyCodeLine{300     glm::vec3 newPos = \mbox{\hyperlink{class_scene_a33fbd9a1c5230c5591c4edf815361dc0}{WorldToTerrainPosition}}(position, \textcolor{keyword}{false});}
-\DoxyCodeLine{301     newPos.y += \mbox{\hyperlink{class_scene_a82eb87d2e46509fc6d7595bec1e6ad98}{Lerp}}(1.5f, 3.0f, time * 4.0f);}
-\DoxyCodeLine{302 }
-\DoxyCodeLine{303     \textcolor{comment}{//newPos.y = Lerp(newPos.y + 2.0f, newPos.y + 3.0f,  time * 2.0f );}}
-\DoxyCodeLine{304 }
-\DoxyCodeLine{305     \textcolor{comment}{//newPos.y = BilinearInterpolation(position);}}
+\DoxyCodeLine{298 \{}
+\DoxyCodeLine{299     \textcolor{keywordflow}{if}(playerStartPosition == glm::vec3(-\/1000,-\/1000, -\/1000)) \{ playerStartPosition = position;\}}
+\DoxyCodeLine{300     \textcolor{keywordflow}{if}(position == gameObjects[playerInd]-\/>GetPos()) \textcolor{keywordflow}{return};}
+\DoxyCodeLine{301 }
+\DoxyCodeLine{302     glm::vec3 newPos = \mbox{\hyperlink{class_scene_a33fbd9a1c5230c5591c4edf815361dc0}{WorldToTerrainPosition}}(position, \textcolor{keyword}{false});}
+\DoxyCodeLine{303     newPos.y += \mbox{\hyperlink{class_scene_a82eb87d2e46509fc6d7595bec1e6ad98}{Lerp}}(1.5f, 3.0f, time * 4.0f);}
+\DoxyCodeLine{304     std::cout << \mbox{\hyperlink{class_scene_a82eb87d2e46509fc6d7595bec1e6ad98}{Lerp}}(1.5f, 3.0f, time * 4.0f) << std::endl;}
+\DoxyCodeLine{305     \textcolor{comment}{//newPos.y = Lerp(newPos.y + 2.0f, newPos.y + 3.0f,  time * 2.0f );}}
 \DoxyCodeLine{306 }
-\DoxyCodeLine{307 }
-\DoxyCodeLine{308     \textcolor{keywordflow}{if} (newPos.y >= 25.0f \&\& !Debugger::GetInstance()-\/>noPlayerYClip)}
-\DoxyCodeLine{309     \{}
-\DoxyCodeLine{310         newPos.x = gameObjects[playerInd]-\/>GetPos().x;}
-\DoxyCodeLine{311         newPos.y = gameObjects[playerInd]-\/>GetPos().y;}
-\DoxyCodeLine{312         newPos.z = gameObjects[playerInd]-\/>GetPos().z;}
-\DoxyCodeLine{313     \}}
-\DoxyCodeLine{314     }
-\DoxyCodeLine{315    \textcolor{comment}{/* if (newPos.y < WorldToTerrainPosition(newPos, false).y + 1.0f)}}
-\DoxyCodeLine{316 \textcolor{comment}{    \{}}
-\DoxyCodeLine{317 \textcolor{comment}{        newPos.y = WorldToTerrainPosition(newPos, false).y + 2.0f;}}
-\DoxyCodeLine{318 \textcolor{comment}{    \}}}
-\DoxyCodeLine{319 \textcolor{comment}{    */}}
-\DoxyCodeLine{320     newPos = \mbox{\hyperlink{class_scene_afad980b02acfeeb81c46786f1818bffc}{CheckSceneCollision}}(newPos);}
-\DoxyCodeLine{321 }
-\DoxyCodeLine{322     gameObjects[playerInd]-\/>SetPos(newPos);}
-\DoxyCodeLine{323     \textcolor{comment}{//std::cout << "{}Player to water distance: "{} << glm::distance(newPos, gameObjects[waterIndex]-\/>GetPos()) << std::endl;}}
-\DoxyCodeLine{324     \textcolor{keywordflow}{if}(glm::distance(newPos, gameObjects[waterIndex]-\/>GetPos()) < 15.0f)}
-\DoxyCodeLine{325     \{}
-\DoxyCodeLine{326         \textcolor{comment}{//take 10 health from the player if they get to close to the water}}
-\DoxyCodeLine{327         \mbox{\hyperlink{class_player}{Player}}* p = (\mbox{\hyperlink{class_player}{Player}}*)gameObjects[playerInd];}
-\DoxyCodeLine{328         p-\/>setHealth(p-\/>getHealth() -\/ 10);}
-\DoxyCodeLine{329         \textcolor{keywordflow}{if} (p-\/>getHealth() <= 0)}
-\DoxyCodeLine{330         \{}
-\DoxyCodeLine{331             p-\/>setHealth(0);}
-\DoxyCodeLine{332             \textcolor{comment}{// tell the player to die}}
-\DoxyCodeLine{333             gameGui-\/>DisplayDeathScreen();}
-\DoxyCodeLine{334         \}}
-\DoxyCodeLine{335     \}}
-\DoxyCodeLine{336 \}}
+\DoxyCodeLine{307     \textcolor{comment}{//newPos.y = BilinearInterpolation(position);}}
+\DoxyCodeLine{308 }
+\DoxyCodeLine{309 }
+\DoxyCodeLine{310     \textcolor{keywordflow}{if} (newPos.y >= 25.0f \&\& !Debugger::GetInstance()-\/>noPlayerYClip)}
+\DoxyCodeLine{311     \{}
+\DoxyCodeLine{312         newPos.x = gameObjects[playerInd]-\/>GetPos().x;}
+\DoxyCodeLine{313         newPos.y = gameObjects[playerInd]-\/>GetPos().y;}
+\DoxyCodeLine{314         newPos.z = gameObjects[playerInd]-\/>GetPos().z;}
+\DoxyCodeLine{315     \}}
+\DoxyCodeLine{316     }
+\DoxyCodeLine{317    \textcolor{comment}{/* if (newPos.y < WorldToTerrainPosition(newPos, false).y + 1.0f)}}
+\DoxyCodeLine{318 \textcolor{comment}{    \{}}
+\DoxyCodeLine{319 \textcolor{comment}{        newPos.y = WorldToTerrainPosition(newPos, false).y + 2.0f;}}
+\DoxyCodeLine{320 \textcolor{comment}{    \}}}
+\DoxyCodeLine{321 \textcolor{comment}{    */}}
+\DoxyCodeLine{322     newPos = \mbox{\hyperlink{class_scene_afad980b02acfeeb81c46786f1818bffc}{CheckSceneCollision}}(newPos);}
+\DoxyCodeLine{323 }
+\DoxyCodeLine{324     gameObjects[playerInd]-\/>SetPos(newPos);}
+\DoxyCodeLine{325     \textcolor{comment}{//std::cout << "{}Player to water distance: "{} << glm::distance(newPos, gameObjects[waterIndex]-\/>GetPos()) << std::endl;}}
+\DoxyCodeLine{326     \textcolor{keywordflow}{if}(glm::distance(newPos, gameObjects[waterIndex]-\/>GetPos()) < 15.0f)}
+\DoxyCodeLine{327     \{}
+\DoxyCodeLine{328         std::cout << \textcolor{stringliteral}{"{}take water dmg"{}} << std::endl;}
+\DoxyCodeLine{329         \textcolor{comment}{//take 10 health from the player if they get to close to the water}}
+\DoxyCodeLine{330         \mbox{\hyperlink{class_player}{Player}}* p = (\mbox{\hyperlink{class_player}{Player}}*)gameObjects[playerInd];}
+\DoxyCodeLine{331         p-\/>setHealth(p-\/>getHealth() -\/ 10);}
+\DoxyCodeLine{332         \textcolor{keywordflow}{if} (p-\/>getHealth() <= 0)}
+\DoxyCodeLine{333         \{}
+\DoxyCodeLine{334             p-\/>setHealth(0);}
+\DoxyCodeLine{335             \textcolor{comment}{// tell the player to die}}
+\DoxyCodeLine{336             gameGui-\/>DisplayDeathScreen();}
+\DoxyCodeLine{337         \}}
+\DoxyCodeLine{338     \}}
+\DoxyCodeLine{339 \}}
 
 \end{DoxyCode}
 \mbox{\Hypertarget{class_scene_a33fbd9a1c5230c5591c4edf815361dc0}\label{class_scene_a33fbd9a1c5230c5591c4edf815361dc0}} 
@@ -850,29 +861,29 @@ vec3 -\/ position relative to the terrain
 \end{DoxyReturn}
 
 
-Definition at line 367 of file Scene.\+cpp.
+Definition at line 370 of file Scene.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{368 \{}
-\DoxyCodeLine{369     \textcolor{comment}{//std::cout << "{}Updaing position"{} << Debugger::GetInstance()-\/>DebugVec3(p) << std::endl;}}
-\DoxyCodeLine{370     \textcolor{keywordtype}{float} worldx, worldz;}
-\DoxyCodeLine{371     worldx = \mbox{\hyperlink{class_scene_a76ef6acde64562ef534ffaa2d7f8f226}{Remap}}(p.x, 0, 52.0f * gameTerrain-\/>GetScales().x, 0, (\textcolor{keywordtype}{float})gameTerrain-\/>\mbox{\hyperlink{class_terrain_a88a02349cfd6085b2447cff2512ba965}{getSize}}());}
-\DoxyCodeLine{372     worldz = \mbox{\hyperlink{class_scene_a76ef6acde64562ef534ffaa2d7f8f226}{Remap}}(p.z, 0, 52.0f * gameTerrain-\/>GetScales().z, 0, (\textcolor{keywordtype}{float})gameTerrain-\/>\mbox{\hyperlink{class_terrain_a88a02349cfd6085b2447cff2512ba965}{getSize}}());}
-\DoxyCodeLine{373     \textcolor{keywordflow}{if}(average)}
-\DoxyCodeLine{374     \{}
-\DoxyCodeLine{375         \textcolor{keywordtype}{float} y = (gameTerrain-\/>\mbox{\hyperlink{class_terrain_a219c33a4b4a0567ff06f587019549d4f}{getAverageHeight}}((\textcolor{keywordtype}{int})worldx, (\textcolor{keywordtype}{int})worldz));}
-\DoxyCodeLine{376         y = \mbox{\hyperlink{class_scene_a76ef6acde64562ef534ffaa2d7f8f226}{Remap}}(y, gameTerrain-\/>GetMinHeight().y, gameTerrain-\/>GetMaxHeight().y, 2, 80.0f);}
-\DoxyCodeLine{377         p.y = y;}
-\DoxyCodeLine{378     \}}
-\DoxyCodeLine{379     \textcolor{keywordflow}{else}}
-\DoxyCodeLine{380     \{}
-\DoxyCodeLine{381         \textcolor{comment}{//p.y = (gameTerrain-\/>GetVertexHeight((int)worldx, (int)worldz) / (worldToTerrainScaleFactor * gameTerrain-\/>GetScales().y));}}
-\DoxyCodeLine{382         \textcolor{keywordtype}{float} y = gameTerrain-\/>\mbox{\hyperlink{class_terrain_acfed93a5a537a0ce7202ffa426d6907b}{GetVertexHeight}}((\textcolor{keywordtype}{int})worldx, (\textcolor{keywordtype}{int})worldz);}
-\DoxyCodeLine{383         p.y = \mbox{\hyperlink{class_scene_a76ef6acde64562ef534ffaa2d7f8f226}{Remap}}(y, gameTerrain-\/>GetMinHeight().y, gameTerrain-\/>GetMaxHeight().y, 2, 80.0f);}
-\DoxyCodeLine{384     \}}
-\DoxyCodeLine{385     \textcolor{keywordflow}{return} p;}
-\DoxyCodeLine{386 \}}
+\DoxyCodeLine{371 \{}
+\DoxyCodeLine{372     \textcolor{comment}{//std::cout << "{}Updaing position"{} << Debugger::GetInstance()-\/>DebugVec3(p) << std::endl;}}
+\DoxyCodeLine{373     \textcolor{keywordtype}{float} worldx, worldz;}
+\DoxyCodeLine{374     worldx = \mbox{\hyperlink{class_scene_a76ef6acde64562ef534ffaa2d7f8f226}{Remap}}(p.x, 0, 52.0f * gameTerrain-\/>GetScales().x, 0, (\textcolor{keywordtype}{float})gameTerrain-\/>\mbox{\hyperlink{class_terrain_a88a02349cfd6085b2447cff2512ba965}{getSize}}());}
+\DoxyCodeLine{375     worldz = \mbox{\hyperlink{class_scene_a76ef6acde64562ef534ffaa2d7f8f226}{Remap}}(p.z, 0, 52.0f * gameTerrain-\/>GetScales().z, 0, (\textcolor{keywordtype}{float})gameTerrain-\/>\mbox{\hyperlink{class_terrain_a88a02349cfd6085b2447cff2512ba965}{getSize}}());}
+\DoxyCodeLine{376     \textcolor{keywordflow}{if}(average)}
+\DoxyCodeLine{377     \{}
+\DoxyCodeLine{378         \textcolor{keywordtype}{float} y = (gameTerrain-\/>\mbox{\hyperlink{class_terrain_a219c33a4b4a0567ff06f587019549d4f}{getAverageHeight}}((\textcolor{keywordtype}{int})worldx, (\textcolor{keywordtype}{int})worldz));}
+\DoxyCodeLine{379         y = \mbox{\hyperlink{class_scene_a76ef6acde64562ef534ffaa2d7f8f226}{Remap}}(y, gameTerrain-\/>GetMinHeight().y, gameTerrain-\/>GetMaxHeight().y, 2, 80.0f);}
+\DoxyCodeLine{380         p.y = y;}
+\DoxyCodeLine{381     \}}
+\DoxyCodeLine{382     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{383     \{}
+\DoxyCodeLine{384         \textcolor{comment}{//p.y = (gameTerrain-\/>GetVertexHeight((int)worldx, (int)worldz) / (worldToTerrainScaleFactor * gameTerrain-\/>GetScales().y));}}
+\DoxyCodeLine{385         \textcolor{keywordtype}{float} y = gameTerrain-\/>\mbox{\hyperlink{class_terrain_acfed93a5a537a0ce7202ffa426d6907b}{GetVertexHeight}}((\textcolor{keywordtype}{int})worldx, (\textcolor{keywordtype}{int})worldz);}
+\DoxyCodeLine{386         p.y = \mbox{\hyperlink{class_scene_a76ef6acde64562ef534ffaa2d7f8f226}{Remap}}(y, gameTerrain-\/>GetMinHeight().y, gameTerrain-\/>GetMaxHeight().y, 2, 80.0f);}
+\DoxyCodeLine{387     \}}
+\DoxyCodeLine{388     \textcolor{keywordflow}{return} p;}
+\DoxyCodeLine{389 \}}
 
 \end{DoxyCode}
 

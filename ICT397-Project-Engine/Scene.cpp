@@ -120,8 +120,9 @@ bool Scene::LoadSaveFile()
                 else if (type == "water")
                 {
                     float scale, x, y, z;
-                    file >> scale >> x >> y >> z;
-                    //MakeSaveGameObject(type, "", scale, x, y, z, 0, 0, "");
+                    std::string script;
+                    file >> script >> scale >> x >> y >> z;
+                    MakeSaveGameObject(type, script, scale, x, y, z, 0, 0, "", 0, 0, 0);
                 }
             }
 
@@ -300,13 +301,13 @@ void Scene::UpdatePlayer(glm::vec3 position, glm::vec3 rotation, float time)
 
     glm::vec3 newPos = WorldToTerrainPosition(position, false);
     newPos.y += Lerp(1.5f, 3.0f, time * 4.0f);
-
+    std::cout << Lerp(1.5f, 3.0f, time * 4.0f) << std::endl;
 	//newPos.y = Lerp(newPos.y + 2.0f, newPos.y + 3.0f,  time * 2.0f );
 
 	//newPos.y = BilinearInterpolation(position);
 
 
-	if (newPos.y >= 25.0f && Debugger::GetInstance()->noPlayerYClip)
+	if (newPos.y >= 25.0f && !Debugger::GetInstance()->noPlayerYClip)
 	{
 		newPos.x = gameObjects[playerInd]->GetPos().x;
 		newPos.y = gameObjects[playerInd]->GetPos().y;
@@ -324,6 +325,7 @@ void Scene::UpdatePlayer(glm::vec3 position, glm::vec3 rotation, float time)
 	//std::cout << "Player to water distance: " << glm::distance(newPos, gameObjects[waterIndex]->GetPos()) << std::endl;
 	if(glm::distance(newPos, gameObjects[waterIndex]->GetPos()) < 15.0f)
 	{
+        std::cout << "take water dmg" << std::endl;
 		//take 10 health from the player if they get to close to the water
 		Player* p = (Player*)gameObjects[playerInd];
 		p->setHealth(p->getHealth() - 10);
@@ -426,12 +428,13 @@ void Scene::MakeGameObject(std::string t, std::string script, float scale, float
 void Scene::MakeSaveGameObject(std::string t, std::string script, float scale, float x, float y, float z, float health, float ammo, std::string state, int savedPoints, int savedTokens, int savedKills)
 {
 	//Check the terrain height to make sure the object isn't under the terrain;
-	y += WorldToTerrainPosition(glm::vec3(x,y,z), false).y;
+	//y += WorldToTerrainPosition(glm::vec3(x,y,z), false).y;
 
     GameObject* newGameObject = factory->GetGameObjectSave(t, script, scale, glm::vec3(x, y, z), health, ammo, state, savedPoints, savedTokens, savedKills);
     if (newGameObject != nullptr)
     {
 		gameObjects.push_back(newGameObject);
+        if (t == "water") { waterIndex = (int)gameObjects.size() - 1; }
     }
     else
     {

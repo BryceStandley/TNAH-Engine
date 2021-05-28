@@ -2,8 +2,8 @@
 #include <glad/glad.h>
 #include <vector>
 /**
- * @class Buff
- * @breif The buffer class holds, makes and utilises the buffers in the game, mainly uses for animations
+ * @class Buffer
+ * @brief The buffer class holds, makes and utilises the buffers in the game, mainly uses for animations
  * @author Christopher Logan
  * @date MAY 2021
  */

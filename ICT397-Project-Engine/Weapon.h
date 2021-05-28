@@ -1,7 +1,16 @@
 #ifndef WEAPON_H
 #define WEAPON_H
 
-
+/**
+* @class Weapon
+* @brief Holds the weapon information
+*
+* @author Bryce
+* @version 01
+* @date May 2021
+*
+*
+**/
 class Weapon {
 public:
 

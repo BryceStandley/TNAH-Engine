@@ -206,6 +206,7 @@
     <ClInclude Include="Timer.h" />
     <ClInclude Include="Token.h" />
     <ClInclude Include="View.h" />
+    <ClInclude Include="Water.h" />
     <ClInclude Include="Window.h" />
     <ClInclude Include="Windows.h" />
     <ClInclude Include="Weapon.h" />

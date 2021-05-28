@@ -17,7 +17,7 @@ maxX = 430;
 minZ = minX;
 maxZ = maxX;
 
-for i = 0, 2
+for i = 0, 30
 do
     x = math.random(minX, maxX)
     z = math.random(minZ, maxZ)
@@ -26,7 +26,7 @@ end
 cs:MakeGameObject("water",  "./res/scripts/gameobjects/static_water.lua", 0.03, 420, -0.6, 401);
 
 y = 1--Y value for all tokens
-for i = 0, 2
+for i = 0, 20
 do
     x = math.random(minX, maxX)
     z = math.random(minZ, maxZ)

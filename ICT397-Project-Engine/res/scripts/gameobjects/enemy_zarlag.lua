@@ -14,7 +14,7 @@ fragShader = "./res/shader/md2frag.frag";
 
 health = 100;
 ammo = 10;
-distance = 25.0;
+distance = 75.0;
 damage = 10;
 accuracy = 0.15;
 
@@ -27,7 +27,7 @@ setup = function (Enemy)
 		Enemy:SetAccuracy(0.25)
 		print("hard")
 	elseif string.match(Enemy:getDifficulty(), "Easy") then
-		distance = 20.0;
+		distance = 50.0;
 		Enemy:setHealth(80.0)
 		Enemy:SetDamage(5)
 		Enemy:SetAccuracy(0.1)

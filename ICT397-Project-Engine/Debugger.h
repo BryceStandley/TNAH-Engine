@@ -138,7 +138,7 @@ public:
     /**
      * @brief flag for enabling and disabling the player Y position clipping
      */
-    bool noPlayerYClip = true;
+    bool noPlayerYClip = false;
 
 	/**
 	 * @brief reference to a GLFW window

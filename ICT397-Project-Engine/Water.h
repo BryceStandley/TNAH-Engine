@@ -9,7 +9,7 @@ public:
     Water(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std::string script) : GameObject(p, rot, s, gameRenderer)
     {
         lua_State* L = LuaManager::getInstance().getLuaState();
-
+        SetScriptName(script);
         if (!luaL_dofile(L, script.c_str()))
         {
             LuaRef type = getGlobal(L, "check");
@@ -107,7 +107,7 @@ public:
         {
             std::cout << "ERROR::NO_WATER_SCRIPTS_FOUND" << std::endl;
         }
-
+        
         FBO = 0;
         DBO = 0;
         colourTextureID = 0;
@@ -145,6 +145,7 @@ public:
     void SetSize(int s) { size = s;}
 
     int GetSize(){return size;}
+
 private:
     ///Framebuffer id
     unsigned int FBO{};

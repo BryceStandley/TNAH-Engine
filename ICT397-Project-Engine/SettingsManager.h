@@ -1,6 +1,15 @@
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
-
+/**
+* @class setting manager
+* @brief managers the different settings in the game
+*
+* @author Bryce
+* @version 01
+* @date May 2021
+*
+*
+**/
 class SettingsManager
 {
 public:

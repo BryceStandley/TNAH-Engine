@@ -191,7 +191,7 @@ global[2] = function (Player)
 	end
 
 	if string.match(Player:GetInstanceToken(), "DoubleDamage") and Player:GetToken() then
-		Player:ChangeState("doublePoints")
+		Player:ChangeState("doubleDamage")
 	end
 
 	if Player:getHealth() == 0 then
