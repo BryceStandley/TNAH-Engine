@@ -396,9 +396,7 @@ void Scene::UpdateGameObject(glm::vec3 position, int i, float time)
 	glm::vec3 newPos = WorldToTerrainPosition(position, true);
 	newPos.y += 1.2f;
 
-	newPos.x = Lerp(position.x, newPos.x, time);
-	newPos.y = Lerp(position.y, newPos.y, time);
-	newPos.z = Lerp(position.z, newPos.z, time);
+	//newPos.y += Lerp(0.9f, 1.4f, time * 4.0f);
 
     if (newPos.y >= 25.0f)
     {
