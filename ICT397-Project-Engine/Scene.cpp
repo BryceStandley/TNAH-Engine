@@ -140,6 +140,7 @@ bool Scene::LoadSaveFile()
 
 	        loaded = true;
 	        return true;
+
         }
     }
     return false;
@@ -299,14 +300,13 @@ void Scene::UpdatePlayer(glm::vec3 position, glm::vec3 rotation, float time)
 
     glm::vec3 newPos = WorldToTerrainPosition(position, false);
     newPos.y += Lerp(1.5f, 3.0f, time * 4.0f);
-    newPos.y += 1;
 
 	//newPos.y = Lerp(newPos.y + 2.0f, newPos.y + 3.0f,  time * 2.0f );
 
 	//newPos.y = BilinearInterpolation(position);
 
 
-	if (newPos.y >= 17.0f)
+	if (newPos.y >= 25.0f && Debugger::GetInstance()->noPlayerYClip)
 	{
 		newPos.x = gameObjects[playerInd]->GetPos().x;
 		newPos.y = gameObjects[playerInd]->GetPos().y;
@@ -392,7 +392,7 @@ void Scene::UpdateGameObject(glm::vec3 position, int i, float time)
     position = EnemyObstacleAvoidance(gameObjects[i], position);
 
 	glm::vec3 newPos = WorldToTerrainPosition(position, true);
-	newPos.y += 0.9f;
+	newPos.y += 1.2f;
 
 	//newPos.y += Lerp(0.9f, 1.4f, time * 4.0f);
 
@@ -471,14 +471,12 @@ glm::vec3 Scene::EnemyObstacleAvoidance(GameObject* self, glm::vec3 newPosition)
 {
     for(auto &go : gameObjects)
     {
-        if (go == self) continue;
-        if (go->GetTag() == BoundingBox::CollisionTag::STATIC_OBJECT || go->GetTag() == BoundingBox::CollisionTag::ENEMY)
+        if(go->GetTag() == BoundingBox::CollisionTag::PLAYER) continue;// dont check against the player
+        if(go == self) continue; // dont check against it self
+        if(go->GetTag() == BoundingBox::CollisionTag::TOKEN) continue;
+        while(glm::distance(newPosition, go->GetPos()) < 3.5f)
         {
-            while (glm::distance(newPosition, go->GetPos()) < 3.0f)
-            {
-                std::cout << go->GetType() << std::endl;
-                newPosition.x += 0.1f;
-            }
+            newPosition.x += 0.1f;
         }
     }
     return newPosition;
@@ -581,7 +579,7 @@ void Scene::EnemyFireWeapon(GameObject* enemy, float fireDistance)
 glm::vec3 Scene::CheckSceneCollision(glm::vec3 pos)
 {
     glm::vec3 player = gameObjects[playerInd]->GetPos();
-    glm::vec3 playerSphereOrigin(pos.x, pos.y - 2.75f, pos.z);
+    glm::vec3 playerSphereOrigin(pos.x, pos.y - 0.75f, pos.z);
     float playerSphereRadius = 2.0f;
 
     int numberOfCollisions = 0;
