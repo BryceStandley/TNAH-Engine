@@ -306,7 +306,7 @@ void Scene::UpdatePlayer(glm::vec3 position, glm::vec3 rotation, float time)
 	//newPos.y = BilinearInterpolation(position);
 
 
-	if (newPos.y >= 22.0f)
+	if (newPos.y >= 17.0f)
 	{
 		newPos.x = gameObjects[playerInd]->GetPos().x;
 		newPos.y = gameObjects[playerInd]->GetPos().y;
@@ -581,7 +581,7 @@ void Scene::EnemyFireWeapon(GameObject* enemy, float fireDistance)
 glm::vec3 Scene::CheckSceneCollision(glm::vec3 pos)
 {
     glm::vec3 player = gameObjects[playerInd]->GetPos();
-    glm::vec3 playerSphereOrigin(pos.x, pos.y - 0.75f, pos.z);
+    glm::vec3 playerSphereOrigin(pos.x, pos.y - 2.75f, pos.z);
     float playerSphereRadius = 2.0f;
 
     int numberOfCollisions = 0;
