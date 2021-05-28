@@ -299,13 +299,14 @@ void Scene::UpdatePlayer(glm::vec3 position, glm::vec3 rotation, float time)
 
     glm::vec3 newPos = WorldToTerrainPosition(position, false);
     newPos.y += Lerp(1.5f, 3.0f, time * 4.0f);
+    newPos.y += 1;
 
 	//newPos.y = Lerp(newPos.y + 2.0f, newPos.y + 3.0f,  time * 2.0f );
 
 	//newPos.y = BilinearInterpolation(position);
 
 
-	if (newPos.y >= 25.0f && !Debugger::GetInstance()->noPlayerYClip)
+	if (newPos.y >= 22.0f)
 	{
 		newPos.x = gameObjects[playerInd]->GetPos().x;
 		newPos.y = gameObjects[playerInd]->GetPos().y;
@@ -470,7 +471,8 @@ glm::vec3 Scene::EnemyObstacleAvoidance(GameObject* self, glm::vec3 newPosition)
 {
     for(auto &go : gameObjects)
     {
-        if (go->GetTag() == BoundingBox::CollisionTag::STATIC_OBJECT)
+        if (go == self) continue;
+        if (go->GetTag() == BoundingBox::CollisionTag::STATIC_OBJECT || go->GetTag() == BoundingBox::CollisionTag::ENEMY)
         {
             while (glm::distance(newPosition, go->GetPos()) < 3.0f)
             {
