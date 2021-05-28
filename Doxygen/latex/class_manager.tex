@@ -4,155 +4,79 @@
 
 {\ttfamily \#include $<$Manager.\+h$>$}
 
+
+
+Collaboration diagram for Manager\+:
+% FIG 0
 \doxysubsection*{Public Types}
 \begin{DoxyCompactItemize}
 \item 
-enum \mbox{\hyperlink{class_manager_ada898c9259c003c2795c65be68584241}{Difficulty}} \{ \mbox{\hyperlink{class_manager_ada898c9259c003c2795c65be68584241aa187d02580292e33a7ee5f9d645f8642}{easy}}
-, \mbox{\hyperlink{class_manager_ada898c9259c003c2795c65be68584241a333a072d6140fc94b4cde57c9388e1aa}{normal}}
-, \mbox{\hyperlink{class_manager_ada898c9259c003c2795c65be68584241a69edbf75c6b55d42ae65da37dd68f8ab}{hard}}
+\mbox{\Hypertarget{class_manager_ada898c9259c003c2795c65be68584241}\label{class_manager_ada898c9259c003c2795c65be68584241}} 
+enum {\bfseries Difficulty} \{ {\bfseries easy}
+, {\bfseries normal}
+, {\bfseries hard}
  \}
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
+\mbox{\Hypertarget{class_manager_a33ee00c7afe9396fe6584a4cb1381bd2}\label{class_manager_a33ee00c7afe9396fe6584a4cb1381bd2}} 
 void \mbox{\hyperlink{class_manager_a33ee00c7afe9396fe6584a4cb1381bd2}{Update}} (float time)
+\begin{DoxyCompactList}\small\item\em Update look for the manager, updates the timers. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_manager_a0c23ee86f68e27a904c48a176ccf4314}\label{class_manager_a0c23ee86f68e27a904c48a176ccf4314}} 
+void {\bfseries Update\+Weapon} (float time)
 \item 
-void \mbox{\hyperlink{class_manager_a0c23ee86f68e27a904c48a176ccf4314}{Update\+Weapon}} (float time)
+\mbox{\Hypertarget{class_manager_af0346873e08eabed931f4c0d0480c553}\label{class_manager_af0346873e08eabed931f4c0d0480c553}} 
+void {\bfseries Update\+Enemy\+Death} (float time)
 \item 
-void \mbox{\hyperlink{class_manager_af0346873e08eabed931f4c0d0480c553}{Update\+Enemy\+Death}} (float time)
-\item 
-void \mbox{\hyperlink{class_manager_ad201134186280989739a4545e113e4f1}{Reset}} ()
+\mbox{\Hypertarget{class_manager_ad201134186280989739a4545e113e4f1}\label{class_manager_ad201134186280989739a4545e113e4f1}} 
+void {\bfseries Reset} ()
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
-float \mbox{\hyperlink{class_manager_a54c0f17bf142a26409a6e77edaafe320}{speed}} = 5
+\mbox{\Hypertarget{class_manager_a54c0f17bf142a26409a6e77edaafe320}\label{class_manager_a54c0f17bf142a26409a6e77edaafe320}} 
+float {\bfseries speed} = 5
 \item 
-std\+::string \mbox{\hyperlink{class_manager_a3973347fdbc4c962c0c0b65c13cefb84}{token}} = \char`\"{}none\char`\"{}
+\mbox{\Hypertarget{class_manager_a3973347fdbc4c962c0c0b65c13cefb84}\label{class_manager_a3973347fdbc4c962c0c0b65c13cefb84}} 
+std\+::string {\bfseries token} = \char`\"{}none\char`\"{}
 \item 
-std\+::string \mbox{\hyperlink{class_manager_a2459c597896c5bd50aa8f8535adc4924}{prev\+Token}} = \char`\"{}none\char`\"{}
+\mbox{\Hypertarget{class_manager_a2459c597896c5bd50aa8f8535adc4924}\label{class_manager_a2459c597896c5bd50aa8f8535adc4924}} 
+std\+::string {\bfseries prev\+Token} = \char`\"{}none\char`\"{}
 \item 
-bool \mbox{\hyperlink{class_manager_ac60e528f0ab33fded824b458e404fb49}{fire\+Weapon}} = false
+\mbox{\Hypertarget{class_manager_ac60e528f0ab33fded824b458e404fb49}\label{class_manager_ac60e528f0ab33fded824b458e404fb49}} 
+bool {\bfseries fire\+Weapon} = false
 \item 
-float \mbox{\hyperlink{class_manager_ac5a54fafa53c46869d73166b738c2b2f}{weapon\+Timer}} = 0
+\mbox{\Hypertarget{class_manager_ac5a54fafa53c46869d73166b738c2b2f}\label{class_manager_ac5a54fafa53c46869d73166b738c2b2f}} 
+float {\bfseries weapon\+Timer} = 0
 \item 
-float \mbox{\hyperlink{class_manager_a3fed4d89c180bbdc7d67932b3f1ea87b}{timer}} = 0
+\mbox{\Hypertarget{class_manager_a3fed4d89c180bbdc7d67932b3f1ea87b}\label{class_manager_a3fed4d89c180bbdc7d67932b3f1ea87b}} 
+float {\bfseries timer} = 0
 \item 
-\mbox{\hyperlink{class_manager_ada898c9259c003c2795c65be68584241}{Difficulty}} \mbox{\hyperlink{class_manager_a3658c0149ea45ba9e0669693d1183b39}{difficulty}} = \mbox{\hyperlink{class_manager_ada898c9259c003c2795c65be68584241a69edbf75c6b55d42ae65da37dd68f8ab}{hard}}
+\mbox{\Hypertarget{class_manager_a3658c0149ea45ba9e0669693d1183b39}\label{class_manager_a3658c0149ea45ba9e0669693d1183b39}} 
+Difficulty {\bfseries difficulty} = hard
 \item 
-float \mbox{\hyperlink{class_manager_a70afa5a93e6373e06675ccafd6e772a5}{enemy\+Death\+Timer}} = 0
+\mbox{\Hypertarget{class_manager_a70afa5a93e6373e06675ccafd6e772a5}\label{class_manager_a70afa5a93e6373e06675ccafd6e772a5}} 
+float {\bfseries enemy\+Death\+Timer} = 0
 \item 
-bool \mbox{\hyperlink{class_manager_ad2d821fa6f250972a34116b04ddfef73}{has\+Kills}} = false
+\mbox{\Hypertarget{class_manager_ad2d821fa6f250972a34116b04ddfef73}\label{class_manager_ad2d821fa6f250972a34116b04ddfef73}} 
+bool {\bfseries has\+Kills} = false
 \end{DoxyCompactItemize}
 
 
-\doxysubsection{Member Enumeration Documentation}
-\mbox{\Hypertarget{class_manager_ada898c9259c003c2795c65be68584241}\label{class_manager_ada898c9259c003c2795c65be68584241}} 
-\index{Manager@{Manager}!Difficulty@{Difficulty}}
-\index{Difficulty@{Difficulty}!Manager@{Manager}}
-\doxysubsubsection{\texorpdfstring{Difficulty}{Difficulty}}
-{\footnotesize\ttfamily enum \mbox{\hyperlink{class_manager_ada898c9259c003c2795c65be68584241}{Manager\+::\+Difficulty}}}
-
-\begin{DoxyEnumFields}{Enumerator}
-\raisebox{\heightof{T}}[0pt][0pt]{\index{easy@{easy}!Manager@{Manager}}\index{Manager@{Manager}!easy@{easy}}}\mbox{\Hypertarget{class_manager_ada898c9259c003c2795c65be68584241aa187d02580292e33a7ee5f9d645f8642}\label{class_manager_ada898c9259c003c2795c65be68584241aa187d02580292e33a7ee5f9d645f8642}} 
-easy&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{normal@{normal}!Manager@{Manager}}\index{Manager@{Manager}!normal@{normal}}}\mbox{\Hypertarget{class_manager_ada898c9259c003c2795c65be68584241a333a072d6140fc94b4cde57c9388e1aa}\label{class_manager_ada898c9259c003c2795c65be68584241a333a072d6140fc94b4cde57c9388e1aa}} 
-normal&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{hard@{hard}!Manager@{Manager}}\index{Manager@{Manager}!hard@{hard}}}\mbox{\Hypertarget{class_manager_ada898c9259c003c2795c65be68584241a69edbf75c6b55d42ae65da37dd68f8ab}\label{class_manager_ada898c9259c003c2795c65be68584241a69edbf75c6b55d42ae65da37dd68f8ab}} 
-hard&\\
-\hline
-
-\end{DoxyEnumFields}
+\doxysubsection{Detailed Description}
+@breif The manager hoolds the information used by the rest of the engine, such as difficulty, speed, toekns and timers \begin{DoxyAuthor}{Author}
+Christopher Logan 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+MAY 2021 
+\end{DoxyDate}
 
 
-\doxysubsection{Member Function Documentation}
-\mbox{\Hypertarget{class_manager_ad201134186280989739a4545e113e4f1}\label{class_manager_ad201134186280989739a4545e113e4f1}} 
-\index{Manager@{Manager}!Reset@{Reset}}
-\index{Reset@{Reset}!Manager@{Manager}}
-\doxysubsubsection{\texorpdfstring{Reset()}{Reset()}}
-{\footnotesize\ttfamily void Manager\+::\+Reset (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
-
-\mbox{\Hypertarget{class_manager_a33ee00c7afe9396fe6584a4cb1381bd2}\label{class_manager_a33ee00c7afe9396fe6584a4cb1381bd2}} 
-\index{Manager@{Manager}!Update@{Update}}
-\index{Update@{Update}!Manager@{Manager}}
-\doxysubsubsection{\texorpdfstring{Update()}{Update()}}
-{\footnotesize\ttfamily void Manager\+::\+Update (\begin{DoxyParamCaption}\item[{float}]{time }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
-
-\mbox{\Hypertarget{class_manager_af0346873e08eabed931f4c0d0480c553}\label{class_manager_af0346873e08eabed931f4c0d0480c553}} 
-\index{Manager@{Manager}!UpdateEnemyDeath@{UpdateEnemyDeath}}
-\index{UpdateEnemyDeath@{UpdateEnemyDeath}!Manager@{Manager}}
-\doxysubsubsection{\texorpdfstring{UpdateEnemyDeath()}{UpdateEnemyDeath()}}
-{\footnotesize\ttfamily void Manager\+::\+Update\+Enemy\+Death (\begin{DoxyParamCaption}\item[{float}]{time }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
-
-\mbox{\Hypertarget{class_manager_a0c23ee86f68e27a904c48a176ccf4314}\label{class_manager_a0c23ee86f68e27a904c48a176ccf4314}} 
-\index{Manager@{Manager}!UpdateWeapon@{UpdateWeapon}}
-\index{UpdateWeapon@{UpdateWeapon}!Manager@{Manager}}
-\doxysubsubsection{\texorpdfstring{UpdateWeapon()}{UpdateWeapon()}}
-{\footnotesize\ttfamily void Manager\+::\+Update\+Weapon (\begin{DoxyParamCaption}\item[{float}]{time }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
-
-
-
-\doxysubsection{Member Data Documentation}
-\mbox{\Hypertarget{class_manager_a3658c0149ea45ba9e0669693d1183b39}\label{class_manager_a3658c0149ea45ba9e0669693d1183b39}} 
-\index{Manager@{Manager}!difficulty@{difficulty}}
-\index{difficulty@{difficulty}!Manager@{Manager}}
-\doxysubsubsection{\texorpdfstring{difficulty}{difficulty}}
-{\footnotesize\ttfamily \mbox{\hyperlink{class_manager_ada898c9259c003c2795c65be68584241}{Difficulty}} Manager\+::difficulty = \mbox{\hyperlink{class_manager_ada898c9259c003c2795c65be68584241a69edbf75c6b55d42ae65da37dd68f8ab}{hard}}}
-
-\mbox{\Hypertarget{class_manager_a70afa5a93e6373e06675ccafd6e772a5}\label{class_manager_a70afa5a93e6373e06675ccafd6e772a5}} 
-\index{Manager@{Manager}!enemyDeathTimer@{enemyDeathTimer}}
-\index{enemyDeathTimer@{enemyDeathTimer}!Manager@{Manager}}
-\doxysubsubsection{\texorpdfstring{enemyDeathTimer}{enemyDeathTimer}}
-{\footnotesize\ttfamily float Manager\+::enemy\+Death\+Timer = 0}
-
-\mbox{\Hypertarget{class_manager_ac60e528f0ab33fded824b458e404fb49}\label{class_manager_ac60e528f0ab33fded824b458e404fb49}} 
-\index{Manager@{Manager}!fireWeapon@{fireWeapon}}
-\index{fireWeapon@{fireWeapon}!Manager@{Manager}}
-\doxysubsubsection{\texorpdfstring{fireWeapon}{fireWeapon}}
-{\footnotesize\ttfamily bool Manager\+::fire\+Weapon = false}
-
-\mbox{\Hypertarget{class_manager_ad2d821fa6f250972a34116b04ddfef73}\label{class_manager_ad2d821fa6f250972a34116b04ddfef73}} 
-\index{Manager@{Manager}!hasKills@{hasKills}}
-\index{hasKills@{hasKills}!Manager@{Manager}}
-\doxysubsubsection{\texorpdfstring{hasKills}{hasKills}}
-{\footnotesize\ttfamily bool Manager\+::has\+Kills = false}
-
-\mbox{\Hypertarget{class_manager_a2459c597896c5bd50aa8f8535adc4924}\label{class_manager_a2459c597896c5bd50aa8f8535adc4924}} 
-\index{Manager@{Manager}!prevToken@{prevToken}}
-\index{prevToken@{prevToken}!Manager@{Manager}}
-\doxysubsubsection{\texorpdfstring{prevToken}{prevToken}}
-{\footnotesize\ttfamily std\+::string Manager\+::prev\+Token = \char`\"{}none\char`\"{}}
-
-\mbox{\Hypertarget{class_manager_a54c0f17bf142a26409a6e77edaafe320}\label{class_manager_a54c0f17bf142a26409a6e77edaafe320}} 
-\index{Manager@{Manager}!speed@{speed}}
-\index{speed@{speed}!Manager@{Manager}}
-\doxysubsubsection{\texorpdfstring{speed}{speed}}
-{\footnotesize\ttfamily float Manager\+::speed = 5}
-
-\mbox{\Hypertarget{class_manager_a3fed4d89c180bbdc7d67932b3f1ea87b}\label{class_manager_a3fed4d89c180bbdc7d67932b3f1ea87b}} 
-\index{Manager@{Manager}!timer@{timer}}
-\index{timer@{timer}!Manager@{Manager}}
-\doxysubsubsection{\texorpdfstring{timer}{timer}}
-{\footnotesize\ttfamily float Manager\+::timer = 0}
-
-\mbox{\Hypertarget{class_manager_a3973347fdbc4c962c0c0b65c13cefb84}\label{class_manager_a3973347fdbc4c962c0c0b65c13cefb84}} 
-\index{Manager@{Manager}!token@{token}}
-\index{token@{token}!Manager@{Manager}}
-\doxysubsubsection{\texorpdfstring{token}{token}}
-{\footnotesize\ttfamily std\+::string Manager\+::token = \char`\"{}none\char`\"{}}
-
-\mbox{\Hypertarget{class_manager_ac5a54fafa53c46869d73166b738c2b2f}\label{class_manager_ac5a54fafa53c46869d73166b738c2b2f}} 
-\index{Manager@{Manager}!weaponTimer@{weaponTimer}}
-\index{weaponTimer@{weaponTimer}!Manager@{Manager}}
-\doxysubsubsection{\texorpdfstring{weaponTimer}{weaponTimer}}
-{\footnotesize\ttfamily float Manager\+::weapon\+Timer = 0}
+Definition at line 11 of file Manager.\+h.
 
 
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-ICT397-\/\+Project-\/\+Engine/\mbox{\hyperlink{_manager_8h}{Manager.\+h}}\end{DoxyCompactItemize}
+C\+:/\+Users/chris/\+Documents/\+UNI/\+ICT397-\/\+Project/\+ICT397-\/\+Project-\/\+Engine/Manager.\+h\end{DoxyCompactItemize}

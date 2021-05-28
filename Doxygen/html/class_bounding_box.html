@@ -5,14 +5,10 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TNAH-Engine-ICT397: BoundingBox Class Reference</title>
+<title>Zoom: BoundingBox Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
-<link href="navtree.css" rel="stylesheet" type="text/css"/>
-<script type="text/javascript" src="resize.js"></script>
-<script type="text/javascript" src="navtreedata.js"></script>
-<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -24,10 +20,8 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="TNAH-2.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">TNAH-Engine-ICT397
-   &#160;<span id="projectnumber">2</span>
+   <div id="projectname">Zoom
    </div>
   </td>
  </tr>
@@ -51,23 +45,6 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
-</div><!-- top -->
-<div id="side-nav" class="ui-resizable side-nav-resizable">
-  <div id="nav-tree">
-    <div id="nav-tree-contents">
-      <div id="nav-sync" class="sync"></div>
-    </div>
-  </div>
-  <div id="splitbar" style="-moz-user-select:none;" 
-       class="ui-resizable-handle">
-  </div>
-</div>
-<script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-$(document).ready(function(){initNavTree('class_bounding_box.html',''); initResizable(); });
-/* @license-end */
-</script>
-<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -82,6 +59,7 @@ $(document).ready(function(){initNavTree('class_bounding_box.html',''); initResi
 </iframe>
 </div>
 
+</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-types">Public Types</a> &#124;
@@ -96,25 +74,31 @@ $(document).ready(function(){initNavTree('class_bounding_box.html',''); initResi
  <a href="class_bounding_box.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="_bounding_box_8h_source.html">BoundingBox.h</a>&gt;</code></p>
+<div class="dynheader">
+Collaboration diagram for BoundingBox:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_bounding_box__coll__graph.png" border="0" usemap="#a_bounding_box_coll__map" alt="Collaboration graph"/></div>
+</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a7740a55cd572b82e1692e9f9d9a286c3"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bounding_box.html#a7740a55cd572b82e1692e9f9d9a286c3">CollisionTag</a> { <br />
-&#160;&#160;<a class="el" href="class_bounding_box.html#a7740a55cd572b82e1692e9f9d9a286c3a7b1d0daf07dde2c377bd7895e11c943f">PLAYER</a>
-, <a class="el" href="class_bounding_box.html#a7740a55cd572b82e1692e9f9d9a286c3a30c0b05af3c6a5b6c746bf4f69adbf75">TOKEN</a>
-, <a class="el" href="class_bounding_box.html#a7740a55cd572b82e1692e9f9d9a286c3a396df71c7410d0378b2c841d3f5833c5">STATIC_OBJECT</a>
-, <a class="el" href="class_bounding_box.html#a7740a55cd572b82e1692e9f9d9a286c3a710b3b550ed07b2bcb3e8b168c870ce2">ENEMY</a>
+<tr class="memitem:a7740a55cd572b82e1692e9f9d9a286c3"><td class="memItemLeft" align="right" valign="top"><a id="a7740a55cd572b82e1692e9f9d9a286c3"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bounding_box.html#a7740a55cd572b82e1692e9f9d9a286c3">CollisionTag</a> { <br />
+&#160;&#160;<b>PLAYER</b>
+, <b>TOKEN</b>
+, <b>STATIC_OBJECT</b>
+, <b>ENEMY</b>
 , <br />
-&#160;&#160;<a class="el" href="class_bounding_box.html#a7740a55cd572b82e1692e9f9d9a286c3a08e938628501449eadad912690132b76">WATER</a>
+&#160;&#160;<b>WATER</b>
 <br />
  }</td></tr>
-<tr class="memdesc:a7740a55cd572b82e1692e9f9d9a286c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collision tag used for collision checking on a object.  <a href="class_bounding_box.html#a7740a55cd572b82e1692e9f9d9a286c3">More...</a><br /></td></tr>
+<tr class="memdesc:a7740a55cd572b82e1692e9f9d9a286c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collision tag used for collision checking on a object. <br /></td></tr>
 <tr class="separator:a7740a55cd572b82e1692e9f9d9a286c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a4323fc64a71cee220dac92746a2bfe5e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bounding_box.html#a4323fc64a71cee220dac92746a2bfe5e">BoundingBox</a> ()=default</td></tr>
-<tr class="memdesc:a4323fc64a71cee220dac92746a2bfe5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bounding box constructor with empty objects.  <a href="class_bounding_box.html#a4323fc64a71cee220dac92746a2bfe5e">More...</a><br /></td></tr>
+<tr class="memitem:a4323fc64a71cee220dac92746a2bfe5e"><td class="memItemLeft" align="right" valign="top"><a id="a4323fc64a71cee220dac92746a2bfe5e"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bounding_box.html#a4323fc64a71cee220dac92746a2bfe5e">BoundingBox</a> ()=default</td></tr>
+<tr class="memdesc:a4323fc64a71cee220dac92746a2bfe5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bounding box constructor with empty objects. <br /></td></tr>
 <tr class="separator:a4323fc64a71cee220dac92746a2bfe5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3a733edb48ff238da35368e473892f8d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bounding_box.html#a3a733edb48ff238da35368e473892f8d">BoundingBox</a> (std::vector&lt; glm::vec3 &gt; v, std::vector&lt; int &gt; i)</td></tr>
 <tr class="memdesc:a3a733edb48ff238da35368e473892f8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bounding box constructor with vertex and indice data.  <a href="class_bounding_box.html#a3a733edb48ff238da35368e473892f8d">More...</a><br /></td></tr>
@@ -140,8 +124,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ab296f5ae8c91a36892f030c8c62814f6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_bounding_box.html">BoundingBox</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bounding_box.html#ab296f5ae8c91a36892f030c8c62814f6">GenerateBoundingBox</a> (<a class="el" href="class_mesh.html">Mesh</a> *mesh)</td></tr>
 <tr class="memdesc:ab296f5ae8c91a36892f030c8c62814f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Takes a mesh and generates a basix bounding box based off min and max values of the mesh in X,Y,Z directions.  <a href="class_bounding_box.html#ab296f5ae8c91a36892f030c8c62814f6">More...</a><br /></td></tr>
 <tr class="separator:ab296f5ae8c91a36892f030c8c62814f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af296a5334106dad59f911db18e128d71"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bounding_box.html#af296a5334106dad59f911db18e128d71">GenerateBoundingBoxNormals</a> ()</td></tr>
-<tr class="memdesc:af296a5334106dad59f911db18e128d71"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generates normals of the bounding box.  <a href="class_bounding_box.html#af296a5334106dad59f911db18e128d71">More...</a><br /></td></tr>
+<tr class="memitem:af296a5334106dad59f911db18e128d71"><td class="memItemLeft" align="right" valign="top"><a id="af296a5334106dad59f911db18e128d71"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bounding_box.html#af296a5334106dad59f911db18e128d71">GenerateBoundingBoxNormals</a> ()</td></tr>
+<tr class="memdesc:af296a5334106dad59f911db18e128d71"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generates normals of the bounding box. <br /></td></tr>
 <tr class="separator:af296a5334106dad59f911db18e128d71"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -149,60 +134,11 @@ Public Member Functions</h2></td></tr>
 <dl class="section author"><dt>Author</dt><dd>Bryce Standley </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>06/04/2021</dd></dl>
 <p>Class to hold all collision and bounding box information of a game object </p><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000001">Todo:</a></b></dt><dd>Implement bounding box collisions </dd></dl>
-</div><h2 class="groupheader">Member Enumeration Documentation</h2>
-<a id="a7740a55cd572b82e1692e9f9d9a286c3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7740a55cd572b82e1692e9f9d9a286c3">&#9670;&nbsp;</a></span>CollisionTag</h2>
 
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum <a class="el" href="class_bounding_box.html#a7740a55cd572b82e1692e9f9d9a286c3">BoundingBox::CollisionTag</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Collision tag used for collision checking on a object. </p>
-<table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a7740a55cd572b82e1692e9f9d9a286c3a7b1d0daf07dde2c377bd7895e11c943f"></a>PLAYER&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a7740a55cd572b82e1692e9f9d9a286c3a30c0b05af3c6a5b6c746bf4f69adbf75"></a>TOKEN&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a7740a55cd572b82e1692e9f9d9a286c3a396df71c7410d0378b2c841d3f5833c5"></a>STATIC_OBJECT&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a7740a55cd572b82e1692e9f9d9a286c3a710b3b550ed07b2bcb3e8b168c870ce2"></a>ENEMY&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a7740a55cd572b82e1692e9f9d9a286c3a08e938628501449eadad912690132b76"></a>WATER&#160;</td><td class="fielddoc"></td></tr>
-</table>
-
-</div>
-</div>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a4323fc64a71cee220dac92746a2bfe5e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4323fc64a71cee220dac92746a2bfe5e">&#9670;&nbsp;</a></span>BoundingBox() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">BoundingBox::BoundingBox </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">default</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Bounding box constructor with empty objects. </p>
-
-</div>
-</div>
+<p class="definition">Definition at line <a class="el" href="_bounding_box_8h_source.html#l00018">18</a> of file <a class="el" href="_bounding_box_8h_source.html">BoundingBox.h</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a3a733edb48ff238da35368e473892f8d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3a733edb48ff238da35368e473892f8d">&#9670;&nbsp;</a></span>BoundingBox() <span class="overload">[2/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a3a733edb48ff238da35368e473892f8d">&#9670;&nbsp;</a></span>BoundingBox()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -244,6 +180,9 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
+<p class="definition">Definition at line <a class="el" href="_bounding_box_8h_source.html#l00030">30</a> of file <a class="el" href="_bounding_box_8h_source.html">BoundingBox.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;{vertex = v; indice = i;};</div>
+</div><!-- fragment -->
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
@@ -272,24 +211,88 @@ Public Member Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>boundingBox </dd></dl>
 
-</div>
-</div>
-<a id="af296a5334106dad59f911db18e128d71"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af296a5334106dad59f911db18e128d71">&#9670;&nbsp;</a></span>GenerateBoundingBoxNormals()</h2>
+<p class="definition">Definition at line <a class="el" href="_bounding_box_8cpp_source.html#l00003">3</a> of file <a class="el" href="_bounding_box_8cpp_source.html">BoundingBox.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;{</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;    <span class="keywordtype">float</span> minX = 0.0f, minY = 0.0f, minZ = 0.0f;</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;    <span class="keywordtype">float</span> maxX = 0.0f, maxY = 0.0f, maxZ = 0.0f;</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;    glm::vec3 size, origin;</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;    glm::mat4 transform;</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;    <span class="keywordflow">for</span>(<a class="code" href="struct_vertex.html">Vertex</a> &amp; vertice : mesh-&gt;<a class="code" href="class_mesh.html#a6465a888c97232a39e12aad008c969c3">vertices</a>)</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    {</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;        <span class="keywordflow">if</span>(minX &gt; vertice.<a class="code" href="struct_vertex.html#abb3cfacd96b5955b0cec9359840ee49f">Position</a>.x) {minX = vertice.<a class="code" href="struct_vertex.html#abb3cfacd96b5955b0cec9359840ee49f">Position</a>.x;}</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;        <span class="keywordflow">if</span>(maxX &lt; vertice.<a class="code" href="struct_vertex.html#abb3cfacd96b5955b0cec9359840ee49f">Position</a>.x) {maxX = vertice.<a class="code" href="struct_vertex.html#abb3cfacd96b5955b0cec9359840ee49f">Position</a>.x;}</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;        <span class="keywordflow">if</span>(minY &gt; vertice.<a class="code" href="struct_vertex.html#abb3cfacd96b5955b0cec9359840ee49f">Position</a>.y) {minY = vertice.<a class="code" href="struct_vertex.html#abb3cfacd96b5955b0cec9359840ee49f">Position</a>.y;}</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;        <span class="keywordflow">if</span>(maxY &gt; vertice.<a class="code" href="struct_vertex.html#abb3cfacd96b5955b0cec9359840ee49f">Position</a>.y) {maxY = vertice.<a class="code" href="struct_vertex.html#abb3cfacd96b5955b0cec9359840ee49f">Position</a>.y;}</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        <span class="keywordflow">if</span>(minZ &gt; vertice.<a class="code" href="struct_vertex.html#abb3cfacd96b5955b0cec9359840ee49f">Position</a>.z) {minZ = vertice.<a class="code" href="struct_vertex.html#abb3cfacd96b5955b0cec9359840ee49f">Position</a>.z;}</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        <span class="keywordflow">if</span>(maxZ &gt; vertice.<a class="code" href="struct_vertex.html#abb3cfacd96b5955b0cec9359840ee49f">Position</a>.z) {maxZ = vertice.<a class="code" href="struct_vertex.html#abb3cfacd96b5955b0cec9359840ee49f">Position</a>.z;}</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    }</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    std::vector&lt;glm::vec3&gt; box;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    std::vector&lt;int&gt; ind;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="comment">//All vertex data for all 8 required vertices</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    box.emplace_back(glm::vec3(minX, maxY, maxZ));</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    box.emplace_back(glm::vec3(maxX, maxY, maxZ));</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    box.emplace_back(glm::vec3(maxX, minY, maxZ));</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    box.emplace_back(glm::vec3(minX, minY, maxZ));</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    box.emplace_back(glm::vec3(minX, maxY, minZ));</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    box.emplace_back(glm::vec3(maxX, maxY, minZ));</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    box.emplace_back(glm::vec3(maxX, minY, minZ));</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    box.emplace_back(glm::vec3(minX, minY, minZ));</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    size = glm::vec3(maxX-minX, maxY-minY, maxZ-minZ);</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    origin = glm::vec3((minX+maxX)/2, (minY + maxY)/2, (minZ + maxZ)/2);</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    transform = glm::translate(glm::mat4(1), origin) * glm::scale(glm::mat4(1), size);</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="comment">//index of all the triangles</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keywordtype">int</span> indi[] = {</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;            <span class="comment">// front</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;            0, 1, 2,</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;            2, 3, 0,</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;            <span class="comment">// right</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;            1, 5, 6,</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;            6, 2, 1,</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;            <span class="comment">// back</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;            7, 6, 5,</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;            5, 4, 7,</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;            <span class="comment">// left</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;            4, 0, 3,</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;            3, 7, 4,</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;            <span class="comment">// bottom</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;            4, 5, 1,</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;            1, 0, 4,</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;            <span class="comment">// top</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;            3, 2, 6,</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;            6, 7, 3</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    };</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    ind.insert(ind.begin(), std::begin(indi), std::end(indi));</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <a class="code" href="class_bounding_box.html#af296a5334106dad59f911db18e128d71">GenerateBoundingBoxNormals</a>();</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="class_bounding_box.html#a4323fc64a71cee220dac92746a2bfe5e">BoundingBox</a>(box, ind);</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;}</div>
+<div class="ttc" id="aclass_bounding_box_html_a4323fc64a71cee220dac92746a2bfe5e"><div class="ttname"><a href="class_bounding_box.html#a4323fc64a71cee220dac92746a2bfe5e">BoundingBox::BoundingBox</a></div><div class="ttdeci">BoundingBox()=default</div><div class="ttdoc">Bounding box constructor with empty objects.</div></div>
+<div class="ttc" id="aclass_bounding_box_html_af296a5334106dad59f911db18e128d71"><div class="ttname"><a href="class_bounding_box.html#af296a5334106dad59f911db18e128d71">BoundingBox::GenerateBoundingBoxNormals</a></div><div class="ttdeci">void GenerateBoundingBoxNormals()</div><div class="ttdoc">Generates normals of the bounding box.</div><div class="ttdef"><b>Definition:</b> <a href="_bounding_box_8cpp_source.html#l00067">BoundingBox.cpp:67</a></div></div>
+<div class="ttc" id="aclass_mesh_html_a6465a888c97232a39e12aad008c969c3"><div class="ttname"><a href="class_mesh.html#a6465a888c97232a39e12aad008c969c3">Mesh::vertices</a></div><div class="ttdeci">std::vector&lt; Vertex &gt; vertices</div><div class="ttdoc">mesh Data</div><div class="ttdef"><b>Definition:</b> <a href="_mesh_8h_source.html#l00043">Mesh.h:43</a></div></div>
+<div class="ttc" id="astruct_vertex_html"><div class="ttname"><a href="struct_vertex.html">Vertex</a></div><div class="ttdoc">struct containing all vertices required to generate a mesh</div><div class="ttdef"><b>Definition:</b> <a href="_mesh_8h_source.html#l00011">Mesh.h:11</a></div></div>
+<div class="ttc" id="astruct_vertex_html_abb3cfacd96b5955b0cec9359840ee49f"><div class="ttname"><a href="struct_vertex.html#abb3cfacd96b5955b0cec9359840ee49f">Vertex::Position</a></div><div class="ttdeci">glm::vec3 Position</div><div class="ttdoc">position</div><div class="ttdef"><b>Definition:</b> <a href="_mesh_8h_source.html#l00013">Mesh.h:13</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="_bounding_box_8cpp_source.html#l00067">GenerateBoundingBoxNormals()</a>.</p>
 
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void BoundingBox::GenerateBoundingBoxNormals </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Generates normals of the bounding box. </p>
+<p class="reference">Referenced by <a class="el" href="_game_asset_factory_8cpp_source.html#l00003">GameAssetFactory::GetGameObject()</a>, and <a class="el" href="_game_asset_factory_8cpp_source.html#l00065">GameAssetFactory::GetGameObjectSave()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_bounding_box_ab296f5ae8c91a36892f030c8c62814f6_cgraph.png" border="0" usemap="#aclass_bounding_box_ab296f5ae8c91a36892f030c8c62814f6_cgraph" alt=""/></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_bounding_box_ab296f5ae8c91a36892f030c8c62814f6_icgraph.png" border="0" usemap="#aclass_bounding_box_ab296f5ae8c91a36892f030c8c62814f6_icgraph" alt=""/></div>
+</div>
 
 </div>
 </div>
@@ -319,6 +322,9 @@ Public Member Functions</h2></td></tr>
 <p>Gets indice data of a bounding box. </p>
 <dl class="section return"><dt>Returns</dt><dd>vector int </dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="_bounding_box_8h_source.html#l00060">60</a> of file <a class="el" href="_bounding_box_8h_source.html">BoundingBox.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;{<span class="keywordflow">return</span> indice;}</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="a3258430e7087f4c5cb9862284b7e8d12"></a>
@@ -347,6 +353,9 @@ Public Member Functions</h2></td></tr>
 <p>Gets normal data of a bounding box. </p>
 <dl class="section return"><dt>Returns</dt><dd>vector vec3 </dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="_bounding_box_8h_source.html#l00066">66</a> of file <a class="el" href="_bounding_box_8h_source.html">BoundingBox.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;{<span class="keywordflow">return</span> normals;}</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="a8b6a4ecc7e217f7479d9f7a4c181c99d"></a>
@@ -375,6 +384,9 @@ Public Member Functions</h2></td></tr>
 <p>Gets vertex data of a bounding box. </p>
 <dl class="section return"><dt>Returns</dt><dd>vector vec3 </dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="_bounding_box_8h_source.html#l00054">54</a> of file <a class="el" href="_bounding_box_8h_source.html">BoundingBox.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;{<span class="keywordflow">return</span> vertex;}</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="ad009edaba22531939213fcecf7c692c4"></a>
@@ -409,6 +421,9 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
+<p class="definition">Definition at line <a class="el" href="_bounding_box_8h_source.html#l00042">42</a> of file <a class="el" href="_bounding_box_8h_source.html">BoundingBox.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;{indice = i;}</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="ad74053f24c11719762c13b19127df2b4"></a>
@@ -443,6 +458,9 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
+<p class="definition">Definition at line <a class="el" href="_bounding_box_8h_source.html#l00048">48</a> of file <a class="el" href="_bounding_box_8h_source.html">BoundingBox.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;{normals = n;}</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="a33c492e75724d832d0d7500e1b137615"></a>
@@ -477,20 +495,19 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
+<p class="definition">Definition at line <a class="el" href="_bounding_box_8h_source.html#l00036">36</a> of file <a class="el" href="_bounding_box_8h_source.html">BoundingBox.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;{vertex = v;}</div>
+</div><!-- fragment -->
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>ICT397-Project-Engine/<a class="el" href="_bounding_box_8h_source.html">BoundingBox.h</a></li>
-<li>ICT397-Project-Engine/<a class="el" href="_bounding_box_8cpp.html">BoundingBox.cpp</a></li>
+<li>C:/Users/chris/Documents/UNI/ICT397-Project/ICT397-Project-Engine/<a class="el" href="_bounding_box_8h_source.html">BoundingBox.h</a></li>
+<li>C:/Users/chris/Documents/UNI/ICT397-Project/ICT397-Project-Engine/<a class="el" href="_bounding_box_8cpp_source.html">BoundingBox.cpp</a></li>
 </ul>
 </div><!-- contents -->
-</div><!-- doc-content -->
 <!-- start footer part -->
-<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
-  <ul>
-    <li class="navelem"><a class="el" href="class_bounding_box.html">BoundingBox</a></li>
-    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
-  </ul>
-</div>
+<hr class="footer"/><address class="footer"><small>
+Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+</small></address>
 </body>
 </html>

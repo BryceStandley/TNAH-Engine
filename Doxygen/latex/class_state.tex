@@ -2,11 +2,16 @@
 \label{class_state}\index{State$<$ entity $>$@{State$<$ entity $>$}}
 
 
-{\ttfamily \#include $<$state.\+h$>$}
+Inheritance diagram for State$<$ entity $>$\+:
+% FIG 0
 
+
+Collaboration diagram for State$<$ entity $>$\+:
+% FIG 1
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
+\mbox{\Hypertarget{class_state_aaaaeecf1b6f235780ee8ba08c7f195a6}\label{class_state_aaaaeecf1b6f235780ee8ba08c7f195a6}} 
 virtual \mbox{\hyperlink{class_state_aaaaeecf1b6f235780ee8ba08c7f195a6}{$\sim$\+State}} ()
 \begin{DoxyCompactList}\small\item\em virtual destructor \end{DoxyCompactList}\item 
 virtual void \mbox{\hyperlink{class_state_aab4cca8d69092deacf053cf2b12e4cd6}{Enter}} (entity $\ast$)=0
@@ -17,17 +22,13 @@ virtual void \mbox{\hyperlink{class_state_aa086d08513a4adb59848deec250fbcae}{Exi
 \begin{DoxyCompactList}\small\item\em pure virtual function that represents the exit stage of the state \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
-\doxysubsection{Constructor \& Destructor Documentation}
-\mbox{\Hypertarget{class_state_aaaaeecf1b6f235780ee8ba08c7f195a6}\label{class_state_aaaaeecf1b6f235780ee8ba08c7f195a6}} 
-\index{State$<$ entity $>$@{State$<$ entity $>$}!````~State@{$\sim$State}}
-\index{````~State@{$\sim$State}!State$<$ entity $>$@{State$<$ entity $>$}}
-\doxysubsubsection{\texorpdfstring{$\sim$State()}{~State()}}
-{\footnotesize\ttfamily template$<$class entity $>$ \\
-virtual \mbox{\hyperlink{class_state}{State}}$<$ entity $>$\+::$\sim$\mbox{\hyperlink{class_state}{State}} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$class entity$>$\newline
+class State$<$ entity $>$}
 
 
 
-virtual destructor 
+Definition at line 15 of file state.\+h.
 
 
 
@@ -50,7 +51,7 @@ pure virtual function that represents the enter point of the state
 \end{DoxyParams}
 
 
-Implemented in \mbox{\hyperlink{classglob_a6b0e82c4c5fb79b2126eb1e25c038140}{glob}}, \mbox{\hyperlink{classdeath_a99b11db28993db29f5ebd16562792432}{death}}, \mbox{\hyperlink{classmain_a7776319b8f379070ff7141d5da00eceb}{main}}, \mbox{\hyperlink{classdouble_points_a7a4fdfc6b6b9323e56b514a132323565}{double\+Points}}, \mbox{\hyperlink{class_speed_up_adaad3c3b36b8fade0a8a7c450dcb6305}{Speed\+Up}}, \mbox{\hyperlink{classhealth_refill_a680c22e85c85ddd0ec8d02ee134d6d9b}{health\+Refill}}, \mbox{\hyperlink{classdouble_damage_a63be11ac620619f096dc04c288c14f2d}{double\+Damage}}, \mbox{\hyperlink{classglobal_abdaee4cfd57f3916eff76bda8a7996f7}{global}}, \mbox{\hyperlink{classdie_a67354e179fed8f7c7f34f50c4eb71262}{die}}, \mbox{\hyperlink{classattack_a061072e4db183050d59b53393c4f62ce}{attack}}, \mbox{\hyperlink{classflee_a27acac2bf9a20bb3a4b9fd666ea44974}{flee}}, \mbox{\hyperlink{classchase_a4fb790b2803bc9f4e3063d42338c278c}{chase}}, \mbox{\hyperlink{classalert_a596b5c92b781b2b267739feb0ab0c5bf}{alert}}, and \mbox{\hyperlink{classwander_ad71e74cbab5bc066654e41111c26b0f7}{wander}}.
+Implemented in \mbox{\hyperlink{classglob_a6b0e82c4c5fb79b2126eb1e25c038140}{glob}}, \mbox{\hyperlink{classdeath_state_af4fa8e55ad0c9503f9610395a78d5bbe}{death\+State}}, \mbox{\hyperlink{classmain_a7776319b8f379070ff7141d5da00eceb}{main}}, \mbox{\hyperlink{classdouble_points_a7a4fdfc6b6b9323e56b514a132323565}{double\+Points}}, \mbox{\hyperlink{class_speed_up_adaad3c3b36b8fade0a8a7c450dcb6305}{Speed\+Up}}, \mbox{\hyperlink{classhealth_refill_a680c22e85c85ddd0ec8d02ee134d6d9b}{health\+Refill}}, \mbox{\hyperlink{classdouble_damage_a63be11ac620619f096dc04c288c14f2d}{double\+Damage}}, \mbox{\hyperlink{classglobal_abdaee4cfd57f3916eff76bda8a7996f7}{global}}, \mbox{\hyperlink{classdie_a67354e179fed8f7c7f34f50c4eb71262}{die}}, \mbox{\hyperlink{classattack_a061072e4db183050d59b53393c4f62ce}{attack}}, \mbox{\hyperlink{classflee_a27acac2bf9a20bb3a4b9fd666ea44974}{flee}}, \mbox{\hyperlink{classchase_a4fb790b2803bc9f4e3063d42338c278c}{chase}}, \mbox{\hyperlink{classalert_a596b5c92b781b2b267739feb0ab0c5bf}{alert}}, and \mbox{\hyperlink{classwander_ad71e74cbab5bc066654e41111c26b0f7}{wander}}.
 
 \mbox{\Hypertarget{class_state_a7b7e948b4fe83e3686564e453ed0c406}\label{class_state_a7b7e948b4fe83e3686564e453ed0c406}} 
 \index{State$<$ entity $>$@{State$<$ entity $>$}!Execute@{Execute}}
@@ -70,7 +71,7 @@ pure virtual function that represents the execute stage of the state
 \end{DoxyParams}
 
 
-Implemented in \mbox{\hyperlink{classglob_a242153ee976ae7ea9b2d8d42c9dd2361}{glob}}, \mbox{\hyperlink{classdeath_a835838cd75b40dd41d40000965185fb0}{death}}, \mbox{\hyperlink{classmain_ad1631dab42af16248537954883adc06a}{main}}, \mbox{\hyperlink{classdouble_points_a8be874e58b019d3c0e8dd9aae274b761}{double\+Points}}, \mbox{\hyperlink{class_speed_up_ad50ec02d11ccf7e524b5d38e79ab37c2}{Speed\+Up}}, \mbox{\hyperlink{classhealth_refill_a8421860ed33493539bb22727735c80e9}{health\+Refill}}, \mbox{\hyperlink{classdouble_damage_a64d207fdc4ed2d2962f0b5a90b65db05}{double\+Damage}}, \mbox{\hyperlink{classglobal_af8e0a38ecbf89e0d52361876e5983206}{global}}, \mbox{\hyperlink{classdie_a7eedffe5e67239af58d73289549fbe07}{die}}, \mbox{\hyperlink{classattack_a56a0be7b548cccca2acca38affa8b02f}{attack}}, \mbox{\hyperlink{classflee_a0ee7ba00d588a078b73348b9bb906d0f}{flee}}, \mbox{\hyperlink{classchase_a58e20ece77e4fbc0cdbe73e35cf8f9ed}{chase}}, \mbox{\hyperlink{classalert_a5028f8c7193b106337834055c34662a9}{alert}}, and \mbox{\hyperlink{classwander_a3425d3fdfa2c2c4d60d82c3e4e80e50b}{wander}}.
+Implemented in \mbox{\hyperlink{classglob_a242153ee976ae7ea9b2d8d42c9dd2361}{glob}}, \mbox{\hyperlink{classdeath_state_aa2acfb4d4d7a766be50ece20c937b8b7}{death\+State}}, \mbox{\hyperlink{classmain_ad1631dab42af16248537954883adc06a}{main}}, \mbox{\hyperlink{classdouble_points_a8be874e58b019d3c0e8dd9aae274b761}{double\+Points}}, \mbox{\hyperlink{class_speed_up_ad50ec02d11ccf7e524b5d38e79ab37c2}{Speed\+Up}}, \mbox{\hyperlink{classhealth_refill_a8421860ed33493539bb22727735c80e9}{health\+Refill}}, \mbox{\hyperlink{classdouble_damage_a64d207fdc4ed2d2962f0b5a90b65db05}{double\+Damage}}, \mbox{\hyperlink{classglobal_af8e0a38ecbf89e0d52361876e5983206}{global}}, \mbox{\hyperlink{classdie_a7eedffe5e67239af58d73289549fbe07}{die}}, \mbox{\hyperlink{classattack_a56a0be7b548cccca2acca38affa8b02f}{attack}}, \mbox{\hyperlink{classflee_a0ee7ba00d588a078b73348b9bb906d0f}{flee}}, \mbox{\hyperlink{classchase_a58e20ece77e4fbc0cdbe73e35cf8f9ed}{chase}}, \mbox{\hyperlink{classalert_a5028f8c7193b106337834055c34662a9}{alert}}, and \mbox{\hyperlink{classwander_a3425d3fdfa2c2c4d60d82c3e4e80e50b}{wander}}.
 
 \mbox{\Hypertarget{class_state_aa086d08513a4adb59848deec250fbcae}\label{class_state_aa086d08513a4adb59848deec250fbcae}} 
 \index{State$<$ entity $>$@{State$<$ entity $>$}!Exit@{Exit}}
@@ -90,10 +91,10 @@ pure virtual function that represents the exit stage of the state
 \end{DoxyParams}
 
 
-Implemented in \mbox{\hyperlink{classglob_a6f9649cd08838841a7484a80a25419cd}{glob}}, \mbox{\hyperlink{classdeath_aa6f564e0980d1746ed751f0342683198}{death}}, \mbox{\hyperlink{classmain_a831728f381465f8034071389b67fd777}{main}}, \mbox{\hyperlink{classdouble_points_aee974a1668966d797cbed64bff5060d1}{double\+Points}}, \mbox{\hyperlink{class_speed_up_a207c844a2120d6e8116d95662879aef4}{Speed\+Up}}, \mbox{\hyperlink{classhealth_refill_a7e29c0ad3eaa1a5fd36c1aa19dfb0932}{health\+Refill}}, \mbox{\hyperlink{classdouble_damage_a6b491f9441fbb293a276715aacbb3bf1}{double\+Damage}}, \mbox{\hyperlink{classglobal_a7809b210da6238d1766e29af4b8264fb}{global}}, \mbox{\hyperlink{classdie_a9b0e03f3793a5eed85fe17570009995c}{die}}, \mbox{\hyperlink{classattack_aef97a582b50e5ae65d7059a1ff5a7d80}{attack}}, \mbox{\hyperlink{classflee_ac2c760b739a1cdef6aceba143d2ba5f3}{flee}}, \mbox{\hyperlink{classchase_a22644bebc819ca9215f98ed84c9f03e9}{chase}}, \mbox{\hyperlink{classalert_a74e5f4b7e9fc72d371c6154bd8c3622d}{alert}}, and \mbox{\hyperlink{classwander_a7b0441ed6988c3f391c0a8219470634b}{wander}}.
+Implemented in \mbox{\hyperlink{classglob_a6f9649cd08838841a7484a80a25419cd}{glob}}, \mbox{\hyperlink{classdeath_state_a1173fd1a8f71709ef549ad869548d6c9}{death\+State}}, \mbox{\hyperlink{classmain_a831728f381465f8034071389b67fd777}{main}}, \mbox{\hyperlink{classdouble_points_aee974a1668966d797cbed64bff5060d1}{double\+Points}}, \mbox{\hyperlink{class_speed_up_a207c844a2120d6e8116d95662879aef4}{Speed\+Up}}, \mbox{\hyperlink{classhealth_refill_a7e29c0ad3eaa1a5fd36c1aa19dfb0932}{health\+Refill}}, \mbox{\hyperlink{classdouble_damage_a6b491f9441fbb293a276715aacbb3bf1}{double\+Damage}}, \mbox{\hyperlink{classglobal_a7809b210da6238d1766e29af4b8264fb}{global}}, \mbox{\hyperlink{classdie_a9b0e03f3793a5eed85fe17570009995c}{die}}, \mbox{\hyperlink{classattack_aef97a582b50e5ae65d7059a1ff5a7d80}{attack}}, \mbox{\hyperlink{classflee_ac2c760b739a1cdef6aceba143d2ba5f3}{flee}}, \mbox{\hyperlink{classchase_a22644bebc819ca9215f98ed84c9f03e9}{chase}}, \mbox{\hyperlink{classalert_a74e5f4b7e9fc72d371c6154bd8c3622d}{alert}}, and \mbox{\hyperlink{classwander_a7b0441ed6988c3f391c0a8219470634b}{wander}}.
 
 
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-ICT397-\/\+Project-\/\+Engine/\mbox{\hyperlink{state_8h}{state.\+h}}\end{DoxyCompactItemize}
+C\+:/\+Users/chris/\+Documents/\+UNI/\+ICT397-\/\+Project/\+ICT397-\/\+Project-\/\+Engine/state.\+h\end{DoxyCompactItemize}

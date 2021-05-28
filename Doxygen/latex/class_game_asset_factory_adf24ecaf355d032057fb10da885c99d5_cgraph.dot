@@ -1,0 +1,28 @@
+digraph "GameAssetFactory::GetGameObject"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="GameAssetFactory::GetGame\lObject",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Creates the game object and returns it."];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid"];
+  Node2 [label="BoundingBox::BoundingBox",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_bounding_box.html#a4323fc64a71cee220dac92746a2bfe5e",tooltip="Bounding box constructor with empty objects."];
+  Node1 -> Node3 [color="midnightblue",fontsize="10",style="solid"];
+  Node3 [label="BoundingBox::GenerateBoundingBox",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_bounding_box.html#ab296f5ae8c91a36892f030c8c62814f6",tooltip="Takes a mesh and generates a basix bounding box based off min and max values of the mesh in X,..."];
+  Node3 -> Node4 [color="midnightblue",fontsize="10",style="solid"];
+  Node4 [label="BoundingBox::GenerateBounding\lBoxNormals",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_bounding_box.html#af296a5334106dad59f911db18e128d71",tooltip="Generates normals of the bounding box."];
+  Node1 -> Node5 [color="midnightblue",fontsize="10",style="solid"];
+  Node5 [label="Model::GetMesh",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_model.html#a87701bd40c275476bc6b84d62301a2fe",tooltip="gets and returns a pointer to the Mesh of the Model"];
+  Node1 -> Node6 [color="midnightblue",fontsize="10",style="solid"];
+  Node6 [label="GameObject::GetModel",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_game_object.html#a4d2dd39231dc5fa8c9c9b29b91f8ec95",tooltip="Gets the model."];
+  Node1 -> Node7 [color="midnightblue",fontsize="10",style="solid"];
+  Node7 [label="GameObject::SetBoundingBox",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_game_object.html#a94626dd233a6f7a0b10e2638f386934a",tooltip="Sets gameobject's bounding box object."];
+  Node1 -> Node8 [color="midnightblue",fontsize="10",style="solid"];
+  Node8 [label="GameObject::SetCollisionTag",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_game_object.html#a09d08654806a1c0e625993dcea744d61",tooltip="Sets tag of a given object."];
+  Node1 -> Node9 [color="midnightblue",fontsize="10",style="solid"];
+  Node9 [label="GameObject::SetId",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_game_object.html#a3fdc779479da3311be0f92531cb442f4",tooltip="Sets the id."];
+  Node1 -> Node10 [color="midnightblue",fontsize="10",style="solid"];
+  Node10 [label="GameObject::SetName",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_game_object.html#a3183b6bda0347ffc1196d07d4f26337c",tooltip="Sets the name of a game object."];
+  Node1 -> Node11 [color="midnightblue",fontsize="10",style="solid"];
+  Node11 [label="GameObject::SetType",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_game_object.html#a2b8cd8b76bb89306c78371eb921df67a",tooltip="Sets the type of object."];
+}

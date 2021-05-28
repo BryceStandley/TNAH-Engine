@@ -4,5 +4,5 @@ digraph "Graphical Class Hierarchy"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node0 [label="ImFontConfig",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$struct_im_font_config.html",tooltip=" "];
+  Node0 [label="state",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classstate.html",tooltip="An abstract class that provides a common interface to all state classes. It is templated so that clas..."];
 }

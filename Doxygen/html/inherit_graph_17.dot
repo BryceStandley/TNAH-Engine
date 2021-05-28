@@ -4,5 +4,5 @@ digraph "Graphical Class Hierarchy"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node0 [label="ImChunkStream\< ImGuiTable\lSettings \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$struct_im_chunk_stream.html",tooltip=" "];
+  Node0 [label="MainMenuGUI",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_main_menu_g_u_i.html",tooltip=" "];
 }

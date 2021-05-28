@@ -1,0 +1,7 @@
+digraph "stateMachine&lt; entity &gt;"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{stateMachine\< entity \>\n||+ stateMachine()\l+ handleMessage()\l+ setPreviousState()\l+ setCurrentState()\l+ setGlobalState()\l+ update()\l+ changeState()\l+ revertToPreviousState()\l+ getPreviousState()\l+ getCurrentState()\l+ getGlobalState()\l+ isInState()\l+ ~stateMachine()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="An templated stateMachine class that encapsulates all state related data and functions,..."];
+}

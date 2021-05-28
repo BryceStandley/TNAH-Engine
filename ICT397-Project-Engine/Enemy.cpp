@@ -589,8 +589,9 @@ void Enemy::Update(float time)
 	{
 		if (!startTimer)
 		{
-			if (singleton<Manager>::getInstance().prevToken == "DoubleDamage" && singleton<Manager>::getInstance().timer >= 0)
+			if (singleton<Manager>::getInstance().prevToken == "DoubleDamage" && singleton<Manager>::getInstance().timer > 0)
 			{
+				std::cout << singleton<Manager>::getInstance().timer << std::endl;
 				setToken(true);
 			}
 			else

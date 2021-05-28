@@ -9,6 +9,10 @@ Holds matrix and position information to allow other parts of the engine to have
 
 {\ttfamily \#include $<$View.\+h$>$}
 
+
+
+Collaboration diagram for View\+:
+% FIG 0
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -56,6 +60,10 @@ Christoper Logan
 \end{DoxyDate}
 
 
+Definition at line 16 of file View.\+h.
+
+
+
 \doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{class_view_a31ea821222ee1c99aa16162ca7c91154}\label{class_view_a31ea821222ee1c99aa16162ca7c91154}} 
 \index{View@{View}!GetForward@{GetForward}}
@@ -70,6 +78,15 @@ Gets and returns the forward vector.
 \begin{DoxyReturn}{Returns}
 glm\+::vec3 
 \end{DoxyReturn}
+
+
+Definition at line 102 of file View.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{102 \{\textcolor{keywordflow}{return} forward;\}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{class_view_a9aa38aadb27fc4f30fc31af7bceeeff2}\label{class_view_a9aa38aadb27fc4f30fc31af7bceeeff2}} 
 \index{View@{View}!GetModel@{GetModel}}
 \index{GetModel@{GetModel}!View@{View}}
@@ -83,6 +100,15 @@ gets and returns the model matrix
 \begin{DoxyReturn}{Returns}
 glm\+::mat4 
 \end{DoxyReturn}
+
+
+Definition at line 78 of file View.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{78 \{ \textcolor{keywordflow}{return} model; \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{class_view_a835202e230f4d672dc2201aed7f60f64}\label{class_view_a835202e230f4d672dc2201aed7f60f64}} 
 \index{View@{View}!GetPosition@{GetPosition}}
 \index{GetPosition@{GetPosition}!View@{View}}
@@ -96,6 +122,15 @@ gets and returns the position vector
 \begin{DoxyReturn}{Returns}
 glm\+::vec3 
 \end{DoxyReturn}
+
+
+Definition at line 90 of file View.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{90 \{ \textcolor{keywordflow}{return} position; \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{class_view_aa878a4bc822f2e5c6999e8b4be727a2b}\label{class_view_aa878a4bc822f2e5c6999e8b4be727a2b}} 
 \index{View@{View}!GetProjection@{GetProjection}}
 \index{GetProjection@{GetProjection}!View@{View}}
@@ -109,6 +144,15 @@ gets and returns the projection matrix
 \begin{DoxyReturn}{Returns}
 glm\+::mat4 
 \end{DoxyReturn}
+
+
+Definition at line 66 of file View.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{66 \{ \textcolor{keywordflow}{return} projection; \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{class_view_a1b339ef9cbd73976e3458e1975ebbbc3}\label{class_view_a1b339ef9cbd73976e3458e1975ebbbc3}} 
 \index{View@{View}!GetRotation@{GetRotation}}
 \index{GetRotation@{GetRotation}!View@{View}}
@@ -122,6 +166,15 @@ Gets and returns the rotation vector.
 \begin{DoxyReturn}{Returns}
 glm\+::vec3 
 \end{DoxyReturn}
+
+
+Definition at line 96 of file View.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{96 \{ \textcolor{keywordflow}{return} rotation; \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{class_view_aa827036992f7d21b5ee9341c6a789950}\label{class_view_aa827036992f7d21b5ee9341c6a789950}} 
 \index{View@{View}!GetSkyview@{GetSkyview}}
 \index{GetSkyview@{GetSkyview}!View@{View}}
@@ -135,6 +188,15 @@ gets and returns the skyview matrix
 \begin{DoxyReturn}{Returns}
 glm\+::mat4 
 \end{DoxyReturn}
+
+
+Definition at line 84 of file View.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{84 \{ \textcolor{keywordflow}{return} skyview; \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{class_view_ad8b28c769712d05576aa6e316f04ad32}\label{class_view_ad8b28c769712d05576aa6e316f04ad32}} 
 \index{View@{View}!GetView@{GetView}}
 \index{GetView@{GetView}!View@{View}}
@@ -148,6 +210,15 @@ gets and returns the view matrix
 \begin{DoxyReturn}{Returns}
 glm\+::mat4 
 \end{DoxyReturn}
+
+
+Definition at line 72 of file View.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{72 \{ \textcolor{keywordflow}{return} view; \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{class_view_aae1618617fa96ec310383d6c68074568}\label{class_view_aae1618617fa96ec310383d6c68074568}} 
 \index{View@{View}!SetForward@{SetForward}}
 \index{SetForward@{SetForward}!View@{View}}
@@ -163,6 +234,15 @@ sets the forward vector
 {\em const} & f -\/ represents the value that is assigned to the forward vector \\
 \hline
 \end{DoxyParams}
+
+
+Definition at line 60 of file View.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{60 \{ forward = f; \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{class_view_adc8f6f6b4600b85fa0db20cd44d0a2b6}\label{class_view_adc8f6f6b4600b85fa0db20cd44d0a2b6}} 
 \index{View@{View}!SetModel@{SetModel}}
 \index{SetModel@{SetModel}!View@{View}}
@@ -178,6 +258,15 @@ sets the models matrix
 {\em const} & m -\/ represents the matrix that is assigned to the model \\
 \hline
 \end{DoxyParams}
+
+
+Definition at line 36 of file View.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{36 \{ model = m; \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{class_view_a5cabc1de78f8d2d8c4ad826515306c16}\label{class_view_a5cabc1de78f8d2d8c4ad826515306c16}} 
 \index{View@{View}!SetPosition@{SetPosition}}
 \index{SetPosition@{SetPosition}!View@{View}}
@@ -193,6 +282,15 @@ sets the position vector
 {\em const} & p -\/ represents the vector that is assigned to the position \\
 \hline
 \end{DoxyParams}
+
+
+Definition at line 48 of file View.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{48 \{ position = p; \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{class_view_af4841e8434f0fd02dc9a816437b72250}\label{class_view_af4841e8434f0fd02dc9a816437b72250}} 
 \index{View@{View}!SetProjection@{SetProjection}}
 \index{SetProjection@{SetProjection}!View@{View}}
@@ -208,6 +306,15 @@ sets the projection matrix
 {\em const} & p -\/ represents the matrix that is assigned to the projection \\
 \hline
 \end{DoxyParams}
+
+
+Definition at line 24 of file View.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{24 \{ projection = p; \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{class_view_a995e6d4d78333ceeb68022e830fd2c9c}\label{class_view_a995e6d4d78333ceeb68022e830fd2c9c}} 
 \index{View@{View}!SetRotation@{SetRotation}}
 \index{SetRotation@{SetRotation}!View@{View}}
@@ -223,6 +330,15 @@ sets the rotation vector
 {\em const} & r -\/ represents the vector that is assigned to the rotation \\
 \hline
 \end{DoxyParams}
+
+
+Definition at line 54 of file View.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{54 \{ rotation = r; \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{class_view_a4c22964a4853a292392adeb9e752fa59}\label{class_view_a4c22964a4853a292392adeb9e752fa59}} 
 \index{View@{View}!SetSkyview@{SetSkyview}}
 \index{SetSkyview@{SetSkyview}!View@{View}}
@@ -238,6 +354,15 @@ sets the skyview matrix
 {\em const} & s -\/ represents the matrix that is assigned to the skyview \\
 \hline
 \end{DoxyParams}
+
+
+Definition at line 42 of file View.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{42 \{ skyview = s; \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{class_view_ae7e8d4208b3d297d9a7a7b8f6e5de646}\label{class_view_ae7e8d4208b3d297d9a7a7b8f6e5de646}} 
 \index{View@{View}!SetView@{SetView}}
 \index{SetView@{SetView}!View@{View}}
@@ -255,6 +380,15 @@ sets the view matrix
 \end{DoxyParams}
 
 
+Definition at line 30 of file View.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{30 \{ view = v; \}}
+
+\end{DoxyCode}
+
+
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-ICT397-\/\+Project-\/\+Engine/\mbox{\hyperlink{_view_8h}{View.\+h}}\end{DoxyCompactItemize}
+C\+:/\+Users/chris/\+Documents/\+UNI/\+ICT397-\/\+Project/\+ICT397-\/\+Project-\/\+Engine/View.\+h\end{DoxyCompactItemize}

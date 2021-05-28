@@ -5,14 +5,10 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TNAH-Engine-ICT397: Manager Class Reference</title>
+<title>Zoom: Manager Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
-<link href="navtree.css" rel="stylesheet" type="text/css"/>
-<script type="text/javascript" src="resize.js"></script>
-<script type="text/javascript" src="navtreedata.js"></script>
-<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -24,10 +20,8 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="TNAH-2.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">TNAH-Engine-ICT397
-   &#160;<span id="projectnumber">2</span>
+   <div id="projectname">Zoom
    </div>
   </td>
  </tr>
@@ -51,23 +45,6 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
-</div><!-- top -->
-<div id="side-nav" class="ui-resizable side-nav-resizable">
-  <div id="nav-tree">
-    <div id="nav-tree-contents">
-      <div id="nav-sync" class="sync"></div>
-    </div>
-  </div>
-  <div id="splitbar" style="-moz-user-select:none;" 
-       class="ui-resizable-handle">
-  </div>
-</div>
-<script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-$(document).ready(function(){initNavTree('class_manager.html',''); initResizable(); });
-/* @license-end */
-</script>
-<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -82,6 +59,7 @@ $(document).ready(function(){initNavTree('class_manager.html',''); initResizable
 </iframe>
 </div>
 
+</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-types">Public Types</a> &#124;
@@ -94,309 +72,78 @@ $(document).ready(function(){initNavTree('class_manager.html',''); initResizable
 <div class="contents">
 
 <p><code>#include &lt;<a class="el" href="_manager_8h_source.html">Manager.h</a>&gt;</code></p>
+<div class="dynheader">
+Collaboration diagram for Manager:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_manager__coll__graph.png" border="0" usemap="#a_manager_coll__map" alt="Collaboration graph"/></div>
+</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:ada898c9259c003c2795c65be68584241"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_manager.html#ada898c9259c003c2795c65be68584241">Difficulty</a> { <a class="el" href="class_manager.html#ada898c9259c003c2795c65be68584241aa187d02580292e33a7ee5f9d645f8642">easy</a>
-, <a class="el" href="class_manager.html#ada898c9259c003c2795c65be68584241a333a072d6140fc94b4cde57c9388e1aa">normal</a>
-, <a class="el" href="class_manager.html#ada898c9259c003c2795c65be68584241a69edbf75c6b55d42ae65da37dd68f8ab">hard</a>
+<tr class="memitem:ada898c9259c003c2795c65be68584241"><td class="memItemLeft" align="right" valign="top"><a id="ada898c9259c003c2795c65be68584241"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>Difficulty</b> { <b>easy</b>
+, <b>normal</b>
+, <b>hard</b>
  }</td></tr>
 <tr class="separator:ada898c9259c003c2795c65be68584241"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a33ee00c7afe9396fe6584a4cb1381bd2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_manager.html#a33ee00c7afe9396fe6584a4cb1381bd2">Update</a> (float time)</td></tr>
+<tr class="memitem:a33ee00c7afe9396fe6584a4cb1381bd2"><td class="memItemLeft" align="right" valign="top"><a id="a33ee00c7afe9396fe6584a4cb1381bd2"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_manager.html#a33ee00c7afe9396fe6584a4cb1381bd2">Update</a> (float time)</td></tr>
+<tr class="memdesc:a33ee00c7afe9396fe6584a4cb1381bd2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update look for the manager, updates the timers. <br /></td></tr>
 <tr class="separator:a33ee00c7afe9396fe6584a4cb1381bd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0c23ee86f68e27a904c48a176ccf4314"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_manager.html#a0c23ee86f68e27a904c48a176ccf4314">UpdateWeapon</a> (float time)</td></tr>
+<tr class="memitem:a0c23ee86f68e27a904c48a176ccf4314"><td class="memItemLeft" align="right" valign="top"><a id="a0c23ee86f68e27a904c48a176ccf4314"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>UpdateWeapon</b> (float time)</td></tr>
 <tr class="separator:a0c23ee86f68e27a904c48a176ccf4314"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af0346873e08eabed931f4c0d0480c553"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_manager.html#af0346873e08eabed931f4c0d0480c553">UpdateEnemyDeath</a> (float time)</td></tr>
+<tr class="memitem:af0346873e08eabed931f4c0d0480c553"><td class="memItemLeft" align="right" valign="top"><a id="af0346873e08eabed931f4c0d0480c553"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>UpdateEnemyDeath</b> (float time)</td></tr>
 <tr class="separator:af0346873e08eabed931f4c0d0480c553"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad201134186280989739a4545e113e4f1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_manager.html#ad201134186280989739a4545e113e4f1">Reset</a> ()</td></tr>
+<tr class="memitem:ad201134186280989739a4545e113e4f1"><td class="memItemLeft" align="right" valign="top"><a id="ad201134186280989739a4545e113e4f1"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>Reset</b> ()</td></tr>
 <tr class="separator:ad201134186280989739a4545e113e4f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a54c0f17bf142a26409a6e77edaafe320"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_manager.html#a54c0f17bf142a26409a6e77edaafe320">speed</a> = 5</td></tr>
+<tr class="memitem:a54c0f17bf142a26409a6e77edaafe320"><td class="memItemLeft" align="right" valign="top"><a id="a54c0f17bf142a26409a6e77edaafe320"></a>
+float&#160;</td><td class="memItemRight" valign="bottom"><b>speed</b> = 5</td></tr>
 <tr class="separator:a54c0f17bf142a26409a6e77edaafe320"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3973347fdbc4c962c0c0b65c13cefb84"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_manager.html#a3973347fdbc4c962c0c0b65c13cefb84">token</a> = &quot;none&quot;</td></tr>
+<tr class="memitem:a3973347fdbc4c962c0c0b65c13cefb84"><td class="memItemLeft" align="right" valign="top"><a id="a3973347fdbc4c962c0c0b65c13cefb84"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><b>token</b> = &quot;none&quot;</td></tr>
 <tr class="separator:a3973347fdbc4c962c0c0b65c13cefb84"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2459c597896c5bd50aa8f8535adc4924"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_manager.html#a2459c597896c5bd50aa8f8535adc4924">prevToken</a> = &quot;none&quot;</td></tr>
+<tr class="memitem:a2459c597896c5bd50aa8f8535adc4924"><td class="memItemLeft" align="right" valign="top"><a id="a2459c597896c5bd50aa8f8535adc4924"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><b>prevToken</b> = &quot;none&quot;</td></tr>
 <tr class="separator:a2459c597896c5bd50aa8f8535adc4924"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac60e528f0ab33fded824b458e404fb49"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_manager.html#ac60e528f0ab33fded824b458e404fb49">fireWeapon</a> = false</td></tr>
+<tr class="memitem:ac60e528f0ab33fded824b458e404fb49"><td class="memItemLeft" align="right" valign="top"><a id="ac60e528f0ab33fded824b458e404fb49"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>fireWeapon</b> = false</td></tr>
 <tr class="separator:ac60e528f0ab33fded824b458e404fb49"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac5a54fafa53c46869d73166b738c2b2f"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_manager.html#ac5a54fafa53c46869d73166b738c2b2f">weaponTimer</a> = 0</td></tr>
+<tr class="memitem:ac5a54fafa53c46869d73166b738c2b2f"><td class="memItemLeft" align="right" valign="top"><a id="ac5a54fafa53c46869d73166b738c2b2f"></a>
+float&#160;</td><td class="memItemRight" valign="bottom"><b>weaponTimer</b> = 0</td></tr>
 <tr class="separator:ac5a54fafa53c46869d73166b738c2b2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3fed4d89c180bbdc7d67932b3f1ea87b"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_manager.html#a3fed4d89c180bbdc7d67932b3f1ea87b">timer</a> = 0</td></tr>
+<tr class="memitem:a3fed4d89c180bbdc7d67932b3f1ea87b"><td class="memItemLeft" align="right" valign="top"><a id="a3fed4d89c180bbdc7d67932b3f1ea87b"></a>
+float&#160;</td><td class="memItemRight" valign="bottom"><b>timer</b> = 0</td></tr>
 <tr class="separator:a3fed4d89c180bbdc7d67932b3f1ea87b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3658c0149ea45ba9e0669693d1183b39"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_manager.html#ada898c9259c003c2795c65be68584241">Difficulty</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_manager.html#a3658c0149ea45ba9e0669693d1183b39">difficulty</a> = <a class="el" href="class_manager.html#ada898c9259c003c2795c65be68584241a69edbf75c6b55d42ae65da37dd68f8ab">hard</a></td></tr>
+<tr class="memitem:a3658c0149ea45ba9e0669693d1183b39"><td class="memItemLeft" align="right" valign="top"><a id="a3658c0149ea45ba9e0669693d1183b39"></a>
+Difficulty&#160;</td><td class="memItemRight" valign="bottom"><b>difficulty</b> = hard</td></tr>
 <tr class="separator:a3658c0149ea45ba9e0669693d1183b39"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a70afa5a93e6373e06675ccafd6e772a5"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_manager.html#a70afa5a93e6373e06675ccafd6e772a5">enemyDeathTimer</a> = 0</td></tr>
+<tr class="memitem:a70afa5a93e6373e06675ccafd6e772a5"><td class="memItemLeft" align="right" valign="top"><a id="a70afa5a93e6373e06675ccafd6e772a5"></a>
+float&#160;</td><td class="memItemRight" valign="bottom"><b>enemyDeathTimer</b> = 0</td></tr>
 <tr class="separator:a70afa5a93e6373e06675ccafd6e772a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad2d821fa6f250972a34116b04ddfef73"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_manager.html#ad2d821fa6f250972a34116b04ddfef73">hasKills</a> = false</td></tr>
+<tr class="memitem:ad2d821fa6f250972a34116b04ddfef73"><td class="memItemLeft" align="right" valign="top"><a id="ad2d821fa6f250972a34116b04ddfef73"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>hasKills</b> = false</td></tr>
 <tr class="separator:ad2d821fa6f250972a34116b04ddfef73"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Enumeration Documentation</h2>
-<a id="ada898c9259c003c2795c65be68584241"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ada898c9259c003c2795c65be68584241">&#9670;&nbsp;</a></span>Difficulty</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>@breif The manager hoolds the information used by the rest of the engine, such as difficulty, speed, toekns and timers </p><dl class="section author"><dt>Author</dt><dd>Christopher Logan </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>MAY 2021 </dd></dl>
 
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum <a class="el" href="class_manager.html#ada898c9259c003c2795c65be68584241">Manager::Difficulty</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ada898c9259c003c2795c65be68584241aa187d02580292e33a7ee5f9d645f8642"></a>easy&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="ada898c9259c003c2795c65be68584241a333a072d6140fc94b4cde57c9388e1aa"></a>normal&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="ada898c9259c003c2795c65be68584241a69edbf75c6b55d42ae65da37dd68f8ab"></a>hard&#160;</td><td class="fielddoc"></td></tr>
-</table>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="ad201134186280989739a4545e113e4f1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad201134186280989739a4545e113e4f1">&#9670;&nbsp;</a></span>Reset()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Manager::Reset </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a33ee00c7afe9396fe6584a4cb1381bd2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a33ee00c7afe9396fe6584a4cb1381bd2">&#9670;&nbsp;</a></span>Update()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Manager::Update </td>
-          <td>(</td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>time</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="af0346873e08eabed931f4c0d0480c553"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af0346873e08eabed931f4c0d0480c553">&#9670;&nbsp;</a></span>UpdateEnemyDeath()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Manager::UpdateEnemyDeath </td>
-          <td>(</td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>time</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a0c23ee86f68e27a904c48a176ccf4314"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0c23ee86f68e27a904c48a176ccf4314">&#9670;&nbsp;</a></span>UpdateWeapon()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Manager::UpdateWeapon </td>
-          <td>(</td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>time</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="a3658c0149ea45ba9e0669693d1183b39"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3658c0149ea45ba9e0669693d1183b39">&#9670;&nbsp;</a></span>difficulty</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_manager.html#ada898c9259c003c2795c65be68584241">Difficulty</a> Manager::difficulty = <a class="el" href="class_manager.html#ada898c9259c003c2795c65be68584241a69edbf75c6b55d42ae65da37dd68f8ab">hard</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a70afa5a93e6373e06675ccafd6e772a5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a70afa5a93e6373e06675ccafd6e772a5">&#9670;&nbsp;</a></span>enemyDeathTimer</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">float Manager::enemyDeathTimer = 0</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ac60e528f0ab33fded824b458e404fb49"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac60e528f0ab33fded824b458e404fb49">&#9670;&nbsp;</a></span>fireWeapon</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool Manager::fireWeapon = false</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ad2d821fa6f250972a34116b04ddfef73"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad2d821fa6f250972a34116b04ddfef73">&#9670;&nbsp;</a></span>hasKills</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool Manager::hasKills = false</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a2459c597896c5bd50aa8f8535adc4924"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2459c597896c5bd50aa8f8535adc4924">&#9670;&nbsp;</a></span>prevToken</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::string Manager::prevToken = &quot;none&quot;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a54c0f17bf142a26409a6e77edaafe320"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a54c0f17bf142a26409a6e77edaafe320">&#9670;&nbsp;</a></span>speed</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">float Manager::speed = 5</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a3fed4d89c180bbdc7d67932b3f1ea87b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3fed4d89c180bbdc7d67932b3f1ea87b">&#9670;&nbsp;</a></span>timer</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">float Manager::timer = 0</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a3973347fdbc4c962c0c0b65c13cefb84"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3973347fdbc4c962c0c0b65c13cefb84">&#9670;&nbsp;</a></span>token</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::string Manager::token = &quot;none&quot;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ac5a54fafa53c46869d73166b738c2b2f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac5a54fafa53c46869d73166b738c2b2f">&#9670;&nbsp;</a></span>weaponTimer</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">float Manager::weaponTimer = 0</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following file:<ul>
-<li>ICT397-Project-Engine/<a class="el" href="_manager_8h_source.html">Manager.h</a></li>
+<p class="definition">Definition at line <a class="el" href="_manager_8h_source.html#l00011">11</a> of file <a class="el" href="_manager_8h_source.html">Manager.h</a>.</p>
+</div><hr/>The documentation for this class was generated from the following file:<ul>
+<li>C:/Users/chris/Documents/UNI/ICT397-Project/ICT397-Project-Engine/<a class="el" href="_manager_8h_source.html">Manager.h</a></li>
 </ul>
 </div><!-- contents -->
-</div><!-- doc-content -->
 <!-- start footer part -->
-<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
-  <ul>
-    <li class="navelem"><a class="el" href="class_manager.html">Manager</a></li>
-    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
-  </ul>
-</div>
+<hr class="footer"/><address class="footer"><small>
+Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+</small></address>
 </body>
 </html>

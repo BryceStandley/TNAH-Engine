@@ -4,5 +4,5 @@ digraph "Graphical Class Hierarchy"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node0 [label="ImGuiDataTypeTempStorage",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$struct_im_gui_data_type_temp_storage.html",tooltip=" "];
+  Node0 [label="stbi_io_callbacks",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$structstbi__io__callbacks.html",tooltip=" "];
 }

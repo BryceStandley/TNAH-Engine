@@ -4,5 +4,5 @@ digraph "Graphical Class Hierarchy"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node0 [label="ExitScreen",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_exit_screen.html",tooltip="Holds information about the exit screen and its functions."];
+  Node0 [label="Fbx",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_fbx.html",tooltip="A class that represents a model in its entirety, allowing for multiple meshes and multiple textures i..."];
 }

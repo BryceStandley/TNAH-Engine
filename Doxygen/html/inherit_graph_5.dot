@@ -4,5 +4,5 @@ digraph "Graphical Class Hierarchy"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node0 [label="Engine",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_engine.html",tooltip="The hub of the entire engine, this class initialises every other aspect of the game engine,..."];
+  Node0 [label="Debugger",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_debugger.html",tooltip="helper functions and flags to aid in debugging aspects of the engine"];
 }

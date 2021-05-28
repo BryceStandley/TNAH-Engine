@@ -3,7 +3,7 @@ digraph "Enemy"
  // LATEX_PDF_SIZE
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
-  Node1 [label="Enemy",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Abstract GameObject class for enemies."];
-  Node2 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node2 [label="GameObject",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_game_object.html",tooltip="Class that holds the main information of a game object, that is abstracted for more specific reasons."];
+  Node1 [label="{Enemy\n|+ enemyVelocity\l+ velocity\l+ newPos\l+ wanderLua\l+ alert\l+ chase\l+ fleeLua\l+ attack\l+ die\l+ global\l+ init\l+ startTimer\l|+ Enemy()\l+ Enemy()\l+ ~Enemy()\l+ getFSM()\l+ Update()\l+ getHealth()\l+ setHealth()\l+ GetPos()\l+ SetPos()\l+ decreaseHealth()\land 55 more...\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Abstract GameObject class for enemies."];
+  Node2 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid",arrowtail="onormal",fontname="Helvetica"];
+  Node2 [label="{GameObject\n||+ GameObject()\l+ GameObject()\l+ Update()\l+ SetModel()\l+ SetShader()\l+ SetRotate()\l+ SetRotation()\l+ SetPos()\l+ SetScale()\l+ GetPos()\land 21 more...\l}",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_game_object.html",tooltip="Class that holds the main information of a game object, that is abstracted for more specific reasons."];
 }

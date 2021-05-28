@@ -1,0 +1,7 @@
+digraph "GameAssetFactory"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{GameAssetFactory\n||+ GameAssetFactory()\l+ GetGameObject()\l+ GetGameObjectSave()\l+ ResetFactory()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Holds the information so that game objects can be made in the engine by taking in values that allow u..."];
+}

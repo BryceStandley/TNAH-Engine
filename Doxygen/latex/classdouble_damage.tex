@@ -42,6 +42,10 @@ Dylan Blereau
 \end{DoxyDate}
 
 
+Definition at line 19 of file player\+States.\+h.
+
+
+
 \doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{classdouble_damage_a63be11ac620619f096dc04c288c14f2d}\label{classdouble_damage_a63be11ac620619f096dc04c288c14f2d}} 
 \index{doubleDamage@{doubleDamage}!Enter@{Enter}}
@@ -62,6 +66,20 @@ virtual function that represents the entry point of the state
 
 Implements \mbox{\hyperlink{class_state_aab4cca8d69092deacf053cf2b12e4cd6}{State$<$ Player $>$}}.
 
+
+
+Definition at line 7 of file player\+States.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{8 \{}
+\DoxyCodeLine{9     \textcolor{keywordflow}{if} (dude-\/>dd.isTable())}
+\DoxyCodeLine{10     \{}
+\DoxyCodeLine{11         dude-\/>dd[1](dude);}
+\DoxyCodeLine{12     \}}
+\DoxyCodeLine{13 \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{classdouble_damage_a64d207fdc4ed2d2962f0b5a90b65db05}\label{classdouble_damage_a64d207fdc4ed2d2962f0b5a90b65db05}} 
 \index{doubleDamage@{doubleDamage}!Execute@{Execute}}
 \index{Execute@{Execute}!doubleDamage@{doubleDamage}}
@@ -81,6 +99,20 @@ virtual function that represents the execute point of the state
 
 Implements \mbox{\hyperlink{class_state_a7b7e948b4fe83e3686564e453ed0c406}{State$<$ Player $>$}}.
 
+
+
+Definition at line 15 of file player\+States.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{16 \{}
+\DoxyCodeLine{17     \textcolor{keywordflow}{if} (dude-\/>dd.isTable())}
+\DoxyCodeLine{18     \{}
+\DoxyCodeLine{19         dude-\/>dd[2](dude);}
+\DoxyCodeLine{20     \}}
+\DoxyCodeLine{21 \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{classdouble_damage_a6b491f9441fbb293a276715aacbb3bf1}\label{classdouble_damage_a6b491f9441fbb293a276715aacbb3bf1}} 
 \index{doubleDamage@{doubleDamage}!Exit@{Exit}}
 \index{Exit@{Exit}!doubleDamage@{doubleDamage}}
@@ -102,7 +134,21 @@ Implements \mbox{\hyperlink{class_state_aa086d08513a4adb59848deec250fbcae}{State
 
 
 
+Definition at line 23 of file player\+States.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{24 \{}
+\DoxyCodeLine{25     \textcolor{keywordflow}{if} (dude-\/>dd.isTable())}
+\DoxyCodeLine{26     \{}
+\DoxyCodeLine{27         dude-\/>dd[3](dude);}
+\DoxyCodeLine{28     \}}
+\DoxyCodeLine{29 \}}
+
+\end{DoxyCode}
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-ICT397-\/\+Project-\/\+Engine/\mbox{\hyperlink{player_states_8h}{player\+States.\+h}}\item 
-ICT397-\/\+Project-\/\+Engine/\mbox{\hyperlink{player_states_8cpp}{player\+States.\+cpp}}\end{DoxyCompactItemize}
+C\+:/\+Users/chris/\+Documents/\+UNI/\+ICT397-\/\+Project/\+ICT397-\/\+Project-\/\+Engine/player\+States.\+h\item 
+C\+:/\+Users/chris/\+Documents/\+UNI/\+ICT397-\/\+Project/\+ICT397-\/\+Project-\/\+Engine/player\+States.\+cpp\end{DoxyCompactItemize}

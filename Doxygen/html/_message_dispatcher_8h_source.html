@@ -5,14 +5,10 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TNAH-Engine-ICT397: ICT397-Project-Engine/MessageDispatcher.h Source File</title>
+<title>Zoom: C:/Users/chris/Documents/UNI/ICT397-Project/ICT397-Project-Engine/MessageDispatcher.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
-<link href="navtree.css" rel="stylesheet" type="text/css"/>
-<script type="text/javascript" src="resize.js"></script>
-<script type="text/javascript" src="navtreedata.js"></script>
-<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -24,10 +20,8 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="TNAH-2.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">TNAH-Engine-ICT397
-   &#160;<span id="projectnumber">2</span>
+   <div id="projectname">Zoom
    </div>
   </td>
  </tr>
@@ -51,23 +45,6 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
-</div><!-- top -->
-<div id="side-nav" class="ui-resizable side-nav-resizable">
-  <div id="nav-tree">
-    <div id="nav-tree-contents">
-      <div id="nav-sync" class="sync"></div>
-    </div>
-  </div>
-  <div id="splitbar" style="-moz-user-select:none;" 
-       class="ui-resizable-handle">
-  </div>
-</div>
-<script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-$(document).ready(function(){initNavTree('_message_dispatcher_8h_source.html',''); initResizable(); });
-/* @license-end */
-</script>
-<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -82,107 +59,111 @@ $(document).ready(function(){initNavTree('_message_dispatcher_8h_source.html',''
 </iframe>
 </div>
 
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_d522931ffa1371640980b621734a4381.html">Users</a></li><li class="navelem"><a class="el" href="dir_83479ca8445b084a39a9716b3e7c10e1.html">chris</a></li><li class="navelem"><a class="el" href="dir_713bddb27c42713b64c01569b17ea43b.html">Documents</a></li><li class="navelem"><a class="el" href="dir_994cc5b62e2e9dc0b6f542765e67beea.html">UNI</a></li><li class="navelem"><a class="el" href="dir_a58a217e1f7e59bb6f1a2d3d6fd4bd98.html">ICT397-Project</a></li><li class="navelem"><a class="el" href="dir_253452d306a7e3f3eb3418a9f0f6b2bf.html">ICT397-Project-Engine</a></li>  </ul>
+</div>
+</div><!-- top -->
 <div class="header">
   <div class="headertitle">
 <div class="title">MessageDispatcher.h</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="_message_dispatcher_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &lt;set&gt;</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_singleton_headers_8h.html">SingletonHeaders.h</a>&quot;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_debugger_8h.html">Debugger.h</a>&quot;</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">pragma</span> <span class="preprocessor">once</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="preprocessor">&lt;</span><span class="preprocessor">set</span><span class="preprocessor">&gt;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="preprocessor">&lt;</span><span class="preprocessor">string</span><span class="preprocessor">&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <a class="code" href="_singleton_headers_8h.html">&quot;SingletonHeaders.h&quot;</a></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <a class="code" href="_debugger_8h.html">&quot;Debugger.h&quot;</a></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="_message_dispatcher_8h.html#a0ae1bde5b8c2863acff449de5c198c6e">    7</a></span>&#160;<span class="preprocessor">#define SEND_MESSAGE_IMMEDIATELY = 0.0;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno"><a class="line" href="_message_dispatcher_8h.html#a92e43571b65eee7f9bf2f3dc646d9090">    8</a></span>&#160;<span class="preprocessor">#define SENDER_ID_IRRELEVANT = -1;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
-<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="class_message_dispatcher.html">   10</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_message_dispatcher.html">MessageDispatcher</a></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    std::set&lt;Telegram&gt; Priority;</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    <span class="keywordtype">void</span> Discharge(<a class="code" href="class_game_object.html">GameObject</a>* receiver, <span class="keyword">const</span> <a class="code" href="struct_telegram.html">Telegram</a> msg)</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    {</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;        <span class="keywordflow">if</span> (!receiver-&gt;<a class="code" href="class_game_object.html#aad9c0f74168667fcdbc1bcea06d169c5">handleMessage</a>(msg))</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;            <span class="keywordflow">if</span>(<a class="code" href="class_debugger.html#a0c44ece01904a132335a4cf2abb33f50">Debugger::GetInstance</a>()-&gt;debugFSMToConsole) std::cout &lt;&lt; <span class="stringliteral">&quot;Message not handled&quot;</span> &lt;&lt; std::endl;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    }</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">define</span> <span class="preprocessor">SEND_MESSAGE_IMMEDIATELY</span> <span class="preprocessor">=</span> 0.0<span class="preprocessor">;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">define</span> <span class="preprocessor">SENDER_ID_IRRELEVANT</span> <span class="preprocessor">=</span> <span class="preprocessor">-</span>1<span class="preprocessor">;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">/**</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="class_message.html">   10</a></span>&#160;<span class="comment"> * @class Message dispatcher</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment"> * @breif Sends the messages for the AI and handles them</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment"> * @author Christopher Logan</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment"> * @date MAY 2021</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="class_message_dispatcher.html">   15</a></span>&#160;<span class="keyword">class</span> MessageDispatcher</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;{</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    std::set&lt;Telegram&gt; Priority;</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="class_message_dispatcher.html#af8051ead6016845af90f01f64040de81">   21</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_message_dispatcher.html#af8051ead6016845af90f01f64040de81">DisbatchMsgSingle</a>(<span class="keywordtype">double</span> delay, <span class="keywordtype">int</span> sender, <span class="keywordtype">int</span> receiver, <span class="keywordtype">int</span> msg, <span class="keywordtype">bool</span> all)</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    {</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        <span class="comment">//Use singleton to get entity manager</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        <a class="code" href="class_game_object.html">GameObject</a>* pReceiver = <a class="code" href="classsingleton.html#abe6a9e4cb548454cfb5d15f425553ae1">entityMan::getInstance</a>().GetEntity(receiver);</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        glm::vec3 pos = <a class="code" href="classsingleton.html#abe6a9e4cb548454cfb5d15f425553ae1">entityMan::getInstance</a>().GetEntity(sender)-&gt;GetPos();</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        <span class="keywordflow">if</span> (pReceiver == NULL) {</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;            <span class="keywordflow">if</span>(<a class="code" href="class_debugger.html#a0c44ece01904a132335a4cf2abb33f50">Debugger::GetInstance</a>()-&gt;debugFSMToConsole) std::cout &lt;&lt; <span class="stringliteral">&quot;Warning! No Receiver with ID of &quot;</span> &lt;&lt; receiver &lt;&lt; <span class="stringliteral">&quot; found&quot;</span> &lt;&lt; std::endl;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;            <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        }</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        <a class="code" href="struct_telegram.html">Telegram</a> <a class="code" href="_singleton_headers_8h.html#a8b0193f0cc93b63beb917fc7d2c1ee70">message</a>(0.0f, sender, receiver, all, msg, pos);</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        <span class="keywordflow">if</span> (delay &lt;= 0.0) {</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;            Discharge(pReceiver, <a class="code" href="classsingleton.html">message</a>);</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        }</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;            <span class="comment">//Need to make a timer</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;            <span class="keywordtype">double</span> currentTime = <a class="code" href="classsingleton.html#abe6a9e4cb548454cfb5d15f425553ae1">GameTimer::getInstance</a>().curTime;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;            <a class="code" href="classsingleton.html">message</a>.dispatchTime = currentTime + delay;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;            Priority.insert(<a class="code" href="classsingleton.html">message</a>);</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        }</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    }</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="class_message_dispatcher.html#a93205c90840fb464be36f6b53ca61197">   42</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_message_dispatcher.html#a93205c90840fb464be36f6b53ca61197">DisbatchMsgAllOfType</a>(<span class="keywordtype">int</span> sender, <span class="keywordtype">int</span> msg, std::string type)</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    {</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        <span class="keywordtype">int</span> max = <a class="code" href="classsingleton.html#abe6a9e4cb548454cfb5d15f425553ae1">entityMan::getInstance</a>().Size();</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        <span class="keywordflow">if</span> (max &gt; 1)</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        {</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;            glm::vec3 pos = <a class="code" href="classsingleton.html#abe6a9e4cb548454cfb5d15f425553ae1">entityMan::getInstance</a>().GetEntity(sender)-&gt;GetPos();</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;            <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; max; i++)</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;            {</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;                <a class="code" href="class_game_object.html">GameObject</a>* pReceiver = <a class="code" href="classsingleton.html#abe6a9e4cb548454cfb5d15f425553ae1">entityMan::getInstance</a>().GetEntity(<a class="code" href="classsingleton.html#abe6a9e4cb548454cfb5d15f425553ae1">entityMan::getInstance</a>().NumberedPos(i));</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;                <span class="keywordflow">if</span> (pReceiver-&gt;<a class="code" href="class_game_object.html#a16923ded4375011aaf9631a13c775f10">GetType</a>() == type &amp;&amp; i != sender )</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;                {</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;                    <a class="code" href="struct_telegram.html">Telegram</a> <a class="code" href="_singleton_headers_8h.html#a8b0193f0cc93b63beb917fc7d2c1ee70">message</a>(0.0f, sender, i, <span class="keyword">true</span>, msg, pos);</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;                    Discharge(pReceiver, <a class="code" href="classsingleton.html">message</a>);</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;                }</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;            }</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        }</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    }</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="comment">/**</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">     * @brief Discharges the message to game objects</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">     */</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keywordtype">void</span> Discharge(GameObject* receiver, <span class="keyword">const</span> Telegram msg)</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    {</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        <span class="keywordflow">if</span> (!receiver-&gt;handleMessage(msg))</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;            <span class="keywordflow">if</span>(Debugger::GetInstance()-&gt;debugFSMToConsole) std::cout &lt;&lt; <span class="stringliteral">&quot;Message not handled&quot;</span> &lt;&lt; std::endl;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    }</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="comment">/**</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment">     * @brief Sends the message to a single game object id</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment">     */</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="class_message_dispatcher.html#af8051ead6016845af90f01f64040de81">   33</a></span>&#160;    <span class="keywordtype">void</span> DisbatchMsgSingle(<span class="keywordtype">double</span> delay, <span class="keywordtype">int</span> sender, <span class="keywordtype">int</span> receiver, <span class="keywordtype">int</span> msg, <span class="keywordtype">bool</span> all)</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    {</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        <span class="comment">//Use singleton to get entity manager</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        GameObject* pReceiver = entityMan::getInstance().GetEntity(receiver);</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        glm::vec3 pos = entityMan::getInstance().GetEntity(sender)-&gt;GetPos();</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        <span class="keywordflow">if</span> (pReceiver == NULL) {</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;            <span class="keywordflow">if</span>(Debugger::GetInstance()-&gt;debugFSMToConsole) std::cout &lt;&lt; <span class="stringliteral">&quot;Warning! No Receiver with ID of &quot;</span> &lt;&lt; receiver &lt;&lt; <span class="stringliteral">&quot; found&quot;</span> &lt;&lt; std::endl;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;            <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        }</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        Telegram message(0.0f, sender, receiver, all, msg, pos);</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        <span class="keywordflow">if</span> (delay &lt;= 0.0) {</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;            Discharge(pReceiver, message);</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        }</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;            <span class="comment">//Need to make a timer</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;            <span class="keywordtype">double</span> currentTime = GameTimer::getInstance().curTime;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;            message.dispatchTime = currentTime + delay;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;            Priority.insert(message);</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        }</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    }</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="comment">/**</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="comment">     * @brief Sends the message to a whole type of game objects</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="comment">     */</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno"><a class="line" href="class_message_dispatcher.html#a93205c90840fb464be36f6b53ca61197">   57</a></span>&#160;    <span class="keywordtype">void</span> DisbatchMsgAllOfType(<span class="keywordtype">int</span> sender, <span class="keywordtype">int</span> msg, std::string type)</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    {</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <span class="keywordtype">int</span> max = entityMan::getInstance().Size();</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
-<div class="line"><a name="l00061"></a><span class="lineno"><a class="line" href="class_message_dispatcher.html#a36eff0bf667e6950d3f90ac2ee92fdd1">   61</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_message_dispatcher.html#a36eff0bf667e6950d3f90ac2ee92fdd1">DispatchDelayedMessages</a>()</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    {</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        <span class="comment">//Need to make a timer</span></div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        <span class="keywordtype">double</span> currentTime = <a class="code" href="classsingleton.html#abe6a9e4cb548454cfb5d15f425553ae1">GameTimer::getInstance</a>().curTime;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        <span class="keywordflow">while</span> (!Priority.empty() &amp;&amp; (Priority.begin()-&gt;dispatchTime &lt; currentTime) &amp;&amp; (Priority.begin()-&gt;dispatchTime &gt; 0))</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        {</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;            <span class="keyword">const</span> <a class="code" href="struct_telegram.html">Telegram</a> <a class="code" href="classsingleton.html">message</a> = *Priority.begin();</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;            <a class="code" href="class_game_object.html">GameObject</a>* pReceiver = <a class="code" href="classsingleton.html#abe6a9e4cb548454cfb5d15f425553ae1">entityMan::getInstance</a>().GetEntity(<a class="code" href="classsingleton.html">message</a>.receiver);</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;            Discharge(pReceiver, <a class="code" href="classsingleton.html">message</a>);</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;            Priority.erase(Priority.begin());</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        }</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    }</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;};</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
-<div class="ttc" id="a_debugger_8h_html"><div class="ttname"><a href="_debugger_8h.html">Debugger.h</a></div></div>
-<div class="ttc" id="a_singleton_headers_8h_html"><div class="ttname"><a href="_singleton_headers_8h.html">SingletonHeaders.h</a></div></div>
-<div class="ttc" id="a_singleton_headers_8h_html_a8b0193f0cc93b63beb917fc7d2c1ee70"><div class="ttname"><a href="_singleton_headers_8h.html#a8b0193f0cc93b63beb917fc7d2c1ee70">message</a></div><div class="ttdeci">singleton&lt; DynamicEnum &gt; message</div><div class="ttdef"><b>Definition:</b> SingletonHeaders.h:7</div></div>
-<div class="ttc" id="aclass_debugger_html_a0c44ece01904a132335a4cf2abb33f50"><div class="ttname"><a href="class_debugger.html#a0c44ece01904a132335a4cf2abb33f50">Debugger::GetInstance</a></div><div class="ttdeci">static Debugger * GetInstance()</div><div class="ttdef"><b>Definition:</b> Debugger.cpp:6</div></div>
-<div class="ttc" id="aclass_game_object_html"><div class="ttname"><a href="class_game_object.html">GameObject</a></div><div class="ttdoc">Class that holds the main information of a game object, that is abstracted for more specific reasons.</div><div class="ttdef"><b>Definition:</b> GameObject.h:25</div></div>
-<div class="ttc" id="aclass_game_object_html_a16923ded4375011aaf9631a13c775f10"><div class="ttname"><a href="class_game_object.html#a16923ded4375011aaf9631a13c775f10">GameObject::GetType</a></div><div class="ttdeci">std::string GetType()</div><div class="ttdoc">Gets the type of object.</div><div class="ttdef"><b>Definition:</b> GameObject.h:123</div></div>
-<div class="ttc" id="aclass_game_object_html_aad9c0f74168667fcdbc1bcea06d169c5"><div class="ttname"><a href="class_game_object.html#aad9c0f74168667fcdbc1bcea06d169c5">GameObject::handleMessage</a></div><div class="ttdeci">virtual bool handleMessage(const Telegram message)</div><div class="ttdef"><b>Definition:</b> GameObject.h:170</div></div>
-<div class="ttc" id="aclass_message_dispatcher_html"><div class="ttname"><a href="class_message_dispatcher.html">MessageDispatcher</a></div><div class="ttdef"><b>Definition:</b> MessageDispatcher.h:11</div></div>
-<div class="ttc" id="aclass_message_dispatcher_html_a36eff0bf667e6950d3f90ac2ee92fdd1"><div class="ttname"><a href="class_message_dispatcher.html#a36eff0bf667e6950d3f90ac2ee92fdd1">MessageDispatcher::DispatchDelayedMessages</a></div><div class="ttdeci">void DispatchDelayedMessages()</div><div class="ttdef"><b>Definition:</b> MessageDispatcher.h:61</div></div>
-<div class="ttc" id="aclass_message_dispatcher_html_a93205c90840fb464be36f6b53ca61197"><div class="ttname"><a href="class_message_dispatcher.html#a93205c90840fb464be36f6b53ca61197">MessageDispatcher::DisbatchMsgAllOfType</a></div><div class="ttdeci">void DisbatchMsgAllOfType(int sender, int msg, std::string type)</div><div class="ttdef"><b>Definition:</b> MessageDispatcher.h:42</div></div>
-<div class="ttc" id="aclass_message_dispatcher_html_af8051ead6016845af90f01f64040de81"><div class="ttname"><a href="class_message_dispatcher.html#af8051ead6016845af90f01f64040de81">MessageDispatcher::DisbatchMsgSingle</a></div><div class="ttdeci">void DisbatchMsgSingle(double delay, int sender, int receiver, int msg, bool all)</div><div class="ttdef"><b>Definition:</b> MessageDispatcher.h:21</div></div>
-<div class="ttc" id="aclasssingleton_html"><div class="ttname"><a href="classsingleton.html">singleton</a></div><div class="ttdoc">A templated class that uses the singleton design pattern to provide one instance of any specified cla...</div><div class="ttdef"><b>Definition:</b> singleton.h:15</div></div>
-<div class="ttc" id="aclasssingleton_html_abe6a9e4cb548454cfb5d15f425553ae1"><div class="ttname"><a href="classsingleton.html#abe6a9e4cb548454cfb5d15f425553ae1">singleton::getInstance</a></div><div class="ttdeci">static T &amp; getInstance()</div><div class="ttdoc">gets and returns the instance of the class provided to the singleton</div><div class="ttdef"><b>Definition:</b> singleton.h:23</div></div>
-<div class="ttc" id="astruct_telegram_html"><div class="ttname"><a href="struct_telegram.html">Telegram</a></div><div class="ttdef"><b>Definition:</b> Telegram.h:4</div></div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        <span class="keywordflow">if</span> (max &gt; 1)</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        {</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;            glm::vec3 pos = entityMan::getInstance().GetEntity(sender)-&gt;GetPos();</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;            <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; max; i++)</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;            {</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;                GameObject* pReceiver = entityMan::getInstance().GetEntity(entityMan::getInstance().NumberedPos(i));</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;                <span class="keywordflow">if</span> (pReceiver-&gt;GetType() == type &amp;&amp; i != sender )</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;                {</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;                    Telegram message(0.0f, sender, i, <span class="keyword">true</span>, msg, pos);</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;                    Discharge(pReceiver, message);</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;                }</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;            }</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        }</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    }</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="comment">/**</span></div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="comment">     * @brief Sends delayed messages</span></div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="comment">     */</span></div>
+<div class="line"><a name="l00079"></a><span class="lineno"><a class="line" href="class_message_dispatcher.html#a36eff0bf667e6950d3f90ac2ee92fdd1">   79</a></span>&#160;    <span class="keywordtype">void</span> DispatchDelayedMessages()</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    {</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        <span class="comment">//Need to make a timer</span></div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        <span class="keywordtype">double</span> currentTime = GameTimer::getInstance().curTime;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        <span class="keywordflow">while</span> (!Priority.empty() &amp;&amp; (Priority.begin()-&gt;dispatchTime &lt; currentTime) &amp;&amp; (Priority.begin()-&gt;dispatchTime &gt; 0))</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        {</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;            <span class="keyword">const</span> Telegram message = *Priority.begin();</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;            GameObject* pReceiver = entityMan::getInstance().GetEntity(message.receiver);</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;            Discharge(pReceiver, message);</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;            Priority.erase(Priority.begin());</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        }</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    }</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;};</div>
 </div><!-- fragment --></div><!-- contents -->
-</div><!-- doc-content -->
 <!-- start footer part -->
-<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
-  <ul>
-    <li class="navelem"><a class="el" href="dir_492deb8f30c21d9ebac9ab6ce6fb7949.html">ICT397-Project-Engine</a></li><li class="navelem"><a class="el" href="_message_dispatcher_8h.html">MessageDispatcher.h</a></li>
-    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
-  </ul>
-</div>
+<hr class="footer"/><address class="footer"><small>
+Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+</small></address>
 </body>
 </html>

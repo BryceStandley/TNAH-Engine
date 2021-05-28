@@ -5,14 +5,10 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TNAH-Engine-ICT397: ICT397-Project-Engine/GameObject.h Source File</title>
+<title>Zoom: C:/Users/chris/Documents/UNI/ICT397-Project/ICT397-Project-Engine/GameObject.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
-<link href="navtree.css" rel="stylesheet" type="text/css"/>
-<script type="text/javascript" src="resize.js"></script>
-<script type="text/javascript" src="navtreedata.js"></script>
-<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -24,10 +20,8 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="TNAH-2.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">TNAH-Engine-ICT397
-   &#160;<span id="projectnumber">2</span>
+   <div id="projectname">Zoom
    </div>
   </td>
  </tr>
@@ -51,23 +45,6 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
-</div><!-- top -->
-<div id="side-nav" class="ui-resizable side-nav-resizable">
-  <div id="nav-tree">
-    <div id="nav-tree-contents">
-      <div id="nav-sync" class="sync"></div>
-    </div>
-  </div>
-  <div id="splitbar" style="-moz-user-select:none;" 
-       class="ui-resizable-handle">
-  </div>
-</div>
-<script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-$(document).ready(function(){initNavTree('_game_object_8h_source.html',''); initResizable(); });
-/* @license-end */
-</script>
-<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -82,174 +59,274 @@ $(document).ready(function(){initNavTree('_game_object_8h_source.html',''); init
 </iframe>
 </div>
 
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_d522931ffa1371640980b621734a4381.html">Users</a></li><li class="navelem"><a class="el" href="dir_83479ca8445b084a39a9716b3e7c10e1.html">chris</a></li><li class="navelem"><a class="el" href="dir_713bddb27c42713b64c01569b17ea43b.html">Documents</a></li><li class="navelem"><a class="el" href="dir_994cc5b62e2e9dc0b6f542765e67beea.html">UNI</a></li><li class="navelem"><a class="el" href="dir_a58a217e1f7e59bb6f1a2d3d6fd4bd98.html">ICT397-Project</a></li><li class="navelem"><a class="el" href="dir_253452d306a7e3f3eb3418a9f0f6b2bf.html">ICT397-Project-Engine</a></li>  </ul>
+</div>
+</div><!-- top -->
 <div class="header">
   <div class="headertitle">
 <div class="title">GameObject.h</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="_game_object_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_model_8h.html">Model.h</a>&quot;</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_bounding_box_8h.html">BoundingBox.h</a>&quot;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_input_8h.html">Input.h</a>&quot;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_debugger_8h.html">Debugger.h</a>&quot;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_telegram_8h.html">Telegram.h</a>&quot;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_manager_8h.html">Manager.h</a>&quot;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="singleton_8h.html">singleton.h</a>&quot;</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">pragma</span> <span class="preprocessor">once</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <a class="code" href="_model_8h.html">&quot;Model.h&quot;</a></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <a class="code" href="_bounding_box_8h.html">&quot;BoundingBox.h&quot;</a></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <a class="code" href="_input_8h.html">&quot;Input.h&quot;</a></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <a class="code" href="_debugger_8h.html">&quot;Debugger.h&quot;</a></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <a class="code" href="_telegram_8h.html">&quot;Telegram.h&quot;</a></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <a class="code" href="_manager_8h.html">&quot;Manager.h&quot;</a></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <a class="code" href="singleton_8h.html">&quot;singleton.h&quot;</a></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
-<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="class_game_object.html">   24</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_game_object.html">GameObject</a></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">/**</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment"> * @class GameObject</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment"> * @brief Class that holds the main information of a game object, that is abstracted for more specific reasons</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment"> * @author Christopher Logan</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment"> * @version 01</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment"> * @date 25/03/2021</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment"> * @todo Add collisions</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment"> * @bugs none to be seen</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment"> **/</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="class_game_object.html">   24</a></span>&#160;<span class="keyword">class</span> GameObject</div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;{</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="class_game_object.html#a0348e3ee2e83d56eafca7a3547f432c4">   30</a></span>&#160;    <a class="code" href="class_game_object.html#a0348e3ee2e83d56eafca7a3547f432c4">GameObject</a>() { rotation = glm::vec3(0, 0, 0); rotate = <span class="keyword">false</span>; pos = glm::vec3(0, 0, 0); scale = 0.2; rotate = <span class="keyword">false</span>; boundingBox = <a class="code" href="class_bounding_box.html">BoundingBox</a>();}</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        <span class="comment">/**</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment">        * @brief  Default constructor</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment">        */</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="class_game_object.html#a0348e3ee2e83d56eafca7a3547f432c4">   30</a></span>&#160;    GameObject() { rotation = glm::vec3(0, 0, 0); rotate = <span class="keyword">false</span>; pos = glm::vec3(0, 0, 0); scale = 0.2; rotate = <span class="keyword">false</span>; boundingBox = BoundingBox();}</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="class_game_object.html#ab529877fc9d0a21f0b2133131513621a">   39</a></span>&#160;    <a class="code" href="class_game_object.html#ab529877fc9d0a21f0b2133131513621a">GameObject</a>(glm::vec3 p, glm::vec3 rot, <span class="keywordtype">float</span> s, <a class="code" href="class_renderer.html">Renderer</a>* gameRenderer) { pos = p; rotation = rot; scale = s; rotate = <span class="keyword">false</span>; boundingBox = <a class="code" href="class_bounding_box.html">BoundingBox</a>();}</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        <span class="comment">/**</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment">        * @brief Constructor</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment">        * @param p - The position</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment">        * @param fixRot - The fixed rotation</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment">        * @param rot - The new rotation</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="comment">        * @param s - The scale</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="comment">        */</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="class_game_object.html#ab529877fc9d0a21f0b2133131513621a">   39</a></span>&#160;    GameObject(glm::vec3 p, glm::vec3 rot, <span class="keywordtype">float</span> s, Renderer* gameRenderer) { pos = p; rotation = rot; scale = s; rotate = <span class="keyword">false</span>; boundingBox = BoundingBox();}</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_game_object.html#aecdbe6a05d3183236f1bbec09fa235f8">Update</a>(<span class="keywordtype">float</span> time);</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        <span class="comment">/**</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="comment">        * @brief Updates the classes functionality</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="comment">        * @param time - The time between frames</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="comment">        */</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> Update(<span class="keywordtype">float</span> time);</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno"><a class="line" href="class_game_object.html#a7d7bf2fb47b279323455347c841f0383">   51</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_game_object.html#a7d7bf2fb47b279323455347c841f0383">SetModel</a>(<a class="code" href="class_model.html">Model</a> m) { model = m; }</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        <span class="comment">/**</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="comment">        * @brief Sets a new model</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="comment">        * @param m - The new value</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="comment">        */</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno"><a class="line" href="class_game_object.html#a7d7bf2fb47b279323455347c841f0383">   51</a></span>&#160;    <span class="keywordtype">void</span> SetModel(Model m) { model = m; }</div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00057"></a><span class="lineno"><a class="line" href="class_game_object.html#a8cd08c4c2a53a087716e7a8d4c25b632">   57</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_game_object.html#a8cd08c4c2a53a087716e7a8d4c25b632">SetShader</a>(<a class="code" href="class_shader.html">Shader</a> s) { shader = s; }</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        <span class="comment">/**</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="comment">        * @brief Set new shader</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="comment">        * @param s - The new value</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="comment">        */</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno"><a class="line" href="class_game_object.html#a8cd08c4c2a53a087716e7a8d4c25b632">   57</a></span>&#160;    <span class="keywordtype">void</span> SetShader(Shader s) { shader = s; }</div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
-<div class="line"><a name="l00063"></a><span class="lineno"><a class="line" href="class_game_object.html#a91946921e81dbd19ace843fef8790b94">   63</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_game_object.html#a91946921e81dbd19ace843fef8790b94">SetRotate</a>(<span class="keywordtype">bool</span> r) { rotate = r; }</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <span class="comment">/**</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="comment">        * @brief Set rotate bool</span></div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="comment">        * @param r - The new value</span></div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="comment">        */</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno"><a class="line" href="class_game_object.html#a91946921e81dbd19ace843fef8790b94">   63</a></span>&#160;    <span class="keywordtype">void</span> SetRotate(<span class="keywordtype">bool</span> r) { rotate = r; }</div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
-<div class="line"><a name="l00069"></a><span class="lineno"><a class="line" href="class_game_object.html#aaf2a73a659d80bcb523f7ea4e58dd02f">   69</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_game_object.html#aaf2a73a659d80bcb523f7ea4e58dd02f">SetRotation</a>(glm::vec3 r) { rotation = r; }</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        <span class="comment">/**</span></div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="comment">        * @brief Sets the rotation value</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="comment">        * @param r - The new value</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="comment">        */</span></div>
+<div class="line"><a name="l00069"></a><span class="lineno"><a class="line" href="class_game_object.html#aaf2a73a659d80bcb523f7ea4e58dd02f">   69</a></span>&#160;    <span class="keywordtype">void</span> SetRotation(glm::vec3 r) { rotation = r; }</div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
-<div class="line"><a name="l00075"></a><span class="lineno"><a class="line" href="class_game_object.html#aaa26dd3d19a1476a0230dc0235d5c6be">   75</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_game_object.html#aaa26dd3d19a1476a0230dc0235d5c6be">SetPos</a>(glm::vec3 p) { pos = p; }</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        <span class="comment">/**</span></div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="comment">        * @brief Sets the position</span></div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="comment">        * @param p - The new value</span></div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="comment">        */</span></div>
+<div class="line"><a name="l00075"></a><span class="lineno"><a class="line" href="class_game_object.html#aaa26dd3d19a1476a0230dc0235d5c6be">   75</a></span>&#160;    <span class="keywordtype">void</span> SetPos(glm::vec3 p) { pos = p; }</div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
-<div class="line"><a name="l00081"></a><span class="lineno"><a class="line" href="class_game_object.html#ac87b80ff4dd9eb7be6c7363e4e621e09">   81</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_game_object.html#ac87b80ff4dd9eb7be6c7363e4e621e09">SetScale</a>(<span class="keywordtype">float</span> size) { scale = size; }</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        <span class="comment">/**</span></div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="comment">        * @brief Sets the scale value</span></div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="comment">        * @param size - The new value</span></div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="comment">        */</span></div>
+<div class="line"><a name="l00081"></a><span class="lineno"><a class="line" href="class_game_object.html#ac87b80ff4dd9eb7be6c7363e4e621e09">   81</a></span>&#160;    <span class="keywordtype">void</span> SetScale(<span class="keywordtype">float</span> size) { scale = size; }</div>
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
-<div class="line"><a name="l00087"></a><span class="lineno"><a class="line" href="class_game_object.html#aa9f5812ad1460871ebceb188cc9aaa96">   87</a></span>&#160;    glm::vec3 <a class="code" href="class_game_object.html#aa9f5812ad1460871ebceb188cc9aaa96">GetPos</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> pos; }</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        <span class="comment">/**</span></div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="comment">        * @brief Gets the position value</span></div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="comment">        * @return pos</span></div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="comment">        */</span></div>
+<div class="line"><a name="l00087"></a><span class="lineno"><a class="line" href="class_game_object.html#aa9f5812ad1460871ebceb188cc9aaa96">   87</a></span>&#160;    glm::vec3 GetPos() <span class="keyword">const</span> { <span class="keywordflow">return</span> pos; }</div>
 <div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
-<div class="line"><a name="l00093"></a><span class="lineno"><a class="line" href="class_game_object.html#afe52aedcc4f6e746f3ccd18d413f88fb">   93</a></span>&#160;    glm::vec3 <a class="code" href="class_game_object.html#afe52aedcc4f6e746f3ccd18d413f88fb">GetRotation</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> rotation; }</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        <span class="comment">/**</span></div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="comment">        * @brief Gets the rotation value</span></div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;<span class="comment">        * @return rotation</span></div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="comment">        */</span></div>
+<div class="line"><a name="l00093"></a><span class="lineno"><a class="line" href="class_game_object.html#afe52aedcc4f6e746f3ccd18d413f88fb">   93</a></span>&#160;    glm::vec3 GetRotation() <span class="keyword">const</span> { <span class="keywordflow">return</span> rotation; }</div>
 <div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160; </div>
-<div class="line"><a name="l00099"></a><span class="lineno"><a class="line" href="class_game_object.html#a0fb90bbb74c8988d23e865280a065901">   99</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="class_game_object.html#a0fb90bbb74c8988d23e865280a065901">GetScale</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> scale; }</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        <span class="comment">/**</span></div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;<span class="comment">        * @brief Gets the scale value</span></div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;<span class="comment">        * @return scale</span></div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;<span class="comment">        */</span></div>
+<div class="line"><a name="l00099"></a><span class="lineno"><a class="line" href="class_game_object.html#a0fb90bbb74c8988d23e865280a065901">   99</a></span>&#160;    <span class="keywordtype">float</span> GetScale() <span class="keyword">const</span> { <span class="keywordflow">return</span> scale; }</div>
 <div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
-<div class="line"><a name="l00105"></a><span class="lineno"><a class="line" href="class_game_object.html#a4d2dd39231dc5fa8c9c9b29b91f8ec95">  105</a></span>&#160;    <a class="code" href="class_model.html">Model</a> <a class="code" href="class_game_object.html#a4d2dd39231dc5fa8c9c9b29b91f8ec95">GetModel</a>() { <span class="keywordflow">return</span> model; }</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;        <span class="comment">/**</span></div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;<span class="comment">        * @brief Gets the model</span></div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="comment">        * @return model</span></div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;<span class="comment">        */</span></div>
+<div class="line"><a name="l00105"></a><span class="lineno"><a class="line" href="class_game_object.html#a4d2dd39231dc5fa8c9c9b29b91f8ec95">  105</a></span>&#160;    Model GetModel() { <span class="keywordflow">return</span> model; }</div>
 <div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160; </div>
-<div class="line"><a name="l00111"></a><span class="lineno"><a class="line" href="class_game_object.html#a9e6726449a23ca4b04467305bd4ddd95">  111</a></span>&#160;    <a class="code" href="class_shader.html">Shader</a> <a class="code" href="class_game_object.html#a9e6726449a23ca4b04467305bd4ddd95">GetShader</a>() { <span class="keywordflow">return</span> shader; }</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;        <span class="comment">/**</span></div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;<span class="comment">        * @brief Gets the shader</span></div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;<span class="comment">        * @return shader</span></div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;<span class="comment">        */</span></div>
+<div class="line"><a name="l00111"></a><span class="lineno"><a class="line" href="class_game_object.html#a9e6726449a23ca4b04467305bd4ddd95">  111</a></span>&#160;    Shader GetShader() { <span class="keywordflow">return</span> shader; }</div>
 <div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160; </div>
-<div class="line"><a name="l00117"></a><span class="lineno"><a class="line" href="class_game_object.html#a2b8cd8b76bb89306c78371eb921df67a">  117</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_game_object.html#a2b8cd8b76bb89306c78371eb921df67a">SetType</a>(std::string t) { type = t; }</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;        <span class="comment">/**</span></div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;<span class="comment">        * @brief Sets the type of object</span></div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;<span class="comment">        * @param t - The type</span></div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;<span class="comment">        */</span></div>
+<div class="line"><a name="l00117"></a><span class="lineno"><a class="line" href="class_game_object.html#a2b8cd8b76bb89306c78371eb921df67a">  117</a></span>&#160;    <span class="keywordtype">void</span> SetType(std::string t) { type = t; }</div>
 <div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160; </div>
-<div class="line"><a name="l00123"></a><span class="lineno"><a class="line" href="class_game_object.html#a16923ded4375011aaf9631a13c775f10">  123</a></span>&#160;    std::string <a class="code" href="class_game_object.html#a16923ded4375011aaf9631a13c775f10">GetType</a>(){ <span class="keywordflow">return</span> type; }</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;        <span class="comment">/**</span></div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;<span class="comment">        * @brief Gets the type of object</span></div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;<span class="comment">        * @return type</span></div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;<span class="comment">        */</span></div>
+<div class="line"><a name="l00123"></a><span class="lineno"><a class="line" href="class_game_object.html#a16923ded4375011aaf9631a13c775f10">  123</a></span>&#160;    std::string GetType(){ <span class="keywordflow">return</span> type; }</div>
 <div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160; </div>
-<div class="line"><a name="l00129"></a><span class="lineno"><a class="line" href="class_game_object.html#a94626dd233a6f7a0b10e2638f386934a">  129</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_game_object.html#a94626dd233a6f7a0b10e2638f386934a">SetBoundingBox</a>(<a class="code" href="class_bounding_box.html">BoundingBox</a> b){boundingBox = b;}</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;         <span class="comment">/**</span></div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;<span class="comment">         * @brief Sets gameobject&#39;s bounding box object</span></div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;<span class="comment">         * @param b</span></div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;<span class="comment">         */</span></div>
+<div class="line"><a name="l00129"></a><span class="lineno"><a class="line" href="class_game_object.html#a94626dd233a6f7a0b10e2638f386934a">  129</a></span>&#160;    <span class="keywordtype">void</span> SetBoundingBox(BoundingBox b){boundingBox = b;}</div>
 <div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160; </div>
-<div class="line"><a name="l00135"></a><span class="lineno"><a class="line" href="class_game_object.html#ac39b74a6714f875b33014a45164920db">  135</a></span>&#160;    <a class="code" href="class_bounding_box.html">BoundingBox</a> <a class="code" href="class_game_object.html#ac39b74a6714f875b33014a45164920db">GetBoundingBox</a>(){<span class="keywordflow">return</span> boundingBox;}</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;         <span class="comment">/**</span></div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;<span class="comment">         * @brief Gets a gameobjec&#39;s boundingbox object</span></div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;<span class="comment">         * @return BoundingBox</span></div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;<span class="comment">         */</span></div>
+<div class="line"><a name="l00135"></a><span class="lineno"><a class="line" href="class_game_object.html#ac39b74a6714f875b33014a45164920db">  135</a></span>&#160;    BoundingBox GetBoundingBox(){<span class="keywordflow">return</span> boundingBox;}</div>
 <div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160; </div>
 <div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160; </div>
-<div class="line"><a name="l00142"></a><span class="lineno"><a class="line" href="class_game_object.html#a09d08654806a1c0e625993dcea744d61">  142</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_game_object.html#a09d08654806a1c0e625993dcea744d61">SetCollisionTag</a>(<a class="code" href="class_bounding_box.html#a7740a55cd572b82e1692e9f9d9a286c3">BoundingBox::CollisionTag</a> t){tag = t;}</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;         <span class="comment">/**</span></div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;<span class="comment">         * @brief Sets tag of a given object</span></div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;<span class="comment">         * @param t</span></div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;<span class="comment">         */</span></div>
+<div class="line"><a name="l00142"></a><span class="lineno"><a class="line" href="class_game_object.html#a09d08654806a1c0e625993dcea744d61">  142</a></span>&#160;    <span class="keywordtype">void</span> SetCollisionTag(BoundingBox::CollisionTag t){tag = t;}</div>
 <div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160; </div>
-<div class="line"><a name="l00148"></a><span class="lineno"><a class="line" href="class_game_object.html#a68fc36617a4888fe60b1b2d1572b3639">  148</a></span>&#160;    <a class="code" href="class_bounding_box.html#a7740a55cd572b82e1692e9f9d9a286c3">BoundingBox::CollisionTag</a> <a class="code" href="class_game_object.html#a68fc36617a4888fe60b1b2d1572b3639">GetTag</a>(){<span class="keywordflow">return</span> tag;}</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;         <span class="comment">/**</span></div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;<span class="comment">         * @brief Gets the objects tag</span></div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;<span class="comment">         * @return tag</span></div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;<span class="comment">         */</span></div>
+<div class="line"><a name="l00148"></a><span class="lineno"><a class="line" href="class_game_object.html#a68fc36617a4888fe60b1b2d1572b3639">  148</a></span>&#160;    BoundingBox::CollisionTag GetTag(){<span class="keywordflow">return</span> tag;}</div>
 <div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160; </div>
-<div class="line"><a name="l00154"></a><span class="lineno"><a class="line" href="class_game_object.html#a3183b6bda0347ffc1196d07d4f26337c">  154</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_game_object.html#a3183b6bda0347ffc1196d07d4f26337c">SetName</a>(std::string n) {name = n;}</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;         <span class="comment">/**</span></div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;<span class="comment">         * @brief Sets the name of a game object</span></div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;<span class="comment">         * @param n</span></div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;<span class="comment">         */</span></div>
+<div class="line"><a name="l00154"></a><span class="lineno"><a class="line" href="class_game_object.html#a3183b6bda0347ffc1196d07d4f26337c">  154</a></span>&#160;    <span class="keywordtype">void</span> SetName(std::string n) {name = n;}</div>
 <div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160; </div>
-<div class="line"><a name="l00160"></a><span class="lineno"><a class="line" href="class_game_object.html#a74ce03d596c95cf6ebb8105c02260e7f">  160</a></span>&#160;    std::string <a class="code" href="class_game_object.html#a74ce03d596c95cf6ebb8105c02260e7f">GetName</a>(){<span class="keywordflow">return</span> name;}</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;         <span class="comment">/**</span></div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;<span class="comment">         * @brief Gets the name of a Gameobject</span></div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;<span class="comment">         * @return string name</span></div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;<span class="comment">         */</span></div>
+<div class="line"><a name="l00160"></a><span class="lineno"><a class="line" href="class_game_object.html#a74ce03d596c95cf6ebb8105c02260e7f">  160</a></span>&#160;    std::string GetName(){<span class="keywordflow">return</span> name;}</div>
 <div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160; </div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160; </div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_game_object.html#a00835df0feb28562c4910a7a68771b36">Render</a>(<a class="code" href="class_view.html">View</a> lens, <span class="keywordtype">float</span> time, <a class="code" href="class_renderer.html">Renderer</a>* gameRenderer);</div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160; </div>
-<div class="line"><a name="l00165"></a><span class="lineno"><a class="line" href="class_game_object.html#a4a7682157d4735ce950f5c64781344ee">  165</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="class_game_object.html#a4a7682157d4735ce950f5c64781344ee">GetRotate</a>() { <span class="keywordflow">return</span> rotate; }</div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160; </div>
-<div class="line"><a name="l00167"></a><span class="lineno"><a class="line" href="class_game_object.html#a3e5f61bc1a1348752b50b9d1bb27a4fc">  167</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="class_game_object.html#a3e5f61bc1a1348752b50b9d1bb27a4fc">GetId</a>() { <span class="keywordflow">return</span> id; }</div>
-<div class="line"><a name="l00168"></a><span class="lineno"><a class="line" href="class_game_object.html#a3fdc779479da3311be0f92531cb442f4">  168</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_game_object.html#a3fdc779479da3311be0f92531cb442f4">SetId</a>(<span class="keywordtype">int</span> i) { <span class="keywordtype">id</span> = i; }</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;         <span class="comment">/**</span></div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;<span class="comment">         * @brief Renders the game object</span></div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;<span class="comment">         * @param lens - The lens values for projection, positons, ect</span></div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;<span class="comment">         * @param time - The deltatime value</span></div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;<span class="comment">         * @param gameRenderer - the renderer pointer itself</span></div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;<span class="comment">         */</span></div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> Render(View lens, <span class="keywordtype">float</span> time, Renderer* gameRenderer);</div>
 <div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160; </div>
-<div class="line"><a name="l00170"></a><span class="lineno"><a class="line" href="class_game_object.html#aad9c0f74168667fcdbc1bcea06d169c5">  170</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="class_game_object.html#aad9c0f74168667fcdbc1bcea06d169c5">handleMessage</a>(<span class="keyword">const</span> <a class="code" href="struct_telegram.html">Telegram</a> <a class="code" href="classsingleton.html">message</a>)</div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;    {</div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;    }</div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160; </div>
-<div class="line"><a name="l00175"></a><span class="lineno"><a class="line" href="class_game_object.html#ae6a441c142f2eb71b9a44bd39258dd91">  175</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="class_game_object.html#ae6a441c142f2eb71b9a44bd39258dd91">Kill</a>()</div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;    {</div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;    }</div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160; </div>
-<div class="line"><a name="l00180"></a><span class="lineno"><a class="line" href="class_game_object.html#aefd6e5a65e63a17967a3cd9c146c1c27">  180</a></span>&#160;    std::string <a class="code" href="class_game_object.html#aefd6e5a65e63a17967a3cd9c146c1c27">GetScriptName</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> scriptName; }</div>
-<div class="line"><a name="l00181"></a><span class="lineno"><a class="line" href="class_game_object.html#a8b2810245ce2055d8cd7b4668fe1871b">  181</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_game_object.html#a8b2810245ce2055d8cd7b4668fe1871b">SetScriptName</a>(<span class="keyword">const</span> std::string name) { scriptName = name; }</div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160; </div>
-<div class="line"><a name="l00183"></a><span class="lineno"><a class="line" href="class_game_object.html#afc257e6c22279dbadcc9b06cfa6511dd">  183</a></span>&#160;    <span class="keyword">virtual</span> std::string <a class="code" href="class_game_object.html#afc257e6c22279dbadcc9b06cfa6511dd">StreamValues</a>()</div>
-<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;    {</div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="class_game_object.html#a16923ded4375011aaf9631a13c775f10">GetType</a>() + <span class="stringliteral">&quot; &quot;</span> + <a class="code" href="class_game_object.html#aefd6e5a65e63a17967a3cd9c146c1c27">GetScriptName</a>() + <span class="stringliteral">&quot; &quot;</span> + std::to_string(<a class="code" href="class_game_object.html#a0fb90bbb74c8988d23e865280a065901">GetScale</a>()) + <span class="stringliteral">&quot; &quot;</span> + std::to_string(pos.x) + <span class="stringliteral">&quot; &quot;</span> + std::to_string(pos.y) + <span class="stringliteral">&quot; &quot;</span> + std::to_string(pos.z) + <span class="stringliteral">&quot;\n&quot;</span>;</div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;    }</div>
-<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;    <span class="keywordtype">int</span> id;</div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;    <a class="code" href="class_model.html">Model</a> model;</div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160; </div>
-<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;    <a class="code" href="class_shader.html">Shader</a> shader;</div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160; </div>
-<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;    <span class="keywordtype">bool</span> rotate;</div>
-<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160; </div>
-<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;    std::string name;</div>
-<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160; </div>
-<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;    std::string type;</div>
-<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160; </div>
-<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160; </div>
-<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;    glm::vec3 pos;</div>
-<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160; </div>
-<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;    glm::vec3 rotation;</div>
-<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160; </div>
-<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;    <span class="keywordtype">float</span> scale;</div>
-<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160; </div>
-<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;    <a class="code" href="class_bounding_box.html#a7740a55cd572b82e1692e9f9d9a286c3">BoundingBox::CollisionTag</a> tag;</div>
-<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160; </div>
-<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;    <a class="code" href="class_bounding_box.html">BoundingBox</a> boundingBox;</div>
-<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160; </div>
-<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;    std::string scriptName;</div>
-<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;};</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;         <span class="comment">/**</span></div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;<span class="comment">         * @brief Gets the rotate bool</span></div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;<span class="comment">         * @return true if the object needs to be rotated when rendering</span></div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;<span class="comment">         */</span></div>
+<div class="line"><a name="l00174"></a><span class="lineno"><a class="line" href="class_game_object.html#a4a7682157d4735ce950f5c64781344ee">  174</a></span>&#160;    <span class="keywordtype">bool</span> GetRotate() { <span class="keywordflow">return</span> rotate; }</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160; </div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;         <span class="comment">/**</span></div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;<span class="comment">         * @brief Gets the id</span></div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;<span class="comment">         * @return the game object id</span></div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;<span class="comment">         */</span></div>
+<div class="line"><a name="l00180"></a><span class="lineno"><a class="line" href="class_game_object.html#a3e5f61bc1a1348752b50b9d1bb27a4fc">  180</a></span>&#160;    <span class="keywordtype">int</span> GetId() { <span class="keywordflow">return</span> id; }</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160; </div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;         <span class="comment">/**</span></div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;<span class="comment">         * @brief Sets the id</span></div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;<span class="comment">         * @param i - the id to be set</span></div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;<span class="comment">         */</span></div>
+<div class="line"><a name="l00186"></a><span class="lineno"><a class="line" href="class_game_object.html#a3fdc779479da3311be0f92531cb442f4">  186</a></span>&#160;    <span class="keywordtype">void</span> SetId(<span class="keywordtype">int</span> i) { id = i; }</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160; </div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;         <span class="comment">/**</span></div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;<span class="comment">         * @brief Handles messages from other game objects</span></div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;<span class="comment">         * @return false by default</span></div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;<span class="comment">         */</span></div>
+<div class="line"><a name="l00192"></a><span class="lineno"><a class="line" href="class_game_object.html#aad9c0f74168667fcdbc1bcea06d169c5">  192</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> handleMessage(<span class="keyword">const</span> Telegram message){ <span class="keywordflow">return</span> <span class="keyword">false</span>; }</div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160; </div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;         <span class="comment">/**</span></div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;<span class="comment">         * @brief Kill information used in other game objects</span></div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;<span class="comment">         * @return false by default</span></div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;<span class="comment">         */</span></div>
+<div class="line"><a name="l00198"></a><span class="lineno"><a class="line" href="class_game_object.html#ae6a441c142f2eb71b9a44bd39258dd91">  198</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> Kill(){ <span class="keywordflow">return</span> <span class="keyword">false</span>; }</div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160; </div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;         <span class="comment">/**</span></div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;<span class="comment">         * @brief Gets the script name</span></div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;<span class="comment">         * @return scriptName</span></div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;<span class="comment">         */</span></div>
+<div class="line"><a name="l00204"></a><span class="lineno"><a class="line" href="class_game_object.html#aefd6e5a65e63a17967a3cd9c146c1c27">  204</a></span>&#160;    std::string GetScriptName() <span class="keyword">const</span> { <span class="keywordflow">return</span> scriptName; }</div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160; </div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;         <span class="comment">/**</span></div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;<span class="comment">         * @brief Sets the script name</span></div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;<span class="comment">         * @param name - The script name being set</span></div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;<span class="comment">         */</span></div>
+<div class="line"><a name="l00210"></a><span class="lineno"><a class="line" href="class_game_object.html#a8b2810245ce2055d8cd7b4668fe1871b">  210</a></span>&#160;    <span class="keywordtype">void</span> SetScriptName(<span class="keyword">const</span> std::string name) { scriptName = name; }</div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160; </div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;         <span class="comment">/**</span></div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;<span class="comment">         * @brief Returns the streamed values for the game object</span></div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;<span class="comment">         * @return streamed Values of the game object</span></div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;<span class="comment">         */</span></div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;    <span class="keyword">virtual</span> std::string StreamValues();</div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160; </div>
+<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;    <span class="comment">///The game objects id</span></div>
+<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;    <span class="keywordtype">int</span> id;</div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;        <span class="comment">///The model for the object and its meshes</span></div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;    Model model;</div>
 <div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160; </div>
-<div class="ttc" id="a_bounding_box_8h_html"><div class="ttname"><a href="_bounding_box_8h.html">BoundingBox.h</a></div></div>
-<div class="ttc" id="a_debugger_8h_html"><div class="ttname"><a href="_debugger_8h.html">Debugger.h</a></div></div>
-<div class="ttc" id="a_input_8h_html"><div class="ttname"><a href="_input_8h.html">Input.h</a></div></div>
-<div class="ttc" id="a_manager_8h_html"><div class="ttname"><a href="_manager_8h.html">Manager.h</a></div></div>
-<div class="ttc" id="a_model_8h_html"><div class="ttname"><a href="_model_8h.html">Model.h</a></div></div>
-<div class="ttc" id="a_telegram_8h_html"><div class="ttname"><a href="_telegram_8h.html">Telegram.h</a></div></div>
-<div class="ttc" id="aclass_bounding_box_html"><div class="ttname"><a href="class_bounding_box.html">BoundingBox</a></div><div class="ttdoc">Class to control and generate boudningbox information for a given object.</div><div class="ttdef"><b>Definition:</b> BoundingBox.h:18</div></div>
-<div class="ttc" id="aclass_bounding_box_html_a7740a55cd572b82e1692e9f9d9a286c3"><div class="ttname"><a href="class_bounding_box.html#a7740a55cd572b82e1692e9f9d9a286c3">BoundingBox::CollisionTag</a></div><div class="ttdeci">CollisionTag</div><div class="ttdoc">Collision tag used for collision checking on a object.</div><div class="ttdef"><b>Definition:</b> BoundingBox.h:85</div></div>
-<div class="ttc" id="aclass_game_object_html"><div class="ttname"><a href="class_game_object.html">GameObject</a></div><div class="ttdoc">Class that holds the main information of a game object, that is abstracted for more specific reasons.</div><div class="ttdef"><b>Definition:</b> GameObject.h:25</div></div>
-<div class="ttc" id="aclass_game_object_html_a00835df0feb28562c4910a7a68771b36"><div class="ttname"><a href="class_game_object.html#a00835df0feb28562c4910a7a68771b36">GameObject::Render</a></div><div class="ttdeci">virtual void Render(View lens, float time, Renderer *gameRenderer)</div><div class="ttdef"><b>Definition:</b> GameObject.cpp:9</div></div>
-<div class="ttc" id="aclass_game_object_html_a0348e3ee2e83d56eafca7a3547f432c4"><div class="ttname"><a href="class_game_object.html#a0348e3ee2e83d56eafca7a3547f432c4">GameObject::GameObject</a></div><div class="ttdeci">GameObject()</div><div class="ttdoc">Default constructor.</div><div class="ttdef"><b>Definition:</b> GameObject.h:30</div></div>
-<div class="ttc" id="aclass_game_object_html_a09d08654806a1c0e625993dcea744d61"><div class="ttname"><a href="class_game_object.html#a09d08654806a1c0e625993dcea744d61">GameObject::SetCollisionTag</a></div><div class="ttdeci">void SetCollisionTag(BoundingBox::CollisionTag t)</div><div class="ttdoc">Sets tag of a given object.</div><div class="ttdef"><b>Definition:</b> GameObject.h:142</div></div>
-<div class="ttc" id="aclass_game_object_html_a0fb90bbb74c8988d23e865280a065901"><div class="ttname"><a href="class_game_object.html#a0fb90bbb74c8988d23e865280a065901">GameObject::GetScale</a></div><div class="ttdeci">float GetScale() const</div><div class="ttdoc">Gets the scale value.</div><div class="ttdef"><b>Definition:</b> GameObject.h:99</div></div>
-<div class="ttc" id="aclass_game_object_html_a16923ded4375011aaf9631a13c775f10"><div class="ttname"><a href="class_game_object.html#a16923ded4375011aaf9631a13c775f10">GameObject::GetType</a></div><div class="ttdeci">std::string GetType()</div><div class="ttdoc">Gets the type of object.</div><div class="ttdef"><b>Definition:</b> GameObject.h:123</div></div>
-<div class="ttc" id="aclass_game_object_html_a2b8cd8b76bb89306c78371eb921df67a"><div class="ttname"><a href="class_game_object.html#a2b8cd8b76bb89306c78371eb921df67a">GameObject::SetType</a></div><div class="ttdeci">void SetType(std::string t)</div><div class="ttdoc">Sets the type of object.</div><div class="ttdef"><b>Definition:</b> GameObject.h:117</div></div>
-<div class="ttc" id="aclass_game_object_html_a3183b6bda0347ffc1196d07d4f26337c"><div class="ttname"><a href="class_game_object.html#a3183b6bda0347ffc1196d07d4f26337c">GameObject::SetName</a></div><div class="ttdeci">void SetName(std::string n)</div><div class="ttdoc">Sets the name of a game object.</div><div class="ttdef"><b>Definition:</b> GameObject.h:154</div></div>
-<div class="ttc" id="aclass_game_object_html_a3e5f61bc1a1348752b50b9d1bb27a4fc"><div class="ttname"><a href="class_game_object.html#a3e5f61bc1a1348752b50b9d1bb27a4fc">GameObject::GetId</a></div><div class="ttdeci">int GetId()</div><div class="ttdef"><b>Definition:</b> GameObject.h:167</div></div>
-<div class="ttc" id="aclass_game_object_html_a3fdc779479da3311be0f92531cb442f4"><div class="ttname"><a href="class_game_object.html#a3fdc779479da3311be0f92531cb442f4">GameObject::SetId</a></div><div class="ttdeci">void SetId(int i)</div><div class="ttdef"><b>Definition:</b> GameObject.h:168</div></div>
-<div class="ttc" id="aclass_game_object_html_a4a7682157d4735ce950f5c64781344ee"><div class="ttname"><a href="class_game_object.html#a4a7682157d4735ce950f5c64781344ee">GameObject::GetRotate</a></div><div class="ttdeci">bool GetRotate()</div><div class="ttdef"><b>Definition:</b> GameObject.h:165</div></div>
-<div class="ttc" id="aclass_game_object_html_a4d2dd39231dc5fa8c9c9b29b91f8ec95"><div class="ttname"><a href="class_game_object.html#a4d2dd39231dc5fa8c9c9b29b91f8ec95">GameObject::GetModel</a></div><div class="ttdeci">Model GetModel()</div><div class="ttdoc">Gets the model.</div><div class="ttdef"><b>Definition:</b> GameObject.h:105</div></div>
-<div class="ttc" id="aclass_game_object_html_a68fc36617a4888fe60b1b2d1572b3639"><div class="ttname"><a href="class_game_object.html#a68fc36617a4888fe60b1b2d1572b3639">GameObject::GetTag</a></div><div class="ttdeci">BoundingBox::CollisionTag GetTag()</div><div class="ttdoc">Gets the objects tag.</div><div class="ttdef"><b>Definition:</b> GameObject.h:148</div></div>
-<div class="ttc" id="aclass_game_object_html_a74ce03d596c95cf6ebb8105c02260e7f"><div class="ttname"><a href="class_game_object.html#a74ce03d596c95cf6ebb8105c02260e7f">GameObject::GetName</a></div><div class="ttdeci">std::string GetName()</div><div class="ttdoc">Gets the name of a Gameobject.</div><div class="ttdef"><b>Definition:</b> GameObject.h:160</div></div>
-<div class="ttc" id="aclass_game_object_html_a7d7bf2fb47b279323455347c841f0383"><div class="ttname"><a href="class_game_object.html#a7d7bf2fb47b279323455347c841f0383">GameObject::SetModel</a></div><div class="ttdeci">void SetModel(Model m)</div><div class="ttdoc">Sets a new model.</div><div class="ttdef"><b>Definition:</b> GameObject.h:51</div></div>
-<div class="ttc" id="aclass_game_object_html_a8b2810245ce2055d8cd7b4668fe1871b"><div class="ttname"><a href="class_game_object.html#a8b2810245ce2055d8cd7b4668fe1871b">GameObject::SetScriptName</a></div><div class="ttdeci">void SetScriptName(const std::string name)</div><div class="ttdef"><b>Definition:</b> GameObject.h:181</div></div>
-<div class="ttc" id="aclass_game_object_html_a8cd08c4c2a53a087716e7a8d4c25b632"><div class="ttname"><a href="class_game_object.html#a8cd08c4c2a53a087716e7a8d4c25b632">GameObject::SetShader</a></div><div class="ttdeci">void SetShader(Shader s)</div><div class="ttdoc">Set new shader.</div><div class="ttdef"><b>Definition:</b> GameObject.h:57</div></div>
-<div class="ttc" id="aclass_game_object_html_a91946921e81dbd19ace843fef8790b94"><div class="ttname"><a href="class_game_object.html#a91946921e81dbd19ace843fef8790b94">GameObject::SetRotate</a></div><div class="ttdeci">void SetRotate(bool r)</div><div class="ttdoc">Set rotate bool.</div><div class="ttdef"><b>Definition:</b> GameObject.h:63</div></div>
-<div class="ttc" id="aclass_game_object_html_a94626dd233a6f7a0b10e2638f386934a"><div class="ttname"><a href="class_game_object.html#a94626dd233a6f7a0b10e2638f386934a">GameObject::SetBoundingBox</a></div><div class="ttdeci">void SetBoundingBox(BoundingBox b)</div><div class="ttdoc">Sets gameobject's bounding box object.</div><div class="ttdef"><b>Definition:</b> GameObject.h:129</div></div>
-<div class="ttc" id="aclass_game_object_html_a9e6726449a23ca4b04467305bd4ddd95"><div class="ttname"><a href="class_game_object.html#a9e6726449a23ca4b04467305bd4ddd95">GameObject::GetShader</a></div><div class="ttdeci">Shader GetShader()</div><div class="ttdoc">Gets the shader.</div><div class="ttdef"><b>Definition:</b> GameObject.h:111</div></div>
-<div class="ttc" id="aclass_game_object_html_aa9f5812ad1460871ebceb188cc9aaa96"><div class="ttname"><a href="class_game_object.html#aa9f5812ad1460871ebceb188cc9aaa96">GameObject::GetPos</a></div><div class="ttdeci">glm::vec3 GetPos() const</div><div class="ttdoc">Gets the position value.</div><div class="ttdef"><b>Definition:</b> GameObject.h:87</div></div>
-<div class="ttc" id="aclass_game_object_html_aaa26dd3d19a1476a0230dc0235d5c6be"><div class="ttname"><a href="class_game_object.html#aaa26dd3d19a1476a0230dc0235d5c6be">GameObject::SetPos</a></div><div class="ttdeci">void SetPos(glm::vec3 p)</div><div class="ttdoc">Sets the position.</div><div class="ttdef"><b>Definition:</b> GameObject.h:75</div></div>
-<div class="ttc" id="aclass_game_object_html_aad9c0f74168667fcdbc1bcea06d169c5"><div class="ttname"><a href="class_game_object.html#aad9c0f74168667fcdbc1bcea06d169c5">GameObject::handleMessage</a></div><div class="ttdeci">virtual bool handleMessage(const Telegram message)</div><div class="ttdef"><b>Definition:</b> GameObject.h:170</div></div>
-<div class="ttc" id="aclass_game_object_html_aaf2a73a659d80bcb523f7ea4e58dd02f"><div class="ttname"><a href="class_game_object.html#aaf2a73a659d80bcb523f7ea4e58dd02f">GameObject::SetRotation</a></div><div class="ttdeci">void SetRotation(glm::vec3 r)</div><div class="ttdoc">Sets the rotation value.</div><div class="ttdef"><b>Definition:</b> GameObject.h:69</div></div>
-<div class="ttc" id="aclass_game_object_html_ab529877fc9d0a21f0b2133131513621a"><div class="ttname"><a href="class_game_object.html#ab529877fc9d0a21f0b2133131513621a">GameObject::GameObject</a></div><div class="ttdeci">GameObject(glm::vec3 p, glm::vec3 rot, float s, Renderer *gameRenderer)</div><div class="ttdoc">Constructor.</div><div class="ttdef"><b>Definition:</b> GameObject.h:39</div></div>
-<div class="ttc" id="aclass_game_object_html_ac39b74a6714f875b33014a45164920db"><div class="ttname"><a href="class_game_object.html#ac39b74a6714f875b33014a45164920db">GameObject::GetBoundingBox</a></div><div class="ttdeci">BoundingBox GetBoundingBox()</div><div class="ttdoc">Gets a gameobjec's boundingbox object.</div><div class="ttdef"><b>Definition:</b> GameObject.h:135</div></div>
-<div class="ttc" id="aclass_game_object_html_ac87b80ff4dd9eb7be6c7363e4e621e09"><div class="ttname"><a href="class_game_object.html#ac87b80ff4dd9eb7be6c7363e4e621e09">GameObject::SetScale</a></div><div class="ttdeci">void SetScale(float size)</div><div class="ttdoc">Sets the scale value.</div><div class="ttdef"><b>Definition:</b> GameObject.h:81</div></div>
-<div class="ttc" id="aclass_game_object_html_ae6a441c142f2eb71b9a44bd39258dd91"><div class="ttname"><a href="class_game_object.html#ae6a441c142f2eb71b9a44bd39258dd91">GameObject::Kill</a></div><div class="ttdeci">virtual bool Kill()</div><div class="ttdef"><b>Definition:</b> GameObject.h:175</div></div>
-<div class="ttc" id="aclass_game_object_html_aecdbe6a05d3183236f1bbec09fa235f8"><div class="ttname"><a href="class_game_object.html#aecdbe6a05d3183236f1bbec09fa235f8">GameObject::Update</a></div><div class="ttdeci">virtual void Update(float time)</div><div class="ttdoc">Updates the classes functionality.</div><div class="ttdef"><b>Definition:</b> GameObject.cpp:4</div></div>
-<div class="ttc" id="aclass_game_object_html_aefd6e5a65e63a17967a3cd9c146c1c27"><div class="ttname"><a href="class_game_object.html#aefd6e5a65e63a17967a3cd9c146c1c27">GameObject::GetScriptName</a></div><div class="ttdeci">std::string GetScriptName() const</div><div class="ttdef"><b>Definition:</b> GameObject.h:180</div></div>
-<div class="ttc" id="aclass_game_object_html_afc257e6c22279dbadcc9b06cfa6511dd"><div class="ttname"><a href="class_game_object.html#afc257e6c22279dbadcc9b06cfa6511dd">GameObject::StreamValues</a></div><div class="ttdeci">virtual std::string StreamValues()</div><div class="ttdef"><b>Definition:</b> GameObject.h:183</div></div>
-<div class="ttc" id="aclass_game_object_html_afe52aedcc4f6e746f3ccd18d413f88fb"><div class="ttname"><a href="class_game_object.html#afe52aedcc4f6e746f3ccd18d413f88fb">GameObject::GetRotation</a></div><div class="ttdeci">glm::vec3 GetRotation() const</div><div class="ttdoc">Gets the rotation value.</div><div class="ttdef"><b>Definition:</b> GameObject.h:93</div></div>
-<div class="ttc" id="aclass_model_html"><div class="ttname"><a href="class_model.html">Model</a></div><div class="ttdoc">Holds the model information of objects, can be md2 or Fbx models.</div><div class="ttdef"><b>Definition:</b> Model.h:39</div></div>
-<div class="ttc" id="aclass_renderer_html"><div class="ttname"><a href="class_renderer.html">Renderer</a></div><div class="ttdoc">Contains the absract information for the Renderer. The class holds all the functions that would be us...</div><div class="ttdef"><b>Definition:</b> Renderer.h:24</div></div>
-<div class="ttc" id="aclass_shader_html"><div class="ttname"><a href="class_shader.html">Shader</a></div><div class="ttdoc">A class that is responsible for shaders, allowing you to open/use shaders and set uniforms of various...</div><div class="ttdef"><b>Definition:</b> Shader.h:24</div></div>
-<div class="ttc" id="aclass_view_html"><div class="ttname"><a href="class_view.html">View</a></div><div class="ttdoc">Holds matrix and position information to allow other parts of the engine to have access to this infor...</div><div class="ttdef"><b>Definition:</b> View.h:17</div></div>
-<div class="ttc" id="aclasssingleton_html"><div class="ttname"><a href="classsingleton.html">singleton</a></div><div class="ttdoc">A templated class that uses the singleton design pattern to provide one instance of any specified cla...</div><div class="ttdef"><b>Definition:</b> singleton.h:15</div></div>
-<div class="ttc" id="asingleton_8h_html"><div class="ttname"><a href="singleton_8h.html">singleton.h</a></div></div>
-<div class="ttc" id="astruct_telegram_html"><div class="ttname"><a href="struct_telegram.html">Telegram</a></div><div class="ttdef"><b>Definition:</b> Telegram.h:4</div></div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;        <span class="comment">///The shader for the game object</span></div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;    Shader shader;</div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160; </div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;        <span class="comment">///If the object needs aditional rotations</span></div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;    <span class="keywordtype">bool</span> rotate;</div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160; </div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;        <span class="comment">///The name of the object</span></div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;    std::string name;</div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160; </div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;        <span class="comment">///The type of object it is</span></div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;    std::string type;</div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160; </div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160; </div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;        <span class="comment">///The position of the pobject</span></div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;    glm::vec3 pos;</div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160; </div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;        <span class="comment">///The rotation of the object</span></div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;    glm::vec3 rotation;</div>
+<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160; </div>
+<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;        <span class="comment">///The scale of the object</span></div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;    <span class="keywordtype">float</span> scale;</div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160; </div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;        <span class="comment">///The colliding tag of the object</span></div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;    BoundingBox::CollisionTag tag;</div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160; </div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;        <span class="comment">///The bounding box for the object</span></div>
+<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;    BoundingBox boundingBox;</div>
+<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160; </div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;        <span class="comment">///The name for the script used for the game object</span></div>
+<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;    std::string scriptName;</div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;};</div>
 </div><!-- fragment --></div><!-- contents -->
-</div><!-- doc-content -->
 <!-- start footer part -->
-<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
-  <ul>
-    <li class="navelem"><a class="el" href="dir_492deb8f30c21d9ebac9ab6ce6fb7949.html">ICT397-Project-Engine</a></li><li class="navelem"><a class="el" href="_game_object_8h.html">GameObject.h</a></li>
-    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
-  </ul>
-</div>
+<hr class="footer"/><address class="footer"><small>
+Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+</small></address>
 </body>
 </html>

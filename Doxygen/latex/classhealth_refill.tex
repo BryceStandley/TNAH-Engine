@@ -42,6 +42,10 @@ Dylan Blereau
 \end{DoxyDate}
 
 
+Definition at line 53 of file player\+States.\+h.
+
+
+
 \doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{classhealth_refill_a680c22e85c85ddd0ec8d02ee134d6d9b}\label{classhealth_refill_a680c22e85c85ddd0ec8d02ee134d6d9b}} 
 \index{healthRefill@{healthRefill}!Enter@{Enter}}
@@ -62,6 +66,20 @@ virtual function that represents the entry point of the state
 
 Implements \mbox{\hyperlink{class_state_aab4cca8d69092deacf053cf2b12e4cd6}{State$<$ Player $>$}}.
 
+
+
+Definition at line 33 of file player\+States.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{34 \{}
+\DoxyCodeLine{35     \textcolor{keywordflow}{if} (dude-\/>refill.isTable())}
+\DoxyCodeLine{36     \{}
+\DoxyCodeLine{37         dude-\/>refill[1](dude);}
+\DoxyCodeLine{38     \}}
+\DoxyCodeLine{39 \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{classhealth_refill_a8421860ed33493539bb22727735c80e9}\label{classhealth_refill_a8421860ed33493539bb22727735c80e9}} 
 \index{healthRefill@{healthRefill}!Execute@{Execute}}
 \index{Execute@{Execute}!healthRefill@{healthRefill}}
@@ -81,6 +99,20 @@ virtual function that represents the execute point of the state
 
 Implements \mbox{\hyperlink{class_state_a7b7e948b4fe83e3686564e453ed0c406}{State$<$ Player $>$}}.
 
+
+
+Definition at line 41 of file player\+States.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{42 \{}
+\DoxyCodeLine{43     \textcolor{keywordflow}{if} (dude-\/>refill.isTable())}
+\DoxyCodeLine{44     \{}
+\DoxyCodeLine{45         dude-\/>refill[2](dude);}
+\DoxyCodeLine{46     \}}
+\DoxyCodeLine{47 \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{classhealth_refill_a7e29c0ad3eaa1a5fd36c1aa19dfb0932}\label{classhealth_refill_a7e29c0ad3eaa1a5fd36c1aa19dfb0932}} 
 \index{healthRefill@{healthRefill}!Exit@{Exit}}
 \index{Exit@{Exit}!healthRefill@{healthRefill}}
@@ -102,7 +134,21 @@ Implements \mbox{\hyperlink{class_state_aa086d08513a4adb59848deec250fbcae}{State
 
 
 
+Definition at line 49 of file player\+States.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{50 \{}
+\DoxyCodeLine{51     \textcolor{keywordflow}{if} (dude-\/>refill.isTable())}
+\DoxyCodeLine{52     \{}
+\DoxyCodeLine{53         dude-\/>refill[3](dude);}
+\DoxyCodeLine{54     \}}
+\DoxyCodeLine{55 \}}
+
+\end{DoxyCode}
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-ICT397-\/\+Project-\/\+Engine/\mbox{\hyperlink{player_states_8h}{player\+States.\+h}}\item 
-ICT397-\/\+Project-\/\+Engine/\mbox{\hyperlink{player_states_8cpp}{player\+States.\+cpp}}\end{DoxyCompactItemize}
+C\+:/\+Users/chris/\+Documents/\+UNI/\+ICT397-\/\+Project/\+ICT397-\/\+Project-\/\+Engine/player\+States.\+h\item 
+C\+:/\+Users/chris/\+Documents/\+UNI/\+ICT397-\/\+Project/\+ICT397-\/\+Project-\/\+Engine/player\+States.\+cpp\end{DoxyCompactItemize}

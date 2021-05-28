@@ -5,14 +5,10 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TNAH-Engine-ICT397: ICT397-Project-Engine/Terrain.h Source File</title>
+<title>Zoom: C:/Users/chris/Documents/UNI/ICT397-Project/ICT397-Project-Engine/Terrain.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
-<link href="navtree.css" rel="stylesheet" type="text/css"/>
-<script type="text/javascript" src="resize.js"></script>
-<script type="text/javascript" src="navtreedata.js"></script>
-<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -24,10 +20,8 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="TNAH-2.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">TNAH-Engine-ICT397
-   &#160;<span id="projectnumber">2</span>
+   <div id="projectname">Zoom
    </div>
   </td>
  </tr>
@@ -51,23 +45,6 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
-</div><!-- top -->
-<div id="side-nav" class="ui-resizable side-nav-resizable">
-  <div id="nav-tree">
-    <div id="nav-tree-contents">
-      <div id="nav-sync" class="sync"></div>
-    </div>
-  </div>
-  <div id="splitbar" style="-moz-user-select:none;" 
-       class="ui-resizable-handle">
-  </div>
-</div>
-<script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-$(document).ready(function(){initNavTree('_terrain_8h_source.html',''); initResizable(); });
-/* @license-end */
-</script>
-<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -82,164 +59,328 @@ $(document).ready(function(){initNavTree('_terrain_8h_source.html',''); initResi
 </iframe>
 </div>
 
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_d522931ffa1371640980b621734a4381.html">Users</a></li><li class="navelem"><a class="el" href="dir_83479ca8445b084a39a9716b3e7c10e1.html">chris</a></li><li class="navelem"><a class="el" href="dir_713bddb27c42713b64c01569b17ea43b.html">Documents</a></li><li class="navelem"><a class="el" href="dir_994cc5b62e2e9dc0b6f542765e67beea.html">UNI</a></li><li class="navelem"><a class="el" href="dir_a58a217e1f7e59bb6f1a2d3d6fd4bd98.html">ICT397-Project</a></li><li class="navelem"><a class="el" href="dir_253452d306a7e3f3eb3418a9f0f6b2bf.html">ICT397-Project-Engine</a></li>  </ul>
+</div>
+</div><!-- top -->
 <div class="header">
   <div class="headertitle">
 <div class="title">Terrain.h</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="_terrain_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &lt;iostream&gt;</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;fstream&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;glm/glm.hpp&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;glm/gtc/matrix_transform.hpp&gt;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;ctime&gt;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_shader_8h.html">Shader.h</a>&quot;</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_texture_loader_8h.html">TextureLoader.h</a>&quot;</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_input_8h.html">Input.h</a>&quot;</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="class_terrain.html">   34</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_terrain.html">Terrain</a></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;{</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="class_terrain.html#a84685b0b5451a926e2178668045d7507">   39</a></span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>* <a class="code" href="class_terrain.html#a84685b0b5451a926e2178668045d7507">terrainData</a>; </div>
-<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="class_terrain.html#a8e3269d072b2be6caa40070f66d37458">   41</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="class_terrain.html#a8e3269d072b2be6caa40070f66d37458">scaleX</a>;</div>
-<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="class_terrain.html#a2f3f1479e2bd7980efe3947bf1fb5dd7">   43</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="class_terrain.html#a2f3f1479e2bd7980efe3947bf1fb5dd7">scaleY</a>;</div>
-<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="class_terrain.html#a7ce825d4ce496e3ae19fe750dd29af49">   45</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="class_terrain.html#a7ce825d4ce496e3ae19fe750dd29af49">scaleZ</a>;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keyword">struct </span>Vertex</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    {</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        std::vector&lt;glm::vec3&gt; position;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        std::vector&lt;glm::vec3&gt; color;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        std::vector&lt;glm::vec3&gt; texture;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        std::vector&lt;glm::vec3&gt; normal;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    };</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    </div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keywordtype">int</span> size; </div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    std::vector&lt;unsigned int&gt; texIds;</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <a class="code" href="class_shader.html">Shader</a> shader;</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keywordtype">float</span> minHeight = 0.0f;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keywordtype">float</span> maxHeight = 0.0f;</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <a class="code" href="class_texture_loader.html">TextureLoader</a> t;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keywordtype">bool</span> wireFlag = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    std::vector&lt;unsigned int&gt; Indices;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <a class="code" href="struct_vertex.html">Vertex</a> vertex{};</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    std::vector&lt;glm::vec3&gt; totalData;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    std::string filename;</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    std::string tex1, tex2, tex3, tex4, tex5;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    </div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    </div>
-<div class="line"><a name="l00079"></a><span class="lineno"><a class="line" href="class_terrain.html#ae6515958ec443db2c36b07e7938cd67f">   79</a></span>&#160;    std::vector&lt;unsigned int&gt; <a class="code" href="class_terrain.html#ae6515958ec443db2c36b07e7938cd67f">GetIndicies</a>() { <span class="keywordflow">return</span> Indices; }</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    </div>
-<div class="line"><a name="l00085"></a><span class="lineno"><a class="line" href="class_terrain.html#a40aed738a629bfc4bdacd9d319dca8e3">   85</a></span>&#160;    std::vector&lt;glm::vec3&gt; <a class="code" href="class_terrain.html#a40aed738a629bfc4bdacd9d319dca8e3">GetTotalData</a>() { <span class="keywordflow">return</span> totalData; }</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
-<div class="line"><a name="l00091"></a><span class="lineno"><a class="line" href="class_terrain.html#aea73b47c73faf1945e85e06c144e7e0e">   91</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_terrain.html#aea73b47c73faf1945e85e06c144e7e0e">SetShader</a>(<a class="code" href="class_shader.html">Shader</a> s) { shader = s; }</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    </div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <a class="code" href="class_terrain.html#a7160a06ab07a86ed97d23374405e8ef6">Terrain</a>();</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    </div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <a class="code" href="class_terrain.html#a2f7f0a2aee54886324ccf48a6f321de0">~Terrain</a>();</div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">pragma</span> <span class="preprocessor">once</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">ifndef</span> <span class="preprocessor">TERRAIN_H</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">define</span> <span class="preprocessor">TERRAIN_H</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">define</span> <span class="preprocessor">_USE_MATH_DEFINES</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="preprocessor">&lt;</span><span class="preprocessor">iostream</span><span class="preprocessor">&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="preprocessor">&lt;</span><span class="preprocessor">fstream</span><span class="preprocessor">&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="preprocessor">&lt;</span><span class="preprocessor">string</span><span class="preprocessor">&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="preprocessor">&lt;</span><span class="preprocessor">vector</span><span class="preprocessor">&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="preprocessor">&lt;</span><span class="preprocessor">glm</span><span class="preprocessor">/</span><span class="preprocessor">glm</span><span class="preprocessor">.</span><span class="preprocessor">hpp</span><span class="preprocessor">&gt;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="preprocessor">&lt;</span><span class="preprocessor">glm</span><span class="preprocessor">/</span><span class="preprocessor">gtx</span><span class="preprocessor">/</span><span class="preprocessor">normal</span><span class="preprocessor">.</span><span class="preprocessor">hpp</span><span class="preprocessor">&gt;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="preprocessor">&lt;</span><span class="preprocessor">glm</span><span class="preprocessor">/</span><span class="preprocessor">gtc</span><span class="preprocessor">/</span><span class="preprocessor">matrix_transform</span><span class="preprocessor">.</span><span class="preprocessor">hpp</span><span class="preprocessor">&gt;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="preprocessor">&lt;</span><span class="preprocessor">ctime</span><span class="preprocessor">&gt;</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="preprocessor">&lt;</span><span class="preprocessor">cmath</span><span class="preprocessor">&gt;</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">if</span> <span class="preprocessor">_WIN32_</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="preprocessor">&lt;</span><span class="preprocessor">math</span><span class="preprocessor">.</span><span class="preprocessor">h</span><span class="preprocessor">&gt;</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="preprocessor">&lt;</span><span class="preprocessor">corecrt_math_defines</span><span class="preprocessor">.</span><span class="preprocessor">h</span><span class="preprocessor">&gt;</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">endif</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <a class="code" href="_shader_8h.html">&quot;Shader.h&quot;</a></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <a class="code" href="_texture_loader_8h.html">&quot;TextureLoader.h&quot;</a></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <a class="code" href="_input_8h.html">&quot;Input.h&quot;</a></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="comment">/**</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">     * @class Terrain</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment">     * @brief Terrain class that loads in a heightmap and generates terrain from it</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment">     *</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment">     * @author Dylan Blereau</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment">     * @version 01</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment">     * @date 10/03/2021 Dylan Blereau, Started</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment">     *</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment">     * @todo break down generateTerrain function</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment">     * @bugs nothing major currently</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment">     * </span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment">     * @authors Dylan Blereau, Bryce Standley</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="comment">     * @version 03</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="comment">     * @date 02/04/2021 Dylan Blereau, Started</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="comment">     * @date MAY 2021 Bryce Standley, improvements</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="comment">     * </span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="comment">     * @brief added scripting and fixed generateTerrain</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="comment">     * @bugs none currently</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="comment">     *</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="comment">     *</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="comment">     * </span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="comment">     **/</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">define</span> <span class="preprocessor">TERRAIN_ERROR_INVALID_PARAM</span>     <span class="preprocessor">-</span>5</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">define</span> <span class="preprocessor">TERRAIN_ERROR_LOADING_IMAGE</span>     <span class="preprocessor">-</span>4</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">define</span> <span class="preprocessor">TERRAIN_ERROR_MEMORY_PROBLEM</span>    <span class="preprocessor">-</span>3</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">define</span> <span class="preprocessor">TERRAIN_ERROR_NOT_SAVED</span>         <span class="preprocessor">-</span>2</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">define</span> <span class="preprocessor">TERRAIN_ERROR_NOT_INITIALISED</span>   <span class="preprocessor">-</span>1</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">define</span> <span class="preprocessor">TERRAIN_OK</span>                       0</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
+<div class="line"><a name="l00055"></a><span class="lineno"><a class="line" href="class_terrain.html">   55</a></span>&#160;<span class="keyword">class</span> Terrain</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;{</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <span class="comment">///data of the heightfield</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno"><a class="line" href="class_terrain.html#a84685b0b5451a926e2178668045d7507">   60</a></span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>* terrainData;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        <span class="comment">/// value that will scale the x value</span></div>
+<div class="line"><a name="l00062"></a><span class="lineno"><a class="line" href="class_terrain.html#a8e3269d072b2be6caa40070f66d37458">   62</a></span>&#160;    <span class="keywordtype">float</span> scaleX;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        <span class="comment">/// value that will scale the y value</span></div>
+<div class="line"><a name="l00064"></a><span class="lineno"><a class="line" href="class_terrain.html#a2f3f1479e2bd7980efe3947bf1fb5dd7">   64</a></span>&#160;    <span class="keywordtype">float</span> scaleY;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        <span class="comment">/// value that will scale the z value</span></div>
+<div class="line"><a name="l00066"></a><span class="lineno"><a class="line" href="class_terrain.html#a7ce825d4ce496e3ae19fe750dd29af49">   66</a></span>&#160;    <span class="keywordtype">float</span> scaleZ;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        <span class="comment">/// struct containing vectors that will hold specific vertex data</span></div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keyword">struct</span> Vertex</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    {</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        std::vector&lt;glm::vec3&gt; position;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        std::vector&lt;glm::vec3&gt; color;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        std::vector&lt;glm::vec3&gt; texture;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        std::vector&lt;glm::vec3&gt; normal;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    };</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        <span class="comment">///the size of the heightfield along x and z - power of 2</span></div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keywordtype">int</span> size;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="keywordtype">int</span> sizeX;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keywordtype">int</span> sizeZ;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    std::vector&lt;<span class="keywordtype">float</span>&gt; terrainHeights;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keywordtype">int</span> smoothingPasses = 1;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keywordtype">float</span> MAX_PIXEL_COLOUR = 256 * 256 * 256;</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="keywordtype">float</span> MAX_HEIGHT = 40.0f;</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    std::vector&lt;<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>&gt; texIds;</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <a class="code" href="class_shader.html">Shader</a> shader;</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keywordtype">float</span> minHeight = 0.0f;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <span class="keywordtype">float</span> maxHeight = 0.0f;</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    TextureLoader t;</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <span class="keywordtype">bool</span> wireFlag = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    std::vector&lt;<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>&gt; Indices;</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    Vertex vertex{};</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    std::vector&lt;glm::vec3&gt; totalData;</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    std::string filename;</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    std::string tex1, tex2, tex3, tex4, tex5;</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    glm::vec3 highestPoint = glm::vec3(0,0,0);</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    glm::vec3 lowestPoint = glm::vec3(1000,1000,1000);</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;<span class="keyword">public</span>:</div>
 <div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160; </div>
-<div class="line"><a name="l00103"></a><span class="lineno"><a class="line" href="class_terrain.html#ae5b0a3981e125281e8b34a684539bf19">  103</a></span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="class_terrain.html#acdb369701d8b26be0499dfede75f195c">VAO</a> = 0, <a class="code" href="class_terrain.html#ad30db2e625ef7a10e9e167e4c8fdfaa0">VBO</a> = 0, <a class="code" href="class_terrain.html#ae5b0a3981e125281e8b34a684539bf19">EBO</a> = 0;</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160; </div>
-<div class="line"><a name="l00109"></a><span class="lineno"><a class="line" href="class_terrain.html#a410cd0467a5f67e8be7de27265d9010c">  109</a></span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="class_terrain.html#a410cd0467a5f67e8be7de27265d9010c">GetVAO</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <a class="code" href="class_terrain.html#acdb369701d8b26be0499dfede75f195c">VAO</a>; }</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160; </div>
-<div class="line"><a name="l00115"></a><span class="lineno"><a class="line" href="class_terrain.html#af14ef5128a9a2eb28f36fc2762ea4d47">  115</a></span>&#160;    std::vector&lt;unsigned int&gt; <a class="code" href="class_terrain.html#af14ef5128a9a2eb28f36fc2762ea4d47">GetTextIds</a>() { <span class="keywordflow">return</span> texIds; }</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160; </div>
-<div class="line"><a name="l00121"></a><span class="lineno"><a class="line" href="class_terrain.html#acdd24f95ab3ca7a9146b32a31f4def35">  121</a></span>&#160;    <a class="code" href="class_shader.html">Shader</a> <a class="code" href="class_terrain.html#acdd24f95ab3ca7a9146b32a31f4def35">GetShader</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> shader; }</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160; </div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_terrain.html#a70fac68a7900a4bddbf5c4b35b57b6f9">Init</a>();</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160; </div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_terrain.html#ac8f074502cb581199a1eb57eceab6395">luaLoader</a>();</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160; </div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_terrain.html#ab901804353705f46fe0feb28d06ddc34">attachShader</a>(<a class="code" href="class_shader.html">Shader</a> shad);</div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160; </div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="class_terrain.html#ad0fcded992cdf72b72eee4cdad6af59e">LoadHeightField</a>(std::string filename, <span class="keywordtype">int</span> size);</div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160; </div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_terrain.html#aed836a6c149a66a61914674516079a4d">setScalingFactor</a>(<span class="keywordtype">float</span> xScale, <span class="keywordtype">float</span> yScale, <span class="keywordtype">float</span> zScale);</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    glm::vec3 GetMaxHeight(){ <span class="keywordflow">return</span> highestPoint; }</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    glm::vec3 GetMinHeight(){ <span class="keywordflow">return</span> lowestPoint; }</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;        <span class="comment">/**</span></div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;<span class="comment">        * @brief gets and returns a vector containing all indice values</span></div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;<span class="comment">        * @returns std::vector&lt;unsigned int&gt;</span></div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;<span class="comment">        */</span></div>
+<div class="line"><a name="l00110"></a><span class="lineno"><a class="line" href="class_terrain.html#ae6515958ec443db2c36b07e7938cd67f">  110</a></span>&#160;    std::vector&lt;<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>&gt; GetIndicies() { <span class="keywordflow">return</span> Indices; }</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160; </div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;        <span class="comment">/**</span></div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;<span class="comment">        * @brief gets and returns and vector containing the totalData</span></div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;<span class="comment">        * @returns std::vector&lt;glm::vec3&gt;</span></div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;<span class="comment">        */</span></div>
+<div class="line"><a name="l00116"></a><span class="lineno"><a class="line" href="class_terrain.html#a40aed738a629bfc4bdacd9d319dca8e3">  116</a></span>&#160;    std::vector&lt;glm::vec3&gt; GetTotalData() { <span class="keywordflow">return</span> totalData; }</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160; </div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;        <span class="comment">/**</span></div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;<span class="comment">        * @brief sets the terrain shader to the shader provided to the function as a parameter</span></div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;<span class="comment">        * @param s - the shader object</span></div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;<span class="comment">        */</span></div>
+<div class="line"><a name="l00122"></a><span class="lineno"><a class="line" href="class_terrain.html#aea73b47c73faf1945e85e06c144e7e0e">  122</a></span>&#160;    <span class="keywordtype">void</span> SetShader(<a class="code" href="class_shader.html">Shader</a> s) { shader = s; }</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160; </div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;        <span class="comment">/**</span></div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;<span class="comment">        * @brief  default constructor that initialises the terrain object</span></div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;<span class="comment">        */</span></div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    Terrain();</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160; </div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;        <span class="comment">/**</span></div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;<span class="comment">        * @brief  destructor that deallocates terrain memory when object is detroyed</span></div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;<span class="comment">        */</span></div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    ~Terrain();</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160; </div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> VAO = 0, VBO = 0, EBO = 0;</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160; </div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;        <span class="comment">/**</span></div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;<span class="comment">        * @brief Get method that returns the Vertex Array Object</span></div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;<span class="comment">        * @return unsigned int</span></div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;<span class="comment">        */</span></div>
+<div class="line"><a name="l00140"></a><span class="lineno"><a class="line" href="class_terrain.html#a410cd0467a5f67e8be7de27265d9010c">  140</a></span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> GetVAO() <span class="keyword">const</span> { <span class="keywordflow">return</span> VAO; }</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160; </div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;        <span class="comment">/**</span></div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;<span class="comment">        * @brief Get method that a vector containing texture IDs</span></div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;<span class="comment">        * @return vector&lt;unsigned int&gt;</span></div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;<span class="comment">        */</span></div>
+<div class="line"><a name="l00146"></a><span class="lineno"><a class="line" href="class_terrain.html#af14ef5128a9a2eb28f36fc2762ea4d47">  146</a></span>&#160;    std::vector&lt;<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>&gt; GetTextIds() { <span class="keywordflow">return</span> texIds; }</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160; </div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;        <span class="comment">/**</span></div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;<span class="comment">        * @brief Get method that returns a shader object</span></div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;<span class="comment">        * @return Shader</span></div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;<span class="comment">        */</span></div>
+<div class="line"><a name="l00152"></a><span class="lineno"><a class="line" href="class_terrain.html#acdd24f95ab3ca7a9146b32a31f4def35">  152</a></span>&#160;    <a class="code" href="class_shader.html">Shader</a> GetShader() <span class="keyword">const</span> { <span class="keywordflow">return</span> shader; }</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160; </div>
 <div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160; </div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;    <span class="keywordtype">int</span> <a class="code" href="class_terrain.html#a88a02349cfd6085b2447cff2512ba965">getSize</a>();</div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160; </div>
-<div class="line"><a name="l00165"></a><span class="lineno"><a class="line" href="class_terrain.html#ac9fca6f4b667cedfcd627779593a75b5">  165</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="class_terrain.html#ac9fca6f4b667cedfcd627779593a75b5">GetIndicesSize</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> (<span class="keywordtype">int</span>)Indices.size(); }</div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160; </div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;    <span class="keywordtype">float</span> <a class="code" href="class_terrain.html#af098de14a31aec4aed0d28c2efc93bfe">getHeight</a>(<span class="keywordtype">int</span> xpos, <span class="keywordtype">int</span> zpos);</div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160; </div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> <a class="code" href="class_terrain.html#a32f65a30b78665629dc04fe6670d5812">getHeightColor</a>(<span class="keywordtype">int</span> xpos, <span class="keywordtype">int</span> zpos);</div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160; </div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="class_terrain.html#a163e75f11a483ff2ac18c8cd9d5ffe64">inBounds</a>(<span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y);</div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160; </div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_terrain.html#ace82a14b31791205a9289441d6688947">generateTerrain</a>();</div>
-<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160; </div>
-<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_terrain.html#ad689326d663662c6b11959247d4a87bb">setTextures</a>();</div>
-<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;        </div>
-<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;    <span class="keywordtype">float</span> <a class="code" href="class_terrain.html#a219c33a4b4a0567ff06f587019549d4f">getAverageHeight</a>(<span class="keywordtype">int</span> xpos, <span class="keywordtype">int</span> zpos);</div>
-<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160; </div>
-<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_terrain.html#aa074142065d7a535caca3a492882a568">generateVertices</a>(<a class="code" href="struct_vertex.html">Vertex</a>&amp; vertex);</div>
-<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160; </div>
-<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_terrain.html#ac25a93e3ff5eff94f991d30f5e0abc10">generateIndices</a>(std::vector&lt;unsigned int&gt;&amp; indices);</div>
-<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160; </div>
-<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_terrain.html#a789357e39c96b4a751d0151ce27f6e87">generateColors</a>(<a class="code" href="struct_vertex.html">Vertex</a>&amp; vertex);</div>
-<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160; </div>
-<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_terrain.html#a02a57605b8d5dfca13a4916ad4c19415">generateTextures</a>(<a class="code" href="struct_vertex.html">Vertex</a>&amp; vertex);</div>
-<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160; </div>
-<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160; </div>
-<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_terrain.html#ab49954895f9ec0814d10b2bc99736ecb">generateNormals</a>();</div>
-<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;};</div>
-<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160; </div>
-<div class="ttc" id="a_input_8h_html"><div class="ttname"><a href="_input_8h.html">Input.h</a></div></div>
-<div class="ttc" id="a_shader_8h_html"><div class="ttname"><a href="_shader_8h.html">Shader.h</a></div></div>
-<div class="ttc" id="a_texture_loader_8h_html"><div class="ttname"><a href="_texture_loader_8h.html">TextureLoader.h</a></div></div>
-<div class="ttc" id="aclass_shader_html"><div class="ttname"><a href="class_shader.html">Shader</a></div><div class="ttdoc">A class that is responsible for shaders, allowing you to open/use shaders and set uniforms of various...</div><div class="ttdef"><b>Definition:</b> Shader.h:24</div></div>
-<div class="ttc" id="aclass_terrain_html"><div class="ttname"><a href="class_terrain.html">Terrain</a></div><div class="ttdoc">Terrain class that loads in a heightmap and generates terrain from it.</div><div class="ttdef"><b>Definition:</b> Terrain.h:35</div></div>
-<div class="ttc" id="aclass_terrain_html_a02a57605b8d5dfca13a4916ad4c19415"><div class="ttname"><a href="class_terrain.html#a02a57605b8d5dfca13a4916ad4c19415">Terrain::generateTextures</a></div><div class="ttdeci">void generateTextures(Vertex &amp;vertex)</div><div class="ttdoc">Generates texture vertices.</div><div class="ttdef"><b>Definition:</b> Terrain.cpp:293</div></div>
-<div class="ttc" id="aclass_terrain_html_a163e75f11a483ff2ac18c8cd9d5ffe64"><div class="ttname"><a href="class_terrain.html#a163e75f11a483ff2ac18c8cd9d5ffe64">Terrain::inBounds</a></div><div class="ttdeci">bool inBounds(int x, int y)</div><div class="ttdoc">Checks if x and y coordinates are within the required range.</div><div class="ttdef"><b>Definition:</b> Terrain.cpp:236</div></div>
-<div class="ttc" id="aclass_terrain_html_a219c33a4b4a0567ff06f587019549d4f"><div class="ttname"><a href="class_terrain.html#a219c33a4b4a0567ff06f587019549d4f">Terrain::getAverageHeight</a></div><div class="ttdeci">float getAverageHeight(int xpos, int zpos)</div><div class="ttdoc">gets and returns the average height around a given x and z point</div><div class="ttdef"><b>Definition:</b> Terrain.cpp:198</div></div>
-<div class="ttc" id="aclass_terrain_html_a2f3f1479e2bd7980efe3947bf1fb5dd7"><div class="ttname"><a href="class_terrain.html#a2f3f1479e2bd7980efe3947bf1fb5dd7">Terrain::scaleY</a></div><div class="ttdeci">float scaleY</div><div class="ttdoc">value that will scale the y value</div><div class="ttdef"><b>Definition:</b> Terrain.h:43</div></div>
-<div class="ttc" id="aclass_terrain_html_a2f7f0a2aee54886324ccf48a6f321de0"><div class="ttname"><a href="class_terrain.html#a2f7f0a2aee54886324ccf48a6f321de0">Terrain::~Terrain</a></div><div class="ttdeci">~Terrain()</div><div class="ttdoc">destructor that deallocates terrain memory when object is detroyed</div><div class="ttdef"><b>Definition:</b> Terrain.cpp:12</div></div>
-<div class="ttc" id="aclass_terrain_html_a32f65a30b78665629dc04fe6670d5812"><div class="ttname"><a href="class_terrain.html#a32f65a30b78665629dc04fe6670d5812">Terrain::getHeightColor</a></div><div class="ttdeci">unsigned char getHeightColor(int xpos, int zpos)</div><div class="ttdoc">Gets and returns the height (y-value) color for a position in the terrain using given x and z values.</div><div class="ttdef"><b>Definition:</b> Terrain.cpp:229</div></div>
-<div class="ttc" id="aclass_terrain_html_a40aed738a629bfc4bdacd9d319dca8e3"><div class="ttname"><a href="class_terrain.html#a40aed738a629bfc4bdacd9d319dca8e3">Terrain::GetTotalData</a></div><div class="ttdeci">std::vector&lt; glm::vec3 &gt; GetTotalData()</div><div class="ttdoc">gets and returns and vector containing the totalData</div><div class="ttdef"><b>Definition:</b> Terrain.h:85</div></div>
-<div class="ttc" id="aclass_terrain_html_a410cd0467a5f67e8be7de27265d9010c"><div class="ttname"><a href="class_terrain.html#a410cd0467a5f67e8be7de27265d9010c">Terrain::GetVAO</a></div><div class="ttdeci">unsigned int GetVAO() const</div><div class="ttdoc">Get method that returns the Vertex Array Object.</div><div class="ttdef"><b>Definition:</b> Terrain.h:109</div></div>
-<div class="ttc" id="aclass_terrain_html_a70fac68a7900a4bddbf5c4b35b57b6f9"><div class="ttname"><a href="class_terrain.html#a70fac68a7900a4bddbf5c4b35b57b6f9">Terrain::Init</a></div><div class="ttdeci">void Init()</div><div class="ttdoc">A function that calls all the functions required to initialise the terrain.</div><div class="ttdef"><b>Definition:</b> Terrain.cpp:20</div></div>
-<div class="ttc" id="aclass_terrain_html_a7160a06ab07a86ed97d23374405e8ef6"><div class="ttname"><a href="class_terrain.html#a7160a06ab07a86ed97d23374405e8ef6">Terrain::Terrain</a></div><div class="ttdeci">Terrain()</div><div class="ttdoc">default constructor that initialises the terrain object</div><div class="ttdef"><b>Definition:</b> Terrain.cpp:5</div></div>
-<div class="ttc" id="aclass_terrain_html_a789357e39c96b4a751d0151ce27f6e87"><div class="ttname"><a href="class_terrain.html#a789357e39c96b4a751d0151ce27f6e87">Terrain::generateColors</a></div><div class="ttdeci">void generateColors(Vertex &amp;vertex)</div><div class="ttdoc">Generates color vertices.</div><div class="ttdef"><b>Definition:</b> Terrain.cpp:278</div></div>
-<div class="ttc" id="aclass_terrain_html_a7ce825d4ce496e3ae19fe750dd29af49"><div class="ttname"><a href="class_terrain.html#a7ce825d4ce496e3ae19fe750dd29af49">Terrain::scaleZ</a></div><div class="ttdeci">float scaleZ</div><div class="ttdoc">value that will scale the z value</div><div class="ttdef"><b>Definition:</b> Terrain.h:45</div></div>
-<div class="ttc" id="aclass_terrain_html_a84685b0b5451a926e2178668045d7507"><div class="ttname"><a href="class_terrain.html#a84685b0b5451a926e2178668045d7507">Terrain::terrainData</a></div><div class="ttdeci">unsigned char * terrainData</div><div class="ttdoc">data of the heightfield</div><div class="ttdef"><b>Definition:</b> Terrain.h:39</div></div>
-<div class="ttc" id="aclass_terrain_html_a88a02349cfd6085b2447cff2512ba965"><div class="ttname"><a href="class_terrain.html#a88a02349cfd6085b2447cff2512ba965">Terrain::getSize</a></div><div class="ttdeci">int getSize()</div><div class="ttdoc">Get method that returns the size value.</div><div class="ttdef"><b>Definition:</b> Terrain.cpp:244</div></div>
-<div class="ttc" id="aclass_terrain_html_a8e3269d072b2be6caa40070f66d37458"><div class="ttname"><a href="class_terrain.html#a8e3269d072b2be6caa40070f66d37458">Terrain::scaleX</a></div><div class="ttdeci">float scaleX</div><div class="ttdoc">value that will scale the x value</div><div class="ttdef"><b>Definition:</b> Terrain.h:41</div></div>
-<div class="ttc" id="aclass_terrain_html_aa074142065d7a535caca3a492882a568"><div class="ttname"><a href="class_terrain.html#aa074142065d7a535caca3a492882a568">Terrain::generateVertices</a></div><div class="ttdeci">void generateVertices(Vertex &amp;vertex)</div><div class="ttdoc">Generates position vertices.</div><div class="ttdef"><b>Definition:</b> Terrain.cpp:249</div></div>
-<div class="ttc" id="aclass_terrain_html_ab49954895f9ec0814d10b2bc99736ecb"><div class="ttname"><a href="class_terrain.html#ab49954895f9ec0814d10b2bc99736ecb">Terrain::generateNormals</a></div><div class="ttdeci">void generateNormals()</div><div class="ttdoc">Generates vertex normals.</div><div class="ttdef"><b>Definition:</b> Terrain.cpp:306</div></div>
-<div class="ttc" id="aclass_terrain_html_ab901804353705f46fe0feb28d06ddc34"><div class="ttname"><a href="class_terrain.html#ab901804353705f46fe0feb28d06ddc34">Terrain::attachShader</a></div><div class="ttdeci">void attachShader(Shader shad)</div><div class="ttdoc">Attaches shader to the terrain.</div><div class="ttdef"><b>Definition:</b> Terrain.cpp:144</div></div>
-<div class="ttc" id="aclass_terrain_html_ac25a93e3ff5eff94f991d30f5e0abc10"><div class="ttname"><a href="class_terrain.html#ac25a93e3ff5eff94f991d30f5e0abc10">Terrain::generateIndices</a></div><div class="ttdeci">void generateIndices(std::vector&lt; unsigned int &gt; &amp;indices)</div><div class="ttdoc">Generates indices.</div><div class="ttdef"><b>Definition:</b> Terrain.cpp:261</div></div>
-<div class="ttc" id="aclass_terrain_html_ac8f074502cb581199a1eb57eceab6395"><div class="ttname"><a href="class_terrain.html#ac8f074502cb581199a1eb57eceab6395">Terrain::luaLoader</a></div><div class="ttdeci">void luaLoader()</div><div class="ttdoc">loads an instance of lua and uses it to assign values from a lua script to terrain variables</div><div class="ttdef"><b>Definition:</b> Terrain.cpp:28</div></div>
-<div class="ttc" id="aclass_terrain_html_ac9fca6f4b667cedfcd627779593a75b5"><div class="ttname"><a href="class_terrain.html#ac9fca6f4b667cedfcd627779593a75b5">Terrain::GetIndicesSize</a></div><div class="ttdeci">int GetIndicesSize() const</div><div class="ttdoc">Get method that returns the total size of indices.</div><div class="ttdef"><b>Definition:</b> Terrain.h:165</div></div>
-<div class="ttc" id="aclass_terrain_html_acdb369701d8b26be0499dfede75f195c"><div class="ttname"><a href="class_terrain.html#acdb369701d8b26be0499dfede75f195c">Terrain::VAO</a></div><div class="ttdeci">unsigned int VAO</div><div class="ttdef"><b>Definition:</b> Terrain.h:103</div></div>
-<div class="ttc" id="aclass_terrain_html_acdd24f95ab3ca7a9146b32a31f4def35"><div class="ttname"><a href="class_terrain.html#acdd24f95ab3ca7a9146b32a31f4def35">Terrain::GetShader</a></div><div class="ttdeci">Shader GetShader() const</div><div class="ttdoc">Get method that returns a shader object.</div><div class="ttdef"><b>Definition:</b> Terrain.h:121</div></div>
-<div class="ttc" id="aclass_terrain_html_ace82a14b31791205a9289441d6688947"><div class="ttname"><a href="class_terrain.html#ace82a14b31791205a9289441d6688947">Terrain::generateTerrain</a></div><div class="ttdeci">void generateTerrain()</div><div class="ttdoc">Generates the terrain by generating the positions, colors, texture coords, indices and placing them i...</div><div class="ttdef"><b>Definition:</b> Terrain.cpp:331</div></div>
-<div class="ttc" id="aclass_terrain_html_ad0fcded992cdf72b72eee4cdad6af59e"><div class="ttname"><a href="class_terrain.html#ad0fcded992cdf72b72eee4cdad6af59e">Terrain::LoadHeightField</a></div><div class="ttdeci">bool LoadHeightField(std::string filename, int size)</div><div class="ttdoc">loads in a heightmap from a file and places that data into the terrainData variable</div><div class="ttdef"><b>Definition:</b> Terrain.cpp:149</div></div>
-<div class="ttc" id="aclass_terrain_html_ad30db2e625ef7a10e9e167e4c8fdfaa0"><div class="ttname"><a href="class_terrain.html#ad30db2e625ef7a10e9e167e4c8fdfaa0">Terrain::VBO</a></div><div class="ttdeci">unsigned int VBO</div><div class="ttdef"><b>Definition:</b> Terrain.h:103</div></div>
-<div class="ttc" id="aclass_terrain_html_ad689326d663662c6b11959247d4a87bb"><div class="ttname"><a href="class_terrain.html#ad689326d663662c6b11959247d4a87bb">Terrain::setTextures</a></div><div class="ttdeci">void setTextures()</div><div class="ttdoc">Sets the textures that the terrain will use to implement multitexturing and detail mapping.</div><div class="ttdef"><b>Definition:</b> Terrain.cpp:350</div></div>
-<div class="ttc" id="aclass_terrain_html_ae5b0a3981e125281e8b34a684539bf19"><div class="ttname"><a href="class_terrain.html#ae5b0a3981e125281e8b34a684539bf19">Terrain::EBO</a></div><div class="ttdeci">unsigned int EBO</div><div class="ttdef"><b>Definition:</b> Terrain.h:103</div></div>
-<div class="ttc" id="aclass_terrain_html_ae6515958ec443db2c36b07e7938cd67f"><div class="ttname"><a href="class_terrain.html#ae6515958ec443db2c36b07e7938cd67f">Terrain::GetIndicies</a></div><div class="ttdeci">std::vector&lt; unsigned int &gt; GetIndicies()</div><div class="ttdoc">gets and returns a vector containing all indice values</div><div class="ttdef"><b>Definition:</b> Terrain.h:79</div></div>
-<div class="ttc" id="aclass_terrain_html_aea73b47c73faf1945e85e06c144e7e0e"><div class="ttname"><a href="class_terrain.html#aea73b47c73faf1945e85e06c144e7e0e">Terrain::SetShader</a></div><div class="ttdeci">void SetShader(Shader s)</div><div class="ttdoc">sets the terrain shader to the shader provided to the function as a parameter</div><div class="ttdef"><b>Definition:</b> Terrain.h:91</div></div>
-<div class="ttc" id="aclass_terrain_html_aed836a6c149a66a61914674516079a4d"><div class="ttname"><a href="class_terrain.html#aed836a6c149a66a61914674516079a4d">Terrain::setScalingFactor</a></div><div class="ttdeci">void setScalingFactor(float xScale, float yScale, float zScale)</div><div class="ttdoc">allows for the individual values of the heightmap to be scaled if needed</div><div class="ttdef"><b>Definition:</b> Terrain.cpp:181</div></div>
-<div class="ttc" id="aclass_terrain_html_af098de14a31aec4aed0d28c2efc93bfe"><div class="ttname"><a href="class_terrain.html#af098de14a31aec4aed0d28c2efc93bfe">Terrain::getHeight</a></div><div class="ttdeci">float getHeight(int xpos, int zpos)</div><div class="ttdoc">Gets and returns the height (y-value) for a position in the terrain using given x and z values.</div><div class="ttdef"><b>Definition:</b> Terrain.cpp:187</div></div>
-<div class="ttc" id="aclass_terrain_html_af14ef5128a9a2eb28f36fc2762ea4d47"><div class="ttname"><a href="class_terrain.html#af14ef5128a9a2eb28f36fc2762ea4d47">Terrain::GetTextIds</a></div><div class="ttdeci">std::vector&lt; unsigned int &gt; GetTextIds()</div><div class="ttdoc">Get method that a vector containing texture IDs.</div><div class="ttdef"><b>Definition:</b> Terrain.h:115</div></div>
-<div class="ttc" id="aclass_texture_loader_html"><div class="ttname"><a href="class_texture_loader.html">TextureLoader</a></div><div class="ttdoc">A simple class that is used to load in textures from a given file path;.</div><div class="ttdef"><b>Definition:</b> TextureLoader.h:20</div></div>
-<div class="ttc" id="astruct_vertex_html"><div class="ttname"><a href="struct_vertex.html">Vertex</a></div><div class="ttdoc">struct containing all vertices required to generate a mesh</div><div class="ttdef"><b>Definition:</b> Mesh.h:11</div></div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;    <span class="comment">/**</span></div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;<span class="comment">        * @brief A function that calls all the functions required to initialise the terrain</span></div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;<span class="comment">        */</span></div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;    <span class="keywordtype">void</span> Init();</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160; </div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;        <span class="comment">/**</span></div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;<span class="comment">        * @brief loads an instance of lua and uses it to assign values from a lua script to terrain variables</span></div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;<span class="comment">        */</span></div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;    <span class="keywordtype">void</span> luaLoader();</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160; </div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;        <span class="comment">/**</span></div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;<span class="comment">        * @brief Attaches shader to the terrain</span></div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;<span class="comment">        * @param shad - represents the Shader object that will be attached to the terrain object</span></div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;<span class="comment">        */</span></div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;    <span class="keywordtype">void</span> attachShader(<a class="code" href="class_shader.html">Shader</a> shad);</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160; </div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;        <span class="comment">/**</span></div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;<span class="comment">        * @brief loads in a heightmap from a file and places that data into the terrainData variable</span></div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;<span class="comment">        * @param filename - represents the name of the file that the heightmap is being read in from</span></div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;<span class="comment">        * @param size - represents the size of x and z values (if a heightmap is 512x512 size is 512)</span></div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;<span class="comment">        * @return bool</span></div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;<span class="comment">        */</span></div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;    <span class="keywordtype">bool</span> LoadHeightField(std::string filename, <span class="keywordtype">int</span> size);</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160; </div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;        <span class="comment">/**</span></div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;<span class="comment">        * @brief allows for the individual values of the heightmap to be scaled if needed</span></div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;<span class="comment">        * @param xScale - represents the scaling factor that will be applied to the heightmap on the x-axis</span></div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;<span class="comment">        * @param yScale - represents the scaling factor that will be applied to the heightmap on the y-axis</span></div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;<span class="comment">        * @param zScale - represents the scaling factor that will be applied to the heightmap on the z-axis</span></div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;<span class="comment">        */</span></div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;    <span class="keywordtype">void</span> setScalingFactor(<span class="keywordtype">float</span> xScale, <span class="keywordtype">float</span> yScale, <span class="keywordtype">float</span> zScale);</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160; </div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;        <span class="comment">/**</span></div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;<span class="comment">        * @brief Get method that returns the size value</span></div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;<span class="comment">        * @return int</span></div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;<span class="comment">        */</span></div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;    <span class="keywordtype">int</span> getSize();</div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160; </div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;        <span class="comment">/**</span></div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;<span class="comment">        * @brief Get method that returns the total size of indices</span></div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;<span class="comment">        * @return int</span></div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;<span class="comment">        */</span></div>
+<div class="line"><a name="l00197"></a><span class="lineno"><a class="line" href="class_terrain.html#ac9fca6f4b667cedfcd627779593a75b5">  197</a></span>&#160;    <span class="keywordtype">int</span> GetIndicesSize() <span class="keyword">const</span> { <span class="keywordflow">return</span> (<span class="keywordtype">int</span>)Indices.size(); }</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160; </div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;        <span class="comment">/**</span></div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;<span class="comment">        * @brief Gets and returns the height (y-value) for a position in the terrain using given x and z values</span></div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;<span class="comment">        * @param xpos - represents the position on the x-axis</span></div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;<span class="comment">        * @param zpos - represents the position on the z-axis</span></div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;<span class="comment">        * @return float</span></div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;<span class="comment">        */</span></div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;    <span class="keywordtype">float</span> getHeight(<span class="keywordtype">int</span> xpos, <span class="keywordtype">int</span> zpos);</div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160; </div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;        <span class="comment">/**</span></div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;<span class="comment">        * @brief Gets and returns the height (y-value) color for a position in the terrain using given x and z values</span></div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;<span class="comment">        * @param xpos - represents the position on the x-axis</span></div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;<span class="comment">        * @param zpos - represents the position on the z-axis</span></div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;<span class="comment">        * @return unsigned char</span></div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;<span class="comment">        */</span></div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;    <span class="keywordtype">float</span> getHeightColor(<span class="keywordtype">int</span> xpos, <span class="keywordtype">int</span> zpos);</div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160; </div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;        <span class="comment">/**</span></div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;<span class="comment">        * @brief Checks if x and y coordinates are within the required range</span></div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;<span class="comment">        * @param x - represents the position on the x-axis</span></div>
+<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;<span class="comment">        * @param y - represents the position on the z-axis</span></div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;<span class="comment">        * @return bool</span></div>
+<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;<span class="comment">        */</span></div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;    <span class="keywordtype">bool</span> inBounds(<span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y);</div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160; </div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;        <span class="comment">/**</span></div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;<span class="comment">        * @brief Generates the terrain by generating the positions, colors, texture coords, indices and placing them in a vector</span></div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;<span class="comment">        */</span></div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;    <span class="keywordtype">void</span> generateTerrain();</div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160; </div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;        <span class="comment">/**</span></div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;<span class="comment">        * @brief Sets the textures that the terrain will use to implement multitexturing and detail mapping</span></div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;<span class="comment">        *</span></div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;<span class="comment">        */</span></div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;    <span class="keywordtype">void</span> setTextures();</div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160; </div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;        <span class="comment">/**</span></div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;<span class="comment">        *</span></div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;<span class="comment">        * @brief gets and returns the average height around a given x and z point</span></div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;<span class="comment">        * @author Bryce Standley</span></div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;<span class="comment">        * @date   April 2021</span></div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;<span class="comment">        * @param xpos</span></div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;<span class="comment">        * @param zpos</span></div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;<span class="comment">        * @return float</span></div>
+<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;<span class="comment">        */</span></div>
+<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;    <span class="keywordtype">float</span> getAverageHeight(<span class="keywordtype">int</span> xpos, <span class="keywordtype">int</span> zpos);</div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160; </div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;        <span class="comment">/**</span></div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;<span class="comment">        * @brief Generates position vertices</span></div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;<span class="comment">        * @param &amp;vertex - reference to a vertex object</span></div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;<span class="comment">        */</span></div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;    <span class="keywordtype">void</span> generateVertices(Vertex&amp; vertex);</div>
+<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160; </div>
+<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;    <span class="comment">/**</span></div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;<span class="comment">     * @brief Smooths out the terrain data to remove all roughness</span></div>
+<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;<span class="comment">     * @param vert</span></div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;<span class="comment">     */</span></div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;    <span class="keywordtype">void</span> SmoothTerrain(Vertex&amp; vert, <span class="keywordtype">float</span> smoothFactor);</div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160; </div>
+<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;    <span class="comment">/**</span></div>
+<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;<span class="comment">     * @brief Interpolates between two float values using Cosine interpolation</span></div>
+<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;<span class="comment">     * @param a</span></div>
+<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;<span class="comment">     * @param b</span></div>
+<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;<span class="comment">     * @param blend</span></div>
+<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;<span class="comment">     * @return interpolated output between a and b using blend factor</span></div>
+<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;<span class="comment">     */</span></div>
+<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;    <span class="keywordtype">float</span> Interpolate(<span class="keywordtype">float</span> a, <span class="keywordtype">float</span> b, <span class="keywordtype">float</span> blend);</div>
+<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160; </div>
+<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;    glm::vec3 GetScales() {<span class="keywordflow">return</span> glm::vec3(scaleX, scaleY, scaleZ);}</div>
+<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160; </div>
+<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;    <span class="comment">/**</span></div>
+<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;<span class="comment">     * @brief Sets the height of a given position on the terrain</span></div>
+<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;<span class="comment">     * @param xPos</span></div>
+<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;<span class="comment">     * @param zPos</span></div>
+<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;<span class="comment">     * @param newHeight</span></div>
+<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;<span class="comment">     */</span></div>
+<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;    <span class="keywordtype">void</span> SetVertexHeight(<span class="keywordtype">int</span> xPos, <span class="keywordtype">int</span> zPos, <span class="keywordtype">float</span> newHeight);</div>
+<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160; </div>
+<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;    <span class="comment">/**</span></div>
+<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;<span class="comment">     * @brief Gets the final height value of the terrain at a set x,z position</span></div>
+<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;<span class="comment">     * @param xPos</span></div>
+<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;<span class="comment">     * @param zPos</span></div>
+<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;<span class="comment">     * @return float y value</span></div>
+<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;<span class="comment">     */</span></div>
+<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;    <span class="keywordtype">float</span> GetVertexHeight(<span class="keywordtype">int</span> xPos, <span class="keywordtype">int</span> zPos);</div>
+<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160; </div>
+<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;        <span class="comment">/**</span></div>
+<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;<span class="comment">        * @brief Generates indices</span></div>
+<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;<span class="comment">        * @param &amp;indices - reference to a vector of unsigned ints</span></div>
+<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;<span class="comment">        */</span></div>
+<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;    <span class="keywordtype">void</span> generateIndices(std::vector&lt;<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>&gt;&amp; indices);</div>
+<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160; </div>
+<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;        <span class="comment">/**</span></div>
+<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;<span class="comment">        * @brief Generates color vertices</span></div>
+<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;<span class="comment">        * @param &amp;vertex - reference to a vertex object</span></div>
+<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;<span class="comment">        */</span></div>
+<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;    <span class="keywordtype">void</span> generateColors(Vertex&amp; vertex);</div>
+<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160; </div>
+<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;        <span class="comment">/**</span></div>
+<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;<span class="comment">        * @brief Generates texture vertices</span></div>
+<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;<span class="comment">        * @param &amp;vertex - reference to a vertex object</span></div>
+<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;<span class="comment">        */</span></div>
+<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;    <span class="keywordtype">void</span> generateTextures(Vertex&amp; vertex);</div>
+<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160; </div>
+<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160; </div>
+<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;        <span class="comment">/**</span></div>
+<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;<span class="comment">        * @brief Generates vertex normals </span></div>
+<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;<span class="comment">        */</span></div>
+<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;    <span class="keywordtype">void</span> generateNormals();</div>
+<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;};</div>
+<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">endif</span> <span class="comment">//TERRAIN_H</span></div>
 </div><!-- fragment --></div><!-- contents -->
-</div><!-- doc-content -->
 <!-- start footer part -->
-<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
-  <ul>
-    <li class="navelem"><a class="el" href="dir_492deb8f30c21d9ebac9ab6ce6fb7949.html">ICT397-Project-Engine</a></li><li class="navelem"><a class="el" href="_terrain_8h.html">Terrain.h</a></li>
-    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
-  </ul>
-</div>
+<hr class="footer"/><address class="footer"><small>
+Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+</small></address>
 </body>
 </html>

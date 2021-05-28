@@ -4,5 +4,5 @@ digraph "Graphical Class Hierarchy"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node0 [label="ImBitVector",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$struct_im_bit_vector.html",tooltip=" "];
+  Node0 [label="luaManager",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classlua_manager.html",tooltip="A class that uses the singleton design pattern to provide one instance of the lua_State,..."];
 }

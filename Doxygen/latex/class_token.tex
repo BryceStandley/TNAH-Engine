@@ -20,12 +20,13 @@ Collaboration diagram for Token\+:
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{class_token_a766934e577aa4a0ae16c5f31ef4f1920}{Token}} (glm\+::vec3 p, glm\+::vec3 rot, float s, \mbox{\hyperlink{class_renderer}{Renderer}} $\ast$game\+Renderer, std\+::string script)
+\mbox{\Hypertarget{class_token_a766934e577aa4a0ae16c5f31ef4f1920}\label{class_token_a766934e577aa4a0ae16c5f31ef4f1920}} 
+{\bfseries Token} (glm\+::vec3 p, glm\+::vec3 rot, float s, \mbox{\hyperlink{class_renderer}{Renderer}} $\ast$game\+Renderer, std\+::string script)
 \item 
 void \mbox{\hyperlink{class_token_aef2f54bb15352a4c006a7261c9b4567a}{Update}} (float time)
 \begin{DoxyCompactList}\small\item\em Updates the classes functionality. \end{DoxyCompactList}\item 
 virtual bool \mbox{\hyperlink{class_token_ae9fc0a6467188f67295abadf2592b012}{Kill}} ()
-\item 
+\begin{DoxyCompactList}\small\item\em Kill information used in other game objects. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{class_token_a2ad743f653a910c319e82e20d6f4ceae}{Render}} (\mbox{\hyperlink{class_view}{View}} lens, float time, \mbox{\hyperlink{class_renderer}{Renderer}} $\ast$game\+Renderer)
 \begin{DoxyCompactList}\small\item\em makes use of the view information and graphics renderer to render the token to the screen \end{DoxyCompactList}\end{DoxyCompactItemize}
 
@@ -48,12 +49,7 @@ Christopher Logan
 
 @bugs none to be seen 
 
-\doxysubsection{Constructor \& Destructor Documentation}
-\mbox{\Hypertarget{class_token_a766934e577aa4a0ae16c5f31ef4f1920}\label{class_token_a766934e577aa4a0ae16c5f31ef4f1920}} 
-\index{Token@{Token}!Token@{Token}}
-\index{Token@{Token}!Token@{Token}}
-\doxysubsubsection{\texorpdfstring{Token()}{Token()}}
-{\footnotesize\ttfamily Token\+::\+Token (\begin{DoxyParamCaption}\item[{glm\+::vec3}]{p,  }\item[{glm\+::vec3}]{rot,  }\item[{float}]{s,  }\item[{\mbox{\hyperlink{class_renderer}{Renderer}} $\ast$}]{game\+Renderer,  }\item[{std\+::string}]{script }\end{DoxyParamCaption})}
+Definition at line 17 of file Token.\+h.
 
 
 
@@ -66,8 +62,29 @@ Christopher Logan
 
 
 
+Kill information used in other game objects. 
+
+\begin{DoxyReturn}{Returns}
+false by default 
+\end{DoxyReturn}
+
+
 Reimplemented from \mbox{\hyperlink{class_game_object_ae6a441c142f2eb71b9a44bd39258dd91}{Game\+Object}}.
 
+
+
+Definition at line 161 of file Token.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{162 \{}
+\DoxyCodeLine{163     \textcolor{comment}{//std::cout << tokenType << std::endl;}}
+\DoxyCodeLine{164     \mbox{\hyperlink{classsingleton_abe6a9e4cb548454cfb5d15f425553ae1}{singleton<Manager>::getInstance}}().token = tokenType;}
+\DoxyCodeLine{165     \mbox{\hyperlink{classsingleton_abe6a9e4cb548454cfb5d15f425553ae1}{singleton<Manager>::getInstance}}().timer = duration;}
+\DoxyCodeLine{166     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{167 \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{class_token_a2ad743f653a910c319e82e20d6f4ceae}\label{class_token_a2ad743f653a910c319e82e20d6f4ceae}} 
 \index{Token@{Token}!Render@{Render}}
 \index{Render@{Render}!Token@{Token}}
@@ -91,6 +108,22 @@ makes use of the view information and graphics renderer to render the token to t
 
 Reimplemented from \mbox{\hyperlink{class_game_object_a00835df0feb28562c4910a7a68771b36}{Game\+Object}}.
 
+
+
+Definition at line 170 of file Token.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{171 \{}
+\DoxyCodeLine{172     \mbox{\hyperlink{class_model}{Model}} temp = \mbox{\hyperlink{class_game_object_a4d2dd39231dc5fa8c9c9b29b91f8ec95}{GetModel}}();}
+\DoxyCodeLine{173     \mbox{\hyperlink{class_shader}{Shader}} s = \mbox{\hyperlink{class_game_object_a9e6726449a23ca4b04467305bd4ddd95}{GetShader}}();}
+\DoxyCodeLine{174     spin.x += speed * time;}
+\DoxyCodeLine{175     \textcolor{keywordflow}{if} (spin.x >= 360)}
+\DoxyCodeLine{176         spin.x = 0;}
+\DoxyCodeLine{177     temp.\mbox{\hyperlink{class_model_a95878dc77a7f1ed7f13f2383f880c8ca}{Render}}(lens, s, \mbox{\hyperlink{class_game_object_aa9f5812ad1460871ebceb188cc9aaa96}{GetPos}}(), spin, \mbox{\hyperlink{class_game_object_a0fb90bbb74c8988d23e865280a065901}{GetScale}}(), \mbox{\hyperlink{class_game_object_a4a7682157d4735ce950f5c64781344ee}{GetRotate}}(), time, 0, gameRenderer, \textcolor{keyword}{false});}
+\DoxyCodeLine{178 \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{class_token_aef2f54bb15352a4c006a7261c9b4567a}\label{class_token_aef2f54bb15352a4c006a7261c9b4567a}} 
 \index{Token@{Token}!Update@{Update}}
 \index{Update@{Update}!Token@{Token}}
@@ -112,7 +145,18 @@ Reimplemented from \mbox{\hyperlink{class_game_object_aecdbe6a05d3183236f1bbec09
 
 
 
+Definition at line 181 of file Token.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{182 \{}
+\DoxyCodeLine{183     \mbox{\hyperlink{class_game_object_a2b8cd8b76bb89306c78371eb921df67a}{SetType}}(\textcolor{stringliteral}{"{}token"{}});}
+\DoxyCodeLine{184 \}}
+
+\end{DoxyCode}
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-ICT397-\/\+Project-\/\+Engine/\mbox{\hyperlink{_token_8h}{Token.\+h}}\item 
-ICT397-\/\+Project-\/\+Engine/\mbox{\hyperlink{_token_8cpp}{Token.\+cpp}}\end{DoxyCompactItemize}
+C\+:/\+Users/chris/\+Documents/\+UNI/\+ICT397-\/\+Project/\+ICT397-\/\+Project-\/\+Engine/Token.\+h\item 
+C\+:/\+Users/chris/\+Documents/\+UNI/\+ICT397-\/\+Project/\+ICT397-\/\+Project-\/\+Engine/Token.\+cpp\end{DoxyCompactItemize}

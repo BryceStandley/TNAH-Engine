@@ -4,5 +4,19 @@ digraph "Graphical Class Hierarchy"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node0 [label="ImGuiColorMod",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$struct_im_gui_color_mod.html",tooltip=" "];
+  Node0 [label="State\< Player \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_state.html",tooltip=" "];
+  Node0 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 [label="SpeedUp",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_speed_up.html",tooltip="A derived class that inherits from the state class. Represents the SpeedUp state of the Player FSM."];
+  Node0 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="deathState",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classdeath_state.html",tooltip=" "];
+  Node0 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="doubleDamage",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classdouble_damage.html",tooltip="A derived class that inherits from the state class. Represents the doubleDamage state of the Player F..."];
+  Node0 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="doublePoints",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classdouble_points.html",tooltip="A derived class that inherits from the state class. Represents the doublePoints state of the Player F..."];
+  Node0 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="glob",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classglob.html",tooltip="A derived class that inherits from the state class. Represents the glob (global) state of the Player ..."];
+  Node0 -> Node6 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="healthRefill",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classhealth_refill.html",tooltip="A derived class that inherits from the state class. Represents the healthRefill state of the Player F..."];
+  Node0 -> Node7 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 [label="main",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classmain.html",tooltip="A derived class that inherits from the state class. Represents the main state of the Player FSM."];
 }

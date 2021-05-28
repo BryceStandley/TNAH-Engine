@@ -2,8 +2,8 @@
 \label{class_timer}\index{Timer@{Timer}}
 
 
-{\ttfamily \#include $<$Timer.\+h$>$}
-
+Collaboration diagram for Timer\+:
+% FIG 0
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -14,10 +14,19 @@ float \mbox{\hyperlink{class_timer_a27b2381dd0f15d10944cd8eeca7a50b7}{Get\+Delta
 \doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
-float \mbox{\hyperlink{class_timer_aaaffa11d76bd7cb47241fab37c3cd0b7}{cur\+Time}}
+\mbox{\Hypertarget{class_timer_aaaffa11d76bd7cb47241fab37c3cd0b7}\label{class_timer_aaaffa11d76bd7cb47241fab37c3cd0b7}} 
+float {\bfseries cur\+Time}
 \item 
-float \mbox{\hyperlink{class_timer_a1799601ef2206041f293bf68e4f42a18}{last\+Time}}
+\mbox{\Hypertarget{class_timer_a1799601ef2206041f293bf68e4f42a18}\label{class_timer_a1799601ef2206041f293bf68e4f42a18}} 
+float {\bfseries last\+Time}
 \end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 2 of file Timer.\+h.
+
 
 
 \doxysubsection{Member Function Documentation}
@@ -34,6 +43,17 @@ gets and returns the value of delta
 \begin{DoxyReturn}{Returns}
 float 
 \end{DoxyReturn}
+
+
+Definition at line 20 of file Timer.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{21     \{}
+\DoxyCodeLine{22         \textcolor{keywordflow}{return} curTime -\/ lastTime;}
+\DoxyCodeLine{23     \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{class_timer_a68e2dc7991b9336a117782447a6a1a13}\label{class_timer_a68e2dc7991b9336a117782447a6a1a13}} 
 \index{Timer@{Timer}!UpdateTime@{UpdateTime}}
 \index{UpdateTime@{UpdateTime}!Timer@{Timer}}
@@ -51,21 +71,18 @@ takes in the current frame and performs per-\/frame time logic to update the tim
 \end{DoxyParams}
 
 
-\doxysubsection{Member Data Documentation}
-\mbox{\Hypertarget{class_timer_aaaffa11d76bd7cb47241fab37c3cd0b7}\label{class_timer_aaaffa11d76bd7cb47241fab37c3cd0b7}} 
-\index{Timer@{Timer}!curTime@{curTime}}
-\index{curTime@{curTime}!Timer@{Timer}}
-\doxysubsubsection{\texorpdfstring{curTime}{curTime}}
-{\footnotesize\ttfamily float Timer\+::cur\+Time}
+Definition at line 10 of file Timer.\+h.
 
-\mbox{\Hypertarget{class_timer_a1799601ef2206041f293bf68e4f42a18}\label{class_timer_a1799601ef2206041f293bf68e4f42a18}} 
-\index{Timer@{Timer}!lastTime@{lastTime}}
-\index{lastTime@{lastTime}!Timer@{Timer}}
-\doxysubsubsection{\texorpdfstring{lastTime}{lastTime}}
-{\footnotesize\ttfamily float Timer\+::last\+Time}
 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{11     \{}
+\DoxyCodeLine{12         lastTime = curTime;}
+\DoxyCodeLine{13         curTime = time;}
+\DoxyCodeLine{14     \}}
+
+\end{DoxyCode}
 
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-ICT397-\/\+Project-\/\+Engine/\mbox{\hyperlink{_timer_8h}{Timer.\+h}}\end{DoxyCompactItemize}
+C\+:/\+Users/chris/\+Documents/\+UNI/\+ICT397-\/\+Project/\+ICT397-\/\+Project-\/\+Engine/Timer.\+h\end{DoxyCompactItemize}

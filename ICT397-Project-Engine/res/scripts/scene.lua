@@ -21,7 +21,7 @@ for i = 0, 20
 do
     x = math.random(minX, maxX)
     z = math.random(minZ, maxZ)
-    cs:MakeGameObject("enemy",  "./res/scripts/gameobjects/enemy_zarlag.lua", 0.05, x, 1.2, z);   
+    cs:MakeGameObject("enemy",  "./res/scripts/gameobjects/enemy_zarlag.lua", 0.05, x, 1, z);   
 end
 cs:MakeGameObject("water",  "./res/scripts/gameobjects/static_water.lua", 0.03, 420, -0.6, 401);
 

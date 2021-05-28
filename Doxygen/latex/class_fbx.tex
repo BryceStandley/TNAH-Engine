@@ -16,6 +16,7 @@ Collaboration diagram for Fbx\+:
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
+\mbox{\Hypertarget{class_fbx_a1144c52cc1b0ce2e9e7d1fe16660ecc3}\label{class_fbx_a1144c52cc1b0ce2e9e7d1fe16660ecc3}} 
 \mbox{\hyperlink{class_fbx_a1144c52cc1b0ce2e9e7d1fe16660ecc3}{Fbx}} ()
 \begin{DoxyCompactList}\small\item\em default constructor \end{DoxyCompactList}\item 
 \mbox{\hyperlink{class_fbx_a47dca81430696839ce01d514e3241cb7}{Fbx}} (std\+::string const \&path, \mbox{\hyperlink{class_renderer}{Renderer}} $\ast$r, bool gamma=false)
@@ -25,15 +26,20 @@ void \mbox{\hyperlink{class_fbx_a3cfd40655fcd457badc247a90d3ee02e}{Draw}} (\mbox
 \doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
+\mbox{\Hypertarget{class_fbx_a2a0e54b6299dda2063cbf8100771b7a5}\label{class_fbx_a2a0e54b6299dda2063cbf8100771b7a5}} 
 std\+::vector$<$ \mbox{\hyperlink{struct_texture_mesh}{Texture\+Mesh}} $>$ \mbox{\hyperlink{class_fbx_a2a0e54b6299dda2063cbf8100771b7a5}{textures\+\_\+loaded}}
 \begin{DoxyCompactList}\small\item\em model data \end{DoxyCompactList}\item 
-std\+::vector$<$ \mbox{\hyperlink{class_mesh}{Mesh}} $>$ \mbox{\hyperlink{class_fbx_a0f78e9d159ecbbb63b265faec933b943}{meshes}}
+\mbox{\Hypertarget{class_fbx_a0f78e9d159ecbbb63b265faec933b943}\label{class_fbx_a0f78e9d159ecbbb63b265faec933b943}} 
+std\+::vector$<$ \mbox{\hyperlink{class_mesh}{Mesh}} $>$ {\bfseries meshes}
 \item 
-\mbox{\hyperlink{class_renderer}{Renderer}} $\ast$ \mbox{\hyperlink{class_fbx_aa44988a2a20ca871fca67de1c8f653e5}{render}}
+\mbox{\Hypertarget{class_fbx_aa44988a2a20ca871fca67de1c8f653e5}\label{class_fbx_aa44988a2a20ca871fca67de1c8f653e5}} 
+\mbox{\hyperlink{class_renderer}{Renderer}} $\ast$ {\bfseries render}
 \item 
-std\+::string \mbox{\hyperlink{class_fbx_a1f7dc9ebfeec9b97f8108ce76dce74a8}{directory}}
+\mbox{\Hypertarget{class_fbx_a1f7dc9ebfeec9b97f8108ce76dce74a8}\label{class_fbx_a1f7dc9ebfeec9b97f8108ce76dce74a8}} 
+std\+::string {\bfseries directory}
 \item 
-bool \mbox{\hyperlink{class_fbx_ac7080440c3c32e20a7d9531182fea67a}{gamma\+Correction}}
+\mbox{\Hypertarget{class_fbx_ac7080440c3c32e20a7d9531182fea67a}\label{class_fbx_ac7080440c3c32e20a7d9531182fea67a}} 
+bool {\bfseries gamma\+Correction}
 \end{DoxyCompactItemize}
 
 
@@ -60,21 +66,15 @@ Christopher Logan
 \end{DoxyDate}
 
 
+Definition at line 40 of file Fbx.\+h.
+
+
+
 \doxysubsection{Constructor \& Destructor Documentation}
-\mbox{\Hypertarget{class_fbx_a1144c52cc1b0ce2e9e7d1fe16660ecc3}\label{class_fbx_a1144c52cc1b0ce2e9e7d1fe16660ecc3}} 
-\index{Fbx@{Fbx}!Fbx@{Fbx}}
-\index{Fbx@{Fbx}!Fbx@{Fbx}}
-\doxysubsubsection{\texorpdfstring{Fbx()}{Fbx()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily Fbx\+::\+Fbx (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
-
-
-
-default constructor 
-
 \mbox{\Hypertarget{class_fbx_a47dca81430696839ce01d514e3241cb7}\label{class_fbx_a47dca81430696839ce01d514e3241cb7}} 
 \index{Fbx@{Fbx}!Fbx@{Fbx}}
 \index{Fbx@{Fbx}!Fbx@{Fbx}}
-\doxysubsubsection{\texorpdfstring{Fbx()}{Fbx()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+\doxysubsubsection{\texorpdfstring{Fbx()}{Fbx()}}
 {\footnotesize\ttfamily Fbx\+::\+Fbx (\begin{DoxyParamCaption}\item[{std\+::string const \&}]{path,  }\item[{\mbox{\hyperlink{class_renderer}{Renderer}} $\ast$}]{r,  }\item[{bool}]{gamma = {\ttfamily false} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
@@ -90,6 +90,25 @@ constructor that loads in the model from the given path
 {\em gamma} & -\/ determines whether or not gamma correction is applied \\
 \hline
 \end{DoxyParams}
+
+
+Definition at line 60 of file Fbx.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{60                                                                 : gammaCorrection(gamma)}
+\DoxyCodeLine{61     \{}
+\DoxyCodeLine{62         render = r;}
+\DoxyCodeLine{63         loadModel(path);}
+\DoxyCodeLine{64     \}}
+
+\end{DoxyCode}
+
+
+Referenced by Model\+::\+Load\+Model().
+
+Here is the caller graph for this function\+:
+% FIG 1
 
 
 \doxysubsection{Member Function Documentation}
@@ -112,44 +131,23 @@ draws the model, and thus all it meshes
 \end{DoxyParams}
 
 
-\doxysubsection{Member Data Documentation}
-\mbox{\Hypertarget{class_fbx_a1f7dc9ebfeec9b97f8108ce76dce74a8}\label{class_fbx_a1f7dc9ebfeec9b97f8108ce76dce74a8}} 
-\index{Fbx@{Fbx}!directory@{directory}}
-\index{directory@{directory}!Fbx@{Fbx}}
-\doxysubsubsection{\texorpdfstring{directory}{directory}}
-{\footnotesize\ttfamily std\+::string Fbx\+::directory}
-
-\mbox{\Hypertarget{class_fbx_ac7080440c3c32e20a7d9531182fea67a}\label{class_fbx_ac7080440c3c32e20a7d9531182fea67a}} 
-\index{Fbx@{Fbx}!gammaCorrection@{gammaCorrection}}
-\index{gammaCorrection@{gammaCorrection}!Fbx@{Fbx}}
-\doxysubsubsection{\texorpdfstring{gammaCorrection}{gammaCorrection}}
-{\footnotesize\ttfamily bool Fbx\+::gamma\+Correction}
-
-\mbox{\Hypertarget{class_fbx_a0f78e9d159ecbbb63b265faec933b943}\label{class_fbx_a0f78e9d159ecbbb63b265faec933b943}} 
-\index{Fbx@{Fbx}!meshes@{meshes}}
-\index{meshes@{meshes}!Fbx@{Fbx}}
-\doxysubsubsection{\texorpdfstring{meshes}{meshes}}
-{\footnotesize\ttfamily std\+::vector$<$\mbox{\hyperlink{class_mesh}{Mesh}}$>$ Fbx\+::meshes}
-
-\mbox{\Hypertarget{class_fbx_aa44988a2a20ca871fca67de1c8f653e5}\label{class_fbx_aa44988a2a20ca871fca67de1c8f653e5}} 
-\index{Fbx@{Fbx}!render@{render}}
-\index{render@{render}!Fbx@{Fbx}}
-\doxysubsubsection{\texorpdfstring{render}{render}}
-{\footnotesize\ttfamily \mbox{\hyperlink{class_renderer}{Renderer}}$\ast$ Fbx\+::render}
-
-\mbox{\Hypertarget{class_fbx_a2a0e54b6299dda2063cbf8100771b7a5}\label{class_fbx_a2a0e54b6299dda2063cbf8100771b7a5}} 
-\index{Fbx@{Fbx}!textures\_loaded@{textures\_loaded}}
-\index{textures\_loaded@{textures\_loaded}!Fbx@{Fbx}}
-\doxysubsubsection{\texorpdfstring{textures\_loaded}{textures\_loaded}}
-{\footnotesize\ttfamily std\+::vector$<$\mbox{\hyperlink{struct_texture_mesh}{Texture\+Mesh}}$>$ Fbx\+::textures\+\_\+loaded}
+Definition at line 2 of file Fbx.\+cpp.
 
 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{3 \{}
+\DoxyCodeLine{4     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} i = 0; i < meshes.size(); i++)}
+\DoxyCodeLine{5     \{}
+\DoxyCodeLine{6         glm::mat4 newModel = model * meshes[i].transform;}
+\DoxyCodeLine{7         shader.\mbox{\hyperlink{class_shader_a8e711c96f3e1722cbfb88fde9478977c}{setMat4}}(\textcolor{stringliteral}{"{}model"{}}, newModel);}
+\DoxyCodeLine{8         meshes[i].Draw(shader);}
+\DoxyCodeLine{9     \}}
+\DoxyCodeLine{10 \}}
 
-model data 
-
+\end{DoxyCode}
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-ICT397-\/\+Project-\/\+Engine/\mbox{\hyperlink{_fbx_8h}{Fbx.\+h}}\item 
-ICT397-\/\+Project-\/\+Engine/\mbox{\hyperlink{_fbx_8cpp}{Fbx.\+cpp}}\end{DoxyCompactItemize}
+C\+:/\+Users/chris/\+Documents/\+UNI/\+ICT397-\/\+Project/\+ICT397-\/\+Project-\/\+Engine/Fbx.\+h\item 
+C\+:/\+Users/chris/\+Documents/\+UNI/\+ICT397-\/\+Project/\+ICT397-\/\+Project-\/\+Engine/Fbx.\+cpp\end{DoxyCompactItemize}

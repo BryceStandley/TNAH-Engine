@@ -1,0 +1,10 @@
+digraph "Shader::setVec3"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="RL";
+  Node1 [label="Shader::setVec3",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="sets a vec3 for use in the shader program (Overloaded to allow three floats to define the vec3)"];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node2 [label="OpenGL::SetShaderTerrain",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_open_g_l.html#a121c5cdb62e37ae54455f1f799d5c449",tooltip="Sets up the shader for the terrain."];
+}

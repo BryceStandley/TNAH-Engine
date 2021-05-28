@@ -1,90 +1,92 @@
-hard
-player ./res/scripts/gameobjects/player_default.lua 0.075000 264.060364 8.871443 328.545471 10 STATE 500 6 2
+normal
+player ./res/scripts/gameobjects/player_default.lua 0.075000 345.976715 7.086253 399.033783 70 STATE 0 0 0
 static ./res/scripts/gameobjects/static_tree3.lua 0.005000 -100.000000 61.345459 -100.000000
-enemy ./res/scripts/gameobjects/enemy_zarlag.lua 0.000000 218.074417 5.674214 290.309906 150 10 flee
-enemy ./res/scripts/gameobjects/enemy_zarlag.lua 0.000000 283.825897 7.506468 305.246185 30 10 wander
-enemy ./res/scripts/gameobjects/enemy_zarlag.lua 0.000000 416.900482 4.263637 262.000000 150 10 wander
-enemy ./res/scripts/gameobjects/enemy_zarlag.lua 0.000000 297.355682 7.100000 307.115112 150 10 flee
-enemy ./res/scripts/gameobjects/enemy_zarlag.lua 0.000000 220.338715 5.681818 288.644470 150 10 wander
-enemy ./res/scripts/gameobjects/enemy_zarlag.lua 0.000000 229.155106 6.036364 285.681732 110 10 flee
-enemy ./res/scripts/gameobjects/enemy_zarlag.lua 0.000000 295.528931 7.100000 306.149048 150 10 wander
-enemy ./res/scripts/gameobjects/enemy_zarlag.lua 0.000000 293.436584 7.454546 306.149048 50 10 flee
-enemy ./res/scripts/gameobjects/enemy_zarlag.lua 0.000000 261.068848 6.442832 281.607178 150 10 flee
-enemy ./res/scripts/gameobjects/enemy_zarlag.lua 0.000000 410.900116 3.857169 262.000000 150 10 wander
-enemy ./res/scripts/gameobjects/enemy_zarlag.lua 0.000000 263.084198 6.442832 281.799438 150 10 wander
-enemy ./res/scripts/gameobjects/enemy_zarlag.lua 0.000000 232.385864 6.036364 281.429077 150 10 wander
-enemy ./res/scripts/gameobjects/enemy_zarlag.lua 0.000000 236.625854 6.187675 280.141357 150 10 wander
-enemy ./res/scripts/gameobjects/enemy_zarlag.lua 0.000000 242.576111 6.080682 276.792725 150 10 wander
-enemy ./res/scripts/gameobjects/enemy_zarlag.lua 0.000000 225.261032 6.036364 286.640442 110 10 flee
-enemy ./res/scripts/gameobjects/enemy_zarlag.lua 0.000000 414.900360 4.237676 262.000000 150 10 flee
-enemy ./res/scripts/gameobjects/enemy_zarlag.lua 0.000000 289.561096 7.454546 306.644897 150 10 wander
-enemy ./res/scripts/gameobjects/enemy_zarlag.lua 0.000000 412.900238 4.167397 262.000000 150 10 wander
-enemy ./res/scripts/gameobjects/enemy_zarlag.lua 0.000000 291.441742 7.454546 305.824005 110 10 flee
-enemy ./res/scripts/gameobjects/enemy_zarlag.lua 0.000000 269.522400 7.100000 288.142212 150 10 flee
-enemy ./res/scripts/gameobjects/enemy_zarlag.lua 0.000000 251.869125 6.364948 279.907196 150 10 wander
+enemy ./res/scripts/gameobjects/enemy_zarlag.lua 0.000000 368.804413 6.083306 388.620972 100 10 alert
+enemy ./res/scripts/gameobjects/enemy_zarlag.lua 0.000000 272.474701 8.270103 333.335785 100 10 wander
+enemy ./res/scripts/gameobjects/enemy_zarlag.lua 0.000000 255.798508 6.445455 189.993317 100 10 wander
+enemy ./res/scripts/gameobjects/enemy_zarlag.lua 0.000000 294.108215 3.963636 234.041107 100 10 wander
+enemy ./res/scripts/gameobjects/enemy_zarlag.lua 0.000000 343.628235 3.661013 267.807434 100 10 wander
+enemy ./res/scripts/gameobjects/enemy_zarlag.lua 0.000000 218.694824 6.083306 339.667908 100 10 wander
+enemy ./res/scripts/gameobjects/enemy_zarlag.lua 0.000000 306.736603 5.027273 263.618103 100 10 wander
+enemy ./res/scripts/gameobjects/enemy_zarlag.lua 0.000000 220.215424 7.180507 213.997849 100 10 wander
+enemy ./res/scripts/gameobjects/enemy_zarlag.lua 0.000000 372.591980 11.231817 211.256958 100 10 wander
+enemy ./res/scripts/gameobjects/enemy_zarlag.lua 0.000000 374.364960 10.042831 219.070251 100 10 wander
+enemy ./res/scripts/gameobjects/enemy_zarlag.lua 0.000000 313.824219 4.015559 248.365585 100 10 wander
+enemy ./res/scripts/gameobjects/enemy_zarlag.lua 0.000000 352.372803 4.495455 347.443848 100 10 wander
+enemy ./res/scripts/gameobjects/enemy_zarlag.lua 0.000000 337.737274 5.407779 379.091339 100 10 chase
+enemy ./res/scripts/gameobjects/enemy_zarlag.lua 0.000000 212.717453 8.882955 248.430634 100 10 wander
+enemy ./res/scripts/gameobjects/enemy_zarlag.lua 0.000000 208.853455 4.318182 412.916901 100 10 wander
+enemy ./res/scripts/gameobjects/enemy_zarlag.lua 0.000000 266.280548 5.684442 379.531616 100 10 wander
+enemy ./res/scripts/gameobjects/enemy_zarlag.lua 0.000000 328.432922 5.381818 361.974426 100 10 wander
+enemy ./res/scripts/gameobjects/enemy_zarlag.lua 0.000000 359.034576 3.280507 248.961060 100 10 wander
+enemy ./res/scripts/gameobjects/enemy_zarlag.lua 0.000000 340.542938 5.736364 382.286011 20 10 chase
+enemy ./res/scripts/gameobjects/enemy_zarlag.lua 0.000000 319.015411 5.559091 352.799774 100 10 wander
+enemy ./res/scripts/gameobjects/enemy_zarlag.lua 0.000000 336.519135 5.027273 351.652130 100 10 wander
 water  0.030000 420.000000 3.172728 401.000000
-token ./res/scripts/gameobjects/token_doublepoints.lua 0.005000 355.000000 3.709091 281.000000
-token ./res/scripts/gameobjects/token_speedup.lua 0.005000 252.000000 13.990909 130.000000
-token ./res/scripts/gameobjects/token_healthrefill.lua 0.005000 215.000000 10.090908 204.000000
-token ./res/scripts/gameobjects/token_doubledmg.lua 0.005000 239.000000 5.481818 378.000000
-token ./res/scripts/gameobjects/token_doublepoints.lua 0.005000 289.000000 5.836364 274.000000
-token ./res/scripts/gameobjects/token_speedup.lua 0.005000 359.000000 4.418182 333.000000
-token ./res/scripts/gameobjects/token_healthrefill.lua 0.005000 302.000000 16.472727 131.000000
-token ./res/scripts/gameobjects/token_doublepoints.lua 0.005000 421.000000 3.354546 285.000000
-token ./res/scripts/gameobjects/token_speedup.lua 0.005000 224.000000 6.190909 337.000000
-token ./res/scripts/gameobjects/token_healthrefill.lua 0.005000 148.000000 11.509090 234.000000
-static ./res/scripts/gameobjects/static_tree3.lua 0.040000 136.000000 4.900000 309.000000
-static ./res/scripts/gameobjects/static_tree3.lua 0.040000 330.000000 3.127273 313.000000
-static ./res/scripts/gameobjects/static_tree3.lua 0.040000 170.000000 8.090908 246.000000
-static ./res/scripts/gameobjects/static_tree3.lua 0.040000 427.000000 24.045456 139.000000
-static ./res/scripts/gameobjects/static_tree3.lua 0.040000 230.000000 6.318182 208.000000
-static ./res/scripts/gameobjects/static_tree3.lua 0.040000 375.000000 12.345454 158.000000
-static ./res/scripts/gameobjects/static_tree3.lua 0.040000 303.000000 3.127273 264.000000
-static ./res/scripts/gameobjects/static_tree3.lua 0.040000 126.000000 9.154545 334.000000
-static ./res/scripts/gameobjects/static_tree3.lua 0.040000 136.000000 15.536364 172.000000
-static ./res/scripts/gameobjects/static_tree3.lua 0.040000 423.000000 1.709091 271.000000
-static ./res/scripts/gameobjects/static_tree3.lua 0.040000 257.000000 3.127273 404.000000
-static ./res/scripts/gameobjects/static_tree2.lua 0.040000 241.000000 4.190909 368.000000
-static ./res/scripts/gameobjects/static_tree2.lua 0.040000 176.000000 9.863636 197.000000
-static ./res/scripts/gameobjects/static_tree2.lua 0.040000 270.000000 4.900000 290.000000
-static ./res/scripts/gameobjects/static_tree2.lua 0.040000 141.000000 6.672727 351.000000
-static ./res/scripts/gameobjects/static_tree2.lua 0.040000 232.000000 4.900000 335.000000
-static ./res/scripts/gameobjects/static_tree2.lua 0.040000 303.000000 4.545455 300.000000
-static ./res/scripts/gameobjects/static_tree2.lua 0.040000 180.000000 2.772727 284.000000
-static ./res/scripts/gameobjects/static_tree2.lua 0.040000 397.000000 1.354546 300.000000
-static ./res/scripts/gameobjects/static_tree2.lua 0.040000 360.000000 2.063637 231.000000
-static ./res/scripts/gameobjects/static_tree2.lua 0.040000 281.000000 3.481818 399.000000
-static ./res/scripts/gameobjects/static_tree2.lua 0.040000 135.000000 25.818184 151.000000
-static ./res/scripts/gameobjects/static_tree1.lua 0.040000 423.000000 13.763637 215.000000
-static ./res/scripts/gameobjects/static_tree1.lua 0.040000 256.000000 10.218182 153.000000
-static ./res/scripts/gameobjects/static_tree1.lua 0.040000 156.000000 5.963636 260.000000
-static ./res/scripts/gameobjects/static_tree1.lua 0.040000 296.000000 4.190909 287.000000
-static ./res/scripts/gameobjects/static_tree1.lua 0.040000 311.000000 3.836364 415.000000
-static ./res/scripts/gameobjects/static_tree1.lua 0.040000 254.000000 4.900000 360.000000
-static ./res/scripts/gameobjects/static_tree1.lua 0.040000 423.000000 3.481818 430.000000
-static ./res/scripts/gameobjects/static_tree1.lua 0.040000 327.000000 3.481818 348.000000
-static ./res/scripts/gameobjects/static_tree1.lua 0.040000 207.000000 2.418182 400.000000
-static ./res/scripts/gameobjects/static_tree1.lua 0.040000 189.000000 9.509090 197.000000
-static ./res/scripts/gameobjects/static_tree1.lua 0.040000 328.000000 3.481818 370.000000
-static ./res/scripts/gameobjects/static_stone2.lua 0.020000 378.000000 10.927273 209.000000
-static ./res/scripts/gameobjects/static_stone2.lua 0.020000 246.000000 3.127273 399.000000
-static ./res/scripts/gameobjects/static_stone2.lua 0.020000 129.000000 25.463636 157.000000
-static ./res/scripts/gameobjects/static_stone2.lua 0.020000 223.000000 7.381818 249.000000
-static ./res/scripts/gameobjects/static_stone2.lua 0.020000 134.000000 6.318182 407.000000
-static ./res/scripts/gameobjects/static_stone2.lua 0.020000 185.000000 2.418182 293.000000
-static ./res/scripts/gameobjects/static_stone2.lua 0.020000 123.000000 15.181816 185.000000
-static ./res/scripts/gameobjects/static_stone2.lua 0.020000 391.000000 1.709091 246.000000
-static ./res/scripts/gameobjects/static_stone2.lua 0.020000 413.000000 7.736363 232.000000
-static ./res/scripts/gameobjects/static_stone2.lua 0.020000 281.000000 4.190909 285.000000
-static ./res/scripts/gameobjects/static_stone2.lua 0.020000 353.000000 1.354546 242.000000
-static ./res/scripts/gameobjects/static_stone1.lua 0.020000 289.000000 1.709091 237.000000
-static ./res/scripts/gameobjects/static_stone1.lua 0.020000 168.000000 16.600000 142.000000
-static ./res/scripts/gameobjects/static_stone1.lua 0.020000 338.000000 11.990909 147.000000
-static ./res/scripts/gameobjects/static_stone1.lua 0.020000 325.000000 3.481818 319.000000
-static ./res/scripts/gameobjects/static_stone1.lua 0.020000 266.000000 3.481818 265.000000
-static ./res/scripts/gameobjects/static_stone1.lua 0.020000 206.000000 3.481818 335.000000
-static ./res/scripts/gameobjects/static_stone1.lua 0.020000 250.000000 5.609091 186.000000
-static ./res/scripts/gameobjects/static_stone1.lua 0.020000 270.000000 3.127273 256.000000
-static ./res/scripts/gameobjects/static_stone1.lua 0.020000 414.000000 3.481818 248.000000
-static ./res/scripts/gameobjects/static_stone1.lua 0.020000 203.000000 3.481818 343.000000
-static ./res/scripts/gameobjects/static_stone1.lua 0.020000 410.000000 3.127273 387.000000
+token ./res/scripts/gameobjects/token_doublepoints.lua 0.005000 152.000000 3.709091 291.000000
+token ./res/scripts/gameobjects/token_speedup.lua 0.005000 291.000000 6.900000 299.000000
+token ./res/scripts/gameobjects/token_healthrefill.lua 0.005000 360.000000 14.345454 151.000000
+token ./res/scripts/gameobjects/token_doubledmg.lua 0.005000 173.000000 4.063637 343.000000
+token ./res/scripts/gameobjects/token_doublepoints.lua 0.005000 163.000000 16.118181 172.000000
+token ./res/scripts/gameobjects/token_speedup.lua 0.005000 131.000000 14.699999 216.000000
+token ./res/scripts/gameobjects/token_healthrefill.lua 0.005000 413.000000 24.627274 143.000000
+token ./res/scripts/gameobjects/token_doubledmg.lua 0.005000 413.000000 5.481818 390.000000
+token ./res/scripts/gameobjects/token_doublepoints.lua 0.005000 296.000000 6.900000 335.000000
+token ./res/scripts/gameobjects/token_speedup.lua 0.005000 184.000000 4.418182 391.000000
+token ./res/scripts/gameobjects/token_healthrefill.lua 0.005000 336.000000 5.836364 383.000000
+token ./res/scripts/gameobjects/token_doubledmg.lua 0.005000 288.000000 5.127273 427.000000
+static ./res/scripts/gameobjects/static_tree3.lua 0.040000 183.000000 2.063637 314.000000
+static ./res/scripts/gameobjects/static_tree3.lua 0.040000 370.000000 7.027273 426.000000
+static ./res/scripts/gameobjects/static_tree3.lua 0.040000 350.000000 5.609091 410.000000
+static ./res/scripts/gameobjects/static_tree3.lua 0.040000 176.000000 11.281817 181.000000
+static ./res/scripts/gameobjects/static_tree3.lua 0.040000 219.000000 3.836364 226.000000
+static ./res/scripts/gameobjects/static_tree3.lua 0.040000 157.000000 8.090908 244.000000
+static ./res/scripts/gameobjects/static_tree3.lua 0.040000 380.000000 1.354546 286.000000
+static ./res/scripts/gameobjects/static_tree3.lua 0.040000 168.000000 5.609091 429.000000
+static ./res/scripts/gameobjects/static_tree3.lua 0.040000 243.000000 15.536364 123.000000
+static ./res/scripts/gameobjects/static_tree3.lua 0.040000 191.000000 5.254546 236.000000
+static ./res/scripts/gameobjects/static_tree3.lua 0.040000 127.000000 4.190909 288.000000
+static ./res/scripts/gameobjects/static_tree2.lua 0.040000 240.000000 4.900000 213.000000
+static ./res/scripts/gameobjects/static_tree2.lua 0.040000 313.000000 2.772727 218.000000
+static ./res/scripts/gameobjects/static_tree2.lua 0.040000 207.000000 2.418182 392.000000
+static ./res/scripts/gameobjects/static_tree2.lua 0.040000 334.000000 3.127273 355.000000
+static ./res/scripts/gameobjects/static_tree2.lua 0.040000 372.000000 4.190909 391.000000
+static ./res/scripts/gameobjects/static_tree2.lua 0.040000 191.000000 5.609091 248.000000
+static ./res/scripts/gameobjects/static_tree2.lua 0.040000 299.000000 2.063637 215.000000
+static ./res/scripts/gameobjects/static_tree2.lua 0.040000 365.000000 2.418182 347.000000
+static ./res/scripts/gameobjects/static_tree2.lua 0.040000 426.000000 3.481818 426.000000
+static ./res/scripts/gameobjects/static_tree2.lua 0.040000 203.000000 2.772727 273.000000
+static ./res/scripts/gameobjects/static_tree2.lua 0.040000 196.000000 12.699999 139.000000
+static ./res/scripts/gameobjects/static_tree1.lua 0.040000 280.000000 13.409092 130.000000
+static ./res/scripts/gameobjects/static_tree1.lua 0.040000 320.000000 2.418182 267.000000
+static ./res/scripts/gameobjects/static_tree1.lua 0.040000 204.000000 6.318182 215.000000
+static ./res/scripts/gameobjects/static_tree1.lua 0.040000 206.000000 10.927273 164.000000
+static ./res/scripts/gameobjects/static_tree1.lua 0.040000 229.000000 3.836364 286.000000
+static ./res/scripts/gameobjects/static_tree1.lua 0.040000 176.000000 12.345454 169.000000
+static ./res/scripts/gameobjects/static_tree1.lua 0.040000 196.000000 9.154545 193.000000
+static ./res/scripts/gameobjects/static_tree1.lua 0.040000 352.000000 11.990909 157.000000
+static ./res/scripts/gameobjects/static_tree1.lua 0.040000 240.000000 3.481818 381.000000
+static ./res/scripts/gameobjects/static_tree1.lua 0.040000 337.000000 4.900000 409.000000
+static ./res/scripts/gameobjects/static_tree1.lua 0.040000 309.000000 2.063637 243.000000
+static ./res/scripts/gameobjects/static_stone2.lua 0.020000 247.000000 6.672727 180.000000
+static ./res/scripts/gameobjects/static_stone2.lua 0.020000 425.000000 2.063637 271.000000
+static ./res/scripts/gameobjects/static_stone2.lua 0.020000 131.000000 6.672727 404.000000
+static ./res/scripts/gameobjects/static_stone2.lua 0.020000 409.000000 3.836364 402.000000
+static ./res/scripts/gameobjects/static_stone2.lua 0.020000 397.000000 1.000000 266.000000
+static ./res/scripts/gameobjects/static_stone2.lua 0.020000 336.000000 4.545455 406.000000
+static ./res/scripts/gameobjects/static_stone2.lua 0.020000 256.000000 2.772727 406.000000
+static ./res/scripts/gameobjects/static_stone2.lua 0.020000 176.000000 12.345454 173.000000
+static ./res/scripts/gameobjects/static_stone2.lua 0.020000 171.000000 12.699999 171.000000
+static ./res/scripts/gameobjects/static_stone2.lua 0.020000 383.000000 18.018181 137.000000
+static ./res/scripts/gameobjects/static_stone2.lua 0.020000 375.000000 5.609091 414.000000
+static ./res/scripts/gameobjects/static_stone1.lua 0.020000 242.000000 4.190909 215.000000
+static ./res/scripts/gameobjects/static_stone1.lua 0.020000 226.000000 7.736363 246.000000
+static ./res/scripts/gameobjects/static_stone1.lua 0.020000 121.000000 33.972729 151.000000
+static ./res/scripts/gameobjects/static_stone1.lua 0.020000 244.000000 10.572728 146.000000
+static ./res/scripts/gameobjects/static_stone1.lua 0.020000 343.000000 2.772727 321.000000
+static ./res/scripts/gameobjects/static_stone1.lua 0.020000 171.000000 15.181816 145.000000
+static ./res/scripts/gameobjects/static_stone1.lua 0.020000 307.000000 2.772727 257.000000
+static ./res/scripts/gameobjects/static_stone1.lua 0.020000 285.000000 2.418182 200.000000
+static ./res/scripts/gameobjects/static_stone1.lua 0.020000 270.000000 5.963636 310.000000
+static ./res/scripts/gameobjects/static_stone1.lua 0.020000 164.000000 2.418182 370.000000
+static ./res/scripts/gameobjects/static_stone1.lua 0.020000 125.000000 8.445455 367.000000

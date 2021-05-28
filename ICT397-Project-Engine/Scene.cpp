@@ -140,10 +140,7 @@ bool Scene::LoadSaveFile()
 
 	        loaded = true;
 	        return true;
-
         }
-
-
     }
     return false;
 }
@@ -394,7 +391,7 @@ void Scene::UpdateGameObject(glm::vec3 position, int i, float time)
     position = EnemyObstacleAvoidance(gameObjects[i], position);
 
 	glm::vec3 newPos = WorldToTerrainPosition(position, true);
-	newPos.y += 1.2f;
+	newPos.y += 0.9f;
 
 	//newPos.y += Lerp(0.9f, 1.4f, time * 4.0f);
 

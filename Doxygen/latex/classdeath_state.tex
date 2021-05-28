@@ -1,0 +1,134 @@
+\hypertarget{classdeath_state}{}\doxysection{death\+State Class Reference}
+\label{classdeath_state}\index{deathState@{deathState}}
+
+
+Inheritance diagram for death\+State\+:
+% FIG 0
+
+
+Collaboration diagram for death\+State\+:
+% FIG 1
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \mbox{\hyperlink{classdeath_state_af4fa8e55ad0c9503f9610395a78d5bbe}{Enter}} (\mbox{\hyperlink{class_player}{Player}} $\ast$dude)
+\begin{DoxyCompactList}\small\item\em virtual function that represents the entry point of the state \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classdeath_state_aa2acfb4d4d7a766be50ece20c937b8b7}{Execute}} (\mbox{\hyperlink{class_player}{Player}} $\ast$dude)
+\begin{DoxyCompactList}\small\item\em virtual function that represents the execute point of the state \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classdeath_state_a1173fd1a8f71709ef549ad869548d6c9}{Exit}} (\mbox{\hyperlink{class_player}{Player}} $\ast$dude)
+\begin{DoxyCompactList}\small\item\em virtual function that represents the exit point of the state \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 189 of file player\+States.\+h.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classdeath_state_af4fa8e55ad0c9503f9610395a78d5bbe}\label{classdeath_state_af4fa8e55ad0c9503f9610395a78d5bbe}} 
+\index{deathState@{deathState}!Enter@{Enter}}
+\index{Enter@{Enter}!deathState@{deathState}}
+\doxysubsubsection{\texorpdfstring{Enter()}{Enter()}}
+{\footnotesize\ttfamily void death\+State\+::\+Enter (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_player}{Player}} $\ast$}]{dude }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+virtual function that represents the entry point of the state 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dude} & -\/ a pointer to the \mbox{\hyperlink{class_player}{Player}} object \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_state_aab4cca8d69092deacf053cf2b12e4cd6}{State$<$ Player $>$}}.
+
+
+
+Definition at line 112 of file player\+States.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{113 \{}
+\DoxyCodeLine{114     \textcolor{keywordflow}{if} (dude-\/>death.isTable())}
+\DoxyCodeLine{115     \{}
+\DoxyCodeLine{116         dude-\/>death[1](dude);}
+\DoxyCodeLine{117     \}}
+\DoxyCodeLine{118 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classdeath_state_aa2acfb4d4d7a766be50ece20c937b8b7}\label{classdeath_state_aa2acfb4d4d7a766be50ece20c937b8b7}} 
+\index{deathState@{deathState}!Execute@{Execute}}
+\index{Execute@{Execute}!deathState@{deathState}}
+\doxysubsubsection{\texorpdfstring{Execute()}{Execute()}}
+{\footnotesize\ttfamily void death\+State\+::\+Execute (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_player}{Player}} $\ast$}]{dude }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+virtual function that represents the execute point of the state 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dude} & -\/ a pointer to the \mbox{\hyperlink{class_player}{Player}} object \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_state_a7b7e948b4fe83e3686564e453ed0c406}{State$<$ Player $>$}}.
+
+
+
+Definition at line 120 of file player\+States.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{121 \{}
+\DoxyCodeLine{122     \textcolor{keywordflow}{if} (dude-\/>death.isTable())}
+\DoxyCodeLine{123     \{}
+\DoxyCodeLine{124         dude-\/>death[2](dude);}
+\DoxyCodeLine{125     \}}
+\DoxyCodeLine{126 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classdeath_state_a1173fd1a8f71709ef549ad869548d6c9}\label{classdeath_state_a1173fd1a8f71709ef549ad869548d6c9}} 
+\index{deathState@{deathState}!Exit@{Exit}}
+\index{Exit@{Exit}!deathState@{deathState}}
+\doxysubsubsection{\texorpdfstring{Exit()}{Exit()}}
+{\footnotesize\ttfamily void death\+State\+::\+Exit (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_player}{Player}} $\ast$}]{dude }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+virtual function that represents the exit point of the state 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dude} & -\/ a pointer to the \mbox{\hyperlink{class_player}{Player}} object \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_state_aa086d08513a4adb59848deec250fbcae}{State$<$ Player $>$}}.
+
+
+
+Definition at line 128 of file player\+States.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{129 \{   }
+\DoxyCodeLine{130     \textcolor{keywordflow}{if} (dude-\/>death.isTable())}
+\DoxyCodeLine{131     \{}
+\DoxyCodeLine{132         dude-\/>death[3](dude);}
+\DoxyCodeLine{133     \}}
+\DoxyCodeLine{134 \}}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/chris/\+Documents/\+UNI/\+ICT397-\/\+Project/\+ICT397-\/\+Project-\/\+Engine/player\+States.\+h\item 
+C\+:/\+Users/chris/\+Documents/\+UNI/\+ICT397-\/\+Project/\+ICT397-\/\+Project-\/\+Engine/player\+States.\+cpp\end{DoxyCompactItemize}

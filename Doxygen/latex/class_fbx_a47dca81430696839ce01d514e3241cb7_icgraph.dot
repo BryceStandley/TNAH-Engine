@@ -1,0 +1,10 @@
+digraph "Fbx::Fbx"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="RL";
+  Node1 [label="Fbx::Fbx",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="constructor that loads in the model from the given path"];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node2 [label="Model::LoadModel",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_model.html#a1c049fa03d56f57421414e31862da9f5",tooltip="Function responible for loading the model."];
+}

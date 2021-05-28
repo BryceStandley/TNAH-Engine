@@ -9,13 +9,19 @@ A class that is responsible for shaders, allowing you to open/use shaders and se
 
 {\ttfamily \#include $<$Shader.\+h$>$}
 
+
+
+Collaboration diagram for Shader\+:
+% FIG 0
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
+\mbox{\Hypertarget{class_shader_a0d654ebaca4e0555197c0724c6d30610}\label{class_shader_a0d654ebaca4e0555197c0724c6d30610}} 
 \mbox{\hyperlink{class_shader_a0d654ebaca4e0555197c0724c6d30610}{Shader}} ()
 \begin{DoxyCompactList}\small\item\em default constructor \end{DoxyCompactList}\item 
 \mbox{\hyperlink{class_shader_aa732beb72038e86aca70a34c369a255e}{Shader}} (const char $\ast$vertex\+Path, const char $\ast$fragment\+Path, const char $\ast$geometry\+Path=nullptr)
 \begin{DoxyCompactList}\small\item\em A constructor that takes in paths to the shaders and generates them. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_shader_a870fa9f13d69e558815d6fd351a469dc}\label{class_shader_a870fa9f13d69e558815d6fd351a469dc}} 
 void \mbox{\hyperlink{class_shader_a870fa9f13d69e558815d6fd351a469dc}{use}} ()
 \begin{DoxyCompactList}\small\item\em Allows you to activate and use the shader ~\newline
  \end{DoxyCompactList}\item 
@@ -46,6 +52,7 @@ void \mbox{\hyperlink{class_shader_a8e711c96f3e1722cbfb88fde9478977c}{set\+Mat4}
 \doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
+\mbox{\Hypertarget{class_shader_a142a08b6fbdfc982d82ca10ee0b0f38d}\label{class_shader_a142a08b6fbdfc982d82ca10ee0b0f38d}} 
 unsigned int \mbox{\hyperlink{class_shader_a142a08b6fbdfc982d82ca10ee0b0f38d}{ID}}
 \begin{DoxyCompactList}\small\item\em shader ID \end{DoxyCompactList}\end{DoxyCompactItemize}
 
@@ -64,21 +71,15 @@ Dylan Blereau
 \end{DoxyDate}
 
 
+Definition at line 24 of file Shader.\+h.
+
+
+
 \doxysubsection{Constructor \& Destructor Documentation}
-\mbox{\Hypertarget{class_shader_a0d654ebaca4e0555197c0724c6d30610}\label{class_shader_a0d654ebaca4e0555197c0724c6d30610}} 
-\index{Shader@{Shader}!Shader@{Shader}}
-\index{Shader@{Shader}!Shader@{Shader}}
-\doxysubsubsection{\texorpdfstring{Shader()}{Shader()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily Shader\+::\+Shader (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
-
-
-
-default constructor 
-
 \mbox{\Hypertarget{class_shader_aa732beb72038e86aca70a34c369a255e}\label{class_shader_aa732beb72038e86aca70a34c369a255e}} 
 \index{Shader@{Shader}!Shader@{Shader}}
 \index{Shader@{Shader}!Shader@{Shader}}
-\doxysubsubsection{\texorpdfstring{Shader()}{Shader()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+\doxysubsubsection{\texorpdfstring{Shader()}{Shader()}}
 {\footnotesize\ttfamily Shader\+::\+Shader (\begin{DoxyParamCaption}\item[{const char $\ast$}]{vertex\+Path,  }\item[{const char $\ast$}]{fragment\+Path,  }\item[{const char $\ast$}]{geometry\+Path = {\ttfamily nullptr} }\end{DoxyParamCaption})}
 
 
@@ -118,6 +119,89 @@ shader Program
 
 delete the shaders as they\textquotesingle{}re linked into our program now and no longer necessery
 
+Definition at line 3 of file Shader.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{4 \{}
+\DoxyCodeLine{6     std::string vertexCode;}
+\DoxyCodeLine{7     std::string fragmentCode;}
+\DoxyCodeLine{8     std::string geometryCode;}
+\DoxyCodeLine{9     std::ifstream vShaderFile;}
+\DoxyCodeLine{10     std::ifstream fShaderFile;}
+\DoxyCodeLine{11     std::ifstream gShaderFile;}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{14     vShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);}
+\DoxyCodeLine{15     fShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);}
+\DoxyCodeLine{16     gShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);}
+\DoxyCodeLine{17     \textcolor{keywordflow}{try}}
+\DoxyCodeLine{18     \{}
+\DoxyCodeLine{20         vShaderFile.open(vertexPath);}
+\DoxyCodeLine{21         fShaderFile.open(fragmentPath);}
+\DoxyCodeLine{22         std::stringstream vShaderStream, fShaderStream;}
+\DoxyCodeLine{24         vShaderStream << vShaderFile.rdbuf();}
+\DoxyCodeLine{25         fShaderStream << fShaderFile.rdbuf();}
+\DoxyCodeLine{27         vShaderFile.close();}
+\DoxyCodeLine{28         fShaderFile.close();}
+\DoxyCodeLine{30         vertexCode = vShaderStream.str();}
+\DoxyCodeLine{31         fragmentCode = fShaderStream.str();}
+\DoxyCodeLine{33         \textcolor{keywordflow}{if} (geometryPath != \textcolor{keyword}{nullptr})}
+\DoxyCodeLine{34         \{}
+\DoxyCodeLine{35             gShaderFile.open(geometryPath);}
+\DoxyCodeLine{36             std::stringstream gShaderStream;}
+\DoxyCodeLine{37             gShaderStream << gShaderFile.rdbuf();}
+\DoxyCodeLine{38             gShaderFile.close();}
+\DoxyCodeLine{39             geometryCode = gShaderStream.str();}
+\DoxyCodeLine{40         \}}
+\DoxyCodeLine{41     \}}
+\DoxyCodeLine{42     \textcolor{keywordflow}{catch} (std::ifstream::failure\& e)}
+\DoxyCodeLine{43     \{}
+\DoxyCodeLine{44         \textcolor{keywordflow}{if}(Debugger::GetInstance()-\/>debugToConsole) std::cout << \textcolor{stringliteral}{"{}Shader.cpp::ERROR::SHADER::FILE\_NOT\_SUCCESFULLY\_READ"{}} << std::endl;}
+\DoxyCodeLine{45     \}}
+\DoxyCodeLine{46     \textcolor{keyword}{const} \textcolor{keywordtype}{char}* vShaderCode = vertexCode.c\_str();}
+\DoxyCodeLine{47     \textcolor{keyword}{const} \textcolor{keywordtype}{char}* fShaderCode = fragmentCode.c\_str();}
+\DoxyCodeLine{48 }
+\DoxyCodeLine{49     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} vertex, fragment;}
+\DoxyCodeLine{51     vertex = glCreateShader(GL\_VERTEX\_SHADER);}
+\DoxyCodeLine{52     glShaderSource(vertex, 1, \&vShaderCode, NULL);}
+\DoxyCodeLine{53     glCompileShader(vertex);}
+\DoxyCodeLine{54     checkCompileErrors(vertex, \textcolor{stringliteral}{"{}VERTEX"{}});}
+\DoxyCodeLine{56     fragment = glCreateShader(GL\_FRAGMENT\_SHADER);}
+\DoxyCodeLine{57     glShaderSource(fragment, 1, \&fShaderCode, NULL);}
+\DoxyCodeLine{58     glCompileShader(fragment);}
+\DoxyCodeLine{59     checkCompileErrors(fragment, \textcolor{stringliteral}{"{}FRAGMENT"{}});}
+\DoxyCodeLine{61     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} geometry;}
+\DoxyCodeLine{62     \textcolor{keywordflow}{if} (geometryPath != \textcolor{keyword}{nullptr})}
+\DoxyCodeLine{63     \{}
+\DoxyCodeLine{64         \textcolor{keyword}{const} \textcolor{keywordtype}{char}* gShaderCode = geometryCode.c\_str();}
+\DoxyCodeLine{65         geometry = glCreateShader(GL\_GEOMETRY\_SHADER);}
+\DoxyCodeLine{66         glShaderSource(geometry, 1, \&gShaderCode, NULL);}
+\DoxyCodeLine{67         glCompileShader(geometry);}
+\DoxyCodeLine{68         checkCompileErrors(geometry, \textcolor{stringliteral}{"{}GEOMETRY"{}});}
+\DoxyCodeLine{69     \}}
+\DoxyCodeLine{71     \mbox{\hyperlink{class_shader_a142a08b6fbdfc982d82ca10ee0b0f38d}{ID}} = glCreateProgram();}
+\DoxyCodeLine{72     glAttachShader(\mbox{\hyperlink{class_shader_a142a08b6fbdfc982d82ca10ee0b0f38d}{ID}}, vertex);}
+\DoxyCodeLine{73     glAttachShader(\mbox{\hyperlink{class_shader_a142a08b6fbdfc982d82ca10ee0b0f38d}{ID}}, fragment);}
+\DoxyCodeLine{74     \textcolor{keywordflow}{if} (geometryPath != \textcolor{keyword}{nullptr})}
+\DoxyCodeLine{75         glAttachShader(\mbox{\hyperlink{class_shader_a142a08b6fbdfc982d82ca10ee0b0f38d}{ID}}, geometry);}
+\DoxyCodeLine{76     glLinkProgram(\mbox{\hyperlink{class_shader_a142a08b6fbdfc982d82ca10ee0b0f38d}{ID}});}
+\DoxyCodeLine{77     checkCompileErrors(\mbox{\hyperlink{class_shader_a142a08b6fbdfc982d82ca10ee0b0f38d}{ID}}, \textcolor{stringliteral}{"{}PROGRAM"{}});}
+\DoxyCodeLine{79     glDeleteShader(vertex);}
+\DoxyCodeLine{80     glDeleteShader(fragment);}
+\DoxyCodeLine{81     \textcolor{keywordflow}{if} (geometryPath != \textcolor{keyword}{nullptr})}
+\DoxyCodeLine{82         glDeleteShader(geometry);}
+\DoxyCodeLine{83 }
+\DoxyCodeLine{84 \}}
+
+\end{DoxyCode}
+
+
+Referenced by Enemy\+::\+Enemy(), Md2\+::\+Load\+Model(), Terrain\+::lua\+Loader(), and Player\+::\+Player().
+
+Here is the caller graph for this function\+:
+% FIG 1
+
+
 \doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{class_shader_ab1a56d6c299bd7eaa18c2e142ef7bd9f}\label{class_shader_ab1a56d6c299bd7eaa18c2e142ef7bd9f}} 
 \index{Shader@{Shader}!setBool@{setBool}}
@@ -136,6 +220,17 @@ sets a boolean for use in the shader program
 {\em value} & -\/ represents the variable value \\
 \hline
 \end{DoxyParams}
+
+
+Definition at line 93 of file Shader.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{94 \{}
+\DoxyCodeLine{95     glUniform1i(glGetUniformLocation(\mbox{\hyperlink{class_shader_a142a08b6fbdfc982d82ca10ee0b0f38d}{ID}}, name.c\_str()), (\textcolor{keywordtype}{int})value);}
+\DoxyCodeLine{96 \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{class_shader_afe7367621f74c2d26431d8ac15252bf3}\label{class_shader_afe7367621f74c2d26431d8ac15252bf3}} 
 \index{Shader@{Shader}!setFloat@{setFloat}}
 \index{setFloat@{setFloat}!Shader@{Shader}}
@@ -153,6 +248,17 @@ sets a float for use in the shader program
 {\em value} & -\/ represents the variable value \\
 \hline
 \end{DoxyParams}
+
+
+Definition at line 105 of file Shader.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{106 \{}
+\DoxyCodeLine{107     glUniform1f(glGetUniformLocation(\mbox{\hyperlink{class_shader_a142a08b6fbdfc982d82ca10ee0b0f38d}{ID}}, name.c\_str()), value);}
+\DoxyCodeLine{108 \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{class_shader_ad362e2b654cd95a3574cd505411e41fd}\label{class_shader_ad362e2b654cd95a3574cd505411e41fd}} 
 \index{Shader@{Shader}!setInt@{setInt}}
 \index{setInt@{setInt}!Shader@{Shader}}
@@ -170,6 +276,23 @@ sets an integer for use in the shader program
 {\em value} & -\/ represents the variable value \\
 \hline
 \end{DoxyParams}
+
+
+Definition at line 99 of file Shader.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{100 \{}
+\DoxyCodeLine{101     glUniform1i(glGetUniformLocation(\mbox{\hyperlink{class_shader_a142a08b6fbdfc982d82ca10ee0b0f38d}{ID}}, name.c\_str()), value);}
+\DoxyCodeLine{102 \}}
+
+\end{DoxyCode}
+
+
+Referenced by Terrain\+::set\+Textures(), and Open\+GL\+::\+Skybox\+Setup().
+
+Here is the caller graph for this function\+:
+% FIG 2
 \mbox{\Hypertarget{class_shader_a91a6ee79b959cacd618c9e29a5bbd732}\label{class_shader_a91a6ee79b959cacd618c9e29a5bbd732}} 
 \index{Shader@{Shader}!setMat2@{setMat2}}
 \index{setMat2@{setMat2}!Shader@{Shader}}
@@ -187,6 +310,17 @@ sets a mat2 for use in the shader program
 {\em mat} & -\/ represents the variable value \\
 \hline
 \end{DoxyParams}
+
+
+Definition at line 147 of file Shader.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{148 \{}
+\DoxyCodeLine{149     glUniformMatrix2fv(glGetUniformLocation(\mbox{\hyperlink{class_shader_a142a08b6fbdfc982d82ca10ee0b0f38d}{ID}}, name.c\_str()), 1, GL\_FALSE, \&mat[0][0]);}
+\DoxyCodeLine{150 \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{class_shader_a3e24fcad187493dfebaa12939072e91d}\label{class_shader_a3e24fcad187493dfebaa12939072e91d}} 
 \index{Shader@{Shader}!setMat3@{setMat3}}
 \index{setMat3@{setMat3}!Shader@{Shader}}
@@ -204,6 +338,17 @@ sets a mat3 for use in the shader program
 {\em mat} & -\/ represents the variable value \\
 \hline
 \end{DoxyParams}
+
+
+Definition at line 153 of file Shader.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{154 \{}
+\DoxyCodeLine{155     glUniformMatrix3fv(glGetUniformLocation(\mbox{\hyperlink{class_shader_a142a08b6fbdfc982d82ca10ee0b0f38d}{ID}}, name.c\_str()), 1, GL\_FALSE, \&mat[0][0]);}
+\DoxyCodeLine{156 \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{class_shader_a8e711c96f3e1722cbfb88fde9478977c}\label{class_shader_a8e711c96f3e1722cbfb88fde9478977c}} 
 \index{Shader@{Shader}!setMat4@{setMat4}}
 \index{setMat4@{setMat4}!Shader@{Shader}}
@@ -221,6 +366,17 @@ sets a mat4 for use in the shader program
 {\em mat} & -\/ represents the variable value \\
 \hline
 \end{DoxyParams}
+
+
+Definition at line 159 of file Shader.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{160 \{}
+\DoxyCodeLine{161     glUniformMatrix4fv(glGetUniformLocation(\mbox{\hyperlink{class_shader_a142a08b6fbdfc982d82ca10ee0b0f38d}{ID}}, name.c\_str()), 1, GL\_FALSE, \&mat[0][0]);}
+\DoxyCodeLine{162 \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{class_shader_afd4d41322a1cdd1d5155bf124d19debf}\label{class_shader_afd4d41322a1cdd1d5155bf124d19debf}} 
 \index{Shader@{Shader}!setVec2@{setVec2}}
 \index{setVec2@{setVec2}!Shader@{Shader}}
@@ -238,6 +394,17 @@ sets a vec2 for use in the shader program
 {\em value} & -\/ represents the variable value \\
 \hline
 \end{DoxyParams}
+
+
+Definition at line 111 of file Shader.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{112 \{}
+\DoxyCodeLine{113     glUniform2fv(glGetUniformLocation(\mbox{\hyperlink{class_shader_a142a08b6fbdfc982d82ca10ee0b0f38d}{ID}}, name.c\_str()), 1, \&value[0]);}
+\DoxyCodeLine{114 \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{class_shader_afb91bc9e954bf590857c96ab1331b0ec}\label{class_shader_afb91bc9e954bf590857c96ab1331b0ec}} 
 \index{Shader@{Shader}!setVec2@{setVec2}}
 \index{setVec2@{setVec2}!Shader@{Shader}}
@@ -257,6 +424,17 @@ sets a vec2 for use in the shader program (Overloaded to allow two floats to def
 {\em y} & -\/ sets the y value \\
 \hline
 \end{DoxyParams}
+
+
+Definition at line 117 of file Shader.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{118 \{}
+\DoxyCodeLine{119     glUniform2f(glGetUniformLocation(\mbox{\hyperlink{class_shader_a142a08b6fbdfc982d82ca10ee0b0f38d}{ID}}, name.c\_str()), x, y);}
+\DoxyCodeLine{120 \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{class_shader_aeb021061c5d451329d92257b07dbfec3}\label{class_shader_aeb021061c5d451329d92257b07dbfec3}} 
 \index{Shader@{Shader}!setVec3@{setVec3}}
 \index{setVec3@{setVec3}!Shader@{Shader}}
@@ -274,6 +452,17 @@ sets a vec3 for use in the shader program
 {\em value} & -\/ represents the variable value \\
 \hline
 \end{DoxyParams}
+
+
+Definition at line 123 of file Shader.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{124 \{}
+\DoxyCodeLine{125     glUniform3fv(glGetUniformLocation(\mbox{\hyperlink{class_shader_a142a08b6fbdfc982d82ca10ee0b0f38d}{ID}}, name.c\_str()), 1, \&value[0]);}
+\DoxyCodeLine{126 \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{class_shader_a90092c25b7dc23964c465b93887300f9}\label{class_shader_a90092c25b7dc23964c465b93887300f9}} 
 \index{Shader@{Shader}!setVec3@{setVec3}}
 \index{setVec3@{setVec3}!Shader@{Shader}}
@@ -295,6 +484,23 @@ sets a vec3 for use in the shader program (Overloaded to allow three floats to d
 {\em z} & -\/ sets the z value \\
 \hline
 \end{DoxyParams}
+
+
+Definition at line 129 of file Shader.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{130 \{}
+\DoxyCodeLine{131     glUniform3f(glGetUniformLocation(\mbox{\hyperlink{class_shader_a142a08b6fbdfc982d82ca10ee0b0f38d}{ID}}, name.c\_str()), x, y, z);}
+\DoxyCodeLine{132 \}}
+
+\end{DoxyCode}
+
+
+Referenced by Open\+GL\+::\+Set\+Shader\+Terrain().
+
+Here is the caller graph for this function\+:
+% FIG 3
 \mbox{\Hypertarget{class_shader_a79cbe674f6bf1a576a48045dcb924de5}\label{class_shader_a79cbe674f6bf1a576a48045dcb924de5}} 
 \index{Shader@{Shader}!setVec4@{setVec4}}
 \index{setVec4@{setVec4}!Shader@{Shader}}
@@ -312,6 +518,17 @@ sets a vec4 for use in the shader program
 {\em value} & -\/ represents the variable value \\
 \hline
 \end{DoxyParams}
+
+
+Definition at line 135 of file Shader.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{136 \{}
+\DoxyCodeLine{137     glUniform4fv(glGetUniformLocation(\mbox{\hyperlink{class_shader_a142a08b6fbdfc982d82ca10ee0b0f38d}{ID}}, name.c\_str()), 1, \&value[0]);}
+\DoxyCodeLine{138 \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{class_shader_a913e10fe2501b00746ae6901b97a1730}\label{class_shader_a913e10fe2501b00746ae6901b97a1730}} 
 \index{Shader@{Shader}!setVec4@{setVec4}}
 \index{setVec4@{setVec4}!Shader@{Shader}}
@@ -335,33 +552,20 @@ sets a vec4 for use in the shader program (Overloaded to allow four floats to de
 {\em w} & -\/ sets the w value \\
 \hline
 \end{DoxyParams}
-\mbox{\Hypertarget{class_shader_a870fa9f13d69e558815d6fd351a469dc}\label{class_shader_a870fa9f13d69e558815d6fd351a469dc}} 
-\index{Shader@{Shader}!use@{use}}
-\index{use@{use}!Shader@{Shader}}
-\doxysubsubsection{\texorpdfstring{use()}{use()}}
-{\footnotesize\ttfamily void Shader\+::use (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 
-
-Allows you to activate and use the shader ~\newline
- 
+Definition at line 141 of file Shader.\+cpp.
 
 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{142 \{}
+\DoxyCodeLine{143     glUniform4f(glGetUniformLocation(\mbox{\hyperlink{class_shader_a142a08b6fbdfc982d82ca10ee0b0f38d}{ID}}, name.c\_str()), x, y, z, w);}
+\DoxyCodeLine{144 \}}
 
-\doxysubsection{Member Data Documentation}
-\mbox{\Hypertarget{class_shader_a142a08b6fbdfc982d82ca10ee0b0f38d}\label{class_shader_a142a08b6fbdfc982d82ca10ee0b0f38d}} 
-\index{Shader@{Shader}!ID@{ID}}
-\index{ID@{ID}!Shader@{Shader}}
-\doxysubsubsection{\texorpdfstring{ID}{ID}}
-{\footnotesize\ttfamily unsigned int Shader\+::\+ID}
-
-
-
-shader ID 
-
+\end{DoxyCode}
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-ICT397-\/\+Project-\/\+Engine/\mbox{\hyperlink{_shader_8h}{Shader.\+h}}\item 
-ICT397-\/\+Project-\/\+Engine/\mbox{\hyperlink{_shader_8cpp}{Shader.\+cpp}}\end{DoxyCompactItemize}
+C\+:/\+Users/chris/\+Documents/\+UNI/\+ICT397-\/\+Project/\+ICT397-\/\+Project-\/\+Engine/Shader.\+h\item 
+C\+:/\+Users/chris/\+Documents/\+UNI/\+ICT397-\/\+Project/\+ICT397-\/\+Project-\/\+Engine/Shader.\+cpp\end{DoxyCompactItemize}

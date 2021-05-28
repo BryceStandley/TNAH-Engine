@@ -3,7 +3,7 @@ digraph "ModelInfo"
  // LATEX_PDF_SIZE
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
-  Node1 [label="ModelInfo",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
-  Node2 -> Node1 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" vboTextureCoords" ,fontname="Helvetica"];
-  Node2 [label="Buffer",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_buffer.html",tooltip=" "];
+  Node1 [label="{ModelInfo\n|+ commands\l+ vboFrameVertices\l+ renderModes\l+ numRenderVertices\l|}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
+  Node2 -> Node1 [color="grey25",fontsize="10",style="solid",label=" +vboTextureCoords" ,arrowhead="odiamond",fontname="Helvetica"];
+  Node2 [label="{Buffer\n||+ Buffer()\l+ CreateBuffer()\l+ DeleteBuffer()\l+ SetBuffer()\l+ SetSubBuffer()\l+ UnsetBuffer()\l+ BindVBO()\l+ UploadData()\l+ AddData()\l+ GetDataPointer()\l+ GetBufferID()\l+ GetCurrentSize()\l}",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_buffer.html",tooltip=" "];
 }

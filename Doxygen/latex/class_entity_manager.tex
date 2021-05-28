@@ -2,64 +2,207 @@
 \label{class_entity_manager}\index{EntityManager@{EntityManager}}
 
 
+Managers the entities for messages, storing them into a map with their ID and \mbox{\hyperlink{class_game_object}{Game\+Object}} Pointers.  
+
+
+
+
 {\ttfamily \#include $<$Entity\+Manager.\+h$>$}
 
+
+
+Collaboration diagram for Entity\+Manager\+:
+% FIG 0
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 void \mbox{\hyperlink{class_entity_manager_ae4242b4e23c02d712c2230fc532e4e97}{Register\+Entity}} (\mbox{\hyperlink{class_game_object}{Game\+Object}} $\ast$new\+Entity)
-\item 
+\begin{DoxyCompactList}\small\item\em Registers a new game object to the entity map. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{class_entity_manager_a7f0ae1ce99392b3813ef48932bf5e5a7}{Remove\+Entity}} (\mbox{\hyperlink{class_game_object}{Game\+Object}} $\ast$entity)
-\item 
+\begin{DoxyCompactList}\small\item\em Removes the given game object from the map. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_entity_manager_a400020e7d1e1fe2d57bf8d2eab3fd425}\label{class_entity_manager_a400020e7d1e1fe2d57bf8d2eab3fd425}} 
 void \mbox{\hyperlink{class_entity_manager_a400020e7d1e1fe2d57bf8d2eab3fd425}{Clear\+Entitys}} ()
-\item 
-\mbox{\hyperlink{class_game_object}{Game\+Object}} $\ast$ \mbox{\hyperlink{class_entity_manager_a86f55ccc1b9bc8d5541593d0485d1e20}{Get\+Entity}} (int id)
-\item 
+\begin{DoxyCompactList}\small\item\em Clears the entity map and pos vector. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_game_object}{Game\+Object}} $\ast$ \mbox{\hyperlink{class_entity_manager_a5970d866fa90308f4e1e4e767b9b2d07}{Get\+Entity}} (int id)
+\begin{DoxyCompactList}\small\item\em Returns the game object from the ID location. \end{DoxyCompactList}\item 
 int \mbox{\hyperlink{class_entity_manager_af41cf523ea516749873ff87d20d04483}{Size}} ()
-\item 
+\begin{DoxyCompactList}\small\item\em The size of the map/vector. \end{DoxyCompactList}\item 
 int \mbox{\hyperlink{class_entity_manager_aa557074309a9c81ce62f463534d3b16f}{Numbered\+Pos}} (int i)
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Gets the value in the map point i. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Managers the entities for messages, storing them into a map with their ID and \mbox{\hyperlink{class_game_object}{Game\+Object}} Pointers. 
+
+\begin{DoxyAuthor}{Author}
+Christopher Logan 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+01 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+10/05/2021 
+\end{DoxyDate}
+
+
+Definition at line 19 of file Entity\+Manager.\+h.
+
 
 
 \doxysubsection{Member Function Documentation}
-\mbox{\Hypertarget{class_entity_manager_a400020e7d1e1fe2d57bf8d2eab3fd425}\label{class_entity_manager_a400020e7d1e1fe2d57bf8d2eab3fd425}} 
-\index{EntityManager@{EntityManager}!ClearEntitys@{ClearEntitys}}
-\index{ClearEntitys@{ClearEntitys}!EntityManager@{EntityManager}}
-\doxysubsubsection{\texorpdfstring{ClearEntitys()}{ClearEntitys()}}
-{\footnotesize\ttfamily void Entity\+Manager\+::\+Clear\+Entitys (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
-
-\mbox{\Hypertarget{class_entity_manager_a86f55ccc1b9bc8d5541593d0485d1e20}\label{class_entity_manager_a86f55ccc1b9bc8d5541593d0485d1e20}} 
+\mbox{\Hypertarget{class_entity_manager_a5970d866fa90308f4e1e4e767b9b2d07}\label{class_entity_manager_a5970d866fa90308f4e1e4e767b9b2d07}} 
 \index{EntityManager@{EntityManager}!GetEntity@{GetEntity}}
 \index{GetEntity@{GetEntity}!EntityManager@{EntityManager}}
 \doxysubsubsection{\texorpdfstring{GetEntity()}{GetEntity()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{class_game_object}{Game\+Object}}$\ast$ Entity\+Manager\+::\+Get\+Entity (\begin{DoxyParamCaption}\item[{int}]{id }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_game_object}{Game\+Object}} $\ast$ Entity\+Manager\+::\+Get\+Entity (\begin{DoxyParamCaption}\item[{int}]{id }\end{DoxyParamCaption})}
 
+
+
+Returns the game object from the ID location. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & -\/ The id which is being searched for \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+gameobject if one is found, otherwise null 
+\end{DoxyReturn}
+
+
+Definition at line 25 of file Entity\+Manager.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{26 \{}
+\DoxyCodeLine{27     Objects::const\_iterator ent = entityMap.find(\textcolor{keywordtype}{id});}
+\DoxyCodeLine{28     \textcolor{keywordflow}{if} (ent == entityMap.end())}
+\DoxyCodeLine{29         \textcolor{keywordflow}{return} NULL;}
+\DoxyCodeLine{30     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{31         \textcolor{keywordflow}{return} ent-\/>second;}
+\DoxyCodeLine{32 \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{class_entity_manager_aa557074309a9c81ce62f463534d3b16f}\label{class_entity_manager_aa557074309a9c81ce62f463534d3b16f}} 
 \index{EntityManager@{EntityManager}!NumberedPos@{NumberedPos}}
 \index{NumberedPos@{NumberedPos}!EntityManager@{EntityManager}}
 \doxysubsubsection{\texorpdfstring{NumberedPos()}{NumberedPos()}}
-{\footnotesize\ttfamily int Entity\+Manager\+::\+Numbered\+Pos (\begin{DoxyParamCaption}\item[{int}]{i }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily int Entity\+Manager\+::\+Numbered\+Pos (\begin{DoxyParamCaption}\item[{int}]{i }\end{DoxyParamCaption})}
 
+
+
+Gets the value in the map point i. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em i} & -\/ The point being checked \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+map key at position i 
+\end{DoxyReturn}
+
+
+Definition at line 39 of file Entity\+Manager.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{40 \{}
+\DoxyCodeLine{41     \textcolor{keywordflow}{return} pos[i];}
+\DoxyCodeLine{42 \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{class_entity_manager_ae4242b4e23c02d712c2230fc532e4e97}\label{class_entity_manager_ae4242b4e23c02d712c2230fc532e4e97}} 
 \index{EntityManager@{EntityManager}!RegisterEntity@{RegisterEntity}}
 \index{RegisterEntity@{RegisterEntity}!EntityManager@{EntityManager}}
 \doxysubsubsection{\texorpdfstring{RegisterEntity()}{RegisterEntity()}}
-{\footnotesize\ttfamily void Entity\+Manager\+::\+Register\+Entity (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_game_object}{Game\+Object}} $\ast$}]{new\+Entity }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily void Entity\+Manager\+::\+Register\+Entity (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_game_object}{Game\+Object}} $\ast$}]{new\+Entity }\end{DoxyParamCaption})}
 
+
+
+Registers a new game object to the entity map. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em new\+Entity} & -\/ Add that new gameobject to the entity map \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 3 of file Entity\+Manager.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{4 \{}
+\DoxyCodeLine{5     entityMap.insert(std::make\_pair(newEntity-\/>\mbox{\hyperlink{class_game_object_a3e5f61bc1a1348752b50b9d1bb27a4fc}{GetId}}(), newEntity));}
+\DoxyCodeLine{6     pos.push\_back(newEntity-\/>\mbox{\hyperlink{class_game_object_a3e5f61bc1a1348752b50b9d1bb27a4fc}{GetId}}());}
+\DoxyCodeLine{7     \textcolor{comment}{//std::cout << newEntity-\/>GetId() << std::endl;}}
+\DoxyCodeLine{8 \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{class_entity_manager_a7f0ae1ce99392b3813ef48932bf5e5a7}\label{class_entity_manager_a7f0ae1ce99392b3813ef48932bf5e5a7}} 
 \index{EntityManager@{EntityManager}!RemoveEntity@{RemoveEntity}}
 \index{RemoveEntity@{RemoveEntity}!EntityManager@{EntityManager}}
 \doxysubsubsection{\texorpdfstring{RemoveEntity()}{RemoveEntity()}}
-{\footnotesize\ttfamily void Entity\+Manager\+::\+Remove\+Entity (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_game_object}{Game\+Object}} $\ast$}]{entity }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily void Entity\+Manager\+::\+Remove\+Entity (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_game_object}{Game\+Object}} $\ast$}]{entity }\end{DoxyParamCaption})}
 
+
+
+Removes the given game object from the map. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em entity} & -\/ removes that given gameobject from the map \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 10 of file Entity\+Manager.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{11 \{}
+\DoxyCodeLine{12     \textcolor{keywordtype}{int} removeId = entity-\/>\mbox{\hyperlink{class_game_object_a3e5f61bc1a1348752b50b9d1bb27a4fc}{GetId}}();}
+\DoxyCodeLine{13     entityMap.erase(entity-\/>\mbox{\hyperlink{class_game_object_a3e5f61bc1a1348752b50b9d1bb27a4fc}{GetId}}());}
+\DoxyCodeLine{14     std::vector<int>::iterator r;}
+\DoxyCodeLine{15     r = std::remove(pos.begin(), pos.end(), removeId);}
+\DoxyCodeLine{16     pos.erase(r);}
+\DoxyCodeLine{17 \}}
+
+\end{DoxyCode}
+
+
+References Game\+Object\+::\+Get\+Id().
+
+Here is the call graph for this function\+:
+% FIG 1
 \mbox{\Hypertarget{class_entity_manager_af41cf523ea516749873ff87d20d04483}\label{class_entity_manager_af41cf523ea516749873ff87d20d04483}} 
 \index{EntityManager@{EntityManager}!Size@{Size}}
 \index{Size@{Size}!EntityManager@{EntityManager}}
 \doxysubsubsection{\texorpdfstring{Size()}{Size()}}
-{\footnotesize\ttfamily int Entity\+Manager\+::\+Size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily int Entity\+Manager\+::\+Size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 
 
-The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+The size of the map/vector. 
+
+\begin{DoxyReturn}{Returns}
+map size 
+\end{DoxyReturn}
+
+
+Definition at line 34 of file Entity\+Manager.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{35 \{}
+\DoxyCodeLine{36     \textcolor{keywordflow}{return} pos.size();}
+\DoxyCodeLine{37 \}}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-ICT397-\/\+Project-\/\+Engine/\mbox{\hyperlink{_entity_manager_8h}{Entity\+Manager.\+h}}\end{DoxyCompactItemize}
+C\+:/\+Users/chris/\+Documents/\+UNI/\+ICT397-\/\+Project/\+ICT397-\/\+Project-\/\+Engine/Entity\+Manager.\+h\item 
+C\+:/\+Users/chris/\+Documents/\+UNI/\+ICT397-\/\+Project/\+ICT397-\/\+Project-\/\+Engine/Entity\+Manager.\+cpp\end{DoxyCompactItemize}

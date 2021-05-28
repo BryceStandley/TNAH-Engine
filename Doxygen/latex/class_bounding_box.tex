@@ -9,21 +9,27 @@ Class to control and generate boudningbox information for a given object.
 
 {\ttfamily \#include $<$Bounding\+Box.\+h$>$}
 
+
+
+Collaboration diagram for Bounding\+Box\+:
+% FIG 0
 \doxysubsection*{Public Types}
 \begin{DoxyCompactItemize}
 \item 
+\mbox{\Hypertarget{class_bounding_box_a7740a55cd572b82e1692e9f9d9a286c3}\label{class_bounding_box_a7740a55cd572b82e1692e9f9d9a286c3}} 
 enum \mbox{\hyperlink{class_bounding_box_a7740a55cd572b82e1692e9f9d9a286c3}{Collision\+Tag}} \{ \newline
-\mbox{\hyperlink{class_bounding_box_a7740a55cd572b82e1692e9f9d9a286c3a7b1d0daf07dde2c377bd7895e11c943f}{PLAYER}}
-, \mbox{\hyperlink{class_bounding_box_a7740a55cd572b82e1692e9f9d9a286c3a30c0b05af3c6a5b6c746bf4f69adbf75}{TOKEN}}
-, \mbox{\hyperlink{class_bounding_box_a7740a55cd572b82e1692e9f9d9a286c3a396df71c7410d0378b2c841d3f5833c5}{STATIC\+\_\+\+OBJECT}}
-, \mbox{\hyperlink{class_bounding_box_a7740a55cd572b82e1692e9f9d9a286c3a710b3b550ed07b2bcb3e8b168c870ce2}{ENEMY}}
+{\bfseries PLAYER}
+, {\bfseries TOKEN}
+, {\bfseries STATIC\+\_\+\+OBJECT}
+, {\bfseries ENEMY}
 , \newline
-\mbox{\hyperlink{class_bounding_box_a7740a55cd572b82e1692e9f9d9a286c3a08e938628501449eadad912690132b76}{WATER}}
+{\bfseries WATER}
  \}
 \begin{DoxyCompactList}\small\item\em Collision tag used for collision checking on a object. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
+\mbox{\Hypertarget{class_bounding_box_a4323fc64a71cee220dac92746a2bfe5e}\label{class_bounding_box_a4323fc64a71cee220dac92746a2bfe5e}} 
 \mbox{\hyperlink{class_bounding_box_a4323fc64a71cee220dac92746a2bfe5e}{Bounding\+Box}} ()=default
 \begin{DoxyCompactList}\small\item\em Bounding box constructor with empty objects. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{class_bounding_box_a3a733edb48ff238da35368e473892f8d}{Bounding\+Box}} (std\+::vector$<$ glm\+::vec3 $>$ v, std\+::vector$<$ int $>$ i)
@@ -42,6 +48,7 @@ std\+::vector$<$ glm\+::vec3 $>$ \mbox{\hyperlink{class_bounding_box_a3258430e70
 \begin{DoxyCompactList}\small\item\em Gets normal data of a bounding box. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{class_bounding_box}{Bounding\+Box}} \mbox{\hyperlink{class_bounding_box_ab296f5ae8c91a36892f030c8c62814f6}{Generate\+Bounding\+Box}} (\mbox{\hyperlink{class_mesh}{Mesh}} $\ast$mesh)
 \begin{DoxyCompactList}\small\item\em Takes a mesh and generates a basix bounding box based off min and max values of the mesh in X,Y,Z directions. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_bounding_box_af296a5334106dad59f911db18e128d71}\label{class_bounding_box_af296a5334106dad59f911db18e128d71}} 
 void \mbox{\hyperlink{class_bounding_box_af296a5334106dad59f911db18e128d71}{Generate\+Bounding\+Box\+Normals}} ()
 \begin{DoxyCompactList}\small\item\em Generates normals of the bounding box. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
@@ -59,56 +66,15 @@ Class to hold all collision and bounding box information of a game object \begin
 \item[\mbox{\hyperlink{todo__todo000001}{Todo}}]Implement bounding box collisions \end{DoxyRefDesc}
 
 
-\doxysubsection{Member Enumeration Documentation}
-\mbox{\Hypertarget{class_bounding_box_a7740a55cd572b82e1692e9f9d9a286c3}\label{class_bounding_box_a7740a55cd572b82e1692e9f9d9a286c3}} 
-\index{BoundingBox@{BoundingBox}!CollisionTag@{CollisionTag}}
-\index{CollisionTag@{CollisionTag}!BoundingBox@{BoundingBox}}
-\doxysubsubsection{\texorpdfstring{CollisionTag}{CollisionTag}}
-{\footnotesize\ttfamily enum \mbox{\hyperlink{class_bounding_box_a7740a55cd572b82e1692e9f9d9a286c3}{Bounding\+Box\+::\+Collision\+Tag}}}
+Definition at line 18 of file Bounding\+Box.\+h.
 
-
-
-Collision tag used for collision checking on a object. 
-
-\begin{DoxyEnumFields}{Enumerator}
-\raisebox{\heightof{T}}[0pt][0pt]{\index{PLAYER@{PLAYER}!BoundingBox@{BoundingBox}}\index{BoundingBox@{BoundingBox}!PLAYER@{PLAYER}}}\mbox{\Hypertarget{class_bounding_box_a7740a55cd572b82e1692e9f9d9a286c3a7b1d0daf07dde2c377bd7895e11c943f}\label{class_bounding_box_a7740a55cd572b82e1692e9f9d9a286c3a7b1d0daf07dde2c377bd7895e11c943f}} 
-PLAYER&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN@{TOKEN}!BoundingBox@{BoundingBox}}\index{BoundingBox@{BoundingBox}!TOKEN@{TOKEN}}}\mbox{\Hypertarget{class_bounding_box_a7740a55cd572b82e1692e9f9d9a286c3a30c0b05af3c6a5b6c746bf4f69adbf75}\label{class_bounding_box_a7740a55cd572b82e1692e9f9d9a286c3a30c0b05af3c6a5b6c746bf4f69adbf75}} 
-TOKEN&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{STATIC\_OBJECT@{STATIC\_OBJECT}!BoundingBox@{BoundingBox}}\index{BoundingBox@{BoundingBox}!STATIC\_OBJECT@{STATIC\_OBJECT}}}\mbox{\Hypertarget{class_bounding_box_a7740a55cd572b82e1692e9f9d9a286c3a396df71c7410d0378b2c841d3f5833c5}\label{class_bounding_box_a7740a55cd572b82e1692e9f9d9a286c3a396df71c7410d0378b2c841d3f5833c5}} 
-STATIC\+\_\+\+OBJECT&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{ENEMY@{ENEMY}!BoundingBox@{BoundingBox}}\index{BoundingBox@{BoundingBox}!ENEMY@{ENEMY}}}\mbox{\Hypertarget{class_bounding_box_a7740a55cd572b82e1692e9f9d9a286c3a710b3b550ed07b2bcb3e8b168c870ce2}\label{class_bounding_box_a7740a55cd572b82e1692e9f9d9a286c3a710b3b550ed07b2bcb3e8b168c870ce2}} 
-ENEMY&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{WATER@{WATER}!BoundingBox@{BoundingBox}}\index{BoundingBox@{BoundingBox}!WATER@{WATER}}}\mbox{\Hypertarget{class_bounding_box_a7740a55cd572b82e1692e9f9d9a286c3a08e938628501449eadad912690132b76}\label{class_bounding_box_a7740a55cd572b82e1692e9f9d9a286c3a08e938628501449eadad912690132b76}} 
-WATER&\\
-\hline
-
-\end{DoxyEnumFields}
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
-\mbox{\Hypertarget{class_bounding_box_a4323fc64a71cee220dac92746a2bfe5e}\label{class_bounding_box_a4323fc64a71cee220dac92746a2bfe5e}} 
-\index{BoundingBox@{BoundingBox}!BoundingBox@{BoundingBox}}
-\index{BoundingBox@{BoundingBox}!BoundingBox@{BoundingBox}}
-\doxysubsubsection{\texorpdfstring{BoundingBox()}{BoundingBox()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily Bounding\+Box\+::\+Bounding\+Box (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
-
-
-
-Bounding box constructor with empty objects. 
-
 \mbox{\Hypertarget{class_bounding_box_a3a733edb48ff238da35368e473892f8d}\label{class_bounding_box_a3a733edb48ff238da35368e473892f8d}} 
 \index{BoundingBox@{BoundingBox}!BoundingBox@{BoundingBox}}
 \index{BoundingBox@{BoundingBox}!BoundingBox@{BoundingBox}}
-\doxysubsubsection{\texorpdfstring{BoundingBox()}{BoundingBox()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+\doxysubsubsection{\texorpdfstring{BoundingBox()}{BoundingBox()}}
 {\footnotesize\ttfamily Bounding\+Box\+::\+Bounding\+Box (\begin{DoxyParamCaption}\item[{std\+::vector$<$ glm\+::vec3 $>$}]{v,  }\item[{std\+::vector$<$ int $>$}]{i }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
@@ -122,6 +88,15 @@ Bounding box constructor with vertex and indice data.
 {\em vector} & int i \\
 \hline
 \end{DoxyParams}
+
+
+Definition at line 30 of file Bounding\+Box.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{30 \{vertex = v; indice = i;\};}
+
+\end{DoxyCode}
 
 
 \doxysubsection{Member Function Documentation}
@@ -143,16 +118,88 @@ Takes a mesh and generates a basix bounding box based off min and max values of 
 \begin{DoxyReturn}{Returns}
 bounding\+Box 
 \end{DoxyReturn}
-\mbox{\Hypertarget{class_bounding_box_af296a5334106dad59f911db18e128d71}\label{class_bounding_box_af296a5334106dad59f911db18e128d71}} 
-\index{BoundingBox@{BoundingBox}!GenerateBoundingBoxNormals@{GenerateBoundingBoxNormals}}
-\index{GenerateBoundingBoxNormals@{GenerateBoundingBoxNormals}!BoundingBox@{BoundingBox}}
-\doxysubsubsection{\texorpdfstring{GenerateBoundingBoxNormals()}{GenerateBoundingBoxNormals()}}
-{\footnotesize\ttfamily void Bounding\+Box\+::\+Generate\+Bounding\+Box\+Normals (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+Definition at line 3 of file Bounding\+Box.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{4 \{}
+\DoxyCodeLine{5     \textcolor{keywordtype}{float} minX = 0.0f, minY = 0.0f, minZ = 0.0f;}
+\DoxyCodeLine{6     \textcolor{keywordtype}{float} maxX = 0.0f, maxY = 0.0f, maxZ = 0.0f;}
+\DoxyCodeLine{7     glm::vec3 size, origin;}
+\DoxyCodeLine{8     glm::mat4 transform;}
+\DoxyCodeLine{9     \textcolor{keywordflow}{for}(\mbox{\hyperlink{struct_vertex}{Vertex}} \& vertice : mesh-\/>\mbox{\hyperlink{class_mesh_a6465a888c97232a39e12aad008c969c3}{vertices}})}
+\DoxyCodeLine{10     \{}
+\DoxyCodeLine{11         \textcolor{keywordflow}{if}(minX > vertice.\mbox{\hyperlink{struct_vertex_abb3cfacd96b5955b0cec9359840ee49f}{Position}}.x) \{minX = vertice.\mbox{\hyperlink{struct_vertex_abb3cfacd96b5955b0cec9359840ee49f}{Position}}.x;\}}
+\DoxyCodeLine{12         \textcolor{keywordflow}{if}(maxX < vertice.\mbox{\hyperlink{struct_vertex_abb3cfacd96b5955b0cec9359840ee49f}{Position}}.x) \{maxX = vertice.\mbox{\hyperlink{struct_vertex_abb3cfacd96b5955b0cec9359840ee49f}{Position}}.x;\}}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14         \textcolor{keywordflow}{if}(minY > vertice.\mbox{\hyperlink{struct_vertex_abb3cfacd96b5955b0cec9359840ee49f}{Position}}.y) \{minY = vertice.\mbox{\hyperlink{struct_vertex_abb3cfacd96b5955b0cec9359840ee49f}{Position}}.y;\}}
+\DoxyCodeLine{15         \textcolor{keywordflow}{if}(maxY > vertice.\mbox{\hyperlink{struct_vertex_abb3cfacd96b5955b0cec9359840ee49f}{Position}}.y) \{maxY = vertice.\mbox{\hyperlink{struct_vertex_abb3cfacd96b5955b0cec9359840ee49f}{Position}}.y;\}}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{17         \textcolor{keywordflow}{if}(minZ > vertice.\mbox{\hyperlink{struct_vertex_abb3cfacd96b5955b0cec9359840ee49f}{Position}}.z) \{minZ = vertice.\mbox{\hyperlink{struct_vertex_abb3cfacd96b5955b0cec9359840ee49f}{Position}}.z;\}}
+\DoxyCodeLine{18         \textcolor{keywordflow}{if}(maxZ > vertice.\mbox{\hyperlink{struct_vertex_abb3cfacd96b5955b0cec9359840ee49f}{Position}}.z) \{maxZ = vertice.\mbox{\hyperlink{struct_vertex_abb3cfacd96b5955b0cec9359840ee49f}{Position}}.z;\}}
+\DoxyCodeLine{19     \}}
+\DoxyCodeLine{20 }
+\DoxyCodeLine{21     std::vector<glm::vec3> box;}
+\DoxyCodeLine{22     std::vector<int> ind;}
+\DoxyCodeLine{23 }
+\DoxyCodeLine{24     \textcolor{comment}{//All vertex data for all 8 required vertices}}
+\DoxyCodeLine{25     box.emplace\_back(glm::vec3(minX, maxY, maxZ));}
+\DoxyCodeLine{26     box.emplace\_back(glm::vec3(maxX, maxY, maxZ));}
+\DoxyCodeLine{27     box.emplace\_back(glm::vec3(maxX, minY, maxZ));}
+\DoxyCodeLine{28     box.emplace\_back(glm::vec3(minX, minY, maxZ));}
+\DoxyCodeLine{29 }
+\DoxyCodeLine{30     box.emplace\_back(glm::vec3(minX, maxY, minZ));}
+\DoxyCodeLine{31     box.emplace\_back(glm::vec3(maxX, maxY, minZ));}
+\DoxyCodeLine{32     box.emplace\_back(glm::vec3(maxX, minY, minZ));}
+\DoxyCodeLine{33     box.emplace\_back(glm::vec3(minX, minY, minZ));}
+\DoxyCodeLine{34 }
+\DoxyCodeLine{35     size = glm::vec3(maxX-\/minX, maxY-\/minY, maxZ-\/minZ);}
+\DoxyCodeLine{36     origin = glm::vec3((minX+maxX)/2, (minY + maxY)/2, (minZ + maxZ)/2);}
+\DoxyCodeLine{37     transform = glm::translate(glm::mat4(1), origin) * glm::scale(glm::mat4(1), size);}
+\DoxyCodeLine{38 }
+\DoxyCodeLine{39     \textcolor{comment}{//index of all the triangles}}
+\DoxyCodeLine{40     \textcolor{keywordtype}{int} indi[] = \{}
+\DoxyCodeLine{41             \textcolor{comment}{// front}}
+\DoxyCodeLine{42             0, 1, 2,}
+\DoxyCodeLine{43             2, 3, 0,}
+\DoxyCodeLine{44             \textcolor{comment}{// right}}
+\DoxyCodeLine{45             1, 5, 6,}
+\DoxyCodeLine{46             6, 2, 1,}
+\DoxyCodeLine{47             \textcolor{comment}{// back}}
+\DoxyCodeLine{48             7, 6, 5,}
+\DoxyCodeLine{49             5, 4, 7,}
+\DoxyCodeLine{50             \textcolor{comment}{// left}}
+\DoxyCodeLine{51             4, 0, 3,}
+\DoxyCodeLine{52             3, 7, 4,}
+\DoxyCodeLine{53             \textcolor{comment}{// bottom}}
+\DoxyCodeLine{54             4, 5, 1,}
+\DoxyCodeLine{55             1, 0, 4,}
+\DoxyCodeLine{56             \textcolor{comment}{// top}}
+\DoxyCodeLine{57             3, 2, 6,}
+\DoxyCodeLine{58             6, 7, 3}
+\DoxyCodeLine{59     \};}
+\DoxyCodeLine{60     ind.insert(ind.begin(), std::begin(indi), std::end(indi));}
+\DoxyCodeLine{61 }
+\DoxyCodeLine{62     \mbox{\hyperlink{class_bounding_box_af296a5334106dad59f911db18e128d71}{GenerateBoundingBoxNormals}}();}
+\DoxyCodeLine{63 }
+\DoxyCodeLine{64     \textcolor{keywordflow}{return} \mbox{\hyperlink{class_bounding_box_a4323fc64a71cee220dac92746a2bfe5e}{BoundingBox}}(box, ind);}
+\DoxyCodeLine{65 \}}
+
+\end{DoxyCode}
+
+
+References Generate\+Bounding\+Box\+Normals().
 
 
 
-Generates normals of the bounding box. 
+Referenced by Game\+Asset\+Factory\+::\+Get\+Game\+Object(), and Game\+Asset\+Factory\+::\+Get\+Game\+Object\+Save().
 
+Here is the call graph for this function\+:
+% FIG 1
+Here is the caller graph for this function\+:
+% FIG 2
 \mbox{\Hypertarget{class_bounding_box_a003cb0aa90915f5763bc5d3f394c7ae1}\label{class_bounding_box_a003cb0aa90915f5763bc5d3f394c7ae1}} 
 \index{BoundingBox@{BoundingBox}!GetIndiceData@{GetIndiceData}}
 \index{GetIndiceData@{GetIndiceData}!BoundingBox@{BoundingBox}}
@@ -166,6 +213,15 @@ Gets indice data of a bounding box.
 \begin{DoxyReturn}{Returns}
 vector int 
 \end{DoxyReturn}
+
+
+Definition at line 60 of file Bounding\+Box.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{60 \{\textcolor{keywordflow}{return} indice;\}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{class_bounding_box_a3258430e7087f4c5cb9862284b7e8d12}\label{class_bounding_box_a3258430e7087f4c5cb9862284b7e8d12}} 
 \index{BoundingBox@{BoundingBox}!GetNormalData@{GetNormalData}}
 \index{GetNormalData@{GetNormalData}!BoundingBox@{BoundingBox}}
@@ -179,6 +235,15 @@ Gets normal data of a bounding box.
 \begin{DoxyReturn}{Returns}
 vector vec3 
 \end{DoxyReturn}
+
+
+Definition at line 66 of file Bounding\+Box.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{66 \{\textcolor{keywordflow}{return} normals;\}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{class_bounding_box_a8b6a4ecc7e217f7479d9f7a4c181c99d}\label{class_bounding_box_a8b6a4ecc7e217f7479d9f7a4c181c99d}} 
 \index{BoundingBox@{BoundingBox}!GetVertexData@{GetVertexData}}
 \index{GetVertexData@{GetVertexData}!BoundingBox@{BoundingBox}}
@@ -192,6 +257,15 @@ Gets vertex data of a bounding box.
 \begin{DoxyReturn}{Returns}
 vector vec3 
 \end{DoxyReturn}
+
+
+Definition at line 54 of file Bounding\+Box.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{54 \{\textcolor{keywordflow}{return} vertex;\}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{class_bounding_box_ad009edaba22531939213fcecf7c692c4}\label{class_bounding_box_ad009edaba22531939213fcecf7c692c4}} 
 \index{BoundingBox@{BoundingBox}!SetIndiceData@{SetIndiceData}}
 \index{SetIndiceData@{SetIndiceData}!BoundingBox@{BoundingBox}}
@@ -207,6 +281,15 @@ Sets the indice data of a bounding box.
 {\em vector} & int i \\
 \hline
 \end{DoxyParams}
+
+
+Definition at line 42 of file Bounding\+Box.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{42 \{indice = i;\}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{class_bounding_box_ad74053f24c11719762c13b19127df2b4}\label{class_bounding_box_ad74053f24c11719762c13b19127df2b4}} 
 \index{BoundingBox@{BoundingBox}!SetNormalsData@{SetNormalsData}}
 \index{SetNormalsData@{SetNormalsData}!BoundingBox@{BoundingBox}}
@@ -222,6 +305,15 @@ Sets the normals data of a bounding box.
 {\em vector} & vec3 n \\
 \hline
 \end{DoxyParams}
+
+
+Definition at line 48 of file Bounding\+Box.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{48 \{normals = n;\}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{class_bounding_box_a33c492e75724d832d0d7500e1b137615}\label{class_bounding_box_a33c492e75724d832d0d7500e1b137615}} 
 \index{BoundingBox@{BoundingBox}!SetVertexData@{SetVertexData}}
 \index{SetVertexData@{SetVertexData}!BoundingBox@{BoundingBox}}
@@ -239,7 +331,16 @@ Sets the vertex data of a bounding box.
 \end{DoxyParams}
 
 
+Definition at line 36 of file Bounding\+Box.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{36 \{vertex = v;\}}
+
+\end{DoxyCode}
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-ICT397-\/\+Project-\/\+Engine/\mbox{\hyperlink{_bounding_box_8h}{Bounding\+Box.\+h}}\item 
-ICT397-\/\+Project-\/\+Engine/\mbox{\hyperlink{_bounding_box_8cpp}{Bounding\+Box.\+cpp}}\end{DoxyCompactItemize}
+C\+:/\+Users/chris/\+Documents/\+UNI/\+ICT397-\/\+Project/\+ICT397-\/\+Project-\/\+Engine/Bounding\+Box.\+h\item 
+C\+:/\+Users/chris/\+Documents/\+UNI/\+ICT397-\/\+Project/\+ICT397-\/\+Project-\/\+Engine/Bounding\+Box.\+cpp\end{DoxyCompactItemize}

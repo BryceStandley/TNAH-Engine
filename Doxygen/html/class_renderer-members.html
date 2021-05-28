@@ -5,14 +5,10 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TNAH-Engine-ICT397: Member List</title>
+<title>Zoom: Member List</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
-<link href="navtree.css" rel="stylesheet" type="text/css"/>
-<script type="text/javascript" src="resize.js"></script>
-<script type="text/javascript" src="navtreedata.js"></script>
-<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -24,10 +20,8 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="TNAH-2.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">TNAH-Engine-ICT397
-   &#160;<span id="projectnumber">2</span>
+   <div id="projectname">Zoom
    </div>
   </td>
  </tr>
@@ -51,23 +45,6 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
-</div><!-- top -->
-<div id="side-nav" class="ui-resizable side-nav-resizable">
-  <div id="nav-tree">
-    <div id="nav-tree-contents">
-      <div id="nav-sync" class="sync"></div>
-    </div>
-  </div>
-  <div id="splitbar" style="-moz-user-select:none;" 
-       class="ui-resizable-handle">
-  </div>
-</div>
-<script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-$(document).ready(function(){initNavTree('class_renderer.html',''); initResizable(); });
-/* @license-end */
-</script>
-<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -82,6 +59,7 @@ $(document).ready(function(){initNavTree('class_renderer.html',''); initResizabl
 </iframe>
 </div>
 
+</div><!-- top -->
 <div class="header">
   <div class="headertitle">
 <div class="title">Renderer Member List</div>  </div>
@@ -93,14 +71,14 @@ $(document).ready(function(){initNavTree('class_renderer.html',''); initResizabl
   <tr class="even"><td class="entry"><a class="el" href="class_renderer.html#a259e569689938bea487d31727791b963">BindTexture</a>(std::vector&lt; unsigned int &gt; textures)</td><td class="entry"><a class="el" href="class_renderer.html">Renderer</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
   <tr><td class="entry"><a class="el" href="class_renderer.html#a02beced87878dd00ad9370c2b524c4ad">DepthTest</a>()</td><td class="entry"><a class="el" href="class_renderer.html">Renderer</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_renderer.html#aff31437b9015103fec2d09b00979aed7">ExitScreenSetup</a>(std::vector&lt; glm::vec3 &gt; vertexData, std::vector&lt; unsigned int &gt; indicesData, unsigned int &amp;VAO, unsigned int &amp;VBO, unsigned int &amp;EBO)</td><td class="entry"><a class="el" href="class_renderer.html">Renderer</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_renderer.html#a441f883bb48f39e015d54c83ef805c99">LoadModel</a>(int numFrames, std::vector&lt; int &gt; commands, unsigned int &amp;VAO, v3 anorms[162], std::vector&lt; std::vector&lt; glm::vec3 &gt;&gt; vertices, std::vector&lt; std::vector&lt; int &gt;&gt; normals)</td><td class="entry"><a class="el" href="class_renderer.html">Renderer</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
+  <tr bgcolor="#f0f0f0"><td class="entry"><b>LoadModel</b>(int numFrames, std::vector&lt; int &gt; commands, unsigned int &amp;VAO, v3 anorms[162], std::vector&lt; std::vector&lt; glm::vec3 &gt;&gt; vertices, std::vector&lt; std::vector&lt; int &gt;&gt; normals) (defined in <a class="el" href="class_renderer.html">Renderer</a>)</td><td class="entry"><a class="el" href="class_renderer.html">Renderer</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_renderer.html#a023aa7491efa15df16a0750cd5ed516a">RenderExitScreen</a>(unsigned int VAO, unsigned int EBO, unsigned int texture)</td><td class="entry"><a class="el" href="class_renderer.html">Renderer</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
   <tr><td class="entry"><a class="el" href="class_renderer.html#a50f434d31fea7a8feedd0b7077f8ab1b">RenderModel</a>(Shader &amp;shader, glm::mat4 newModel, Mesh mesh)</td><td class="entry"><a class="el" href="class_renderer.html">Renderer</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_renderer.html#a1595d5b35688c46bb7a2dcf154ac1c71">RenderModel</a>(int number, Md2State *animState, glm::mat4 proj, glm::mat4 view, glm::mat4 genFour, float direction, unsigned int &amp;VAO, unsigned int &amp;textureId, Shader &amp;shader)</td><td class="entry"><a class="el" href="class_renderer.html">Renderer</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_renderer.html#a01fff21b97aae0ab948b50f2476e639d">RenderModel</a>(int number, Md2State *animState, glm::mat4 proj, glm::mat4 view, glm::vec3 position, glm::vec3 rotation, float direction, unsigned int &amp;VAO, unsigned int &amp;textureId, Shader &amp;shader)</td><td class="entry"><a class="el" href="class_renderer.html">Renderer</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
+  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>RenderModel</b>(int number, Md2State *animState, glm::mat4 proj, glm::mat4 view, glm::mat4 genFour, float direction, unsigned int &amp;VAO, unsigned int &amp;textureId, Shader &amp;shader) (defined in <a class="el" href="class_renderer.html">Renderer</a>)</td><td class="entry"><a class="el" href="class_renderer.html">Renderer</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
+  <tr bgcolor="#f0f0f0"><td class="entry"><b>RenderModel</b>(int number, Md2State *animState, glm::mat4 proj, glm::mat4 view, glm::vec3 position, glm::vec3 rotation, float direction, unsigned int &amp;VAO, unsigned int &amp;textureId, Shader &amp;shader) (defined in <a class="el" href="class_renderer.html">Renderer</a>)</td><td class="entry"><a class="el" href="class_renderer.html">Renderer</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_renderer.html#a73ad38f16da2f99d3a044b6fc2758694">RenderSkybox</a>(unsigned int VAO, unsigned int texture)</td><td class="entry"><a class="el" href="class_renderer.html">Renderer</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
   <tr><td class="entry"><a class="el" href="class_renderer.html#a959836fa3882bc0941997d7cbdef10c6">RenderTerrain</a>(unsigned int VAO, int size)</td><td class="entry"><a class="el" href="class_renderer.html">Renderer</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_renderer.html#a11fdf26547245affa20b6015796e126d">SetGlfwWindow</a>()</td><td class="entry"><a class="el" href="class_renderer.html">Renderer</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
+  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>SetGlfwWindow</b>() (defined in <a class="el" href="class_renderer.html">Renderer</a>)</td><td class="entry"><a class="el" href="class_renderer.html">Renderer</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
   <tr><td class="entry"><a class="el" href="class_renderer.html#a0eebf54fd91ea19b54da3bf1ba944a0f">SetShader</a>(Shader shader, View lens)</td><td class="entry"><a class="el" href="class_renderer.html">Renderer</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_renderer.html#a224d12fd102ab83e02c768dc7a6dce0d">SetShaderSkybox</a>(Shader shader, View lens)</td><td class="entry"><a class="el" href="class_renderer.html">Renderer</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
   <tr><td class="entry"><a class="el" href="class_renderer.html#a9c07e92b290c5abcb77941815823943e">SetShaderTerrain</a>(Shader &amp;shader, View lens)</td><td class="entry"><a class="el" href="class_renderer.html">Renderer</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
@@ -108,14 +86,11 @@ $(document).ready(function(){initNavTree('class_renderer.html',''); initResizabl
   <tr><td class="entry"><a class="el" href="class_renderer.html#a5e3f1919e892bfbcc2b1ab40f4b4d14c">SkyboxSetup</a>(std::vector&lt; float &gt; skyVerts, std::vector&lt; std::string &gt; faces, unsigned int &amp;VAO, unsigned int &amp;VBO, unsigned int &amp;texture, Shader &amp;skyShader)</td><td class="entry"><a class="el" href="class_renderer.html">Renderer</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_renderer.html#a89a8d1f799a6c1abd2d7af6e510f8999">TerrainSetup</a>(std::vector&lt; glm::vec3 &gt; totalData, std::vector&lt; unsigned int &gt; Indices, unsigned int &amp;VAO, unsigned int &amp;VBO, unsigned int &amp;EBO)</td><td class="entry"><a class="el" href="class_renderer.html">Renderer</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
   <tr><td class="entry"><a class="el" href="class_renderer.html#aa553a67d535a2bbbb530fa225b89f389">TextureFromFile</a>(std::string path, const std::string &amp;directory)</td><td class="entry"><a class="el" href="class_renderer.html">Renderer</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_renderer.html#a7af80c77df12a67838b0a1aea7393fcd">TextureFromFile</a>(std::string path)</td><td class="entry"><a class="el" href="class_renderer.html">Renderer</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>TextureFromFile</b>(std::string path) (defined in <a class="el" href="class_renderer.html">Renderer</a>)</td><td class="entry"><a class="el" href="class_renderer.html">Renderer</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
 </table></div><!-- contents -->
-</div><!-- doc-content -->
 <!-- start footer part -->
-<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
-  <ul>
-    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
-  </ul>
-</div>
+<hr class="footer"/><address class="footer"><small>
+Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+</small></address>
 </body>
 </html>

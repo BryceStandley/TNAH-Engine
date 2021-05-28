@@ -1,0 +1,18 @@
+digraph "Player::Player"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="Player::Player",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Player constructor that takes various parameters."];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid"];
+  Node2 [label="Model::Model",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_model.html#ad30000e7f6d3f6771d8e3c0b56a4bdc0",tooltip="Model constructor that takes various parameters."];
+  Node1 -> Node3 [color="midnightblue",fontsize="10",style="solid"];
+  Node3 [label="Player::SetState",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_player.html#a7f2f602458cae632074ff1eb0187ebd0",tooltip="sets the animation state to the value provided as a parameter"];
+  Node3 -> Node4 [color="midnightblue",fontsize="10",style="solid"];
+  Node4 [label="Model::SetState",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_model.html#abeacaeec6265bc2565031e4badc91123",tooltip="sets the animation state of the model to the command provided as parameter"];
+  Node1 -> Node5 [color="midnightblue",fontsize="10",style="solid"];
+  Node5 [label="Shader::Shader",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_shader.html#aa732beb72038e86aca70a34c369a255e",tooltip="A constructor that takes in paths to the shaders and generates them."];
+  Node1 -> Node6 [color="midnightblue",fontsize="10",style="solid"];
+  Node6 [label="Player::Update",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_player.html#a4dbbe55f79b10545ee6b2e6c7e0b4bc9",tooltip="Updates the classes functionality."];
+}

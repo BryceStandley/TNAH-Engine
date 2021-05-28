@@ -1,95 +1,58 @@
-\hypertarget{struct_telegram}{}\doxysection{Telegram Struct Reference}
+\hypertarget{struct_telegram}{}\doxysection{Telegram Class Reference}
 \label{struct_telegram}\index{Telegram@{Telegram}}
 
 
 {\ttfamily \#include $<$Telegram.\+h$>$}
 
+
+
+Collaboration diagram for Telegram\+:
+% FIG 0
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{struct_telegram_a31fe650878649f2ec036b022bf6ee632}{Telegram}} ()
-\item 
-\mbox{\hyperlink{struct_telegram_a099d5c8aa60bcf05b51deefac0c10014}{Telegram}} (float time, int send, int rec, bool all, int \mbox{\hyperlink{_singleton_headers_8h_a8b0193f0cc93b63beb917fc7d2c1ee70}{message}}, glm\+::vec3 p)
+\mbox{\Hypertarget{struct_telegram_a099d5c8aa60bcf05b51deefac0c10014}\label{struct_telegram_a099d5c8aa60bcf05b51deefac0c10014}} 
+{\bfseries Telegram} (float time, int send, int rec, bool all, int \mbox{\hyperlink{classsingleton}{message}}, glm\+::vec3 p)
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
-int \mbox{\hyperlink{struct_telegram_a026d8e02a967bc0bf3b212493b2c3ce0}{sender}}
+\mbox{\Hypertarget{struct_telegram_a026d8e02a967bc0bf3b212493b2c3ce0}\label{struct_telegram_a026d8e02a967bc0bf3b212493b2c3ce0}} 
+int {\bfseries sender}
 \item 
-int \mbox{\hyperlink{struct_telegram_a4c3bb816b0b553fbb3e3a44da7922cf3}{receiver}}
+\mbox{\Hypertarget{struct_telegram_a4c3bb816b0b553fbb3e3a44da7922cf3}\label{struct_telegram_a4c3bb816b0b553fbb3e3a44da7922cf3}} 
+int {\bfseries receiver}
 \item 
-bool \mbox{\hyperlink{struct_telegram_a411a52a8c38f8a85b759fd5b1f36a106}{universal}}
+\mbox{\Hypertarget{struct_telegram_a411a52a8c38f8a85b759fd5b1f36a106}\label{struct_telegram_a411a52a8c38f8a85b759fd5b1f36a106}} 
+bool {\bfseries universal}
 \item 
-int \mbox{\hyperlink{struct_telegram_ae86f02519c04f76665c4e872e2144055}{msg}}
+\mbox{\Hypertarget{struct_telegram_ae86f02519c04f76665c4e872e2144055}\label{struct_telegram_ae86f02519c04f76665c4e872e2144055}} 
+int {\bfseries msg}
 \item 
-float \mbox{\hyperlink{struct_telegram_a69bbeebee408551475aa4bcc760cdda8}{dispatch\+Time}}
+\mbox{\Hypertarget{struct_telegram_a69bbeebee408551475aa4bcc760cdda8}\label{struct_telegram_a69bbeebee408551475aa4bcc760cdda8}} 
+float {\bfseries dispatch\+Time}
 \item 
-const float \mbox{\hyperlink{struct_telegram_a4d25b8be6abd3b426d80cb22f92f023c}{smallest\+Delay}} = 0.\+25
+\mbox{\Hypertarget{struct_telegram_a4d25b8be6abd3b426d80cb22f92f023c}\label{struct_telegram_a4d25b8be6abd3b426d80cb22f92f023c}} 
+const float {\bfseries smallest\+Delay} = 0.\+25
 \item 
-glm\+::vec3 \mbox{\hyperlink{struct_telegram_a6fadd6a9cf2cacf28cba4d38967efac0}{pos}}
+\mbox{\Hypertarget{struct_telegram_a6fadd6a9cf2cacf28cba4d38967efac0}\label{struct_telegram_a6fadd6a9cf2cacf28cba4d38967efac0}} 
+glm\+::vec3 {\bfseries pos}
 \end{DoxyCompactItemize}
 
 
-\doxysubsection{Constructor \& Destructor Documentation}
-\mbox{\Hypertarget{struct_telegram_a31fe650878649f2ec036b022bf6ee632}\label{struct_telegram_a31fe650878649f2ec036b022bf6ee632}} 
-\index{Telegram@{Telegram}!Telegram@{Telegram}}
-\index{Telegram@{Telegram}!Telegram@{Telegram}}
-\doxysubsubsection{\texorpdfstring{Telegram()}{Telegram()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily Telegram\+::\+Telegram (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+\doxysubsection{Detailed Description}
+@breif Holds the messages that are sent from the AI \begin{DoxyAuthor}{Author}
+Christopher Logan 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+MAY 2021 
+\end{DoxyDate}
 
-\mbox{\Hypertarget{struct_telegram_a099d5c8aa60bcf05b51deefac0c10014}\label{struct_telegram_a099d5c8aa60bcf05b51deefac0c10014}} 
-\index{Telegram@{Telegram}!Telegram@{Telegram}}
-\index{Telegram@{Telegram}!Telegram@{Telegram}}
-\doxysubsubsection{\texorpdfstring{Telegram()}{Telegram()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily Telegram\+::\+Telegram (\begin{DoxyParamCaption}\item[{float}]{time,  }\item[{int}]{send,  }\item[{int}]{rec,  }\item[{bool}]{all,  }\item[{int}]{message,  }\item[{glm\+::vec3}]{p }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Definition at line 9 of file Telegram.\+h.
 
 
 
-\doxysubsection{Member Data Documentation}
-\mbox{\Hypertarget{struct_telegram_a69bbeebee408551475aa4bcc760cdda8}\label{struct_telegram_a69bbeebee408551475aa4bcc760cdda8}} 
-\index{Telegram@{Telegram}!dispatchTime@{dispatchTime}}
-\index{dispatchTime@{dispatchTime}!Telegram@{Telegram}}
-\doxysubsubsection{\texorpdfstring{dispatchTime}{dispatchTime}}
-{\footnotesize\ttfamily float Telegram\+::dispatch\+Time}
-
-\mbox{\Hypertarget{struct_telegram_ae86f02519c04f76665c4e872e2144055}\label{struct_telegram_ae86f02519c04f76665c4e872e2144055}} 
-\index{Telegram@{Telegram}!msg@{msg}}
-\index{msg@{msg}!Telegram@{Telegram}}
-\doxysubsubsection{\texorpdfstring{msg}{msg}}
-{\footnotesize\ttfamily int Telegram\+::msg}
-
-\mbox{\Hypertarget{struct_telegram_a6fadd6a9cf2cacf28cba4d38967efac0}\label{struct_telegram_a6fadd6a9cf2cacf28cba4d38967efac0}} 
-\index{Telegram@{Telegram}!pos@{pos}}
-\index{pos@{pos}!Telegram@{Telegram}}
-\doxysubsubsection{\texorpdfstring{pos}{pos}}
-{\footnotesize\ttfamily glm\+::vec3 Telegram\+::pos}
-
-\mbox{\Hypertarget{struct_telegram_a4c3bb816b0b553fbb3e3a44da7922cf3}\label{struct_telegram_a4c3bb816b0b553fbb3e3a44da7922cf3}} 
-\index{Telegram@{Telegram}!receiver@{receiver}}
-\index{receiver@{receiver}!Telegram@{Telegram}}
-\doxysubsubsection{\texorpdfstring{receiver}{receiver}}
-{\footnotesize\ttfamily int Telegram\+::receiver}
-
-\mbox{\Hypertarget{struct_telegram_a026d8e02a967bc0bf3b212493b2c3ce0}\label{struct_telegram_a026d8e02a967bc0bf3b212493b2c3ce0}} 
-\index{Telegram@{Telegram}!sender@{sender}}
-\index{sender@{sender}!Telegram@{Telegram}}
-\doxysubsubsection{\texorpdfstring{sender}{sender}}
-{\footnotesize\ttfamily int Telegram\+::sender}
-
-\mbox{\Hypertarget{struct_telegram_a4d25b8be6abd3b426d80cb22f92f023c}\label{struct_telegram_a4d25b8be6abd3b426d80cb22f92f023c}} 
-\index{Telegram@{Telegram}!smallestDelay@{smallestDelay}}
-\index{smallestDelay@{smallestDelay}!Telegram@{Telegram}}
-\doxysubsubsection{\texorpdfstring{smallestDelay}{smallestDelay}}
-{\footnotesize\ttfamily const float Telegram\+::smallest\+Delay = 0.\+25}
-
-\mbox{\Hypertarget{struct_telegram_a411a52a8c38f8a85b759fd5b1f36a106}\label{struct_telegram_a411a52a8c38f8a85b759fd5b1f36a106}} 
-\index{Telegram@{Telegram}!universal@{universal}}
-\index{universal@{universal}!Telegram@{Telegram}}
-\doxysubsubsection{\texorpdfstring{universal}{universal}}
-{\footnotesize\ttfamily bool Telegram\+::universal}
-
-
-
-The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-ICT397-\/\+Project-\/\+Engine/\mbox{\hyperlink{_telegram_8h}{Telegram.\+h}}\end{DoxyCompactItemize}
+C\+:/\+Users/chris/\+Documents/\+UNI/\+ICT397-\/\+Project/\+ICT397-\/\+Project-\/\+Engine/Telegram.\+h\end{DoxyCompactItemize}

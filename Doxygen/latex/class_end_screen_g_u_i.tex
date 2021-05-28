@@ -2,10 +2,6 @@
 \label{class_end_screen_g_u_i}\index{EndScreenGUI@{EndScreenGUI}}
 
 
-{\ttfamily \#include $<$End\+Screen\+GUI.\+h$>$}
-
-
-
 Inheritance diagram for End\+Screen\+GUI\+:
 % FIG 0
 
@@ -17,11 +13,19 @@ Collaboration diagram for End\+Screen\+GUI\+:
 \item 
 \mbox{\hyperlink{class_end_screen_g_u_i_a563e40b989842287dd1040654dc498ac}{End\+Screen\+GUI}} (std\+::string script\+Path)
 \begin{DoxyCompactList}\small\item\em Endscreen constructor. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_end_screen_g_u_i_acc5a1425f9e7694474855caec83e1dc1}\label{class_end_screen_g_u_i_acc5a1425f9e7694474855caec83e1dc1}} 
 void \mbox{\hyperlink{class_end_screen_g_u_i_acc5a1425f9e7694474855caec83e1dc1}{Draw}} () override
 \begin{DoxyCompactList}\small\item\em Draw override of the base \mbox{\hyperlink{class_g_u_i}{GUI}} draw. \end{DoxyCompactList}\item 
 bool \mbox{\hyperlink{class_end_screen_g_u_i_a71e834b21206d4e7e297614627d3a79d}{Load\+Texture\+From\+File}} (std\+::string filename, GLuint $\ast$out\+\_\+texture, int $\ast$out\+\_\+width, int $\ast$out\+\_\+height)
-\begin{DoxyCompactList}\small\item\em Small texture loader for \mbox{\hyperlink{namespace_im_gui}{Im\+Gui}}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Small texture loader for Im\+Gui. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 11 of file End\+Screen\+GUI.\+h.
+
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
@@ -42,21 +46,40 @@ Endscreen constructor.
 \end{DoxyParams}
 
 
+Definition at line 3 of file End\+Screen\+GUI.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{4 \{}
+\DoxyCodeLine{5     lua\_State* L = \mbox{\hyperlink{class_lua_manager_a526cb587400fbdbcb31fc2302439f4e0}{LuaManager::getInstance}}().\mbox{\hyperlink{class_lua_manager_a191dcfea251f8e229df11466f6941527}{getLuaState}}();}
+\DoxyCodeLine{6 }
+\DoxyCodeLine{7     \textcolor{keywordflow}{if} (!luaL\_dofile(L, scriptPath.c\_str()))}
+\DoxyCodeLine{8     \{}
+\DoxyCodeLine{9         luabridge::LuaRef i = luabridge::getGlobal(L, \textcolor{stringliteral}{"{}imageLocation"{}});}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11         \textcolor{keywordflow}{if} (i .isString()) endscreenImage = i.cast<std::string>();}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13     \}}
+\DoxyCodeLine{14     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{15     \{}
+\DoxyCodeLine{16         endscreenImage = \textcolor{stringliteral}{"{}./res/images/exitScreen.png"{}};}
+\DoxyCodeLine{17     \}}
+\DoxyCodeLine{18 }
+\DoxyCodeLine{19 }
+\DoxyCodeLine{20     \textcolor{keywordtype}{bool} ret = \mbox{\hyperlink{class_end_screen_g_u_i_a71e834b21206d4e7e297614627d3a79d}{LoadTextureFromFile}}(endscreenImage, \&my\_image\_texture, \&my\_image\_width, \&my\_image\_height);}
+\DoxyCodeLine{21     IM\_ASSERT(ret);}
+\DoxyCodeLine{22 \}}
+
+\end{DoxyCode}
+
+
+Referenced by Scene\+::\+Init().
+
+Here is the caller graph for this function\+:
+% FIG 2
+
+
 \doxysubsection{Member Function Documentation}
-\mbox{\Hypertarget{class_end_screen_g_u_i_acc5a1425f9e7694474855caec83e1dc1}\label{class_end_screen_g_u_i_acc5a1425f9e7694474855caec83e1dc1}} 
-\index{EndScreenGUI@{EndScreenGUI}!Draw@{Draw}}
-\index{Draw@{Draw}!EndScreenGUI@{EndScreenGUI}}
-\doxysubsubsection{\texorpdfstring{Draw()}{Draw()}}
-{\footnotesize\ttfamily void End\+Screen\+GUI\+::\+Draw (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
-
-
-
-Draw override of the base \mbox{\hyperlink{class_g_u_i}{GUI}} draw. 
-
-
-
-Reimplemented from \mbox{\hyperlink{class_g_u_i_a3d35b530189591b32708837ad14c2d7e}{GUI}}.
-
 \mbox{\Hypertarget{class_end_screen_g_u_i_a71e834b21206d4e7e297614627d3a79d}\label{class_end_screen_g_u_i_a71e834b21206d4e7e297614627d3a79d}} 
 \index{EndScreenGUI@{EndScreenGUI}!LoadTextureFromFile@{LoadTextureFromFile}}
 \index{LoadTextureFromFile@{LoadTextureFromFile}!EndScreenGUI@{EndScreenGUI}}
@@ -65,7 +88,7 @@ Reimplemented from \mbox{\hyperlink{class_g_u_i_a3d35b530189591b32708837ad14c2d7
 
 
 
-Small texture loader for \mbox{\hyperlink{namespace_im_gui}{Im\+Gui}}. 
+Small texture loader for Im\+Gui. 
 
 
 \begin{DoxyParams}{Parameters}
@@ -83,7 +106,52 @@ Small texture loader for \mbox{\hyperlink{namespace_im_gui}{Im\+Gui}}.
 \end{DoxyReturn}
 
 
+Definition at line 49 of file End\+Screen\+GUI.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{50 \{}
+\DoxyCodeLine{51     \textcolor{keywordflow}{if} (filename.find(\textcolor{stringliteral}{"{}.png"{}}) != std::string::npos) \textcolor{comment}{// if the image is a png, flip }}
+\DoxyCodeLine{52     \{}
+\DoxyCodeLine{53         stbi\_set\_flip\_vertically\_on\_load(\textcolor{keyword}{true});}
+\DoxyCodeLine{54     \}}
+\DoxyCodeLine{55 }
+\DoxyCodeLine{56     \textcolor{comment}{// Load from file}}
+\DoxyCodeLine{57     \textcolor{keywordtype}{int} image\_width = 0;}
+\DoxyCodeLine{58     \textcolor{keywordtype}{int} image\_height = 0;}
+\DoxyCodeLine{59     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char}* image\_data = stbi\_load(filename.c\_str() , \&image\_width, \&image\_height, \textcolor{keyword}{nullptr}, 4);}
+\DoxyCodeLine{60     \textcolor{keywordflow}{if} (image\_data == \textcolor{keyword}{nullptr})}
+\DoxyCodeLine{61         \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{62 }
+\DoxyCodeLine{63     \textcolor{comment}{// Create a OpenGL texture identifier}}
+\DoxyCodeLine{64     GLuint image\_texture;}
+\DoxyCodeLine{65     glGenTextures(1, \&image\_texture);}
+\DoxyCodeLine{66     glBindTexture(GL\_TEXTURE\_2D, image\_texture);}
+\DoxyCodeLine{67 }
+\DoxyCodeLine{68     \textcolor{comment}{// Setup filtering parameters for display}}
+\DoxyCodeLine{69     glTexParameteri(GL\_TEXTURE\_2D, GL\_TEXTURE\_MIN\_FILTER, GL\_LINEAR);}
+\DoxyCodeLine{70     glTexParameteri(GL\_TEXTURE\_2D, GL\_TEXTURE\_MAG\_FILTER, GL\_LINEAR);}
+\DoxyCodeLine{71     glTexParameteri(GL\_TEXTURE\_2D, GL\_TEXTURE\_WRAP\_S, GL\_CLAMP\_TO\_EDGE); \textcolor{comment}{// This is required on WebGL for non power-\/of-\/two textures}}
+\DoxyCodeLine{72     glTexParameteri(GL\_TEXTURE\_2D, GL\_TEXTURE\_WRAP\_T, GL\_CLAMP\_TO\_EDGE); \textcolor{comment}{// Same}}
+\DoxyCodeLine{73 }
+\DoxyCodeLine{74     \textcolor{comment}{// Upload pixels into texture}}
+\DoxyCodeLine{75 \textcolor{preprocessor}{    \#if defined(GL\_UNPACK\_ROW\_LENGTH) \&\& !defined(\_\_EMSCRIPTEN\_\_)}}
+\DoxyCodeLine{76     glPixelStorei(GL\_UNPACK\_ROW\_LENGTH, 0);}
+\DoxyCodeLine{77 \textcolor{preprocessor}{    \#endif}}
+\DoxyCodeLine{78     glTexImage2D(GL\_TEXTURE\_2D, 0, GL\_RGBA, image\_width, image\_height, 0, GL\_RGBA, GL\_UNSIGNED\_BYTE, image\_data);}
+\DoxyCodeLine{79     stbi\_image\_free(image\_data);}
+\DoxyCodeLine{80 }
+\DoxyCodeLine{81     *out\_texture = image\_texture;}
+\DoxyCodeLine{82     *out\_width = image\_width;}
+\DoxyCodeLine{83     *out\_height = image\_height;}
+\DoxyCodeLine{84 }
+\DoxyCodeLine{85     \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{86 \}}
+
+\end{DoxyCode}
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-ICT397-\/\+Project-\/\+Engine/\mbox{\hyperlink{_end_screen_g_u_i_8h}{End\+Screen\+GUI.\+h}}\item 
-ICT397-\/\+Project-\/\+Engine/\mbox{\hyperlink{_end_screen_g_u_i_8cpp}{End\+Screen\+GUI.\+cpp}}\end{DoxyCompactItemize}
+C\+:/\+Users/chris/\+Documents/\+UNI/\+ICT397-\/\+Project/\+ICT397-\/\+Project-\/\+Engine/\mbox{\hyperlink{_end_screen_g_u_i_8h}{End\+Screen\+GUI.\+h}}\item 
+C\+:/\+Users/chris/\+Documents/\+UNI/\+ICT397-\/\+Project/\+ICT397-\/\+Project-\/\+Engine/End\+Screen\+GUI.\+cpp\end{DoxyCompactItemize}

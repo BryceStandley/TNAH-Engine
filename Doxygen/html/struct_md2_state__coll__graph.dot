@@ -1,0 +1,7 @@
+digraph "Md2State"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{Md2State\n|+ startFrame\l+ endFrame\l+ fps\l+ currTime\l+ prevTime\l+ interpol\l+ type\l+ currFrame\l+ nextFrame\l|}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="status animation"];
+}

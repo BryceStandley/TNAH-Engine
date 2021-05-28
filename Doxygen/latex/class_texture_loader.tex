@@ -9,6 +9,10 @@ A simple class that is used to load in textures from a given file path;.
 
 {\ttfamily \#include $<$Texture\+Loader.\+h$>$}
 
+
+
+Collaboration diagram for Texture\+Loader\+:
+% FIG 0
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -28,6 +32,10 @@ Dylan Blereau
 \begin{DoxyDate}{Date}
 20/03/2021 Dylan Blereau, Started 
 \end{DoxyDate}
+
+
+Definition at line 19 of file Texture\+Loader.\+h.
+
 
 
 \doxysubsection{Member Function Documentation}
@@ -53,7 +61,50 @@ unsigned int
 \end{DoxyReturn}
 
 
+Definition at line 4 of file Texture\+Loader.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{5 \{}
+\DoxyCodeLine{6     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} textureID;}
+\DoxyCodeLine{7     glGenTextures(1, \&textureID);}
+\DoxyCodeLine{8 }
+\DoxyCodeLine{9     \textcolor{keywordtype}{int} width, height, nrComponents;}
+\DoxyCodeLine{10     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char}* data = stbi\_load(path.c\_str(), \&width, \&height, \&nrComponents, 0);}
+\DoxyCodeLine{11     \textcolor{keywordflow}{if} (data)}
+\DoxyCodeLine{12     \{}
+\DoxyCodeLine{13         GLenum format;}
+\DoxyCodeLine{14         \textcolor{keywordflow}{if} (nrComponents == 1)}
+\DoxyCodeLine{15             format = GL\_RED;}
+\DoxyCodeLine{16         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (nrComponents == 3)}
+\DoxyCodeLine{17             format = GL\_RGB;}
+\DoxyCodeLine{18         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (nrComponents == 4)}
+\DoxyCodeLine{19             format = GL\_RGBA;}
+\DoxyCodeLine{20 }
+\DoxyCodeLine{21         glBindTexture(GL\_TEXTURE\_2D, textureID);}
+\DoxyCodeLine{22         glTexImage2D(GL\_TEXTURE\_2D, 0, format, width, height, 0, format, GL\_UNSIGNED\_BYTE, data);}
+\DoxyCodeLine{23         glGenerateMipmap(GL\_TEXTURE\_2D);}
+\DoxyCodeLine{24 }
+\DoxyCodeLine{25         glTexParameteri(GL\_TEXTURE\_2D, GL\_TEXTURE\_WRAP\_S, GL\_REPEAT);}
+\DoxyCodeLine{26         glTexParameteri(GL\_TEXTURE\_2D, GL\_TEXTURE\_WRAP\_T, GL\_REPEAT);}
+\DoxyCodeLine{27         glTexParameteri(GL\_TEXTURE\_2D, GL\_TEXTURE\_MIN\_FILTER, GL\_LINEAR\_MIPMAP\_LINEAR);}
+\DoxyCodeLine{28         glTexParameteri(GL\_TEXTURE\_2D, GL\_TEXTURE\_MAG\_FILTER, GL\_LINEAR);}
+\DoxyCodeLine{29 }
+\DoxyCodeLine{30         stbi\_image\_free(data);}
+\DoxyCodeLine{31     \}}
+\DoxyCodeLine{32     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{33     \{}
+\DoxyCodeLine{34         std::cout << \textcolor{stringliteral}{"{}TextureLoader.cpp::Texture failed to load at path: "{}} << path << std::endl;}
+\DoxyCodeLine{35         stbi\_image\_free(data);}
+\DoxyCodeLine{36     \}}
+\DoxyCodeLine{37 }
+\DoxyCodeLine{38     \textcolor{keywordflow}{return} textureID;}
+\DoxyCodeLine{39 \}}
+
+\end{DoxyCode}
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-ICT397-\/\+Project-\/\+Engine/\mbox{\hyperlink{_texture_loader_8h}{Texture\+Loader.\+h}}\item 
-ICT397-\/\+Project-\/\+Engine/\mbox{\hyperlink{_texture_loader_8cpp}{Texture\+Loader.\+cpp}}\end{DoxyCompactItemize}
+C\+:/\+Users/chris/\+Documents/\+UNI/\+ICT397-\/\+Project/\+ICT397-\/\+Project-\/\+Engine/Texture\+Loader.\+h\item 
+C\+:/\+Users/chris/\+Documents/\+UNI/\+ICT397-\/\+Project/\+ICT397-\/\+Project-\/\+Engine/Texture\+Loader.\+cpp\end{DoxyCompactItemize}

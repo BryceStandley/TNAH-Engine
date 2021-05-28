@@ -13,9 +13,14 @@ Class that holds the main information of a game object, that is abstracted for m
 
 Inheritance diagram for Game\+Object\+:
 % FIG 0
+
+
+Collaboration diagram for Game\+Object\+:
+% FIG 1
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
+\mbox{\Hypertarget{class_game_object_a0348e3ee2e83d56eafca7a3547f432c4}\label{class_game_object_a0348e3ee2e83d56eafca7a3547f432c4}} 
 \mbox{\hyperlink{class_game_object_a0348e3ee2e83d56eafca7a3547f432c4}{Game\+Object}} ()
 \begin{DoxyCompactList}\small\item\em Default constructor. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{class_game_object_ab529877fc9d0a21f0b2133131513621a}{Game\+Object}} (glm\+::vec3 p, glm\+::vec3 rot, float s, \mbox{\hyperlink{class_renderer}{Renderer}} $\ast$game\+Renderer)
@@ -61,23 +66,23 @@ void \mbox{\hyperlink{class_game_object_a3183b6bda0347ffc1196d07d4f26337c}{Set\+
 std\+::string \mbox{\hyperlink{class_game_object_a74ce03d596c95cf6ebb8105c02260e7f}{Get\+Name}} ()
 \begin{DoxyCompactList}\small\item\em Gets the name of a Gameobject. \end{DoxyCompactList}\item 
 virtual void \mbox{\hyperlink{class_game_object_a00835df0feb28562c4910a7a68771b36}{Render}} (\mbox{\hyperlink{class_view}{View}} lens, float time, \mbox{\hyperlink{class_renderer}{Renderer}} $\ast$game\+Renderer)
-\item 
+\begin{DoxyCompactList}\small\item\em Renders the game object. \end{DoxyCompactList}\item 
 bool \mbox{\hyperlink{class_game_object_a4a7682157d4735ce950f5c64781344ee}{Get\+Rotate}} ()
-\item 
+\begin{DoxyCompactList}\small\item\em Gets the rotate bool. \end{DoxyCompactList}\item 
 int \mbox{\hyperlink{class_game_object_a3e5f61bc1a1348752b50b9d1bb27a4fc}{Get\+Id}} ()
-\item 
+\begin{DoxyCompactList}\small\item\em Gets the id. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{class_game_object_a3fdc779479da3311be0f92531cb442f4}{Set\+Id}} (int i)
-\item 
-virtual bool \mbox{\hyperlink{class_game_object_aad9c0f74168667fcdbc1bcea06d169c5}{handle\+Message}} (const \mbox{\hyperlink{struct_telegram}{Telegram}} \mbox{\hyperlink{_singleton_headers_8h_a8b0193f0cc93b63beb917fc7d2c1ee70}{message}})
-\item 
+\begin{DoxyCompactList}\small\item\em Sets the id. \end{DoxyCompactList}\item 
+virtual bool \mbox{\hyperlink{class_game_object_aad9c0f74168667fcdbc1bcea06d169c5}{handle\+Message}} (const \mbox{\hyperlink{struct_telegram}{Telegram}} \mbox{\hyperlink{classsingleton}{message}})
+\begin{DoxyCompactList}\small\item\em Handles messages from other game objects. \end{DoxyCompactList}\item 
 virtual bool \mbox{\hyperlink{class_game_object_ae6a441c142f2eb71b9a44bd39258dd91}{Kill}} ()
-\item 
+\begin{DoxyCompactList}\small\item\em Kill information used in other game objects. \end{DoxyCompactList}\item 
 std\+::string \mbox{\hyperlink{class_game_object_aefd6e5a65e63a17967a3cd9c146c1c27}{Get\+Script\+Name}} () const
-\item 
+\begin{DoxyCompactList}\small\item\em Gets the script name. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{class_game_object_a8b2810245ce2055d8cd7b4668fe1871b}{Set\+Script\+Name}} (const std\+::string name)
-\item 
-virtual std\+::string \mbox{\hyperlink{class_game_object_afc257e6c22279dbadcc9b06cfa6511dd}{Stream\+Values}} ()
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Sets the script name. \end{DoxyCompactList}\item 
+virtual std\+::string \mbox{\hyperlink{class_game_object_a5612822e9990a129feed8ea6f658ee00}{Stream\+Values}} ()
+\begin{DoxyCompactList}\small\item\em Returns the streamed values for the game object. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -98,21 +103,15 @@ Christopher Logan
 
 @bugs none to be seen 
 
+Definition at line 24 of file Game\+Object.\+h.
+
+
+
 \doxysubsection{Constructor \& Destructor Documentation}
-\mbox{\Hypertarget{class_game_object_a0348e3ee2e83d56eafca7a3547f432c4}\label{class_game_object_a0348e3ee2e83d56eafca7a3547f432c4}} 
-\index{GameObject@{GameObject}!GameObject@{GameObject}}
-\index{GameObject@{GameObject}!GameObject@{GameObject}}
-\doxysubsubsection{\texorpdfstring{GameObject()}{GameObject()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily Game\+Object\+::\+Game\+Object (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
-
-
-
-Default constructor. 
-
 \mbox{\Hypertarget{class_game_object_ab529877fc9d0a21f0b2133131513621a}\label{class_game_object_ab529877fc9d0a21f0b2133131513621a}} 
 \index{GameObject@{GameObject}!GameObject@{GameObject}}
 \index{GameObject@{GameObject}!GameObject@{GameObject}}
-\doxysubsubsection{\texorpdfstring{GameObject()}{GameObject()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+\doxysubsubsection{\texorpdfstring{GameObject()}{GameObject()}}
 {\footnotesize\ttfamily Game\+Object\+::\+Game\+Object (\begin{DoxyParamCaption}\item[{glm\+::vec3}]{p,  }\item[{glm\+::vec3}]{rot,  }\item[{float}]{s,  }\item[{\mbox{\hyperlink{class_renderer}{Renderer}} $\ast$}]{game\+Renderer }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
@@ -132,6 +131,15 @@ Constructor.
 \end{DoxyParams}
 
 
+Definition at line 39 of file Game\+Object.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{39 \{ pos = p; rotation = rot; scale = s; rotate = \textcolor{keyword}{false}; boundingBox = \mbox{\hyperlink{class_bounding_box}{BoundingBox}}();\}}
+
+\end{DoxyCode}
+
+
 \doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{class_game_object_ac39b74a6714f875b33014a45164920db}\label{class_game_object_ac39b74a6714f875b33014a45164920db}} 
 \index{GameObject@{GameObject}!GetBoundingBox@{GetBoundingBox}}
@@ -146,12 +154,43 @@ Gets a gameobjec\textquotesingle{}s boundingbox object.
 \begin{DoxyReturn}{Returns}
 \mbox{\hyperlink{class_bounding_box}{Bounding\+Box}} 
 \end{DoxyReturn}
+
+
+Definition at line 135 of file Game\+Object.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{135 \{\textcolor{keywordflow}{return} boundingBox;\}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{class_game_object_a3e5f61bc1a1348752b50b9d1bb27a4fc}\label{class_game_object_a3e5f61bc1a1348752b50b9d1bb27a4fc}} 
 \index{GameObject@{GameObject}!GetId@{GetId}}
 \index{GetId@{GetId}!GameObject@{GameObject}}
 \doxysubsubsection{\texorpdfstring{GetId()}{GetId()}}
 {\footnotesize\ttfamily int Game\+Object\+::\+Get\+Id (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Gets the id. 
+
+\begin{DoxyReturn}{Returns}
+the game object id 
+\end{DoxyReturn}
+
+
+Definition at line 180 of file Game\+Object.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{180 \{ \textcolor{keywordflow}{return} id; \}}
+
+\end{DoxyCode}
+
+
+Referenced by Entity\+Manager\+::\+Remove\+Entity().
+
+Here is the caller graph for this function\+:
+% FIG 2
 \mbox{\Hypertarget{class_game_object_a4d2dd39231dc5fa8c9c9b29b91f8ec95}\label{class_game_object_a4d2dd39231dc5fa8c9c9b29b91f8ec95}} 
 \index{GameObject@{GameObject}!GetModel@{GetModel}}
 \index{GetModel@{GetModel}!GameObject@{GameObject}}
@@ -165,6 +204,21 @@ Gets the model.
 \begin{DoxyReturn}{Returns}
 model 
 \end{DoxyReturn}
+
+
+Definition at line 105 of file Game\+Object.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{105 \{ \textcolor{keywordflow}{return} model; \}}
+
+\end{DoxyCode}
+
+
+Referenced by Game\+Asset\+Factory\+::\+Get\+Game\+Object(), and Game\+Asset\+Factory\+::\+Get\+Game\+Object\+Save().
+
+Here is the caller graph for this function\+:
+% FIG 3
 \mbox{\Hypertarget{class_game_object_a74ce03d596c95cf6ebb8105c02260e7f}\label{class_game_object_a74ce03d596c95cf6ebb8105c02260e7f}} 
 \index{GameObject@{GameObject}!GetName@{GetName}}
 \index{GetName@{GetName}!GameObject@{GameObject}}
@@ -178,6 +232,15 @@ Gets the name of a Gameobject.
 \begin{DoxyReturn}{Returns}
 string name 
 \end{DoxyReturn}
+
+
+Definition at line 160 of file Game\+Object.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{160 \{\textcolor{keywordflow}{return} name;\}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{class_game_object_aa9f5812ad1460871ebceb188cc9aaa96}\label{class_game_object_aa9f5812ad1460871ebceb188cc9aaa96}} 
 \index{GameObject@{GameObject}!GetPos@{GetPos}}
 \index{GetPos@{GetPos}!GameObject@{GameObject}}
@@ -191,12 +254,37 @@ Gets the position value.
 \begin{DoxyReturn}{Returns}
 pos 
 \end{DoxyReturn}
+
+
+Definition at line 87 of file Game\+Object.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{87 \{ \textcolor{keywordflow}{return} pos; \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{class_game_object_a4a7682157d4735ce950f5c64781344ee}\label{class_game_object_a4a7682157d4735ce950f5c64781344ee}} 
 \index{GameObject@{GameObject}!GetRotate@{GetRotate}}
 \index{GetRotate@{GetRotate}!GameObject@{GameObject}}
 \doxysubsubsection{\texorpdfstring{GetRotate()}{GetRotate()}}
 {\footnotesize\ttfamily bool Game\+Object\+::\+Get\+Rotate (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Gets the rotate bool. 
+
+\begin{DoxyReturn}{Returns}
+true if the object needs to be rotated when rendering 
+\end{DoxyReturn}
+
+
+Definition at line 174 of file Game\+Object.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{174 \{ \textcolor{keywordflow}{return} rotate; \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{class_game_object_afe52aedcc4f6e746f3ccd18d413f88fb}\label{class_game_object_afe52aedcc4f6e746f3ccd18d413f88fb}} 
 \index{GameObject@{GameObject}!GetRotation@{GetRotation}}
 \index{GetRotation@{GetRotation}!GameObject@{GameObject}}
@@ -210,6 +298,15 @@ Gets the rotation value.
 \begin{DoxyReturn}{Returns}
 rotation 
 \end{DoxyReturn}
+
+
+Definition at line 93 of file Game\+Object.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{93 \{ \textcolor{keywordflow}{return} rotation; \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{class_game_object_a0fb90bbb74c8988d23e865280a065901}\label{class_game_object_a0fb90bbb74c8988d23e865280a065901}} 
 \index{GameObject@{GameObject}!GetScale@{GetScale}}
 \index{GetScale@{GetScale}!GameObject@{GameObject}}
@@ -223,12 +320,37 @@ Gets the scale value.
 \begin{DoxyReturn}{Returns}
 scale 
 \end{DoxyReturn}
+
+
+Definition at line 99 of file Game\+Object.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{99 \{ \textcolor{keywordflow}{return} scale; \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{class_game_object_aefd6e5a65e63a17967a3cd9c146c1c27}\label{class_game_object_aefd6e5a65e63a17967a3cd9c146c1c27}} 
 \index{GameObject@{GameObject}!GetScriptName@{GetScriptName}}
 \index{GetScriptName@{GetScriptName}!GameObject@{GameObject}}
 \doxysubsubsection{\texorpdfstring{GetScriptName()}{GetScriptName()}}
 {\footnotesize\ttfamily std\+::string Game\+Object\+::\+Get\+Script\+Name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Gets the script name. 
+
+\begin{DoxyReturn}{Returns}
+script\+Name 
+\end{DoxyReturn}
+
+
+Definition at line 204 of file Game\+Object.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{204 \{ \textcolor{keywordflow}{return} scriptName; \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{class_game_object_a9e6726449a23ca4b04467305bd4ddd95}\label{class_game_object_a9e6726449a23ca4b04467305bd4ddd95}} 
 \index{GameObject@{GameObject}!GetShader@{GetShader}}
 \index{GetShader@{GetShader}!GameObject@{GameObject}}
@@ -242,6 +364,15 @@ Gets the shader.
 \begin{DoxyReturn}{Returns}
 shader 
 \end{DoxyReturn}
+
+
+Definition at line 111 of file Game\+Object.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{111 \{ \textcolor{keywordflow}{return} shader; \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{class_game_object_a68fc36617a4888fe60b1b2d1572b3639}\label{class_game_object_a68fc36617a4888fe60b1b2d1572b3639}} 
 \index{GameObject@{GameObject}!GetTag@{GetTag}}
 \index{GetTag@{GetTag}!GameObject@{GameObject}}
@@ -255,6 +386,15 @@ Gets the objects tag.
 \begin{DoxyReturn}{Returns}
 tag 
 \end{DoxyReturn}
+
+
+Definition at line 148 of file Game\+Object.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{148 \{\textcolor{keywordflow}{return} tag;\}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{class_game_object_a16923ded4375011aaf9631a13c775f10}\label{class_game_object_a16923ded4375011aaf9631a13c775f10}} 
 \index{GameObject@{GameObject}!GetType@{GetType}}
 \index{GetType@{GetType}!GameObject@{GameObject}}
@@ -268,6 +408,15 @@ Gets the type of object.
 \begin{DoxyReturn}{Returns}
 type 
 \end{DoxyReturn}
+
+
+Definition at line 123 of file Game\+Object.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{123 \{ \textcolor{keywordflow}{return} type; \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{class_game_object_aad9c0f74168667fcdbc1bcea06d169c5}\label{class_game_object_aad9c0f74168667fcdbc1bcea06d169c5}} 
 \index{GameObject@{GameObject}!handleMessage@{handleMessage}}
 \index{handleMessage@{handleMessage}!GameObject@{GameObject}}
@@ -276,8 +425,24 @@ type
 
 
 
+Handles messages from other game objects. 
+
+\begin{DoxyReturn}{Returns}
+false by default 
+\end{DoxyReturn}
+
+
 Reimplemented in \mbox{\hyperlink{class_enemy_a29c6447f08b6901ea48894a97b53262f}{Enemy}}.
 
+
+
+Definition at line 192 of file Game\+Object.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{192 \{ \textcolor{keywordflow}{return} \textcolor{keyword}{false}; \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{class_game_object_ae6a441c142f2eb71b9a44bd39258dd91}\label{class_game_object_ae6a441c142f2eb71b9a44bd39258dd91}} 
 \index{GameObject@{GameObject}!Kill@{Kill}}
 \index{Kill@{Kill}!GameObject@{GameObject}}
@@ -286,8 +451,24 @@ Reimplemented in \mbox{\hyperlink{class_enemy_a29c6447f08b6901ea48894a97b53262f}
 
 
 
+Kill information used in other game objects. 
+
+\begin{DoxyReturn}{Returns}
+false by default 
+\end{DoxyReturn}
+
+
 Reimplemented in \mbox{\hyperlink{class_token_ae9fc0a6467188f67295abadf2592b012}{Token}}, and \mbox{\hyperlink{class_enemy_ae5753c49a0b47bc4d77afbcc18c3a924}{Enemy}}.
 
+
+
+Definition at line 198 of file Game\+Object.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{198 \{ \textcolor{keywordflow}{return} \textcolor{keyword}{false}; \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{class_game_object_a00835df0feb28562c4910a7a68771b36}\label{class_game_object_a00835df0feb28562c4910a7a68771b36}} 
 \index{GameObject@{GameObject}!Render@{Render}}
 \index{Render@{Render}!GameObject@{GameObject}}
@@ -296,8 +477,32 @@ Reimplemented in \mbox{\hyperlink{class_token_ae9fc0a6467188f67295abadf2592b012}
 
 
 
+Renders the game object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em lens} & -\/ The lens values for projection, positons, ect \\
+\hline
+{\em time} & -\/ The deltatime value \\
+\hline
+{\em game\+Renderer} & -\/ the renderer pointer itself \\
+\hline
+\end{DoxyParams}
+
+
 Reimplemented in \mbox{\hyperlink{class_token_a2ad743f653a910c319e82e20d6f4ceae}{Token}}, \mbox{\hyperlink{class_player_a4d188ed5267504af8c15c0b86d3a601d}{Player}}, and \mbox{\hyperlink{class_enemy_af626d6c92b3be75617bdb72c2eb8497e}{Enemy}}.
 
+
+
+Definition at line 9 of file Game\+Object.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{10 \{}
+\DoxyCodeLine{11     model.\mbox{\hyperlink{class_model_a95878dc77a7f1ed7f13f2383f880c8ca}{Render}}(lens, shader, pos, rotation, scale, rotate, time, 0, gameRenderer, \textcolor{keyword}{false});}
+\DoxyCodeLine{12 \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{class_game_object_a94626dd233a6f7a0b10e2638f386934a}\label{class_game_object_a94626dd233a6f7a0b10e2638f386934a}} 
 \index{GameObject@{GameObject}!SetBoundingBox@{SetBoundingBox}}
 \index{SetBoundingBox@{SetBoundingBox}!GameObject@{GameObject}}
@@ -313,6 +518,21 @@ Sets gameobject\textquotesingle{}s bounding box object.
 {\em b} & \\
 \hline
 \end{DoxyParams}
+
+
+Definition at line 129 of file Game\+Object.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{129 \{boundingBox = b;\}}
+
+\end{DoxyCode}
+
+
+Referenced by Game\+Asset\+Factory\+::\+Get\+Game\+Object(), and Game\+Asset\+Factory\+::\+Get\+Game\+Object\+Save().
+
+Here is the caller graph for this function\+:
+% FIG 4
 \mbox{\Hypertarget{class_game_object_a09d08654806a1c0e625993dcea744d61}\label{class_game_object_a09d08654806a1c0e625993dcea744d61}} 
 \index{GameObject@{GameObject}!SetCollisionTag@{SetCollisionTag}}
 \index{SetCollisionTag@{SetCollisionTag}!GameObject@{GameObject}}
@@ -328,12 +548,51 @@ Sets tag of a given object.
 {\em t} & \\
 \hline
 \end{DoxyParams}
+
+
+Definition at line 142 of file Game\+Object.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{142 \{tag = t;\}}
+
+\end{DoxyCode}
+
+
+Referenced by Game\+Asset\+Factory\+::\+Get\+Game\+Object(), and Game\+Asset\+Factory\+::\+Get\+Game\+Object\+Save().
+
+Here is the caller graph for this function\+:
+% FIG 5
 \mbox{\Hypertarget{class_game_object_a3fdc779479da3311be0f92531cb442f4}\label{class_game_object_a3fdc779479da3311be0f92531cb442f4}} 
 \index{GameObject@{GameObject}!SetId@{SetId}}
 \index{SetId@{SetId}!GameObject@{GameObject}}
 \doxysubsubsection{\texorpdfstring{SetId()}{SetId()}}
 {\footnotesize\ttfamily void Game\+Object\+::\+Set\+Id (\begin{DoxyParamCaption}\item[{int}]{i }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Sets the id. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em i} & -\/ the id to be set \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 186 of file Game\+Object.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{186 \{ \textcolor{keywordtype}{id} = i; \}}
+
+\end{DoxyCode}
+
+
+Referenced by Game\+Asset\+Factory\+::\+Get\+Game\+Object(), and Game\+Asset\+Factory\+::\+Get\+Game\+Object\+Save().
+
+Here is the caller graph for this function\+:
+% FIG 6
 \mbox{\Hypertarget{class_game_object_a7d7bf2fb47b279323455347c841f0383}\label{class_game_object_a7d7bf2fb47b279323455347c841f0383}} 
 \index{GameObject@{GameObject}!SetModel@{SetModel}}
 \index{SetModel@{SetModel}!GameObject@{GameObject}}
@@ -349,6 +608,15 @@ Sets a new model.
 {\em m} & -\/ The new value \\
 \hline
 \end{DoxyParams}
+
+
+Definition at line 51 of file Game\+Object.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{51 \{ model = m; \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{class_game_object_a3183b6bda0347ffc1196d07d4f26337c}\label{class_game_object_a3183b6bda0347ffc1196d07d4f26337c}} 
 \index{GameObject@{GameObject}!SetName@{SetName}}
 \index{SetName@{SetName}!GameObject@{GameObject}}
@@ -364,6 +632,21 @@ Sets the name of a game object.
 {\em n} & \\
 \hline
 \end{DoxyParams}
+
+
+Definition at line 154 of file Game\+Object.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{154 \{name = n;\}}
+
+\end{DoxyCode}
+
+
+Referenced by Game\+Asset\+Factory\+::\+Get\+Game\+Object(), and Game\+Asset\+Factory\+::\+Get\+Game\+Object\+Save().
+
+Here is the caller graph for this function\+:
+% FIG 7
 \mbox{\Hypertarget{class_game_object_aaa26dd3d19a1476a0230dc0235d5c6be}\label{class_game_object_aaa26dd3d19a1476a0230dc0235d5c6be}} 
 \index{GameObject@{GameObject}!SetPos@{SetPos}}
 \index{SetPos@{SetPos}!GameObject@{GameObject}}
@@ -379,6 +662,15 @@ Sets the position.
 {\em p} & -\/ The new value \\
 \hline
 \end{DoxyParams}
+
+
+Definition at line 75 of file Game\+Object.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{75 \{ pos = p; \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{class_game_object_a91946921e81dbd19ace843fef8790b94}\label{class_game_object_a91946921e81dbd19ace843fef8790b94}} 
 \index{GameObject@{GameObject}!SetRotate@{SetRotate}}
 \index{SetRotate@{SetRotate}!GameObject@{GameObject}}
@@ -394,6 +686,15 @@ Set rotate bool.
 {\em r} & -\/ The new value \\
 \hline
 \end{DoxyParams}
+
+
+Definition at line 63 of file Game\+Object.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{63 \{ rotate = r; \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{class_game_object_aaf2a73a659d80bcb523f7ea4e58dd02f}\label{class_game_object_aaf2a73a659d80bcb523f7ea4e58dd02f}} 
 \index{GameObject@{GameObject}!SetRotation@{SetRotation}}
 \index{SetRotation@{SetRotation}!GameObject@{GameObject}}
@@ -409,6 +710,15 @@ Sets the rotation value.
 {\em r} & -\/ The new value \\
 \hline
 \end{DoxyParams}
+
+
+Definition at line 69 of file Game\+Object.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{69 \{ rotation = r; \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{class_game_object_ac87b80ff4dd9eb7be6c7363e4e621e09}\label{class_game_object_ac87b80ff4dd9eb7be6c7363e4e621e09}} 
 \index{GameObject@{GameObject}!SetScale@{SetScale}}
 \index{SetScale@{SetScale}!GameObject@{GameObject}}
@@ -424,12 +734,39 @@ Sets the scale value.
 {\em size} & -\/ The new value \\
 \hline
 \end{DoxyParams}
+
+
+Definition at line 81 of file Game\+Object.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{81 \{ scale = size; \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{class_game_object_a8b2810245ce2055d8cd7b4668fe1871b}\label{class_game_object_a8b2810245ce2055d8cd7b4668fe1871b}} 
 \index{GameObject@{GameObject}!SetScriptName@{SetScriptName}}
 \index{SetScriptName@{SetScriptName}!GameObject@{GameObject}}
 \doxysubsubsection{\texorpdfstring{SetScriptName()}{SetScriptName()}}
 {\footnotesize\ttfamily void Game\+Object\+::\+Set\+Script\+Name (\begin{DoxyParamCaption}\item[{const std\+::string}]{name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Sets the script name. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em name} & -\/ The script name being set \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 210 of file Game\+Object.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{210 \{ scriptName = name; \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{class_game_object_a8cd08c4c2a53a087716e7a8d4c25b632}\label{class_game_object_a8cd08c4c2a53a087716e7a8d4c25b632}} 
 \index{GameObject@{GameObject}!SetShader@{SetShader}}
 \index{SetShader@{SetShader}!GameObject@{GameObject}}
@@ -445,6 +782,15 @@ Set new shader.
 {\em s} & -\/ The new value \\
 \hline
 \end{DoxyParams}
+
+
+Definition at line 57 of file Game\+Object.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{57 \{ shader = s; \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{class_game_object_a2b8cd8b76bb89306c78371eb921df67a}\label{class_game_object_a2b8cd8b76bb89306c78371eb921df67a}} 
 \index{GameObject@{GameObject}!SetType@{SetType}}
 \index{SetType@{SetType}!GameObject@{GameObject}}
@@ -460,16 +806,49 @@ Sets the type of object.
 {\em t} & -\/ The type \\
 \hline
 \end{DoxyParams}
-\mbox{\Hypertarget{class_game_object_afc257e6c22279dbadcc9b06cfa6511dd}\label{class_game_object_afc257e6c22279dbadcc9b06cfa6511dd}} 
+
+
+Definition at line 117 of file Game\+Object.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{117 \{ type = t; \}}
+
+\end{DoxyCode}
+
+
+Referenced by Game\+Asset\+Factory\+::\+Get\+Game\+Object(), and Game\+Asset\+Factory\+::\+Get\+Game\+Object\+Save().
+
+Here is the caller graph for this function\+:
+% FIG 8
+\mbox{\Hypertarget{class_game_object_a5612822e9990a129feed8ea6f658ee00}\label{class_game_object_a5612822e9990a129feed8ea6f658ee00}} 
 \index{GameObject@{GameObject}!StreamValues@{StreamValues}}
 \index{StreamValues@{StreamValues}!GameObject@{GameObject}}
 \doxysubsubsection{\texorpdfstring{StreamValues()}{StreamValues()}}
-{\footnotesize\ttfamily virtual std\+::string Game\+Object\+::\+Stream\+Values (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+{\footnotesize\ttfamily std\+::string Game\+Object\+::\+Stream\+Values (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
 
 
 
-Reimplemented in \mbox{\hyperlink{class_player_a3cdef360cdac88dfcec938b33938205b}{Player}}, and \mbox{\hyperlink{class_enemy_a9a2315b140d7235886b046559ac81801}{Enemy}}.
+Returns the streamed values for the game object. 
 
+\begin{DoxyReturn}{Returns}
+streamed Values of the game object 
+\end{DoxyReturn}
+
+
+Reimplemented in \mbox{\hyperlink{class_player_a3cdef360cdac88dfcec938b33938205b}{Player}}, and \mbox{\hyperlink{class_enemy_a52e457d021940a08425747f0286b31d3}{Enemy}}.
+
+
+
+Definition at line 14 of file Game\+Object.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{15 \{}
+\DoxyCodeLine{16     \textcolor{keywordflow}{return} \mbox{\hyperlink{class_game_object_a16923ded4375011aaf9631a13c775f10}{GetType}}() + \textcolor{stringliteral}{"{} "{}} + \mbox{\hyperlink{class_game_object_aefd6e5a65e63a17967a3cd9c146c1c27}{GetScriptName}}() + \textcolor{stringliteral}{"{} "{}} + std::to\_string(\mbox{\hyperlink{class_game_object_a0fb90bbb74c8988d23e865280a065901}{GetScale}}()) + \textcolor{stringliteral}{"{} "{}} + std::to\_string(pos.x) + \textcolor{stringliteral}{"{} "{}} + std::to\_string(pos.y) + \textcolor{stringliteral}{"{} "{}} + std::to\_string(pos.z) + \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{17 \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{class_game_object_aecdbe6a05d3183236f1bbec09fa235f8}\label{class_game_object_aecdbe6a05d3183236f1bbec09fa235f8}} 
 \index{GameObject@{GameObject}!Update@{Update}}
 \index{Update@{Update}!GameObject@{GameObject}}
@@ -491,7 +870,18 @@ Reimplemented in \mbox{\hyperlink{class_water_a03b923d81b25359d855db44568288cb8}
 
 
 
+Definition at line 4 of file Game\+Object.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{5 \{}
+\DoxyCodeLine{6     std::cout << \textcolor{stringliteral}{"{}GAMEOBJECT::ERROR::UPDATE::TYPE\_NOT\_SET"{}} << std::endl;}
+\DoxyCodeLine{7 \}}
+
+\end{DoxyCode}
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-ICT397-\/\+Project-\/\+Engine/\mbox{\hyperlink{_game_object_8h}{Game\+Object.\+h}}\item 
-ICT397-\/\+Project-\/\+Engine/\mbox{\hyperlink{_game_object_8cpp}{Game\+Object.\+cpp}}\end{DoxyCompactItemize}
+C\+:/\+Users/chris/\+Documents/\+UNI/\+ICT397-\/\+Project/\+ICT397-\/\+Project-\/\+Engine/Game\+Object.\+h\item 
+C\+:/\+Users/chris/\+Documents/\+UNI/\+ICT397-\/\+Project/\+ICT397-\/\+Project-\/\+Engine/Game\+Object.\+cpp\end{DoxyCompactItemize}

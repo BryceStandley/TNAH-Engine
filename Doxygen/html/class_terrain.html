@@ -5,14 +5,10 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TNAH-Engine-ICT397: Terrain Class Reference</title>
+<title>Zoom: Terrain Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
-<link href="navtree.css" rel="stylesheet" type="text/css"/>
-<script type="text/javascript" src="resize.js"></script>
-<script type="text/javascript" src="navtreedata.js"></script>
-<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -24,10 +20,8 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="TNAH-2.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">TNAH-Engine-ICT397
-   &#160;<span id="projectnumber">2</span>
+   <div id="projectname">Zoom
    </div>
   </td>
  </tr>
@@ -51,23 +45,6 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
-</div><!-- top -->
-<div id="side-nav" class="ui-resizable side-nav-resizable">
-  <div id="nav-tree">
-    <div id="nav-tree-contents">
-      <div id="nav-sync" class="sync"></div>
-    </div>
-  </div>
-  <div id="splitbar" style="-moz-user-select:none;" 
-       class="ui-resizable-handle">
-  </div>
-</div>
-<script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-$(document).ready(function(){initNavTree('class_terrain.html',''); initResizable(); });
-/* @license-end */
-</script>
-<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -82,6 +59,7 @@ $(document).ready(function(){initNavTree('class_terrain.html',''); initResizable
 </iframe>
 </div>
 
+</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
@@ -98,9 +76,20 @@ $(document).ready(function(){initNavTree('class_terrain.html',''); initResizable
  <a href="class_terrain.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="_terrain_8h_source.html">Terrain.h</a>&gt;</code></p>
+<div class="dynheader">
+Collaboration diagram for Terrain:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_terrain__coll__graph.png" border="0" usemap="#a_terrain_coll__map" alt="Collaboration graph"/></div>
+</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:aabc0edecd49826cef953eb51390e4c39"><td class="memItemLeft" align="right" valign="top"><a id="aabc0edecd49826cef953eb51390e4c39"></a>
+glm::vec3&#160;</td><td class="memItemRight" valign="bottom"><b>GetMaxHeight</b> ()</td></tr>
+<tr class="separator:aabc0edecd49826cef953eb51390e4c39"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0ddc66a1b8497c225ea55db29e031d0e"><td class="memItemLeft" align="right" valign="top"><a id="a0ddc66a1b8497c225ea55db29e031d0e"></a>
+glm::vec3&#160;</td><td class="memItemRight" valign="bottom"><b>GetMinHeight</b> ()</td></tr>
+<tr class="separator:a0ddc66a1b8497c225ea55db29e031d0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae6515958ec443db2c36b07e7938cd67f"><td class="memItemLeft" align="right" valign="top">std::vector&lt; unsigned int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_terrain.html#ae6515958ec443db2c36b07e7938cd67f">GetIndicies</a> ()</td></tr>
 <tr class="memdesc:ae6515958ec443db2c36b07e7938cd67f"><td class="mdescLeft">&#160;</td><td class="mdescRight">gets and returns a vector containing all indice values  <a href="class_terrain.html#ae6515958ec443db2c36b07e7938cd67f">More...</a><br /></td></tr>
 <tr class="separator:ae6515958ec443db2c36b07e7938cd67f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -110,11 +99,13 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aea73b47c73faf1945e85e06c144e7e0e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_terrain.html#aea73b47c73faf1945e85e06c144e7e0e">SetShader</a> (<a class="el" href="class_shader.html">Shader</a> s)</td></tr>
 <tr class="memdesc:aea73b47c73faf1945e85e06c144e7e0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the terrain shader to the shader provided to the function as a parameter  <a href="class_terrain.html#aea73b47c73faf1945e85e06c144e7e0e">More...</a><br /></td></tr>
 <tr class="separator:aea73b47c73faf1945e85e06c144e7e0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7160a06ab07a86ed97d23374405e8ef6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_terrain.html#a7160a06ab07a86ed97d23374405e8ef6">Terrain</a> ()</td></tr>
-<tr class="memdesc:a7160a06ab07a86ed97d23374405e8ef6"><td class="mdescLeft">&#160;</td><td class="mdescRight">default constructor that initialises the terrain object  <a href="class_terrain.html#a7160a06ab07a86ed97d23374405e8ef6">More...</a><br /></td></tr>
+<tr class="memitem:a7160a06ab07a86ed97d23374405e8ef6"><td class="memItemLeft" align="right" valign="top"><a id="a7160a06ab07a86ed97d23374405e8ef6"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_terrain.html#a7160a06ab07a86ed97d23374405e8ef6">Terrain</a> ()</td></tr>
+<tr class="memdesc:a7160a06ab07a86ed97d23374405e8ef6"><td class="mdescLeft">&#160;</td><td class="mdescRight">default constructor that initialises the terrain object <br /></td></tr>
 <tr class="separator:a7160a06ab07a86ed97d23374405e8ef6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2f7f0a2aee54886324ccf48a6f321de0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_terrain.html#a2f7f0a2aee54886324ccf48a6f321de0">~Terrain</a> ()</td></tr>
-<tr class="memdesc:a2f7f0a2aee54886324ccf48a6f321de0"><td class="mdescLeft">&#160;</td><td class="mdescRight">destructor that deallocates terrain memory when object is detroyed  <a href="class_terrain.html#a2f7f0a2aee54886324ccf48a6f321de0">More...</a><br /></td></tr>
+<tr class="memitem:a2f7f0a2aee54886324ccf48a6f321de0"><td class="memItemLeft" align="right" valign="top"><a id="a2f7f0a2aee54886324ccf48a6f321de0"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_terrain.html#a2f7f0a2aee54886324ccf48a6f321de0">~Terrain</a> ()</td></tr>
+<tr class="memdesc:a2f7f0a2aee54886324ccf48a6f321de0"><td class="mdescLeft">&#160;</td><td class="mdescRight">destructor that deallocates terrain memory when object is detroyed <br /></td></tr>
 <tr class="separator:a2f7f0a2aee54886324ccf48a6f321de0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a410cd0467a5f67e8be7de27265d9010c"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_terrain.html#a410cd0467a5f67e8be7de27265d9010c">GetVAO</a> () const</td></tr>
 <tr class="memdesc:a410cd0467a5f67e8be7de27265d9010c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get method that returns the <a class="el" href="struct_vertex.html" title="struct containing all vertices required to generate a mesh">Vertex</a> Array Object.  <a href="class_terrain.html#a410cd0467a5f67e8be7de27265d9010c">More...</a><br /></td></tr>
@@ -125,11 +116,13 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:acdd24f95ab3ca7a9146b32a31f4def35"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_shader.html">Shader</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_terrain.html#acdd24f95ab3ca7a9146b32a31f4def35">GetShader</a> () const</td></tr>
 <tr class="memdesc:acdd24f95ab3ca7a9146b32a31f4def35"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get method that returns a shader object.  <a href="class_terrain.html#acdd24f95ab3ca7a9146b32a31f4def35">More...</a><br /></td></tr>
 <tr class="separator:acdd24f95ab3ca7a9146b32a31f4def35"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a70fac68a7900a4bddbf5c4b35b57b6f9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_terrain.html#a70fac68a7900a4bddbf5c4b35b57b6f9">Init</a> ()</td></tr>
-<tr class="memdesc:a70fac68a7900a4bddbf5c4b35b57b6f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">A function that calls all the functions required to initialise the terrain.  <a href="class_terrain.html#a70fac68a7900a4bddbf5c4b35b57b6f9">More...</a><br /></td></tr>
+<tr class="memitem:a70fac68a7900a4bddbf5c4b35b57b6f9"><td class="memItemLeft" align="right" valign="top"><a id="a70fac68a7900a4bddbf5c4b35b57b6f9"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_terrain.html#a70fac68a7900a4bddbf5c4b35b57b6f9">Init</a> ()</td></tr>
+<tr class="memdesc:a70fac68a7900a4bddbf5c4b35b57b6f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">A function that calls all the functions required to initialise the terrain. <br /></td></tr>
 <tr class="separator:a70fac68a7900a4bddbf5c4b35b57b6f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac8f074502cb581199a1eb57eceab6395"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_terrain.html#ac8f074502cb581199a1eb57eceab6395">luaLoader</a> ()</td></tr>
-<tr class="memdesc:ac8f074502cb581199a1eb57eceab6395"><td class="mdescLeft">&#160;</td><td class="mdescRight">loads an instance of lua and uses it to assign values from a lua script to terrain variables  <a href="class_terrain.html#ac8f074502cb581199a1eb57eceab6395">More...</a><br /></td></tr>
+<tr class="memitem:ac8f074502cb581199a1eb57eceab6395"><td class="memItemLeft" align="right" valign="top"><a id="ac8f074502cb581199a1eb57eceab6395"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_terrain.html#ac8f074502cb581199a1eb57eceab6395">luaLoader</a> ()</td></tr>
+<tr class="memdesc:ac8f074502cb581199a1eb57eceab6395"><td class="mdescLeft">&#160;</td><td class="mdescRight">loads an instance of lua and uses it to assign values from a lua script to terrain variables <br /></td></tr>
 <tr class="separator:ac8f074502cb581199a1eb57eceab6395"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab901804353705f46fe0feb28d06ddc34"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_terrain.html#ab901804353705f46fe0feb28d06ddc34">attachShader</a> (<a class="el" href="class_shader.html">Shader</a> shad)</td></tr>
 <tr class="memdesc:ab901804353705f46fe0feb28d06ddc34"><td class="mdescLeft">&#160;</td><td class="mdescRight">Attaches shader to the terrain.  <a href="class_terrain.html#ab901804353705f46fe0feb28d06ddc34">More...</a><br /></td></tr>
@@ -149,17 +142,19 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:af098de14a31aec4aed0d28c2efc93bfe"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_terrain.html#af098de14a31aec4aed0d28c2efc93bfe">getHeight</a> (int xpos, int zpos)</td></tr>
 <tr class="memdesc:af098de14a31aec4aed0d28c2efc93bfe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets and returns the height (y-value) for a position in the terrain using given x and z values.  <a href="class_terrain.html#af098de14a31aec4aed0d28c2efc93bfe">More...</a><br /></td></tr>
 <tr class="separator:af098de14a31aec4aed0d28c2efc93bfe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a32f65a30b78665629dc04fe6670d5812"><td class="memItemLeft" align="right" valign="top">unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_terrain.html#a32f65a30b78665629dc04fe6670d5812">getHeightColor</a> (int xpos, int zpos)</td></tr>
-<tr class="memdesc:a32f65a30b78665629dc04fe6670d5812"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets and returns the height (y-value) color for a position in the terrain using given x and z values.  <a href="class_terrain.html#a32f65a30b78665629dc04fe6670d5812">More...</a><br /></td></tr>
-<tr class="separator:a32f65a30b78665629dc04fe6670d5812"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af4aa67cc2fd96ee30aeb1c8fe01c8016"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_terrain.html#af4aa67cc2fd96ee30aeb1c8fe01c8016">getHeightColor</a> (int xpos, int zpos)</td></tr>
+<tr class="memdesc:af4aa67cc2fd96ee30aeb1c8fe01c8016"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets and returns the height (y-value) color for a position in the terrain using given x and z values.  <a href="class_terrain.html#af4aa67cc2fd96ee30aeb1c8fe01c8016">More...</a><br /></td></tr>
+<tr class="separator:af4aa67cc2fd96ee30aeb1c8fe01c8016"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a163e75f11a483ff2ac18c8cd9d5ffe64"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_terrain.html#a163e75f11a483ff2ac18c8cd9d5ffe64">inBounds</a> (int x, int y)</td></tr>
 <tr class="memdesc:a163e75f11a483ff2ac18c8cd9d5ffe64"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if x and y coordinates are within the required range.  <a href="class_terrain.html#a163e75f11a483ff2ac18c8cd9d5ffe64">More...</a><br /></td></tr>
 <tr class="separator:a163e75f11a483ff2ac18c8cd9d5ffe64"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ace82a14b31791205a9289441d6688947"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_terrain.html#ace82a14b31791205a9289441d6688947">generateTerrain</a> ()</td></tr>
-<tr class="memdesc:ace82a14b31791205a9289441d6688947"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generates the terrain by generating the positions, colors, texture coords, indices and placing them in a vector.  <a href="class_terrain.html#ace82a14b31791205a9289441d6688947">More...</a><br /></td></tr>
+<tr class="memitem:ace82a14b31791205a9289441d6688947"><td class="memItemLeft" align="right" valign="top"><a id="ace82a14b31791205a9289441d6688947"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_terrain.html#ace82a14b31791205a9289441d6688947">generateTerrain</a> ()</td></tr>
+<tr class="memdesc:ace82a14b31791205a9289441d6688947"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generates the terrain by generating the positions, colors, texture coords, indices and placing them in a vector. <br /></td></tr>
 <tr class="separator:ace82a14b31791205a9289441d6688947"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad689326d663662c6b11959247d4a87bb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_terrain.html#ad689326d663662c6b11959247d4a87bb">setTextures</a> ()</td></tr>
-<tr class="memdesc:ad689326d663662c6b11959247d4a87bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the textures that the terrain will use to implement multitexturing and detail mapping.  <a href="class_terrain.html#ad689326d663662c6b11959247d4a87bb">More...</a><br /></td></tr>
+<tr class="memitem:ad689326d663662c6b11959247d4a87bb"><td class="memItemLeft" align="right" valign="top"><a id="ad689326d663662c6b11959247d4a87bb"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_terrain.html#ad689326d663662c6b11959247d4a87bb">setTextures</a> ()</td></tr>
+<tr class="memdesc:ad689326d663662c6b11959247d4a87bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the textures that the terrain will use to implement multitexturing and detail mapping. <br /></td></tr>
 <tr class="separator:ad689326d663662c6b11959247d4a87bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a219c33a4b4a0567ff06f587019549d4f"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_terrain.html#a219c33a4b4a0567ff06f587019549d4f">getAverageHeight</a> (int xpos, int zpos)</td></tr>
 <tr class="memdesc:a219c33a4b4a0567ff06f587019549d4f"><td class="mdescLeft">&#160;</td><td class="mdescRight">gets and returns the average height around a given x and z point  <a href="class_terrain.html#a219c33a4b4a0567ff06f587019549d4f">More...</a><br /></td></tr>
@@ -167,6 +162,21 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aa074142065d7a535caca3a492882a568"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_terrain.html#aa074142065d7a535caca3a492882a568">generateVertices</a> (<a class="el" href="struct_vertex.html">Vertex</a> &amp;vertex)</td></tr>
 <tr class="memdesc:aa074142065d7a535caca3a492882a568"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generates position vertices.  <a href="class_terrain.html#aa074142065d7a535caca3a492882a568">More...</a><br /></td></tr>
 <tr class="separator:aa074142065d7a535caca3a492882a568"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4d191a77338622c74c5a01754f970901"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_terrain.html#a4d191a77338622c74c5a01754f970901">SmoothTerrain</a> (<a class="el" href="struct_vertex.html">Vertex</a> &amp;vert, float smoothFactor)</td></tr>
+<tr class="memdesc:a4d191a77338622c74c5a01754f970901"><td class="mdescLeft">&#160;</td><td class="mdescRight">Smooths out the terrain data to remove all roughness.  <a href="class_terrain.html#a4d191a77338622c74c5a01754f970901">More...</a><br /></td></tr>
+<tr class="separator:a4d191a77338622c74c5a01754f970901"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a52092d3e1a708f382c298f70b091ef52"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_terrain.html#a52092d3e1a708f382c298f70b091ef52">Interpolate</a> (float a, float b, float blend)</td></tr>
+<tr class="memdesc:a52092d3e1a708f382c298f70b091ef52"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interpolates between two float values using Cosine interpolation.  <a href="class_terrain.html#a52092d3e1a708f382c298f70b091ef52">More...</a><br /></td></tr>
+<tr class="separator:a52092d3e1a708f382c298f70b091ef52"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5971d61ce3418a7b0648a75f0154d11d"><td class="memItemLeft" align="right" valign="top"><a id="a5971d61ce3418a7b0648a75f0154d11d"></a>
+glm::vec3&#160;</td><td class="memItemRight" valign="bottom"><b>GetScales</b> ()</td></tr>
+<tr class="separator:a5971d61ce3418a7b0648a75f0154d11d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aed3d1681927b047b80c63cb44f5eb640"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_terrain.html#aed3d1681927b047b80c63cb44f5eb640">SetVertexHeight</a> (int xPos, int zPos, float newHeight)</td></tr>
+<tr class="memdesc:aed3d1681927b047b80c63cb44f5eb640"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the height of a given position on the terrain.  <a href="class_terrain.html#aed3d1681927b047b80c63cb44f5eb640">More...</a><br /></td></tr>
+<tr class="separator:aed3d1681927b047b80c63cb44f5eb640"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acfed93a5a537a0ce7202ffa426d6907b"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_terrain.html#acfed93a5a537a0ce7202ffa426d6907b">GetVertexHeight</a> (int xPos, int zPos)</td></tr>
+<tr class="memdesc:acfed93a5a537a0ce7202ffa426d6907b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the final height value of the terrain at a set x,z position.  <a href="class_terrain.html#acfed93a5a537a0ce7202ffa426d6907b">More...</a><br /></td></tr>
+<tr class="separator:acfed93a5a537a0ce7202ffa426d6907b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac25a93e3ff5eff94f991d30f5e0abc10"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_terrain.html#ac25a93e3ff5eff94f991d30f5e0abc10">generateIndices</a> (std::vector&lt; unsigned int &gt; &amp;indices)</td></tr>
 <tr class="memdesc:ac25a93e3ff5eff94f991d30f5e0abc10"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generates indices.  <a href="class_terrain.html#ac25a93e3ff5eff94f991d30f5e0abc10">More...</a><br /></td></tr>
 <tr class="separator:ac25a93e3ff5eff94f991d30f5e0abc10"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -176,32 +186,40 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a02a57605b8d5dfca13a4916ad4c19415"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_terrain.html#a02a57605b8d5dfca13a4916ad4c19415">generateTextures</a> (<a class="el" href="struct_vertex.html">Vertex</a> &amp;vertex)</td></tr>
 <tr class="memdesc:a02a57605b8d5dfca13a4916ad4c19415"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generates texture vertices.  <a href="class_terrain.html#a02a57605b8d5dfca13a4916ad4c19415">More...</a><br /></td></tr>
 <tr class="separator:a02a57605b8d5dfca13a4916ad4c19415"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab49954895f9ec0814d10b2bc99736ecb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_terrain.html#ab49954895f9ec0814d10b2bc99736ecb">generateNormals</a> ()</td></tr>
-<tr class="memdesc:ab49954895f9ec0814d10b2bc99736ecb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generates vertex normals.  <a href="class_terrain.html#ab49954895f9ec0814d10b2bc99736ecb">More...</a><br /></td></tr>
+<tr class="memitem:ab49954895f9ec0814d10b2bc99736ecb"><td class="memItemLeft" align="right" valign="top"><a id="ab49954895f9ec0814d10b2bc99736ecb"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_terrain.html#ab49954895f9ec0814d10b2bc99736ecb">generateNormals</a> ()</td></tr>
+<tr class="memdesc:ab49954895f9ec0814d10b2bc99736ecb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generates vertex normals. <br /></td></tr>
 <tr class="separator:ab49954895f9ec0814d10b2bc99736ecb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:acdb369701d8b26be0499dfede75f195c"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_terrain.html#acdb369701d8b26be0499dfede75f195c">VAO</a> = 0</td></tr>
+<tr class="memitem:acdb369701d8b26be0499dfede75f195c"><td class="memItemLeft" align="right" valign="top"><a id="acdb369701d8b26be0499dfede75f195c"></a>
+unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>VAO</b> = 0</td></tr>
 <tr class="separator:acdb369701d8b26be0499dfede75f195c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad30db2e625ef7a10e9e167e4c8fdfaa0"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_terrain.html#ad30db2e625ef7a10e9e167e4c8fdfaa0">VBO</a> = 0</td></tr>
+<tr class="memitem:ad30db2e625ef7a10e9e167e4c8fdfaa0"><td class="memItemLeft" align="right" valign="top"><a id="ad30db2e625ef7a10e9e167e4c8fdfaa0"></a>
+unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>VBO</b> = 0</td></tr>
 <tr class="separator:ad30db2e625ef7a10e9e167e4c8fdfaa0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae5b0a3981e125281e8b34a684539bf19"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_terrain.html#ae5b0a3981e125281e8b34a684539bf19">EBO</a> = 0</td></tr>
+<tr class="memitem:ae5b0a3981e125281e8b34a684539bf19"><td class="memItemLeft" align="right" valign="top"><a id="ae5b0a3981e125281e8b34a684539bf19"></a>
+unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>EBO</b> = 0</td></tr>
 <tr class="separator:ae5b0a3981e125281e8b34a684539bf19"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
-<tr class="memitem:a84685b0b5451a926e2178668045d7507"><td class="memItemLeft" align="right" valign="top">unsigned char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_terrain.html#a84685b0b5451a926e2178668045d7507">terrainData</a></td></tr>
-<tr class="memdesc:a84685b0b5451a926e2178668045d7507"><td class="mdescLeft">&#160;</td><td class="mdescRight">data of the heightfield  <a href="class_terrain.html#a84685b0b5451a926e2178668045d7507">More...</a><br /></td></tr>
+<tr class="memitem:a84685b0b5451a926e2178668045d7507"><td class="memItemLeft" align="right" valign="top"><a id="a84685b0b5451a926e2178668045d7507"></a>
+unsigned char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_terrain.html#a84685b0b5451a926e2178668045d7507">terrainData</a></td></tr>
+<tr class="memdesc:a84685b0b5451a926e2178668045d7507"><td class="mdescLeft">&#160;</td><td class="mdescRight">data of the heightfield <br /></td></tr>
 <tr class="separator:a84685b0b5451a926e2178668045d7507"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8e3269d072b2be6caa40070f66d37458"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_terrain.html#a8e3269d072b2be6caa40070f66d37458">scaleX</a></td></tr>
-<tr class="memdesc:a8e3269d072b2be6caa40070f66d37458"><td class="mdescLeft">&#160;</td><td class="mdescRight">value that will scale the x value  <a href="class_terrain.html#a8e3269d072b2be6caa40070f66d37458">More...</a><br /></td></tr>
+<tr class="memitem:a8e3269d072b2be6caa40070f66d37458"><td class="memItemLeft" align="right" valign="top"><a id="a8e3269d072b2be6caa40070f66d37458"></a>
+float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_terrain.html#a8e3269d072b2be6caa40070f66d37458">scaleX</a></td></tr>
+<tr class="memdesc:a8e3269d072b2be6caa40070f66d37458"><td class="mdescLeft">&#160;</td><td class="mdescRight">value that will scale the x value <br /></td></tr>
 <tr class="separator:a8e3269d072b2be6caa40070f66d37458"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2f3f1479e2bd7980efe3947bf1fb5dd7"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_terrain.html#a2f3f1479e2bd7980efe3947bf1fb5dd7">scaleY</a></td></tr>
-<tr class="memdesc:a2f3f1479e2bd7980efe3947bf1fb5dd7"><td class="mdescLeft">&#160;</td><td class="mdescRight">value that will scale the y value  <a href="class_terrain.html#a2f3f1479e2bd7980efe3947bf1fb5dd7">More...</a><br /></td></tr>
+<tr class="memitem:a2f3f1479e2bd7980efe3947bf1fb5dd7"><td class="memItemLeft" align="right" valign="top"><a id="a2f3f1479e2bd7980efe3947bf1fb5dd7"></a>
+float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_terrain.html#a2f3f1479e2bd7980efe3947bf1fb5dd7">scaleY</a></td></tr>
+<tr class="memdesc:a2f3f1479e2bd7980efe3947bf1fb5dd7"><td class="mdescLeft">&#160;</td><td class="mdescRight">value that will scale the y value <br /></td></tr>
 <tr class="separator:a2f3f1479e2bd7980efe3947bf1fb5dd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7ce825d4ce496e3ae19fe750dd29af49"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_terrain.html#a7ce825d4ce496e3ae19fe750dd29af49">scaleZ</a></td></tr>
-<tr class="memdesc:a7ce825d4ce496e3ae19fe750dd29af49"><td class="mdescLeft">&#160;</td><td class="mdescRight">value that will scale the z value  <a href="class_terrain.html#a7ce825d4ce496e3ae19fe750dd29af49">More...</a><br /></td></tr>
+<tr class="memitem:a7ce825d4ce496e3ae19fe750dd29af49"><td class="memItemLeft" align="right" valign="top"><a id="a7ce825d4ce496e3ae19fe750dd29af49"></a>
+float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_terrain.html#a7ce825d4ce496e3ae19fe750dd29af49">scaleZ</a></td></tr>
+<tr class="memdesc:a7ce825d4ce496e3ae19fe750dd29af49"><td class="mdescLeft">&#160;</td><td class="mdescRight">value that will scale the z value <br /></td></tr>
 <tr class="separator:a7ce825d4ce496e3ae19fe750dd29af49"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -209,51 +227,16 @@ Protected Attributes</h2></td></tr>
 <dl class="section author"><dt>Author</dt><dd>Dylan Blereau </dd></dl>
 <dl class="section version"><dt>Version</dt><dd>01 </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>10/03/2021 Dylan Blereau, Started</dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000005">Todo:</a></b></dt><dd>break down generateTerrain function @bugs nothing major currently</dd></dl>
-<dl class="section author"><dt>Author</dt><dd>Dylan Blereau </dd></dl>
-<dl class="section version"><dt>Version</dt><dd>02 </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>02/04/2021 Dylan Blereau, Started</dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000004">Todo:</a></b></dt><dd>break down generateTerrain function @bugs nothing major currently</dd></dl>
+<dl class="section author"><dt>Authors</dt><dd>Dylan Blereau, Bryce Standley </dd></dl>
+<dl class="section version"><dt>Version</dt><dd>03 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>02/04/2021 Dylan Blereau, Started </dd>
+<dd>
+MAY 2021 Bryce Standley, improvements</dd></dl>
 <p>added scripting and fixed generateTerrain @bugs none currently </p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a7160a06ab07a86ed97d23374405e8ef6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7160a06ab07a86ed97d23374405e8ef6">&#9670;&nbsp;</a></span>Terrain()</h2>
 
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">Terrain::Terrain </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>default constructor that initialises the terrain object </p>
-
-</div>
-</div>
-<a id="a2f7f0a2aee54886324ccf48a6f321de0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2f7f0a2aee54886324ccf48a6f321de0">&#9670;&nbsp;</a></span>~Terrain()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">Terrain::~Terrain </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>destructor that deallocates terrain memory when object is detroyed </p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
+<p class="definition">Definition at line <a class="el" href="_terrain_8h_source.html#l00055">55</a> of file <a class="el" href="_terrain_8h_source.html">Terrain.h</a>.</p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="ab901804353705f46fe0feb28d06ddc34"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab901804353705f46fe0feb28d06ddc34">&#9670;&nbsp;</a></span>attachShader()</h2>
 
@@ -278,6 +261,11 @@ Protected Attributes</h2></td></tr>
   </dd>
 </dl>
 
+<p class="definition">Definition at line <a class="el" href="_terrain_8cpp_source.html#l00150">150</a> of file <a class="el" href="_terrain_8cpp_source.html">Terrain.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;{</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;    shader = shad;</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;}</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="a789357e39c96b4a751d0151ce27f6e87"></a>
@@ -304,6 +292,22 @@ Protected Attributes</h2></td></tr>
   </dd>
 </dl>
 
+<p class="definition">Definition at line <a class="el" href="_terrain_8cpp_source.html#l00474">474</a> of file <a class="el" href="_terrain_8cpp_source.html">Terrain.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00475"></a><span class="lineno">  475</span>&#160;{</div>
+<div class="line"><a name="l00476"></a><span class="lineno">  476</span>&#160;    <span class="keywordtype">float</span> colorVal = 0.0f;</div>
+<div class="line"><a name="l00477"></a><span class="lineno">  477</span>&#160; </div>
+<div class="line"><a name="l00478"></a><span class="lineno">  478</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> z = 0; z &lt; sizeZ; ++z)</div>
+<div class="line"><a name="l00479"></a><span class="lineno">  479</span>&#160;    {</div>
+<div class="line"><a name="l00480"></a><span class="lineno">  480</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> x = 0; x &lt; sizeX; ++x)</div>
+<div class="line"><a name="l00481"></a><span class="lineno">  481</span>&#160;        {</div>
+<div class="line"><a name="l00482"></a><span class="lineno">  482</span>&#160;            colorVal = <a class="code" href="class_terrain.html#acfed93a5a537a0ce7202ffa426d6907b">GetVertexHeight</a>(x, z) / 255.0f;</div>
+<div class="line"><a name="l00483"></a><span class="lineno">  483</span>&#160;            glm::vec3 color(0.0f, colorVal, 0.0f);</div>
+<div class="line"><a name="l00484"></a><span class="lineno">  484</span>&#160;            vertex.color.push_back(color);</div>
+<div class="line"><a name="l00485"></a><span class="lineno">  485</span>&#160;        }</div>
+<div class="line"><a name="l00486"></a><span class="lineno">  486</span>&#160;    }</div>
+<div class="line"><a name="l00487"></a><span class="lineno">  487</span>&#160;}</div>
+<div class="ttc" id="aclass_terrain_html_acfed93a5a537a0ce7202ffa426d6907b"><div class="ttname"><a href="class_terrain.html#acfed93a5a537a0ce7202ffa426d6907b">Terrain::GetVertexHeight</a></div><div class="ttdeci">float GetVertexHeight(int xPos, int zPos)</div><div class="ttdoc">Gets the final height value of the terrain at a set x,z position.</div><div class="ttdef"><b>Definition:</b> <a href="_terrain_8cpp_source.html#l00286">Terrain.cpp:286</a></div></div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="ac25a93e3ff5eff94f991d30f5e0abc10"></a>
@@ -330,44 +334,25 @@ Protected Attributes</h2></td></tr>
   </dd>
 </dl>
 
-</div>
-</div>
-<a id="ab49954895f9ec0814d10b2bc99736ecb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab49954895f9ec0814d10b2bc99736ecb">&#9670;&nbsp;</a></span>generateNormals()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Terrain::generateNormals </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Generates vertex normals. </p>
-
-</div>
-</div>
-<a id="ace82a14b31791205a9289441d6688947"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ace82a14b31791205a9289441d6688947">&#9670;&nbsp;</a></span>generateTerrain()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Terrain::generateTerrain </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Generates the terrain by generating the positions, colors, texture coords, indices and placing them in a vector. </p>
-
+<p class="definition">Definition at line <a class="el" href="_terrain_8cpp_source.html#l00456">456</a> of file <a class="el" href="_terrain_8cpp_source.html">Terrain.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00457"></a><span class="lineno">  457</span>&#160;{</div>
+<div class="line"><a name="l00458"></a><span class="lineno">  458</span>&#160; </div>
+<div class="line"><a name="l00459"></a><span class="lineno">  459</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> z = 0; z &lt; sizeZ - 1; ++z)</div>
+<div class="line"><a name="l00460"></a><span class="lineno">  460</span>&#160;    {</div>
+<div class="line"><a name="l00461"></a><span class="lineno">  461</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> x = 0; x &lt; sizeX - 1; ++x) {</div>
+<div class="line"><a name="l00462"></a><span class="lineno">  462</span>&#160;            indices.push_back((x * <a class="code" href="class_terrain.html#a88a02349cfd6085b2447cff2512ba965">getSize</a>() + z));             <span class="comment">// 0</span></div>
+<div class="line"><a name="l00463"></a><span class="lineno">  463</span>&#160;            indices.push_back(((x * <a class="code" href="class_terrain.html#a88a02349cfd6085b2447cff2512ba965">getSize</a>() + 1) + z));       <span class="comment">// 1</span></div>
+<div class="line"><a name="l00464"></a><span class="lineno">  464</span>&#160;            indices.push_back((((x + 1) * <a class="code" href="class_terrain.html#a88a02349cfd6085b2447cff2512ba965">getSize</a>()) + z));     <span class="comment">// 3</span></div>
+<div class="line"><a name="l00465"></a><span class="lineno">  465</span>&#160; </div>
+<div class="line"><a name="l00466"></a><span class="lineno">  466</span>&#160;            indices.push_back(((x * <a class="code" href="class_terrain.html#a88a02349cfd6085b2447cff2512ba965">getSize</a>() + 1) + z));       <span class="comment">// 1</span></div>
+<div class="line"><a name="l00467"></a><span class="lineno">  467</span>&#160;            indices.push_back(((x + 1) * <a class="code" href="class_terrain.html#a88a02349cfd6085b2447cff2512ba965">getSize</a>()) + (z + 1)); <span class="comment">// 2</span></div>
+<div class="line"><a name="l00468"></a><span class="lineno">  468</span>&#160;            indices.push_back((((x + 1) * <a class="code" href="class_terrain.html#a88a02349cfd6085b2447cff2512ba965">getSize</a>()) + z));     <span class="comment">// 3</span></div>
+<div class="line"><a name="l00469"></a><span class="lineno">  469</span>&#160;        }</div>
+<div class="line"><a name="l00470"></a><span class="lineno">  470</span>&#160;    }</div>
+<div class="line"><a name="l00471"></a><span class="lineno">  471</span>&#160; </div>
+<div class="line"><a name="l00472"></a><span class="lineno">  472</span>&#160;}</div>
+<div class="ttc" id="aclass_terrain_html_a88a02349cfd6085b2447cff2512ba965"><div class="ttname"><a href="class_terrain.html#a88a02349cfd6085b2447cff2512ba965">Terrain::getSize</a></div><div class="ttdeci">int getSize()</div><div class="ttdoc">Get method that returns the size value.</div><div class="ttdef"><b>Definition:</b> <a href="_terrain_8cpp_source.html#l00379">Terrain.cpp:379</a></div></div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="a02a57605b8d5dfca13a4916ad4c19415"></a>
@@ -394,6 +379,39 @@ Protected Attributes</h2></td></tr>
   </dd>
 </dl>
 
+<p class="definition">Definition at line <a class="el" href="_terrain_8cpp_source.html#l00489">489</a> of file <a class="el" href="_terrain_8cpp_source.html">Terrain.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00490"></a><span class="lineno">  490</span>&#160;{</div>
+<div class="line"><a name="l00491"></a><span class="lineno">  491</span>&#160; </div>
+<div class="line"><a name="l00492"></a><span class="lineno">  492</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> tracker = 0;</div>
+<div class="line"><a name="l00493"></a><span class="lineno">  493</span>&#160;    <span class="keywordtype">float</span> prevx = vertex.position[0].x;</div>
+<div class="line"><a name="l00494"></a><span class="lineno">  494</span>&#160;    <span class="keywordtype">int</span> s = 1;</div>
+<div class="line"><a name="l00495"></a><span class="lineno">  495</span>&#160;    <span class="keywordtype">int</span> x = 0;</div>
+<div class="line"><a name="l00496"></a><span class="lineno">  496</span>&#160;    <span class="keywordtype">int</span> z = 0;</div>
+<div class="line"><a name="l00497"></a><span class="lineno">  497</span>&#160;    glm::vec3 texCoords;</div>
+<div class="line"><a name="l00498"></a><span class="lineno">  498</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span> &amp;vert : vertex.position) {</div>
+<div class="line"><a name="l00499"></a><span class="lineno">  499</span>&#160;        <span class="keywordflow">if</span> (<span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(prevx) != <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(vert.x))</div>
+<div class="line"><a name="l00500"></a><span class="lineno">  500</span>&#160;        {</div>
+<div class="line"><a name="l00501"></a><span class="lineno">  501</span>&#160;            x++;</div>
+<div class="line"><a name="l00502"></a><span class="lineno">  502</span>&#160;            z = 0;</div>
+<div class="line"><a name="l00503"></a><span class="lineno">  503</span>&#160;            prevx = vert.x;</div>
+<div class="line"><a name="l00504"></a><span class="lineno">  504</span>&#160;        }</div>
+<div class="line"><a name="l00505"></a><span class="lineno">  505</span>&#160;        <span class="keywordflow">if</span> (tracker == 0)</div>
+<div class="line"><a name="l00506"></a><span class="lineno">  506</span>&#160;        {</div>
+<div class="line"><a name="l00507"></a><span class="lineno">  507</span>&#160;            texCoords.x = <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(x) / <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(s);</div>
+<div class="line"><a name="l00508"></a><span class="lineno">  508</span>&#160;            texCoords.y = <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(z) / <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(s);</div>
+<div class="line"><a name="l00509"></a><span class="lineno">  509</span>&#160;            tracker++;</div>
+<div class="line"><a name="l00510"></a><span class="lineno">  510</span>&#160;        }</div>
+<div class="line"><a name="l00511"></a><span class="lineno">  511</span>&#160;        <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00512"></a><span class="lineno">  512</span>&#160;        {</div>
+<div class="line"><a name="l00513"></a><span class="lineno">  513</span>&#160;            texCoords.x = <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(x) / <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(s);</div>
+<div class="line"><a name="l00514"></a><span class="lineno">  514</span>&#160;            texCoords.y = <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(z) / <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(s);</div>
+<div class="line"><a name="l00515"></a><span class="lineno">  515</span>&#160;            tracker = 0;</div>
+<div class="line"><a name="l00516"></a><span class="lineno">  516</span>&#160;        }</div>
+<div class="line"><a name="l00517"></a><span class="lineno">  517</span>&#160;        z++;</div>
+<div class="line"><a name="l00518"></a><span class="lineno">  518</span>&#160;        vertex.texture.push_back(texCoords);</div>
+<div class="line"><a name="l00519"></a><span class="lineno">  519</span>&#160;    }</div>
+<div class="line"><a name="l00520"></a><span class="lineno">  520</span>&#160;}</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="aa074142065d7a535caca3a492882a568"></a>
@@ -420,6 +438,26 @@ Protected Attributes</h2></td></tr>
   </dd>
 </dl>
 
+<p class="definition">Definition at line <a class="el" href="_terrain_8cpp_source.html#l00384">384</a> of file <a class="el" href="_terrain_8cpp_source.html">Terrain.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;{</div>
+<div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;    <span class="comment">//TerrainHeightScale(0, MAX_HEIGHT);</span></div>
+<div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160; </div>
+<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> z = 0; z &lt; sizeZ; ++z)</div>
+<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;    {</div>
+<div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> x = 0; x &lt; sizeX; ++x)</div>
+<div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;        {</div>
+<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;            glm::vec3 positions((<span class="keywordtype">float</span>)x * <a class="code" href="class_terrain.html#a8e3269d072b2be6caa40070f66d37458">scaleX</a>, <a class="code" href="class_terrain.html#af098de14a31aec4aed0d28c2efc93bfe">getHeight</a>((<span class="keywordtype">int</span>)x, (<span class="keywordtype">int</span>)z) * <a class="code" href="class_terrain.html#a2f3f1479e2bd7980efe3947bf1fb5dd7">scaleY</a>, (<span class="keywordtype">float</span>)z * <a class="code" href="class_terrain.html#a7ce825d4ce496e3ae19fe750dd29af49">scaleZ</a>);</div>
+<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;            vertex.position.push_back(positions);</div>
+<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;            <span class="keywordflow">if</span>(positions.y &gt; highestPoint.y) { highestPoint = glm::vec3(x, positions.y, z);}</div>
+<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;            <span class="keywordflow">if</span>(positions.y &lt; lowestPoint.y) { lowestPoint = glm::vec3(x, positions.y, z);}</div>
+<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;        }</div>
+<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;    }</div>
+<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;}</div>
+<div class="ttc" id="aclass_terrain_html_a2f3f1479e2bd7980efe3947bf1fb5dd7"><div class="ttname"><a href="class_terrain.html#a2f3f1479e2bd7980efe3947bf1fb5dd7">Terrain::scaleY</a></div><div class="ttdeci">float scaleY</div><div class="ttdoc">value that will scale the y value</div><div class="ttdef"><b>Definition:</b> <a href="_terrain_8h_source.html#l00064">Terrain.h:64</a></div></div>
+<div class="ttc" id="aclass_terrain_html_a7ce825d4ce496e3ae19fe750dd29af49"><div class="ttname"><a href="class_terrain.html#a7ce825d4ce496e3ae19fe750dd29af49">Terrain::scaleZ</a></div><div class="ttdeci">float scaleZ</div><div class="ttdoc">value that will scale the z value</div><div class="ttdef"><b>Definition:</b> <a href="_terrain_8h_source.html#l00066">Terrain.h:66</a></div></div>
+<div class="ttc" id="aclass_terrain_html_a8e3269d072b2be6caa40070f66d37458"><div class="ttname"><a href="class_terrain.html#a8e3269d072b2be6caa40070f66d37458">Terrain::scaleX</a></div><div class="ttdeci">float scaleX</div><div class="ttdoc">value that will scale the x value</div><div class="ttdef"><b>Definition:</b> <a href="_terrain_8h_source.html#l00062">Terrain.h:62</a></div></div>
+<div class="ttc" id="aclass_terrain_html_af098de14a31aec4aed0d28c2efc93bfe"><div class="ttname"><a href="class_terrain.html#af098de14a31aec4aed0d28c2efc93bfe">Terrain::getHeight</a></div><div class="ttdeci">float getHeight(int xpos, int zpos)</div><div class="ttdoc">Gets and returns the height (y-value) for a position in the terrain using given x and z values.</div><div class="ttdef"><b>Definition:</b> <a href="_terrain_8cpp_source.html#l00271">Terrain.cpp:271</a></div></div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="a219c33a4b4a0567ff06f587019549d4f"></a>
@@ -460,6 +498,57 @@ Protected Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>float </dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="_terrain_8cpp_source.html#l00312">312</a> of file <a class="el" href="_terrain_8cpp_source.html">Terrain.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;{</div>
+<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;    std::vector&lt;float&gt; heights;</div>
+<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160; </div>
+<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;    <span class="comment">//stopping the position over flowing</span></div>
+<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;    <span class="keywordflow">if</span>(xpos &gt; sizeX) xpos = sizeX - 2;</div>
+<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;    <span class="keywordflow">if</span>(zpos &gt; sizeZ) zpos = sizeZ - 2;</div>
+<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160; </div>
+<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160; </div>
+<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;    <span class="keywordtype">float</span> inX = (float)xpos / 4.0f;</div>
+<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;    <span class="keywordtype">float</span> inZ = (float)zpos / 4.0f;</div>
+<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;    <span class="keywordtype">int</span> intX =  xpos;</div>
+<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;    <span class="keywordtype">int</span> intZ =  zpos;</div>
+<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;    <span class="keywordtype">float</span> fracX = inX - intX;</div>
+<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;    <span class="keywordtype">float</span> fracZ = inZ - intZ;</div>
+<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160; </div>
+<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;    <span class="keywordtype">float</span> v1 = <a class="code" href="class_terrain.html#acfed93a5a537a0ce7202ffa426d6907b">GetVertexHeight</a>(intX, intZ);</div>
+<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;    <span class="keywordtype">float</span> v2 = <a class="code" href="class_terrain.html#acfed93a5a537a0ce7202ffa426d6907b">GetVertexHeight</a>(intX + 1, intZ);</div>
+<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;    <span class="keywordtype">float</span> v3 = <a class="code" href="class_terrain.html#acfed93a5a537a0ce7202ffa426d6907b">GetVertexHeight</a>(intX, intZ + 1);</div>
+<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;    <span class="keywordtype">float</span> v4 = <a class="code" href="class_terrain.html#acfed93a5a537a0ce7202ffa426d6907b">GetVertexHeight</a>(intX + 1, intZ + 1);</div>
+<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;    <span class="keywordtype">float</span> i1 = <a class="code" href="class_terrain.html#a52092d3e1a708f382c298f70b091ef52">Interpolate</a>(v1, v2, fracX);</div>
+<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;    <span class="keywordtype">float</span> i2 = <a class="code" href="class_terrain.html#a52092d3e1a708f382c298f70b091ef52">Interpolate</a>(v3, v4, fracX);</div>
+<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="class_terrain.html#a52092d3e1a708f382c298f70b091ef52">Interpolate</a>(i1, i2, fracZ);</div>
+<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160; </div>
+<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;<span class="comment">    heights.push_back(GetVertexHeight(xpos, zpos));</span></div>
+<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;<span class="comment">    heights.push_back(GetVertexHeight(xpos - 1 , zpos - 1));</span></div>
+<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;<span class="comment">    heights.push_back(GetVertexHeight(xpos, zpos - 1));</span></div>
+<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;<span class="comment">    heights.push_back(GetVertexHeight(xpos + 1, zpos - 1));</span></div>
+<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;<span class="comment">    heights.push_back(GetVertexHeight(xpos - 1, zpos) );</span></div>
+<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;<span class="comment">    heights.push_back(GetVertexHeight(xpos + 1, zpos));</span></div>
+<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;<span class="comment">    heights.push_back(GetVertexHeight(xpos - 1, zpos + 1));</span></div>
+<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;<span class="comment">    heights.push_back(GetVertexHeight(xpos, zpos + 1));</span></div>
+<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;<span class="comment">    heights.push_back(GetVertexHeight(xpos + 1, zpos + 1));</span></div>
+<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;<span class="comment">    float tot = 0.0f;</span></div>
+<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;<span class="comment">    for (float h : heights)</span></div>
+<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;<span class="comment">    {</span></div>
+<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;<span class="comment">        tot += h;</span></div>
+<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;<span class="comment">    }</span></div>
+<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;<span class="comment">    return tot / (float)heights.size();*/</span></div>
+<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;}</div>
+<div class="ttc" id="aclass_terrain_html_a52092d3e1a708f382c298f70b091ef52"><div class="ttname"><a href="class_terrain.html#a52092d3e1a708f382c298f70b091ef52">Terrain::Interpolate</a></div><div class="ttdeci">float Interpolate(float a, float b, float blend)</div><div class="ttdoc">Interpolates between two float values using Cosine interpolation.</div><div class="ttdef"><b>Definition:</b> <a href="_terrain_8cpp_source.html#l00449">Terrain.cpp:449</a></div></div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="af098de14a31aec4aed0d28c2efc93bfe"></a>
@@ -498,16 +587,33 @@ Protected Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>float </dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="_terrain_8cpp_source.html#l00271">271</a> of file <a class="el" href="_terrain_8cpp_source.html">Terrain.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;                                           {</div>
+<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;    <span class="keywordflow">if</span> (xpos &lt; 0) { xpos = 0; }</div>
+<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;    <span class="keywordflow">if</span> (zpos &lt; 0) { zpos = 0; }</div>
+<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;    <span class="keywordflow">if</span>(xpos &gt; sizeX) {xpos = sizeX;}</div>
+<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;    <span class="keywordflow">if</span>(zpos &gt; sizeZ) { zpos = sizeZ;}</div>
+<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="class_terrain.html#a163e75f11a483ff2ac18c8cd9d5ffe64">inBounds</a>(xpos, zpos))</div>
+<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;    {</div>
+<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;        <span class="keywordflow">return</span> terrainHeights[zpos * sizeZ + xpos];</div>
+<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;    }</div>
+<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;    <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;    {</div>
+<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;        <span class="keywordflow">return</span> terrainHeights[((zpos - 1)  * sizeZ) + xpos];</div>
+<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;    }</div>
+<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;}</div>
+<div class="ttc" id="aclass_terrain_html_a163e75f11a483ff2ac18c8cd9d5ffe64"><div class="ttname"><a href="class_terrain.html#a163e75f11a483ff2ac18c8cd9d5ffe64">Terrain::inBounds</a></div><div class="ttdeci">bool inBounds(int x, int y)</div><div class="ttdoc">Checks if x and y coordinates are within the required range.</div><div class="ttdef"><b>Definition:</b> <a href="_terrain_8cpp_source.html#l00369">Terrain.cpp:369</a></div></div>
+</div><!-- fragment -->
 </div>
 </div>
-<a id="a32f65a30b78665629dc04fe6670d5812"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a32f65a30b78665629dc04fe6670d5812">&#9670;&nbsp;</a></span>getHeightColor()</h2>
+<a id="af4aa67cc2fd96ee30aeb1c8fe01c8016"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af4aa67cc2fd96ee30aeb1c8fe01c8016">&#9670;&nbsp;</a></span>getHeightColor()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">unsigned char Terrain::getHeightColor </td>
+          <td class="memname">float Terrain::getHeightColor </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>xpos</em>, </td>
@@ -536,6 +642,14 @@ Protected Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>unsigned char </dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="_terrain_8cpp_source.html#l00362">362</a> of file <a class="el" href="_terrain_8cpp_source.html">Terrain.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;                                                {</div>
+<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="class_terrain.html#a163e75f11a483ff2ac18c8cd9d5ffe64">inBounds</a>(xpos, zpos)) {</div>
+<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;        <span class="keywordflow">return</span> terrainHeights[(zpos * sizeZ) + xpos];</div>
+<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;    }</div>
+<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;    <span class="keywordflow">return</span> 1;</div>
+<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;}</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="ac9fca6f4b667cedfcd627779593a75b5"></a>
@@ -564,6 +678,9 @@ Protected Attributes</h2></td></tr>
 <p>Get method that returns the total size of indices. </p>
 <dl class="section return"><dt>Returns</dt><dd>int </dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="_terrain_8h_source.html#l00197">197</a> of file <a class="el" href="_terrain_8h_source.html">Terrain.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;{ <span class="keywordflow">return</span> (<span class="keywordtype">int</span>)Indices.size(); }</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="ae6515958ec443db2c36b07e7938cd67f"></a>
@@ -592,6 +709,9 @@ Protected Attributes</h2></td></tr>
 <p>gets and returns a vector containing all indice values </p>
 <dl class="section return"><dt>Returns</dt><dd>std::vector&lt;unsigned int&gt; </dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="_terrain_8h_source.html#l00110">110</a> of file <a class="el" href="_terrain_8h_source.html">Terrain.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;{ <span class="keywordflow">return</span> Indices; }</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="acdd24f95ab3ca7a9146b32a31f4def35"></a>
@@ -620,6 +740,9 @@ Protected Attributes</h2></td></tr>
 <p>Get method that returns a shader object. </p>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="class_shader.html" title="A class that is responsible for shaders, allowing you to open/use shaders and set uniforms of various...">Shader</a> </dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="_terrain_8h_source.html#l00152">152</a> of file <a class="el" href="_terrain_8h_source.html">Terrain.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;{ <span class="keywordflow">return</span> shader; }</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="a88a02349cfd6085b2447cff2512ba965"></a>
@@ -640,6 +763,11 @@ Protected Attributes</h2></td></tr>
 <p>Get method that returns the size value. </p>
 <dl class="section return"><dt>Returns</dt><dd>int </dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="_terrain_8cpp_source.html#l00379">379</a> of file <a class="el" href="_terrain_8cpp_source.html">Terrain.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;{</div>
+<div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160;    <span class="keywordflow">return</span> size;</div>
+<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;}</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="af14ef5128a9a2eb28f36fc2762ea4d47"></a>
@@ -668,6 +796,9 @@ Protected Attributes</h2></td></tr>
 <p>Get method that a vector containing texture IDs. </p>
 <dl class="section return"><dt>Returns</dt><dd>vector&lt;unsigned int&gt; </dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="_terrain_8h_source.html#l00146">146</a> of file <a class="el" href="_terrain_8h_source.html">Terrain.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;{ <span class="keywordflow">return</span> texIds; }</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="a40aed738a629bfc4bdacd9d319dca8e3"></a>
@@ -696,6 +827,9 @@ Protected Attributes</h2></td></tr>
 <p>gets and returns and vector containing the totalData </p>
 <dl class="section return"><dt>Returns</dt><dd>std::vector&lt;glm::vec3&gt; </dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="_terrain_8h_source.html#l00116">116</a> of file <a class="el" href="_terrain_8h_source.html">Terrain.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;{ <span class="keywordflow">return</span> totalData; }</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="a410cd0467a5f67e8be7de27265d9010c"></a>
@@ -724,6 +858,63 @@ Protected Attributes</h2></td></tr>
 <p>Get method that returns the <a class="el" href="struct_vertex.html" title="struct containing all vertices required to generate a mesh">Vertex</a> Array Object. </p>
 <dl class="section return"><dt>Returns</dt><dd>unsigned int </dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="_terrain_8h_source.html#l00140">140</a> of file <a class="el" href="_terrain_8h_source.html">Terrain.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;{ <span class="keywordflow">return</span> VAO; }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="acfed93a5a537a0ce7202ffa426d6907b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acfed93a5a537a0ce7202ffa426d6907b">&#9670;&nbsp;</a></span>GetVertexHeight()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float Terrain::GetVertexHeight </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>xPos</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>zPos</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets the final height value of the terrain at a set x,z position. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">xPos</td><td></td></tr>
+    <tr><td class="paramname">zPos</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>float y value </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="_terrain_8cpp_source.html#l00286">286</a> of file <a class="el" href="_terrain_8cpp_source.html">Terrain.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;{</div>
+<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;    <span class="keywordflow">if</span> (xPos &lt; 0) { xPos = 0; }</div>
+<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;    <span class="keywordflow">if</span> (zPos &lt; 0) { zPos = 0; }</div>
+<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;    <span class="keywordflow">if</span>(xPos &gt; sizeX) {xPos = sizeX;}</div>
+<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;    <span class="keywordflow">if</span>(zPos &gt; sizeZ) { zPos = sizeZ;}</div>
+<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;    <span class="keywordflow">if</span>(<a class="code" href="class_terrain.html#a163e75f11a483ff2ac18c8cd9d5ffe64">inBounds</a>(xPos, zPos))</div>
+<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;    {</div>
+<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;        <span class="keywordflow">return</span> vertex.position[(zPos * sizeZ) + xPos].y;</div>
+<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;    }</div>
+<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;    <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;    {</div>
+<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;        <span class="keywordflow">return</span> vertex.position[((zPos - 1) * sizeZ) + xPos].y;</div>
+<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;    }</div>
+<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;}</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="a163e75f11a483ff2ac18c8cd9d5ffe64"></a>
@@ -762,25 +953,68 @@ Protected Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>bool </dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="_terrain_8cpp_source.html#l00369">369</a> of file <a class="el" href="_terrain_8cpp_source.html">Terrain.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;{</div>
+<div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160; </div>
+<div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160; </div>
+<div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160;    <span class="keywordflow">if</span> ((xpos &gt;= 0 &amp;&amp; (<span class="keywordtype">float</span>)xpos &lt; (<span class="keywordtype">float</span>)sizeX * <a class="code" href="class_terrain.html#a8e3269d072b2be6caa40070f66d37458">scaleX</a>) &amp;&amp; (zpos &gt;= 0 &amp;&amp; zpos &lt; (<span class="keywordtype">float</span>)sizeZ * <a class="code" href="class_terrain.html#a7ce825d4ce496e3ae19fe750dd29af49">scaleZ</a>))</div>
+<div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;    <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;}</div>
+</div><!-- fragment -->
 </div>
 </div>
-<a id="a70fac68a7900a4bddbf5c4b35b57b6f9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a70fac68a7900a4bddbf5c4b35b57b6f9">&#9670;&nbsp;</a></span>Init()</h2>
+<a id="a52092d3e1a708f382c298f70b091ef52"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a52092d3e1a708f382c298f70b091ef52">&#9670;&nbsp;</a></span>Interpolate()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void Terrain::Init </td>
+          <td class="memname">float Terrain::Interpolate </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>b</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>blend</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>A function that calls all the functions required to initialise the terrain. </p>
+<p>Interpolates between two float values using Cosine interpolation. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">a</td><td></td></tr>
+    <tr><td class="paramname">b</td><td></td></tr>
+    <tr><td class="paramname">blend</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>interpolated output between a and b using blend factor </dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="_terrain_8cpp_source.html#l00449">449</a> of file <a class="el" href="_terrain_8cpp_source.html">Terrain.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00450"></a><span class="lineno">  450</span>&#160;{</div>
+<div class="line"><a name="l00451"></a><span class="lineno">  451</span>&#160;    <span class="keywordtype">double</span> theta = blend * M_PI;</div>
+<div class="line"><a name="l00452"></a><span class="lineno">  452</span>&#160;    <span class="keywordtype">float</span> f = (float) (1.0f - cos(theta)) * 0.5f;</div>
+<div class="line"><a name="l00453"></a><span class="lineno">  453</span>&#160;    <span class="keywordflow">return</span> a * (1.0f - f) + b * f;</div>
+<div class="line"><a name="l00454"></a><span class="lineno">  454</span>&#160;}</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="ad0fcded992cdf72b72eee4cdad6af59e"></a>
@@ -819,25 +1053,116 @@ Protected Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>bool </dd></dl>
 
-</div>
-</div>
-<a id="ac8f074502cb581199a1eb57eceab6395"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac8f074502cb581199a1eb57eceab6395">&#9670;&nbsp;</a></span>luaLoader()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Terrain::luaLoader </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>loads an instance of lua and uses it to assign values from a lua script to terrain variables </p>
-
+<p class="definition">Definition at line <a class="el" href="_terrain_8cpp_source.html#l00155">155</a> of file <a class="el" href="_terrain_8cpp_source.html">Terrain.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;{</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;    <span class="comment">/*std::ifstream file(filename, std::ios::binary);</span></div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;<span class="comment">    if (!file)</span></div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;<span class="comment">    {</span></div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;<span class="comment">        std::cout &lt;&lt; &quot;File aint here brother&quot; &lt;&lt; std::endl;</span></div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;<span class="comment">        return false;</span></div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;<span class="comment">    }</span></div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;<span class="comment">    if (size &gt; 0)</span></div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;<span class="comment">    {</span></div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;<span class="comment">        int nSize = size * size;</span></div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;<span class="comment">        terrainData = new unsigned char[nSize];</span></div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;<span class="comment">    }</span></div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;<span class="comment">    if (terrainData == nullptr)</span></div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;<span class="comment">        return false;</span></div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;<span class="comment">    file.seekg(0, std::ios::end);</span></div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;<span class="comment">    int length = file.tellg();</span></div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;<span class="comment">    file.seekg(0, std::ios::beg);</span></div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;<span class="comment">    file.read(reinterpret_cast&lt;char*&gt;(terrainData), length);</span></div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;<span class="comment">    file.close();</span></div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;<span class="comment">    this-&gt;size = size;</span></div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;<span class="comment">    return true;</span></div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;<span class="comment">    tgaInfo *info;</span></div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;<span class="comment">    int mode,aux;</span></div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;<span class="comment">    float pointHeight;</span></div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;<span class="comment">    // if a terrain already exists, destroy it.</span></div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;<span class="comment">    if (terrainData != NULL)</span></div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;<span class="comment">        terrainData = NULL;</span></div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;<span class="comment">    // load the image, using the tgalib</span></div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;<span class="comment">    info = tgaLoad(filename);</span></div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;<span class="comment">    // check to see if the image was properly loaded</span></div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;<span class="comment">    // remember: only greyscale, RGB or RGBA noncompressed images</span></div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;<span class="comment">    if (info-&gt;status != TGA_OK)</span></div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;<span class="comment">        return(info-&gt;status);</span></div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;<span class="comment">    // if the image is RGB, convert it to greyscale.</span></div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;<span class="comment">    // mode will store the image&#39;s number of components</span></div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;<span class="comment">    mode = info-&gt;pixelDepth / 8;</span></div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;<span class="comment">    if (mode == 3) {</span></div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;<span class="comment">        tgaRGBtoGreyscale(info);</span></div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;<span class="comment">        mode = 1;</span></div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;<span class="comment">    }</span></div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;<span class="comment">    // set the width and height of the terrain</span></div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;<span class="comment">    sizeX = info-&gt;width; // width</span></div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;<span class="comment">    sizeZ = info-&gt;height; // length</span></div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;<span class="comment">    // alocate memory for the terrain, and check for errors</span></div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;<span class="comment">    terrainHeights = (float *)malloc(sizeX * sizeZ * sizeof(float));</span></div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;<span class="comment">    if (terrainHeights == NULL)</span></div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;<span class="comment">        return(TERRAIN_ERROR_MEMORY_PROBLEM);</span></div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;<span class="comment">    // fill arrays</span></div>
+<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;<span class="comment">    for (int i = 0 ; i &lt; sizeX; i++)</span></div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;<span class="comment">    {</span></div>
+<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;<span class="comment">        for (int j = 0; j &lt; sizeZ; j++)</span></div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;<span class="comment">        {</span></div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;<span class="comment">            // compute the height as a value between 0.0 and 1.0</span></div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;<span class="comment">            aux = mode * (i * sizeZ + j);</span></div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;<span class="comment">            pointHeight = (float) info-&gt;imageData[aux + (mode - 1)] / 256.0f;</span></div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;<span class="comment">            terrainHeights[i * sizeZ + j] = pointHeight;</span></div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;<span class="comment">        }</span></div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;<span class="comment">    }</span></div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;<span class="comment">    // free the image&#39;s memory</span></div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;<span class="comment">    tgaDestroy(info);</span></div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;<span class="comment">    return(TERRAIN_OK);*/</span></div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160; </div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;    stbi_set_flip_vertically_on_load(1);</div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;    <span class="keywordtype">int</span> width, height, bytesPerPixel;</div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> imageData = stbi_load(filename.c_str(), &amp;width, &amp;height, &amp;bytesPerPixel, 0);</div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;    <span class="keywordflow">if</span> (imageData == <span class="keyword">nullptr</span>)</div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;    {</div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;        <span class="comment">// Return empty vector in case of failure</span></div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;        std::cout &lt;&lt; <span class="stringliteral">&quot;Failed to load heightmap image &quot;</span> &lt;&lt; filename &lt;&lt; <span class="stringliteral">&quot;!&quot;</span> &lt;&lt; std::endl;</div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;    }</div>
+<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160; </div>
+<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;    std::vector&lt;float&gt; result;</div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;    <span class="keyword">auto</span> pixelPtr = &amp;imageData[0];</div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span> z = 0; z &lt; height; ++z)</div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;    {</div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;        <span class="keywordflow">for</span> (<span class="keyword">auto</span> x = 0; x &lt; width; ++x)</div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;        {</div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;            result.emplace_back((<span class="keywordtype">float</span>(*pixelPtr) / 255.0f) * MAX_HEIGHT);</div>
+<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;            pixelPtr += bytesPerPixel;</div>
+<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;        }</div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;    }</div>
+<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160; </div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;    stbi_image_free(imageData);</div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;    terrainHeights = result;</div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;    sizeX = width;</div>
+<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;    sizeZ = height;</div>
+<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;    stbi_set_flip_vertically_on_load(0);</div>
+<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160; </div>
+<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160; </div>
+<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160; </div>
+<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;}</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="aed836a6c149a66a61914674516079a4d"></a>
@@ -882,6 +1207,13 @@ Protected Attributes</h2></td></tr>
   </dd>
 </dl>
 
+<p class="definition">Definition at line <a class="el" href="_terrain_8cpp_source.html#l00265">265</a> of file <a class="el" href="_terrain_8cpp_source.html">Terrain.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;                                                                       {</div>
+<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;    <a class="code" href="class_terrain.html#a8e3269d072b2be6caa40070f66d37458">scaleX</a> = xScale;</div>
+<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;    <a class="code" href="class_terrain.html#a2f3f1479e2bd7980efe3947bf1fb5dd7">scaleY</a> = yScale;</div>
+<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;    <a class="code" href="class_terrain.html#a7ce825d4ce496e3ae19fe750dd29af49">scaleZ</a> = zScale;</div>
+<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;}</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="aea73b47c73faf1945e85e06c144e7e0e"></a>
@@ -916,178 +1248,156 @@ Protected Attributes</h2></td></tr>
   </dd>
 </dl>
 
+<p class="definition">Definition at line <a class="el" href="_terrain_8h_source.html#l00122">122</a> of file <a class="el" href="_terrain_8h_source.html">Terrain.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;{ shader = s; }</div>
+</div><!-- fragment -->
 </div>
 </div>
-<a id="ad689326d663662c6b11959247d4a87bb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad689326d663662c6b11959247d4a87bb">&#9670;&nbsp;</a></span>setTextures()</h2>
+<a id="aed3d1681927b047b80c63cb44f5eb640"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aed3d1681927b047b80c63cb44f5eb640">&#9670;&nbsp;</a></span>SetVertexHeight()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void Terrain::setTextures </td>
+          <td class="memname">void Terrain::SetVertexHeight </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>xPos</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>zPos</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>newHeight</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Sets the textures that the terrain will use to implement multitexturing and detail mapping. </p>
+<p>Sets the height of a given position on the terrain. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">xPos</td><td></td></tr>
+    <tr><td class="paramname">zPos</td><td></td></tr>
+    <tr><td class="paramname">newHeight</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
 
+<p class="definition">Definition at line <a class="el" href="_terrain_8cpp_source.html#l00302">302</a> of file <a class="el" href="_terrain_8cpp_source.html">Terrain.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;{</div>
+<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="class_terrain.html#a163e75f11a483ff2ac18c8cd9d5ffe64">inBounds</a>(xPos, zPos))</div>
+<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;        vertex.position[(zPos * sizeZ) + xPos].y = newHeight;</div>
+<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;         <span class="comment">//terrainData[(zPos * size) + xPos] = (newHeight * scaleY);</span></div>
+<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;    <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;        <span class="comment">//terrainData[(zPos - 1 * size) + xPos] = newHeight * scaleY;</span></div>
+<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;        vertex.position[(zPos - 1 * sizeZ) + xPos].y = newHeight;</div>
+<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;}</div>
+</div><!-- fragment -->
 </div>
 </div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="ae5b0a3981e125281e8b34a684539bf19"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae5b0a3981e125281e8b34a684539bf19">&#9670;&nbsp;</a></span>EBO</h2>
+<a id="a4d191a77338622c74c5a01754f970901"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4d191a77338622c74c5a01754f970901">&#9670;&nbsp;</a></span>SmoothTerrain()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">unsigned int Terrain::EBO = 0</td>
+          <td class="memname">void Terrain::SmoothTerrain </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_vertex.html">Vertex</a> &amp;&#160;</td>
+          <td class="paramname"><em>vert</em>, </td>
         </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a8e3269d072b2be6caa40070f66d37458"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8e3269d072b2be6caa40070f66d37458">&#9670;&nbsp;</a></span>scaleX</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
         <tr>
-          <td class="memname">float Terrain::scaleX</td>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>smoothFactor</em>&#160;</td>
         </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>value that will scale the x value </p>
-
-</div>
-</div>
-<a id="a2f3f1479e2bd7980efe3947bf1fb5dd7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2f3f1479e2bd7980efe3947bf1fb5dd7">&#9670;&nbsp;</a></span>scaleY</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
         <tr>
-          <td class="memname">float Terrain::scaleY</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>value that will scale the y value </p>
-
-</div>
-</div>
-<a id="a7ce825d4ce496e3ae19fe750dd29af49"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7ce825d4ce496e3ae19fe750dd29af49">&#9670;&nbsp;</a></span>scaleZ</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">float Terrain::scaleZ</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>value that will scale the z value </p>
-
-</div>
-</div>
-<a id="a84685b0b5451a926e2178668045d7507"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a84685b0b5451a926e2178668045d7507">&#9670;&nbsp;</a></span>terrainData</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">unsigned char* Terrain::terrainData</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>data of the heightfield </p>
-
-</div>
-</div>
-<a id="acdb369701d8b26be0499dfede75f195c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acdb369701d8b26be0499dfede75f195c">&#9670;&nbsp;</a></span>VAO</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">unsigned int Terrain::VAO = 0</td>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-</div>
-</div>
-<a id="ad30db2e625ef7a10e9e167e4c8fdfaa0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad30db2e625ef7a10e9e167e4c8fdfaa0">&#9670;&nbsp;</a></span>VBO</h2>
+<p>Smooths out the terrain data to remove all roughness. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">vert</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
 
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">unsigned int Terrain::VBO = 0</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
+<p class="definition">Definition at line <a class="el" href="_terrain_8cpp_source.html#l00403">403</a> of file <a class="el" href="_terrain_8cpp_source.html">Terrain.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;{</div>
+<div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;    <span class="keywordflow">for</span>(<span class="keywordtype">int</span> z = 0; z &lt; sizeZ; ++z)</div>
+<div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160;    {</div>
+<div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160;        <span class="keywordflow">for</span>(<span class="keywordtype">int</span> x = 0; x &lt; sizeX; ++x)</div>
+<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;        {</div>
+<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;            <span class="keywordtype">float</span> corners = (<a class="code" href="class_terrain.html#acfed93a5a537a0ce7202ffa426d6907b">GetVertexHeight</a>(x-1, z-1) + <a class="code" href="class_terrain.html#acfed93a5a537a0ce7202ffa426d6907b">GetVertexHeight</a>(x + 1, z - 1) + <a class="code" href="class_terrain.html#acfed93a5a537a0ce7202ffa426d6907b">GetVertexHeight</a>(x - 1, z + 1) +</div>
+<div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160;                    <a class="code" href="class_terrain.html#acfed93a5a537a0ce7202ffa426d6907b">GetVertexHeight</a>(x + 1, z + 1)) / 16.0f;</div>
+<div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160;            <span class="keywordtype">float</span> sides = (<a class="code" href="class_terrain.html#acfed93a5a537a0ce7202ffa426d6907b">GetVertexHeight</a>(x - 1, z) + <a class="code" href="class_terrain.html#acfed93a5a537a0ce7202ffa426d6907b">GetVertexHeight</a>(x + 1, z) + <a class="code" href="class_terrain.html#acfed93a5a537a0ce7202ffa426d6907b">GetVertexHeight</a>(x, z - 1) +</div>
+<div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;                    <a class="code" href="class_terrain.html#acfed93a5a537a0ce7202ffa426d6907b">GetVertexHeight</a>(x, z + 1)) / 8.0f;</div>
+<div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;            <span class="keywordtype">float</span> center = <a class="code" href="class_terrain.html#acfed93a5a537a0ce7202ffa426d6907b">GetVertexHeight</a>(x,z) / 4.0f;</div>
+<div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160;            <span class="keywordtype">float</span> newHeight = (corners + sides + center);</div>
+<div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160; </div>
+<div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160;            <span class="keywordflow">if</span> (newHeight &gt; highestPoint.y) { highestPoint = glm::vec3(x, newHeight, z); }</div>
+<div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;            <span class="keywordflow">if</span> (newHeight &lt; lowestPoint.y) { lowestPoint = glm::vec3(x, newHeight, z); }</div>
+<div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;            <a class="code" href="class_terrain.html#aed3d1681927b047b80c63cb44f5eb640">SetVertexHeight</a>(x, z, newHeight);</div>
+<div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160;        }</div>
+<div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;    }</div>
+<div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160; </div>
+<div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00423"></a><span class="lineno">  423</span>&#160;<span class="comment">    for(int x = 1; x &lt; size - 1; ++x)</span></div>
+<div class="line"><a name="l00424"></a><span class="lineno">  424</span>&#160;<span class="comment">    {</span></div>
+<div class="line"><a name="l00425"></a><span class="lineno">  425</span>&#160;<span class="comment">        for(int z = 1; z &lt; size - 1; ++z)</span></div>
+<div class="line"><a name="l00426"></a><span class="lineno">  426</span>&#160;<span class="comment">        {</span></div>
+<div class="line"><a name="l00427"></a><span class="lineno">  427</span>&#160;<span class="comment">            float inX = (float)x / 4.0f;</span></div>
+<div class="line"><a name="l00428"></a><span class="lineno">  428</span>&#160;<span class="comment">            float inZ = (float)z / 4.0f;</span></div>
+<div class="line"><a name="l00429"></a><span class="lineno">  429</span>&#160;<span class="comment">            int intX =  x;</span></div>
+<div class="line"><a name="l00430"></a><span class="lineno">  430</span>&#160;<span class="comment">            int intZ =  z;</span></div>
+<div class="line"><a name="l00431"></a><span class="lineno">  431</span>&#160;<span class="comment">            float fracX = inX - intX;</span></div>
+<div class="line"><a name="l00432"></a><span class="lineno">  432</span>&#160;<span class="comment">            float fracZ = inZ - intZ;</span></div>
+<div class="line"><a name="l00433"></a><span class="lineno">  433</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00434"></a><span class="lineno">  434</span>&#160;<span class="comment">            float v1 = GetVertexHeight(intX, intZ);</span></div>
+<div class="line"><a name="l00435"></a><span class="lineno">  435</span>&#160;<span class="comment">            float v2 = GetVertexHeight(intX + 1, intZ);</span></div>
+<div class="line"><a name="l00436"></a><span class="lineno">  436</span>&#160;<span class="comment">            float v3 = GetVertexHeight(intX, intZ + 1);</span></div>
+<div class="line"><a name="l00437"></a><span class="lineno">  437</span>&#160;<span class="comment">            float v4 = GetVertexHeight(intX + 1, intZ + 1);</span></div>
+<div class="line"><a name="l00438"></a><span class="lineno">  438</span>&#160;<span class="comment">            float i1 = Interpolate(v1, v2, fracX);</span></div>
+<div class="line"><a name="l00439"></a><span class="lineno">  439</span>&#160;<span class="comment">            float i2 = Interpolate(v3, v4, fracX);</span></div>
+<div class="line"><a name="l00440"></a><span class="lineno">  440</span>&#160;<span class="comment">            float newHeight = Interpolate(i1, i2, fracZ) / 5.0f;</span></div>
+<div class="line"><a name="l00441"></a><span class="lineno">  441</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00442"></a><span class="lineno">  442</span>&#160;<span class="comment">            SetVertexHeight(x, z, newHeight);</span></div>
+<div class="line"><a name="l00443"></a><span class="lineno">  443</span>&#160;<span class="comment">        }</span></div>
+<div class="line"><a name="l00444"></a><span class="lineno">  444</span>&#160;<span class="comment">    }</span></div>
+<div class="line"><a name="l00445"></a><span class="lineno">  445</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00446"></a><span class="lineno">  446</span>&#160; </div>
+<div class="line"><a name="l00447"></a><span class="lineno">  447</span>&#160;}</div>
+<div class="ttc" id="aclass_terrain_html_aed3d1681927b047b80c63cb44f5eb640"><div class="ttname"><a href="class_terrain.html#aed3d1681927b047b80c63cb44f5eb640">Terrain::SetVertexHeight</a></div><div class="ttdeci">void SetVertexHeight(int xPos, int zPos, float newHeight)</div><div class="ttdoc">Sets the height of a given position on the terrain.</div><div class="ttdef"><b>Definition:</b> <a href="_terrain_8cpp_source.html#l00302">Terrain.cpp:302</a></div></div>
+</div><!-- fragment -->
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>ICT397-Project-Engine/<a class="el" href="_terrain_8h_source.html">Terrain.h</a></li>
-<li>ICT397-Project-Engine/<a class="el" href="_terrain_8cpp.html">Terrain.cpp</a></li>
+<li>C:/Users/chris/Documents/UNI/ICT397-Project/ICT397-Project-Engine/<a class="el" href="_terrain_8h_source.html">Terrain.h</a></li>
+<li>C:/Users/chris/Documents/UNI/ICT397-Project/ICT397-Project-Engine/<a class="el" href="_terrain_8cpp_source.html">Terrain.cpp</a></li>
 </ul>
 </div><!-- contents -->
-</div><!-- doc-content -->
 <!-- start footer part -->
-<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
-  <ul>
-    <li class="navelem"><a class="el" href="class_terrain.html">Terrain</a></li>
-    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
-  </ul>
-</div>
+<hr class="footer"/><address class="footer"><small>
+Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+</small></address>
 </body>
 </html>

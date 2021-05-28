@@ -1,0 +1,7 @@
+digraph "Manager"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{Manager\n|+ speed\l+ token\l+ prevToken\l+ fireWeapon\l+ weaponTimer\l+ timer\l+ difficulty\l+ enemyDeathTimer\l+ hasKills\l|+ Update()\l+ UpdateWeapon()\l+ UpdateEnemyDeath()\l+ Reset()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
+}

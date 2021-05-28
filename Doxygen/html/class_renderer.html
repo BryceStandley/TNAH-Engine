@@ -5,14 +5,10 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TNAH-Engine-ICT397: Renderer Class Reference</title>
+<title>Zoom: Renderer Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
-<link href="navtree.css" rel="stylesheet" type="text/css"/>
-<script type="text/javascript" src="resize.js"></script>
-<script type="text/javascript" src="navtreedata.js"></script>
-<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -24,10 +20,8 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="TNAH-2.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">TNAH-Engine-ICT397
-   &#160;<span id="projectnumber">2</span>
+   <div id="projectname">Zoom
    </div>
   </td>
  </tr>
@@ -51,23 +45,6 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
-</div><!-- top -->
-<div id="side-nav" class="ui-resizable side-nav-resizable">
-  <div id="nav-tree">
-    <div id="nav-tree-contents">
-      <div id="nav-sync" class="sync"></div>
-    </div>
-  </div>
-  <div id="splitbar" style="-moz-user-select:none;" 
-       class="ui-resizable-handle">
-  </div>
-</div>
-<script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-$(document).ready(function(){initNavTree('class_renderer.html',''); initResizable(); });
-/* @license-end */
-</script>
-<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -82,6 +59,7 @@ $(document).ready(function(){initNavTree('class_renderer.html',''); initResizabl
 </iframe>
 </div>
 
+</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
@@ -99,7 +77,12 @@ $(document).ready(function(){initNavTree('class_renderer.html',''); initResizabl
 Inheritance diagram for Renderer:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_renderer__inherit__graph.png" border="0" usemap="#a_renderer_inherit__map" alt="Inheritance graph"/></div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+</div>
+<div class="dynheader">
+Collaboration diagram for Renderer:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_renderer__coll__graph.png" border="0" usemap="#a_renderer_coll__map" alt="Collaboration graph"/></div>
+</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -112,8 +95,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a259e569689938bea487d31727791b963"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_renderer.html#a259e569689938bea487d31727791b963">BindTexture</a> (std::vector&lt; unsigned int &gt; textures)</td></tr>
 <tr class="memdesc:a259e569689938bea487d31727791b963"><td class="mdescLeft">&#160;</td><td class="mdescRight">Binds textures to memory.  <a href="class_renderer.html#a259e569689938bea487d31727791b963">More...</a><br /></td></tr>
 <tr class="separator:a259e569689938bea487d31727791b963"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a02beced87878dd00ad9370c2b524c4ad"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_renderer.html#a02beced87878dd00ad9370c2b524c4ad">DepthTest</a> ()</td></tr>
-<tr class="memdesc:a02beced87878dd00ad9370c2b524c4ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calls the depth test.  <a href="class_renderer.html#a02beced87878dd00ad9370c2b524c4ad">More...</a><br /></td></tr>
+<tr class="memitem:a02beced87878dd00ad9370c2b524c4ad"><td class="memItemLeft" align="right" valign="top"><a id="a02beced87878dd00ad9370c2b524c4ad"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_renderer.html#a02beced87878dd00ad9370c2b524c4ad">DepthTest</a> ()</td></tr>
+<tr class="memdesc:a02beced87878dd00ad9370c2b524c4ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calls the depth test. <br /></td></tr>
 <tr class="separator:a02beced87878dd00ad9370c2b524c4ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a73ad38f16da2f99d3a044b6fc2758694"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_renderer.html#a73ad38f16da2f99d3a044b6fc2758694">RenderSkybox</a> (unsigned int VAO, unsigned int texture)</td></tr>
 <tr class="memdesc:a73ad38f16da2f99d3a044b6fc2758694"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renders the sky box.  <a href="class_renderer.html#a73ad38f16da2f99d3a044b6fc2758694">More...</a><br /></td></tr>
@@ -145,15 +129,20 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aff31437b9015103fec2d09b00979aed7"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_renderer.html#aff31437b9015103fec2d09b00979aed7">ExitScreenSetup</a> (std::vector&lt; glm::vec3 &gt; vertexData, std::vector&lt; unsigned int &gt; indicesData, unsigned int &amp;VAO, unsigned int &amp;VBO, unsigned int &amp;EBO)</td></tr>
 <tr class="memdesc:aff31437b9015103fec2d09b00979aed7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets up the exit screen.  <a href="class_renderer.html#aff31437b9015103fec2d09b00979aed7">More...</a><br /></td></tr>
 <tr class="separator:aff31437b9015103fec2d09b00979aed7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7af80c77df12a67838b0a1aea7393fcd"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_renderer.html#a7af80c77df12a67838b0a1aea7393fcd">TextureFromFile</a> (std::string path)</td></tr>
+<tr class="memitem:a7af80c77df12a67838b0a1aea7393fcd"><td class="memItemLeft" align="right" valign="top"><a id="a7af80c77df12a67838b0a1aea7393fcd"></a>
+unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>TextureFromFile</b> (std::string path)</td></tr>
 <tr class="separator:a7af80c77df12a67838b0a1aea7393fcd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a441f883bb48f39e015d54c83ef805c99"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_renderer.html#a441f883bb48f39e015d54c83ef805c99">LoadModel</a> (int numFrames, std::vector&lt; int &gt; commands, unsigned int &amp;VAO, <a class="el" href="_renderer_8h.html#acf5f91efba7d6057c5897630b7ec39fa">v3</a> <a class="el" href="_md2_8cpp.html#ac5bea0747461c7a8e51b84f54ae66215">anorms</a>[162], std::vector&lt; std::vector&lt; glm::vec3 &gt;&gt; vertices, std::vector&lt; std::vector&lt; int &gt;&gt; normals)</td></tr>
+<tr class="memitem:a441f883bb48f39e015d54c83ef805c99"><td class="memItemLeft" align="right" valign="top"><a id="a441f883bb48f39e015d54c83ef805c99"></a>
+virtual int&#160;</td><td class="memItemRight" valign="bottom"><b>LoadModel</b> (int numFrames, std::vector&lt; int &gt; commands, unsigned int &amp;VAO, v3 anorms[162], std::vector&lt; std::vector&lt; glm::vec3 &gt;&gt; vertices, std::vector&lt; std::vector&lt; int &gt;&gt; normals)</td></tr>
 <tr class="separator:a441f883bb48f39e015d54c83ef805c99"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1595d5b35688c46bb7a2dcf154ac1c71"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_renderer.html#a1595d5b35688c46bb7a2dcf154ac1c71">RenderModel</a> (int number, <a class="el" href="struct_md2_state.html">Md2State</a> *animState, glm::mat4 proj, glm::mat4 view, glm::mat4 genFour, float direction, unsigned int &amp;VAO, unsigned int &amp;textureId, <a class="el" href="class_shader.html">Shader</a> &amp;shader)</td></tr>
+<tr class="memitem:a1595d5b35688c46bb7a2dcf154ac1c71"><td class="memItemLeft" align="right" valign="top"><a id="a1595d5b35688c46bb7a2dcf154ac1c71"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>RenderModel</b> (int number, <a class="el" href="struct_md2_state.html">Md2State</a> *animState, glm::mat4 proj, glm::mat4 view, glm::mat4 genFour, float direction, unsigned int &amp;VAO, unsigned int &amp;textureId, <a class="el" href="class_shader.html">Shader</a> &amp;shader)</td></tr>
 <tr class="separator:a1595d5b35688c46bb7a2dcf154ac1c71"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01fff21b97aae0ab948b50f2476e639d"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_renderer.html#a01fff21b97aae0ab948b50f2476e639d">RenderModel</a> (int number, <a class="el" href="struct_md2_state.html">Md2State</a> *animState, glm::mat4 proj, glm::mat4 view, glm::vec3 position, glm::vec3 rotation, float direction, unsigned int &amp;VAO, unsigned int &amp;textureId, <a class="el" href="class_shader.html">Shader</a> &amp;shader)</td></tr>
+<tr class="memitem:a01fff21b97aae0ab948b50f2476e639d"><td class="memItemLeft" align="right" valign="top"><a id="a01fff21b97aae0ab948b50f2476e639d"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>RenderModel</b> (int number, <a class="el" href="struct_md2_state.html">Md2State</a> *animState, glm::mat4 proj, glm::mat4 view, glm::vec3 position, glm::vec3 rotation, float direction, unsigned int &amp;VAO, unsigned int &amp;textureId, <a class="el" href="class_shader.html">Shader</a> &amp;shader)</td></tr>
 <tr class="separator:a01fff21b97aae0ab948b50f2476e639d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a11fdf26547245affa20b6015796e126d"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_renderer.html#a11fdf26547245affa20b6015796e126d">SetGlfwWindow</a> ()</td></tr>
+<tr class="memitem:a11fdf26547245affa20b6015796e126d"><td class="memItemLeft" align="right" valign="top"><a id="a11fdf26547245affa20b6015796e126d"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>SetGlfwWindow</b> ()</td></tr>
 <tr class="separator:a11fdf26547245affa20b6015796e126d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -161,6 +150,8 @@ Public Member Functions</h2></td></tr>
 <dl class="section author"><dt>Author</dt><dd>Christoper Logan </dd></dl>
 <dl class="section version"><dt>Version</dt><dd>01 </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>15/03/2021 Christopher Logan, Started </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="_renderer_8h_source.html#l00023">23</a> of file <a class="el" href="_renderer_8h_source.html">Renderer.h</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a259e569689938bea487d31727791b963"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a259e569689938bea487d31727791b963">&#9670;&nbsp;</a></span>BindTexture()</h2>
@@ -196,35 +187,9 @@ Public Member Functions</h2></td></tr>
 
 <p>Reimplemented in <a class="el" href="class_open_g_l.html#a09dc5a5ab1ab540607820efafc9d534d">OpenGL</a>.</p>
 
-</div>
-</div>
-<a id="a02beced87878dd00ad9370c2b524c4ad"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a02beced87878dd00ad9370c2b524c4ad">&#9670;&nbsp;</a></span>DepthTest()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual void Renderer::DepthTest </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Calls the depth test. </p>
-
-<p>Reimplemented in <a class="el" href="class_open_g_l.html#a3fcb6ffd9e2933c821ce79c0402ad211">OpenGL</a>.</p>
-
+<p class="definition">Definition at line <a class="el" href="_renderer_8h_source.html#l00046">46</a> of file <a class="el" href="_renderer_8h_source.html">Renderer.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;{}</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="aff31437b9015103fec2d09b00979aed7"></a>
@@ -293,68 +258,9 @@ Public Member Functions</h2></td></tr>
 
 <p>Reimplemented in <a class="el" href="class_open_g_l.html#aebd9611b84f6496a5b075b1714fb3d4b">OpenGL</a>.</p>
 
-</div>
-</div>
-<a id="a441f883bb48f39e015d54c83ef805c99"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a441f883bb48f39e015d54c83ef805c99">&#9670;&nbsp;</a></span>LoadModel()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual int Renderer::LoadModel </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>numFrames</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::vector&lt; int &gt;&#160;</td>
-          <td class="paramname"><em>commands</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">unsigned int &amp;&#160;</td>
-          <td class="paramname"><em>VAO</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="_renderer_8h.html#acf5f91efba7d6057c5897630b7ec39fa">v3</a>&#160;</td>
-          <td class="paramname"><em>anorms</em>[162], </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::vector&lt; std::vector&lt; glm::vec3 &gt;&gt;&#160;</td>
-          <td class="paramname"><em>vertices</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::vector&lt; std::vector&lt; int &gt;&gt;&#160;</td>
-          <td class="paramname"><em>normals</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Reimplemented in <a class="el" href="class_open_g_l.html#ae91179c1433c7d8a4237cabc7fa2aa87">OpenGL</a>.</p>
-
+<p class="definition">Definition at line <a class="el" href="_renderer_8h_source.html#l00137">137</a> of file <a class="el" href="_renderer_8h_source.html">Renderer.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;{};</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="a023aa7491efa15df16a0750cd5ed516a"></a>
@@ -409,176 +315,13 @@ Public Member Functions</h2></td></tr>
 
 <p>Reimplemented in <a class="el" href="class_open_g_l.html#a1aa8e3b718d4635acd8bdbff39920c5a">OpenGL</a>.</p>
 
-</div>
-</div>
-<a id="a1595d5b35688c46bb7a2dcf154ac1c71"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1595d5b35688c46bb7a2dcf154ac1c71">&#9670;&nbsp;</a></span>RenderModel() <span class="overload">[1/3]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual void Renderer::RenderModel </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>number</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="struct_md2_state.html">Md2State</a> *&#160;</td>
-          <td class="paramname"><em>animState</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">glm::mat4&#160;</td>
-          <td class="paramname"><em>proj</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">glm::mat4&#160;</td>
-          <td class="paramname"><em>view</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">glm::mat4&#160;</td>
-          <td class="paramname"><em>genFour</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>direction</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">unsigned int &amp;&#160;</td>
-          <td class="paramname"><em>VAO</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">unsigned int &amp;&#160;</td>
-          <td class="paramname"><em>textureId</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="class_shader.html">Shader</a> &amp;&#160;</td>
-          <td class="paramname"><em>shader</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Reimplemented in <a class="el" href="class_open_g_l.html#abd21c569fe2bbdbc80414e8f2dbdc08c">OpenGL</a>.</p>
-
-</div>
-</div>
-<a id="a01fff21b97aae0ab948b50f2476e639d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a01fff21b97aae0ab948b50f2476e639d">&#9670;&nbsp;</a></span>RenderModel() <span class="overload">[2/3]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual void Renderer::RenderModel </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>number</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="struct_md2_state.html">Md2State</a> *&#160;</td>
-          <td class="paramname"><em>animState</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">glm::mat4&#160;</td>
-          <td class="paramname"><em>proj</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">glm::mat4&#160;</td>
-          <td class="paramname"><em>view</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">glm::vec3&#160;</td>
-          <td class="paramname"><em>position</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">glm::vec3&#160;</td>
-          <td class="paramname"><em>rotation</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>direction</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">unsigned int &amp;&#160;</td>
-          <td class="paramname"><em>VAO</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">unsigned int &amp;&#160;</td>
-          <td class="paramname"><em>textureId</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="class_shader.html">Shader</a> &amp;&#160;</td>
-          <td class="paramname"><em>shader</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Reimplemented in <a class="el" href="class_open_g_l.html#a6e739507fe6fb9f98641ac3a22629a0d">OpenGL</a>.</p>
-
+<p class="definition">Definition at line <a class="el" href="_renderer_8h_source.html#l00127">127</a> of file <a class="el" href="_renderer_8h_source.html">Renderer.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;{};</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="a50f434d31fea7a8feedd0b7077f8ab1b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a50f434d31fea7a8feedd0b7077f8ab1b">&#9670;&nbsp;</a></span>RenderModel() <span class="overload">[3/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a50f434d31fea7a8feedd0b7077f8ab1b">&#9670;&nbsp;</a></span>RenderModel()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -629,6 +372,9 @@ Public Member Functions</h2></td></tr>
 
 <p>Reimplemented in <a class="el" href="class_open_g_l.html#af73c3c12c76274a45f3d4245d2d9d11a">OpenGL</a>.</p>
 
+<p class="definition">Definition at line <a class="el" href="_renderer_8h_source.html#l00040">40</a> of file <a class="el" href="_renderer_8h_source.html">Renderer.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;{}</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="a73ad38f16da2f99d3a044b6fc2758694"></a>
@@ -675,6 +421,16 @@ Public Member Functions</h2></td></tr>
 </dl>
 
 <p>Reimplemented in <a class="el" href="class_open_g_l.html#a78930c5422a4b13cdddd9980a1b5216e">OpenGL</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="_renderer_8h_source.html#l00058">58</a> of file <a class="el" href="_renderer_8h_source.html">Renderer.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;{}</div>
+</div><!-- fragment -->
+<p class="reference">Referenced by <a class="el" href="_scene_8cpp_source.html#l00151">Scene::Run()</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_renderer_a73ad38f16da2f99d3a044b6fc2758694_icgraph.png" border="0" usemap="#aclass_renderer_a73ad38f16da2f99d3a044b6fc2758694_icgraph" alt=""/></div>
+</div>
 
 </div>
 </div>
@@ -723,31 +479,9 @@ Public Member Functions</h2></td></tr>
 
 <p>Reimplemented in <a class="el" href="class_open_g_l.html#ad0222ac664fbb5018065732b5ff0f699">OpenGL</a>.</p>
 
-</div>
-</div>
-<a id="a11fdf26547245affa20b6015796e126d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a11fdf26547245affa20b6015796e126d">&#9670;&nbsp;</a></span>SetGlfwWindow()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual void Renderer::SetGlfwWindow </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
+<p class="definition">Definition at line <a class="el" href="_renderer_8h_source.html#l00032">32</a> of file <a class="el" href="_renderer_8h_source.html">Renderer.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;{}</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="a0eebf54fd91ea19b54da3bf1ba944a0f"></a>
@@ -794,6 +528,16 @@ Public Member Functions</h2></td></tr>
 </dl>
 
 <p>Reimplemented in <a class="el" href="class_open_g_l.html#a9e1ffb565600b03b7fa57f6370ff592b">OpenGL</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="_renderer_8h_source.html#l00065">65</a> of file <a class="el" href="_renderer_8h_source.html">Renderer.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;{}</div>
+</div><!-- fragment -->
+<p class="reference">Referenced by <a class="el" href="_model_8cpp_source.html#l00017">Model::Render()</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_renderer_a0eebf54fd91ea19b54da3bf1ba944a0f_icgraph.png" border="0" usemap="#aclass_renderer_a0eebf54fd91ea19b54da3bf1ba944a0f_icgraph" alt=""/></div>
+</div>
 
 </div>
 </div>
@@ -842,6 +586,16 @@ Public Member Functions</h2></td></tr>
 
 <p>Reimplemented in <a class="el" href="class_open_g_l.html#ad3aff4310ee768707a5813e5133e41aa">OpenGL</a>.</p>
 
+<p class="definition">Definition at line <a class="el" href="_renderer_8h_source.html#l00072">72</a> of file <a class="el" href="_renderer_8h_source.html">Renderer.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;{}</div>
+</div><!-- fragment -->
+<p class="reference">Referenced by <a class="el" href="_scene_8cpp_source.html#l00151">Scene::Run()</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_renderer_a224d12fd102ab83e02c768dc7a6dce0d_icgraph.png" border="0" usemap="#aclass_renderer_a224d12fd102ab83e02c768dc7a6dce0d_icgraph" alt=""/></div>
+</div>
+
 </div>
 </div>
 <a id="a9c07e92b290c5abcb77941815823943e"></a>
@@ -888,6 +642,16 @@ Public Member Functions</h2></td></tr>
 </dl>
 
 <p>Reimplemented in <a class="el" href="class_open_g_l.html#a121c5cdb62e37ae54455f1f799d5c449">OpenGL</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="_renderer_8h_source.html#l00119">119</a> of file <a class="el" href="_renderer_8h_source.html">Renderer.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;{}</div>
+</div><!-- fragment -->
+<p class="reference">Referenced by <a class="el" href="_scene_8cpp_source.html#l00151">Scene::Run()</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_renderer_a9c07e92b290c5abcb77941815823943e_icgraph.png" border="0" usemap="#aclass_renderer_a9c07e92b290c5abcb77941815823943e_icgraph" alt=""/></div>
+</div>
 
 </div>
 </div>
@@ -957,6 +721,9 @@ Public Member Functions</h2></td></tr>
 
 <p>Reimplemented in <a class="el" href="class_open_g_l.html#a0635ac48f5d06ce636e2adca774dd3b5">OpenGL</a>.</p>
 
+<p class="definition">Definition at line <a class="el" href="_renderer_8h_source.html#l00112">112</a> of file <a class="el" href="_renderer_8h_source.html">Renderer.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;{}</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="a5e3f1919e892bfbcc2b1ab40f4b4d14c"></a>
@@ -1033,6 +800,9 @@ Public Member Functions</h2></td></tr>
 
 <p>Reimplemented in <a class="el" href="class_open_g_l.html#affd50e6ec6e2a1cef5f54d08b904f834">OpenGL</a>.</p>
 
+<p class="definition">Definition at line <a class="el" href="_renderer_8h_source.html#l00094">94</a> of file <a class="el" href="_renderer_8h_source.html">Renderer.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;{}</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="a89a8d1f799a6c1abd2d7af6e510f8999"></a>
@@ -1101,36 +871,13 @@ Public Member Functions</h2></td></tr>
 
 <p>Reimplemented in <a class="el" href="class_open_g_l.html#a94ada51533a316920282d45879bde0fc">OpenGL</a>.</p>
 
-</div>
-</div>
-<a id="a7af80c77df12a67838b0a1aea7393fcd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7af80c77df12a67838b0a1aea7393fcd">&#9670;&nbsp;</a></span>TextureFromFile() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">unsigned int Renderer::TextureFromFile </td>
-          <td>(</td>
-          <td class="paramtype">std::string&#160;</td>
-          <td class="paramname"><em>path</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
+<p class="definition">Definition at line <a class="el" href="_renderer_8h_source.html#l00082">82</a> of file <a class="el" href="_renderer_8h_source.html">Renderer.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;{}</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="aa553a67d535a2bbbb530fa225b89f389"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa553a67d535a2bbbb530fa225b89f389">&#9670;&nbsp;</a></span>TextureFromFile() <span class="overload">[2/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aa553a67d535a2bbbb530fa225b89f389">&#9670;&nbsp;</a></span>TextureFromFile()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1175,19 +922,18 @@ Public Member Functions</h2></td></tr>
 
 <p>Reimplemented in <a class="el" href="class_open_g_l.html#aaea0f9919293a301acbaf5854c2f4f90">OpenGL</a>.</p>
 
+<p class="definition">Definition at line <a class="el" href="_renderer_8h_source.html#l00102">102</a> of file <a class="el" href="_renderer_8h_source.html">Renderer.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;{ <span class="keywordflow">return</span> 0; }</div>
+</div><!-- fragment -->
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>ICT397-Project-Engine/<a class="el" href="_renderer_8h_source.html">Renderer.h</a></li>
+<li>C:/Users/chris/Documents/UNI/ICT397-Project/ICT397-Project-Engine/<a class="el" href="_renderer_8h_source.html">Renderer.h</a></li>
 </ul>
 </div><!-- contents -->
-</div><!-- doc-content -->
 <!-- start footer part -->
-<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
-  <ul>
-    <li class="navelem"><a class="el" href="class_renderer.html">Renderer</a></li>
-    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
-  </ul>
-</div>
+<hr class="footer"/><address class="footer"><small>
+Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+</small></address>
 </body>
 </html>

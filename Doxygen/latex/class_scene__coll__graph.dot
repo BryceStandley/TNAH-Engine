@@ -1,0 +1,7 @@
+digraph "Scene"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{Scene\n|+ loaded\l|+ Scene()\l+ Scene()\l+ ~Scene()\l+ Run()\l+ Init()\l+ Load()\l+ LoadSaveFile()\l+ Lerp()\l+ Interpolate()\l+ Unload()\land 23 more...\l+ intersectRaySegmentSphere()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Contains the aspects of a game that would be held in a scene, this being gameObjects,..."];
+}

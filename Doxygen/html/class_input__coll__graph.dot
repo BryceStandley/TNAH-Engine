@@ -1,0 +1,7 @@
+digraph "Input"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{Input\n|+ forward\l+ back\l+ left\l+ right\l+ toggle\l+ exit\l+ debug\l+ pause\l|+ Input()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Holds the variables for the keys being pressed on the keyboard."];
+}

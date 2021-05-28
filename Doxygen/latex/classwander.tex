@@ -42,6 +42,10 @@ Dylan Blereau
 \end{DoxyDate}
 
 
+Definition at line 19 of file enemy\+States.\+h.
+
+
+
 \doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{classwander_ad71e74cbab5bc066654e41111c26b0f7}\label{classwander_ad71e74cbab5bc066654e41111c26b0f7}} 
 \index{wander@{wander}!Enter@{Enter}}
@@ -62,6 +66,20 @@ virtual function that represents the entry point of the state
 
 Implements \mbox{\hyperlink{class_state_aab4cca8d69092deacf053cf2b12e4cd6}{State$<$ Enemy $>$}}.
 
+
+
+Definition at line 10 of file enemy\+States.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{11 \{}
+\DoxyCodeLine{12     \textcolor{keywordflow}{if} (dude-\/>\mbox{\hyperlink{class_enemy_a01cf82f420199d1ed1665081fc540296}{wanderLua}}.isTable())}
+\DoxyCodeLine{13     \{}
+\DoxyCodeLine{14         dude-\/>\mbox{\hyperlink{class_enemy_a01cf82f420199d1ed1665081fc540296}{wanderLua}}[1](dude);}
+\DoxyCodeLine{15     \}}
+\DoxyCodeLine{16 \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{classwander_a3425d3fdfa2c2c4d60d82c3e4e80e50b}\label{classwander_a3425d3fdfa2c2c4d60d82c3e4e80e50b}} 
 \index{wander@{wander}!Execute@{Execute}}
 \index{Execute@{Execute}!wander@{wander}}
@@ -81,6 +99,20 @@ virtual function that represents the execute point of the state
 
 Implements \mbox{\hyperlink{class_state_a7b7e948b4fe83e3686564e453ed0c406}{State$<$ Enemy $>$}}.
 
+
+
+Definition at line 18 of file enemy\+States.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{19 \{}
+\DoxyCodeLine{20     \textcolor{keywordflow}{if} (dude-\/>\mbox{\hyperlink{class_enemy_a01cf82f420199d1ed1665081fc540296}{wanderLua}}.isTable())}
+\DoxyCodeLine{21     \{}
+\DoxyCodeLine{22         dude-\/>\mbox{\hyperlink{class_enemy_a01cf82f420199d1ed1665081fc540296}{wanderLua}}[2](dude);}
+\DoxyCodeLine{23     \}}
+\DoxyCodeLine{24 \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{classwander_a7b0441ed6988c3f391c0a8219470634b}\label{classwander_a7b0441ed6988c3f391c0a8219470634b}} 
 \index{wander@{wander}!Exit@{Exit}}
 \index{Exit@{Exit}!wander@{wander}}
@@ -102,7 +134,21 @@ Implements \mbox{\hyperlink{class_state_aa086d08513a4adb59848deec250fbcae}{State
 
 
 
+Definition at line 26 of file enemy\+States.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{26                              \{}
+\DoxyCodeLine{27     \textcolor{keywordflow}{if} (dude-\/>\mbox{\hyperlink{class_enemy_a01cf82f420199d1ed1665081fc540296}{wanderLua}}.isTable())}
+\DoxyCodeLine{28     \{}
+\DoxyCodeLine{29         dude-\/>\mbox{\hyperlink{class_enemy_a01cf82f420199d1ed1665081fc540296}{wanderLua}}[3](dude);}
+\DoxyCodeLine{30     \}}
+\DoxyCodeLine{31 \}}
+
+\end{DoxyCode}
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-ICT397-\/\+Project-\/\+Engine/\mbox{\hyperlink{enemy_states_8h}{enemy\+States.\+h}}\item 
-ICT397-\/\+Project-\/\+Engine/\mbox{\hyperlink{enemy_states_8cpp}{enemy\+States.\+cpp}}\end{DoxyCompactItemize}
+C\+:/\+Users/chris/\+Documents/\+UNI/\+ICT397-\/\+Project/\+ICT397-\/\+Project-\/\+Engine/enemy\+States.\+h\item 
+C\+:/\+Users/chris/\+Documents/\+UNI/\+ICT397-\/\+Project/\+ICT397-\/\+Project-\/\+Engine/enemy\+States.\+cpp\end{DoxyCompactItemize}

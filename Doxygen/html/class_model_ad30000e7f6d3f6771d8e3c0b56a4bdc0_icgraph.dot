@@ -1,0 +1,12 @@
+digraph "Model::Model"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="RL";
+  Node1 [label="Model::Model",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Model constructor that takes various parameters."];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="Enemy::Enemy",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_enemy.html#a8ae3869e9654e6f16d3546025483d33d",tooltip="Enemy constructor that takes various parameters."];
+  Node1 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="Player::Player",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_player.html#ac204abf9ae8857f439dbc837e554d603",tooltip="Player constructor that takes various parameters."];
+}
