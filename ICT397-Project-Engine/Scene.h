@@ -18,6 +18,10 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 
+////////////////////////////////////////////////////////
+////HUGE DISCLAIMER, THIS CLASS IS OUR VERSION OF THE WORLD CLASS WANTED FOR THE ASSIGNEMNT/////
+///////////////////////////////////////////////////////
+
 /**
 * @class Scene
 * @brief Contains the aspects of a game that would be held in a scene, this

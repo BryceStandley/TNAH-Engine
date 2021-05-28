@@ -470,12 +470,13 @@ glm::vec3 Scene::EnemyObstacleAvoidance(GameObject* self, glm::vec3 newPosition)
 {
     for(auto &go : gameObjects)
     {
-        if(go->GetTag() == BoundingBox::CollisionTag::PLAYER) continue;// dont check against the player
-        if(go == self) continue; // dont check against it self
-        if(go->GetTag() == BoundingBox::CollisionTag::TOKEN) continue;
-        while(glm::distance(newPosition, go->GetPos()) < 2.0f)
+        if (go->GetTag() == BoundingBox::CollisionTag::STATIC_OBJECT)
         {
-            newPosition.x += 0.1f;
+            while (glm::distance(newPosition, go->GetPos()) < 3.0f)
+            {
+                std::cout << go->GetType() << std::endl;
+                newPosition.x += 0.1f;
+            }
         }
     }
     return newPosition;
