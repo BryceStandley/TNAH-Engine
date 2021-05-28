@@ -220,6 +220,10 @@ void MainMenuGUI::Draw()
 			    DisplayMainMenu();
 		    }
 	    }
+	    if(newGameClicked)
+	    {
+	    	ImGui::Text("LOADING! ...");
+	    }
     }
     else if(displayControls)
     {

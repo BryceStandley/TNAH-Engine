@@ -219,6 +219,7 @@ void Engine::Run()
 		            LoadScene(path);
 		            mainMenuGui->newGameClicked = false;
 		            mainMenuGui->playAgainClicked = false;
+		            mainMenuGui->mainMenuClosed = false;
 		            mainMenuGui->HideMenus();
 	            }
             }

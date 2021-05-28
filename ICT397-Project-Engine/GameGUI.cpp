@@ -124,6 +124,7 @@ void GameGUI::Draw(Player* dude)
 		if(ImGui::Button("PLAY AGAIN", centerPos))
 		{
 			MainMenuGUI::GetInstance()->DisplayMainMenu();
+			dude->Reset();
 			mainMenuGui->playAgainClicked = true;
 		}
 		if(ImGui::Button("QUIT", centerPos))
