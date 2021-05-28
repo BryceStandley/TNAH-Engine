@@ -17,7 +17,7 @@ maxX = 430;
 minZ = minX;
 maxZ = maxX;
 
-for i = 0, 1
+for i = 0, 20
 do
     x = math.random(minX, maxX)
     z = math.random(minZ, maxZ)

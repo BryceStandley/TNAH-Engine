@@ -66,15 +66,34 @@ public:
 		* @brief Initilises the scene, setting up the terrain and skybox
 		*/
 	void Init();
-
+	
+		/**
+		* @brief Loads the scene
+		*/
 	void Load(std::string file);
 
+	
+		/**
+		* @brief Saves the save file
+		*/
 	bool LoadSaveFile();
 
+	
+		/**
+		* @brief Lerps the positions for terrain walking
+		*/
 	float Lerp(float a, float b, float t);
 
+	
+		/**
+		* @brief Interlopes personions for terrain walking
+		*/
 	float Interpolate(float a, float b, float blend);
 
+	
+		/**
+		* @brief Unloads the scene
+		*/
 	void Unload();
 
 		/**
@@ -185,20 +204,52 @@ public:
 	 * @brief moves all objects away from the player if they spawn to close to the player
 	 */
     void MoveObjectAwayFromPlayer();
-
+	
+		/**
+		* @brief Runs the players information
+		*/
 	void RunPlayer(View lens, float time, bool exit);
 
+	
+		/**
+		* @brief Updates the players game object
+		*/
 	void UpdateGameObject(glm::vec3 position, int i, float time);
 
+
+		/**
+		* @brief Obstacle avoidance for the enemies
+		*/
     glm::vec3 EnemyObstacleAvoidance(GameObject* self, glm::vec3 newPosition);
 
+
+		/**
+		* @brief Shoots the gun
+		*/
     void FireWeapon(glm::vec3 weaponStartPos, glm::vec3 forward, float fireDistance);
 
+
+		/**
+		* @brief Initilises the scene, setting up the terrain and skybox
+		*/
 	void EnemyFireWeapon(GameObject* enemy, float fireDistance);
 
+
+		/**
+		* @brief Sets the players weapon
+		*/
     void SetPlayerWeapon(Weapon w){playerWeapon = w;}
+
+
+		/**
+		* @brief returns the players weapon
+		*/
     Weapon GetPlayerWeapon(){return playerWeapon;}
 	
+	
+		/**
+		* @brief Saves the game
+		*/
 	void SaveGame()
 	{
 		std::ofstream savefile("./res/save.sav");

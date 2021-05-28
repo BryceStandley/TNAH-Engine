@@ -6,11 +6,20 @@
 
 #define SEND_MESSAGE_IMMEDIATELY = 0.0;
 #define SENDER_ID_IRRELEVANT = -1;
-
+/**
+ * @class Message dispatcher
+ * @breif Sends the messages for the AI and handles them
+ * @author Christopher Logan
+ * @date MAY 2021
+ */
 class MessageDispatcher
 {
 private:
 	std::set<Telegram> Priority;
+
+	/**
+	 * @brief Discharges the message to game objects
+	 */
 	void Discharge(GameObject* receiver, const Telegram msg)
 	{
 		if (!receiver->handleMessage(msg))
@@ -18,6 +27,9 @@ private:
 	}
 
 public:
+	/**
+	 * @brief Sends the message to a single game object id
+	 */
 	void DisbatchMsgSingle(double delay, int sender, int receiver, int msg, bool all)
 	{
 		//Use singleton to get entity manager
@@ -39,6 +51,9 @@ public:
 		}
 	}
 
+	/**
+	 * @brief Sends the message to a whole type of game objects
+	 */
 	void DisbatchMsgAllOfType(int sender, int msg, std::string type)
 	{
 		int max = entityMan::getInstance().Size();
@@ -58,6 +73,9 @@ public:
 		}
 	}
 
+	/**
+	 * @brief Sends delayed messages
+	 */
 	void DispatchDelayedMessages()
 	{
 		//Need to make a timer

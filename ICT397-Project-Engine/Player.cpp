@@ -259,7 +259,7 @@ Player::Player(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std:
 	}
 
 	playerFSM = new stateMachine<Player>(this);
-	playerFSM->setCurrentState(&main_state::getInstance());
+	playerFSM->setCurrentState(&singleton<main>::getInstance());
 	playerFSM->setGlobalState(&glob_state::getInstance());
 
 	SetType("player");
@@ -528,7 +528,7 @@ Player::Player(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std:
     }
 
 	playerFSM = new stateMachine<Player>(this);
-	playerFSM->setCurrentState(&main_state::getInstance());
+	playerFSM->setCurrentState(&singleton<main>::getInstance());
 	playerFSM->setGlobalState(&glob_state::getInstance());
     health = h;
 	SetType("player");

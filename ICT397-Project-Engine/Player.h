@@ -177,17 +177,51 @@ public:
 
 	///Resets the player game object
 	void Reset();
-
+	
+		/**
+		* @brief Sets the token
+		*/
 	void SetToken(bool tok) { hasToken = tok; }
+	
+	
+		/**
+		* @brief Gets the if the player has the token
+		*/
 	bool GetToken() { return hasToken; }
 
+		/**
+		* @brief Sets the instance token for the manager
+		*/
 	void SetInstanceToken(std::string str) { singleton<Manager>::getInstance().token = str; }
+
+		/**
+		* @brief Returns the instance token
+		*/
 	std::string GetInstanceToken() { return singleton<Manager>::getInstance().token; }
+
+		/**
+		* @brief Gets the previous instance token
+		*/
 	std::string GetPrevInstanceToken() { return singleton<Manager>::getInstance().prevToken; }
+
+		/**
+		* @brief Sets the previous instance token
+		*/
 	void SetPrevInstanceToken(std::string str) { singleton<Manager>::getInstance().prevToken = str; }
+
+		/**
+		* @brief Gets the instance timer
+		*/
 	float GetInstanceTimer() { return singleton<Manager>::getInstance().timer; }
+
+		/**
+		* @brief Gets the instance speed
+		*/
 	void SetInstanceSpeed(float speed) { singleton<Manager>::getInstance().speed = speed; }
 
+		/**
+		* @brief Changes the state of the ai
+		*/
 	void ChangeState(std::string state);
 
 	LuaRef dd = NULL;

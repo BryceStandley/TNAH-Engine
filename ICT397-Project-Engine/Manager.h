@@ -2,7 +2,12 @@
 #include<string>
 
 
-
+/**
+ * @class Manager
+ * @breif The manager hoolds the information used by the rest of the engine, such as difficulty, speed, toekns and timers
+ * @author Christopher Logan
+ * @date MAY 2021
+ */
 class Manager
 {
 public:
@@ -25,6 +30,9 @@ public:
 	float enemyDeathTimer = 0;
 	bool hasKills = false;
 
+/**
+ * @brief Update look for the manager, updates the timers
+ */
 	void Update(float time)
 	{
 		if (timer <= 0)

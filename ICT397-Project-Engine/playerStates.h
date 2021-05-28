@@ -245,7 +245,6 @@ public:
 
 
 	/// singletons made for each state ensuring only one instance of each state per FSM 
-typedef  singleton<main> main_state;
 
 
 	/// tokens

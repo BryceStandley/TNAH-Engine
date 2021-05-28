@@ -16,21 +16,21 @@ health = 100;
 ammo = 10;
 distance = 25.0;
 damage = 10;
-accuracy = 0.35;
+accuracy = 0.15;
 
 setup = function (Enemy)
 	--print(Enemy:getDifficulty());
 	if string.match(Enemy:getDifficulty(), "Hard") then
 		distance = 200.0;
-		Enemy:setHealth(200.0)
-		Enemy:SetDamage(20)
-		Enemy:SetAccuracy(0.5)
+		Enemy:setHealth(150.0)
+		Enemy:SetDamage(15)
+		Enemy:SetAccuracy(0.25)
 		print("hard")
 	elseif string.match(Enemy:getDifficulty(), "Easy") then
 		distance = 20.0;
-		Enemy:setHealth(100.0)
+		Enemy:setHealth(80.0)
 		Enemy:SetDamage(5)
-		Enemy:SetAccuracy(0.2)
+		Enemy:SetAccuracy(0.1)
 		print("Easy")
 	end
 end

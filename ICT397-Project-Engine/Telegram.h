@@ -1,5 +1,11 @@
 #include <iostream>
 #include <glm/glm.hpp>
+/**
+ * @class Telegram
+ * @breif Holds the messages that are sent from the AI
+ * @author Christopher Logan
+ * @date MAY 2021
+ */
 struct Telegram
 {
 	int sender;
