@@ -2,6 +2,7 @@
 
 GameObject* GameAssetFactory::GetGameObject(std::string type, std::string script, float scale, glm::vec3 position)
 {
+	std::cout << type << " " << script << std::endl;
     if(Debugger::GetInstance()->debugToConsole) std::cout << "script -> " << script << std::endl;
 	if (type == "player" && !playerMade)
 	{
