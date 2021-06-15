@@ -19,6 +19,7 @@ unset(${GLAD_LIBRARY} CACHE)
 unset(${ASSIMP_LIBRARY} CACHE)
 unset(${GLFW_LIBRARY} CACHE)
 unset(${LUA_LIBRARY} CACHE)
+unset(${REACT_LIBRARY} CACHE)
 
 # Finding required lib's using FindXXX.cmake files in /cmakeFiles
 message("")
@@ -27,6 +28,7 @@ find_package(GLAD REQUIRED)
 find_package(ASSIMP REQUIRED)
 find_package(GLFW REQUIRED)
 find_package(LUA REQUIRED)
+find_package(ReactPhysics3D REQUIRED)
 message("")
 
 # Adding Source Directory
@@ -36,7 +38,7 @@ add_subdirectory(${PROJECT_SOURCE_DIR}/ICT397-Project-Engine)
 if(WIN32)
     target_link_libraries(${PROJECT_NAME} ${ASSIMP_LIBRARY} ${GLFW_LIBRARY} ${LUA_LIBRARY} )
 ELSE(APPLE)
-    target_link_libraries(${PROJECT_NAME}  ${ASSIMP_LIBRARY} ${GLFW_LIBRARY} ${LUA_LIBRARY} ${GLAD_LIBRARY}  )
+    target_link_libraries(${PROJECT_NAME}  ${ASSIMP_LIBRARY} ${GLFW_LIBRARY} ${LUA_LIBRARY} ${GLAD_LIBRARY} ${REACT_LIBRARY}  )
 ENDIF()
 
 
