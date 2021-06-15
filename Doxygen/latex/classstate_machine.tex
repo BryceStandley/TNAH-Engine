@@ -1,0 +1,123 @@
+\hypertarget{classstate_machine}{}\doxysection{state\+Machine$<$ entity $>$ Class Template Reference}
+\label{classstate_machine}\index{stateMachine$<$ entity $>$@{stateMachine$<$ entity $>$}}
+
+
+An templated \mbox{\hyperlink{classstate_machine}{state\+Machine}} class that encapsulates all state related data and functions, allowing for a cleaner integration of an FSM thst can be used in the entity\textquotesingle{}s class.  
+
+
+
+
+{\ttfamily \#include $<$state\+Machine.\+h$>$}
+
+
+
+Inheritance diagram for state\+Machine$<$ entity $>$\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=348pt]{classstate_machine__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for state\+Machine$<$ entity $>$\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=205pt]{classstate_machine__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classstate_machine_a7717cf677930b262f99798c7dbe8d617}\label{classstate_machine_a7717cf677930b262f99798c7dbe8d617}} 
+{\bfseries state\+Machine} (entity $\ast$FSMowner)
+\item 
+\mbox{\Hypertarget{classstate_machine_a67031cfc95309370ed5770960d70f9f5}\label{classstate_machine_a67031cfc95309370ed5770960d70f9f5}} 
+bool {\bfseries handle\+Message} (const \mbox{\hyperlink{struct_telegram}{Telegram}} msg)
+\item 
+\mbox{\Hypertarget{classstate_machine_acdb3fcd0436eea529e39b27e949e5df8}\label{classstate_machine_acdb3fcd0436eea529e39b27e949e5df8}} 
+void {\bfseries set\+Previous\+State} (\mbox{\hyperlink{class_state}{State}}$<$ entity $>$ $\ast$st)
+\item 
+\mbox{\Hypertarget{classstate_machine_af83aebd17e606b1fda77ac21b7310c40}\label{classstate_machine_af83aebd17e606b1fda77ac21b7310c40}} 
+void {\bfseries set\+Current\+State} (\mbox{\hyperlink{class_state}{State}}$<$ entity $>$ $\ast$st)
+\item 
+\mbox{\Hypertarget{classstate_machine_a7f87e57abb80bf13964b4d9470ae2a17}\label{classstate_machine_a7f87e57abb80bf13964b4d9470ae2a17}} 
+void {\bfseries set\+Global\+State} (\mbox{\hyperlink{class_state}{State}}$<$ entity $>$ $\ast$st)
+\item 
+\mbox{\Hypertarget{classstate_machine_a5d313bbcdadd7adc28818bed4c506945}\label{classstate_machine_a5d313bbcdadd7adc28818bed4c506945}} 
+void {\bfseries update} () const
+\item 
+void \mbox{\hyperlink{classstate_machine_ab64c7f518f67ba16d255147962b941bd}{change\+State}} (\mbox{\hyperlink{class_state}{State}}$<$ entity $>$ $\ast$new\+State)
+\item 
+\mbox{\Hypertarget{classstate_machine_a49447f2552f116fc121827bf37584dfa}\label{classstate_machine_a49447f2552f116fc121827bf37584dfa}} 
+void {\bfseries revert\+To\+Previous\+State} ()
+\item 
+\mbox{\Hypertarget{classstate_machine_a769ee4b8f8780be090412200f27aec42}\label{classstate_machine_a769ee4b8f8780be090412200f27aec42}} 
+\mbox{\hyperlink{class_state}{State}}$<$ entity $>$ $\ast$ {\bfseries get\+Previous\+State} ()
+\item 
+\mbox{\Hypertarget{classstate_machine_a9a2cf9b2ef527ce0c2ac3d34ef7a6a73}\label{classstate_machine_a9a2cf9b2ef527ce0c2ac3d34ef7a6a73}} 
+\mbox{\hyperlink{class_state}{State}}$<$ entity $>$ $\ast$ {\bfseries get\+Current\+State} ()
+\item 
+\mbox{\Hypertarget{classstate_machine_a7885ebd2c52d49bfbd3300bde57ef5a4}\label{classstate_machine_a7885ebd2c52d49bfbd3300bde57ef5a4}} 
+\mbox{\hyperlink{class_state}{State}}$<$ entity $>$ $\ast$ {\bfseries get\+Global\+State} ()
+\item 
+\mbox{\Hypertarget{classstate_machine_a0c6164da860974b9be3254fff7bb4dda}\label{classstate_machine_a0c6164da860974b9be3254fff7bb4dda}} 
+bool {\bfseries is\+In\+State} (const \mbox{\hyperlink{class_state}{State}}$<$ entity $>$ \&st) const
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$class entity$>$\newline
+class state\+Machine$<$ entity $>$}
+
+An templated \mbox{\hyperlink{classstate_machine}{state\+Machine}} class that encapsulates all state related data and functions, allowing for a cleaner integration of an FSM thst can be used in the entity\textquotesingle{}s class. 
+
+\begin{DoxyAuthor}{Author}
+Dylan Blereau 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+01 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+27/04/2021 Dylan Blereau, Started 
+\end{DoxyDate}
+
+
+Definition at line 17 of file state\+Machine.\+h.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classstate_machine_ab64c7f518f67ba16d255147962b941bd}\label{classstate_machine_ab64c7f518f67ba16d255147962b941bd}} 
+\index{stateMachine$<$ entity $>$@{stateMachine$<$ entity $>$}!changeState@{changeState}}
+\index{changeState@{changeState}!stateMachine$<$ entity $>$@{stateMachine$<$ entity $>$}}
+\doxysubsubsection{\texorpdfstring{changeState()}{changeState()}}
+{\footnotesize\ttfamily template$<$class entity $>$ \\
+void \mbox{\hyperlink{classstate_machine}{state\+Machine}}$<$ entity $>$\+::change\+State (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_state}{State}}$<$ entity $>$ $\ast$}]{new\+State }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+the current state becomes the previous state
+
+exit state
+
+change current state to new state
+
+enter the new current state
+
+Definition at line 93 of file state\+Machine.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{94     \{}
+\DoxyCodeLine{96         previousState = currentState;}
+\DoxyCodeLine{98         currentState-\/>Exit(owner);}
+\DoxyCodeLine{100         currentState = newState;}
+\DoxyCodeLine{102         currentState-\/>Enter(owner);}
+\DoxyCodeLine{103     \}}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/chris/\+Documents/\+UNI/\+ICT397-\/\+Project/\+ICT397-\/\+Project-\/\+Engine/state\+Machine.\+h\end{DoxyCompactItemize}

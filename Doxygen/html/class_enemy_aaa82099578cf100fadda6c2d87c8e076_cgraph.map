@@ -1,0 +1,7 @@
+<map id="Enemy::Update" name="Enemy::Update">
+<area shape="rect" id="node1" title="Updates the game object with functionality." alt="" coords="5,81,117,108"/>
+<area shape="rect" id="node2" href="$class_debugger.html#a3178f40262f4cc7e562771544aadf35c" title="Appends a string to the log file with current time of the system and information where the append cam..." alt="" coords="165,5,333,32"/>
+<area shape="rect" id="node3" href="$class_enemy.html#a9628e768b1ef212995484cdfd3d2fea7" title="gets and returns the value of the timer" alt="" coords="189,56,310,83"/>
+<area shape="rect" id="node4" href="$class_enemy.html#a8848fe440fb23e58fcc39d4e96199034" title="increments the timer value" alt="" coords="169,107,329,133"/>
+<area shape="rect" id="node5" href="$class_enemy.html#a9c4478a4920116aba556a7320afd09b4" title="sets the value of the token" alt="" coords="187,157,311,184"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="MainMenuGUI::GetInstance" name="MainMenuGUI::GetInstance">
+<area shape="rect" id="node1" title="Singleton get function." alt="" coords="164,31,347,57"/>
+<area shape="rect" id="node2" href="$class_engine.html#a8c98683b0a3aa28d8ab72a8bcd0d52f2" title="Default constructor." alt="" coords="5,5,116,32"/>
+<area shape="rect" id="node3" href="$class_scene.html#a0f3009b2ffcd55c44ebb1d571bbdd101" title="Initilises the scene, setting up the terrain and skybox." alt="" coords="19,56,103,83"/>
+</map>

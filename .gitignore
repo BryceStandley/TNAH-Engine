@@ -5,6 +5,9 @@
 
 *._*
 *.DS_Store
+*.ini
+*.sav
+*.log
 
 # User-specific files
 *.rsuser
@@ -34,6 +37,8 @@ bld/
 [Oo]bj/
 [Ll]og/
 [Ll]ogs/
+[Bb]uild/
+cmake-build-*
 
 # Visual Studio 2015/2017 cache/options directory
 .vs/
@@ -363,4 +368,4 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
-ICT397-Project-Engine/6cy5k8eqi.jpg
+/build/

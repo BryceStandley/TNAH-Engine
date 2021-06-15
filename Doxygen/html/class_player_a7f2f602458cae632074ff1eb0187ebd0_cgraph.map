@@ -1,0 +1,4 @@
+<map id="Player::SetState" name="Player::SetState">
+<area shape="rect" id="node1" title="sets the animation state to the value provided as a parameter" alt="" coords="5,5,124,32"/>
+<area shape="rect" id="node2" href="$class_model.html#abeacaeec6265bc2565031e4badc91123" title="sets the animation state of the model to the command provided as parameter" alt="" coords="172,5,288,32"/>
+</map>

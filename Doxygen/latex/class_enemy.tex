@@ -1,0 +1,3035 @@
+\hypertarget{class_enemy}{}\doxysection{Enemy Class Reference}
+\label{class_enemy}\index{Enemy@{Enemy}}
+
+
+Abstract \mbox{\hyperlink{class_game_object}{Game\+Object}} class for enemies.  
+
+
+
+
+{\ttfamily \#include $<$Enemy.\+h$>$}
+
+
+
+Inheritance diagram for Enemy\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{class_enemy__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Enemy\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{class_enemy__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_enemy_a8ae3869e9654e6f16d3546025483d33d}{Enemy}} (glm\+::vec3 p, glm\+::vec3 rot, \mbox{\hyperlink{class_renderer}{Renderer}} $\ast$game\+Renderer, std\+::string script)
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{class_enemy}{Enemy}} constructor that takes various parameters. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_enemy_a7e3a18ed35fac4b01a237b4da35c7710}{Enemy}} (glm\+::vec3 p, glm\+::vec3 rot, float s, \mbox{\hyperlink{class_renderer}{Renderer}} $\ast$game\+Renderer, std\+::string script, float h, float a, std\+::string \mbox{\hyperlink{classstate}{state}})
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{class_enemy}{Enemy}} constructor that takes various parameters. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_enemy_ac0eec4755e28c02688065f9657150ac3}\label{class_enemy_ac0eec4755e28c02688065f9657150ac3}} 
+\mbox{\hyperlink{class_enemy_ac0eec4755e28c02688065f9657150ac3}{$\sim$\+Enemy}} ()
+\begin{DoxyCompactList}\small\item\em destructor that deallocates resource upon deletion of enemy object \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classstate_machine}{state\+Machine}}$<$ \mbox{\hyperlink{class_enemy}{Enemy}} $>$ $\ast$ \mbox{\hyperlink{class_enemy_ac216deb271b5bd35a886783500aadd84}{get\+FSM}} () const
+\begin{DoxyCompactList}\small\item\em gets and returns the finite state machine of the enemy \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_enemy_aaa82099578cf100fadda6c2d87c8e076}{Update}} (float time)
+\begin{DoxyCompactList}\small\item\em Updates the game object with functionality. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_enemy_a46341636350ca2bc6aac929b2a84f215}{get\+Health}} ()
+\begin{DoxyCompactList}\small\item\em gets and returns the health value of the enemy \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_enemy_afc9186ef7bb3fbb749eda08782667df8}{set\+Health}} (int h)
+\begin{DoxyCompactList}\small\item\em sets the health value for the enemy \end{DoxyCompactList}\item 
+glm\+::vec3 \mbox{\hyperlink{class_enemy_a577c864252d94cfe4f592a975547d4b5}{Get\+Pos}} () const
+\begin{DoxyCompactList}\small\item\em Gets the position of the game object. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_enemy_a74abe45981ed89e34ec3e6927d9c5c8c}{Set\+Pos}} (glm\+::vec3 p)
+\begin{DoxyCompactList}\small\item\em Sets the position of the game object. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_enemy_a22a537e5ede79281792029a313cc89bf}{decrease\+Health}} (int health)
+\begin{DoxyCompactList}\small\item\em decreases the value of health by the integer provided as a parameter \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_enemy_af626d6c92b3be75617bdb72c2eb8497e}{Render}} (\mbox{\hyperlink{class_view}{View}} lens, float time, \mbox{\hyperlink{class_renderer}{Renderer}} $\ast$game\+Renderer)
+\begin{DoxyCompactList}\small\item\em makes use of the view information and graphics renderer to render the enemy to the screen \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_enemy_a622f7433b50bdf441a29f510ab84621d}{Set\+State}} (int num)
+\begin{DoxyCompactList}\small\item\em sets the animation state to the value provided as parameter, whether it be an integer or an enumerated type \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_enemy_a6598a4e0625abcc158fa8f70ed42b34e}{set\+Alive}} (bool a)
+\begin{DoxyCompactList}\small\item\em sets the boolean value of the alive variable \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_enemy_a29f690a587f3c992a537042c4b2ea5dc}{Set\+Kill\+FSM}} (bool k)
+\begin{DoxyCompactList}\small\item\em sets the boolean value of the kill\+FSM variable \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_enemy_a2cce7194016cb90b9e457b3da131fd8a}{is\+Alive}} ()
+\begin{DoxyCompactList}\small\item\em gets and returns the alive boolean value \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{class_enemy_a9a2b8640b75830bed7db68fdf78ef3d2}{Get\+Delta\+Time}} () const
+\begin{DoxyCompactList}\small\item\em gets and returns the value of deleta\+Time \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{class_enemy_af4812dc4aef5501ffe8d26eeb6536f9a}{Distance}} ()
+\begin{DoxyCompactList}\small\item\em gets and returns the distance between the enemy and the first person player camera \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{class_enemy_a65037712fc14f0fe76b9c99e218c823d}{Distance\+Between}} (glm\+::vec3 other\+Pos)
+\begin{DoxyCompactList}\small\item\em gets and returns the distance between a given position and an enemy position ~\newline
+ \end{DoxyCompactList}\item 
+glm\+::vec3 \mbox{\hyperlink{class_enemy_acd0f76589659a9b4e0be58aa49b5f802}{get\+Cam\+Pos}} ()
+\begin{DoxyCompactList}\small\item\em gets and returns the position of the first person player camera \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_enemy_a29c6447f08b6901ea48894a97b53262f}{handle\+Message}} (const \mbox{\hyperlink{struct_telegram}{Telegram}} \mbox{\hyperlink{classsingleton}{message}})
+\begin{DoxyCompactList}\small\item\em allows the enemy to handle messages it receives from other entities \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_enemy_ab3fbdd83b20287e3d9e0d0ad865df326}{move\+To}} (glm\+::vec3 \&cur\+Pos, const glm\+::vec3 \&target\+Pos, glm\+::vec3 \&cur\+Velocity, float time, float offset, std\+::string type)
+\begin{DoxyCompactList}\small\item\em allows the enemy to move from its current position to a specified target position \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_enemy_abcda069cb6c72f0052a7b6e787723641}{pursue}} (const glm\+::vec3 \&evader\+Pos, glm\+::vec3 \&pursuer\+Pos, const glm\+::vec3 \&evader\+Velocity, glm\+::vec3 \&pursuer\+Velocity, float time, float offset, std\+::string type)
+\begin{DoxyCompactList}\small\item\em allows the enemy to pursue an evading target \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_enemy_ace7d94eaec4d7ffe57ed16078465b2ae}{flee}} (glm\+::vec3 \&cur\+Pos, const glm\+::vec3 \&pursuer\+Pos, glm\+::vec3 \&cur\+Velocity, float flee\+Speed, float time, std\+::string type)
+\begin{DoxyCompactList}\small\item\em allows the enemy to flee from a pursuing entity \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_enemy_af0d4dba8bcce55bd65edbad82343d1ec}{evade}} (glm\+::vec3 \&evader\+Pos, const glm\+::vec3 \&pursuer\+Pos, glm\+::vec3 \&evader\+Velocity, const glm\+::vec3 \&pursuer\+Velocity, float time, std\+::string type)
+\begin{DoxyCompactList}\small\item\em allows the enemy to evade a pursuing entity. Serves as a flee that moves from the predicted future position of the pursuer \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_enemy_a9248a3396cd0b483d59cca6c126e0479}{set\+Wander}} (double wander\+Radius, double wander\+Distance, double wander\+Jitter)
+\begin{DoxyCompactList}\small\item\em a function used to set the values that will be used in the wander movement function \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_enemy_a98b0a0e9524f39a26eb4484e6da4b9a6}{wander}} (glm\+::vec3 \&position, glm\+::vec3 \&\mbox{\hyperlink{class_enemy_a73529a10a7aa7adb28a74529d48e1192}{velocity}}, float time, std\+::string type)
+\begin{DoxyCompactList}\small\item\em a function used to set the values that will be used in the wander movement function \end{DoxyCompactList}\item 
+glm\+::vec3 \mbox{\hyperlink{class_enemy_a4fec81242274841c382f32b02fdf0a40}{get\+Velocity}} () const
+\begin{DoxyCompactList}\small\item\em gets and returns the velocity vector \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_enemy_a8410dd9b89bff7d721af005d6284b80c}{set\+Velocity}} (glm\+::vec3 v)
+\begin{DoxyCompactList}\small\item\em function that allows you to set the values of the velocity vector \end{DoxyCompactList}\item 
+glm\+::vec3 \mbox{\hyperlink{class_enemy_a5dd8733c7fdb074daf1f053090acedfb}{get\+Enemy\+Velocity}} () const
+\begin{DoxyCompactList}\small\item\em gets and returns the enemy velocity vector \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_enemy_a2f903df691de1c3557fd2faa74ae8d78}{set\+Enemy\+Velocity}} (glm\+::vec3 v)
+\begin{DoxyCompactList}\small\item\em function that allows you to set the values of the enemy\+Velocity vector \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{class_enemy_a77a74af6c580978969fce6e0367f91c0}{get\+Direction}} () const
+\begin{DoxyCompactList}\small\item\em gets and returns the direction in which the enemy is facing \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_enemy_a878feb211351f52e64b9c27b00ca3629}{set\+Direction}} (float dir)
+\begin{DoxyCompactList}\small\item\em sets the direction in which the enemy is facing \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_enemy_a9b0879cd0e2edca02db45ce09839de03}{get\+Global\+Flag}} () const
+\begin{DoxyCompactList}\small\item\em gets and returns the value of the global\+Flag (global\+Flag is used to ensure that global\+State changes don\textquotesingle{}t get stuck in a loop) \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_enemy_aa85fa1ba3aec84f36a072a24315db922}{set\+Global\+Flag}} (bool flag)
+\begin{DoxyCompactList}\small\item\em sets the value of the global\+Flag \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_enemy_ad41bb64e354fcd25e97d4a97e3d70d4f}{get\+Token}} () const
+\begin{DoxyCompactList}\small\item\em gets and returns the value of the token \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_enemy_a9c4478a4920116aba556a7320afd09b4}{set\+Token}} (bool t)
+\begin{DoxyCompactList}\small\item\em sets the value of the token \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_enemy_afe9c462d6457e13fe7c35a0661249578}{get\+Death\+Anim}} () const
+\begin{DoxyCompactList}\small\item\em gets and returns the value of the death\+Anim flag \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_enemy_a665c2f529dc84809bf8be5e93d19c015}{set\+Death\+Anim}} (bool d)
+\begin{DoxyCompactList}\small\item\em sets the value of the death\+Anim boolean \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_enemy_a9628e768b1ef212995484cdfd3d2fea7}{get\+Timer}} () const
+\begin{DoxyCompactList}\small\item\em gets and returns the value of the timer \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_enemy_affa586c312c78a562ec5130073330de1}{set\+Timer}} (int t)
+\begin{DoxyCompactList}\small\item\em sets the value of the timer \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_enemy_a8848fe440fb23e58fcc39d4e96199034}{increment\+Timer}} ()
+\begin{DoxyCompactList}\small\item\em increments the timer value \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_enemy_adf46a61ca173e7ea674024edb1ce6ad3}{get\+Check}} () const
+\begin{DoxyCompactList}\small\item\em gets and returns the value of the check \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_enemy_a675d4718c1ef3d71bfb9dcec2fc7a102}{set\+Check}} (int c)
+\begin{DoxyCompactList}\small\item\em sets the value of the check \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_enemy_a537e8b909fe462c74d136d6271e907e8}{increment\+Check}} ()
+\begin{DoxyCompactList}\small\item\em increments the check value \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_enemy_aede6ce203cb0c46f6d984ab1f261b689}{Change\+State}} (std\+::string \mbox{\hyperlink{classstate}{state}})
+\begin{DoxyCompactList}\small\item\em a function that changes the enemy state to the state provided to the function provided as a parameter \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_enemy_a53248d5fb75f286ca1952a207fe10ca9}{Check\+Prev\+State}} (std\+::string \mbox{\hyperlink{classstate}{state}})
+\begin{DoxyCompactList}\small\item\em a function that returns the previous state so long as the state parameter provided matches a valid state, otherwise it returns false \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{class_enemy_a77276d7fb22045098f926bb7519451e5}{Look\+Direction}} (std\+::string type)
+\begin{DoxyCompactList}\small\item\em a function that returns the looking direction of the enemy dependant on which string is provided \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_enemy_ac124fc6e60f7f05dfe0aa2975d16c4a0}{Send\+Message}} (int \mbox{\hyperlink{classsingleton}{message}}, std\+::string type)
+\begin{DoxyCompactList}\small\item\em a function that will send a message from the enemy to a specified game\+Object type \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_enemy_a807cd3be6023eef6f1e8b9734730aae0}{Set\+Moving}} (bool m)
+\begin{DoxyCompactList}\small\item\em sets the value of the moving boolean value, which is set to true when the enemy is moving towards the enemy that has seen the player and called for their help \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_enemy_a4dd3f15c29111e4fc5da276c8ea5715c}{Get\+Moving}} ()
+\begin{DoxyCompactList}\small\item\em gets and returns the value of moving \end{DoxyCompactList}\item 
+glm\+::vec3 \mbox{\hyperlink{class_enemy_a5a44af124e289a91d430299be612625c}{get\+New\+Pos}} ()
+\begin{DoxyCompactList}\small\item\em gets and returns the the new\+Pos vector \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_enemy_a6189fba91b8dc458e5c324f9545f9c58}{set\+New\+Pos}} (glm\+::vec3 p)
+\begin{DoxyCompactList}\small\item\em sets the value of the new\+Pos vector \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_enemy_ae5753c49a0b47bc4d77afbcc18c3a924}{Kill}} ()
+\begin{DoxyCompactList}\small\item\em returns the kill\+FSM bool value \end{DoxyCompactList}\item 
+virtual std\+::string \mbox{\hyperlink{class_enemy_a52e457d021940a08425747f0286b31d3}{Stream\+Values}} ()
+\begin{DoxyCompactList}\small\item\em Returns the streamed values for the game object. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{class_enemy_ae5a35caba056f8f4843476734bcc7f64}{Return\+State}} ()
+\begin{DoxyCompactList}\small\item\em returns the string value of the state that the FSM is currently in \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{class_enemy_a9e64f471fdb5039946a50a6a74614e97}{Get\+Accuracy}} ()
+\begin{DoxyCompactList}\small\item\em Gets the accuracy factor of an enemy. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_enemy_ac1a46b87e5ab5c6aab9445bc263a6b7b}{Set\+Accuracy}} (float a)
+\begin{DoxyCompactList}\small\item\em Sets the accuracy factor of an enemy. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_enemy_a880ddfe9c7e948676452149545c34f28}{Get\+Alive\+Status}} ()
+\begin{DoxyCompactList}\small\item\em Returns if the enemy is alive or not. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_enemy_a5833d5aee482c074a881184b7b522e52}{Set\+Alive\+Status}} (bool s)
+\begin{DoxyCompactList}\small\item\em Sets the alive value for the enemy. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_enemy_a12c7db0b6db5c4f7ba466f6330b8af0b}{Get\+Damage}} ()
+\begin{DoxyCompactList}\small\item\em Gets Damage value for the enemy. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_enemy_af36a3d72b3a3f5673616991f73e43f08}{Set\+Damage}} (int d)
+\begin{DoxyCompactList}\small\item\em sets Damage value for the enemy \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_enemy_a9a4f701ee66574f013870ba2f58f99ef}{Set\+Fire\+Weapon}} (bool f)
+\begin{DoxyCompactList}\small\item\em Sets if the weapon is firing or not. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_enemy_a3a5ea46ab549f61383dcf43ad4a30ffa}{Get\+Fire\+Weapon}} ()
+\begin{DoxyCompactList}\small\item\em Gets if the weapon is firing. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_enemy_ac653ecb03c6154acd5d2769f0ac5f14e}{Reset\+Enemy}} (glm\+::vec3 spawn)
+\begin{DoxyCompactList}\small\item\em Resets the enemy object, mainly used for pooling so that we dont need to allocate memory for new enemies each time we spawn one, we just reset the one that died. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{class_enemy_acf4a35676d149ac6df64cc0bb11e5aed}{get\+Difficulty}} ()
+\begin{DoxyCompactList}\small\item\em returns the current game difficulty as a string \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_enemy_a4a8101b0b3a0fa4a862e6dd071927676}\label{class_enemy_a4a8101b0b3a0fa4a862e6dd071927676}} 
+glm\+::vec3 \mbox{\hyperlink{class_enemy_a4a8101b0b3a0fa4a862e6dd071927676}{enemy\+Velocity}} = \{ 6.\+0f, 0.\+0f, 0.\+0f \}
+\begin{DoxyCompactList}\small\item\em enemy\+Velocity \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_enemy_a73529a10a7aa7adb28a74529d48e1192}\label{class_enemy_a73529a10a7aa7adb28a74529d48e1192}} 
+glm\+::vec3 \mbox{\hyperlink{class_enemy_a73529a10a7aa7adb28a74529d48e1192}{velocity}} = \{ 4.\+0f, 0.\+0f, 0.\+0f \}
+\begin{DoxyCompactList}\small\item\em cam Velocity \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_enemy_a6e2103451585da73bd05a1b221debee7}\label{class_enemy_a6e2103451585da73bd05a1b221debee7}} 
+glm\+::vec3 \mbox{\hyperlink{class_enemy_a6e2103451585da73bd05a1b221debee7}{new\+Pos}}
+\begin{DoxyCompactList}\small\item\em the position the enemy is heading too \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_enemy_a01cf82f420199d1ed1665081fc540296}\label{class_enemy_a01cf82f420199d1ed1665081fc540296}} 
+Lua\+Ref \mbox{\hyperlink{class_enemy_a01cf82f420199d1ed1665081fc540296}{wander\+Lua}} = NULL
+\begin{DoxyCompactList}\small\item\em Wander lua reference. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_enemy_a631e645c448403883cbc6df4ccb752c9}\label{class_enemy_a631e645c448403883cbc6df4ccb752c9}} 
+Lua\+Ref \mbox{\hyperlink{class_enemy_a631e645c448403883cbc6df4ccb752c9}{alert}} = NULL
+\begin{DoxyCompactList}\small\item\em alert lua reference \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_enemy_a77a88b3a51821d3d7c631f48eebff53c}\label{class_enemy_a77a88b3a51821d3d7c631f48eebff53c}} 
+Lua\+Ref \mbox{\hyperlink{class_enemy_a77a88b3a51821d3d7c631f48eebff53c}{chase}} = NULL
+\begin{DoxyCompactList}\small\item\em chase lua reference \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_enemy_a9a70ce9c69991fd48ace6dda9206523c}\label{class_enemy_a9a70ce9c69991fd48ace6dda9206523c}} 
+Lua\+Ref \mbox{\hyperlink{class_enemy_a9a70ce9c69991fd48ace6dda9206523c}{flee\+Lua}} = NULL
+\begin{DoxyCompactList}\small\item\em flee lua reference \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_enemy_ae26672f2922c44976b3e553d870a2bd8}\label{class_enemy_ae26672f2922c44976b3e553d870a2bd8}} 
+Lua\+Ref \mbox{\hyperlink{class_enemy_ae26672f2922c44976b3e553d870a2bd8}{attack}} = NULL
+\begin{DoxyCompactList}\small\item\em attack lua reference \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_enemy_aba514d317786cb163692da1592acd371}\label{class_enemy_aba514d317786cb163692da1592acd371}} 
+Lua\+Ref \mbox{\hyperlink{class_enemy_aba514d317786cb163692da1592acd371}{die}} = NULL
+\begin{DoxyCompactList}\small\item\em die lua reference \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_enemy_ac8668e21e47251b44773a0b6032d6d22}\label{class_enemy_ac8668e21e47251b44773a0b6032d6d22}} 
+Lua\+Ref \mbox{\hyperlink{class_enemy_ac8668e21e47251b44773a0b6032d6d22}{global}} = NULL
+\begin{DoxyCompactList}\small\item\em global lua reference \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_enemy_aa50957f1e068151dbf7b26459c297f72}\label{class_enemy_aa50957f1e068151dbf7b26459c297f72}} 
+Lua\+Ref \mbox{\hyperlink{class_enemy_aa50957f1e068151dbf7b26459c297f72}{init}} = NULL
+\begin{DoxyCompactList}\small\item\em initilise lua reference \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_enemy_aa5be702e4371963de69f7dc7859c14d1}\label{class_enemy_aa5be702e4371963de69f7dc7859c14d1}} 
+bool \mbox{\hyperlink{class_enemy_aa5be702e4371963de69f7dc7859c14d1}{start\+Timer}}
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{class_time}{Time}} for when the enemy will despawn. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Abstract \mbox{\hyperlink{class_game_object}{Game\+Object}} class for enemies. 
+
+\begin{DoxyAuthor}{Author}
+Christopher Logan 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+01 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+25/03/2021
+\end{DoxyDate}
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000002}{Todo}}]Add enemy functionality\end{DoxyRefDesc}
+
+
+@bugs none to be seen
+
+\begin{DoxyAuthor}{Author}
+Dylan Blereau 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+02 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+05/05/21
+\end{DoxyDate}
+Added enemy FSM and messaging functionality 
+
+Definition at line 39 of file Enemy.\+h.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_enemy_a8ae3869e9654e6f16d3546025483d33d}\label{class_enemy_a8ae3869e9654e6f16d3546025483d33d}} 
+\index{Enemy@{Enemy}!Enemy@{Enemy}}
+\index{Enemy@{Enemy}!Enemy@{Enemy}}
+\doxysubsubsection{\texorpdfstring{Enemy()}{Enemy()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Enemy\+::\+Enemy (\begin{DoxyParamCaption}\item[{glm\+::vec3}]{p,  }\item[{glm\+::vec3}]{rot,  }\item[{\mbox{\hyperlink{class_renderer}{Renderer}} $\ast$}]{game\+Renderer,  }\item[{std\+::string}]{script }\end{DoxyParamCaption})}
+
+
+
+\mbox{\hyperlink{class_enemy}{Enemy}} constructor that takes various parameters. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & -\/ reperesents the vector position \\
+\hline
+{\em rot} & -\/ represents the rotation vector \\
+\hline
+{\em game\+Renderer} & -\/ a pointer to the game engine renderer \\
+\hline
+{\em script} & -\/ a string repesenting the path to the enemy lua script \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 3 of file Enemy.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{3                                                                              : \mbox{\hyperlink{class_game_object_a0348e3ee2e83d56eafca7a3547f432c4}{GameObject}}(p, rot, 0, gameRenderer)}
+\DoxyCodeLine{4 \{}
+\DoxyCodeLine{5     lua\_State* L = \mbox{\hyperlink{class_lua_manager_a526cb587400fbdbcb31fc2302439f4e0}{LuaManager::getInstance}}().\mbox{\hyperlink{class_lua_manager_a191dcfea251f8e229df11466f6941527}{getLuaState}}();}
+\DoxyCodeLine{6     \mbox{\hyperlink{class_game_object_a8b2810245ce2055d8cd7b4668fe1871b}{SetScriptName}}(script);}
+\DoxyCodeLine{7     \textcolor{keywordtype}{int} h = 50;}
+\DoxyCodeLine{8     \textcolor{keywordtype}{int} a = 5;}
+\DoxyCodeLine{9     \textcolor{keywordtype}{bool} living = \textcolor{keyword}{true}, weap = \textcolor{keyword}{false};}
+\DoxyCodeLine{10     LuaRef setup = NULL;}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12     \textcolor{keywordflow}{if} (!luaL\_dofile(L, script.c\_str()))}
+\DoxyCodeLine{13     \{}
+\DoxyCodeLine{14         \mbox{\hyperlink{class_enemy_a01cf82f420199d1ed1665081fc540296}{wanderLua}} = getGlobal(L, \textcolor{stringliteral}{"{}wander"{}});}
+\DoxyCodeLine{15         \mbox{\hyperlink{classalert}{alert}} = getGlobal(L, \textcolor{stringliteral}{"{}alert"{}});}
+\DoxyCodeLine{16         \mbox{\hyperlink{classchase}{chase}} = getGlobal(L, \textcolor{stringliteral}{"{}chase"{}});}
+\DoxyCodeLine{17         \mbox{\hyperlink{class_enemy_a9a70ce9c69991fd48ace6dda9206523c}{fleeLua}} = getGlobal(L, \textcolor{stringliteral}{"{}flee"{}});}
+\DoxyCodeLine{18         \mbox{\hyperlink{classattack}{attack}} = getGlobal(L, \textcolor{stringliteral}{"{}attack"{}});}
+\DoxyCodeLine{19         \mbox{\hyperlink{classdie}{die}} = getGlobal(L, \textcolor{stringliteral}{"{}die"{}});}
+\DoxyCodeLine{20         \mbox{\hyperlink{classglobal}{global}} = getGlobal(L, \textcolor{stringliteral}{"{}global"{}});}
+\DoxyCodeLine{21 }
+\DoxyCodeLine{22         setup = getGlobal(L, \textcolor{stringliteral}{"{}setup"{}});}
+\DoxyCodeLine{23         LuaRef type = getGlobal(L, \textcolor{stringliteral}{"{}check"{}});}
+\DoxyCodeLine{24         LuaRef rot = getGlobal(L, \textcolor{stringliteral}{"{}rotate"{}});}
+\DoxyCodeLine{25         LuaRef alv = getGlobal(L, \textcolor{stringliteral}{"{}alive"{}});}
+\DoxyCodeLine{26         LuaRef weapon = getGlobal(L, \textcolor{stringliteral}{"{}weapon"{}});}
+\DoxyCodeLine{27 }
+\DoxyCodeLine{28         LuaRef mod = getGlobal(L, \textcolor{stringliteral}{"{}model"{}});}
+\DoxyCodeLine{29         LuaRef tex = getGlobal(L, \textcolor{stringliteral}{"{}texture"{}});}
+\DoxyCodeLine{30         LuaRef vert = getGlobal(L, \textcolor{stringliteral}{"{}vertShader"{}});}
+\DoxyCodeLine{31         LuaRef frag = getGlobal(L, \textcolor{stringliteral}{"{}fragShader"{}});}
+\DoxyCodeLine{32 }
+\DoxyCodeLine{33         LuaRef hel = getGlobal(L, \textcolor{stringliteral}{"{}health"{}});}
+\DoxyCodeLine{34         LuaRef amm = getGlobal(L, \textcolor{stringliteral}{"{}ammo"{}});}
+\DoxyCodeLine{35         LuaRef acc = getGlobal(L, \textcolor{stringliteral}{"{}accuracy"{}});}
+\DoxyCodeLine{36         LuaRef dam = getGlobal(L, \textcolor{stringliteral}{"{}damage"{}});}
+\DoxyCodeLine{37 }
+\DoxyCodeLine{38         std::string file;}
+\DoxyCodeLine{39         std::string vertS;}
+\DoxyCodeLine{40         std::string fragS;}
+\DoxyCodeLine{41         std::string texture;}
+\DoxyCodeLine{42 }
+\DoxyCodeLine{43         \textcolor{keywordtype}{bool} check = \textcolor{keyword}{false}, rotate = \textcolor{keyword}{false};}
+\DoxyCodeLine{44 }
+\DoxyCodeLine{45         \textcolor{keywordflow}{if} (type.isBool())}
+\DoxyCodeLine{46         \{}
+\DoxyCodeLine{47             check = type.cast<\textcolor{keywordtype}{bool}>();}
+\DoxyCodeLine{48         \}}
+\DoxyCodeLine{49 }
+\DoxyCodeLine{50         \textcolor{keywordflow}{if} (rot.isBool())}
+\DoxyCodeLine{51         \{}
+\DoxyCodeLine{52             rotate = rot.cast<\textcolor{keywordtype}{bool}>();}
+\DoxyCodeLine{53         \}}
+\DoxyCodeLine{54 }
+\DoxyCodeLine{55         \textcolor{keywordflow}{if} (alv.isBool())}
+\DoxyCodeLine{56         \{}
+\DoxyCodeLine{57             living = alv.cast<\textcolor{keywordtype}{bool}>();}
+\DoxyCodeLine{58         \}}
+\DoxyCodeLine{59 }
+\DoxyCodeLine{60         \textcolor{keywordflow}{if} (weapon.isBool())}
+\DoxyCodeLine{61         \{}
+\DoxyCodeLine{62             weap = weapon.cast<\textcolor{keywordtype}{bool}>();}
+\DoxyCodeLine{63         \}}
+\DoxyCodeLine{64 }
+\DoxyCodeLine{65         \textcolor{keywordflow}{if} (mod.isString())}
+\DoxyCodeLine{66         \{}
+\DoxyCodeLine{67             file = mod.cast<std::string>();}
+\DoxyCodeLine{68         \}}
+\DoxyCodeLine{69 }
+\DoxyCodeLine{70         \textcolor{keywordflow}{if} (vert.isString())}
+\DoxyCodeLine{71         \{}
+\DoxyCodeLine{72             vertS = vert.cast<std::string>();}
+\DoxyCodeLine{73         \}}
+\DoxyCodeLine{74 }
+\DoxyCodeLine{75         \textcolor{keywordflow}{if} (frag.isString())}
+\DoxyCodeLine{76         \{}
+\DoxyCodeLine{77             fragS = frag.cast<std::string>();}
+\DoxyCodeLine{78         \}}
+\DoxyCodeLine{79 }
+\DoxyCodeLine{80         \textcolor{keywordflow}{if} (tex.isString())}
+\DoxyCodeLine{81         \{}
+\DoxyCodeLine{82             texture = tex.cast<std::string>();}
+\DoxyCodeLine{83         \}}
+\DoxyCodeLine{84 }
+\DoxyCodeLine{85         \textcolor{keywordflow}{if} (hel.isNumber())}
+\DoxyCodeLine{86         \{}
+\DoxyCodeLine{87             h = hel.cast<\textcolor{keywordtype}{int}>();}
+\DoxyCodeLine{88         \}}
+\DoxyCodeLine{89 }
+\DoxyCodeLine{90         \textcolor{keywordflow}{if} (amm.isNumber())}
+\DoxyCodeLine{91         \{}
+\DoxyCodeLine{92             a = amm.cast<\textcolor{keywordtype}{int}>();}
+\DoxyCodeLine{93         \}}
+\DoxyCodeLine{94 }
+\DoxyCodeLine{95         \textcolor{keywordflow}{if} (acc.isNumber())}
+\DoxyCodeLine{96         \{}
+\DoxyCodeLine{97             accuracyFactor = acc.cast<\textcolor{keywordtype}{float}>();}
+\DoxyCodeLine{98         \}}
+\DoxyCodeLine{99 }
+\DoxyCodeLine{100         \textcolor{keywordflow}{if} (dam.isNumber())}
+\DoxyCodeLine{101         \{}
+\DoxyCodeLine{102             damage = dam.cast<\textcolor{keywordtype}{int}>();}
+\DoxyCodeLine{103         \}}
+\DoxyCodeLine{104 }
+\DoxyCodeLine{105         \mbox{\hyperlink{class_model}{Model}} tempModel(file, gameRenderer, check, texture, \textcolor{keyword}{true});}
+\DoxyCodeLine{106         \mbox{\hyperlink{class_game_object_a7d7bf2fb47b279323455347c841f0383}{SetModel}}(tempModel);}
+\DoxyCodeLine{107 }
+\DoxyCodeLine{108         \mbox{\hyperlink{class_shader}{Shader}} tempShader(vertS.c\_str(), fragS.c\_str());}
+\DoxyCodeLine{109         \mbox{\hyperlink{class_game_object_a8cd08c4c2a53a087716e7a8d4c25b632}{SetShader}}(tempShader);}
+\DoxyCodeLine{110 }
+\DoxyCodeLine{111         \mbox{\hyperlink{class_game_object_a91946921e81dbd19ace843fef8790b94}{SetRotate}}(rotate);}
+\DoxyCodeLine{112 }
+\DoxyCodeLine{113         \textcolor{keywordflow}{if} (weap)}
+\DoxyCodeLine{114         \{}
+\DoxyCodeLine{115             LuaRef WeapMod = getGlobal(L, \textcolor{stringliteral}{"{}weaponModel"{}});}
+\DoxyCodeLine{116             LuaRef weapTex = getGlobal(L, \textcolor{stringliteral}{"{}weaponTexture"{}});}
+\DoxyCodeLine{117 }
+\DoxyCodeLine{118             std::string weaponModel;}
+\DoxyCodeLine{119             std::string weaponTexture;}
+\DoxyCodeLine{120 }
+\DoxyCodeLine{121             \textcolor{keywordflow}{if} (WeapMod.isString())}
+\DoxyCodeLine{122             \{}
+\DoxyCodeLine{123                 weaponModel = WeapMod.cast<std::string>();}
+\DoxyCodeLine{124             \}}
+\DoxyCodeLine{125 }
+\DoxyCodeLine{126             \textcolor{keywordflow}{if} (weapTex.isString())}
+\DoxyCodeLine{127             \{}
+\DoxyCodeLine{128                 weaponTexture = weapTex.cast<std::string>();}
+\DoxyCodeLine{129             \}}
+\DoxyCodeLine{130 }
+\DoxyCodeLine{131             \mbox{\hyperlink{class_model}{Model}} tempWeaponModel(weaponModel, gameRenderer, check, weaponTexture, \textcolor{keyword}{true});}
+\DoxyCodeLine{132             wModel = tempWeaponModel;}
+\DoxyCodeLine{133         \}}
+\DoxyCodeLine{134     \}}
+\DoxyCodeLine{135     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (!luaL\_dofile(L, \textcolor{stringliteral}{"{}./res/scripts/gameobjects/enemy\_default.lua"{}}))}
+\DoxyCodeLine{136     \{}
+\DoxyCodeLine{137                 \mbox{\hyperlink{class_enemy_a01cf82f420199d1ed1665081fc540296}{wanderLua}} = getGlobal(L, \textcolor{stringliteral}{"{}wander"{}});}
+\DoxyCodeLine{138         \mbox{\hyperlink{classalert}{alert}} = getGlobal(L, \textcolor{stringliteral}{"{}alert"{}});}
+\DoxyCodeLine{139         \mbox{\hyperlink{classchase}{chase}} = getGlobal(L, \textcolor{stringliteral}{"{}chase"{}});}
+\DoxyCodeLine{140         \mbox{\hyperlink{class_enemy_a9a70ce9c69991fd48ace6dda9206523c}{fleeLua}} = getGlobal(L, \textcolor{stringliteral}{"{}flee"{}});}
+\DoxyCodeLine{141         \mbox{\hyperlink{classattack}{attack}} = getGlobal(L, \textcolor{stringliteral}{"{}attack"{}});}
+\DoxyCodeLine{142         \mbox{\hyperlink{classdie}{die}} = getGlobal(L, \textcolor{stringliteral}{"{}die"{}});}
+\DoxyCodeLine{143         \mbox{\hyperlink{classglobal}{global}} = getGlobal(L, \textcolor{stringliteral}{"{}global"{}});}
+\DoxyCodeLine{144 }
+\DoxyCodeLine{145         setup = getGlobal(L, \textcolor{stringliteral}{"{}setup"{}});}
+\DoxyCodeLine{146         LuaRef type = getGlobal(L, \textcolor{stringliteral}{"{}check"{}});}
+\DoxyCodeLine{147         LuaRef rot = getGlobal(L, \textcolor{stringliteral}{"{}rotate"{}});}
+\DoxyCodeLine{148         LuaRef alv = getGlobal(L, \textcolor{stringliteral}{"{}alive"{}});}
+\DoxyCodeLine{149         LuaRef weapon = getGlobal(L, \textcolor{stringliteral}{"{}weapon"{}});}
+\DoxyCodeLine{150 }
+\DoxyCodeLine{151         LuaRef mod = getGlobal(L, \textcolor{stringliteral}{"{}model"{}});}
+\DoxyCodeLine{152         LuaRef tex = getGlobal(L, \textcolor{stringliteral}{"{}texture"{}});}
+\DoxyCodeLine{153         LuaRef vert = getGlobal(L, \textcolor{stringliteral}{"{}vertShader"{}});}
+\DoxyCodeLine{154         LuaRef frag = getGlobal(L, \textcolor{stringliteral}{"{}fragShader"{}});}
+\DoxyCodeLine{155 }
+\DoxyCodeLine{156         LuaRef hel = getGlobal(L, \textcolor{stringliteral}{"{}health"{}});}
+\DoxyCodeLine{157         LuaRef amm = getGlobal(L, \textcolor{stringliteral}{"{}ammo"{}});}
+\DoxyCodeLine{158         LuaRef acc = getGlobal(L, \textcolor{stringliteral}{"{}accuracy"{}});}
+\DoxyCodeLine{159         LuaRef dam = getGlobal(L, \textcolor{stringliteral}{"{}damage"{}});}
+\DoxyCodeLine{160 }
+\DoxyCodeLine{161         std::string file;}
+\DoxyCodeLine{162         std::string vertS;}
+\DoxyCodeLine{163         std::string fragS;}
+\DoxyCodeLine{164         std::string texture;}
+\DoxyCodeLine{165 }
+\DoxyCodeLine{166         \textcolor{keywordtype}{bool} check = \textcolor{keyword}{false}, rotate = \textcolor{keyword}{false};}
+\DoxyCodeLine{167 }
+\DoxyCodeLine{168         \textcolor{keywordflow}{if} (type.isBool())}
+\DoxyCodeLine{169         \{}
+\DoxyCodeLine{170             check = type.cast<\textcolor{keywordtype}{bool}>();}
+\DoxyCodeLine{171         \}}
+\DoxyCodeLine{172 }
+\DoxyCodeLine{173         \textcolor{keywordflow}{if} (rot.isBool())}
+\DoxyCodeLine{174         \{}
+\DoxyCodeLine{175             rotate = rot.cast<\textcolor{keywordtype}{bool}>();}
+\DoxyCodeLine{176         \}}
+\DoxyCodeLine{177 }
+\DoxyCodeLine{178         \textcolor{keywordflow}{if} (alv.isBool())}
+\DoxyCodeLine{179         \{}
+\DoxyCodeLine{180             living = alv.cast<\textcolor{keywordtype}{bool}>();}
+\DoxyCodeLine{181         \}}
+\DoxyCodeLine{182 }
+\DoxyCodeLine{183         \textcolor{keywordflow}{if} (weapon.isBool())}
+\DoxyCodeLine{184         \{}
+\DoxyCodeLine{185             weap = weapon.cast<\textcolor{keywordtype}{bool}>();}
+\DoxyCodeLine{186         \}}
+\DoxyCodeLine{187 }
+\DoxyCodeLine{188         \textcolor{keywordflow}{if} (mod.isString())}
+\DoxyCodeLine{189         \{}
+\DoxyCodeLine{190             file = mod.cast<std::string>();}
+\DoxyCodeLine{191         \}}
+\DoxyCodeLine{192 }
+\DoxyCodeLine{193         \textcolor{keywordflow}{if} (vert.isString())}
+\DoxyCodeLine{194         \{}
+\DoxyCodeLine{195             vertS = vert.cast<std::string>();}
+\DoxyCodeLine{196         \}}
+\DoxyCodeLine{197 }
+\DoxyCodeLine{198         \textcolor{keywordflow}{if} (frag.isString())}
+\DoxyCodeLine{199         \{}
+\DoxyCodeLine{200             fragS = frag.cast<std::string>();}
+\DoxyCodeLine{201         \}}
+\DoxyCodeLine{202 }
+\DoxyCodeLine{203         \textcolor{keywordflow}{if} (tex.isString())}
+\DoxyCodeLine{204         \{}
+\DoxyCodeLine{205             texture = tex.cast<std::string>();}
+\DoxyCodeLine{206         \}}
+\DoxyCodeLine{207 }
+\DoxyCodeLine{208         \textcolor{keywordflow}{if} (hel.isNumber())}
+\DoxyCodeLine{209         \{}
+\DoxyCodeLine{210             h = hel.cast<\textcolor{keywordtype}{int}>();}
+\DoxyCodeLine{211         \}}
+\DoxyCodeLine{212 }
+\DoxyCodeLine{213         \textcolor{keywordflow}{if} (amm.isNumber())}
+\DoxyCodeLine{214         \{}
+\DoxyCodeLine{215             a = amm.cast<\textcolor{keywordtype}{int}>();}
+\DoxyCodeLine{216         \}}
+\DoxyCodeLine{217 }
+\DoxyCodeLine{218         \textcolor{keywordflow}{if} (acc.isNumber())}
+\DoxyCodeLine{219         \{}
+\DoxyCodeLine{220             accuracyFactor = acc.cast<\textcolor{keywordtype}{float}>();}
+\DoxyCodeLine{221         \}}
+\DoxyCodeLine{222 }
+\DoxyCodeLine{223         \textcolor{keywordflow}{if} (dam.isNumber())}
+\DoxyCodeLine{224         \{}
+\DoxyCodeLine{225             damage = dam.cast<\textcolor{keywordtype}{int}>();}
+\DoxyCodeLine{226         \}}
+\DoxyCodeLine{227 }
+\DoxyCodeLine{228         \mbox{\hyperlink{class_model}{Model}} tempModel(file, gameRenderer, check, texture, \textcolor{keyword}{true});}
+\DoxyCodeLine{229         \mbox{\hyperlink{class_game_object_a7d7bf2fb47b279323455347c841f0383}{SetModel}}(tempModel);}
+\DoxyCodeLine{230 }
+\DoxyCodeLine{231         \mbox{\hyperlink{class_shader}{Shader}} tempShader(vertS.c\_str(), fragS.c\_str());}
+\DoxyCodeLine{232         \mbox{\hyperlink{class_game_object_a8cd08c4c2a53a087716e7a8d4c25b632}{SetShader}}(tempShader);}
+\DoxyCodeLine{233 }
+\DoxyCodeLine{234         \mbox{\hyperlink{class_game_object_a91946921e81dbd19ace843fef8790b94}{SetRotate}}(rotate);}
+\DoxyCodeLine{235 }
+\DoxyCodeLine{236         \textcolor{keywordflow}{if} (weap)}
+\DoxyCodeLine{237         \{}
+\DoxyCodeLine{238             LuaRef WeapMod = getGlobal(L, \textcolor{stringliteral}{"{}weaponModel"{}});}
+\DoxyCodeLine{239             LuaRef weapTex = getGlobal(L, \textcolor{stringliteral}{"{}weaponTexture"{}});}
+\DoxyCodeLine{240 }
+\DoxyCodeLine{241             std::string weaponModel;}
+\DoxyCodeLine{242             std::string weaponTexture;}
+\DoxyCodeLine{243 }
+\DoxyCodeLine{244             \textcolor{keywordflow}{if} (WeapMod.isString())}
+\DoxyCodeLine{245             \{}
+\DoxyCodeLine{246                 weaponModel = WeapMod.cast<std::string>();}
+\DoxyCodeLine{247             \}}
+\DoxyCodeLine{248 }
+\DoxyCodeLine{249             \textcolor{keywordflow}{if} (weapTex.isString())}
+\DoxyCodeLine{250             \{}
+\DoxyCodeLine{251                 weaponTexture = weapTex.cast<std::string>();}
+\DoxyCodeLine{252             \}}
+\DoxyCodeLine{253 }
+\DoxyCodeLine{254             \mbox{\hyperlink{class_model}{Model}} tempWeaponModel(weaponModel, gameRenderer, check, weaponTexture, \textcolor{keyword}{true});}
+\DoxyCodeLine{255             wModel = tempWeaponModel;}
+\DoxyCodeLine{256         \}}
+\DoxyCodeLine{257     \}}
+\DoxyCodeLine{258     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{259     \{}
+\DoxyCodeLine{260         std::cout << \textcolor{stringliteral}{"{}ERROR::NO\_ENEMY\_SCRIPTS\_FOUND"{}} << std::endl;}
+\DoxyCodeLine{261     \}}
+\DoxyCodeLine{262     enemyFSM = \textcolor{keyword}{new} \mbox{\hyperlink{classstate_machine}{stateMachine<Enemy>}}(\textcolor{keyword}{this});}
+\DoxyCodeLine{263     enemyFSM-\/>setCurrentState(\&\mbox{\hyperlink{classsingleton_abe6a9e4cb548454cfb5d15f425553ae1}{wander\_state::getInstance}}());}
+\DoxyCodeLine{264     enemyFSM-\/>setGlobalState(\&\mbox{\hyperlink{classsingleton_abe6a9e4cb548454cfb5d15f425553ae1}{global\_state::getInstance}}());}
+\DoxyCodeLine{265     health = h;}
+\DoxyCodeLine{266     healthHold = h;}
+\DoxyCodeLine{267     ammo = a;}
+\DoxyCodeLine{268     alive = living;}
+\DoxyCodeLine{269     hasWeapon = weap;}
+\DoxyCodeLine{270     \mbox{\hyperlink{class_enemy_aa5be702e4371963de69f7dc7859c14d1}{startTimer}} = \textcolor{keyword}{false};}
+\DoxyCodeLine{271     deathtimer = 2;}
+\DoxyCodeLine{272     weaponTimer = 0.5f;}
+\DoxyCodeLine{273     accuracyFactor = 0.35f;}
+\DoxyCodeLine{274     damage = 10;}
+\DoxyCodeLine{275     \textcolor{keywordflow}{if} (setup.isFunction())}
+\DoxyCodeLine{276     \{}
+\DoxyCodeLine{277         setup(\textcolor{keyword}{this});}
+\DoxyCodeLine{278     \}}
+\DoxyCodeLine{279 \}}
+
+\end{DoxyCode}
+
+
+References Model\+::\+Model(), Shader\+::\+Shader(), and start\+Timer.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=284pt]{class_enemy_a8ae3869e9654e6f16d3546025483d33d_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_enemy_a7e3a18ed35fac4b01a237b4da35c7710}\label{class_enemy_a7e3a18ed35fac4b01a237b4da35c7710}} 
+\index{Enemy@{Enemy}!Enemy@{Enemy}}
+\index{Enemy@{Enemy}!Enemy@{Enemy}}
+\doxysubsubsection{\texorpdfstring{Enemy()}{Enemy()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Enemy\+::\+Enemy (\begin{DoxyParamCaption}\item[{glm\+::vec3}]{p,  }\item[{glm\+::vec3}]{rot,  }\item[{float}]{s,  }\item[{\mbox{\hyperlink{class_renderer}{Renderer}} $\ast$}]{game\+Renderer,  }\item[{std\+::string}]{script,  }\item[{float}]{h,  }\item[{float}]{a,  }\item[{std\+::string}]{state }\end{DoxyParamCaption})}
+
+
+
+\mbox{\hyperlink{class_enemy}{Enemy}} constructor that takes various parameters. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & -\/ reperesents the vector position \\
+\hline
+{\em rot} & -\/ represents the rotation vector \\
+\hline
+{\em s} & -\/ represents the enemy scale \\
+\hline
+{\em game\+Renderer} & -\/ a pointer to the game engine renderer \\
+\hline
+{\em script} & -\/ a string repesenting the path to the enemy lua script \\
+\hline
+{\em h} & -\/ represents the enemy health \\
+\hline
+{\em a} & -\/ represents the enemy ammo \\
+\hline
+{\em state} & -\/ reperesents the enemy state \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 281 of file Enemy.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{281                                                                                                                          : \mbox{\hyperlink{class_game_object_a0348e3ee2e83d56eafca7a3547f432c4}{GameObject}}(p, rot, s, gameRenderer)}
+\DoxyCodeLine{282 \{}
+\DoxyCodeLine{283     lua\_State* L = \mbox{\hyperlink{class_lua_manager_a526cb587400fbdbcb31fc2302439f4e0}{LuaManager::getInstance}}().\mbox{\hyperlink{class_lua_manager_a191dcfea251f8e229df11466f6941527}{getLuaState}}();}
+\DoxyCodeLine{284     \mbox{\hyperlink{class_game_object_a8b2810245ce2055d8cd7b4668fe1871b}{SetScriptName}}(script);}
+\DoxyCodeLine{285     \textcolor{keywordtype}{bool} living = \textcolor{keyword}{true}, weap = \textcolor{keyword}{false};}
+\DoxyCodeLine{286     LuaRef setup = NULL;}
+\DoxyCodeLine{287     \textcolor{keywordflow}{if} (!luaL\_dofile(L, script.c\_str()))}
+\DoxyCodeLine{288     \{}
+\DoxyCodeLine{289         \mbox{\hyperlink{class_enemy_a01cf82f420199d1ed1665081fc540296}{wanderLua}} = getGlobal(L, \textcolor{stringliteral}{"{}wander"{}});}
+\DoxyCodeLine{290         \mbox{\hyperlink{classalert}{alert}} = getGlobal(L, \textcolor{stringliteral}{"{}alert"{}});}
+\DoxyCodeLine{291         \mbox{\hyperlink{classchase}{chase}} = getGlobal(L, \textcolor{stringliteral}{"{}chase"{}});}
+\DoxyCodeLine{292         \mbox{\hyperlink{class_enemy_a9a70ce9c69991fd48ace6dda9206523c}{fleeLua}} = getGlobal(L, \textcolor{stringliteral}{"{}flee"{}});}
+\DoxyCodeLine{293         \mbox{\hyperlink{classattack}{attack}} = getGlobal(L, \textcolor{stringliteral}{"{}attack"{}});}
+\DoxyCodeLine{294         \mbox{\hyperlink{classdie}{die}} = getGlobal(L, \textcolor{stringliteral}{"{}die"{}});}
+\DoxyCodeLine{295         \mbox{\hyperlink{classglobal}{global}} = getGlobal(L, \textcolor{stringliteral}{"{}global"{}});}
+\DoxyCodeLine{296 }
+\DoxyCodeLine{297         setup = getGlobal(L, \textcolor{stringliteral}{"{}setup"{}});}
+\DoxyCodeLine{298         LuaRef type = getGlobal(L, \textcolor{stringliteral}{"{}check"{}});}
+\DoxyCodeLine{299         LuaRef rot = getGlobal(L, \textcolor{stringliteral}{"{}rotate"{}});}
+\DoxyCodeLine{300         LuaRef alv = getGlobal(L, \textcolor{stringliteral}{"{}alive"{}});}
+\DoxyCodeLine{301         LuaRef weapon = getGlobal(L, \textcolor{stringliteral}{"{}weapon"{}});}
+\DoxyCodeLine{302 }
+\DoxyCodeLine{303         LuaRef mod = getGlobal(L, \textcolor{stringliteral}{"{}model"{}});}
+\DoxyCodeLine{304         LuaRef tex = getGlobal(L, \textcolor{stringliteral}{"{}texture"{}});}
+\DoxyCodeLine{305         LuaRef vert = getGlobal(L, \textcolor{stringliteral}{"{}vertShader"{}});}
+\DoxyCodeLine{306         LuaRef frag = getGlobal(L, \textcolor{stringliteral}{"{}fragShader"{}});}
+\DoxyCodeLine{307 }
+\DoxyCodeLine{308         LuaRef hel = getGlobal(L, \textcolor{stringliteral}{"{}health"{}});}
+\DoxyCodeLine{309         LuaRef amm = getGlobal(L, \textcolor{stringliteral}{"{}ammo"{}});}
+\DoxyCodeLine{310         LuaRef acc = getGlobal(L, \textcolor{stringliteral}{"{}accuracy"{}});}
+\DoxyCodeLine{311         LuaRef dam = getGlobal(L, \textcolor{stringliteral}{"{}damage"{}});}
+\DoxyCodeLine{312 }
+\DoxyCodeLine{313         std::string file;}
+\DoxyCodeLine{314         std::string vertS;}
+\DoxyCodeLine{315         std::string fragS;}
+\DoxyCodeLine{316         std::string texture;}
+\DoxyCodeLine{317 }
+\DoxyCodeLine{318         \textcolor{keywordtype}{bool} check = \textcolor{keyword}{false}, rotate = \textcolor{keyword}{false};}
+\DoxyCodeLine{319 }
+\DoxyCodeLine{320         \textcolor{keywordflow}{if} (type.isBool())}
+\DoxyCodeLine{321         \{}
+\DoxyCodeLine{322             check = type.cast<\textcolor{keywordtype}{bool}>();}
+\DoxyCodeLine{323         \}}
+\DoxyCodeLine{324 }
+\DoxyCodeLine{325         \textcolor{keywordflow}{if} (rot.isBool())}
+\DoxyCodeLine{326         \{}
+\DoxyCodeLine{327             rotate = rot.cast<\textcolor{keywordtype}{bool}>();}
+\DoxyCodeLine{328         \}}
+\DoxyCodeLine{329 }
+\DoxyCodeLine{330         \textcolor{keywordflow}{if} (alv.isBool())}
+\DoxyCodeLine{331         \{}
+\DoxyCodeLine{332             living = alv.cast<\textcolor{keywordtype}{bool}>();}
+\DoxyCodeLine{333         \}}
+\DoxyCodeLine{334 }
+\DoxyCodeLine{335         \textcolor{keywordflow}{if} (weapon.isBool())}
+\DoxyCodeLine{336         \{}
+\DoxyCodeLine{337             weap = weapon.cast<\textcolor{keywordtype}{bool}>();}
+\DoxyCodeLine{338         \}}
+\DoxyCodeLine{339 }
+\DoxyCodeLine{340         \textcolor{keywordflow}{if} (mod.isString())}
+\DoxyCodeLine{341         \{}
+\DoxyCodeLine{342             file = mod.cast<std::string>();}
+\DoxyCodeLine{343         \}}
+\DoxyCodeLine{344 }
+\DoxyCodeLine{345         \textcolor{keywordflow}{if} (vert.isString())}
+\DoxyCodeLine{346         \{}
+\DoxyCodeLine{347             vertS = vert.cast<std::string>();}
+\DoxyCodeLine{348         \}}
+\DoxyCodeLine{349 }
+\DoxyCodeLine{350         \textcolor{keywordflow}{if} (frag.isString())}
+\DoxyCodeLine{351         \{}
+\DoxyCodeLine{352             fragS = frag.cast<std::string>();}
+\DoxyCodeLine{353         \}}
+\DoxyCodeLine{354 }
+\DoxyCodeLine{355         \textcolor{keywordflow}{if} (tex.isString())}
+\DoxyCodeLine{356         \{}
+\DoxyCodeLine{357             texture = tex.cast<std::string>();}
+\DoxyCodeLine{358         \}}
+\DoxyCodeLine{359 }
+\DoxyCodeLine{360         \textcolor{keywordflow}{if} (hel.isNumber())}
+\DoxyCodeLine{361         \{}
+\DoxyCodeLine{362             h = hel.cast<\textcolor{keywordtype}{int}>();}
+\DoxyCodeLine{363         \}}
+\DoxyCodeLine{364 }
+\DoxyCodeLine{365         \textcolor{keywordflow}{if} (amm.isNumber())}
+\DoxyCodeLine{366         \{}
+\DoxyCodeLine{367             a = amm.cast<\textcolor{keywordtype}{int}>();}
+\DoxyCodeLine{368         \}}
+\DoxyCodeLine{369 }
+\DoxyCodeLine{370         \textcolor{keywordflow}{if} (acc.isNumber())}
+\DoxyCodeLine{371         \{}
+\DoxyCodeLine{372             accuracyFactor = acc.cast<\textcolor{keywordtype}{float}>();}
+\DoxyCodeLine{373         \}}
+\DoxyCodeLine{374 }
+\DoxyCodeLine{375         \textcolor{keywordflow}{if} (dam.isNumber())}
+\DoxyCodeLine{376         \{}
+\DoxyCodeLine{377             damage = dam.cast<\textcolor{keywordtype}{int}>();}
+\DoxyCodeLine{378         \}}
+\DoxyCodeLine{379 }
+\DoxyCodeLine{380         \mbox{\hyperlink{class_model}{Model}} tempModel(file, gameRenderer, check, texture, \textcolor{keyword}{true});}
+\DoxyCodeLine{381         \mbox{\hyperlink{class_game_object_a7d7bf2fb47b279323455347c841f0383}{SetModel}}(tempModel);}
+\DoxyCodeLine{382 }
+\DoxyCodeLine{383         \mbox{\hyperlink{class_shader}{Shader}} tempShader(vertS.c\_str(), fragS.c\_str());}
+\DoxyCodeLine{384         \mbox{\hyperlink{class_game_object_a8cd08c4c2a53a087716e7a8d4c25b632}{SetShader}}(tempShader);}
+\DoxyCodeLine{385 }
+\DoxyCodeLine{386         \mbox{\hyperlink{class_game_object_a91946921e81dbd19ace843fef8790b94}{SetRotate}}(rotate);}
+\DoxyCodeLine{387 }
+\DoxyCodeLine{388         \textcolor{keywordflow}{if} (weap)}
+\DoxyCodeLine{389         \{}
+\DoxyCodeLine{390             LuaRef WeapMod = getGlobal(L, \textcolor{stringliteral}{"{}weaponModel"{}});}
+\DoxyCodeLine{391             LuaRef weapTex = getGlobal(L, \textcolor{stringliteral}{"{}weaponTexture"{}});}
+\DoxyCodeLine{392 }
+\DoxyCodeLine{393             std::string weaponModel;}
+\DoxyCodeLine{394             std::string weaponTexture;}
+\DoxyCodeLine{395 }
+\DoxyCodeLine{396             \textcolor{keywordflow}{if} (WeapMod.isString())}
+\DoxyCodeLine{397             \{}
+\DoxyCodeLine{398                 weaponModel = WeapMod.cast<std::string>();}
+\DoxyCodeLine{399             \}}
+\DoxyCodeLine{400 }
+\DoxyCodeLine{401             \textcolor{keywordflow}{if} (weapTex.isString())}
+\DoxyCodeLine{402             \{}
+\DoxyCodeLine{403                 weaponTexture = weapTex.cast<std::string>();}
+\DoxyCodeLine{404             \}}
+\DoxyCodeLine{405 }
+\DoxyCodeLine{406             \mbox{\hyperlink{class_model}{Model}} tempWeaponModel(weaponModel, gameRenderer, check, weaponTexture, \textcolor{keyword}{true});}
+\DoxyCodeLine{407             wModel = tempWeaponModel;}
+\DoxyCodeLine{408         \}}
+\DoxyCodeLine{409     \}}
+\DoxyCodeLine{410     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (!luaL\_dofile(L, \textcolor{stringliteral}{"{}./res/scripts/gameobjects/enemy\_default.lua"{}}))}
+\DoxyCodeLine{411     \{}
+\DoxyCodeLine{412         \mbox{\hyperlink{class_enemy_a01cf82f420199d1ed1665081fc540296}{wanderLua}} = getGlobal(L, \textcolor{stringliteral}{"{}wander"{}});}
+\DoxyCodeLine{413         \mbox{\hyperlink{classalert}{alert}} = getGlobal(L, \textcolor{stringliteral}{"{}alert"{}});}
+\DoxyCodeLine{414         \mbox{\hyperlink{classchase}{chase}} = getGlobal(L, \textcolor{stringliteral}{"{}chase"{}});}
+\DoxyCodeLine{415         \mbox{\hyperlink{class_enemy_a9a70ce9c69991fd48ace6dda9206523c}{fleeLua}} = getGlobal(L, \textcolor{stringliteral}{"{}flee"{}});}
+\DoxyCodeLine{416         \mbox{\hyperlink{classattack}{attack}} = getGlobal(L, \textcolor{stringliteral}{"{}attack"{}});}
+\DoxyCodeLine{417         \mbox{\hyperlink{classdie}{die}} = getGlobal(L, \textcolor{stringliteral}{"{}die"{}});}
+\DoxyCodeLine{418         \mbox{\hyperlink{classglobal}{global}} = getGlobal(L, \textcolor{stringliteral}{"{}global"{}});}
+\DoxyCodeLine{419 }
+\DoxyCodeLine{420         setup = getGlobal(L, \textcolor{stringliteral}{"{}setup"{}});}
+\DoxyCodeLine{421         LuaRef type = getGlobal(L, \textcolor{stringliteral}{"{}check"{}});}
+\DoxyCodeLine{422         LuaRef rot = getGlobal(L, \textcolor{stringliteral}{"{}rotate"{}});}
+\DoxyCodeLine{423         LuaRef alv = getGlobal(L, \textcolor{stringliteral}{"{}alive"{}});}
+\DoxyCodeLine{424         LuaRef weapon = getGlobal(L, \textcolor{stringliteral}{"{}weapon"{}});}
+\DoxyCodeLine{425 }
+\DoxyCodeLine{426         LuaRef mod = getGlobal(L, \textcolor{stringliteral}{"{}model"{}});}
+\DoxyCodeLine{427         LuaRef tex = getGlobal(L, \textcolor{stringliteral}{"{}texture"{}});}
+\DoxyCodeLine{428         LuaRef vert = getGlobal(L, \textcolor{stringliteral}{"{}vertShader"{}});}
+\DoxyCodeLine{429         LuaRef frag = getGlobal(L, \textcolor{stringliteral}{"{}fragShader"{}});}
+\DoxyCodeLine{430 }
+\DoxyCodeLine{431         LuaRef hel = getGlobal(L, \textcolor{stringliteral}{"{}health"{}});}
+\DoxyCodeLine{432         LuaRef amm = getGlobal(L, \textcolor{stringliteral}{"{}ammo"{}});}
+\DoxyCodeLine{433         LuaRef acc = getGlobal(L, \textcolor{stringliteral}{"{}accuracy"{}});}
+\DoxyCodeLine{434         LuaRef dam = getGlobal(L, \textcolor{stringliteral}{"{}damage"{}});}
+\DoxyCodeLine{435 }
+\DoxyCodeLine{436         std::string file;}
+\DoxyCodeLine{437         std::string vertS;}
+\DoxyCodeLine{438         std::string fragS;}
+\DoxyCodeLine{439         std::string texture;}
+\DoxyCodeLine{440 }
+\DoxyCodeLine{441         \textcolor{keywordtype}{bool} check = \textcolor{keyword}{false}, rotate = \textcolor{keyword}{false};}
+\DoxyCodeLine{442 }
+\DoxyCodeLine{443         \textcolor{keywordflow}{if} (type.isBool())}
+\DoxyCodeLine{444         \{}
+\DoxyCodeLine{445             check = type.cast<\textcolor{keywordtype}{bool}>();}
+\DoxyCodeLine{446         \}}
+\DoxyCodeLine{447 }
+\DoxyCodeLine{448         \textcolor{keywordflow}{if} (rot.isBool())}
+\DoxyCodeLine{449         \{}
+\DoxyCodeLine{450             rotate = rot.cast<\textcolor{keywordtype}{bool}>();}
+\DoxyCodeLine{451         \}}
+\DoxyCodeLine{452 }
+\DoxyCodeLine{453         \textcolor{keywordflow}{if} (alv.isBool())}
+\DoxyCodeLine{454         \{}
+\DoxyCodeLine{455             living = alv.cast<\textcolor{keywordtype}{bool}>();}
+\DoxyCodeLine{456         \}}
+\DoxyCodeLine{457 }
+\DoxyCodeLine{458         \textcolor{keywordflow}{if} (weapon.isBool())}
+\DoxyCodeLine{459         \{}
+\DoxyCodeLine{460             weap = weapon.cast<\textcolor{keywordtype}{bool}>();}
+\DoxyCodeLine{461         \}}
+\DoxyCodeLine{462 }
+\DoxyCodeLine{463         \textcolor{keywordflow}{if} (mod.isString())}
+\DoxyCodeLine{464         \{}
+\DoxyCodeLine{465             file = mod.cast<std::string>();}
+\DoxyCodeLine{466         \}}
+\DoxyCodeLine{467 }
+\DoxyCodeLine{468         \textcolor{keywordflow}{if} (vert.isString())}
+\DoxyCodeLine{469         \{}
+\DoxyCodeLine{470             vertS = vert.cast<std::string>();}
+\DoxyCodeLine{471         \}}
+\DoxyCodeLine{472 }
+\DoxyCodeLine{473         \textcolor{keywordflow}{if} (frag.isString())}
+\DoxyCodeLine{474         \{}
+\DoxyCodeLine{475             fragS = frag.cast<std::string>();}
+\DoxyCodeLine{476         \}}
+\DoxyCodeLine{477 }
+\DoxyCodeLine{478         \textcolor{keywordflow}{if} (tex.isString())}
+\DoxyCodeLine{479         \{}
+\DoxyCodeLine{480             texture = tex.cast<std::string>();}
+\DoxyCodeLine{481         \}}
+\DoxyCodeLine{482 }
+\DoxyCodeLine{483         \textcolor{keywordflow}{if} (hel.isNumber())}
+\DoxyCodeLine{484         \{}
+\DoxyCodeLine{485             h = hel.cast<\textcolor{keywordtype}{int}>();}
+\DoxyCodeLine{486         \}}
+\DoxyCodeLine{487 }
+\DoxyCodeLine{488         \textcolor{keywordflow}{if} (amm.isNumber())}
+\DoxyCodeLine{489         \{}
+\DoxyCodeLine{490             a = amm.cast<\textcolor{keywordtype}{int}>();}
+\DoxyCodeLine{491         \}}
+\DoxyCodeLine{492 }
+\DoxyCodeLine{493         \textcolor{keywordflow}{if} (acc.isNumber())}
+\DoxyCodeLine{494         \{}
+\DoxyCodeLine{495             accuracyFactor = acc.cast<\textcolor{keywordtype}{float}>();}
+\DoxyCodeLine{496         \}}
+\DoxyCodeLine{497 }
+\DoxyCodeLine{498         \textcolor{keywordflow}{if} (dam.isNumber())}
+\DoxyCodeLine{499         \{}
+\DoxyCodeLine{500             damage = dam.cast<\textcolor{keywordtype}{int}>();}
+\DoxyCodeLine{501         \}}
+\DoxyCodeLine{502 }
+\DoxyCodeLine{503         \mbox{\hyperlink{class_model}{Model}} tempModel(file, gameRenderer, check, texture, \textcolor{keyword}{true});}
+\DoxyCodeLine{504         \mbox{\hyperlink{class_game_object_a7d7bf2fb47b279323455347c841f0383}{SetModel}}(tempModel);}
+\DoxyCodeLine{505 }
+\DoxyCodeLine{506         \mbox{\hyperlink{class_shader}{Shader}} tempShader(vertS.c\_str(), fragS.c\_str());}
+\DoxyCodeLine{507         \mbox{\hyperlink{class_game_object_a8cd08c4c2a53a087716e7a8d4c25b632}{SetShader}}(tempShader);}
+\DoxyCodeLine{508 }
+\DoxyCodeLine{509         \mbox{\hyperlink{class_game_object_a91946921e81dbd19ace843fef8790b94}{SetRotate}}(rotate);}
+\DoxyCodeLine{510 }
+\DoxyCodeLine{511         \textcolor{keywordflow}{if} (weap)}
+\DoxyCodeLine{512         \{}
+\DoxyCodeLine{513             LuaRef WeapMod = getGlobal(L, \textcolor{stringliteral}{"{}weaponModel"{}});}
+\DoxyCodeLine{514             LuaRef weapTex = getGlobal(L, \textcolor{stringliteral}{"{}weaponTexture"{}});}
+\DoxyCodeLine{515 }
+\DoxyCodeLine{516             std::string weaponModel;}
+\DoxyCodeLine{517             std::string weaponTexture;}
+\DoxyCodeLine{518 }
+\DoxyCodeLine{519             \textcolor{keywordflow}{if} (WeapMod.isString())}
+\DoxyCodeLine{520             \{}
+\DoxyCodeLine{521                 weaponModel = WeapMod.cast<std::string>();}
+\DoxyCodeLine{522             \}}
+\DoxyCodeLine{523 }
+\DoxyCodeLine{524             \textcolor{keywordflow}{if} (weapTex.isString())}
+\DoxyCodeLine{525             \{}
+\DoxyCodeLine{526                 weaponTexture = weapTex.cast<std::string>();}
+\DoxyCodeLine{527             \}}
+\DoxyCodeLine{528 }
+\DoxyCodeLine{529             \mbox{\hyperlink{class_model}{Model}} tempWeaponModel(weaponModel, gameRenderer, check, weaponTexture, \textcolor{keyword}{true});}
+\DoxyCodeLine{530             wModel = tempWeaponModel;}
+\DoxyCodeLine{531         \}}
+\DoxyCodeLine{532     \}}
+\DoxyCodeLine{533     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{534     \{}
+\DoxyCodeLine{535         std::cout << \textcolor{stringliteral}{"{}ERROR::NO\_ENEMY\_SCRIPTS\_FOUND"{}} << std::endl;}
+\DoxyCodeLine{536     \}}
+\DoxyCodeLine{537     enemyFSM = \textcolor{keyword}{new} \mbox{\hyperlink{classstate_machine}{stateMachine<Enemy>}}(\textcolor{keyword}{this});}
+\DoxyCodeLine{538     enemyFSM-\/>setCurrentState(\&\mbox{\hyperlink{classsingleton_abe6a9e4cb548454cfb5d15f425553ae1}{wander\_state::getInstance}}());}
+\DoxyCodeLine{539     \mbox{\hyperlink{class_enemy_aede6ce203cb0c46f6d984ab1f261b689}{ChangeState}}(\mbox{\hyperlink{classstate}{state}});}
+\DoxyCodeLine{540     enemyFSM-\/>setGlobalState(\&\mbox{\hyperlink{classsingleton_abe6a9e4cb548454cfb5d15f425553ae1}{global\_state::getInstance}}());}
+\DoxyCodeLine{541     health = h;}
+\DoxyCodeLine{542     healthHold = health;}
+\DoxyCodeLine{543     ammo = a;}
+\DoxyCodeLine{544     alive = living;}
+\DoxyCodeLine{545     hasWeapon = weap;}
+\DoxyCodeLine{546     \mbox{\hyperlink{class_enemy_aa5be702e4371963de69f7dc7859c14d1}{startTimer}} = \textcolor{keyword}{false};}
+\DoxyCodeLine{547     deathtimer = 2;}
+\DoxyCodeLine{548     weaponTimer = 0.5f;}
+\DoxyCodeLine{549     accuracyFactor = 0.35f;}
+\DoxyCodeLine{550     damage = 10;}
+\DoxyCodeLine{551     \textcolor{keywordflow}{if} (setup.isFunction())}
+\DoxyCodeLine{552     \{}
+\DoxyCodeLine{553         setup(\textcolor{keyword}{this});}
+\DoxyCodeLine{554     \}}
+\DoxyCodeLine{555     \textcolor{comment}{//Set state}}
+\DoxyCodeLine{556 \}}
+
+\end{DoxyCode}
+
+
+References Change\+State(), Model\+::\+Model(), Shader\+::\+Shader(), and start\+Timer.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=310pt]{class_enemy_a7e3a18ed35fac4b01a237b4da35c7710_cgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_enemy_aede6ce203cb0c46f6d984ab1f261b689}\label{class_enemy_aede6ce203cb0c46f6d984ab1f261b689}} 
+\index{Enemy@{Enemy}!ChangeState@{ChangeState}}
+\index{ChangeState@{ChangeState}!Enemy@{Enemy}}
+\doxysubsubsection{\texorpdfstring{ChangeState()}{ChangeState()}}
+{\footnotesize\ttfamily void Enemy\+::\+Change\+State (\begin{DoxyParamCaption}\item[{std\+::string}]{state }\end{DoxyParamCaption})}
+
+
+
+a function that changes the enemy state to the state provided to the function provided as a parameter 
+
+
+\begin{DoxyParams}{Parameters}
+{\em state} & -\/ represents the state that the fsm will change to \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool 
+\end{DoxyReturn}
+
+
+Definition at line 941 of file Enemy.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{942 \{}
+\DoxyCodeLine{943     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classstate}{state}} == \textcolor{stringliteral}{"{}wander"{}})}
+\DoxyCodeLine{944     \{}
+\DoxyCodeLine{945         \mbox{\hyperlink{class_enemy_ac216deb271b5bd35a886783500aadd84}{getFSM}}()-\/>\mbox{\hyperlink{classstate_machine_ab64c7f518f67ba16d255147962b941bd}{changeState}}(\&\mbox{\hyperlink{classsingleton_abe6a9e4cb548454cfb5d15f425553ae1}{wander\_state::getInstance}}());}
+\DoxyCodeLine{946     \}}
+\DoxyCodeLine{947     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\mbox{\hyperlink{classstate}{state}} == \textcolor{stringliteral}{"{}alert"{}})}
+\DoxyCodeLine{948     \{}
+\DoxyCodeLine{949         \mbox{\hyperlink{class_enemy_ac216deb271b5bd35a886783500aadd84}{getFSM}}()-\/>\mbox{\hyperlink{classstate_machine_ab64c7f518f67ba16d255147962b941bd}{changeState}}(\&\mbox{\hyperlink{classsingleton_abe6a9e4cb548454cfb5d15f425553ae1}{alert\_state::getInstance}}());}
+\DoxyCodeLine{950     \}}
+\DoxyCodeLine{951     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\mbox{\hyperlink{classstate}{state}} == \textcolor{stringliteral}{"{}chase"{}})}
+\DoxyCodeLine{952     \{}
+\DoxyCodeLine{953         \mbox{\hyperlink{class_enemy_ac216deb271b5bd35a886783500aadd84}{getFSM}}()-\/>\mbox{\hyperlink{classstate_machine_ab64c7f518f67ba16d255147962b941bd}{changeState}}(\&\mbox{\hyperlink{classsingleton_abe6a9e4cb548454cfb5d15f425553ae1}{chase\_state::getInstance}}());}
+\DoxyCodeLine{954     \}}
+\DoxyCodeLine{955     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\mbox{\hyperlink{classstate}{state}} == \textcolor{stringliteral}{"{}flee"{}})}
+\DoxyCodeLine{956     \{}
+\DoxyCodeLine{957         \mbox{\hyperlink{class_enemy_ac216deb271b5bd35a886783500aadd84}{getFSM}}()-\/>\mbox{\hyperlink{classstate_machine_ab64c7f518f67ba16d255147962b941bd}{changeState}}(\&\mbox{\hyperlink{classsingleton_abe6a9e4cb548454cfb5d15f425553ae1}{flee\_state::getInstance}}());}
+\DoxyCodeLine{958     \}}
+\DoxyCodeLine{959     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\mbox{\hyperlink{classstate}{state}} == \textcolor{stringliteral}{"{}attack"{}})}
+\DoxyCodeLine{960     \{}
+\DoxyCodeLine{961         \mbox{\hyperlink{class_enemy_ac216deb271b5bd35a886783500aadd84}{getFSM}}()-\/>\mbox{\hyperlink{classstate_machine_ab64c7f518f67ba16d255147962b941bd}{changeState}}(\&\mbox{\hyperlink{classsingleton_abe6a9e4cb548454cfb5d15f425553ae1}{attack\_state::getInstance}}());}
+\DoxyCodeLine{962     \}}
+\DoxyCodeLine{963     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\mbox{\hyperlink{classstate}{state}} == \textcolor{stringliteral}{"{}die"{}})}
+\DoxyCodeLine{964     \{}
+\DoxyCodeLine{965         \mbox{\hyperlink{class_enemy_ac216deb271b5bd35a886783500aadd84}{getFSM}}()-\/>\mbox{\hyperlink{classstate_machine_ab64c7f518f67ba16d255147962b941bd}{changeState}}(\&\mbox{\hyperlink{classsingleton_abe6a9e4cb548454cfb5d15f425553ae1}{die\_state::getInstance}}());}
+\DoxyCodeLine{966     \}}
+\DoxyCodeLine{967     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\mbox{\hyperlink{classstate}{state}} == \textcolor{stringliteral}{"{}global"{}})}
+\DoxyCodeLine{968     \{}
+\DoxyCodeLine{969         \mbox{\hyperlink{class_enemy_ac216deb271b5bd35a886783500aadd84}{getFSM}}()-\/>\mbox{\hyperlink{classstate_machine_ab64c7f518f67ba16d255147962b941bd}{changeState}}(\&\mbox{\hyperlink{classsingleton_abe6a9e4cb548454cfb5d15f425553ae1}{global\_state::getInstance}}());}
+\DoxyCodeLine{970     \}}
+\DoxyCodeLine{971 \}}
+
+\end{DoxyCode}
+
+
+Referenced by Enemy().
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=310pt]{class_enemy_aede6ce203cb0c46f6d984ab1f261b689_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_enemy_a53248d5fb75f286ca1952a207fe10ca9}\label{class_enemy_a53248d5fb75f286ca1952a207fe10ca9}} 
+\index{Enemy@{Enemy}!CheckPrevState@{CheckPrevState}}
+\index{CheckPrevState@{CheckPrevState}!Enemy@{Enemy}}
+\doxysubsubsection{\texorpdfstring{CheckPrevState()}{CheckPrevState()}}
+{\footnotesize\ttfamily bool Enemy\+::\+Check\+Prev\+State (\begin{DoxyParamCaption}\item[{std\+::string}]{state }\end{DoxyParamCaption})}
+
+
+
+a function that returns the previous state so long as the state parameter provided matches a valid state, otherwise it returns false 
+
+
+\begin{DoxyParams}{Parameters}
+{\em state} & -\/ represents the state that the fsm will check to see if its the previous state \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool 
+\end{DoxyReturn}
+
+
+Definition at line 973 of file Enemy.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{974 \{}
+\DoxyCodeLine{975     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classstate}{state}} == \textcolor{stringliteral}{"{}wander"{}})}
+\DoxyCodeLine{976     \{}
+\DoxyCodeLine{977         \textcolor{keywordflow}{return} \mbox{\hyperlink{class_enemy_ac216deb271b5bd35a886783500aadd84}{getFSM}}()-\/>getPreviousState() == \&\mbox{\hyperlink{classsingleton_abe6a9e4cb548454cfb5d15f425553ae1}{wander\_state::getInstance}}();}
+\DoxyCodeLine{978     \}}
+\DoxyCodeLine{979     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\mbox{\hyperlink{classstate}{state}} == \textcolor{stringliteral}{"{}alert"{}})}
+\DoxyCodeLine{980     \{}
+\DoxyCodeLine{981         \textcolor{keywordflow}{return} \mbox{\hyperlink{class_enemy_ac216deb271b5bd35a886783500aadd84}{getFSM}}()-\/>getPreviousState() == \&\mbox{\hyperlink{classsingleton_abe6a9e4cb548454cfb5d15f425553ae1}{alert\_state::getInstance}}();}
+\DoxyCodeLine{982     \}}
+\DoxyCodeLine{983     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\mbox{\hyperlink{classstate}{state}} == \textcolor{stringliteral}{"{}chase"{}})}
+\DoxyCodeLine{984     \{}
+\DoxyCodeLine{985         \textcolor{keywordflow}{return} \mbox{\hyperlink{class_enemy_ac216deb271b5bd35a886783500aadd84}{getFSM}}()-\/>getPreviousState() == \&\mbox{\hyperlink{classsingleton_abe6a9e4cb548454cfb5d15f425553ae1}{chase\_state::getInstance}}();}
+\DoxyCodeLine{986     \}}
+\DoxyCodeLine{987     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\mbox{\hyperlink{classstate}{state}} == \textcolor{stringliteral}{"{}flee"{}})}
+\DoxyCodeLine{988     \{}
+\DoxyCodeLine{989         \textcolor{keywordflow}{return} \mbox{\hyperlink{class_enemy_ac216deb271b5bd35a886783500aadd84}{getFSM}}()-\/>getPreviousState() == \&\mbox{\hyperlink{classsingleton_abe6a9e4cb548454cfb5d15f425553ae1}{flee\_state::getInstance}}();}
+\DoxyCodeLine{990     \}}
+\DoxyCodeLine{991     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\mbox{\hyperlink{classstate}{state}} == \textcolor{stringliteral}{"{}attack"{}})}
+\DoxyCodeLine{992     \{}
+\DoxyCodeLine{993         \textcolor{keywordflow}{return} \mbox{\hyperlink{class_enemy_ac216deb271b5bd35a886783500aadd84}{getFSM}}()-\/>getPreviousState() == \&\mbox{\hyperlink{classsingleton_abe6a9e4cb548454cfb5d15f425553ae1}{attack\_state::getInstance}}();}
+\DoxyCodeLine{994     \}}
+\DoxyCodeLine{995     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\mbox{\hyperlink{classstate}{state}} == \textcolor{stringliteral}{"{}die"{}})}
+\DoxyCodeLine{996     \{}
+\DoxyCodeLine{997         \textcolor{keywordflow}{return} \mbox{\hyperlink{class_enemy_ac216deb271b5bd35a886783500aadd84}{getFSM}}()-\/>getPreviousState() == \&\mbox{\hyperlink{classsingleton_abe6a9e4cb548454cfb5d15f425553ae1}{die\_state::getInstance}}();}
+\DoxyCodeLine{998     \}}
+\DoxyCodeLine{999     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\mbox{\hyperlink{classstate}{state}} == \textcolor{stringliteral}{"{}global"{}})}
+\DoxyCodeLine{1000     \{}
+\DoxyCodeLine{1001         \textcolor{keywordflow}{return} \mbox{\hyperlink{class_enemy_ac216deb271b5bd35a886783500aadd84}{getFSM}}()-\/>getPreviousState() == \&\mbox{\hyperlink{classsingleton_abe6a9e4cb548454cfb5d15f425553ae1}{global\_state::getInstance}}();}
+\DoxyCodeLine{1002     \}}
+\DoxyCodeLine{1003     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{1004     \{}
+\DoxyCodeLine{1005         \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{1006     \}}
+\DoxyCodeLine{1007 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_enemy_a22a537e5ede79281792029a313cc89bf}\label{class_enemy_a22a537e5ede79281792029a313cc89bf}} 
+\index{Enemy@{Enemy}!decreaseHealth@{decreaseHealth}}
+\index{decreaseHealth@{decreaseHealth}!Enemy@{Enemy}}
+\doxysubsubsection{\texorpdfstring{decreaseHealth()}{decreaseHealth()}}
+{\footnotesize\ttfamily void Enemy\+::decrease\+Health (\begin{DoxyParamCaption}\item[{int}]{health }\end{DoxyParamCaption})}
+
+
+
+decreases the value of health by the integer provided as a parameter 
+
+
+\begin{DoxyParams}{Parameters}
+{\em health} & -\/ represents the value that health will be decreased by \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 651 of file Enemy.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{652 \{}
+\DoxyCodeLine{653     this-\/>health -\/= health;}
+\DoxyCodeLine{654 }
+\DoxyCodeLine{655     \textcolor{keywordflow}{if} (this-\/>health < 0) }
+\DoxyCodeLine{656     \{}
+\DoxyCodeLine{657         this-\/>health = 0;}
+\DoxyCodeLine{658     \}}
+\DoxyCodeLine{659 }
+\DoxyCodeLine{660 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_enemy_af4812dc4aef5501ffe8d26eeb6536f9a}\label{class_enemy_af4812dc4aef5501ffe8d26eeb6536f9a}} 
+\index{Enemy@{Enemy}!Distance@{Distance}}
+\index{Distance@{Distance}!Enemy@{Enemy}}
+\doxysubsubsection{\texorpdfstring{Distance()}{Distance()}}
+{\footnotesize\ttfamily float Enemy\+::\+Distance (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+gets and returns the distance between the enemy and the first person player camera 
+
+\begin{DoxyReturn}{Returns}
+float 
+\end{DoxyReturn}
+
+
+Definition at line 759 of file Enemy.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{760 \{}
+\DoxyCodeLine{761     glm::vec3 camPos(pPos.x, pPos.y, pPos.z);}
+\DoxyCodeLine{762     glm::vec3 modelPos(\mbox{\hyperlink{class_enemy_a577c864252d94cfe4f592a975547d4b5}{GetPos}}().x, \mbox{\hyperlink{class_enemy_a577c864252d94cfe4f592a975547d4b5}{GetPos}}().y, \mbox{\hyperlink{class_enemy_a577c864252d94cfe4f592a975547d4b5}{GetPos}}().z);}
+\DoxyCodeLine{763 }
+\DoxyCodeLine{764     glm::vec3 norm = glm::normalize(camPos -\/ modelPos);}
+\DoxyCodeLine{765 }
+\DoxyCodeLine{766     \mbox{\hyperlink{class_enemy_a73529a10a7aa7adb28a74529d48e1192}{velocity}} = (norm * 3.0f);}
+\DoxyCodeLine{767     }
+\DoxyCodeLine{768 }
+\DoxyCodeLine{769     \textcolor{keywordtype}{float} distance = glm::distance(camPos, modelPos);}
+\DoxyCodeLine{770 }
+\DoxyCodeLine{771     \textcolor{keywordflow}{return} distance;}
+\DoxyCodeLine{772 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_enemy_a65037712fc14f0fe76b9c99e218c823d}\label{class_enemy_a65037712fc14f0fe76b9c99e218c823d}} 
+\index{Enemy@{Enemy}!DistanceBetween@{DistanceBetween}}
+\index{DistanceBetween@{DistanceBetween}!Enemy@{Enemy}}
+\doxysubsubsection{\texorpdfstring{DistanceBetween()}{DistanceBetween()}}
+{\footnotesize\ttfamily float Enemy\+::\+Distance\+Between (\begin{DoxyParamCaption}\item[{glm\+::vec3}]{other\+Pos }\end{DoxyParamCaption})}
+
+
+
+gets and returns the distance between a given position and an enemy position ~\newline
+ 
+
+\begin{DoxyReturn}{Returns}
+float 
+\end{DoxyReturn}
+
+
+Definition at line 774 of file Enemy.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{775 \{}
+\DoxyCodeLine{776     glm::vec3 oPos = otherPos;}
+\DoxyCodeLine{777     glm::vec3 modelPos(\mbox{\hyperlink{class_enemy_a577c864252d94cfe4f592a975547d4b5}{GetPos}}().x, \mbox{\hyperlink{class_enemy_a577c864252d94cfe4f592a975547d4b5}{GetPos}}().y, \mbox{\hyperlink{class_enemy_a577c864252d94cfe4f592a975547d4b5}{GetPos}}().z);}
+\DoxyCodeLine{778 }
+\DoxyCodeLine{779     \textcolor{keywordtype}{float} distance = glm::distance(oPos, modelPos);}
+\DoxyCodeLine{780     \textcolor{keywordflow}{if}(Debugger::GetInstance()-\/>debugFSMToConsole)}
+\DoxyCodeLine{781     \{}
+\DoxyCodeLine{782         std::cout << \textcolor{stringliteral}{"{}Distance: "{}} << distance << \textcolor{stringliteral}{"{} Positions other: "{}} << \textcolor{stringliteral}{"{} "{}} << otherPos.x << \textcolor{stringliteral}{"{} "{}} << otherPos.y << \textcolor{stringliteral}{"{} "{}}}
+\DoxyCodeLine{783                   << otherPos.z << \textcolor{stringliteral}{"{}, Position enemy: "{}} << modelPos.x << \textcolor{stringliteral}{"{} "{}} << modelPos.y << \textcolor{stringliteral}{"{} "{}} << modelPos.z << \textcolor{stringliteral}{"{} "{}}}
+\DoxyCodeLine{784                   << std::endl;}
+\DoxyCodeLine{785     \}}
+\DoxyCodeLine{786     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(Debugger::GetInstance()-\/>debugInfoToLogFile)}
+\DoxyCodeLine{787     \{}
+\DoxyCodeLine{788         Debugger::GetInstance()-\/>\mbox{\hyperlink{class_debugger_a3178f40262f4cc7e562771544aadf35c}{AppendLogger}}(\textcolor{stringliteral}{"{}Enemy.cpp"{}}, \textcolor{stringliteral}{"{}Distance: "{}} + std::to\_string(distance) + \textcolor{stringliteral}{"{} Positions other: "{}} + Debugger::GetInstance()-\/>DebugVec3(otherPos) + \textcolor{stringliteral}{"{}, Position enemy: "{}} + Debugger::GetInstance()-\/>DebugVec3(modelPos));}
+\DoxyCodeLine{789     \}}
+\DoxyCodeLine{790 }
+\DoxyCodeLine{791     \textcolor{keywordflow}{return} distance;}
+\DoxyCodeLine{792 \}}
+
+\end{DoxyCode}
+
+
+References Debugger\+::debug\+FSMTo\+Console, and Debugger\+::debug\+Info\+To\+Log\+File.
+
+\mbox{\Hypertarget{class_enemy_af0d4dba8bcce55bd65edbad82343d1ec}\label{class_enemy_af0d4dba8bcce55bd65edbad82343d1ec}} 
+\index{Enemy@{Enemy}!evade@{evade}}
+\index{evade@{evade}!Enemy@{Enemy}}
+\doxysubsubsection{\texorpdfstring{evade()}{evade()}}
+{\footnotesize\ttfamily bool Enemy\+::evade (\begin{DoxyParamCaption}\item[{glm\+::vec3 \&}]{evader\+Pos,  }\item[{const glm\+::vec3 \&}]{pursuer\+Pos,  }\item[{glm\+::vec3 \&}]{evader\+Velocity,  }\item[{const glm\+::vec3 \&}]{pursuer\+Velocity,  }\item[{float}]{time,  }\item[{std\+::string}]{type }\end{DoxyParamCaption})}
+
+
+
+allows the enemy to evade a pursuing entity. Serves as a flee that moves from the predicted future position of the pursuer 
+
+
+\begin{DoxyParams}{Parameters}
+{\em evader\+Pos} & -\/ the vector representing the current position of the enemy \\
+\hline
+{\em pursuer\+Pos} & -\/ the vector representing the position of the pursuer \\
+\hline
+{\em evader\+Velocity} & -\/ represents the velocity of the evader \\
+\hline
+{\em pursuer\+Velocity} & -\/ represents the velocity of the pursuer \\
+\hline
+{\em time} & -\/ represents the time \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool 
+\end{DoxyReturn}
+
+
+Definition at line 904 of file Enemy.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{905 \{}
+\DoxyCodeLine{906     \textcolor{comment}{//distance between pursuer and evader}}
+\DoxyCodeLine{907     glm::vec3 toPursuer = pursuerPos -\/ evaderPos;}
+\DoxyCodeLine{908 }
+\DoxyCodeLine{909     \textcolor{keywordtype}{float} lookAheadTime = toPursuer.length() / (evaderVelocity.length() + pursuerVelocity.length());}
+\DoxyCodeLine{910 }
+\DoxyCodeLine{911     \textcolor{keywordflow}{return}(\mbox{\hyperlink{class_enemy_ace7d94eaec4d7ffe57ed16078465b2ae}{flee}}(evaderPos, pursuerPos + pursuerVelocity * lookAheadTime, evaderVelocity, evaderVelocity.length(), time, type));}
+\DoxyCodeLine{912 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_enemy_ace7d94eaec4d7ffe57ed16078465b2ae}\label{class_enemy_ace7d94eaec4d7ffe57ed16078465b2ae}} 
+\index{Enemy@{Enemy}!flee@{flee}}
+\index{flee@{flee}!Enemy@{Enemy}}
+\doxysubsubsection{\texorpdfstring{flee()}{flee()}}
+{\footnotesize\ttfamily bool Enemy\+::flee (\begin{DoxyParamCaption}\item[{glm\+::vec3 \&}]{cur\+Pos,  }\item[{const glm\+::vec3 \&}]{pursuer\+Pos,  }\item[{glm\+::vec3 \&}]{cur\+Velocity,  }\item[{float}]{flee\+Speed,  }\item[{float}]{time,  }\item[{std\+::string}]{type }\end{DoxyParamCaption})}
+
+
+
+allows the enemy to flee from a pursuing entity 
+
+
+\begin{DoxyParams}{Parameters}
+{\em cur\+Pos} & -\/ the vector representing the current position of the enemy \\
+\hline
+{\em pursuer\+Pos} & -\/ the vector representing the position of the pursuer \\
+\hline
+{\em cur\+Velocity} & -\/ represent the velocity of the pursuer \\
+\hline
+{\em flee\+Speed} & -\/ represents the flee\+Speed that is used to set the velocity \\
+\hline
+{\em time} & -\/ represents the time that is multiplied by velocity to update the current position \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool 
+\end{DoxyReturn}
+
+
+Definition at line 889 of file Enemy.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{890 \{}
+\DoxyCodeLine{891     glm::vec3 fromPursuer = curPos -\/ pursuerPos;}
+\DoxyCodeLine{892 }
+\DoxyCodeLine{893     \textcolor{keywordtype}{float} panic = 100.0f * 100.0f;}
+\DoxyCodeLine{894 }
+\DoxyCodeLine{895     \textcolor{keywordflow}{if} (fromPursuer.length() > panic)}
+\DoxyCodeLine{896         \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{897 }
+\DoxyCodeLine{898     fromPursuer = glm::normalize(fromPursuer);}
+\DoxyCodeLine{899     curVelocity = fromPursuer * fleeSpeed;}
+\DoxyCodeLine{900     \mbox{\hyperlink{class_enemy_a74abe45981ed89e34ec3e6927d9c5c8c}{SetPos}}(curPos + curVelocity * time);}
+\DoxyCodeLine{901     \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{902 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_enemy_a9e64f471fdb5039946a50a6a74614e97}\label{class_enemy_a9e64f471fdb5039946a50a6a74614e97}} 
+\index{Enemy@{Enemy}!GetAccuracy@{GetAccuracy}}
+\index{GetAccuracy@{GetAccuracy}!Enemy@{Enemy}}
+\doxysubsubsection{\texorpdfstring{GetAccuracy()}{GetAccuracy()}}
+{\footnotesize\ttfamily float Enemy\+::\+Get\+Accuracy (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the accuracy factor of an enemy. 
+
+\begin{DoxyReturn}{Returns}
+accuracy factor 
+\end{DoxyReturn}
+
+
+Definition at line 428 of file Enemy.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{428 \{\textcolor{keywordflow}{return} accuracyFactor;\}}
+
+\end{DoxyCode}
+
+
+Referenced by Scene\+::\+Enemy\+Fire\+Weapon().
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_enemy_a9e64f471fdb5039946a50a6a74614e97_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_enemy_a880ddfe9c7e948676452149545c34f28}\label{class_enemy_a880ddfe9c7e948676452149545c34f28}} 
+\index{Enemy@{Enemy}!GetAliveStatus@{GetAliveStatus}}
+\index{GetAliveStatus@{GetAliveStatus}!Enemy@{Enemy}}
+\doxysubsubsection{\texorpdfstring{GetAliveStatus()}{GetAliveStatus()}}
+{\footnotesize\ttfamily bool Enemy\+::\+Get\+Alive\+Status (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Returns if the enemy is alive or not. 
+
+\begin{DoxyReturn}{Returns}
+bool alive 
+\end{DoxyReturn}
+
+
+Definition at line 440 of file Enemy.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{440 \{ \textcolor{keywordflow}{return} alive; \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_enemy_acd0f76589659a9b4e0be58aa49b5f802}\label{class_enemy_acd0f76589659a9b4e0be58aa49b5f802}} 
+\index{Enemy@{Enemy}!getCamPos@{getCamPos}}
+\index{getCamPos@{getCamPos}!Enemy@{Enemy}}
+\doxysubsubsection{\texorpdfstring{getCamPos()}{getCamPos()}}
+{\footnotesize\ttfamily glm\+::vec3 Enemy\+::get\+Cam\+Pos (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+gets and returns the position of the first person player camera 
+
+\begin{DoxyReturn}{Returns}
+glm\+::vec3 
+\end{DoxyReturn}
+
+
+Definition at line 173 of file Enemy.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{173 \{ \textcolor{keywordflow}{return} pPos; \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_enemy_adf46a61ca173e7ea674024edb1ce6ad3}\label{class_enemy_adf46a61ca173e7ea674024edb1ce6ad3}} 
+\index{Enemy@{Enemy}!getCheck@{getCheck}}
+\index{getCheck@{getCheck}!Enemy@{Enemy}}
+\doxysubsubsection{\texorpdfstring{getCheck()}{getCheck()}}
+{\footnotesize\ttfamily int Enemy\+::get\+Check (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+gets and returns the value of the check 
+
+\begin{DoxyReturn}{Returns}
+int 
+\end{DoxyReturn}
+
+
+Definition at line 343 of file Enemy.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{343 \{ \textcolor{keywordflow}{return} check; \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_enemy_a12c7db0b6db5c4f7ba466f6330b8af0b}\label{class_enemy_a12c7db0b6db5c4f7ba466f6330b8af0b}} 
+\index{Enemy@{Enemy}!GetDamage@{GetDamage}}
+\index{GetDamage@{GetDamage}!Enemy@{Enemy}}
+\doxysubsubsection{\texorpdfstring{GetDamage()}{GetDamage()}}
+{\footnotesize\ttfamily int Enemy\+::\+Get\+Damage (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets Damage value for the enemy. 
+
+\begin{DoxyReturn}{Returns}
+int damage 
+\end{DoxyReturn}
+
+
+Definition at line 452 of file Enemy.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{452 \{ \textcolor{keywordflow}{return} damage; \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_enemy_afe9c462d6457e13fe7c35a0661249578}\label{class_enemy_afe9c462d6457e13fe7c35a0661249578}} 
+\index{Enemy@{Enemy}!getDeathAnim@{getDeathAnim}}
+\index{getDeathAnim@{getDeathAnim}!Enemy@{Enemy}}
+\doxysubsubsection{\texorpdfstring{getDeathAnim()}{getDeathAnim()}}
+{\footnotesize\ttfamily bool Enemy\+::get\+Death\+Anim (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+gets and returns the value of the death\+Anim flag 
+
+\begin{DoxyReturn}{Returns}
+bool 
+\end{DoxyReturn}
+
+
+Definition at line 313 of file Enemy.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{313 \{ \textcolor{keywordflow}{return} deathAnim; \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_enemy_a9a2b8640b75830bed7db68fdf78ef3d2}\label{class_enemy_a9a2b8640b75830bed7db68fdf78ef3d2}} 
+\index{Enemy@{Enemy}!GetDeltaTime@{GetDeltaTime}}
+\index{GetDeltaTime@{GetDeltaTime}!Enemy@{Enemy}}
+\doxysubsubsection{\texorpdfstring{GetDeltaTime()}{GetDeltaTime()}}
+{\footnotesize\ttfamily float Enemy\+::\+Get\+Delta\+Time (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+gets and returns the value of deleta\+Time 
+
+\begin{DoxyReturn}{Returns}
+float 
+\end{DoxyReturn}
+
+
+Definition at line 153 of file Enemy.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{153 \{ \textcolor{keywordflow}{return} deltaTime; \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_enemy_acf4a35676d149ac6df64cc0bb11e5aed}\label{class_enemy_acf4a35676d149ac6df64cc0bb11e5aed}} 
+\index{Enemy@{Enemy}!getDifficulty@{getDifficulty}}
+\index{getDifficulty@{getDifficulty}!Enemy@{Enemy}}
+\doxysubsubsection{\texorpdfstring{getDifficulty()}{getDifficulty()}}
+{\footnotesize\ttfamily std\+::string Enemy\+::get\+Difficulty (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+returns the current game difficulty as a string 
+
+\begin{DoxyReturn}{Returns}
+string difficulty 
+\end{DoxyReturn}
+
+
+Definition at line 1118 of file Enemy.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1119 \{}
+\DoxyCodeLine{1120     \textcolor{keywordflow}{switch} (\mbox{\hyperlink{classsingleton}{singleton<Manager>::getInstance}}().difficulty)}
+\DoxyCodeLine{1121     \{}
+\DoxyCodeLine{1122     \textcolor{keywordflow}{case} Manager::Difficulty::hard:}
+\DoxyCodeLine{1123         \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}Hard"{}};}
+\DoxyCodeLine{1124     \textcolor{keywordflow}{case} Manager::Difficulty::normal:}
+\DoxyCodeLine{1125         \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}Normal"{}};}
+\DoxyCodeLine{1126     \textcolor{keywordflow}{case} Manager::Difficulty::easy:}
+\DoxyCodeLine{1127         \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}Easy"{}};}
+\DoxyCodeLine{1128     \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{1129         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{1130     \}}
+\DoxyCodeLine{1131 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_enemy_a77a74af6c580978969fce6e0367f91c0}\label{class_enemy_a77a74af6c580978969fce6e0367f91c0}} 
+\index{Enemy@{Enemy}!getDirection@{getDirection}}
+\index{getDirection@{getDirection}!Enemy@{Enemy}}
+\doxysubsubsection{\texorpdfstring{getDirection()}{getDirection()}}
+{\footnotesize\ttfamily float Enemy\+::get\+Direction (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+gets and returns the direction in which the enemy is facing 
+
+\begin{DoxyReturn}{Returns}
+float 
+\end{DoxyReturn}
+
+
+Definition at line 277 of file Enemy.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{277 \{ \textcolor{keywordflow}{return} direction; \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_enemy_a5dd8733c7fdb074daf1f053090acedfb}\label{class_enemy_a5dd8733c7fdb074daf1f053090acedfb}} 
+\index{Enemy@{Enemy}!getEnemyVelocity@{getEnemyVelocity}}
+\index{getEnemyVelocity@{getEnemyVelocity}!Enemy@{Enemy}}
+\doxysubsubsection{\texorpdfstring{getEnemyVelocity()}{getEnemyVelocity()}}
+{\footnotesize\ttfamily glm\+::vec3 Enemy\+::get\+Enemy\+Velocity (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+gets and returns the enemy velocity vector 
+
+\begin{DoxyReturn}{Returns}
+glm\+::vec3 
+\end{DoxyReturn}
+
+
+Definition at line 265 of file Enemy.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{265 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{class_enemy_a4a8101b0b3a0fa4a862e6dd071927676}{enemyVelocity}}; \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_enemy_a3a5ea46ab549f61383dcf43ad4a30ffa}\label{class_enemy_a3a5ea46ab549f61383dcf43ad4a30ffa}} 
+\index{Enemy@{Enemy}!GetFireWeapon@{GetFireWeapon}}
+\index{GetFireWeapon@{GetFireWeapon}!Enemy@{Enemy}}
+\doxysubsubsection{\texorpdfstring{GetFireWeapon()}{GetFireWeapon()}}
+{\footnotesize\ttfamily bool Enemy\+::\+Get\+Fire\+Weapon (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets if the weapon is firing. 
+
+\begin{DoxyReturn}{Returns}
+bool fireweapon 
+\end{DoxyReturn}
+
+
+Definition at line 470 of file Enemy.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{470 \{ \textcolor{keywordflow}{return} fireWeapon; \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_enemy_ac216deb271b5bd35a886783500aadd84}\label{class_enemy_ac216deb271b5bd35a886783500aadd84}} 
+\index{Enemy@{Enemy}!getFSM@{getFSM}}
+\index{getFSM@{getFSM}!Enemy@{Enemy}}
+\doxysubsubsection{\texorpdfstring{getFSM()}{getFSM()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classstate_machine}{state\+Machine}}$<$\mbox{\hyperlink{class_enemy}{Enemy}}$>$$\ast$ Enemy\+::get\+FSM (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+gets and returns the finite state machine of the enemy 
+
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{classstate_machine}{state\+Machine$<$\+Enemy$>$}}$\ast$ 
+\end{DoxyReturn}
+
+
+Definition at line 74 of file Enemy.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{74 \{ \textcolor{keywordflow}{return} enemyFSM; \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_enemy_a9b0879cd0e2edca02db45ce09839de03}\label{class_enemy_a9b0879cd0e2edca02db45ce09839de03}} 
+\index{Enemy@{Enemy}!getGlobalFlag@{getGlobalFlag}}
+\index{getGlobalFlag@{getGlobalFlag}!Enemy@{Enemy}}
+\doxysubsubsection{\texorpdfstring{getGlobalFlag()}{getGlobalFlag()}}
+{\footnotesize\ttfamily bool Enemy\+::get\+Global\+Flag (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+gets and returns the value of the global\+Flag (global\+Flag is used to ensure that global\+State changes don\textquotesingle{}t get stuck in a loop) 
+
+\begin{DoxyReturn}{Returns}
+bool 
+\end{DoxyReturn}
+
+
+Definition at line 289 of file Enemy.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{289 \{ \textcolor{keywordflow}{return} globalFlag; \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_enemy_a46341636350ca2bc6aac929b2a84f215}\label{class_enemy_a46341636350ca2bc6aac929b2a84f215}} 
+\index{Enemy@{Enemy}!getHealth@{getHealth}}
+\index{getHealth@{getHealth}!Enemy@{Enemy}}
+\doxysubsubsection{\texorpdfstring{getHealth()}{getHealth()}}
+{\footnotesize\ttfamily int Enemy\+::get\+Health (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+gets and returns the health value of the enemy 
+
+\begin{DoxyReturn}{Returns}
+int health 
+\end{DoxyReturn}
+
+
+Definition at line 87 of file Enemy.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{87 \{ \textcolor{keywordflow}{return} health;\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_enemy_a4dd3f15c29111e4fc5da276c8ea5715c}\label{class_enemy_a4dd3f15c29111e4fc5da276c8ea5715c}} 
+\index{Enemy@{Enemy}!GetMoving@{GetMoving}}
+\index{GetMoving@{GetMoving}!Enemy@{Enemy}}
+\doxysubsubsection{\texorpdfstring{GetMoving()}{GetMoving()}}
+{\footnotesize\ttfamily bool Enemy\+::\+Get\+Moving (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+gets and returns the value of moving 
+
+\begin{DoxyReturn}{Returns}
+bool 
+\end{DoxyReturn}
+
+
+Definition at line 395 of file Enemy.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{395 \{ \textcolor{keywordflow}{return} moving; \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_enemy_a5a44af124e289a91d430299be612625c}\label{class_enemy_a5a44af124e289a91d430299be612625c}} 
+\index{Enemy@{Enemy}!getNewPos@{getNewPos}}
+\index{getNewPos@{getNewPos}!Enemy@{Enemy}}
+\doxysubsubsection{\texorpdfstring{getNewPos()}{getNewPos()}}
+{\footnotesize\ttfamily glm\+::vec3 Enemy\+::get\+New\+Pos (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+gets and returns the the new\+Pos vector 
+
+\begin{DoxyReturn}{Returns}
+glm\+::vec3 
+\end{DoxyReturn}
+
+
+Definition at line 401 of file Enemy.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{401 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{class_enemy_a6e2103451585da73bd05a1b221debee7}{newPos}}; \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_enemy_a577c864252d94cfe4f592a975547d4b5}\label{class_enemy_a577c864252d94cfe4f592a975547d4b5}} 
+\index{Enemy@{Enemy}!GetPos@{GetPos}}
+\index{GetPos@{GetPos}!Enemy@{Enemy}}
+\doxysubsubsection{\texorpdfstring{GetPos()}{GetPos()}}
+{\footnotesize\ttfamily glm\+::vec3 Enemy\+::\+Get\+Pos (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the position of the game object. 
+
+\begin{DoxyReturn}{Returns}
+p\+Pos -\/ position of the game object 
+\end{DoxyReturn}
+
+
+Definition at line 101 of file Enemy.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{101 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{class_game_object_aa9f5812ad1460871ebceb188cc9aaa96}{GameObject::GetPos}}(); \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_enemy_a9628e768b1ef212995484cdfd3d2fea7}\label{class_enemy_a9628e768b1ef212995484cdfd3d2fea7}} 
+\index{Enemy@{Enemy}!getTimer@{getTimer}}
+\index{getTimer@{getTimer}!Enemy@{Enemy}}
+\doxysubsubsection{\texorpdfstring{getTimer()}{getTimer()}}
+{\footnotesize\ttfamily int Enemy\+::get\+Timer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+gets and returns the value of the timer 
+
+\begin{DoxyReturn}{Returns}
+int 
+\end{DoxyReturn}
+
+
+Definition at line 325 of file Enemy.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{325 \{ \textcolor{keywordflow}{return} timer; \}}
+
+\end{DoxyCode}
+
+
+Referenced by Update().
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=291pt]{class_enemy_a9628e768b1ef212995484cdfd3d2fea7_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_enemy_ad41bb64e354fcd25e97d4a97e3d70d4f}\label{class_enemy_ad41bb64e354fcd25e97d4a97e3d70d4f}} 
+\index{Enemy@{Enemy}!getToken@{getToken}}
+\index{getToken@{getToken}!Enemy@{Enemy}}
+\doxysubsubsection{\texorpdfstring{getToken()}{getToken()}}
+{\footnotesize\ttfamily bool Enemy\+::get\+Token (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+gets and returns the value of the token 
+
+\begin{DoxyReturn}{Returns}
+bool 
+\end{DoxyReturn}
+
+
+Definition at line 301 of file Enemy.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{301 \{ \textcolor{keywordflow}{return} token; \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_enemy_a4fec81242274841c382f32b02fdf0a40}\label{class_enemy_a4fec81242274841c382f32b02fdf0a40}} 
+\index{Enemy@{Enemy}!getVelocity@{getVelocity}}
+\index{getVelocity@{getVelocity}!Enemy@{Enemy}}
+\doxysubsubsection{\texorpdfstring{getVelocity()}{getVelocity()}}
+{\footnotesize\ttfamily glm\+::vec3 Enemy\+::get\+Velocity (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+gets and returns the velocity vector 
+
+\begin{DoxyReturn}{Returns}
+glm\+::vec3 
+\end{DoxyReturn}
+
+
+Definition at line 253 of file Enemy.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{253 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{class_enemy_a73529a10a7aa7adb28a74529d48e1192}{velocity}}; \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_enemy_a29c6447f08b6901ea48894a97b53262f}\label{class_enemy_a29c6447f08b6901ea48894a97b53262f}} 
+\index{Enemy@{Enemy}!handleMessage@{handleMessage}}
+\index{handleMessage@{handleMessage}!Enemy@{Enemy}}
+\doxysubsubsection{\texorpdfstring{handleMessage()}{handleMessage()}}
+{\footnotesize\ttfamily bool Enemy\+::handle\+Message (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_telegram}{Telegram}}}]{message }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+allows the enemy to handle messages it receives from other entities 
+
+
+\begin{DoxyParams}{Parameters}
+{\em message} & -\/ represents the message sent to the enemy \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool 
+\end{DoxyReturn}
+
+
+Reimplemented from \mbox{\hyperlink{class_game_object_aad9c0f74168667fcdbc1bcea06d169c5}{Game\+Object}}.
+
+
+
+Definition at line 1035 of file Enemy.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1036 \{}
+\DoxyCodeLine{1037     \textcolor{keywordflow}{if} (Debugger::GetInstance()-\/>debugToConsole)}
+\DoxyCodeLine{1038     \{}
+\DoxyCodeLine{1039         std::cout << \mbox{\hyperlink{classsingleton}{message}}.sender << \textcolor{stringliteral}{"{} has sent a message to "{}} << \mbox{\hyperlink{class_game_object_a3e5f61bc1a1348752b50b9d1bb27a4fc}{GetId}}() << \textcolor{stringliteral}{"{} "{}} << \mbox{\hyperlink{classsingleton}{message}}.msg << \textcolor{stringliteral}{"{}, distance: "{}} << \mbox{\hyperlink{class_enemy_a65037712fc14f0fe76b9c99e218c823d}{DistanceBetween}}(\mbox{\hyperlink{classsingleton}{message}}.pos) << std::endl;}
+\DoxyCodeLine{1040     \}}
+\DoxyCodeLine{1041     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(Debugger::GetInstance()-\/>debugInfoToLogFile)}
+\DoxyCodeLine{1042     \{}
+\DoxyCodeLine{1043         std::string s;}
+\DoxyCodeLine{1044         s += std::to\_string(\mbox{\hyperlink{classsingleton}{message}}.sender) + \textcolor{stringliteral}{"{} has sent a message to "{}} + std::to\_string(\mbox{\hyperlink{class_game_object_a3e5f61bc1a1348752b50b9d1bb27a4fc}{GetId}}()) + \textcolor{stringliteral}{"{} "{}} + std::to\_string(\mbox{\hyperlink{classsingleton}{message}}.msg) + \textcolor{stringliteral}{"{}, distance: "{}} + std::to\_string(\mbox{\hyperlink{class_enemy_a65037712fc14f0fe76b9c99e218c823d}{DistanceBetween}}(\mbox{\hyperlink{classsingleton}{message}}.pos));}
+\DoxyCodeLine{1045         Debugger::GetInstance()-\/>\mbox{\hyperlink{class_debugger_a3178f40262f4cc7e562771544aadf35c}{AppendLogger}}(\textcolor{stringliteral}{"{}Enemy.cpp"{}}, s);}
+\DoxyCodeLine{1046     \}}
+\DoxyCodeLine{1047 }
+\DoxyCodeLine{1048 }
+\DoxyCodeLine{1049     \textcolor{keywordflow}{if} (enemyFSM-\/>handleMessage(\mbox{\hyperlink{classsingleton}{message}}))}
+\DoxyCodeLine{1050     \{}
+\DoxyCodeLine{1051         \textcolor{keywordflow}{if} (\mbox{\hyperlink{class_enemy_a65037712fc14f0fe76b9c99e218c823d}{DistanceBetween}}(\mbox{\hyperlink{classsingleton}{message}}.pos) <= 1000.0f)}
+\DoxyCodeLine{1052         \{}
+\DoxyCodeLine{1053             \mbox{\hyperlink{class_enemy_a6e2103451585da73bd05a1b221debee7}{newPos}} = \mbox{\hyperlink{classsingleton}{message}}.pos;}
+\DoxyCodeLine{1054             moving = \textcolor{keyword}{true};}
+\DoxyCodeLine{1055         \}}
+\DoxyCodeLine{1056         \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{1057     \}}
+\DoxyCodeLine{1058     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{1059         \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{1060 \}}
+
+\end{DoxyCode}
+
+
+References Debugger\+::\+Append\+Logger(), Debugger\+::debug\+Info\+To\+Log\+File, and Debugger\+::debug\+To\+Console.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_enemy_a29c6447f08b6901ea48894a97b53262f_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_enemy_a537e8b909fe462c74d136d6271e907e8}\label{class_enemy_a537e8b909fe462c74d136d6271e907e8}} 
+\index{Enemy@{Enemy}!incrementCheck@{incrementCheck}}
+\index{incrementCheck@{incrementCheck}!Enemy@{Enemy}}
+\doxysubsubsection{\texorpdfstring{incrementCheck()}{incrementCheck()}}
+{\footnotesize\ttfamily int Enemy\+::increment\+Check (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+increments the check value 
+
+\begin{DoxyReturn}{Returns}
+int 
+\end{DoxyReturn}
+
+
+Definition at line 355 of file Enemy.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{355 \{ \textcolor{keywordflow}{return} check++; \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_enemy_a8848fe440fb23e58fcc39d4e96199034}\label{class_enemy_a8848fe440fb23e58fcc39d4e96199034}} 
+\index{Enemy@{Enemy}!incrementTimer@{incrementTimer}}
+\index{incrementTimer@{incrementTimer}!Enemy@{Enemy}}
+\doxysubsubsection{\texorpdfstring{incrementTimer()}{incrementTimer()}}
+{\footnotesize\ttfamily int Enemy\+::increment\+Timer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+increments the timer value 
+
+\begin{DoxyReturn}{Returns}
+int 
+\end{DoxyReturn}
+
+
+Definition at line 337 of file Enemy.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{337 \{ \textcolor{keywordflow}{return} timer++; \}}
+
+\end{DoxyCode}
+
+
+Referenced by Update().
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=320pt]{class_enemy_a8848fe440fb23e58fcc39d4e96199034_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_enemy_a2cce7194016cb90b9e457b3da131fd8a}\label{class_enemy_a2cce7194016cb90b9e457b3da131fd8a}} 
+\index{Enemy@{Enemy}!isAlive@{isAlive}}
+\index{isAlive@{isAlive}!Enemy@{Enemy}}
+\doxysubsubsection{\texorpdfstring{isAlive()}{isAlive()}}
+{\footnotesize\ttfamily bool Enemy\+::is\+Alive (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+gets and returns the alive boolean value 
+
+\begin{DoxyReturn}{Returns}
+bool 
+\end{DoxyReturn}
+
+
+Definition at line 147 of file Enemy.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{147 \{ \textcolor{keywordflow}{return} alive; \};}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_enemy_ae5753c49a0b47bc4d77afbcc18c3a924}\label{class_enemy_ae5753c49a0b47bc4d77afbcc18c3a924}} 
+\index{Enemy@{Enemy}!Kill@{Kill}}
+\index{Kill@{Kill}!Enemy@{Enemy}}
+\doxysubsubsection{\texorpdfstring{Kill()}{Kill()}}
+{\footnotesize\ttfamily bool Enemy\+::\+Kill (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+returns the kill\+FSM bool value 
+
+\begin{DoxyReturn}{Returns}
+bool 
+\end{DoxyReturn}
+
+
+Reimplemented from \mbox{\hyperlink{class_game_object_ae6a441c142f2eb71b9a44bd39258dd91}{Game\+Object}}.
+
+
+
+Definition at line 1030 of file Enemy.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1031 \{}
+\DoxyCodeLine{1032     \textcolor{keywordflow}{return} alive;}
+\DoxyCodeLine{1033 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_enemy_a77276d7fb22045098f926bb7519451e5}\label{class_enemy_a77276d7fb22045098f926bb7519451e5}} 
+\index{Enemy@{Enemy}!LookDirection@{LookDirection}}
+\index{LookDirection@{LookDirection}!Enemy@{Enemy}}
+\doxysubsubsection{\texorpdfstring{LookDirection()}{LookDirection()}}
+{\footnotesize\ttfamily float Enemy\+::\+Look\+Direction (\begin{DoxyParamCaption}\item[{std\+::string}]{type }\end{DoxyParamCaption})}
+
+
+
+a function that returns the looking direction of the enemy dependant on which string is provided 
+
+
+\begin{DoxyParams}{Parameters}
+{\em type} & -\/ represents the type of thing that should be looked at (which in this case in the enemy looking at the player) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+float 
+\end{DoxyReturn}
+
+
+Definition at line 1009 of file Enemy.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1010 \{}
+\DoxyCodeLine{1011     \textcolor{keywordflow}{if} (type == \textcolor{stringliteral}{"{}player"{}})}
+\DoxyCodeLine{1012     \{}
+\DoxyCodeLine{1013         \textcolor{keywordflow}{return} atan2(\mbox{\hyperlink{class_enemy_a4fec81242274841c382f32b02fdf0a40}{getVelocity}}().z, \mbox{\hyperlink{class_enemy_a4fec81242274841c382f32b02fdf0a40}{getVelocity}}().x);}
+\DoxyCodeLine{1014     \}}
+\DoxyCodeLine{1015     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (type == \textcolor{stringliteral}{"{}playerOpp"{}})}
+\DoxyCodeLine{1016     \{}
+\DoxyCodeLine{1017         \textcolor{keywordflow}{return} atan2(-\/\mbox{\hyperlink{class_enemy_a4fec81242274841c382f32b02fdf0a40}{getVelocity}}().z, -\/\mbox{\hyperlink{class_enemy_a4fec81242274841c382f32b02fdf0a40}{getVelocity}}().x);}
+\DoxyCodeLine{1018     \}}
+\DoxyCodeLine{1019     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{1020     \{}
+\DoxyCodeLine{1021         \textcolor{keywordflow}{return} atan2(\mbox{\hyperlink{class_enemy_a4a8101b0b3a0fa4a862e6dd071927676}{enemyVelocity}}.z, \mbox{\hyperlink{class_enemy_a4a8101b0b3a0fa4a862e6dd071927676}{enemyVelocity}}.x);}
+\DoxyCodeLine{1022     \}}
+\DoxyCodeLine{1023 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_enemy_ab3fbdd83b20287e3d9e0d0ad865df326}\label{class_enemy_ab3fbdd83b20287e3d9e0d0ad865df326}} 
+\index{Enemy@{Enemy}!moveTo@{moveTo}}
+\index{moveTo@{moveTo}!Enemy@{Enemy}}
+\doxysubsubsection{\texorpdfstring{moveTo()}{moveTo()}}
+{\footnotesize\ttfamily bool Enemy\+::move\+To (\begin{DoxyParamCaption}\item[{glm\+::vec3 \&}]{cur\+Pos,  }\item[{const glm\+::vec3 \&}]{target\+Pos,  }\item[{glm\+::vec3 \&}]{cur\+Velocity,  }\item[{float}]{time,  }\item[{float}]{offset,  }\item[{std\+::string}]{type }\end{DoxyParamCaption})}
+
+
+
+allows the enemy to move from its current position to a specified target position 
+
+
+\begin{DoxyParams}{Parameters}
+{\em cur\+Pos} & -\/ the vector representing the current position of the enemy \\
+\hline
+{\em target\+Pos} & -\/ the vector representing the target position to move to \\
+\hline
+{\em cur\+Velocity} & -\/ represents the enemy\textquotesingle{}s current velocity \\
+\hline
+{\em time} & -\/ represents the time used to calculate the displacement \\
+\hline
+{\em offset} & -\/ the distance that the character should maintain between itself and its target \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool 
+\end{DoxyReturn}
+
+
+Definition at line 794 of file Enemy.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{795 \{}
+\DoxyCodeLine{796     \textcolor{comment}{//calc heading from character position to target}}
+\DoxyCodeLine{797     glm::vec3 target = targetPos -\/ curPos;}
+\DoxyCodeLine{798     target = glm::normalize(target);}
+\DoxyCodeLine{799 }
+\DoxyCodeLine{800     \textcolor{keywordflow}{if} (target.x == 0 \&\& target.y == 0 \&\& target.z == 0)}
+\DoxyCodeLine{801         \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{802 }
+\DoxyCodeLine{803     \textcolor{comment}{//calc new velocity and new character position}}
+\DoxyCodeLine{804     curVelocity = target * glm::length(curVelocity);}
+\DoxyCodeLine{805     glm::vec3 displacement = curVelocity * time;}
+\DoxyCodeLine{806     glm::vec3 vec = curPos + displacement;}
+\DoxyCodeLine{807 }
+\DoxyCodeLine{808     \textcolor{keywordflow}{if} (type == \textcolor{stringliteral}{"{}Player"{}})}
+\DoxyCodeLine{809         \mbox{\hyperlink{class_enemy_a8410dd9b89bff7d721af005d6284b80c}{setVelocity}}(curVelocity);}
+\DoxyCodeLine{810     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{811         \mbox{\hyperlink{class_enemy_a2f903df691de1c3557fd2faa74ae8d78}{setEnemyVelocity}}(curVelocity);}
+\DoxyCodeLine{812 }
+\DoxyCodeLine{813     \textcolor{comment}{// calculate real target position}}
+\DoxyCodeLine{814     glm::vec3 realTargetPos = targetPos -\/ target * offset;}
+\DoxyCodeLine{815 }
+\DoxyCodeLine{816     \textcolor{comment}{// calculate the direction from vec to realTargetPos}}
+\DoxyCodeLine{817     glm::vec3 toRealTarget = realTargetPos -\/ vec;}
+\DoxyCodeLine{818     toRealTarget = glm::normalize(toRealTarget);}
+\DoxyCodeLine{819 }
+\DoxyCodeLine{820     \textcolor{keywordflow}{if} (toRealTarget.x == 0 \&\& toRealTarget.y == 0 \&\& toRealTarget.z == 0)}
+\DoxyCodeLine{821     \{}
+\DoxyCodeLine{822         \textcolor{keywordflow}{if}(realTargetPos.y < 25.0f)}
+\DoxyCodeLine{823         \{}
+\DoxyCodeLine{824             curPos = realTargetPos;}
+\DoxyCodeLine{825         \}}
+\DoxyCodeLine{826         curPos = realTargetPos;}
+\DoxyCodeLine{827         \mbox{\hyperlink{class_enemy_a74abe45981ed89e34ec3e6927d9c5c8c}{SetPos}}(curPos);}
+\DoxyCodeLine{828         \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{829     \}}
+\DoxyCodeLine{830 }
+\DoxyCodeLine{831     \textcolor{comment}{//check to see whether vec has gone pass the realTargetPos}}
+\DoxyCodeLine{832     \textcolor{keywordtype}{float} dp = glm::dot(toRealTarget, target);}
+\DoxyCodeLine{833     \textcolor{keywordflow}{if} (dp < 0.0)}
+\DoxyCodeLine{834     \{}
+\DoxyCodeLine{835         \textcolor{keywordflow}{if}(realTargetPos.y < 25.0f)}
+\DoxyCodeLine{836         \{}
+\DoxyCodeLine{837             curPos = realTargetPos;}
+\DoxyCodeLine{838         \}}
+\DoxyCodeLine{839 }
+\DoxyCodeLine{840         \mbox{\hyperlink{class_enemy_a74abe45981ed89e34ec3e6927d9c5c8c}{SetPos}}(curPos);}
+\DoxyCodeLine{841         \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{842     \}}
+\DoxyCodeLine{843     \textcolor{comment}{//std::cout << curPos.x << "{} "{} << curPos.y << "{} "{} << curPos.z << "{} | "{} << vec.x << "{} "{} << vec.y << "{} "{} << vec.z << std::endl;}}
+\DoxyCodeLine{844     \textcolor{comment}{// vec has not yet passed realTargetPos}}
+\DoxyCodeLine{845     \textcolor{keywordflow}{if}(vec.y < 25.0f)}
+\DoxyCodeLine{846     \{}
+\DoxyCodeLine{847         curPos = vec;}
+\DoxyCodeLine{848     \}}
+\DoxyCodeLine{849 }
+\DoxyCodeLine{850     \mbox{\hyperlink{class_enemy_a74abe45981ed89e34ec3e6927d9c5c8c}{SetPos}}(curPos);}
+\DoxyCodeLine{851     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{852 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_enemy_abcda069cb6c72f0052a7b6e787723641}\label{class_enemy_abcda069cb6c72f0052a7b6e787723641}} 
+\index{Enemy@{Enemy}!pursue@{pursue}}
+\index{pursue@{pursue}!Enemy@{Enemy}}
+\doxysubsubsection{\texorpdfstring{pursue()}{pursue()}}
+{\footnotesize\ttfamily void Enemy\+::pursue (\begin{DoxyParamCaption}\item[{const glm\+::vec3 \&}]{evader\+Pos,  }\item[{glm\+::vec3 \&}]{pursuer\+Pos,  }\item[{const glm\+::vec3 \&}]{evader\+Velocity,  }\item[{glm\+::vec3 \&}]{pursuer\+Velocity,  }\item[{float}]{time,  }\item[{float}]{offset,  }\item[{std\+::string}]{type }\end{DoxyParamCaption})}
+
+
+
+allows the enemy to pursue an evading target 
+
+
+\begin{DoxyParams}{Parameters}
+{\em evader\+Pos} & -\/ the vector representing the position of the evader (the first-\/person camera) \\
+\hline
+{\em pursuer\+Pos} & -\/ the vector representing the position of the pursuer (the enemy) \\
+\hline
+{\em evader\+Velocity} & -\/ represents the velocity of the evader \\
+\hline
+{\em pursuer\+Velocity} & -\/ represent the velocity of the pursuer \\
+\hline
+{\em time} & -\/ represents the time used to calculate the displacement \\
+\hline
+{\em offset} & -\/ the distance that the enemy should maintain between itself and its target \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 854 of file Enemy.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{855 \{}
+\DoxyCodeLine{856     \textcolor{keywordtype}{double} lookAheadTime;}
+\DoxyCodeLine{857 }
+\DoxyCodeLine{858     \textcolor{comment}{//distance between evader and pursuer}}
+\DoxyCodeLine{859     glm::vec3 toEvader = evaderPos -\/ pursuerPos;}
+\DoxyCodeLine{860 }
+\DoxyCodeLine{861     \textcolor{comment}{//compute two agents headings}}
+\DoxyCodeLine{862     glm::vec3 pursuerHeading = pursuerVelocity;}
+\DoxyCodeLine{863     pursuerHeading = glm::normalize(pursuerHeading);}
+\DoxyCodeLine{864 }
+\DoxyCodeLine{865     glm::vec3 evaderHeading = evaderVelocity;}
+\DoxyCodeLine{866     evaderHeading = glm::normalize(evaderHeading);}
+\DoxyCodeLine{867 }
+\DoxyCodeLine{868     \textcolor{comment}{//compute angle between two agents }}
+\DoxyCodeLine{869     \textcolor{keywordtype}{double} relativeHeading = glm::dot(pursuerHeading, evaderHeading);}
+\DoxyCodeLine{870 }
+\DoxyCodeLine{871     \textcolor{comment}{//std::cout << "{}relativeHeading = "{} << relativeHeading << std::endl;}}
+\DoxyCodeLine{872 }
+\DoxyCodeLine{873     \textcolor{comment}{//std::cout << "{}Evader Velocity Length:  "{} << glm::length(evaderVelocity) << std::endl;}}
+\DoxyCodeLine{874 }
+\DoxyCodeLine{875     \textcolor{comment}{//determine if evader is facing pursuer}}
+\DoxyCodeLine{876     \textcolor{keywordflow}{if} ((relativeHeading < -\/0.95) || glm::length(evaderVelocity) == 1)}
+\DoxyCodeLine{877     \{}
+\DoxyCodeLine{878         \mbox{\hyperlink{class_enemy_ab3fbdd83b20287e3d9e0d0ad865df326}{moveTo}}(pursuerPos, evaderPos, pursuerVelocity, time, offset, type);}
+\DoxyCodeLine{879         \textcolor{comment}{//std::cout << "{}In eyesight"{} << std::endl;}}
+\DoxyCodeLine{880     \}}
+\DoxyCodeLine{881     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{882     \{}
+\DoxyCodeLine{883         lookAheadTime = (glm::length(toEvader)) / (glm::length(evaderVelocity) + glm::length(pursuerVelocity));}
+\DoxyCodeLine{884         \mbox{\hyperlink{class_enemy_ab3fbdd83b20287e3d9e0d0ad865df326}{moveTo}}(pursuerPos, evaderPos + evaderVelocity * (\textcolor{keywordtype}{float})lookAheadTime, pursuerVelocity, time, offset, type);}
+\DoxyCodeLine{885         \textcolor{comment}{//std::cout << "{}outta eyesight"{} << std::endl;}}
+\DoxyCodeLine{886     \}}
+\DoxyCodeLine{887 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_enemy_af626d6c92b3be75617bdb72c2eb8497e}\label{class_enemy_af626d6c92b3be75617bdb72c2eb8497e}} 
+\index{Enemy@{Enemy}!Render@{Render}}
+\index{Render@{Render}!Enemy@{Enemy}}
+\doxysubsubsection{\texorpdfstring{Render()}{Render()}}
+{\footnotesize\ttfamily void Enemy\+::\+Render (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_view}{View}}}]{lens,  }\item[{float}]{time,  }\item[{\mbox{\hyperlink{class_renderer}{Renderer}} $\ast$}]{game\+Renderer }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+makes use of the view information and graphics renderer to render the enemy to the screen 
+
+
+\begin{DoxyParams}{Parameters}
+{\em lens} & -\/ holds the information that allows you to project and view the model \\
+\hline
+{\em time} & -\/ represents deltatime, which is the difference between the previous frame and the current frame \\
+\hline
+{\em game\+Renderer} & -\/ a pointer to the renderer which is used to render the enemy model \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \mbox{\hyperlink{class_game_object_a00835df0feb28562c4910a7a68771b36}{Game\+Object}}.
+
+
+
+Definition at line 662 of file Enemy.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{663 \{}
+\DoxyCodeLine{664     pPos = lens.\mbox{\hyperlink{class_view_a835202e230f4d672dc2201aed7f60f64}{GetPosition}}();}
+\DoxyCodeLine{665     deltaTime = time;}
+\DoxyCodeLine{666     \textcolor{comment}{//if(Debugger::GetInstance()-\/>debugFSMToConsole) std::cout << Distance() << std::endl;}}
+\DoxyCodeLine{667     \textcolor{keywordflow}{if} (alive)}
+\DoxyCodeLine{668     \{}
+\DoxyCodeLine{669         \mbox{\hyperlink{class_model}{Model}} temp = \mbox{\hyperlink{class_game_object_a4d2dd39231dc5fa8c9c9b29b91f8ec95}{GetModel}}();}
+\DoxyCodeLine{670         \mbox{\hyperlink{class_shader}{Shader}} s = \mbox{\hyperlink{class_game_object_a9e6726449a23ca4b04467305bd4ddd95}{GetShader}}();}
+\DoxyCodeLine{671         temp.\mbox{\hyperlink{class_model_a95878dc77a7f1ed7f13f2383f880c8ca}{Render}}(lens, s, \mbox{\hyperlink{class_enemy_a577c864252d94cfe4f592a975547d4b5}{GetPos}}(), \mbox{\hyperlink{class_game_object_afe52aedcc4f6e746f3ccd18d413f88fb}{GetRotation}}(), \mbox{\hyperlink{class_game_object_a0fb90bbb74c8988d23e865280a065901}{GetScale}}(), \mbox{\hyperlink{class_game_object_a4a7682157d4735ce950f5c64781344ee}{GetRotate}}(), time, direction, gameRenderer, \textcolor{keyword}{false});}
+\DoxyCodeLine{672         \textcolor{keywordflow}{if} (hasWeapon)}
+\DoxyCodeLine{673         \{}
+\DoxyCodeLine{674             wModel.\mbox{\hyperlink{class_model_a95878dc77a7f1ed7f13f2383f880c8ca}{Render}}(lens, s, \mbox{\hyperlink{class_enemy_a577c864252d94cfe4f592a975547d4b5}{GetPos}}(), \mbox{\hyperlink{class_game_object_afe52aedcc4f6e746f3ccd18d413f88fb}{GetRotation}}(), \mbox{\hyperlink{class_game_object_a0fb90bbb74c8988d23e865280a065901}{GetScale}}(), \mbox{\hyperlink{class_game_object_a4a7682157d4735ce950f5c64781344ee}{GetRotate}}(), time, direction, gameRenderer, \textcolor{keyword}{false});}
+\DoxyCodeLine{675         \}}
+\DoxyCodeLine{676         \mbox{\hyperlink{class_game_object_a8cd08c4c2a53a087716e7a8d4c25b632}{SetShader}}(s);}
+\DoxyCodeLine{677         \mbox{\hyperlink{class_game_object_a7d7bf2fb47b279323455347c841f0383}{SetModel}}(temp);}
+\DoxyCodeLine{678     \}}
+\DoxyCodeLine{679 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_enemy_ac653ecb03c6154acd5d2769f0ac5f14e}\label{class_enemy_ac653ecb03c6154acd5d2769f0ac5f14e}} 
+\index{Enemy@{Enemy}!ResetEnemy@{ResetEnemy}}
+\index{ResetEnemy@{ResetEnemy}!Enemy@{Enemy}}
+\doxysubsubsection{\texorpdfstring{ResetEnemy()}{ResetEnemy()}}
+{\footnotesize\ttfamily void Enemy\+::\+Reset\+Enemy (\begin{DoxyParamCaption}\item[{glm\+::vec3}]{spawn }\end{DoxyParamCaption})}
+
+
+
+Resets the enemy object, mainly used for pooling so that we dont need to allocate memory for new enemies each time we spawn one, we just reset the one that died. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em vec3} & spawn which is used to set the new reset positions of the enemy \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 1062 of file Enemy.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1063 \{}
+\DoxyCodeLine{1064     \mbox{\hyperlink{class_enemy_a74abe45981ed89e34ec3e6927d9c5c8c}{SetPos}}(spawn);}
+\DoxyCodeLine{1065     health = healthHold;}
+\DoxyCodeLine{1066     std::cout << healthHold << std::endl;}
+\DoxyCodeLine{1067     enemyFSM = \textcolor{keyword}{new} \mbox{\hyperlink{classstate_machine}{stateMachine<Enemy>}}(\textcolor{keyword}{this});}
+\DoxyCodeLine{1068     enemyFSM-\/>setCurrentState(\&\mbox{\hyperlink{classsingleton_abe6a9e4cb548454cfb5d15f425553ae1}{wander\_state::getInstance}}());}
+\DoxyCodeLine{1069     enemyFSM-\/>setGlobalState(\&\mbox{\hyperlink{classsingleton_abe6a9e4cb548454cfb5d15f425553ae1}{global\_state::getInstance}}());}
+\DoxyCodeLine{1070     \mbox{\hyperlink{class_enemy_a622f7433b50bdf441a29f510ab84621d}{SetState}}(2);}
+\DoxyCodeLine{1071     alive = \textcolor{keyword}{true};}
+\DoxyCodeLine{1072     \mbox{\hyperlink{class_enemy_aa5be702e4371963de69f7dc7859c14d1}{startTimer}} = \textcolor{keyword}{false};}
+\DoxyCodeLine{1073     deathtimer = 2;}
+\DoxyCodeLine{1074 \}}
+
+\end{DoxyCode}
+
+
+References Set\+State(), and start\+Timer.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_enemy_ac653ecb03c6154acd5d2769f0ac5f14e_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_enemy_ae5a35caba056f8f4843476734bcc7f64}\label{class_enemy_ae5a35caba056f8f4843476734bcc7f64}} 
+\index{Enemy@{Enemy}!ReturnState@{ReturnState}}
+\index{ReturnState@{ReturnState}!Enemy@{Enemy}}
+\doxysubsubsection{\texorpdfstring{ReturnState()}{ReturnState()}}
+{\footnotesize\ttfamily std\+::string Enemy\+::\+Return\+State (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+returns the string value of the state that the FSM is currently in 
+
+\begin{DoxyReturn}{Returns}
+std\+::string 
+\end{DoxyReturn}
+
+
+Definition at line 1076 of file Enemy.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1077 \{}
+\DoxyCodeLine{1078     \textcolor{keywordflow}{if} (\mbox{\hyperlink{class_enemy_ac216deb271b5bd35a886783500aadd84}{getFSM}}()-\/>getCurrentState() == \&\mbox{\hyperlink{classsingleton_abe6a9e4cb548454cfb5d15f425553ae1}{global\_state::getInstance}}())}
+\DoxyCodeLine{1079     \{}
+\DoxyCodeLine{1080         \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}global"{}};}
+\DoxyCodeLine{1081     \}}
+\DoxyCodeLine{1082     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\mbox{\hyperlink{class_enemy_ac216deb271b5bd35a886783500aadd84}{getFSM}}()-\/>getCurrentState() == \&\mbox{\hyperlink{classsingleton_abe6a9e4cb548454cfb5d15f425553ae1}{wander\_state::getInstance}}())}
+\DoxyCodeLine{1083     \{}
+\DoxyCodeLine{1084         \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}wander"{}};}
+\DoxyCodeLine{1085     \}}
+\DoxyCodeLine{1086     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\mbox{\hyperlink{class_enemy_ac216deb271b5bd35a886783500aadd84}{getFSM}}()-\/>getCurrentState() == \&\mbox{\hyperlink{classsingleton_abe6a9e4cb548454cfb5d15f425553ae1}{chase\_state::getInstance}}())}
+\DoxyCodeLine{1087     \{}
+\DoxyCodeLine{1088         \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}chase"{}};}
+\DoxyCodeLine{1089     \}}
+\DoxyCodeLine{1090     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\mbox{\hyperlink{class_enemy_ac216deb271b5bd35a886783500aadd84}{getFSM}}()-\/>getCurrentState() == \&\mbox{\hyperlink{classsingleton_abe6a9e4cb548454cfb5d15f425553ae1}{flee\_state::getInstance}}())}
+\DoxyCodeLine{1091     \{}
+\DoxyCodeLine{1092         \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}flee"{}};}
+\DoxyCodeLine{1093     \}}
+\DoxyCodeLine{1094     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\mbox{\hyperlink{class_enemy_ac216deb271b5bd35a886783500aadd84}{getFSM}}()-\/>getCurrentState() == \&\mbox{\hyperlink{classsingleton_abe6a9e4cb548454cfb5d15f425553ae1}{alert\_state::getInstance}}())}
+\DoxyCodeLine{1095     \{}
+\DoxyCodeLine{1096         \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}alert"{}};}
+\DoxyCodeLine{1097     \}}
+\DoxyCodeLine{1098     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\mbox{\hyperlink{class_enemy_ac216deb271b5bd35a886783500aadd84}{getFSM}}()-\/>getCurrentState() == \&\mbox{\hyperlink{classsingleton_abe6a9e4cb548454cfb5d15f425553ae1}{die\_state::getInstance}}())}
+\DoxyCodeLine{1099     \{}
+\DoxyCodeLine{1100         \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}die"{}};}
+\DoxyCodeLine{1101     \}}
+\DoxyCodeLine{1102     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\mbox{\hyperlink{class_enemy_ac216deb271b5bd35a886783500aadd84}{getFSM}}()-\/>getCurrentState() == \&\mbox{\hyperlink{classsingleton_abe6a9e4cb548454cfb5d15f425553ae1}{attack\_state::getInstance}}())}
+\DoxyCodeLine{1103     \{}
+\DoxyCodeLine{1104         \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}attack"{}};}
+\DoxyCodeLine{1105     \}}
+\DoxyCodeLine{1106     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{1107     \{}
+\DoxyCodeLine{1108         \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}"{}};}
+\DoxyCodeLine{1109     \}}
+\DoxyCodeLine{1110 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_enemy_ac124fc6e60f7f05dfe0aa2975d16c4a0}\label{class_enemy_ac124fc6e60f7f05dfe0aa2975d16c4a0}} 
+\index{Enemy@{Enemy}!SendMessage@{SendMessage}}
+\index{SendMessage@{SendMessage}!Enemy@{Enemy}}
+\doxysubsubsection{\texorpdfstring{SendMessage()}{SendMessage()}}
+{\footnotesize\ttfamily void Enemy\+::\+Send\+Message (\begin{DoxyParamCaption}\item[{int}]{message,  }\item[{std\+::string}]{type }\end{DoxyParamCaption})}
+
+
+
+a function that will send a message from the enemy to a specified game\+Object type 
+
+
+\begin{DoxyParams}{Parameters}
+{\em message} & -\/ refers to the message being sent \\
+\hline
+{\em type} & -\/ refers to the type of gameobject the message is being sent to \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 1025 of file Enemy.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1026 \{}
+\DoxyCodeLine{1027     \mbox{\hyperlink{classsingleton_abe6a9e4cb548454cfb5d15f425553ae1}{singleton<MessageDispatcher>::getInstance}}().DisbatchMsgAllOfType(\mbox{\hyperlink{class_game_object_a3e5f61bc1a1348752b50b9d1bb27a4fc}{GetId}}(), \mbox{\hyperlink{classsingleton}{message}}, type);}
+\DoxyCodeLine{1028 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_enemy_ac1a46b87e5ab5c6aab9445bc263a6b7b}\label{class_enemy_ac1a46b87e5ab5c6aab9445bc263a6b7b}} 
+\index{Enemy@{Enemy}!SetAccuracy@{SetAccuracy}}
+\index{SetAccuracy@{SetAccuracy}!Enemy@{Enemy}}
+\doxysubsubsection{\texorpdfstring{SetAccuracy()}{SetAccuracy()}}
+{\footnotesize\ttfamily void Enemy\+::\+Set\+Accuracy (\begin{DoxyParamCaption}\item[{float}]{a }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Sets the accuracy factor of an enemy. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & for the accuracy value \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 434 of file Enemy.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{434 \{ accuracyFactor = a; \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_enemy_a6598a4e0625abcc158fa8f70ed42b34e}\label{class_enemy_a6598a4e0625abcc158fa8f70ed42b34e}} 
+\index{Enemy@{Enemy}!setAlive@{setAlive}}
+\index{setAlive@{setAlive}!Enemy@{Enemy}}
+\doxysubsubsection{\texorpdfstring{setAlive()}{setAlive()}}
+{\footnotesize\ttfamily void Enemy\+::set\+Alive (\begin{DoxyParamCaption}\item[{bool}]{a }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+sets the boolean value of the alive variable 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & -\/ represents the value that will be assigned to the alive boolean variable \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 132 of file Enemy.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{132 \{ alive = a; \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_enemy_a5833d5aee482c074a881184b7b522e52}\label{class_enemy_a5833d5aee482c074a881184b7b522e52}} 
+\index{Enemy@{Enemy}!SetAliveStatus@{SetAliveStatus}}
+\index{SetAliveStatus@{SetAliveStatus}!Enemy@{Enemy}}
+\doxysubsubsection{\texorpdfstring{SetAliveStatus()}{SetAliveStatus()}}
+{\footnotesize\ttfamily void Enemy\+::\+Set\+Alive\+Status (\begin{DoxyParamCaption}\item[{bool}]{s }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Sets the alive value for the enemy. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em bool} & s which is then set to alive \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 446 of file Enemy.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{446 \{ alive = s; \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_enemy_a675d4718c1ef3d71bfb9dcec2fc7a102}\label{class_enemy_a675d4718c1ef3d71bfb9dcec2fc7a102}} 
+\index{Enemy@{Enemy}!setCheck@{setCheck}}
+\index{setCheck@{setCheck}!Enemy@{Enemy}}
+\doxysubsubsection{\texorpdfstring{setCheck()}{setCheck()}}
+{\footnotesize\ttfamily void Enemy\+::set\+Check (\begin{DoxyParamCaption}\item[{int}]{c }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+sets the value of the check 
+
+
+\begin{DoxyParams}{Parameters}
+{\em c} & -\/ represents the value you want to assign the check \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 349 of file Enemy.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{349 \{ check = c; \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_enemy_af36a3d72b3a3f5673616991f73e43f08}\label{class_enemy_af36a3d72b3a3f5673616991f73e43f08}} 
+\index{Enemy@{Enemy}!SetDamage@{SetDamage}}
+\index{SetDamage@{SetDamage}!Enemy@{Enemy}}
+\doxysubsubsection{\texorpdfstring{SetDamage()}{SetDamage()}}
+{\footnotesize\ttfamily void Enemy\+::\+Set\+Damage (\begin{DoxyParamCaption}\item[{int}]{d }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+sets Damage value for the enemy 
+
+
+\begin{DoxyParams}{Parameters}
+{\em int} & damage \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 458 of file Enemy.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{458 \{ damage = d; \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_enemy_a665c2f529dc84809bf8be5e93d19c015}\label{class_enemy_a665c2f529dc84809bf8be5e93d19c015}} 
+\index{Enemy@{Enemy}!setDeathAnim@{setDeathAnim}}
+\index{setDeathAnim@{setDeathAnim}!Enemy@{Enemy}}
+\doxysubsubsection{\texorpdfstring{setDeathAnim()}{setDeathAnim()}}
+{\footnotesize\ttfamily void Enemy\+::set\+Death\+Anim (\begin{DoxyParamCaption}\item[{bool}]{d }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+sets the value of the death\+Anim boolean 
+
+
+\begin{DoxyParams}{Parameters}
+{\em d} & -\/ represents the value you want to set death\+Anim \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 319 of file Enemy.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{319 \{ deathAnim = d; \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_enemy_a878feb211351f52e64b9c27b00ca3629}\label{class_enemy_a878feb211351f52e64b9c27b00ca3629}} 
+\index{Enemy@{Enemy}!setDirection@{setDirection}}
+\index{setDirection@{setDirection}!Enemy@{Enemy}}
+\doxysubsubsection{\texorpdfstring{setDirection()}{setDirection()}}
+{\footnotesize\ttfamily void Enemy\+::set\+Direction (\begin{DoxyParamCaption}\item[{float}]{dir }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+sets the direction in which the enemy is facing 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dir} & -\/ reprsents the direction value you want to set \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 283 of file Enemy.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{283 \{ direction = dir;\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_enemy_a2f903df691de1c3557fd2faa74ae8d78}\label{class_enemy_a2f903df691de1c3557fd2faa74ae8d78}} 
+\index{Enemy@{Enemy}!setEnemyVelocity@{setEnemyVelocity}}
+\index{setEnemyVelocity@{setEnemyVelocity}!Enemy@{Enemy}}
+\doxysubsubsection{\texorpdfstring{setEnemyVelocity()}{setEnemyVelocity()}}
+{\footnotesize\ttfamily void Enemy\+::set\+Enemy\+Velocity (\begin{DoxyParamCaption}\item[{glm\+::vec3}]{v }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+function that allows you to set the values of the enemy\+Velocity vector 
+
+
+\begin{DoxyParams}{Parameters}
+{\em v} & -\/ represents the vector value you want to assign to enemy\+Velocity \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 271 of file Enemy.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{271 \{ \mbox{\hyperlink{class_enemy_a4a8101b0b3a0fa4a862e6dd071927676}{enemyVelocity}} = v; \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_enemy_a9a4f701ee66574f013870ba2f58f99ef}\label{class_enemy_a9a4f701ee66574f013870ba2f58f99ef}} 
+\index{Enemy@{Enemy}!SetFireWeapon@{SetFireWeapon}}
+\index{SetFireWeapon@{SetFireWeapon}!Enemy@{Enemy}}
+\doxysubsubsection{\texorpdfstring{SetFireWeapon()}{SetFireWeapon()}}
+{\footnotesize\ttfamily void Enemy\+::\+Set\+Fire\+Weapon (\begin{DoxyParamCaption}\item[{bool}]{f }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Sets if the weapon is firing or not. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em bool} & f which is set to fireweapon \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 464 of file Enemy.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{464 \{ fireWeapon = f; \}}
+
+\end{DoxyCode}
+
+
+Referenced by Scene\+::\+Enemy\+Fire\+Weapon().
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_enemy_a9a4f701ee66574f013870ba2f58f99ef_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_enemy_aa85fa1ba3aec84f36a072a24315db922}\label{class_enemy_aa85fa1ba3aec84f36a072a24315db922}} 
+\index{Enemy@{Enemy}!setGlobalFlag@{setGlobalFlag}}
+\index{setGlobalFlag@{setGlobalFlag}!Enemy@{Enemy}}
+\doxysubsubsection{\texorpdfstring{setGlobalFlag()}{setGlobalFlag()}}
+{\footnotesize\ttfamily void Enemy\+::set\+Global\+Flag (\begin{DoxyParamCaption}\item[{bool}]{flag }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+sets the value of the global\+Flag 
+
+
+\begin{DoxyParams}{Parameters}
+{\em flag} & -\/ represents the value you want to set global\+Flag \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 295 of file Enemy.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{295 \{ globalFlag = flag; \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_enemy_afc9186ef7bb3fbb749eda08782667df8}\label{class_enemy_afc9186ef7bb3fbb749eda08782667df8}} 
+\index{Enemy@{Enemy}!setHealth@{setHealth}}
+\index{setHealth@{setHealth}!Enemy@{Enemy}}
+\doxysubsubsection{\texorpdfstring{setHealth()}{setHealth()}}
+{\footnotesize\ttfamily void Enemy\+::set\+Health (\begin{DoxyParamCaption}\item[{int}]{h }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+sets the health value for the enemy 
+
+
+\begin{DoxyParams}{Parameters}
+{\em int} & h \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 94 of file Enemy.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{94 \{ health = h; healthHold = health; \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_enemy_a29f690a587f3c992a537042c4b2ea5dc}\label{class_enemy_a29f690a587f3c992a537042c4b2ea5dc}} 
+\index{Enemy@{Enemy}!SetKillFSM@{SetKillFSM}}
+\index{SetKillFSM@{SetKillFSM}!Enemy@{Enemy}}
+\doxysubsubsection{\texorpdfstring{SetKillFSM()}{SetKillFSM()}}
+{\footnotesize\ttfamily void Enemy\+::\+Set\+Kill\+FSM (\begin{DoxyParamCaption}\item[{bool}]{k }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+sets the boolean value of the kill\+FSM variable 
+
+
+\begin{DoxyParams}{Parameters}
+{\em k} & -\/ represents the value that will be assigned to the kill\+FSM boolean variable \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 138 of file Enemy.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{139     \{}
+\DoxyCodeLine{140         killFSM = k;}
+\DoxyCodeLine{141     \};}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_enemy_a807cd3be6023eef6f1e8b9734730aae0}\label{class_enemy_a807cd3be6023eef6f1e8b9734730aae0}} 
+\index{Enemy@{Enemy}!SetMoving@{SetMoving}}
+\index{SetMoving@{SetMoving}!Enemy@{Enemy}}
+\doxysubsubsection{\texorpdfstring{SetMoving()}{SetMoving()}}
+{\footnotesize\ttfamily void Enemy\+::\+Set\+Moving (\begin{DoxyParamCaption}\item[{bool}]{m }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+sets the value of the moving boolean value, which is set to true when the enemy is moving towards the enemy that has seen the player and called for their help 
+
+
+\begin{DoxyParams}{Parameters}
+{\em m} & -\/ represents the value you want to assign the moving boolean \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 389 of file Enemy.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{389 \{ moving = m; \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_enemy_a6189fba91b8dc458e5c324f9545f9c58}\label{class_enemy_a6189fba91b8dc458e5c324f9545f9c58}} 
+\index{Enemy@{Enemy}!setNewPos@{setNewPos}}
+\index{setNewPos@{setNewPos}!Enemy@{Enemy}}
+\doxysubsubsection{\texorpdfstring{setNewPos()}{setNewPos()}}
+{\footnotesize\ttfamily void Enemy\+::set\+New\+Pos (\begin{DoxyParamCaption}\item[{glm\+::vec3}]{p }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+sets the value of the new\+Pos vector 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & -\/ represents the value you want to assign the new\+Pos vector \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 407 of file Enemy.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{407 \{ \mbox{\hyperlink{class_enemy_a6e2103451585da73bd05a1b221debee7}{newPos}} = p; \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_enemy_a74abe45981ed89e34ec3e6927d9c5c8c}\label{class_enemy_a74abe45981ed89e34ec3e6927d9c5c8c}} 
+\index{Enemy@{Enemy}!SetPos@{SetPos}}
+\index{SetPos@{SetPos}!Enemy@{Enemy}}
+\doxysubsubsection{\texorpdfstring{SetPos()}{SetPos()}}
+{\footnotesize\ttfamily void Enemy\+::\+Set\+Pos (\begin{DoxyParamCaption}\item[{glm\+::vec3}]{p }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Sets the position of the game object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & -\/ the glm\+::vec3 position to be set \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 106 of file Enemy.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{106 \{ \mbox{\hyperlink{class_game_object_aaa26dd3d19a1476a0230dc0235d5c6be}{GameObject::SetPos}}(p); \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_enemy_a622f7433b50bdf441a29f510ab84621d}\label{class_enemy_a622f7433b50bdf441a29f510ab84621d}} 
+\index{Enemy@{Enemy}!SetState@{SetState}}
+\index{SetState@{SetState}!Enemy@{Enemy}}
+\doxysubsubsection{\texorpdfstring{SetState()}{SetState()}}
+{\footnotesize\ttfamily void Enemy\+::\+Set\+State (\begin{DoxyParamCaption}\item[{int}]{num }\end{DoxyParamCaption})}
+
+
+
+sets the animation state to the value provided as parameter, whether it be an integer or an enumerated type 
+
+
+\begin{DoxyParams}{Parameters}
+{\em num} & -\/ represents the num or enum that belongs to an animation state \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 681 of file Enemy.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{682 \{}
+\DoxyCodeLine{683     \mbox{\hyperlink{class_model}{Model}} temp = \mbox{\hyperlink{class_game_object_a4d2dd39231dc5fa8c9c9b29b91f8ec95}{GetModel}}();}
+\DoxyCodeLine{684     Md2Commands \mbox{\hyperlink{classstate}{state}};}
+\DoxyCodeLine{685     \textcolor{keywordflow}{switch} (num)}
+\DoxyCodeLine{686     \{}
+\DoxyCodeLine{687     \textcolor{keywordflow}{case} 0:}
+\DoxyCodeLine{688         \mbox{\hyperlink{classstate}{state}} = STAND;}
+\DoxyCodeLine{689         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{690     \textcolor{keywordflow}{case} 1:}
+\DoxyCodeLine{691         \mbox{\hyperlink{classstate}{state}} = RUN;}
+\DoxyCodeLine{692         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{693     \textcolor{keywordflow}{case} 2:}
+\DoxyCodeLine{694         \mbox{\hyperlink{classstate}{state}} = WALK;}
+\DoxyCodeLine{695         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{696     \textcolor{keywordflow}{case} 3:}
+\DoxyCodeLine{697         \mbox{\hyperlink{classstate}{state}} = ATTACK;}
+\DoxyCodeLine{698         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{699     \textcolor{keywordflow}{case} 4:}
+\DoxyCodeLine{700         \mbox{\hyperlink{classstate}{state}} = PAIN\_A;}
+\DoxyCodeLine{701         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{702     \textcolor{keywordflow}{case} 5:}
+\DoxyCodeLine{703         \mbox{\hyperlink{classstate}{state}} = PAIN\_B;}
+\DoxyCodeLine{704         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{705     \textcolor{keywordflow}{case} 6:}
+\DoxyCodeLine{706         \mbox{\hyperlink{classstate}{state}} = PAIN\_C;}
+\DoxyCodeLine{707         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{708     \textcolor{keywordflow}{case} 7:}
+\DoxyCodeLine{709         \mbox{\hyperlink{classstate}{state}} = JUMP;}
+\DoxyCodeLine{710         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{711     \textcolor{keywordflow}{case} 8:}
+\DoxyCodeLine{712         \mbox{\hyperlink{classstate}{state}} = FLIP;}
+\DoxyCodeLine{713         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{714     \textcolor{keywordflow}{case} 9:}
+\DoxyCodeLine{715         \mbox{\hyperlink{classstate}{state}} = SALUTE;}
+\DoxyCodeLine{716         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{717     \textcolor{keywordflow}{case} 10:}
+\DoxyCodeLine{718         \mbox{\hyperlink{classstate}{state}} = FALLBACK;}
+\DoxyCodeLine{719         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{720     \textcolor{keywordflow}{case} 11:}
+\DoxyCodeLine{721         \mbox{\hyperlink{classstate}{state}} = WAVE;}
+\DoxyCodeLine{722         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{723     \textcolor{keywordflow}{case} 12:}
+\DoxyCodeLine{724         \mbox{\hyperlink{classstate}{state}} = POINTING;}
+\DoxyCodeLine{725         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{726     \textcolor{keywordflow}{case} 13:}
+\DoxyCodeLine{727         \mbox{\hyperlink{classstate}{state}} = CROUCH\_STAND;}
+\DoxyCodeLine{728         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{729     \textcolor{keywordflow}{case} 14:}
+\DoxyCodeLine{730         \mbox{\hyperlink{classstate}{state}} = CROUCH\_WALK;}
+\DoxyCodeLine{731         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{732     \textcolor{keywordflow}{case} 15:}
+\DoxyCodeLine{733         \mbox{\hyperlink{classstate}{state}} = CROUCH\_ATTACK;}
+\DoxyCodeLine{734         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{735     \textcolor{keywordflow}{case} 16:}
+\DoxyCodeLine{736         \mbox{\hyperlink{classstate}{state}} = CROUCH\_PAIN;}
+\DoxyCodeLine{737         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{738     \textcolor{keywordflow}{case} 17:}
+\DoxyCodeLine{739         \mbox{\hyperlink{classstate}{state}} = CROUCH\_DEATH;}
+\DoxyCodeLine{740         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{741     \textcolor{keywordflow}{case} 18:}
+\DoxyCodeLine{742         \mbox{\hyperlink{classstate}{state}} = DEATH\_FALLBACK;}
+\DoxyCodeLine{743         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{744     \textcolor{keywordflow}{case} 19:}
+\DoxyCodeLine{745         \mbox{\hyperlink{classstate}{state}} = DEATH;}
+\DoxyCodeLine{746         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{747     \textcolor{keywordflow}{case} 20:}
+\DoxyCodeLine{748         \mbox{\hyperlink{classstate}{state}} = DEATH\_FALLBACKSLOW;}
+\DoxyCodeLine{749         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{750     \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{751         \mbox{\hyperlink{classstate}{state}} = WALK;}
+\DoxyCodeLine{752         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{753     \}}
+\DoxyCodeLine{754     temp.\mbox{\hyperlink{class_model_abeacaeec6265bc2565031e4badc91123}{SetState}}(\mbox{\hyperlink{classstate}{state}});}
+\DoxyCodeLine{755     \mbox{\hyperlink{class_game_object_a7d7bf2fb47b279323455347c841f0383}{SetModel}}(temp);}
+\DoxyCodeLine{756     wModel.\mbox{\hyperlink{class_model_abeacaeec6265bc2565031e4badc91123}{SetState}}(\mbox{\hyperlink{classstate}{state}});}
+\DoxyCodeLine{757 \}}
+
+\end{DoxyCode}
+
+
+References Model\+::\+Set\+State().
+
+
+
+Referenced by Reset\+Enemy().
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=295pt]{class_enemy_a622f7433b50bdf441a29f510ab84621d_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=318pt]{class_enemy_a622f7433b50bdf441a29f510ab84621d_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_enemy_affa586c312c78a562ec5130073330de1}\label{class_enemy_affa586c312c78a562ec5130073330de1}} 
+\index{Enemy@{Enemy}!setTimer@{setTimer}}
+\index{setTimer@{setTimer}!Enemy@{Enemy}}
+\doxysubsubsection{\texorpdfstring{setTimer()}{setTimer()}}
+{\footnotesize\ttfamily void Enemy\+::set\+Timer (\begin{DoxyParamCaption}\item[{int}]{t }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+sets the value of the timer 
+
+
+\begin{DoxyParams}{Parameters}
+{\em t} & -\/ represents the value you want to assign the timer \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 331 of file Enemy.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{331 \{ timer = t; \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_enemy_a9c4478a4920116aba556a7320afd09b4}\label{class_enemy_a9c4478a4920116aba556a7320afd09b4}} 
+\index{Enemy@{Enemy}!setToken@{setToken}}
+\index{setToken@{setToken}!Enemy@{Enemy}}
+\doxysubsubsection{\texorpdfstring{setToken()}{setToken()}}
+{\footnotesize\ttfamily void Enemy\+::set\+Token (\begin{DoxyParamCaption}\item[{bool}]{t }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+sets the value of the token 
+
+
+\begin{DoxyParams}{Parameters}
+{\em t} & -\/ represents the value you want to set token \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 307 of file Enemy.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{307 \{ token = t; \}}
+
+\end{DoxyCode}
+
+
+Referenced by Update().
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=293pt]{class_enemy_a9c4478a4920116aba556a7320afd09b4_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_enemy_a8410dd9b89bff7d721af005d6284b80c}\label{class_enemy_a8410dd9b89bff7d721af005d6284b80c}} 
+\index{Enemy@{Enemy}!setVelocity@{setVelocity}}
+\index{setVelocity@{setVelocity}!Enemy@{Enemy}}
+\doxysubsubsection{\texorpdfstring{setVelocity()}{setVelocity()}}
+{\footnotesize\ttfamily void Enemy\+::set\+Velocity (\begin{DoxyParamCaption}\item[{glm\+::vec3}]{v }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+function that allows you to set the values of the velocity vector 
+
+
+\begin{DoxyParams}{Parameters}
+{\em v} & -\/ represents the vector value you want to assign to velocity \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 259 of file Enemy.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{259 \{ \mbox{\hyperlink{class_enemy_a73529a10a7aa7adb28a74529d48e1192}{velocity}} = v;\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_enemy_a9248a3396cd0b483d59cca6c126e0479}\label{class_enemy_a9248a3396cd0b483d59cca6c126e0479}} 
+\index{Enemy@{Enemy}!setWander@{setWander}}
+\index{setWander@{setWander}!Enemy@{Enemy}}
+\doxysubsubsection{\texorpdfstring{setWander()}{setWander()}}
+{\footnotesize\ttfamily void Enemy\+::set\+Wander (\begin{DoxyParamCaption}\item[{double}]{wander\+Radius,  }\item[{double}]{wander\+Distance,  }\item[{double}]{wander\+Jitter }\end{DoxyParamCaption})}
+
+
+
+a function used to set the values that will be used in the wander movement function 
+
+
+\begin{DoxyParams}{Parameters}
+{\em wander\+Radius} & -\/ the radius of the wander circle \\
+\hline
+{\em wander\+Distance} & -\/ the distance the wander circle is projected in front of the agent \\
+\hline
+{\em wander\+Jitter} & -\/ represents the max amount of the displacement \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 914 of file Enemy.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{915 \{}
+\DoxyCodeLine{916     this-\/>wanderRadius = wanderRadius;}
+\DoxyCodeLine{917     this-\/>wanderDistance = wanderDistance;}
+\DoxyCodeLine{918     this-\/>wanderJitter = wanderJitter;}
+\DoxyCodeLine{919     \textcolor{keywordtype}{double} theta = ((rand()) / (RAND\_MAX + 1.0)) * (2 * PI);}
+\DoxyCodeLine{920     wanderTarget = \{ cos(theta), 0, sin(theta) \};}
+\DoxyCodeLine{921 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_enemy_a52e457d021940a08425747f0286b31d3}\label{class_enemy_a52e457d021940a08425747f0286b31d3}} 
+\index{Enemy@{Enemy}!StreamValues@{StreamValues}}
+\index{StreamValues@{StreamValues}!Enemy@{Enemy}}
+\doxysubsubsection{\texorpdfstring{StreamValues()}{StreamValues()}}
+{\footnotesize\ttfamily std\+::string Enemy\+::\+Stream\+Values (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Returns the streamed values for the game object. 
+
+\begin{DoxyReturn}{Returns}
+streamed Values of the game object 
+\end{DoxyReturn}
+
+
+Reimplemented from \mbox{\hyperlink{class_game_object_a5612822e9990a129feed8ea6f658ee00}{Game\+Object}}.
+
+
+
+Definition at line 1112 of file Enemy.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1113 \{}
+\DoxyCodeLine{1114     \textcolor{keywordflow}{return} \mbox{\hyperlink{class_game_object_a16923ded4375011aaf9631a13c775f10}{GetType}}() + \textcolor{stringliteral}{"{} "{}} + \mbox{\hyperlink{class_game_object_aefd6e5a65e63a17967a3cd9c146c1c27}{GetScriptName}}() + \textcolor{stringliteral}{"{} "{}} + std::to\_string(\mbox{\hyperlink{class_game_object_a0fb90bbb74c8988d23e865280a065901}{GetScale}}()) + \textcolor{stringliteral}{"{} "{}} + std::to\_string(\mbox{\hyperlink{class_enemy_a577c864252d94cfe4f592a975547d4b5}{GetPos}}().x) + \textcolor{stringliteral}{"{} "{}} + std::to\_string(\mbox{\hyperlink{class_enemy_a577c864252d94cfe4f592a975547d4b5}{GetPos}}().y) + \textcolor{stringliteral}{"{} "{}} + std::to\_string(\mbox{\hyperlink{class_enemy_a577c864252d94cfe4f592a975547d4b5}{GetPos}}().z) + \textcolor{stringliteral}{"{} "{}} + std::to\_string(health) + \textcolor{stringliteral}{"{} "{}} + std::to\_string(ammo) + \textcolor{stringliteral}{"{} "{}} + \mbox{\hyperlink{class_enemy_ae5a35caba056f8f4843476734bcc7f64}{ReturnState}}() + \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{1115 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_enemy_aaa82099578cf100fadda6c2d87c8e076}\label{class_enemy_aaa82099578cf100fadda6c2d87c8e076}} 
+\index{Enemy@{Enemy}!Update@{Update}}
+\index{Update@{Update}!Enemy@{Enemy}}
+\doxysubsubsection{\texorpdfstring{Update()}{Update()}}
+{\footnotesize\ttfamily void Enemy\+::\+Update (\begin{DoxyParamCaption}\item[{float}]{time }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Updates the game object with functionality. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em time} & -\/ the time since the last frame (deltatime) \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \mbox{\hyperlink{class_game_object_aecdbe6a05d3183236f1bbec09fa235f8}{Game\+Object}}.
+
+
+
+Definition at line 572 of file Enemy.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{573 \{}
+\DoxyCodeLine{574 }
+\DoxyCodeLine{575     \textcolor{keywordflow}{if}(Debugger::GetInstance()-\/>debugFSMToConsole)}
+\DoxyCodeLine{576     \{}
+\DoxyCodeLine{577         std::cout << \mbox{\hyperlink{class_game_object_a3e5f61bc1a1348752b50b9d1bb27a4fc}{GetId}}() << \textcolor{stringliteral}{"{} player has token = "{}} << token << std::endl;}
+\DoxyCodeLine{578     \}}
+\DoxyCodeLine{579     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(Debugger::GetInstance()-\/>debugInfoToLogFile)}
+\DoxyCodeLine{580     \{}
+\DoxyCodeLine{581         Debugger::GetInstance()-\/>\mbox{\hyperlink{class_debugger_a3178f40262f4cc7e562771544aadf35c}{AppendLogger}}(\textcolor{stringliteral}{"{}Enemy.cpp"{}}, std::to\_string(\mbox{\hyperlink{class_game_object_a3e5f61bc1a1348752b50b9d1bb27a4fc}{GetId}}()) +\textcolor{stringliteral}{"{} player has token = "{}} + std::to\_string(token));}
+\DoxyCodeLine{582     \}}
+\DoxyCodeLine{583 }
+\DoxyCodeLine{584     \textcolor{comment}{//if (function.isTable())}}
+\DoxyCodeLine{585     \textcolor{comment}{//\{}}
+\DoxyCodeLine{586     \textcolor{comment}{//  function[1](this);}}
+\DoxyCodeLine{587     \textcolor{comment}{//\}}}
+\DoxyCodeLine{588     \textcolor{keywordflow}{if} (alive)}
+\DoxyCodeLine{589     \{}
+\DoxyCodeLine{590         \textcolor{keywordflow}{if} (!\mbox{\hyperlink{class_enemy_aa5be702e4371963de69f7dc7859c14d1}{startTimer}})}
+\DoxyCodeLine{591         \{}
+\DoxyCodeLine{592             \textcolor{keywordflow}{if} (\mbox{\hyperlink{classsingleton}{singleton<Manager>::getInstance}}().prevToken == \textcolor{stringliteral}{"{}DoubleDamage"{}} \&\& \mbox{\hyperlink{classsingleton}{singleton<Manager>::getInstance}}().timer > 0)}
+\DoxyCodeLine{593             \{}
+\DoxyCodeLine{594                 std::cout << singleton<Manager>::getInstance().timer << std::endl;}
+\DoxyCodeLine{595                 \mbox{\hyperlink{class_enemy_a9c4478a4920116aba556a7320afd09b4}{setToken}}(\textcolor{keyword}{true});}
+\DoxyCodeLine{596             \}}
+\DoxyCodeLine{597             \textcolor{keywordflow}{else}}
+\DoxyCodeLine{598                 \mbox{\hyperlink{class_enemy_a9c4478a4920116aba556a7320afd09b4}{setToken}}(\textcolor{keyword}{false});}
+\DoxyCodeLine{599 }
+\DoxyCodeLine{600             \textcolor{keywordflow}{if} (killFSM == \textcolor{keyword}{false})}
+\DoxyCodeLine{601                 enemyFSM-\/>update();}
+\DoxyCodeLine{602             \textcolor{keywordflow}{else}}
+\DoxyCodeLine{603             \{}
+\DoxyCodeLine{604                 \textcolor{keywordflow}{if} (Debugger::GetInstance()-\/>debugFSMToConsole)}
+\DoxyCodeLine{605                 \{}
+\DoxyCodeLine{606                     std::cout << \textcolor{stringliteral}{"{}Should be destroyed"{}} << std::endl;}
+\DoxyCodeLine{607                 \}}
+\DoxyCodeLine{608                 \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(Debugger::GetInstance()-\/>debugInfoToLogFile)}
+\DoxyCodeLine{609                 \{}
+\DoxyCodeLine{610                     Debugger::GetInstance()-\/>\mbox{\hyperlink{class_debugger_a3178f40262f4cc7e562771544aadf35c}{AppendLogger}}(\textcolor{stringliteral}{"{}Enemy.cpp"{}}, \textcolor{stringliteral}{"{}Enemy FSM Should be destroyed"{}});}
+\DoxyCodeLine{611                 \}}
+\DoxyCodeLine{612                 std::cout << \textcolor{stringliteral}{"{}hi2.1"{}} << std::endl;}
+\DoxyCodeLine{613                 \textcolor{keywordflow}{if} (\mbox{\hyperlink{class_enemy_a9628e768b1ef212995484cdfd3d2fea7}{getTimer}}() != 400)}
+\DoxyCodeLine{614                 \{}
+\DoxyCodeLine{615                     \mbox{\hyperlink{class_enemy_a8848fe440fb23e58fcc39d4e96199034}{incrementTimer}}();}
+\DoxyCodeLine{616                     \textcolor{keywordflow}{if} (Debugger::GetInstance()-\/>debugToConsole)}
+\DoxyCodeLine{617                     \{}
+\DoxyCodeLine{618                         std::cout << \textcolor{stringliteral}{"{}TIMER: "{}} << \mbox{\hyperlink{class_enemy_a9628e768b1ef212995484cdfd3d2fea7}{getTimer}}() << std::endl;}
+\DoxyCodeLine{619                     \}}
+\DoxyCodeLine{620                     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(Debugger::GetInstance()-\/>debugInfoToLogFile)}
+\DoxyCodeLine{621                     \{}
+\DoxyCodeLine{622                         Debugger::GetInstance()-\/>\mbox{\hyperlink{class_debugger_a3178f40262f4cc7e562771544aadf35c}{AppendLogger}}(\textcolor{stringliteral}{"{}Enemy.cpp"{}}, \textcolor{stringliteral}{"{}Timer: "{}} + std::to\_string(\mbox{\hyperlink{class_enemy_a9628e768b1ef212995484cdfd3d2fea7}{getTimer}}()));}
+\DoxyCodeLine{623                     \}}
+\DoxyCodeLine{624                 \}}
+\DoxyCodeLine{625                 \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\mbox{\hyperlink{class_enemy_a9628e768b1ef212995484cdfd3d2fea7}{getTimer}}() == 400)}
+\DoxyCodeLine{626                 \{}
+\DoxyCodeLine{627                     alive = \textcolor{keyword}{false};}
+\DoxyCodeLine{628                 \}}
+\DoxyCodeLine{629             \}}
+\DoxyCodeLine{630 }
+\DoxyCodeLine{631             \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_game_object_a4d2dd39231dc5fa8c9c9b29b91f8ec95}{GetModel}}().GetState().type == 3)}
+\DoxyCodeLine{632             \{}
+\DoxyCodeLine{633                 \textcolor{comment}{//If were attacking}}
+\DoxyCodeLine{634                 weaponTimer -\/= time;}
+\DoxyCodeLine{635                 \textcolor{keywordflow}{if}(weaponTimer <= 0)}
+\DoxyCodeLine{636                 \{}
+\DoxyCodeLine{637                     weaponTimer = 0.5f;}
+\DoxyCodeLine{638                     fireWeapon = \textcolor{keyword}{true};}
+\DoxyCodeLine{639                 \}}
+\DoxyCodeLine{640             \}}
+\DoxyCodeLine{641         \}}
+\DoxyCodeLine{642         \textcolor{keywordflow}{else}}
+\DoxyCodeLine{643         \{}
+\DoxyCodeLine{644             deathtimer -\/= time;}
+\DoxyCodeLine{645             \textcolor{keywordflow}{if} (deathtimer <= 0)}
+\DoxyCodeLine{646                 alive = \textcolor{keyword}{false};}
+\DoxyCodeLine{647         \}}
+\DoxyCodeLine{648     \}}
+\DoxyCodeLine{649 \}}
+
+\end{DoxyCode}
+
+
+References Debugger\+::\+Append\+Logger(), Debugger\+::debug\+FSMTo\+Console, Debugger\+::debug\+Info\+To\+Log\+File, Debugger\+::debug\+To\+Console, get\+Timer(), increment\+Timer(), set\+Token(), and start\+Timer.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=326pt]{class_enemy_aaa82099578cf100fadda6c2d87c8e076_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_enemy_a98b0a0e9524f39a26eb4484e6da4b9a6}\label{class_enemy_a98b0a0e9524f39a26eb4484e6da4b9a6}} 
+\index{Enemy@{Enemy}!wander@{wander}}
+\index{wander@{wander}!Enemy@{Enemy}}
+\doxysubsubsection{\texorpdfstring{wander()}{wander()}}
+{\footnotesize\ttfamily bool Enemy\+::wander (\begin{DoxyParamCaption}\item[{glm\+::vec3 \&}]{position,  }\item[{glm\+::vec3 \&}]{velocity,  }\item[{float}]{time,  }\item[{std\+::string}]{type }\end{DoxyParamCaption})}
+
+
+
+a function used to set the values that will be used in the wander movement function 
+
+
+\begin{DoxyParams}{Parameters}
+{\em position} & -\/ the position of the enemy \\
+\hline
+{\em velocity} & -\/ the velocity of the enemy \\
+\hline
+{\em time} & -\/ represents the time \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool 
+\end{DoxyReturn}
+
+
+Definition at line 923 of file Enemy.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{924 \{}
+\DoxyCodeLine{925     \textcolor{keywordtype}{float} jitter = wanderJitter * time;}
+\DoxyCodeLine{926     wanderTarget += glm::vec3(randomClamped() * jitter, 0.0, randomClamped() * jitter);}
+\DoxyCodeLine{927     \textcolor{comment}{//reproject the new vector back on to a unit circle}}
+\DoxyCodeLine{928     wanderTarget = glm::normalize(wanderTarget);}
+\DoxyCodeLine{929     glm::vec3 heading(\mbox{\hyperlink{class_enemy_a73529a10a7aa7adb28a74529d48e1192}{velocity}});}
+\DoxyCodeLine{930     heading = glm::normalize(heading);}
+\DoxyCodeLine{931 }
+\DoxyCodeLine{932     glm::vec3 wanderCircleWorldCentre = position + (heading * (float)wanderDistance);}
+\DoxyCodeLine{933 }
+\DoxyCodeLine{934     \textcolor{comment}{//project the wanderTarget to the enlarged wander circle in the world}}
+\DoxyCodeLine{935     glm::vec3 targetWorld = wanderCircleWorldCentre + (wanderTarget * (float)wanderRadius);}
+\DoxyCodeLine{936     \textcolor{comment}{//move to the new target position}}
+\DoxyCodeLine{937     \mbox{\hyperlink{class_enemy_ab3fbdd83b20287e3d9e0d0ad865df326}{moveTo}}(position, targetWorld, \mbox{\hyperlink{class_enemy_a73529a10a7aa7adb28a74529d48e1192}{velocity}}, deltaTime, 0, type);}
+\DoxyCodeLine{938     \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{939 \}}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/chris/\+Documents/\+UNI/\+ICT397-\/\+Project/\+ICT397-\/\+Project-\/\+Engine/Enemy.\+h\item 
+C\+:/\+Users/chris/\+Documents/\+UNI/\+ICT397-\/\+Project/\+ICT397-\/\+Project-\/\+Engine/Enemy.\+cpp\end{DoxyCompactItemize}

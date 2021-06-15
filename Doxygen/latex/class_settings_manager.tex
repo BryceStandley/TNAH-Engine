@@ -1,0 +1,99 @@
+\hypertarget{class_settings_manager}{}\doxysection{Settings\+Manager Class Reference}
+\label{class_settings_manager}\index{SettingsManager@{SettingsManager}}
+
+
+Collaboration diagram for Settings\+Manager\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=249pt]{class_settings_manager__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_settings_manager_a845228c50b0bb231ce966aedbcf7e4c1}\label{class_settings_manager_a845228c50b0bb231ce966aedbcf7e4c1}} 
+void {\bfseries Toggle\+Fullscreen} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{class_settings_manager}{Settings\+Manager}} $\ast$ \mbox{\hyperlink{class_settings_manager_a12338ff674491e29937459b949152692}{Get\+Instance}} ()
+\begin{DoxyCompactList}\small\item\em Singelton return of a single static settings manager object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_settings_manager_acb36c57790d8ed5a8e290f3e731203a2}\label{class_settings_manager_acb36c57790d8ed5a8e290f3e731203a2}} 
+bool \mbox{\hyperlink{class_settings_manager_acb36c57790d8ed5a8e290f3e731203a2}{fullscreen}} = false
+\begin{DoxyCompactList}\small\item\em Toggle for enabling/disabling the funscreen mode. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_settings_manager_a1a69611c50c4df438821184e6b90338c}\label{class_settings_manager_a1a69611c50c4df438821184e6b90338c}} 
+bool {\bfseries toggled\+Fullscreen} = false
+\item 
+\mbox{\Hypertarget{class_settings_manager_ae1751fc36deb61e0a431d93a96b361a4}\label{class_settings_manager_ae1751fc36deb61e0a431d93a96b361a4}} 
+GLFWwindow $\ast$ \mbox{\hyperlink{class_settings_manager_ae1751fc36deb61e0a431d93a96b361a4}{window\+Ref}}
+\begin{DoxyCompactList}\small\item\em Reference to the GLFW window to enable and disable settings. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_settings_manager_a8fd1e02d33b3e90c4e0a1bc93294b767}\label{class_settings_manager_a8fd1e02d33b3e90c4e0a1bc93294b767}} 
+glm\+::vec2 {\bfseries window\+Size}
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_settings_manager_a70fb547f91d329638ad9b122b9d7d818}\label{class_settings_manager_a70fb547f91d329638ad9b122b9d7d818}} 
+static \mbox{\hyperlink{class_settings_manager}{Settings\+Manager}} $\ast$ {\bfseries instance} = nullptr
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 13 of file Settings\+Manager.\+h.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_settings_manager_a12338ff674491e29937459b949152692}\label{class_settings_manager_a12338ff674491e29937459b949152692}} 
+\index{SettingsManager@{SettingsManager}!GetInstance@{GetInstance}}
+\index{GetInstance@{GetInstance}!SettingsManager@{SettingsManager}}
+\doxysubsubsection{\texorpdfstring{GetInstance()}{GetInstance()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_settings_manager}{Settings\+Manager}} $\ast$ Settings\+Manager\+::\+Get\+Instance (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Singelton return of a single static settings manager object. 
+
+\begin{DoxyReturn}{Returns}
+instance 
+\end{DoxyReturn}
+
+
+Definition at line 10 of file Settings\+Manager.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{11 \{}
+\DoxyCodeLine{12     \textcolor{keywordflow}{if}(instance == \textcolor{keyword}{nullptr})}
+\DoxyCodeLine{13     \{}
+\DoxyCodeLine{14         instance = \textcolor{keyword}{new} \mbox{\hyperlink{class_settings_manager}{SettingsManager}}();}
+\DoxyCodeLine{15     \}}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{17     \textcolor{keywordflow}{return} instance;}
+\DoxyCodeLine{18 \}}
+
+\end{DoxyCode}
+
+
+Referenced by Engine\+::\+Run().
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=335pt]{class_settings_manager_a12338ff674491e29937459b949152692_icgraph}
+\end{center}
+\end{figure}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/chris/\+Documents/\+UNI/\+ICT397-\/\+Project/\+ICT397-\/\+Project-\/\+Engine/Settings\+Manager.\+h\item 
+C\+:/\+Users/chris/\+Documents/\+UNI/\+ICT397-\/\+Project/\+ICT397-\/\+Project-\/\+Engine/Settings\+Manager.\+cpp\end{DoxyCompactItemize}

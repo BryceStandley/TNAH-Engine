@@ -1,18 +1,17 @@
 #include "GameObject.h"
 
-glm::mat4 GameObject::GenerateMatFour()
+
+void GameObject::Update(float time)
 {
-    glm::mat4 m = glm::mat4(1.0f);
-    m = glm::translate(m, pos); // translate it too the position on the screen we want it
-    m = glm::scale(m, glm::vec3(scale, scale, scale));	// it's a bit too big for our scene, so scale it down
-
-    m = glm::rotate(m, glm::radians(90.0f), glm::vec3(0.0f, 0.0f, 1.0f));
-    m = glm::rotate(m, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-
-    return m;
+    std::cout << "GAMEOBJECT::ERROR::UPDATE::TYPE_NOT_SET" << std::endl;
 }
 
-glm::mat4 GameObject::GenerateMatFourForMesh(int i)
+void GameObject::Render(View lens, float time, Renderer* gameRenderer)
 {
-    return (GenerateMatFour() * model.meshes[i].transform);
+    model.Render(lens, shader, pos, rotation, scale, rotate, time, 0, gameRenderer, false);
+}
+
+std::string GameObject::StreamValues()
+{
+	return GetType() + " " + GetScriptName() + " " + std::to_string(GetScale()) + " " + std::to_string(pos.x) + " " + std::to_string(pos.y) + " " + std::to_string(pos.z) + "\n";
 }

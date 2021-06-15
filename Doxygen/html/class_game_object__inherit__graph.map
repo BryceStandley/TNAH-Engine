@@ -1,0 +1,8 @@
+<map id="GameObject" name="GameObject">
+<area shape="rect" id="node1" title="Class that holds the main information of a game object, that is abstracted for more specific reasons." alt="" coords="298,5,413,229"/>
+<area shape="rect" id="node2" href="$class_enemy.html" title="Abstract GameObject class for enemies." alt="" coords="5,277,137,663"/>
+<area shape="rect" id="node3" href="$class_player.html" title="Abstract GameObject class for the player." alt="" coords="162,307,290,633"/>
+<area shape="rect" id="node4" href="$class_static.html" title="Abstract GameObject class for static game objects." alt="" coords="314,424,397,516"/>
+<area shape="rect" id="node5" href="$class_token.html" title="Abstract GameObject class for in game tokens." alt="" coords="421,409,503,531"/>
+<area shape="rect" id="node6" href="$class_water.html" title=" " alt="" coords="527,351,682,589"/>
+</map>

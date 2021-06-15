@@ -1,0 +1,107 @@
+\hypertarget{class_time}{}\doxysection{Time Class Reference}
+\label{class_time}\index{Time@{Time}}
+
+
+\mbox{\hyperlink{class_time}{Time}} class is responsible for managing the time between frames.  
+
+
+
+
+{\ttfamily \#include $<$Time.\+h$>$}
+
+
+
+Collaboration diagram for Time\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=163pt]{class_time__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_time_a4245e409c7347d1d671858962c2ca3b5}\label{class_time_a4245e409c7347d1d671858962c2ca3b5}} 
+\mbox{\hyperlink{class_time_a4245e409c7347d1d671858962c2ca3b5}{Time}} ()
+\begin{DoxyCompactList}\small\item\em default constructor used to initialise lastframe variable \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_time_a7319b891070994f4e2ad4a228138c55f}{Update\+Time}} (float current\+Frame)
+\begin{DoxyCompactList}\small\item\em takes in the current frame and performs per-\/frame time logic to update the time \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{class_time_ad543732facbdbe2aa7298de13cb2a12b}{Delta\+Time}} ()
+\begin{DoxyCompactList}\small\item\em gets and returns the value of delta \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\mbox{\hyperlink{class_time}{Time}} class is responsible for managing the time between frames. 
+
+\begin{DoxyAuthor}{Author}
+Christoper Logan 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+01 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+12/03/2021 Christopher Logan, Started 
+\end{DoxyDate}
+
+
+Definition at line 13 of file Time.\+h.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_time_ad543732facbdbe2aa7298de13cb2a12b}\label{class_time_ad543732facbdbe2aa7298de13cb2a12b}} 
+\index{Time@{Time}!DeltaTime@{DeltaTime}}
+\index{DeltaTime@{DeltaTime}!Time@{Time}}
+\doxysubsubsection{\texorpdfstring{DeltaTime()}{DeltaTime()}}
+{\footnotesize\ttfamily float Time\+::\+Delta\+Time (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+gets and returns the value of delta 
+
+\begin{DoxyReturn}{Returns}
+float 
+\end{DoxyReturn}
+
+
+Definition at line 39 of file Time.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{40     \{}
+\DoxyCodeLine{41         \textcolor{keywordflow}{return} deltaTime;}
+\DoxyCodeLine{42     \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_time_a7319b891070994f4e2ad4a228138c55f}\label{class_time_a7319b891070994f4e2ad4a228138c55f}} 
+\index{Time@{Time}!UpdateTime@{UpdateTime}}
+\index{UpdateTime@{UpdateTime}!Time@{Time}}
+\doxysubsubsection{\texorpdfstring{UpdateTime()}{UpdateTime()}}
+{\footnotesize\ttfamily void Time\+::\+Update\+Time (\begin{DoxyParamCaption}\item[{float}]{current\+Frame }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+takes in the current frame and performs per-\/frame time logic to update the time 
+
+
+\begin{DoxyParams}{Parameters}
+{\em current\+Frame} & -\/ represents the current frame being rendered \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 29 of file Time.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{30     \{}
+\DoxyCodeLine{31         deltaTime = currentFrame -\/ lastFrame;}
+\DoxyCodeLine{32         lastFrame = currentFrame;}
+\DoxyCodeLine{33     \}}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/chris/\+Documents/\+UNI/\+ICT397-\/\+Project/\+ICT397-\/\+Project-\/\+Engine/Time.\+h\end{DoxyCompactItemize}

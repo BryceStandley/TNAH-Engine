@@ -1,0 +1,4 @@
+<map id="Enemy::SetFireWeapon" name="Enemy::SetFireWeapon">
+<area shape="rect" id="node1" title="Sets if the weapon is firing or not." alt="" coords="232,5,393,32"/>
+<area shape="rect" id="node2" href="$class_scene.html#afb72f3d0fc00e8e9cf30c169733ddc31" title="Initilises the scene, setting up the terrain and skybox." alt="" coords="5,5,184,32"/>
+</map>

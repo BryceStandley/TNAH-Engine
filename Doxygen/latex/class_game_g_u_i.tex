@@ -1,0 +1,106 @@
+\hypertarget{class_game_g_u_i}{}\doxysection{Game\+GUI Class Reference}
+\label{class_game_g_u_i}\index{GameGUI@{GameGUI}}
+
+
+Inheritance diagram for Game\+GUI\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=200pt]{class_game_g_u_i__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Game\+GUI\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=200pt]{class_game_g_u_i__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_game_g_u_i_ae695cad97caa23336e92964724c166d4}\label{class_game_g_u_i_ae695cad97caa23336e92964724c166d4}} 
+{\bfseries Game\+GUI} (std\+::string script\+Path)
+\item 
+\mbox{\Hypertarget{class_game_g_u_i_aa340735bab536c6a96bb81092e78689c}\label{class_game_g_u_i_aa340735bab536c6a96bb81092e78689c}} 
+virtual void {\bfseries Draw} (\mbox{\hyperlink{class_player}{Player}} $\ast$dude)
+\item 
+\mbox{\Hypertarget{class_game_g_u_i_ad038c062dbf9ea3d1d9d1d2abcf71c78}\label{class_game_g_u_i_ad038c062dbf9ea3d1d9d1d2abcf71c78}} 
+void {\bfseries Hide\+Game\+UI} ()
+\item 
+\mbox{\Hypertarget{class_game_g_u_i_a25dff7d099d45a2b958a5fdbc9a4d840}\label{class_game_g_u_i_a25dff7d099d45a2b958a5fdbc9a4d840}} 
+void {\bfseries Display\+Death\+Screen} ()
+\item 
+\mbox{\Hypertarget{class_game_g_u_i_a02259674e4f6ff966e2f71930675f625}\label{class_game_g_u_i_a02259674e4f6ff966e2f71930675f625}} 
+void {\bfseries Display\+Game\+UI} ()
+\item 
+float \mbox{\hyperlink{class_game_g_u_i_af46063dd9bd1cd502a8297e9cc01d104}{Remap}} (float value, float old\+Min, float old\+Max, float new\+Min, float new\+Max)
+\begin{DoxyCompactList}\small\item\em Remaps a value from one range to another. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_game_g_u_i_a3f83ce5a64673c323669dd9392c2eae0}\label{class_game_g_u_i_a3f83ce5a64673c323669dd9392c2eae0}} 
+bool {\bfseries display\+Game\+UI} = true
+\item 
+\mbox{\Hypertarget{class_game_g_u_i_ab60a3caf107be9a490b24197f02cbc5d}\label{class_game_g_u_i_ab60a3caf107be9a490b24197f02cbc5d}} 
+bool {\bfseries display\+Death\+Screen} = false
+\item 
+\mbox{\Hypertarget{class_game_g_u_i_a87d8670798bf1fd813f5615825ebc2eb}\label{class_game_g_u_i_a87d8670798bf1fd813f5615825ebc2eb}} 
+float {\bfseries terrain\+Height}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 5 of file Game\+GUI.\+h.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_game_g_u_i_af46063dd9bd1cd502a8297e9cc01d104}\label{class_game_g_u_i_af46063dd9bd1cd502a8297e9cc01d104}} 
+\index{GameGUI@{GameGUI}!Remap@{Remap}}
+\index{Remap@{Remap}!GameGUI@{GameGUI}}
+\doxysubsubsection{\texorpdfstring{Remap()}{Remap()}}
+{\footnotesize\ttfamily float Game\+GUI\+::\+Remap (\begin{DoxyParamCaption}\item[{float}]{value,  }\item[{float}]{old\+Min,  }\item[{float}]{old\+Max,  }\item[{float}]{new\+Min,  }\item[{float}]{new\+Max }\end{DoxyParamCaption})}
+
+
+
+Remaps a value from one range to another. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & -\/ value to remap \\
+\hline
+{\em old\+Min} & -\/ old min value \\
+\hline
+{\em old\+Max} & -\/ old max value \\
+\hline
+{\em new\+Min} & -\/ new min value \\
+\hline
+{\em new\+Max} & -\/ new max value \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+output -\/ new value in the same range of the old values but within the new values 
+\end{DoxyReturn}
+
+
+Definition at line 139 of file Game\+GUI.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{140 \{}
+\DoxyCodeLine{141     \textcolor{keywordtype}{float} out = newMin + (newMax -\/ newMin) * ((value -\/ oldMin) / (oldMax -\/ oldMin));}
+\DoxyCodeLine{142     \textcolor{keywordflow}{return} out;}
+\DoxyCodeLine{143 \}}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/chris/\+Documents/\+UNI/\+ICT397-\/\+Project/\+ICT397-\/\+Project-\/\+Engine/Game\+GUI.\+h\item 
+C\+:/\+Users/chris/\+Documents/\+UNI/\+ICT397-\/\+Project/\+ICT397-\/\+Project-\/\+Engine/Game\+GUI.\+cpp\end{DoxyCompactItemize}

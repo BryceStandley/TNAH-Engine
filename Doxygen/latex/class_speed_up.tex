@@ -1,0 +1,165 @@
+\hypertarget{class_speed_up}{}\doxysection{Speed\+Up Class Reference}
+\label{class_speed_up}\index{SpeedUp@{SpeedUp}}
+
+
+A derived class that inherits from the state class. Represents the \mbox{\hyperlink{class_speed_up}{Speed\+Up}} state of the \mbox{\hyperlink{class_player}{Player}} FSM.  
+
+
+
+
+{\ttfamily \#include $<$player\+States.\+h$>$}
+
+
+
+Inheritance diagram for Speed\+Up\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=172pt]{class_speed_up__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Speed\+Up\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=172pt]{class_speed_up__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \mbox{\hyperlink{class_speed_up_adaad3c3b36b8fade0a8a7c450dcb6305}{Enter}} (\mbox{\hyperlink{class_player}{Player}} $\ast$dude)
+\begin{DoxyCompactList}\small\item\em virtual function that represents the entry point of the state \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_speed_up_ad50ec02d11ccf7e524b5d38e79ab37c2}{Execute}} (\mbox{\hyperlink{class_player}{Player}} $\ast$dude)
+\begin{DoxyCompactList}\small\item\em virtual function that represents the execute point of the state \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_speed_up_a207c844a2120d6e8116d95662879aef4}{Exit}} (\mbox{\hyperlink{class_player}{Player}} $\ast$dude)
+\begin{DoxyCompactList}\small\item\em virtual function that represents the exit point of the state \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A derived class that inherits from the state class. Represents the \mbox{\hyperlink{class_speed_up}{Speed\+Up}} state of the \mbox{\hyperlink{class_player}{Player}} FSM. 
+
+\begin{DoxyAuthor}{Author}
+Dylan Blereau 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+01 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+02/05/2021 Dylan Blereau, Started 
+\end{DoxyDate}
+
+
+Definition at line 87 of file player\+States.\+h.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_speed_up_adaad3c3b36b8fade0a8a7c450dcb6305}\label{class_speed_up_adaad3c3b36b8fade0a8a7c450dcb6305}} 
+\index{SpeedUp@{SpeedUp}!Enter@{Enter}}
+\index{Enter@{Enter}!SpeedUp@{SpeedUp}}
+\doxysubsubsection{\texorpdfstring{Enter()}{Enter()}}
+{\footnotesize\ttfamily void Speed\+Up\+::\+Enter (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_player}{Player}} $\ast$}]{dude }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+virtual function that represents the entry point of the state 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dude} & -\/ a pointer to the \mbox{\hyperlink{class_player}{Player}} object \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_state_aab4cca8d69092deacf053cf2b12e4cd6}{State$<$ Player $>$}}.
+
+
+
+Definition at line 59 of file player\+States.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{60 \{}
+\DoxyCodeLine{61     \textcolor{keywordflow}{if} (dude-\/>speedBoost.isTable())}
+\DoxyCodeLine{62     \{}
+\DoxyCodeLine{63         dude-\/>speedBoost[1](dude);}
+\DoxyCodeLine{64     \}}
+\DoxyCodeLine{65 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_speed_up_ad50ec02d11ccf7e524b5d38e79ab37c2}\label{class_speed_up_ad50ec02d11ccf7e524b5d38e79ab37c2}} 
+\index{SpeedUp@{SpeedUp}!Execute@{Execute}}
+\index{Execute@{Execute}!SpeedUp@{SpeedUp}}
+\doxysubsubsection{\texorpdfstring{Execute()}{Execute()}}
+{\footnotesize\ttfamily void Speed\+Up\+::\+Execute (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_player}{Player}} $\ast$}]{dude }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+virtual function that represents the execute point of the state 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dude} & -\/ a pointer to the \mbox{\hyperlink{class_player}{Player}} object \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_state_a7b7e948b4fe83e3686564e453ed0c406}{State$<$ Player $>$}}.
+
+
+
+Definition at line 67 of file player\+States.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{68 \{}
+\DoxyCodeLine{69     }
+\DoxyCodeLine{70     \textcolor{keywordflow}{if} (dude-\/>speedBoost.isTable())}
+\DoxyCodeLine{71     \{}
+\DoxyCodeLine{72         dude-\/>speedBoost[2](dude);}
+\DoxyCodeLine{73     \}}
+\DoxyCodeLine{74 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_speed_up_a207c844a2120d6e8116d95662879aef4}\label{class_speed_up_a207c844a2120d6e8116d95662879aef4}} 
+\index{SpeedUp@{SpeedUp}!Exit@{Exit}}
+\index{Exit@{Exit}!SpeedUp@{SpeedUp}}
+\doxysubsubsection{\texorpdfstring{Exit()}{Exit()}}
+{\footnotesize\ttfamily void Speed\+Up\+::\+Exit (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_player}{Player}} $\ast$}]{dude }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+virtual function that represents the exit point of the state 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dude} & -\/ a pointer to the \mbox{\hyperlink{class_player}{Player}} object \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_state_aa086d08513a4adb59848deec250fbcae}{State$<$ Player $>$}}.
+
+
+
+Definition at line 76 of file player\+States.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{77 \{}
+\DoxyCodeLine{78     \textcolor{keywordflow}{if} (dude-\/>speedBoost.isTable())}
+\DoxyCodeLine{79     \{}
+\DoxyCodeLine{80         dude-\/>speedBoost[3](dude);}
+\DoxyCodeLine{81     \}}
+\DoxyCodeLine{82 \}}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/chris/\+Documents/\+UNI/\+ICT397-\/\+Project/\+ICT397-\/\+Project-\/\+Engine/player\+States.\+h\item 
+C\+:/\+Users/chris/\+Documents/\+UNI/\+ICT397-\/\+Project/\+ICT397-\/\+Project-\/\+Engine/player\+States.\+cpp\end{DoxyCompactItemize}

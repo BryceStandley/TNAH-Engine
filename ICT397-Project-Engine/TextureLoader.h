@@ -6,24 +6,24 @@
 #include <iostream>
 #include <vector>
 
-struct Texture
-{
-	std::string type;
-	std::string path;
-	unsigned int id = 0;
-};
 
+    /**
+    * @class TextureLoader
+    * @brief A simple class that is used to load in textures from a given file path;
+    *
+    * @author Dylan Blereau
+    * @version 01
+    * @date 20/03/2021 Dylan Blereau, Started
+    *
+    **/
 class TextureLoader
 {
 public:
-	//TextureLoader();
-	//~TextureLoader();
-	std::vector<Texture>loadMaterialTextures(const char* str, std::string type = "texture_normal");
+        /**
+        * @brief loads the texture file from the given file path
+        * @param path - represents the file path of the texture file
+        * @return unsigned int
+        */
 	unsigned int loadTexture(std::string path);
-	std::vector<Texture> getTextureList() const { return textures_loaded; }
-
-private:
-	std::vector<Texture> textures_loaded;
-	std::string dir = "";
 };
 

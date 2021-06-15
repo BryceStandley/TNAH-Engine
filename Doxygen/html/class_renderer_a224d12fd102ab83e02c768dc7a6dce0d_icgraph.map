@@ -1,0 +1,4 @@
+<map id="Renderer::SetShaderSkybox" name="Renderer::SetShaderSkybox">
+<area shape="rect" id="node1" title="Sets the shader and uses it for the skybox." alt="" coords="144,5,331,32"/>
+<area shape="rect" id="node2" href="$class_scene.html#acaa19d509c2a82c3493085c5f1217e15" title="Runs the scene, setting up objects for rendering and changes." alt="" coords="5,5,96,32"/>
+</map>

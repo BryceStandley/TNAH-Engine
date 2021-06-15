@@ -1,0 +1,288 @@
+\hypertarget{class_main_menu_g_u_i}{}\doxysection{Main\+Menu\+GUI Class Reference}
+\label{class_main_menu_g_u_i}\index{MainMenuGUI@{MainMenuGUI}}
+
+
+Collaboration diagram for Main\+Menu\+GUI\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=269pt]{class_main_menu_g_u_i__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_main_menu_g_u_i_a11b09bcf143e837542cc47519ef9c084}\label{class_main_menu_g_u_i_a11b09bcf143e837542cc47519ef9c084}} 
+enum \mbox{\hyperlink{class_main_menu_g_u_i_a11b09bcf143e837542cc47519ef9c084}{Previous\+Menu}} \{ \newline
+{\bfseries Main\+Menu}
+, {\bfseries Pause\+Menu}
+, {\bfseries Settings\+Menu}
+, {\bfseries Difficulty\+Menu}
+, \newline
+{\bfseries Controls\+Menu}
+ \}
+\begin{DoxyCompactList}\small\item\em Enum to track the last menu visible to the user. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_main_menu_g_u_i_aafe475018868b29372e87d210621f4c0}\label{class_main_menu_g_u_i_aafe475018868b29372e87d210621f4c0}} 
+void \mbox{\hyperlink{class_main_menu_g_u_i_aafe475018868b29372e87d210621f4c0}{Draw}} ()
+\begin{DoxyCompactList}\small\item\em Draw main menu function. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_main_menu_g_u_i_a06c998c1b05008bbf3f50242b63dba2c}{Load\+Texture\+From\+File}} (std\+::string filename, GLuint $\ast$out\+\_\+texture, int $\ast$out\+\_\+width, int $\ast$out\+\_\+height)
+\begin{DoxyCompactList}\small\item\em Im\+Gui Texture loader. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_main_menu_g_u_i_aa9e79a2e06dc13c84412ef5d0b619805}\label{class_main_menu_g_u_i_aa9e79a2e06dc13c84412ef5d0b619805}} 
+void \mbox{\hyperlink{class_main_menu_g_u_i_aa9e79a2e06dc13c84412ef5d0b619805}{Display\+Settings}} ()
+\begin{DoxyCompactList}\small\item\em Toggles different bools to display the settings menu. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_main_menu_g_u_i_a0502033e686286fea0ff4f2418cceb0f}\label{class_main_menu_g_u_i_a0502033e686286fea0ff4f2418cceb0f}} 
+void \mbox{\hyperlink{class_main_menu_g_u_i_a0502033e686286fea0ff4f2418cceb0f}{Display\+Main\+Menu}} ()
+\begin{DoxyCompactList}\small\item\em Toggles different bools to display the main menu. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_main_menu_g_u_i_a64f24a6057e891ea1570ef0bdc93cb9f}\label{class_main_menu_g_u_i_a64f24a6057e891ea1570ef0bdc93cb9f}} 
+void \mbox{\hyperlink{class_main_menu_g_u_i_a64f24a6057e891ea1570ef0bdc93cb9f}{Display\+Pause\+Menu}} ()
+\begin{DoxyCompactList}\small\item\em Toggles different bools to display the pause menu. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_main_menu_g_u_i_aa17884bc383bda8f73682c49c770ce25}\label{class_main_menu_g_u_i_aa17884bc383bda8f73682c49c770ce25}} 
+void \mbox{\hyperlink{class_main_menu_g_u_i_aa17884bc383bda8f73682c49c770ce25}{Display\+Difficulty\+Menu}} ()
+\begin{DoxyCompactList}\small\item\em Toggles different bools to display the difficulty menu. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_main_menu_g_u_i_afbcf2928e15ae32fa52eeb9a376dce64}\label{class_main_menu_g_u_i_afbcf2928e15ae32fa52eeb9a376dce64}} 
+void \mbox{\hyperlink{class_main_menu_g_u_i_afbcf2928e15ae32fa52eeb9a376dce64}{Display\+Controls\+Menu}} ()
+\begin{DoxyCompactList}\small\item\em Toggles different bools to display the controls menu. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_main_menu_g_u_i_ae745fb5ee98603825008733d56eb3fb9}\label{class_main_menu_g_u_i_ae745fb5ee98603825008733d56eb3fb9}} 
+void \mbox{\hyperlink{class_main_menu_g_u_i_ae745fb5ee98603825008733d56eb3fb9}{Display\+Death\+Screen}} ()
+\begin{DoxyCompactList}\small\item\em Toggles different bools to display the death screen. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_main_menu_g_u_i_a42cccc308306b690140398b96fa7501a}\label{class_main_menu_g_u_i_a42cccc308306b690140398b96fa7501a}} 
+void \mbox{\hyperlink{class_main_menu_g_u_i_a42cccc308306b690140398b96fa7501a}{Hide\+Menus}} ()
+\begin{DoxyCompactList}\small\item\em Toggles different bools to hide all menus. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{class_main_menu_g_u_i}{Main\+Menu\+GUI}} $\ast$ \mbox{\hyperlink{class_main_menu_g_u_i_a589ace1193edc7b5238a9970b1eac5ae}{Get\+Instance}} ()
+\begin{DoxyCompactList}\small\item\em Singleton get function. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+bool {\bfseries display\+Main\+Menu} = true
+\item 
+bool {\bfseries display\+Pause\+Menu} = false
+\item 
+bool {\bfseries display\+Settings} = false
+\item 
+bool {\bfseries display\+Difficulty} = false
+\item 
+bool {\bfseries display\+Controls} = false
+\item 
+bool {\bfseries display\+Death\+Screen} = false
+\item 
+bool {\bfseries can\+Display\+Pause\+Menu} = false
+\item 
+bool {\bfseries main\+Menu\+Closed} = false
+\item 
+bool {\bfseries quit\+Clicked} = false
+\item 
+bool {\bfseries save\+Game\+Clicked} = false
+\item 
+bool {\bfseries show\+Saved\+Text} = false
+\item 
+bool {\bfseries load\+Game\+Clicked} = false
+\item 
+bool {\bfseries no\+Save\+File\+Found} = false
+\item 
+bool {\bfseries new\+Game\+Clicked} = false
+\item 
+bool {\bfseries end\+Screen\+Button\+Clicked} = false
+\item 
+bool {\bfseries displaying\+AMenu} = false
+\item 
+bool {\bfseries play\+Again\+Clicked} = false
+\item 
+\mbox{\Hypertarget{class_main_menu_g_u_i_a1dbd7d82cff6bfef2995328a490ae6c2}\label{class_main_menu_g_u_i_a1dbd7d82cff6bfef2995328a490ae6c2}} 
+\mbox{\hyperlink{class_main_menu_g_u_i_a11b09bcf143e837542cc47519ef9c084}{Previous\+Menu}} \mbox{\hyperlink{class_main_menu_g_u_i_a1dbd7d82cff6bfef2995328a490ae6c2}{previous\+Menu}}
+\begin{DoxyCompactList}\small\item\em Previous menu object. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_main_menu_g_u_i_af6ec7558488558fa34b127451fe63073}\label{class_main_menu_g_u_i_af6ec7558488558fa34b127451fe63073}} 
+\mbox{\hyperlink{class_settings_manager}{Settings\+Manager}} $\ast$ \mbox{\hyperlink{class_main_menu_g_u_i_af6ec7558488558fa34b127451fe63073}{settings\+Manager}}
+\begin{DoxyCompactList}\small\item\em Easy access to the settings manager. \end{DoxyCompactList}\item 
+std\+::string {\bfseries game\+Name\+Image\+Path} = \char`\"{}./res/images/ZOOM.\+png\char`\"{}
+\item 
+int {\bfseries my\+\_\+image\+\_\+width} = 0
+\item 
+int {\bfseries my\+\_\+image\+\_\+height} = 0
+\item 
+GLuint {\bfseries my\+\_\+image\+\_\+texture} = 0
+\item 
+float {\bfseries image\+Aspec} = 0
+\item 
+std\+::string {\bfseries paused\+Image\+Path} = \char`\"{}./res/images/paused.\+png\char`\"{}
+\item 
+int {\bfseries paused\+Width} = 0
+\item 
+int {\bfseries paused\+Height} = 0
+\item 
+GLuint {\bfseries paused\+Texture} = 0
+\item 
+float {\bfseries paused\+Image\+Aspect} = 0
+\item 
+std\+::string {\bfseries settings\+Image\+Path} = \char`\"{}./res/images/settings.\+png\char`\"{}
+\item 
+\mbox{\Hypertarget{class_main_menu_g_u_i_aa8380a76c8e1dbfc1234f5f16e3ef54b}\label{class_main_menu_g_u_i_aa8380a76c8e1dbfc1234f5f16e3ef54b}} 
+int {\bfseries settings\+Width} = 0
+\item 
+int {\bfseries settings\+Height} = 0
+\item 
+GLuint {\bfseries settings\+Texture} = 0
+\item 
+float {\bfseries settings\+Image\+Aspect} = 0
+\item 
+std\+::string {\bfseries diff\+Image\+Path} = \char`\"{}./res/images/difficulty.\+png\char`\"{}
+\item 
+int {\bfseries diff\+Width} = 0
+\item 
+int {\bfseries diff\+Height} = 0
+\item 
+GLuint {\bfseries diff\+Texture} = 0
+\item 
+float {\bfseries diff\+Image\+Aspect} = 0
+\item 
+std\+::string {\bfseries controls\+Image\+Path} = \char`\"{}./res/images/controls.\+png\char`\"{}
+\item 
+int {\bfseries controls\+Width} = 0
+\item 
+int {\bfseries controls\+Height} = 0
+\item 
+GLuint {\bfseries controls\+Texture} = 0
+\item 
+float {\bfseries controls\+Image\+Aspect} = 0
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_main_menu_g_u_i_a4f94124b22a4f134c747bdc8885a6747}\label{class_main_menu_g_u_i_a4f94124b22a4f134c747bdc8885a6747}} 
+{\bfseries Main\+Menu\+GUI} (std\+::string script\+Path)
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_main_menu_g_u_i_affd2240902bee2a8c79c0842456e369b}\label{class_main_menu_g_u_i_affd2240902bee2a8c79c0842456e369b}} 
+static \mbox{\hyperlink{class_main_menu_g_u_i}{Main\+Menu\+GUI}} $\ast$ {\bfseries instance} = 0
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 21 of file Main\+Menu\+GUI.\+h.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_main_menu_g_u_i_a589ace1193edc7b5238a9970b1eac5ae}\label{class_main_menu_g_u_i_a589ace1193edc7b5238a9970b1eac5ae}} 
+\index{MainMenuGUI@{MainMenuGUI}!GetInstance@{GetInstance}}
+\index{GetInstance@{GetInstance}!MainMenuGUI@{MainMenuGUI}}
+\doxysubsubsection{\texorpdfstring{GetInstance()}{GetInstance()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_main_menu_g_u_i}{Main\+Menu\+GUI}} $\ast$ Main\+Menu\+GUI\+::\+Get\+Instance (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Singleton get function. 
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+
+
+Definition at line 4 of file Main\+Menu\+GUI.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{5 \{}
+\DoxyCodeLine{6     \textcolor{keywordflow}{if}(instance == \textcolor{keyword}{nullptr})}
+\DoxyCodeLine{7     \{}
+\DoxyCodeLine{8         instance = \textcolor{keyword}{new} \mbox{\hyperlink{class_main_menu_g_u_i}{MainMenuGUI}}(\textcolor{stringliteral}{"{}./res/scripts/menus/mainMenu.lua"{}});}
+\DoxyCodeLine{9     \}}
+\DoxyCodeLine{10     \textcolor{keywordflow}{return} instance;}
+\DoxyCodeLine{11 \}}
+
+\end{DoxyCode}
+
+
+Referenced by Engine\+::\+Engine(), and Scene\+::\+Init().
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=336pt]{class_main_menu_g_u_i_a589ace1193edc7b5238a9970b1eac5ae_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_main_menu_g_u_i_a06c998c1b05008bbf3f50242b63dba2c}\label{class_main_menu_g_u_i_a06c998c1b05008bbf3f50242b63dba2c}} 
+\index{MainMenuGUI@{MainMenuGUI}!LoadTextureFromFile@{LoadTextureFromFile}}
+\index{LoadTextureFromFile@{LoadTextureFromFile}!MainMenuGUI@{MainMenuGUI}}
+\doxysubsubsection{\texorpdfstring{LoadTextureFromFile()}{LoadTextureFromFile()}}
+{\footnotesize\ttfamily bool Main\+Menu\+GUI\+::\+Load\+Texture\+From\+File (\begin{DoxyParamCaption}\item[{std\+::string}]{filename,  }\item[{GLuint $\ast$}]{out\+\_\+texture,  }\item[{int $\ast$}]{out\+\_\+width,  }\item[{int $\ast$}]{out\+\_\+height }\end{DoxyParamCaption})}
+
+
+
+Im\+Gui Texture loader. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & \\
+\hline
+{\em out\+\_\+texture} & \\
+\hline
+{\em out\+\_\+width} & \\
+\hline
+{\em out\+\_\+height} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+
+
+Definition at line 334 of file Main\+Menu\+GUI.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{335 \{}
+\DoxyCodeLine{336     \textcolor{keywordflow}{if} (filename.find(\textcolor{stringliteral}{"{}.png"{}}) != std::string::npos) \textcolor{comment}{// if the image is a png, flip}}
+\DoxyCodeLine{337     \{}
+\DoxyCodeLine{338         stbi\_set\_flip\_vertically\_on\_load(\textcolor{keyword}{false});}
+\DoxyCodeLine{339     \}}
+\DoxyCodeLine{340 }
+\DoxyCodeLine{341     \textcolor{comment}{// Load from file}}
+\DoxyCodeLine{342     \textcolor{keywordtype}{int} image\_width = 0;}
+\DoxyCodeLine{343     \textcolor{keywordtype}{int} image\_height = 0;}
+\DoxyCodeLine{344     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char}* image\_data = stbi\_load(filename.c\_str() , \&image\_width, \&image\_height, \textcolor{keyword}{nullptr}, 4);}
+\DoxyCodeLine{345     \textcolor{keywordflow}{if} (image\_data == \textcolor{keyword}{nullptr})}
+\DoxyCodeLine{346         \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{347 }
+\DoxyCodeLine{348     \textcolor{comment}{// Create a OpenGL texture identifier}}
+\DoxyCodeLine{349     GLuint image\_texture;}
+\DoxyCodeLine{350     glGenTextures(1, \&image\_texture);}
+\DoxyCodeLine{351     glBindTexture(GL\_TEXTURE\_2D, image\_texture);}
+\DoxyCodeLine{352 }
+\DoxyCodeLine{353     \textcolor{comment}{// Setup filtering parameters for display}}
+\DoxyCodeLine{354     glTexParameteri(GL\_TEXTURE\_2D, GL\_TEXTURE\_MIN\_FILTER, GL\_LINEAR);}
+\DoxyCodeLine{355     glTexParameteri(GL\_TEXTURE\_2D, GL\_TEXTURE\_MAG\_FILTER, GL\_LINEAR);}
+\DoxyCodeLine{356     glTexParameteri(GL\_TEXTURE\_2D, GL\_TEXTURE\_WRAP\_S, GL\_CLAMP\_TO\_EDGE); \textcolor{comment}{// This is required on WebGL for non power-\/of-\/two textures}}
+\DoxyCodeLine{357     glTexParameteri(GL\_TEXTURE\_2D, GL\_TEXTURE\_WRAP\_T, GL\_CLAMP\_TO\_EDGE); \textcolor{comment}{// Same}}
+\DoxyCodeLine{358 }
+\DoxyCodeLine{359     \textcolor{comment}{// Upload pixels into texture}}
+\DoxyCodeLine{360 \textcolor{preprocessor}{\#if defined(GL\_UNPACK\_ROW\_LENGTH) \&\& !defined(\_\_EMSCRIPTEN\_\_)}}
+\DoxyCodeLine{361     glPixelStorei(GL\_UNPACK\_ROW\_LENGTH, 0);}
+\DoxyCodeLine{362 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{363     glTexImage2D(GL\_TEXTURE\_2D, 0, GL\_RGBA, image\_width, image\_height, 0, GL\_RGBA, GL\_UNSIGNED\_BYTE, image\_data);}
+\DoxyCodeLine{364     stbi\_image\_free(image\_data);}
+\DoxyCodeLine{365 }
+\DoxyCodeLine{366     *out\_texture = image\_texture;}
+\DoxyCodeLine{367     *out\_width = image\_width;}
+\DoxyCodeLine{368     *out\_height = image\_height;}
+\DoxyCodeLine{369 }
+\DoxyCodeLine{370     \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{371 \}}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/chris/\+Documents/\+UNI/\+ICT397-\/\+Project/\+ICT397-\/\+Project-\/\+Engine/\mbox{\hyperlink{_main_menu_g_u_i_8h}{Main\+Menu\+GUI.\+h}}\item 
+C\+:/\+Users/chris/\+Documents/\+UNI/\+ICT397-\/\+Project/\+ICT397-\/\+Project-\/\+Engine/Main\+Menu\+GUI.\+cpp\end{DoxyCompactItemize}

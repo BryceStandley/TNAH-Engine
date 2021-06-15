@@ -1,0 +1,165 @@
+\hypertarget{classglob}{}\doxysection{glob Class Reference}
+\label{classglob}\index{glob@{glob}}
+
+
+A derived class that inherits from the state class. Represents the glob (global) state of the \mbox{\hyperlink{class_player}{Player}} FSM.  
+
+
+
+
+{\ttfamily \#include $<$player\+States.\+h$>$}
+
+
+
+Inheritance diagram for glob\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=172pt]{classglob__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for glob\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=172pt]{classglob__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \mbox{\hyperlink{classglob_a6b0e82c4c5fb79b2126eb1e25c038140}{Enter}} (\mbox{\hyperlink{class_player}{Player}} $\ast$dude)
+\begin{DoxyCompactList}\small\item\em virtual function that represents the entry point of the state \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classglob_a242153ee976ae7ea9b2d8d42c9dd2361}{Execute}} (\mbox{\hyperlink{class_player}{Player}} $\ast$dude)
+\begin{DoxyCompactList}\small\item\em virtual function that represents the execute point of the state \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classglob_a6f9649cd08838841a7484a80a25419cd}{Exit}} (\mbox{\hyperlink{class_player}{Player}} $\ast$dude)
+\begin{DoxyCompactList}\small\item\em virtual function that represents the exit point of the state \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A derived class that inherits from the state class. Represents the glob (global) state of the \mbox{\hyperlink{class_player}{Player}} FSM. 
+
+\begin{DoxyAuthor}{Author}
+Dylan Blereau 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+01 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+02/05/2021 Dylan Blereau, Started 
+\end{DoxyDate}
+
+
+Definition at line 223 of file player\+States.\+h.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classglob_a6b0e82c4c5fb79b2126eb1e25c038140}\label{classglob_a6b0e82c4c5fb79b2126eb1e25c038140}} 
+\index{glob@{glob}!Enter@{Enter}}
+\index{Enter@{Enter}!glob@{glob}}
+\doxysubsubsection{\texorpdfstring{Enter()}{Enter()}}
+{\footnotesize\ttfamily void glob\+::\+Enter (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_player}{Player}} $\ast$}]{dude }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+virtual function that represents the entry point of the state 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dude} & -\/ a pointer to the \mbox{\hyperlink{class_player}{Player}} object \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_state_aab4cca8d69092deacf053cf2b12e4cd6}{State$<$ Player $>$}}.
+
+
+
+Definition at line 164 of file player\+States.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{165 \{}
+\DoxyCodeLine{166     \textcolor{keywordflow}{if} (dude-\/>global.isTable())}
+\DoxyCodeLine{167     \{}
+\DoxyCodeLine{168         dude-\/>global[1](dude);}
+\DoxyCodeLine{169     \}}
+\DoxyCodeLine{170 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classglob_a242153ee976ae7ea9b2d8d42c9dd2361}\label{classglob_a242153ee976ae7ea9b2d8d42c9dd2361}} 
+\index{glob@{glob}!Execute@{Execute}}
+\index{Execute@{Execute}!glob@{glob}}
+\doxysubsubsection{\texorpdfstring{Execute()}{Execute()}}
+{\footnotesize\ttfamily void glob\+::\+Execute (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_player}{Player}} $\ast$}]{dude }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+virtual function that represents the execute point of the state 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dude} & -\/ a pointer to the \mbox{\hyperlink{class_player}{Player}} object \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_state_a7b7e948b4fe83e3686564e453ed0c406}{State$<$ Player $>$}}.
+
+
+
+Definition at line 172 of file player\+States.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{173 \{}
+\DoxyCodeLine{174     \textcolor{keywordflow}{if} (dude-\/>global.isTable())}
+\DoxyCodeLine{175     \{}
+\DoxyCodeLine{176         dude-\/>global[2](dude);}
+\DoxyCodeLine{177     \}}
+\DoxyCodeLine{178 }
+\DoxyCodeLine{179 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classglob_a6f9649cd08838841a7484a80a25419cd}\label{classglob_a6f9649cd08838841a7484a80a25419cd}} 
+\index{glob@{glob}!Exit@{Exit}}
+\index{Exit@{Exit}!glob@{glob}}
+\doxysubsubsection{\texorpdfstring{Exit()}{Exit()}}
+{\footnotesize\ttfamily void glob\+::\+Exit (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_player}{Player}} $\ast$}]{dude }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+virtual function that represents the exit point of the state 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dude} & -\/ a pointer to the \mbox{\hyperlink{class_player}{Player}} object \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_state_aa086d08513a4adb59848deec250fbcae}{State$<$ Player $>$}}.
+
+
+
+Definition at line 181 of file player\+States.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{182 \{}
+\DoxyCodeLine{183     \textcolor{keywordflow}{if} (dude-\/>global.isTable())}
+\DoxyCodeLine{184     \{}
+\DoxyCodeLine{185         dude-\/>global[3](dude);}
+\DoxyCodeLine{186     \}}
+\DoxyCodeLine{187 \}}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/chris/\+Documents/\+UNI/\+ICT397-\/\+Project/\+ICT397-\/\+Project-\/\+Engine/player\+States.\+h\item 
+C\+:/\+Users/chris/\+Documents/\+UNI/\+ICT397-\/\+Project/\+ICT397-\/\+Project-\/\+Engine/player\+States.\+cpp\end{DoxyCompactItemize}

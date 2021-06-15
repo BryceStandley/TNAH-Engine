@@ -1,0 +1,4 @@
+<map id="Enemy::ChangeState" name="Enemy::ChangeState">
+<area shape="rect" id="node1" title="a function that changes the enemy state to the state provided to the function provided as a parameter" alt="" coords="165,5,312,32"/>
+<area shape="rect" id="node2" href="$class_enemy.html#a7e3a18ed35fac4b01a237b4da35c7710" title="Enemy constructor that takes various parameters." alt="" coords="5,5,117,32"/>
+</map>

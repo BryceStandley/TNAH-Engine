@@ -1,0 +1,148 @@
+\hypertarget{class_water}{}\doxysection{Water Class Reference}
+\label{class_water}\index{Water@{Water}}
+
+
+Inheritance diagram for Water\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=196pt]{class_water__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Water\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=196pt]{class_water__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_water_aefb98d28d3ec089578d83e6a34d6ca9d}\label{class_water_aefb98d28d3ec089578d83e6a34d6ca9d}} 
+{\bfseries Water} (glm\+::vec3 p, glm\+::vec3 rot, float s, \mbox{\hyperlink{class_renderer}{Renderer}} $\ast$game\+Renderer, std\+::string script)
+\item 
+void \mbox{\hyperlink{class_water_a03b923d81b25359d855db44568288cb8}{Update}} (float time)
+\begin{DoxyCompactList}\small\item\em Update function that updates the functionality. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_water_a187706a57b3a6d4ed6cdabe009e21a48}{Set\+FBO}} (unsigned int f)
+\begin{DoxyCompactList}\small\item\em Sets the water FBO. \end{DoxyCompactList}\item 
+unsigned int \mbox{\hyperlink{class_water_aeb9997fa65d1f34b3149ba206a2d5cc1}{Get\+FBO}} ()
+\begin{DoxyCompactList}\small\item\em Gets the \mbox{\hyperlink{class_water}{Water}} FBO. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_water_acc950b83266afc8cbdc38cc822ca36bb}\label{class_water_acc950b83266afc8cbdc38cc822ca36bb}} 
+void {\bfseries Set\+DBO} (unsigned int d)
+\item 
+\mbox{\Hypertarget{class_water_a254cfd07ce949e10919350b8ecf09030}\label{class_water_a254cfd07ce949e10919350b8ecf09030}} 
+unsigned int {\bfseries Get\+DBO} ()
+\item 
+\mbox{\Hypertarget{class_water_aa1c34160ea132f009477c8359b745f07}\label{class_water_aa1c34160ea132f009477c8359b745f07}} 
+void {\bfseries Set\+Colour\+Texture\+ID} (unsigned int c)
+\item 
+\mbox{\Hypertarget{class_water_a331e87e31ac3e8ea765ad420aff35756}\label{class_water_a331e87e31ac3e8ea765ad420aff35756}} 
+unsigned int {\bfseries Get\+Colour\+Texture\+ID} ()
+\item 
+\mbox{\Hypertarget{class_water_ac38282dcf9fe7a1e48f80846b08d0df7}\label{class_water_ac38282dcf9fe7a1e48f80846b08d0df7}} 
+void {\bfseries Set\+Depth\+Texture\+ID} (unsigned int d)
+\item 
+\mbox{\Hypertarget{class_water_a2d22d19c6237fc00ac104bfce3a5ea99}\label{class_water_a2d22d19c6237fc00ac104bfce3a5ea99}} 
+unsigned int {\bfseries Get\+Depth\+Texture\+ID} ()
+\item 
+\mbox{\Hypertarget{class_water_abd5d47268df8b7097f3cedca1a16f342}\label{class_water_abd5d47268df8b7097f3cedca1a16f342}} 
+void {\bfseries Set\+Size} (int s)
+\item 
+\mbox{\Hypertarget{class_water_a1e28f3bd085a02e50f4c0a1cd5e45ccd}\label{class_water_a1e28f3bd085a02e50f4c0a1cd5e45ccd}} 
+int {\bfseries Get\+Size} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 6 of file Water.\+h.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_water_aeb9997fa65d1f34b3149ba206a2d5cc1}\label{class_water_aeb9997fa65d1f34b3149ba206a2d5cc1}} 
+\index{Water@{Water}!GetFBO@{GetFBO}}
+\index{GetFBO@{GetFBO}!Water@{Water}}
+\doxysubsubsection{\texorpdfstring{GetFBO()}{GetFBO()}}
+{\footnotesize\ttfamily unsigned int Water\+::\+Get\+FBO (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the \mbox{\hyperlink{class_water}{Water}} FBO. 
+
+\begin{DoxyReturn}{Returns}
+FBO 
+\end{DoxyReturn}
+
+
+Definition at line 133 of file Water.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{133 \{\textcolor{keywordflow}{return} FBO;\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_water_a187706a57b3a6d4ed6cdabe009e21a48}\label{class_water_a187706a57b3a6d4ed6cdabe009e21a48}} 
+\index{Water@{Water}!SetFBO@{SetFBO}}
+\index{SetFBO@{SetFBO}!Water@{Water}}
+\doxysubsubsection{\texorpdfstring{SetFBO()}{SetFBO()}}
+{\footnotesize\ttfamily void Water\+::\+Set\+FBO (\begin{DoxyParamCaption}\item[{unsigned int}]{f }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Sets the water FBO. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em f} & \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 127 of file Water.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{127 \{FBO = f;\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_water_a03b923d81b25359d855db44568288cb8}\label{class_water_a03b923d81b25359d855db44568288cb8}} 
+\index{Water@{Water}!Update@{Update}}
+\index{Update@{Update}!Water@{Water}}
+\doxysubsubsection{\texorpdfstring{Update()}{Update()}}
+{\footnotesize\ttfamily void Water\+::\+Update (\begin{DoxyParamCaption}\item[{float}]{time }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Update function that updates the functionality. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em time} & -\/ the time since the last frame \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \mbox{\hyperlink{class_game_object_aecdbe6a05d3183236f1bbec09fa235f8}{Game\+Object}}.
+
+
+
+Definition at line 3 of file Water.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{4 \{}
+\DoxyCodeLine{5     \mbox{\hyperlink{class_game_object_a2b8cd8b76bb89306c78371eb921df67a}{SetType}}(\textcolor{stringliteral}{"{}water"{}});}
+\DoxyCodeLine{6 \}}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/chris/\+Documents/\+UNI/\+ICT397-\/\+Project/\+ICT397-\/\+Project-\/\+Engine/Water.\+h\item 
+C\+:/\+Users/chris/\+Documents/\+UNI/\+ICT397-\/\+Project/\+ICT397-\/\+Project-\/\+Engine/Water.\+cpp\end{DoxyCompactItemize}

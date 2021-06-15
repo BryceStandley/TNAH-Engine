@@ -1,0 +1,87 @@
+\hypertarget{class_manager}{}\doxysection{Manager Class Reference}
+\label{class_manager}\index{Manager@{Manager}}
+
+
+{\ttfamily \#include $<$Manager.\+h$>$}
+
+
+
+Collaboration diagram for Manager\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=199pt]{class_manager__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_manager_ada898c9259c003c2795c65be68584241}\label{class_manager_ada898c9259c003c2795c65be68584241}} 
+enum {\bfseries Difficulty} \{ {\bfseries easy}
+, {\bfseries normal}
+, {\bfseries hard}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_manager_a33ee00c7afe9396fe6584a4cb1381bd2}\label{class_manager_a33ee00c7afe9396fe6584a4cb1381bd2}} 
+void \mbox{\hyperlink{class_manager_a33ee00c7afe9396fe6584a4cb1381bd2}{Update}} (float time)
+\begin{DoxyCompactList}\small\item\em Update look for the manager, updates the timers. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_manager_a0c23ee86f68e27a904c48a176ccf4314}\label{class_manager_a0c23ee86f68e27a904c48a176ccf4314}} 
+void {\bfseries Update\+Weapon} (float time)
+\item 
+\mbox{\Hypertarget{class_manager_af0346873e08eabed931f4c0d0480c553}\label{class_manager_af0346873e08eabed931f4c0d0480c553}} 
+void {\bfseries Update\+Enemy\+Death} (float time)
+\item 
+\mbox{\Hypertarget{class_manager_ad201134186280989739a4545e113e4f1}\label{class_manager_ad201134186280989739a4545e113e4f1}} 
+void {\bfseries Reset} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_manager_a54c0f17bf142a26409a6e77edaafe320}\label{class_manager_a54c0f17bf142a26409a6e77edaafe320}} 
+float {\bfseries speed} = 5
+\item 
+\mbox{\Hypertarget{class_manager_a3973347fdbc4c962c0c0b65c13cefb84}\label{class_manager_a3973347fdbc4c962c0c0b65c13cefb84}} 
+std\+::string {\bfseries token} = \char`\"{}none\char`\"{}
+\item 
+\mbox{\Hypertarget{class_manager_a2459c597896c5bd50aa8f8535adc4924}\label{class_manager_a2459c597896c5bd50aa8f8535adc4924}} 
+std\+::string {\bfseries prev\+Token} = \char`\"{}none\char`\"{}
+\item 
+\mbox{\Hypertarget{class_manager_ac60e528f0ab33fded824b458e404fb49}\label{class_manager_ac60e528f0ab33fded824b458e404fb49}} 
+bool {\bfseries fire\+Weapon} = false
+\item 
+\mbox{\Hypertarget{class_manager_ac5a54fafa53c46869d73166b738c2b2f}\label{class_manager_ac5a54fafa53c46869d73166b738c2b2f}} 
+float {\bfseries weapon\+Timer} = 0
+\item 
+\mbox{\Hypertarget{class_manager_a3fed4d89c180bbdc7d67932b3f1ea87b}\label{class_manager_a3fed4d89c180bbdc7d67932b3f1ea87b}} 
+float {\bfseries timer} = 0
+\item 
+\mbox{\Hypertarget{class_manager_a3658c0149ea45ba9e0669693d1183b39}\label{class_manager_a3658c0149ea45ba9e0669693d1183b39}} 
+Difficulty {\bfseries difficulty} = hard
+\item 
+\mbox{\Hypertarget{class_manager_a70afa5a93e6373e06675ccafd6e772a5}\label{class_manager_a70afa5a93e6373e06675ccafd6e772a5}} 
+float {\bfseries enemy\+Death\+Timer} = 0
+\item 
+\mbox{\Hypertarget{class_manager_ad2d821fa6f250972a34116b04ddfef73}\label{class_manager_ad2d821fa6f250972a34116b04ddfef73}} 
+bool {\bfseries has\+Kills} = false
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+@breif The manager hoolds the information used by the rest of the engine, such as difficulty, speed, toekns and timers \begin{DoxyAuthor}{Author}
+Christopher Logan 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+MAY 2021 
+\end{DoxyDate}
+
+
+Definition at line 11 of file Manager.\+h.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/chris/\+Documents/\+UNI/\+ICT397-\/\+Project/\+ICT397-\/\+Project-\/\+Engine/Manager.\+h\end{DoxyCompactItemize}

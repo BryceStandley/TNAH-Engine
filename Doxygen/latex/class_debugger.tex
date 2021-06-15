@@ -1,0 +1,257 @@
+\hypertarget{class_debugger}{}\doxysection{Debugger Class Reference}
+\label{class_debugger}\index{Debugger@{Debugger}}
+
+
+helper functions and flags to aid in debugging aspects of the engine  
+
+
+
+
+{\ttfamily \#include $<$Debugger.\+h$>$}
+
+
+
+Collaboration diagram for Debugger\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=311pt]{class_debugger__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_debugger_a2998972e1481706f1b063f258b520cfa}\label{class_debugger_a2998972e1481706f1b063f258b520cfa}} 
+enum \mbox{\hyperlink{class_debugger_a2998972e1481706f1b063f258b520cfa}{Log\+Type}} \{ \newline
+{\bfseries INFO}
+, {\bfseries WARNING}
+, {\bfseries ERROR}
+, {\bfseries ENGINE}
+, \newline
+{\bfseries ALL}
+ \}
+\begin{DoxyCompactList}\small\item\em Enum of different log types. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string \mbox{\hyperlink{class_debugger_aa1b8c112e6ddf9624f45b3170a9315d9}{Debug\+Vec3}} (glm\+::vec3 a)
+\begin{DoxyCompactList}\small\item\em turns a vec3 into a string for console output \end{DoxyCompactList}\item 
+glm\+::vec3 \mbox{\hyperlink{class_debugger_a1c5a22ddb14d19ac2b70e6a764be5aa1}{Convert\+Player\+To\+Terrain\+Position}} (glm\+::vec3 player\+Position, float terrain\+Size, float vertex\+Height)
+\begin{DoxyCompactList}\small\item\em Calculates and returns the vec3 position of the player in terrain coords. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_debugger_a744b0ae670c3abb0d8c9f139823b4add}\label{class_debugger_a744b0ae670c3abb0d8c9f139823b4add}} 
+void \mbox{\hyperlink{class_debugger_a744b0ae670c3abb0d8c9f139823b4add}{Open\+Logger}} ()
+\begin{DoxyCompactList}\small\item\em Used to open the log file and save its pointer. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_debugger_a3178f40262f4cc7e562771544aadf35c}{Append\+Logger}} (std\+::string from\+File, std\+::string output\+String)
+\begin{DoxyCompactList}\small\item\em Appends a string to the log file with current time of the system and information where the append came from. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_debugger_aa295912260d1fc9dd0fae07fcf02abbf}\label{class_debugger_aa295912260d1fc9dd0fae07fcf02abbf}} 
+void \mbox{\hyperlink{class_debugger_aa295912260d1fc9dd0fae07fcf02abbf}{Close\+Logger}} ()
+\begin{DoxyCompactList}\small\item\em closes the log file on exit \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_debugger_a0c44ece01904a132335a4cf2abb33f50}\label{class_debugger_a0c44ece01904a132335a4cf2abb33f50}} 
+static \mbox{\hyperlink{class_debugger}{Debugger}} $\ast$ {\bfseries Get\+Instance} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_debugger_adac0d223932725dc26a7c4c1904b10ef}\label{class_debugger_adac0d223932725dc26a7c4c1904b10ef}} 
+bool \mbox{\hyperlink{class_debugger_adac0d223932725dc26a7c4c1904b10ef}{debug\+To\+Console}} = false
+\begin{DoxyCompactList}\small\item\em flag for enabling/disabling debug and error information in the console \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_debugger_a3ccb56883a93de25f9a5ec00ab08ca53}\label{class_debugger_a3ccb56883a93de25f9a5ec00ab08ca53}} 
+bool \mbox{\hyperlink{class_debugger_a3ccb56883a93de25f9a5ec00ab08ca53}{debug\+Collisions\+To\+Console}} = false
+\begin{DoxyCompactList}\small\item\em flag for enabling/disabling debug information about collisions in the console \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_debugger_ad26d5e362213748f3aae68b11c24d1fd}\label{class_debugger_ad26d5e362213748f3aae68b11c24d1fd}} 
+bool \mbox{\hyperlink{class_debugger_ad26d5e362213748f3aae68b11c24d1fd}{debug\+FSMTo\+Console}} = false
+\begin{DoxyCompactList}\small\item\em flag for enabling/disabling debug information about FSM in the console \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_debugger_a463d55868fe731f6c3321cfdce573f40}\label{class_debugger_a463d55868fe731f6c3321cfdce573f40}} 
+bool \mbox{\hyperlink{class_debugger_a463d55868fe731f6c3321cfdce573f40}{debug\+Weapons}} = false
+\begin{DoxyCompactList}\small\item\em flag for enabling/disabling debug information about weapons in the console \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_debugger_a64cdbae360bb51420cccca89abfd14cd}\label{class_debugger_a64cdbae360bb51420cccca89abfd14cd}} 
+bool \mbox{\hyperlink{class_debugger_a64cdbae360bb51420cccca89abfd14cd}{debug\+Tokens\+To\+Console}} = false
+\begin{DoxyCompactList}\small\item\em flag for enabling/disabling debug information about tokens in the console \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_debugger_a701f15ab87a5ec00594f5a0bc5d3db09}\label{class_debugger_a701f15ab87a5ec00594f5a0bc5d3db09}} 
+bool \mbox{\hyperlink{class_debugger_a701f15ab87a5ec00594f5a0bc5d3db09}{debug\+Animations\+To\+Console}} = false
+\begin{DoxyCompactList}\small\item\em flag for enabling/disabling debug information about animations in the console \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_debugger_a5b6314ee0cd7bc14ce64681f43300c63}\label{class_debugger_a5b6314ee0cd7bc14ce64681f43300c63}} 
+bool \mbox{\hyperlink{class_debugger_a5b6314ee0cd7bc14ce64681f43300c63}{debug\+MD2\+To\+Console}} = false
+\begin{DoxyCompactList}\small\item\em flag for enabling/disabling debug information about MD2 in the console \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_debugger_a9c0a30b5b365f7ddb337f3d250f26c48}\label{class_debugger_a9c0a30b5b365f7ddb337f3d250f26c48}} 
+bool \mbox{\hyperlink{class_debugger_a9c0a30b5b365f7ddb337f3d250f26c48}{debug\+Player\+Pos}} = false
+\begin{DoxyCompactList}\small\item\em flag for enabling/disabling debug information about player position in the the game screen \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_debugger_ac6eedab9a167a262a6764f07d10dd8f0}\label{class_debugger_ac6eedab9a167a262a6764f07d10dd8f0}} 
+bool \mbox{\hyperlink{class_debugger_ac6eedab9a167a262a6764f07d10dd8f0}{sticky\+FPSCounter}} = false
+\begin{DoxyCompactList}\small\item\em flag for enabling/disabling debug information about framerate in the game screen \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_debugger_a47623c6677fa81ad34d5a419d094872f}\label{class_debugger_a47623c6677fa81ad34d5a419d094872f}} 
+bool \mbox{\hyperlink{class_debugger_a47623c6677fa81ad34d5a419d094872f}{debug\+Info\+To\+Log\+File}} = false
+\begin{DoxyCompactList}\small\item\em flag for enabling/disabling debug information about info types to the log file \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_debugger_a76a0d2373ec3a4d965aa3f8e6bcfd39b}\label{class_debugger_a76a0d2373ec3a4d965aa3f8e6bcfd39b}} 
+bool \mbox{\hyperlink{class_debugger_a76a0d2373ec3a4d965aa3f8e6bcfd39b}{debug\+Errors\+To\+Log\+File}} = false
+\begin{DoxyCompactList}\small\item\em flag for enabling/disabling debug information about error types to the log file \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_debugger_af5bae0f46565cebfb72990a0278bdfff}\label{class_debugger_af5bae0f46565cebfb72990a0278bdfff}} 
+bool \mbox{\hyperlink{class_debugger_af5bae0f46565cebfb72990a0278bdfff}{debug\+Engine\+To\+Log\+File}} = true
+\begin{DoxyCompactList}\small\item\em flag for enabling/disabling debug information about engine types to the log file \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_debugger_a9879b07cb5d1364b7db60d7c87371585}\label{class_debugger_a9879b07cb5d1364b7db60d7c87371585}} 
+bool \mbox{\hyperlink{class_debugger_a9879b07cb5d1364b7db60d7c87371585}{debug\+Warning\+To\+Log\+File}} = false
+\begin{DoxyCompactList}\small\item\em Flag for enabling/disabling debug information about warning types to the log file. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_debugger_aec85c87d1c53a69363ff987f6e7ce2a5}\label{class_debugger_aec85c87d1c53a69363ff987f6e7ce2a5}} 
+bool \mbox{\hyperlink{class_debugger_aec85c87d1c53a69363ff987f6e7ce2a5}{draw\+Debug\+Panel}} = false
+\begin{DoxyCompactList}\small\item\em flag for enabling/disabling the debug panel \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_debugger_aff2278ac8c4553097f2852166dd3bd3d}\label{class_debugger_aff2278ac8c4553097f2852166dd3bd3d}} 
+bool \mbox{\hyperlink{class_debugger_aff2278ac8c4553097f2852166dd3bd3d}{no\+Player\+YClip}} = false
+\begin{DoxyCompactList}\small\item\em flag for enabling and disabling the player Y position clipping \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_debugger_ab3e76732005287576c48b311ec1c7d4b}\label{class_debugger_ab3e76732005287576c48b311ec1c7d4b}} 
+GLFWwindow $\ast$ \mbox{\hyperlink{class_debugger_ab3e76732005287576c48b311ec1c7d4b}{window\+Ref}} = nullptr
+\begin{DoxyCompactList}\small\item\em reference to a GLFW window \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_debugger_a828377bc70dca9e6f4e9f1015243d44c}\label{class_debugger_a828377bc70dca9e6f4e9f1015243d44c}} 
+std\+::string \mbox{\hyperlink{class_debugger_a828377bc70dca9e6f4e9f1015243d44c}{log\+File\+Path}}
+\begin{DoxyCompactList}\small\item\em String of log file path. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_debugger_ab1a41e535f2c19a2c8d16166bf1c3875}\label{class_debugger_ab1a41e535f2c19a2c8d16166bf1c3875}} 
+\mbox{\hyperlink{class_debugger_a2998972e1481706f1b063f258b520cfa}{Log\+Type}} \mbox{\hyperlink{class_debugger_ab1a41e535f2c19a2c8d16166bf1c3875}{type}} = ENGINE
+\begin{DoxyCompactList}\small\item\em Global log type. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_debugger_aefa238933a7681ae979c893f58874e56}\label{class_debugger_aefa238933a7681ae979c893f58874e56}} 
+static \mbox{\hyperlink{class_debugger}{Debugger}} $\ast$ {\bfseries instance} = 0
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+helper functions and flags to aid in debugging aspects of the engine 
+
+Definition at line 30 of file Debugger.\+h.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_debugger_a3178f40262f4cc7e562771544aadf35c}\label{class_debugger_a3178f40262f4cc7e562771544aadf35c}} 
+\index{Debugger@{Debugger}!AppendLogger@{AppendLogger}}
+\index{AppendLogger@{AppendLogger}!Debugger@{Debugger}}
+\doxysubsubsection{\texorpdfstring{AppendLogger()}{AppendLogger()}}
+{\footnotesize\ttfamily void Debugger\+::\+Append\+Logger (\begin{DoxyParamCaption}\item[{std\+::string}]{from\+File,  }\item[{std\+::string}]{output\+String }\end{DoxyParamCaption})}
+
+
+
+Appends a string to the log file with current time of the system and information where the append came from. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em type} & \\
+\hline
+{\em from\+File} & \\
+\hline
+{\em output\+String} & \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 50 of file Debugger.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{51 \{}
+\DoxyCodeLine{52     \textcolor{keywordflow}{if}(logFile == \textcolor{keyword}{nullptr}) \textcolor{keywordflow}{return};}
+\DoxyCodeLine{53 }
+\DoxyCodeLine{54     std::string ty = LogTypeToString(\mbox{\hyperlink{class_debugger_ab1a41e535f2c19a2c8d16166bf1c3875}{type}});}
+\DoxyCodeLine{55 }
+\DoxyCodeLine{56     std::string s, t;}
+\DoxyCodeLine{57     \textcolor{keyword}{auto} time = std::chrono::system\_clock::to\_time\_t(std::chrono::system\_clock::now());}
+\DoxyCodeLine{58     s = \textcolor{stringliteral}{"{} "{}} + fromFile + \textcolor{stringliteral}{"{} :: "{}} + outputString + \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{59 \textcolor{preprocessor}{\#if \_WIN32}}
+\DoxyCodeLine{60     \textcolor{keywordtype}{char} buffer[256];}
+\DoxyCodeLine{61     t = ctime\_s(buffer, 256, \&time);}
+\DoxyCodeLine{62 \textcolor{preprocessor}{\#elif \_APPLE\_}}
+\DoxyCodeLine{63     t = ctime(\&time);}
+\DoxyCodeLine{64 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{65     t.erase(std::remove(t.begin(), t.end(), \textcolor{charliteral}{'\(\backslash\)n'}), t.end());}
+\DoxyCodeLine{66     \textcolor{comment}{//time, type, string to append}}
+\DoxyCodeLine{67     fprintf(logFile, \textcolor{stringliteral}{"{}\%s :: \%s :: \%s"{}},t.c\_str(), ty.c\_str(), s.c\_str());}
+\DoxyCodeLine{68 \}}
+
+\end{DoxyCode}
+
+
+References type.
+
+
+
+Referenced by Enemy\+::handle\+Message(), Enemy\+::\+Update(), and Enemy\+::$\sim$\+Enemy().
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_debugger_a3178f40262f4cc7e562771544aadf35c_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_debugger_a1c5a22ddb14d19ac2b70e6a764be5aa1}\label{class_debugger_a1c5a22ddb14d19ac2b70e6a764be5aa1}} 
+\index{Debugger@{Debugger}!ConvertPlayerToTerrainPosition@{ConvertPlayerToTerrainPosition}}
+\index{ConvertPlayerToTerrainPosition@{ConvertPlayerToTerrainPosition}!Debugger@{Debugger}}
+\doxysubsubsection{\texorpdfstring{ConvertPlayerToTerrainPosition()}{ConvertPlayerToTerrainPosition()}}
+{\footnotesize\ttfamily glm\+::vec3 Debugger\+::\+Convert\+Player\+To\+Terrain\+Position (\begin{DoxyParamCaption}\item[{glm\+::vec3}]{player\+Position,  }\item[{float}]{terrain\+Size,  }\item[{float}]{vertex\+Height }\end{DoxyParamCaption})}
+
+
+
+Calculates and returns the vec3 position of the player in terrain coords. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em player\+Position} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+vec3 of the players position in relation to the terrain vertex data 
+\end{DoxyReturn}
+
+
+Definition at line 22 of file Debugger.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{23 \{}
+\DoxyCodeLine{24     \textcolor{keywordtype}{float} worldx, worldz, worldToTerrainScaleFactor;}
+\DoxyCodeLine{25     worldToTerrainScaleFactor = terrainSize / 409.0f;}
+\DoxyCodeLine{26     worldx = playerPosition.x * worldToTerrainScaleFactor;}
+\DoxyCodeLine{27     worldz = playerPosition.z * worldToTerrainScaleFactor;}
+\DoxyCodeLine{28     glm::vec3 terrainPos = glm::vec3(worldx, vertexHeight, worldz);}
+\DoxyCodeLine{29     \textcolor{keywordflow}{return} terrainPos;}
+\DoxyCodeLine{30 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_debugger_aa1b8c112e6ddf9624f45b3170a9315d9}\label{class_debugger_aa1b8c112e6ddf9624f45b3170a9315d9}} 
+\index{Debugger@{Debugger}!DebugVec3@{DebugVec3}}
+\index{DebugVec3@{DebugVec3}!Debugger@{Debugger}}
+\doxysubsubsection{\texorpdfstring{DebugVec3()}{DebugVec3()}}
+{\footnotesize\ttfamily std\+::string Debugger\+::\+Debug\+Vec3 (\begin{DoxyParamCaption}\item[{glm\+::vec3}]{a }\end{DoxyParamCaption})}
+
+
+
+turns a vec3 into a string for console output 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Vec3} & a \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+string -\/ string value with each XYZ of a given vec3 
+\end{DoxyReturn}
+
+
+Definition at line 16 of file Debugger.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{17 \{}
+\DoxyCodeLine{18     std::string b = \textcolor{stringliteral}{"{}X: "{}} + std::to\_string(a.x) + \textcolor{stringliteral}{"{} -\/-\/ Y: "{}} + std::to\_string(a.y) + \textcolor{stringliteral}{"{} -\/-\/ Z: "{}} + std::to\_string(a.z);}
+\DoxyCodeLine{19     \textcolor{keywordflow}{return} b;}
+\DoxyCodeLine{20 \}}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/chris/\+Documents/\+UNI/\+ICT397-\/\+Project/\+ICT397-\/\+Project-\/\+Engine/Debugger.\+h\item 
+C\+:/\+Users/chris/\+Documents/\+UNI/\+ICT397-\/\+Project/\+ICT397-\/\+Project-\/\+Engine/Debugger.\+cpp\end{DoxyCompactItemize}

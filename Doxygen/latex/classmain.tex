@@ -1,0 +1,164 @@
+\hypertarget{classmain}{}\doxysection{main Class Reference}
+\label{classmain}\index{main@{main}}
+
+
+A derived class that inherits from the state class. Represents the main state of the \mbox{\hyperlink{class_player}{Player}} FSM.  
+
+
+
+
+{\ttfamily \#include $<$player\+States.\+h$>$}
+
+
+
+Inheritance diagram for main\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=172pt]{classmain__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for main\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=172pt]{classmain__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \mbox{\hyperlink{classmain_a7776319b8f379070ff7141d5da00eceb}{Enter}} (\mbox{\hyperlink{class_player}{Player}} $\ast$dude)
+\begin{DoxyCompactList}\small\item\em virtual function that represents the entry point of the state \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classmain_ad1631dab42af16248537954883adc06a}{Execute}} (\mbox{\hyperlink{class_player}{Player}} $\ast$dude)
+\begin{DoxyCompactList}\small\item\em virtual function that represents the execute point of the state \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classmain_a831728f381465f8034071389b67fd777}{Exit}} (\mbox{\hyperlink{class_player}{Player}} $\ast$dude)
+\begin{DoxyCompactList}\small\item\em virtual function that represents the exit point of the state \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A derived class that inherits from the state class. Represents the main state of the \mbox{\hyperlink{class_player}{Player}} FSM. 
+
+\begin{DoxyAuthor}{Author}
+Dylan Blereau 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+01 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+02/05/2021 Dylan Blereau, Started 
+\end{DoxyDate}
+
+
+Definition at line 155 of file player\+States.\+h.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classmain_a7776319b8f379070ff7141d5da00eceb}\label{classmain_a7776319b8f379070ff7141d5da00eceb}} 
+\index{main@{main}!Enter@{Enter}}
+\index{Enter@{Enter}!main@{main}}
+\doxysubsubsection{\texorpdfstring{Enter()}{Enter()}}
+{\footnotesize\ttfamily void main\+::\+Enter (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_player}{Player}} $\ast$}]{dude }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+virtual function that represents the entry point of the state 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dude} & -\/ a pointer to the \mbox{\hyperlink{class_player}{Player}} object \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_state_aab4cca8d69092deacf053cf2b12e4cd6}{State$<$ Player $>$}}.
+
+
+
+Definition at line 138 of file player\+States.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{139 \{}
+\DoxyCodeLine{140     \textcolor{keywordflow}{if} (dude-\/>mainState.isTable())}
+\DoxyCodeLine{141     \{}
+\DoxyCodeLine{142         dude-\/>mainState[1](dude);}
+\DoxyCodeLine{143     \}}
+\DoxyCodeLine{144 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classmain_ad1631dab42af16248537954883adc06a}\label{classmain_ad1631dab42af16248537954883adc06a}} 
+\index{main@{main}!Execute@{Execute}}
+\index{Execute@{Execute}!main@{main}}
+\doxysubsubsection{\texorpdfstring{Execute()}{Execute()}}
+{\footnotesize\ttfamily void main\+::\+Execute (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_player}{Player}} $\ast$}]{dude }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+virtual function that represents the execute point of the state 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dude} & -\/ a pointer to the \mbox{\hyperlink{class_player}{Player}} object \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_state_a7b7e948b4fe83e3686564e453ed0c406}{State$<$ Player $>$}}.
+
+
+
+Definition at line 146 of file player\+States.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{147 \{}
+\DoxyCodeLine{148     \textcolor{keywordflow}{if} (dude-\/>mainState.isTable())}
+\DoxyCodeLine{149     \{}
+\DoxyCodeLine{150         dude-\/>mainState[2](dude);}
+\DoxyCodeLine{151     \}}
+\DoxyCodeLine{152 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classmain_a831728f381465f8034071389b67fd777}\label{classmain_a831728f381465f8034071389b67fd777}} 
+\index{main@{main}!Exit@{Exit}}
+\index{Exit@{Exit}!main@{main}}
+\doxysubsubsection{\texorpdfstring{Exit()}{Exit()}}
+{\footnotesize\ttfamily void main\+::\+Exit (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_player}{Player}} $\ast$}]{dude }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+virtual function that represents the exit point of the state 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dude} & -\/ a pointer to the \mbox{\hyperlink{class_player}{Player}} object \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_state_aa086d08513a4adb59848deec250fbcae}{State$<$ Player $>$}}.
+
+
+
+Definition at line 154 of file player\+States.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{155 \{}
+\DoxyCodeLine{156     \textcolor{keywordflow}{if} (dude-\/>mainState.isTable())}
+\DoxyCodeLine{157     \{}
+\DoxyCodeLine{158         dude-\/>mainState[3](dude);}
+\DoxyCodeLine{159     \}}
+\DoxyCodeLine{160 \}}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/chris/\+Documents/\+UNI/\+ICT397-\/\+Project/\+ICT397-\/\+Project-\/\+Engine/player\+States.\+h\item 
+C\+:/\+Users/chris/\+Documents/\+UNI/\+ICT397-\/\+Project/\+ICT397-\/\+Project-\/\+Engine/player\+States.\+cpp\end{DoxyCompactItemize}

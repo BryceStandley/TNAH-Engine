@@ -1,0 +1,402 @@
+\hypertarget{class_model}{}\doxysection{Model Class Reference}
+\label{class_model}\index{Model@{Model}}
+
+
+Holds the model information of objects, can be md2 or \mbox{\hyperlink{class_fbx}{Fbx}} models.  
+
+
+
+
+{\ttfamily \#include $<$Model.\+h$>$}
+
+
+
+Collaboration diagram for Model\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=159pt]{class_model__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_model_ae3b375de5f6df4faf74a95d64748e048}\label{class_model_ae3b375de5f6df4faf74a95d64748e048}} 
+\mbox{\hyperlink{class_model_ae3b375de5f6df4faf74a95d64748e048}{Model}} ()
+\begin{DoxyCompactList}\small\item\em default constructor \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_model_a847c62dac3bf0195861fd466d0be8157}{Model}} (std\+::string const \&path, \mbox{\hyperlink{class_renderer}{Renderer}} $\ast$r, bool check)
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{class_model}{Model}} constructor that takes various parameters. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_model_ad30000e7f6d3f6771d8e3c0b56a4bdc0}{Model}} (std\+::string const \&path, \mbox{\hyperlink{class_renderer}{Renderer}} $\ast$r, bool check, std\+::string path\+Texture, bool anim)
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{class_model}{Model}} constructor that takes various parameters. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_model_acbbf433d601d583cc5a346deef9310d6}{Set\+Md2}} (bool check)
+\begin{DoxyCompactList}\small\item\em Function that will set the model to MD2 is the boolean provided is true, otherwise it will assign the model to be an FBX. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_model_a1c049fa03d56f57421414e31862da9f5}{Load\+Model}} (std\+::string const \&path, \mbox{\hyperlink{class_renderer}{Renderer}} $\ast$game\+Renderer, std\+::string path\+Texture)
+\begin{DoxyCompactList}\small\item\em Function responible for loading the model. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_model_a95878dc77a7f1ed7f13f2383f880c8ca}{Render}} (\mbox{\hyperlink{class_view}{View}} lens, \mbox{\hyperlink{class_shader}{Shader}} \&shader, glm\+::vec3 pos, glm\+::vec3 rot, float scale, bool rotate, float time, float direction, \mbox{\hyperlink{class_renderer}{Renderer}} $\ast$game\+Renderer, bool p)
+\begin{DoxyCompactList}\small\item\em makes use of the view information and graphics renderer among other things to render the model \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_model_abeacaeec6265bc2565031e4badc91123}{Set\+State}} (Md2\+Commands cmd)
+\begin{DoxyCompactList}\small\item\em sets the animation state of the model to the command provided as parameter \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_md2_state}{Md2\+State}} \mbox{\hyperlink{class_model_a481be20d5a6b5eb63e63cf17e5b2c006}{Get\+State}} () const
+\begin{DoxyCompactList}\small\item\em gets and returns the current \mbox{\hyperlink{struct_md2_state}{Md2\+State}} of the \mbox{\hyperlink{class_model}{Model}} \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_mesh}{Mesh}} $\ast$ \mbox{\hyperlink{class_model_a87701bd40c275476bc6b84d62301a2fe}{Get\+Mesh}} (int i)
+\begin{DoxyCompactList}\small\item\em gets and returns a pointer to the \mbox{\hyperlink{class_mesh}{Mesh}} of the \mbox{\hyperlink{class_model}{Model}} \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Holds the model information of objects, can be md2 or \mbox{\hyperlink{class_fbx}{Fbx}} models. 
+
+\begin{DoxyAuthor}{Author}
+Christopher Logan 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+01 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+25/04/2021 
+\end{DoxyDate}
+
+
+Definition at line 38 of file Model.\+h.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_model_a847c62dac3bf0195861fd466d0be8157}\label{class_model_a847c62dac3bf0195861fd466d0be8157}} 
+\index{Model@{Model}!Model@{Model}}
+\index{Model@{Model}!Model@{Model}}
+\doxysubsubsection{\texorpdfstring{Model()}{Model()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Model\+::\+Model (\begin{DoxyParamCaption}\item[{std\+::string const \&}]{path,  }\item[{\mbox{\hyperlink{class_renderer}{Renderer}} $\ast$}]{r,  }\item[{bool}]{check }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\mbox{\hyperlink{class_model}{Model}} constructor that takes various parameters. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em path} & -\/ represents the path to the model \\
+\hline
+{\em r} & -\/ a pointer to the renderer \\
+\hline
+{\em check} & -\/ a boolean variable that checks if the model is MD2 or FBX \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 56 of file Model.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{57     \{}
+\DoxyCodeLine{58         \mbox{\hyperlink{class_model_acbbf433d601d583cc5a346deef9310d6}{SetMd2}}(check);}
+\DoxyCodeLine{59         \mbox{\hyperlink{class_model_a1c049fa03d56f57421414e31862da9f5}{LoadModel}}(path, r, \textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{60         animations = \textcolor{keyword}{true};}
+\DoxyCodeLine{61     \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_model_ad30000e7f6d3f6771d8e3c0b56a4bdc0}\label{class_model_ad30000e7f6d3f6771d8e3c0b56a4bdc0}} 
+\index{Model@{Model}!Model@{Model}}
+\index{Model@{Model}!Model@{Model}}
+\doxysubsubsection{\texorpdfstring{Model()}{Model()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Model\+::\+Model (\begin{DoxyParamCaption}\item[{std\+::string const \&}]{path,  }\item[{\mbox{\hyperlink{class_renderer}{Renderer}} $\ast$}]{r,  }\item[{bool}]{check,  }\item[{std\+::string}]{path\+Texture,  }\item[{bool}]{anim }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\mbox{\hyperlink{class_model}{Model}} constructor that takes various parameters. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em path} & -\/ represents the path to the model \\
+\hline
+{\em r} & -\/ a pointer to the renderer \\
+\hline
+{\em check} & -\/ a boolean variable that checks if the model is MD2 or FBX \\
+\hline
+{\em path\+Texture} & -\/ a string representing the path to the model texture @bool anim -\/ a boolean flag indicating whether or not animations are true or false \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 73 of file Model.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{74     \{}
+\DoxyCodeLine{75         \mbox{\hyperlink{class_model_acbbf433d601d583cc5a346deef9310d6}{SetMd2}}(check);}
+\DoxyCodeLine{76         \mbox{\hyperlink{class_model_a1c049fa03d56f57421414e31862da9f5}{LoadModel}}(path, r, pathTexture);}
+\DoxyCodeLine{77         animations = anim;}
+\DoxyCodeLine{78     \}}
+
+\end{DoxyCode}
+
+
+Referenced by Enemy\+::\+Enemy(), and Player\+::\+Player().
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=275pt]{class_model_ad30000e7f6d3f6771d8e3c0b56a4bdc0_icgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_model_a87701bd40c275476bc6b84d62301a2fe}\label{class_model_a87701bd40c275476bc6b84d62301a2fe}} 
+\index{Model@{Model}!GetMesh@{GetMesh}}
+\index{GetMesh@{GetMesh}!Model@{Model}}
+\doxysubsubsection{\texorpdfstring{GetMesh()}{GetMesh()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_mesh}{Mesh}}$\ast$ Model\+::\+Get\+Mesh (\begin{DoxyParamCaption}\item[{int}]{i }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+gets and returns a pointer to the \mbox{\hyperlink{class_mesh}{Mesh}} of the \mbox{\hyperlink{class_model}{Model}} 
+
+\begin{DoxyReturn}{Returns}
+Mesh$\ast$ 
+\end{DoxyReturn}
+
+
+Definition at line 140 of file Model.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{140 \{ \textcolor{keywordflow}{return} \&fbxModel.meshes[i]; \}}
+
+\end{DoxyCode}
+
+
+Referenced by Game\+Asset\+Factory\+::\+Get\+Game\+Object(), and Game\+Asset\+Factory\+::\+Get\+Game\+Object\+Save().
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_model_a87701bd40c275476bc6b84d62301a2fe_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_model_a481be20d5a6b5eb63e63cf17e5b2c006}\label{class_model_a481be20d5a6b5eb63e63cf17e5b2c006}} 
+\index{Model@{Model}!GetState@{GetState}}
+\index{GetState@{GetState}!Model@{Model}}
+\doxysubsubsection{\texorpdfstring{GetState()}{GetState()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_md2_state}{Md2\+State}} Model\+::\+Get\+State (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+gets and returns the current \mbox{\hyperlink{struct_md2_state}{Md2\+State}} of the \mbox{\hyperlink{class_model}{Model}} 
+
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{struct_md2_state}{Md2\+State}} 
+\end{DoxyReturn}
+
+
+Definition at line 134 of file Model.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{134 \{ \textcolor{keywordflow}{return} currentState; \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_model_a1c049fa03d56f57421414e31862da9f5}\label{class_model_a1c049fa03d56f57421414e31862da9f5}} 
+\index{Model@{Model}!LoadModel@{LoadModel}}
+\index{LoadModel@{LoadModel}!Model@{Model}}
+\doxysubsubsection{\texorpdfstring{LoadModel()}{LoadModel()}}
+{\footnotesize\ttfamily void Model\+::\+Load\+Model (\begin{DoxyParamCaption}\item[{std\+::string const \&}]{path,  }\item[{\mbox{\hyperlink{class_renderer}{Renderer}} $\ast$}]{game\+Renderer,  }\item[{std\+::string}]{path\+Texture }\end{DoxyParamCaption})}
+
+
+
+Function responible for loading the model. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em path} & -\/ represents the filepath to the model \\
+\hline
+{\em game\+Renderer} & -\/ represents a pointer to the game\+Renderer \\
+\hline
+{\em path\+Texture} & -\/ a string that represents the path to the models texture \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 3 of file Model.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{4 \{}
+\DoxyCodeLine{5     \textcolor{keywordflow}{if} (fbx)}
+\DoxyCodeLine{6     \{}
+\DoxyCodeLine{7         \mbox{\hyperlink{class_fbx}{Fbx}} temp(path, gameRenderer);}
+\DoxyCodeLine{8         fbxModel = temp;}
+\DoxyCodeLine{9     \}}
+\DoxyCodeLine{10     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (md2)}
+\DoxyCodeLine{11     \{}
+\DoxyCodeLine{12         md2Model.\mbox{\hyperlink{class_md2_ae16cdc1436dd02758a37e3e7829c6223}{LoadModel}}(path.c\_str(), pathTexture.c\_str(), \textcolor{stringliteral}{"{}./res/shader/md2vert.vert"{}}, \textcolor{stringliteral}{"{}./res/shader/md2frag.frag"{}}, gameRenderer);}
+\DoxyCodeLine{13         currentState = md2Model.\mbox{\hyperlink{class_md2_a70daec3c09693e106cfb2a00c3f13c06}{StartAnimation}}(WALK);}
+\DoxyCodeLine{14     \}}
+\DoxyCodeLine{15 \}}
+
+\end{DoxyCode}
+
+
+References Fbx\+::\+Fbx().
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=268pt]{class_model_a1c049fa03d56f57421414e31862da9f5_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_model_a95878dc77a7f1ed7f13f2383f880c8ca}\label{class_model_a95878dc77a7f1ed7f13f2383f880c8ca}} 
+\index{Model@{Model}!Render@{Render}}
+\index{Render@{Render}!Model@{Model}}
+\doxysubsubsection{\texorpdfstring{Render()}{Render()}}
+{\footnotesize\ttfamily void Model\+::\+Render (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_view}{View}}}]{lens,  }\item[{\mbox{\hyperlink{class_shader}{Shader}} \&}]{shader,  }\item[{glm\+::vec3}]{pos,  }\item[{glm\+::vec3}]{rot,  }\item[{float}]{scale,  }\item[{bool}]{rotate,  }\item[{float}]{time,  }\item[{float}]{direction,  }\item[{\mbox{\hyperlink{class_renderer}{Renderer}} $\ast$}]{game\+Renderer,  }\item[{bool}]{p }\end{DoxyParamCaption})}
+
+
+
+makes use of the view information and graphics renderer among other things to render the model 
+
+
+\begin{DoxyParams}{Parameters}
+{\em lens} & -\/ holds the information that allows you to project and view the model \\
+\hline
+{\em shader} & -\/ represents the shader object used by the model \\
+\hline
+{\em pos} & -\/ the vec3 position of the model \\
+\hline
+{\em rot} & -\/ rotation vector of the model \\
+\hline
+{\em scale} & -\/ scale of the object \\
+\hline
+{\em rotate} & -\/ bool value confirming whether or not the model rotates \\
+\hline
+{\em time} & -\/ represents deltatime, which is the difference between the previous frame and the current frame \\
+\hline
+{\em direction} & -\/ the direction of the model \\
+\hline
+{\em game\+Renderer} & -\/ a pointer to the renderer which is used to render the enemy model \\
+\hline
+{\em p} & -\/ represents if player exists or not \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 17 of file Model.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{18 \{}
+\DoxyCodeLine{19     \textcolor{keywordflow}{if} (fbx)}
+\DoxyCodeLine{20     \{}
+\DoxyCodeLine{21         gameRenderer-\/>\mbox{\hyperlink{class_renderer_a0eebf54fd91ea19b54da3bf1ba944a0f}{SetShader}}(shader, lens);}
+\DoxyCodeLine{22         \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < fbxModel.meshes.size(); i++)}
+\DoxyCodeLine{23         \{}
+\DoxyCodeLine{24             gameRenderer-\/>\mbox{\hyperlink{class_renderer_a50f434d31fea7a8feedd0b7077f8ab1b}{RenderModel}}(shader, GenerateMatFour(pos, rot, scale, rotate) * fbxModel.meshes[i].transform, fbxModel.meshes[i]);}
+\DoxyCodeLine{25         \}}
+\DoxyCodeLine{26     \}}
+\DoxyCodeLine{27     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (md2)}
+\DoxyCodeLine{28     \{}
+\DoxyCodeLine{29         \textcolor{keywordflow}{if} (animations)}
+\DoxyCodeLine{30         \{}
+\DoxyCodeLine{31             rot.x = 180.695f;}
+\DoxyCodeLine{32             \textcolor{keywordflow}{if}(p)}
+\DoxyCodeLine{33                 md2Model.\mbox{\hyperlink{class_md2_a7701faf00d57aca4e25141bf2274fb34}{RenderModel}}(\&currentState, lens.\mbox{\hyperlink{class_view_aa878a4bc822f2e5c6999e8b4be727a2b}{GetProjection}}(), lens.\mbox{\hyperlink{class_view_ad8b28c769712d05576aa6e316f04ad32}{GetView}}(), GenerateMatFour(pos, rot, scale, rotate), direction, gameRenderer);}
+\DoxyCodeLine{34             \textcolor{keywordflow}{else}}
+\DoxyCodeLine{35                 md2Model.\mbox{\hyperlink{class_md2_a7701faf00d57aca4e25141bf2274fb34}{RenderModel}}(\&currentState, lens.\mbox{\hyperlink{class_view_aa878a4bc822f2e5c6999e8b4be727a2b}{GetProjection}}(), lens.\mbox{\hyperlink{class_view_ad8b28c769712d05576aa6e316f04ad32}{GetView}}(), pos, rot, direction, gameRenderer);}
+\DoxyCodeLine{36             md2Model.\mbox{\hyperlink{class_md2_a79c7e34ebb8065b2c696abc81ed329cc}{UpdateAnimation}}(\&currentState, time, gameRenderer);}
+\DoxyCodeLine{37         \}}
+\DoxyCodeLine{38         \textcolor{keywordflow}{else}}
+\DoxyCodeLine{39         \{}
+\DoxyCodeLine{40             md2Model.\mbox{\hyperlink{class_md2_a7701faf00d57aca4e25141bf2274fb34}{RenderModel}}(NULL, lens.\mbox{\hyperlink{class_view_aa878a4bc822f2e5c6999e8b4be727a2b}{GetProjection}}(), lens.\mbox{\hyperlink{class_view_ad8b28c769712d05576aa6e316f04ad32}{GetView}}(), GenerateMatFour(pos, rot, scale, rotate), 0, gameRenderer);}
+\DoxyCodeLine{41         \}}
+\DoxyCodeLine{42     \}}
+\DoxyCodeLine{43 \}}
+
+\end{DoxyCode}
+
+
+References Renderer\+::\+Set\+Shader().
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=303pt]{class_model_a95878dc77a7f1ed7f13f2383f880c8ca_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_model_acbbf433d601d583cc5a346deef9310d6}\label{class_model_acbbf433d601d583cc5a346deef9310d6}} 
+\index{Model@{Model}!SetMd2@{SetMd2}}
+\index{SetMd2@{SetMd2}!Model@{Model}}
+\doxysubsubsection{\texorpdfstring{SetMd2()}{SetMd2()}}
+{\footnotesize\ttfamily void Model\+::\+Set\+Md2 (\begin{DoxyParamCaption}\item[{bool}]{check }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Function that will set the model to MD2 is the boolean provided is true, otherwise it will assign the model to be an FBX. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em check} & -\/ represents the check to see if the model is MD2 or not \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 85 of file Model.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{85                             \{}
+\DoxyCodeLine{86         \textcolor{keywordflow}{if} (check)}
+\DoxyCodeLine{87         \{}
+\DoxyCodeLine{88             md2 = \textcolor{keyword}{true};}
+\DoxyCodeLine{89             fbx = \textcolor{keyword}{false};}
+\DoxyCodeLine{90         \}}
+\DoxyCodeLine{91         \textcolor{keywordflow}{else}}
+\DoxyCodeLine{92         \{}
+\DoxyCodeLine{93             md2 = \textcolor{keyword}{false};}
+\DoxyCodeLine{94             fbx = \textcolor{keyword}{true};}
+\DoxyCodeLine{95         \}}
+\DoxyCodeLine{96     \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_model_abeacaeec6265bc2565031e4badc91123}\label{class_model_abeacaeec6265bc2565031e4badc91123}} 
+\index{Model@{Model}!SetState@{SetState}}
+\index{SetState@{SetState}!Model@{Model}}
+\doxysubsubsection{\texorpdfstring{SetState()}{SetState()}}
+{\footnotesize\ttfamily void Model\+::\+Set\+State (\begin{DoxyParamCaption}\item[{Md2\+Commands}]{cmd }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+sets the animation state of the model to the command provided as parameter 
+
+
+\begin{DoxyParams}{Parameters}
+{\em cmd} & -\/ represents the animation state that the function will provide the start animation function \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 128 of file Model.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{128 \{ currentState = md2Model.\mbox{\hyperlink{class_md2_a70daec3c09693e106cfb2a00c3f13c06}{StartAnimation}}(cmd); \}}
+
+\end{DoxyCode}
+
+
+Referenced by Enemy\+::\+Set\+State(), and Player\+::\+Set\+State().
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_model_abeacaeec6265bc2565031e4badc91123_icgraph}
+\end{center}
+\end{figure}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/chris/\+Documents/\+UNI/\+ICT397-\/\+Project/\+ICT397-\/\+Project-\/\+Engine/Model.\+h\item 
+C\+:/\+Users/chris/\+Documents/\+UNI/\+ICT397-\/\+Project/\+ICT397-\/\+Project-\/\+Engine/Model.\+cpp\end{DoxyCompactItemize}

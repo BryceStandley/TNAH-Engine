@@ -1,0 +1,432 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
+    <generated>
+      <config projectName="TNAH-Project" targetName="TNAH-Project" />
+    </generated>
+  </component>
+  <component name="CMakeSettings" AUTO_RELOAD="true">
+    <configurations>
+      <configuration PROFILE_NAME="Debug" CONFIG_NAME="Debug" TOOLCHAIN_NAME="Default" ENABLED="true" />
+      <configuration PROFILE_NAME="Release" CONFIG_NAME="Release" TOOLCHAIN_NAME="Default" ENABLED="true" />
+    </configurations>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="127c4cee-4109-4dc5-a120-c50cf0ff91ca" name="Default Changelist" comment="Fixed menus">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/Scene.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/Scene.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICT397-Project-Engine/res/save.sav" beforeDir="false" afterPath="$PROJECT_DIR$/ICT397-Project-Engine/res/save.sav" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager">
+    <option name="groupingKeys">
+      <option value="directory" />
+    </option>
+  </component>
+  <component name="ClangdSettings">
+    <option name="clangTidyViaClangd" value="false" />
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="GLSL Shader" />
+        <option value="NewLua" />
+        <option value="CMakeLists.txt" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="fba80899d9e541b102c9c46dd6e3b3aae0ecffdf" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="SAVE_CHANGES_POLICY" value="STASH" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedIndex" value="1" />
+  </component>
+  <component name="ProjectId" id="1qhE8nkWeMDWoZ2e30lMq39kUEW" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <OptionsSetting value="false" id="Update" />
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="false" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="RunOnceActivity.cidr.known.project.marker" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="cf.first.check.clang-format" value="false" />
+    <property name="cidr.known.project.marker" value="true" />
+    <property name="cmake.loaded.for.project" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/ICT397-Project-Engine/tga" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
+    <property name="settings.editor.selected.configurable" value="CPPToolchains" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/ICT397-Project-Engine/tga" />
+      <recent name="C:\Users\nukee\OneDrive\Desktop\git\ICT397-Project\lib\glad" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="TNAH-Project" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="TNAH-Project" TARGET_NAME="TNAH-Project" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="TNAH-Project" RUN_TARGET_NAME="TNAH-Project">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="127c4cee-4109-4dc5-a120-c50cf0ff91ca" name="Default Changelist" comment="" />
+      <created>1617523267362</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1617523267362</updated>
+      <workItem from="1617523271156" duration="14229000" />
+      <workItem from="1617542776306" duration="288000" />
+      <workItem from="1617543087142" duration="1332000" />
+      <workItem from="1617679490335" duration="5387000" />
+      <workItem from="1617688341665" duration="29779000" />
+      <workItem from="1617761170224" duration="4399000" />
+      <workItem from="1617845627237" duration="14633000" />
+      <workItem from="1617870933720" duration="15572000" />
+      <workItem from="1617930266433" duration="2298000" />
+      <workItem from="1617933871698" duration="4708000" />
+      <workItem from="1617938749579" duration="1112000" />
+      <workItem from="1617940036370" duration="88000" />
+      <workItem from="1620646651664" duration="5069000" />
+      <workItem from="1620652364911" duration="2187000" />
+      <workItem from="1620654560226" duration="130000" />
+      <workItem from="1620654886839" duration="637000" />
+      <workItem from="1620656308982" duration="5332000" />
+      <workItem from="1620704299091" duration="4504000" />
+      <workItem from="1620789594496" duration="990000" />
+      <workItem from="1620790967722" duration="655000" />
+      <workItem from="1620792056464" duration="8611000" />
+      <workItem from="1620811466263" duration="5471000" />
+      <workItem from="1620819107174" duration="5704000" />
+      <workItem from="1620952203729" duration="1624000" />
+      <workItem from="1621226892581" duration="4096000" />
+      <workItem from="1621388045367" duration="6750000" />
+      <workItem from="1621559642847" duration="7623000" />
+      <workItem from="1621568199580" duration="954000" />
+      <workItem from="1621647046588" duration="6246000" />
+      <workItem from="1621780575152" duration="13636000" />
+      <workItem from="1621844865037" duration="701000" />
+      <workItem from="1621907495057" duration="4943000" />
+      <workItem from="1621912531002" duration="42555000" />
+      <workItem from="1622038042458" duration="569000" />
+      <workItem from="1622080831526" duration="1250000" />
+      <workItem from="1622083931750" duration="298000" />
+      <workItem from="1622084277117" duration="4453000" />
+      <workItem from="1622162086356" duration="10008000" />
+    </task>
+    <task id="LOCAL-00001" summary="Added collisions with objects">
+      <created>1617722294195</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1617722294195</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Fixed FBS files, added weapon to player(model placed wrong), fixed player checking collisions on it self">
+      <created>1617767262012</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1617767262012</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Added files from last push that were missing">
+      <created>1617845820988</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1617845820988</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Added Debugging, fixed small bugs">
+      <created>1617870823142</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1617870823142</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Started to add ExitScreen Stuff but im cooked">
+      <created>1617886633291</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1617886633291</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Updated 3.2">
+      <created>1617937590200</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1617937590200</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Doxy files generated">
+      <created>1617938364547</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1617938364547</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Rebuilt Debugging">
+      <created>1620661488628</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1620661488628</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Fixed windows build">
+      <created>1620704367075</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1620704367075</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Water plane">
+      <created>1620711871838</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1620711871838</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Enemy avoidance">
+      <created>1620817062842</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1620817062842</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Added new weapon md2 file with animations. Will fix texture later">
+      <created>1620878813137</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1620878813137</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Added basic menu system">
+      <created>1621323539540</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1621323539540</updated>
+    </task>
+    <task id="LOCAL-00014" summary="fixes to the menus and fixed some bugs">
+      <created>1621394455544</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1621394455544</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Fixed Bugs, Added Controls and Difficulty menus">
+      <created>1621568019966</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1621568019966</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Started to add settings manager and options">
+      <created>1621569141936</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1621569141937</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Fixed token bug fixed firing hit issues">
+      <created>1621657695264</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1621657695264</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Added enemy firing, fixed menu stuff, death screen etc its 2:30am imma go to bed">
+      <created>1621794561925</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1621794561925</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Fixed trees, stopped random print of numbers, reduced enemy's spawning on load">
+      <created>1621845278489</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1621845278489</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Added fullscreen toggle, doxy etc">
+      <created>1621922126574</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1621922126574</updated>
+    </task>
+    <task id="LOCAL-00021" summary="big terrain update">
+      <created>1622037581971</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1622037581971</updated>
+    </task>
+    <task id="LOCAL-00022" summary="fixed camera clipping and position- not perfect but it works good enough for now">
+      <created>1622087953157</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1622087953157</updated>
+    </task>
+    <task id="LOCAL-00023" summary="Water etc">
+      <created>1622170763011</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1622170763011</updated>
+    </task>
+    <task id="LOCAL-00024" summary="Fixed menus">
+      <created>1622173603174</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1622173603174</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="origin/Testing" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="origin/Testing" />
+                </option>
+              </RecentGroup>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="origin/dev" />
+                </option>
+              </RecentGroup>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="origin/CheckingEx" />
+                </option>
+              </RecentGroup>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="origin/LOADING" />
+                </option>
+              </RecentGroup>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <ignored-roots>
+      <path value="$PROJECT_DIR$/lib/assimp" />
+    </ignored-roots>
+    <MESSAGE value="Added collisions with objects" />
+    <MESSAGE value="Fixed FBS files, added weapon to player(model placed wrong), fixed player checking collisions on it self" />
+    <MESSAGE value="Added files from last push that were missing" />
+    <MESSAGE value="Added Debugging, fixed small bugs" />
+    <MESSAGE value="Started to add ExitScreen Stuff but im cooked" />
+    <MESSAGE value="Updated 3.2" />
+    <MESSAGE value="Doxy files generated" />
+    <MESSAGE value="Rebuilt Debugging" />
+    <MESSAGE value="Fixed windows build" />
+    <MESSAGE value="Water plane" />
+    <MESSAGE value="Enemy avoidance" />
+    <MESSAGE value="Added new weapon md2 file with animations. Will fix texture later" />
+    <MESSAGE value="Added basic menu system" />
+    <MESSAGE value="fixes to the menus and fixed some bugs" />
+    <MESSAGE value="Fixed Bugs, Added Controls and Difficulty menus" />
+    <MESSAGE value="Started to add settings manager and options" />
+    <MESSAGE value="Fixed token bug fixed firing hit issues" />
+    <MESSAGE value="Added enemy firing, fixed menu stuff, death screen etc its 2:30am imma go to bed" />
+    <MESSAGE value="Fixed trees, stopped random print of numbers, reduced enemy's spawning on load" />
+    <MESSAGE value="Added fullscreen toggle, doxy etc" />
+    <MESSAGE value="big terrain update" />
+    <MESSAGE value="fixed camera clipping and position- not perfect but it works good enough for now" />
+    <MESSAGE value="Water etc" />
+    <MESSAGE value="Fixed menus" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed menus" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/ICT397-Project-Engine/Engine.cpp</url>
+          <line>206</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>

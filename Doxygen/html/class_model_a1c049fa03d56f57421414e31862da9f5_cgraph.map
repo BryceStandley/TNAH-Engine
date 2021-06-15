@@ -1,0 +1,4 @@
+<map id="Model::LoadModel" name="Model::LoadModel">
+<area shape="rect" id="node1" title="Function responible for loading the model." alt="" coords="5,5,133,32"/>
+<area shape="rect" id="node2" href="$class_fbx.html#a47dca81430696839ce01d514e3241cb7" title="constructor that loads in the model from the given path" alt="" coords="181,5,256,32"/>
+</map>

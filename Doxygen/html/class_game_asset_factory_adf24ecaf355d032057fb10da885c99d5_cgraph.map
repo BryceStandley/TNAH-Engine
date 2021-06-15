@@ -1,0 +1,13 @@
+<map id="GameAssetFactory::GetGameObject" name="GameAssetFactory::GetGameObject">
+<area shape="rect" id="node1" title="Creates the game object and returns it." alt="" coords="5,201,204,242"/>
+<area shape="rect" id="node2" href="$class_bounding_box.html#a4323fc64a71cee220dac92746a2bfe5e" title="Bounding box constructor with empty objects." alt="" coords="279,5,463,32"/>
+<area shape="rect" id="node3" href="$class_bounding_box.html#ab296f5ae8c91a36892f030c8c62814f6" title="Takes a mesh and generates a basix bounding box based off min and max values of the mesh in X,..." alt="" coords="252,56,489,83"/>
+<area shape="rect" id="node5" href="$class_model.html#a87701bd40c275476bc6b84d62301a2fe" title="gets and returns a pointer to the Mesh of the Model" alt="" coords="311,107,430,133"/>
+<area shape="rect" id="node6" href="$class_game_object.html#a4d2dd39231dc5fa8c9c9b29b91f8ec95" title="Gets the model." alt="" coords="291,157,450,184"/>
+<area shape="rect" id="node7" href="$class_game_object.html#a94626dd233a6f7a0b10e2638f386934a" title="Sets gameobject&#39;s bounding box object." alt="" coords="271,208,471,235"/>
+<area shape="rect" id="node8" href="$class_game_object.html#a09d08654806a1c0e625993dcea744d61" title="Sets tag of a given object." alt="" coords="274,259,467,285"/>
+<area shape="rect" id="node9" href="$class_game_object.html#a3fdc779479da3311be0f92531cb442f4" title="Sets the id." alt="" coords="304,309,437,336"/>
+<area shape="rect" id="node10" href="$class_game_object.html#a3183b6bda0347ffc1196d07d4f26337c" title="Sets the name of a game object." alt="" coords="292,360,449,387"/>
+<area shape="rect" id="node11" href="$class_game_object.html#a2b8cd8b76bb89306c78371eb921df67a" title="Sets the type of object." alt="" coords="295,411,446,437"/>
+<area shape="rect" id="node4" href="$class_bounding_box.html#af296a5334106dad59f911db18e128d71" title="Generates normals of the bounding box." alt="" coords="537,49,752,90"/>
+</map>

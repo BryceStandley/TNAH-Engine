@@ -1,0 +1,6 @@
+<map id="ExitScreen" name="ExitScreen">
+<area shape="rect" id="node1" title="Holds information about the exit screen and its functions." alt="" coords="137,351,306,487"/>
+<area shape="rect" id="node2" href="$class_renderer.html" title="Contains the absract information for the Renderer. The class holds all the functions that would be us..." alt="" coords="5,35,152,259"/>
+<area shape="rect" id="node3" href="$class_shader.html" title="A class that is responsible for shaders, allowing you to open/use shaders and set uniforms of various..." alt="" coords="176,5,267,288"/>
+<area shape="rect" id="node4" href="$class_model.html" title="Holds the model information of objects, can be md2 or Fbx models." alt="" coords="291,49,397,244"/>
+</map>
