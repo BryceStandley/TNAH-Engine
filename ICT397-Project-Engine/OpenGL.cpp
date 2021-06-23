@@ -541,66 +541,125 @@ void OpenGL::RenderModel(int number, Md2State* animState, glm::mat4 proj, glm::m
     glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-/*void OpenGL::SetupWater(Water* water)
+void OpenGL::SetUpReactDebugger(rp3d::DebugRenderer debugRenderer)
 {
-    unsigned int FBO;
-    glGenFramebuffers(1, &FBO);
-    glBindFramebuffer(GL_FRAMEBUFFER, FBO);
-    glDrawBuffer(GL_COLOR_ATTACHMENT0);
-    water->SetFBO(FBO);
+	uint VAO, VBO;
+	glGenBuffers(1, &VBO);
+	glGenVertexArrays(1, &VAO);
+	glBindVertexArray(VAO);
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	PhysicsManager::GetInstance()->LinesVAO = VAO;
+	PhysicsManager::GetInstance()->LinesVBO = VBO;
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindVertexArray(0);
 
-    unsigned int DBO;
-    glGenRenderbuffers(1, &DBO);
-    glBindRenderbuffer(GL_RENDERBUFFER, DBO);
-    glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_ATTACHMENT, water->GetSize(), water->GetSize());
-    glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, DBO);
-    water->SetDBO(DBO);
-
-    unsigned int colour;
-    glGenTextures(1, &colour);
-    glBindTexture(GL_TEXTURE_2D, colour);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, water->GetSize(), water->GetSize(), 0, GL_RGB, GL_UNSIGNED_BYTE, nullptr);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, colour, 0);
-    water->SetColourTextureID(colour);
-
-    unsigned int depth;
-    glGenTextures(1, &depth);
-    glBindTexture(GL_TEXTURE_2D, depth);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT32, water->GetSize(), water->GetSize(), 0, GL_DEPTH_COMPONENT, GL_FLOAT, nullptr);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glFramebufferTexture(GL_FRAMEBUFFER, GL_DEPTH_COMPONENT, depth, 0);
-    water->SetDepthTextureID(depth);
-
-    //Enable the clipping plane for the water
-    glEnable(GL_CLIP_DISTANCE0);
+	uint tVAO, tVBO;
+	glGenBuffers(1, &tVBO);
+	glGenVertexArrays(1, &tVAO);
+	glBindVertexArray(tVAO);
+	glBindBuffer(GL_ARRAY_BUFFER, tVBO);
+	PhysicsManager::GetInstance()->triVAO = tVAO;
+	PhysicsManager::GetInstance()->triVBO = tVBO;
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindVertexArray(0);
 }
 
-void OpenGL::BindWater(Water* water)
+void OpenGL::RenderReactDebugger(rp3d::DebugRenderer debugRenderer, View lens)
 {
-    //bind framebuffer
-    glBindTexture(GL_TEXTURE_2D, 0);
-    glBindFramebuffer(GL_FRAMEBUFFER, water->GetFBO());
-    glViewport(0,0, water->GetSize(), water->GetSize());
+	PhysicsManager* physicsManager = PhysicsManager::GetInstance();
+	//Render only if the debugger is turned on
+	if(physicsManager->GetPhysicsWorld()->getIsDebugRenderingEnabled())
+	{
+
+
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
+		Shader* s = physicsManager->debugShader;
+		s->use();
+		s->setMat4("projectionMatrix", lens.GetProjection());
+		s->setMat4("localToWorldMatrix", lens.GetView()); //
+		s->setMat4("worldToCameraMatrix", lens.GetView());
+
+		s->setInt("isGlobalVertexColorEnabled", 0);
+
+		GLint vertexPositionLoc = 0;
+		GLint vertexColourLoc = 1;
+
+		//Lines
+		const uint nbLines = debugRenderer.getNbLines();
+		if(nbLines > 0)
+		{
+			glBindVertexArray(physicsManager->LinesVAO);
+			glBindBuffer(GL_ARRAY_BUFFER, physicsManager->LinesVBO);
+
+			glEnableVertexAttribArray(vertexPositionLoc);
+			glVertexAttribPointer(vertexPositionLoc, 3, GL_FLOAT, GL_FALSE, sizeof(rp3d::Vector3) + sizeof(rp3d::uint32), (char*) nullptr);
+
+			glEnableVertexAttribArray(vertexColourLoc);
+			glVertexAttribPointer(vertexColourLoc, 3, GL_UNSIGNED_INT, GL_FALSE, sizeof(rp3d::Vector3) + sizeof(rp3d::uint32), (void*)sizeof(rp3d::Vector3));
+
+			glDrawArrays(GL_LINES, 0, (GLsizei)nbLines * 2);
+
+			glDisableVertexAttribArray(vertexPositionLoc);
+			glDisableVertexAttribArray(vertexColourLoc);
+
+			glBindBuffer(GL_ARRAY_BUFFER, 0);
+			glBindVertexArray(0);
+		}
+
+		// Triangles
+		const uint nbTriangles = debugRenderer.getNbTriangles();
+		if(nbTriangles > 0)
+		{
+			glBindVertexArray(physicsManager->triVAO);
+			glBindBuffer(GL_ARRAY_BUFFER, physicsManager->triVBO);
+
+
+			glEnableVertexAttribArray(vertexPositionLoc);
+			glVertexAttribPointer(vertexPositionLoc, 3, GL_FLOAT, GL_FALSE, sizeof(rp3d::Vector3) + sizeof(rp3d::uint32), (char*) nullptr);
+
+			glEnableVertexAttribArray(vertexColourLoc);
+			glVertexAttribPointer(vertexColourLoc, 3, GL_UNSIGNED_INT, GL_FALSE, sizeof(rp3d::Vector3) + sizeof(rp3d::uint32), (void*)sizeof(rp3d::Vector3));
+
+			glDrawArrays(GL_TRIANGLES, 0, (GLsizei)nbTriangles * 3);
+
+			glDisableVertexAttribArray(vertexPositionLoc);
+			glDisableVertexAttribArray(vertexColourLoc);
+
+			glBindBuffer(GL_ARRAY_BUFFER, 0);
+			glBindVertexArray(0);
+		}
+
+		s->unbind();
+
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	}
 }
 
-void OpenGL::UnBindWater()
+void OpenGL::UpdateReactDebugVBO()
 {
-    glBindFramebuffer(GL_FRAMEBUFFER, 0);
-    GLint viewport[4];
-    glGetIntegerv(GL_VIEWPORT, viewport);
-    glViewport(0,0, viewport[2], viewport[3]);
+	PhysicsManager* physicsManager = PhysicsManager::GetInstance();
+	if(physicsManager->GetPhysicsWorld()->getIsDebugRenderingEnabled())
+	{
+		//Lines
+		const uint nbLines = physicsManager->GetDebugRenderer().getNbLines();
+		if(nbLines > 0)
+		{
+			glBindBuffer(GL_ARRAY_BUFFER, physicsManager->LinesVBO);
+			GLsizei sizeVertex = static_cast<GLsizei>(nbLines * sizeof(rp3d::DebugRenderer::DebugLine));
+			glBufferData(GL_ARRAY_BUFFER, sizeVertex, physicsManager->GetDebugRenderer().getLinesArray(), GL_STREAM_DRAW);
+			glBindBuffer(GL_ARRAY_BUFFER, 0);
+		}
+
+		// Triangles
+		const uint nbTriangles = physicsManager->GetDebugRenderer().getNbTriangles();
+		if(nbTriangles > 0)
+		{
+			glBindBuffer(GL_ARRAY_BUFFER, physicsManager->triVBO);
+
+			GLsizei sizeVertex = static_cast<GLsizei>(nbTriangles * sizeof(rp3d::DebugRenderer::DebugTriangle));
+			glBufferData(GL_ARRAY_BUFFER, sizeVertex, physicsManager->GetDebugRenderer().getTrianglesArray(), GL_STREAM_DRAW);
+			glBindBuffer(GL_ARRAY_BUFFER, 0);
+		}
+	}
 }
-
-void OpenGL::RenderWater(Water* water)
-{
-
-
-
-    // do stuff
-
-    // unbind framebuffer and set the view port back to the default
-
-}*/

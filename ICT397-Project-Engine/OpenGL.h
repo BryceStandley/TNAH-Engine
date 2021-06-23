@@ -145,6 +145,10 @@ public:
 	virtual void RenderModel(int number, Md2State* animState, glm::mat4 proj, glm::mat4 view, glm::mat4 genFour, float direction, unsigned int& VAO, unsigned int& textureId, Shader& shader);
 	virtual void RenderModel(int number, Md2State* animState, glm::mat4 proj, glm::mat4 view, glm::vec3 position, glm::vec3 rotation, float direction, unsigned int& VAO, unsigned int& textureId, Shader& shader);
 
+	virtual void SetUpReactDebugger(rp3d::DebugRenderer debugRenderer);
+	virtual void RenderReactDebugger(rp3d::DebugRenderer debugRenderer, View lens);
+
+	virtual void UpdateReactDebugVBO();
 
 
 	GlfwWindow* GetGlfwWindow() { return applicationWindow; }

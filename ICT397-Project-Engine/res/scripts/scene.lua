@@ -16,15 +16,20 @@ minX = 120;
 maxX = 430;
 minZ = minX;
 maxZ = maxX;
-
+--[[
 for i = 0, 30
 do
     x = math.random(minX, maxX)
     z = math.random(minZ, maxZ)
     cs:MakeGameObject("enemy",  "./res/scripts/gameobjects/enemy_zarlag.lua", 0.05, x, 1, z);   
-end
+end]]--
+
 cs:MakeGameObject("water",  "./res/scripts/gameobjects/static_water.lua", 0.03, 420, -0.6, 401);
 
+cs:MakeGameObject("static", "./res/scripts/gameobjects/static_cube.lua", 0.05, 420, 5, 350);
+
+
+--[[
 y = 1--Y value for all tokens
 for i = 0, 20
 do
@@ -85,3 +90,4 @@ do
     z = math.random(minZ, maxZ)
     cs:MakeGameObject("static",  "./res/scripts/gameobjects/static_stone1.lua", 0.02, x, y, z);
 end
+]]--

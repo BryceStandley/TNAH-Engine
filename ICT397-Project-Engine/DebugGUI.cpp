@@ -137,6 +137,12 @@ void DebugGUI::Draw()
     ImGui::Checkbox("No Player Y Position Clip", &Debugger::GetInstance()->noPlayerYClip);
     ImGui::Combo("LogType", &selectedType, logTypes, IM_ARRAYSIZE(logTypes));
 
+    if(ImGui::Button("Toggle Render Colliders"))
+    {
+	    PhysicsManager::GetInstance()->SetDebugPhysicsRendering(!PhysicsManager::GetInstance()->GetPhysicsWorld()->getIsDebugRenderingEnabled());
+    }
+
+
 	switch (selectedType)
 	{
 		case 0:

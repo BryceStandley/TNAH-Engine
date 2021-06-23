@@ -11,6 +11,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <ctime>
 #include <cmath>
+#include "reactphysics3d/reactphysics3d.h"
 #if _WIN32_
 #include <math.h>
 #include <corecrt_math_defines.h>
@@ -99,6 +100,9 @@ private:
 	glm::vec3 lowestPoint = glm::vec3(1000,1000,1000);
 
 public:
+
+	rp3d::RigidBody* terrainRigidbody;
+	rp3d::Collider* terrainCollider;
 
 	glm::vec3 GetMaxHeight(){ return highestPoint; }
 	glm::vec3 GetMinHeight(){ return lowestPoint; }

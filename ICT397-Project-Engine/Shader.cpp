@@ -161,6 +161,35 @@ void Shader::setMat4(const std::string& name, const glm::mat4& mat) const
     glUniformMatrix4fv(glGetUniformLocation(ID, name.c_str()), 1, GL_FALSE, &mat[0][0]);
 }
 
+// Return the location of a uniform variable inside a shader program
+GLint Shader::getUniformLocation(const std::string& variableName, bool errorIfMissing) const
+{
+	assert(ID != 0);
+	GLint location = glGetUniformLocation(ID, variableName.c_str());
+	if (location == -1 && errorIfMissing) {
+		std::cerr << "Error in vertex shader or in fragment shader : No Uniform variable : " << variableName << std::endl;
+		throw std::logic_error("Error in Shader");
+	}
+	return location;
+}
+
+// Return the location of an attribute variable inside a shader program
+GLint Shader::getAttribLocation(const std::string& variableName, bool errorIfMissing) const
+{
+	assert(ID != 0);
+	GLint location = glGetAttribLocation(ID, variableName.c_str());
+	if (location == -1 && errorIfMissing) {
+		std::cerr << "Error in vertex shader or in fragment shader: No variable : " << variableName << std::endl;
+		throw std::logic_error("Error in Shader");
+	}
+	return location;
+}
+
+void Shader::unbind() const
+{
+	glUseProgram(0);
+}
+
 
 void Shader::checkCompileErrors(GLuint shader, std::string type)
 {

@@ -26,6 +26,8 @@
 
 #include "Debugger.h"
 
+#include <reactphysics3d/reactphysics3d.h>
+
     /**
     * @class Model
     * @brief Holds the model information of objects, can be md2 or Fbx models
@@ -138,6 +140,7 @@ public:
         * @return Mesh*
         */
     Mesh* GetMesh(int i) { return &fbxModel.meshes[i]; }
+
 
 private:
 

@@ -47,6 +47,7 @@ void Fbx::loadModel(std::string const& path)
     if (Debugger::GetInstance()->debugToConsole) std::cout << "Model.cpp::INFO::Dir: " << directory << ", number of meshes: " << scene->mNumMeshes << std::endl;
 
     processNode(scene->mRootNode, scene, to_glm(scene->mRootNode->mTransformation));
+
 }
 
 

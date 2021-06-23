@@ -8,9 +8,19 @@ GameObject* GameAssetFactory::GetGameObject(std::string type, std::string script
         if(Debugger::GetInstance()->debugToConsole) std::cout << "Player done" << std::endl;
         GameObject* obj = new Player(position, glm::vec3(0, 0, 0), scale, renderer, script);
         BoundingBox box = BoundingBox();
-        //box = box.GenerateBoundingBox(obj->GetModel().GetMesh(0));
-        //obj->SetBoundingBox(box);
-        //obj->SetCollisionTag(BoundingBox::CollisionTag::PLAYER);
+
+		//Physics setup
+		rp3d::CapsuleShape* col = PhysicsManager::GetInstance()->CreateCapsuleCollider(1.0f, 2.0f);
+
+		rp3d::Vector3 p = rp3d::Vector3(position.x, position.y, position.z);
+		rp3d::Quaternion r = rp3d::Quaternion::identity();
+		rp3d::Transform transform(p, r);
+		rp3d::RigidBody* rb = PhysicsManager::GetInstance()->CreateRigidBody(transform);
+		obj->collider = rb->addCollider(col, transform);
+		rb->updateMassPropertiesFromColliders();
+		obj->rigidBody = rb;
+
+
         playerMade = true;
         return obj;
 
@@ -25,6 +35,19 @@ GameObject* GameAssetFactory::GetGameObject(std::string type, std::string script
         obj->SetCollisionTag(BoundingBox::CollisionTag::STATIC_OBJECT);
 		obj->SetName("StaticObject");
 		obj->SetType("static");
+
+		rp3d::CapsuleShape* col = PhysicsManager::GetInstance()->CreateCapsuleCollider(1.0f, 2.0f);
+		rp3d::Vector3 p(position.x, position.y, position.z);
+		rp3d::Quaternion r = rp3d::Quaternion::identity();
+		rp3d::Transform transform = rp3d::Transform::identity();
+		rp3d::RigidBody* rb = PhysicsManager::GetInstance()->CreateRigidBody(transform);
+
+		obj->collider = rb->addCollider(col, transform);
+		rb->updateMassPropertiesFromColliders();
+		obj->rigidBody = rb;
+		obj->rigidBody->setType(rp3d::BodyType::STATIC);
+
+
 		return obj;
 	}
 	else if (type == "enemy")

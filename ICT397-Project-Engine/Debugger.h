@@ -140,6 +140,8 @@ public:
      */
     bool noPlayerYClip = false;
 
+    bool renderColliders = false;
+
 	/**
 	 * @brief reference to a GLFW window
 	 */

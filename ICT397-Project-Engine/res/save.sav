@@ -1,1 +1,5 @@
-hard
+easy
+player ./res/scripts/gameobjects/player_default.lua 0.075000 356.414978 5.038025 247.734818 100 STATE 0 0 0
+static ./res/scripts/gameobjects/static_tree3.lua 0.005000 -100.000000 61.345459 -100.000000
+water ./res/scripts/gameobjects/static_water.lua 0.030000 420.000000 3.172728 401.000000
+static ./res/scripts/gameobjects/static_cube.lua 0.050000 420.000000 7.709091 350.000000

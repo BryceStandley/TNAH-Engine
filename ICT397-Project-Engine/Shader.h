@@ -133,6 +133,16 @@ public:
         */
     void setMat4(const std::string& name, const glm::mat4& mat) const;
 
+	// Return the location of a uniform variable inside a shader program
+	GLint getUniformLocation(const std::string& variableName, bool errorIfMissing = true) const;
+
+	// Return the location of an attribute variable inside a shader program
+	GLint getAttribLocation(const std::string& variableName, bool errorIfMissing = true) const;
+
+	//Unbind the shader from the program
+	void unbind() const;
+
+
 private:
     
         /**

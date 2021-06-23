@@ -17,6 +17,7 @@
 #include <cmath>
 #define _USE_MATH_DEFINES
 #include <math.h>
+#include "PhysicsManager.h"
 
 ////////////////////////////////////////////////////////
 ////HUGE DISCLAIMER, THIS CLASS IS OUR VERSION OF THE WORLD CLASS WANTED FOR THE ASSIGNEMNT/////
@@ -363,5 +364,7 @@ private:
 	int waterIndex;
 
 	glm::vec3 playerStartPosition = glm::vec3(-1000,-1000, -1000);
+
+	PhysicsManager* physicsManager;
 };
 

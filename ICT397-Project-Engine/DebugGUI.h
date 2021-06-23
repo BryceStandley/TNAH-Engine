@@ -1,5 +1,6 @@
 #pragma once
 #include "GUI.h"
+#include "PhysicsManager.h"
 
 class DebugGUI : public GUI
 {

@@ -93,7 +93,7 @@ const decimal DECIMAL_LARGEST = std::numeric_limits<decimal>::max();
 const decimal MACHINE_EPSILON = std::numeric_limits<decimal>::epsilon();
 
 /// Pi constant
-constexpr decimal PI = decimal(3.14159265);
+constexpr decimal r_PI = decimal(3.14159265);
 
 /// 2*Pi constant
 constexpr decimal PI_TIMES_2 = decimal(6.28318530);

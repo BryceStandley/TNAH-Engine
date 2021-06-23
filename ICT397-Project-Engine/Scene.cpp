@@ -170,6 +170,8 @@ void Scene::Run(View lens, float time, bool exit)
 
         std::vector<GameObject*> gameObjectsToRemoveFromScene;
 
+
+
 		//Models
 	    for (int x = 0; x < gameObjects.size(); x++)
 	    {
@@ -291,6 +293,9 @@ void Scene::Init()
     spawnPoints.emplace_back(glm::vec3(184, 11, 201));
     spawnPoints.emplace_back(glm::vec3(312, 6, 312));
     spawnPoints.emplace_back(glm::vec3(312, 6, 436));
+
+    physicsManager = PhysicsManager::GetInstance();
+    physicsManager->CreateTerrainCollider(gameTerrain);
 }
 
 
@@ -301,7 +306,7 @@ void Scene::UpdatePlayer(glm::vec3 position, glm::vec3 rotation, float time)
 
     glm::vec3 newPos = WorldToTerrainPosition(position, false);
     newPos.y += Lerp(1.5f, 3.0f, time * 4.0f);
-    std::cout << Lerp(1.5f, 3.0f, time * 4.0f) << std::endl;
+    //std::cout << Lerp(1.5f, 3.0f, time * 4.0f) << std::endl;
 	//newPos.y = Lerp(newPos.y + 2.0f, newPos.y + 3.0f,  time * 2.0f );
 
 	//newPos.y = BilinearInterpolation(position);

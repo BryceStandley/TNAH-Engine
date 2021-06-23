@@ -23,6 +23,7 @@
 #include "OpenGL.h"
 
 #include "Debugger.h"
+#include "PhysicsManager.h"
 
 /**
 * @class Fbx
@@ -69,6 +70,8 @@ public:
     * @param model - represents the model matrix
     */
     void Draw(Shader& shader, glm::mat4 model);
+
+    rp3d::BoxShape* collider;
 
 
 private:
