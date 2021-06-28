@@ -163,15 +163,84 @@ void GlfwWindow::GameInput(float deltaTime)
             float speed = singleton<Manager>::getInstance().speed;
 
             if (glfwGetKey(gameWindow, gameInput.forward) == GLFW_PRESS)
-                camera.ProcessKeyboard(FORWARD, deltaTime * speed);
+            {
+            	fwdUp = false;
+            	isPlayerMoving = true;
+	            camera.ProcessKeyboard(FORWARD, deltaTime * speed);
+            }
             if (glfwGetKey(gameWindow, gameInput.back) == GLFW_PRESS)
-                camera.ProcessKeyboard(BACKWARD, deltaTime * speed);
+            {
+            	dwnUp = false;
+	            isPlayerMoving = true;
+	            camera.ProcessKeyboard(BACKWARD, deltaTime * speed);
+            }
             if (glfwGetKey(gameWindow, gameInput.left) == GLFW_PRESS)
-                camera.ProcessKeyboard(LEFT, deltaTime * speed);
+            {
+            	lftUp = false;
+	            isPlayerMoving = true;
+	            camera.ProcessKeyboard(LEFT, deltaTime * speed);
+            }
             if (glfwGetKey(gameWindow, gameInput.right) == GLFW_PRESS)
-                camera.ProcessKeyboard(RIGHT, deltaTime * speed);
+            {
+            	rhtUp = false;
+	            isPlayerMoving = true;
+	            camera.ProcessKeyboard(RIGHT, deltaTime * speed);
+            }
+
+	        if (glfwGetKey(gameWindow, gameInput.forward) == GLFW_RELEASE && !fwdUp)
+	        {
+		        fwdUp = true;
+	        	if(!dwnUp || !lftUp || !rhtUp)
+		        {
+			        isPlayerMoving = true;
+		        }
+	        	else
+		        {
+			        isPlayerMoving = false;
+		        }
+	        }
+	        if (glfwGetKey(gameWindow, gameInput.back) == GLFW_RELEASE && !dwnUp)
+	        {
+	        	dwnUp = true;
+		        if(!fwdUp || !lftUp || !rhtUp)
+		        {
+			        isPlayerMoving = true;
+		        }
+		        else
+		        {
+			        isPlayerMoving = false;
+		        }
+	        }
+	        if (glfwGetKey(gameWindow, gameInput.left) == GLFW_RELEASE && !lftUp)
+	        {
+	        	lftUp = true;
+		        if(!dwnUp || !fwdUp || !rhtUp)
+		        {
+			        isPlayerMoving = true;
+		        }
+		        else
+		        {
+			        isPlayerMoving = false;
+		        }
+	        }
+	        if (glfwGetKey(gameWindow, gameInput.right) == GLFW_RELEASE && !rhtUp)
+	        {
+	        	rhtUp = true;
+		        if(!dwnUp || !lftUp || !fwdUp)
+		        {
+			        isPlayerMoving = true;
+		        }
+		        else
+		        {
+			        isPlayerMoving = false;
+		        }
+	        }
+
+
+
+
             if (wireDisplay) { glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); }
-            else if (!wireDisplay) { glPolygonMode(GL_FRONT_AND_BACK, GL_FILL); }
+            else { glPolygonMode(GL_FRONT_AND_BACK, GL_FILL); }
 
 
 
