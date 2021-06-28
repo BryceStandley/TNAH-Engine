@@ -22,6 +22,7 @@ GameObject* GameAssetFactory::GetGameObject(std::string type, std::string script
 		obj->collider = rb->addCollider(col, rp3d::Transform::identity());
 		rb->updateMassPropertiesFromColliders();
 		rb->setMass(1.0f);
+		rb->setIsAllowedToSleep(false);
 		obj->rigidBody = rb;
 
 

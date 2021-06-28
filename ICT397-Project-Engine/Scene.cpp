@@ -310,7 +310,8 @@ void Scene::UpdatePlayer(glm::vec3 newPos, glm::vec3 rotation, float time)
 	if(!Debugger::GetInstance()->noClip)
 	{
 		glm::vec3 currentPos = gameObjects[playerInd]->GetPos();
-		glm::vec3 direction = newPos - currentPos;
+        glm::vec3 direction = newPos - currentPos;
+        std::cout << Debugger::GetInstance()->DebugVec3(direction) << std::endl;
 		rp3d::Vector3 force = PhysicsManager::GetInstance()->GLMVec3toRP3DVec3(direction);
 		force *= 50;
 		gameObjects[playerInd]->rigidBody->applyForceToCenterOfMass(force);

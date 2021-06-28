@@ -19,7 +19,7 @@ PhysicsManager* PhysicsManager::GetInstance()
 PhysicsManager::PhysicsManager()
 {
 	logger = physicsCommon.createDefaultLogger();
-	uint logLevel = static_cast<uint>(static_cast<uint>(rp3d::Logger::Level::Warning) | static_cast<uint>(rp3d::Logger::Level::Error) | static_cast<uint>(rp3d::Logger::Level::Information));
+	rp3d::uint logLevel = static_cast<rp3d::uint>(static_cast<rp3d::uint>(rp3d::Logger::Level::Warning) | static_cast<rp3d::uint>(rp3d::Logger::Level::Error) | static_cast<rp3d::uint>(rp3d::Logger::Level::Information));
 	logger->addFileDestination("./res/logs/rp3d_log.html", logLevel, rp3d::DefaultLogger::Format::HTML);
 	physicsCommon.setLogger(logger);
 

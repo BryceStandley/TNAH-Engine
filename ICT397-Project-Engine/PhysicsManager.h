@@ -32,8 +32,8 @@ public:
 	rp3d::PhysicsWorld* GetPhysicsWorld();
 	rp3d::PhysicsCommon* GetPhysicsCommon();
 
-	uint LinesVAO, LinesVBO;
-	uint triVAO, triVBO;
+	unsigned int LinesVAO, LinesVBO;
+	unsigned int triVAO, triVBO;
 	Shader* debugShader;
 	rp3d::DefaultLogger* logger;
 	float physicsUpdateTimeStep = 60 / 1000.0f;

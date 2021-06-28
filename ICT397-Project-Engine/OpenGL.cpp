@@ -543,7 +543,7 @@ void OpenGL::RenderModel(int number, Md2State* animState, glm::mat4 proj, glm::m
 
 void OpenGL::SetUpReactDebugger(rp3d::DebugRenderer debugRenderer)
 {
-	uint VAO, VBO;
+	unsigned int VAO, VBO;
 	glGenBuffers(1, &VBO);
 	glGenVertexArrays(1, &VAO);
 	glBindVertexArray(VAO);
@@ -553,7 +553,7 @@ void OpenGL::SetUpReactDebugger(rp3d::DebugRenderer debugRenderer)
 	glBindVertexArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-	uint tVAO, tVBO;
+	rp3d::uint tVAO, tVBO;
 	glGenBuffers(1, &tVBO);
 	glGenVertexArrays(1, &tVAO);
 	glBindVertexArray(tVAO);
@@ -642,7 +642,7 @@ void OpenGL::UpdateReactDebugVBO()
 	if(physicsManager->GetPhysicsWorld()->getIsDebugRenderingEnabled())
 	{
 		//Lines
-		const uint nbLines = physicsManager->GetDebugRenderer().getNbLines();
+		const rp3d::uint nbLines = physicsManager->GetDebugRenderer().getNbLines();
 		if(nbLines > 0)
 		{
 			glBindBuffer(GL_ARRAY_BUFFER, physicsManager->LinesVBO);
@@ -652,7 +652,7 @@ void OpenGL::UpdateReactDebugVBO()
 		}
 
 		// Triangles
-		const uint nbTriangles = physicsManager->GetDebugRenderer().getNbTriangles();
+		const rp3d::uint nbTriangles = physicsManager->GetDebugRenderer().getNbTriangles();
 		if(nbTriangles > 0)
 		{
 			glBindBuffer(GL_ARRAY_BUFFER, physicsManager->triVBO);
