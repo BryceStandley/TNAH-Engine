@@ -1,1 +1,3 @@
-hard
+easy
+player ./res/scripts/gameobjects/player_default.lua 0.075000 359.034485 2.539180 249.351715 100 STATE 0 0 0
+static ./res/scripts/gameobjects/static_cube.lua 0.050000 420.000000 7.709091 350.000000

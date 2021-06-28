@@ -266,6 +266,8 @@ Player::Player(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std:
 	Update(0.0f);
     SetState(SHOOT);
 
+
+
 	if (Debugger::GetInstance()->debugToConsole) std::cout << xRotationOffset << " " << yRotationOffset << " " << zRotationOffset << " " << yPositionOffset << std::endl;
 }
 
@@ -530,7 +532,7 @@ Player::Player(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std:
 	playerFSM = new stateMachine<Player>(this);
 	playerFSM->setCurrentState(&singleton<main>::getInstance());
 	playerFSM->setGlobalState(&glob_state::getInstance());
-    health = h;
+    health = (int)h;
 	SetType("player");
 	Update(0.0f);
     SetState(IDLE);

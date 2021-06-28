@@ -7,24 +7,30 @@
 playerX = (52 * 12) / 2;
 playerZ = (52 * 12) / 2;
 
+
 cs:MakeGameObject("player", "./res/scripts/gameobjects/player_default.lua", 0.075, playerX, 3.5, playerZ);
 
 --Make this static object invisible to the plyer
-cs:MakeGameObject("static",  "./res/scripts/gameobjects/static_tree3.lua", 0.005, -100, 1.2, -100);
+--cs:MakeGameObject("static",  "./res/scripts/gameobjects/static_tree3.lua", 0.005, -100, 1.2, -100);
 
 minX = 120;
 maxX = 430;
 minZ = minX;
 maxZ = maxX;
-
+--[[
 for i = 0, 30
 do
     x = math.random(minX, maxX)
     z = math.random(minZ, maxZ)
     cs:MakeGameObject("enemy",  "./res/scripts/gameobjects/enemy_zarlag.lua", 0.05, x, 1, z);   
-end
-cs:MakeGameObject("water",  "./res/scripts/gameobjects/static_water.lua", 0.03, 420, -0.6, 401);
+end]]--
 
+--cs:MakeGameObject("water",  "./res/scripts/gameobjects/static_water.lua", 0.03, 420, -0.6, 401);
+
+cs:MakeGameObject("static", "./res/scripts/gameobjects/static_cube.lua", 0.05, 420, 5, 350);
+
+
+--[[
 y = 1--Y value for all tokens
 for i = 0, 20
 do
@@ -85,3 +91,4 @@ do
     z = math.random(minZ, maxZ)
     cs:MakeGameObject("static",  "./res/scripts/gameobjects/static_stone1.lua", 0.02, x, y, z);
 end
+]]--

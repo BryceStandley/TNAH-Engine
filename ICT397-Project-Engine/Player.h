@@ -4,6 +4,8 @@
 #include "playerStates.h"
 #include "Debugger.h"
 
+#include "PhysicsManager.h"
+
 	/**
 	 * @class Player
 	 * @brief Abstract GameObject class for the player
@@ -223,6 +225,10 @@ public:
 		* @brief Changes the state of the ai
 		*/
 	void ChangeState(std::string state);
+
+
+	rp3d::RigidBody* rigidBody;
+	rp3d::CapsuleShape* collider;
 
 	LuaRef dd = NULL;
 	LuaRef refill = NULL;

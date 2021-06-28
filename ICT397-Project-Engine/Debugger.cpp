@@ -12,6 +12,12 @@ Debugger* Debugger::GetInstance()
     return instance;
 }
 
+std::string Debugger::RP3DVec3ToString(rp3d::Vector3 p)
+{
+	std::string s = "X: " + std::to_string(p.x) + " -- Y: " + std::to_string(p.y) + " -- Z: " + std::to_string(p.z);
+	return s;
+}
+
 
 std::string Debugger::DebugVec3(glm::vec3 a)
 {

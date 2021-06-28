@@ -215,6 +215,9 @@ public:
 		 */
 	virtual std::string StreamValues();
 
+	rp3d::Collider* collider;
+	rp3d::RigidBody* rigidBody;
+
 private:
 	///The game objects id
 	int id;
@@ -234,10 +237,7 @@ private:
 	std::string type;
 
 
-		///The position of the pobject
-	glm::vec3 pos;
-
-		///The rotation of the object
+	///The rotation of the object
 	glm::vec3 rotation;
 
 		///The scale of the object
@@ -251,5 +251,11 @@ private:
 
 		///The name for the script used for the game object
 	std::string scriptName;
+
+
+
+protected:
+///The position of the pobject
+glm::vec3 pos;
 };
 

@@ -163,9 +163,13 @@ Engine::Engine()
 	Scene* scene = new Scene("World", render);
     gameScenes.push_back(scene);
 
+    gameScenes[currentScene]->SetGameWindow((GlfwWindow*)window);
 
     mainMenuGui->DisplayMainMenu();
     mainMenuGui->previousMenu = MainMenuGUI::MainMenu;
+
+    render->SetUpReactDebugger(PhysicsManager::GetInstance()->GetDebugRenderer());
+
 }
 
 Engine::~Engine()
@@ -196,6 +200,8 @@ void Engine::Run()
 
             deltaTime = window->GetTime();
             window->Update();
+			PhysicsManager::GetInstance()->Update(PhysicsManager::GetInstance()->physicsUpdateTimeStep);
+            render->UpdateReactDebugVBO();
 
             if(mainMenuGui->newGameClicked)
             {
@@ -237,6 +243,8 @@ void Engine::Run()
                 }
             }
 
+
+
             //Check if a scene is loaded before trying to render or run the scene per frame
                 ExitScreen e = gameScenes[currentScene]->GetExitScreen();
                 e.SetExitScreenDisplay(window->GetDisplay());
@@ -273,6 +281,9 @@ void Engine::Run()
                     gameScenes[0]->SaveGame();
                     mainMenuGui->saveGameClicked = false;
                 }
+
+
+
 
                 //Render GUI
                 ImGui::Render();

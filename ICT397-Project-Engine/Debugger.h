@@ -14,12 +14,12 @@
 #include <GLFW/glfw3.h>
 #include <fstream>
 #include <ctime>
-#include <time.h>
 #include <cstdio>
 #include <cstdlib>
 #include <algorithm>
 #include <regex>
 #include <chrono>
+#include <reactphysics3d/reactphysics3d.h>
 
 
 
@@ -38,6 +38,7 @@ public:
      * @return string - string value with each XYZ of a given vec3
      */
     std::string DebugVec3(glm::vec3 a);
+    static std::string RP3DVec3ToString(rp3d::Vector3 p);
 
     /**
      * @brief Calculates and returns the vec3 position of the player in terrain coords
@@ -103,12 +104,12 @@ public:
 	/**
 	 * @brief flag for enabling/disabling debug information about player position in the the game screen
 	 */
-	bool debugPlayerPos = false;
+	bool debugPlayerPos = true;
 
 	/**
 	 * @brief flag for enabling/disabling debug information about framerate in the game screen
 	 */
-	bool stickyFPSCounter = false;
+	bool stickyFPSCounter = true;
 
 	/**
 	 * @brief flag for enabling/disabling debug information about info types to the log file
@@ -135,10 +136,9 @@ public:
 	 */
     bool drawDebugPanel = false;
 
-    /**
-     * @brief flag for enabling and disabling the player Y position clipping
-     */
-    bool noPlayerYClip = false;
+    bool renderColliders = false;
+
+    bool noClip = true;
 
 	/**
 	 * @brief reference to a GLFW window

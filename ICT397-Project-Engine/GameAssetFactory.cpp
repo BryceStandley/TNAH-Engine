@@ -8,9 +8,24 @@ GameObject* GameAssetFactory::GetGameObject(std::string type, std::string script
         if(Debugger::GetInstance()->debugToConsole) std::cout << "Player done" << std::endl;
         GameObject* obj = new Player(position, glm::vec3(0, 0, 0), scale, renderer, script);
         BoundingBox box = BoundingBox();
-        //box = box.GenerateBoundingBox(obj->GetModel().GetMesh(0));
-        //obj->SetBoundingBox(box);
-        //obj->SetCollisionTag(BoundingBox::CollisionTag::PLAYER);
+
+		//Physics setup
+		rp3d::CollisionShape* col = PhysicsManager::GetInstance()->CreateCapsuleCollider(4,8);
+		rp3d::Transform transform = rp3d::Transform::identity();
+		rp3d::RigidBody* rb = PhysicsManager::GetInstance()->CreateRigidBody(rp3d::Transform::identity());
+		float posX = ((float)position.x * 10) / 2;
+		float posY = (position.y * 10) / 2;
+		float posZ = ((float)position.z * 10) / 2;
+		transform.setPosition(rp3d::Vector3(posX, posY, posZ));
+		rb->setTransform(transform);
+		rb->setAngularLockAxisFactor(rp3d::Vector3(0, 1, 0));
+		obj->collider = rb->addCollider(col, rp3d::Transform::identity());
+		rb->updateMassPropertiesFromColliders();
+		rb->setMass(1.0f);
+		rb->setIsAllowedToSleep(false);
+		obj->rigidBody = rb;
+
+
         playerMade = true;
         return obj;
 
@@ -25,6 +40,24 @@ GameObject* GameAssetFactory::GetGameObject(std::string type, std::string script
         obj->SetCollisionTag(BoundingBox::CollisionTag::STATIC_OBJECT);
 		obj->SetName("StaticObject");
 		obj->SetType("static");
+
+		//rp3d::CapsuleShape* col = PhysicsManager::GetInstance()->CreateCapsuleCollider(1.0f, 2.0f);
+		rp3d::CollisionShape* col = PhysicsManager::GetInstance()->CreateBoxCollider(25, 25, 25);
+		rp3d::Transform transform = rp3d::Transform::identity();
+		rp3d::RigidBody* rb = PhysicsManager::GetInstance()->CreateRigidBody(rp3d::Transform::identity());
+		float posX = ((float)position.x * 10) / 2;
+		float posY = (position.y * 10) / 2;
+		float posZ = ((float)position.z * 10) / 2;
+		transform.setPosition(rp3d::Vector3(posX, posY, posZ));
+		rb->setTransform(transform);
+		rb->setType(rp3d::BodyType::STATIC);
+		rb->enableGravity(false);
+		obj->collider = rb->addCollider(col, rp3d::Transform::identity());
+		rb->updateMassPropertiesFromColliders();
+		obj->rigidBody = rb;
+
+
+
 		return obj;
 	}
 	else if (type == "enemy")

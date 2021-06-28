@@ -10,10 +10,17 @@
 --heightmap = "./res/heightmaps/1k-128.raw"
 heightmap = "./res/heightmaps/1k.tga"
 terrainSize = 256;
-
 xScale = 12;
 yScale = 12;
 zScale = 12;
+
+--Test Height heightmaps
+--[[
+heightmap = "./res/heightmaps/testMaps/map.tga"
+terrainSize = 16;
+xScale = 1;
+yScale = 1;
+zScale = 1;]]--
 
 tex1 = "./res/images/terrain/dirtTile.jpg"
 tex2 = "./res/images/terrain/grassTile.jpg"

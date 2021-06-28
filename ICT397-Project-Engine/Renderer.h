@@ -7,6 +7,8 @@
 #include "View.h"
 #include "Buffer.h"
 #include "Debugger.h"
+#include "PhysicsManager.h"
+
 typedef float v3[3];
 	/**
 	* @class Renderer
@@ -144,5 +146,14 @@ public:
 	virtual void RenderModel(int number, Md2State* animState, glm::mat4 proj, glm::mat4 view, glm::vec3 position, glm::vec3 rotation, float direction, unsigned int& VAO, unsigned int& textureId, Shader& shader) {}
 
 	virtual void SetGlfwWindow(){}
+
+	/**
+	 * @brief Renders the debug information from the react physics renderer
+	 * @param debugRenderer - Debug Renderer object from react with all render information
+	 */
+	virtual void RenderReactDebugger(rp3d::DebugRenderer debugRenderer, View lens){}
+
+	virtual void SetUpReactDebugger(rp3d::DebugRenderer debugRenderer){}
+	virtual void UpdateReactDebugVBO(){}
 };
 

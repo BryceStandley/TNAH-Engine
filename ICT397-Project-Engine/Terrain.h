@@ -11,6 +11,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <ctime>
 #include <cmath>
+#include "reactphysics3d/reactphysics3d.h"
 #if _WIN32_
 #include <math.h>
 #include <corecrt_math_defines.h>
@@ -100,14 +101,22 @@ private:
 
 public:
 
+	rp3d::CollisionBody* terrainCB;
+	rp3d::RigidBody* terrainRB;
+	rp3d::Collider* terrainCollider;
+	float* terrainColliderHeightData;
+
 	glm::vec3 GetMaxHeight(){ return highestPoint; }
 	glm::vec3 GetMinHeight(){ return lowestPoint; }
+	std::vector<float> GetTerrainHeights();
 	
 		/**
 		* @brief gets and returns a vector containing all indice values
 		* @returns std::vector<unsigned int>
 		*/
 	std::vector<unsigned int> GetIndicies() { return Indices; }
+
+	std::vector<glm::vec3> GetVertexPositions() { return vertex.position;}
 	
 		/**
 		* @brief gets and returns and vector containing the totalData

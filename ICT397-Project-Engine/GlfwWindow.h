@@ -126,6 +126,8 @@ public:
 
 	void ToggleFullScreen(bool change);
 
+	bool isPlayerMoving = false;
+
 private:	
 
 		/**
@@ -166,6 +168,8 @@ private:
 	bool fireWeapon = false;
 
 	bool canPressPauseButton = false;
+
+	bool fwdUp, dwnUp, lftUp, rhtUp;
 
 		//The game input manager
 	Input gameInput;
