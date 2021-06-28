@@ -309,8 +309,10 @@ void Scene::UpdatePlayer(glm::vec3 newPos, glm::vec3 rotation, float time)
 {
 	if (!gameWindow->isPlayerMoving)
 	{
-		gameObjects[playerInd]->rigidBody->setAngularVelocity(rp3d::Vector3(0,0,0));
-		gameObjects[playerInd]->rigidBody->setLinearVelocity(rp3d::Vector3(0,0,0));
+		rp3d::Vector3 av = gameObjects[playerInd]->rigidBody->getAngularVelocity();
+		rp3d::Vector3 lv = gameObjects[playerInd]->rigidBody->getLinearVelocity();
+		gameObjects[playerInd]->rigidBody->setAngularVelocity(rp3d::Vector3(0,av.y,0));
+		gameObjects[playerInd]->rigidBody->setLinearVelocity(rp3d::Vector3(0,lv.y,0));
 	}
 
 	if(!Debugger::GetInstance()->noClip)

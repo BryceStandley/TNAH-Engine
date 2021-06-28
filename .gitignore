@@ -7,7 +7,7 @@
 *.DS_Store
 *.ini
 *.sav
-*.log
+
 
 # User-specific files
 *.rsuser
@@ -35,8 +35,6 @@ x86/
 bld/
 [Bb]in/
 [Oo]bj/
-[Ll]og/
-[Ll]ogs/
 [Bb]uild/
 cmake-build-*
 

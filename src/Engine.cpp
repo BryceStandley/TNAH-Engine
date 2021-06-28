@@ -1,7 +1,13 @@
 #include "Engine.h"
 
+#include <filesystem>
+
 Engine::Engine()
 {
+	std::cout << std::__fs::filesystem::current_path() << std::endl;
+
+
+
 	lua_State* L = LuaManager::getInstance().getLuaState();
 
 	getGlobalNamespace(L)

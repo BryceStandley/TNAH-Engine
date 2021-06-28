@@ -32,7 +32,7 @@ find_package(ReactPhysics3D REQUIRED)
 message("")
 
 # Adding Source Directory
-add_subdirectory(${PROJECT_SOURCE_DIR}/ICT397-Project-Engine)
+add_subdirectory(${PROJECT_SOURCE_DIR}/src)
 
 # Linking lib files to compiler
 if(WIN32)
@@ -46,8 +46,8 @@ ENDIF()
 
 # Copy resource files
 if(!WIN32)
-#file(COPY ${PROJECT_SOURCE_DIR}/ICT397-Project-Engine/res DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+#file(COPY ${PROJECT_SOURCE_DIR}/src/res DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E create_symlink
-        ${PROJECT_SOURCE_DIR}/ICT397-Project-Engine/res ${CMAKE_CURRENT_BINARY_DIR}/res )
+        ${PROJECT_SOURCE_DIR}/src/res ${CMAKE_CURRENT_BINARY_DIR}/res )
 ENDIF(!WIN32)

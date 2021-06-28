@@ -51,19 +51,19 @@ MainMenuGUI::MainMenuGUI(std::string scriptPath)
     }
 
     bool ret = LoadTextureFromFile(gameNameImagePath, &my_image_texture, &my_image_width, &my_image_height);
-    IM_ASSERT(ret);
+    //IM_ASSERT(ret);
 
     ret = LoadTextureFromFile(pausedImagePath, &pausedTexture, &pausedWidth, &pausedHeight);
-    IM_ASSERT(ret);
+    //IM_ASSERT(ret);
 
     ret = LoadTextureFromFile(settingsImagePath, &settingsTexture, &settingsWidth, &settingsHeight);
-    IM_ASSERT(ret);
+    //IM_ASSERT(ret);
 
 	ret = LoadTextureFromFile(diffImagePath, &diffTexture, &diffWidth, &diffHeight);
-	IM_ASSERT(ret);
+	//IM_ASSERT(ret);
 
 	ret = LoadTextureFromFile(controlsImagePath, &controlsTexture, &controlsWidth, &controlsHeight);
-	IM_ASSERT(ret);
+	//IM_ASSERT(ret);
 
     imageAspec = (float)my_image_height / (float)my_image_width;
     pausedImageAspect = (float)pausedHeight / (float)pausedWidth;

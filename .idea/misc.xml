@@ -7,9 +7,6 @@
       <file path="$PROJECT_DIR$/Documentation" />
       <file path="$PROJECT_DIR$/Doxygen" />
       <file path="$PROJECT_DIR$/Executable" />
-      <file path="$PROJECT_DIR$/ICT397-Project-Engine/imgui" />
-      <file path="$PROJECT_DIR$/ICT397-Project-Engine/tga" />
-      <file path="$PROJECT_DIR$/ICT397-Project-Engine/x64" />
       <file path="$PROJECT_DIR$/build" />
       <file path="$PROJECT_DIR$/cmake-build-debug" />
       <file path="$PROJECT_DIR$/cmake-build-debug-visual-studio" />
@@ -17,6 +14,9 @@
       <file path="$PROJECT_DIR$/cmake-build-release-visual-studio" />
       <file path="$PROJECT_DIR$/include" />
       <file path="$PROJECT_DIR$/lib" />
+      <file path="$PROJECT_DIR$/src/imgui" />
+      <file path="$PROJECT_DIR$/src/tga" />
+      <file path="$PROJECT_DIR$/src/x64" />
       <file path="$PROJECT_DIR$/x64" />
     </excludeRoots>
   </component>

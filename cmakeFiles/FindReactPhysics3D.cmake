@@ -1,5 +1,4 @@
 option(DEV "Turn on for Dev branch of react library" ON)
-message(${DEV})
 IF(WIN32)
     find_library(REACT_LIBRARY
             NAMES libreactphysics3d.dll
