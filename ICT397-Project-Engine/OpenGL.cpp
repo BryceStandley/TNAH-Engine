@@ -8,7 +8,7 @@ void OpenGL::RenderTerrain(unsigned int VAO, int size)
     glEnable(GL_PRIMITIVE_RESTART);
 
     glBindVertexArray(VAO);
-    glDrawElements(GL_TRIANGLES, size, GL_UNSIGNED_INT, 0);
+    glDrawElements(GL_TRIANGLES, size, GL_UNSIGNED_INT, nullptr);
     glBindVertexArray(0);
     glActiveTexture(GL_TEXTURE0);
 }
@@ -157,7 +157,7 @@ void OpenGL::TerrainSetup(std::vector<glm::vec3> totalData, std::vector<unsigned
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, Indices.size() * sizeof(unsigned int), &Indices[0], GL_STATIC_DRAW);
 
     //postion attributes
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 12 * sizeof(float), (void*)0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 12 * sizeof(float), (void*) nullptr);
     glEnableVertexAttribArray(0);
 
     //color attributes
@@ -550,8 +550,8 @@ void OpenGL::SetUpReactDebugger(rp3d::DebugRenderer debugRenderer)
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	PhysicsManager::GetInstance()->LinesVAO = VAO;
 	PhysicsManager::GetInstance()->LinesVBO = VBO;
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 	uint tVAO, tVBO;
 	glGenBuffers(1, &tVBO);
@@ -560,25 +560,28 @@ void OpenGL::SetUpReactDebugger(rp3d::DebugRenderer debugRenderer)
 	glBindBuffer(GL_ARRAY_BUFFER, tVBO);
 	PhysicsManager::GetInstance()->triVAO = tVAO;
 	PhysicsManager::GetInstance()->triVBO = tVBO;
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
 void OpenGL::RenderReactDebugger(rp3d::DebugRenderer debugRenderer, View lens)
 {
 	PhysicsManager* physicsManager = PhysicsManager::GetInstance();
-	//Render only if the debugger is turned on
-	if(physicsManager->GetPhysicsWorld()->getIsDebugRenderingEnabled())
-	{
 
 
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 		Shader* s = physicsManager->debugShader;
+
 		s->use();
-		s->setMat4("projectionMatrix", lens.GetProjection());
-		s->setMat4("localToWorldMatrix", lens.GetView()); //
-		s->setMat4("worldToCameraMatrix", lens.GetView());
+
+		s->setMat4("view", lens.GetView());
+
+		glm::mat4 m = glm::mat4(1.0f);
+		m = glm::scale(m, glm::vec3(0.2f));
+		s->setMat4("model", m);
+
+		s->setMat4("projection", lens.GetProjection());
 
 		s->setInt("isGlobalVertexColorEnabled", 0);
 
@@ -586,19 +589,18 @@ void OpenGL::RenderReactDebugger(rp3d::DebugRenderer debugRenderer, View lens)
 		GLint vertexColourLoc = 1;
 
 		//Lines
-		const uint nbLines = debugRenderer.getNbLines();
-		if(nbLines > 0)
+		if(debugRenderer.getNbLines() > 0)
 		{
 			glBindVertexArray(physicsManager->LinesVAO);
 			glBindBuffer(GL_ARRAY_BUFFER, physicsManager->LinesVBO);
 
 			glEnableVertexAttribArray(vertexPositionLoc);
-			glVertexAttribPointer(vertexPositionLoc, 3, GL_FLOAT, GL_FALSE, sizeof(rp3d::Vector3) + sizeof(rp3d::uint32), (char*) nullptr);
+			glVertexAttribPointer(vertexPositionLoc, 3, GL_FLOAT, GL_FALSE, sizeof(rp3d::Vector3) + sizeof(rp3d::uint32), (void*) nullptr);
 
 			glEnableVertexAttribArray(vertexColourLoc);
-			glVertexAttribPointer(vertexColourLoc, 3, GL_UNSIGNED_INT, GL_FALSE, sizeof(rp3d::Vector3) + sizeof(rp3d::uint32), (void*)sizeof(rp3d::Vector3));
+			glVertexAttribIPointer(vertexColourLoc, 3, GL_UNSIGNED_INT, sizeof(rp3d::Vector3) + sizeof(rp3d::uint32), (void*)sizeof(rp3d::Vector3));
 
-			glDrawArrays(GL_LINES, 0, (GLsizei)nbLines * 2);
+			glDrawArrays(GL_LINES, 0, debugRenderer.getNbLines() * 2);
 
 			glDisableVertexAttribArray(vertexPositionLoc);
 			glDisableVertexAttribArray(vertexColourLoc);
@@ -608,20 +610,18 @@ void OpenGL::RenderReactDebugger(rp3d::DebugRenderer debugRenderer, View lens)
 		}
 
 		// Triangles
-		const uint nbTriangles = debugRenderer.getNbTriangles();
-		if(nbTriangles > 0)
+		if(debugRenderer.getNbTriangles() > 0)
 		{
 			glBindVertexArray(physicsManager->triVAO);
 			glBindBuffer(GL_ARRAY_BUFFER, physicsManager->triVBO);
-
 
 			glEnableVertexAttribArray(vertexPositionLoc);
 			glVertexAttribPointer(vertexPositionLoc, 3, GL_FLOAT, GL_FALSE, sizeof(rp3d::Vector3) + sizeof(rp3d::uint32), (char*) nullptr);
 
 			glEnableVertexAttribArray(vertexColourLoc);
-			glVertexAttribPointer(vertexColourLoc, 3, GL_UNSIGNED_INT, GL_FALSE, sizeof(rp3d::Vector3) + sizeof(rp3d::uint32), (void*)sizeof(rp3d::Vector3));
+			glVertexAttribIPointer(vertexColourLoc, 3, GL_UNSIGNED_INT, sizeof(rp3d::Vector3) + sizeof(rp3d::uint32), (void*)sizeof(rp3d::Vector3));
 
-			glDrawArrays(GL_TRIANGLES, 0, (GLsizei)nbTriangles * 3);
+			glDrawArrays(GL_TRIANGLES, 0, debugRenderer.getNbTriangles() * 3);
 
 			glDisableVertexAttribArray(vertexPositionLoc);
 			glDisableVertexAttribArray(vertexColourLoc);
@@ -633,7 +633,7 @@ void OpenGL::RenderReactDebugger(rp3d::DebugRenderer debugRenderer, View lens)
 		s->unbind();
 
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-	}
+
 }
 
 void OpenGL::UpdateReactDebugVBO()

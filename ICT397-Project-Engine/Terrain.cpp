@@ -223,6 +223,11 @@ float Terrain::GetVertexHeight(int xPos, int zPos)
 	}
 }
 
+std::vector<float> Terrain::GetTerrainHeights()
+{
+	return terrainHeights;
+}
+
 void Terrain::SetVertexHeight(int xPos, int zPos, float newHeight)
 {
 	if (inBounds(xPos, zPos))

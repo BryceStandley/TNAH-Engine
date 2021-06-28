@@ -17,12 +17,14 @@ public:
 
 
 	void CreateTerrainCollider(Terrain* gameTerrain);
+	rp3d::CollisionBody* CreateCollisionBody(rp3d::Transform t);
 	rp3d::RigidBody* CreateRigidBody(rp3d::Transform t);
 	rp3d::CapsuleShape* CreateCapsuleCollider(float radius, float height);
 	rp3d::BoxShape* CreateBoxCollider(float halfX, float halfY, float halfZ);
 
 	void Update(float deltaTime);
 	void DeletePhysics();
+	rp3d::Vector3 GLMVec3toRP3DVec3(glm::vec3 v);
 
 
 	void SetDebugPhysicsRendering(bool t);
@@ -34,6 +36,7 @@ public:
 	uint triVAO, triVBO;
 	Shader* debugShader;
 	rp3d::DefaultLogger* logger;
+	float physicsUpdateTimeStep = 60 / 1000.0f;
 
 private:
 	rp3d::PhysicsCommon physicsCommon;

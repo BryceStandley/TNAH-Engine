@@ -18,6 +18,7 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 #include "PhysicsManager.h"
+#include "GlfwWindow.h"
 
 ////////////////////////////////////////////////////////
 ////HUGE DISCLAIMER, THIS CLASS IS OUR VERSION OF THE WORLD CLASS WANTED FOR THE ASSIGNEMNT/////
@@ -250,7 +251,8 @@ public:
 		* @brief returns the players weapon
 		*/
     Weapon GetPlayerWeapon(){return playerWeapon;}
-	
+
+    void SetGameWindow(GlfwWindow* w) { gameWindow = w;}
 	
 		/**
 		* @brief Saves the game
@@ -366,5 +368,7 @@ private:
 	glm::vec3 playerStartPosition = glm::vec3(-1000,-1000, -1000);
 
 	PhysicsManager* physicsManager;
+
+	GlfwWindow* gameWindow;
 };
 

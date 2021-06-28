@@ -111,8 +111,6 @@ void GlfwWindow::GameInput(float deltaTime)
         else if(!mainMenuGui->displayMainMenu)
         {
             glfwSetInputMode(gameWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-	        Camera c((52.0f * 12) / 2, 4.0f, (52.0f * 12) / 2, 0.0f, 1.0f, 0.0f, 90.0f, -37.0f);
-	        camera = c;
             camera.disabled = false;
             mainMenuGui->mainMenuClosed = true;
         }
@@ -133,6 +131,7 @@ void GlfwWindow::GameInput(float deltaTime)
         {
             mainMenuGui->DisplayPauseMenu();
             camera.disabled = true;
+            Debugger::GetInstance()->drawDebugPanel = false;
             glfwSetInputMode(gameWindow, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
         }
         else if(!mainMenuGui->canDisplayPauseMenu)

@@ -149,6 +149,8 @@ bool Scene::LoadSaveFile()
 
 void Scene::Run(View lens, float time, bool exit)
 {
+
+
     if (exitScreen.exitScreenDisplay)
     {
         endScreenGUI->Draw();
@@ -170,6 +172,11 @@ void Scene::Run(View lens, float time, bool exit)
 
         std::vector<GameObject*> gameObjectsToRemoveFromScene;
 
+	    //Physics
+	    if(PhysicsManager::GetInstance()->GetPhysicsWorld()->getIsDebugRenderingEnabled())
+	    {
+		    gameRenderer->RenderReactDebugger(PhysicsManager::GetInstance()->GetDebugRenderer(), lens);
+	    }
 
 
 		//Models
@@ -278,7 +285,6 @@ void Scene::Init()
 	gameTerrain->generateTerrain();
 
 	gameSkybox = new Skybox();
-	//gameSkybox = new Skybox("./res/images/skybox/right.jpg", "./res/images/skybox/left.jpg", "./res/images/skybox/top.jpg", "./res/images/skybox/bottom.jpg", "./res/images/skybox/front.jpg", "./res/images/skybox/back.jpg", "./res/shader/skybox_vert.txt", "./res/shader/skybox_frag.txt");
 	factory = new GameAssetFactory(gameRenderer);
 	gameRenderer->TerrainSetup(gameTerrain->GetTotalData(), gameTerrain->GetIndicies(), gameTerrain->VAO, gameTerrain->VBO, gameTerrain->EBO);
 	gameRenderer->SkyboxSetup(gameSkybox->GetSkyVerts(), gameSkybox->GetCubeFaces(), gameSkybox->VAO, gameSkybox->VBO, gameSkybox->texture, gameSkybox->skyShader);
@@ -299,48 +305,73 @@ void Scene::Init()
 }
 
 
-void Scene::UpdatePlayer(glm::vec3 position, glm::vec3 rotation, float time)
+void Scene::UpdatePlayer(glm::vec3 newPos, glm::vec3 rotation, float time)
 {
+	if(!Debugger::GetInstance()->noClip)
+	{
+		glm::vec3 currentPos = gameObjects[playerInd]->GetPos();
+		glm::vec3 direction = newPos - currentPos;
+		rp3d::Vector3 force = PhysicsManager::GetInstance()->GLMVec3toRP3DVec3(direction);
+		force *= 50;
+		gameObjects[playerInd]->rigidBody->applyForceToCenterOfMass(force);
+
+		//resolve the rb position back to glm position for the camera
+		rp3d::Transform t = gameObjects[playerInd]->rigidBody->getTransform();
+		rp3d::Vector3 p = t.getPosition();
+		newPos.x = (p.x / 10) * 2;
+		newPos.y = (p.y / 10) * 2;
+		newPos.z = (p.z / 10) * 2;
+	}
+	gameObjects[playerInd]->SetPos(newPos);
+
+	/*
 	if(playerStartPosition == glm::vec3(-1000,-1000, -1000)) { playerStartPosition = position;}
     if(position == gameObjects[playerInd]->GetPos()) return;
 
-    glm::vec3 newPos = WorldToTerrainPosition(position, false);
-    newPos.y += Lerp(1.5f, 3.0f, time * 4.0f);
-    //std::cout << Lerp(1.5f, 3.0f, time * 4.0f) << std::endl;
-	//newPos.y = Lerp(newPos.y + 2.0f, newPos.y + 3.0f,  time * 2.0f );
-
-	//newPos.y = BilinearInterpolation(position);
-
-
-	if (newPos.y >= 25.0f && !Debugger::GetInstance()->noPlayerYClip)
-	{
-		newPos.x = gameObjects[playerInd]->GetPos().x;
-		newPos.y = gameObjects[playerInd]->GetPos().y;
-		newPos.z = gameObjects[playerInd]->GetPos().z;
-	}
-    
-   /* if (newPos.y < WorldToTerrainPosition(newPos, false).y + 1.0f)
+    glm::vec3 newPos = position;
+    if(!Debugger::GetInstance()->noClip)
     {
-        newPos.y = WorldToTerrainPosition(newPos, false).y + 2.0f;
+	    newPos = WorldToTerrainPosition(position, false);
+	    newPos.y += Lerp(1.5f, 3.0f, time * 4.0f);
+	    //std::cout << Lerp(1.5f, 3.0f, time * 4.0f) << std::endl;
+	    //newPos.y = Lerp(newPos.y + 2.0f, newPos.y + 3.0f,  time * 2.0f );
+
+	    //newPos.y = BilinearInterpolation(position);
+
+
+	    if (newPos.y >= 125.0f)
+	    {
+		    newPos.x = gameObjects[playerInd]->GetPos().x;
+		    newPos.y = gameObjects[playerInd]->GetPos().y;
+		    newPos.z = gameObjects[playerInd]->GetPos().z;
+	    }
+
+	    newPos = CheckSceneCollision(newPos);
+
+	    gameObjects[playerInd]->SetPos(newPos);
+
+	    if (gameObjects[waterIndex] != nullptr && waterIndex != -1)
+	    {
+		    if (glm::distance(newPos, gameObjects[waterIndex]->GetPos()) < 15.0f)
+		    {
+			    std::cout << "take water dmg" << std::endl;
+			    //take 10 health from the player if they get to close to the water
+			    Player *p = (Player *) gameObjects[playerInd];
+			    p->setHealth(p->getHealth() - 10);
+			    if (p->getHealth() <= 0)
+			    {
+				    p->setHealth(0);
+				    // tell the player to die
+				    gameGui->DisplayDeathScreen();
+			    }
+		    }
+	    }
+    }
+    else
+    {
+	    gameObjects[playerInd]->SetPos(newPos);
     }
     */
-	newPos = CheckSceneCollision(newPos);
-
-	gameObjects[playerInd]->SetPos(newPos);
-	//std::cout << "Player to water distance: " << glm::distance(newPos, gameObjects[waterIndex]->GetPos()) << std::endl;
-	if(glm::distance(newPos, gameObjects[waterIndex]->GetPos()) < 15.0f)
-	{
-        std::cout << "take water dmg" << std::endl;
-		//take 10 health from the player if they get to close to the water
-		Player* p = (Player*)gameObjects[playerInd];
-		p->setHealth(p->getHealth() - 10);
-		if (p->getHealth() <= 0)
-		{
-			p->setHealth(0);
-			// tell the player to die
-			gameGui->DisplayDeathScreen();
-		}
-	}
 }
 float Scene::Lerp(float a, float b, float t)
 {
@@ -422,7 +453,15 @@ void Scene::MakeGameObject(std::string t, std::string script, float scale, float
 	if (newGameObject != nullptr)
 	{
 		gameObjects.push_back(newGameObject);
+
+		if(t == "player")
+		{
+			gameWindow->UpdateCamera(newGameObject->GetPos());
+			gameWindow->Update();
+		}
+
 		if(t == "water") { waterIndex = (int)gameObjects.size() - 1;}
+		else {waterIndex = -1;}
 	}
 	else
 	{
@@ -439,7 +478,15 @@ void Scene::MakeSaveGameObject(std::string t, std::string script, float scale, f
     if (newGameObject != nullptr)
     {
 		gameObjects.push_back(newGameObject);
+
+	    if(t == "player")
+	    {
+		    gameWindow->UpdateCamera(newGameObject->GetPos());
+		    gameWindow->Update();
+	    }
+
         if (t == "water") { waterIndex = (int)gameObjects.size() - 1; }
+        else {waterIndex = -1;}
     }
     else
     {

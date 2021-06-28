@@ -163,6 +163,7 @@ Engine::Engine()
 	Scene* scene = new Scene("World", render);
     gameScenes.push_back(scene);
 
+    gameScenes[currentScene]->SetGameWindow((GlfwWindow*)window);
 
     mainMenuGui->DisplayMainMenu();
     mainMenuGui->previousMenu = MainMenuGUI::MainMenu;
@@ -199,7 +200,7 @@ void Engine::Run()
 
             deltaTime = window->GetTime();
             window->Update();
-            PhysicsManager::GetInstance()->Update(deltaTime);
+			PhysicsManager::GetInstance()->Update(PhysicsManager::GetInstance()->physicsUpdateTimeStep);
             render->UpdateReactDebugVBO();
 
             if(mainMenuGui->newGameClicked)
@@ -282,11 +283,7 @@ void Engine::Run()
                 }
 
 
-                //Physics
-                if(PhysicsManager::GetInstance()->GetPhysicsWorld()->getIsDebugRenderingEnabled())
-                {
-                	render->RenderReactDebugger(PhysicsManager::GetInstance()->GetDebugRenderer(), window->GetLens());
-                }
+
 
                 //Render GUI
                 ImGui::Render();

@@ -101,17 +101,22 @@ private:
 
 public:
 
-	rp3d::RigidBody* terrainRigidbody;
+	rp3d::CollisionBody* terrainCB;
+	rp3d::RigidBody* terrainRB;
 	rp3d::Collider* terrainCollider;
+	float* terrainColliderHeightData;
 
 	glm::vec3 GetMaxHeight(){ return highestPoint; }
 	glm::vec3 GetMinHeight(){ return lowestPoint; }
+	std::vector<float> GetTerrainHeights();
 	
 		/**
 		* @brief gets and returns a vector containing all indice values
 		* @returns std::vector<unsigned int>
 		*/
 	std::vector<unsigned int> GetIndicies() { return Indices; }
+
+	std::vector<glm::vec3> GetVertexPositions() { return vertex.position;}
 	
 		/**
 		* @brief gets and returns and vector containing the totalData

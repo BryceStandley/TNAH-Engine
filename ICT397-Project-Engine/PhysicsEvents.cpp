@@ -6,5 +6,7 @@
 
 void PhysicsEvents::onContact(const CollisionCallback::CallbackData &callbackData)
 {
-	std::cout << "physics collision happened yall" << std::endl;
+	//Collisions are registered here, do what you need to do stuff with the collision data
+
 }
+

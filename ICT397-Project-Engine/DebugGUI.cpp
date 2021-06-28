@@ -4,9 +4,12 @@ DebugGUI::DebugGUI(std::string scriptPath)
 {
     //load in debug ui from lua script
     lua_State* L = LuaManager::getInstance().getLuaState();
+	debugger = Debugger::GetInstance();
 
     if (!luaL_dofile(L, scriptPath.c_str()))
     {
+    	
+    	
         luabridge::LuaRef con = getGlobal(L, "console");
         luabridge::LuaRef col = getGlobal(L, "collisions");
         luabridge::LuaRef wep = getGlobal(L, "weapons");
@@ -16,6 +19,7 @@ DebugGUI::DebugGUI(std::string scriptPath)
         luabridge::LuaRef fs = getGlobal(L, "fsm");
 	    luabridge::LuaRef logPath = getGlobal(L, "logPath");
 	    luabridge::LuaRef logT = getGlobal(L, "logType");
+	    luabridge::LuaRef noC = getGlobal(L, "noClip");
 
         if (con.isBool()) { console = con.cast<bool>(); }
         if (col.isBool()) { collisions = col.cast<bool>(); }
@@ -26,59 +30,61 @@ DebugGUI::DebugGUI(std::string scriptPath)
         if (fs.isBool()) { fsm = fs.cast<bool>(); }
         if(logPath.isString()) {logFilePath = logPath.cast<std::string>();}
         if(logT.isNumber()) { logType = logT.cast<int>(); }
+	    if (noC.isBool()) { noClip = noC.cast<bool>(); }
 
-        Debugger::GetInstance()->debugToConsole = console;
-        Debugger::GetInstance()->debugCollisionsToConsole = collisions;
-        Debugger::GetInstance()->debugWeapons = weapons;
-        Debugger::GetInstance()->debugAnimationsToConsole = animations;
-        Debugger::GetInstance()->debugMD2ToConsole = md2;
-        Debugger::GetInstance()->debugFSMToConsole = fsm;
-        Debugger::GetInstance()->debugTokensToConsole = token;
-        Debugger::GetInstance()->logFilePath = logFilePath;
+        debugger->debugToConsole = console;
+	    debugger->debugCollisionsToConsole = collisions;
+	    debugger->debugWeapons = weapons;
+	    debugger->debugAnimationsToConsole = animations;
+	    debugger->debugMD2ToConsole = md2;
+	    debugger->debugFSMToConsole = fsm;
+	    debugger->debugTokensToConsole = token;
+	    debugger->logFilePath = logFilePath;
+	    debugger->noClip = noClip;
 
 	    switch (logType)
 	    {
 		    case 0:
-			    Debugger::GetInstance()->debugInfoToLogFile = true;
-			    Debugger::GetInstance()->debugWarningToLogFile = false;
-			    Debugger::GetInstance()->debugEngineToLogFile = false;
-			    Debugger::GetInstance()->debugErrorsToLogFile = false;
-			    Debugger::GetInstance()->type = Debugger::LogType::INFO;
+			    debugger->debugInfoToLogFile = true;
+			    debugger->debugWarningToLogFile = false;
+			    debugger->debugEngineToLogFile = false;
+			    debugger->debugErrorsToLogFile = false;
+			    debugger->type = Debugger::LogType::INFO;
 			    break;
 		    case 1:
-			    Debugger::GetInstance()->debugWarningToLogFile = true;
-			    Debugger::GetInstance()->debugInfoToLogFile = false;
-			    Debugger::GetInstance()->debugEngineToLogFile = false;
-			    Debugger::GetInstance()->debugErrorsToLogFile = false;
-			    Debugger::GetInstance()->type = Debugger::LogType::WARNING;
+			    debugger->debugWarningToLogFile = true;
+			    debugger->debugInfoToLogFile = false;
+			    debugger->debugEngineToLogFile = false;
+			    debugger->debugErrorsToLogFile = false;
+			    debugger->type = Debugger::LogType::WARNING;
 			    break;
 		    case 2:
-			    Debugger::GetInstance()->debugEngineToLogFile = true;
-			    Debugger::GetInstance()->debugWarningToLogFile = false;
-			    Debugger::GetInstance()->debugInfoToLogFile = false;
-			    Debugger::GetInstance()->debugErrorsToLogFile = false;
-			    Debugger::GetInstance()->type = Debugger::LogType::ENGINE;
+			    debugger->debugEngineToLogFile = true;
+			    debugger->debugWarningToLogFile = false;
+			    debugger->debugInfoToLogFile = false;
+			    debugger->debugErrorsToLogFile = false;
+			    debugger->type = Debugger::LogType::ENGINE;
 			    break;
 		    case 3:
-			    Debugger::GetInstance()->debugErrorsToLogFile = true;
-			    Debugger::GetInstance()->debugEngineToLogFile = false;
-			    Debugger::GetInstance()->debugWarningToLogFile = false;
-			    Debugger::GetInstance()->debugInfoToLogFile = false;
-			    Debugger::GetInstance()->type = Debugger::LogType::ERROR;
+			    debugger->debugErrorsToLogFile = true;
+			    debugger->debugEngineToLogFile = false;
+			    debugger->debugWarningToLogFile = false;
+			    debugger->debugInfoToLogFile = false;
+			    debugger->type = Debugger::LogType::ERROR;
 			    break;
 		    case 4:
-			    Debugger::GetInstance()->debugEngineToLogFile = true;
-			    Debugger::GetInstance()->debugWarningToLogFile = true;
-			    Debugger::GetInstance()->debugInfoToLogFile = true;
-			    Debugger::GetInstance()->debugErrorsToLogFile = true;
-			    Debugger::GetInstance()->type = Debugger::LogType::ALL;
+			    debugger->debugEngineToLogFile = true;
+			    debugger->debugWarningToLogFile = true;
+			    debugger->debugInfoToLogFile = true;
+			    debugger->debugErrorsToLogFile = true;
+			    debugger->type = Debugger::LogType::ALL;
 			    break;
 		    default:
-			    Debugger::GetInstance()->debugEngineToLogFile = true;
-			    Debugger::GetInstance()->debugWarningToLogFile = false;
-			    Debugger::GetInstance()->debugInfoToLogFile = false;
-			    Debugger::GetInstance()->debugErrorsToLogFile = false;
-			    Debugger::GetInstance()->type = Debugger::LogType::ENGINE;
+			    debugger->debugEngineToLogFile = true;
+			    debugger->debugWarningToLogFile = false;
+			    debugger->debugInfoToLogFile = false;
+			    debugger->debugErrorsToLogFile = false;
+			    debugger->type = Debugger::LogType::ENGINE;
 			    break;
 	    }
 
@@ -95,17 +101,23 @@ DebugGUI::DebugGUI(std::string scriptPath)
         md2 = false;
         token = false;
         fsm = false;
+        noClip = false;
 
 
-        Debugger::GetInstance()->debugToConsole = console;
-        Debugger::GetInstance()->debugCollisionsToConsole = collisions;
-        Debugger::GetInstance()->debugWeapons = weapons;
-        Debugger::GetInstance()->debugAnimationsToConsole = animations;
-        Debugger::GetInstance()->debugMD2ToConsole = md2;
-        Debugger::GetInstance()->debugFSMToConsole = fsm;
-        Debugger::GetInstance()->debugTokensToConsole = token;
-        Debugger::GetInstance()->type = Debugger::LogType::ENGINE;
-        Debugger::GetInstance()->debugEngineToLogFile = true;
+	    debugger->debugToConsole = console;
+	    debugger->debugCollisionsToConsole = collisions;
+	    debugger->debugWeapons = weapons;
+	    debugger->debugAnimationsToConsole = animations;
+	    debugger->debugMD2ToConsole = md2;
+	    debugger->debugFSMToConsole = fsm;
+	    debugger->debugTokensToConsole = token;
+	    debugger->logFilePath = logFilePath;
+	    debugger->noClip = noClip;
+    }
+
+    if(debugger->renderColliders)
+    {
+    	PhysicsManager::GetInstance()->GetPhysicsWorld()->setIsDebugRenderingEnabled(true);
     }
 }
 
@@ -125,16 +137,16 @@ void DebugGUI::Draw()
     ImGui::Begin(windowName.c_str()); //Create the window
 
     ImGui::Text("FPS: %.1f", ImGui::GetIO().Framerate);
-	ImGui::Checkbox("Sticky FPS", &Debugger::GetInstance()->stickyFPSCounter);
-    ImGui::Checkbox("Debug Basics to Console", &Debugger::GetInstance()->debugToConsole);
-    ImGui::Checkbox("Debug Collisions to Console", &Debugger::GetInstance()->debugCollisionsToConsole);
-    ImGui::Checkbox("Debug FSM to Console", &Debugger::GetInstance()->debugFSMToConsole);
-    ImGui::Checkbox("Debug Weapons to Console", &Debugger::GetInstance()->debugWeapons);
-    ImGui::Checkbox("Debug Animations to Console", &Debugger::GetInstance()->debugAnimationsToConsole);
-    ImGui::Checkbox("Debug MD2 to Console", &Debugger::GetInstance()->debugMD2ToConsole);
-	ImGui::Checkbox("Debug Tokens to Console", &Debugger::GetInstance()->debugTokensToConsole);
-    ImGui::Checkbox("Debug Player Position to Screen", &Debugger::GetInstance()->debugPlayerPos);
-    ImGui::Checkbox("No Player Y Position Clip", &Debugger::GetInstance()->noPlayerYClip);
+	ImGui::Checkbox("Sticky FPS", &debugger->stickyFPSCounter);
+    ImGui::Checkbox("Debug Basics to Console", &debugger->debugToConsole);
+    ImGui::Checkbox("Debug Collisions to Console", &debugger->debugCollisionsToConsole);
+    ImGui::Checkbox("Debug FSM to Console", &debugger->debugFSMToConsole);
+    ImGui::Checkbox("Debug Weapons to Console", &debugger->debugWeapons);
+    ImGui::Checkbox("Debug Animations to Console", &debugger->debugAnimationsToConsole);
+    ImGui::Checkbox("Debug MD2 to Console", &debugger->debugMD2ToConsole);
+	ImGui::Checkbox("Debug Tokens to Console", &debugger->debugTokensToConsole);
+    ImGui::Checkbox("Debug Player Position to Screen", &debugger->debugPlayerPos);
+    ImGui::Checkbox("No Camera Clip", &debugger->noClip);
     ImGui::Combo("LogType", &selectedType, logTypes, IM_ARRAYSIZE(logTypes));
 
     if(ImGui::Button("Toggle Render Colliders"))
@@ -146,46 +158,46 @@ void DebugGUI::Draw()
 	switch (selectedType)
 	{
 		case 0:
-			Debugger::GetInstance()->debugInfoToLogFile = true;
-			Debugger::GetInstance()->debugWarningToLogFile = false;
-			Debugger::GetInstance()->debugEngineToLogFile = false;
-			Debugger::GetInstance()->debugErrorsToLogFile = false;
-			Debugger::GetInstance()->type = Debugger::LogType::INFO;
+			debugger->debugInfoToLogFile = true;
+			debugger->debugWarningToLogFile = false;
+			debugger->debugEngineToLogFile = false;
+			debugger->debugErrorsToLogFile = false;
+			debugger->type = Debugger::LogType::INFO;
 			break;
 		case 1:
-			Debugger::GetInstance()->debugWarningToLogFile = true;
-			Debugger::GetInstance()->debugInfoToLogFile = false;
-			Debugger::GetInstance()->debugEngineToLogFile = false;
-			Debugger::GetInstance()->debugErrorsToLogFile = false;
-			Debugger::GetInstance()->type = Debugger::LogType::WARNING;
+			debugger->debugWarningToLogFile = true;
+			debugger->debugInfoToLogFile = false;
+			debugger->debugEngineToLogFile = false;
+			debugger->debugErrorsToLogFile = false;
+			debugger->type = Debugger::LogType::WARNING;
 			break;
 		case 2:
-			Debugger::GetInstance()->debugEngineToLogFile = true;
-			Debugger::GetInstance()->debugWarningToLogFile = false;
-			Debugger::GetInstance()->debugInfoToLogFile = false;
-			Debugger::GetInstance()->debugErrorsToLogFile = false;
-			Debugger::GetInstance()->type = Debugger::LogType::ENGINE;
+			debugger->debugEngineToLogFile = true;
+			debugger->debugWarningToLogFile = false;
+			debugger->debugInfoToLogFile = false;
+			debugger->debugErrorsToLogFile = false;
+			debugger->type = Debugger::LogType::ENGINE;
 			break;
 		case 3:
-			Debugger::GetInstance()->debugErrorsToLogFile = true;
-			Debugger::GetInstance()->debugEngineToLogFile = false;
-			Debugger::GetInstance()->debugWarningToLogFile = false;
-			Debugger::GetInstance()->debugInfoToLogFile = false;
-			Debugger::GetInstance()->type = Debugger::LogType::ERROR;
+			debugger->debugErrorsToLogFile = true;
+			debugger->debugEngineToLogFile = false;
+			debugger->debugWarningToLogFile = false;
+			debugger->debugInfoToLogFile = false;
+			debugger->type = Debugger::LogType::ERROR;
 			break;
 		case 4:
-			Debugger::GetInstance()->debugEngineToLogFile = true;
-			Debugger::GetInstance()->debugWarningToLogFile = true;
-			Debugger::GetInstance()->debugInfoToLogFile = true;
-			Debugger::GetInstance()->debugErrorsToLogFile = true;
-			Debugger::GetInstance()->type = Debugger::LogType::ALL;
+			debugger->debugEngineToLogFile = true;
+			debugger->debugWarningToLogFile = true;
+			debugger->debugInfoToLogFile = true;
+			debugger->debugErrorsToLogFile = true;
+			debugger->type = Debugger::LogType::ALL;
 			break;
 		default:
-			Debugger::GetInstance()->debugEngineToLogFile = true;
-			Debugger::GetInstance()->debugWarningToLogFile = false;
-			Debugger::GetInstance()->debugInfoToLogFile = false;
-			Debugger::GetInstance()->debugErrorsToLogFile = false;
-			Debugger::GetInstance()->type = Debugger::LogType::ENGINE;
+			debugger->debugEngineToLogFile = true;
+			debugger->debugWarningToLogFile = false;
+			debugger->debugInfoToLogFile = false;
+			debugger->debugErrorsToLogFile = false;
+			debugger->type = Debugger::LogType::ENGINE;
 			break;
 	}
 

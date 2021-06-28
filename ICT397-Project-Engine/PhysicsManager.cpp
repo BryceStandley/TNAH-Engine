@@ -51,37 +51,48 @@ void PhysicsManager::CreateTerrainCollider(Terrain *gameTerrain)
 {
 	int nbRows = gameTerrain->getSize();
 	int nbColumns = nbRows;
-	float minHeight = gameTerrain->GetMinHeight().y;
-	float maxHeight = gameTerrain->GetMaxHeight().y;
+	float minHeight = 0;
+	float maxHeight = 0;
 
-	std::vector<float> tempHeightValues;
-	for(int x = 0; x < nbRows; x++)
-	{
-		for(int z = 0; z < nbColumns; z++)
-		{
-			tempHeightValues.emplace_back(gameTerrain->GetVertexHeight(x, z));
-		}
-	}
 	int size = nbRows * nbColumns;
-	float heightValues[size];
+	std::vector<float> terrainHeights = gameTerrain->GetTerrainHeights();
+	gameTerrain->terrainColliderHeightData = (float*) malloc(size * sizeof(float));
 
-	for(int i = 0; i < size; i++)
+	for(int z = 0; z < nbRows; ++z)
 	{
-		heightValues[i] = tempHeightValues[i];
+		for(int x = 0; x < nbColumns; ++x)
+		{
+			int index = z * nbRows + x;
+			float temp = terrainHeights[index];
+
+			gameTerrain->terrainColliderHeightData[index] = temp;
+			if(x == 0 && z == 0)
+			{
+				minHeight = temp;
+				maxHeight = temp;
+			}
+			if(temp < minHeight){minHeight = temp;}
+			if(temp > maxHeight){maxHeight = temp;}
+		}
 	}
 
 	glm::vec3 s = gameTerrain->GetScales();
-	rp3d::HeightFieldShape* col = physicsCommon.createHeightFieldShape(nbColumns, nbRows, minHeight, maxHeight, heightValues, rp3d::HeightFieldShape::HeightDataType::HEIGHT_FLOAT_TYPE);
+	rp3d::HeightFieldShape* col = physicsCommon.createHeightFieldShape(nbRows, nbColumns, minHeight, maxHeight, gameTerrain->terrainColliderHeightData, rp3d::HeightFieldShape::HeightDataType::HEIGHT_FLOAT_TYPE);
 	rp3d::Vector3 scales(gameTerrain->GetScales().x, gameTerrain->GetScales().y, gameTerrain->GetScales().z);
 	col->setScale(scales);
 
-
-
 	rp3d::Transform transform = rp3d::Transform::identity();
 	rp3d::RigidBody* rb = physicsWorld->createRigidBody(transform);
+	rb->setType(rp3d::BodyType::KINEMATIC);
+	rb->enableGravity(false);
+	float posX = ((float)nbRows * scales.x) / 2.0f;
+	float posY = (maxHeight * scales.y) / 2.0f;
+	float posZ = ((float)nbColumns * scales.z) / 2.0f;
+	transform.setPosition(rp3d::Vector3(posX, posY, posZ));
+	rb->setTransform(transform);
 	gameTerrain->terrainCollider = rb->addCollider(col, rp3d::Transform::identity());
-	gameTerrain->terrainRigidbody = rb;
-	gameTerrain->terrainRigidbody->setType(rp3d::BodyType::STATIC);
+	gameTerrain->terrainRB = rb;
+	//gameTerrain->terrainCB = rb;
 }
 
 void PhysicsManager::DeletePhysics()
@@ -93,6 +104,12 @@ rp3d::RigidBody* PhysicsManager::CreateRigidBody(rp3d::Transform t)
 {
 	rp3d::RigidBody* rb = physicsWorld->createRigidBody(t);
 	return rb;
+}
+
+rp3d::CollisionBody* PhysicsManager::CreateCollisionBody(rp3d::Transform t)
+{
+	rp3d::CollisionBody* cb = physicsWorld->createCollisionBody(t);
+	return cb;
 }
 
 rp3d::CapsuleShape* PhysicsManager::CreateCapsuleCollider(float radius, float height)
@@ -125,4 +142,13 @@ rp3d::PhysicsWorld* PhysicsManager::GetPhysicsWorld()
 rp3d::PhysicsCommon* PhysicsManager::GetPhysicsCommon()
 {
 	return &physicsCommon;
+}
+
+rp3d::Vector3 PhysicsManager::GLMVec3toRP3DVec3(glm::vec3 v)
+{
+	rp3d::Vector3 temp(0,0,0);
+	temp.x = v.x;
+	temp.y = v.y;
+	temp.z = v.z;
+	return temp;
 }

@@ -10,14 +10,18 @@ GameObject* GameAssetFactory::GetGameObject(std::string type, std::string script
         BoundingBox box = BoundingBox();
 
 		//Physics setup
-		rp3d::CapsuleShape* col = PhysicsManager::GetInstance()->CreateCapsuleCollider(1.0f, 2.0f);
-
-		rp3d::Vector3 p = rp3d::Vector3(position.x, position.y, position.z);
-		rp3d::Quaternion r = rp3d::Quaternion::identity();
-		rp3d::Transform transform(p, r);
-		rp3d::RigidBody* rb = PhysicsManager::GetInstance()->CreateRigidBody(transform);
-		obj->collider = rb->addCollider(col, transform);
+		rp3d::CollisionShape* col = PhysicsManager::GetInstance()->CreateCapsuleCollider(4,8);
+		rp3d::Transform transform = rp3d::Transform::identity();
+		rp3d::RigidBody* rb = PhysicsManager::GetInstance()->CreateRigidBody(rp3d::Transform::identity());
+		float posX = ((float)position.x * 10) / 2;
+		float posY = (position.y * 10) / 2;
+		float posZ = ((float)position.z * 10) / 2;
+		transform.setPosition(rp3d::Vector3(posX, posY, posZ));
+		rb->setTransform(transform);
+		rb->setAngularLockAxisFactor(rp3d::Vector3(0, 1, 0));
+		obj->collider = rb->addCollider(col, rp3d::Transform::identity());
 		rb->updateMassPropertiesFromColliders();
+		rb->setMass(1.0f);
 		obj->rigidBody = rb;
 
 
@@ -36,16 +40,21 @@ GameObject* GameAssetFactory::GetGameObject(std::string type, std::string script
 		obj->SetName("StaticObject");
 		obj->SetType("static");
 
-		rp3d::CapsuleShape* col = PhysicsManager::GetInstance()->CreateCapsuleCollider(1.0f, 2.0f);
-		rp3d::Vector3 p(position.x, position.y, position.z);
-		rp3d::Quaternion r = rp3d::Quaternion::identity();
+		//rp3d::CapsuleShape* col = PhysicsManager::GetInstance()->CreateCapsuleCollider(1.0f, 2.0f);
+		rp3d::CollisionShape* col = PhysicsManager::GetInstance()->CreateBoxCollider(25, 25, 25);
 		rp3d::Transform transform = rp3d::Transform::identity();
-		rp3d::RigidBody* rb = PhysicsManager::GetInstance()->CreateRigidBody(transform);
-
-		obj->collider = rb->addCollider(col, transform);
+		rp3d::RigidBody* rb = PhysicsManager::GetInstance()->CreateRigidBody(rp3d::Transform::identity());
+		float posX = ((float)position.x * 10) / 2;
+		float posY = (position.y * 10) / 2;
+		float posZ = ((float)position.z * 10) / 2;
+		transform.setPosition(rp3d::Vector3(posX, posY, posZ));
+		rb->setTransform(transform);
+		rb->setType(rp3d::BodyType::STATIC);
+		rb->enableGravity(false);
+		obj->collider = rb->addCollider(col, rp3d::Transform::identity());
 		rb->updateMassPropertiesFromColliders();
 		obj->rigidBody = rb;
-		obj->rigidBody->setType(rp3d::BodyType::STATIC);
+
 
 
 		return obj;

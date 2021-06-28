@@ -7,10 +7,11 @@
 playerX = (52 * 12) / 2;
 playerZ = (52 * 12) / 2;
 
+
 cs:MakeGameObject("player", "./res/scripts/gameobjects/player_default.lua", 0.075, playerX, 3.5, playerZ);
 
 --Make this static object invisible to the plyer
-cs:MakeGameObject("static",  "./res/scripts/gameobjects/static_tree3.lua", 0.005, -100, 1.2, -100);
+--cs:MakeGameObject("static",  "./res/scripts/gameobjects/static_tree3.lua", 0.005, -100, 1.2, -100);
 
 minX = 120;
 maxX = 430;
@@ -24,7 +25,7 @@ do
     cs:MakeGameObject("enemy",  "./res/scripts/gameobjects/enemy_zarlag.lua", 0.05, x, 1, z);   
 end]]--
 
-cs:MakeGameObject("water",  "./res/scripts/gameobjects/static_water.lua", 0.03, 420, -0.6, 401);
+--cs:MakeGameObject("water",  "./res/scripts/gameobjects/static_water.lua", 0.03, 420, -0.6, 401);
 
 cs:MakeGameObject("static", "./res/scripts/gameobjects/static_cube.lua", 0.05, 420, 5, 350);
 

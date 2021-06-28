@@ -5,6 +5,7 @@
 #ifndef TNAH_PROJECT_PHYSICSEVENTS_H
 #define TNAH_PROJECT_PHYSICSEVENTS_H
 #include <reactphysics3d/reactphysics3d.h>
+#include "Debugger.h"
 
 class PhysicsEvents : public rp3d::EventListener
 {

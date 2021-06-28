@@ -21,7 +21,7 @@ private:
 	/**
 	 * @brief local bools for toggleing with lua
 	 */
-	bool console, collisions, weapons, animations, md2, token, fsm;
+	bool console, collisions, weapons, animations, md2, token, fsm, noClip;
 	/**
 	 * @brief local string for toggleing with lua
 	 */
@@ -31,6 +31,7 @@ private:
 	 */
 	int logType;
 
+	Debugger* debugger;
 
 };
 
