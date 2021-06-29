@@ -34,6 +34,7 @@ PhysicsManager::PhysicsManager()
 
 
 	eventListener = new PhysicsEvents();
+	eventListener->SetTerrainPointer(gameTerrain);
 
 	physicsWorld->setEventListener(eventListener);
 }
@@ -47,8 +48,10 @@ void PhysicsManager::Update(float deltaTime)
 
 }
 
-void PhysicsManager::CreateTerrainCollider(Terrain *gameTerrain)
+void PhysicsManager::CreateTerrainCollider(Terrain *terrain)
 {
+	gameTerrain = terrain;
+	gameTerrain->SetCollisionTag(BoundingBox::TERRAIN);
 	int nbRows = gameTerrain->getSize();
 	int nbColumns = nbRows;
 	float minHeight = 0;
@@ -90,6 +93,7 @@ void PhysicsManager::CreateTerrainCollider(Terrain *gameTerrain)
 	float posZ = ((float)nbColumns * scales.z) / 2.0f;
 	transform.setPosition(rp3d::Vector3(posX, posY, posZ));
 	rb->setTransform(transform);
+	rb->setUserData(static_cast<void*>(gameTerrain->GetTag()));
 	gameTerrain->terrainCollider = rb->addCollider(col, rp3d::Transform::identity());
 	gameTerrain->terrainRB = rb;
 	//gameTerrain->terrainCB = rb;
@@ -121,6 +125,11 @@ rp3d::BoxShape* PhysicsManager::CreateBoxCollider(float halfX, float halfY, floa
 {
 	const rp3d::Vector3 halfExtents(halfX, halfY, halfZ);
 	return physicsCommon.createBoxShape(halfExtents);
+}
+
+rp3d::SphereShape* PhysicsManager::CreateSphereCollider(float radius)
+{
+	return physicsCommon.createSphereShape(radius);
 }
 
 void PhysicsManager::SetDebugPhysicsRendering(bool t)

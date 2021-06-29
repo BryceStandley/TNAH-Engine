@@ -17,22 +17,22 @@ minX = 120;
 maxX = 430;
 minZ = minX;
 maxZ = maxX;
---[[
-for i = 0, 30
+
+for i = 0, 2
 do
     x = math.random(minX, maxX)
     z = math.random(minZ, maxZ)
     cs:MakeGameObject("enemy",  "./res/scripts/gameobjects/enemy_zarlag.lua", 0.05, x, 1, z);   
-end]]--
+end
 
---cs:MakeGameObject("water",  "./res/scripts/gameobjects/static_water.lua", 0.03, 420, -0.6, 401);
+cs:MakeGameObject("water",  "./res/scripts/gameobjects/static_water.lua", 0.03, 420, -0.6, 401);
 
 cs:MakeGameObject("static", "./res/scripts/gameobjects/static_cube.lua", 0.05, 420, 5, 350);
 
 
---[[
+
 y = 1--Y value for all tokens
-for i = 0, 20
+for i = 0, 5
 do
     x = math.random(minX, maxX)
     z = math.random(minZ, maxZ)
@@ -49,7 +49,7 @@ do
 	
 	
 end
-
+--[[
 --These loops dont check if there is a model already in its place
 --Make 10 Yellow Trees with random positions
 y = -1

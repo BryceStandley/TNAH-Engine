@@ -181,4 +181,13 @@ void Token::Render(View lens, float time, Renderer* gameRenderer)
 void Token::Update(float time)
 {
 	SetType("token");
+	glm::vec3 newPos;
+	//resolve the rb position back to glm position
+	rp3d::Transform t = rigidBody->getTransform();
+	rp3d::Vector3 p = t.getPosition();
+	newPos.x = (p.x / 10) * 2;
+	newPos.y = ((p.y / 10) * 2) + 1.0f;
+	newPos.z = (p.z / 10) * 2;
+
+	SetPos(newPos);
 }

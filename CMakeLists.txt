@@ -14,6 +14,10 @@ add_executable(${PROJECT_NAME})
 # Setting C++14
 set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 14)
 
+
+# If enabled, the post build symlink will copy instead.
+option(CopyResources "CopyResources" OFF)
+
 # Unsetting old cache var's
 unset(${GLAD_LIBRARY} CACHE)
 unset(${ASSIMP_LIBRARY} CACHE)
@@ -43,11 +47,13 @@ ENDIF()
 
 
 
-
 # Copy resource files
-if(!WIN32)
-#file(COPY ${PROJECT_SOURCE_DIR}/src/res DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
-add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E create_symlink
-        ${PROJECT_SOURCE_DIR}/src/res ${CMAKE_CURRENT_BINARY_DIR}/res )
-ENDIF(!WIN32)
+if (NOT CopyResources)
+    add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E create_symlink
+            ${CMAKE_SOURCE_DIR}/res $<TARGET_FILE_DIR:${PROJECT_NAME}>/res)
+else()
+    add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E copy_directory
+            ${CMAKE_SOURCE_DIR}/res $<TARGET_FILE_DIR:${PROJECT_NAME}>/res)
+endif()

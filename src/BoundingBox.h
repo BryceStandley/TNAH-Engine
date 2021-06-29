@@ -87,9 +87,11 @@ public:
         TOKEN,
         STATIC_OBJECT,
         ENEMY,
-        WATER
+        WATER,
+        TERRAIN
     };
 
+    static bool CompareTag(const CollisionTag orig, CollisionTag toCompare);
 
 private:
     std::vector<glm::vec3> vertex;

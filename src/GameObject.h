@@ -6,6 +6,7 @@
 #include "Telegram.h"
 #include "Manager.h"
 #include "singleton.h"
+#include <reactphysics3d/reactphysics3d.h>
 
 /**
  * @class GameObject
@@ -145,7 +146,7 @@ public:
 		 * @brief Gets the objects tag
 		 * @return tag
 		 */
-    BoundingBox::CollisionTag GetTag(){return tag;}
+    BoundingBox::CollisionTag* GetTag(){return &tag;}
 
 		 /**
 		 * @brief Sets the name of a game object

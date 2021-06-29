@@ -64,6 +64,14 @@ BoundingBox BoundingBox::GenerateBoundingBox(Mesh* mesh)
     return BoundingBox(box, ind);
 }
 
+bool BoundingBox::CompareTag(const CollisionTag orig, CollisionTag toCompare)
+{
+	if(orig == toCompare)
+		return true;
+	else
+		return false;
+}
+
 void BoundingBox::GenerateBoundingBoxNormals()
 {
     //left and right

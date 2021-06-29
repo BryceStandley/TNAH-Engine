@@ -6,10 +6,20 @@
 #define TNAH_PROJECT_PHYSICSEVENTS_H
 #include <reactphysics3d/reactphysics3d.h>
 #include "Debugger.h"
+#include "Terrain.h"
+#include "BoundingBox.h"
 
 class PhysicsEvents : public rp3d::EventListener
 {
+public:
 	void onContact(const CollisionCallback::CallbackData &callbackData) override;
+
+	void onTrigger(const rp3d::OverlapCallback::CallbackData &callbackData) override;
+
+	void SetTerrainPointer(Terrain* t) {gameTerrain = t;}
+
+private:
+	Terrain* gameTerrain;
 };
 
 

@@ -178,6 +178,16 @@ void Scene::Run(View lens, float time, bool exit)
 		    gameRenderer->RenderReactDebugger(PhysicsManager::GetInstance()->GetDebugRenderer(), lens);
 	    }
 
+	    //Check if token is on the ground and set it to static
+	    for(auto go : gameObjects)
+	    {
+	    	if(go->GetTag() == (BoundingBox::CollisionTag*)BoundingBox::CollisionTag::TOKEN && go->rigidBody->isSleeping())
+		    {
+			    go->rigidBody->setType(rp3d::BodyType::KINEMATIC);
+			    go->rigidBody->enableGravity(false);
+		    }
+	    }
+
 
 		//Models
 	    for (int x = 0; x < gameObjects.size(); x++)
@@ -229,7 +239,7 @@ void Scene::Run(View lens, float time, bool exit)
 		{
 			for( auto* go : gameObjects)
 			{
-				if(go->GetTag() == BoundingBox::ENEMY)
+				if(go->GetTag() == (BoundingBox::CollisionTag*)BoundingBox::ENEMY)
 				{
 					auto* e = (Enemy*)go;
 					//e->SetKillFSM(true);
@@ -311,8 +321,8 @@ void Scene::UpdatePlayer(glm::vec3 newPos, glm::vec3 rotation, float time)
 	{
 		rp3d::Vector3 av = gameObjects[playerInd]->rigidBody->getAngularVelocity();
 		rp3d::Vector3 lv = gameObjects[playerInd]->rigidBody->getLinearVelocity();
-		gameObjects[playerInd]->rigidBody->setAngularVelocity(rp3d::Vector3(0,av.y,0));
-		gameObjects[playerInd]->rigidBody->setLinearVelocity(rp3d::Vector3(0,lv.y,0));
+		gameObjects[playerInd]->rigidBody->setAngularVelocity(rp3d::Vector3(av.x / 2,av.y / 2,av.z / 2));
+		gameObjects[playerInd]->rigidBody->setLinearVelocity(rp3d::Vector3(lv.x / 2,lv.y / 2,lv.z / 2));
 	}
 
 	if(!Debugger::GetInstance()->noClip)
@@ -331,55 +341,6 @@ void Scene::UpdatePlayer(glm::vec3 newPos, glm::vec3 rotation, float time)
 		newPos.z = (p.z / 10) * 2;
 	}
 	gameObjects[playerInd]->SetPos(newPos);
-
-	/*
-	if(playerStartPosition == glm::vec3(-1000,-1000, -1000)) { playerStartPosition = position;}
-    if(position == gameObjects[playerInd]->GetPos()) return;
-
-    glm::vec3 newPos = position;
-    if(!Debugger::GetInstance()->noClip)
-    {
-	    newPos = WorldToTerrainPosition(position, false);
-	    newPos.y += Lerp(1.5f, 3.0f, time * 4.0f);
-	    //std::cout << Lerp(1.5f, 3.0f, time * 4.0f) << std::endl;
-	    //newPos.y = Lerp(newPos.y + 2.0f, newPos.y + 3.0f,  time * 2.0f );
-
-	    //newPos.y = BilinearInterpolation(position);
-
-
-	    if (newPos.y >= 125.0f)
-	    {
-		    newPos.x = gameObjects[playerInd]->GetPos().x;
-		    newPos.y = gameObjects[playerInd]->GetPos().y;
-		    newPos.z = gameObjects[playerInd]->GetPos().z;
-	    }
-
-	    newPos = CheckSceneCollision(newPos);
-
-	    gameObjects[playerInd]->SetPos(newPos);
-
-	    if (gameObjects[waterIndex] != nullptr && waterIndex != -1)
-	    {
-		    if (glm::distance(newPos, gameObjects[waterIndex]->GetPos()) < 15.0f)
-		    {
-			    std::cout << "take water dmg" << std::endl;
-			    //take 10 health from the player if they get to close to the water
-			    Player *p = (Player *) gameObjects[playerInd];
-			    p->setHealth(p->getHealth() - 10);
-			    if (p->getHealth() <= 0)
-			    {
-				    p->setHealth(0);
-				    // tell the player to die
-				    gameGui->DisplayDeathScreen();
-			    }
-		    }
-	    }
-    }
-    else
-    {
-	    gameObjects[playerInd]->SetPos(newPos);
-    }
-    */
 }
 float Scene::Lerp(float a, float b, float t)
 {
@@ -433,8 +394,27 @@ glm::vec3 Scene::WorldToTerrainPosition(glm::vec3 p, bool average)
 }
 
 
-void Scene::UpdateGameObject(glm::vec3 position, int i, float time)
+void Scene::UpdateGameObject(glm::vec3 newPos, int i, float time)
 {
+
+	glm::vec3 currentPos = gameObjects[i]->GetPos();
+	glm::vec3 direction = newPos - currentPos;
+	rp3d::Vector3 force = PhysicsManager::GetInstance()->GLMVec3toRP3DVec3(direction);
+	force *= 50;
+	gameObjects[i]->rigidBody->applyForceToCenterOfMass(force);
+
+	//resolve the rb position back to glm position
+	rp3d::Transform t = gameObjects[i]->rigidBody->getTransform();
+	rp3d::Vector3 p = t.getPosition();
+	newPos.x = (p.x / 10) * 2;
+	newPos.y = (p.y / 10) * 2;
+	newPos.z = (p.z / 10) * 2;
+
+	gameObjects[i]->SetPos(newPos);
+
+	/*
+
+
     position = EnemyObstacleAvoidance(gameObjects[i], position);
 
 	glm::vec3 newPos = WorldToTerrainPosition(position, true);
@@ -450,6 +430,7 @@ void Scene::UpdateGameObject(glm::vec3 position, int i, float time)
     }
 
 	gameObjects[i]->SetPos(newPos);
+	 */
 }
 
 void Scene::MakeGameObject(std::string t, std::string script, float scale, float x, float y, float z)
@@ -518,7 +499,7 @@ void Scene::MoveObjectAwayFromPlayer()
 {
     for(auto &go : gameObjects)
     {
-        if(go->GetTag() == BoundingBox::CollisionTag::PLAYER) continue;
+        if(go->GetTag() == (BoundingBox::CollisionTag*)BoundingBox::CollisionTag::PLAYER) continue;
         if(glm::distance(go->GetPos(), gameObjects[playerInd]->GetPos()) < 3.0f)
         {
             glm::vec3 pos = go->GetPos();
@@ -534,9 +515,9 @@ glm::vec3 Scene::EnemyObstacleAvoidance(GameObject* self, glm::vec3 newPosition)
 {
     for(auto &go : gameObjects)
     {
-        if(go->GetTag() == BoundingBox::CollisionTag::PLAYER) continue;// dont check against the player
+        if(go->GetTag() == (BoundingBox::CollisionTag*)BoundingBox::CollisionTag::PLAYER) continue;// dont check against the player
         if(go == self) continue; // dont check against it self
-        if(go->GetTag() == BoundingBox::CollisionTag::TOKEN) continue;
+        if(go->GetTag() == (BoundingBox::CollisionTag*)BoundingBox::CollisionTag::TOKEN) continue;
         while(glm::distance(newPosition, go->GetPos()) < 3.5f)
         {
             newPosition.x += 0.1f;
@@ -562,7 +543,7 @@ void Scene::FireWeapon(glm::vec3 weaponStartPos, glm::vec3 forward, float fireDi
 
         for(auto* go : gameObjects)
         {
-            if(go->GetTag() == BoundingBox::ENEMY)
+            if(go->GetTag() == (BoundingBox::CollisionTag*)BoundingBox::ENEMY)
             {
 	            auto *e = (Enemy *) go;
 
@@ -652,11 +633,11 @@ glm::vec3 Scene::CheckSceneCollision(glm::vec3 pos)
     for (auto& go : gameObjects)
     {
         //Skip the player, we dont want collisions between the player and the player
-        if (go->GetTag() == BoundingBox::PLAYER) continue;
+        if (go->GetTag() == (BoundingBox::CollisionTag*)BoundingBox::PLAYER) continue;
 
         float distance = glm::distance(playerSphereOrigin, go->GetPos());
 
-        if (go->GetTag() == BoundingBox::TOKEN && distance < playerSphereRadius)
+        if (go->GetTag() == (BoundingBox::CollisionTag*)BoundingBox::TOKEN && distance < playerSphereRadius)
         {
             if(Debugger::GetInstance()->debugCollisionsToConsole) std::cout << "Scene.cpp::INFO::Token GameObject - " << go->GetName() << " Hit" << std::endl;
             go->Kill();
@@ -664,7 +645,7 @@ glm::vec3 Scene::CheckSceneCollision(glm::vec3 pos)
             continue;
         }
 
-        if (go->GetTag() == BoundingBox::STATIC_OBJECT && distance < playerSphereRadius || go->GetTag() == BoundingBox::ENEMY && distance < playerSphereRadius)
+        if (go->GetTag() == (BoundingBox::CollisionTag*)BoundingBox::STATIC_OBJECT && distance < playerSphereRadius || go->GetTag() == (BoundingBox::CollisionTag*)BoundingBox::ENEMY && distance < playerSphereRadius)
         {
             if (Debugger::GetInstance()->debugCollisionsToConsole) std::cout << "Scene.cpp::INFO::Static GameObject - " + go->GetName() + " hit" << std::endl;
             //Simple Collisions/distance checking, More complex collision detection is work in progress

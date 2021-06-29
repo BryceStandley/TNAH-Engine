@@ -21,6 +21,7 @@ public:
 	rp3d::RigidBody* CreateRigidBody(rp3d::Transform t);
 	rp3d::CapsuleShape* CreateCapsuleCollider(float radius, float height);
 	rp3d::BoxShape* CreateBoxCollider(float halfX, float halfY, float halfZ);
+	rp3d::SphereShape* CreateSphereCollider(float radius);
 
 	void Update(float deltaTime);
 	void DeletePhysics();
@@ -42,6 +43,7 @@ private:
 	rp3d::PhysicsCommon physicsCommon;
 	rp3d::PhysicsWorld* physicsWorld;
 	PhysicsEvents* eventListener;
+	Terrain* gameTerrain;
 
 
 

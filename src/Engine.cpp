@@ -89,8 +89,7 @@ Engine::Engine()
 	int height = 800;
 	bool debugMode = false;
 	std::string name = "Error loading name";
-
-	if (luaL_dofile(L, "./res/scripts/engine.lua"))
+	if (luaL_dofile(L, "res/scripts/engine.lua"))
 	{
 		std::cout << "ENGINE::SCRIPT_ERROR::COULD_NOT_OPEN::LOADING_INITIAL_VALUES" << std::endl;
 		amount = 1;
