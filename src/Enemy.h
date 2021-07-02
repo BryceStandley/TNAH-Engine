@@ -105,6 +105,8 @@ public:
      */
     void SetPos(glm::vec3 p) { GameObject::SetPos(p); }
 
+    glm::vec3 GetTergetPosition() { return enemyTargetPosition;}
+
         /**
 		* @brief decreases the value of health by the integer provided as a parameter
 		* @param health - represents the value that health will be decreased by
@@ -174,6 +176,8 @@ public:
 	
 	/// enemyVelocity
 	glm::vec3 enemyVelocity = { 6.0f, 0.0f, 0.0f };
+
+	glm::vec3 enemyTargetPosition;
 
 	/// cam Velocity
 	glm::vec3 velocity = { 4.0f, 0.0f, 0.0f };

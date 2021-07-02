@@ -199,7 +199,7 @@ void Scene::Run(View lens, float time, bool exit)
 			    if (gameObjects[x]->GetType() == "enemy")
 			    {
 				    auto* e = (Enemy*)gameObjects[x];
-				    UpdateGameObject(e->GetPos(), x, time);
+				    UpdateGameObject(e->GetTergetPosition(), x, time);
 				    if(e->GetFireWeapon()) { EnemyFireWeapon(e, 5); }
 				    if (!gameObjects[x]->Kill())
 				    {
@@ -269,7 +269,7 @@ void Scene::Run(View lens, float time, bool exit)
         }
 
 	    //If game object is of type player
-	    UpdatePlayer(lens.GetPosition(), lens.GetRotation(), time);
+	    UpdatePlayer(lens.GetPosition(), lens.GetRotation(), time, lens);
 
         //GameUI
         if (gameGui)
@@ -315,32 +315,90 @@ void Scene::Init()
 }
 
 
-void Scene::UpdatePlayer(glm::vec3 newPos, glm::vec3 rotation, float time)
+void Scene::UpdatePlayer(glm::vec3 newPos, glm::vec3 rotation, float time, View lens)
 {
-	if (!gameWindow->isPlayerMoving)
+	auto player = (Player*)gameObjects[playerInd];
+	std::cout << "Velocity Reset: " << player->velocityReset << std::endl;
+	if (!gameWindow->isPlayerMoving && !player->velocityReset)
 	{
-		rp3d::Vector3 av = gameObjects[playerInd]->rigidBody->getAngularVelocity();
-		rp3d::Vector3 lv = gameObjects[playerInd]->rigidBody->getLinearVelocity();
-		gameObjects[playerInd]->rigidBody->setAngularVelocity(rp3d::Vector3(av.x / 2,av.y / 2,av.z / 2));
-		gameObjects[playerInd]->rigidBody->setLinearVelocity(rp3d::Vector3(lv.x / 2,lv.y / 2,lv.z / 2));
+		gameObjects[playerInd]->rigidBody->setMass(1000.0f);
+		rp3d::Vector3 cLv = gameObjects[playerInd]->rigidBody->getLinearVelocity();
+		rp3d::Vector3 lv = rp3d::Vector3(0, cLv.y, 0);
+		gameObjects[playerInd]->rigidBody->setLinearVelocity(lv);
+		player->velocityReset = true;
 	}
 
-	if(!Debugger::GetInstance()->noClip)
+	if(!Debugger::GetInstance()->noClip && gameWindow->isPlayerMoving)
 	{
+		gameObjects[playerInd]->rigidBody->setMass(10.0f);
+		player->velocityReset = false;
+		float forceFactor = 1000.0f;
+
 		glm::vec3 currentPos = gameObjects[playerInd]->GetPos();
         glm::vec3 direction = newPos - currentPos;
 		rp3d::Vector3 force = PhysicsManager::GetInstance()->GLMVec3toRP3DVec3(direction);
-		force *= 50;
+		force.x *= forceFactor;
+		force.z *= forceFactor;
 		gameObjects[playerInd]->rigidBody->applyForceToCenterOfMass(force);
 
-		//resolve the rb position back to glm position for the camera
-		rp3d::Transform t = gameObjects[playerInd]->rigidBody->getTransform();
-		rp3d::Vector3 p = t.getPosition();
-		newPos.x = (p.x / 10) * 2;
-		newPos.y = (p.y / 10) * 2;
-		newPos.z = (p.z / 10) * 2;
+		//Checking and capping the players velocity
+		rp3d::Vector3 lv = gameObjects[playerInd]->rigidBody->getLinearVelocity();
+		float velocityCap  = 30;
+		glm::vec3 v = player->cappedVelocity;
+		bool capped = false;
+		if(lv.x > velocityCap)
+		{
+			lv.x = velocityCap;
+			v = glm::vec3(lv.x, lv.y, lv.z);
+			capped = true;
+		}
+		else if(lv.x < -velocityCap)
+		{
+			lv.x = -velocityCap;
+			v = glm::vec3(lv.x, lv.y, lv.z);
+			capped = true;
+		}
+
+		if(lv.y > velocityCap)
+		{
+			lv.y = velocityCap;
+			v = glm::vec3(lv.x, lv.y, lv.z);
+			capped = true;
+		}
+		else if(lv.y < -velocityCap)
+		{
+			lv.y = -velocityCap;
+			v = glm::vec3(lv.x, lv.y, lv.z);
+			capped = true;
+		}
+
+		if(lv.z > velocityCap)
+		{
+			lv.z = velocityCap;
+			v = glm::vec3(lv.x, lv.y, lv.z);
+			capped = true;
+		}
+		else if(lv.z < -velocityCap)
+		{
+			lv.z = -velocityCap;
+			v = glm::vec3(lv.x, lv.y, lv.z);
+			capped = true;
+		}
+
+		player->cappedVelocity = v;
+		if(capped) gameObjects[playerInd]->rigidBody->setLinearVelocity(rp3d::Vector3(v.x, v.y, v.z));
+
+		std::cout << "Force:: " << Debugger::RP3DVec3ToString(force) << std::endl;
+		std::cout << "Linear:: " << Debugger::RP3DVec3ToString(lv) << std::endl;
 	}
+	//resolve the rb position back to glm position for the camera
+	rp3d::Transform t = gameObjects[playerInd]->rigidBody->getTransform();
+	rp3d::Vector3 p = t.getPosition();
+	newPos.x = (p.x / 10) * 2;
+	newPos.y = (p.y / 10) * 2;
+	newPos.z = (p.z / 10) * 2;
 	gameObjects[playerInd]->SetPos(newPos);
+
 }
 float Scene::Lerp(float a, float b, float t)
 {
@@ -411,26 +469,6 @@ void Scene::UpdateGameObject(glm::vec3 newPos, int i, float time)
 	newPos.z = (p.z / 10) * 2;
 
 	gameObjects[i]->SetPos(newPos);
-
-	/*
-
-
-    position = EnemyObstacleAvoidance(gameObjects[i], position);
-
-	glm::vec3 newPos = WorldToTerrainPosition(position, true);
-	newPos.y += 1.2f;
-
-	//newPos.y += Lerp(0.9f, 1.4f, time * 4.0f);
-
-    if (newPos.y >= 25.0f)
-    {
-	    newPos.x = gameObjects[i]->GetPos().x;
-	    newPos.y = gameObjects[i]->GetPos().y;
-	    newPos.z = gameObjects[i]->GetPos().z;
-    }
-
-	gameObjects[i]->SetPos(newPos);
-	 */
 }
 
 void Scene::MakeGameObject(std::string t, std::string script, float scale, float x, float y, float z)

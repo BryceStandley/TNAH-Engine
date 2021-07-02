@@ -136,6 +136,10 @@ public:
 		/// check if player has token or not 
 	bool hasToken = true;
 
+	bool velocityReset = false;
+
+	glm::vec3 cappedVelocity;
+
 
 		/*
 		* @breif Updates the game object with functionality

@@ -22,7 +22,7 @@ GameObject* GameAssetFactory::GetGameObject(std::string type, std::string script
 		rb->setAngularLockAxisFactor(rp3d::Vector3(0, 1, 0));
 		obj->collider = rb->addCollider(col, rp3d::Transform::identity());
 		rb->updateMassPropertiesFromColliders();
-		rb->setMass(2.0f);
+		rb->setMass(10.0f);
 		rb->setIsAllowedToSleep(false);
 		rb->setUserData(static_cast<void*>(obj->GetTag()));
 		obj->rigidBody = rb;
@@ -84,7 +84,7 @@ GameObject* GameAssetFactory::GetGameObject(std::string type, std::string script
 		rb->setUserData(static_cast<void*>(obj->GetTag()));
 		obj->collider = rb->addCollider(col, rp3d::Transform::identity());
 		rb->updateMassPropertiesFromColliders();
-		rb->setMass(0.1f);
+		rb->setMass(1.0f);
 		obj->rigidBody = rb;
 
 

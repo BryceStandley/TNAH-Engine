@@ -791,8 +791,10 @@ float Enemy::DistanceBetween(glm::vec3 otherPos)
 	return distance;
 }
 
+
 bool Enemy::moveTo(glm::vec3& curPos, const glm::vec3& targetPos, glm::vec3& curVelocity, float time, float offset, std::string type)
 {
+
 	//calc heading from character position to target
 	glm::vec3 target = targetPos - curPos;
 	target = glm::normalize(target);
@@ -824,7 +826,8 @@ bool Enemy::moveTo(glm::vec3& curPos, const glm::vec3& targetPos, glm::vec3& cur
 			curPos = realTargetPos;
 		}
 		curPos = realTargetPos;
-		SetPos(curPos);
+		//SetPos(curPos);
+		enemyTargetPosition = curPos;
 		return true;
 	}
 
@@ -837,7 +840,8 @@ bool Enemy::moveTo(glm::vec3& curPos, const glm::vec3& targetPos, glm::vec3& cur
 			curPos = realTargetPos;
 		}
 
-		SetPos(curPos);
+		//SetPos(curPos);
+		enemyTargetPosition = curPos;
 		return true;
 	}
 	//std::cout << curPos.x << " " << curPos.y << " " << curPos.z << " | " << vec.x << " " << vec.y << " " << vec.z << std::endl;
@@ -847,7 +851,8 @@ bool Enemy::moveTo(glm::vec3& curPos, const glm::vec3& targetPos, glm::vec3& cur
 		curPos = vec;
 	}
 
-	SetPos(curPos);
+	//SetPos(curPos);
+	enemyTargetPosition = curPos;
 	return false;
 }
 
@@ -875,13 +880,15 @@ void Enemy::pursue(const glm::vec3& evaderPos, glm::vec3& pursuerPos, const glm:
 	//determine if evader is facing pursuer
 	if ((relativeHeading < -0.95) || glm::length(evaderVelocity) == 1)
 	{
-		moveTo(pursuerPos, evaderPos, pursuerVelocity, time, offset, type);
+		//moveTo(pursuerPos, evaderPos, pursuerVelocity, time, offset, type);
+		enemyTargetPosition =  pursuerPos;
 		//std::cout << "In eyesight" << std::endl;
 	}
 	else
 	{
 		lookAheadTime = (glm::length(toEvader)) / (glm::length(evaderVelocity) + glm::length(pursuerVelocity));
-		moveTo(pursuerPos, evaderPos + evaderVelocity * (float)lookAheadTime, pursuerVelocity, time, offset, type);
+		//moveTo(pursuerPos, evaderPos + evaderVelocity * (float)lookAheadTime, pursuerVelocity, time, offset, type);
+		enemyTargetPosition =  pursuerPos;
 		//std::cout << "outta eyesight" << std::endl;
 	}
 }
@@ -897,7 +904,8 @@ bool Enemy::flee(glm::vec3& curPos, const glm::vec3& pursuerPos, glm::vec3& curV
 
 	fromPursuer = glm::normalize(fromPursuer);
 	curVelocity = fromPursuer * fleeSpeed;
-	SetPos(curPos + curVelocity * time);
+	//SetPos(curPos + curVelocity * time);
+	enemyTargetPosition =  curPos;
 	return true;
 }
 

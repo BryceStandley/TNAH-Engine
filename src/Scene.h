@@ -134,7 +134,7 @@ public:
 		* @brief Updates the players position in relation to the world
 		* @param position - The position of the camera
 		*/
-	void UpdatePlayer(glm::vec3 position, glm::vec3 rotation, float time);
+	void UpdatePlayer(glm::vec3 position, glm::vec3 rotation, float time, View lens);
 
 		/**
 		* @brief Gets the playerInd value and returns it

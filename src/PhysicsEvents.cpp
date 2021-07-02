@@ -6,12 +6,15 @@
 
 void PhysicsEvents::onContact(const CollisionCallback::CallbackData &callbackData)
 {
+	if(callbackData.getNbContactPairs() < 1) return;
 	//Collisions are registered here, do what you need to do stuff with the collision data
 	//This converts an objects tag back into a tag we can understand so we can check if something hit another thing
 	rp3d::RigidBody* b1 = (rp3d::RigidBody*)callbackData.getContactPair(0).getBody1();
 	rp3d::RigidBody* b2 = (rp3d::RigidBody*)callbackData.getContactPair(0).getBody2();
 	auto t1 = reinterpret_cast<BoundingBox::CollisionTag>(*static_cast<BoundingBox::CollisionTag*>(b1->getUserData()));
 	auto t2 = reinterpret_cast<BoundingBox::CollisionTag>(*static_cast<BoundingBox::CollisionTag*>(b2->getUserData()));
+
+	if(!t1 || !t2) return;
 
 
 	if(BoundingBox::CompareTag(t1, BoundingBox::TOKEN) || BoundingBox::CompareTag(t2, BoundingBox::TOKEN))
@@ -56,6 +59,8 @@ void PhysicsEvents::onTrigger(const rp3d::OverlapCallback::CallbackData &callbac
 	rp3d::RigidBody* b2 = (rp3d::RigidBody*)callbackData.getOverlappingPair(0).getBody2();
 	auto t1 = reinterpret_cast<BoundingBox::CollisionTag>(*static_cast<BoundingBox::CollisionTag*>(b1->getUserData()));
 	auto t2 = reinterpret_cast<BoundingBox::CollisionTag>(*static_cast<BoundingBox::CollisionTag*>(b2->getUserData()));
+
+	if(!t1 || !t2) return;
 
 	if(BoundingBox::CompareTag(t1, BoundingBox::TOKEN) || BoundingBox::CompareTag(t2, BoundingBox::TOKEN))
 	{
