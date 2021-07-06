@@ -4,8 +4,8 @@
 
 Engine::Engine()
 {
-	std::cout << std::__fs::filesystem::current_path() << std::endl;
-
+	//Used to check the working directory of the application
+	//std::cout << std::filesystem::current_path() << std::endl;
 
 
 	lua_State* L = LuaManager::getInstance().getLuaState();
