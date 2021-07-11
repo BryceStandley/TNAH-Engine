@@ -8,7 +8,7 @@
 //#include "Scene.h"
 #include "Debugger.h"
 
-class Window
+class TNAH_API Window
 {
 public:
 		/**

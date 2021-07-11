@@ -13,7 +13,7 @@
 	 *
 	 **/
 using namespace luabridge;
-class Static : public GameObject
+class TNAH_API Static : public GameObject
 {
 public:
 

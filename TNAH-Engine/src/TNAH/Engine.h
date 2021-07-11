@@ -27,7 +27,7 @@
 **/
 using namespace luabridge;
 
-	class Engine
+class TNAH_API Engine
 	{
 	public:
 		/**
@@ -57,7 +57,7 @@ using namespace luabridge;
 		///Pointer for the window
 		Window* window;
 		///Holds the different scenes
-		std::vector<Scene*> gameScenes;
+		std::vector<tnah::Scene*> gameScenes;
 
 		///Pointer for the renderer
 		Renderer* render;

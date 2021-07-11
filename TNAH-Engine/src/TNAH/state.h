@@ -12,7 +12,7 @@
 	*
 	**/
 template<class entity>
-class State
+class TNAH_API State
 {
 public:
 

@@ -2,7 +2,7 @@
 #include "GUI.h"
 #include "PhysicsManager.h"
 
-class DebugGUI : public GUI
+class TNAH_API DebugGUI : public GUI
 {
 public: 
 

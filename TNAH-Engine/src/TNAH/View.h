@@ -13,7 +13,7 @@
 	*
 	*
 	**/
-class View
+class TNAH_API View
 {
 public:
 

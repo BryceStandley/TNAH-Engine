@@ -23,7 +23,7 @@ struct ModelInfo
 	*
 	*
 	**/
-class OpenGL : public Renderer
+class TNAH_API OpenGL : public Renderer
 {
 public:
 		/**

@@ -9,7 +9,7 @@
 #include "Terrain.h"
 #include "PhysicsEvents.h"
 
-class PhysicsManager
+class TNAH_API PhysicsManager
 {
 public:
 	///Singleton of the physics manager

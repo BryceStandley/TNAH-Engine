@@ -34,9 +34,11 @@ x86/
 [Aa][Rr][Mm]64/
 bld/
 [Bb]in/
+[Bb]in-int/
 [Oo]bj/
 [Bb]uild/
 cmake-build-*
+bin-int/
 
 # Visual Studio 2015/2017 cache/options directory
 .vs/
@@ -367,3 +369,4 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 /build/
+bin-int

@@ -10,7 +10,7 @@
 	*
 	*
 	**/
-class Time
+class TNAH_API Time
 {
 public:
 

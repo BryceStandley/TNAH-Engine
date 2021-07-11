@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Core.h"
+#include "Engine.h"
 
 namespace tnah
 {
@@ -11,7 +12,7 @@ namespace tnah
 		virtual ~Application();
 
 
-		void Run();
+		virtual void Run();
 
 	};
 

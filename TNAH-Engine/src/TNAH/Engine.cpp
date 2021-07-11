@@ -5,8 +5,8 @@
 		lua_State* L = LuaManager::getInstance().getLuaState();
 
 		getGlobalNamespace(L)
-			.beginClass<Scene>("scene")
-			.addFunction("MakeGameObject", &Scene::MakeGameObject)
+			.beginClass<tnah::Scene>("scene")
+			.addFunction("MakeGameObject", &tnah::Scene::MakeGameObject)
 			.endClass()
 			.beginClass<glm::vec3>("vec3")
 			.endClass()
@@ -159,7 +159,7 @@
 		mainMenuGui = MainMenuGUI::GetInstance();
 
 		currentScene = 0;
-		Scene* scene = new Scene("World", render);
+		tnah:: Scene* scene = new tnah::Scene("World", render);
 		gameScenes.push_back(scene);
 
 		gameScenes[currentScene]->SetGameWindow((GlfwWindow*)window);
@@ -217,7 +217,7 @@
 
 						gameScenes.clear();
 						currentScene = 0;
-						Scene* scene = new Scene("World", render);
+						tnah::Scene* scene = new tnah::Scene("World", render);
 						gameScenes.push_back(scene);
 
 						std::string path = "./res/scripts/scene.lua";

@@ -22,7 +22,7 @@ typedef float v3[3];
 	*
 	*
 	**/
-class Renderer
+class TNAH_API Renderer
 {
 public:
 

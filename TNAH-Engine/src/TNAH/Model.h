@@ -1,3 +1,4 @@
+#pragma once
 #include <glad/glad.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -37,7 +38,7 @@
     * @date 25/04/2021
     *
     **/
-class Model
+class TNAH_API Model
 {
 public:
 

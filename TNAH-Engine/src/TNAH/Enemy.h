@@ -36,7 +36,7 @@ inline double randomClamped()
 	 *
 	 **/
 using namespace luabridge;
-class Enemy : public GameObject
+class TNAH_API Enemy : public GameObject
 {
 public:
 

@@ -20,7 +20,7 @@
  * @bugs none to be seen
  *
  **/
-class GameAssetFactory
+class TNAH_API GameAssetFactory
 {
 public:
 

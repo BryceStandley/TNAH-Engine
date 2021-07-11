@@ -19,7 +19,7 @@
  * @date MAY 2021
  *
  */
-class GUI
+class TNAH_API GUI
 {
 public:
 

@@ -7,7 +7,7 @@
  * @author Christopher Logan
  * @date MAY 2021
  */
-class Buffer
+class TNAH_API Buffer
 {
 public:
 

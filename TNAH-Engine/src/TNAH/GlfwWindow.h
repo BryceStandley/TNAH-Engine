@@ -29,7 +29,7 @@
  *
  **/
 
-class GlfwWindow : public Window
+class TNAH_API GlfwWindow : public Window
 {
 public:
 		/**

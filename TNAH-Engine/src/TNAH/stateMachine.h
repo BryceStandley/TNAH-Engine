@@ -14,7 +14,7 @@
 	*
 	**/
 template<class entity>
-class stateMachine
+class TNAH_API stateMachine
 {
 private:
 

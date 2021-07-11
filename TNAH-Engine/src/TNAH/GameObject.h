@@ -22,7 +22,7 @@
  *
  **/
 
-class GameObject
+class TNAH_API GameObject
 {
 public:
 		/**

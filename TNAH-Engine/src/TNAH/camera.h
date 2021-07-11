@@ -10,7 +10,7 @@
      * @brief Defines several possible options for camera movement. Used as abstraction to stay away from window-system specific input methods
      */
 
-enum Camera_Movement {
+TNAH_API enum Camera_Movement {
     FORWARD,
     BACKWARD,
     LEFT,
@@ -33,7 +33,7 @@ const float ZOOM = 45.0f;
     * @date 24/03/2021 Dylan Blereau, Started
     *
     **/
-class Camera
+class TNAH_API Camera
 {
 public:
         /// camera Attributes

@@ -1,3 +1,4 @@
+#pragma once
 #include <glad/glad.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -38,7 +39,7 @@
 * @date 25/04/2021 Christopher Logan, Moved to Fbx
 *
 **/
-class Fbx
+class TNAH_API Fbx
 {
 public:
     /// model data 

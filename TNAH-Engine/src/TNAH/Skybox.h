@@ -16,7 +16,7 @@
 	* @date 27/03/2021 Dylan Blereau, Started
 	*
 	**/
-class Skybox
+class TNAH_API Skybox
 {
 public:
 

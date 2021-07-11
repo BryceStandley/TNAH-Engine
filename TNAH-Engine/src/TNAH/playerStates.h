@@ -16,7 +16,7 @@ class Player;
 	*
 	*
 	**/
-class doubleDamage :public State<Player>
+class TNAH_API doubleDamage :public State<Player>
 {
 public:
 

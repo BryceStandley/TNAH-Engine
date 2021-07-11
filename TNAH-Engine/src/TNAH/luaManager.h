@@ -16,7 +16,7 @@
 	*
 	*
 	**/ 
-class LuaManager
+class TNAH_API LuaManager
 {
 public:
 		/**

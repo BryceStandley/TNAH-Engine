@@ -97,7 +97,7 @@ typedef enum {
 	 * @date 10/04/21
 	 *
 	 **/
-class Md2
+class TNAH_API Md2
 {
 public:
 

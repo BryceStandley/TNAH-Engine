@@ -11,7 +11,7 @@
 *
 *
 **/
-class Weapon {
+class TNAH_API Weapon {
 public:
 
         /**

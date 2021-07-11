@@ -9,7 +9,7 @@
 #include "Terrain.h"
 #include "BoundingBox.h"
 
-class PhysicsEvents : public rp3d::EventListener
+class TNAH_API PhysicsEvents : public rp3d::EventListener
 {
 public:
 	void onContact(const CollisionCallback::CallbackData &callbackData) override;

@@ -8,7 +8,7 @@
  * @author Christopher Logan
  * @date MAY 2021
  */
-class Manager
+class TNAH_API Manager
 {
 public:
 	typedef enum

@@ -15,7 +15,7 @@
 #include "Shader.h"
 #include "GameObject.h"
 
-class ExitScreen
+class TNAH_API ExitScreen
 {
 public:
     ExitScreen() = default;

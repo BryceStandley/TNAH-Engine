@@ -14,7 +14,7 @@
 	 *
 	 **/
 using namespace luabridge;
-class Token : public GameObject
+class TNAH_API Token : public GameObject
 {
 public:
 

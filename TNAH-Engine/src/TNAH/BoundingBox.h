@@ -13,7 +13,7 @@
      * @brief Class to hold all collision and bounding box information of a game object
      * @todo Implement bounding box collisions
      */
-class BoundingBox {
+class TNAH_API BoundingBox {
 public:
          /**
          * @brief Bounding box constructor with empty objects

@@ -55,7 +55,7 @@
 #define TERRAIN_ERROR_NOT_INITIALISED	-1
 #define TERRAIN_OK						 0
 
-class Terrain
+class TNAH_API Terrain
 {
 
 protected:

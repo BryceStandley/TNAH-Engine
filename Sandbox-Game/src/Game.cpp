@@ -12,7 +12,15 @@ public:
 	{
 	}
 
+	void Run();
+
 };
+
+void Game::Run()
+{
+	Engine* e = new Engine();
+	e->Run();
+}
 
 
 tnah::Application* tnah::CreateApplication()

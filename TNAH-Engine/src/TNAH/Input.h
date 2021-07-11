@@ -16,7 +16,7 @@
  *
  **/
 using namespace luabridge;
-class Input
+class TNAH_API Input
 {
 public:
 		/**

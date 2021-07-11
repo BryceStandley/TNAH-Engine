@@ -12,7 +12,7 @@
  * @author Christopher Logan
  * @date MAY 2021
  */
-class MessageDispatcher
+class TNAH_API MessageDispatcher
 {
 private:
 	std::set<Telegram> Priority;

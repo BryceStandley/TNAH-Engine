@@ -3,7 +3,7 @@
 #define WATER_H
 #include "GameObject.h"
 
-class Water : public GameObject
+class TNAH_API Water : public GameObject
 {
 public:
     Water(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std::string script) : GameObject(p, rot, s, gameRenderer)

@@ -2,7 +2,7 @@
 #include <vector>
 #include <string>
 #include <iostream>
-class DynamicEnum
+class TNAH_API DynamicEnum
 {
 private:
 	std::vector<std::string> values;

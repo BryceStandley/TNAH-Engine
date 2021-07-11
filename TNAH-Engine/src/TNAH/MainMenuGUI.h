@@ -18,7 +18,7 @@
  * @date MAY 2021
  */
 
-class MainMenuGUI
+class TNAH_API MainMenuGUI
 {
 public:
 	/**

@@ -16,7 +16,7 @@ class Enemy;
 	*
 	*
 	**/
-class wander :public State<Enemy>
+class TNAH_API wander : public State<Enemy>
 {
 public:
 
@@ -49,7 +49,7 @@ public:
 	*
 	*
 	**/
-class alert :public State<Enemy>
+class TNAH_API alert : public State<Enemy>
 {
 public:
 
@@ -82,7 +82,7 @@ public:
 	*
 	*
 	**/
-class chase : public State<Enemy>
+class TNAH_API chase : public State<Enemy>
 {
 public:
 
@@ -115,7 +115,7 @@ public:
 	*
 	*
 	**/
-class flee :public State<Enemy>
+class TNAH_API flee :public State<Enemy>
 {
 public:
 
@@ -149,7 +149,7 @@ public:
 	*
 	*
 	**/
-class attack :public State<Enemy>
+class TNAH_API attack :public State<Enemy>
 {
 public:
 
@@ -183,7 +183,7 @@ public:
 	*
 	*
 	**/
-class die :public State<Enemy>
+class TNAH_API die :public State<Enemy>
 {
 public:
 
@@ -217,7 +217,7 @@ public:
 	*
 	*
 	**/
-class global :public State<Enemy>
+class TNAH_API global :public State<Enemy>
 {
 public:
 

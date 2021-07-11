@@ -26,7 +26,7 @@
 	 *
 	 **/
 using namespace luabridge;
-class Player : public GameObject
+class TNAH_API Player : public GameObject
 {
 public:
 		/**

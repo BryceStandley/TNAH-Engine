@@ -8,7 +8,7 @@
  * @author Bryce Standley
  * @date MAY 2021
  */
-class EndScreenGUI : public GUI
+class TNAH_API EndScreenGUI : public GUI
 {
 public:
 	/**

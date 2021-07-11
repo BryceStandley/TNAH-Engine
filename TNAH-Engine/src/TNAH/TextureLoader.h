@@ -16,7 +16,7 @@
     * @date 20/03/2021 Dylan Blereau, Started
     *
     **/
-class TextureLoader
+class TNAH_API TextureLoader
 {
 public:
         /**

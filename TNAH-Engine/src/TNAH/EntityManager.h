@@ -16,7 +16,7 @@ typedef std::map<int, GameObject*> Objects;
 	 *
 	 **/
 
-class EntityManager
+class TNAH_API EntityManager
 {
 private:
 	///Int, GameObject* map for holding the gameobjects

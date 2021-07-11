@@ -13,7 +13,7 @@ namespace tnah
 
 	void Application::Run()
 	{
-		while (true);
+		
 	}
 
 	

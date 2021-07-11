@@ -2,7 +2,7 @@
 #include "GUI.h"
 #include "Player.h"
 #include "MainMenuGUI.h"
-class GameGUI : public GUI
+class TNAH_API GameGUI : public GUI
 {
 
 public:

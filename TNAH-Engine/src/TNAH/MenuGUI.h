@@ -8,7 +8,7 @@
  * @date MAY 2021
  */
 
-class MenuGUI : public GUI
+class TNAH_API MenuGUI : public GUI
 {
 
 	/**
