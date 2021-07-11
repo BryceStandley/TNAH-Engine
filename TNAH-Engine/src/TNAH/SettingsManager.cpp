@@ -1,3 +1,4 @@
+#include "tnahpch.h"
 #include "SettingsManager.h"
 
 SettingsManager::SettingsManager()

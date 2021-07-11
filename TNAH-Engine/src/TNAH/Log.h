@@ -25,11 +25,11 @@ namespace tnah
 #define TNAH_CORE_INFO(...)     ::tnah::Log::GetCoreLogger()->info(__VA_ARGS__)
 #define TNAH_CORE_WARN(...)     ::tnah::Log::GetCoreLogger()->warn(__VA_ARGS__)
 #define TNAH_CORE_ERROR(...)    ::tnah::Log::GetCoreLogger()->error(__VA_ARGS__)
-#define TNAH_CORE_FATAL(...)    ::tnah::Log::GetCoreLogger()->fatal(__VA_ARGS__)
+#define TNAH_CORE_FATAL(...)    ::tnah::Log::GetCoreLogger()->critical(__VA_ARGS__)
 
 // Client log macros
 #define TNAH_TRACE(...)	      ::tnah::Log::GetClientLogger()->trace(__VA_ARGS__)
 #define TNAH_INFO(...)	      ::tnah::Log::GetClientLogger()->info(__VA_ARGS__)
 #define TNAH_WARN(...)	      ::tnah::Log::GetClientLogger()->warn(__VA_ARGS__)
 #define TNAH_ERROR(...)	      ::tnah::Log::GetClientLogger()->error(__VA_ARGS__)
-#define TNAH_FATAL(...)	      ::tnah::Log::GetClientLogger()->fatal(__VA_ARGS__) 
+#define TNAH_FATAL(...)	      ::tnah::Log::GetClientLogger()->critical(__VA_ARGS__) 

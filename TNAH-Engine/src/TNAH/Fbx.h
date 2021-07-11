@@ -1,9 +1,8 @@
 #pragma once
 #include <glad/glad.h>
-#include <glm/glm.hpp>
+
 #include <glm/gtc/matrix_transform.hpp>
 #include<glm/gtx/matrix_decompose.hpp>
-#include "stb_image.h"
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
@@ -11,20 +10,12 @@
 #include "Mesh.h"
 #include "Shader.h"
 
-
-#include <string>
-#include <fstream>
-#include <sstream>
-#include <iostream>
-#include <map>
-#include <vector>
-
-
 #include "Callbacks.h"
 #include "OpenGL.h"
 
 #include "Debugger.h"
 #include "PhysicsManager.h"
+using namespace tnah;
 
 /**
 * @class Fbx

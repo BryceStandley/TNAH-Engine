@@ -1,3 +1,4 @@
+#include "tnahpch.h"
 #include "Scene.h"
 namespace tnah {
 
@@ -86,4 +87,17 @@ namespace tnah {
         worldy = gameTerrain->GetVertexHeight(worldx + terrainPosMovement.x, worldz + terrainPosMovement.z);
         return glm::vec3(worldx, worldy, worldz);
     }
+
+
+    int Scene::FindPlayerIndice(std::vector<GameObject*> go)
+    {
+        for (int x = 0; x < go.size(); x++)
+        {
+            if (go[x]->GetType() == "player")
+            {
+                return x;
+            }
+        }
+    }
+
 }

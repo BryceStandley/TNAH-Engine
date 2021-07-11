@@ -16,10 +16,10 @@ public:
 
 	void onTrigger(const rp3d::OverlapCallback::CallbackData &callbackData) override;
 
-	void SetTerrainPointer(Terrain* t) {gameTerrain = t;}
+	void SetTerrainPointer(tnah::Terrain* t) {gameTerrain = t;}
 
 private:
-	Terrain* gameTerrain;
+	tnah::Terrain* gameTerrain;
 };
 
 

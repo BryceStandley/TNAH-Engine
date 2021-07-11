@@ -64,7 +64,7 @@ public:
         * @brief A function that binds each texture (if the mesh has more than one) and draws the mesh  
         * @param shader - a reference to a shader object
         */
-    void Draw(Shader& shader)
+    void Draw(tnah::Shader& shader)
     {
             /// bind appropriate textures
         unsigned int diffuseNr = 1;

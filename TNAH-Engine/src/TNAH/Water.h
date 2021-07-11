@@ -51,7 +51,7 @@ public:
             Model tempModel(file, gameRenderer, check);
             SetModel(tempModel);
 
-            Shader tempShader(vertS.c_str(), fragS.c_str());
+            tnah::Shader tempShader(vertS.c_str(), fragS.c_str());
             SetShader(tempShader);
 
             SetRotate(rotate);
@@ -98,7 +98,7 @@ public:
             Model tempModel(file, gameRenderer, check);
             SetModel(tempModel);
 
-            Shader tempShader(vertS.c_str(), fragS.c_str());
+            tnah::Shader tempShader(vertS.c_str(), fragS.c_str());
             SetShader(tempShader);
 
             SetRotate(rotate);

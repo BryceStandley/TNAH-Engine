@@ -1,8 +1,9 @@
+#include "tnahpch.h"
 #include "MenuGUI.h"
 
 void MenuGUI::Init()
 {
-    Debugger::GetInstance();
+    tnah::Debugger::GetInstance();
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
     //ImGuiIO& io = ImGui::GetIO(); (void)io;

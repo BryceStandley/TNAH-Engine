@@ -1,3 +1,4 @@
+#include "tnahpch.h"
 #include "Model.h"
 
 void Model::LoadModel(std::string const& path, Renderer* gameRenderer, std::string pathTexture)

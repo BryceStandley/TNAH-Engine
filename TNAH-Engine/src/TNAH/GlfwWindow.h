@@ -28,19 +28,20 @@
  * @bugs none to be seen
  *
  **/
-
-class TNAH_API GlfwWindow : public Window
-{
-public:
+using namespace tnah;
+namespace tnah {
+	class TNAH_API GlfwWindow : public Window
+	{
+	public:
 		/**
 		* @brief Default constructor
 		*/
-	GlfwWindow() {}
+		GlfwWindow() {}
 
 		/**
 		* @brief Default destructor
 		*/
-	~GlfwWindow() { Terminate(); }
+		~GlfwWindow() { Terminate(); }
 
 		/**
 		* @brief Initilises the window class, setting the title height and width
@@ -48,160 +49,161 @@ public:
 		* @param h - The height of the window
 		* @param w - The width of the window
 		*/
-	virtual void Init(std::string title, int h, int w);
+		virtual void Init(std::string title, int h, int w);
 
 		/**
 		* @brief Calls the buffer from glfw
 		*/
-	virtual void Buffer();
+		virtual void Buffer();
 
 		/**
 		* @brief Holds the game input logic for the keyboard, uses the input variable to set the actual keys
 		* @param deltaTime - Takes in delta time for the movement of the camera
 		*/
-	virtual void GameInput(float deltaTime);
+		virtual void GameInput(float deltaTime);
 
 		/**
 		* @brief Sets the termination information for the class
 		*/
-	virtual void Terminate();
+		virtual void Terminate();
 
 		/**
 		* @brief Calls the frame buffer, in this case the glfw one
 		*/
-	virtual void FrameBuffer();
-	
+		virtual void FrameBuffer();
+
 		/**
 		* @brief Getter for the camera
 		* @return camera
 		*/
-	virtual Camera GetCamera() { return camera; }
+		virtual Camera GetCamera() { return camera; }
 
 		/**
-		* @brief 
+		* @brief
 		s the camera position
 		*/
-	virtual void UpdateCamera(glm::vec3 p) { camera.Position = p; }
+		virtual void UpdateCamera(glm::vec3 p) { camera.Position = p; }
 
 		/**
 		* @brief Sets mouse movmenet
 		*/
-	virtual void MouseMove();
+		virtual void MouseMove();
 
 		/**
 		* @brief Getter for the lens
 		* @return lens
 		*/
-	virtual View GetLens() { return lens; }
+		virtual tnah::View GetLens() { return lens; }
 
 		/**
 		* @brief Updates the window for things such as time, lens values
 		*/
-	virtual void Update();
+		virtual void Update();
 
 		/**
 		* @brief Getter for deltaTime
 		* @return gameTime.DetaTime()
 		*/
-	virtual float GetTime() { return gametime.DeltaTime(); }
+		virtual float GetTime() { return gametime.DeltaTime(); }
 
 		/**
 		* @brief Checks if the window is running still
 		*/
-	virtual bool Running();
+		virtual bool Running();
 
 		/**
 		* @brief Gets the display value
 		* @return exitDisplay
 		*/
-	virtual bool GetDisplay() { return exitDisplay; }
+		virtual bool GetDisplay() { return exitDisplay; }
 
-	float GetCurrentTime() { return (float)glfwGetTime(); }
+		float GetCurrentTime() { return (float)glfwGetTime(); }
 
-	virtual bool GetWeaponFire() {return fireWeapon;}
+		virtual bool GetWeaponFire() { return fireWeapon; }
 
-	GLFWwindow* GetGameWindow() { return gameWindow; }
+		GLFWwindow* GetGameWindow() { return gameWindow; }
 
-	glm::vec2 GetWindowSize() { return windowSize; }
+		glm::vec2 GetWindowSize() { return windowSize; }
 
-	void ToggleFullScreen(bool change);
+		void ToggleFullScreen(bool change);
 
-	bool isPlayerMoving = false;
+		bool isPlayerMoving = false;
 
-private:	
+	private:
 
 		/**
 		* @brief Calls glfw projection values
 		*/
-	void Projection();
+		void Projection();
 
 		/**
 		* @brief Calls the clear values from glfw
 		*/
-	void Clear();
+		void Clear();
 
 		/**
 		* @brief Calls the restart values from glfw
 		*/
-	void Restart();
+		void Restart();
 
 		///If the exit display should be displayed
-	bool exitDisplay = false;
+		bool exitDisplay = false;
 
 		///If the press exit display can be displayed
-	bool canPressExitDisplay = true;
+		bool canPressExitDisplay = true;
 
-    ///If the wireframe display should be displayed
-    bool wireDisplay = false;
+		///If the wireframe display should be displayed
+		bool wireDisplay = false;
 
-    ///If the press wireframe display can be displayed
-    bool canPressWireDisplay = true;
+		///If the press wireframe display can be displayed
+		bool canPressWireDisplay = true;
 
-    ///If the wireframe display should be displayed
-    bool debugDisplay = false;
+		///If the wireframe display should be displayed
+		bool debugDisplay = false;
 
-    ///If the press wireframe display can be displayed
-    bool canPressDebugDisplay = true;
+		///If the press wireframe display can be displayed
+		bool canPressDebugDisplay = true;
 
-	bool canFireWeapon = false;
+		bool canFireWeapon = false;
 
-	bool fireWeapon = false;
+		bool fireWeapon = false;
 
-	bool canPressPauseButton = false;
+		bool canPressPauseButton = false;
 
-	bool fwdUp, dwnUp, lftUp, rhtUp;
+		bool fwdUp, dwnUp, lftUp, rhtUp;
 
 		//The game input manager
-	Input gameInput;
+		Input gameInput;
 
 		///The window
-	GLFWwindow* gameWindow = nullptr;
+		GLFWwindow* gameWindow = nullptr;
 
 		///Light positioning
-	glm::vec3 lightPos;
+		glm::vec3 lightPos;
 
 		///The camera
-	Camera camera;
-		
+		Camera camera;
+
 		///Holds information that may be needed by other classes
-	View lens;
+		View lens;
 
 		///Calulates deltaTime
-	Time gametime;
+		Time gametime;
 
-	const unsigned int SCR_WIDTH = 800;
-	const unsigned int SCR_HEIGHT = 600;
+		const unsigned int SCR_WIDTH = 800;
+		const unsigned int SCR_HEIGHT = 600;
 
 		///The last position of x on the mouse
-	float lastX;
+		float lastX;
 
 		///The last position of y on the mouse
-	float lastY;
+		float lastY;
 
 		///If the mouse has been used yet
-	float firstMouse = true;
+		float firstMouse = true;
 
-	glm::vec2 windowSize;
+		glm::vec2 windowSize;
 
 
-};
+	};
+}

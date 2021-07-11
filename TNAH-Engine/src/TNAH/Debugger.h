@@ -152,7 +152,7 @@ namespace tnah {
 		{
 			INFO,
 			WARNING,
-			ERROR,
+			ERR,
 			ENGINE,
 			ALL
 		};

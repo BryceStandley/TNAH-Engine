@@ -1,3 +1,4 @@
+#include "tnahpch.h"
 #include "GameAssetFactory.h"
 
 GameObject* GameAssetFactory::GetGameObject(std::string type, std::string script, float scale, glm::vec3 position)

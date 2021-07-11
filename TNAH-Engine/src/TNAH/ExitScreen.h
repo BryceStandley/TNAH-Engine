@@ -22,16 +22,16 @@ public:
 
     void Init(std::string name, Renderer* r);
     Renderer* renderer;
-    Shader shader;
+    tnah::Shader shader;
     Model exitModel;
 
     bool exitScreenDisplay;
 
     void SetExitScreenDisplay(bool i){exitScreenDisplay = i;}
 
-    Shader GetShader(){return shader;}
+    tnah::Shader GetShader() {return shader;}
 
-    void Render(Renderer* r, View lens);
+    void Render(Renderer* r, tnah::View lens);
 private:
 
 };

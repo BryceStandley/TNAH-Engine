@@ -1,3 +1,4 @@
+#include "tnahpch.h"
 #include "TextureLoader.h"
 
     /// loads in a 2D texture from file

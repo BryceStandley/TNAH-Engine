@@ -1,3 +1,4 @@
+#include "tnahpch.h"
 #include "Application.h"
 
 namespace tnah

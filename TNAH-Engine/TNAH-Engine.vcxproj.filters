@@ -13,9 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Header Files\imgui">
-      <UniqueIdentifier>{c73710a2-4b1e-44ed-a853-afe23fd33e0c}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\TNAH\BoundingBox.cpp">
@@ -180,34 +177,19 @@
     <ClCompile Include="src\TNAH\Window.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\TNAH\glad.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\TNAH\imgui\imgui.cpp">
-      <Filter>Header Files\imgui</Filter>
-    </ClCompile>
-    <ClCompile Include="src\TNAH\imgui\imgui_demo.cpp">
-      <Filter>Header Files\imgui</Filter>
-    </ClCompile>
-    <ClCompile Include="src\TNAH\imgui\imgui_draw.cpp">
-      <Filter>Header Files\imgui</Filter>
-    </ClCompile>
-    <ClCompile Include="src\TNAH\imgui\imgui_impl_glfw.cpp">
-      <Filter>Header Files\imgui</Filter>
-    </ClCompile>
-    <ClCompile Include="src\TNAH\imgui\imgui_impl_opengl3.cpp">
-      <Filter>Header Files\imgui</Filter>
-    </ClCompile>
-    <ClCompile Include="src\TNAH\imgui\imgui_tables.cpp">
-      <Filter>Header Files\imgui</Filter>
-    </ClCompile>
-    <ClCompile Include="src\TNAH\imgui\imgui_widgets.cpp">
-      <Filter>Header Files\imgui</Filter>
-    </ClCompile>
     <ClCompile Include="src\TNAH\Application.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\TNAH\Log.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tnahpch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\imgui_impl_glfw.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\imgui_impl_opengl3.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -386,30 +368,6 @@
     <ClInclude Include="src\TNAH\Windows.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\TNAH\imgui\imconfig.h">
-      <Filter>Header Files\imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="src\TNAH\imgui\imgui.h">
-      <Filter>Header Files\imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="src\TNAH\imgui\imgui_impl_glfw.h">
-      <Filter>Header Files\imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="src\TNAH\imgui\imgui_impl_opengl3.h">
-      <Filter>Header Files\imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="src\TNAH\imgui\imgui_internal.h">
-      <Filter>Header Files\imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="src\TNAH\imgui\imstb_rectpack.h">
-      <Filter>Header Files\imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="src\TNAH\imgui\imstb_textedit.h">
-      <Filter>Header Files\imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="src\TNAH\imgui\imstb_truetype.h">
-      <Filter>Header Files\imgui</Filter>
-    </ClInclude>
     <ClInclude Include="src\TNAH\Core.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -423,6 +381,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\TNAH\Log.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tnahpch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\imgui_impl_glfw.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\imgui_impl_opengl3.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

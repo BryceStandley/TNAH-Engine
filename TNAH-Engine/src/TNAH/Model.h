@@ -121,7 +121,7 @@ public:
         * @param gameRenderer - a pointer to the renderer which is used to render the enemy model
         * @param p - represents if player exists or not
         */
-    void Render(View lens, Shader &shader, glm::vec3 pos, glm::vec3 rot, float scale, bool rotate, float time, float direction, Renderer * gameRenderer, bool p);
+    void Render(View lens, tnah::Shader &shader, glm::vec3 pos, glm::vec3 rot, float scale, bool rotate, float time, float direction, Renderer * gameRenderer, bool p);
 
         /**
         * @brief sets the animation state of the model to the command provided as parameter

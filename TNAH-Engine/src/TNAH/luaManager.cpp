@@ -1,3 +1,4 @@
+#include "tnahpch.h"
 #include "luaManager.h"
 
 LuaManager::LuaManager() 

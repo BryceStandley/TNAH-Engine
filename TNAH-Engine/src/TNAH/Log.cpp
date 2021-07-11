@@ -1,3 +1,4 @@
+#include "tnahpch.h"
 #include "Log.h"
 
 namespace tnah

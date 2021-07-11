@@ -1,3 +1,4 @@
+#include "tnahpch.h"
 #include "BoundingBox.h"
 
 BoundingBox BoundingBox::GenerateBoundingBox(Mesh* mesh)

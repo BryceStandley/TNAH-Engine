@@ -1,3 +1,4 @@
+#include "tnahpch.h"
 #include "Buffer.h"
 
 Buffer::Buffer()

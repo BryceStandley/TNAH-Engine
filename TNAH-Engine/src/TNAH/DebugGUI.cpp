@@ -1,3 +1,4 @@
+#include "tnahpch.h"
 #include "DebugGUI.h"
 
 DebugGUI::DebugGUI(std::string scriptPath)
@@ -70,7 +71,7 @@ DebugGUI::DebugGUI(std::string scriptPath)
 			    debugger->debugEngineToLogFile = false;
 			    debugger->debugWarningToLogFile = false;
 			    debugger->debugInfoToLogFile = false;
-			    debugger->type = Debugger::LogType::ERROR;
+			    debugger->type = Debugger::LogType::ERR;
 			    break;
 		    case 4:
 			    debugger->debugEngineToLogFile = true;
@@ -183,7 +184,7 @@ void DebugGUI::Draw()
 			debugger->debugEngineToLogFile = false;
 			debugger->debugWarningToLogFile = false;
 			debugger->debugInfoToLogFile = false;
-			debugger->type = Debugger::LogType::ERROR;
+			debugger->type = Debugger::LogType::ERR;
 			break;
 		case 4:
 			debugger->debugEngineToLogFile = true;

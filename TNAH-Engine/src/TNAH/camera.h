@@ -10,7 +10,7 @@
      * @brief Defines several possible options for camera movement. Used as abstraction to stay away from window-system specific input methods
      */
 
-TNAH_API enum Camera_Movement {
+enum TNAH_API Camera_Movement {
     FORWARD,
     BACKWARD,
     LEFT,

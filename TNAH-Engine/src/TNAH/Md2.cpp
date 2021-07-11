@@ -1,3 +1,4 @@
+#include "tnahpch.h"
 #include "Md2.h"
 
 Md2State Md2::animationList[23] =
@@ -266,7 +267,7 @@ void Md2::LoadModel(const char* sFilename, const char* tFilename, const char* vS
 		TextureLoader loader;
 		textureId = TextureFromFile(tFilename);
 
-		Shader s(vShader, fShader);
+		tnah::Shader s(vShader, fShader);
 		shader = s;
 
 		delete[]buffer;

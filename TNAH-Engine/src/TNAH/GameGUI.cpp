@@ -1,3 +1,4 @@
+#include "tnahpch.h"
 #include "GameGUI.h"
 
 GameGUI::GameGUI(std::string scriptPath)

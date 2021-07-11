@@ -1,3 +1,4 @@
+#include "tnahpch.h"
 #include "Enemy.h"
 
 Enemy::Enemy(glm::vec3 p, glm::vec3 rot, Renderer* gameRenderer, std::string script) : GameObject(p, rot, 0, gameRenderer)
@@ -105,7 +106,7 @@ Enemy::Enemy(glm::vec3 p, glm::vec3 rot, Renderer* gameRenderer, std::string scr
 		Model tempModel(file, gameRenderer, check, texture, true);
 		SetModel(tempModel);
 
-		Shader tempShader(vertS.c_str(), fragS.c_str());
+		tnah::Shader tempShader(vertS.c_str(), fragS.c_str());
 		SetShader(tempShader);
 
 		SetRotate(rotate);
@@ -228,7 +229,7 @@ Enemy::Enemy(glm::vec3 p, glm::vec3 rot, Renderer* gameRenderer, std::string scr
 		Model tempModel(file, gameRenderer, check, texture, true);
 		SetModel(tempModel);
 
-		Shader tempShader(vertS.c_str(), fragS.c_str());
+		tnah::Shader tempShader(vertS.c_str(), fragS.c_str());
 		SetShader(tempShader);
 
 		SetRotate(rotate);
@@ -380,7 +381,7 @@ Enemy::Enemy(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std::s
 		Model tempModel(file, gameRenderer, check, texture, true);
 		SetModel(tempModel);
 
-		Shader tempShader(vertS.c_str(), fragS.c_str());
+		tnah::Shader tempShader(vertS.c_str(), fragS.c_str());
 		SetShader(tempShader);
 
 		SetRotate(rotate);
@@ -503,7 +504,7 @@ Enemy::Enemy(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std::s
 		Model tempModel(file, gameRenderer, check, texture, true);
 		SetModel(tempModel);
 
-		Shader tempShader(vertS.c_str(), fragS.c_str());
+		tnah::Shader tempShader(vertS.c_str(), fragS.c_str());
 		SetShader(tempShader);
 
 		SetRotate(rotate);

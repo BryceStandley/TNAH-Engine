@@ -1,8 +1,7 @@
+#include "tnahpch.h"
 #include "playerStates.h"
-#include <iostream>
 #include "Player.h"
-#include <cstdlib>
-#include <ctime>
+
 
 void doubleDamage::Enter(Player* dude)
 {

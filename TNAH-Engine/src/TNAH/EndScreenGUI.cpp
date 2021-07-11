@@ -1,3 +1,4 @@
+#include "tnahpch.h"
 #include "EndScreenGUI.h"
 
 EndScreenGUI::EndScreenGUI(std::string scriptPath)

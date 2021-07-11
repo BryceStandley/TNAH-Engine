@@ -11,7 +11,7 @@
 	*
 	**/
 template<class T>
-class TNAH_API singleton
+class singleton
 {
 public:
 

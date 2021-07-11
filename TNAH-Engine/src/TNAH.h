@@ -1,12 +1,7 @@
 #pragma once
 
 //To include in all applications that use the TNAH-Engine!
-
-// --- Standard Libraries --- //
-#include <iostream>
-#include <vector>
-#include <filesystem>
-#include <string>
+#include "TNAH/Core.h"
 
 // --- TNAH Engine Components --- //
 #include "TNAH/Application.h"

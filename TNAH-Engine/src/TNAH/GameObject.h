@@ -21,7 +21,7 @@
  * @bugs none to be seen
  *
  **/
-
+using namespace tnah;
 class TNAH_API GameObject
 {
 public:
@@ -55,7 +55,7 @@ public:
 		* @brief Set new shader
 		* @param s - The new value
 		*/
-	void SetShader(Shader s) { shader = s; }
+	void SetShader(tnah::Shader s) { shader = s; }
 
 		/**
 		* @brief Set rotate bool
@@ -109,7 +109,7 @@ public:
 		* @brief Gets the shader
 		* @return shader
 		*/
-	Shader GetShader() { return shader; }
+	tnah::Shader GetShader() { return shader; }
 
 		/**
 		* @brief Sets the type of object

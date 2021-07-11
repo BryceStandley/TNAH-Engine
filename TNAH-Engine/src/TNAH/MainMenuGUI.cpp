@@ -1,3 +1,4 @@
+#include "tnahpch.h"
 #include "MainMenuGUI.h"
 
 MainMenuGUI* MainMenuGUI::instance = 0;

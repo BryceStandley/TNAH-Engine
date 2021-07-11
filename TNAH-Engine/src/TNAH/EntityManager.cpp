@@ -1,3 +1,4 @@
+#include "tnahpch.h"
 #include "EntityManager.h"
 
 void EntityManager::RegisterEntity(GameObject* newEntity)

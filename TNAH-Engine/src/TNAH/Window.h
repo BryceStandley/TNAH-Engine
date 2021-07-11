@@ -61,7 +61,7 @@ public:
 		* @brief Getter for the lens
 		* @return lens
 		*/
-	virtual View GetLens() { return View(); }
+	virtual tnah::View GetLens() { return tnah::View(); }
 
 		/**
 		* @brief Updates the window for things such as time, lens values

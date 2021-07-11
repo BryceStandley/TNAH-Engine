@@ -45,7 +45,13 @@ class TNAH_API Engine
 		*/
 		void Run();
 
-	private:
+		///Holds the different scenes
+		std::vector<Scene*> gameScenes;
+
+		Window* GetWindow() { return window;}
+		Renderer* GetRenderer() { return render; }
+
+	protected:
 
 		/**
 		* @brief Loads in a lua scene file, loading up all the assets
@@ -56,9 +62,7 @@ class TNAH_API Engine
 
 		///Pointer for the window
 		Window* window;
-		///Holds the different scenes
-		std::vector<tnah::Scene*> gameScenes;
-
+		
 		///Pointer for the renderer
 		Renderer* render;
 

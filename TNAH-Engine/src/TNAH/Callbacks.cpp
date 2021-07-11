@@ -1,3 +1,4 @@
+#include "tnahpch.h"
 #include "Callbacks.h"
 
 void framebufferCallback(GLFWwindow* window, int width, int height)

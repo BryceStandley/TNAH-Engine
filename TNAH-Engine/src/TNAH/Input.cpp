@@ -1,3 +1,4 @@
+#include "tnahpch.h"
 #include "Input.h"
 
 Input::Input()
@@ -6,7 +7,7 @@ Input::Input()
 
 	if (luaL_dofile(L, "./res/scripts/input.lua"))
 	{
-		std::cout << "ERROR::INPUT_LUA::FILE_WAS_NOT_FOUND::DEFAULT_INPUT" << std::endl;
+		TNAH_FATAL("ERROR::INPUT_LUA::FILE_WAS_NOT_FOUND::DEFAULT_INPUT");
 		forward = GLFW_KEY_W;
 		back = GLFW_KEY_S;
 		left = GLFW_KEY_A;
@@ -18,7 +19,7 @@ Input::Input()
 	}
 	else
 	{
-		std::cout << "INPUT_LUA::FILE_FOUND::INPUT_SET" << std::endl;
+		TNAH_INFO("INPUT_LUA::FILE_FOUND::INPUT_SET");
 		LuaRef f = getGlobal(L, "forward");
 		LuaRef b = getGlobal(L, "back");
 		LuaRef l = getGlobal(L, "left");

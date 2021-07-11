@@ -1,8 +1,9 @@
+#include "tnahpch.h"
 #include "ExitScreen.h"
 
 void ExitScreen::Init(std::string name, Renderer * r)
 {
-    Shader s = Shader("./res/shader/modelV.glsl", "./res/shader/modelF.glsl");
+    tnah::Shader s = Shader("./res/shader/modelV.glsl", "./res/shader/modelF.glsl");
     shader = s;
 
     Model m(name, r, false);

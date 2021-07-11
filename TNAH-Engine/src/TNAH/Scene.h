@@ -145,7 +145,7 @@ namespace tnah {
 		/**
 		 * @brief Finds the playerInd value within the Scenes gameObjects
 		 */
-		virtual void FindPlayerIndice() {}
+		virtual int FindPlayerIndice(std::vector<GameObject*> go);
 
 		/**
 		 * @brief Checks the players position against scene game objects for collisions

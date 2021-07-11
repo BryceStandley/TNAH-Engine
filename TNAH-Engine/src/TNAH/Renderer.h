@@ -39,7 +39,7 @@ public:
 		* @param newModel - The matrix4 model infromation for rotation or scaling
 		* @param The mesh - The current mesh of the object
 		*/
-	virtual void RenderModel(Shader& shader, glm::mat4 newModel, Mesh mesh) {}
+	virtual void RenderModel(tnah::Shader& shader, glm::mat4 newModel, Mesh mesh) {}
 
 		/**
 		* @brief Binds textures to memory
@@ -64,14 +64,14 @@ public:
 		* @param shader - The shader used
 		* @param lens - The viewing information
 		*/
-	virtual void SetShader(Shader shader, View lens) {}
+	virtual void SetShader(tnah::Shader shader, tnah::View lens) {}
 
 		/**
 		* @brief Sets the shader and uses it for the skybox
 		* @param shader - The shader used
 		* @param lens - The viewing information
 		*/
-	virtual void SetShaderSkybox(Shader shader, View lens) {}
+	virtual void SetShaderSkybox(tnah::Shader shader, tnah::View lens) {}
 
 		/**
 		* @brief Sets up the terrain data
@@ -93,7 +93,7 @@ public:
 		* @param texture - The texture number
 		* @param skyShader - The skybox shader
 		*/
-	virtual void SkyboxSetup(std::vector<float> skyVerts, std::vector<std::string> faces, unsigned int& VAO, unsigned int& VBO, unsigned int &texture, Shader& skyShader) {}
+	virtual void SkyboxSetup(std::vector<float> skyVerts, std::vector<std::string> faces, unsigned int& VAO, unsigned int& VBO, unsigned int &texture, tnah::Shader& skyShader) {}
 
 		/**
 		* @brief Sets up the skybox
@@ -118,7 +118,7 @@ public:
 		* @param shader - The shader used
 		* @param lens - The viewing information
 		*/
-	virtual void SetShaderTerrain(Shader &shader, View lens) {}
+	virtual void SetShaderTerrain(tnah::Shader &shader, tnah::View lens) {}
 
 		/**
 		* @brief Rends the exit model
@@ -142,8 +142,8 @@ public:
 
 	virtual int LoadModel(int numFrames, std::vector<int> commands, unsigned int &VAO, v3 anorms[162], std::vector<std::vector<glm::vec3>> vertices, std::vector<std::vector<int>> normals) { return 0; }
 
-	virtual void RenderModel(int number, Md2State* animState, glm::mat4 proj, glm::mat4 view, glm::mat4 genFour, float direction, unsigned int& VAO, unsigned int& textureId, Shader& shader) {}
-	virtual void RenderModel(int number, Md2State* animState, glm::mat4 proj, glm::mat4 view, glm::vec3 position, glm::vec3 rotation, float direction, unsigned int& VAO, unsigned int& textureId, Shader& shader) {}
+	virtual void RenderModel(int number, Md2State* animState, glm::mat4 proj, glm::mat4 view, glm::mat4 genFour, float direction, unsigned int& VAO, unsigned int& textureId, tnah::Shader& shader) {}
+	virtual void RenderModel(int number, Md2State* animState, glm::mat4 proj, glm::mat4 view, glm::vec3 position, glm::vec3 rotation, float direction, unsigned int& VAO, unsigned int& textureId, tnah::Shader& shader) {}
 
 	virtual void SetGlfwWindow(){}
 
@@ -151,7 +151,7 @@ public:
 	 * @brief Renders the debug information from the react physics renderer
 	 * @param debugRenderer - Debug Renderer object from react with all render information
 	 */
-	virtual void RenderReactDebugger(rp3d::DebugRenderer debugRenderer, View lens){}
+	virtual void RenderReactDebugger(rp3d::DebugRenderer debugRenderer, tnah::View lens){}
 
 	virtual void SetUpReactDebugger(rp3d::DebugRenderer debugRenderer){}
 	virtual void UpdateReactDebugVBO(){}

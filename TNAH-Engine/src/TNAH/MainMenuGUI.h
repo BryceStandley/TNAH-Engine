@@ -1,10 +1,10 @@
 #pragma once
 #include <string>
 #include <glad/glad.h>
-#include "imgui/imgui.h"
-#include "imgui/imgui_impl_glfw.h"
-#include "imgui/imgui_impl_opengl3.h"
-#include "imgui/imgui_internal.h"
+#include <imgui.h>
+#include "Platform/OpenGL/imgui_impl_glfw.h"
+#include "Platform/OpenGL/imgui_impl_opengl3.h"
+#include <imgui_internal.h>
 #include "luaManager.h"
 #include "stb_image.h"
 #include "singleton.h"

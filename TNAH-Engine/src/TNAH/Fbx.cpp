@@ -1,3 +1,4 @@
+#include "tnahpch.h"
 #include "Fbx.h"
 void Fbx::Draw(Shader& shader, glm::mat4 model)
 {

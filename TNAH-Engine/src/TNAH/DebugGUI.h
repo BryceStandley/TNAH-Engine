@@ -1,6 +1,7 @@
 #pragma once
 #include "GUI.h"
 #include "PhysicsManager.h"
+using namespace tnah;
 
 class TNAH_API DebugGUI : public GUI
 {
@@ -31,7 +32,7 @@ private:
 	 */
 	int logType;
 
-	Debugger* debugger;
+	tnah::Debugger* debugger;
 
 };
 

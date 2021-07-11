@@ -16,18 +16,20 @@
 	* @date 27/03/2021 Dylan Blereau, Started
 	*
 	**/
-class TNAH_API Skybox
-{
-public:
+using namespace tnah;
+namespace tnah {
+	class TNAH_API Skybox
+	{
+	public:
 
 		/**
-		* @brief default constructor that initialises the object and sets the vertices of the skybox 
+		* @brief default constructor that initialises the object and sets the vertices of the skybox
 		*/
-	Skybox();
+		Skybox();
 
 		/**
 		* @brief a constructor that takes in the paths to the images for each face of the skybox, as well as the paths to its vertex and fragment shader
-		* 
+		*
 		* @param right - represents the right face of the skybox
 		* @param left - represents the left face of the skybox
 		* @param top - represents the top face of the skybox
@@ -37,37 +39,38 @@ public:
 		* @param vertexShader - represents the skybox's vertex shader
 		* @param fragmentShader - represents the skybox's fragment shader
 		*/
-	Skybox(std::string right, std::string left, std::string top, std::string bottom, std::string front, std::string back, std::string vertexShader, std::string fragmentShader);
+		Skybox(std::string right, std::string left, std::string top, std::string bottom, std::string front, std::string back, std::string vertexShader, std::string fragmentShader);
 
 		/**
 		* @brief destructor
 		*/
-	~Skybox() { };
+		~Skybox() { };
 
 		/// shader object
-	Shader skyShader;
-	unsigned int VAO = 0, VBO = 0;
-	unsigned int texture = 0;
+		Shader skyShader;
+		unsigned int VAO = 0, VBO = 0;
+		unsigned int texture = 0;
 
 		/**
 		* @brief gets and returns all the cubeFaces that make up the skybox
-		* @return std::vector<std::string> 
+		* @return std::vector<std::string>
 		*/
-	std::vector<std::string> GetCubeFaces() { return cubeFaces; }
+		std::vector<std::string> GetCubeFaces() { return cubeFaces; }
 
 		/**
 		* @brief gets and returns all the vertices that make up the skybox
 		* @return std::vector<float>
 		*/
-	std::vector<float> GetSkyVerts() { return skyVerts; }
+		std::vector<float> GetSkyVerts() { return skyVerts; }
 
-private:
+	private:
 		/**
 		* @brief sets all vertices required to draw the skybox correctly
 		*/
-	void SetSkyVerts();
+		void SetSkyVerts();
 
-	std::vector<std::string> cubeFaces;
-	std::vector<float> skyVerts;
-};
+		std::vector<std::string> cubeFaces;
+		std::vector<float> skyVerts;
+	};
 
+}

@@ -1,3 +1,4 @@
+#include "tnahpch.h"
 #include "OpenGL.h"
 
 #include "glad/glad.h"

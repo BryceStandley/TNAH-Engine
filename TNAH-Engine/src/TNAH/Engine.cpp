@@ -1,3 +1,4 @@
+#include "tnahpch.h"
 #include "Engine.h"
 
 	Engine::Engine()
@@ -5,9 +6,6 @@
 		lua_State* L = LuaManager::getInstance().getLuaState();
 
 		getGlobalNamespace(L)
-			.beginClass<tnah::Scene>("scene")
-			.addFunction("MakeGameObject", &tnah::Scene::MakeGameObject)
-			.endClass()
 			.beginClass<glm::vec3>("vec3")
 			.endClass()
 			.beginClass<GameObject>("GameObject")
@@ -85,7 +83,7 @@
 		std::string name = "Error loading name";
 		if (luaL_dofile(L, "res/scripts/engine.lua"))
 		{
-			std::cout << "ENGINE::SCRIPT_ERROR::COULD_NOT_OPEN::LOADING_INITIAL_VALUES" << std::endl;
+			TNAH_CORE_FATAL("Couldn't load Engine lua script - Using default values");
 			amount = 1;
 			width = 600;
 			height = 800;
@@ -94,7 +92,7 @@
 		}
 		else
 		{
-			std::cout << "ENGINE::SCRIPT_RUNNING" << std::endl;
+			TNAH_CORE_INFO("Engine started!");
 			LuaRef w = getGlobal(L, "width");
 			LuaRef h = getGlobal(L, "height");
 			LuaRef n = getGlobal(L, "name");
@@ -138,7 +136,7 @@
 
 		if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 		{
-			std::cout << "Failed to initialize GLAD" << std::endl;
+			TNAH_CORE_FATAL("Failed to initialize GLAD");
 			running = false;
 		}
 		else
@@ -159,10 +157,10 @@
 		mainMenuGui = MainMenuGUI::GetInstance();
 
 		currentScene = 0;
-		tnah:: Scene* scene = new tnah::Scene("World", render);
-		gameScenes.push_back(scene);
+		//Scene* scene = new tnah::Scene("World", render);
+		//gameScenes.push_back(scene);
 
-		gameScenes[currentScene]->SetGameWindow((GlfwWindow*)window);
+		//gameScenes[currentScene]->SetGameWindow((GlfwWindow*)window);
 
 		mainMenuGui->DisplayMainMenu();
 		mainMenuGui->previousMenu = MainMenuGUI::MainMenu;
@@ -181,7 +179,7 @@
 		float deltaTime;
 		if (!running)
 		{
-			std::cout << "ERROR::RUNNING_FALSE::ENGINE_WILL_EXIT" << std::endl;
+			TNAH_CORE_WARN("RUNNING_FALSE - ENGINE_WILL_EXIT");
 		}
 		else
 		{
@@ -294,7 +292,7 @@
 
 			}
 			if (!mainMenuGui->noSaveFileFound) gameScenes[0]->SaveGame();
-			std::cout << "CLOSING::ENGINE_WILL_EXIT" << std::endl;
+			TNAH_WARN("CLOSING - Application will close");
 			Debugger::GetInstance()->CloseLogger();
 		}
 	}

@@ -1,3 +1,4 @@
+#include "tnahpch.h"
 #include "Player.h"
 
 Player::Player(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std::string script) : GameObject(p, rot, s, gameRenderer)
@@ -96,7 +97,7 @@ Player::Player(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std:
         Model tempModel(file, gameRenderer, check, texture, true);
         SetModel(tempModel);
 
-        Shader tempShader(vertS.c_str(), fragS.c_str());
+        tnah::Shader tempShader(vertS.c_str(), fragS.c_str());
         SetShader(tempShader);
 
         xRotationOffset = xr;
@@ -220,7 +221,7 @@ Player::Player(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std:
         Model tempModel(file, gameRenderer, check, texture, true);
         SetModel(tempModel);
 
-        Shader tempShader(vertS.c_str(), fragS.c_str());
+        tnah::Shader tempShader(vertS.c_str(), fragS.c_str());
         SetShader(tempShader);
 
         xRotationOffset = xr;
@@ -367,7 +368,7 @@ Player::Player(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std:
         Model tempModel(file, gameRenderer, check, texture, true);
         SetModel(tempModel);
 
-        Shader tempShader(vertS.c_str(), fragS.c_str());
+        tnah::Shader tempShader(vertS.c_str(), fragS.c_str());
         SetShader(tempShader);
 
         xRotationOffset = xr;
@@ -491,7 +492,7 @@ Player::Player(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std:
         Model tempModel(file, gameRenderer, check, texture, true);
         SetModel(tempModel);
 
-        Shader tempShader(vertS.c_str(), fragS.c_str());
+        tnah::Shader tempShader(vertS.c_str(), fragS.c_str());
         SetShader(tempShader);
 
         xRotationOffset = xr;
@@ -557,13 +558,13 @@ void Player::Reset()
 	health = 100;
 }
 
-void Player::Render(View lens, float time, Renderer* gameRenderer)
+void Player::Render(tnah::View lens, float time, Renderer* gameRenderer)
 {
     glm::vec3 pos = lens.GetPosition();
     pos.y -= 0.05;
     SetRotation(glm::vec3(lens.GetRotation().z , 180 + lens.GetRotation().x *-1, -1 * lens.GetRotation().y));
     Model temp = GetModel();
-    Shader s = GetShader();
+    tnah::Shader s = GetShader();
     bModel.Render(lens, s, pos, GetRotation(), GetScale(), GetRotate(), time, 0, gameRenderer, true);
     temp.Render(lens, s, pos, GetRotation(), GetScale(), GetRotate(), time, 0, gameRenderer, true);
     SetShader(s);

@@ -1,5 +1,5 @@
+#include "tnahpch.h"
 #include "enemyStates.h"
-#include <iostream>
 #include "Enemy.h"
 #include <cstdlib>
 #include <ctime>

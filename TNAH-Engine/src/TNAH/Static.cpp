@@ -1,3 +1,4 @@
+#include "tnahpch.h"
 #include "Static.h"
 
 Static::Static(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std::string script) : GameObject(p, rot, s, gameRenderer)
@@ -46,7 +47,7 @@ Static::Static(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std:
 		Model tempModel(file, gameRenderer, check);
 		SetModel(tempModel);
 
-		Shader tempShader(vertS.c_str(), fragS.c_str());
+		tnah::Shader tempShader(vertS.c_str(), fragS.c_str());
 		SetShader(tempShader);
 
 		SetRotate(rotate);
@@ -93,7 +94,7 @@ Static::Static(glm::vec3 p, glm::vec3 rot, float s, Renderer* gameRenderer, std:
 		Model tempModel(file, gameRenderer, check);
 		SetModel(tempModel);
 
-		Shader tempShader(vertS.c_str(), fragS.c_str());
+		tnah::Shader tempShader(vertS.c_str(), fragS.c_str());
 		SetShader(tempShader);
 
 		SetRotate(rotate);
