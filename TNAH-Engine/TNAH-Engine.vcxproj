@@ -13,138 +13,36 @@
   <ItemGroup>
     <ClCompile Include="src\Platform\OpenGL\imgui_impl_glfw.cpp" />
     <ClCompile Include="src\Platform\OpenGL\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="src\Platform\Windows\WinWindow.cpp" />
     <ClCompile Include="src\TNAH\Log.cpp" />
     <ClCompile Include="src\TNAH\Application.cpp" />
-    <ClCompile Include="src\TNAH\BoundingBox.cpp" />
-    <ClCompile Include="src\TNAH\Buffer.cpp" />
-    <ClCompile Include="src\TNAH\Callbacks.cpp" />
-    <ClCompile Include="src\TNAH\Debugger.cpp" />
-    <ClCompile Include="src\TNAH\DebugGUI.cpp" />
-    <ClCompile Include="src\TNAH\DynamicEnum.cpp" />
-    <ClCompile Include="src\TNAH\EndScreenGUI.cpp" />
-    <ClCompile Include="src\TNAH\Enemy.cpp" />
-    <ClCompile Include="src\TNAH\enemyStates.cpp" />
-    <ClCompile Include="src\TNAH\Engine.cpp" />
-    <ClCompile Include="src\TNAH\EntityManager.cpp" />
-    <ClCompile Include="src\TNAH\ExitScreen.cpp" />
-    <ClCompile Include="src\TNAH\Fbx.cpp" />
-    <ClCompile Include="src\TNAH\GameAssetFactory.cpp" />
-    <ClCompile Include="src\TNAH\GameGUI.cpp" />
-    <ClCompile Include="src\TNAH\GameObject.cpp" />
-    <ClCompile Include="src\TNAH\GameObjects.cpp" />
-    <ClCompile Include="src\TNAH\GlfwWindow.cpp" />
-    <ClCompile Include="src\TNAH\GUI.cpp" />
-    <ClCompile Include="src\TNAH\Input.cpp" />
-    <ClCompile Include="src\TNAH\luaManager.cpp" />
-    <ClCompile Include="src\TNAH\MainMenuGUI.cpp" />
-    <ClCompile Include="src\TNAH\Manager.cpp" />
-    <ClCompile Include="src\TNAH\Md2.cpp" />
-    <ClCompile Include="src\TNAH\Md2State.cpp" />
-    <ClCompile Include="src\TNAH\MenuGUI.cpp" />
-    <ClCompile Include="src\TNAH\Mesh.cpp" />
-    <ClCompile Include="src\TNAH\MessageDispatcher.cpp" />
-    <ClCompile Include="src\TNAH\Model.cpp" />
-    <ClCompile Include="src\TNAH\OpenGL.cpp" />
-    <ClCompile Include="src\TNAH\PhysicsEvents.cpp" />
-    <ClCompile Include="src\TNAH\PhysicsManager.cpp" />
-    <ClCompile Include="src\TNAH\Player.cpp" />
-    <ClCompile Include="src\TNAH\playerStates.cpp" />
-    <ClCompile Include="src\TNAH\Renderer.cpp" />
-    <ClCompile Include="src\TNAH\Scene.cpp" />
-    <ClCompile Include="src\TNAH\SettingsManager.cpp" />
-    <ClCompile Include="src\TNAH\Shader.cpp" />
-    <ClCompile Include="src\TNAH\Singleton.cpp" />
-    <ClCompile Include="src\TNAH\SingletonHeaders.cpp" />
-    <ClCompile Include="src\TNAH\SIngletons.cpp" />
-    <ClCompile Include="src\TNAH\Skybox.cpp" />
-    <ClCompile Include="src\TNAH\Static.cpp" />
-    <ClCompile Include="src\TNAH\stb.cpp" />
-    <ClCompile Include="src\TNAH\Telegram.cpp" />
-    <ClCompile Include="src\TNAH\Terrain.cpp" />
-    <ClCompile Include="src\TNAH\TextureLoader.cpp" />
-    <ClCompile Include="src\TNAH\Time.cpp" />
-    <ClCompile Include="src\TNAH\Timer.cpp" />
-    <ClCompile Include="src\TNAH\Token.cpp" />
-    <ClCompile Include="src\TNAH\View.cpp" />
-    <ClCompile Include="src\TNAH\Water.cpp" />
-    <ClCompile Include="src\TNAH\Weapon.cpp" />
-    <ClCompile Include="src\TNAH\Window.cpp" />
     <ClCompile Include="src\tnahpch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Platform\OpenGL\imgui_impl_glfw.h" />
-    <ClInclude Include="src\Platform\OpenGL\imgui_impl_opengl3.h" />
+    <ClInclude Include="src\Platform\Windows\WinWindow.h" />
+    <ClInclude Include="src\TNAH\Core\KeyCodes.h" />
+    <ClInclude Include="src\TNAH\Core\MouseCodes.h" />
+    <ClInclude Include="src\TNAH\EntryPoint.h" />
+    <ClInclude Include="src\TNAH\Events\ApplicationEvent.h" />
+    <ClInclude Include="src\TNAH\Events\Event.h" />
+    <ClInclude Include="src\TNAH\Events\KeyEvent.h" />
+    <ClInclude Include="src\TNAH\Events\MouseEvent.h" />
     <ClInclude Include="src\TNAH\Log.h" />
     <ClInclude Include="src\TNAH.h" />
     <ClInclude Include="src\TNAH\Application.h" />
-    <ClInclude Include="src\TNAH\BoundingBox.h" />
-    <ClInclude Include="src\TNAH\Buffer.h" />
-    <ClInclude Include="src\TNAH\Callbacks.h" />
-    <ClInclude Include="src\TNAH\camera.h" />
-    <ClInclude Include="src\TNAH\Debugger.h" />
-    <ClInclude Include="src\TNAH\DebugGUI.h" />
-    <ClInclude Include="src\TNAH\DynamicEnum.h" />
-    <ClInclude Include="src\TNAH\EndScreenGUI.h" />
-    <ClInclude Include="src\TNAH\Enemy.h" />
-    <ClInclude Include="src\TNAH\enemyStates.h" />
-    <ClInclude Include="src\TNAH\Engine.h" />
-    <ClInclude Include="src\TNAH\EntityManager.h" />
-    <ClInclude Include="src\TNAH\ExitScreen.h" />
-    <ClInclude Include="src\TNAH\Fbx.h" />
-    <ClInclude Include="src\TNAH\GameAssetFactory.h" />
-    <ClInclude Include="src\TNAH\GameGUI.h" />
-    <ClInclude Include="src\TNAH\GameObject.h" />
-    <ClInclude Include="src\TNAH\GameObjects.h" />
-    <ClInclude Include="src\TNAH\GlfwWindow.h" />
-    <ClInclude Include="src\TNAH\GUI.h" />
-    <ClInclude Include="src\TNAH\Input.h" />
-    <ClInclude Include="src\TNAH\luaManager.h" />
-    <ClInclude Include="src\TNAH\MainMenuGUI.h" />
-    <ClInclude Include="src\TNAH\Manager.h" />
-    <ClInclude Include="src\TNAH\Md2.h" />
-    <ClInclude Include="src\TNAH\Md2State.h" />
-    <ClInclude Include="src\TNAH\MenuGUI.h" />
-    <ClInclude Include="src\TNAH\Mesh.h" />
-    <ClInclude Include="src\TNAH\MessageDispatcher.h" />
-    <ClInclude Include="src\TNAH\Model.h" />
-    <ClInclude Include="src\TNAH\OpenGL.h" />
-    <ClInclude Include="src\TNAH\PhysicsEvents.h" />
-    <ClInclude Include="src\TNAH\PhysicsManager.h" />
-    <ClInclude Include="src\TNAH\Player.h" />
-    <ClInclude Include="src\TNAH\playerStates.h" />
-    <ClInclude Include="src\TNAH\Renderer.h" />
-    <ClInclude Include="src\TNAH\Scene.h" />
-    <ClInclude Include="src\TNAH\SettingsManager.h" />
-    <ClInclude Include="src\TNAH\Shader.h" />
-    <ClInclude Include="src\TNAH\singleton.h" />
-    <ClInclude Include="src\TNAH\SingletonHeaders.h" />
-    <ClInclude Include="src\TNAH\SIngletons.h" />
-    <ClInclude Include="src\TNAH\Skybox.h" />
-    <ClInclude Include="src\TNAH\state.h" />
-    <ClInclude Include="src\TNAH\stateMachine.h" />
-    <ClInclude Include="src\TNAH\Static.h" />
-    <ClInclude Include="src\TNAH\stb_image.h" />
-    <ClInclude Include="src\TNAH\Telegram.h" />
-    <ClInclude Include="src\TNAH\Terrain.h" />
-    <ClInclude Include="src\TNAH\TextureLoader.h" />
-    <ClInclude Include="src\TNAH\Time.h" />
-    <ClInclude Include="src\TNAH\Timer.h" />
-    <ClInclude Include="src\TNAH\Core.h" />
-    <ClInclude Include="src\TNAH\EntryPoint.h" />
-    <ClInclude Include="src\TNAH\Token.h" />
-    <ClInclude Include="src\TNAH\View.h" />
-    <ClInclude Include="src\TNAH\Water.h" />
-    <ClInclude Include="src\TNAH\Weapon.h" />
-    <ClInclude Include="src\TNAH\Window.h" />
-    <ClInclude Include="src\TNAH\Windows.h" />
+    <ClInclude Include="src\TNAH\Core\Core.h" />
     <ClInclude Include="src\tnahpch.h" />
+    <ClInclude Include="src\TNAH\Window.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Glad\Glad.vcxproj">
       <Project>{71655e79-1016-42d8-b795-0fa251bbb159}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\GLFW\GLFW.vcxproj">
+      <Project>{6a144f8f-30a9-43b6-aa6b-968953d8a5bb}</Project>
     </ProjectReference>
     <ProjectReference Include="..\ImGUI\ImGUI.vcxproj">
       <Project>{11bb4bf9-7d1e-4ada-aa26-b828e14ec6b3}</Project>
@@ -200,7 +98,7 @@
       <PreprocessorDefinitions>TNAH_PLATFORM_WINDOWS;TNAH_BUILD_DLL;_CRT_SECURE_NO_WARNINGS;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)vender\assimp\include;$(SolutionDir)vender\glfw\include;$(SolutionDir)vender\glad\include;$(SolutionDir)vender\glm\include;$(SolutionDir)vender\lua\include;$(SolutionDir)vender\luabridge\include;$(SolutionDir)vender\reactphysics3d\include;$(SolutionDir)vender\spdlog\include;$(ProjectDir)/src/;$(SolutionDir)ImGui/src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)vender\assimp\include;$(SolutionDir)GLFW\include;$(SolutionDir)vender\glad\include;$(SolutionDir)vender\glm\include;$(SolutionDir)vender\lua\include;$(SolutionDir)vender\luabridge\include;$(SolutionDir)vender\reactphysics3d\include;$(SolutionDir)vender\spdlog\include;$(ProjectDir)/src/;$(SolutionDir)ImGui/src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>tnahpch.h</PrecompiledHeaderFile>
     </ClCompile>
@@ -208,7 +106,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)vender\assimp\lib;$(SolutionDir)vender\glfw\lib;$(SolutionDir)vender\lua\lib;$(SolutionDir)vender\reactphysics3d\lib;$(SolutionDir)vender\spdlog\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>assimp-vc142-mtd.lib;glfw3.lib;lua54.lib;reactphysics3d.lib;spdlogd.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>assimp-vc142-mtd.lib;lua54.lib;reactphysics3d.lib;spdlogd.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -220,7 +118,7 @@
       <PreprocessorDefinitions>TNAH_PLATFORM_WINDOWS;TNAH_BUILD_DLL;_CRT_SECURE_NO_WARNINGS;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)vender\assimp\include;$(SolutionDir)vender\glfw\include;$(SolutionDir)vender\glad\include;$(SolutionDir)vender\glm\include;$(SolutionDir)vender\lua\include;$(SolutionDir)vender\luabridge\include;$(SolutionDir)vender\reactphysics3d\include;$(SolutionDir)vender\spdlog\include;$(ProjectDir)/src/;$(SolutionDir)ImGui/src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)vender\assimp\include;$(SolutionDir)GLFW\include;$(SolutionDir)vender\glad\include;$(SolutionDir)vender\glm\include;$(SolutionDir)vender\lua\include;$(SolutionDir)vender\luabridge\include;$(SolutionDir)vender\reactphysics3d\include;$(SolutionDir)vender\spdlog\include;$(ProjectDir)/src/;$(SolutionDir)ImGui/src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>tnahpch.h</PrecompiledHeaderFile>
     </ClCompile>
@@ -230,7 +128,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)vender\assimp\lib;$(SolutionDir)vender\glfw\lib;$(SolutionDir)vender\lua\lib;$(SolutionDir)vender\reactphysics3d\lib;$(SolutionDir)vender\spdlog\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>assimp-vc142-mtd.lib;glfw3.lib;lua54.lib;reactphysics3d.lib;spdlogd.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>assimp-vc142-mtd.lib;lua54.lib;reactphysics3d.lib;spdlogd.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

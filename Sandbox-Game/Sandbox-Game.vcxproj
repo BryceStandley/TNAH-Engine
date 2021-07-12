@@ -110,10 +110,6 @@ XCOPY "$(SolutionDir)vender\lua\lib\lua54.dll" "$(OutDir)\" /E /Y</Command>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Game.cpp" />
-    <ClCompile Include="src\Scene.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="src\Scene.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

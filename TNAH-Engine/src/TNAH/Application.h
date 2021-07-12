@@ -1,7 +1,8 @@
 #pragma once
 
-#include "Core.h"
-#include "Engine.h"
+#include "TNAH/Core/Core.h"
+#include "TNAH/Window.h"
+//#include "Engine.h"
 
 namespace tnah
 {
@@ -14,6 +15,9 @@ namespace tnah
 
 		virtual void Run();
 
+	private:
+		std::unique_ptr<Window> m_Window;
+		bool m_Running = true;
 	};
 
 	Application* CreateApplication();

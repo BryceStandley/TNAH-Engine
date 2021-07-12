@@ -20,6 +20,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <cmath>
+#include <cstdint>
 
 #ifdef TNAH_PLATFORM_WINDOWS
 #include <Windows.h>
@@ -27,9 +28,10 @@
 
 // --- 3rd Party headers --- //
 #include <glm/glm.hpp>
-#include "TNAH/stb_image.h"
+//#include "TNAH/stb_image.h"
 
 
 // --- Our Headers that don't change --- //
-#include "TNAH/Core.h"
+#include "TNAH/Core/Core.h"
 #include "TNAH/Log.h"
+

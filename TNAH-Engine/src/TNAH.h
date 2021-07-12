@@ -1,12 +1,13 @@
 #pragma once
 
 //To include in all applications that use the TNAH-Engine!
-#include "TNAH/Core.h"
+#include "TNAH/Core/Core.h"
 
 // --- TNAH Engine Components --- //
 #include "TNAH/Application.h"
 #include "TNAH/Log.h"
 
+/*
 #include "TNAH/BoundingBox.h"
 #include "TNAH/Buffer.h"
 #include "TNAH/Callbacks.h"
@@ -63,7 +64,7 @@
 #include "TNAH/Weapon.h"
 #include "TNAH/Window.h"
 #include "TNAH/Windows.h"
-
+*/
 // --- Entry Point --- //
 #include "TNAH/EntryPoint.h"
 

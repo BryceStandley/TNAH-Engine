@@ -1,95 +1,42 @@
 #pragma once
-#include <string>
-#include "Terrain.h"
-#include "Input.h"
-#include "camera.h"
-#include "View.h"
-#include "Time.h"
-//#include "Scene.h"
-#include "Debugger.h"
 
-class TNAH_API Window
+#include <tnahpch.h>
+#include "TNAH/Events/Event.h"
+
+namespace tnah
 {
-public:
-		/**
-		* @brief Initilises the window class, setting the title height and width
-		* @param title - The title of the window
-		* @param h - The height of the window
-		* @param w - The width of the window
-		*/
-	virtual void Init(std::string title, int h, int w) { }
+	struct WindowProps
+	{
+		std::string Title;
+		unsigned int Width;
+		unsigned int Height;
 
-		/**
-		* @brief Calls the buffer
-		*/
-	virtual void Buffer() = 0;
+		WindowProps(const std::string& title = "TNAH-Engine",
+			unsigned int width = 1280,
+			unsigned int height = 720)
+			: Title(title), Width(width), Height(height)
+		{
+		}
+	};
 
-		/**
-		* @brief Holds the game input logic for the keyboard, uses the input variable to set the actual keys
-		* @param deltaTime - Takes in delta time for the movement of the camera
-		*/
-	virtual void GameInput(float deltaTime) {}
+	class TNAH_API Window
+	{
+	public:
+		using EventCallbackFn = std::function<void(Event&)>;
 
+		virtual ~Window() {}
 
-		/**
-		* @brief Sets the termination information for the class
-		*/
-	virtual void Terminate() {}
+		virtual void OnUpdate() = 0;
 
-		/**
-		* @brief Calls the frame buffer
-		*/
-	virtual void FrameBuffer() {}
+		virtual unsigned int GetWidth() const = 0;
+		virtual unsigned int GetHeight() const = 0;
 
-		/**
-		* @brief Getter for the camera
-		* @return camera
-		*/
-	virtual Camera GetCamera() { Camera c(glm::vec3(0, 0, 0)); return c; }
+		virtual void SetEventCallback(const EventCallbackFn& callback) = 0;
+		virtual void SetVSync(bool enabled) = 0;
+		virtual bool IsVSync() const = 0;
 
-		/**
-		* @brief Updates the camera position
-		*/
-	virtual void UpdateCamera(glm::vec3 p) {}
-
-		/**
-		* @brief Sets mouse movmenet
-		*/
-	virtual void MouseMove() {}
-
-		/**
-		* @brief Getter for the lens
-		* @return lens
-		*/
-	virtual tnah::View GetLens() { return tnah::View(); }
-
-		/**
-		* @brief Updates the window for things such as time, lens values
-		*/
-	virtual void Update() {}
-
-		/**
-		* @brief Getter for deltaTime
-		* @return gameTime.DetaTime()
-		*/
-	virtual float GetTime() { return 0; }
+		static Window* Create(const WindowProps& props = WindowProps());
+	};
 
 
-		/**
-		* @brief Checks if the window is running still
-		*/
-	virtual bool Running() { return false; }
-
-		/**
-		* @brief Gets the display value
-		* @return exitDisplay
-		*/
-	virtual bool GetDisplay() { return false; }
-    virtual bool GetWeaponFire() {return false;}
-
-    virtual void SetRefWindow(Window* w){}
-
-	virtual float GetCurrentTime() { return 0; }
-
-	virtual void ToggleFullScreen(bool change) { }
-};
+}
