@@ -3,7 +3,12 @@
 #include "TNAH/Events/Event.h"
 
 namespace tnah {
-
+	/**
+	 * \file ApplicationEvent.h
+	 * \author Bryce Standley
+	 * \brief Events based on the application
+	 * \date  July 2021
+	 */
 	class WindowResizeEvent : public Event
 	{
 	public:

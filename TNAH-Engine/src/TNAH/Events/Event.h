@@ -2,7 +2,12 @@
 #include <tnahpch.h>
 
 namespace tnah {
-
+	/**
+	 * \file Event.h
+	 * \author Bryce Standley
+	 * \brief Base class for all events, handles the type of events and dispatching them to the correct layers or processors for the given event
+	 * \date  July 2021
+	 */
 	enum class EventType
 	{
 		None = 0,

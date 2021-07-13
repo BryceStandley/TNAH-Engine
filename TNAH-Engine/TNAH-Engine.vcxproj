@@ -11,10 +11,14 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Platform\Windows\WinInput.cpp" />
+    <ClCompile Include="src\TNAH\Layers\ImGuiLayer.cpp" />
+    <ClCompile Include="src\TNAH\Layers\Layer.cpp" />
     <ClCompile Include="src\Platform\OpenGL\imgui_impl_glfw.cpp" />
-    <ClCompile Include="src\Platform\OpenGL\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\imguiOpenGLRenderer.cpp" />
     <ClCompile Include="src\Platform\Windows\WinWindow.cpp" />
-    <ClCompile Include="src\TNAH\Log.cpp" />
+    <ClCompile Include="src\TNAH\Layers\LayerStack.cpp" />
+    <ClCompile Include="src\TNAH\Core\Log.cpp" />
     <ClCompile Include="src\TNAH\Application.cpp" />
     <ClCompile Include="src\tnahpch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -22,6 +26,12 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Platform\OpenGL\imguiOpenGLRenderer.h" />
+    <ClInclude Include="src\Platform\OpenGL\imgui_impl_glfw.h" />
+    <ClInclude Include="src\Platform\Windows\WinInput.h" />
+    <ClInclude Include="src\TNAH\Core\Input.h" />
+    <ClInclude Include="src\TNAH\Layers\ImGuiLayer.h" />
+    <ClInclude Include="src\TNAH\Layers\Layer.h" />
     <ClInclude Include="src\Platform\Windows\WinWindow.h" />
     <ClInclude Include="src\TNAH\Core\KeyCodes.h" />
     <ClInclude Include="src\TNAH\Core\MouseCodes.h" />
@@ -30,12 +40,13 @@
     <ClInclude Include="src\TNAH\Events\Event.h" />
     <ClInclude Include="src\TNAH\Events\KeyEvent.h" />
     <ClInclude Include="src\TNAH\Events\MouseEvent.h" />
-    <ClInclude Include="src\TNAH\Log.h" />
+    <ClInclude Include="src\TNAH\Layers\LayerStack.h" />
+    <ClInclude Include="src\TNAH\Core\Log.h" />
     <ClInclude Include="src\TNAH.h" />
     <ClInclude Include="src\TNAH\Application.h" />
     <ClInclude Include="src\TNAH\Core\Core.h" />
     <ClInclude Include="src\tnahpch.h" />
-    <ClInclude Include="src\TNAH\Window.h" />
+    <ClInclude Include="src\TNAH\Core\Window.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Glad\Glad.vcxproj">
@@ -95,12 +106,13 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>TNAH_PLATFORM_WINDOWS;TNAH_BUILD_DLL;_CRT_SECURE_NO_WARNINGS;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>TNAH_PLATFORM_WINDOWS;TNAH_BUILD_DLL;_CRT_SECURE_NO_WARNINGS;GLFW_INCLUDE_NONE;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalIncludeDirectories>$(SolutionDir)vender\assimp\include;$(SolutionDir)GLFW\include;$(SolutionDir)vender\glad\include;$(SolutionDir)vender\glm\include;$(SolutionDir)vender\lua\include;$(SolutionDir)vender\luabridge\include;$(SolutionDir)vender\reactphysics3d\include;$(SolutionDir)vender\spdlog\include;$(ProjectDir)/src/;$(SolutionDir)ImGui/src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>tnahpch.h</PrecompiledHeaderFile>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -115,12 +127,13 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>TNAH_PLATFORM_WINDOWS;TNAH_BUILD_DLL;_CRT_SECURE_NO_WARNINGS;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>TNAH_PLATFORM_WINDOWS;TNAH_BUILD_DLL;_CRT_SECURE_NO_WARNINGS;GLFW_INCLUDE_NONE;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalIncludeDirectories>$(SolutionDir)vender\assimp\include;$(SolutionDir)GLFW\include;$(SolutionDir)vender\glad\include;$(SolutionDir)vender\glm\include;$(SolutionDir)vender\lua\include;$(SolutionDir)vender\luabridge\include;$(SolutionDir)vender\reactphysics3d\include;$(SolutionDir)vender\spdlog\include;$(ProjectDir)/src/;$(SolutionDir)ImGui/src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>tnahpch.h</PrecompiledHeaderFile>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

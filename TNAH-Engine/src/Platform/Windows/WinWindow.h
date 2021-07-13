@@ -1,15 +1,19 @@
 #pragma once
-#include "TNAH/Window.h"
+#include "TNAH/Core/Window.h"
+#include "TNAH/Events/ApplicationEvent.h"
+#include "TNAH/Events/MouseEvent.h"
+#include "TNAH/Events/KeyEvent.h"
 
+#include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
 namespace tnah {
 
-	class WindowsWindow : public Window
+	class WinWindow : public Window
 	{
 	public:
-		WindowsWindow(const WindowProps& props);
-		virtual ~WindowsWindow();
+		WinWindow(const WindowProps& props);
+		virtual ~WinWindow();
 
 		void OnUpdate() override;
 
@@ -20,6 +24,8 @@ namespace tnah {
 		inline void SetEventCallback(const EventCallbackFn& callback) override { m_Data.EventCallback = callback; }
 		void SetVSync(bool enabled) override;
 		bool IsVSync() const override;
+
+		inline virtual void* GetNativeWindow() const { return m_Window; }
 	private:
 		virtual void Init(const WindowProps& props);
 		virtual void Shutdown();

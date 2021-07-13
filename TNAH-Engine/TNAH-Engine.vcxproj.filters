@@ -18,7 +18,7 @@
     <ClCompile Include="src\TNAH\Application.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\TNAH\Log.cpp">
+    <ClCompile Include="src\TNAH\Core\Log.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\tnahpch.cpp">
@@ -27,10 +27,22 @@
     <ClCompile Include="src\Platform\OpenGL\imgui_impl_glfw.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Platform\OpenGL\imgui_impl_opengl3.cpp">
+    <ClCompile Include="src\Platform\OpenGL\imguiOpenGLRenderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\Windows\WinWindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TNAH\Layers\Layer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TNAH\Layers\LayerStack.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TNAH\Layers\ImGuiLayer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\Windows\WinInput.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -44,7 +56,7 @@
     <ClInclude Include="src\TNAH\Application.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\TNAH\Log.h">
+    <ClInclude Include="src\TNAH\Core\Log.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\tnahpch.h">
@@ -68,13 +80,34 @@
     <ClInclude Include="src\TNAH\Core\KeyCodes.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\TNAH\Window.h">
+    <ClInclude Include="src\TNAH\Core\Window.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\TNAH\EntryPoint.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\Windows\WinWindow.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\TNAH\Layers\Layer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\TNAH\Layers\LayerStack.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\imguiOpenGLRenderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\imgui_impl_glfw.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\TNAH\Layers\ImGuiLayer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\TNAH\Core\Input.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\Windows\WinInput.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

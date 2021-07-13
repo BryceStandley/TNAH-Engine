@@ -1,6 +1,6 @@
 #pragma once
 
-#include "TNAH/Core/Core.h"
+#include "Core.h"
 #include <memory>
 #include <spdlog/spdlog.h>
 #include <spdlog/sinks/stdout_color_sinks.h>
