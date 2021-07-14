@@ -1,8 +1,11 @@
 #pragma once
 #include"TNAH/Core/Core.h"
 #include "Layer.h"
-#include "Platform/OpenGL/imguiOpenGLRenderer.h"
 #include "TNAH/Application.h"
+#include "imgui.h"
+#include <backends/imgui_impl_glfw.h>
+#include <backends/imgui_impl_opengl3.h>
+#include <GLFW/glfw3.h>
 
 namespace tnah {
 
@@ -14,7 +17,7 @@ namespace tnah {
 		* \author Bryce Standley
 		* \date   July 2021
 		*/
-		ImGuiLayer();
+		ImGuiLayer(std::string name);
 
 		/**
 		 * \fn ~ImGuiLayer
@@ -38,11 +41,30 @@ namespace tnah {
 		void OnDetach();
 
 		/**
+		 * \fn OnBegin
+		* \author Bryce Standley
+		* \date   July 2021
+		* \brief Called at the start of a ImGui Frame
+		*/
+		void OnBegin();
+
+		/**
 		 * \fn OnUpdate
 		* \author Bryce Standley
 		* \date   July 2021
+		* \brief Virtual function to be implimented by a given ImGui Layer
+		* can be used to insert any imgui related items into the render stack for the layer
+		* and be rendered as well as linked to its given actions
 		*/
-		void OnUpdate();
+		virtual void OnUpdate() {}
+
+		/**
+		 * \fn OnEnd
+		* \author Bryce Standley
+		* \date   July 2021
+		* \brief Called at the end of a ImGui Frame
+		*/
+		void OnEnd();
 
 		/**
 		 * \fn OnEvent
@@ -132,6 +154,8 @@ namespace tnah {
 		* \brief Event callback for a ImGui Window Resize event
 		*/
 		bool OnWindowResizeEvent(WindowResizeEvent& e);
+
+		void SetDarkThemeColors();
 
 		private:
 			float m_Time = 0.0f;
