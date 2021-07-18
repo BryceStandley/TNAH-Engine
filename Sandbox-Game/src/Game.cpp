@@ -7,10 +7,7 @@ public:
 
 	void OnUpdate() override
 	{
-		if (tnah::Input::IsKeyPressed(tnah::Key::A))
-		{
-			TNAH_INFO("Key : {0} : {1} Pressed", (char)tnah::Key::A, tnah::Key::A);
-		}
+
 	}
 
 	void OnEvent(tnah::Event& e) override
@@ -27,6 +24,22 @@ public:
 	{
 		PushLayer(new TestLayer);
 		PushOverlay(new tnah::DebugLayer());
+
+		tnah::Scene* m_Scene = new tnah::Scene();
+
+		auto go = m_Scene->CreateGameObject();
+
+
+		go.AddComponent<tnah::Transform>();
+		go.AddComponent<tnah::Transform>();
+
+		go.RemoveComponent<tnah::Transform>();
+		go.RemoveComponent<tnah::Transform>();
+
+		go.GetComponent<tnah::Transform>();
+
+		int i;
+
 	}
 
 

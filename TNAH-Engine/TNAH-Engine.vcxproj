@@ -24,10 +24,14 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="src\TNAH\Scene\GameObject.cpp" />
+    <ClCompile Include="src\TNAH\Scene\Scene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Platform\Windows\WinInput.h" />
+    <ClInclude Include="src\TNAH\Scene\Components.h" />
     <ClInclude Include="src\TNAH\Core\Input.h" />
+    <ClInclude Include="src\TNAH\Core\Math.h" />
     <ClInclude Include="src\TNAH\Events\DebugEvent.h" />
     <ClInclude Include="src\TNAH\Layers\DebugLayer.h" />
     <ClInclude Include="src\TNAH\Layers\ImGuiLayer.h" />
@@ -47,6 +51,8 @@
     <ClInclude Include="src\TNAH\Core\Core.h" />
     <ClInclude Include="src\tnahpch.h" />
     <ClInclude Include="src\TNAH\Core\Window.h" />
+    <ClInclude Include="src\TNAH\Scene\GameObject.h" />
+    <ClInclude Include="src\TNAH\Scene\Scene.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Glad\Glad.vcxproj">
@@ -106,10 +112,10 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>TNAH_PLATFORM_WINDOWS;TNAH_BUILD_DLL;_CRT_SECURE_NO_WARNINGS;GLFW_INCLUDE_NONE;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>TNAH_DEBUG;TNAH_PLATFORM_WINDOWS;TNAH_BUILD_DLL;_CRT_SECURE_NO_WARNINGS;GLFW_INCLUDE_NONE;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)vender\assimp\include;$(SolutionDir)GLFW\include;$(SolutionDir)vender\glad\include;$(SolutionDir)vender\glm\include;$(SolutionDir)vender\lua\include;$(SolutionDir)vender\luabridge\include;$(SolutionDir)vender\reactphysics3d\include;$(SolutionDir)vender\spdlog\include;$(ProjectDir)/src/;$(SolutionDir)ImGui/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)vender\assimp\include;$(SolutionDir)GLFW\include;$(SolutionDir)vender\glad\include;$(SolutionDir)vender\glm\include;$(SolutionDir)vender\lua\include;$(SolutionDir)vender\luabridge\include;$(SolutionDir)vender\reactphysics3d\include;$(SolutionDir)vender\spdlog\include;$(ProjectDir)/src/;$(SolutionDir)ImGui/;$(SolutionDir)vender/entt/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>tnahpch.h</PrecompiledHeaderFile>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>

@@ -15,6 +15,12 @@
 #include "TNAH/Layers/ImGuiLayer.h"
 #include "TNAH/Layers/DebugLayer.h"
 
+#include "TNAH/Scene/Components.h"
+#include "TNAH/Core/Math.h"
+#include "TNAH/Scene/Scene.h"
+#include "TNAH/Scene/GameObject.h"
+
+
 /*
 #include "TNAH/BoundingBox.h"
 #include "TNAH/Buffer.h"
