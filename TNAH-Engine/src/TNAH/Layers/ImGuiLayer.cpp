@@ -1,10 +1,20 @@
 #include <tnahpch.h>
 #include "ImGuiLayer.h"
 
+#include <imgui.h>
+#include <backends/imgui_impl_glfw.h>
+#include <backends/imgui_impl_opengl3.h>
+
+#include "TNAH/Application.h"
+
+// TEMP
+#include <GLFW/glfw3.h>
+#include <glad/glad.h>
+
 namespace tnah {
 
-	ImGuiLayer::ImGuiLayer(std::string name)
-		: Layer(name)
+	ImGuiLayer::ImGuiLayer()
+		: Layer("ImGuiLayer")
 	{
 	}
 
@@ -46,6 +56,7 @@ namespace tnah {
 		GLFWwindow* window = static_cast<GLFWwindow*>(app.GetWindow().GetNativeWindow());
 
 		// Setup Platform/Renderer bindings
+
 		ImGui_ImplGlfw_InitForOpenGL(window, true);
 		ImGui_ImplOpenGL3_Init("#version 330");
 	}
@@ -57,7 +68,7 @@ namespace tnah {
 		ImGui::DestroyContext();
 	}
 
-	void ImGuiLayer::OnBegin()
+	void ImGuiLayer::Begin()
 	{
 		ImGuiIO& io = ImGui::GetIO();
 		float time = (float)glfwGetTime();
@@ -69,11 +80,11 @@ namespace tnah {
 		ImGui::NewFrame();
 	}
 
-	void ImGuiLayer::OnEnd()
+	void ImGuiLayer::End()
 	{
 		ImGuiIO& io = ImGui::GetIO();
 		Application& app = Application::Get();
-		io.DisplaySize = ImVec2(app.GetWindow().GetWidth(), app.GetWindow().GetHeight());
+		io.DisplaySize = ImVec2((float)app.GetWindow().GetWidth(), (float)app.GetWindow().GetHeight());
 
 		//Render
 		ImGui::Render();
@@ -88,94 +99,16 @@ namespace tnah {
 		}
 	}
 
-	void ImGuiLayer::OnEvent(Event& event)
+	void ImGuiLayer::OnEvent(Event& e)
 	{
-		EventDispatcher dispatcher(event);
-		dispatcher.Dispatch<MouseButtonPressedEvent>(TNAH_BIND_EVENTS_FN(ImGuiLayer::OnMouseButtonPressedEvent));
-		dispatcher.Dispatch<MouseButtonReleasedEvent>(TNAH_BIND_EVENTS_FN(ImGuiLayer::OnMouseButtonReleasedEvent));
-		dispatcher.Dispatch<MouseMovedEvent>(TNAH_BIND_EVENTS_FN(ImGuiLayer::OnMouseMovedEvent));
-		dispatcher.Dispatch<MouseScrolledEvent>(TNAH_BIND_EVENTS_FN(ImGuiLayer::OnMouseScrollEvent));
-		dispatcher.Dispatch<KeyPressedEvent>(TNAH_BIND_EVENTS_FN(ImGuiLayer::OnKeyPressedEvent));
-		dispatcher.Dispatch<KeyTypedEvent>(TNAH_BIND_EVENTS_FN(ImGuiLayer::OnKeyTypedEvent));
-		dispatcher.Dispatch<KeyReleasedEvent>(TNAH_BIND_EVENTS_FN(ImGuiLayer::OnKeyReleasedEvent));
-		dispatcher.Dispatch<WindowResizeEvent>(TNAH_BIND_EVENTS_FN(ImGuiLayer::OnWindowResizeEvent));
-	}
-
-	bool ImGuiLayer::OnMouseButtonPressedEvent(MouseButtonPressedEvent& e)
-	{
-		ImGuiIO& io = ImGui::GetIO();
-		io.MouseDown[e.GetMouseButton()] = true;
-
-		return false;
-	}
-
-	bool ImGuiLayer::OnMouseButtonReleasedEvent(MouseButtonReleasedEvent& e)
-	{
-		ImGuiIO& io = ImGui::GetIO();
-		io.MouseDown[e.GetMouseButton()] = false;
-
-		return false;
-	}
-
-	bool ImGuiLayer::OnMouseMovedEvent(MouseMovedEvent& e)
-	{
-		ImGuiIO& io = ImGui::GetIO();
-		io.MousePos = ImVec2(e.GetX(), e.GetY());
-
-		return false;
-	}
-
-	bool ImGuiLayer::OnMouseScrollEvent(MouseScrolledEvent& e)
-	{
-		ImGuiIO io = ImGui::GetIO();
-		io.MouseWheel += e.GetYOffset();
-		io.MouseWheelH += e.GetXOffset();
-
-		return false;
-	}
-
-	bool ImGuiLayer::OnKeyPressedEvent(KeyPressedEvent& e)
-	{
-		ImGuiIO io = ImGui::GetIO();
-		io.KeysDown[e.GetKeyCode()] = true;
-
-		return false;
-	}
-
-	bool ImGuiLayer::OnKeyReleasedEvent(KeyReleasedEvent& e)
-	{
-		ImGuiIO io = ImGui::GetIO();
-		io.KeysDown[e.GetKeyCode()] = false;
-
-		io.KeyCtrl = io.KeysDown[GLFW_KEY_LEFT_CONTROL] || io.KeysDown[GLFW_KEY_RIGHT_CONTROL];
-		io.KeyAlt = io.KeysDown[GLFW_KEY_LEFT_ALT] || io.KeysDown[GLFW_KEY_RIGHT_ALT];
-		io.KeyShift = io.KeysDown[GLFW_KEY_LEFT_SHIFT] || io.KeysDown[GLFW_KEY_RIGHT_SHIFT];
-		io.KeySuper = io.KeysDown[GLFW_KEY_LEFT_SUPER] || io.KeysDown[GLFW_KEY_RIGHT_SUPER];
-
-		return false;
-	}
-
-	bool ImGuiLayer::OnKeyTypedEvent(KeyTypedEvent& e)
-	{
-		ImGuiIO io = ImGui::GetIO();
-		io.KeysDown[e.GetKeyCode()] = true;
-		int keycode = e.GetKeyCode();
-		if (keycode > 0 && keycode < 0x10000)
+		if (m_BlockEvents)
 		{
-			io.AddInputCharacter((unsigned short)keycode);
+			ImGuiIO& io = ImGui::GetIO();
+			e.Handled |= e.IsInCategory(EventCategoryMouse) & io.WantCaptureMouse;
+			e.Handled |= e.IsInCategory(EventCategoryKeyboard) & io.WantCaptureKeyboard;
 		}
-
-		return false;
 	}
 
-	bool ImGuiLayer::OnWindowResizeEvent(WindowResizeEvent& e)
-	{
-		ImGuiIO io = ImGui::GetIO();
-		io.DisplaySize = ImVec2(e.GetWidth(), e.GetHeight());
-		io.DisplayFramebufferScale = ImVec2(1.0f, 1.0f);
-
-		return false;
-	}
 
 	void ImGuiLayer::SetDarkThemeColors()
 	{

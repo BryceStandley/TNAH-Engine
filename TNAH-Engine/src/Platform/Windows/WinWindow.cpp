@@ -9,11 +9,6 @@ namespace tnah{
 		TNAH_CORE_ERROR("GLFW Error ({0}): {1}", error, description);
 	}
 
-	Window* Window::Create(const WindowProps& props)
-	{
-		return new WinWindow(props);
-	}
-
 	WinWindow::WinWindow(const WindowProps& props)
 	{
 		Init(props);
@@ -43,9 +38,10 @@ namespace tnah{
 		}
 
 		m_Window = glfwCreateWindow((int)props.Width, (int)props.Height, m_Data.Title.c_str(), nullptr, nullptr);
-		glfwMakeContextCurrent(m_Window);
-		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
-		TNAH_CORE_ASSERT(status, "Failed to initialize GLAD!");
+
+		m_Context = new OpenGLGraphicsContext(m_Window);
+		m_Context->Init();
+
 		glfwSetWindowUserPointer(m_Window, &m_Data);
 		SetVSync(true);
 
@@ -150,7 +146,8 @@ namespace tnah{
 	void WinWindow::OnUpdate()
 	{
 		glfwPollEvents();
-		glfwSwapBuffers(m_Window);
+		m_Context->SwapBuffers();
+
 	}
 
 	void WinWindow::SetVSync(bool enabled)

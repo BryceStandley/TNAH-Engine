@@ -119,9 +119,10 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)vender/glfw/include;$(SolutionDir)vender/glad/include</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -148,6 +149,9 @@
   <ItemGroup>
     <ProjectReference Include="..\Glad\Glad.vcxproj">
       <Project>{71655e79-1016-42d8-b795-0fa251bbb159}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\GLFW\GLFW.vcxproj">
+      <Project>{6a144f8f-30a9-43b6-aa6b-968953d8a5bb}</Project>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

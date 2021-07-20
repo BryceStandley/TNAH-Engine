@@ -1850,7 +1850,7 @@ public:
      * @param other The instance to move from.
      * @return This any object.
      */
-    basic_any & operator=(basic_any &&other) {
+    basic_any & operator=(basic_any &&other) noexcept {
         vtable(operation::DTOR, *this, nullptr);
         other.vtable(operation::MOVE, other, this);
         return *this;
@@ -29844,7 +29844,7 @@ public:
      * @param other The instance to move from.
      * @return This meta any object.
      */
-    meta_any & operator=(meta_any &&other) {
+    meta_any & operator=(meta_any &&other) noexcept {
         std::exchange(vtable, std::exchange(other.vtable, &basic_vtable<void>))(operation::DTOR, storage, node);
         storage = std::move(other.storage);
         node = std::exchange(other.node, nullptr);

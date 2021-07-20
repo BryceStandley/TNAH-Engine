@@ -1,11 +1,8 @@
 #pragma once
-#include"TNAH/Core/Core.h"
 #include "Layer.h"
-#include "TNAH/Application.h"
-#include "imgui.h"
-#include <backends/imgui_impl_glfw.h>
-#include <backends/imgui_impl_opengl3.h>
-#include <GLFW/glfw3.h>
+#include "TNAH/Events/ApplicationEvent.h"
+#include "TNAH/Events/KeyEvent.h"
+#include "TNAH/Events/MouseEvent.h"
 
 namespace tnah {
 
@@ -17,7 +14,7 @@ namespace tnah {
 		* \author Bryce Standley
 		* \date   July 2021
 		*/
-		ImGuiLayer(std::string name);
+		ImGuiLayer();
 
 		/**
 		 * \fn ~ImGuiLayer
@@ -31,14 +28,14 @@ namespace tnah {
 		* \author Bryce Standley
 		* \date   July 2021
 		*/
-		void OnAttach();
+		virtual void OnAttach() override;
 
 		/**
 		 * \fn OnDetach
 		* \author Bryce Standley
 		* \date   July 2021
 		*/
-		void OnDetach();
+		virtual void OnDetach() override;
 
 		/**
 		 * \fn OnBegin
@@ -46,17 +43,7 @@ namespace tnah {
 		* \date   July 2021
 		* \brief Called at the start of a ImGui Frame
 		*/
-		void OnBegin();
-
-		/**
-		 * \fn OnUpdate
-		* \author Bryce Standley
-		* \date   July 2021
-		* \brief Virtual function to be implimented by a given ImGui Layer
-		* can be used to insert any imgui related items into the render stack for the layer
-		* and be rendered as well as linked to its given actions
-		*/
-		virtual void OnUpdate() {}
+		void Begin();
 
 		/**
 		 * \fn OnEnd
@@ -64,7 +51,7 @@ namespace tnah {
 		* \date   July 2021
 		* \brief Called at the end of a ImGui Frame
 		*/
-		void OnEnd();
+		void End();
 
 		/**
 		 * \fn OnEvent
@@ -72,93 +59,13 @@ namespace tnah {
 		* \date   July 2021
 		* \param event
 		*/
-		void OnEvent(Event& event);
-
-	private:
-		/**
-		 * \fn OnMouseButtonPressedEvent
-		* \author Bryce Standley
-		* \date   July 2021
-		* \param e
-		* \return bool
-		* \brief Event callback for a ImGui Mouse event
-		*/
-		bool OnMouseButtonPressedEvent(MouseButtonPressedEvent& e);
-
-		/**
-		 * \fn OnMouseButtonReleasedEvent
-		* \author Bryce Standley
-		* \date   July 2021
-		* \param e
-		* \return bool
-		* \brief Event callback for a ImGui Mouse event
-		*/
-		bool OnMouseButtonReleasedEvent(MouseButtonReleasedEvent& e);
-
-		/**
-		 * \fn OnMouseScrollEvent
-		* \author Bryce Standley
-		* \date   July 2021
-		* \param e
-		* \return bool
-		* \brief Event callback for a ImGui Mouse event
-		*/
-		bool OnMouseScrollEvent(MouseScrolledEvent& e);
-
-		/**
-		 * \fn OnMouseMovedEvent
-		* \author Bryce Standley
-		* \date   July 2021
-		* \param e
-		* \return bool
-		* \brief Event callback for a ImGui Mouse event
-		*/
-		bool OnMouseMovedEvent(MouseMovedEvent& e);
-
-		/**
-		 * \fn OnKeyPressedEvent
-		* \author Bryce Standley
-		* \date   July 2021
-		* \param e
-		* \return bool
-		* \brief Event callback for a ImGui Key event
-		*/
-		bool OnKeyPressedEvent(KeyPressedEvent& e);
-		
-		/**
-		 * \fn OnKeyReleasedEvent
-		* \author Bryce Standley
-		* \date   July 2021
-		* \param e
-		* \return bool
-		* \brief Event callback for a ImGui Key event
-		*/
-		bool OnKeyReleasedEvent(KeyReleasedEvent& e);
-
-		/**
-		 * \fn OnKeyTypedEvent
-		* \author Bryce Standley
-		* \date   July 2021
-		* \param e
-		* \return bool
-		* \brief Event callback for a ImGui Key event
-		*/
-		bool OnKeyTypedEvent(KeyTypedEvent& e);
-
-		/**
-		 * \fn OnWindowResizeEvent
-		* \author Bryce Standley
-		* \date   July 2021
-		* \param e
-		* \return bool
-		* \brief Event callback for a ImGui Window Resize event
-		*/
-		bool OnWindowResizeEvent(WindowResizeEvent& e);
+		virtual void OnEvent(Event& event) override;
 
 		void SetDarkThemeColors();
 
-		private:
-			float m_Time = 0.0f;
+	private:
+		bool m_BlockEvents = true;
+		float m_Time = 0.0f;
 
 	};
 

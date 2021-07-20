@@ -1,18 +1,43 @@
 #pragma once
 
 #include "TNAH/Core/Core.h"
+
 #include "TNAH/Core/Window.h"
 #include "TNAH/Events/ApplicationEvent.h"
-#include "TNAH/Events/MouseEvent.h"
-#include "TNAH/Events/KeyEvent.h"
 #include "Layers/LayerStack.h"
+
+#include "TNAH/Core/Timestep.h"
+
+#include "Layers/ImGuiLayer.h"
+#include "TNAH/Renderer/Buffer.h"
+#include "TNAH/Renderer/VertexArray.h"
+#include "TNAH/Renderer/Shader.h"
+#include "TNAH/Renderer/Renderer.h"
+
+#include "TNAH/Renderer/SceneCamera.h"
+
+
+int main(int argc, char** argv);
 
 namespace tnah
 {
-	class TNAH_API Application
+
+	struct ApplicationCommandLineArgs
+	{
+		int Count = 0;
+		char** Args = nullptr;
+
+		const char* operator[](int index) const
+		{
+			//TNAH_CORE_ASSERT(index < Count);
+			return Args[index];
+		}
+	};
+
+	class Application
 	{
 	public:
-		Application();
+		Application(const std::string& name = "TNAH App");
 		virtual ~Application();
 
 
@@ -26,14 +51,24 @@ namespace tnah
 		inline static Application& Get() { return *s_Instance; }
 		inline Window& GetWindow() { return *m_Window; }
 
+		ApplicationCommandLineArgs GetCommandLineArgs() const { return m_CommandLineArgs; }
+
 	private:
 		bool OnWindowClose(WindowCloseEvent& e);
 
-		std::unique_ptr<Window> m_Window;
+		ApplicationCommandLineArgs m_CommandLineArgs;
+		Scope<Window> m_Window;
 		bool m_Running = true;
 		LayerStack m_LayerStack;
+		ImGuiLayer* m_ImGuiLayer;
+		float m_DeltaTime = 0.0f;
+
+		
 
 		static Application* s_Instance;
+		friend int ::main(int argc, char** argv);
+
+		
 	};
 
 	Application* CreateApplication();

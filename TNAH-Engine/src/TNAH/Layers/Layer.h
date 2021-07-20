@@ -1,6 +1,7 @@
 #pragma once
 #include "TNAH/Core/Core.h"
 #include "TNAH/Events/Event.h"
+#include "TNAH/Core/Timestep.h"
 
 namespace tnah {
 	/**
@@ -51,7 +52,18 @@ namespace tnah {
 		* \date   July 2021
 		* \brief Function called when a layer is updated in the layer stack, override per layer implimentation
 		*/
-		virtual void OnUpdate() {}
+		virtual void OnUpdate(Timestep deltaTime) {}
+
+		/**********************************************************************************************//**
+		 * @fn	virtual void Layer::OnImGuiRender()
+		 *
+		 * @brief	Executes the ImGui Renderer action
+		 *
+		 * @author	Bryce Standley
+		 * @date	19/07/2021
+		 **************************************************************************************************/
+
+		virtual void OnImGuiRender() {}
 
 		/**
 		 * \fn OnEvent

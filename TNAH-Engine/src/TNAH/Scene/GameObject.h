@@ -32,10 +32,11 @@ namespace tnah {
 		 *
 		 * @param 	other	The other.
 		 **************************************************************************************************/
+
 		GameObject(const GameObject& other) = default;
 
 		/**********************************************************************************************//**
-		 * @fn	template<typename T, typename... Args> T& GameObject::AddComponent(Args&&... args)
+		 * @fn	template<typename T, typename... Args> inline T& GameObject::AddComponent(Args&&... args)
 		 *
 		 * @brief	Adds component to a game object
 		 *
@@ -43,26 +44,28 @@ namespace tnah {
 		 * @tparam	Args	Type of the arguments.
 		 * @param 	args	Variable arguments providing [in,out] The arguments.
 		 *
-		 * @returns	A reference to a T.
+		 * @returns	A reference to the component.
 		 **************************************************************************************************/
 
 		template<typename T, typename... Args>
 		inline T& AddComponent(Args&&... args)
 		{
+			std::string name = typeid(T).name();
+			name.erase(0, 13);
 			if (HasComponent<T>()) 
 			{
-				TNAH_CORE_ERROR("GameObject already has that component! You can't add it again!"); 
+				TNAH_CORE_ERROR("GameObject already has a {0} component! You can't add it again!", name); 
 				return GetComponent<T>(); 
 			}
 			else
 			{
-				TNAH_CORE_INFO("Added Component to GameObject: {0}", m_EntityID);
+				TNAH_CORE_INFO("Added Component: {0} to GameObject: {1}", name, m_EntityID);
 				return m_Scene->m_Regestry.emplace<T>(m_EntityID, std::forward<Args>(args)...);
 			}
 		}
 
 		/**********************************************************************************************//**
-		 * @fn	template<typename T> T& GameObject::GetComponent()
+		 * @fn	template<typename T> inline T& GameObject::GetComponent()
 		 *
 		 * @brief	Gets the component of a game object
 		 *
@@ -74,20 +77,22 @@ namespace tnah {
 		template<typename T>
 		inline T& GetComponent()
 		{
+			std::string name = typeid(T).name();
+			name.erase(0, 13);
 			if (!HasComponent<T>()) 
 			{ 
-				TNAH_CORE_ERROR("GameObject does not have this component! You need to add one with GetComponent<>(), One has been added with default values!");
+				TNAH_CORE_ERROR("GameObject doesn't have a {0} component! You need to add one with AddComponent<>(), Default component added!", name);
 				return AddComponent<T>();
 			}
 			else
 			{
-				TNAH_CORE_INFO("Got Component from GameObject: {0}", m_EntityID);
+				TNAH_CORE_INFO("Got {0} Component from GameObject: {1}", name, m_EntityID);
 				return m_Scene->m_Regestry.get<T>(m_EntityID);
 			}
 		}
 
 		/**********************************************************************************************//**
-		 * @fn	template<typename T> bool GameObject::HasComponent()
+		 * @fn	template<typename T> inline bool GameObject::HasComponent()
 		 *
 		 * @brief	Query if the game object has a component
 		 *
@@ -103,7 +108,7 @@ namespace tnah {
 		}
 
 		/**********************************************************************************************//**
-		 * @fn	template<typename T> void GameObject::RemoveComponent()
+		 * @fn	template<typename T> inline void GameObject::RemoveComponent()
 		 *
 		 * @brief	Removes the component from a game object
 		 *
@@ -113,20 +118,22 @@ namespace tnah {
 		template<typename T>
 		inline void RemoveComponent()
 		{
+			std::string name = typeid(T).name();
+			name.erase(0, 13);
 			if (!HasComponent<T>())
 			{
-				TNAH_CORE_ERROR("GameObject doesnt have a component of that type! You can't remove what isn't there!");
+				TNAH_CORE_ERROR("GameObject doesn't have a {0} component! You can't remove what isn't there!", name);
 				return;
 			}
 			else
 			{
-				TNAH_CORE_INFO("Removed Component from GameObject: {0}",  m_EntityID);
+				TNAH_CORE_INFO("Removed {0} Component from GameObject: {1}", name, m_EntityID);
 				m_Scene->m_Regestry.remove<T>(m_EntityID);
 			}
 		}
 
 		/**********************************************************************************************//**
-		 * @fn	void GameObject::Destroy();
+		 * @fn	inline void GameObject::Destroy()
 		 *
 		 * @brief	Destroys the game object
 		 *
@@ -136,7 +143,7 @@ namespace tnah {
 
 		inline void Destroy()
 		{
-			TNAH_CORE_INFO("Destroyed GameObject: {0}", m_EntityID);
+			TNAH_CORE_INFO("Destroyed GameObject: {0} and all its components", m_EntityID);
 			m_Scene->m_Regestry.destroy(m_EntityID);
 			delete this;
 		}

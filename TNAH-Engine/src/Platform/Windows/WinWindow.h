@@ -4,7 +4,9 @@
 #include "TNAH/Events/MouseEvent.h"
 #include "TNAH/Events/KeyEvent.h"
 
-#include <glad/glad.h>
+#include "Platform/OpenGL/OpenGLGraphicsContext.h"
+
+
 #include <GLFW/glfw3.h>
 
 namespace tnah {
@@ -31,6 +33,7 @@ namespace tnah {
 		virtual void Shutdown();
 	private:
 		GLFWwindow* m_Window;
+		GraphicsContext* m_Context;
 
 		struct WindowData
 		{

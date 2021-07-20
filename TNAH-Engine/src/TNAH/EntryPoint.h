@@ -1,5 +1,7 @@
 #pragma once
 
+#include "TNAH/Core/Core.h"
+
 #ifdef TNAH_PLATFORM_WINDOWS
 
 	extern tnah::Application* tnah::CreateApplication();
@@ -11,7 +13,9 @@
 		TNAH_INFO("Application Log Initialized!");
 
 		auto app = tnah::CreateApplication();
+
 		app->Run();
+		
 		delete app;
 	}
 

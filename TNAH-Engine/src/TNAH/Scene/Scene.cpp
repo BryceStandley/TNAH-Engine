@@ -1,11 +1,16 @@
 #include <tnahpch.h>
 #include "Scene.h"
 #include "GameObject.h"
-#include "Components.h"
+#include "Components/Components.h"
+
 namespace tnah{
 
 	Scene::Scene()
 	{
+		//Creating component dependencies on scene creation
+		// Cameras always need a transform
+		m_Regestry.on_construct<tnah::Camera>().connect<&entt::registry::emplace_or_replace<tnah::Transform>>();
+
 	}
 
 	Scene::~Scene()
@@ -30,6 +35,7 @@ namespace tnah{
 			entities.emplace_back(e);
 		}
 		return entities;
+
 	}
 
 

@@ -23,22 +23,22 @@ public:
 	Game()
 	{
 		PushLayer(new TestLayer);
-		PushOverlay(new tnah::DebugLayer());
 
 		tnah::Scene* m_Scene = new tnah::Scene();
 
 		auto go = m_Scene->CreateGameObject();
 
+		{
+			using namespace tnah;
+			go.AddComponent<Transform>();
+			go.AddComponent<Transform>();
 
-		go.AddComponent<tnah::Transform>();
-		go.AddComponent<tnah::Transform>();
+			go.RemoveComponent<Transform>();
+			go.RemoveComponent<Transform>();
 
-		go.RemoveComponent<tnah::Transform>();
-		go.RemoveComponent<tnah::Transform>();
+			go.GetComponent<Transform>();
+		}
 
-		go.GetComponent<tnah::Transform>();
-
-		int i;
 
 	}
 
