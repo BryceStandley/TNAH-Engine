@@ -8,6 +8,7 @@
 
 #include <glm/glm.hpp>
 #include <glm/gtx/matrix_decompose.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 
 /**********************************************************************************************//**
  * @namespace	tnah
@@ -72,7 +73,7 @@ namespace tnah {
 
 
 	/**********************************************************************************************//**
-	 * @struct	Camera
+	 * @class	Camera
 	 *
 	 * @brief	A camera component that allows an objects view to be rendered.
 	 *
@@ -80,27 +81,64 @@ namespace tnah {
 	 * @date	20/07/2021
 	 **************************************************************************************************/
 
-	struct Camera 
+	class Camera 
 	{
-
+	public:
 		enum class CameraType
 		{
 			Orthographic, Perspective
 		};
+		Camera()
+			:m_Projection(glm::ortho(-1.0f, 1.0f, -1.0f, 1.0f, -1.0f, 1.0f)), m_View(1.0f), m_Position({ 0.0f }), m_Rotation({0.0f})
+		{
+			m_ViewProjection = m_Projection * m_View;
+		}
 
-		glm::mat4 m_ProjectionMatrix;
-		glm::mat4 m_ViewMatrix;
-		float m_Left, m_Right, m_Bottom, m_Top;
-		float m_Near = -1.0f, m_Far = 1.0f;
-
-		Camera() = default;
-		Camera(const Camera&) = default;
 		Camera(float left, float right, float bottom, float top)
-			:m_Left(left), m_Right(right), m_Bottom(bottom), m_Top(top)
-		{}
+			: m_Projection(glm::ortho(left, right, bottom, top, -1.0f, 1.0f)), m_View(1.0f), m_Position({ 0,0,0 }), m_Rotation({0,0,0})
+		{
+			m_ViewProjection = m_Projection * m_View;
+		}
 
+		const glm::vec3& GetPosition() const { return m_Position; }
+		inline void SetPosition(const glm::vec3& position) { m_Position = position; RecalculateViewMatrix(); }
 
+		const glm::vec3 GetRotation() const { return m_Rotation; }
+		inline void SetRotation(const glm::vec3& rotation) { m_Rotation = rotation; RecalculateViewMatrix(); }
 
+		const glm::mat4& GetProjectionMatrix() const { return m_Projection; }
+		inline void SetProjection(const glm::mat4& projection) { m_Projection = projection; }
+
+		const glm::mat4& GetViewMatrix() const { return m_View; }
+		inline void SetView(const glm::mat4& view) { m_View = view; }
+
+		const glm::mat4& GetViewProjection() const { return m_ViewProjection; }
+
+	private:
+		inline void RecalculateViewMatrix()
+		{
+			if (m_CameraType == CameraType::Orthographic)
+			{
+				glm::mat4 transform = glm::translate(glm::mat4(1.0f), m_Position) * glm::rotate(glm::mat4(1.0f), glm::radians(m_Rotation.z), { 0,0,1 });
+				m_View = glm::inverse(transform);
+
+				//Must be Projection * view not view * projection
+				m_ViewProjection = m_Projection * m_View;
+			}
+			else
+			{
+
+			}
+		}
+
+	private:
+		glm::mat4 m_Projection;
+		glm::mat4 m_View;
+		glm::mat4 m_ViewProjection;
+
+		glm::vec3 m_Position;
+		glm::vec3 m_Rotation;
+		CameraType m_CameraType = CameraType::Orthographic;
 	};
 
 	/**********************************************************************************************//**

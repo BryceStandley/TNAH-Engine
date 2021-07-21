@@ -1,7 +1,7 @@
 #pragma once
 
 #include "RenderCommand.h"
-#include "SceneCamera.h"
+#include "TNAH/Scene/Components/Components.h"
 #include "Shader.h"
 
 namespace tnah {
@@ -9,7 +9,7 @@ namespace tnah {
 	class Renderer
 	{
 	public:
-		static void BeginScene(SceneCamera& camera);
+		static void BeginScene(Camera& camera);
 		static void EndScene();
 
 		static void Submit(const Ref<VertexArray>& vertexArray, const Ref<Shader>& shader);

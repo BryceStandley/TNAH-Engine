@@ -5,7 +5,7 @@ namespace tnah {
 
 	Renderer::SceneData* Renderer::m_SceneData = new Renderer::SceneData();
 
-	void Renderer::BeginScene(SceneCamera& camera)
+	void Renderer::BeginScene(Camera& camera)
 	{
 		m_SceneData->ViewProjection = camera.GetViewProjection();
 	}

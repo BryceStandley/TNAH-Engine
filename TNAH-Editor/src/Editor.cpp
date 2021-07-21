@@ -6,7 +6,7 @@ class TestLayer : public tnah::Layer
 {
 public:
 	TestLayer()
-		: Layer("Example"), m_SceneCamera(-1.6f, 1.6f, -0.9f, 0.9f), m_CameraPosition(0.0f)
+		: Layer("Example"), m_CameraPosition(0.0f)
 	{
 		m_VAO.reset(tnah::VertexArray::Create());
 
@@ -116,6 +116,13 @@ public:
 
 		m_SquareShader.reset(new tnah::Shader(blueShaderVertexSrc, blueShaderFragmentSrc));
 
+		m_Scene = new tnah::Scene();
+		m_CameraGameObject = m_Scene->CreateGameObject();
+		m_Camera = m_CameraGameObject.AddComponent<tnah::Camera>(-1.6f, 1.6f, -0.9f, 0.9f);
+
+		m_Camera.SetPosition(m_CameraGameObject.GetComponent<tnah::Transform>().Position);
+		m_Camera.SetRotation({0.0f, 0.0f, 0.0f});
+
 	}
 
 	void OnUpdate(tnah::Timestep deltaTime) override
@@ -123,39 +130,43 @@ public:
 
 		if (tnah::Input::IsKeyPressed(tnah::Key::W))
 		{
-			m_CameraPosition.y += m_CameraMoveSpeed * deltaTime.GetSeconds();
+			m_CameraGameObject.GetComponent<tnah::Transform>().Position.y += m_CameraMoveSpeed * deltaTime.GetSeconds();
 		}
 		else if (tnah::Input::IsKeyPressed(tnah::Key::S))
 		{
-			m_CameraPosition.y -= m_CameraMoveSpeed * deltaTime.GetSeconds();
+			m_CameraGameObject.GetComponent<tnah::Transform>().Position.y -= m_CameraMoveSpeed * deltaTime.GetSeconds();
 		}
 
 		if (tnah::Input::IsKeyPressed(tnah::Key::D))
 		{
-			m_CameraPosition.x += m_CameraMoveSpeed * deltaTime.GetSeconds();
+			m_CameraGameObject.GetComponent<tnah::Transform>().Position.x += m_CameraMoveSpeed * deltaTime.GetSeconds();
 		}
 		else if (tnah::Input::IsKeyPressed(tnah::Key::A))
 		{
-			m_CameraPosition.x -= m_CameraMoveSpeed * deltaTime.GetSeconds();
+			m_CameraGameObject.GetComponent<tnah::Transform>().Position.x -= m_CameraMoveSpeed * deltaTime.GetSeconds();
 		}
 
 		tnah::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1.0f });
 		tnah::RenderCommand::Clear();
 
-		m_SceneCamera.SetPosition(m_CameraPosition);
-
+		m_Camera.SetPosition(m_CameraGameObject.GetComponent<tnah::Transform>().Position);
+		
 		if (tnah::Input::IsKeyPressed(tnah::Key::Left))
 		{
-			m_SceneCamera.SetRotation(m_SceneCamera.GetRotation() + 2.0f * deltaTime.GetSeconds());
+
+			m_CameraRotationRadians.z += 4.0f * deltaTime.GetSeconds();
+			m_Camera.SetRotation(m_CameraRotationRadians);
+			m_CameraGameObject.GetComponent<tnah::Transform>().Rotation = glm::angleAxis(glm::radians(m_CameraRotationRadians.z), glm::vec3(0, 0, 1));
 		}
 		else if (tnah::Input::IsKeyPressed(tnah::Key::Right))
 		{
-			m_SceneCamera.SetRotation(m_SceneCamera.GetRotation() - 2.0f * deltaTime.GetSeconds());
-			m_SceneCamera.SetRotation(m_SceneCamera.GetRotation() - 2.0f * deltaTime.GetSeconds());
+			m_CameraRotationRadians.z -= 4.0f * deltaTime.GetSeconds();
+			m_Camera.SetRotation(m_CameraRotationRadians);
+			m_CameraGameObject.GetComponent<tnah::Transform>().Rotation = glm::angleAxis(glm::radians(m_CameraRotationRadians.z), glm::vec3(0, 0, 1));
 		}
+		
 
-
-		tnah::Renderer::BeginScene(m_SceneCamera);
+		tnah::Renderer::BeginScene(m_Camera);
 
 		tnah::Renderer::Submit(m_SquareVAO, m_SquareShader);
 
@@ -167,6 +178,10 @@ public:
 
 	virtual void OnImGuiRender() override
 	{
+		ImGui::Begin("Controls");
+		ImGui::Text("WASD to move the camera Up, Down, Left and Right");
+		ImGui::Text("Left and Right arrow keys to rotate the camera");
+		ImGui::End();
 	}
 
 	void OnEvent(tnah::Event& event) override
@@ -189,10 +204,14 @@ private:
 
 	tnah::Ref<tnah::Shader> m_SquareShader;
 	tnah::Ref<tnah::VertexArray> m_SquareVAO;
-	tnah::SceneCamera m_SceneCamera;
+
+	tnah::Scene* m_Scene;
+	tnah::Camera m_Camera;
+	tnah::GameObject m_CameraGameObject;
 
 	glm::vec3 m_CameraPosition;
 	float m_CameraMoveSpeed = 0.1f;
+	glm::vec3 m_CameraRotationRadians = glm::vec3(0);
 };
 
 class Editor : public tnah::Application
