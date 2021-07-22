@@ -14,7 +14,7 @@
 #include "TNAH/Renderer/Shader.h"
 #include "TNAH/Renderer/Renderer.h"
 
-#include "TNAH/Renderer/SceneCamera.h"
+#include "TNAH/Scene/SceneCamera.h"
 
 
 int main(int argc, char** argv);

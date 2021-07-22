@@ -21,7 +21,7 @@
 #include "TNAH/Scene/Scene.h"
 #include "TNAH/Scene/GameObject.h"
 
-#include "TNAH/Renderer/SceneCamera.h"
+#include "TNAH/Scene/SceneCamera.h"
 #include "TNAH/Renderer/Renderer.h"
 #include "TNAH/Renderer/RenderCommand.h"
 #include "TNAH/Renderer/Buffer.h"

@@ -1,5 +1,6 @@
 #pragma once
 #include <TNAH/Core/Core.h>
+#include "Components/Components.h"
 #include "Scene.h"
 #include "entt.hpp"
 
@@ -8,18 +9,7 @@ namespace tnah {
 	{
 	public:
 
-		/**********************************************************************************************//**
-		 * @fn	GameObject::GameObject()
-		 *
-		 * @brief	Default constructor, Not really meant to be used only over written when a scene makes a 
-		 * 			new GameObject
-		 *
-		 * @author	Bryce Standley
-		 * @date	21/07/2021
-		 **************************************************************************************************/
-
-		GameObject() { m_EntityID = (entt::entity)0; m_Scene = nullptr; }
-
+		GameObject() = default;
 		/**********************************************************************************************//**
 		 * @fn	GameObject::GameObject(entt::entity id, Scene* scene);
 		 *
@@ -32,7 +22,11 @@ namespace tnah {
 		 * @param [in,out]	scene	If non-null, the scene.
 		 **************************************************************************************************/
 
-		GameObject(entt::entity id, Scene* scene);
+		GameObject(entt::entity id, Scene* scene)
+			: m_EntityID(id), m_Scene(scene)
+		{}
+
+		~GameObject() {}
 
 		/**********************************************************************************************//**
 		 * @fn	GameObject::GameObject(const GameObject& other) = default;
@@ -69,7 +63,7 @@ namespace tnah {
 			}
 			else
 			{
-				return m_Scene->m_Regestry.emplace<T>(m_EntityID, std::forward<Args>(args)...);
+				return m_Scene->m_Registry.emplace<T>(m_EntityID, std::forward<Args>(args)...);
 			}
 		}
 
@@ -93,7 +87,7 @@ namespace tnah {
 			}
 			else
 			{
-				return m_Scene->m_Regestry.get<T>(m_EntityID);
+				return m_Scene->m_Registry.get<T>(m_EntityID);
 			}
 		}
 
@@ -110,7 +104,7 @@ namespace tnah {
 		template<typename T>
 		inline bool HasComponent()
 		{
-			return m_Scene->m_Regestry.all_of<T>(m_EntityID);
+			return m_Scene->m_Registry.all_of<T>(m_EntityID);
 		}
 
 		/**********************************************************************************************//**
@@ -132,7 +126,7 @@ namespace tnah {
 			}
 			else
 			{
-				m_Scene->m_Regestry.remove<T>(m_EntityID);
+				m_Scene->m_Registry.remove<T>(m_EntityID);
 			}
 		}
 
@@ -147,7 +141,7 @@ namespace tnah {
 
 		inline void Destroy()
 		{
-			m_Scene->m_Regestry.destroy(m_EntityID);
+			m_Scene->m_Registry.destroy(m_EntityID);
 			delete this;
 		}
 
@@ -164,11 +158,68 @@ namespace tnah {
 
 		entt::entity GetEntityID() { return m_EntityID; }
 
+		TransformComponent& Transform() { return m_Scene->m_Registry.get<TransformComponent>(m_EntityID); }
+		const glm::mat4& Transform() const { return m_Scene->m_Registry.get<TransformComponent>(m_EntityID).GetTransform(); }
 
-	protected:
-		entt::entity m_EntityID;
-		Scene* m_Scene;
 
+		operator uint32_t () const { return (uint32_t)m_EntityID; }
+		operator entt::entity() const { return m_EntityID; }
+		operator bool() const { return (m_EntityID != entt::null) && m_Scene; }
+
+		bool operator==(const GameObject& other) const
+		{
+			return m_EntityID == other.m_EntityID && m_Scene == other.m_Scene;
+		}
+
+		bool operator!=(const GameObject& other) const
+		{
+			return !(*this == other);
+		}
+
+		void SetParentUUID(UUID parent) { GetComponent<RelationshipComponent>().ParentHandle = parent; }
+		UUID GetParentUUID() { return GetComponent<RelationshipComponent>().ParentHandle; }
+		std::vector<UUID>& Children() { return GetComponent<RelationshipComponent>().Children; }
+
+		bool HasParent() { return m_Scene->FindEntityByUUID(GetParentUUID()); }
+
+		bool IsAncesterOf(GameObject entity)
+		{
+			const auto& children = Children();
+
+			if (children.size() == 0)
+				return false;
+
+			for (UUID child : children)
+			{
+				if (child == entity.GetUUID())
+					return true;
+			}
+
+			for (UUID child : children)
+			{
+				if (m_Scene->FindEntityByUUID(child).IsAncesterOf(entity))
+					return true;
+			}
+
+			return false;
+		}
+
+		bool IsDescendantOf(GameObject entity)
+		{
+			return entity.IsAncesterOf(*this);
+		}
+
+		UUID GetUUID() { return GetComponent<IDComponent>().ID; }
+		UUID GetSceneUUID() { return m_Scene->GetUUID(); }
+	private:
+		GameObject(const std::string& name);
+	private:
+		entt::entity m_EntityID{ entt::null };
+		Scene* m_Scene = nullptr;
+
+		friend class Scene;
+		friend class SceneSerializer;
+		friend class ScriptEngine;
 	};
 }
 

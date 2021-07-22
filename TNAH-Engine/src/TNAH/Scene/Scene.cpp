@@ -6,10 +6,8 @@
 namespace tnah{
 
 	Scene::Scene()
+		:m_SceneID(0)
 	{
-		//Creating component dependencies on scene creation
-		// Cameras always need a transform
-		m_Regestry.on_construct<tnah::Camera>().connect<&entt::registry::emplace_or_replace<tnah::Transform>>();
 
 	}
 
@@ -19,24 +17,43 @@ namespace tnah{
 
 	GameObject Scene::CreateGameObject()
 	{
-		GameObject go = { m_Regestry.create(), this };
-		go.AddComponent<Transform>();
+		GameObject go = { m_Registry.create(), this };
+		go.AddComponent<IDComponent>();
+		go.AddComponent<RelationshipComponent>();
+		go.AddComponent<TransformComponent>();
+		
+		
 		return go;
 	}
 
-	template<typename T>
-	std::vector<entt::entity> Scene::FindEntitiesWithType()
+	GameObject Scene::FindEntityByTag(const std::string& tag)
 	{
-		std::vector<entt::entity> entities;
-		auto view = this->m_Regestry.view<T>();
-
-		for (entt::entity e : view)
+		// TODO: If this becomes used often, consider indexing by tag
+		auto view = m_Registry.view<TagComponent>();
+		for (auto entity : view)
 		{
-			entities.emplace_back(e);
+			const auto& canditate = view.get<TagComponent>(entity).Tag;
+			if (canditate == tag)
+				return GameObject(entity, this);
 		}
-		return entities;
 
+		return GameObject{};
 	}
+
+	GameObject Scene::FindEntityByUUID(UUID id)
+	{
+		auto view = m_Registry.view<IDComponent>();
+		for (auto entity : view)
+		{
+			auto& idComponent = m_Registry.get<IDComponent>(entity);
+			if (idComponent.ID == id)
+				return GameObject(entity, this);
+		}
+
+		return GameObject{};
+	}
+
+
 
 
 

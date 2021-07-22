@@ -168,6 +168,9 @@ XCOPY "$(ProjectDir)assets\" "$(OutDir)assets\" /E /Y</Command>
   <ItemGroup>
     <ClCompile Include="src\Editor.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\shaders\Default.glsl" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

@@ -1,14 +1,18 @@
 #pragma once
 
 #include <TNAH/Core/Core.h>
+#include "TNAH/Core/UUID.h"
+#include "TNAH/Scene/SceneCamera.h"
 #include "TerrainComponent.h"
 #include "PhysicsComponents.h"
 #include "LightComponents.h"
 #include "AudioComponents.h"
 
+#define GLM_ENABLE_EXPERIMENTAL
 #include <glm/glm.hpp>
-#include <glm/gtx/matrix_decompose.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtx/quaternion.hpp>
+
 
 /**********************************************************************************************//**
  * @namespace	tnah
@@ -25,6 +29,36 @@
 
 namespace tnah {
 
+	struct IDComponent
+	{
+		UUID ID = 0;
+	};
+
+	struct TagComponent
+	{
+		std::string Tag;
+
+		TagComponent() = default;
+		TagComponent(const TagComponent& other) = default;
+		TagComponent(const std::string& tag)
+			: Tag(tag) {}
+
+		operator std::string& () { return Tag; }
+		operator const std::string& () const { return Tag; }
+	};
+
+	struct RelationshipComponent
+	{
+		UUID ParentHandle = 0;
+		std::vector<UUID> Children;
+
+		RelationshipComponent() = default;
+		RelationshipComponent(const RelationshipComponent& other) = default;
+		RelationshipComponent(UUID parent)
+			: ParentHandle(parent) {}
+	};
+
+
 	/**********************************************************************************************//**
 	 * @struct	Transform
 	 *
@@ -36,38 +70,40 @@ namespace tnah {
 	 * @date	20/07/2021
 	 **************************************************************************************************/
 
-	struct Transform
+	struct TransformComponent
 	{
-		glm::mat4 TransformMatrix;
+		glm::vec3 Position = { 0.0f, 0.0f, 0.0f };
+		glm::vec3 Rotation = { 0.0f, 0.0f, 0.0f };
+		glm::vec3 Scale = { 1.0f, 1.0f, 1.0f };
 
-		glm::vec3 Position;
-		glm::quat Rotation;
-		glm::vec3 Scale;
+		glm::vec3 Up = { 0.0f, 1.0f, 0.0f };
+		glm::vec3 Right = { 1.0f, 0.0f, 0.0f };
+		glm::vec3 Forward = { 0.0f, 0.0f, -1.0f };
 
-		Transform()
+		TransformComponent() = default;
+		TransformComponent(const TransformComponent& other) = default;
+		TransformComponent(const glm::vec3& position)
+			: Position(position) {}
+
+		glm::mat4 GetTransform() const
 		{
-			TransformMatrix = glm::mat4(1.0f);
-			Position = TransformMatrix[3];
-			Rotation = glm::quat_cast(TransformMatrix);
-			for (int i = 0; i < 3; i++)
-			{
-				Scale[i] = glm::length(glm::vec3(TransformMatrix[i]));
-			}
+			return glm::translate(glm::mat4(1.0f), Position)
+				* glm::toMat4(glm::quat(Rotation))
+				* glm::scale(glm::mat4(1.0f), Scale);
 		}
+	};
 
-		Transform(const Transform&) = default;
 
-		Transform(const glm::mat4& trans)
-			:TransformMatrix(trans), Position(trans[3]), Rotation(glm::quat_cast(trans)) 
-		{
-			for (int i = 0; i < 3; i++)
-			{
-				Scale[i] = glm::length(glm::vec3(trans[i]));
-			}
-		}
+	struct CameraComponent
+	{
+		SceneCamera Camera;
+		bool Primary = true;
 
-		operator const glm::mat4& () const { return TransformMatrix; }
-		operator const glm::mat4& () { return TransformMatrix; }
+		CameraComponent() = default;
+		CameraComponent(const CameraComponent& other) = default;
+
+		operator SceneCamera& () { return Camera; }
+		operator const SceneCamera& () const { return Camera; }
 	};
 
 
@@ -81,7 +117,7 @@ namespace tnah {
 	 * @date	20/07/2021
 	 **************************************************************************************************/
 
-	class Camera 
+	/*class Camera
 	{
 	public:
 		enum class CameraType
@@ -140,6 +176,15 @@ namespace tnah {
 		glm::vec3 m_Rotation;
 		CameraType m_CameraType = CameraType::Orthographic;
 	};
+	*/
+	struct Material
+	{
+
+		Material();
+
+	};
+
+
 
 	/**********************************************************************************************//**
 	 * @struct	NativeScript

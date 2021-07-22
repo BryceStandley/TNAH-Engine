@@ -1,6 +1,7 @@
 #pragma once
 
 #include <TNAH/Core/Core.h>
+#include "TNAH/Core/UUID.h"
 #include "entt.hpp"
 #include <vector>
 
@@ -28,20 +29,16 @@ namespace tnah {
 
 		GameObject CreateGameObject();
 
-		/**********************************************************************************************//**
-		 * @fn	template<typename T> std::vector<entt::entity> Scene::FindEntitiesWithType();
-		 *
-		 * @brief	Searches for entities with a type
-		 *
-		 * @tparam	T	Generic type parameter.
-		 *
-		 * @returns	The found entities with type.
-		 **************************************************************************************************/
-		template<typename T>
-		std::vector<entt::entity> FindEntitiesWithType();
 
-	protected:
-		entt::registry m_Regestry;
+		UUID GetUUID() const { return m_SceneID; }
+		GameObject FindEntityByTag(const std::string& tag);
+		GameObject FindEntityByUUID(UUID id);
+
+	private:
+		UUID m_SceneID;
+		entt::registry m_Registry;
+
+		friend class GameObject;
 	};
 
 
