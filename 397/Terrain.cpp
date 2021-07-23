@@ -377,12 +377,7 @@ namespace tnah {
 
     }
 
-    float Terrain::Interpolate(float a, float b, float blend)
-    {
-        double theta = blend * M_PI;
-        float f = (float)(1.0f - cos(theta)) * 0.5f;
-        return a * (1.0f - f) + b * f;
-    }
+
 
     void Terrain::generateIndices(std::vector<unsigned int>& indices)
     {

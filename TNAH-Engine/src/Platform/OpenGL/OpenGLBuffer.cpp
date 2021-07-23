@@ -30,6 +30,11 @@ namespace tnah {
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 	}
 
+	void OpenGLVertexBuffer::Delete() const
+	{
+		glDeleteBuffers(1, &m_RendererID);
+	}
+
 	// IndexBuffer 
 	
 	OpenGLIndexBuffer::OpenGLIndexBuffer(uint32_t* indices, uint32_t count)
@@ -56,5 +61,10 @@ namespace tnah {
 	}
 
 
+
+	void OpenGLIndexBuffer::Delete() const
+	{
+		glDeleteBuffers(1, &m_RendererID);
+	}
 
 }

@@ -170,6 +170,7 @@ XCOPY "$(ProjectDir)assets\" "$(OutDir)assets\" /E /Y</Command>
   </ItemGroup>
   <ItemGroup>
     <None Include="assets\shaders\Default.glsl" />
+    <None Include="assets\shaders\default_terrain.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

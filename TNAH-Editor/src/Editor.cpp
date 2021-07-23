@@ -8,37 +8,14 @@ public:
 	TestLayer()
 		: Layer("Example"), m_CameraPosition(0.0f)
 	{
-		m_VAO.reset(tnah::VertexArray::Create());
-
-
-		float vertices[3 * 7] = {
-			-0.5f, -0.5f, 0.0f, 0.8f, 0.2f, 0.8f, 1.0f,
-			 0.5f, -0.5f, 0.0f, 0.2f, 0.3f, 0.8f, 1.0f,
-			 0.0f,  0.5f, 0.0f, 0.8f, 0.8f, 0.2f, 1.0f
-		};
-
-		std::shared_ptr<tnah::VertexBuffer> vertexBuffer;
-		vertexBuffer.reset(tnah::VertexBuffer::Create(vertices, sizeof(vertices)));
-		tnah::BufferLayout layout = {
-			{ tnah::ShaderDataType::Float3, "a_Position" },
-			{ tnah::ShaderDataType::Float4, "a_Color" }
-		};
-		vertexBuffer->SetLayout(layout);
-		m_VAO->AddVertexBuffer(vertexBuffer);
-
-
-
-		uint32_t indices[3] = { 0, 1, 2 };
-		std::shared_ptr<tnah::IndexBuffer> indexBuffer;
-		indexBuffer.reset(tnah::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
-		m_VAO->SetIndexBuffer(indexBuffer);
-
-
-		m_Shader.reset(tnah::Shader::Create("assets/shaders/Default.glsl"));
+		
 
 		m_Scene = new tnah::Scene();
 		m_Camera = m_Scene->CreateGameObject();
 		m_Camera.AddComponent<tnah::CameraComponent>();
+		m_Terrain = m_Scene->CreateGameObject();
+		m_Terrain.AddComponent<tnah::TerrainComponent>("assets/heightmap/1k.tga");
+		m_TerrainShader.reset(tnah::Shader::Create("assets/shaders/default_terrain.glsl"));
 
 	}
 
@@ -67,8 +44,14 @@ public:
 		tnah::RenderCommand::Clear();		
 		glm::mat4 transform = m_Camera.GetComponent<tnah::TransformComponent>().GetTransform();
 		tnah::Renderer::BeginScene(m_Camera.GetComponent<tnah::CameraComponent>().Camera, transform);
+		tnah::Renderer::EndScene();
 
-		tnah::Renderer::Submit(m_VAO, m_Shader);
+
+		m_Camera.GetComponent<tnah::TransformComponent>().Position.z -= 10.0f;
+		transform = m_Camera.GetComponent<tnah::TransformComponent>().GetTransform();
+		tnah::Renderer::BeginScene(m_Camera.GetComponent<tnah::CameraComponent>().Camera, transform);
+		tnah::Terrain* terrain = m_Terrain.GetComponent<tnah::TerrainComponent>().SceneTerrain;
+		tnah::Renderer::Submit(terrain->GetVertexArray(), m_TerrainShader);
 
 		tnah::Renderer::EndScene();
 
@@ -76,9 +59,7 @@ public:
 
 	virtual void OnImGuiRender() override
 	{
-		ImGui::Begin("Controls");
-		ImGui::Text("WASD to move the camera Up, Down, Left and Right");
-		ImGui::End();
+
 	}
 
 	void OnEvent(tnah::Event& event) override
@@ -96,11 +77,11 @@ public:
 	}
 
 private:
-	tnah::Ref<tnah::Shader> m_Shader;
-	tnah::Ref<tnah::VertexArray> m_VAO;
 
 	tnah::Scene* m_Scene;
 	tnah::GameObject m_Camera;
+	tnah::GameObject m_Terrain;
+	tnah::Ref<tnah::Shader> m_TerrainShader;
 
 	glm::vec3 m_CameraPosition;
 	float m_CameraMoveSpeed = 0.1f;

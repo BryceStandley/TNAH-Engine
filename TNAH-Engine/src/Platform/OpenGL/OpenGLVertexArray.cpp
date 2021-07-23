@@ -77,4 +77,9 @@ namespace tnah {
 		m_IndexBuffer = indexBuffer;
 	}
 
+	void OpenGLVertexArray::Delete() const
+	{
+		glDeleteVertexArrays(1, &m_RendererID);
+	}
+
 }
