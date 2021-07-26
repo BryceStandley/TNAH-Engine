@@ -15,7 +15,28 @@ public:
 		m_Camera.AddComponent<tnah::CameraComponent>();
 		m_Terrain = m_Scene->CreateGameObject();
 		m_Terrain.AddComponent<tnah::TerrainComponent>("assets/heightmap/1k.tga");
-		m_TerrainShader.reset(tnah::Shader::Create("assets/shaders/default_terrain.glsl"));
+		m_TerrainShader = tnah::Shader::Create("assets/shaders/default.glsl");
+
+		m_triangle = tnah::VertexArray::Create();
+		float points[3 * 3] = {
+			-0.5f, 0.0f, 0.0f,
+			0.5f, 0.0f, 0.0f,
+			0.0f, 0.5f, 0.0f
+		};
+		m_triangleVB.reset(tnah::VertexBuffer::Create(points, sizeof(points)));
+
+		uint32_t ind[3] = { 0,1,2 };
+		m_triangleIB.reset(tnah::IndexBuffer::Create(ind, sizeof(ind) / sizeof(uint32_t)));
+
+
+		tnah::BufferLayout layout = {
+		{ tnah::ShaderDataType::Float3, "a_Position" }
+		};
+		m_triangleVB->SetLayout(layout);
+		m_triangle->AddVertexBuffer(m_triangleVB);
+		
+		m_triangle->SetIndexBuffer(m_triangleIB);
+		m_triangleShader = tnah::Shader::Create("assets/shaders/default.glsl");
 
 	}
 
@@ -40,18 +61,26 @@ public:
 			m_Camera.GetComponent<tnah::TransformComponent>().Position.x -= m_CameraMoveSpeed * deltaTime.GetSeconds();
 		}
 
+		glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
+
 		tnah::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1.0f });
 		tnah::RenderCommand::Clear();		
-		glm::mat4 transform = m_Camera.GetComponent<tnah::TransformComponent>().GetTransform();
-		tnah::Renderer::BeginScene(m_Camera.GetComponent<tnah::CameraComponent>().Camera, transform);
-		tnah::Renderer::EndScene();
+
+		auto transform = m_Terrain.GetComponent<tnah::TransformComponent>();
+		transform.Position -= 10;
+
+		auto cc = m_Camera.GetComponent<tnah::CameraComponent>();
+		cc.Camera.SetViewportSize(1280, 720);
+		auto camTransform = m_Camera.GetComponent<tnah::TransformComponent>().GetTransform();
+		tnah::Renderer::BeginScene(m_Camera.GetComponent<tnah::CameraComponent>().Camera, camTransform);
 
 
-		m_Camera.GetComponent<tnah::TransformComponent>().Position.z -= 10.0f;
-		transform = m_Camera.GetComponent<tnah::TransformComponent>().GetTransform();
-		tnah::Renderer::BeginScene(m_Camera.GetComponent<tnah::CameraComponent>().Camera, transform);
+		glm::mat4 terrainTransform = glm::translate(glm::mat4(1.0f), m_Terrain.GetComponent<tnah::TransformComponent>().Position) * scale;
+
 		tnah::Terrain* terrain = m_Terrain.GetComponent<tnah::TerrainComponent>().SceneTerrain;
-		tnah::Renderer::Submit(terrain->GetVertexArray(), m_TerrainShader);
+		
+		tnah::Renderer::Submit(m_triangle, m_triangleShader, terrainTransform);
+		tnah::Renderer::Submit(terrain->GetVertexArray(), m_TerrainShader, terrainTransform);
 
 		tnah::Renderer::EndScene();
 
@@ -86,6 +115,12 @@ private:
 	glm::vec3 m_CameraPosition;
 	float m_CameraMoveSpeed = 0.1f;
 	glm::vec3 m_CameraRotationRadians = glm::vec3(0);
+
+
+	tnah::Ref<tnah::VertexArray> m_triangle;
+	tnah::Ref<tnah::VertexBuffer> m_triangleVB;
+	tnah::Ref<tnah::IndexBuffer> m_triangleIB;
+	tnah::Ref<tnah::Shader> m_triangleShader;
 };
 
 class Editor : public tnah::Application

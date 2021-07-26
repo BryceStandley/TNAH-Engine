@@ -1,14 +1,14 @@
 #type vertex
 #version 330 core
 layout (location = 0) in vec3 a_Position;
-layout (location = 1) in vec3 a_Color;
-layout (location = 2) in vec3 a_TextureCoord;
-layout (location = 3) in vec3 a_Normal;
+//layout (location = 1) in vec3 a_Color;
+//layout (location = 2) in vec3 a_TextureCoord;
+//layout (location = 3) in vec3 a_Normal;
 
-out vec3 v_Color;
+//out vec3 v_Color;
 //out vec2 texCoord;
 //out vec3 Normal;
-//out vec3 v_Position;
+out vec3 v_Position;
 //out float height;
 
 uniform mat4 u_ViewProjection;
@@ -17,13 +17,13 @@ uniform mat4 u_Transform;
 
 void main()
 {
-	//v_Position = a_Position;
+	v_Position = a_Position;
 	gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0f);
-	vec3 Normal = mat3(transpose(inverse(u_Transform))) * a_Normal;
+	//vec3 Normal = mat3(transpose(inverse(u_Transform))) * a_Normal;
 
 	//texCoord = vec2(a_TextureCoord.x, a_TextureCoord.z);
 	//height = a_Color.y * 255;
-	v_Color = a_Color;
+	//v_Color = a_Color;
 	
 }
 
@@ -31,11 +31,11 @@ void main()
 #version 330 core
 layout(location = 0) out vec4 color;
 
-in vec3 v_Color;
+//in vec3 v_Color;
 //in vec2 texCoord;
 //in float height;
 //in vec3 Normal;
-//in vec3 v_Position;
+in vec3 v_Position;
 
 //uniform vec3 lightPos;
 //uniform vec3 u_Transform;
@@ -106,5 +106,5 @@ void main()
 
 	FragColor = (FragColor * detail) * vec4(result, 1.0f);
 	*/
-	color = vec4(v_Color,1.0f);//vec4(1.0f, 1.0f, 1.0f, 1.0f);
+	color = vec4(1.0f, 1.0f, 1.0f, 1.0f);//vec4(1.0f, 1.0f, 1.0f, 1.0f);
 }

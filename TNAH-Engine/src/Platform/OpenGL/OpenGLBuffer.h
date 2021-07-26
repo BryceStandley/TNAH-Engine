@@ -8,6 +8,7 @@ namespace tnah {
 	{
 	public:
 		OpenGLVertexBuffer(float* vertices, uint32_t size);
+		OpenGLVertexBuffer(std::vector<glm::vec3> vertices, uint32_t size);
 		virtual ~OpenGLVertexBuffer();
 
 		virtual void Bind() const override;

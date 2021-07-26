@@ -20,7 +20,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="assets\shaders\Default.glsl" />
+    <None Include="assets\shaders\default.glsl" />
     <None Include="assets\shaders\default_terrain.glsl" />
   </ItemGroup>
 </Project>

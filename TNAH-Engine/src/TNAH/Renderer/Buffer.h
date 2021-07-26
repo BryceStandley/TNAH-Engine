@@ -1,5 +1,5 @@
 #pragma once
-
+#include <glm/glm.hpp>
 namespace tnah {
 
 	enum class ShaderDataType
@@ -114,6 +114,7 @@ namespace tnah {
 		virtual void Delete() const = 0;
 
 		static VertexBuffer* Create(float* vertices, uint32_t size);
+		static VertexBuffer* Create(std::vector<glm::vec3> vertices, uint32_t size);
 	};
 
 	class IndexBuffer

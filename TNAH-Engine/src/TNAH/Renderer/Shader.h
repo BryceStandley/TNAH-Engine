@@ -13,7 +13,7 @@ namespace tnah {
 
 
 		static Shader* Create(const std::string& vertexSrc, const std::string& fragmentSrc);
-		static Shader* Create(const std::string& filePath);
+		static Ref<Shader> Create(const std::string& filePath);
 	private:
 		uint32_t m_RendererID;
 	};

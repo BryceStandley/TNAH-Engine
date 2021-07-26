@@ -34,7 +34,7 @@ namespace tnah {
 
 		inline const std::vector<glm::vec3> GetVertexPositions() { return m_TerrainInfo.position; }
 
-		inline const float* GetTotalData() { return m_TerrainVBOData; }
+		inline const std::vector<glm::vec3> GetTotalData() { return m_TerrainVBOData; }
 
 		inline const glm::vec2 GetSize() { return m_Size; }
 
@@ -44,9 +44,9 @@ namespace tnah {
 
 		inline const float GetVertexHeight(int x, int z);
 
-		inline const Ref<VertexArray> GetVertexArray() { return m_TerrainVAO; }
+		inline const Ref<VertexArray>& GetVertexArray() { return m_TerrainVAO; }
 
-		inline const Ref<VertexBuffer> GetVertedBuffer() { return m_TerrainVBO; }
+		inline const Ref<VertexBuffer>& GetVertedBuffer() { return m_TerrainVBO; }
 
 	private:
 		/**********************************************************************************************//**
@@ -102,7 +102,7 @@ namespace tnah {
 		TerrainInformation m_TerrainInfo;
 
 		/** @brief	Terrain information combined into a single vector for use in the vertex buffer*/
-		float* m_TerrainVBOData;
+		std::vector<glm::vec3> m_TerrainVBOData;
 		uint32_t* m_Indices;
 
 		glm::vec3 m_HighestPoint = glm::vec3(0.0f);

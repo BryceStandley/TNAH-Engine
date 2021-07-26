@@ -12,7 +12,7 @@ namespace tnah {
 	{
 		GenerateHeightmap(100, 100, 40);
 		Create();
-		m_TerrainVAO.reset(VertexArray::Create());
+		m_TerrainVAO = VertexArray::Create();
 		m_TerrainVBO.reset(VertexBuffer::Create(m_TerrainVBOData, sizeof(m_TerrainVBOData)));
 		BufferLayout layout = {
 			{ShaderDataType::Float3, "a_Position"},
@@ -29,14 +29,11 @@ namespace tnah {
 	{
 		if (LoadHeightField(heightmapFilePath))
 		{
+			m_TerrainVAO = VertexArray::Create();
 			Create();
-			m_TerrainVAO.reset(VertexArray::Create());
 			m_TerrainVBO.reset(VertexBuffer::Create(m_TerrainVBOData, sizeof(m_TerrainVBOData)));
 			BufferLayout layout = {
-				{ShaderDataType::Float3, "a_Position"},
-				{ShaderDataType::Float3, "a_Color"},
-				{ShaderDataType::Float3, "a_TextureCoord"},
-				{ShaderDataType::Float3, "a_Normal"}
+				{ShaderDataType::Float3, "a_Position"}
 			};
 			m_TerrainVBO->SetLayout(layout);
 			m_TerrainVAO->AddVertexBuffer(m_TerrainVBO);
@@ -48,13 +45,10 @@ namespace tnah {
 	{
 		GenerateHeightmap(width, maxHeight, minHeight);
 		Create();
-		m_TerrainVAO.reset(VertexArray::Create());
+		m_TerrainVAO = VertexArray::Create();
 		m_TerrainVBO.reset(VertexBuffer::Create(m_TerrainVBOData, sizeof(m_TerrainVBOData)));
 		BufferLayout layout = {
-			{ShaderDataType::Float3, "a_Position"},
-			{ShaderDataType::Float3, "a_Color"},
-			{ShaderDataType::Float3, "a_TextureCoord"},
-			{ShaderDataType::Float3, "a_Normal"}
+			{ShaderDataType::Float3, "a_Position"}
 		};
 		m_TerrainVBO->SetLayout(layout);
 		m_TerrainVAO->AddVertexBuffer(m_TerrainVBO);
@@ -76,15 +70,16 @@ namespace tnah {
 		SmoothTerrain(m_TerrainInfo);
 		GenerateVertexColors(m_TerrainInfo);
 		GenerateVertexTextureCoords(m_TerrainInfo);
-		GenerateVertexIndices(m_TerrainIBO);
 		GenerateVertexNormals(m_TerrainInfo);
+		GenerateVertexIndices(m_TerrainIBO);
 
-		m_TerrainVBOData = static_cast<float*>(malloc(m_TerrainInfo.position.size() * (sizeof(float) * 12)));
+		//m_TerrainVBOData = static_cast<float*>(malloc(m_TerrainInfo.position.size() * (sizeof(float) * 12)));
 
 		int k = 0;
 		for (int i = 0; i < m_TerrainInfo.position.size(); ++i)
 		{
-			m_TerrainVBOData[k]      = m_TerrainInfo.position[i].x;
+			/*
+			m_TerrainVBOData[k] = m_TerrainInfo.position[i].x;
 			m_TerrainVBOData[k + 1]  = m_TerrainInfo.position[i].y;
 			m_TerrainVBOData[k + 2]  = m_TerrainInfo.position[i].z;
 
@@ -100,12 +95,12 @@ namespace tnah {
 			m_TerrainVBOData[k + 10] = -m_TerrainInfo.normal[i].y;
 			m_TerrainVBOData[k + 11] = -m_TerrainInfo.normal[i].z;
 			k += 12;
-			/*
-			m_TerrainVBOData.emplace_back(m_TerrainInfo.position[i]);
-			m_TerrainVBOData.emplace_back(m_TerrainInfo.color[i]);
-			m_TerrainVBOData.emplace_back(m_TerrainInfo.texture[i]);
-			m_TerrainVBOData.emplace_back(-m_TerrainInfo.normal[i]);
 			*/
+			m_TerrainVBOData.emplace_back(m_TerrainInfo.position[i]);
+			//m_TerrainVBOData.emplace_back(m_TerrainInfo.color[i]);
+			//m_TerrainVBOData.emplace_back(m_TerrainInfo.texture[i]);
+			//m_TerrainVBOData.emplace_back(-m_TerrainInfo.normal[i]);
+			
 		}
 	}
 
@@ -237,7 +232,7 @@ namespace tnah {
 			m_Indices[i] = indices[i];
 		}
 		
-		IBO.reset(IndexBuffer::Create(m_Indices, sizeof(m_Indices)));
+		IBO.reset(IndexBuffer::Create(m_Indices, indices.size()));
 	}
 
 	void Terrain::GenerateVertexColors(TerrainInformation& terrainInformaion)

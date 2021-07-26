@@ -20,6 +20,18 @@ namespace tnah {
 		return nullptr;
 	}
 
+	VertexBuffer* VertexBuffer::Create(std::vector<glm::vec3> vertices, uint32_t size)
+	{
+		switch (Renderer::GetAPI())
+		{
+		case RendererAPI::API::None:    TNAH_CORE_ASSERT(false, "RendererAPI::None is currently not supported!"); return nullptr;
+		case RendererAPI::API::OpenGL:  return new OpenGLVertexBuffer(vertices, size);
+		}
+
+		TNAH_CORE_ASSERT(false, "Unknown RendererAPI!");
+		return nullptr;
+	}
+
 	IndexBuffer* IndexBuffer::Create(uint32_t* indices, uint32_t size)
 	{
 		switch (Renderer::GetAPI())

@@ -19,12 +19,12 @@ namespace tnah {
 	}
 
 
-	Shader* Shader::Create(const std::string& filePath)
+	Ref<Shader> Shader::Create(const std::string& filePath)
 	{
 		switch (Renderer::GetAPI())
 		{
 		case RendererAPI::API::None:    TNAH_CORE_ASSERT(false, "RendererAPI::None is not supported!"); return nullptr;
-		case RendererAPI::API::OpenGL:  return new OpenGLShader(filePath);
+		case RendererAPI::API::OpenGL:  return CreateRef<OpenGLShader>(filePath);
 		}
 
 		TNAH_CORE_ASSERT(false, "Unknown RendererAPI!");
