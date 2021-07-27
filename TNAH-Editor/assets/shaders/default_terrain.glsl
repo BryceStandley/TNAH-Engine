@@ -13,12 +13,13 @@ out vec3 v_Position;
 
 uniform mat4 u_ViewProjection;
 uniform mat4 u_Transform;
+uniform mat4 u_Model;
 
 
 void main()
 {
 	v_Position = a_Position;
-	gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0f);
+	gl_Position = u_ViewProjection * u_Model * vec4(a_Position, 1.0f);
 	//vec3 Normal = mat3(transpose(inverse(u_Transform))) * a_Normal;
 
 	//texCoord = vec2(a_TextureCoord.x, a_TextureCoord.z);

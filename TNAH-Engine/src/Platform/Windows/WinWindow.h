@@ -28,6 +28,14 @@ namespace tnah {
 		bool IsVSync() const override;
 
 		inline virtual void* GetNativeWindow() const { return m_Window; }
+
+		inline virtual void SetCursorDisabled(bool disable) override
+		{
+			if(disable)
+				glfwSetInputMode(m_Window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+			else
+				glfwSetInputMode(m_Window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+		}
 	private:
 		virtual void Init(const WindowProps& props);
 		virtual void Shutdown();

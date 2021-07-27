@@ -8,7 +8,7 @@
 
 namespace tnah
 {
-	class TNAH_API Log
+	class Log
 	{
 	public:
 

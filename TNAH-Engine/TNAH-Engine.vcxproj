@@ -12,11 +12,15 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLTexture.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLVertexArray.cpp" />
+    <ClCompile Include="src\TNAH\Renderer\Buffer.cpp" />
+    <ClCompile Include="src\TNAH\Renderer\GraphicsContext.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLRendererAPI.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLShader.cpp" />
-    <ClCompile Include="src\Platform\OpenGL\OpenGLVertexArray.cpp" />
+    <ClCompile Include="src\TNAH\Core\Math.cpp" />
     <ClCompile Include="src\TNAH\Core\UUID.cpp" />
-    <ClCompile Include="src\TNAH\Renderer\Buffer.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLGraphicsContext.cpp" />
     <ClCompile Include="src\TNAH\Core\Window.cpp" />
     <ClCompile Include="src\TNAH\Layers\EditorLayer.cpp" />
@@ -36,32 +40,37 @@
     <ClCompile Include="src\TNAH\Renderer\RenderCommand.cpp" />
     <ClCompile Include="src\TNAH\Renderer\Renderer.cpp" />
     <ClCompile Include="src\TNAH\Renderer\RendererAPI.cpp" />
+    <ClCompile Include="src\TNAH\Renderer\Texture.cpp" />
+    <ClCompile Include="src\TNAH\Renderer\VertexArray.cpp" />
     <ClCompile Include="src\TNAH\Scene\Components\TerrainComponent.cpp" />
     <ClCompile Include="src\TNAH\Scene\SceneCamera.cpp" />
     <ClCompile Include="src\TNAH\Renderer\Shader.cpp" />
-    <ClCompile Include="src\TNAH\Renderer\VertexArray.cpp" />
     <ClCompile Include="src\TNAH\Scene\GameObject.cpp" />
     <ClCompile Include="src\TNAH\Scene\Scene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLTexture.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLGraphicsContext.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLRendererAPI.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLShader.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLVertexArray.h" />
     <ClInclude Include="src\Platform\Windows\WinInput.h" />
+    <ClInclude Include="src\TNAH\Core\Buffer.h" />
     <ClInclude Include="src\TNAH\Core\Timer.h" />
     <ClInclude Include="src\TNAH\Core\Timestep.h" />
     <ClInclude Include="src\TNAH\Core\UUID.h" />
     <ClInclude Include="src\TNAH\Renderer\Buffer.h" />
     <ClInclude Include="src\TNAH\Renderer\Camera.h" />
+    <ClInclude Include="src\TNAH\Renderer\Texture.h" />
+    <ClInclude Include="src\TNAH\Renderer\VertexArray.h" />
     <ClInclude Include="src\TNAH\Scene\SceneCamera.h" />
     <ClInclude Include="src\TNAH\Renderer\GraphicsContext.h" />
     <ClInclude Include="src\TNAH\Renderer\RenderCommand.h" />
     <ClInclude Include="src\TNAH\Renderer\Renderer.h" />
     <ClInclude Include="src\TNAH\Renderer\RendererAPI.h" />
     <ClInclude Include="src\TNAH\Renderer\Shader.h" />
-    <ClInclude Include="src\TNAH\Renderer\VertexArray.h" />
     <ClInclude Include="src\TNAH\Scene\Components\AudioComponents.h" />
     <ClInclude Include="src\TNAH\Scene\Components\Components.h" />
     <ClInclude Include="src\TNAH\Core\Input.h" />

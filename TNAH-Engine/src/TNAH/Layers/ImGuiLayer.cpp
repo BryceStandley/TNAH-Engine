@@ -110,6 +110,11 @@ namespace tnah {
 	}
 
 
+	void ImGuiLayer::OnImGuiRender()
+	{
+		
+	}
+
 	void ImGuiLayer::SetDarkThemeColors()
 	{
 		auto& colors = ImGui::GetStyle().Colors;

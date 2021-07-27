@@ -1,8 +1,9 @@
 #pragma once
 #include "TNAH/Core/Core.h"
 #include <glm/glm.hpp>
-#include "Platform/OpenGL/OpenGLBuffer.h"
 #include "Platform/OpenGL/OpenGLVertexArray.h"
+#include "Platform/OpenGL/OpenGLBuffer.h"
+
 namespace tnah {
 	class Terrain
 	{
@@ -34,7 +35,7 @@ namespace tnah {
 
 		inline const std::vector<glm::vec3> GetVertexPositions() { return m_TerrainInfo.position; }
 
-		inline const std::vector<glm::vec3> GetTotalData() { return m_TerrainVBOData; }
+		inline const std::vector<glm::vec3>& GetTotalData() { return m_TerrainVBOData; }
 
 		inline const glm::vec2 GetSize() { return m_Size; }
 
@@ -103,7 +104,7 @@ namespace tnah {
 
 		/** @brief	Terrain information combined into a single vector for use in the vertex buffer*/
 		std::vector<glm::vec3> m_TerrainVBOData;
-		uint32_t* m_Indices;
+		std::vector<uint32_t> m_Indices;
 
 		glm::vec3 m_HighestPoint = glm::vec3(0.0f);
 		glm::vec3 m_LowestPoint = glm::vec3(0.0f);

@@ -37,13 +37,12 @@ namespace tnah {
 	template<typename T>
 	using Ref = std::shared_ptr<T>;
 	template<typename T, typename ... Args>
-	constexpr Ref<T> CreateRefCreateRef(Args&& ... args)
+	constexpr Ref<T> CreateRef(Args&& ... args)
 	{
 		return std::make_shared<T>(std::forward<Args>(args)...);
 	}
-
+	
 }
-
 
 #ifdef TNAH_DEBUG
 #if defined(TNAH_PLATFORM_WINDOWS)

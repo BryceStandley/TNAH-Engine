@@ -18,7 +18,7 @@ namespace tnah
 		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
 
 
-		//Renderer::Init();
+		Renderer::Init();
 
 		m_ImGuiLayer = new ImGuiLayer();
 		PushOverlay(m_ImGuiLayer);
@@ -39,9 +39,12 @@ namespace tnah
 			Timestep timestep = time - m_DeltaTime;
 			m_DeltaTime = time;
 
-			for (Layer* layer : m_LayerStack)
+			if (!m_Minimized)
 			{
-				layer->OnUpdate(timestep);
+				for (Layer* layer : m_LayerStack)
+				{
+					layer->OnUpdate(timestep);
+				}
 			}
 
 			m_ImGuiLayer->Begin();
@@ -62,9 +65,25 @@ namespace tnah
 		return true;
 	}
 
+	bool Application::OnWindowResize(WindowResizeEvent& e)
+	{
+		const uint32_t width = e.GetWidth(), height = e.GetHeight();
+		if (width == 0 || height == 0)
+		{
+			m_Minimized = true;
+			return false;
+		}
+
+		RenderCommand::SetViewport(0, 0, width, height);
+
+		m_Minimized = false;
+		return false;
+	}
+
 	void Application::OnEvent(Event& e)
 	{
 		EventDispatcher dispatcher(e);
+		dispatcher.Dispatch<WindowResizeEvent>(BIND_EVENT_FN(OnWindowResize));
 		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClose));
 
 

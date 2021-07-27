@@ -156,7 +156,7 @@ namespace tnah {
 		 * @returns	The entity identifier.
 		 **************************************************************************************************/
 
-		entt::entity GetEntityID() { return m_EntityID; }
+		entt::entity GetID() { return m_EntityID; }
 
 		TransformComponent& Transform() { return m_Scene->m_Registry.get<TransformComponent>(m_EntityID); }
 		const glm::mat4& Transform() const { return m_Scene->m_Registry.get<TransformComponent>(m_EntityID).GetTransform(); }
@@ -210,7 +210,6 @@ namespace tnah {
 		}
 
 		UUID GetUUID() { return GetComponent<IDComponent>().ID; }
-		UUID GetSceneUUID() { return m_Scene->GetUUID(); }
 	private:
 		GameObject(const std::string& name);
 	private:

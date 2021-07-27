@@ -2,7 +2,6 @@
 
 #include "TNAH/Renderer/VertexArray.h"
 
-
 namespace tnah {
 
 	class OpenGLVertexArray : public VertexArray
@@ -26,6 +25,4 @@ namespace tnah {
 		Ref<IndexBuffer> m_IndexBuffer;
 	};
 
-
 }
-

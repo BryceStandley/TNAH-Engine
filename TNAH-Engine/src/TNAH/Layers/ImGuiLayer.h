@@ -61,6 +61,9 @@ namespace tnah {
 		*/
 		virtual void OnEvent(Event& event) override;
 
+
+		virtual void OnImGuiRender() override;
+
 		void SetDarkThemeColors();
 
 	private:

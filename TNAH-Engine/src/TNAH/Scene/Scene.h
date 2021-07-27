@@ -4,6 +4,8 @@
 #include "TNAH/Core/UUID.h"
 #include "entt.hpp"
 #include <vector>
+#include "TNAH/Core/Timestep.h"
+#include "TNAH/Core/Math.h"
 
 namespace tnah {
 
@@ -27,16 +29,21 @@ namespace tnah {
 		 * @returns	The new game object.
 		 **************************************************************************************************/
 
-		GameObject CreateGameObject();
+		void OnUpdate(Timestep deltaTime);
+
+		glm::mat4 GetTransformRelativeToParent(GameObject gameObject);
+
+		GameObject CreateGameObject(const std::string& name);
 
 
-		UUID GetUUID() const { return m_SceneID; }
 		GameObject FindEntityByTag(const std::string& tag);
 		GameObject FindEntityByUUID(UUID id);
 
+		void DestryGameObject(GameObject gameObject);
+
 	private:
-		UUID m_SceneID;
 		entt::registry m_Registry;
+		std::unordered_map<UUID, GameObject> m_GameObjectsInScene;
 
 		friend class GameObject;
 	};

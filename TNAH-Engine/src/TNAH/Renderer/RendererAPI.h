@@ -1,7 +1,6 @@
 #pragma once
 #include <TNAH/Core/Core.h>
-#include <glm/glm.hpp>
-#include "VertexArray.h"
+#include "TNAH/Renderer/VertexArray.h"
 
 namespace tnah {
 

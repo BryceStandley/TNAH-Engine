@@ -13,14 +13,12 @@ namespace tnah {
 		GenerateHeightmap(100, 100, 40);
 		Create();
 		m_TerrainVAO = VertexArray::Create();
-		m_TerrainVBO.reset(VertexBuffer::Create(m_TerrainVBOData, sizeof(m_TerrainVBOData)));
+		m_TerrainVBO = VertexBuffer::Create(m_TerrainVBOData, sizeof(m_TerrainVBOData));
 		BufferLayout layout = {
-			{ShaderDataType::Float3, "a_Position"},
-			{ShaderDataType::Float3, "a_Color"},
-			{ShaderDataType::Float3, "a_TextureCoord"},
-			{ShaderDataType::Float3, "a_Normal"}
+			{ShaderDataType::Float3, "a_Position"}
 		};
 		m_TerrainVBO->SetLayout(layout);
+		m_TerrainVAO->Bind();
 		m_TerrainVAO->AddVertexBuffer(m_TerrainVBO);
 		m_TerrainVAO->SetIndexBuffer(m_TerrainIBO);
 	}
@@ -30,14 +28,16 @@ namespace tnah {
 		if (LoadHeightField(heightmapFilePath))
 		{
 			m_TerrainVAO = VertexArray::Create();
+			m_TerrainVAO->Bind();
 			Create();
-			m_TerrainVBO.reset(VertexBuffer::Create(m_TerrainVBOData, sizeof(m_TerrainVBOData)));
+			m_TerrainVBO = VertexBuffer::Create(m_TerrainVBOData, sizeof(m_TerrainVBOData));
 			BufferLayout layout = {
 				{ShaderDataType::Float3, "a_Position"}
 			};
 			m_TerrainVBO->SetLayout(layout);
 			m_TerrainVAO->AddVertexBuffer(m_TerrainVBO);
 			m_TerrainVAO->SetIndexBuffer(m_TerrainIBO);
+			m_TerrainVAO->Unbind();
 		}
 	}
 
@@ -46,11 +46,12 @@ namespace tnah {
 		GenerateHeightmap(width, maxHeight, minHeight);
 		Create();
 		m_TerrainVAO = VertexArray::Create();
-		m_TerrainVBO.reset(VertexBuffer::Create(m_TerrainVBOData, sizeof(m_TerrainVBOData)));
+		m_TerrainVBO = VertexBuffer::Create(m_TerrainVBOData, sizeof(m_TerrainVBOData));
 		BufferLayout layout = {
 			{ShaderDataType::Float3, "a_Position"}
 		};
 		m_TerrainVBO->SetLayout(layout);
+		m_TerrainVAO->Bind();
 		m_TerrainVAO->AddVertexBuffer(m_TerrainVBO);
 		m_TerrainVAO->SetIndexBuffer(m_TerrainIBO);
 	}
@@ -58,10 +59,6 @@ namespace tnah {
 	Terrain::~Terrain()
 	{
 		TNAH_CORE_ERROR("Terrain deconstructor called");
-		//delete[] m_TerrainVBOData;
-		//m_TerrainIBO->Delete();
-		//m_TerrainVBO->Delete();
-		//m_TerrainVAO->Delete();
 	}
 
 	void Terrain::Create()
@@ -73,8 +70,6 @@ namespace tnah {
 		GenerateVertexNormals(m_TerrainInfo);
 		GenerateVertexIndices(m_TerrainIBO);
 
-		//m_TerrainVBOData = static_cast<float*>(malloc(m_TerrainInfo.position.size() * (sizeof(float) * 12)));
-
 		int k = 0;
 		for (int i = 0; i < m_TerrainInfo.position.size(); ++i)
 		{
@@ -82,7 +77,7 @@ namespace tnah {
 			m_TerrainVBOData[k] = m_TerrainInfo.position[i].x;
 			m_TerrainVBOData[k + 1]  = m_TerrainInfo.position[i].y;
 			m_TerrainVBOData[k + 2]  = m_TerrainInfo.position[i].z;
-
+			
 			m_TerrainVBOData[k + 3]  = m_TerrainInfo.color[i].x;
 			m_TerrainVBOData[k + 4]  = m_TerrainInfo.color[i].y;
 			m_TerrainVBOData[k + 5]  = m_TerrainInfo.color[i].z;
@@ -203,7 +198,8 @@ namespace tnah {
 		{
 			for (int x = 0; x < m_Size.x; ++x)
 			{
-				glm::vec3 positions((float)x, GetHeight(x, z), (float)z);
+				// GetHeight(x, z)
+				glm::vec3 positions((float)x, 0.0f, (float)z);
 				m_TerrainInfo.position.push_back(positions);
 				if (positions.y > m_HighestPoint.y) { m_HighestPoint = glm::vec3(x, positions.y, z); }
 				if (positions.y < m_LowestPoint.y) { m_LowestPoint = glm::vec3(x, positions.y, z); }
@@ -213,26 +209,21 @@ namespace tnah {
 
 	void Terrain::GenerateVertexIndices(Ref<IndexBuffer>& IBO)
 	{
-		std::vector<uint32_t> indices;
 		for (unsigned int z = 0; z < m_Size.x - 1; ++z)
 		{
-			for (unsigned int x = 0; x < m_Size.x - 1; ++x) {
-				indices.push_back((x * m_Size.x + z));             // 0
-				indices.push_back(((x * m_Size.x + 1) + z));       // 1
-				indices.push_back((((x + 1) * m_Size.x) + z));     // 3
+			for (unsigned int x = 0; x < m_Size.x - 1; ++x) 
+			{
+				m_Indices.push_back((x * m_Size.x + z));             // 0
+				m_Indices.push_back(((x * m_Size.x + 1) + z));       // 1
+				m_Indices.push_back((((x + 1) * m_Size.x) + z));     // 3
 
-				indices.push_back(((x * m_Size.x + 1) + z));       // 1
-				indices.push_back(((x + 1) * m_Size.x) + (z + 1)); // 2
-				indices.push_back((((x + 1) * m_Size.x) + z));     // 3
+				m_Indices.push_back(((x * m_Size.x + 1) + z));       // 1
+				m_Indices.push_back(((x + 1) * m_Size.x) + (z + 1)); // 2
+				m_Indices.push_back((((x + 1) * m_Size.x) + z));     // 3
 			}
 		}
-		m_Indices = static_cast<uint32_t*>(malloc(indices.size() * sizeof(uint32_t)));
-		for (int i = 0; i < indices.size(); i++)
-		{
-			m_Indices[i] = indices[i];
-		}
-		
-		IBO.reset(IndexBuffer::Create(m_Indices, indices.size()));
+
+		m_TerrainIBO = IndexBuffer::Create(m_Indices, m_Indices.size());
 	}
 
 	void Terrain::GenerateVertexColors(TerrainInformation& terrainInformaion)

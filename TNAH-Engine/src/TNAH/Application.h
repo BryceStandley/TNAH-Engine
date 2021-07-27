@@ -9,8 +9,6 @@
 #include "TNAH/Core/Timestep.h"
 
 #include "Layers/ImGuiLayer.h"
-#include "TNAH/Renderer/Buffer.h"
-#include "TNAH/Renderer/VertexArray.h"
 #include "TNAH/Renderer/Shader.h"
 #include "TNAH/Renderer/Renderer.h"
 
@@ -43,7 +41,7 @@ namespace tnah
 
 		virtual void Run();
 
-		void OnEvent(Event& e);
+		virtual void OnEvent(Event& e);
 
 		void PushLayer(Layer* layer);
 		void PushOverlay(Layer* overlay);
@@ -55,10 +53,12 @@ namespace tnah
 
 	private:
 		bool OnWindowClose(WindowCloseEvent& e);
+		bool OnWindowResize(WindowResizeEvent& e);
 
 		ApplicationCommandLineArgs m_CommandLineArgs;
 		Scope<Window> m_Window;
 		bool m_Running = true;
+		bool m_Minimized = false;
 		LayerStack m_LayerStack;
 		ImGuiLayer* m_ImGuiLayer;
 		float m_DeltaTime = 0.0f;

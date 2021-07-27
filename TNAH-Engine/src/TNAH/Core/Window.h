@@ -37,6 +37,8 @@ namespace tnah
 
 		virtual void* GetNativeWindow() const = 0;
 
+		virtual void SetCursorDisabled(bool disable) = 0;
+
 		static Scope<Window> Create(const WindowProps& props = WindowProps());
 	};
 
