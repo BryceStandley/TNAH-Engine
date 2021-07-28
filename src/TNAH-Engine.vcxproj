@@ -70,7 +70,7 @@
     </Link>
     <PostBuildEvent>
       <Command>XCOPY "$(SolutionDir)res\" "$(OutDir)res\" /E /Y
-XCOPY "$(SolutionDir)lib\*.dll" "$(OutDir)"</Command>
+XCOPY "$(SolutionDir)lib\*.dll" "$(OutDir)" /E /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">

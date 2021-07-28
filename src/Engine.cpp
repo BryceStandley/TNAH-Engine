@@ -162,24 +162,24 @@ Engine::Engine()
 	//Init the debug gui if its enabled
 	if (debugMode) { debugGui = new DebugGUI("./res/scripts/menus/debug.lua"); }
 	Debugger::GetInstance()->OpenLogger();
-    mainMenuGui = MainMenuGUI::GetInstance();
+	mainMenuGui = MainMenuGUI::GetInstance();
 
-    currentScene = 0;
+	currentScene = 0;
 	Scene* scene = new Scene("World", render);
-    gameScenes.push_back(scene);
+	gameScenes.push_back(scene);
 
-    gameScenes[currentScene]->SetGameWindow((GlfwWindow*)window);
+	gameScenes[currentScene]->SetGameWindow((GlfwWindow*)window);
 
-    mainMenuGui->DisplayMainMenu();
-    mainMenuGui->previousMenu = MainMenuGUI::MainMenu;
+	mainMenuGui->DisplayMainMenu();
+	mainMenuGui->previousMenu = MainMenuGUI::MainMenu;
 
-    render->SetUpReactDebugger(PhysicsManager::GetInstance()->GetDebugRenderer());
+	render->SetUpReactDebugger(PhysicsManager::GetInstance()->GetDebugRenderer());
 
 }
 
 Engine::~Engine()
 {
-    if (window != nullptr) { delete[] window; }
+	if (window != nullptr) { delete[] window; }
 }
 
 void Engine::Run()
@@ -198,103 +198,103 @@ void Engine::Run()
 
 			//Add scene loading and deloading
 			GameTimer::getInstance().UpdateTime(window->GetCurrentTime());
-            //Imgui new frame
-            ImGui_ImplOpenGL3_NewFrame();
-            ImGui_ImplGlfw_NewFrame();
-            ImGui::NewFrame();
+			//Imgui new frame
+			ImGui_ImplOpenGL3_NewFrame();
+			ImGui_ImplGlfw_NewFrame();
+			ImGui::NewFrame();
 
-            deltaTime = window->GetTime();
-            window->Update();
+			deltaTime = window->GetTime();
+			window->Update();
 			PhysicsManager::GetInstance()->Update(PhysicsManager::GetInstance()->physicsUpdateTimeStep);
-            render->UpdateReactDebugVBO();
+			render->UpdateReactDebugVBO();
 
-            if(mainMenuGui->newGameClicked)
-            {
-            	if(!gameScenes[0]->loaded)
-	            {
-		            std::string path = "./res/scripts/scene.lua";
-		            LoadScene(path);
-		            mainMenuGui->newGameClicked = false;
-		            mainMenuGui->HideMenus();
-	            }
-            	else if(mainMenuGui->playAgainClicked)
-	            {
-            		window->UpdateCamera(glm::vec3((52.0f * 12) / 2, 4.0f, (52.0f * 12) / 2));
+			if(mainMenuGui->newGameClicked)
+			{
+				if(!gameScenes[0]->loaded)
+				{
+					std::string path = "./res/scripts/scene.lua";
+					LoadScene(path);
+					mainMenuGui->newGameClicked = false;
+					mainMenuGui->HideMenus();
+				}
+				else if(mainMenuGui->playAgainClicked)
+				{
+					window->UpdateCamera(glm::vec3((52.0f * 12) / 2, 4.0f, (52.0f * 12) / 2));
 
 					gameScenes.clear();
-		            currentScene = 0;
-		            Scene* scene = new Scene("World", render);
-		            gameScenes.push_back(scene);
+					currentScene = 0;
+					Scene* scene = new Scene("World", render);
+					gameScenes.push_back(scene);
 
-		            std::string path = "./res/scripts/scene.lua";
-		            LoadScene(path);
-		            mainMenuGui->newGameClicked = false;
-		            mainMenuGui->playAgainClicked = false;
-		            mainMenuGui->mainMenuClosed = false;
-		            mainMenuGui->HideMenus();
-	            }
-            }
+					std::string path = "./res/scripts/scene.lua";
+					LoadScene(path);
+					mainMenuGui->newGameClicked = false;
+					mainMenuGui->playAgainClicked = false;
+					mainMenuGui->mainMenuClosed = false;
+					mainMenuGui->HideMenus();
+				}
+			}
 
-            if(mainMenuGui->loadGameClicked)
-            {
-                if(gameScenes[0]->LoadSaveFile())
-                {
-	                mainMenuGui->loadGameClicked = false;
-	                mainMenuGui->HideMenus();
-                }
-                else
-                {
-                	mainMenuGui->noSaveFileFound = true;
-                }
-            }
-
-
-
-            //Check if a scene is loaded before trying to render or run the scene per frame
-                ExitScreen e = gameScenes[currentScene]->GetExitScreen();
-                e.SetExitScreenDisplay(window->GetDisplay());
-                if(mainMenuGui->endScreenButtonClicked) e.exitScreenDisplay = mainMenuGui->endScreenButtonClicked;
-                gameScenes[currentScene]->SetExitScreen(e);
-
-                Weapon w = gameScenes[currentScene]->GetPlayerWeapon();
-                w.firingWeapon = window->GetWeaponFire();
-                gameScenes[currentScene]->SetPlayerWeapon(w);
-
-
-                gameScenes[currentScene]->Run(window->GetLens(), deltaTime, false);
-                if(gameScenes[currentScene]->loaded)
-                {
-	                glm::vec3 pos = gameScenes[currentScene]->GetGameObject(
-			                gameScenes[currentScene]->GetPlayerIndice())->GetPos();
-	                window->UpdateCamera(pos);
-                }
-                window->GameInput(deltaTime);
-                window->MouseMove();
-
-                if (!mainMenuGui->displayingAMenu)
-                {
-                    gameScenes[currentScene]->RunPlayer(window->GetLens(), deltaTime, false);
-                    //build GUI elements
-                    if (debugGui && Debugger::GetInstance()->drawDebugPanel)
-                    {
-                        debugGui->Draw();
-                    }
-                }
-
-                if (mainMenuGui->saveGameClicked)
-                {
-                    gameScenes[0]->SaveGame();
-                    mainMenuGui->saveGameClicked = false;
-                }
+			if(mainMenuGui->loadGameClicked)
+			{
+				if(gameScenes[0]->LoadSaveFile())
+				{
+					mainMenuGui->loadGameClicked = false;
+					mainMenuGui->HideMenus();
+				}
+				else
+				{
+					mainMenuGui->noSaveFileFound = true;
+				}
+			}
 
 
 
+			//Check if a scene is loaded before trying to render or run the scene per frame
+				ExitScreen e = gameScenes[currentScene]->GetExitScreen();
+				e.SetExitScreenDisplay(window->GetDisplay());
+				if(mainMenuGui->endScreenButtonClicked) e.exitScreenDisplay = mainMenuGui->endScreenButtonClicked;
+				gameScenes[currentScene]->SetExitScreen(e);
 
-                //Render GUI
-                ImGui::Render();
-                ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+				Weapon w = gameScenes[currentScene]->GetPlayerWeapon();
+				w.firingWeapon = window->GetWeaponFire();
+				gameScenes[currentScene]->SetPlayerWeapon(w);
 
-                window->Buffer();
+
+				gameScenes[currentScene]->Run(window->GetLens(), deltaTime, false);
+				if(gameScenes[currentScene]->loaded)
+				{
+					glm::vec3 pos = gameScenes[currentScene]->GetGameObject(
+							gameScenes[currentScene]->GetPlayerIndice())->GetPos();
+					window->UpdateCamera(pos);
+				}
+				window->GameInput(deltaTime);
+				window->MouseMove();
+
+				if (!mainMenuGui->displayingAMenu)
+				{
+					gameScenes[currentScene]->RunPlayer(window->GetLens(), deltaTime, false);
+					//build GUI elements
+					if (debugGui && Debugger::GetInstance()->drawDebugPanel)
+					{
+						debugGui->Draw();
+					}
+				}
+
+				if (mainMenuGui->saveGameClicked)
+				{
+					gameScenes[0]->SaveGame();
+					mainMenuGui->saveGameClicked = false;
+				}
+
+
+
+
+				//Render GUI
+				ImGui::Render();
+				ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
+				window->Buffer();
 
 
 

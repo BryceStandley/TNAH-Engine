@@ -209,7 +209,7 @@ public:
 	/**
 	 * @brief moves all objects away from the player if they spawn to close to the player
 	 */
-    void MoveObjectAwayFromPlayer();
+	void MoveObjectAwayFromPlayer();
 	
 		/**
 		* @brief Runs the players information
@@ -226,13 +226,13 @@ public:
 		/**
 		* @brief Obstacle avoidance for the enemies
 		*/
-    glm::vec3 EnemyObstacleAvoidance(GameObject* self, glm::vec3 newPosition);
+	glm::vec3 EnemyObstacleAvoidance(GameObject* self, glm::vec3 newPosition);
 
 
 		/**
 		* @brief Shoots the gun
 		*/
-    void FireWeapon(glm::vec3 weaponStartPos, glm::vec3 forward, float fireDistance);
+	void FireWeapon(glm::vec3 weaponStartPos, glm::vec3 forward, float fireDistance);
 
 
 		/**
@@ -244,15 +244,15 @@ public:
 		/**
 		* @brief Sets the players weapon
 		*/
-    void SetPlayerWeapon(Weapon w){playerWeapon = w;}
+	void SetPlayerWeapon(Weapon w){playerWeapon = w;}
 
 
 		/**
 		* @brief returns the players weapon
 		*/
-    Weapon GetPlayerWeapon(){return playerWeapon;}
+	Weapon GetPlayerWeapon(){return playerWeapon;}
 
-    void SetGameWindow(GlfwWindow* w) { gameWindow = w;}
+	void SetGameWindow(GlfwWindow* w) { gameWindow = w;}
 	
 		/**
 		* @brief Saves the game
@@ -286,7 +286,7 @@ public:
 		savefile.close();
 	}
 
-    bool loaded;
+	bool loaded;
 
 private:
 

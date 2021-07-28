@@ -292,8 +292,6 @@ void Scene::Init()
 	gameTerrain->Init();	
 	gameTerrain->setTextures();
 
-	gameTerrain->generateTerrain();
-
 	gameSkybox = new Skybox();
 	factory = new GameAssetFactory(gameRenderer);
 	gameRenderer->TerrainSetup(gameTerrain->GetTotalData(), gameTerrain->GetIndicies(), gameTerrain->VAO, gameTerrain->VBO, gameTerrain->EBO);
