@@ -25,7 +25,7 @@ namespace tnah {
 		TNAH_CORE_INFO("  Renderer: {0}", glGetString(GL_RENDERER));
 		TNAH_CORE_INFO("  Version: {0}", glGetString(GL_VERSION));
 
-		TNAH_CORE_ASSERT(GLVersion.major > 4 || (GLVersion.major == 4 && GLVersion.minor >= 5), "tnah requires at least OpenGL version 4.5!");
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	}
 
 	void OpenGLContext::SwapBuffers()

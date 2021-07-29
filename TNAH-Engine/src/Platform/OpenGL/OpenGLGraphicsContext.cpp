@@ -23,13 +23,12 @@ namespace tnah {
 		TNAH_CORE_INFO("Vendor: {0}", glGetString(GL_VENDOR));
 		TNAH_CORE_INFO("Renderer: {0}", glGetString(GL_RENDERER));
 		TNAH_CORE_INFO("Version: {0}", glGetString(GL_VERSION));
-
-
 	}
 
 	void OpenGLGraphicsContext::SwapBuffers()
 	{
 		glfwSwapBuffers(m_Window);
+		glfwPollEvents();
 	}
 
 

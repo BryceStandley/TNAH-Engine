@@ -25,25 +25,49 @@ namespace tnah {
 
 	void Renderer::BeginScene(SceneCamera& camera)
 	{
-		s_SceneData->ViewProjectionMatrix = camera.GetProjectionMatrix() * camera.GetViewMatrix();
+		glm::mat4 projection = camera.GetProjectionMatrix();
+		glm::mat4 view = camera.GetViewMatrix();
+
+		s_SceneData->ViewProjectionMatrix = projection * view;
+	}
+
+	void Renderer::BeginScene(TempCamera& camera)
+	{
+		glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)1280 / (float)720, 0.1f, 10000.0f);
+		glm::mat4 projectionViewMatrix = projection * camera.GetViewMatrix();
+
+
+		s_SceneData->ViewProjectionMatrix = projectionViewMatrix;
 	}
 
 	void Renderer::EndScene()
 	{
 	}
 
-	void Renderer::Submit(const Ref<Shader>& shader, const Ref<VertexArray>& vertexArray, const glm::mat4& transform)
+	void Renderer::Submit(const Ref<Shader>& shader, const uint32_t VAO, const uint32_t VBO, const uint32_t IBO, const uint32_t indexSize, const glm::mat4& transform)
 	{
 
 		shader->Bind();
 		shader->SetMat4("u_ViewProjection", s_SceneData->ViewProjectionMatrix);
 		shader->SetMat4("u_Transform", transform);
-		glm::mat4 m = glm::mat4(1.0f);
-		m = glm::scale(m, glm::vec3(0.2f));
-		shader->SetMat4("u_Model", m);
 
-		vertexArray->Bind();
-		RenderCommand::DrawIndexed(vertexArray);
+		BindVertexArray(VAO);
+		RenderCommand::DrawIndexed(indexSize);
+	}
+
+	void Renderer::BindVertexArray(const uint32_t VAO)
+	{
+		RenderCommand::BindVAO(VAO);
+	}
+
+	void Renderer::BindVertexBuffer(const uint32_t VBO)
+	{
+		RenderCommand::BindVBO(VBO);
+	}
+
+	void Renderer::BindIndexBuffer(const uint32_t IBO)
+	{
+		RenderCommand::BindIBO(IBO);
 	}
 
 }

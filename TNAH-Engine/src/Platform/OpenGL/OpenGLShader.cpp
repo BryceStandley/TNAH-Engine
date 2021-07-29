@@ -25,6 +25,14 @@ namespace tnah {
 
 	}
 
+	OpenGLShader::OpenGLShader(const std::string& vertexSrcPath, const std::string& fragmentSrcPath)
+	{
+		std::unordered_map<GLenum, std::string> src;
+		src[GL_VERTEX_SHADER] = PreProcessPaths(vertexSrcPath);
+		src[GL_FRAGMENT_SHADER] = PreProcessPaths(fragmentSrcPath);
+		Compile(src);
+	}
+
 	OpenGLShader::OpenGLShader(const std::string& shaderFilePath)
 	{
 
@@ -75,6 +83,33 @@ namespace tnah {
 		return result;
 	}
 
+	std::string OpenGLShader::PreProcessPaths(const std::string& shaderSorceFilePath)
+	{
+		/// retrieve the vertex/fragment source code from filePath
+		std::string code;
+		std::ifstream file;
+
+		/// ensure ifstream objects can throw exceptions:
+		file.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+		try
+		{
+			/// open files
+			file.open(shaderSorceFilePath);
+			std::stringstream ss;
+			/// read file's buffer contents into streams
+			ss << file.rdbuf();
+			/// close file handlers
+			file.close();
+			/// convert stream into string
+			code = ss.str();
+		}
+		catch (std::ifstream::failure& e)
+		{
+			TNAH_CORE_ASSERT(false, "Shader failed to open/parse");
+		}
+		return code;
+	}
+
 
 	std::unordered_map<GLenum, std::string> OpenGLShader::PreProcess(const std::string& source)
 	{
@@ -102,22 +137,22 @@ namespace tnah {
 		return shaderSources;
 	}
 
-	void OpenGLShader::Compile(const std::unordered_map<GLenum, std::string>& shaderSources)
+	void OpenGLShader::Compile(const std::unordered_map<GLenum, std::string>& shaderSrc)
 	{
-
 		GLuint program = glCreateProgram();
-		TNAH_CORE_ASSERT(shaderSources.size() <= 2, "We only support 2 shaders for now");
-		std::array<GLenum, 2> glShaderIDs;
-		int glShaderIDIndex = 0;
-		for (auto& kv : shaderSources)
+		std::vector<GLenum> glShaderIDs(shaderSrc.size());
+
+		for (auto& kv : shaderSrc)
 		{
 			GLenum type = kv.first;
-			const std::string& source = kv.second;
+			const std::string& src = kv.second;
+
 
 			GLuint shader = glCreateShader(type);
 
-			const GLchar* sourceCStr = source.c_str();
+			const GLchar* sourceCStr = src.c_str();
 			glShaderSource(shader, 1, &sourceCStr, 0);
+
 
 			glCompileShader(shader);
 
@@ -128,26 +163,24 @@ namespace tnah {
 				GLint maxLength = 0;
 				glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &maxLength);
 
+				// The maxLength includes the NULL character
 				std::vector<GLchar> infoLog(maxLength);
 				glGetShaderInfoLog(shader, maxLength, &maxLength, &infoLog[0]);
 
+				// We don't need the shader anymore.
 				glDeleteShader(shader);
 
 				TNAH_CORE_ERROR("{0}", infoLog.data());
 				TNAH_CORE_ASSERT(false, "Shader compilation failure!");
 				break;
 			}
-
 			glAttachShader(program, shader);
-			glShaderIDs[glShaderIDIndex++] = shader;
+			glShaderIDs.push_back(shader);
+
 		}
 
-		m_ShaderID = program;
-
-		// Link our program
 		glLinkProgram(program);
 
-		// Note the different functions here: glGetProgram* instead of glGetShader*.
 		GLint isLinked = 0;
 		glGetProgramiv(program, GL_LINK_STATUS, (int*)&isLinked);
 		if (isLinked == GL_FALSE)
@@ -155,27 +188,29 @@ namespace tnah {
 			GLint maxLength = 0;
 			glGetProgramiv(program, GL_INFO_LOG_LENGTH, &maxLength);
 
-			// The maxLength includes the NULL character
 			std::vector<GLchar> infoLog(maxLength);
 			glGetProgramInfoLog(program, maxLength, &maxLength, &infoLog[0]);
 
-			// We don't need the program anymore.
 			glDeleteProgram(program);
 
 			for (auto id : glShaderIDs)
+			{
 				glDeleteShader(id);
+			}
 
 			TNAH_CORE_ERROR("{0}", infoLog.data());
 			TNAH_CORE_ASSERT(false, "Shader link failure!");
 			return;
 		}
+		m_ShaderID = program;
 
 		for (auto id : glShaderIDs)
 		{
 			glDetachShader(program, id);
-			glDeleteShader(id);
 		}
+
 	}
+
 
 
 	void OpenGLShader::Bind() const

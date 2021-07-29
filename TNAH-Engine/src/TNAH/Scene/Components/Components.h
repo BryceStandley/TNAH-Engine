@@ -96,13 +96,13 @@ namespace tnah {
 
 	struct CameraComponent
 	{
-		SceneCamera Camera = SceneCamera(glm::vec3(0.0f));
+		SceneCamera Camera = SceneCamera(glm::mat4(1.0f));
 		bool Primary = true;
 
 		CameraComponent() = default;
 		CameraComponent(const CameraComponent& other) = default;
-		CameraComponent(const glm::vec3& position)
-			: Camera(position) {}
+		CameraComponent(const glm::mat4& transform)
+			: Camera(transform) {}
 
 		operator SceneCamera& () { return Camera; }
 		operator const SceneCamera& () const { return Camera; }

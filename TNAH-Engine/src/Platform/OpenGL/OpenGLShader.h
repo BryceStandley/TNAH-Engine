@@ -20,6 +20,8 @@ namespace tnah {
 		*/
 		OpenGLShader(const std::string& shaderFilePath);
 
+		OpenGLShader(const std::string& vertexSrc, const std::string& fragmentSrc);
+
 		~OpenGLShader();
 
 		/**
@@ -92,6 +94,8 @@ namespace tnah {
 		std::unordered_map<GLenum, std::string> PreProcess(const std::string& source);
 		void Compile(const std::unordered_map<GLenum, std::string>& shaderSources);
 		std::string ReadFile(const std::string& filepath);
+
+		std::string PreProcessPaths(const std::string& shaderSorceFilePath);
 
 		uint32_t m_ShaderID;
 		std::string m_ShaderName;

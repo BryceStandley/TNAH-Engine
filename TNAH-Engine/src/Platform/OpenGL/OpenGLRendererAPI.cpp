@@ -7,39 +7,11 @@
 namespace tnah {
 
 
-	void OpenGLMessageCallback(
-		unsigned source,
-		unsigned type,
-		unsigned id,
-		unsigned severity,
-		int length,
-		const char* message,
-		const void* userParam)
-	{
-		switch (severity)
-		{
-		case GL_DEBUG_SEVERITY_HIGH:         TNAH_CORE_FATAL(message); return;
-		case GL_DEBUG_SEVERITY_MEDIUM:       TNAH_CORE_ERROR(message); return;
-		case GL_DEBUG_SEVERITY_LOW:          TNAH_CORE_WARN(message); return;
-		case GL_DEBUG_SEVERITY_NOTIFICATION: TNAH_CORE_TRACE(message); return;
-		}
-
-		TNAH_CORE_ASSERT(false, "Unknown severity level!");
-	}
-
 	void OpenGLRendererAPI::Init()
 	{
 
-#ifdef TNAH_DEBUG
-		glEnable(GL_DEBUG_OUTPUT);
-		glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
-		glDebugMessageCallback(OpenGLMessageCallback, nullptr);
-
-		glDebugMessageControl(GL_DONT_CARE, GL_DONT_CARE, GL_DEBUG_SEVERITY_NOTIFICATION, 0, NULL, GL_FALSE);
-#endif
-
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		//glEnable(GL_BLEND);
+		//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 		glPrimitiveRestartIndex(0xFFFFFFFFU);
 		glEnable(GL_PRIMITIVE_RESTART);
@@ -62,13 +34,29 @@ namespace tnah {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
 
-	void OpenGLRendererAPI::DrawIndexed(const Ref<VertexArray>& vertexArray, uint32_t indexCount)
+	void OpenGLRendererAPI::DrawIndexed(const uint32_t indexCount)
 	{
-		uint32_t count = indexCount ? indexCount : vertexArray->GetIndexBuffer()->GetCount();
-		glDrawElements(GL_TRIANGLES, count, GL_UNSIGNED_INT, nullptr);
+		glPrimitiveRestartIndex(0xFFFFFFFFU);
+		glEnable(GL_PRIMITIVE_RESTART);
+		glDrawElements(GL_TRIANGLES, indexCount, GL_UNSIGNED_INT, nullptr);
 		glBindVertexArray(0);
 		glActiveTexture(GL_TEXTURE0);
 	}
 
+
+	void OpenGLRendererAPI::BindVAO(const uint32_t VAO)
+	{
+		glBindVertexArray(VAO);
+	}
+
+	void OpenGLRendererAPI::BindVBO(const uint32_t VBO)
+	{
+		glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	}
+
+	void OpenGLRendererAPI::BindIBO(const uint32_t IBO)
+	{
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IBO);
+	}
 
 }

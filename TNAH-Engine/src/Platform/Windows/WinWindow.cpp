@@ -27,6 +27,8 @@ namespace tnah{
 
 		TNAH_INFO("Creating window {0} ({1}, {2})", props.Title, props.Width, props.Height);
 
+		
+
 		if (!s_GLFWInitialized)
 		{
 			// TODO: glfwTerminate on system shutdown
@@ -36,6 +38,13 @@ namespace tnah{
 
 			s_GLFWInitialized = true;
 		}
+
+
+		//Set the GLFW Open GL Context to version 3.2
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
+		//glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, 1);
+		//glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 		m_Window = glfwCreateWindow((int)props.Width, (int)props.Height, m_Data.Title.c_str(), nullptr, nullptr);
 

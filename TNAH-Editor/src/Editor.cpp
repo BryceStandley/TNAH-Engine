@@ -2,6 +2,8 @@
 
 #include <imgui.h>
 
+
+#include "TNAH/Temp/tempCamera.h"
 class TestLayer : public tnah::Layer
 {
 public:
@@ -12,77 +14,54 @@ public:
 		m_Scene = tnah::CreateRef<tnah::Scene>();
 		m_Camera = m_Scene->CreateGameObject("Camera");
 		auto& m_CameaTransform = m_Camera.GetComponent<tnah::TransformComponent>();
-		m_Camera.AddComponent<tnah::CameraComponent>(m_CameaTransform.Position);
+		auto& m_cam = m_Camera.AddComponent<tnah::CameraComponent>(m_CameaTransform.GetTransform());
+
 
 		m_Terrain = m_Scene->CreateGameObject("Terrain");
 		m_Terrain.AddComponent<tnah::TerrainComponent>("assets/heightmap/1k.tga");
-		m_TerrainShader = tnah::Shader::Create("assets/shaders/default_terrain.glsl");
+		m_TerrainShader = tnah::Shader::Create("assets/shaders/terrain/terrain_vertex.glsl", "assets/shaders/terrain/terrain_fragment.glsl");
+		
+
+		std::vector<glm::vec3> triPoints;
+		triPoints.push_back(glm::vec3(-0.5f, 0.0f, 0.0f));
+		triPoints.push_back(glm::vec3(0.5f, 0.0f, 0.0f));
+		triPoints.push_back(glm::vec3(0.0f, 0.5f, 0.0f));
+
+
+		std::vector<uint32_t> triInd;
+		triInd.push_back(0);
+		triInd.push_back(1);
+		triInd.push_back(2);
 
 		m_triangle = tnah::VertexArray::Create();
-		float points[3 * 3] = {
-			-0.5f, 0.0f, 0.0f,
-			0.5f, 0.0f, 0.0f,
-			0.0f, 0.5f, 0.0f
-		};
-		m_triangle->Bind();
-		m_triangleVB = tnah::VertexBuffer::Create(points, sizeof(points));
-
-		std::vector<uint32_t> ind = { 0,1,2 };
-		m_triangleIB = tnah::IndexBuffer::Create(ind, sizeof(ind) / sizeof(uint32_t));
-		tnah::BufferLayout layout = {
-			{tnah::ShaderDataType::Float3, "a_Position"}
-		};
-		m_triangleVB->SetLayout(layout);
-		m_triangle->AddVertexBuffer(m_triangleVB);
-		m_triangle->SetIndexBuffer(m_triangleIB);
-		m_triangleShader = tnah::Shader::Create("assets/shaders/default.glsl");
+		triangle = m_triangle->OldGLSetup(triPoints, triInd);
+		m_triangleShader = tnah::Shader::Create("assets/shaders/default_vertex.glsl", "assets/shaders/default_fragment.glsl");
 	}
 
 	void OnUpdate(tnah::Timestep deltaTime) override
 	{
 		auto& cam = m_Camera.GetComponent<tnah::CameraComponent>().Camera;
 		auto& cameraTransform = m_Camera.GetComponent<tnah::TransformComponent>();
-		cam.SetCameraRefPosition(cameraTransform.Position);
-		std::unordered_map<std::string, glm::vec3> cameraMap = cam.OnUpdate(deltaTime, tnah::SceneCamera::CameraMovement::Still);
-
-		if (tnah::Input::IsKeyPressed(tnah::Key::W))
-		{
-			cameraMap = cam.OnUpdate(deltaTime, tnah::SceneCamera::CameraMovement::Forward);
-		}
-		else if (tnah::Input::IsKeyPressed(tnah::Key::S))
-		{
-			cameraMap = cam.OnUpdate(deltaTime, tnah::SceneCamera::CameraMovement::Backward);
-		}
+		cam.SetCameraRefTransform(cameraTransform.GetTransform());
 
 
-		if (tnah::Input::IsKeyPressed(tnah::Key::D))
-		{
-			cameraMap = cam.OnUpdate(deltaTime, tnah::SceneCamera::CameraMovement::Right);
-		}
-		else if (tnah::Input::IsKeyPressed(tnah::Key::A))
-		{
-			cameraMap = cam.OnUpdate(deltaTime, tnah::SceneCamera::CameraMovement::Left);
-		}
+		std::unordered_map<std::string, glm::vec3> camPos = cam.OnUpdate(deltaTime, tnah::SceneCamera::CameraMovement::Still);
+		cameraTransform.Forward = camPos["forward"];
+		cameraTransform.Up = camPos["up"];
+		cameraTransform.Right = camPos["right"];
+		cameraTransform.Position = camPos["position"];
 
+		auto& t = m_Terrain.GetComponent<tnah::TerrainComponent>();
+		std::unordered_map<std::string, uint32_t> terrainIDs = t.SceneTerrain->GetBufferIDs();
 
-		tnah::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1.0f });
-		tnah::RenderCommand::Clear();		
-		
-		//Update the transform of the camera with the modified information from the camera component
-		cameraTransform.Forward = cameraMap["forward"];
-		cameraTransform.Right = cameraMap["right"];
-		cameraTransform.Up = cameraMap["up"];
-		cameraTransform.Position = cameraMap["position"];
+		tnah::RenderCommand::Clear();
+		//cam.SetViewportSize(1280, 720);
+
 		tnah::Renderer::BeginScene(cam);
 
-		auto& terrain = m_Terrain.GetComponent<tnah::TerrainComponent>();
-		auto& terrainTransform = m_Terrain.GetComponent<tnah::TransformComponent>();
+		tnah::Renderer::Submit(m_TerrainShader, terrainIDs["VAO"], terrainIDs["VBO"], terrainIDs["IBO"], terrainIDs["IndexSize"], m_Terrain.GetComponent<tnah::TransformComponent>().GetTransform());
 
-		
-		tnah::Renderer::Submit(m_TerrainShader, terrain.SceneTerrain->GetVertexArray(), terrainTransform.GetTransform());
-
-		tnah::Renderer::Submit(m_triangleShader, m_triangle);
-
+		tnah::Renderer::Submit(m_triangleShader, triangle["VAO"], triangle["VBO"], triangle["IBO"], triangle["IndexSize"]);
 
 		tnah::Renderer::EndScene();
 
@@ -93,6 +72,7 @@ public:
 	virtual void OnImGuiRender() override
 	{
 		ImGui::Begin("Other Debug");
+		ImGui::SliderFloat3("Camera Position", glm::value_ptr(m_Camera.GetComponent<tnah::TransformComponent>().Position), 0, 1280);
 		ImGui::Text("%.1f", ImGui::GetIO().Framerate);
 		ImGui::End();
 	}
@@ -114,6 +94,7 @@ public:
 			if (height > 1080) { height = 1080; }
 
 			m_Camera.GetComponent<tnah::CameraComponent>().Camera.SetViewportSize(width, height);
+			tnah::RenderCommand::SetViewport(0, 0, width, height);
 		}
 
 		if (event.GetEventType() == tnah::EventType::MouseMoved)
@@ -144,6 +125,7 @@ private:
 	float m_CameraMoveSpeed = 1.0f;
 	glm::vec3 m_CameraRotationRadians = glm::vec3(0);
 
+	std::unordered_map<std::string, uint32_t> triangle;
 
 	tnah::Ref<tnah::VertexArray> m_triangle;
 	tnah::Ref<tnah::VertexBuffer> m_triangleVB;
@@ -157,8 +139,8 @@ public:
 	Editor()
 		:tnah::Application("TNAH Editor")
 	{
-		//Disable the corsor on launch
-		GetWindow().SetCursorDisabled(true);
+		//Disable the cursor on launch
+		GetWindow().SetCursorDisabled(false);
 		TestLayer* editor = new TestLayer();
 		PushOverlay(editor);
 	}

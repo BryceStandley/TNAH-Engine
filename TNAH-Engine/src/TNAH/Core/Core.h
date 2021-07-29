@@ -42,6 +42,7 @@ namespace tnah {
 		return std::make_shared<T>(std::forward<Args>(args)...);
 	}
 	
+
 }
 
 #ifdef TNAH_DEBUG

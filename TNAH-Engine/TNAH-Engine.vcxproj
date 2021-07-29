@@ -16,6 +16,7 @@
     <ClCompile Include="src\Platform\OpenGL\OpenGLTexture.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLVertexArray.cpp" />
     <ClCompile Include="src\TNAH\Renderer\Buffer.cpp" />
+    <ClCompile Include="src\TNAH\Renderer\Camera.cpp" />
     <ClCompile Include="src\TNAH\Renderer\GraphicsContext.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLRendererAPI.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLShader.cpp" />
@@ -36,7 +37,6 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="src\TNAH\Renderer\Camera.cpp" />
     <ClCompile Include="src\TNAH\Renderer\RenderCommand.cpp" />
     <ClCompile Include="src\TNAH\Renderer\Renderer.cpp" />
     <ClCompile Include="src\TNAH\Renderer\RendererAPI.cpp" />
@@ -99,6 +99,7 @@
     <ClInclude Include="src\TNAH\Scene\GameObject.h" />
     <ClInclude Include="src\TNAH\Scene\Components\TerrainComponent.h" />
     <ClInclude Include="src\TNAH\Scene\Scene.h" />
+    <ClInclude Include="src\TNAH\Temp\tempCamera.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Glad\Glad.vcxproj">

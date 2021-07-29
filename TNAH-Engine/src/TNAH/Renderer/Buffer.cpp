@@ -20,24 +20,12 @@ namespace tnah {
 		return nullptr;
 	}
 
-	Ref<VertexBuffer> VertexBuffer::Create(float* vertices, uint32_t size)
-	{
-		switch (Renderer::GetAPI())
-		{
-			case RendererAPI::API::None:    TNAH_CORE_ASSERT(false, "RendererAPI::None is currently not supported!"); return nullptr;
-			case RendererAPI::API::OpenGL:  return CreateRef<OpenGLVertexBuffer>(vertices, size);
-		}
-
-		TNAH_CORE_ASSERT(false, "Unknown RendererAPI!");
-		return nullptr;
-	}
-
-	Ref<VertexBuffer> VertexBuffer::Create(std::vector<glm::vec3> vertices, uint32_t size)
+	Ref<VertexBuffer> VertexBuffer::Create()
 	{
 		switch (Renderer::GetAPI())
 		{
 		case RendererAPI::API::None:    TNAH_CORE_ASSERT(false, "RendererAPI::None is currently not supported!"); return nullptr;
-		case RendererAPI::API::OpenGL:  return CreateRef<OpenGLVertexBuffer>(vertices, size);
+		case RendererAPI::API::OpenGL:  return CreateRef<OpenGLVertexBuffer>();
 		}
 
 		TNAH_CORE_ASSERT(false, "Unknown RendererAPI!");
@@ -50,6 +38,18 @@ namespace tnah {
 		{
 			case RendererAPI::API::None:    TNAH_CORE_ASSERT(false, "RendererAPI::None is currently not supported!"); return nullptr;
 			case RendererAPI::API::OpenGL:  return CreateRef<OpenGLIndexBuffer>(indices, size);
+		}
+
+		TNAH_CORE_ASSERT(false, "Unknown RendererAPI!");
+		return nullptr;
+	}
+
+	Ref<IndexBuffer> IndexBuffer::Create()
+	{
+		switch (Renderer::GetAPI())
+		{
+		case RendererAPI::API::None:    TNAH_CORE_ASSERT(false, "RendererAPI::None is currently not supported!"); return nullptr;
+		case RendererAPI::API::OpenGL:  return CreateRef<OpenGLIndexBuffer>();
 		}
 
 		TNAH_CORE_ASSERT(false, "Unknown RendererAPI!");

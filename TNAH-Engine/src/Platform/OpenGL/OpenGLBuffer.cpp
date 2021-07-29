@@ -13,41 +13,30 @@ namespace tnah {
 
 	OpenGLVertexBuffer::OpenGLVertexBuffer(uint32_t size)
 	{
-		 
-
-		glGenBuffers(1, &m_RendererID);
-		glBindBuffer(GL_ARRAY_BUFFER, m_RendererID);
+	
+		glGenBuffers(1, &m_VBOID);
+		glBindBuffer(GL_ARRAY_BUFFER, m_VBOID);
 		glBufferData(GL_ARRAY_BUFFER, size, nullptr, GL_DYNAMIC_DRAW);
 	}
 
-	OpenGLVertexBuffer::OpenGLVertexBuffer(float* vertices, uint32_t size)
+	OpenGLVertexBuffer::OpenGLVertexBuffer()
 	{
-		 
+		glGenBuffers(1, &m_VBOID);
 
-		glGenBuffers(1, &m_RendererID);
-		glBindBuffer(GL_ARRAY_BUFFER, m_RendererID);
-		glBufferData(GL_ARRAY_BUFFER, size, vertices, GL_STATIC_DRAW);
-	}
-
-	OpenGLVertexBuffer::OpenGLVertexBuffer(std::vector<glm::vec3>& vertices, uint32_t size)
-	{
-		glGenBuffers(1, &m_RendererID);
-		glBindBuffer(GL_ARRAY_BUFFER, m_RendererID);
-		glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(glm::vec3), &vertices[0], GL_STATIC_DRAW);
 	}
 
 	OpenGLVertexBuffer::~OpenGLVertexBuffer()
 	{
 		 
 
-		glDeleteBuffers(1, &m_RendererID);
+		glDeleteBuffers(1, &m_VBOID);
 	}
 
 	void OpenGLVertexBuffer::Bind() const
 	{
 		 
 
-		glBindBuffer(GL_ARRAY_BUFFER, m_RendererID);
+		glBindBuffer(GL_ARRAY_BUFFER, m_VBOID);
 	}
 
 	void OpenGLVertexBuffer::Unbind() const
@@ -57,10 +46,10 @@ namespace tnah {
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 	}
 
-	void OpenGLVertexBuffer::SetData(const void* data, uint32_t size)
+	void OpenGLVertexBuffer::SetData(const std::vector<glm::vec3>& data, uint32_t size) const
 	{
-		glBindBuffer(GL_ARRAY_BUFFER, m_RendererID);
-		glBufferSubData(GL_ARRAY_BUFFER, 0, size, data);
+		glBindBuffer(GL_ARRAY_BUFFER, m_VBOID);
+		glBufferData(GL_ARRAY_BUFFER, data.size() * sizeof(glm::vec3), &data[0], GL_STATIC_DRAW);
 	}
 
 	/////////////////////////////////////////////////////////////////////////////
@@ -72,26 +61,31 @@ namespace tnah {
 	{
 		 
 
-		glCreateBuffers(1, &m_RendererID);
+		glCreateBuffers(1, &m_IBOID);
 		
 		// GL_ELEMENT_ARRAY_BUFFER is not valid without an actively bound VAO
 		// Binding with GL_ARRAY_BUFFER allows the data to be loaded regardless of VAO state. 
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_RendererID);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_IBOID);
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(uint32_t), &indices[0], GL_STATIC_DRAW);
+	}
+
+	OpenGLIndexBuffer::OpenGLIndexBuffer()
+	{
+		glGenBuffers(1, &m_IBOID);
 	}
 
 	OpenGLIndexBuffer::~OpenGLIndexBuffer()
 	{
 		 
 
-		glDeleteBuffers(1, &m_RendererID);
+		glDeleteBuffers(1, &m_IBOID);
 	}
 
 	void OpenGLIndexBuffer::Bind() const
 	{
 		 
 
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_RendererID);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_IBOID);
 	}
 
 	void OpenGLIndexBuffer::Unbind() const
@@ -99,6 +93,13 @@ namespace tnah {
 		 
 
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	}
+
+	void OpenGLIndexBuffer::SetData(const std::vector<uint32_t>& data)
+	{
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_IBOID);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, data.size() * sizeof(uint32_t), &data[0], GL_STATIC_DRAW);
+		m_Count = data.size();
 	}
 
 }

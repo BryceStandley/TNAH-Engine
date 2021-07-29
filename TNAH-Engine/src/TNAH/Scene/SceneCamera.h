@@ -11,7 +11,7 @@ namespace tnah {
 		enum class ProjectionType { Perspective = 0, Orthographic = 1 };
 		enum class CameraMovement { Forward = 0, Backward = 1, Left = 2, Right = 3, Still = 4};
 	public:
-		SceneCamera(const glm::vec3& position);
+		SceneCamera(const glm::mat4& transform);
 		void SetPerspective(float verticalFOV, float nearClip = 0.01f, float farClip = 1000.0f);
 		void SetOrthographic(float size, float nearClip = -1.0f, float farClip = 1.0f);
 		void SetViewportSize(uint32_t width, uint32_t height);
@@ -34,7 +34,7 @@ namespace tnah {
 		ProjectionType GetProjectionType() const { return m_ProjectionType; }
 		inline void SetMouseSensitivity(const float sensitivity) { m_MouseSensitivity = sensitivity; }
 		inline void SetMovementSpeed(const float speed) { m_MovementSpeed = speed; }
-		inline void SetCameraRefPosition(const glm::vec3& position) { m_Position = position; }
+		inline void SetCameraRefTransform(const glm::mat4& transform) { m_Transform = transform; }
 
 
 		std::unordered_map<std::string, glm::vec3> OnUpdate(Timestep deltaTime, CameraMovement directionOfMovement);
@@ -45,7 +45,7 @@ namespace tnah {
 		ProjectionType m_ProjectionType = ProjectionType::Perspective;
 
 
-		float m_PerspectiveFOV = glm::radians(45.0f);
+		float m_PerspectiveFOV = glm::radians(60.0f);
 		float m_PerspectiveNear = 0.1f, m_PerspectiveFar = 100000.0f;
 
 		float m_OrthographicSize = 10.0f;
@@ -57,7 +57,7 @@ namespace tnah {
 		bool m_Disabled = false;
 		float m_MouseSensitivity = 0.1f;
 		float m_MovementSpeed = 2.5f;
-		glm::vec3 m_Position;
+		glm::mat4 m_Transform;
 
 		std::unordered_map<std::string, glm::vec3> m_Vectors;
 

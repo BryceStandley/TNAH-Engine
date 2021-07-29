@@ -21,15 +21,34 @@ namespace tnah {
 			s_RendererAPI->Clear();
 		}
 
-		inline static void DrawIndexed(const Ref<VertexArray>& vertexArray)
+		inline static void DrawIndexed(const uint32_t indexCount)
 		{
-			s_RendererAPI->DrawIndexed(vertexArray);
+			s_RendererAPI->DrawIndexed(indexCount);
 		}
 
 		inline static void SetViewport(const uint32_t x, const uint32_t y, const uint32_t width, const uint32_t height)
 		{
 			s_RendererAPI->SetViewport(x, y, width, height);
 		}
+
+
+
+		inline static void BindVAO(const uint32_t VAO)
+		{
+			s_RendererAPI->BindVAO(VAO);
+		}
+
+		inline static void BindVBO(const uint32_t VBO)
+		{
+			s_RendererAPI->BindVBO(VBO);
+		}
+
+		inline static void BindIBO(const uint32_t IBO)
+		{
+			s_RendererAPI->BindIBO(IBO);
+		}
+
+
 	private:
 		static RendererAPI* s_RendererAPI;
 	};

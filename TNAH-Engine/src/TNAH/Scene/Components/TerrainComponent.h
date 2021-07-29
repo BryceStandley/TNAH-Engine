@@ -49,6 +49,8 @@ namespace tnah {
 
 		inline const Ref<VertexBuffer>& GetVertedBuffer() { return m_TerrainVBO; }
 
+		inline std::unordered_map<std::string, uint32_t> GetBufferIDs() { return m_Buffers; }
+
 	private:
 		/**********************************************************************************************//**
 		 * @struct	TerrainInformation
@@ -88,6 +90,8 @@ namespace tnah {
 		void GenerateVertexNormals(TerrainInformation& terrainInformation);
 
 		void SmoothTerrain(TerrainInformation& terrainInformation);
+
+		
 	private:
 
 		float m_MinHeightmapHeight = 40.0f;
@@ -108,6 +112,7 @@ namespace tnah {
 
 		glm::vec3 m_HighestPoint = glm::vec3(0.0f);
 		glm::vec3 m_LowestPoint = glm::vec3(0.0f);
+		std::unordered_map<std::string, uint32_t> m_Buffers;
 	};
 
 	struct TerrainComponent
