@@ -35,7 +35,9 @@ namespace tnah {
 
 		inline const std::vector<glm::vec3> GetVertexPositions() { return m_TerrainInfo.position; }
 
-		inline const std::vector<glm::vec3>& GetTotalData() { return m_TerrainVBOData; }
+		inline float* GetTotalData() { return &m_VBOData[0].x; }
+
+		inline uint32_t* GetIndicesData() { return &m_IndicesData[0]; }
 
 		inline const glm::vec2 GetSize() { return m_Size; }
 
@@ -45,11 +47,11 @@ namespace tnah {
 
 		inline const float GetVertexHeight(int x, int z);
 
-		inline const Ref<VertexArray>& GetVertexArray() { return m_TerrainVAO; }
+		inline const uint32_t GetTotalDataSize() { return m_VBOSize; }
 
-		inline const Ref<VertexBuffer>& GetVertedBuffer() { return m_TerrainVBO; }
+		inline const uint32_t GetIndicesSize() { return m_IBOSize; }
 
-		inline std::unordered_map<std::string, uint32_t> GetBufferIDs() { return m_Buffers; }
+		inline const BufferLayout GetBufferLayout() { return m_BufferLayout; }
 
 	private:
 		/**********************************************************************************************//**
@@ -81,7 +83,7 @@ namespace tnah {
 
 		void GenerateVertexPositions(TerrainInformation& terrainInformation);
 
-		void GenerateVertexIndices(Ref<IndexBuffer>& IBO);
+		void GenerateVertexIndices();
 
 		void GenerateVertexColors(TerrainInformation& terrainInformaion);
 
@@ -91,7 +93,7 @@ namespace tnah {
 
 		void SmoothTerrain(TerrainInformation& terrainInformation);
 
-		
+
 	private:
 
 		float m_MinHeightmapHeight = 40.0f;
@@ -101,18 +103,19 @@ namespace tnah {
 		std::vector<float> m_TerrainHeights;
 		float m_MinHeight = 0.0f;
 		float m_MaxHeight = 0.0f;
-		Ref<VertexArray> m_TerrainVAO;
-		Ref<VertexBuffer> m_TerrainVBO;
-		Ref<IndexBuffer> m_TerrainIBO;
 		TerrainInformation m_TerrainInfo;
 
 		/** @brief	Terrain information combined into a single vector for use in the vertex buffer*/
-		std::vector<glm::vec3> m_TerrainVBOData;
-		std::vector<uint32_t> m_Indices;
+		std::vector<glm::vec3> m_VBOData;
+		std::vector<uint32_t> m_IndicesData;
+		uint32_t m_VBOSize;
+		uint32_t m_IBOSize;
+		BufferLayout m_BufferLayout;
+
+
 
 		glm::vec3 m_HighestPoint = glm::vec3(0.0f);
 		glm::vec3 m_LowestPoint = glm::vec3(0.0f);
-		std::unordered_map<std::string, uint32_t> m_Buffers;
 	};
 
 	struct TerrainComponent
@@ -122,7 +125,7 @@ namespace tnah {
 		TerrainComponent() = default;
 		TerrainComponent(const TerrainComponent& other) = default;
 
-		TerrainComponent(const std::string& heightMapFilePath) 
+		TerrainComponent(const std::string& heightMapFilePath)
 		{
 			SceneTerrain = new Terrain(heightMapFilePath);
 		}

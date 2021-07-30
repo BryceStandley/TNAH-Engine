@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31005.135
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sandbox-Game", "Sandbox-Game\Sandbox-Game.vcxproj", "{0F8E5D60-27D2-4DBF-BD59-1CCBB6EA5363}"
+EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TNAH-Engine", "TNAH-Engine\TNAH-Engine.vcxproj", "{BEBBF5CA-71BA-43DC-8A58-A2CC6DB632F5}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ImGui", "ImGUI\ImGUI.vcxproj", "{11BB4BF9-7D1E-4ADA-AA26-B828E14EC6B3}"
@@ -23,6 +25,11 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0F8E5D60-27D2-4DBF-BD59-1CCBB6EA5363}.Debug|x64.ActiveCfg = Debug|x64
+		{0F8E5D60-27D2-4DBF-BD59-1CCBB6EA5363}.Debug|x86.ActiveCfg = Debug|x64
+		{0F8E5D60-27D2-4DBF-BD59-1CCBB6EA5363}.Release|x64.ActiveCfg = Release|x64
+		{0F8E5D60-27D2-4DBF-BD59-1CCBB6EA5363}.Release|x64.Build.0 = Release|x64
+		{0F8E5D60-27D2-4DBF-BD59-1CCBB6EA5363}.Release|x86.ActiveCfg = Release|x64
 		{BEBBF5CA-71BA-43DC-8A58-A2CC6DB632F5}.Debug|x64.ActiveCfg = Debug|x64
 		{BEBBF5CA-71BA-43DC-8A58-A2CC6DB632F5}.Debug|x64.Build.0 = Debug|x64
 		{BEBBF5CA-71BA-43DC-8A58-A2CC6DB632F5}.Debug|x86.ActiveCfg = Debug|x64

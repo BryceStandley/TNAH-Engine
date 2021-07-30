@@ -11,61 +11,40 @@ namespace tnah {
 	Terrain::Terrain()
 	{
 		GenerateHeightmap(100, 100, 40);
-		m_TerrainVAO = VertexArray::Create();
 		Create();
-		m_TerrainVBO = VertexBuffer::Create();
-		m_TerrainVBO->SetData(m_TerrainVBOData, sizeof(m_TerrainVBOData));
-		m_TerrainIBO = IndexBuffer::Create();
-		m_TerrainIBO->SetData(m_Indices);
-		BufferLayout layout = {
-			{ShaderDataType::Float3, "a_Position"}
+		m_BufferLayout = {
+			{ShaderDataType::Float3, "a_Position"},
+			{ShaderDataType::Float3, "a_Color"},
+			{ShaderDataType::Float3, "a_Texture"},
+			{ShaderDataType::Float3, "a_Normal"}
 		};
-		m_TerrainVBO->SetLayout(layout);
-		m_TerrainVAO->AddVertexBuffer(m_TerrainVBO);
-		m_TerrainVAO->SetIndexBuffer(m_TerrainIBO);
-		m_TerrainVAO->Unbind();
 	}
 
 	Terrain::Terrain(const std::string heightmapFilePath)
 	{
 		if (LoadHeightField(heightmapFilePath))
 		{
-			m_TerrainVAO = VertexArray::Create();
 			Create();
-			/*
-			m_TerrainVBO = VertexBuffer::Create();
-			m_TerrainVBO->SetData(m_TerrainVBOData, sizeof(m_TerrainVBOData));
-			m_TerrainIBO = IndexBuffer::Create();
-			m_TerrainIBO->SetData(m_Indices);
-			BufferLayout layout = {
-				{ShaderDataType::Float3, "a_Position"}
+			m_BufferLayout = {
+				{ShaderDataType::Float3, "a_Position"},
+				{ShaderDataType::Float3, "a_Color"},
+				{ShaderDataType::Float3, "a_Texture"},
+				{ShaderDataType::Float3, "a_Normal"}
 			};
-			m_TerrainVBO->SetLayout(layout);
-			m_TerrainVAO->AddVertexBuffer(m_TerrainVBO);
-			m_TerrainVAO->SetIndexBuffer(m_TerrainIBO);
-			m_TerrainVAO->Unbind();
-			*/
-			
-			m_Buffers = m_TerrainVAO->OldGLSetup(m_TerrainVBOData, m_Indices);
+
 		}
 	}
 
 	Terrain::Terrain(const int width, const int maxHeight, const int minHeight)
 	{
 		GenerateHeightmap(width, maxHeight, minHeight);
-		m_TerrainVAO = VertexArray::Create();
 		Create();
-		m_TerrainVBO = VertexBuffer::Create();
-		m_TerrainVBO->SetData(m_TerrainVBOData, sizeof(m_TerrainVBOData));
-		m_TerrainIBO = IndexBuffer::Create();
-		m_TerrainIBO->SetData(m_Indices);
-		BufferLayout layout = {
-			{ShaderDataType::Float3, "a_Position"}
+		m_BufferLayout = {
+			{ShaderDataType::Float3, "a_Position"},
+			{ShaderDataType::Float3, "a_Color"},
+			{ShaderDataType::Float3, "a_Texture"},
+			{ShaderDataType::Float3, "a_Normal"}
 		};
-		m_TerrainVBO->SetLayout(layout);
-		m_TerrainVAO->AddVertexBuffer(m_TerrainVBO);
-		m_TerrainVAO->SetIndexBuffer(m_TerrainIBO);
-		m_TerrainVAO->Unbind();
 	}
 
 	Terrain::~Terrain()
@@ -80,35 +59,22 @@ namespace tnah {
 		GenerateVertexColors(m_TerrainInfo);
 		GenerateVertexTextureCoords(m_TerrainInfo);
 		GenerateVertexNormals(m_TerrainInfo);
-		GenerateVertexIndices(m_TerrainIBO);
+		GenerateVertexIndices();
 
-		int k = 0;
-		for (int i = 0; i < m_TerrainInfo.position.size(); ++i)
+		int size = m_TerrainInfo.position.size();
+		for (int i = 0; i < m_TerrainInfo.position.size(); i++)
 		{
-			/*
-			m_TerrainVBOData[k] = m_TerrainInfo.position[i].x;
-			m_TerrainVBOData[k + 1]  = m_TerrainInfo.position[i].y;
-			m_TerrainVBOData[k + 2]  = m_TerrainInfo.position[i].z;
-			
-			m_TerrainVBOData[k + 3]  = m_TerrainInfo.color[i].x;
-			m_TerrainVBOData[k + 4]  = m_TerrainInfo.color[i].y;
-			m_TerrainVBOData[k + 5]  = m_TerrainInfo.color[i].z;
+			m_VBOData.emplace_back(m_TerrainInfo.position[i]);
 
-			m_TerrainVBOData[k + 6]  = m_TerrainInfo.texture[i].x;
-			m_TerrainVBOData[k + 7]  = m_TerrainInfo.texture[i].y;
-			m_TerrainVBOData[k + 8]  = m_TerrainInfo.texture[i].z;
+			m_VBOData.emplace_back(m_TerrainInfo.color[i]);
 
-			m_TerrainVBOData[k + 9]  = -m_TerrainInfo.normal[i].x;
-			m_TerrainVBOData[k + 10] = -m_TerrainInfo.normal[i].y;
-			m_TerrainVBOData[k + 11] = -m_TerrainInfo.normal[i].z;
-			k += 12;
-			*/
-			m_TerrainVBOData.emplace_back(m_TerrainInfo.position[i]);
-			//m_TerrainVBOData.emplace_back(m_TerrainInfo.color[i]);
-			//m_TerrainVBOData.emplace_back(m_TerrainInfo.texture[i]);
-			//m_TerrainVBOData.emplace_back(-m_TerrainInfo.normal[i]);
-			
+			m_VBOData.emplace_back(m_TerrainInfo.texture[i]);
+
+			m_VBOData.emplace_back(-m_TerrainInfo.normal[i]);
 		}
+
+		//m_VBOSize = sizeof(glm::vec3) * (m_Size.x * m_Size.y);
+		m_VBOSize = sizeof(glm::vec3) * m_VBOData.size();
 	}
 
 	void Terrain::GenerateHeightmap(const int width, const int maxHeight, const int minHeight)
@@ -177,7 +143,7 @@ namespace tnah {
 		if (x < 0) { x = 0; }
 		if (z < 0) { z = 0; }
 		if (x >= m_Size.x) { x = m_Size.x - 1; }
-		if (z >= m_Size.x) { z = m_Size.x - 1 ; }
+		if (z >= m_Size.x) { z = m_Size.x - 1; }
 		if (InBounds(x, z))
 		{
 			return m_TerrainInfo.position[z * (int)m_Size.x + x].y;
@@ -190,7 +156,7 @@ namespace tnah {
 
 	bool Terrain::InBounds(int x, int z)
 	{
-		if ((x >= 0 && (float)x < m_Size.x) && (z >= 0 && z < m_Size.x ))
+		if ((x >= 0 && (float)x < m_Size.x) && (z >= 0 && z < m_Size.x))
 			return true;
 		else
 			return false;
@@ -218,23 +184,26 @@ namespace tnah {
 		}
 	}
 
-	void Terrain::GenerateVertexIndices(Ref<IndexBuffer>& IBO)
+	void Terrain::GenerateVertexIndices()
 	{
-		int size = m_Size.x - 1;
+		uint32_t size = m_Size.x;
 
 		for (unsigned int z = 0; z < size - 1; ++z)
 		{
 			for (unsigned int x = 0; x < size - 1; ++x)
 			{
-				m_Indices.push_back((x * size + z));             // 0
-				m_Indices.push_back(((x * size + 1) + z));       // 1
-				m_Indices.push_back((((x + 1) * size) + z));     // 3
+				m_IndicesData.push_back((x * size + z));             // 0
+				m_IndicesData.push_back(((x * size + 1) + z));       // 1
+				m_IndicesData.push_back((((x + 1) * size) + z));     // 3
 
-				m_Indices.push_back(((x * size + 1) + z));       // 1
-				m_Indices.push_back(((x + 1) * size) + (z + 1)); // 2
-				m_Indices.push_back((((x + 1) * size) + z));     // 3
+				m_IndicesData.push_back(((x * size + 1) + z));       // 1
+				m_IndicesData.push_back(((x + 1) * size) + (z + 1)); // 2
+				m_IndicesData.push_back((((x + 1) * size) + z));     // 3
 			}
 		}
+
+		m_IBOSize = sizeof(uint32_t) * m_IndicesData.size();
+
 	}
 
 	void Terrain::GenerateVertexColors(TerrainInformation& terrainInformaion)
@@ -316,14 +285,14 @@ namespace tnah {
 			for (int x = 0; x < m_Size.x; ++x)
 			{
 				float corners = (GetVertexHeight(x - 1, z - 1) +
-						GetVertexHeight(x + 1, z - 1) +
-						GetVertexHeight(x - 1, z + 1) +
-						GetVertexHeight(x + 1, z + 1)) / 16.0f;
+					GetVertexHeight(x + 1, z - 1) +
+					GetVertexHeight(x - 1, z + 1) +
+					GetVertexHeight(x + 1, z + 1)) / 16.0f;
 
 				float sides = (GetVertexHeight(x - 1, z) +
-						GetVertexHeight(x + 1, z) +
-						GetVertexHeight(x, z - 1) +
-						GetVertexHeight(x, z + 1)) / 8.0f;
+					GetVertexHeight(x + 1, z) +
+					GetVertexHeight(x, z - 1) +
+					GetVertexHeight(x, z + 1)) / 8.0f;
 
 				float center = GetVertexHeight(x, z) / 4.0f;
 
