@@ -8,6 +8,7 @@ public:
 	TestLayer()
 		: Layer("Example"), m_CameraPosition(0.0f)
 	{
+		/*
 		m_VAO.reset(tnah::VertexArray::Create());
 
 
@@ -35,10 +36,28 @@ public:
 
 
 		m_Shader.reset(tnah::Shader::Create("assets/shaders/Default.glsl"));
-
+		*/
 		m_Scene = new tnah::Scene();
 		m_Camera = m_Scene->CreateGameObject();
 		m_Camera.AddComponent<tnah::CameraComponent>();
+
+		m_Terrain = m_Scene->CreateGameObject();
+		auto& t = m_Terrain.AddComponent<tnah::TerrainComponent>("assets/heightmaps/1k.tga");
+
+
+
+		m_TerrainVAO.reset(tnah::VertexArray::Create());
+		tnah::Ref<tnah::VertexBuffer> terrainVBO;
+		terrainVBO.reset(tnah::VertexBuffer::Create(t.SceneTerrain->GetTotalData(), t.SceneTerrain->GetTotalDataSize()));
+		terrainVBO->SetLayout(t.SceneTerrain->GetBufferLayout());
+		m_TerrainVAO->AddVertexBuffer(terrainVBO);
+
+		tnah::Ref<tnah::IndexBuffer> terrainIBO;
+		terrainIBO.reset(tnah::IndexBuffer::Create(t.SceneTerrain->GetIndicesData(), t.SceneTerrain->GetIndicesSize()));
+		m_TerrainVAO->SetIndexBuffer(terrainIBO);
+
+
+		m_TerrainShader.reset(tnah::Shader::Create("assets/shaders/terrain/terrain_vertex.glsl", "assets/shaders/terrain/terrain_fragment.glsl"));
 
 	}
 
@@ -63,12 +82,24 @@ public:
 			m_Camera.GetComponent<tnah::TransformComponent>().Position.x -= m_CameraMoveSpeed * deltaTime.GetSeconds();
 		}
 
+
+		auto& terr = m_Terrain.GetComponent<tnah::TransformComponent>();
+		terr.Position = glm::vec3(10, 0, 10);
+		terr.Scale = glm::vec3(10);
 		tnah::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1.0f });
 		tnah::RenderCommand::Clear();		
 		glm::mat4 transform = m_Camera.GetComponent<tnah::TransformComponent>().GetTransform();
+
+
+
+
 		tnah::Renderer::BeginScene(m_Camera.GetComponent<tnah::CameraComponent>().Camera, transform);
 
-		tnah::Renderer::Submit(m_VAO, m_Shader);
+		tnah::Renderer::Submit(m_TerrainVAO, m_TerrainShader, terr);
+
+		//tnah::Renderer::Submit(m_VAO, m_Shader);
+
+		
 
 		tnah::Renderer::EndScene();
 
@@ -101,6 +132,10 @@ private:
 
 	tnah::Scene* m_Scene;
 	tnah::GameObject m_Camera;
+
+	tnah::GameObject m_Terrain;
+	tnah::Ref<tnah::Shader> m_TerrainShader;
+	tnah::Ref<tnah::VertexArray> m_TerrainVAO;
 
 	glm::vec3 m_CameraPosition;
 	float m_CameraMoveSpeed = 0.1f;

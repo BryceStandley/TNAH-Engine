@@ -25,8 +25,8 @@ namespace tnah {
 	void Renderer::Submit(const Ref<VertexArray>& vertexArray, const Ref<Shader>& shader, const TransformComponent& transform)
 	{
 		shader->Bind();
-		std::dynamic_pointer_cast<OpenGLShader>(shader)->UniformMat4(m_SceneData->ViewProjection, "u_ViewProjection");
-		std::dynamic_pointer_cast<OpenGLShader>(shader)->UniformMat4(transform.GetTransform(), "u_Transform");
+		std::dynamic_pointer_cast<OpenGLShader>(shader)->SetMat4("u_ViewProjection", m_SceneData->ViewProjection);
+		std::dynamic_pointer_cast<OpenGLShader>(shader)->SetMat4("u_Transform", transform.GetTransform());
 		vertexArray->Bind();
 		RenderCommand::DrawIndexed(vertexArray);
 	}
