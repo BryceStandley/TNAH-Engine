@@ -13,7 +13,7 @@ namespace tnah {
 		virtual void SetClearColor(const glm::vec4& color) override;
 		virtual void Clear() override;
 
-		virtual void DrawIndexed(const uint32_t indexCount) override;
+		virtual void DrawIndexed(const Ref<VertexArray> vertexArray) override;
 
 		virtual void BindVAO(const uint32_t VAO);
 		virtual void BindVBO(const uint32_t VBO);

@@ -109,13 +109,10 @@ namespace tnah {
 		virtual void Bind() const = 0;
 		virtual void Unbind() const = 0;
 
-		virtual void SetData(const std::vector<glm::vec3>& data, uint32_t size) const = 0;
-
 		virtual const BufferLayout& GetLayout() const = 0;
 		virtual void SetLayout(const BufferLayout& layout) = 0;
 
-		static Ref<VertexBuffer> Create(uint32_t size);
-		static Ref<VertexBuffer> Create();
+		static VertexBuffer* Create(float* verticies, uint32_t size);
 	};
 
 	// Currently tnah only supports 32-bit index buffers
@@ -129,10 +126,7 @@ namespace tnah {
 
 		virtual uint32_t GetCount() const = 0;
 
-		virtual void SetData(const std::vector<uint32_t>& data) {}
-
-		static Ref<IndexBuffer> Create(std::vector<uint32_t>& indices, uint32_t count);
-		static Ref<IndexBuffer> Create();
+		static IndexBuffer* Create(uint32_t* indices, uint32_t size);
 	};
 
 }

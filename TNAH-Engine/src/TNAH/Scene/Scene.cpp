@@ -16,23 +16,35 @@ namespace tnah{
 
 	void Scene::OnUpdate(Timestep deltaTime)
 	{
-		/*
-		auto view = m_Registry.view<TransformComponent>();
-		for (auto obj : view)
+		//Update all transform components and their forward, right and up vectors
 		{
-			TransformComponent& transformComponent = m_Registry.get<TransformComponent>(obj);
-			GameObject go = GameObject(obj, this);
-			glm::mat4 transform = transformComponent.GetTransform();//GetTransformRelativeToParent(go);
-			glm::vec3 translation;
-			glm::vec3 rotation;
-			glm::vec3 scale;
-			tnah::math::DecomposeTransform(transform, translation, rotation, scale);
+			auto view = m_Registry.view<TransformComponent>();
+			for (auto obj : view)
+			{
+				auto& transform = view.get<TransformComponent>(obj);
 
-			glm::quat rotationQuat = glm::quat(rotation);
-			transformComponent.Up = glm::normalize(glm::rotate(rotationQuat, glm::vec3(0.0f, 1.0f, 0.0f)));
-			transformComponent.Right = glm::normalize(glm::rotate(rotationQuat, glm::vec3(1.0f, 0.0f, 0.0f)));
-			transformComponent.Forward = glm::normalize(glm::rotate(rotationQuat, glm::vec3(0.0f, 0.0f, -1.0f)));
-		}*/
+				glm::vec3 forward = glm::vec3(0.0f);
+				glm::vec3 right = glm::vec3(0.0f);
+				glm::vec3 up = glm::vec3(0.0f);
+				forward.x = cos(glm::radians(transform.Rotation.x)) * cos(glm::radians(transform.Rotation.y));
+				forward.y = sin(glm::radians(transform.Rotation.y));
+				forward.z = sin(glm::radians(transform.Rotation.x)) * cos(glm::radians(transform.Rotation.y));
+				transform.Forward = glm::normalize(forward);
+				transform.Right = glm::normalize(glm::cross(forward, glm::vec3(0, 1, 0)));
+				transform.Up = glm::normalize(glm::cross(right, forward));
+			}
+		}
+
+		//after the transform is updated, update the camera matrix etc
+		{
+			auto view = m_Registry.view<TransformComponent, CameraComponent>();
+			for(auto entity : view)
+			{ 
+				auto& camera = view.get<CameraComponent>(entity);
+				auto& transform = view.get<TransformComponent>(entity);
+				camera.Camera.OnUpdate(transform);
+			}
+		}
 	}
 
 	glm::mat4 Scene::GetTransformRelativeToParent(GameObject gameObject)
@@ -49,7 +61,7 @@ namespace tnah{
 	GameObject Scene::CreateGameObject(const std::string& name)
 	{
 		GameObject go = { m_Registry.create(), this };
-		auto idComponent = go.AddComponent<IDComponent>();
+		auto& idComponent = go.AddComponent<IDComponent>();
 		idComponent.ID = {};
 		go.AddComponent<TransformComponent>();
 		if (!name.empty())

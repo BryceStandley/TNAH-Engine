@@ -29,10 +29,8 @@ namespace tnah {
 		virtual const std::vector<Ref<VertexBuffer>>& GetVertexBuffers() const { return m_VertexBuffers; }
 		virtual const Ref<IndexBuffer>& GetIndexBuffer() const { return m_IndexBuffer; }
 
-
-		virtual std::unordered_map<std::string, uint32_t> OldGLSetup(std::vector<glm::vec3>& vertexData, std::vector<uint32_t>& indicesData) override;
 	private:
-		uint32_t m_VAO, m_VBO, m_IBO;
+		uint32_t m_VAOID;
 		uint32_t m_VertexBufferIndex = 0;
 		std::vector<Ref<VertexBuffer>> m_VertexBuffers;
 		Ref<IndexBuffer> m_IndexBuffer;

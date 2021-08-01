@@ -21,9 +21,9 @@ namespace tnah {
 			s_RendererAPI->Clear();
 		}
 
-		inline static void DrawIndexed(const uint32_t indexCount)
+		inline static void DrawIndexed(const Ref<VertexArray> vertexArray)
 		{
-			s_RendererAPI->DrawIndexed(indexCount);
+			s_RendererAPI->DrawIndexed(vertexArray);
 		}
 
 		inline static void SetViewport(const uint32_t x, const uint32_t y, const uint32_t width, const uint32_t height)

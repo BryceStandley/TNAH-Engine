@@ -28,17 +28,17 @@ namespace tnah {
 
 	OpenGLVertexArray::OpenGLVertexArray()
 	{
-		glCreateVertexArrays(1, &m_RendererID);
+		glCreateVertexArrays(1, &m_VAOID);
 	}
 
 	OpenGLVertexArray::~OpenGLVertexArray()
 	{
-		glDeleteVertexArrays(1, &m_RendererID);
+		glDeleteVertexArrays(1, &m_VAOID);
 	}
 
 	void OpenGLVertexArray::Bind() const
 	{
-		glBindVertexArray(m_RendererID);
+		glBindVertexArray(m_VAOID);
 	}
 
 	void OpenGLVertexArray::Unbind() const
@@ -46,11 +46,11 @@ namespace tnah {
 		glBindVertexArray(0);
 	}
 
-	void OpenGLVertexArray::AddVertexBuffer(const std::shared_ptr<VertexBuffer>& vertexBuffer)
+	void OpenGLVertexArray::AddVertexBuffer(const Ref<VertexBuffer>& vertexBuffer)
 	{
 		TNAH_CORE_ASSERT(vertexBuffer->GetLayout().GetElements().size(), "Vertex Buffer has no layout!");
 
-		glBindVertexArray(m_RendererID);
+		glBindVertexArray(m_VAOID);
 		vertexBuffer->Bind();
 
 		uint32_t index = 0;
@@ -69,12 +69,14 @@ namespace tnah {
 		m_VertexBuffers.push_back(vertexBuffer);
 	}
 
-	void OpenGLVertexArray::SetIndexBuffer(const std::shared_ptr<IndexBuffer>& indexBuffer)
+
+	void OpenGLVertexArray::SetIndexBuffer(const Ref<IndexBuffer>& indexBuffer)
 	{
-		glBindVertexArray(m_RendererID);
+		glBindVertexArray(m_VAOID);
 		indexBuffer->Bind();
 
 		m_IndexBuffer = indexBuffer;
 	}
+
 
 }

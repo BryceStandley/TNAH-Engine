@@ -4,7 +4,7 @@
 #include "TNAH/Core/Timestep.h"
 
 namespace tnah {
-
+	struct TransformComponent;
 	class SceneCamera : public Camera
 	{
 	public:
@@ -34,12 +34,10 @@ namespace tnah {
 		ProjectionType GetProjectionType() const { return m_ProjectionType; }
 		inline void SetMouseSensitivity(const float sensitivity) { m_MouseSensitivity = sensitivity; }
 		inline void SetMovementSpeed(const float speed) { m_MovementSpeed = speed; }
-		inline void SetCameraRefTransform(const glm::mat4& transform) { m_Transform = transform; }
 
-
-		std::unordered_map<std::string, glm::vec3> OnUpdate(Timestep deltaTime, CameraMovement directionOfMovement);
+		void OnUpdate(TransformComponent& transform);
 		void OnMouseMovement(float x, float y, bool constrainPitch = true);
-		void OnCameraChange();
+		void OnCameraChange(TransformComponent& transform);
 		
 	private:
 		ProjectionType m_ProjectionType = ProjectionType::Perspective;
@@ -57,9 +55,6 @@ namespace tnah {
 		bool m_Disabled = false;
 		float m_MouseSensitivity = 0.1f;
 		float m_MovementSpeed = 2.5f;
-		glm::mat4 m_Transform;
-
-		std::unordered_map<std::string, glm::vec3> m_Vectors;
 
 
 	};

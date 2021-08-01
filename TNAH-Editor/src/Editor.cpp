@@ -37,11 +37,11 @@ public:
 
 		m_Shader.reset(tnah::Shader::Create("assets/shaders/Default.glsl"));
 		*/
-		m_Scene = new tnah::Scene();
-		m_Camera = m_Scene->CreateGameObject();
+		m_ActiveScene = new tnah::Scene();
+		m_Camera = m_ActiveScene->CreateGameObject("Camera");
 		m_Camera.AddComponent<tnah::CameraComponent>();
 
-		m_Terrain = m_Scene->CreateGameObject();
+		m_Terrain = m_ActiveScene->CreateGameObject("Terrain");
 		auto& t = m_Terrain.AddComponent<tnah::TerrainComponent>("assets/heightmaps/1k.tga");
 
 
@@ -63,39 +63,36 @@ public:
 
 	void OnUpdate(tnah::Timestep deltaTime) override
 	{
-
+		
+		auto& cameraT = m_Camera.GetComponent<tnah::TransformComponent>();
 		if (tnah::Input::IsKeyPressed(tnah::Key::W))
 		{
-			m_Camera.GetComponent<tnah::TransformComponent>().Position.y += m_CameraMoveSpeed * deltaTime.GetSeconds();
+			cameraT.Position.y += m_CameraMoveSpeed * deltaTime.GetSeconds();
 		}
 		else if (tnah::Input::IsKeyPressed(tnah::Key::S))
 		{
-			m_Camera.GetComponent<tnah::TransformComponent>().Position.y -= m_CameraMoveSpeed * deltaTime.GetSeconds();
+			cameraT.Position.y -= m_CameraMoveSpeed * deltaTime.GetSeconds();
 		}
 
 		if (tnah::Input::IsKeyPressed(tnah::Key::D))
 		{
-			m_Camera.GetComponent<tnah::TransformComponent>().Position.x += m_CameraMoveSpeed * deltaTime.GetSeconds();
+			cameraT.Position.x += m_CameraMoveSpeed * deltaTime.GetSeconds();
 		}
 		else if (tnah::Input::IsKeyPressed(tnah::Key::A))
 		{
-			m_Camera.GetComponent<tnah::TransformComponent>().Position.x -= m_CameraMoveSpeed * deltaTime.GetSeconds();
+			cameraT.Position.x -= m_CameraMoveSpeed * deltaTime.GetSeconds();
 		}
 
 
 		auto& terr = m_Terrain.GetComponent<tnah::TransformComponent>();
-		terr.Position = glm::vec3(10, 0, 10);
-		terr.Scale = glm::vec3(10);
+
 		tnah::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1.0f });
 		tnah::RenderCommand::Clear();		
-		glm::mat4 transform = m_Camera.GetComponent<tnah::TransformComponent>().GetTransform();
-
-
-
-
+		m_ActiveScene->OnUpdate(deltaTime);
+		glm::mat4 transform = cameraT.GetTransform();
 		tnah::Renderer::BeginScene(m_Camera.GetComponent<tnah::CameraComponent>().Camera, transform);
 
-		tnah::Renderer::Submit(m_TerrainVAO, m_TerrainShader, terr);
+		tnah::Renderer::Submit(m_TerrainVAO, m_TerrainShader, terr.GetTransform());
 
 		//tnah::Renderer::Submit(m_VAO, m_Shader);
 
@@ -130,7 +127,7 @@ private:
 	tnah::Ref<tnah::Shader> m_Shader;
 	tnah::Ref<tnah::VertexArray> m_VAO;
 
-	tnah::Scene* m_Scene;
+	tnah::Scene* m_ActiveScene;
 	tnah::GameObject m_Camera;
 
 	tnah::GameObject m_Terrain;

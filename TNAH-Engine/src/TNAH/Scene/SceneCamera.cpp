@@ -3,13 +3,14 @@
 #include "TNAH/Core/Math.h"
 #include <glm/gtc/matrix_transform.hpp>
 
+#include "TNAH/Scene/Components/Components.h"
+
 namespace tnah {
 
 
 	SceneCamera::SceneCamera(const glm::mat4& transform)
-		: Camera(), m_Transform(transform)
+		: Camera()
 	{
-		OnCameraChange();
 	}
 
 	void SceneCamera::SetPerspective(float verticalFOV, float nearClip, float farClip)
@@ -45,59 +46,17 @@ namespace tnah {
 	}
 
 
-	std::unordered_map<std::string, glm::vec3> SceneCamera::OnUpdate(Timestep deltaTime, CameraMovement directionOfMovement)
+	void SceneCamera::OnUpdate(TransformComponent& transform)
 	{
-		
-		if (m_Disabled) return m_Vectors;
-		float velocity = m_MovementSpeed * deltaTime.GetSeconds() * 5;
-		glm::vec3 pos = m_Transform[3];
-		if (directionOfMovement == CameraMovement::Forward)
-		{
-			pos += m_Vectors["forward"] * velocity;
-		}
-		if (directionOfMovement == CameraMovement::Backward)
-		{
-			pos -= m_Vectors["forward"] * velocity;
-		}
-		if (directionOfMovement == CameraMovement::Left)
-		{
-			pos -= m_Vectors["right"] * velocity;
-		}
-		if (directionOfMovement == CameraMovement::Right)
-		{
-			pos += m_Vectors["right"] * velocity;
-		}
-		if (directionOfMovement == CameraMovement::Still)
-		{
-			// the camera didnt move, just return the current position vectors
-			m_Vectors["position"] = pos;
-			return m_Vectors;
-		}
-
-		m_Vectors["position"] = pos;
-		return m_Vectors;
-
+		OnCameraChange(transform);
 	}
 
-	void SceneCamera::OnCameraChange()
+	void SceneCamera::OnCameraChange(TransformComponent& transform)
 	{
-		glm::vec3 forward = glm::vec3(0.0f);
-		glm::vec3 right = glm::vec3(0.0f);
-		glm::vec3 up = glm::vec3(0.0f);
-		forward.x = cos(glm::radians(m_Yaw)) * cos(glm::radians(m_Pitch));
-		forward.y = sin(glm::radians(m_Pitch));
-		forward.z = sin(glm::radians(m_Yaw)) * cos(glm::radians(m_Pitch));
-		forward = glm::normalize(forward);
-		right = glm::normalize(glm::cross(forward, glm::vec3(0, 1, 0)));
-		up = glm::normalize(glm::cross(right, forward));
-		m_Vectors["forward"] = forward;
-		m_Vectors["right"] = right;
-		m_Vectors["up"] = up;
 
-		m_ViewMatrix = glm::inverse(m_Transform);
-		//m_ViewMatrix = glm::lookAt(m_Vectors["position"], m_Vectors["position"] + m_Vectors["forward"], m_Vectors["up"]);
+		//m_ViewMatrix = glm::inverse(m_Transform);
+		m_ViewMatrix = glm::lookAt(transform.Position, transform.Forward + transform.Forward, transform.Up);
 		m_ProjectionMatrix = glm::perspective(glm::radians(m_PerspectiveFOV), 1280.0f / 720.0f, 0.1f, 100.0f);
-			
 		
 	}
 
@@ -132,7 +91,6 @@ namespace tnah {
 			if (m_Pitch < -89.0f)
 				m_Pitch = -89.0f;
 		}
-		OnCameraChange();
 	}
 
 }

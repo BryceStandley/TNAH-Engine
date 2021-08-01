@@ -34,11 +34,13 @@ namespace tnah {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
 
-	void OpenGLRendererAPI::DrawIndexed(const uint32_t indexCount)
+	void OpenGLRendererAPI::DrawIndexed(const Ref<VertexArray> vertexArray)
 	{
-		glPrimitiveRestartIndex(0xFFFFFFFFU);
-		glEnable(GL_PRIMITIVE_RESTART);
-		glDrawElements(GL_TRIANGLES, indexCount, GL_UNSIGNED_INT, nullptr);
+		
+		vertexArray->Bind();
+		uint32_t count = vertexArray->m_IndicesSize;
+
+		glDrawElements(GL_TRIANGLES, count, GL_UNSIGNED_INT, nullptr);
 		glBindVertexArray(0);
 		glActiveTexture(GL_TEXTURE0);
 	}
