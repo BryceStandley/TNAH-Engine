@@ -23,5 +23,7 @@
     <None Include="assets\shaders\Default.glsl" />
     <None Include="assets\shaders\terrain\terrain_vertex.glsl" />
     <None Include="assets\shaders\terrain\terrain_fragment.glsl" />
+    <None Include="assets\shaders\default_fragment.glsl" />
+    <None Include="assets\shaders\default_vertex.glsl" />
   </ItemGroup>
 </Project>

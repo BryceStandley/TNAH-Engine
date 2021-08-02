@@ -25,6 +25,8 @@ namespace tnah{
 		m_Data.Width = props.Width;
 		m_Data.Height = props.Height;
 
+		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
 		TNAH_INFO("Creating window {0} ({1}, {2})", props.Title, props.Width, props.Height);
 
 		if (!s_GLFWInitialized)

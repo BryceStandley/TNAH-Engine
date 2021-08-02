@@ -6,9 +6,9 @@ class TestLayer : public tnah::Layer
 {
 public:
 	TestLayer()
-		: Layer("Example"), m_CameraPosition(0.0f)
+		: Layer("Example")
 	{
-		/*
+		
 		m_VAO.reset(tnah::VertexArray::Create());
 
 
@@ -35,12 +35,13 @@ public:
 		m_VAO->SetIndexBuffer(indexBuffer);
 
 
-		m_Shader.reset(tnah::Shader::Create("assets/shaders/Default.glsl"));
-		*/
+		m_Shader.reset(tnah::Shader::Create("assets/shaders/default_vertex.glsl", "assets/shaders/default_fragment.glsl"));
+		
 		m_ActiveScene = new tnah::Scene();
 		m_Camera = m_ActiveScene->CreateGameObject("Camera");
 		m_Camera.AddComponent<tnah::CameraComponent>();
 
+		/*
 		m_Terrain = m_ActiveScene->CreateGameObject("Terrain");
 		auto& t = m_Terrain.AddComponent<tnah::TerrainComponent>("assets/heightmaps/1k.tga");
 
@@ -58,6 +59,7 @@ public:
 
 
 		m_TerrainShader.reset(tnah::Shader::Create("assets/shaders/terrain/terrain_vertex.glsl", "assets/shaders/terrain/terrain_fragment.glsl"));
+		*/
 
 	}
 
@@ -65,26 +67,9 @@ public:
 	{
 		
 		auto& cameraT = m_Camera.GetComponent<tnah::TransformComponent>();
-		if (tnah::Input::IsKeyPressed(tnah::Key::W))
-		{
-			cameraT.Position.y += m_CameraMoveSpeed * deltaTime.GetSeconds();
-		}
-		else if (tnah::Input::IsKeyPressed(tnah::Key::S))
-		{
-			cameraT.Position.y -= m_CameraMoveSpeed * deltaTime.GetSeconds();
-		}
-
-		if (tnah::Input::IsKeyPressed(tnah::Key::D))
-		{
-			cameraT.Position.x += m_CameraMoveSpeed * deltaTime.GetSeconds();
-		}
-		else if (tnah::Input::IsKeyPressed(tnah::Key::A))
-		{
-			cameraT.Position.x -= m_CameraMoveSpeed * deltaTime.GetSeconds();
-		}
 
 
-		auto& terr = m_Terrain.GetComponent<tnah::TransformComponent>();
+		//auto& terr = m_Terrain.GetComponent<tnah::TransformComponent>();
 
 		tnah::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1.0f });
 		tnah::RenderCommand::Clear();		
@@ -92,9 +77,9 @@ public:
 		glm::mat4 transform = cameraT.GetTransform();
 		tnah::Renderer::BeginScene(m_Camera.GetComponent<tnah::CameraComponent>().Camera, transform);
 
-		tnah::Renderer::Submit(m_TerrainVAO, m_TerrainShader, terr.GetTransform());
+		//tnah::Renderer::Submit(m_TerrainVAO, m_TerrainShader, terr.GetTransform());
 
-		//tnah::Renderer::Submit(m_VAO, m_Shader);
+		tnah::Renderer::Submit(m_VAO, m_Shader);
 
 		
 
@@ -134,9 +119,6 @@ private:
 	tnah::Ref<tnah::Shader> m_TerrainShader;
 	tnah::Ref<tnah::VertexArray> m_TerrainVAO;
 
-	glm::vec3 m_CameraPosition;
-	float m_CameraMoveSpeed = 0.1f;
-	glm::vec3 m_CameraRotationRadians = glm::vec3(0);
 };
 
 class Editor : public tnah::Application
