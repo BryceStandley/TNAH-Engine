@@ -25,7 +25,7 @@ namespace tnah{
 		m_Data.Width = props.Width;
 		m_Data.Height = props.Height;
 
-		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+		
 
 		TNAH_INFO("Creating window {0} ({1}, {2})", props.Title, props.Width, props.Height);
 
@@ -39,7 +39,11 @@ namespace tnah{
 			s_GLFWInitialized = true;
 		}
 
-
+		//Set the GLFW Open GL Context to version 4.5 or higher
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 5);
+		glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GLFW_TRUE);
+		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 		m_Window = glfwCreateWindow((int)props.Width, (int)props.Height, m_Data.Title.c_str(), nullptr, nullptr);
 
