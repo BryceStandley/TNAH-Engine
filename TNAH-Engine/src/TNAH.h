@@ -15,7 +15,6 @@
 
 #include "TNAH/Layers/Layer.h"
 #include "TNAH/Layers/ImGuiLayer.h"
-#include "TNAH/Layers/EditorLayer.h"
 
 #include "TNAH/Scene/Components/Components.h"
 #include "TNAH/Scene/Scene.h"

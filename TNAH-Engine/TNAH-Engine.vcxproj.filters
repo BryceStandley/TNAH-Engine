@@ -48,9 +48,6 @@
     <ClCompile Include="src\TNAH\Scene\GameObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\TNAH\Layers\EditorLayer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGLGraphicsContext.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -90,13 +87,13 @@
     <ClCompile Include="src\TNAH\Core\UUID.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\TNAH\Renderer\Camera.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGLShader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\TNAH\Scene\Components\TerrainComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TNAH\Renderer\Camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -171,9 +168,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\TNAH\Scene\GameObject.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\TNAH\Layers\EditorLayer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\TNAH\Renderer\GraphicsContext.h">

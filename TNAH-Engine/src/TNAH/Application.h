@@ -19,19 +19,6 @@ int main(int argc, char** argv);
 
 namespace tnah
 {
-
-	struct ApplicationCommandLineArgs
-	{
-		int Count = 0;
-		char** Args = nullptr;
-
-		const char* operator[](int index) const
-		{
-			//TNAH_CORE_ASSERT(index < Count);
-			return Args[index];
-		}
-	};
-
 	class Application
 	{
 	public:
@@ -49,17 +36,15 @@ namespace tnah
 		inline static Application& Get() { return *s_Instance; }
 		inline Window& GetWindow() { return *m_Window; }
 
-		ApplicationCommandLineArgs GetCommandLineArgs() const { return m_CommandLineArgs; }
 
 	private:
 		bool OnWindowClose(WindowCloseEvent& e);
 		bool OnWindowResize(WindowResizeEvent& e);
 
-		ApplicationCommandLineArgs m_CommandLineArgs;
 		Scope<Window> m_Window;
 		bool m_Running = true;
 		bool m_Minimized = false;
-		LayerStack m_LayerStack;
+		LayerStack m_LayerStack = LayerStack();
 		ImGuiLayer* m_ImGuiLayer;
 		float m_DeltaTime = 0.0f;
 

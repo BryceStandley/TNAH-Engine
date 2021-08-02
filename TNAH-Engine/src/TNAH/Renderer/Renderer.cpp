@@ -20,11 +20,9 @@ namespace tnah {
 
 	}
 
-	void Renderer::BeginScene(SceneCamera& camera, glm::mat4& transform)
+	void Renderer::BeginScene(SceneCamera& camera)
 	{
-		glm::mat4 viewPorjection = camera.GetProjectionMatrix() * glm::inverse(transform);
-
-		s_SceneData->ViewProjection = viewPorjection;
+		s_SceneData->ViewProjection = camera.GetViewProjectionMatrix();
 	}
 
 	void Renderer::EndScene()
@@ -34,8 +32,10 @@ namespace tnah {
 	void Renderer::Submit(const Ref<VertexArray>& vertexArray, const Ref<Shader>& shader, const glm::mat4& transform)
 	{
 		shader->Bind();
-		std::dynamic_pointer_cast<OpenGLShader>(shader)->SetMat4("u_ViewProjection", s_SceneData->ViewProjection);
-		std::dynamic_pointer_cast<OpenGLShader>(shader)->SetMat4("u_Transform", transform);
+		shader->SetMat4("u_ViewProjection", s_SceneData->ViewProjection);
+		shader->SetMat4("u_Transform", transform);
+
+
 		vertexArray->Bind();
 		RenderCommand::DrawIndexed(vertexArray);
 	}

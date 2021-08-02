@@ -29,9 +29,13 @@ namespace tnah{
 				forward.x = cos(glm::radians(transform.Rotation.x)) * cos(glm::radians(transform.Rotation.y));
 				forward.y = sin(glm::radians(transform.Rotation.y));
 				forward.z = sin(glm::radians(transform.Rotation.x)) * cos(glm::radians(transform.Rotation.y));
-				transform.Forward = glm::normalize(forward);
-				transform.Right = glm::normalize(glm::cross(forward, glm::vec3(0, 1, 0)));
-				transform.Up = glm::normalize(glm::cross(right, forward));
+				forward = glm::normalize(forward);
+				right = glm::normalize(glm::cross(forward, glm::vec3(0, 1, 0)));
+				up = glm::normalize(glm::cross(right, forward));
+
+				transform.Forward = forward;
+				transform.Right = right;
+				transform.Up = up;
 			}
 		}
 

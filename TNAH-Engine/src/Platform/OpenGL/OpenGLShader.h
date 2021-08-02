@@ -27,10 +27,10 @@ namespace tnah {
 		/**
 		* @brief Allows you to activate and use the shader
 		*/
-		virtual void Bind() const;
+		virtual void Bind() override;
 
 		//Unbind the shader from the program
-		virtual void Unbind() const;
+		virtual void Unbind() override;
 
 		/**
 		* @brief Sets a boolean for use in the shader program

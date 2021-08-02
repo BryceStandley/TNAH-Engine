@@ -5,24 +5,24 @@
 
 namespace tnah {
 
-	
+
 	// VertexBuffer 
-	
+
 	OpenGLVertexBuffer::OpenGLVertexBuffer(float* vertices, uint32_t size)
 	{
-		glCreateBuffers(1, &m_VBOID);
-		glBindBuffer(GL_ARRAY_BUFFER, m_VBOID);
+		glGenBuffers(1, &m_RendererID);
+		glBindBuffer(GL_ARRAY_BUFFER, m_RendererID);
 		glBufferData(GL_ARRAY_BUFFER, size, vertices, GL_STATIC_DRAW);
 	}
 
 	OpenGLVertexBuffer::~OpenGLVertexBuffer()
 	{
-		glDeleteBuffers(1, &m_VBOID);
+		glDeleteBuffers(1, &m_RendererID);
 	}
 
 	void OpenGLVertexBuffer::Bind() const
 	{
-		glBindBuffer(GL_ARRAY_BUFFER, m_VBOID);
+		glBindBuffer(GL_ARRAY_BUFFER, m_RendererID);
 	}
 
 	void OpenGLVertexBuffer::Unbind() const
@@ -31,23 +31,23 @@ namespace tnah {
 	}
 
 	// IndexBuffer 
-	
+
 	OpenGLIndexBuffer::OpenGLIndexBuffer(uint32_t* indices, uint32_t count)
 		: m_Count(count)
 	{
-		glCreateBuffers(1, &m_IBOID);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_IBOID);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, count, indices, GL_STATIC_DRAW);
+		glGenBuffers(1, &m_RendererID);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_RendererID);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, count * sizeof(uint32_t), indices, GL_STATIC_DRAW);
 	}
 
 	OpenGLIndexBuffer::~OpenGLIndexBuffer()
 	{
-		glDeleteBuffers(1, &m_IBOID);
+		glDeleteBuffers(1, &m_RendererID);
 	}
 
 	void OpenGLIndexBuffer::Bind() const
 	{
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_IBOID);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_RendererID);
 	}
 
 	void OpenGLIndexBuffer::Unbind() const

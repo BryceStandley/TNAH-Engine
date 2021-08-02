@@ -34,14 +34,14 @@ public:
 		indexBuffer.reset(tnah::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
 		m_VAO->SetIndexBuffer(indexBuffer);
 
-
 		m_Shader.reset(tnah::Shader::Create("assets/shaders/default_vertex.glsl", "assets/shaders/default_fragment.glsl"));
-		
+
+
 		m_ActiveScene = new tnah::Scene();
 		m_Camera = m_ActiveScene->CreateGameObject("Camera");
-		m_Camera.AddComponent<tnah::CameraComponent>();
-
-		/*
+		auto& cam = m_Camera.AddComponent<tnah::CameraComponent>();
+		//cam.Camera.SetViewportSize(1280, 720);
+		
 		m_Terrain = m_ActiveScene->CreateGameObject("Terrain");
 		auto& t = m_Terrain.AddComponent<tnah::TerrainComponent>("assets/heightmaps/1k.tga");
 
@@ -59,7 +59,7 @@ public:
 
 
 		m_TerrainShader.reset(tnah::Shader::Create("assets/shaders/terrain/terrain_vertex.glsl", "assets/shaders/terrain/terrain_fragment.glsl"));
-		*/
+		
 
 	}
 
@@ -68,16 +68,15 @@ public:
 		
 		auto& cameraT = m_Camera.GetComponent<tnah::TransformComponent>();
 
-
-		//auto& terr = m_Terrain.GetComponent<tnah::TransformComponent>();
+		auto& terr = m_Terrain.GetComponent<tnah::TransformComponent>();
 
 		tnah::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1.0f });
-		tnah::RenderCommand::Clear();		
-		m_ActiveScene->OnUpdate(deltaTime);
-		glm::mat4 transform = cameraT.GetTransform();
-		tnah::Renderer::BeginScene(m_Camera.GetComponent<tnah::CameraComponent>().Camera, transform);
+		tnah::RenderCommand::Clear();	
 
-		//tnah::Renderer::Submit(m_TerrainVAO, m_TerrainShader, terr.GetTransform());
+		m_ActiveScene->OnUpdate(deltaTime);
+		tnah::Renderer::BeginScene(m_Camera.GetComponent<tnah::CameraComponent>());
+
+		tnah::Renderer::Submit(m_TerrainVAO, m_TerrainShader, terr.GetTransform());
 
 		tnah::Renderer::Submit(m_VAO, m_Shader);
 
@@ -89,24 +88,31 @@ public:
 
 	virtual void OnImGuiRender() override
 	{
+		auto& cam = m_Camera.GetComponent<tnah::TransformComponent>();
+		auto& terr = m_Terrain.GetComponent<tnah::TransformComponent>();
+
 		ImGui::Begin("Controls");
-		ImGui::Text("WASD to move the camera Up, Down, Left and Right");
+		ImGui::Text("%.1f FPS", ImGui::GetIO().Framerate);
+		ImGui::Text("Control the camera with the sliders!");
+		ImGui::SliderFloat3("Camera Pos", glm::value_ptr(cam.Position), -10000, 10000);
+		ImGui::SliderFloat3("Camera Rotation", glm::value_ptr(cam.Rotation), -360, 360);
+
+		ImGui::SliderFloat3("Terrain Scale", glm::value_ptr(terr.Scale), 1, 5);
 		ImGui::End();
 	}
 
 	void OnEvent(tnah::Event& event) override
 	{
-		tnah::EventDispatcher dispatcher(event);
-		dispatcher.Dispatch<tnah::KeyPressedEvent>(TNAH_BIND_EVENTS_FN(TestLayer::OnKeyPressed));
-		
+		//Update the cameras viewport when the window resize event is triggered
+		if (event.GetEventType() == tnah::EventType::WindowResize)
+		{
+			auto& re = (tnah::WindowResizeEvent&)event;
+			uint32_t  width = re.GetWidth();
+			uint32_t height = re.GetHeight();
+			m_Camera.GetComponent<tnah::CameraComponent>().Camera.SetViewportSize(width, height);
+		}
 	}
 
-	bool OnKeyPressed(tnah::KeyPressedEvent& e)
-	{
-
-		return false;
-		
-	}
 
 private:
 	tnah::Ref<tnah::Shader> m_Shader;
@@ -124,10 +130,11 @@ private:
 class Editor : public tnah::Application
 {
 public:
+	//Create a new Application called Editor and push a test layer onto the layerstack
 	Editor()
 		:tnah::Application("TNAH Editor")
 	{
-		PushOverlay(new TestLayer());
+		PushLayer(new TestLayer());
 	}
 
 
@@ -135,9 +142,36 @@ public:
 	{
 	}
 
+	
+	void OnEvent(tnah::Event& e)
+	{
+		//Close the application on press of Escape
+		tnah::Application::OnEvent(e);
+		if (e.GetEventType() == tnah::EventType::KeyPressed)
+		{
+			auto k = (tnah::KeyPressedEvent&)e;
+			if (k.GetKeyCode() == tnah::Key::Escape)
+			{
+				tnah::WindowCloseEvent c = tnah::WindowCloseEvent();
+				tnah::Application::OnEvent(c);
+			}
+		}
+
+
+		//Dispatch an event to the application on window resize
+		if (e.GetEventType() == tnah::EventType::WindowResize)
+		{
+			auto& re = (tnah::WindowResizeEvent&)e;
+			tnah::Application::OnEvent(e);
+		}
+	}
 
 };
 
+
+//This is required to make a new application with our set layers inside this project.
+// this is a single project and only uses engine classes and doesn't have access to all engine specific
+// functions like raw OpenGL calls, thats a job for the engine to handle internally.
 tnah::Application* tnah::CreateApplication()
 {
 	return new Editor();

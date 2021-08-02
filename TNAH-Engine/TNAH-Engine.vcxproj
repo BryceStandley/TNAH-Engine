@@ -19,7 +19,6 @@
     <ClCompile Include="src\TNAH\Renderer\Buffer.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLGraphicsContext.cpp" />
     <ClCompile Include="src\TNAH\Core\Window.cpp" />
-    <ClCompile Include="src\TNAH\Layers\EditorLayer.cpp" />
     <ClCompile Include="src\Platform\Windows\WinInput.cpp" />
     <ClCompile Include="src\TNAH\Layers\ImGuiBuilder.cpp" />
     <ClCompile Include="src\TNAH\Layers\ImGuiLayer.cpp" />
@@ -84,7 +83,6 @@
     <ClInclude Include="src\TNAH\Core\Core.h" />
     <ClInclude Include="src\tnahpch.h" />
     <ClInclude Include="src\TNAH\Core\Window.h" />
-    <ClInclude Include="src\TNAH\Layers\EditorLayer.h" />
     <ClInclude Include="src\TNAH\Scene\Components\LightComponents.h" />
     <ClInclude Include="src\TNAH\Scene\Components\PhysicsComponents.h" />
     <ClInclude Include="src\TNAH\Scene\GameObject.h" />

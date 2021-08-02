@@ -202,7 +202,7 @@ namespace tnah {
 			}
 		}
 
-		m_IBOSize = sizeof(uint32_t) * m_IndicesData.size();
+		m_IBOSize = m_IndicesData.size();
 
 	}
 

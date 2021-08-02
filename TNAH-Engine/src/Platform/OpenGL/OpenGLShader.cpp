@@ -105,7 +105,9 @@ namespace tnah {
 		}
 		catch (std::ifstream::failure& e)
 		{
+			TNAH_CORE_ERROR("{0}", e.what());
 			TNAH_CORE_ASSERT(false, "Shader failed to open/parse");
+
 		}
 		return code;
 	}
@@ -151,7 +153,7 @@ namespace tnah {
 			GLuint shader = glCreateShader(type);
 
 			const GLchar* sourceCStr = src.c_str();
-			glShaderSource(shader, 1, &sourceCStr, 0);
+			glShaderSource(shader, 1, &sourceCStr, nullptr);
 
 
 			glCompileShader(shader);
@@ -213,15 +215,13 @@ namespace tnah {
 
 
 
-	void OpenGLShader::Bind() const
+	void OpenGLShader::Bind()
 	{
 		glUseProgram(m_ShaderID);
 	}
 
-	void OpenGLShader::Unbind() const
+	void OpenGLShader::Unbind()
 	{
-
-
 		glUseProgram(0);
 	}
 

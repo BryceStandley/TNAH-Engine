@@ -34,31 +34,9 @@ namespace tnah {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
 
-	void OpenGLRendererAPI::DrawIndexed(const Ref<VertexArray> vertexArray)
+	void OpenGLRendererAPI::DrawIndexed(const Ref<VertexArray>& vertexArray)
 	{
-		
-		vertexArray->Bind();
-		uint32_t count = vertexArray->m_IndicesSize;
-
-		glDrawElements(GL_TRIANGLES, count, GL_UNSIGNED_INT, nullptr);
-		glBindVertexArray(0);
-		glActiveTexture(GL_TEXTURE0);
-	}
-
-
-	void OpenGLRendererAPI::BindVAO(const uint32_t VAO)
-	{
-		glBindVertexArray(VAO);
-	}
-
-	void OpenGLRendererAPI::BindVBO(const uint32_t VBO)
-	{
-		glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	}
-
-	void OpenGLRendererAPI::BindIBO(const uint32_t IBO)
-	{
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IBO);
+		glDrawElements(GL_TRIANGLES, vertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
 	}
 
 }
