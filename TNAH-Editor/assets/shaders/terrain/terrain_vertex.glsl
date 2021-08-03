@@ -10,10 +10,15 @@ uniform mat4 u_Transform;
 
 out vec3 v_Position;
 out vec4 v_Color;
+out float v_Height;
+out vec3 v_Normal;
+out vec2 v_TextureCoord;
 
 void main()
 {
 	v_Position = a_Position;
 	v_Color = a_Color;
-	gl_Position = u_ViewProjection * u_Transform * vec4(a_Position.x, a_Position.y, a_Position.z, 1.0);	
+	gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);
+	v_Normal = mat3(transpose(inverse(u_Transform))) * vec3(a_Normal.xyz);
+	v_Height = a_Color.y * 255;
 }

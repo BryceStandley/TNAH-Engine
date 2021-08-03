@@ -14,6 +14,8 @@ namespace tnah {
 		virtual void Clear() override;
 
 		virtual void DrawIndexed(const Ref<VertexArray>& vertexArray) override;
+
+		virtual void SetWireframe(const bool& enable) override;
 	};
 
 }

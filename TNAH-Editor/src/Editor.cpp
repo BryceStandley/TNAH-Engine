@@ -7,59 +7,17 @@ class TestLayer : public tnah::Layer
 public:
 	TestLayer()
 		: Layer("Example")
-	{
-		
-		m_VAO.reset(tnah::VertexArray::Create());
-
-
-		float vertices[3 * 7] = {
-			-0.5f, -0.5f, 0.0f, 0.8f, 0.2f, 0.8f, 1.0f,
-			 0.5f, -0.5f, 0.0f, 0.2f, 0.3f, 0.8f, 1.0f,
-			 0.0f,  0.5f, 0.0f, 0.8f, 0.8f, 0.2f, 1.0f
-		};
-
-		std::shared_ptr<tnah::VertexBuffer> vertexBuffer;
-		vertexBuffer.reset(tnah::VertexBuffer::Create(vertices, sizeof(vertices)));
-		tnah::BufferLayout layout = {
-			{ tnah::ShaderDataType::Float3, "a_Position" },
-			{ tnah::ShaderDataType::Float4, "a_Color" }
-		};
-		vertexBuffer->SetLayout(layout);
-		m_VAO->AddVertexBuffer(vertexBuffer);
-
-
-
-		uint32_t indices[3] = { 0, 1, 2 };
-		std::shared_ptr<tnah::IndexBuffer> indexBuffer;
-		indexBuffer.reset(tnah::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
-		m_VAO->SetIndexBuffer(indexBuffer);
-
-		m_Shader.reset(tnah::Shader::Create("assets/shaders/default_vertex.glsl", "assets/shaders/default_fragment.glsl"));
-
-
+    {
+	
 		m_ActiveScene = new tnah::Scene();
 		m_Camera = m_ActiveScene->CreateGameObject("Camera");
 		auto& cam = m_Camera.AddComponent<tnah::CameraComponent>();
-		//cam.Camera.SetViewportSize(1280, 720);
+		cam.Camera.SetViewportSize(1280, 720);
+		auto& camT = m_Camera.GetComponent<tnah::TransformComponent>();
+		camT.Position = glm::vec3(100,5, 100);
 		
 		m_Terrain = m_ActiveScene->CreateGameObject("Terrain");
-		auto& t = m_Terrain.AddComponent<tnah::TerrainComponent>("assets/heightmaps/1k.tga");
-
-
-
-		m_TerrainVAO.reset(tnah::VertexArray::Create());
-		tnah::Ref<tnah::VertexBuffer> terrainVBO;
-		terrainVBO.reset(tnah::VertexBuffer::Create(t.SceneTerrain->GetTotalData(), t.SceneTerrain->GetTotalDataSize()));
-		terrainVBO->SetLayout(t.SceneTerrain->GetBufferLayout());
-		m_TerrainVAO->AddVertexBuffer(terrainVBO);
-
-		tnah::Ref<tnah::IndexBuffer> terrainIBO;
-		terrainIBO.reset(tnah::IndexBuffer::Create(t.SceneTerrain->GetIndicesData(), t.SceneTerrain->GetIndicesSize()));
-		m_TerrainVAO->SetIndexBuffer(terrainIBO);
-
-
-		m_TerrainShader.reset(tnah::Shader::Create("assets/shaders/terrain/terrain_vertex.glsl", "assets/shaders/terrain/terrain_fragment.glsl"));
-		
+		m_Terrain.AddComponent<tnah::TerrainComponent>("assets/heightmaps/1k.tga");
 
 	}
 
@@ -70,19 +28,54 @@ public:
 
 		auto& terr = m_Terrain.GetComponent<tnah::TransformComponent>();
 
-		tnah::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1.0f });
-		tnah::RenderCommand::Clear();	
+		//Camera Movement in a first person way.
+		//This can be changed to also look like a 3rd person camera. Similar to a FPS camera in Unity and C#
+		if(tnah::Input::IsKeyPressed(tnah::Key::W))
+		{
+			cameraT.Position += cameraT.Forward * m_CameraMovementSpeed * deltaTime.GetSeconds();
+		}
+		if(tnah::Input::IsKeyPressed(tnah::Key::S))
+		{
+			cameraT.Position -= cameraT.Forward * m_CameraMovementSpeed * deltaTime.GetSeconds();
+		}
+		if(tnah::Input::IsKeyPressed(tnah::Key::A))
+		{
+			cameraT.Position -= cameraT.Right * m_CameraMovementSpeed * deltaTime.GetSeconds();
+		}
+		if(tnah::Input::IsKeyPressed(tnah::Key::D))
+		{
+			cameraT.Position += cameraT.Right * m_CameraMovementSpeed * deltaTime.GetSeconds();
+		}
 
+		//Camera Mouse rotation controls
+		auto mousePos = tnah::Input::GetMousePos();
+		if (m_FirstMouseInput)
+		{
+			m_LastMouseXPos = mousePos.first;
+			m_LastMouseYPos = mousePos.second;
+			m_FirstMouseInput = false;
+		}
+
+		float offsetX = mousePos.first - m_LastMouseXPos;
+		float offsetY = m_LastMouseYPos - mousePos.second;
+		m_LastMouseXPos = mousePos.first;
+		m_LastMouseYPos = mousePos.second;
+		offsetX *= m_CameraMouseSensitivity;
+		offsetY *= m_CameraMouseSensitivity;
+		cameraT.Rotation.x += offsetX;
+		cameraT.Rotation.y += offsetY;
+		if (cameraT.Rotation.y > 89.0f)
+		{
+			cameraT.Rotation.y = 89.0f;
+		}
+		if (cameraT.Rotation.y < -89.0f)
+		{
+			cameraT.Rotation.y = -89.0f;
+		}
+
+		//Rendering is managed by the scene loaded and checks all the required objects to render
 		m_ActiveScene->OnUpdate(deltaTime);
-		tnah::Renderer::BeginScene(m_Camera.GetComponent<tnah::CameraComponent>());
-
-		tnah::Renderer::Submit(m_TerrainVAO, m_TerrainShader, terr.GetTransform());
-
-		tnah::Renderer::Submit(m_VAO, m_Shader);
-
 		
-
-		tnah::Renderer::EndScene();
 
 	}
 
@@ -93,9 +86,12 @@ public:
 
 		ImGui::Begin("Controls");
 		ImGui::Text("%.1f FPS", ImGui::GetIO().Framerate);
-		ImGui::Text("Control the camera with the sliders!");
+		ImGui::Text("Press 1 to toggle mouse lock");
+		ImGui::Text("Press 2 to toggle wireframe mode");
+		ImGui::Text("Press ESC to exit");
 		ImGui::SliderFloat3("Camera Pos", glm::value_ptr(cam.Position), -10000, 10000);
 		ImGui::SliderFloat3("Camera Rotation", glm::value_ptr(cam.Rotation), -360, 360);
+		ImGui::SliderFloat("Camera Movement Speed", &m_CameraMovementSpeed, 1, 100);
 
 		ImGui::SliderFloat3("Terrain Scale", glm::value_ptr(terr.Scale), 1, 5);
 		ImGui::End();
@@ -115,16 +111,15 @@ public:
 
 
 private:
-	tnah::Ref<tnah::Shader> m_Shader;
-	tnah::Ref<tnah::VertexArray> m_VAO;
-
 	tnah::Scene* m_ActiveScene;
 	tnah::GameObject m_Camera;
-
 	tnah::GameObject m_Terrain;
-	tnah::Ref<tnah::Shader> m_TerrainShader;
-	tnah::Ref<tnah::VertexArray> m_TerrainVAO;
 
+	float m_CameraMovementSpeed = 5.0f;
+	float m_CameraMouseSensitivity = 0.1f;
+	float m_LastMouseXPos = 0.0f;
+	float m_LastMouseYPos = 0.0f;
+	bool m_FirstMouseInput = true;
 };
 
 class Editor : public tnah::Application
@@ -134,6 +129,7 @@ public:
 	Editor()
 		:tnah::Application("TNAH Editor")
 	{
+		GetWindow().SetCursorDisabled(m_CursorDisabled);
 		PushLayer(new TestLayer());
 	}
 
@@ -155,9 +151,20 @@ public:
 				tnah::WindowCloseEvent c = tnah::WindowCloseEvent();
 				tnah::Application::OnEvent(c);
 			}
+			//Toggle the Cursor on or off
+			if (k.GetKeyCode() == tnah::Key::D1)
+			{
+				m_CursorDisabled = !m_CursorDisabled;
+				GetWindow().SetCursorDisabled(m_CursorDisabled);
+			}
+			//Toggle Wireframe on or off
+			if (k.GetKeyCode() == tnah::Key::D2)
+			{
+				m_WireframeEnabled = !m_WireframeEnabled;
+				tnah::RenderCommand::SetWireframe(m_WireframeEnabled);
+			}
 		}
-
-
+		
 		//Dispatch an event to the application on window resize
 		if (e.GetEventType() == tnah::EventType::WindowResize)
 		{
@@ -166,6 +173,8 @@ public:
 		}
 	}
 
+	bool m_CursorDisabled = true;
+	bool m_WireframeEnabled = false;
 };
 
 

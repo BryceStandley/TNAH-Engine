@@ -4,9 +4,13 @@
   <component name="CidrRootsConfiguration">
     <excludeRoots>
       <file path="$PROJECT_DIR$/.vs" />
+      <file path="$PROJECT_DIR$/397" />
       <file path="$PROJECT_DIR$/Documentation" />
       <file path="$PROJECT_DIR$/Doxygen" />
       <file path="$PROJECT_DIR$/Executable" />
+      <file path="$PROJECT_DIR$/TNAH-Editor/x64" />
+      <file path="$PROJECT_DIR$/bin" />
+      <file path="$PROJECT_DIR$/bin-int" />
       <file path="$PROJECT_DIR$/build" />
       <file path="$PROJECT_DIR$/cmake-build-debug" />
       <file path="$PROJECT_DIR$/cmake-build-debug-visual-studio" />
@@ -14,9 +18,13 @@
       <file path="$PROJECT_DIR$/cmake-build-release-visual-studio" />
       <file path="$PROJECT_DIR$/include" />
       <file path="$PROJECT_DIR$/lib" />
+      <file path="$PROJECT_DIR$/out" />
+      <file path="$PROJECT_DIR$/res" />
+      <file path="$PROJECT_DIR$/src" />
       <file path="$PROJECT_DIR$/src/imgui" />
       <file path="$PROJECT_DIR$/src/tga" />
       <file path="$PROJECT_DIR$/src/x64" />
+      <file path="$PROJECT_DIR$/vender" />
       <file path="$PROJECT_DIR$/x64" />
     </excludeRoots>
   </component>

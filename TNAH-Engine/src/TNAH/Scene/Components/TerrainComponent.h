@@ -3,6 +3,8 @@
 #include <glm/glm.hpp>
 #include "Platform/OpenGL/OpenGLVertexArray.h"
 #include "Platform/OpenGL/OpenGLBuffer.h"
+#include "Platform/OpenGL/OpenGLShader.h"
+#include "Platform/OpenGL/OpenGLTexture.h"
 
 namespace tnah {
 	class Terrain
@@ -27,7 +29,7 @@ namespace tnah {
 
 		Terrain();
 		Terrain(const int width, const int maxHeight, const int minHeight);
-		Terrain(const std::string heightmapFilePath);
+		Terrain(const std::string& heightmapFilePath);
 		~Terrain();
 
 		inline const glm::vec3 GetMaxHeight() { return m_HighestPoint; }
@@ -52,6 +54,12 @@ namespace tnah {
 		inline const uint32_t GetIndicesSize() { return m_IBOSize; }
 
 		inline const BufferLayout GetBufferLayout() { return m_BufferLayout; }
+
+		inline Ref<VertexArray> GetVertexArray() {return m_VAO;}
+		inline Ref<VertexBuffer> GetVertexBuffer() {return m_VBO;}
+		inline Ref<IndexBuffer> GetIndexBuffer() {return m_IBO;}
+		inline Ref<Shader> GetShader() {return m_Shader;}
+		inline std::vector<Ref<Texture2D>> GetTextures() {return m_Textures;}
 
 	private:
 		/**********************************************************************************************//**
@@ -111,7 +119,12 @@ namespace tnah {
 		uint32_t m_VBOSize;
 		uint32_t m_IBOSize;
 		BufferLayout m_BufferLayout;
-
+		Ref<VertexArray> m_VAO;
+		Ref<VertexBuffer> m_VBO;
+		Ref<IndexBuffer> m_IBO;
+		Ref<Shader> m_Shader;
+		std::vector<Ref<Texture2D>> m_Textures;
+		std::vector<std::string> m_TextureFileNames;
 
 
 		glm::vec3 m_HighestPoint = glm::vec3(0.0f);
@@ -134,7 +147,6 @@ namespace tnah {
 		{
 			SceneTerrain = new Terrain(width, maxHeight, minHeight);
 		}
-
 
 	};
 

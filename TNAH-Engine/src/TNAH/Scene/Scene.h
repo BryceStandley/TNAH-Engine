@@ -39,6 +39,11 @@ namespace tnah {
 		GameObject FindEntityByTag(const std::string& tag);
 		GameObject FindEntityByUUID(UUID id);
 
+		/**
+		 *
+		 */
+		GameObject FindGameObjectByID(const entt::entity& id);
+
 		void DestryGameObject(GameObject gameObject);
 
 	private:

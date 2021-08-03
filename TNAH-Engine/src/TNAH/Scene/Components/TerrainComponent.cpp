@@ -18,9 +18,18 @@ namespace tnah {
 			{ShaderDataType::Float3, "a_Texture"},
 			{ShaderDataType::Float3, "a_Normal"}
 		};
+		m_VAO.reset(VertexArray::Create());
+		m_VBO.reset(VertexBuffer::Create(GetTotalData(), GetTotalDataSize()));
+		m_VBO->SetLayout(m_BufferLayout);
+		m_VAO->AddVertexBuffer(m_VBO);
+
+		m_IBO.reset(IndexBuffer::Create(GetIndicesData(), GetIndicesSize()));
+		m_VAO->SetIndexBuffer(m_IBO);
+
+		m_Shader.reset(Shader::Create("assets/shaders/terrain/terrain_vertex.glsl", "assets/shaders/terrain/terrain_fragment.glsl"));
 	}
 
-	Terrain::Terrain(const std::string heightmapFilePath)
+	Terrain::Terrain(const std::string& heightmapFilePath)
 	{
 		if (LoadHeightField(heightmapFilePath))
 		{
@@ -31,7 +40,28 @@ namespace tnah {
 				{ShaderDataType::Float3, "a_Texture"},
 				{ShaderDataType::Float3, "a_Normal"}
 			};
+			m_VAO.reset(VertexArray::Create());
+			m_VBO.reset(VertexBuffer::Create(GetTotalData(), GetTotalDataSize()));
+			m_VBO->SetLayout(m_BufferLayout);
+			m_VAO->AddVertexBuffer(m_VBO);
 
+			m_IBO.reset(IndexBuffer::Create(GetIndicesData(), GetIndicesSize()));
+			m_VAO->SetIndexBuffer(m_IBO);
+
+			m_Shader.reset(Shader::Create("assets/shaders/terrain/terrain_vertex.glsl", "assets/shaders/terrain/terrain_fragment.glsl"));
+
+			m_TextureFileNames.emplace_back("dirt.jpg");
+			m_TextureFileNames.emplace_back("grass.jpg");
+			m_TextureFileNames.emplace_back("rock.jpg");
+			m_TextureFileNames.emplace_back("snow.jpg");
+			m_TextureFileNames.emplace_back("detail.jpg");
+			
+			for(int i = 0; i < m_TextureFileNames.size(); i++)
+			{
+				Ref<Texture2D> texture;
+				texture.reset(Texture2D::Create("assets/textures/terrain/" + m_TextureFileNames[i]));
+				m_Textures.emplace_back(texture);
+			}
 		}
 	}
 
@@ -45,6 +75,15 @@ namespace tnah {
 			{ShaderDataType::Float3, "a_Texture"},
 			{ShaderDataType::Float3, "a_Normal"}
 		};
+		m_VAO.reset(VertexArray::Create());
+		m_VBO.reset(VertexBuffer::Create(GetTotalData(), GetTotalDataSize()));
+		m_VBO->SetLayout(m_BufferLayout);
+		m_VAO->AddVertexBuffer(m_VBO);
+
+		m_IBO.reset(IndexBuffer::Create(GetIndicesData(), GetIndicesSize()));
+		m_VAO->SetIndexBuffer(m_IBO);
+
+		m_Shader.reset(Shader::Create("assets/shaders/terrain/terrain_vertex.glsl", "assets/shaders/terrain/terrain_fragment.glsl"));
 	}
 
 	Terrain::~Terrain()

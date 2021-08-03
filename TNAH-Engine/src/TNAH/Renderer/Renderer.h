@@ -4,6 +4,7 @@
 
 #include "TNAH/Scene/SceneCamera.h"
 #include "TNAH/Renderer/Shader.h"
+#include "Texture.h"
 
 namespace tnah {
 
@@ -19,6 +20,8 @@ namespace tnah {
 		static void EndScene();
 
 		static void Submit(const Ref<VertexArray>& vertexArray, const Ref<Shader>& shader, const glm::mat4& transform = glm::mat4(1.0f));
+		static void SubmitTerrain(const Ref<VertexArray>& vertexArray, const Ref<Shader>& shader, const std::vector<Ref<Texture2D>>& textures, const glm::mat4& transform = glm::mat4(1.0f), const glm::mat3& lightingInformation = glm::mat3(1.0f));
+
 
 		static RendererAPI::API GetAPI() { return RendererAPI::GetAPI(); }
 	private:

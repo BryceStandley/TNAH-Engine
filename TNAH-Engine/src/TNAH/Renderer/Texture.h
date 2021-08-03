@@ -25,8 +25,9 @@ namespace tnah {
 	class Texture2D : public Texture
 	{
 	public:
-		static Ref<Texture2D> Create(uint32_t width, uint32_t height);
-		static Ref<Texture2D> Create(const std::string& path);
+		static Texture2D* Create(uint32_t width, uint32_t height);
+		static Texture2D* Create(const std::string& path);
+		bool m_Loaded = false;
 	};
 
 }

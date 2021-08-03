@@ -36,7 +36,7 @@ find_package(ReactPhysics3D REQUIRED)
 message("")
 
 # Adding Source Directory
-add_subdirectory(${PROJECT_SOURCE_DIR}/src)
+add_subdirectory(${PROJECT_SOURCE_DIR}/TNAH-Engine)
 
 # Linking lib files to compiler
 if(WIN32)

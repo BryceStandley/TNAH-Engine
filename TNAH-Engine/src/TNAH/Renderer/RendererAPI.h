@@ -20,6 +20,7 @@ namespace tnah {
 		virtual void Clear() = 0;
 
 		virtual void DrawIndexed(const Ref<VertexArray>& vertexArray) = 0;
+		virtual void SetWireframe(const bool& enable) = 0;
 
 
 		static API GetAPI() { return s_API; }

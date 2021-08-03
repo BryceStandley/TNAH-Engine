@@ -2,6 +2,7 @@
 #include "Scene.h"
 #include "GameObject.h"
 #include "Components/Components.h"
+#include "TNAH/Renderer/Renderer.h"
 
 namespace tnah{
 
@@ -48,6 +49,42 @@ namespace tnah{
 				auto& transform = view.get<TransformComponent>(entity);
 				camera.Camera.OnUpdate(transform);
 			}
+		}
+
+		//Renderer Stuff
+		{
+			glm::vec3 cameraPosition;
+			RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1.0f });
+			RenderCommand::Clear();
+			{
+				auto view = m_Registry.view<TransformComponent, CameraComponent>();
+				for(auto entity : view)
+				{ 
+					auto& camera = view.get<CameraComponent>(entity);
+					auto& transform = view.get<TransformComponent>(entity);
+					cameraPosition = transform.Position;
+					Renderer::BeginScene(camera);
+					break;
+					TNAH_CORE_ASSERT(false, "The TNAH-Engine only supports rendering from a single camera!")
+				}
+			}
+			//Render any terrain objects
+			{
+				auto view = m_Registry.view<TransformComponent, TerrainComponent>();
+				for(auto entity : view)
+				{
+					auto& terrain = view.get<TerrainComponent>(entity);
+					auto& transform = view.get<TransformComponent>(entity);
+
+					glm::mat3 lightInfo = glm::mat3(1.0f);
+					lightInfo[0] = glm::vec3(0, 100, 0);
+					lightInfo[1] = cameraPosition;
+					lightInfo[2] = glm::vec3(1, 1, 1);
+					Renderer::SubmitTerrain(terrain.SceneTerrain->GetVertexArray(), terrain.SceneTerrain->GetShader(), terrain.SceneTerrain->GetTextures(), transform.GetTransform(), lightInfo);
+				}
+			}
+			
+			Renderer::EndScene();
 		}
 	}
 
@@ -106,6 +143,18 @@ namespace tnah{
 		return GameObject{};
 	}
 
+	GameObject Scene::FindGameObjectByID(const entt::entity& id)
+	{
+		for(auto go : m_GameObjectsInScene)
+		{
+			if(go.second.GetID() == id)
+			{
+				return go.second;
+			}
+		}
+		return GameObject();
+	}
+	
 	void Scene::DestryGameObject(GameObject gameObject)
 	{
 		m_Registry.destroy(gameObject.GetID());

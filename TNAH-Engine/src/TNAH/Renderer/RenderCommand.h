@@ -31,6 +31,10 @@ namespace tnah {
 			s_RendererAPI->SetViewport(x, y, width, height);
 		}
 
+		inline static void SetWireframe(const bool& enable)
+		{
+			s_RendererAPI->SetWireframe(enable);
+		}
 
 
 	private:

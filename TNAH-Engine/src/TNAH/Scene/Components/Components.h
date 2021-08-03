@@ -8,6 +8,9 @@
 #include "LightComponents.h"
 #include "AudioComponents.h"
 
+
+#include "TNAH/Renderer/Mesh.h"
+
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -93,6 +96,14 @@ namespace tnah {
 		}
 	};
 
+	/**********************************************************************************************//**
+	 * @struct	CameraComponent
+	 *
+	 * @brief	A camera component that holds all the required information for a camera
+	 *
+	 * @author	Nukee
+	 * @date	3/08/2021
+	 **************************************************************************************************/
 
 	struct CameraComponent
 	{
@@ -107,84 +118,26 @@ namespace tnah {
 	};
 
 
-
 	/**********************************************************************************************//**
-	 * @class	Camera
+	 * @struct	MeshComponent
 	 *
-	 * @brief	A camera component that allows an objects view to be rendered.
+	 * @brief	A mesh component holds all the information to do with 3D meshes
 	 *
 	 * @author	Bryce Standley
-	 * @date	20/07/2021
+	 * @date	3/08/2021
 	 **************************************************************************************************/
 
-	/*class Camera
+	struct MeshComponent
 	{
-	public:
-		enum class CameraType
-		{
-			Orthographic, Perspective
-		};
-		Camera()
-			:m_Projection(glm::ortho(-1.0f, 1.0f, -1.0f, 1.0f, -1.0f, 1.0f)), m_View(1.0f), m_Position({ 0.0f }), m_Rotation({0.0f})
-		{
-			m_ViewProjection = m_Projection * m_View;
-		}
+		Ref<tnah::Mesh> Mesh;
 
-		Camera(float left, float right, float bottom, float top)
-			: m_Projection(glm::ortho(left, right, bottom, top, -1.0f, 1.0f)), m_View(1.0f), m_Position({ 0,0,0 }), m_Rotation({0,0,0})
-		{
-			m_ViewProjection = m_Projection * m_View;
-		}
+		MeshComponent() = default;
+		MeshComponent(const MeshComponent& other) = default;
+		MeshComponent(const Ref<tnah::Mesh>& mesh)
+			: Mesh(mesh) {}
 
-		const glm::vec3& GetPosition() const { return m_Position; }
-		inline void SetPosition(const glm::vec3& position) { m_Position = position; RecalculateViewMatrix(); }
-
-		const glm::vec3 GetRotation() const { return m_Rotation; }
-		inline void SetRotation(const glm::vec3& rotation) { m_Rotation = rotation; RecalculateViewMatrix(); }
-
-		const glm::mat4& GetProjectionMatrix() const { return m_Projection; }
-		inline void SetProjection(const glm::mat4& projection) { m_Projection = projection; }
-
-		const glm::mat4& GetViewMatrix() const { return m_View; }
-		inline void SetView(const glm::mat4& view) { m_View = view; }
-
-		const glm::mat4& GetViewProjection() const { return m_ViewProjection; }
-
-	private:
-		inline void RecalculateViewMatrix()
-		{
-			if (m_CameraType == CameraType::Orthographic)
-			{
-				glm::mat4 transform = glm::translate(glm::mat4(1.0f), m_Position) * glm::rotate(glm::mat4(1.0f), glm::radians(m_Rotation.z), { 0,0,1 });
-				m_View = glm::inverse(transform);
-
-				//Must be Projection * view not view * projection
-				m_ViewProjection = m_Projection * m_View;
-			}
-			else
-			{
-
-			}
-		}
-
-	private:
-		glm::mat4 m_Projection;
-		glm::mat4 m_View;
-		glm::mat4 m_ViewProjection;
-
-		glm::vec3 m_Position;
-		glm::vec3 m_Rotation;
-		CameraType m_CameraType = CameraType::Orthographic;
+		operator Ref<tnah::Mesh>() { return Mesh; }
 	};
-	*/
-	struct Material
-	{
-
-		Material();
-
-	};
-
-
 
 	/**********************************************************************************************//**
 	 * @struct	NativeScript

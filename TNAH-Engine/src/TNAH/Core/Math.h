@@ -20,4 +20,18 @@ namespace tnah::math {
 
 	bool DecomposeTransform(const glm::mat4& transform, glm::vec3& translation, glm::vec3& rotation, glm::vec3& scale);
 
+
+    struct AABB
+    {
+        glm::vec3 Min, Max;
+
+        AABB()
+                : Min(0.0f), Max(0.0f) {}
+
+        AABB(const glm::vec3& min, const glm::vec3& max)
+                : Min(min), Max(max) {}
+
+    };
+
+
 }
