@@ -28,6 +28,8 @@ namespace tnah {
 		static Texture2D* Create(uint32_t width, uint32_t height);
 		static Texture2D* Create(const std::string& path);
 		bool m_Loaded = false;
+		uint32_t m_RendererID;
+		std::string m_Path;
 	};
 
 }

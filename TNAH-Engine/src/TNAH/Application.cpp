@@ -16,13 +16,11 @@ namespace tnah
 
 		m_Window = Window::Create(WindowProps(name));
 		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
-
-
+		
 		Renderer::Init();
-
+		
 		m_ImGuiLayer = new ImGuiLayer();
 		PushOverlay(m_ImGuiLayer);
-
 	}
 
 	Application::~Application()
@@ -94,7 +92,6 @@ namespace tnah
 				break;
 		}
 	}
-
 
 	void Application::PushLayer(Layer* layer)
 	{

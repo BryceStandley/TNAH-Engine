@@ -50,18 +50,21 @@ namespace tnah {
 
 			m_Shader.reset(Shader::Create("assets/shaders/terrain/terrain_vertex.glsl", "assets/shaders/terrain/terrain_fragment.glsl"));
 
-			m_TextureFileNames.emplace_back("dirt.jpg");
-			m_TextureFileNames.emplace_back("grass.jpg");
-			m_TextureFileNames.emplace_back("rock.jpg");
-			m_TextureFileNames.emplace_back("snow.jpg");
-			m_TextureFileNames.emplace_back("detail.jpg");
+			m_TextureFileNames.emplace_back("dirt");
+			m_TextureFileNames.emplace_back("grass");
+			m_TextureFileNames.emplace_back("rock");
+			m_TextureFileNames.emplace_back("snow");
+			m_TextureFileNames.emplace_back("detail");
 			
 			for(int i = 0; i < m_TextureFileNames.size(); i++)
 			{
 				Ref<Texture2D> texture;
-				texture.reset(Texture2D::Create("assets/textures/terrain/" + m_TextureFileNames[i]));
+				texture.reset(Texture2D::Create("assets/textures/terrain/" + m_TextureFileNames[i] + ".jpg"));
 				m_Textures.emplace_back(texture);
+				m_Shader->Bind();
+				m_Shader->SetInt("u_" + m_TextureFileNames[i] + "Texture", texture->m_RendererID);
 			}
+			m_Shader->Unbind();
 		}
 	}
 

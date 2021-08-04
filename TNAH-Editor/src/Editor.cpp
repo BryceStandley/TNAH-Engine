@@ -19,6 +19,11 @@ public:
 		m_Terrain = m_ActiveScene->CreateGameObject("Terrain");
 		m_Terrain.AddComponent<tnah::TerrainComponent>("assets/heightmaps/1k.tga");
 
+		m_MeshObject = m_ActiveScene->CreateGameObject("MeshObject");
+		
+		//auto& mesh = m_MeshObject.AddComponent<tnah::MeshComponent>();
+		//mesh.Mesh.reset(new tnah::Mesh("assets/meshes/cube.fbx"));
+
 	}
 
 	void OnUpdate(tnah::Timestep deltaTime) override
@@ -114,8 +119,9 @@ private:
 	tnah::Scene* m_ActiveScene;
 	tnah::GameObject m_Camera;
 	tnah::GameObject m_Terrain;
+	tnah::GameObject m_MeshObject;
 
-	float m_CameraMovementSpeed = 5.0f;
+	float m_CameraMovementSpeed = 20.0f;
 	float m_CameraMouseSensitivity = 0.1f;
 	float m_LastMouseXPos = 0.0f;
 	float m_LastMouseYPos = 0.0f;

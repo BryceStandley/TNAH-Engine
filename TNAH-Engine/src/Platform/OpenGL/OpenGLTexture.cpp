@@ -8,8 +8,6 @@ namespace tnah {
 	OpenGLTexture2D::OpenGLTexture2D(uint32_t width, uint32_t height)
 		: m_Width(width), m_Height(height)
 	{
-		 
-
 		m_InternalFormat = GL_RGBA8;
 		m_DataFormat = GL_RGBA;
 
@@ -24,8 +22,8 @@ namespace tnah {
 	}
 
 	OpenGLTexture2D::OpenGLTexture2D(const std::string& path)
-		: m_Path(path)
 	{
+		m_Path = path;
 		int width, height, channels;
 		if(path.find(".png") != std::string::npos)
 		{

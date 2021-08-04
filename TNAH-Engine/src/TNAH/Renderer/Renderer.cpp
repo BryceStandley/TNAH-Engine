@@ -9,7 +9,7 @@ namespace tnah {
 
 	void Renderer::Init()
 	{
-
+		RenderCommand::Init();
 	}
 
 	void Renderer::Shutdown()
@@ -58,18 +58,12 @@ namespace tnah {
 		shader->SetVec3("u_CameraPosition", cameraPosition);
 		shader->SetVec3("u_LightColor", lightColor);
 		
-		uint32_t slot = 0;
+		uint32_t slot = 1;
 		for(auto t : textures)
 		{
 			t->Bind(slot);
 			slot++;
 		}
-
-		shader->SetInt("u_DirtTexture", 0);
-		shader->SetInt("u_GrassTexture", 1);
-		shader->SetInt("u_RockTexture", 2);
-		shader->SetInt("u_SnowTexture", 3);
-		shader->SetInt("u_DetailTexture", 4);
 		
 		vertexArray->Bind();
 		RenderCommand::DrawIndexed(vertexArray);

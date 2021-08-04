@@ -169,6 +169,10 @@
       <AdditionalLibraryDirectories>$(SolutionDir)vender\assimp\lib;$(SolutionDir)vender\glfw\lib;$(SolutionDir)vender\lua\lib;$(SolutionDir)vender\reactphysics3d\lib;$(SolutionDir)vender\spdlog\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>assimp-vc142-mtd.lib;lua54.lib;reactphysics3d.lib;spdlogd.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <Lib>
+      <AdditionalDependencies></AdditionalDependencies>
+      <AdditionalLibraryDirectories></AdditionalLibraryDirectories>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
