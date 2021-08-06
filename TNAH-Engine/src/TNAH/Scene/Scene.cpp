@@ -83,9 +83,24 @@ namespace tnah{
 					Renderer::SubmitTerrain(terrain.SceneTerrain->GetVertexArray(), terrain.SceneTerrain->GetShader(), terrain.SceneTerrain->GetTextures(), transform.GetTransform(), lightInfo);
 				}
 			}
-			
 			Renderer::EndScene();
 		}
+	}
+
+	void Scene::OnFixedUpdate(PhysicsTimestep time)
+	{
+		//Physics calculations go here, they are not rendered here however
+
+		//{
+		//	auto view = m_Registry.view<TransformComponent, PhysicsComponent>(); //Rigidbody whatever we call it
+		//	for (auto entity : view)
+		//	{
+		//		auto& physics = view.get<PhysicsComponent>(entity);
+		//		auto& transform = view.get<TransformComponent>(entity);
+
+		//		//Do the physics stuff around here
+		//	}
+		//}
 	}
 
 	glm::mat4 Scene::GetTransformRelativeToParent(GameObject gameObject)

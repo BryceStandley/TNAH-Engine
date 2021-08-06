@@ -6,6 +6,7 @@
 #include <vector>
 #include "TNAH/Core/Timestep.h"
 #include "TNAH/Core/Math.h"
+#include "TNAH/Physics/PhysicsTimestep.h"
 
 namespace tnah {
 
@@ -30,6 +31,7 @@ namespace tnah {
 		 **************************************************************************************************/
 
 		void OnUpdate(Timestep deltaTime);
+		void OnFixedUpdate(PhysicsTimestep deltaTime);
 
 		glm::mat4 GetTransformRelativeToParent(GameObject gameObject);
 
