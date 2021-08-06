@@ -80,8 +80,11 @@ public:
 
 		//Rendering is managed by the scene loaded and checks all the required objects to render
 		m_ActiveScene->OnUpdate(deltaTime);
-		
+	}
 
+	void OnFixedUpdate(tnah::PhysicsTimestep ps) override
+	{
+		m_ActiveScene->OnFixedUpdate(ps);
 	}
 
 	virtual void OnImGuiRender() override

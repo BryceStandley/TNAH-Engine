@@ -17,6 +17,7 @@ namespace tnah
 		m_Window = Window::Create(WindowProps(name));
 		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
 		
+
 		Renderer::Init();
 		
 		m_ImGuiLayer = new ImGuiLayer();
@@ -30,17 +31,26 @@ namespace tnah
 
 	void Application::Run()
 	{
+		PhysicsTimestep physicsTimestep(60.0f);
+
 		while (m_Running)
 		{
-
 			float time = (float)glfwGetTime();
 			Timestep timestep = time - m_DeltaTime;
 			m_DeltaTime = time;
+
+			physicsTimestep.AddFrameTime(timestep);
 
 			if (!m_Minimized)
 			{
 				for (Layer* layer : m_LayerStack)
 				{
+					while (physicsTimestep.FixedUpdateCheck())
+					{
+						layer->OnFixedUpdate(physicsTimestep);
+						physicsTimestep.Update();
+					}
+
 					layer->OnUpdate(timestep);
 				}
 			}

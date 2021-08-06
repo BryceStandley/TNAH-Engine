@@ -2,6 +2,7 @@
 #include "TNAH/Core/Core.h"
 #include "TNAH/Events/Event.h"
 #include "TNAH/Core/Timestep.h"
+#include "TNAH/Physics/PhysicsTimestep.h"
 
 namespace tnah {
 
@@ -14,6 +15,7 @@ namespace tnah {
 		virtual void OnAttach() {}
 		virtual void OnDetach() {}
 		virtual void OnUpdate(Timestep ts) {}
+		virtual void OnFixedUpdate(PhysicsTimestep ps) {}
 		virtual void OnImGuiRender() {}
 		virtual void OnEvent(Event& event) {}
 
