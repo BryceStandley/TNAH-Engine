@@ -19,6 +19,45 @@ namespace tnah{
 		Shutdown();
 	}
 
+	void WinWindow::ToggleFullScreen(const bool& enabled)
+	{
+		GLFWmonitor* monitor = glfwGetPrimaryMonitor();
+		const GLFWvidmode* mode = glfwGetVideoMode(monitor);
+		if(enabled)
+		{
+			glfwSetWindowMonitor(m_Window, monitor, 0, 0, mode->width, mode->height, mode->refreshRate);
+			m_Data.Fullscreen = enabled;
+		}
+		else
+		{
+			//Default back to a 720p window when toggled
+			glfwSetWindowMonitor(m_Window, nullptr, 100, 100, 1280, 720, mode->refreshRate);
+			m_Data.Fullscreen = enabled;
+		}
+	}
+
+
+	void WinWindow::SetScreenResolution(const int& width, const int& height)
+	{
+		if(width > 0 && height > 0)
+		{
+			GLFWmonitor* monitor = glfwGetPrimaryMonitor();
+			const GLFWvidmode* mode = glfwGetVideoMode(monitor);
+			if(m_Data.Fullscreen)
+			{
+				glfwSetWindowMonitor(m_Window, monitor, 0, 0, width, height, mode->refreshRate);
+				MonitorResolutionChangeEvent event(width, height);
+				m_Data.EventCallback(event);
+			}
+			else
+			{
+				glfwSetWindowMonitor(m_Window, nullptr, 100, 100, width, height, mode->refreshRate);
+				MonitorResolutionChangeEvent event(width, height);
+				m_Data.EventCallback(event);
+			}
+		}
+	}
+
 	void WinWindow::Init(const WindowProps& props)
 	{
 		m_Data.Title = props.Title;

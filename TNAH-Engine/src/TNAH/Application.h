@@ -21,6 +21,7 @@ int main(int argc, char** argv);
 
 namespace tnah
 {
+#define BIND_EVENT_FN(x) std::bind(&tnah::Application::x, this, std::placeholders::_1)
 	class Application
 	{
 	public:
@@ -42,14 +43,14 @@ namespace tnah
 	private:
 		bool OnWindowClose(WindowCloseEvent& e);
 		bool OnWindowResize(WindowResizeEvent& e);
+		bool OnMonitorResolutionChange(MonitorResolutionChangeEvent& e);
 
 		Scope<Window> m_Window;
 		bool m_Running = true;
 		bool m_Minimized = false;
 		LayerStack m_LayerStack = LayerStack();
-		ImGuiLayer* m_ImGuiLayer;
 		float m_DeltaTime = 0.0f;
-		
+		ImGuiLayer* m_ImGuiLayer;
 
 		static Application* s_Instance;
 		friend int ::main(int argc, char** argv);

@@ -92,17 +92,35 @@ public:
 		auto& cam = m_Camera.GetComponent<tnah::TransformComponent>();
 		auto& terr = m_Terrain.GetComponent<tnah::TransformComponent>();
 
+		static const char* resolutions[]
+		{
+			"1280x720", "1920x1080", "2560x1080", "2560x1440"
+		};
+		static int selectedRes = 0;
 		ImGui::Begin("Controls");
 		ImGui::Text("%.1f FPS", ImGui::GetIO().Framerate);
 		ImGui::Text("Press 1 to toggle mouse lock");
 		ImGui::Text("Press 2 to toggle wireframe mode");
+		ImGui::Text("Press 3 to toggle borderless fullscreen");
+		ImGui::Text("Press 4 to toggle VSync");
 		ImGui::Text("Press ESC to exit");
+		
+		ImGui::Text("");
 		ImGui::SliderFloat3("Camera Pos", glm::value_ptr(cam.Position), -10000, 10000);
 		ImGui::SliderFloat3("Camera Rotation", glm::value_ptr(cam.Rotation), -360, 360);
 		ImGui::SliderFloat("Camera Movement Speed", &m_CameraMovementSpeed, 1, 100);
-
+		
+		ImGui::Text("");
 		ImGui::SliderFloat3("Terrain Scale", glm::value_ptr(terr.Scale), 1, 5);
+		
+		ImGui::Text("");
+		ImGui::Text("Not Implimented Yet!");
+		ImGui::Combo("Window Resolution", &selectedRes, resolutions, IM_ARRAYSIZE(resolutions));
+		
 		ImGui::End();
+
+
+		
 	}
 
 	void OnEvent(tnah::Event& event) override
@@ -129,6 +147,7 @@ private:
 	float m_LastMouseXPos = 0.0f;
 	float m_LastMouseYPos = 0.0f;
 	bool m_FirstMouseInput = true;
+	
 };
 
 class Editor : public tnah::Application
@@ -139,6 +158,7 @@ public:
 		:tnah::Application("TNAH Editor")
 	{
 		GetWindow().SetCursorDisabled(m_CursorDisabled);
+		GetWindow().SetVSync(m_VSync);
 		PushLayer(new TestLayer());
 	}
 
@@ -146,9 +166,8 @@ public:
 	~Editor()
 	{
 	}
-
 	
-	void OnEvent(tnah::Event& e)
+	void OnEvent(tnah::Event& e) override
 	{
 		//Close the application on press of Escape
 		tnah::Application::OnEvent(e);
@@ -172,6 +191,20 @@ public:
 				m_WireframeEnabled = !m_WireframeEnabled;
 				tnah::RenderCommand::SetWireframe(m_WireframeEnabled);
 			}
+
+			//Toggle Fullscreen
+			if (k.GetKeyCode() == tnah::Key::D3)
+			{
+				m_Fullscreen = !m_Fullscreen;
+				GetWindow().ToggleFullScreen(m_Fullscreen);
+			}
+
+			//Toggle VSync
+			if (k.GetKeyCode() == tnah::Key::D4)
+			{
+				m_VSync = !m_VSync;
+				GetWindow().SetVSync(m_VSync);
+			}
 		}
 		
 		//Dispatch an event to the application on window resize
@@ -180,10 +213,17 @@ public:
 			auto& re = (tnah::WindowResizeEvent&)e;
 			tnah::Application::OnEvent(e);
 		}
+
+		if(e.GetEventType() == tnah::EventType::MonitorResolutionChange)
+		{
+			TNAH_CORE_INFO("Application Received resolution change");
+		}
 	}
 
-	bool m_CursorDisabled = true;
+	bool m_CursorDisabled = false;
 	bool m_WireframeEnabled = false;
+	bool m_Fullscreen = false;
+	bool m_VSync = false;
 };
 
 
@@ -194,3 +234,5 @@ tnah::Application* tnah::CreateApplication()
 {
 	return new Editor();
 }
+
+

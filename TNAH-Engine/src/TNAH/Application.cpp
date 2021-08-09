@@ -5,7 +5,7 @@
 
 namespace tnah
 {
-#define BIND_EVENT_FN(x) std::bind(&Application::x, this, std::placeholders::_1)
+
 
 	Application* Application::s_Instance = nullptr;
 
@@ -19,9 +19,12 @@ namespace tnah
 		
 
 		Renderer::Init();
-		
-		m_ImGuiLayer = new ImGuiLayer();
-		PushOverlay(m_ImGuiLayer);
+
+		if(m_ImGuiLayer == nullptr)
+		{
+			m_ImGuiLayer = new ImGuiLayer();
+			PushOverlay(m_ImGuiLayer);
+		}
 	}
 
 	Application::~Application()
@@ -67,6 +70,14 @@ namespace tnah
 		}
 	}
 
+	bool Application::OnMonitorResolutionChange(MonitorResolutionChangeEvent& e)
+	{
+		const uint32_t width = e.GetWidth();
+		const uint32_t height = e.GetHeight();
+		GetWindow().SetScreenResolution(width, height);
+		return true;
+	}
+	
 	bool Application::OnWindowClose(WindowCloseEvent& e)
 	{
 		m_Running = false;
@@ -83,7 +94,6 @@ namespace tnah
 		}
 
 		RenderCommand::SetViewport(0, 0, width, height);
-
 		m_Minimized = false;
 		return false;
 	}
@@ -93,7 +103,7 @@ namespace tnah
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<WindowResizeEvent>(BIND_EVENT_FN(OnWindowResize));
 		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClose));
-
+		dispatcher.Dispatch<MonitorResolutionChangeEvent>(BIND_EVENT_FN(OnMonitorResolutionChange));
 
 		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin();)
 		{

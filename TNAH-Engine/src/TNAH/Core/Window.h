@@ -34,6 +34,10 @@ namespace tnah
 		virtual void SetEventCallback(const EventCallbackFn& callback) = 0;
 		virtual void SetVSync(bool enabled) = 0;
 		virtual bool IsVSync() const = 0;
+		virtual bool IsFullscreen() const = 0;
+		virtual void ToggleFullScreen(const bool& enabled) = 0;
+
+		virtual void SetScreenResolution(const int& width, const int& height) = 0;
 
 		virtual void* GetNativeWindow() const = 0;
 

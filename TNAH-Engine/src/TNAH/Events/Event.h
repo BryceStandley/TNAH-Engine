@@ -15,7 +15,8 @@ namespace tnah {
 		AppTick, AppUpdate, AppRender,
 		KeyPressed, KeyReleased, KeyTyped,
 		MouseButtonPressed, MouseButtonReleased, MouseMoved, MouseScrolled,
-		DebugApp, DebugCore
+		DebugApp, DebugCore,
+		MonitorResolutionChange
 	};
 
 	enum EventCategory

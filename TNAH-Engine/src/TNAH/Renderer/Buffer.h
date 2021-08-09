@@ -113,6 +113,7 @@ namespace tnah {
 		virtual void SetLayout(const BufferLayout& layout) = 0;
 
 		static VertexBuffer* Create(float* verticies, uint32_t size);
+		static VertexBuffer* Create(void* verticies, uint32_t size);
 	};
 
 	// Currently tnah only supports 32-bit index buffers
@@ -127,6 +128,7 @@ namespace tnah {
 		virtual uint32_t GetCount() const = 0;
 
 		static IndexBuffer* Create(uint32_t* indices, uint32_t size);
+		static IndexBuffer* Create(void* indices, uint32_t size);
 	};
 
 }

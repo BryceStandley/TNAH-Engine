@@ -36,6 +36,11 @@ namespace tnah {
 			s_RendererAPI->SetWireframe(enable);
 		}
 
+		inline static bool CheckFullScreen(const int width, const int height)
+		{
+			return s_RendererAPI->CheckFullScreen(width, height);
+		}
+
 
 	private:
 		static RendererAPI* s_RendererAPI;

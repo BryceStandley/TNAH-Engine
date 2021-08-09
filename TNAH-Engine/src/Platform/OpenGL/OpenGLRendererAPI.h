@@ -16,6 +16,7 @@ namespace tnah {
 		virtual void DrawIndexed(const Ref<VertexArray>& vertexArray) override;
 
 		virtual void SetWireframe(const bool& enable) override;
+		virtual bool CheckFullScreen(const int& width, const int& height) override;
 	};
 
 }

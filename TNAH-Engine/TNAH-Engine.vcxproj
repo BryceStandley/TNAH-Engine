@@ -172,10 +172,8 @@
       <AdditionalDependencies>assimp-vc142-mtd.lib;lua54.lib;reactphysics3d.lib;spdlogd.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Lib>
-      <AdditionalDependencies>
-      </AdditionalDependencies>
-      <AdditionalLibraryDirectories>
-      </AdditionalLibraryDirectories>
+      <AdditionalDependencies>assimp-vc142-mtd.lib;zlibstaticd.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)vender\assimp\lib</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">

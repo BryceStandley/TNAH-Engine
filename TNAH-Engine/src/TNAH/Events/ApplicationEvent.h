@@ -66,4 +66,26 @@ namespace tnah {
 		EVENT_CLASS_TYPE(AppRender)
 			EVENT_CLASS_CATEGORY(EventCategoryApplication)
 	};
+
+	class MonitorResolutionChangeEvent: public Event
+	{
+	public:
+		MonitorResolutionChangeEvent (unsigned int width, unsigned int height)
+			: m_Width(width), m_Height(height) {}
+
+		unsigned int GetWidth() const { return m_Width; }
+		unsigned int GetHeight() const { return m_Height; }
+
+		std::string ToString() const override
+		{
+			std::stringstream ss;
+			ss << "MonitorResolutionChangeEvent: " << m_Width << ", " << m_Height;
+			return ss.str();
+		}
+
+		EVENT_CLASS_TYPE(MonitorResolutionChange)
+			EVENT_CLASS_CATEGORY(EventCategoryApplication)
+	private:
+		unsigned int m_Width, m_Height;
+	};
 }

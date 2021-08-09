@@ -473,7 +473,7 @@ namespace tnah {
         BufferLayout layout;
         if (m_IsAnimated)
         {
-            //m_VertexBuffer.reset(VertexBuffer::Create(m_AnimatedVertices.data(), m_AnimatedVertices.size() * sizeof(AnimatedVertex)));
+            m_VertexBuffer.reset(VertexBuffer::Create(m_AnimatedVertices.data(), m_AnimatedVertices.size() * sizeof(AnimatedVertex)));
             layout = {
                     { ShaderDataType::Float3, "a_Position" },
                     { ShaderDataType::Float3, "a_Normal" },
@@ -486,7 +486,7 @@ namespace tnah {
         }
         else
         {
-            //m_VertexBuffer.reset(VertexBuffer::Create(m_StaticVertices.data(), m_StaticVertices.size() * sizeof(Vertex)));
+            m_VertexBuffer.reset(VertexBuffer::Create(m_StaticVertices.data(), m_StaticVertices.size() * sizeof(Vertex)));
             layout = {
                     { ShaderDataType::Float3, "a_Position" },
                     { ShaderDataType::Float3, "a_Normal" },
@@ -496,7 +496,7 @@ namespace tnah {
             };
         }
 
-        //m_IndexBuffer.reset(IndexBuffer::Create(m_Indices.data(), m_Indices.size() * sizeof(Index)));
+        m_IndexBuffer.reset(IndexBuffer::Create(m_Indices.data(), m_Indices.size() * sizeof(Index)));
 
        m_VertexBuffer->SetLayout(layout);
     }

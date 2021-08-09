@@ -50,4 +50,8 @@ namespace tnah {
 		}
 	}
 
+	bool OpenGLRendererAPI::CheckFullScreen(const int& width, const int& height)
+	{
+		return false;
+	}
 }

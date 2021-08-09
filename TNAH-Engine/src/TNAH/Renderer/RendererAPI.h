@@ -21,7 +21,7 @@ namespace tnah {
 
 		virtual void DrawIndexed(const Ref<VertexArray>& vertexArray) = 0;
 		virtual void SetWireframe(const bool& enable) = 0;
-
+		virtual bool CheckFullScreen(const int& width, const int& height) = 0;
 
 		static API GetAPI() { return s_API; }
 		static Scope<RendererAPI> Create();
