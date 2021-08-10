@@ -2,7 +2,7 @@
 
 #include "TNAH/Renderer/GraphicsContext.h"
 
-class GLFWwindow;
+struct GLFWwindow;
 
 namespace tnah {
 

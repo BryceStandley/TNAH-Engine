@@ -14,7 +14,7 @@ public:
 		auto& cam = m_Camera.AddComponent<tnah::CameraComponent>();
 		cam.Camera.SetViewportSize(1280, 720);
 		auto& camT = m_Camera.GetComponent<tnah::TransformComponent>();
-		camT.Position = glm::vec3(100,5, 100);
+		camT.Position = glm::vec3(500,60, 500);
 		
 		m_Terrain = m_ActiveScene->CreateGameObject("Terrain");
 		m_Terrain.AddComponent<tnah::TerrainComponent>("assets/heightmaps/1k.tga");
@@ -24,9 +24,12 @@ public:
 		terrT.Scale = glm::vec3(5.0f);
 
 		m_MeshObject = m_ActiveScene->CreateGameObject("MeshObject");
-		
+
+		//Test Cube
 		auto& mesh = m_MeshObject.AddComponent<tnah::MeshComponent>();
 		mesh.Model.reset(tnah::Model::Create("assets/meshes/cube.fbx"));
+		auto& meshT = m_MeshObject.GetComponent<tnah::TransformComponent>();
+		meshT.Position = glm::vec3(600, 60.0f, 600);
 
 	}
 
@@ -52,6 +55,15 @@ public:
 		if(tnah::Input::IsKeyPressed(tnah::Key::D))
 		{
 			cameraT.Position += cameraT.Right * m_CameraMovementSpeed * deltaTime.GetSeconds();
+		}
+
+		if(tnah::Input::IsKeyPressed(tnah::Key::LeftShift) || tnah::Input::IsKeyPressed(tnah::Key::RightShift))
+		{
+			m_CameraMovementSpeed = 100.0f;
+		}
+		else
+		{
+			m_CameraMovementSpeed = m_CameraDefaultMovementSpeed;
 		}
 
 		//Camera Mouse rotation controls
@@ -109,6 +121,7 @@ public:
 		ImGui::Text("Press 2 to toggle wireframe mode");
 		ImGui::Text("Press 3 to toggle borderless fullscreen");
 		ImGui::Text("Press 4 to toggle VSync");
+		ImGui::Text("Hold Either Shift to move the camera faster");
 		ImGui::Text("Press ESC to exit");
 		
 		ImGui::Text("");
@@ -149,6 +162,7 @@ private:
 	tnah::GameObject m_MeshObject;
 
 	float m_CameraMovementSpeed = 20.0f;
+	const float m_CameraDefaultMovementSpeed = 20.0f;
 	float m_CameraMouseSensitivity = 0.1f;
 	float m_LastMouseXPos = 0.0f;
 	float m_LastMouseYPos = 0.0f;
