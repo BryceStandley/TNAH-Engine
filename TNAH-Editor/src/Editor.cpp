@@ -59,11 +59,18 @@ public:
 
 		if(tnah::Input::IsKeyPressed(tnah::Key::LeftShift) || tnah::Input::IsKeyPressed(tnah::Key::RightShift))
 		{
-			m_CameraMovementSpeed = 100.0f;
+			if(!m_CameraMovementSpeedOverride)
+			{
+				m_CameraMovementSpeed = 100.0f;
+			}
+		}
+		else if(!m_CameraMovementSpeedOverride)
+		{
+			m_CameraMovementSpeed = m_CameraDefaultMovementSpeed;
 		}
 		else
 		{
-			m_CameraMovementSpeed = m_CameraDefaultMovementSpeed;
+			m_CameraMovementSpeed = m_CameraOverrideSpeed;
 		}
 
 		//Camera Mouse rotation controls
@@ -127,7 +134,15 @@ public:
 		ImGui::Text("");
 		ImGui::SliderFloat3("Camera Pos", glm::value_ptr(cam.Position), -10000, 10000);
 		ImGui::SliderFloat3("Camera Rotation", glm::value_ptr(cam.Rotation), -360, 360);
-		ImGui::SliderFloat("Camera Movement Speed", &m_CameraMovementSpeed, 1, 100);
+		ImGui::Checkbox("Camera Speed Override", &m_CameraMovementSpeedOverride);
+		if(m_CameraMovementSpeedOverride)
+		{
+			ImGui::SliderFloat("Camera Movement Speed", &m_CameraOverrideSpeed, 1, m_MaxCameraMovementSpeed);
+		}
+		else
+		{
+			ImGui::Text("Camera Movement Speed: %0.1f", m_CameraMovementSpeed);
+		}
 		
 		ImGui::Text("");
 		ImGui::SliderFloat3("Terrain Scale", glm::value_ptr(terr.Scale), 1, 20);
@@ -162,7 +177,10 @@ private:
 	tnah::GameObject m_MeshObject;
 
 	float m_CameraMovementSpeed = 20.0f;
+	float m_CameraOverrideSpeed = 20.0f;
 	const float m_CameraDefaultMovementSpeed = 20.0f;
+	const float m_MaxCameraMovementSpeed = 200.0f;
+	bool m_CameraMovementSpeedOverride = false;
 	float m_CameraMouseSensitivity = 0.1f;
 	float m_LastMouseXPos = 0.0f;
 	float m_LastMouseYPos = 0.0f;
