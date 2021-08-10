@@ -3,7 +3,15 @@
 
 #include <stb_image.h>
 
+#include "TNAH/Renderer/Renderer.h"
+
 namespace tnah {
+	
+	OpenGLTexture2D::OpenGLTexture2D(ImageFormat format, uint32_t width, uint32_t height, const void* data, TextureProperties properties)
+		: m_Width(width), m_Height(height), m_Properties(properties)
+	{
+		TNAH_CORE_WARN("Generating a texture at runtime isn't implimented yet!");
+	}
 
 	OpenGLTexture2D::OpenGLTexture2D(uint32_t width, uint32_t height)
 		: m_Width(width), m_Height(height)
@@ -65,17 +73,19 @@ namespace tnah {
 
 		glGenTextures(1, &m_RendererID);
 		glBindTexture(GL_TEXTURE_2D, m_RendererID);
-		
-		glTexImage2D(GL_TEXTURE_2D, 0, (int)m_InternalFormat, m_Width, m_Height, 0, m_InternalFormat, GL_UNSIGNED_BYTE, data);
-		glGenerateMipmap(GL_TEXTURE_2D);
 
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 		
+		glTexImage2D(GL_TEXTURE_2D, 0, (int)m_InternalFormat, m_Width, m_Height, 0, m_InternalFormat, GL_UNSIGNED_BYTE, data);
+		glGenerateMipmap(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D, 0);
+
 		stbi_image_free(data);
 		m_Loaded = true;
+		m_Slot = Renderer::GetAndIncrementTextureSlot();
 	}
 
 	OpenGLTexture2D::~OpenGLTexture2D()
@@ -92,7 +102,14 @@ namespace tnah {
 
 	void OpenGLTexture2D::Bind(uint32_t slot) const
 	{
+		if(slot < 0) {slot = 0;}
 		glActiveTexture(GL_TEXTURE0 + slot);
+		glBindTexture(GL_TEXTURE_2D, m_RendererID);
+	}
+
+	void OpenGLTexture2D::Bind() const
+	{
+		glActiveTexture(GL_TEXTURE0 + m_Slot);
 		glBindTexture(GL_TEXTURE_2D, m_RendererID);
 	}
 }

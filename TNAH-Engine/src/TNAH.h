@@ -24,7 +24,7 @@
 #include "TNAH/Scene/SceneCamera.h"
 #include "TNAH/Renderer/Renderer.h"
 #include "TNAH/Renderer/RenderCommand.h"
-#include "TNAH/Renderer/Buffer.h"
+#include "TNAH/Renderer/RenderingBuffers.h"
 #include "TNAH/Renderer/Shader.h"
 #include "TNAH/Renderer/VertexArray.h"
 

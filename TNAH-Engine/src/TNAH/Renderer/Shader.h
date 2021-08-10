@@ -6,6 +6,54 @@
 
 namespace tnah {
 
+	enum class ShaderUniformType
+	{
+		None = 0, Bool, Int, UInt, Float, Vec2, Vec3, Vec4, Mat3, Mat4,
+		IVec2, IVec3, IVec4
+	};
+
+	class ShaderUniform
+	{
+	public:
+		ShaderUniform() = default;
+		ShaderUniform(std::string name, ShaderUniformType type, uint32_t size, uint32_t offset);
+
+		const std::string& GetName() const { return m_Name; }
+		ShaderUniformType GetType() const { return m_Type; }
+		uint32_t GetSize() const { return m_Size; }
+		uint32_t GetOffset() const { return m_Offset; }
+
+		static const std::string& UniformTypeToString(ShaderUniformType type);
+	private:
+		std::string m_Name;
+		ShaderUniformType m_Type = ShaderUniformType::None;
+		uint32_t m_Size = 0;
+		uint32_t m_Offset = 0;
+	};
+
+	enum class ShaderDomain
+	{
+		None = 0, Vertex = 0, Pixel = 1 // unused
+	};
+
+	class ShaderResourceDeclaration
+	{
+	public:
+		ShaderResourceDeclaration() = default;
+		ShaderResourceDeclaration(const std::string& name, uint32_t resourceRegister, uint32_t count)
+			: m_Name(name), m_Register(resourceRegister), m_Count(count) {}
+		virtual ~ShaderResourceDeclaration();
+		virtual const std::string& GetName() const { return m_Name; }
+		virtual uint32_t GetRegister() const { return m_Register; }
+		virtual uint32_t GetCount() const { return m_Count; }
+	private:
+		std::string m_Name;
+		uint32_t m_Register = 0;
+		uint32_t m_Count = 0;
+	};
+
+	typedef std::vector<ShaderResourceDeclaration*> ShaderResourceList;
+	
 	class Shader
 	{
 	public:

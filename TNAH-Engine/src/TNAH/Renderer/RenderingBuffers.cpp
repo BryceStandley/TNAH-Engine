@@ -1,5 +1,5 @@
 #include "tnahpch.h"
-#include "TNAH/Renderer/Buffer.h"
+#include "TNAH/Renderer/RenderingBuffers.h"
 
 #include "TNAH/Renderer/Renderer.h"
 

@@ -37,8 +37,11 @@ namespace tnah {
 	private:
 		ProjectionType m_ProjectionType = ProjectionType::Perspective;
 
+		uint32_t m_ViewportWidth = 1280;
+		uint32_t m_ViewportHeight = 720;
+		
 		float m_PerspectiveFOV = glm::radians(60.0f);
-		float m_PerspectiveNear = 0.1f, m_PerspectiveFar = 1000.0f;
+		float m_PerspectiveNear = 0.1f, m_PerspectiveFar = 10000.0f;
 
 		float m_OrthographicSize = 10.0f;
 		float m_OrthographicNear = -1.0f, m_OrthographicFar = 1.0f;

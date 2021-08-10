@@ -29,12 +29,18 @@ namespace tnah {
 		{
 		case ProjectionType::Perspective:
 			m_ProjectionMatrix = glm::perspective(m_PerspectiveFOV, (float)width / (float)height, m_PerspectiveNear, m_PerspectiveFar);
+			m_ViewportWidth = width;
+			m_ViewportHeight = height;
 			break;
 		case ProjectionType::Orthographic:
 			float aspect = (float)width / (float)height;
+			m_ViewportWidth = width;
+			m_ViewportHeight = height;
 			float width = m_OrthographicSize * aspect;
 			float height = m_OrthographicSize;
 			m_ProjectionMatrix = glm::ortho(-width * 0.5f, width * 0.5f, -height * 0.5f, height * 0.5f);
+			m_ViewportWidth = width;
+			m_ViewportHeight = height;
 			break;
 		}
 	}
@@ -48,7 +54,7 @@ namespace tnah {
 
 	void SceneCamera::OnCameraChange(TransformComponent& transform)
 	{
-		m_ProjectionMatrix = glm::perspective(glm::radians(60.0f), 1280.0f / 720.0f, 0.1f, 1000.0f);
+		m_ProjectionMatrix = glm::perspective(m_PerspectiveFOV, (float)m_ViewportWidth / (float)m_ViewportHeight, m_PerspectiveNear, m_PerspectiveFar);
 		m_ViewMatrix = glm::lookAt(transform.Position, transform.Position + transform.Forward, glm::vec3(0, 1, 0));
 		m_ViewProjection = m_ProjectionMatrix * m_ViewMatrix;
 	}

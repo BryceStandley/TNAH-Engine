@@ -1,6 +1,6 @@
 #pragma once
 
-#include "TNAH/Renderer/Buffer.h"
+#include "TNAH/Renderer/RenderingBuffers.h"
 
 namespace tnah {
 

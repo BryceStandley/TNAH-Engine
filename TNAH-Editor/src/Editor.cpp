@@ -19,10 +19,14 @@ public:
 		m_Terrain = m_ActiveScene->CreateGameObject("Terrain");
 		m_Terrain.AddComponent<tnah::TerrainComponent>("assets/heightmaps/1k.tga");
 
+		//Set the terrain to the same scale as zoom!
+		auto& terrT = m_Terrain.GetComponent<tnah::TransformComponent>();
+		terrT.Scale = glm::vec3(5.0f);
+
 		m_MeshObject = m_ActiveScene->CreateGameObject("MeshObject");
 		
-		//auto& mesh = m_MeshObject.AddComponent<tnah::MeshComponent>();
-		//mesh.Mesh.reset(new tnah::Mesh("assets/meshes/cube.fbx"));
+		auto& mesh = m_MeshObject.AddComponent<tnah::MeshComponent>();
+		mesh.Model.reset(tnah::Model::Create("assets/meshes/cube.fbx"));
 
 	}
 
@@ -30,8 +34,6 @@ public:
 	{
 		
 		auto& cameraT = m_Camera.GetComponent<tnah::TransformComponent>();
-
-		auto& terr = m_Terrain.GetComponent<tnah::TransformComponent>();
 
 		//Camera Movement in a first person way.
 		//This can be changed to also look like a 3rd person camera. Similar to a FPS camera in Unity and C#
@@ -78,6 +80,10 @@ public:
 			cameraT.Rotation.y = -89.0f;
 		}
 
+
+		auto& mesh = m_MeshObject.GetComponent<tnah::TransformComponent>();
+		mesh.Rotation.y += 1.0f * deltaTime;
+		
 		//Rendering is managed by the scene loaded and checks all the required objects to render
 		m_ActiveScene->OnUpdate(deltaTime);
 	}
@@ -111,7 +117,7 @@ public:
 		ImGui::SliderFloat("Camera Movement Speed", &m_CameraMovementSpeed, 1, 100);
 		
 		ImGui::Text("");
-		ImGui::SliderFloat3("Terrain Scale", glm::value_ptr(terr.Scale), 1, 5);
+		ImGui::SliderFloat3("Terrain Scale", glm::value_ptr(terr.Scale), 1, 20);
 		
 		ImGui::Text("");
 		ImGui::Text("Not Implimented Yet!");

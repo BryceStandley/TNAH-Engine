@@ -17,11 +17,7 @@ uniform sampler2D u_rockTexture;
 uniform sampler2D u_snowTexture;
 uniform sampler2D u_detailTexture;
 
-vec4 dirt = texture(u_dirtTexture, v_TextureCoord);
-vec4 grass = texture(u_grassTexture, v_TextureCoord);
-vec4 rock = texture(u_rockTexture, v_TextureCoord);
-vec4 snow = texture(u_snowTexture, v_TextureCoord);
-vec4 detail = texture(u_detailTexture, v_TextureCoord);
+float scaleFactor = 1.0f;
 
 int dirtStart = 0;
 int grassStart = 60;
@@ -30,6 +26,15 @@ int snowStart = 200;
 
 void main()
 {
+
+	vec2 texCoords = (v_TextureCoord - 0.5) * scaleFactor + (0.5f * scaleFactor);
+	
+	vec4 dirt = texture(u_dirtTexture, texCoords);
+	vec4 grass = texture(u_grassTexture, texCoords);
+	vec4 rock = texture(u_rockTexture, texCoords);
+	vec4 snow = texture(u_snowTexture, texCoords);
+	vec4 detail = texture(u_detailTexture, texCoords);
+	
 	if(v_Height > snowStart)
 	{
 		color = snow;

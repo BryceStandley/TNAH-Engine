@@ -1,47 +1,54 @@
-#include "tnahpch.h"
+#include <tnahpch.h>
 #include "Mesh.h"
 
-#include <glad/glad.h>
 
-#include <glm/ext/matrix_transform.hpp>
-#include <glm/gtc/quaternion.hpp>
 
-#define GLM_ENABLE_EXPERIMENTAL
-#include <glm/gtx/quaternion.hpp>
-#include <glm/gtx/matrix_decompose.hpp>
-
-#include <assimp/scene.h>
-#include <assimp/postprocess.h>
-#include <assimp/Importer.hpp>
-#include <assimp/DefaultLogger.hpp>
-#include <assimp/LogStream.hpp>
-
-#include <imgui.h>
-
-#include "TNAH/Renderer/Renderer.h"
-#include "TNAH/Renderer/Buffer.h"
-
-#include <filesystem>
+#include "Renderer.h"
 
 
 namespace tnah {
-
-#define MESH_DEBUG_LOG 0
-#if MESH_DEBUG_LOG
-#define TNAH_MESH_LOG(...) TNAH_CORE_TRACE(__VA_ARGS__)
-#else
-#define TNAH_MESH_LOG(...)
-#endif
-
-    glm::mat4 Mat4FromAssimpMat4(const aiMatrix4x4& matrix)
+    Mesh::Mesh(std::vector<Vertex> vertices, std::vector<uint32_t> indices, std::vector<Ref<Texture2D>> textures)
     {
-        glm::mat4 result;
-        //the a,b,c,d in assimp is the row ; the 1,2,3,4 is the column
-        result[0][0] = matrix.a1; result[1][0] = matrix.a2; result[2][0] = matrix.a3; result[3][0] = matrix.a4;
-        result[0][1] = matrix.b1; result[1][1] = matrix.b2; result[2][1] = matrix.b3; result[3][1] = matrix.b4;
-        result[0][2] = matrix.c1; result[1][2] = matrix.c2; result[2][2] = matrix.c3; result[3][2] = matrix.c4;
-        result[0][3] = matrix.d1; result[1][3] = matrix.d2; result[2][3] = matrix.d3; result[3][3] = matrix.d4;
-        return result;
+        this->m_Vertices = vertices;
+        this->m_Indices = indices;
+        this->m_Textures = textures;
+        
+        m_BufferLayout = {
+            {ShaderDataType::Float3, "a_Position"},
+            {ShaderDataType::Float3, "a_Normal"},
+            {ShaderDataType::Float3, "a_Tangent"},
+            {ShaderDataType::Float3, "a_Bitangents"},
+            {ShaderDataType::Float2, "a_TexCoord"}
+        };
+        m_Vao.reset(VertexArray::Create());
+        
+        m_Vbo.reset(VertexBuffer::Create(&vertices[0], sizeof(Vertex) * vertices.size()));
+        m_Vbo->SetLayout(m_BufferLayout);
+        m_Vao->AddVertexBuffer(m_Vbo);
+
+        m_Ibo.reset(IndexBuffer::Create(&indices[0], indices.size()));
+        m_Vao->SetIndexBuffer(m_Ibo);
+
+        const std::string defaultVertexShader = "assets/shaders/default/mesh/mesh_vertex.glsl";
+        const std::string defaultFragmentShader = "assets/shaders/default/mesh/mesh_fragment.glsl";
+        
+        bool skip = false;
+        for(auto& shader : m_LoadedShaders)
+        {
+            if(std::strcmp(shader.VertexShaderPath.data(), defaultVertexShader.c_str()) == 0 && std::strcmp(shader.FragmentShaderPath.data(), defaultFragmentShader.c_str()) == 0)
+            {
+                //The shaders already been loaded, dont load it again
+                m_Shader = shader.Shader;
+                skip = true;
+                break;
+            }
+        }
+        if(!skip)
+        {
+            m_Shader.reset(Shader::Create(defaultVertexShader, defaultFragmentShader));
+            MeshShader s(m_Shader, defaultVertexShader, defaultFragmentShader);
+            m_LoadedShaders.push_back(s);
+        }
     }
 
     static const uint32_t s_MeshImportFlags =
@@ -49,706 +56,178 @@ namespace tnah {
             aiProcess_Triangulate |             // Make sure we're triangles
             aiProcess_SortByPType |             // Split meshes by primitive type
             aiProcess_GenNormals |              // Make sure we have legit normals
-            aiProcess_GenUVCoords |             // Convert UVs if required
+            aiProcess_GenUVCoords |             // Convert UVs if required 
             aiProcess_OptimizeMeshes |          // Batch draws where possible
+            aiProcess_JoinIdenticalVertices |          
             aiProcess_ValidateDataStructure;    // Validation
 
-    struct LogStream : public Assimp::LogStream
+    glm::mat4 Model::AiToGLM(aiMatrix4x4t<float> m)
     {
-        static void Initialize()
-        {
-            if (Assimp::DefaultLogger::isNullLogger())
-            {
-                Assimp::DefaultLogger::create("", Assimp::Logger::VERBOSE);
-                Assimp::DefaultLogger::get()->attachStream(new LogStream, Assimp::Logger::Err | Assimp::Logger::Warn);
-            }
-        }
+        return glm::mat4{ m.a1, m.b1, m.c1, m.d1,
+                m.a2, m.b2, m.c2, m.d2,
+                m.a3, m.b3, m.c3, m.d3,
+                m.a4, m.b4, m.c4, m.d4 };
+    }
 
-        virtual void write(const char* message) override
-        {
-            TNAH_CORE_WARN("Assimp: {0}", message);
-        }
-    };
-
-    Mesh::Mesh(const std::string& filename)
-            : m_FilePath(filename)
+    glm::vec3 Model::AiToGLM(aiVector3t<float> v)
     {
-        LogStream::Initialize();
+        return glm::vec3{ v.x, v.y, v.z };
+    }
 
-        TNAH_CORE_INFO("Loading mesh: {0}", filename.c_str());
+    glm::quat Model::AiToGLM(aiQuaterniont<float> q)
+    {
+        return glm::quat{ q.w, q.x, q.y, q.z };
+    }
 
-        m_Importer = std::make_unique<Assimp::Importer>();
 
-        const aiScene* scene = m_Importer->ReadFile(filename, s_MeshImportFlags);
-        if (!scene || !scene->HasMeshes())
-            TNAH_CORE_ERROR("Failed to load mesh file: {0}", filename);
+    Model* Model::Create(const std::string& filePath)
+    {
+        return new Model(filePath);
+    }
 
-        m_Scene = scene;
+    Model::Model(const std::string& filePath)
+    {
+        LoadModel(filePath);
+    }
 
-        m_IsAnimated = scene->mAnimations != nullptr;
-        //m_MeshShader = m_IsAnimated ? Renderer::GetShaderLibrary()->Get("TNAH_PBR_Anim") : Renderer::GetShaderLibrary()->Get("TNAH_PBR_Static");
-        //m_BaseMaterial = Ref<Material>::Create(m_MeshShader);
-        // m_MaterialInstance = Ref<MaterialInstance>::Create(m_BaseMaterial);
-        m_InverseTransform = glm::inverse(Mat4FromAssimpMat4(scene->mRootNode->mTransformation));
+    void Model::LoadModel(const std::string& filePath)
+    {
+        Assimp::Importer importer;
+        const aiScene* scene = importer.ReadFile(filePath, s_MeshImportFlags);
 
-        uint32_t vertexCount = 0;
-        uint32_t indexCount = 0;
-
-        m_Submeshes.reserve(scene->mNumMeshes);
-        for (size_t m = 0; m < scene->mNumMeshes; m++)
+        if(!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
         {
-            aiMesh* mesh = scene->mMeshes[m];
+            TNAH_CORE_ERROR("Error Importing file: {0}    error: {1}", filePath, importer.GetErrorString());
+            return;
+        }
+        m_Directory = filePath.substr(0, filePath.find_last_of('/'));
+        ProcessNode(scene->mRootNode, scene);
+    }
 
-            Submesh& submesh = m_Submeshes.emplace_back();
-            submesh.BaseVertex = vertexCount;
-            submesh.BaseIndex = indexCount;
-            submesh.MaterialIndex = mesh->mMaterialIndex;
-            submesh.IndexCount = mesh->mNumFaces * 3;
-            submesh.MeshName = mesh->mName.C_Str();
+    std::vector<Ref<Texture2D>> Model::LoadMaterialTextures(aiMaterial* material, aiTextureType type, const std::string& typeName)
+    {
+        std::vector<Ref<Texture2D>> textures;
+        for(uint32_t i = 0; i < material->GetTextureCount(type); i++)
+        {
+            aiString str;
+            material->GetTexture(type, i, &str);
+            bool skip = false;
 
-            vertexCount += mesh->mNumVertices;
-            indexCount += submesh.IndexCount;
-
-            TNAH_CORE_ASSERT(mesh->HasPositions(), "Meshes require positions.");
-            TNAH_CORE_ASSERT(mesh->HasNormals(), "Meshes require normals.");
-
-            // Vertices
-            if (m_IsAnimated)
+            for(uint32_t j = 0; j < m_LoadedTextures.size(); j++)
             {
-                for (size_t i = 0; i < mesh->mNumVertices; i++)
+                if(std::strcmp(m_LoadedTextures[j].TexturePath.data(), str.C_Str()) == 0)
                 {
-                    AnimatedVertex vertex;
-                    vertex.Position = { mesh->mVertices[i].x, mesh->mVertices[i].y, mesh->mVertices[i].z };
-                    vertex.Normal = { mesh->mNormals[i].x, mesh->mNormals[i].y, mesh->mNormals[i].z };
-
-                    if (mesh->HasTangentsAndBitangents())
-                    {
-                        vertex.Tangent = { mesh->mTangents[i].x, mesh->mTangents[i].y, mesh->mTangents[i].z };
-                        vertex.Binormal = { mesh->mBitangents[i].x, mesh->mBitangents[i].y, mesh->mBitangents[i].z };
-                    }
-
-                    if (mesh->HasTextureCoords(0))
-                        vertex.Texcoord = { mesh->mTextureCoords[0][i].x, mesh->mTextureCoords[0][i].y };
-
-                    m_AnimatedVertices.push_back(vertex);
+                    textures.push_back(m_LoadedTextures[j].Texture);
+                    skip = true;
+                    break;
                 }
+            }
+            if(!skip)
+            {
+                Ref<Texture2D> tex;
+                tex.reset(Texture2D::Create(str.data));
+                textures.push_back(tex);
+                m_LoadedTextures.push_back(MeshTexture(tex, str.data));
+            }
+            
+           
+        }
+        return textures;
+    }
+
+    Mesh Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
+    {
+        std::vector<Vertex> vertices;
+        std::vector<uint32_t> indices;
+        std::vector<Ref<Texture2D>> textures;
+
+        for(uint32_t i = 0; i < mesh->mNumVertices; i++)
+        {
+            Vertex v;
+            glm::vec3 vec;
+            if(mesh->HasPositions())
+            {
+                vec.x = mesh->mVertices[i].x;
+                vec.y = mesh->mVertices[i].y;
+                vec.z = mesh->mVertices[i].z;
+                v.Position = vec;
+            }
+
+            if(mesh->HasNormals())
+            {
+                vec.x = mesh->mNormals[i].x;
+                vec.y = mesh->mNormals[i].y;
+                vec.z = mesh->mNormals[i].z;
+                v.Normal = vec;
+            }
+
+            if(mesh->HasTangentsAndBitangents())
+            {
+                vec.x = mesh->mTangents[i].x;
+                vec.y = mesh->mTangents[i].y;
+                vec.z = mesh->mTangents[i].z;
+                v.Tangent = vec;
+                vec.x = mesh->mBitangents[i].x;
+                vec.y = mesh->mBitangents[i].y;
+                vec.z = mesh->mBitangents[i].z;
+                v.Bitangents = vec;
+            }
+            
+            if(mesh->mTextureCoords[0])
+            {
+                glm::vec2 tex;
+                tex.x = mesh->mTextureCoords[0][i].x;
+                tex.y = mesh->mTextureCoords[0][i].y;
+                v.Texcoord = tex;
             }
             else
             {
-                auto& aabb = submesh.BoundingBox;
-                aabb.Min = { FLT_MAX, FLT_MAX, FLT_MAX };
-                aabb.Max = { -FLT_MAX, -FLT_MAX, -FLT_MAX };
-                for (size_t i = 0; i < mesh->mNumVertices; i++)
-                {
-                    Vertex vertex;
-                    vertex.Position = { mesh->mVertices[i].x, mesh->mVertices[i].y, mesh->mVertices[i].z };
-                    vertex.Normal = { mesh->mNormals[i].x, mesh->mNormals[i].y, mesh->mNormals[i].z };
-                    aabb.Min.x = glm::min(vertex.Position.x, aabb.Min.x);
-                    aabb.Min.y = glm::min(vertex.Position.y, aabb.Min.y);
-                    aabb.Min.z = glm::min(vertex.Position.z, aabb.Min.z);
-                    aabb.Max.x = glm::max(vertex.Position.x, aabb.Max.x);
-                    aabb.Max.y = glm::max(vertex.Position.y, aabb.Max.y);
-                    aabb.Max.z = glm::max(vertex.Position.z, aabb.Max.z);
-
-                    if (mesh->HasTangentsAndBitangents())
-                    {
-                        vertex.Tangent = { mesh->mTangents[i].x, mesh->mTangents[i].y, mesh->mTangents[i].z };
-                        vertex.Binormal = { mesh->mBitangents[i].x, mesh->mBitangents[i].y, mesh->mBitangents[i].z };
-                    }
-
-                    if (mesh->HasTextureCoords(0))
-                        vertex.Texcoord = { mesh->mTextureCoords[0][i].x, mesh->mTextureCoords[0][i].y };
-
-                    m_StaticVertices.push_back(vertex);
-                }
+                v.Texcoord = glm::vec2(0.0f);
             }
+            vertices.push_back(v);
+        }
 
-            // Indices
-            for (size_t i = 0; i < mesh->mNumFaces; i++)
+        for(uint32_t i = 0; i < mesh->mNumFaces; i++)
+        {
+            aiFace face = mesh->mFaces[i];
+            for(uint32_t j = 0; j < face.mNumIndices; j++)
             {
-                TNAH_CORE_ASSERT(mesh->mFaces[i].mNumIndices == 3, "Must have 3 indices.");
-                Index index = { mesh->mFaces[i].mIndices[0], mesh->mFaces[i].mIndices[1], mesh->mFaces[i].mIndices[2] };
-                m_Indices.push_back(index);
-
-                if (!m_IsAnimated)
-                    m_TriangleCache[m].emplace_back(m_StaticVertices[index.V1 + submesh.BaseVertex], m_StaticVertices[index.V2 + submesh.BaseVertex], m_StaticVertices[index.V3 + submesh.BaseVertex]);
-            }
-
-
-        }
-
-        TraverseNodes(scene->mRootNode);
-
-        // Bones
-        if (m_IsAnimated)
-        {
-            for (size_t m = 0; m < scene->mNumMeshes; m++)
-            {
-                aiMesh* mesh = scene->mMeshes[m];
-                Submesh& submesh = m_Submeshes[m];
-
-                for (size_t i = 0; i < mesh->mNumBones; i++)
-                {
-                    aiBone* bone = mesh->mBones[i];
-                    std::string boneName(bone->mName.data);
-                    int boneIndex = 0;
-
-                    if (m_BoneMapping.find(boneName) == m_BoneMapping.end())
-                    {
-                        // Allocate an index for a new bone
-                        boneIndex = m_BoneCount;
-                        m_BoneCount++;
-                        BoneInfo bi;
-                        m_BoneInfo.push_back(bi);
-                        m_BoneInfo[boneIndex].BoneOffset = Mat4FromAssimpMat4(bone->mOffsetMatrix);
-                        m_BoneMapping[boneName] = boneIndex;
-                    }
-                    else
-                    {
-                        TNAH_MESH_LOG("Found existing bone in map");
-                        boneIndex = m_BoneMapping[boneName];
-                    }
-
-                    for (size_t j = 0; j < bone->mNumWeights; j++)
-                    {
-                        int VertexID = submesh.BaseVertex + bone->mWeights[j].mVertexId;
-                        float Weight = bone->mWeights[j].mWeight;
-                        m_AnimatedVertices[VertexID].AddBoneData(boneIndex, Weight);
-                    }
-                }
+                indices.push_back(face.mIndices[j]);
             }
         }
 
-        // Materials
-        if (scene->HasMaterials())
+        if(mesh->mMaterialIndex > 0)
         {
-            TNAH_MESH_LOG("---- Materials - {0} ----", filename);
-
-            m_Textures.resize(scene->mNumMaterials);
-            //m_Materials.resize(scene->mNumMaterials);
-            for (uint32_t i = 0; i < scene->mNumMaterials; i++)
-            {
-                auto aiMaterial = scene->mMaterials[i];
-                auto aiMaterialName = aiMaterial->GetName();
-
-                //auto mi = Ref<MaterialInstance>::Create(m_BaseMaterial, aiMaterialName.data);
-                //m_Materials[i] = mi;
-
-                TNAH_MESH_LOG("  {0} (Index = {1})", aiMaterialName.data, i);
-                aiString aiTexPath;
-                uint32_t textureCount = aiMaterial->GetTextureCount(aiTextureType_DIFFUSE);
-                TNAH_MESH_LOG("    TextureCount = {0}", textureCount);
-
-                aiColor3D aiColor;
-                aiMaterial->Get(AI_MATKEY_COLOR_DIFFUSE, aiColor);
-
-                float shininess, metalness;
-                if (aiMaterial->Get(AI_MATKEY_SHININESS, shininess) != aiReturn_SUCCESS)
-                    shininess = 80.0f; // Default value
-
-                if (aiMaterial->Get(AI_MATKEY_REFLECTIVITY, metalness) != aiReturn_SUCCESS)
-                    metalness = 0.0f;
-
-                float roughness = 1.0f - glm::sqrt(shininess / 100.0f);
-                TNAH_MESH_LOG("    COLOR = {0}, {1}, {2}", aiColor.r, aiColor.g, aiColor.b);
-                TNAH_MESH_LOG("    ROUGHNESS = {0}", roughness);
-                bool hasAlbedoMap = aiMaterial->GetTexture(aiTextureType_DIFFUSE, 0, &aiTexPath) == AI_SUCCESS;
-                if (hasAlbedoMap)
-                {
-                    // TODO: Temp - this should be handled by TNAH's filesystem
-                    std::filesystem::path path = filename;
-                    auto parentPath = path.parent_path();
-                    parentPath /= std::string(aiTexPath.data);
-                    std::string texturePath = parentPath.string();
-                    TNAH_MESH_LOG("    Albedo map path = {0}", texturePath);
-                    Ref<Texture2D> texture;
-                    texture.reset(Texture2D::Create(texturePath));
-                    if (texture->m_Loaded)
-                    {
-                        m_Textures[i] = texture;
-                        //mi->Set("u_AlbedoTexture", m_Textures[i]);
-                        //mi->Set("u_AlbedoTexToggle", 1.0f);
-                    }
-                    else
-                    {
-                        TNAH_CORE_ERROR("Could not load texture: {0}", texturePath);
-                        // Fallback to albedo color
-                       // mi->Set("u_AlbedoColor", glm::vec3{ aiColor.r, aiColor.g, aiColor.b });
-                    }
-                }
-                else
-                {
-                    //mi->Set("u_AlbedoColor", glm::vec3 { aiColor.r, aiColor.g, aiColor.b });
-                    TNAH_MESH_LOG("    No albedo map");
-                }
-
-                // Normal maps
-                //mi->Set("u_NormalTexToggle", 0.0f);
-                if (aiMaterial->GetTexture(aiTextureType_NORMALS, 0, &aiTexPath) == AI_SUCCESS)
-                {
-                    // TODO: Temp - this should be handled by TNAH's filesystem
-                    std::filesystem::path path = filename;
-                    auto parentPath = path.parent_path();
-                    parentPath /= std::string(aiTexPath.data);
-                    std::string texturePath = parentPath.string();
-                    TNAH_MESH_LOG("    Normal map path = {0}", texturePath);
-                    Ref<Texture2D> texture;
-                    texture.reset(Texture2D::Create(texturePath));
-                    if (texture->m_Loaded)
-                    {
-                        //mi->Set("u_NormalTexture", texture);
-                        //mi->Set("u_NormalTexToggle", 1.0f);
-                    }
-                    else
-                    {
-                        TNAH_CORE_ERROR("    Could not load texture: {0}", texturePath);
-                    }
-                }
-                else
-                {
-                    TNAH_MESH_LOG("    No normal map");
-                }
-
-                // Roughness map
-                // mi->Set("u_Roughness", 1.0f);
-                // mi->Set("u_RoughnessTexToggle", 0.0f);
-                if (aiMaterial->GetTexture(aiTextureType_SHININESS, 0, &aiTexPath) == AI_SUCCESS)
-                {
-                    // TODO: Temp - this should be handled by TNAH's filesystem
-                    std::filesystem::path path = filename;
-                    auto parentPath = path.parent_path();
-                    parentPath /= std::string(aiTexPath.data);
-                    std::string texturePath = parentPath.string();
-                    TNAH_MESH_LOG("    Roughness map path = {0}", texturePath);
-                    Ref<Texture2D> texture;
-                    texture.reset(Texture2D::Create(texturePath));
-                    if (texture->m_Loaded)
-                    {
-                        //mi->Set("u_RoughnessTexture", texture);
-                        //mi->Set("u_RoughnessTexToggle", 1.0f);
-                    }
-                    else
-                    {
-                        TNAH_CORE_ERROR("    Could not load texture: {0}", texturePath);
-                    }
-                }
-                else
-                {
-                    TNAH_MESH_LOG("    No roughness map");
-                    //mi->Set("u_Roughness", roughness);
-                }
-
-#if 0
-                // Metalness map (or is it??)
-				if (aiMaterial->Get("$raw.ReflectionFactor|file", aiPTI_String, 0, aiTexPath) == AI_SUCCESS)
-				{
-					// TODO: Temp - this should be handled by TNAH's filesystem
-					std::filesystem::path path = filename;
-					auto parentPath = path.parent_path();
-					parentPath /= std::string(aiTexPath.data);
-					std::string texturePath = parentPath.string();
-
-				    Ref<Texture2D> texture;
-				    texture.reset(Texture2D::Create(texturePath));
-					if (texture->m_Loaded)
-					{
-						TNAH_MESH_LOG("    Metalness map path = {0}", texturePath);
-						mi->Set("u_MetalnessTexture", texture);
-						mi->Set("u_MetalnessTexToggle", 1.0f);
-					}
-					else
-					{
-						TNAH_CORE_ERROR("Could not load texture: {0}", texturePath);
-					}
-				}
-				else
-				{
-					TNAH_MESH_LOG("    No metalness texture");
-					mi->Set("u_Metalness", metalness);
-				}
-#endif
-
-                bool metalnessTextureFound = false;
-                for (uint32_t i = 0; i < aiMaterial->mNumProperties; i++)
-                {
-                    auto prop = aiMaterial->mProperties[i];
-
-#if DEBUG_PRINT_ALL_PROPS
-                    TNAH_MESH_LOG("Material Property:");
-					TNAH_MESH_LOG("  Name = {0}", prop->mKey.data);
-					// TNAH_MESH_LOG("  Type = {0}", prop->mType);
-					// TNAH_MESH_LOG("  Size = {0}", prop->mDataLength);
-					float data = *(float*)prop->mData;
-					TNAH_MESH_LOG("  Value = {0}", data);
-
-					switch (prop->mSemantic)
-					{
-					case aiTextureType_NONE:
-						TNAH_MESH_LOG("  Semantic = aiTextureType_NONE");
-						break;
-					case aiTextureType_DIFFUSE:
-						TNAH_MESH_LOG("  Semantic = aiTextureType_DIFFUSE");
-						break;
-					case aiTextureType_SPECULAR:
-						TNAH_MESH_LOG("  Semantic = aiTextureType_SPECULAR");
-						break;
-					case aiTextureType_AMBIENT:
-						TNAH_MESH_LOG("  Semantic = aiTextureType_AMBIENT");
-						break;
-					case aiTextureType_EMISSIVE:
-						TNAH_MESH_LOG("  Semantic = aiTextureType_EMISSIVE");
-						break;
-					case aiTextureType_HEIGHT:
-						TNAH_MESH_LOG("  Semantic = aiTextureType_HEIGHT");
-						break;
-					case aiTextureType_NORMALS:
-						TNAH_MESH_LOG("  Semantic = aiTextureType_NORMALS");
-						break;
-					case aiTextureType_SHININESS:
-						TNAH_MESH_LOG("  Semantic = aiTextureType_SHININESS");
-						break;
-					case aiTextureType_OPACITY:
-						TNAH_MESH_LOG("  Semantic = aiTextureType_OPACITY");
-						break;
-					case aiTextureType_DISPLACEMENT:
-						TNAH_MESH_LOG("  Semantic = aiTextureType_DISPLACEMENT");
-						break;
-					case aiTextureType_LIGHTMAP:
-						TNAH_MESH_LOG("  Semantic = aiTextureType_LIGHTMAP");
-						break;
-					case aiTextureType_REFLECTION:
-						TNAH_MESH_LOG("  Semantic = aiTextureType_REFLECTION");
-						break;
-					case aiTextureType_UNKNOWN:
-						TNAH_MESH_LOG("  Semantic = aiTextureType_UNKNOWN");
-						break;
-					}
-#endif
-
-                    if (prop->mType == aiPTI_String)
-                    {
-                        uint32_t strLength = *(uint32_t*)prop->mData;
-                        std::string str(prop->mData + 4, strLength);
-
-                        std::string key = prop->mKey.data;
-                        if (key == "$raw.ReflectionFactor|file")
-                        {
-                            metalnessTextureFound = true;
-
-                            // TODO: Temp - this should be handled by TNAH's filesystem
-                            std::filesystem::path path = filename;
-                            auto parentPath = path.parent_path();
-                            parentPath /= str;
-                            std::string texturePath = parentPath.string();
-                            TNAH_MESH_LOG("    Metalness map path = {0}", texturePath);
-                            Ref<Texture2D> texture;
-                            texture.reset(Texture2D::Create(texturePath));
-                            if (texture->m_Loaded)
-                            {
-                                //mi->Set("u_MetalnessTexture", texture);
-                                //mi->Set("u_MetalnessTexToggle", 1.0f);
-                            }
-                            else
-                            {
-                                TNAH_CORE_ERROR("    Could not load texture: {0}", texturePath);
-                                //mi->Set("u_Metalness", metalness);
-                                //mi->Set("u_MetalnessTexToggle", 0.0f);
-                            }
-                            break;
-                        }
-                    }
-                }
-
-                if (!metalnessTextureFound)
-                {
-                    TNAH_MESH_LOG("    No metalness map");
-
-                    //mi->Set("u_Metalness", metalness);
-                    //mi->Set("u_MetalnessTexToggle", 0.0f);
-                }
-            }
-            TNAH_MESH_LOG("------------------------");
+            aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
+            // 1. diffuse maps
+            std::vector<Ref<Texture2D>> diffuseMaps = LoadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse");
+            textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
+            /// 2. specular maps
+             std::vector<Ref<Texture2D>> specularMaps = LoadMaterialTextures(material, aiTextureType_SPECULAR, "texture_specular");
+            textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
+            /// 3. normal maps
+            std::vector<Ref<Texture2D>> normalMaps = LoadMaterialTextures(material, aiTextureType_HEIGHT, "texture_normal");
+            textures.insert(textures.end(), normalMaps.begin(), normalMaps.end());
+            /// 4. height maps
+            std::vector<Ref<Texture2D>> heightMaps = LoadMaterialTextures(material, aiTextureType_AMBIENT, "texture_height");
+            textures.insert(textures.end(), heightMaps.begin(), heightMaps.end());
         }
 
-        BufferLayout layout;
-        if (m_IsAnimated)
-        {
-            m_VertexBuffer.reset(VertexBuffer::Create(m_AnimatedVertices.data(), m_AnimatedVertices.size() * sizeof(AnimatedVertex)));
-            layout = {
-                    { ShaderDataType::Float3, "a_Position" },
-                    { ShaderDataType::Float3, "a_Normal" },
-                    { ShaderDataType::Float3, "a_Tangent" },
-                    { ShaderDataType::Float3, "a_Binormal" },
-                    { ShaderDataType::Float2, "a_TexCoord" },
-                    { ShaderDataType::Int4, "a_BoneIDs" },
-                    { ShaderDataType::Float4, "a_BoneWeights" },
-            };
-        }
-        else
-        {
-            m_VertexBuffer.reset(VertexBuffer::Create(m_StaticVertices.data(), m_StaticVertices.size() * sizeof(Vertex)));
-            layout = {
-                    { ShaderDataType::Float3, "a_Position" },
-                    { ShaderDataType::Float3, "a_Normal" },
-                    { ShaderDataType::Float3, "a_Tangent" },
-                    { ShaderDataType::Float3, "a_Binormal" },
-                    { ShaderDataType::Float2, "a_TexCoord" },
-            };
-        }
 
-        m_IndexBuffer.reset(IndexBuffer::Create(m_Indices.data(), m_Indices.size() * sizeof(Index)));
-
-       m_VertexBuffer->SetLayout(layout);
+        return Mesh(vertices, indices, textures);
     }
 
-    Mesh::~Mesh()
+    void Model::ProcessNode(aiNode* node, const aiScene* scene)
     {
-    }
-
-    void Mesh::OnUpdate(Timestep ts)
-    {
-        if (m_IsAnimated)
+        for(uint32_t i = 0; i < node->mNumMeshes; i++)
         {
-            if (m_AnimationPlaying)
-            {
-                m_WorldTime += ts;
-
-                float ticksPerSecond = (float)(m_Scene->mAnimations[0]->mTicksPerSecond != 0 ? m_Scene->mAnimations[0]->mTicksPerSecond : 25.0f) * m_TimeMultiplier;
-                m_AnimationTime += ts * ticksPerSecond;
-                m_AnimationTime = fmod(m_AnimationTime, (float)m_Scene->mAnimations[0]->mDuration);
-            }
-
-            // TODO: We only need to recalc bones if rendering has been requested at the current animation frame
-            BoneTransform(m_AnimationTime);
-        }
-    }
-
-    static std::string LevelToSpaces(uint32_t level)
-    {
-        std::string result = "";
-        for (uint32_t i = 0; i < level; i++)
-            result += "--";
-        return result;
-    }
-
-    void Mesh::TraverseNodes(aiNode* node, const glm::mat4& parentTransform, uint32_t level)
-    {
-        glm::mat4 transform = parentTransform * Mat4FromAssimpMat4(node->mTransformation);
-        for (uint32_t i = 0; i < node->mNumMeshes; i++)
-        {
-            uint32_t mesh = node->mMeshes[i];
-            auto& submesh = m_Submeshes[mesh];
-            submesh.NodeName = node->mName.C_Str();
-            submesh.Transform = transform;
+            aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
+            m_Meshes.push_back(ProcessMesh(mesh, scene));
         }
 
-        // TNAH_MESH_LOG("{0} {1}", LevelToSpaces(level), node->mName.C_Str());
-
-        for (uint32_t i = 0; i < node->mNumChildren; i++)
-            TraverseNodes(node->mChildren[i], transform, level + 1);
-    }
-
-    uint32_t Mesh::FindPosition(float AnimationTime, const aiNodeAnim* pNodeAnim)
-    {
-        for (uint32_t i = 0; i < pNodeAnim->mNumPositionKeys - 1; i++)
+        for(uint32_t i = 0; i < node->mNumChildren; i++)
         {
-            if (AnimationTime < (float)pNodeAnim->mPositionKeys[i + 1].mTime)
-                return i;
+            ProcessNode(node->mChildren[i], scene);
         }
-
-        return 0;
     }
-
-
-    uint32_t Mesh::FindRotation(float AnimationTime, const aiNodeAnim* pNodeAnim)
-    {
-        TNAH_CORE_ASSERT(pNodeAnim->mNumRotationKeys > 0);
-
-        for (uint32_t i = 0; i < pNodeAnim->mNumRotationKeys - 1; i++)
-        {
-            if (AnimationTime < (float)pNodeAnim->mRotationKeys[i + 1].mTime)
-                return i;
-        }
-
-        return 0;
-    }
-
-
-    uint32_t Mesh::FindScaling(float AnimationTime, const aiNodeAnim* pNodeAnim)
-    {
-        TNAH_CORE_ASSERT(pNodeAnim->mNumScalingKeys > 0);
-
-        for (uint32_t i = 0; i < pNodeAnim->mNumScalingKeys - 1; i++)
-        {
-            if (AnimationTime < (float)pNodeAnim->mScalingKeys[i + 1].mTime)
-                return i;
-        }
-
-        return 0;
-    }
-
-
-    glm::vec3 Mesh::InterpolateTranslation(float animationTime, const aiNodeAnim* nodeAnim)
-    {
-        if (nodeAnim->mNumPositionKeys == 1)
-        {
-            // No interpolation necessary for single value
-            auto v = nodeAnim->mPositionKeys[0].mValue;
-            return { v.x, v.y, v.z };
-        }
-
-        uint32_t PositionIndex = FindPosition(animationTime, nodeAnim);
-        uint32_t NextPositionIndex = (PositionIndex + 1);
-        TNAH_CORE_ASSERT(NextPositionIndex < nodeAnim->mNumPositionKeys);
-        float DeltaTime = (float)(nodeAnim->mPositionKeys[NextPositionIndex].mTime - nodeAnim->mPositionKeys[PositionIndex].mTime);
-        float Factor = (animationTime - (float)nodeAnim->mPositionKeys[PositionIndex].mTime) / DeltaTime;
-        TNAH_CORE_ASSERT(Factor <= 1.0f, "Factor must be below 1.0f");
-        Factor = glm::clamp(Factor, 0.0f, 1.0f);
-        const aiVector3D& Start = nodeAnim->mPositionKeys[PositionIndex].mValue;
-        const aiVector3D& End = nodeAnim->mPositionKeys[NextPositionIndex].mValue;
-        aiVector3D Delta = End - Start;
-        auto aiVec = Start + Factor * Delta;
-        return { aiVec.x, aiVec.y, aiVec.z };
-    }
-
-
-    glm::quat Mesh::InterpolateRotation(float animationTime, const aiNodeAnim* nodeAnim)
-    {
-        if (nodeAnim->mNumRotationKeys == 1)
-        {
-            // No interpolation necessary for single value
-            auto v = nodeAnim->mRotationKeys[0].mValue;
-            return glm::quat(v.w, v.x, v.y, v.z);
-        }
-
-        uint32_t RotationIndex = FindRotation(animationTime, nodeAnim);
-        uint32_t NextRotationIndex = (RotationIndex + 1);
-        TNAH_CORE_ASSERT(NextRotationIndex < nodeAnim->mNumRotationKeys);
-        float DeltaTime = (float)(nodeAnim->mRotationKeys[NextRotationIndex].mTime - nodeAnim->mRotationKeys[RotationIndex].mTime);
-        float Factor = (animationTime - (float)nodeAnim->mRotationKeys[RotationIndex].mTime) / DeltaTime;
-        TNAH_CORE_ASSERT(Factor <= 1.0f, "Factor must be below 1.0f");
-        Factor = glm::clamp(Factor, 0.0f, 1.0f);
-        const aiQuaternion& StartRotationQ = nodeAnim->mRotationKeys[RotationIndex].mValue;
-        const aiQuaternion& EndRotationQ = nodeAnim->mRotationKeys[NextRotationIndex].mValue;
-        auto q = aiQuaternion();
-        aiQuaternion::Interpolate(q, StartRotationQ, EndRotationQ, Factor);
-        q = q.Normalize();
-        return glm::quat(q.w, q.x, q.y, q.z);
-    }
-
-
-    glm::vec3 Mesh::InterpolateScale(float animationTime, const aiNodeAnim* nodeAnim)
-    {
-        if (nodeAnim->mNumScalingKeys == 1)
-        {
-            // No interpolation necessary for single value
-            auto v = nodeAnim->mScalingKeys[0].mValue;
-            return { v.x, v.y, v.z };
-        }
-
-        uint32_t index = FindScaling(animationTime, nodeAnim);
-        uint32_t nextIndex = (index + 1);
-        TNAH_CORE_ASSERT(nextIndex < nodeAnim->mNumScalingKeys);
-        float deltaTime = (float)(nodeAnim->mScalingKeys[nextIndex].mTime - nodeAnim->mScalingKeys[index].mTime);
-        float factor = (animationTime - (float)nodeAnim->mScalingKeys[index].mTime) / deltaTime;
-        TNAH_CORE_ASSERT(factor <= 1.0f, "Factor must be below 1.0f");
-        factor = glm::clamp(factor, 0.0f, 1.0f);
-        const auto& start = nodeAnim->mScalingKeys[index].mValue;
-        const auto& end = nodeAnim->mScalingKeys[nextIndex].mValue;
-        auto delta = end - start;
-        auto aiVec = start + factor * delta;
-        return { aiVec.x, aiVec.y, aiVec.z };
-    }
-
-    void Mesh::ReadNodeHierarchy(float AnimationTime, const aiNode* pNode, const glm::mat4& parentTransform)
-    {
-        std::string name(pNode->mName.data);
-        const aiAnimation* animation = m_Scene->mAnimations[0];
-        glm::mat4 nodeTransform(Mat4FromAssimpMat4(pNode->mTransformation));
-        const aiNodeAnim* nodeAnim = FindNodeAnim(animation, name);
-
-        if (nodeAnim)
-        {
-            glm::vec3 translation = InterpolateTranslation(AnimationTime, nodeAnim);
-            glm::mat4 translationMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(translation.x, translation.y, translation.z));
-
-            glm::quat rotation = InterpolateRotation(AnimationTime, nodeAnim);
-            glm::mat4 rotationMatrix = glm::toMat4(rotation);
-
-            glm::vec3 scale = InterpolateScale(AnimationTime, nodeAnim);
-            glm::mat4 scaleMatrix = glm::scale(glm::mat4(1.0f), glm::vec3(scale.x, scale.y, scale.z));
-
-            nodeTransform = translationMatrix * rotationMatrix * scaleMatrix;
-        }
-
-        glm::mat4 transform = parentTransform * nodeTransform;
-
-        if (m_BoneMapping.find(name) != m_BoneMapping.end())
-        {
-            uint32_t BoneIndex = m_BoneMapping[name];
-            m_BoneInfo[BoneIndex].FinalTransformation = m_InverseTransform * transform * m_BoneInfo[BoneIndex].BoneOffset;
-        }
-
-        for (uint32_t i = 0; i < pNode->mNumChildren; i++)
-            ReadNodeHierarchy(AnimationTime, pNode->mChildren[i], transform);
-    }
-
-    const aiNodeAnim* Mesh::FindNodeAnim(const aiAnimation* animation, const std::string& nodeName)
-    {
-        for (uint32_t i = 0; i < animation->mNumChannels; i++)
-        {
-            const aiNodeAnim* nodeAnim = animation->mChannels[i];
-            if (std::string(nodeAnim->mNodeName.data) == nodeName)
-                return nodeAnim;
-        }
-        return nullptr;
-    }
-
-    void Mesh::BoneTransform(float time)
-    {
-        ReadNodeHierarchy(time, m_Scene->mRootNode, glm::mat4(1.0f));
-        m_BoneTransforms.resize(m_BoneCount);
-        for (size_t i = 0; i < m_BoneCount; i++)
-            m_BoneTransforms[i] = m_BoneInfo[i].FinalTransformation;
-    }
-
-    void Mesh::DumpVertexBuffer()
-    {
-        // TODO: Convert to ImGui
-        TNAH_MESH_LOG("------------------------------------------------------");
-        TNAH_MESH_LOG("Vertex Buffer Dump");
-        TNAH_MESH_LOG("Mesh: {0}", m_FilePath);
-        if (m_IsAnimated)
-        {
-            for (size_t i = 0; i < m_AnimatedVertices.size(); i++)
-            {
-                auto& vertex = m_AnimatedVertices[i];
-                TNAH_MESH_LOG("Vertex: {0}", i);
-                TNAH_MESH_LOG("Position: {0}, {1}, {2}", vertex.Position.x, vertex.Position.y, vertex.Position.z);
-                TNAH_MESH_LOG("Normal: {0}, {1}, {2}", vertex.Normal.x, vertex.Normal.y, vertex.Normal.z);
-                TNAH_MESH_LOG("Binormal: {0}, {1}, {2}", vertex.Binormal.x, vertex.Binormal.y, vertex.Binormal.z);
-                TNAH_MESH_LOG("Tangent: {0}, {1}, {2}", vertex.Tangent.x, vertex.Tangent.y, vertex.Tangent.z);
-                TNAH_MESH_LOG("TexCoord: {0}, {1}", vertex.Texcoord.x, vertex.Texcoord.y);
-                TNAH_MESH_LOG("--");
-            }
-        }
-        else
-        {
-            for (size_t i = 0; i < m_StaticVertices.size(); i++)
-            {
-                auto& vertex = m_StaticVertices[i];
-                TNAH_MESH_LOG("Vertex: {0}", i);
-                TNAH_MESH_LOG("Position: {0}, {1}, {2}", vertex.Position.x, vertex.Position.y, vertex.Position.z);
-                TNAH_MESH_LOG("Normal: {0}, {1}, {2}", vertex.Normal.x, vertex.Normal.y, vertex.Normal.z);
-                TNAH_MESH_LOG("Binormal: {0}, {1}, {2}", vertex.Binormal.x, vertex.Binormal.y, vertex.Binormal.z);
-                TNAH_MESH_LOG("Tangent: {0}, {1}, {2}", vertex.Tangent.x, vertex.Tangent.y, vertex.Tangent.z);
-                TNAH_MESH_LOG("TexCoord: {0}, {1}", vertex.Texcoord.x, vertex.Texcoord.y);
-                TNAH_MESH_LOG("--");
-            }
-        }
-        TNAH_MESH_LOG("------------------------------------------------------");
-    }
-
-
-
 }

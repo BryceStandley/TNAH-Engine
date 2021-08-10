@@ -6,6 +6,8 @@
 
 #include <glm/gtc/type_ptr.hpp>
 
+#include "TNAH/Renderer/Renderer.h"
+
 namespace tnah {
 
 	Terrain::Terrain()
@@ -26,7 +28,7 @@ namespace tnah {
 		m_IBO.reset(IndexBuffer::Create(GetIndicesData(), GetIndicesSize()));
 		m_VAO->SetIndexBuffer(m_IBO);
 
-		m_Shader.reset(Shader::Create("assets/shaders/terrain/terrain_vertex.glsl", "assets/shaders/terrain/terrain_fragment.glsl"));
+		m_Shader.reset(Shader::Create("assets/shaders/default/terrain/terrain_vertex.glsl", "assets/shaders/default/terrain/terrain_fragment.glsl"));
 	}
 
 	Terrain::Terrain(const std::string& heightmapFilePath)
@@ -48,21 +50,21 @@ namespace tnah {
 			m_IBO.reset(IndexBuffer::Create(GetIndicesData(), GetIndicesSize()));
 			m_VAO->SetIndexBuffer(m_IBO);
 
-			m_Shader.reset(Shader::Create("assets/shaders/terrain/terrain_vertex.glsl", "assets/shaders/terrain/terrain_fragment.glsl"));
+			m_Shader.reset(Shader::Create("assets/shaders/default/terrain/terrain_vertex.glsl", "assets/shaders/default/terrain/terrain_fragment.glsl"));
 
 			m_TextureFileNames.emplace_back("dirt");
 			m_TextureFileNames.emplace_back("grass");
 			m_TextureFileNames.emplace_back("rock");
 			m_TextureFileNames.emplace_back("snow");
 			m_TextureFileNames.emplace_back("detail");
-			
+
 			for(int i = 0; i < m_TextureFileNames.size(); i++)
 			{
 				Ref<Texture2D> texture;
 				texture.reset(Texture2D::Create("assets/textures/terrain/" + m_TextureFileNames[i] + ".jpg"));
 				m_Textures.emplace_back(texture);
 				m_Shader->Bind();
-				m_Shader->SetInt("u_" + m_TextureFileNames[i] + "Texture", texture->m_RendererID);
+				m_Shader->SetInt("u_" + m_TextureFileNames[i] + "Texture", texture->m_Slot);
 			}
 			m_Shader->Unbind();
 		}
@@ -86,7 +88,7 @@ namespace tnah {
 		m_IBO.reset(IndexBuffer::Create(GetIndicesData(), GetIndicesSize()));
 		m_VAO->SetIndexBuffer(m_IBO);
 
-		m_Shader.reset(Shader::Create("assets/shaders/terrain/terrain_vertex.glsl", "assets/shaders/terrain/terrain_fragment.glsl"));
+		m_Shader.reset(Shader::Create("assets/shaders/default/terrain/terrain_vertex.glsl", "assets/shaders/default/terrain/terrain_fragment.glsl"));
 	}
 
 	Terrain::~Terrain()

@@ -171,14 +171,16 @@ XCOPY "$(ProjectDir)assets\" "$(OutDir)assets\" /E /Y</Command>
     <ClCompile Include="src\Editor.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="assets\shaders\Default.glsl" />
-    <None Include="assets\shaders\default_fragment.glsl" />
-    <None Include="assets\shaders\default_vertex.glsl" />
-    <None Include="assets\shaders\terrain\terrain_fragment.glsl" />
-    <None Include="assets\shaders\terrain\terrain_vertex.glsl" />
+    <None Include="assets\shaders\default\mesh\mesh_fragment.glsl" />
+    <None Include="assets\shaders\default\mesh\mesh_vertex.glsl" />
+    <None Include="assets\shaders\default\terrain\terrain_fragment.glsl" />
+    <None Include="assets\shaders\default\terrain\terrain_vertex.glsl" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="assets\meshes" />
+    <Folder Include="assets\textures\default" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="assets\meshes\cube.fbx" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

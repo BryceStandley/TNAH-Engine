@@ -129,14 +129,14 @@ namespace tnah {
 
 	struct MeshComponent
 	{
-		Ref<tnah::Mesh> Mesh;
+		Ref<tnah::Model> Model;
 
 		MeshComponent() = default;
 		MeshComponent(const MeshComponent& other) = default;
-		MeshComponent(const Ref<tnah::Mesh>& mesh)
-			: Mesh(mesh) {}
+		MeshComponent(const Ref<tnah::Model>& model)
+			: Model(model) {}
 
-		operator Ref<tnah::Mesh>() { return Mesh; }
+		operator Ref<tnah::Model>() { return Model; }
 	};
 
 	/**********************************************************************************************//**

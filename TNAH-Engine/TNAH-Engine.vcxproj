@@ -18,7 +18,7 @@
     <ClCompile Include="src\Platform\OpenGL\OpenGLTexture.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLVertexArray.cpp" />
     <ClCompile Include="src\TNAH\Core\UUID.cpp" />
-    <ClCompile Include="src\TNAH\Renderer\Buffer.cpp" />
+    <ClCompile Include="src\TNAH\Renderer\RenderingBuffers.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLGraphicsContext.cpp" />
     <ClCompile Include="src\TNAH\Core\Window.cpp" />
     <ClCompile Include="src\Platform\Windows\WinInput.cpp" />
@@ -55,11 +55,13 @@
     <ClInclude Include="src\Platform\OpenGL\OpenGLTexture.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLVertexArray.h" />
     <ClInclude Include="src\Platform\Windows\WinInput.h" />
+    <ClInclude Include="src\TNAH\Core\AABB.h" />
+    <ClInclude Include="src\TNAH\Core\Buffer.h" />
     <ClInclude Include="src\TNAH\Core\Timer.h" />
     <ClInclude Include="src\TNAH\Core\Timestep.h" />
     <ClInclude Include="src\TNAH\Core\UUID.h" />
     <ClInclude Include="src\TNAH\Physics\PhysicsTimestep.h" />
-    <ClInclude Include="src\TNAH\Renderer\Buffer.h" />
+    <ClInclude Include="src\TNAH\Renderer\RenderingBuffers.h" />
     <ClInclude Include="src\TNAH\Renderer\Camera.h" />
     <ClInclude Include="src\TNAH\Renderer\Material.h" />
     <ClInclude Include="src\TNAH\Renderer\Mesh.h" />

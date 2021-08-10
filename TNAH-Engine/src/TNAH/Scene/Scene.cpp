@@ -83,6 +83,27 @@ namespace tnah{
 					Renderer::SubmitTerrain(terrain.SceneTerrain->GetVertexArray(), terrain.SceneTerrain->GetShader(), terrain.SceneTerrain->GetTextures(), transform.GetTransform(), lightInfo);
 				}
 			}
+
+			//Render all mesh components
+			{
+				auto view = m_Registry.view<TransformComponent, MeshComponent>();
+				for(auto entity : view)
+				{
+					auto& model = view.get<MeshComponent>(entity);
+					auto& transform = view.get<TransformComponent>(entity);
+
+					for(auto& mesh : model.Model->GetMeshes())
+					{
+						Renderer::SubmitMesh(mesh.GetMeshVertexArray(), mesh.GetMeshShader(), mesh.GetMeshTextures(), transform.GetTransform());
+					}
+				}
+			}
+
+
+
+
+
+			
 			Renderer::EndScene();
 		}
 	}

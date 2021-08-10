@@ -1,3 +1,5 @@
+#pragma once
+
 #include "TNAH/core/Core.h"
 
 #include "TNAH/Renderer/Shader.h"
@@ -5,11 +7,14 @@
 
 #include <unordered_set>
 
-namespace tnah {
+namespace tnah
+{
 
-    class Material
-    {
-        
-    };
+    
+	class Material
+	{
+	public:
+		
+	};
 
 }

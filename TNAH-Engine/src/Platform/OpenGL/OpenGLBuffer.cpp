@@ -20,7 +20,7 @@ namespace tnah {
 		auto f = static_cast<float*>(vertices);
 		glGenBuffers(1, &m_RendererID);
 		glBindBuffer(GL_ARRAY_BUFFER, m_RendererID);
-		glBufferData(GL_ARRAY_BUFFER, size, f, GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, size, f, GL_DYNAMIC_DRAW);
 	}
 	
 
