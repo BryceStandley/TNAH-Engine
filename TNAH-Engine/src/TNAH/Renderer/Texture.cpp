@@ -29,12 +29,12 @@ namespace tnah {
 		return nullptr;
 	}
 
-	Texture2D* Texture2D::Create(const std::string& path)
+	Texture2D* Texture2D::Create(const std::string& path, const std::string& textureName, bool loadFromMemory, void* assimpTexture)
 	{
 		switch (Renderer::GetAPI())
 		{
 			case RendererAPI::API::None:    TNAH_CORE_ASSERT(false, "RendererAPI::None is currently not supported!"); return nullptr;
-			case RendererAPI::API::OpenGL:  return new OpenGLTexture2D(path);
+			case RendererAPI::API::OpenGL:  return new OpenGLTexture2D(path, textureName, loadFromMemory, assimpTexture);
 		}
 
 		TNAH_CORE_ASSERT(false, "Unknown RendererAPI!");

@@ -68,6 +68,23 @@ namespace tnah{
 					TNAH_CORE_ASSERT(false, "The TNAH-Engine only supports rendering from a single camera!")
 				}
 			}
+
+			std::vector<Ref<Light>> sceneLights;
+			{
+				auto view = m_Registry.view<LightComponent, TransformComponent>();
+				for(auto entity : view)
+				{
+					auto& light = view.get<LightComponent>(entity);
+					auto& transform = view.get<TransformComponent>(entity);
+					light.Light->SetPosition(transform.Position);
+					light.Light->UpdateShaderLightInfo(cameraPosition);
+					sceneLights.push_back(light.Light);
+					break;
+					TNAH_CORE_INFO("The TNAH-Engine only supports a single scene light!");
+				}
+			}
+
+			
 			//Render any terrain objects
 			{
 				auto view = m_Registry.view<TransformComponent, TerrainComponent>();
@@ -76,11 +93,7 @@ namespace tnah{
 					auto& terrain = view.get<TerrainComponent>(entity);
 					auto& transform = view.get<TransformComponent>(entity);
 
-					glm::mat3 lightInfo = glm::mat3(1.0f);
-					lightInfo[0] = glm::vec3(0, 100, 0);
-					lightInfo[1] = cameraPosition;
-					lightInfo[2] = glm::vec3(1, 1, 1);
-					Renderer::SubmitTerrain(terrain.SceneTerrain->GetVertexArray(), terrain.SceneTerrain->GetShader(), terrain.SceneTerrain->GetTextures(), transform.GetTransform(), lightInfo);
+					Renderer::SubmitTerrain(terrain.SceneTerrain->GetVertexArray(), terrain.SceneTerrain->GetMaterial(), sceneLights, transform.GetTransform());
 				}
 			}
 
@@ -94,7 +107,7 @@ namespace tnah{
 
 					for(auto& mesh : model.Model->GetMeshes())
 					{
-						Renderer::SubmitMesh(mesh.GetMeshVertexArray(), mesh.GetMeshShader(), mesh.GetMeshTextures(), transform.GetTransform());
+						Renderer::SubmitMesh(mesh.GetMeshVertexArray(), mesh.GetMeshMaterial(), sceneLights, transform.GetTransform());
 					}
 				}
 			}

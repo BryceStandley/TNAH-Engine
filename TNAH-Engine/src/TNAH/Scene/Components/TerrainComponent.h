@@ -5,6 +5,7 @@
 #include "Platform/OpenGL/OpenGLBuffer.h"
 #include "Platform/OpenGL/OpenGLShader.h"
 #include "Platform/OpenGL/OpenGLTexture.h"
+#include "TNAH/Renderer/Material.h"
 
 namespace tnah {
 	class Terrain
@@ -58,8 +59,7 @@ namespace tnah {
 		inline Ref<VertexArray> GetVertexArray() {return m_VAO;}
 		inline Ref<VertexBuffer> GetVertexBuffer() {return m_VBO;}
 		inline Ref<IndexBuffer> GetIndexBuffer() {return m_IBO;}
-		inline Ref<Shader> GetShader() {return m_Shader;}
-		inline std::vector<Ref<Texture2D>> GetTextures() {return m_Textures;}
+		inline Ref<Material> GetMaterial() {return m_Material;}
 
 	private:
 		/**********************************************************************************************//**
@@ -122,8 +122,7 @@ namespace tnah {
 		Ref<VertexArray> m_VAO;
 		Ref<VertexBuffer> m_VBO;
 		Ref<IndexBuffer> m_IBO;
-		Ref<Shader> m_Shader;
-		std::vector<Ref<Texture2D>> m_Textures;
+		Ref<Material> m_Material;
 		std::vector<std::string> m_TextureFileNames;
 
 

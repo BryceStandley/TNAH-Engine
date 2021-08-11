@@ -27,9 +27,17 @@ public:
 
 		//Test Cube
 		auto& mesh = m_MeshObject.AddComponent<tnah::MeshComponent>();
-		mesh.Model.reset(tnah::Model::Create("assets/meshes/cube.fbx"));
+		mesh.Model.reset(tnah::Model::Create("assets/meshes/cube_texture.fbx"));
 		auto& meshT = m_MeshObject.GetComponent<tnah::TransformComponent>();
 		meshT.Position = glm::vec3(600, 60.0f, 600);
+
+		m_DirectionalLight = m_ActiveScene->CreateGameObject("Direction Light");
+		auto& light = m_DirectionalLight.AddComponent<tnah::LightComponent>(tnah::Light::LightType::Directional);
+		glm::vec3 ambient(0.2f, 0.2f, 0.2f);
+		glm::vec3 diffuse(0.5f, 0.5f, 0.5f);
+		glm::vec3 specular(1.0f, 1.0f, 1.0f);
+		glm::vec3 direction(-0.2f, -1.0f, -0.3f);
+		light.Light.reset(tnah::Light::CreateDirectional(direction, ambient, diffuse, specular));
 
 	}
 
@@ -116,7 +124,8 @@ public:
 	{
 		auto& cam = m_Camera.GetComponent<tnah::TransformComponent>();
 		auto& terr = m_Terrain.GetComponent<tnah::TransformComponent>();
-
+		auto& light = m_DirectionalLight.GetComponent<tnah::LightComponent>();
+		
 		static const char* resolutions[]
 		{
 			"1280x720", "1920x1080", "2560x1080", "2560x1440"
@@ -148,6 +157,14 @@ public:
 		ImGui::SliderFloat3("Terrain Scale", glm::value_ptr(terr.Scale), 1, 20);
 		
 		ImGui::Text("");
+		ImGui::SliderFloat3("Light Direction", glm::value_ptr(light.Light->GetDirection()), -1, 1);
+		ImGui::SliderFloat("Light Intensity", &light.Light->GetIntensity(), 0, 10);
+		ImGui::ColorPicker3("Light Color", glm::value_ptr(light.Light->GetColor()));
+		ImGui::SliderFloat3("Light Ambient", glm::value_ptr(light.Light->GetAmbient()), 0, 1);
+		ImGui::SliderFloat3("Light Diffuse", glm::value_ptr(light.Light->GetDiffuse()), 0, 1);
+		ImGui::SliderFloat3("Light Specular", glm::value_ptr(light.Light->GetSpecular()), 0, 1);
+		
+		ImGui::Text("");
 		ImGui::Text("Not Implimented Yet!");
 		ImGui::Combo("Window Resolution", &selectedRes, resolutions, IM_ARRAYSIZE(resolutions));
 		
@@ -175,6 +192,7 @@ private:
 	tnah::GameObject m_Camera;
 	tnah::GameObject m_Terrain;
 	tnah::GameObject m_MeshObject;
+	tnah::GameObject m_DirectionalLight;
 
 	float m_CameraMovementSpeed = 20.0f;
 	float m_CameraOverrideSpeed = 20.0f;

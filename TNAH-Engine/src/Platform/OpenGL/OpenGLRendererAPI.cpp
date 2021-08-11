@@ -54,4 +54,30 @@ namespace tnah {
 	{
 		return false;
 	}
+
+	void OpenGLRendererAPI::SetCullMode(const CullMode mode)
+	{
+		switch (mode)
+		{
+			case CullMode::Front:
+				glEnable(GL_CULL_FACE);
+				glCullFace(GL_FRONT);
+				break;
+			case CullMode::Back:
+				glEnable(GL_CULL_FACE);
+				glCullFace(GL_BACK);
+				break;
+			case CullMode::Front_And_Back:
+				glEnable(GL_CULL_FACE);
+				glCullFace(GL_FRONT_AND_BACK);
+				break;
+			case CullMode::Disabled:
+				glDisable(GL_CULL_FACE);
+				break;
+			default:
+				glEnable(GL_CULL_FACE);
+				glCullFace(GL_FRONT_AND_BACK);
+				break;
+		}
+	}
 }

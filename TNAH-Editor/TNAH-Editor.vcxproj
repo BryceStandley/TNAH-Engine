@@ -181,6 +181,7 @@ XCOPY "$(SolutionDir)vender\assimp\lib\*.pdb" "$(OutDir)\" /E /Y</Command>
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\meshes\cube.fbx" />
+    <Content Include="assets\meshes\cube_texture.fbx" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

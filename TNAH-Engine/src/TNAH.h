@@ -20,6 +20,9 @@
 #include "TNAH/Scene/Components/Components.h"
 #include "TNAH/Scene/Scene.h"
 #include "TNAH/Scene/GameObject.h"
+#include "TNAH/Scene/Light/DirectionalLight.h"
+#include "TNAH/Scene/Light/PointLight.h"
+#include "TNAH/Scene/Light/SpotLight.h"
 
 #include "TNAH/Scene/SceneCamera.h"
 #include "TNAH/Renderer/Renderer.h"

@@ -18,6 +18,7 @@
     <ClCompile Include="src\Platform\OpenGL\OpenGLTexture.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLVertexArray.cpp" />
     <ClCompile Include="src\TNAH\Core\UUID.cpp" />
+    <ClCompile Include="src\TNAH\Renderer\Light.cpp" />
     <ClCompile Include="src\TNAH\Renderer\RenderingBuffers.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLGraphicsContext.cpp" />
     <ClCompile Include="src\TNAH\Core\Window.cpp" />
@@ -41,6 +42,9 @@
     <ClCompile Include="src\TNAH\Renderer\RendererAPI.cpp" />
     <ClCompile Include="src\TNAH\Renderer\Texture.cpp" />
     <ClCompile Include="src\TNAH\Scene\Components\TerrainComponent.cpp" />
+    <ClCompile Include="src\TNAH\Scene\Light\DirectionalLight.cpp" />
+    <ClCompile Include="src\TNAH\Scene\Light\PointLight.cpp" />
+    <ClCompile Include="src\TNAH\Scene\Light\SpotLight.cpp" />
     <ClCompile Include="src\TNAH\Scene\SceneCamera.cpp" />
     <ClCompile Include="src\TNAH\Renderer\Shader.cpp" />
     <ClCompile Include="src\TNAH\Renderer\VertexArray.cpp" />
@@ -61,11 +65,15 @@
     <ClInclude Include="src\TNAH\Core\Timestep.h" />
     <ClInclude Include="src\TNAH\Core\UUID.h" />
     <ClInclude Include="src\TNAH\Physics\PhysicsTimestep.h" />
+    <ClInclude Include="src\TNAH\Renderer\Light.h" />
     <ClInclude Include="src\TNAH\Renderer\RenderingBuffers.h" />
     <ClInclude Include="src\TNAH\Renderer\Camera.h" />
     <ClInclude Include="src\TNAH\Renderer\Material.h" />
     <ClInclude Include="src\TNAH\Renderer\Mesh.h" />
     <ClInclude Include="src\TNAH\Renderer\Texture.h" />
+    <ClInclude Include="src\TNAH\Scene\Light\DirectionalLight.h" />
+    <ClInclude Include="src\TNAH\Scene\Light\PointLight.h" />
+    <ClInclude Include="src\TNAH\Scene\Light\SpotLight.h" />
     <ClInclude Include="src\TNAH\Scene\SceneCamera.h" />
     <ClInclude Include="src\TNAH\Renderer\GraphicsContext.h" />
     <ClInclude Include="src\TNAH\Renderer\RenderCommand.h" />

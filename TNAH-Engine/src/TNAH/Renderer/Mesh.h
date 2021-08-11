@@ -83,18 +83,16 @@ struct AnimatedVertex
         Ref<VertexArray> GetMeshVertexArray() const {return m_Vao;}
         Ref<VertexBuffer> GetMeshVertexBuffer() const {return m_Vbo;}
         Ref<IndexBuffer> GetMeshIndexBuffer() const {return m_Ibo;}
-        Ref<Shader> GetMeshShader() const {return m_Shader;}
-        std::vector<Ref<Texture2D>> GetMeshTextures() const {return m_Textures;}
+        Ref<Material> GetMeshMaterial() const {return m_Material;}
     private:
         // mesh data
         std::vector<Vertex> m_Vertices;
         std::vector<uint32_t> m_Indices;
-        std::vector<Ref<Texture2D>> m_Textures;
         
         Ref<VertexArray> m_Vao;
         Ref<VertexBuffer> m_Vbo;
         Ref<IndexBuffer> m_Ibo;
-        Ref<Shader> m_Shader;
+        Ref<Material> m_Material;
         BufferLayout m_BufferLayout;
         std::vector<MeshShader> m_LoadedShaders;
     };
@@ -120,7 +118,7 @@ struct AnimatedVertex
         void LoadModel(const std::string& filePath);
         void ProcessNode(aiNode* node, const aiScene* scene);
         Mesh ProcessMesh(aiMesh* mesh, const aiScene* scene);
-        std::vector<Ref<Texture2D>> LoadMaterialTextures(aiMaterial* material, aiTextureType type, const std::string& typeName);
+        std::vector<Ref<Texture2D>> LoadMaterialTextures(const aiScene* scene, aiMaterial* material, aiTextureType type, const std::string& typeName);
     };
 
 }

@@ -76,6 +76,7 @@ namespace tnah {
 
 		std::string DebugName;
 	};
+
 	
 	class Texture
 	{
@@ -100,11 +101,12 @@ namespace tnah {
 		static Texture2D* Create(ImageFormat format, uint32_t width, uint32_t height, const void* data, TextureProperties properties);
 
 		static Texture2D* Create(uint32_t width, uint32_t height);
-		static Texture2D* Create(const std::string& path);
+		static Texture2D* Create(const std::string& path, const std::string& textureName = "", bool loadFromMemory = false, void* assimpTexture = nullptr);
 		bool m_Loaded = false;
 		uint32_t m_RendererID;
 		std::string m_Path;
 		uint32_t m_Slot;
+		std::string m_Name;
 	};
 
 }

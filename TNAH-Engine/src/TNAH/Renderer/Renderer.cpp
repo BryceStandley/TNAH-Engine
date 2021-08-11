@@ -46,6 +46,32 @@ namespace tnah {
 	{
 	}
 
+	void Renderer::SetShaderLightInfo(const Ref<Material>& material, std::vector<Ref<Light>> lights)
+	{
+		if(!material->GetShader()->IsBound()) material->BindShader();
+
+		for(auto& l : lights)
+		{
+			auto info = l->GetShaderInfo();
+			material->GetShader()->SetInt("u_Light.type", info.type);
+			material->GetShader()->SetVec3("u_Light.cameraPosition", info.cameraPosition);
+			material->GetShader()->SetVec3("u_Light.position", info.position);
+			material->GetShader()->SetVec3("u_Light.direction", info.direction);
+			material->GetShader()->SetVec3("u_Light.ambient", info.ambient);
+			material->GetShader()->SetVec3("u_Light.diffuse", info.diffuse);
+			material->GetShader()->SetVec3("u_Light.specular", info.specular);
+			material->GetShader()->SetVec3("u_Light.color", info.color);
+			material->GetShader()->SetFloat("u_Light.constant", info.constant);
+			material->GetShader()->SetFloat("u_Light.linear", info.linear);
+			material->GetShader()->SetFloat("u_Light.quadratic", info.quadratic);
+			material->GetShader()->SetFloat("u_Light.cutoff", info.cutoff);
+
+			material->GetShader()->SetFloat("u_Material.shininess", material->GetProperties().Shininess);
+			material->GetShader()->SetFloat("u_Material.metalness", material->GetProperties().Metalness);
+		}
+	}
+
+
 	void Renderer::Submit(const Ref<VertexArray>& vertexArray, const Ref<Shader>& shader, const glm::mat4& transform)
 	{
 		shader->Bind();
@@ -57,44 +83,41 @@ namespace tnah {
 		RenderCommand::DrawIndexed(vertexArray);
 	}
 
-	void Renderer::SubmitTerrain(const Ref<VertexArray>& vertexArray, const Ref<Shader>& shader,
-		const std::vector<Ref<Texture2D>>& textures, const glm::mat4& transform, const glm::mat3& lightingInformation)
+	void Renderer::SubmitTerrain(const Ref<VertexArray>& vertexArray, const Ref<Material>& material,
+			std::vector<Ref<Light>> sceneLights, const glm::mat4& transform)
 	{
-		shader->Bind();
-		shader->SetMat4("u_ViewProjection", s_SceneData->ViewProjection);
-		shader->SetMat4("u_Transform", transform);
+		material->BindShader();
+		material->GetShader()->SetMat4("u_ViewProjection", s_SceneData->ViewProjection);
+		material->GetShader()->SetMat4("u_Transform", transform);
 
-		glm::vec3 lightPosition = lightingInformation[0];
-		glm::vec3 cameraPosition = lightingInformation[1];
-		glm::vec3 lightColor = lightingInformation[2];
-		shader->SetVec3("u_LightPosition", lightPosition);
-		shader->SetVec3("u_CameraPosition", cameraPosition);
-		shader->SetVec3("u_LightColor", lightColor);
-		
-		for(auto& t : textures)
-		{
-			t->Bind();
-		}
+		SetShaderLightInfo(material, sceneLights);
+
+		material->BindTextures();
 		
 		vertexArray->Bind();
 		RenderCommand::DrawIndexed(vertexArray);
 	}
 
-	void Renderer::SubmitMesh(const Ref<VertexArray>& vertexArray, const Ref<Shader>& shader,
-		const std::vector<Ref<Texture2D>>& textures, const glm::mat4& transform)
+	void Renderer::SubmitMesh(const Ref<VertexArray>& vertexArray, const Ref<Material>& material,
+			 std::vector<Ref<Light>> sceneLights, const glm::mat4& transform)
 	{
-		shader->Bind();
-		shader->SetMat4("u_ViewProjection", s_SceneData->ViewProjection);
-		shader->SetMat4("u_Transform", transform);
+		SetCullMode(CullMode::Back);
+		material->BindShader();
+		material->GetShader()->SetMat4("u_ViewProjection", s_SceneData->ViewProjection);
+		material->GetShader()->SetMat4("u_Transform", transform);
+
+		SetShaderLightInfo(material, sceneLights);
 		
-		for(auto t : textures)
-		{
-			t->Bind();
-		}
+		material->BindTextures();
 		
 		vertexArray->Bind();
 		RenderCommand::DrawIndexed(vertexArray);
-		
+		SetCullMode(CullMode::Front);
+	}
+
+	void Renderer::SetCullMode(const CullMode mode)
+	{
+		RenderCommand::SetCullMode(mode);
 	}
 
 	Ref<Texture2D> Renderer::GetWhiteTexture()

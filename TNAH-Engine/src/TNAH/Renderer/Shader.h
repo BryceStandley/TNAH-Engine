@@ -59,8 +59,9 @@ namespace tnah {
 	public:
 		virtual ~Shader() = default;
 
-		virtual void Bind() {}
-		virtual void Unbind() {}
+		virtual void Bind() = 0;
+		virtual void Unbind() = 0;
+		virtual bool IsBound() const = 0;
 
 		virtual void SetBool(const std::string& name, bool value) = 0;
 		virtual void SetInt(const std::string& name, int value) = 0;		

@@ -171,7 +171,6 @@ namespace tnah {
 
 				// We don't need the shader anymore.
 				glDeleteShader(shader);
-
 				TNAH_CORE_ERROR("{0}", infoLog.data());
 				TNAH_CORE_ASSERT(false, "Shader compilation failure!");
 				break;
@@ -218,57 +217,67 @@ namespace tnah {
 	void OpenGLShader::Bind()
 	{
 		glUseProgram(m_ShaderID);
+		m_Bound = true;
 	}
 
 	void OpenGLShader::Unbind()
 	{
 		glUseProgram(0);
+		m_Bound = false;
 	}
 
 	void OpenGLShader::SetBool(const std::string& name, bool value)
 	{
+		if(!IsBound()) Bind();
 		GLint location = glGetUniformLocation(m_ShaderID, name.c_str());
 		glUniform1i(location, (int)value);
 	}
 
 	void OpenGLShader::SetInt(const std::string& name, int value)
 	{
+		if(!IsBound()) Bind();
 		GLint location = glGetUniformLocation(m_ShaderID, name.c_str());
 		glUniform1i(location, value);
 	}
 
 	void OpenGLShader::SetFloat(const std::string& name, float value)
 	{
+		if(!IsBound()) Bind();
 		GLint location = glGetUniformLocation(m_ShaderID, name.c_str());
 		glUniform1f(location, value);
 	}
 
 	void OpenGLShader::SetVec2(const std::string& name, const glm::vec2& value)
 	{
+		if(!IsBound()) Bind();
 		GLint location = glGetUniformLocation(m_ShaderID, name.c_str());
 		glUniform2f(location, value.x, value.y);
 	}
 
 	void OpenGLShader::SetVec3(const std::string& name, const glm::vec3& value)
 	{
+		if(!IsBound()) Bind();
 		GLint location = glGetUniformLocation(m_ShaderID, name.c_str());
 		glUniform3f(location, value.x, value.y, value.z);
 	}
 
 	void OpenGLShader::SetVec4(const std::string& name, const glm::vec4& value)
 	{
+		if(!IsBound()) Bind();
 		GLint location = glGetUniformLocation(m_ShaderID, name.c_str());
 		glUniform4f(location, value.x, value.y, value.z, value.w);
 	}
 
 	void OpenGLShader::SetMat3(const std::string& name, const glm::mat3& matrix)
 	{
+		if(!IsBound()) Bind();
 		GLint location = glGetUniformLocation(m_ShaderID, name.c_str());
 		glUniformMatrix3fv(location, 1, GL_FALSE, glm::value_ptr(matrix));
 	}
 
 	void OpenGLShader::SetMat4(const std::string& name, const glm::mat4& matrix)
 	{
+		if(!IsBound()) Bind();
 		GLint location = glGetUniformLocation(m_ShaderID, name.c_str());
 		glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(matrix));
 	}

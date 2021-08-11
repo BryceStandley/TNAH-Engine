@@ -5,13 +5,11 @@
 
 #include "Renderer.h"
 
-
 namespace tnah {
     Mesh::Mesh(std::vector<Vertex> vertices, std::vector<uint32_t> indices, std::vector<Ref<Texture2D>> textures)
     {
         this->m_Vertices = vertices;
         this->m_Indices = indices;
-        this->m_Textures = textures;
         
         m_BufferLayout = {
             {ShaderDataType::Float3, "a_Position"},
@@ -38,17 +36,39 @@ namespace tnah {
             if(std::strcmp(shader.VertexShaderPath.data(), defaultVertexShader.c_str()) == 0 && std::strcmp(shader.FragmentShaderPath.data(), defaultFragmentShader.c_str()) == 0)
             {
                 //The shaders already been loaded, dont load it again
-                m_Shader = shader.Shader;
+                m_Material.reset(Material::Create(shader.Shader));
                 skip = true;
                 break;
             }
         }
         if(!skip)
         {
-            m_Shader.reset(Shader::Create(defaultVertexShader, defaultFragmentShader));
-            MeshShader s(m_Shader, defaultVertexShader, defaultFragmentShader);
+            m_Material.reset(Material::Create(defaultVertexShader, defaultFragmentShader));
+            MeshShader s(m_Material->GetShader(), defaultVertexShader, defaultFragmentShader);
             m_LoadedShaders.push_back(s);
         }
+
+        m_Material->SetTextures(textures);
+        
+        //bind and set the textures inside the shader uniforms
+        uint32_t diffuse = 1;
+        uint32_t specular = 1;
+        m_Material->BindShader();
+        for(auto t : textures)
+        {
+            std::string number;
+            std::string name = t->m_Name;
+            if(name == "texture_diffuse")
+            {
+                number = std::to_string(diffuse++);
+            }
+            else if(name == "texture_specular")
+            {
+                number = std::to_string(specular++);
+            }
+            m_Material->GetShader()->SetInt(("u_Material." + name + number).c_str(), t->m_Slot);
+        }
+        m_Material->UnBindShader();
     }
 
     static const uint32_t s_MeshImportFlags =
@@ -104,13 +124,13 @@ namespace tnah {
         ProcessNode(scene->mRootNode, scene);
     }
 
-    std::vector<Ref<Texture2D>> Model::LoadMaterialTextures(aiMaterial* material, aiTextureType type, const std::string& typeName)
+    std::vector<Ref<Texture2D>> Model::LoadMaterialTextures(const aiScene* scene, aiMaterial* material, aiTextureType type, const std::string& typeName)
     {
         std::vector<Ref<Texture2D>> textures;
         for(uint32_t i = 0; i < material->GetTextureCount(type); i++)
         {
             aiString str;
-            material->GetTexture(type, i, &str);
+            material->Get(AI_MATKEY_TEXTURE(type, 0), str);
             bool skip = false;
 
             for(uint32_t j = 0; j < m_LoadedTextures.size(); j++)
@@ -125,9 +145,21 @@ namespace tnah {
             if(!skip)
             {
                 Ref<Texture2D> tex;
-                tex.reset(Texture2D::Create(str.data));
-                textures.push_back(tex);
-                m_LoadedTextures.push_back(MeshTexture(tex, str.data));
+                
+                if(auto t = scene->GetEmbeddedTexture(str.C_Str()))
+                {
+                    aiTexture* aiTex = const_cast<aiTexture*>(t);
+                    //read file from memory
+                    tex.reset(Texture2D::Create(str.C_Str(), typeName,true, aiTex));
+                    textures.push_back(tex);
+                    m_LoadedTextures.push_back(MeshTexture(tex, str.data));
+                }
+                else
+                {
+                    tex.reset(Texture2D::Create(str.data, typeName));
+                    textures.push_back(tex);
+                    m_LoadedTextures.push_back(MeshTexture(tex, str.data));
+                }
             }
             
            
@@ -196,20 +228,20 @@ namespace tnah {
             }
         }
 
-        if(mesh->mMaterialIndex > 0)
+        if(mesh->mMaterialIndex >= 0)
         {
             aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
             // 1. diffuse maps
-            std::vector<Ref<Texture2D>> diffuseMaps = LoadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse");
+            std::vector<Ref<Texture2D>> diffuseMaps = LoadMaterialTextures(scene, material, aiTextureType_DIFFUSE, "texture_diffuse");
             textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
             /// 2. specular maps
-             std::vector<Ref<Texture2D>> specularMaps = LoadMaterialTextures(material, aiTextureType_SPECULAR, "texture_specular");
+             std::vector<Ref<Texture2D>> specularMaps = LoadMaterialTextures(scene, material, aiTextureType_SPECULAR, "texture_specular");
             textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
             /// 3. normal maps
-            std::vector<Ref<Texture2D>> normalMaps = LoadMaterialTextures(material, aiTextureType_HEIGHT, "texture_normal");
+            std::vector<Ref<Texture2D>> normalMaps = LoadMaterialTextures(scene, material, aiTextureType_HEIGHT, "texture_normal");
             textures.insert(textures.end(), normalMaps.begin(), normalMaps.end());
             /// 4. height maps
-            std::vector<Ref<Texture2D>> heightMaps = LoadMaterialTextures(material, aiTextureType_AMBIENT, "texture_height");
+            std::vector<Ref<Texture2D>> heightMaps = LoadMaterialTextures(scene, material, aiTextureType_AMBIENT, "texture_height");
             textures.insert(textures.end(), heightMaps.begin(), heightMaps.end());
         }
 

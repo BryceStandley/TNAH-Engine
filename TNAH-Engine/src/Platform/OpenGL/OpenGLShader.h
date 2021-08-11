@@ -27,10 +27,12 @@ namespace tnah {
 		/**
 		* @brief Allows you to activate and use the shader
 		*/
-		virtual void Bind() override;
+		void Bind() override;
 
 		//Unbind the shader from the program
-		virtual void Unbind() override;
+		void Unbind() override;
+
+		bool IsBound() const override { return m_Bound; }
 
 		/**
 		* @brief Sets a boolean for use in the shader program
@@ -99,6 +101,7 @@ namespace tnah {
 
 		uint32_t m_ShaderID;
 		std::string m_ShaderName;
+		bool m_Bound = false;
 	};
 
 }

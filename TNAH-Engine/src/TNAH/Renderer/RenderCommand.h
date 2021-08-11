@@ -41,6 +41,11 @@ namespace tnah {
 			return s_RendererAPI->CheckFullScreen(width, height);
 		}
 
+		inline static void SetCullMode(const CullMode mode)
+		{
+			s_RendererAPI->SetCullMode(mode);
+		}
+
 
 	private:
 		static RendererAPI* s_RendererAPI;

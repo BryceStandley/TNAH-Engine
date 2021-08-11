@@ -5,10 +5,12 @@
 
 #include "TNAH/Renderer/Renderer.h"
 
+#include <Assimp/scene.h>
+
 namespace tnah {
 	
 	OpenGLTexture2D::OpenGLTexture2D(ImageFormat format, uint32_t width, uint32_t height, const void* data, TextureProperties properties)
-		: m_Width(width), m_Height(height), m_Properties(properties)
+		: m_Width(width), m_Height(height), m_Properties(properties), m_DataFormat(GL_RGBA), m_InternalFormat(GL_RGBA8) 
 	{
 		TNAH_CORE_WARN("Generating a texture at runtime isn't implimented yet!");
 	}
@@ -29,10 +31,12 @@ namespace tnah {
 		glTextureParameteri(m_RendererID, GL_TEXTURE_WRAP_T, GL_REPEAT);
 	}
 
-	OpenGLTexture2D::OpenGLTexture2D(const std::string& path)
+	OpenGLTexture2D::OpenGLTexture2D(const std::string& path, const std::string& textureName, bool loadFromMemory, void* assimpTexture)
 	{
 		m_Path = path;
+		m_Name = textureName;
 		int width, height, channels;
+		unsigned char* data = nullptr;
 		if(path.find(".png") != std::string::npos)
 		{
 			// .png was found in the file path, flip vertically on load
@@ -43,8 +47,26 @@ namespace tnah {
 			stbi_set_flip_vertically_on_load(false);
 		}
 
-		unsigned char* data = stbi_load(path.c_str(), &width, &height, &channels, 0);
-		TNAH_CORE_ASSERT(data, "Failed to load image!");
+		if(loadFromMemory && assimpTexture != nullptr)
+		{
+			auto aiTex = static_cast<aiTexture*>(assimpTexture);
+			if(aiTex->mHeight == 0)
+			{
+				data = stbi_load_from_memory(reinterpret_cast<unsigned char*>(aiTex->pcData),aiTex->mWidth, &width, &height, &channels, 0);
+				TNAH_CORE_ASSERT(data, "Failed to load image!");
+			}
+			else
+			{
+				data = stbi_load_from_memory(reinterpret_cast<unsigned char*>(aiTex->pcData),aiTex->mWidth * aiTex->mHeight, &width, &height, &channels, 0);
+				TNAH_CORE_ASSERT(data, "Failed to load image!");
+			}
+		}
+		else
+		{
+			data = stbi_load(path.c_str(), &width, &height, &channels, 0);
+			TNAH_CORE_ASSERT(data, "Failed to load image!");
+		}
+		
 		
 		m_Width = width;
 		m_Height = height;
