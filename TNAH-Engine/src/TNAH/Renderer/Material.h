@@ -10,7 +10,7 @@ namespace tnah
 {
 	struct MaterialProperties
 	{
-		float Shininess = 0.0f;
+		float Shininess = 32.0f;
 		float Metalness = 0.0f;
 
 		MaterialProperties() = default;

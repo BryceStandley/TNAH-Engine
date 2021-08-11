@@ -61,11 +61,14 @@ namespace tnah {
             if(name == "texture_diffuse")
             {
                 number = std::to_string(diffuse++);
+                m_Material->GetShader()->SetBool("u_Material.diffuse_bound", true);
             }
             else if(name == "texture_specular")
             {
                 number = std::to_string(specular++);
+                m_Material->GetShader()->SetBool("u_Material.specular_bound", true);
             }
+            
             m_Material->GetShader()->SetInt(("u_Material." + name + number).c_str(), t->m_Slot);
         }
         m_Material->UnBindShader();

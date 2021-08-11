@@ -25,13 +25,13 @@ namespace tnah {
 		{
 			Light.reset(Light::CreateDirectional(direction, ambient, diffuse, specular));
 		}
-		void SetPoint()
+		void SetPoint(const float& constant, const float& linear, const float& quadratic)
 		{
-			Light.reset(Light::CreatePoint());
+			Light.reset(Light::CreatePoint(constant, linear, quadratic));
 		}
-		void SetSpot()
+		void SetSpot(const float& cutoff)
 		{
-			Light.reset(Light::CreateSpot());
+			Light.reset(Light::CreateSpot(cutoff));
 		}
 
 		operator const Ref<tnah::Light> () const { return Light; }

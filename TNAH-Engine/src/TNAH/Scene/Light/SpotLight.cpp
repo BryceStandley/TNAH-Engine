@@ -8,4 +8,14 @@ namespace tnah {
         :Light(LightType::Spot)
     {
     }
+
+    SpotLight::SpotLight(const float& cutoff)
+        :Light(LightType::Spot)
+    {
+    }
+
+    void SpotLight::SetUpLight(const float& cutoff)
+    {
+        SetCutOff(cutoff);
+    }
 }

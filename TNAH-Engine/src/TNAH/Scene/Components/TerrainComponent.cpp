@@ -55,7 +55,6 @@ namespace tnah {
 			m_TextureFileNames.emplace_back("grass");
 			m_TextureFileNames.emplace_back("rock");
 			m_TextureFileNames.emplace_back("snow");
-			m_TextureFileNames.emplace_back("detail");
 
 			std::vector<Ref<Texture2D>> textures;
 			m_Material->BindShader();

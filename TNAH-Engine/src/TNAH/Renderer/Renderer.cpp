@@ -61,6 +61,7 @@ namespace tnah {
 			material->GetShader()->SetVec3("u_Light.diffuse", info.diffuse);
 			material->GetShader()->SetVec3("u_Light.specular", info.specular);
 			material->GetShader()->SetVec3("u_Light.color", info.color);
+			material->GetShader()->SetFloat("u_Light.intensity", info.intensity);
 			material->GetShader()->SetFloat("u_Light.constant", info.constant);
 			material->GetShader()->SetFloat("u_Light.linear", info.linear);
 			material->GetShader()->SetFloat("u_Light.quadratic", info.quadratic);

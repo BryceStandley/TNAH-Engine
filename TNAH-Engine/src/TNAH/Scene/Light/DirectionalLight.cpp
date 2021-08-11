@@ -10,8 +10,18 @@ namespace tnah {
 
     DirectionLight::DirectionLight(const glm::vec3& direction, const glm::vec3& ambient, const glm::vec3& diffuse,
         const glm::vec3& specular)
-    :Light(LightType::Directional), m_Direction(direction), m_Ambient(ambient), m_Diffuse(diffuse), m_Specular(specular)
+    :Light(LightType::Directional)
     {
+        SetUpLight(direction, ambient, diffuse, specular);
+    }
+
+    void DirectionLight::SetUpLight(const glm::vec3& direction, const glm::vec3& ambient, const glm::vec3& diffuse,
+        const glm::vec3& specular)
+    {
+        SetDirection(direction);
+        SetAmbient(ambient);
+        SetDiffuse(diffuse);
+        SetSpecular(specular);
     }
 
 }

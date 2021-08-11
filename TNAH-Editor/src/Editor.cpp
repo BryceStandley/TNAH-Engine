@@ -1,7 +1,7 @@
 #include <TNAH.h>
 
 #include <imgui.h>
-
+#include <glm/gtc/random.hpp>
 class TestLayer : public tnah::Layer
 {
 public:
@@ -23,21 +23,24 @@ public:
 		auto& terrT = m_Terrain.GetComponent<tnah::TransformComponent>();
 		terrT.Scale = glm::vec3(5.0f);
 
-		m_MeshObject = m_ActiveScene->CreateGameObject("MeshObject");
+		for(int i = 0; i < 10; i++)
+		{
+			//Test Cube
+			std::string name = "Cube" + std::to_string(i);
+			auto go = m_ActiveScene->CreateGameObject(name);
+			
+			auto& mesh = go.AddComponent<tnah::MeshComponent>();
+			mesh.Model.reset(tnah::Model::Create("assets/meshes/cube_texture.fbx"));
+			auto& meshT = go.GetComponent<tnah::TransformComponent>();
 
-		//Test Cube
-		auto& mesh = m_MeshObject.AddComponent<tnah::MeshComponent>();
-		mesh.Model.reset(tnah::Model::Create("assets/meshes/cube_texture.fbx"));
-		auto& meshT = m_MeshObject.GetComponent<tnah::TransformComponent>();
-		meshT.Position = glm::vec3(600, 60.0f, 600);
+			glm::vec3 p(glm::linearRand(500, 700), glm::linearRand(50, 100), glm::linearRand(500, 700));
+			meshT.Position = p;
+		}
+
 
 		m_DirectionalLight = m_ActiveScene->CreateGameObject("Direction Light");
-		auto& light = m_DirectionalLight.AddComponent<tnah::LightComponent>(tnah::Light::LightType::Directional);
-		glm::vec3 ambient(0.2f, 0.2f, 0.2f);
-		glm::vec3 diffuse(0.5f, 0.5f, 0.5f);
-		glm::vec3 specular(1.0f, 1.0f, 1.0f);
-		glm::vec3 direction(-0.2f, -1.0f, -0.3f);
-		light.Light.reset(tnah::Light::CreateDirectional(direction, ambient, diffuse, specular));
+		auto& light = m_DirectionalLight.AddComponent<tnah::LightComponent>(tnah::Light::LightType::Point);
+		light.Light.reset(tnah::Light::CreateDirectional());
 
 	}
 
@@ -108,8 +111,20 @@ public:
 		}
 
 
-		auto& mesh = m_MeshObject.GetComponent<tnah::TransformComponent>();
-		mesh.Rotation.y += 1.0f * deltaTime;
+		for(auto go : m_MeshObjects)
+		{
+			auto& mesh = go.GetComponent<tnah::TransformComponent>();
+			mesh.Rotation.y += 1.0f * deltaTime;
+		}
+		
+		
+
+		auto& light = m_DirectionalLight.GetComponent<tnah::LightComponent>();
+		if(light.Light->GetType() == tnah::Light::LightType::Spot)
+		{
+			light.Light->SetPosition(cameraT.Position);
+			light.Light->SetDirection(cameraT.Forward);
+		}
 		
 		//Rendering is managed by the scene loaded and checks all the required objects to render
 		m_ActiveScene->OnUpdate(deltaTime);
@@ -125,6 +140,20 @@ public:
 		auto& cam = m_Camera.GetComponent<tnah::TransformComponent>();
 		auto& terr = m_Terrain.GetComponent<tnah::TransformComponent>();
 		auto& light = m_DirectionalLight.GetComponent<tnah::LightComponent>();
+		auto& lightT = m_DirectionalLight.GetComponent<tnah::TransformComponent>();
+
+		
+		static int lightType = 0;
+		static const char* LightTypes[]
+		{
+			"Directional", "Point", "Spot"	
+		};
+
+		static int lightDistance = 0;
+		static const char* lightDistances[]
+		{
+			"10", "15", "20", "50", "100", "200"
+		};
 		
 		static const char* resolutions[]
 		{
@@ -157,18 +186,78 @@ public:
 		ImGui::SliderFloat3("Terrain Scale", glm::value_ptr(terr.Scale), 1, 20);
 		
 		ImGui::Text("");
+		ImGui::Combo("Light Type", &lightType, LightTypes, IM_ARRAYSIZE(LightTypes));
+		ImGui::SliderFloat3("Light Position", glm::value_ptr(lightT.Position), -1000, 1000);
 		ImGui::SliderFloat3("Light Direction", glm::value_ptr(light.Light->GetDirection()), -1, 1);
 		ImGui::SliderFloat("Light Intensity", &light.Light->GetIntensity(), 0, 10);
-		ImGui::ColorPicker3("Light Color", glm::value_ptr(light.Light->GetColor()));
+		ImGui::ColorEdit3("Light Color", glm::value_ptr(light.Light->GetColor()));
 		ImGui::SliderFloat3("Light Ambient", glm::value_ptr(light.Light->GetAmbient()), 0, 1);
 		ImGui::SliderFloat3("Light Diffuse", glm::value_ptr(light.Light->GetDiffuse()), 0, 1);
 		ImGui::SliderFloat3("Light Specular", glm::value_ptr(light.Light->GetSpecular()), 0, 1);
+		ImGui::Text("");
+		ImGui::Combo("Light Distance (Point and Spot)", &lightDistance, lightDistances, IM_ARRAYSIZE(lightDistances));
+		ImGui::Text("Light Constant (Point and Spot): %0.4f", light.Light->GetConstant());
+		ImGui::Text("Light Linear (Point and Spot): %0.4f", light.Light->GetLinear());
+		ImGui::Text("Light Quadratic (Point and Spot): %0.4f", light.Light->GetQuadratic());
+		ImGui::Text("Light CutOff Angle: %0.1f", light.Light->GetCutOff());
+		ImGui::InputFloat("New Angle", &m_LightCutoff);
+		if(ImGui::Button("SET"))
+		{
+			if(m_LightCutoff < -360) { m_LightCutoff = -360; }
+			if(m_LightCutoff > 360) { m_LightCutoff = 360; }
+			light.Light->SetCutOff(m_LightCutoff);
+		}
 		
 		ImGui::Text("");
 		ImGui::Text("Not Implimented Yet!");
 		ImGui::Combo("Window Resolution", &selectedRes, resolutions, IM_ARRAYSIZE(resolutions));
 		
 		ImGui::End();
+
+		
+		switch(lightType)
+		{
+			case 0:
+				if(light.Light->GetType() == tnah::Light::LightType::Directional) break;
+				light.Light.reset(tnah::Light::CreateDirectional());
+				break;
+			case 1:
+				if(light.Light->GetType() == tnah::Light::LightType::Point) break;
+				light.Light.reset(tnah::Light::CreatePoint());
+				break;
+			case 2:
+				if(light.Light->GetType() == tnah::Light::LightType::Spot) break;
+				light.Light.reset(tnah::Light::CreateSpot());
+				break;
+			default:
+				break;
+		}
+
+		switch(lightDistance)
+		{
+			case 0:
+				light.Light->SetDistance(10);
+				break;
+			case 1:
+				light.Light->SetDistance(15);
+				break;
+			case 2:
+				light.Light->SetDistance(20);
+				break;
+			case 3:
+				light.Light->SetDistance(50);
+				break;
+			case 4:
+				light.Light->SetDistance(100);
+				break;
+			case 5:
+				light.Light->SetDistance(200);
+				break;
+			default:
+				light.Light->SetDistance(10);
+				break;
+		}
+		
 
 
 		
@@ -191,9 +280,10 @@ private:
 	tnah::Scene* m_ActiveScene;
 	tnah::GameObject m_Camera;
 	tnah::GameObject m_Terrain;
-	tnah::GameObject m_MeshObject;
+	std::vector<tnah::GameObject> m_MeshObjects;
 	tnah::GameObject m_DirectionalLight;
 
+	float m_LightCutoff = 12.5f;
 	float m_CameraMovementSpeed = 20.0f;
 	float m_CameraOverrideSpeed = 20.0f;
 	const float m_CameraDefaultMovementSpeed = 20.0f;

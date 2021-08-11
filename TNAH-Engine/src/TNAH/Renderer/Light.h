@@ -29,6 +29,7 @@ namespace tnah {
             glm::vec3 diffuse = glm::vec3(0.0f);
             glm::vec3 specular = glm::vec3(0.0f);
             glm::vec3 color = glm::vec3(0.0f);
+            float intensity = 1.0f;
 	        //point
             float constant = 0.0f;
             float linear = 0.0f;
@@ -41,9 +42,12 @@ namespace tnah {
         Light(LightType type) :m_Type(type) {}
         
         static Light* Create(LightType type);
-        static Light* CreateDirectional(const glm::vec3& direction = glm::vec3(1.0f), const glm::vec3& ambient = glm::vec3(1.0f),
-            const glm::vec3& diffuse = glm::vec3(1.0f),const glm::vec3& specular = glm::vec3(1.0f));
+        static Light* CreateDirectional(const glm::vec3& direction, const glm::vec3& ambient,
+            const glm::vec3& diffuse, const glm::vec3& specular);
+        static Light* CreateDirectional();
+        static Light* CreatePoint(const float& constant, const float& linear, const float& quadratic);
         static Light* CreatePoint();
+        static Light* CreateSpot(const float& cutoff);
         static Light* CreateSpot();
         
         virtual void SetColor(const glm::vec4& value) { m_Color = value; }
@@ -57,20 +61,44 @@ namespace tnah {
         virtual glm::vec3& GetPosition() { return m_Position; }
         ShaderLightInformation& GetShaderInfo() { return m_ShaderLightInformation; }
 
-        virtual glm::vec3& GetDirection() = 0;
-        virtual glm::vec3& GetAmbient() = 0;
-        virtual glm::vec3& GetDiffuse() = 0;
-        virtual glm::vec3& GetSpecular()  = 0;
-        virtual float& GetConstant() = 0;
-        virtual float& GetLinear() = 0;
-        virtual float& GetQuadratic() = 0;
-        virtual float& GetCutOff() = 0;
+        virtual void SetDirection(const glm::vec3& value) { m_Direction = value; }
+        virtual void SetDiffuse(const glm::vec3& value) { m_Diffuse = value; }
+        virtual void SetAmbient(const glm::vec3& value) { m_Ambient = value; }
+        virtual void SetSpecular(const glm::vec3& value) { m_Specular = value; }
+
+        
+        virtual glm::vec3& GetDirection() { return m_Direction; }
+        virtual glm::vec3& GetAmbient() { return m_Ambient; }
+        virtual glm::vec3& GetDiffuse() { return m_Diffuse; }
+        virtual glm::vec3& GetSpecular() { return m_Specular;}
+
+        virtual void SetConstant(const float& value) { m_Constant = value; }
+        virtual void SetLinear(const float& value) { m_Linear = value; }
+        virtual void SetQuadratic(const float& value) { m_Quadratic = value; }
+        virtual void SetCutOff(const float& value) { m_CutOff = glm::radians(value); }
+        virtual void SetDistance(const int& value) { m_Distance = value; }
+        
+        virtual float& GetConstant()  { return m_Constant; }
+        virtual float& GetLinear() { return m_Linear; }
+        virtual float& GetQuadratic() { return m_Quadratic; }
+        virtual float GetCutOff() { return glm::degrees(m_CutOff); }
+        virtual int& GetDistance() { return m_Distance; }
         
         virtual void UpdateShaderLightInfo(const glm::vec3& cameraPosition);
+        virtual void CheckDistance(int distance);
     
     private:
+        glm::vec3 m_Direction = glm::vec3(0.0f, -1.0f, 0.0f);
+        glm::vec3 m_Ambient = glm::vec3(0.2f, 0.2f, 0.2f);
+        glm::vec3 m_Diffuse = glm::vec3(0.5f, 0.5f, 0.5f);
+        glm::vec3 m_Specular = glm::vec3(1.0f, 1.0f, 1.0f);
         glm::vec3 m_Position = glm::vec3(0.0f);
         glm::vec4 m_Color = glm::vec4(1.0f);
+        int m_Distance = 7;
+        float m_Constant = 1.0f;
+        float m_Linear = 0.09f;
+        float m_Quadratic = 0.032f;
+        float m_CutOff = glm::cos(glm::radians(12.5f));
         float m_Intensity = 1.0f;
         LightType m_Type = LightType::Directional;
         ShaderLightInformation m_ShaderLightInformation = ShaderLightInformation();
