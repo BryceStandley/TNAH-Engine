@@ -102,6 +102,11 @@ namespace tnah {
         float m_Intensity = 1.0f;
         LightType m_Type = LightType::Directional;
         ShaderLightInformation m_ShaderLightInformation = ShaderLightInformation();
+
+        bool m_IsSceneLight = false;
+
+        friend class Scene;
+        friend class Renderer;
     
     };
 }

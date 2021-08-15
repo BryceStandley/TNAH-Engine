@@ -34,6 +34,8 @@ namespace tnah {
 		static RendererAPI::API GetAPI() { return RendererAPI::GetAPI(); }
 		static Ref<Texture2D> GetWhiteTexture();
 		static Ref<Texture2D> GetBlackTexture();
+		static Ref<Texture2D> GetMissingTexture();
+	
 	private:
 		struct SceneData
 		{

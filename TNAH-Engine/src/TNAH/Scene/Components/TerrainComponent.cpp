@@ -16,7 +16,7 @@ namespace tnah {
 		m_BufferLayout = {
 			{ShaderDataType::Float3, "a_Position"},
 			{ShaderDataType::Float3, "a_Color"},
-			{ShaderDataType::Float3, "a_Texture"},
+			{ShaderDataType::Float3, "a_TexCoord"},
 			{ShaderDataType::Float3, "a_Normal"}
 		};
 		m_VAO.reset(VertexArray::Create());
@@ -38,7 +38,7 @@ namespace tnah {
 			m_BufferLayout = {
 				{ShaderDataType::Float3, "a_Position"},
 				{ShaderDataType::Float3, "a_Color"},
-				{ShaderDataType::Float3, "a_Texture"},
+				{ShaderDataType::Float3, "a_TexCoord"},
 				{ShaderDataType::Float3, "a_Normal"}
 			};
 			m_VAO.reset(VertexArray::Create());
@@ -66,6 +66,7 @@ namespace tnah {
 				m_Material->GetShader()->SetInt("u_" + m_TextureFileNames[i] + "Texture", texture->m_Slot);
 			}
 			m_Material->SetTextures(textures);
+			m_Material->GetShader()->SetInt("u_Material.texture_specular1", Renderer::GetBlackTexture()->m_Slot);
 			m_Material->UnBindShader();
 		}
 	}
@@ -77,7 +78,7 @@ namespace tnah {
 		m_BufferLayout = {
 			{ShaderDataType::Float3, "a_Position"},
 			{ShaderDataType::Float3, "a_Color"},
-			{ShaderDataType::Float3, "a_Texture"},
+			{ShaderDataType::Float3, "a_TexCoord"},
 			{ShaderDataType::Float3, "a_Normal"}
 		};
 		m_VAO.reset(VertexArray::Create());

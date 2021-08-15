@@ -8,64 +8,61 @@ public:
 	TestLayer()
 		: Layer("Example")
     {
-	
-		m_ActiveScene = new tnah::Scene();
-		m_Camera = m_ActiveScene->CreateGameObject("Camera");
-		auto& cam = m_Camera.AddComponent<tnah::CameraComponent>();
-		cam.Camera.SetViewportSize(1280, 720);
-		auto& camT = m_Camera.GetComponent<tnah::TransformComponent>();
-		camT.Position = glm::vec3(500,60, 500);
+		m_ActiveScene = tnah::Scene::CreateEmptyScene();
+		m_Camera = m_ActiveScene->GetMainCameraGameObject();
+		auto& ct = m_Camera->GetComponent<tnah::TransformComponent>();
+		auto& cc = m_Camera->GetComponent<tnah::CameraComponent>();
+		cc.Camera.SetViewportSize(1280, 720);
+		ct.Position = glm::vec3(500,60, 500);
+
+		m_SceneLight = m_ActiveScene->GetSceneLightGameObject();
 		
 		m_Terrain = m_ActiveScene->CreateGameObject("Terrain");
-		m_Terrain.AddComponent<tnah::TerrainComponent>("assets/heightmaps/1k.tga");
-
-		//Set the terrain to the same scale as zoom!
-		auto& terrT = m_Terrain.GetComponent<tnah::TransformComponent>();
+		m_Terrain->AddComponent<tnah::TerrainComponent>("assets/heightmaps/1k.tga");
+		auto& terrT = m_Terrain->GetComponent<tnah::TransformComponent>();
 		terrT.Scale = glm::vec3(5.0f);
 
-		for(int i = 0; i < 10; i++)
+		m_PointLight = m_ActiveScene->CreateGameObject("PointLight");
+		auto& light = m_PointLight->GetComponent<tnah::LightComponent>();
+		light.Light->CreatePoint();
+
+		for(int i = 0; i < 100; i++)
 		{
 			//Test Cube
 			std::string name = "Cube" + std::to_string(i);
 			auto go = m_ActiveScene->CreateGameObject(name);
 			
-			auto& mesh = go.AddComponent<tnah::MeshComponent>();
+			auto& mesh = go->AddComponent<tnah::MeshComponent>();
 			mesh.Model.reset(tnah::Model::Create("assets/meshes/cube_texture.fbx"));
-			auto& meshT = go.GetComponent<tnah::TransformComponent>();
+			auto& meshT = go->GetComponent<tnah::TransformComponent>();
 
 			glm::vec3 p(glm::linearRand(500, 700), glm::linearRand(50, 100), glm::linearRand(500, 700));
 			meshT.Position = p;
+			m_MeshObjects.push_back(go);
 		}
-
-
-		m_DirectionalLight = m_ActiveScene->CreateGameObject("Direction Light");
-		auto& light = m_DirectionalLight.AddComponent<tnah::LightComponent>(tnah::Light::LightType::Point);
-		light.Light.reset(tnah::Light::CreateDirectional());
 
 	}
 
 	void OnUpdate(tnah::Timestep deltaTime) override
 	{
-		
-		auto& cameraT = m_Camera.GetComponent<tnah::TransformComponent>();
-
+		auto& ct = m_Camera->GetComponent<tnah::TransformComponent>();
 		//Camera Movement in a first person way.
 		//This can be changed to also look like a 3rd person camera. Similar to a FPS camera in Unity and C#
 		if(tnah::Input::IsKeyPressed(tnah::Key::W))
 		{
-			cameraT.Position += cameraT.Forward * m_CameraMovementSpeed * deltaTime.GetSeconds();
+			ct.Position += ct.Forward * m_CameraMovementSpeed * deltaTime.GetSeconds();
 		}
 		if(tnah::Input::IsKeyPressed(tnah::Key::S))
 		{
-			cameraT.Position -= cameraT.Forward * m_CameraMovementSpeed * deltaTime.GetSeconds();
+			ct.Position -= ct.Forward * m_CameraMovementSpeed * deltaTime.GetSeconds();
 		}
 		if(tnah::Input::IsKeyPressed(tnah::Key::A))
 		{
-			cameraT.Position -= cameraT.Right * m_CameraMovementSpeed * deltaTime.GetSeconds();
+			ct.Position -= ct.Right * m_CameraMovementSpeed * deltaTime.GetSeconds();
 		}
 		if(tnah::Input::IsKeyPressed(tnah::Key::D))
 		{
-			cameraT.Position += cameraT.Right * m_CameraMovementSpeed * deltaTime.GetSeconds();
+			ct.Position += ct.Right * m_CameraMovementSpeed * deltaTime.GetSeconds();
 		}
 
 		if(tnah::Input::IsKeyPressed(tnah::Key::LeftShift) || tnah::Input::IsKeyPressed(tnah::Key::RightShift))
@@ -99,34 +96,25 @@ public:
 		m_LastMouseYPos = mousePos.second;
 		offsetX *= m_CameraMouseSensitivity;
 		offsetY *= m_CameraMouseSensitivity;
-		cameraT.Rotation.x += offsetX;
-		cameraT.Rotation.y += offsetY;
-		if (cameraT.Rotation.y > 89.0f)
+		ct.Rotation.x += offsetX;
+		ct.Rotation.y += offsetY;
+		if (ct.Rotation.y > 89.0f)
 		{
-			cameraT.Rotation.y = 89.0f;
+			ct.Rotation.y = 89.0f;
 		}
-		if (cameraT.Rotation.y < -89.0f)
+		if (ct.Rotation.y < -89.0f)
 		{
-			cameraT.Rotation.y = -89.0f;
+			ct.Rotation.y = -89.0f;
 		}
 
 
 		for(auto go : m_MeshObjects)
 		{
-			auto& mesh = go.GetComponent<tnah::TransformComponent>();
+			auto& mesh = go->GetComponent<tnah::TransformComponent>();
 			mesh.Rotation.y += 1.0f * deltaTime;
 		}
 		
-		
-
-		auto& light = m_DirectionalLight.GetComponent<tnah::LightComponent>();
-		if(light.Light->GetType() == tnah::Light::LightType::Spot)
-		{
-			light.Light->SetPosition(cameraT.Position);
-			light.Light->SetDirection(cameraT.Forward);
-		}
-		
-		//Rendering is managed by the scene loaded and checks all the required objects to render
+		//Rendering is managed by the scene!
 		m_ActiveScene->OnUpdate(deltaTime);
 	}
 
@@ -137,12 +125,13 @@ public:
 
 	virtual void OnImGuiRender() override
 	{
-		auto& cam = m_Camera.GetComponent<tnah::TransformComponent>();
-		auto& terr = m_Terrain.GetComponent<tnah::TransformComponent>();
-		auto& light = m_DirectionalLight.GetComponent<tnah::LightComponent>();
-		auto& lightT = m_DirectionalLight.GetComponent<tnah::TransformComponent>();
+		auto& terr = m_Terrain->GetComponent<tnah::TransformComponent>();
+		auto& ct = m_Camera->GetComponent<tnah::TransformComponent>();
+		auto& l = m_SceneLight->GetComponent<tnah::LightComponent>();
+		auto& lt = m_SceneLight->GetComponent<tnah::TransformComponent>();
 
-		
+		auto& plt = m_PointLight->GetComponent<tnah::TransformComponent>();
+		auto& pl = m_PointLight->GetComponent<tnah::LightComponent>();
 		static int lightType = 0;
 		static const char* LightTypes[]
 		{
@@ -170,8 +159,8 @@ public:
 		ImGui::Text("Press ESC to exit");
 		
 		ImGui::Text("");
-		ImGui::SliderFloat3("Camera Pos", glm::value_ptr(cam.Position), -10000, 10000);
-		ImGui::SliderFloat3("Camera Rotation", glm::value_ptr(cam.Rotation), -360, 360);
+		ImGui::SliderFloat3("Camera Pos", glm::value_ptr(ct.Position), -10000, 10000);
+		ImGui::SliderFloat3("Camera Rotation", glm::value_ptr(ct.Rotation), -360, 360);
 		ImGui::Checkbox("Camera Speed Override", &m_CameraMovementSpeedOverride);
 		if(m_CameraMovementSpeedOverride)
 		{
@@ -186,80 +175,24 @@ public:
 		ImGui::SliderFloat3("Terrain Scale", glm::value_ptr(terr.Scale), 1, 20);
 		
 		ImGui::Text("");
-		ImGui::Combo("Light Type", &lightType, LightTypes, IM_ARRAYSIZE(LightTypes));
-		ImGui::SliderFloat3("Light Position", glm::value_ptr(lightT.Position), -1000, 1000);
-		ImGui::SliderFloat3("Light Direction", glm::value_ptr(light.Light->GetDirection()), -1, 1);
-		ImGui::SliderFloat("Light Intensity", &light.Light->GetIntensity(), 0, 10);
-		ImGui::ColorEdit3("Light Color", glm::value_ptr(light.Light->GetColor()));
-		ImGui::SliderFloat3("Light Ambient", glm::value_ptr(light.Light->GetAmbient()), 0, 1);
-		ImGui::SliderFloat3("Light Diffuse", glm::value_ptr(light.Light->GetDiffuse()), 0, 1);
-		ImGui::SliderFloat3("Light Specular", glm::value_ptr(light.Light->GetSpecular()), 0, 1);
-		ImGui::Text("");
-		ImGui::Combo("Light Distance (Point and Spot)", &lightDistance, lightDistances, IM_ARRAYSIZE(lightDistances));
-		ImGui::Text("Light Constant (Point and Spot): %0.4f", light.Light->GetConstant());
-		ImGui::Text("Light Linear (Point and Spot): %0.4f", light.Light->GetLinear());
-		ImGui::Text("Light Quadratic (Point and Spot): %0.4f", light.Light->GetQuadratic());
-		ImGui::Text("Light CutOff Angle: %0.1f", light.Light->GetCutOff());
-		ImGui::InputFloat("New Angle", &m_LightCutoff);
-		if(ImGui::Button("SET"))
-		{
-			if(m_LightCutoff < -360) { m_LightCutoff = -360; }
-			if(m_LightCutoff > 360) { m_LightCutoff = 360; }
-			light.Light->SetCutOff(m_LightCutoff);
-		}
+		ImGui::Text("Global Scene Light");
+		ImGui::SliderFloat3("Light Position", glm::value_ptr(lt.Position), -1000, 1000);
+		ImGui::SliderFloat3("Light Direction", glm::value_ptr(l.Light->GetDirection()), -1, 1);
+		ImGui::SliderFloat("Light Intensity", &l.Light->GetIntensity(), 0, 10);
+		ImGui::ColorEdit3("Light Color", glm::value_ptr(l.Light->GetColor()));
+		ImGui::SliderFloat3("Light Ambient", glm::value_ptr(l.Light->GetAmbient()), 0, 1);
+		ImGui::SliderFloat3("Light Diffuse", glm::value_ptr(l.Light->GetDiffuse()), 0, 1);
+		ImGui::SliderFloat3("Light Specular", glm::value_ptr(l.Light->GetSpecular()), 0, 1);
+
+		ImGui::SliderFloat3("Point Position", glm::value_ptr(plt.Position), -1000, 1000);
+		ImGui::ColorEdit3("Point Color", glm::value_ptr(pl.Light->GetColor()));
+		ImGui::SliderFloat("Point Intensity", &pl.Light->GetIntensity(), 0, 10);
 		
 		ImGui::Text("");
 		ImGui::Text("Not Implimented Yet!");
 		ImGui::Combo("Window Resolution", &selectedRes, resolutions, IM_ARRAYSIZE(resolutions));
 		
 		ImGui::End();
-
-		
-		switch(lightType)
-		{
-			case 0:
-				if(light.Light->GetType() == tnah::Light::LightType::Directional) break;
-				light.Light.reset(tnah::Light::CreateDirectional());
-				break;
-			case 1:
-				if(light.Light->GetType() == tnah::Light::LightType::Point) break;
-				light.Light.reset(tnah::Light::CreatePoint());
-				break;
-			case 2:
-				if(light.Light->GetType() == tnah::Light::LightType::Spot) break;
-				light.Light.reset(tnah::Light::CreateSpot());
-				break;
-			default:
-				break;
-		}
-
-		switch(lightDistance)
-		{
-			case 0:
-				light.Light->SetDistance(10);
-				break;
-			case 1:
-				light.Light->SetDistance(15);
-				break;
-			case 2:
-				light.Light->SetDistance(20);
-				break;
-			case 3:
-				light.Light->SetDistance(50);
-				break;
-			case 4:
-				light.Light->SetDistance(100);
-				break;
-			case 5:
-				light.Light->SetDistance(200);
-				break;
-			default:
-				light.Light->SetDistance(10);
-				break;
-		}
-		
-
-
 		
 	}
 
@@ -271,17 +204,23 @@ public:
 			auto& re = (tnah::WindowResizeEvent&)event;
 			uint32_t  width = re.GetWidth();
 			uint32_t height = re.GetHeight();
-			m_Camera.GetComponent<tnah::CameraComponent>().Camera.SetViewportSize(width, height);
+			if(m_Camera != nullptr)
+			{
+				auto& c = m_Camera->GetComponent<tnah::CameraComponent>();
+				c.Camera.SetViewportSize(width, height);	
+			}
 		}
 	}
 
 
 private:
 	tnah::Scene* m_ActiveScene;
-	tnah::GameObject m_Camera;
-	tnah::GameObject m_Terrain;
-	std::vector<tnah::GameObject> m_MeshObjects;
-	tnah::GameObject m_DirectionalLight;
+	tnah::Ref<tnah::GameObject> m_Camera;
+	tnah::GameObject* m_Terrain;
+	std::vector<tnah::GameObject*> m_MeshObjects;
+	tnah::Ref<tnah::GameObject> m_SceneLight;
+
+	tnah::GameObject* m_PointLight;
 
 	float m_LightCutoff = 12.5f;
 	float m_CameraMovementSpeed = 20.0f;
@@ -370,6 +309,8 @@ public:
 	bool m_WireframeEnabled = false;
 	bool m_Fullscreen = false;
 	bool m_VSync = false;
+
+	friend class TestLayer;
 };
 
 

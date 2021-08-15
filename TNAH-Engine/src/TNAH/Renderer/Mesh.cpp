@@ -54,22 +54,44 @@ namespace tnah {
         uint32_t diffuse = 1;
         uint32_t specular = 1;
         m_Material->BindShader();
-        for(auto t : textures)
+        if(textures.empty())
         {
-            std::string number;
-            std::string name = t->m_Name;
-            if(name == "texture_diffuse")
+            m_Material->GetShader()->SetInt("u_Material.texture_diffuse1", Renderer::GetMissingTexture()->m_Slot);
+            m_Material->GetShader()->SetInt("u_Material.texture_specular1", Renderer::GetBlackTexture()->m_Slot);
+        }
+        else
+        {
+            bool dif = false;
+            bool spec = false;
+            for(auto t : textures)
             {
-                number = std::to_string(diffuse++);
-                m_Material->GetShader()->SetBool("u_Material.diffuse_bound", true);
+                std::string number;
+                std::string name = t->m_Name;
+                if(name == "texture_diffuse")
+                {
+                    number = std::to_string(diffuse++);
+                    dif = true;
+                    //m_Material->GetShader()->SetBool("u_Material.diffuse_bound", true);
+                }
+                else if(name == "texture_specular")
+                {
+                    number = std::to_string(specular++);
+                    spec = true;
+                    //m_Material->GetShader()->SetBool("u_Material.specular_bound", true);
+                }
+                else
+                {
+                    m_Material->GetShader()->SetInt("u_Material.texture_diffuse1", Renderer::GetMissingTexture()->m_Slot);
+                    m_Material->GetShader()->SetInt("u_Material.texture_specular1", Renderer::GetBlackTexture()->m_Slot);
+                }
+
+                if(dif && !spec)
+                {
+                    m_Material->GetShader()->SetInt("u_Material.texture_specular1", Renderer::GetBlackTexture()->m_Slot);
+                }
+                
+                m_Material->GetShader()->SetInt(("u_Material." + name + number ).c_str(), t->m_Slot);
             }
-            else if(name == "texture_specular")
-            {
-                number = std::to_string(specular++);
-                m_Material->GetShader()->SetBool("u_Material.specular_bound", true);
-            }
-            
-            m_Material->GetShader()->SetInt(("u_Material." + name + number).c_str(), t->m_Slot);
         }
         m_Material->UnBindShader();
     }

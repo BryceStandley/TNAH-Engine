@@ -174,6 +174,7 @@ namespace tnah {
 				TNAH_CORE_ERROR("{0}", infoLog.data());
 				TNAH_CORE_ASSERT(false, "Shader compilation failure!");
 				break;
+				
 			}
 			glAttachShader(program, shader);
 			glShaderIDs.push_back(shader);

@@ -21,6 +21,7 @@ int main(int argc, char** argv);
 
 namespace tnah
 {
+	class Scene;
 #define BIND_EVENT_FN(x) std::bind(&tnah::Application::x, this, std::placeholders::_1)
 	class Application
 	{
@@ -53,6 +54,7 @@ namespace tnah
 		ImGuiLayer* m_ImGuiLayer;
 
 		static Application* s_Instance;
+
 		friend int ::main(int argc, char** argv);
 
 		

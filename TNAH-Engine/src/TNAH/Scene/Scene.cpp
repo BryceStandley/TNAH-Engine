@@ -8,11 +8,32 @@ namespace tnah{
 
 	Scene::Scene()
 	{
+		
+		auto c = CreateGameObject("Main Camera");
+		m_ActiveCamera.reset(c);
+		m_ActiveCamera->AddComponent<CameraComponent>();
 
+		auto l = CreateGameObject("Main Light");
+		m_SceneLight.reset(l);
+		auto& light = m_SceneLight->AddComponent<LightComponent>();
+		light.Light.reset(Light::CreateDirectional());
+		light.Light->m_IsSceneLight = true;
 	}
 
 	Scene::~Scene()
 	{
+	}
+
+	Scene* Scene::CreateSceneFromFile(const std::string& filePath)
+	{
+		//Do Something here to load a scene file, possibly with the scene serializer
+
+		return new Scene();
+	}
+
+	Scene* Scene::CreateEmptyScene()
+	{
+		return new Scene();
 	}
 
 	void Scene::OnUpdate(Timestep deltaTime)
@@ -79,8 +100,6 @@ namespace tnah{
 					light.Light->SetPosition(transform.Position);
 					light.Light->UpdateShaderLightInfo(cameraPosition);
 					sceneLights.push_back(light.Light);
-					break;
-					TNAH_CORE_INFO("The TNAH-Engine only supports a single scene light!");
 				}
 			}
 
@@ -148,7 +167,7 @@ namespace tnah{
 		return transform * gameObject.Transform().GetTransform();
 	}
 
-	GameObject Scene::CreateGameObject(const std::string& name)
+	GameObject* Scene::CreateGameObject(const std::string& name)
 	{
 		GameObject go = { m_Registry.create(), this };
 		auto& idComponent = go.AddComponent<IDComponent>();
@@ -163,9 +182,24 @@ namespace tnah{
 
 		
 		m_GameObjectsInScene[idComponent.ID] = go;
-		return go;
+		return &m_GameObjectsInScene[idComponent.ID];
 	}
 
+
+	GameObject Scene::CreateGameObject()
+	{
+		GameObject go = { m_Registry.create(), this };
+		auto& idComponent = go.AddComponent<IDComponent>();
+		idComponent.ID = {};
+		go.AddComponent<TransformComponent>();
+		go.AddComponent<TagComponent>("Default");
+
+		go.AddComponent<RelationshipComponent>();
+
+		m_GameObjectsInScene[idComponent.ID] = go;
+		return go;
+	}
+	
 	GameObject Scene::FindEntityByTag(const std::string& tag)
 	{
 		auto view = m_Registry.view<TagComponent>();
@@ -204,16 +238,62 @@ namespace tnah{
 		return GameObject();
 	}
 	
-	void Scene::DestryGameObject(GameObject gameObject)
+	void Scene::DestroyGameObject(GameObject gameObject)
 	{
 		m_Registry.destroy(gameObject.GetID());
 	}
 
+	Ref<GameObject> Scene::GetMainCameraGameObject()
+	{
+		return m_ActiveCamera;
+	}
 
+	Ref<GameObject> Scene::GetSceneLightGameObject()
+	{
+		return m_SceneLight;
+	}
 
+	Ref<CameraComponent> Scene::GetMainCameraComponent()
+	{
+		Ref<CameraComponent> c;
+		c.reset(&m_ActiveCamera->GetComponent<CameraComponent>());
+		return c;
+	}
 
+	Ref<LightComponent> Scene::GetSceneLightComponent()
+	{
+		Ref<LightComponent> l;
+		l.reset(&m_SceneLight->GetComponent<LightComponent>());
+		return l;
+	}
 
+	Ref<TransformComponent> Scene::GetMainCameraTransform()
+	{
+		Ref<TransformComponent> t;
+		auto& ct = m_ActiveCamera->GetComponent<TransformComponent>();
+		t.reset(&ct);
+		return t;
+	}
 
+	Ref<TransformComponent> Scene::GetSceneLightTransform()
+	{
+		Ref<TransformComponent> t;
+		TransformComponent* lt = &m_SceneLight->GetComponent<TransformComponent>();
+		t.reset(lt);
+		return t;
+	}
 
+	Ref<SceneCamera> Scene::GetMainCamera()
+	{
+		Ref<SceneCamera> c;
+		auto& cam  = m_ActiveCamera->GetComponent<CameraComponent>();
+		c.reset(&cam.Camera);
+		return c;
+	}
+
+	Ref<Light> Scene::GetSceneLight()
+	{
+		return m_SceneLight->GetComponent<LightComponent>().Light;
+	}
 }
 

@@ -4,20 +4,24 @@
 #include "TNAH/Core/UUID.h"
 #include "entt.hpp"
 #include <vector>
+
+#include "SceneCamera.h"
+#include "Components/Components.h"
 #include "TNAH/Core/Timestep.h"
 #include "TNAH/Core/Math.h"
 #include "TNAH/Physics/PhysicsTimestep.h"
 
 namespace tnah {
+	class Light;
 
 	class GameObject;
 
-	class TNAH_API Scene
+	class Scene
 	{
 		friend class GameObject;
 	public:
-		Scene();
-		~Scene();
+		static Scene* CreateSceneFromFile(const std::string& filePath);
+		static Scene* CreateEmptyScene();
 
 		/**********************************************************************************************//**
 		 * @fn	GameObject Scene::CreateGameObject();
@@ -35,24 +39,37 @@ namespace tnah {
 
 		glm::mat4 GetTransformRelativeToParent(GameObject gameObject);
 
-		GameObject CreateGameObject(const std::string& name);
-
+		GameObject* CreateGameObject(const std::string& name);
+		GameObject CreateGameObject();
 
 		GameObject FindEntityByTag(const std::string& tag);
 		GameObject FindEntityByUUID(UUID id);
 
-		/**
-		 *
-		 */
 		GameObject FindGameObjectByID(const entt::entity& id);
 
-		void DestryGameObject(GameObject gameObject);
+		void DestroyGameObject(GameObject gameObject);
+
+		Ref<GameObject> GetMainCameraGameObject();
+		Ref<GameObject> GetSceneLightGameObject();
+
+		Ref<CameraComponent> GetMainCameraComponent();
+		Ref<LightComponent> GetSceneLightComponent();
+
+		Ref<TransformComponent> GetMainCameraTransform();
+		Ref<TransformComponent> GetSceneLightTransform();
+
+		Ref<SceneCamera> GetMainCamera();
+		Ref<Light> GetSceneLight();
 
 	private:
+		Scene();
+		~Scene();
 		entt::registry m_Registry;
 		std::unordered_map<UUID, GameObject> m_GameObjectsInScene;
 
-		friend class GameObject;
+		Ref<GameObject> m_ActiveCamera;
+		Ref<GameObject> m_SceneLight;
+		
 	};
 
 

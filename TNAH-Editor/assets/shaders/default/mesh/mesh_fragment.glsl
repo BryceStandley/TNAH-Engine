@@ -1,21 +1,29 @@
+//Mesh Fragment
 #version 330 core
 out vec4 color;
 
-struct Material
-{
+struct Material {
 	float shininess;
 	float metalness;
 	sampler2D texture_diffuse1;
 	sampler2D texture_specular1;
-	bool diffuse_bound;
-	bool specular_bound;
+};
+
+struct Global {
+    vec3 direction;
+    vec3 diffuse;
+    vec3 ambient;
+    vec3 specular;
+    vec3 color;
+    float intensity;
+    int totalLights;
+    vec3 cameraPosition;
 };
 
 struct Light {
 	int type;
-	vec3 cameraPosition;
-	vec3 position;
 	vec3 direction;
+	vec3 position;
 	vec3 ambient;
 	vec3 diffuse;
 	vec3 specular;
@@ -27,156 +35,159 @@ struct Light {
 	float quadratic;
 
 	float cutoff;
-
 };
 
 in vec3 v_Position;
-in vec2 v_TexCoord;
+in float v_Height;
 in vec3 v_Normal;
+in vec2 v_TexCoord;
 
-uniform Light u_Light;
+uniform Global u_Global;
+uniform Light u_Light[8]; // Only support 8 lights max
 uniform Material u_Material;
 
 
-vec4 CalculateDirectionalLighting()
+vec3 CalculateGlobalLighting(vec4 blendColor)
 {
-	vec3 ambient = u_Light.ambient * texture(u_Material.texture_diffuse1, v_TexCoord).rgb;
+	vec3 lightDir = normalize(-u_Global.direction);
+    // diffuse shading
+    float diff = max(dot(v_Normal, lightDir), 0.0);
+    // specular shading
+    vec3 reflectDir = reflect(-lightDir, v_Normal);
+    float spec = pow(max(dot(u_Global.cameraPosition, reflectDir), 0.0), u_Material.shininess);
+    // combine results
+    vec3 ambient  = u_Global.ambient  * vec3(blendColor.rgb);
+    vec3 diffuse  = u_Global.diffuse  * diff * vec3(blendColor.rgb);
+    vec3 specular = u_Global.specular * spec * vec3(texture(u_Material.texture_specular1, v_TexCoord).rgb);
+    vec3 final = (ambient + diffuse + specular);
+    return final * u_Global.color * u_Global.intensity;
+}
+
+vec3 CalculateDirectionalLighting(Light light, vec3 blend)
+{
+	vec3 ambient = light.ambient * blend.rgb;
 	// diffuse 
 	vec3 norm = normalize(v_Normal);
 
-	vec3 lightDir = normalize(-u_Light.direction);
+	vec3 lightDir = normalize(-light.direction);
 	float diff = max(dot(norm, lightDir), 0.0);
-	vec3 diffuse = u_Light.diffuse * diff * texture(u_Material.texture_diffuse1, v_TexCoord).rgb;
+	vec3 diffuse = light.diffuse * diff * blend.rgb;
 	// specular
-	vec3 viewDir = normalize(u_Light.cameraPosition - v_Position);
+	vec3 viewDir = normalize(u_Global.cameraPosition - v_Position);
 	vec3 reflectDir = reflect(-lightDir, norm);
-	float spec = pow(max(dot(viewDir, reflectDir), 0.0), u_Material.shininess);
-	vec3 specular;
-	if(!u_Material.specular_bound)
-	{
-		specular = u_Light.specular * spec * texture(u_Material.texture_specular1, v_TexCoord).rgb;
-	}
-	else
-	{
-		specular = u_Light.specular * spec * texture(u_Material.texture_diffuse1, v_TexCoord).rgb;
-	}
+	float spec = pow(max(dot(u_Global.cameraPosition, reflectDir), 0.0), u_Material.shininess);
+	vec3 specular = u_Global.specular * spec * texture(u_Material.texture_specular1, v_TexCoord).rgb;
 	
 	vec3 result = vec3(ambient + diffuse + specular);
-	result = (result * u_Light.intensity) * u_Light.color;
-	return vec4(result, 1.0f);
+	result = (result * light.intensity) * light.color;
+	return result;
 }
 
-vec4 CalculatePointLighting()
+vec3 CalculatePointLighting(Light light, vec3 blend)
 {
-	vec3 ambient = u_Light.ambient * texture(u_Material.texture_diffuse1, v_TexCoord).rgb;
-	// diffuse 
-	vec3 norm = normalize(v_Normal);
+	// ambient
+    vec3 ambient = light.ambient * blend.rgb;
+  	
+    // diffuse 
+    vec3 norm = normalize(v_Normal);
+    vec3 lightDir = normalize(light.position - v_Position);
+    float diff = max(dot(norm, lightDir), 0.0);
+    vec3 diffuse = light.diffuse * diff * blend.rgb;  
+    
+    // specular
+    vec3 viewDir = normalize(u_Global.cameraPosition - v_Position);
+    vec3 reflectDir = reflect(-lightDir, norm);  
+    float spec = pow(max(dot(u_Global.cameraPosition , reflectDir), 0.0), u_Material.shininess); 
+    vec3 specular = u_Global.specular * spec * texture(u_Material.texture_specular1, v_TexCoord).rgb;
+    
+    // attenuation
+    float distance    = length(light.position - v_Position);
+    float attenuation = 1.0 / (light.constant + light.linear * distance + light.quadratic * (distance * distance));    
 
-	vec3 lightDir = normalize(-u_Light.direction);
-	float diff = max(dot(norm, lightDir), 0.0);
-	vec3 diffuse = u_Light.diffuse * diff * texture(u_Material.texture_diffuse1, v_TexCoord).rgb;
-	// specular
-	vec3 viewDir = normalize(u_Light.cameraPosition - v_Position);
-	vec3 reflectDir = reflect(-lightDir, norm);
-	float spec = pow(max(dot(viewDir, reflectDir), 0.0), u_Material.shininess);
-	vec3 specular;
-	if(!u_Material.specular_bound)
-	{
-		specular = u_Light.specular * spec * texture(u_Material.texture_specular1, v_TexCoord).rgb;
-	}
-	else
-	{
-		specular = u_Light.specular * spec * texture(u_Material.texture_diffuse1, v_TexCoord).rgb;
-	}
-
-	// attenuation
-	float distance    = length(u_Light.position - v_Position);
-	float attenuation = 1.0 / (u_Light.constant + u_Light.linear * distance + u_Light.quadratic * (distance * distance));
-
-	ambient  *= attenuation;
-	diffuse   *= attenuation;
-	specular *= attenuation;
+    ambient  *= attenuation;  
+    diffuse   *= attenuation;
+    specular *= attenuation;   
 
 	vec3 result = vec3(ambient + diffuse + specular);
-	result = (result * u_Light.intensity) * u_Light.color;
-	return vec4(result, 1.0f);
+	result = (result * light.intensity) * light.color;
+	return result;
 }
 
-vec4 CalculateSpotLighting()
+vec3 CalculateSpotLighting(Light light, vec3 blend)
 {
-	vec3 lightDir = normalize(u_Light.position - v_Position);
+	vec3 lightDir = normalize(light.position - v_Position);
 	// check if lighting is inside the spotlight cone
-	float theta = dot(lightDir, normalize(-u_Light.direction));
+	float theta = dot(lightDir, normalize(-light.direction));
 
-	if(theta > u_Light.cutoff) // remember that we're working with angles as cosines instead of degrees so a '>' is used.
+	if(theta > light.cutoff) // remember that we're working with angles as cosines instead of degrees so a '>' is used.
 	{
 		// ambient
-		vec3 ambient = u_Light.ambient * texture(u_Material.texture_diffuse1, v_TexCoord).rgb;
+		vec3 ambient = light.ambient * blend.rgb;
 
 		// diffuse 
 		vec3 norm = normalize(v_Normal);
 		float diff = max(dot(norm, lightDir), 0.0);
-		vec3 diffuse = u_Light.diffuse * diff * texture(u_Material.texture_diffuse1, v_TexCoord).rgb;
+		vec3 diffuse = light.diffuse * diff * blend.rgb;
 
 		// specular
-		vec3 viewDir = normalize(u_Light.cameraPosition - v_Position);
+		vec3 viewDir = normalize(u_Global.cameraPosition - v_Position);
 		vec3 reflectDir = reflect(-lightDir, norm);
-		float spec = pow(max(dot(u_Light.cameraPosition, reflectDir), 0.0), u_Material.shininess);
+		float spec = pow(max(dot(u_Global.cameraPosition, reflectDir), 0.0), u_Material.shininess);
 		
-		vec3 specular;
-		if(!u_Material.specular_bound)
-		{
-			specular = u_Light.specular * spec * texture(u_Material.texture_specular1, v_TexCoord).rgb;
-		}
-		else
-		{
-			specular = u_Light.specular * spec * texture(u_Material.texture_diffuse1, v_TexCoord).rgb;
-		}
+		vec3 specular = u_Global.specular * spec * texture(u_Material.texture_specular1, v_TexCoord).rgb;
 
 		// attenuation
-		float distance    = length(u_Light.position - v_Position);
-		float attenuation = 1.0 / (u_Light.constant + u_Light.linear * distance + u_Light.quadratic * (distance * distance));
+		float distance    = length(light.position - v_Position);
+		float attenuation = 1.0 / (light.constant + light.linear * distance + light.quadratic * (distance * distance));
 
 		// ambient  *= attenuation; // remove attenuation from ambient, as otherwise at large distances the light would be darker inside than outside the spotlight due the ambient term in the else branche
 		diffuse   *= attenuation;
 		specular *= attenuation;
 
 		vec3 result = vec3(ambient + diffuse + specular);
-		result = (result * u_Light.intensity) * u_Light.color;
-		return vec4(result, 1.0f);
+		result = (result * light.intensity) * light.color;
+		return result;
 	}
 	else
 	{
 		// else, use ambient light so scene isn't completely dark outside the spotlight.
-		vec3 result = vec3(u_Light.ambient * color.rgb);
-		result = (result * u_Light.intensity) * u_Light.color;
-		return vec4(result, 1.0f);
+		vec3 result = vec3(light.ambient * blend.rgb);
+		result = (result * light.intensity) * light.color;
+		return result;
 	}
 }
 
 void main()
 {
+    vec4 blendColor = texture(u_Material.texture_diffuse1, v_TexCoord);
+    
+    vec3 finalColor = vec3(0.0);
+	finalColor += CalculateGlobalLighting(blendColor);
 	
-	if(u_Light.type == 0)
+	if(u_Global.totalLights > 0)
 	{
-		//directional light
-		color = CalculateDirectionalLighting();
+        for(int i = 0; i < u_Global.totalLights; i++)
+        {
+            if(u_Light[i].type == 0)
+            {
+                finalColor += CalculateDirectionalLighting(u_Light[i], finalColor);
+            }
+            else if(u_Light[i].type == 1)
+            {
+                finalColor += CalculatePointLighting(u_Light[i], finalColor);
+            }
+            else if(u_Light[i].type == 2)
+            {
+                finalColor += CalculateSpotLighting(u_Light[i], finalColor);
+            }
+            else
+            {
+                color = texture(u_Material.texture_diffuse1, v_TexCoord);
+            }
+        }
 	}
-	else if(u_Light.type == 1)
-	{
-		//point light
-		color =  CalculatePointLighting();
-	}
-	else if(u_Light.type == 2)
-	{
-		//Spot Light
-		color = CalculateSpotLighting();
-	}
-	else
-	{
-		// No light, default fully lit
-		color = texture(u_Material.texture_diffuse1, v_TexCoord);
-	}
+
+    color = vec4(finalColor, blendColor.a);
 	
 	//if the alpha channel is less than 0.1, discard the pixel as it should be transparent
 	if(color.a < 0.1f)

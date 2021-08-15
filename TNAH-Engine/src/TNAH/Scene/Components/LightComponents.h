@@ -13,6 +13,7 @@ namespace tnah {
 	{
 		Ref<tnah::Light> Light;
 
+		
 		LightComponent() = default;
 		LightComponent(const LightComponent& other) = default;
 		LightComponent(const tnah::Light::LightType& type)

@@ -210,6 +210,9 @@ namespace tnah {
 		}
 
 		UUID GetUUID() { return GetComponent<IDComponent>().ID; }
+
+		void SetTag(const std::string& tag);
+		std::string GetTag();
 	private:
 		GameObject(const std::string& name);
 	private:
