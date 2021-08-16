@@ -88,7 +88,7 @@ namespace tnah {
         virtual void CheckDistance(int distance);
     
     private:
-        glm::vec3 m_Direction = glm::vec3(0.0f, -1.0f, 0.0f);
+        glm::vec3 m_Direction = glm::vec3(-0.2f, -1.0f, -0.3f);
         glm::vec3 m_Ambient = glm::vec3(0.2f, 0.2f, 0.2f);
         glm::vec3 m_Diffuse = glm::vec3(0.5f, 0.5f, 0.5f);
         glm::vec3 m_Specular = glm::vec3(1.0f, 1.0f, 1.0f);

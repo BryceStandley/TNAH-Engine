@@ -1,8 +1,6 @@
 #include "tnahpch.h"
 #include "TerrainComponent.h"
 
-#include <stb_image.h>
-
 #include <glm/gtc/type_ptr.hpp>
 
 #include "TNAH/Renderer/Renderer.h"
@@ -27,7 +25,7 @@ namespace tnah {
 		m_IBO.reset(IndexBuffer::Create(GetIndicesData(), GetIndicesSize()));
 		m_VAO->SetIndexBuffer(m_IBO);
 
-		m_Material.reset(Material::Create("assets/shaders/default/terrain/terrain_vertex.glsl", "assets/shaders/default/terrain/terrain_fragment.glsl"));
+		m_Material.reset(Material::Create("Resources/shaders/default/terrain/terrain_vertex.glsl", "Resources/shaders/default/terrain/terrain_fragment.glsl"));
 	}
 
 	Terrain::Terrain(const std::string& heightmapFilePath)
@@ -49,7 +47,7 @@ namespace tnah {
 			m_IBO.reset(IndexBuffer::Create(GetIndicesData(), GetIndicesSize()));
 			m_VAO->SetIndexBuffer(m_IBO);
 
-			m_Material.reset(Material::Create("assets/shaders/default/terrain/terrain_vertex.glsl", "assets/shaders/default/terrain/terrain_fragment.glsl"));
+			m_Material.reset(Material::Create("Resources/shaders/default/terrain/terrain_vertex.glsl", "Resources/shaders/default/terrain/terrain_fragment.glsl"));
 
 			m_TextureFileNames.emplace_back("dirt");
 			m_TextureFileNames.emplace_back("grass");
@@ -89,7 +87,7 @@ namespace tnah {
 		m_IBO.reset(IndexBuffer::Create(GetIndicesData(), GetIndicesSize()));
 		m_VAO->SetIndexBuffer(m_IBO);
 
-		m_Material.reset(Material::Create("assets/shaders/default/terrain/terrain_vertex.glsl", "assets/shaders/default/terrain/terrain_fragment.glsl"));
+		m_Material.reset(Material::Create("Resources/shaders/default/terrain/terrain_vertex.glsl", "../TNAH-Engine/Resources/shaders/default/terrain/terrain_fragment.glsl"));
 	}
 
 	Terrain::~Terrain()
@@ -131,31 +129,28 @@ namespace tnah {
 
 	bool Terrain::LoadHeightField(const std::string& fileName)
 	{
-		stbi_set_flip_vertically_on_load(1);
-		int width, height, bytesPerPixel;
-		const auto imageData = stbi_load(fileName.c_str(), &width, &height, &bytesPerPixel, 0);
-		if (imageData == nullptr)
+		auto texture = Texture2D::Load(fileName);
+		if(!texture)
 		{
-			// Return empty vector in case of failure
-			TNAH_CORE_ASSERT(false, "Failed to load provided heightmap image file!");
+			TNAH_CORE_ERROR("Terrain Component couldn't load heightmap at path: {0}", fileName.c_str());
+			return false;
 		}
-
+		
 		std::vector<float> result;
-		auto pixelPtr = &imageData[0];
-		for (auto z = 0; z < height; ++z)
+		auto pixelPtr = &texture->m_ImageData[0];
+		for (auto z = 0; z < texture->m_Height; ++z)
 		{
-			for (auto x = 0; x < width; ++x)
+			for (auto x = 0; x < texture->m_Width; ++x)
 			{
 				result.emplace_back((float(*pixelPtr) / 255.0f) * m_MaxHeightmapHeight);
-				pixelPtr += bytesPerPixel;
+				pixelPtr += texture->m_Channels;
 			}
 		}
 
-		stbi_image_free(imageData);
 		m_TerrainHeights = result;
-		m_Size.x = width;
-		m_Size.y = height;
-		stbi_set_flip_vertically_on_load(0);
+		m_Size.x = texture->m_Width;
+		m_Size.y = texture->m_Height;
+		delete[] texture;
 		return true;
 	}
 

@@ -20,12 +20,12 @@ namespace tnah {
     Material::Material(const MaterialProperties& properties)
         :m_Properties(properties)
     {
-           m_Shader.reset(Shader::Create("assets/shaders/default/mesh/mesh_vertex.glsl", "assets/shaders/default/mesh/mesh_fragment.glsl"));
+           m_Shader.reset(Shader::Create("Resources/shaders/default/mesh/mesh_vertex.glsl", "Resources/shaders/default/mesh/mesh_fragment.glsl"));
     }
 
     Material::Material()
     {
-        m_Shader.reset(Shader::Create("assets/shaders/default/mesh/mesh_vertex.glsl", "assets/shaders/default/mesh/mesh_fragment.glsl"));
+        m_Shader.reset(Shader::Create("Resources/shaders/default/mesh/mesh_vertex.glsl", "Resources/shaders/default/mesh/mesh_fragment.glsl"));
         m_Properties = MaterialProperties();
     }
 

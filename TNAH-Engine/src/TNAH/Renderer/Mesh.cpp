@@ -27,16 +27,16 @@ namespace tnah {
         m_Ibo.reset(IndexBuffer::Create(&indices[0], indices.size()));
         m_Vao->SetIndexBuffer(m_Ibo);
 
-        const std::string defaultVertexShader = "assets/shaders/default/mesh/mesh_vertex.glsl";
-        const std::string defaultFragmentShader = "assets/shaders/default/mesh/mesh_fragment.glsl";
+        const std::string defaultVertexShader = "Resources/shaders/default/mesh/mesh_vertex.glsl";
+        const std::string defaultFragmentShader = "Resources/shaders/default/mesh/mesh_fragment.glsl";
         
         bool skip = false;
-        for(auto& shader : m_LoadedShaders)
+        for(auto& shader : Renderer::GetLoadedShaders())
         {
-            if(std::strcmp(shader.VertexShaderPath.data(), defaultVertexShader.c_str()) == 0 && std::strcmp(shader.FragmentShaderPath.data(), defaultFragmentShader.c_str()) == 0)
+            if(std::strcmp(shader->m_FilePaths.first.data(), defaultVertexShader.c_str()) == 0 && std::strcmp(shader->m_FilePaths.second.data(), defaultFragmentShader.c_str()) == 0)
             {
                 //The shaders already been loaded, dont load it again
-                m_Material.reset(Material::Create(shader.Shader));
+                m_Material.reset(Material::Create(shader));
                 skip = true;
                 break;
             }
@@ -44,8 +44,8 @@ namespace tnah {
         if(!skip)
         {
             m_Material.reset(Material::Create(defaultVertexShader, defaultFragmentShader));
-            MeshShader s(m_Material->GetShader(), defaultVertexShader, defaultFragmentShader);
-            m_LoadedShaders.push_back(s);
+            auto s = m_Material->GetShader();
+            Renderer::RegisterShader(s);
         }
 
         m_Material->SetTextures(textures);
@@ -127,11 +127,34 @@ namespace tnah {
 
     Model* Model::Create(const std::string& filePath)
     {
-        return new Model(filePath);
+        auto model = new Model();
+        bool duplicate = false;
+        for(auto& m : Renderer::GetLoadedModels())
+        {
+            if(std::strcmp(m->m_FilePath.data(), filePath.c_str()) == 0)
+            {
+                // this model has already been loaded, no need to process it again
+                model = m.get();
+                duplicate = true;
+            }
+        }
+
+        if(duplicate) return model;
+
+        //if theres no duplicate model, read in the file as normal and return the new model
+        model = new Model(filePath);
+        Ref<Model> m;
+        m.reset(model);
+        Renderer::RegisterModel(m);
+        return model;
     }
+
+    Model::Model()
+    {}
 
     Model::Model(const std::string& filePath)
     {
+        m_FilePath = filePath;
         LoadModel(filePath);
     }
 
@@ -158,11 +181,11 @@ namespace tnah {
             material->Get(AI_MATKEY_TEXTURE(type, 0), str);
             bool skip = false;
 
-            for(uint32_t j = 0; j < m_LoadedTextures.size(); j++)
+            for(uint32_t j = 0; j < Renderer::GetLoadedTextures().size(); j++)
             {
-                if(std::strcmp(m_LoadedTextures[j].TexturePath.data(), str.C_Str()) == 0)
+                if(std::strcmp(Renderer::GetLoadedTextures()[j]->m_Path.data(), str.C_Str()) == 0)
                 {
-                    textures.push_back(m_LoadedTextures[j].Texture);
+                    textures.push_back(Renderer::GetLoadedTextures()[j]);
                     skip = true;
                     break;
                 }
@@ -177,13 +200,15 @@ namespace tnah {
                     //read file from memory
                     tex.reset(Texture2D::Create(str.C_Str(), typeName,true, aiTex));
                     textures.push_back(tex);
-                    m_LoadedTextures.push_back(MeshTexture(tex, str.data));
+                    //m_LoadedTextures.push_back(MeshTexture(tex, str.data));
+                    Renderer::RegisterTexture(tex);
                 }
                 else
                 {
                     tex.reset(Texture2D::Create(str.data, typeName));
                     textures.push_back(tex);
-                    m_LoadedTextures.push_back(MeshTexture(tex, str.data));
+                    //m_LoadedTextures.push_back(MeshTexture(tex, str.data));
+                    Renderer::RegisterTexture(tex);
                 }
             }
             

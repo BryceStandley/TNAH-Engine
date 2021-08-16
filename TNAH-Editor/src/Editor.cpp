@@ -24,7 +24,7 @@ public:
 
 		m_PointLight = m_ActiveScene->CreateGameObject("PointLight");
 		auto& light = m_PointLight->GetComponent<tnah::LightComponent>();
-		light.Light->CreatePoint();
+		light.Light.reset(tnah::Light::CreatePoint());
 
 		for(int i = 0; i < 100; i++)
 		{
@@ -45,66 +45,70 @@ public:
 
 	void OnUpdate(tnah::Timestep deltaTime) override
 	{
-		auto& ct = m_Camera->GetComponent<tnah::TransformComponent>();
 		//Camera Movement in a first person way.
 		//This can be changed to also look like a 3rd person camera. Similar to a FPS camera in Unity and C#
-		if(tnah::Input::IsKeyPressed(tnah::Key::W))
+		//Only move the camera if its enabled
+		if(m_CameraMovementToggle)
 		{
-			ct.Position += ct.Forward * m_CameraMovementSpeed * deltaTime.GetSeconds();
-		}
-		if(tnah::Input::IsKeyPressed(tnah::Key::S))
-		{
-			ct.Position -= ct.Forward * m_CameraMovementSpeed * deltaTime.GetSeconds();
-		}
-		if(tnah::Input::IsKeyPressed(tnah::Key::A))
-		{
-			ct.Position -= ct.Right * m_CameraMovementSpeed * deltaTime.GetSeconds();
-		}
-		if(tnah::Input::IsKeyPressed(tnah::Key::D))
-		{
-			ct.Position += ct.Right * m_CameraMovementSpeed * deltaTime.GetSeconds();
-		}
-
-		if(tnah::Input::IsKeyPressed(tnah::Key::LeftShift) || tnah::Input::IsKeyPressed(tnah::Key::RightShift))
-		{
-			if(!m_CameraMovementSpeedOverride)
+			auto& ct = m_Camera->GetComponent<tnah::TransformComponent>();
+			if(tnah::Input::IsKeyPressed(tnah::Key::W))
 			{
-				m_CameraMovementSpeed = 100.0f;
+				ct.Position += ct.Forward * m_CameraMovementSpeed * deltaTime.GetSeconds();
 			}
-		}
-		else if(!m_CameraMovementSpeedOverride)
-		{
-			m_CameraMovementSpeed = m_CameraDefaultMovementSpeed;
-		}
-		else
-		{
-			m_CameraMovementSpeed = m_CameraOverrideSpeed;
-		}
+			if(tnah::Input::IsKeyPressed(tnah::Key::S))
+			{
+				ct.Position -= ct.Forward * m_CameraMovementSpeed * deltaTime.GetSeconds();
+			}
+			if(tnah::Input::IsKeyPressed(tnah::Key::A))
+			{
+				ct.Position -= ct.Right * m_CameraMovementSpeed * deltaTime.GetSeconds();
+			}
+			if(tnah::Input::IsKeyPressed(tnah::Key::D))
+			{
+				ct.Position += ct.Right * m_CameraMovementSpeed * deltaTime.GetSeconds();
+			}
 
-		//Camera Mouse rotation controls
-		auto mousePos = tnah::Input::GetMousePos();
-		if (m_FirstMouseInput)
-		{
+			if(tnah::Input::IsKeyPressed(tnah::Key::LeftShift) || tnah::Input::IsKeyPressed(tnah::Key::RightShift))
+			{
+				if(!m_CameraMovementSpeedOverride)
+				{
+					m_CameraMovementSpeed = 100.0f;
+				}
+			}
+			else if(!m_CameraMovementSpeedOverride)
+			{
+				m_CameraMovementSpeed = m_CameraDefaultMovementSpeed;
+			}
+			else
+			{
+				m_CameraMovementSpeed = m_CameraOverrideSpeed;
+			}
+
+			//Camera Mouse rotation controls
+			auto mousePos = tnah::Input::GetMousePos();
+			if (m_FirstMouseInput)
+			{
+				m_LastMouseXPos = mousePos.first;
+				m_LastMouseYPos = mousePos.second;
+				m_FirstMouseInput = false;
+			}
+
+			float offsetX = mousePos.first - m_LastMouseXPos;
+			float offsetY = m_LastMouseYPos - mousePos.second;
 			m_LastMouseXPos = mousePos.first;
 			m_LastMouseYPos = mousePos.second;
-			m_FirstMouseInput = false;
-		}
-
-		float offsetX = mousePos.first - m_LastMouseXPos;
-		float offsetY = m_LastMouseYPos - mousePos.second;
-		m_LastMouseXPos = mousePos.first;
-		m_LastMouseYPos = mousePos.second;
-		offsetX *= m_CameraMouseSensitivity;
-		offsetY *= m_CameraMouseSensitivity;
-		ct.Rotation.x += offsetX;
-		ct.Rotation.y += offsetY;
-		if (ct.Rotation.y > 89.0f)
-		{
-			ct.Rotation.y = 89.0f;
-		}
-		if (ct.Rotation.y < -89.0f)
-		{
-			ct.Rotation.y = -89.0f;
+			offsetX *= m_CameraMouseSensitivity;
+			offsetY *= m_CameraMouseSensitivity;
+			ct.Rotation.x += offsetX;
+			ct.Rotation.y += offsetY;
+			if (ct.Rotation.y > 89.0f)
+			{
+				ct.Rotation.y = 89.0f;
+			}
+			if (ct.Rotation.y < -89.0f)
+			{
+				ct.Rotation.y = -89.0f;
+			}
 		}
 
 
@@ -151,47 +155,53 @@ public:
 		static int selectedRes = 0;
 		ImGui::Begin("Controls");
 		ImGui::Text("%.1f FPS", ImGui::GetIO().Framerate);
-		ImGui::Text("Press 1 to toggle mouse lock");
-		ImGui::Text("Press 2 to toggle wireframe mode");
-		ImGui::Text("Press 3 to toggle borderless fullscreen");
-		ImGui::Text("Press 4 to toggle VSync");
-		ImGui::Text("Hold Either Shift to move the camera faster");
-		ImGui::Text("Press ESC to exit");
+		ImGui::Text("Application Options");
+		ImGui::Separator();
+		ImGui::BulletText("Press 1 to toggle mouse lock");
+		ImGui::BulletText("Press 2 to toggle wireframe mode");
+		ImGui::BulletText("Press 3 to toggle borderless fullscreen");
+		ImGui::BulletText("Press 4 to toggle VSync");
+		ImGui::BulletText("Press 5 to toggle camera movement");
+		ImGui::BulletText("Hold Either Shift to move the camera faster");
+		ImGui::BulletText("Press ESC to exit");
+		ImGui::Separator();
 		
-		ImGui::Text("");
-		ImGui::SliderFloat3("Camera Pos", glm::value_ptr(ct.Position), -10000, 10000);
-		ImGui::SliderFloat3("Camera Rotation", glm::value_ptr(ct.Rotation), -360, 360);
-		ImGui::Checkbox("Camera Speed Override", &m_CameraMovementSpeedOverride);
-		if(m_CameraMovementSpeedOverride)
+		if(ImGui::CollapsingHeader("Camera"))
 		{
-			ImGui::SliderFloat("Camera Movement Speed", &m_CameraOverrideSpeed, 1, m_MaxCameraMovementSpeed);
+			ImGui::SliderFloat3("Camera Pos", glm::value_ptr(ct.Position), -10000, 10000);
+			ImGui::SliderFloat3("Camera Rotation", glm::value_ptr(ct.Rotation), -360, 360);
+			ImGui::Checkbox("Camera Speed Override", &m_CameraMovementSpeedOverride);
+			if(m_CameraMovementSpeedOverride)
+			{
+				ImGui::SliderFloat("Camera Movement Speed", &m_CameraOverrideSpeed, 1, m_MaxCameraMovementSpeed);
+			}
+			else
+			{
+				ImGui::Text("Camera Movement Speed: %0.1f", m_CameraMovementSpeed);
+			}
 		}
-		else
-		{
-			ImGui::Text("Camera Movement Speed: %0.1f", m_CameraMovementSpeed);
-		}
-		
-		ImGui::Text("");
-		ImGui::SliderFloat3("Terrain Scale", glm::value_ptr(terr.Scale), 1, 20);
-		
-		ImGui::Text("");
-		ImGui::Text("Global Scene Light");
-		ImGui::SliderFloat3("Light Position", glm::value_ptr(lt.Position), -1000, 1000);
-		ImGui::SliderFloat3("Light Direction", glm::value_ptr(l.Light->GetDirection()), -1, 1);
-		ImGui::SliderFloat("Light Intensity", &l.Light->GetIntensity(), 0, 10);
-		ImGui::ColorEdit3("Light Color", glm::value_ptr(l.Light->GetColor()));
-		ImGui::SliderFloat3("Light Ambient", glm::value_ptr(l.Light->GetAmbient()), 0, 1);
-		ImGui::SliderFloat3("Light Diffuse", glm::value_ptr(l.Light->GetDiffuse()), 0, 1);
-		ImGui::SliderFloat3("Light Specular", glm::value_ptr(l.Light->GetSpecular()), 0, 1);
 
-		ImGui::SliderFloat3("Point Position", glm::value_ptr(plt.Position), -1000, 1000);
-		ImGui::ColorEdit3("Point Color", glm::value_ptr(pl.Light->GetColor()));
-		ImGui::SliderFloat("Point Intensity", &pl.Light->GetIntensity(), 0, 10);
+		if(ImGui::CollapsingHeader("Terrain"))
+		{
+			ImGui::SliderFloat3("Terrain Scale", glm::value_ptr(terr.Scale), 1, 20);
+		}
 		
-		ImGui::Text("");
-		ImGui::Text("Not Implimented Yet!");
-		ImGui::Combo("Window Resolution", &selectedRes, resolutions, IM_ARRAYSIZE(resolutions));
-		
+		if(ImGui::CollapsingHeader("Global Lighting"))
+		{
+			ImGui::SliderFloat3("Light Direction", glm::value_ptr(l.Light->GetDirection()), -1, 1);
+			ImGui::SliderFloat("Light Intensity", &l.Light->GetIntensity(), 0, 10);
+			ImGui::ColorEdit3("Light Color", glm::value_ptr(l.Light->GetColor()));
+			ImGui::SliderFloat3("Light Ambient", glm::value_ptr(l.Light->GetAmbient()), 0, 1);
+			ImGui::SliderFloat3("Light Diffuse", glm::value_ptr(l.Light->GetDiffuse()), 0, 1);
+			ImGui::SliderFloat3("Light Specular", glm::value_ptr(l.Light->GetSpecular()), 0, 1);
+		}
+
+		if(ImGui::CollapsingHeader("Point Lighting"))
+		{
+			ImGui::SliderFloat3("Point Position", glm::value_ptr(plt.Position), -1000, 1000);
+			ImGui::SliderFloat("Point Intensity", &pl.Light->GetIntensity(), 0, 10);
+			ImGui::ColorEdit3("Point Color", glm::value_ptr(pl.Light->GetColor()));
+		}
 		ImGui::End();
 		
 	}
@@ -208,6 +218,15 @@ public:
 			{
 				auto& c = m_Camera->GetComponent<tnah::CameraComponent>();
 				c.Camera.SetViewportSize(width, height);	
+			}
+		}
+
+		if(event.GetEventType() == tnah::EventType::KeyPressed)
+		{
+			auto& e = (tnah::KeyPressedEvent&)event;
+			if(e.GetKeyCode() == tnah::Key::D5)
+			{
+				m_CameraMovementToggle = !m_CameraMovementToggle;
 			}
 		}
 	}
@@ -232,6 +251,7 @@ private:
 	float m_LastMouseXPos = 0.0f;
 	float m_LastMouseYPos = 0.0f;
 	bool m_FirstMouseInput = true;
+	bool m_CameraMovementToggle = true;
 	
 };
 
@@ -290,6 +310,8 @@ public:
 				m_VSync = !m_VSync;
 				GetWindow().SetVSync(m_VSync);
 			}
+
+			
 		}
 		
 		//Dispatch an event to the application on window resize

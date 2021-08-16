@@ -11,13 +11,87 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="PhysicsTimestep.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLRendererAPI.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLShader.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLTexture.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLVertexArray.cpp" />
     <ClCompile Include="src\TNAH\Core\UUID.cpp" />
+    <ClCompile Include="src\TNAH\Physics\PhysicsTimestep.cpp">
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <Optimization>Disabled</Optimization>
+      <SupportJustMyCode>true</SupportJustMyCode>
+      <AssemblerOutput>NoListing</AssemblerOutput>
+      <AssemblerListingLocation>D:\DEV\TNAH-Engine\bin-int\Debug-x64\TNAH-Engine\</AssemblerListingLocation>
+      <UndefineAllPreprocessorDefinitions>false</UndefineAllPreprocessorDefinitions>
+      <BrowseInformation>false</BrowseInformation>
+      <BrowseInformationFile>D:\DEV\TNAH-Engine\bin-int\Debug-x64\TNAH-Engine\</BrowseInformationFile>
+      <CompileAs>Default</CompileAs>
+      <ConformanceMode>true</ConformanceMode>
+      <DiagnosticsFormat>Column</DiagnosticsFormat>
+      <DisableLanguageExtensions>false</DisableLanguageExtensions>
+      <ErrorReporting>Prompt</ErrorReporting>
+      <ExpandAttributedSource>false</ExpandAttributedSource>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <EnableASAN>false</EnableASAN>
+      <EnableFiberSafeOptimizations>false</EnableFiberSafeOptimizations>
+      <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
+      <FloatingPointModel>Precise</FloatingPointModel>
+      <ForceConformanceInForLoopScope>true</ForceConformanceInForLoopScope>
+      <GenerateModuleDependencies>false</GenerateModuleDependencies>
+      <GenerateSourceDependencies>false</GenerateSourceDependencies>
+      <GenerateXMLDocumentationFiles>false</GenerateXMLDocumentationFiles>
+      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
+      <IntrinsicFunctions>false</IntrinsicFunctions>
+      <IgnoreStandardIncludePath>false</IgnoreStandardIncludePath>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard_C>Default</LanguageStandard_C>
+      <MinimalRebuild>false</MinimalRebuild>
+      <ModuleDependenciesFile>D:\DEV\TNAH-Engine\bin-int\Debug-x64\TNAH-Engine\</ModuleDependenciesFile>
+      <ModuleOutputFile>D:\DEV\TNAH-Engine\bin-int\Debug-x64\TNAH-Engine\</ModuleOutputFile>
+      <OmitDefaultLibName>false</OmitDefaultLibName>
+      <FavorSizeOrSpeed>Neither</FavorSizeOrSpeed>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
+      <ObjectFileName>D:\DEV\TNAH-Engine\bin-int\Debug-x64\TNAH-Engine\</ObjectFileName>
+      <CallingConvention>Cdecl</CallingConvention>
+      <ProgramDataBaseFileName>D:\DEV\TNAH-Engine\bin\Debug-x64\TNAH-Engine\TNAH-Engine.pdb</ProgramDataBaseFileName>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>tnahpch.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>D:\DEV\TNAH-Engine\bin-int\Debug-x64\TNAH-Engine\TNAH-Engine.pch</PrecompiledHeaderOutputFile>
+      <PreprocessToFile>false</PreprocessToFile>
+      <PreprocessKeepComments>false</PreprocessKeepComments>
+      <PreprocessSuppressLineNumbers>false</PreprocessSuppressLineNumbers>
+      <RemoveUnreferencedCodeData>true</RemoveUnreferencedCodeData>
+      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
+      <ShowIncludes>false</ShowIncludes>
+      <SourceDependenciesFile>D:\DEV\TNAH-Engine\bin-int\Debug-x64\TNAH-Engine\</SourceDependenciesFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <BufferSecurityCheck>true</BufferSecurityCheck>
+      <SmallerTypeCheck>false</SmallerTypeCheck>
+      <SpectreMitigation>false</SpectreMitigation>
+      <StructMemberAlignment>Default</StructMemberAlignment>
+      <TrackerLogDirectory>D:\DEV\TNAH-Engine\bin-int\Debug-x64\TNAH-Engine\TNAH-Engine.tlog\</TrackerLogDirectory>
+      <TranslateIncludes>false</TranslateIncludes>
+      <MinimalRebuildFromTracking>true</MinimalRebuildFromTracking>
+      <TreatWarningAsError>false</TreatWarningAsError>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <UseFullPaths>true</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <XMLDocumentationFileName>D:\DEV\TNAH-Engine\bin-int\Debug-x64\TNAH-Engine\</XMLDocumentationFileName>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <IntelJCCErratum>false</IntelJCCErratum>
+      <ExternalDirectoriesEnv>EXTERNAL_INCLUDE;</ExternalDirectoriesEnv>
+      <TreatAngleIncludeAsExternal>false</TreatAngleIncludeAsExternal>
+      <ExternalWarningLevel>InheritWarningLevel</ExternalWarningLevel>
+      <TreatExternalTemplatesAsInternal>true</TreatExternalTemplatesAsInternal>
+      <DisableAnalyzeExternal>false</DisableAnalyzeExternal>
+      <PreprocessorDefinitions>TNAH_DEBUG;TNAH_PLATFORM_WINDOWS;TNAH_BUILD_DLL;GLFW_INCLUDE_NONE;_DEBUG;_CONSOLE;_UNICODE;UNICODE;</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>D:\DEV\TNAH-Engine\vender\assimp\include;D:\DEV\TNAH-Engine\GLFW\include;D:\DEV\TNAH-Engine\vender\glad\include;D:\DEV\TNAH-Engine\vender\glm\include;D:\DEV\TNAH-Engine\vender\lua\include;D:\DEV\TNAH-Engine\vender\luabridge\include;D:\DEV\TNAH-Engine\vender\reactphysics3d\include;D:\DEV\TNAH-Engine\vender\spdlog\include;D:\DEV\TNAH-Engine\TNAH-Engine\/src/;D:\DEV\TNAH-Engine\ImGui/;D:\DEV\TNAH-Engine\vender/entt/include;D:\DEV\TNAH-Engine\vender/stbi/include;</AdditionalIncludeDirectories>
+      <LibCompiled>true</LibCompiled>
+    </ClCompile>
+    <ClCompile Include="src\TNAH\Renderer\Image.cpp" />
     <ClCompile Include="src\TNAH\Renderer\Light.cpp" />
     <ClCompile Include="src\TNAH\Renderer\RenderingBuffers.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLGraphicsContext.cpp" />
@@ -65,11 +139,13 @@
     <ClInclude Include="src\TNAH\Core\Timestep.h" />
     <ClInclude Include="src\TNAH\Core\UUID.h" />
     <ClInclude Include="src\TNAH\Physics\PhysicsTimestep.h" />
+    <ClInclude Include="src\TNAH\Renderer\Image.h" />
     <ClInclude Include="src\TNAH\Renderer\Light.h" />
     <ClInclude Include="src\TNAH\Renderer\RenderingBuffers.h" />
     <ClInclude Include="src\TNAH\Renderer\Camera.h" />
     <ClInclude Include="src\TNAH\Renderer\Material.h" />
     <ClInclude Include="src\TNAH\Renderer\Mesh.h" />
+    <ClInclude Include="src\TNAH\Renderer\stb_image.h" />
     <ClInclude Include="src\TNAH\Renderer\Texture.h" />
     <ClInclude Include="src\TNAH\Scene\Light\DirectionalLight.h" />
     <ClInclude Include="src\TNAH\Scene\Light\PointLight.h" />
@@ -119,6 +195,26 @@
     <ProjectReference Include="..\ImGUI\ImGUI.vcxproj">
       <Project>{11bb4bf9-7d1e-4ada-aa26-b828e14ec6b3}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\fonts\opensans\LICENSE.txt" />
+    <Content Include="Resources\fonts\opensans\OpenSans-Bold.ttf" />
+    <Content Include="Resources\fonts\opensans\OpenSans-BoldItalic.ttf" />
+    <Content Include="Resources\fonts\opensans\OpenSans-ExtraBold.ttf" />
+    <Content Include="Resources\fonts\opensans\OpenSans-ExtraBoldItalic.ttf" />
+    <Content Include="Resources\fonts\opensans\OpenSans-Italic.ttf" />
+    <Content Include="Resources\fonts\opensans\OpenSans-Light.ttf" />
+    <Content Include="Resources\fonts\opensans\OpenSans-LightItalic.ttf" />
+    <Content Include="Resources\fonts\opensans\OpenSans-Regular.ttf" />
+    <Content Include="Resources\fonts\opensans\OpenSans-SemiBold.ttf" />
+    <Content Include="Resources\fonts\opensans\OpenSans-SemiBoldItalic.ttf" />
+    <Content Include="Resources\shaders\default\mesh\mesh_fragment.glsl" />
+    <Content Include="Resources\shaders\default\mesh\mesh_vertex.glsl" />
+    <Content Include="Resources\shaders\default\terrain\terrain_fragment.glsl" />
+    <Content Include="Resources\shaders\default\terrain\terrain_vertex.glsl" />
+    <Content Include="Resources\textures\default\default_black.jpg" />
+    <Content Include="Resources\textures\default\default_missing.jpg" />
+    <Content Include="Resources\textures\default\default_white.jpg" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -170,7 +266,7 @@
       <PreprocessorDefinitions>TNAH_DEBUG;TNAH_PLATFORM_WINDOWS;TNAH_BUILD_DLL;GLFW_INCLUDE_NONE;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)vender\assimp\include;$(SolutionDir)GLFW\include;$(SolutionDir)vender\glad\include;$(SolutionDir)vender\glm\include;$(SolutionDir)vender\lua\include;$(SolutionDir)vender\luabridge\include;$(SolutionDir)vender\reactphysics3d\include;$(SolutionDir)vender\spdlog\include;$(ProjectDir)/src/;$(SolutionDir)ImGui/;$(SolutionDir)vender/entt/include;$(SolutionDir)vender/stbi/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)vender\assimp\include;$(SolutionDir)GLFW\include;$(SolutionDir)vender\glad\include;$(SolutionDir)vender\glm\include;$(SolutionDir)vender\lua\include;$(SolutionDir)vender\luabridge\include;$(SolutionDir)vender\reactphysics3d\include;$(SolutionDir)vender\spdlog\include;$(ProjectDir)/src/;$(SolutionDir)ImGui/;$(SolutionDir)vender/entt/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>tnahpch.h</PrecompiledHeaderFile>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>

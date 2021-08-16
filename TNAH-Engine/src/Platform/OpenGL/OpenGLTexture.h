@@ -12,25 +12,19 @@ namespace tnah {
 		OpenGLTexture2D(ImageFormat format, uint32_t width, uint32_t height, const void* data, TextureProperties properties);
 		OpenGLTexture2D(uint32_t width, uint32_t height);
 		OpenGLTexture2D(const std::string& path, const std::string& textureName = "", bool loadFromMemory = false, void* assimpTexture = nullptr);
-		virtual ~OpenGLTexture2D();
+		~OpenGLTexture2D() override;
 
-		virtual uint32_t GetWidth() const override { return m_Width;  }
-		virtual uint32_t GetHeight() const override { return m_Height; }
-		virtual uint32_t GetRendererID() const override { return m_RendererID; }
+		unsigned char* LoadFromMemory(const std::string& path, void* assimpTexture = nullptr);
+
+		uint32_t GetWidth() const override { return m_Width;  }
+		uint32_t GetHeight() const override { return m_Height; }
+		uint32_t GetRendererID() const override { return m_RendererID; }
 		
-		virtual void SetData(void* data, uint32_t size) override;
+		void SetData(void* data, uint32_t size) override;
 
-		virtual void Bind(uint32_t slot) const override;
-		virtual void Bind() const override;
-
-		virtual bool operator==(const Texture& other) const override
-		{
-			return m_RendererID == ((OpenGLTexture2D&)other).m_RendererID;
-		}
-	private:
-		uint32_t m_Width, m_Height;
-		GLenum m_InternalFormat, m_DataFormat;
-		TextureProperties m_Properties;
+		void Bind(uint32_t slot) const override;
+		void Bind() const override;
+		
 	};
 
 }

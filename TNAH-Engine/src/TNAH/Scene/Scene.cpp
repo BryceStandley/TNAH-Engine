@@ -97,12 +97,13 @@ namespace tnah{
 				{
 					auto& light = view.get<LightComponent>(entity);
 					auto& transform = view.get<TransformComponent>(entity);
+					if(light.Light == nullptr) continue; 
 					light.Light->SetPosition(transform.Position);
 					light.Light->UpdateShaderLightInfo(cameraPosition);
 					sceneLights.push_back(light.Light);
 				}
 			}
-
+////
 			
 			//Render any terrain objects
 			{

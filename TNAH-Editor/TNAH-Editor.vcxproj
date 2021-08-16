@@ -132,10 +132,15 @@
       <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command> XCOPY "$(SolutionDir)vender\glfw\lib\glfw3.dll" "$(OutDir)\" /E /Y
- XCOPY "$(ProjectDir)assets\" "$(OutDir)assets\" /E /Y 
-XCOPY "$(SolutionDir)vender\assimp\lib\*.pdb" "$(OutDir)\" /E /Y</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>XCOPY "$(SolutionDir)vender\glfw\lib\glfw3.dll" "$(OutDir)" /E /Y
+XCOPY "$(SolutionDir)TNAH-Engine\Resources\" "$(OutDir)Resources\" /E /Y
+XCOPY "$(SolutionDir)vender\assimp\lib\*.pdb" "$(OutDir)" /E /Y
+XCOPY "$(ProjectDir)assets\" "$(OutDir)assets\" /E /Y</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -169,15 +174,6 @@ XCOPY "$(SolutionDir)vender\assimp\lib\*.pdb" "$(OutDir)\" /E /Y</Command>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Editor.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="assets\shaders\default\mesh\mesh_fragment.glsl" />
-    <None Include="assets\shaders\default\mesh\mesh_vertex.glsl" />
-    <None Include="assets\shaders\default\terrain\terrain_fragment.glsl" />
-    <None Include="assets\shaders\default\terrain\terrain_vertex.glsl" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="assets\textures\default" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\meshes\cube.fbx" />

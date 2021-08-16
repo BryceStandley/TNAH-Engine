@@ -5,6 +5,7 @@
 #include "TNAH/Scene/SceneCamera.h"
 #include "TNAH/Renderer/Material.h"
 #include "Light.h"
+#include "Mesh.h"
 #include "Texture.h"
 
 namespace tnah {
@@ -35,6 +36,14 @@ namespace tnah {
 		static Ref<Texture2D> GetWhiteTexture();
 		static Ref<Texture2D> GetBlackTexture();
 		static Ref<Texture2D> GetMissingTexture();
+		static std::vector<Ref<Texture2D>> GetLoadedTextures();
+		static std::vector<Ref<Shader>> GetLoadedShaders();
+		static void RegisterTexture(Ref<Texture2D>& texture);
+		static void RegisterShader(Ref<Shader>& shader);
+
+		static std::vector<Ref<Model>> GetLoadedModels();
+		static void RegisterModel(Ref<Model>& model);
+		
 	
 	private:
 		struct SceneData

@@ -94,7 +94,6 @@ struct AnimatedVertex
         Ref<IndexBuffer> m_Ibo;
         Ref<Material> m_Material;
         BufferLayout m_BufferLayout;
-        std::vector<MeshShader> m_LoadedShaders;
     };
 
     class Model
@@ -106,10 +105,11 @@ struct AnimatedVertex
         std::vector<Mesh> GetMeshes() const { return m_Meshes; }
         uint32_t GetNumberOfMeshes() const { return m_Meshes.size(); }
     private:
+        Model();
         Model(const std::string& filePath);
         std::vector<Mesh> m_Meshes;
         std::string m_Directory;
-        std::vector<MeshTexture> m_LoadedTextures;
+        std::string m_FilePath;
 
         glm::mat4 AiToGLM(aiMatrix4x4t<float> m);
         glm::vec3 AiToGLM(aiVector3t<float> v);

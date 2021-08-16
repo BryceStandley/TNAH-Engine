@@ -27,25 +27,27 @@ namespace tnah {
 
 	OpenGLShader::OpenGLShader(const std::string& vertexSrcPath, const std::string& fragmentSrcPath)
 	{
-		std::unordered_map<GLenum, std::string> src;
-		src[GL_VERTEX_SHADER] = PreProcessPaths(vertexSrcPath);
-		src[GL_FRAGMENT_SHADER] = PreProcessPaths(fragmentSrcPath);
+		m_FilePaths.first = vertexSrcPath;
+		m_FilePaths.second = fragmentSrcPath;
+		std::unordered_map<GLenum, std::pair<std::string, std::string>> src;
+		src[GL_VERTEX_SHADER] = std::pair(FindFileName(vertexSrcPath), PreProcessPaths(vertexSrcPath));
+		src[GL_FRAGMENT_SHADER] = std::pair(FindFileName(fragmentSrcPath), PreProcessPaths(fragmentSrcPath));
 		Compile(src);
 	}
 
+	
 	OpenGLShader::OpenGLShader(const std::string& shaderFilePath)
 	{
-
+		m_FilePaths.first = shaderFilePath;
+		m_FilePaths.second = "SINGLE SHADER FILE";
+		
 		std::string source = ReadFile(shaderFilePath);
-		auto shaderSources = PreProcess(source);
-		Compile(shaderSources);
+		auto shaderSources = PreProcess(source, shaderFilePath);
+		
 
-		// Extract name from filepath
-		auto lastSlash = shaderFilePath.find_last_of("/\\");
-		lastSlash = lastSlash == std::string::npos ? 0 : lastSlash + 1;
-		auto lastDot = shaderFilePath.rfind('.');
-		auto count = lastDot == std::string::npos ? shaderFilePath.size() - lastSlash : lastDot - lastSlash;
-		m_ShaderName = shaderFilePath.substr(lastSlash, count);
+		m_ShaderName = FindFileName(shaderFilePath);
+
+		Compile(shaderSources);
 	}
 
 	OpenGLShader::~OpenGLShader()
@@ -113,10 +115,10 @@ namespace tnah {
 	}
 
 
-	std::unordered_map<GLenum, std::string> OpenGLShader::PreProcess(const std::string& source)
+	std::unordered_map<GLenum, std::pair<std::string, std::string>> OpenGLShader::PreProcess(const std::string& source, const std::string& shaderFilePath)
 	{
 
-		std::unordered_map<GLenum, std::string> shaderSources;
+		std::unordered_map<GLenum, std::pair<std::string, std::string>> shaderSources;
 
 		const char* typeToken = "#type";
 		size_t typeTokenLength = strlen(typeToken);
@@ -133,13 +135,14 @@ namespace tnah {
 			TNAH_CORE_ASSERT(nextLinePos != std::string::npos, "Syntax error");
 			pos = source.find(typeToken, nextLinePos); //Start of next shader type declaration line
 
-			shaderSources[Utils::ShaderTypeFromString(type)] = (pos == std::string::npos) ? source.substr(nextLinePos) : source.substr(nextLinePos, pos - nextLinePos);
+			shaderSources[Utils::ShaderTypeFromString(type)] = std::pair(FindFileName(shaderFilePath), (pos == std::string::npos) ? source.substr(nextLinePos) : source.substr(nextLinePos, pos - nextLinePos));
 		}
 
 		return shaderSources;
 	}
 
-	void OpenGLShader::Compile(const std::unordered_map<GLenum, std::string>& shaderSrc)
+
+	void OpenGLShader::Compile(const std::unordered_map<GLenum, std::pair<std::string, std::string>>& shaderSrc)
 	{
 		GLuint program = glCreateProgram();
 		std::vector<GLenum> glShaderIDs(shaderSrc.size());
@@ -147,7 +150,7 @@ namespace tnah {
 		for (auto& kv : shaderSrc)
 		{
 			GLenum type = kv.first;
-			const std::string& src = kv.second;
+			const std::string& src = kv.second.second;
 
 
 			GLuint shader = glCreateShader(type);
@@ -171,7 +174,7 @@ namespace tnah {
 
 				// We don't need the shader anymore.
 				glDeleteShader(shader);
-				TNAH_CORE_ERROR("{0}", infoLog.data());
+				TNAH_CORE_ERROR("Error in file: {0} \n Error: {1}", kv.second.first, infoLog.data());
 				TNAH_CORE_ASSERT(false, "Shader compilation failure!");
 				break;
 				
@@ -213,6 +216,14 @@ namespace tnah {
 
 	}
 
+	std::string OpenGLShader::FindFileName(const std::string& filePath)
+	{
+		auto lastSlash = filePath.find_last_of("/\\");
+		lastSlash = lastSlash == std::string::npos ? 0 : lastSlash + 1;
+		auto lastDot = filePath.rfind('.');
+		auto count = lastDot == std::string::npos ? filePath.size() - lastSlash : lastDot - lastSlash;
+		return filePath.substr(lastSlash, count);
+	}
 
 
 	void OpenGLShader::Bind()

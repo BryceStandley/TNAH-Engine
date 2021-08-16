@@ -1,8 +1,6 @@
 #include "tnahpch.h"
 #include "Platform/OpenGL/OpenGLTexture.h"
 
-#include <stb_image.h>
-
 #include "TNAH/Renderer/Renderer.h"
 
 #include <Assimp/scene.h>
@@ -10,14 +8,20 @@
 namespace tnah {
 	
 	OpenGLTexture2D::OpenGLTexture2D(ImageFormat format, uint32_t width, uint32_t height, const void* data, TextureProperties properties)
-		: m_Width(width), m_Height(height), m_Properties(properties), m_DataFormat(GL_RGBA), m_InternalFormat(GL_RGBA8) 
 	{
+		m_Width = width;
+		m_Height = height;
+		m_Properties = properties;
+		m_DataFormat = GL_RGBA;
+		m_InternalFormat = GL_RGBA8;
+		
 		TNAH_CORE_WARN("Generating a texture at runtime isn't implimented yet!");
 	}
 
 	OpenGLTexture2D::OpenGLTexture2D(uint32_t width, uint32_t height)
-		: m_Width(width), m_Height(height)
 	{
+		m_Width = width;
+		m_Height = height;
 		m_InternalFormat = GL_RGBA8;
 		m_DataFormat = GL_RGBA;
 
@@ -49,70 +53,133 @@ namespace tnah {
 
 		if(loadFromMemory && assimpTexture != nullptr)
 		{
-			auto aiTex = static_cast<aiTexture*>(assimpTexture);
-			if(aiTex->mHeight == 0)
-			{
-				data = stbi_load_from_memory(reinterpret_cast<unsigned char*>(aiTex->pcData),aiTex->mWidth, &width, &height, &channels, 0);
-				TNAH_CORE_ASSERT(data, "Failed to load image!");
-			}
-			else
-			{
-				data = stbi_load_from_memory(reinterpret_cast<unsigned char*>(aiTex->pcData),aiTex->mWidth * aiTex->mHeight, &width, &height, &channels, 0);
-				TNAH_CORE_ASSERT(data, "Failed to load image!");
-			}
+			data = LoadFromMemory(path, assimpTexture);
 		}
 		else
 		{
 			data = stbi_load(path.c_str(), &width, &height, &channels, 0);
-			TNAH_CORE_ASSERT(data, "Failed to load image!");
+			if(!data)
+			{
+				TNAH_CORE_ERROR("STBI Error: {0} with file {1}", stbi_failure_reason(), path.c_str());
+				TNAH_CORE_ASSERT(data, "Failed to load texture or image at path: " + path);
+			}
 		}
 		
-		
-		m_Width = width;
-		m_Height = height;
+		if(!loadFromMemory)
+		{
+			m_Width = width;
+			m_Height = height;
+			m_Channels = channels;
 
-		GLenum internalFormat = 0, dataFormat = 0;
-		if (channels == 4)
-		{
-			internalFormat = GL_RGBA;
-			dataFormat = GL_RGBA;
-		}
-		else if (channels == 3)
-		{
-			internalFormat = GL_RGB;
-			dataFormat = GL_RGB;
+			GLenum internalFormat = 0, dataFormat = 0;
+			if (channels == 4)
+			{
+				internalFormat = GL_RGBA;
+				dataFormat = GL_RGBA;
+			}
+			else if (channels == 3)
+			{
+				internalFormat = GL_RGB;
+				dataFormat = GL_RGB;
+			}
+			else
+			{
+				internalFormat = GL_RED;
+				dataFormat = GL_RED;
+			}
+
+			m_InternalFormat = internalFormat;
+			m_DataFormat = dataFormat;
+
+			TNAH_CORE_ASSERT(internalFormat & dataFormat, "Format not supported!");
 		}
 		else
 		{
-			internalFormat = GL_RED;
-			dataFormat = GL_RED;
+			GLenum internalFormat = 0, dataFormat = 0;
+			if (m_Channels == 4)
+			{
+				internalFormat = GL_RGBA;
+				dataFormat = GL_RGBA;
+			}
+			else if (m_Channels == 3)
+			{
+				internalFormat = GL_RGB;
+				dataFormat = GL_RGB;
+			}
+			else
+			{
+				internalFormat = GL_RED;
+				dataFormat = GL_RED;
+			}
+
+			m_InternalFormat = internalFormat;
+			m_DataFormat = dataFormat;
+
+			TNAH_CORE_ASSERT(internalFormat & dataFormat, "Format not supported!");
 		}
 
-		m_InternalFormat = internalFormat;
-		m_DataFormat = dataFormat;
+			glGenTextures(1, &m_RendererID);
+			glBindTexture(GL_TEXTURE_2D, m_RendererID);
 
-		TNAH_CORE_ASSERT(internalFormat & dataFormat, "Format not supported!");
-
-		glGenTextures(1, &m_RendererID);
-		glBindTexture(GL_TEXTURE_2D, m_RendererID);
-
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 		
-		glTexImage2D(GL_TEXTURE_2D, 0, (int)m_InternalFormat, m_Width, m_Height, 0, m_InternalFormat, GL_UNSIGNED_BYTE, data);
-		glGenerateMipmap(GL_TEXTURE_2D);
-		glBindTexture(GL_TEXTURE_2D, 0);
+			glTexImage2D(GL_TEXTURE_2D, 0, (int)m_InternalFormat, m_Width, m_Height, 0, m_InternalFormat, GL_UNSIGNED_BYTE, data);
+			glGenerateMipmap(GL_TEXTURE_2D);
+			glBindTexture(GL_TEXTURE_2D, 0);
 
-		stbi_image_free(data);
-		m_Loaded = true;
-		m_Slot = Renderer::GetAndIncrementTextureSlot();
+			stbi_image_free(data);
+			m_Loaded = true;
+			m_Slot = Renderer::GetAndIncrementTextureSlot();
+		
 	}
 
 	OpenGLTexture2D::~OpenGLTexture2D()
 	{
 		glDeleteTextures(1, &m_RendererID);
+	}
+
+	unsigned char* OpenGLTexture2D::LoadFromMemory(const std::string& path, void* assimpTexture)
+	{
+		unsigned char* data = nullptr;
+		auto const aiTex = static_cast<aiTexture*>(assimpTexture);
+		int width, height, channels;
+		if(aiTex->mHeight == 0)
+		{
+			data = stbi_load_from_memory(reinterpret_cast<unsigned char*>(aiTex->pcData),aiTex->mWidth, &width, &height, &channels, 0);
+			if(!data)
+			{
+				TNAH_CORE_ERROR("STBI Error: {0} with file {1}", stbi_failure_reason(), path.c_str());
+				TNAH_CORE_ASSERT(data, "Failed to load texture or image at path: " + path);
+				return nullptr;
+			}
+			else
+			{
+				m_Width = width;
+				m_Height = height;
+				m_Channels = channels;
+				return data;
+			}
+		}
+		else
+		{
+			data = stbi_load_from_memory(reinterpret_cast<unsigned char*>(aiTex->pcData),aiTex->mWidth * aiTex->mHeight, &width, &height, &channels, 0);
+			if(!data)
+			{
+				TNAH_CORE_ERROR("STBI Error: {0} with file {1}", stbi_failure_reason(), path.c_str());
+				TNAH_CORE_ASSERT(data, "Failed to load texture or image at path: " + path);
+				return nullptr;
+			}
+			else
+			{
+				m_Width = width;
+				m_Height = height;
+				m_Channels = channels;
+				return data;
+			}
+		}
 	}
 
 	void OpenGLTexture2D::SetData(void* data, uint32_t size)

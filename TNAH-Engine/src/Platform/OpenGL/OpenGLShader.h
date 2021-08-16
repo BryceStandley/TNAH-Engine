@@ -93,15 +93,19 @@ namespace tnah {
 
 		inline virtual const std::string& GetName() const override { return m_ShaderName; }
 	private:
-		std::unordered_map<GLenum, std::string> PreProcess(const std::string& source);
-		void Compile(const std::unordered_map<GLenum, std::string>& shaderSources);
+		std::unordered_map<GLenum, std::pair<std::string, std::string>> PreProcess(const std::string& source, const std::string& shaderFilePath);
+		void Compile(const std::unordered_map<GLenum, std::pair<std::string, std::string>>& shaderSources);
+		std::string FindFileName(const std::string& filePath);
 		std::string ReadFile(const std::string& filepath);
 
 		std::string PreProcessPaths(const std::string& shaderSorceFilePath);
 
 		uint32_t m_ShaderID;
+		
 		std::string m_ShaderName;
 		bool m_Bound = false;
 	};
+
+	
 
 }

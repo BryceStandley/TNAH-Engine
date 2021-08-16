@@ -1,5 +1,7 @@
 #pragma once
 
+#define STBI_FAILURE_USERMSG
+#include "stb_image.h"
 #include <string>
 
 #include "TNAH/Core/Core.h"
@@ -83,16 +85,20 @@ namespace tnah {
 	public:
 		virtual ~Texture() = default;
 
-		virtual uint32_t GetWidth() const = 0;
-		virtual uint32_t GetHeight() const = 0;
-		virtual uint32_t GetRendererID() const = 0;
+		virtual uint32_t GetWidth() const { return m_Width; }
+		virtual uint32_t GetHeight() const { return m_Height; }
+		virtual bool IsLoaded() const { return m_Loaded; }
+		virtual std::string GetPath() const { return m_Path; }
+		virtual std::string GetName() const { return m_Name; }
+		virtual unsigned char* GetImageData() const { return m_ImageData; }
 
-		virtual void SetData(void* data, uint32_t size) = 0;
-
-		virtual void Bind(uint32_t slot) const = 0;
-		virtual void Bind() const = 0;
-		
-		virtual bool operator==(const Texture& other) const = 0;
+		bool m_Loaded = false;
+		std::string m_Path = "";
+		std::string m_Name = "";
+		uint32_t m_Width = 0, m_Height = 0;
+		int m_Channels = 0, m_InternalFormat = 0, m_DataFormat = 0;
+		unsigned char* m_ImageData = nullptr;
+		TextureProperties m_Properties = TextureProperties();
 	};
 
 	class Texture2D : public Texture
@@ -100,13 +106,23 @@ namespace tnah {
 	public:
 		static Texture2D* Create(ImageFormat format, uint32_t width, uint32_t height, const void* data, TextureProperties properties);
 
+		/**
+		 * @brief Loads image to memory. NOTE this does NOT load a API specific texture and pass it to the GPU
+		 */
+		static Texture2D* Load(const std::string& filePath);
+		
 		static Texture2D* Create(uint32_t width, uint32_t height);
 		static Texture2D* Create(const std::string& path, const std::string& textureName = "", bool loadFromMemory = false, void* assimpTexture = nullptr);
-		bool m_Loaded = false;
+
+		virtual uint32_t GetRendererID() const { return m_RendererID; }
+		virtual uint32_t GetTextureSlot() const { return m_Slot; }
+		virtual void SetData(void* data, uint32_t size) = 0;
+		virtual void Bind(uint32_t slot) const = 0;
+		virtual void Bind() const = 0;
+
 		uint32_t m_RendererID;
-		std::string m_Path;
 		uint32_t m_Slot;
-		std::string m_Name;
+		
 	};
 
 }

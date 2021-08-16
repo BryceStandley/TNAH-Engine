@@ -76,6 +76,10 @@ namespace tnah {
 
 		static Shader* Create(const std::string& filePath);
 		static Shader* Create(const std::string& vertexSrc, const std::string& fragmentSrc);
+		static Ref<Shader> CheckShaderExists(const std::string& filePath);
+		static Ref<Shader> CheckShaderExists(const std::string& vertexSrc, const std::string& fragmentSrc);
+
+		std::pair<std::string, std::string> m_FilePaths;
 	};
 
 

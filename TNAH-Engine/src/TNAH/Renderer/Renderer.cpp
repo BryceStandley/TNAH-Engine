@@ -13,6 +13,9 @@ namespace tnah {
 		Ref<Texture2D> WhiteTexture;
 		Ref<Texture2D> BlackTexture;
 		Ref<Texture2D> MissingTexture;
+		std::vector<Ref<Texture2D>> LoadedTextures;
+		std::vector<Ref<Shader>> LoadedShaders;
+		std::vector<Ref<Model>> LoadedModels;
 	};
 
 	static RendererData* s_Data = nullptr;
@@ -22,9 +25,12 @@ namespace tnah {
 		s_Data = new RendererData();
 		RenderCommand::Init();
 
-		s_Data->WhiteTexture.reset(Texture2D::Create("assets/textures/default/default_white.jpg"));
-		s_Data->BlackTexture.reset(Texture2D::Create("assets/textures/default/default_black.jpg"));
-		s_Data->MissingTexture.reset(Texture2D::Create("assets/textures/default/default_missing.jpg"));
+		s_Data->WhiteTexture.reset(Texture2D::Create("Resources/textures/default/default_white.jpg"));
+		s_Data->BlackTexture.reset(Texture2D::Create("Resources/textures/default/default_black.jpg"));
+		s_Data->MissingTexture.reset(Texture2D::Create("Resources/textures/default/default_missing.jpg"));
+		if(s_Data->WhiteTexture != nullptr) s_Data->LoadedTextures.push_back(s_Data->WhiteTexture);
+		if(s_Data->BlackTexture != nullptr) s_Data->LoadedTextures.push_back(s_Data->BlackTexture);
+		if(s_Data->MissingTexture != nullptr) s_Data->LoadedTextures.push_back(s_Data->MissingTexture);
 	}
 
 	
@@ -78,20 +84,20 @@ namespace tnah {
 			}
 			else
 			{
-				material->GetShader()->SetInt("u_Light[" +std::to_string(i-1) +"].type", info.type);
-				material->GetShader()->SetVec3("u_Light[" +std::to_string(i-1) +"].position", info.position);
-				material->GetShader()->SetVec3("u_Light[" +std::to_string(i-1) +"].direction", info.direction);
+				material->GetShader()->SetInt("u_Light[" +std::to_string(totalLights) +"].type", info.type);
+				material->GetShader()->SetVec3("u_Light[" +std::to_string(totalLights) +"].position", info.position);
+				material->GetShader()->SetVec3("u_Light[" +std::to_string(totalLights) +"].direction", info.direction);
 			
-				material->GetShader()->SetVec3("u_Light[" +std::to_string(i-1) +"].ambient", info.ambient);
-				material->GetShader()->SetVec3("u_Light[" +std::to_string(i-1) +"].diffuse", info.diffuse);
-				material->GetShader()->SetVec3("u_Light[" +std::to_string(i-1) +"].specular", info.specular);
-				material->GetShader()->SetVec3("u_Light[" +std::to_string(i-1) +"].color", info.color);
-				material->GetShader()->SetFloat("u_Light[" +std::to_string(i-1) +"].intensity", info.intensity);
+				material->GetShader()->SetVec3("u_Light[" +std::to_string(totalLights) +"].ambient", info.ambient);
+				material->GetShader()->SetVec3("u_Light[" +std::to_string(totalLights) +"].diffuse", info.diffuse);
+				material->GetShader()->SetVec3("u_Light[" +std::to_string(totalLights) +"].specular", info.specular);
+				material->GetShader()->SetVec3("u_Light[" +std::to_string(totalLights) +"].color", info.color);
+				material->GetShader()->SetFloat("u_Light[" +std::to_string(totalLights) +"].intensity", info.intensity);
 			
-				material->GetShader()->SetFloat("u_Light[" +std::to_string(i-1) +"].constant", info.constant);
-				material->GetShader()->SetFloat("u_Light[" +std::to_string(i-1) +"].linear", info.linear);
-				material->GetShader()->SetFloat("u_Light[" +std::to_string(i-1) +"].quadratic", info.quadratic);
-				material->GetShader()->SetFloat("u_Light[" +std::to_string(i-1) +"]cutoff", info.cutoff);
+				material->GetShader()->SetFloat("u_Light[" +std::to_string(totalLights) +"].constant", info.constant);
+				material->GetShader()->SetFloat("u_Light[" +std::to_string(totalLights) +"].linear", info.linear);
+				material->GetShader()->SetFloat("u_Light[" +std::to_string(totalLights) +"].quadratic", info.quadratic);
+				material->GetShader()->SetFloat("u_Light[" +std::to_string(totalLights) +"]cutoff", info.cutoff);
 				totalLights++;
 			}
 			
@@ -166,5 +172,35 @@ namespace tnah {
 	{
 		return s_Data->MissingTexture;
 	}
-	
+
+	std::vector<Ref<Texture2D>> Renderer::GetLoadedTextures()
+	{
+		return s_Data->LoadedTextures;
+	}
+
+	std::vector<Ref<Shader>> Renderer::GetLoadedShaders()
+	{
+		return s_Data->LoadedShaders;
+	}
+
+	void Renderer::RegisterTexture(Ref<Texture2D>& texture)
+	{
+		s_Data->LoadedTextures.push_back(texture);
+	}
+
+	void Renderer::RegisterShader(Ref<Shader>& shader)
+	{
+		s_Data->LoadedShaders.push_back(shader);
+	}
+
+	std::vector<Ref<Model>> Renderer::GetLoadedModels()
+	{
+		return s_Data->LoadedModels;
+	}
+
+	void Renderer::RegisterModel(Ref<Model>& model)
+	{
+		s_Data->LoadedModels.push_back(model);
+	}
+
 }

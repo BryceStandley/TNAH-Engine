@@ -19,10 +19,4 @@
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="assets\shaders\default\mesh\mesh_fragment.glsl" />
-    <None Include="assets\shaders\default\mesh\mesh_vertex.glsl" />
-    <None Include="assets\shaders\default\terrain\terrain_fragment.glsl" />
-    <None Include="assets\shaders\default\terrain\terrain_vertex.glsl" />
-  </ItemGroup>
 </Project>
