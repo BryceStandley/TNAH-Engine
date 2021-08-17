@@ -1,4 +1,4 @@
-#include "tnahpch.h"
+#include <tnahpch.h>
 #include "Application.h"
 
 #define GLFW_EXPOSE_NATIVE_WIN32
