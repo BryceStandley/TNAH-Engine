@@ -42,13 +42,13 @@ namespace tnah
 		inline static Application& Get() { return *s_Instance; }
 		inline Window& GetWindow() { return *m_Window; }
 
-		static std::pair<std::string,int> OpenFileFromBrowser();
-		static std::pair<std::string,int> SaveFileAs(const char* fileName);
+		static std::pair<std::string, int> OpenFileFromBrowser();
+		static std::pair<std::string, int> SaveFileAs(const char* fileName);
 
 
 	private:
 
-		
+
 		bool OnWindowClose(WindowCloseEvent& e);
 		bool OnWindowResize(WindowResizeEvent& e);
 		bool OnMonitorResolutionChange(MonitorResolutionChangeEvent& e);
@@ -64,7 +64,7 @@ namespace tnah
 
 		friend int ::main(int argc, char** argv);
 
-		
+
 	};
 
 	Application* CreateApplication();

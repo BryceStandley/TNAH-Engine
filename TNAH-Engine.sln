@@ -7,13 +7,13 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TNAH-Testbed", "Testbed-App
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TNAH-Engine Core", "TNAH-Engine\TNAH-Engine.vcxproj", "{BEBBF5CA-71BA-43DC-8A58-A2CC6DB632F5}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ImGui", "Engine Dependences Projects\ImGUI\ImGUI.vcxproj", "{11BB4BF9-7D1E-4ADA-AA26-B828E14EC6B3}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ImGui", "EngineDependencesProjects\ImGUI\ImGUI.vcxproj", "{11BB4BF9-7D1E-4ADA-AA26-B828E14EC6B3}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Glad", "Engine Dependences Projects\Glad\Glad.vcxproj", "{71655E79-1016-42D8-B795-0FA251BBB159}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Glad", "EngineDependencesProjects\Glad\Glad.vcxproj", "{71655E79-1016-42D8-B795-0FA251BBB159}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dependences", "Dependences", "{879FDB17-5ABB-4CAC-B9FA-C54EBD9AC05C}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GLFW", "Engine Dependences Projects\GLFW\GLFW.vcxproj", "{6A144F8F-30A9-43B6-AA6B-968953D8A5BB}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GLFW", "EngineDependencesProjects\GLFW\GLFW.vcxproj", "{6A144F8F-30A9-43B6-AA6B-968953D8A5BB}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TNAH-Editor", "TNAH-Editor\TNAH-Editor.vcxproj", "{285161FE-761F-4CBB-B34B-CF531CF62379}"
 EndProject

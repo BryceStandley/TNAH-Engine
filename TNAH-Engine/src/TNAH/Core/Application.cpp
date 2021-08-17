@@ -1,4 +1,4 @@
-#include <tnahpch.h>
+#include "tnahpch.h"
 #include "Application.h"
 
 #define GLFW_EXPOSE_NATIVE_WIN32
@@ -18,11 +18,11 @@ namespace tnah
 
 		m_Window = Window::Create(WindowProps(name));
 		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
-		
+
 
 		Renderer::Init();
 
-		if(m_ImGuiLayer == nullptr)
+		if (m_ImGuiLayer == nullptr)
 		{
 			m_ImGuiLayer = new ImGuiLayer();
 			PushOverlay(m_ImGuiLayer);
@@ -80,14 +80,14 @@ namespace tnah
 		return true;
 	}
 
-	std::pair<std::string,int> Application::OpenFileFromBrowser()
+	std::pair<std::string, int> Application::OpenFileFromBrowser()
 	{
 #ifdef TNAH_PLATFORM_WINDOWS
 		const char* filter = "TNAH Scene (*.tnah.scene)\0*.tnah.scene\0All Files *.*\0*.*\0";
 		int error = 0;
 		OPENFILENAMEA ofn;       // common dialog box structure
 		CHAR szFile[260] = { 0 };       // if using TCHAR macros
-		
+
 		// Initialize OPENFILENAME
 		ZeroMemory(&ofn, sizeof(OPENFILENAME));
 		ofn.lStructSize = sizeof(OPENFILENAME);
@@ -100,21 +100,21 @@ namespace tnah
 
 		if (GetOpenFileNameA(&ofn) == TRUE)
 		{
-			return {ofn.lpstrFile, 0};
+			return { ofn.lpstrFile, 0 };
 		}
-		
-		switch(CommDlgExtendedError())
+
+		switch (CommDlgExtendedError())
 		{
-			case FNERR_INVALIDFILENAME : error = 2; break;
-			default: error = 1; break;
+		case FNERR_INVALIDFILENAME: error = 2; break;
+		default: error = 1; break;
 		}
-		return {std::string(), error};
+		return { std::string(), error };
 #else
-	//not on windows, use imgui file browser. NOT IMPLIMENTED 
+		//not on windows, use imgui file browser. NOT IMPLIMENTED 
 #endif 
 	}
 
-	std::pair<std::string,int> Application::SaveFileAs(const char* fileName)
+	std::pair<std::string, int> Application::SaveFileAs(const char* fileName)
 	{
 #ifdef TNAH_PLATFORM_WINDOWS
 		const char* filter = "TNAH Scene (*.tnah.scene)\0*.tnah.scene\0All Files *.*\0*.*\0";
@@ -122,7 +122,7 @@ namespace tnah
 		OPENFILENAMEA ofn;       // common dialog box structure
 		CHAR szFile[260] = { 0 };// if using TCHAR macros
 		strcat(szFile, fileName);
-		
+
 		// Initialize OPENFILENAME
 		ZeroMemory(&ofn, sizeof(OPENFILENAME));
 		ofn.lStructSize = sizeof(OPENFILENAME);
@@ -135,14 +135,14 @@ namespace tnah
 
 		if (GetSaveFileNameA(&ofn) == TRUE)
 		{
-			return {ofn.lpstrFile,0};
+			return { ofn.lpstrFile,0 };
 		}
-			switch(CommDlgExtendedError())
-			{
-				case FNERR_INVALIDFILENAME : error = 2; break;
-				default: error = 1; break;
-			}
-		return {std::string(), error};
+		switch (CommDlgExtendedError())
+		{
+		case FNERR_INVALIDFILENAME: error = 2; break;
+		default: error = 1; break;
+		}
+		return { std::string(), error };
 #else
 		//not on windows, use imgui file browser. NOT IMPLIMENTED 
 #endif
@@ -188,7 +188,7 @@ namespace tnah
 		m_LayerStack.PushLayer(layer);
 		layer->OnAttach();
 	}
-	
+
 	void Application::PushOverlay(Layer* overlay)
 	{
 		m_LayerStack.PushOverlay(overlay);
