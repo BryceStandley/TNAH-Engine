@@ -104,7 +104,7 @@ namespace tnah {
 		GenerateVertexNormals(m_TerrainInfo);
 		GenerateVertexIndices();
 
-		int size = m_TerrainInfo.position.size();
+		int size = (int)m_TerrainInfo.position.size();
 		for (int i = 0; i < m_TerrainInfo.position.size(); i++)
 		{
 			m_VBOData.emplace_back(m_TerrainInfo.position[i]);
@@ -117,7 +117,7 @@ namespace tnah {
 		}
 
 		//m_VBOSize = sizeof(glm::vec3) * (m_Size.x * m_Size.y);
-		m_VBOSize = sizeof(glm::vec3) * m_VBOData.size();
+		m_VBOSize = (uint32_t)(sizeof(glm::vec3) * m_VBOData.size());
 	}
 
 	void Terrain::GenerateHeightmap(const int width, const int maxHeight, const int minHeight)
@@ -138,9 +138,9 @@ namespace tnah {
 		
 		std::vector<float> result;
 		auto pixelPtr = &texture->m_ImageData[0];
-		for (auto z = 0; z < texture->m_Height; ++z)
+		for (uint32_t z = 0; z < texture->m_Height; ++z)
 		{
-			for (auto x = 0; x < texture->m_Width; ++x)
+			for (uint32_t x = 0; x < texture->m_Width; ++x)
 			{
 				result.emplace_back((float(*pixelPtr) / 255.0f) * m_MaxHeightmapHeight);
 				pixelPtr += texture->m_Channels;
@@ -148,8 +148,8 @@ namespace tnah {
 		}
 
 		m_TerrainHeights = result;
-		m_Size.x = texture->m_Width;
-		m_Size.y = texture->m_Height;
+		m_Size.x = (float)texture->m_Width;
+		m_Size.y = (float)texture->m_Height;
 		delete[] texture;
 		return true;
 	}
@@ -158,8 +158,8 @@ namespace tnah {
 	{
 		if (x < 0) { x = 0; }
 		if (z < 0) { z = 0; }
-		if (x > m_Size.x) { x = m_Size.x; }
-		if (z > m_Size.x) { z = m_Size.x; }
+		if (x > m_Size.x) { x = (int)m_Size.x; }
+		if (z > m_Size.x) { z = (int)m_Size.x; }
 		if (InBounds(x, z))
 		{
 			return m_TerrainHeights[z * (int)m_Size.x + x];
@@ -182,8 +182,8 @@ namespace tnah {
 	{
 		if (x < 0) { x = 0; }
 		if (z < 0) { z = 0; }
-		if (x >= m_Size.x) { x = m_Size.x - 1; }
-		if (z >= m_Size.x) { z = m_Size.x - 1; }
+		if (x >= m_Size.x) { x = (int)m_Size.x - 1; }
+		if (z >= m_Size.x) { z = (int)m_Size.x - 1; }
 		if (InBounds(x, z))
 		{
 			return m_TerrainInfo.position[z * (int)m_Size.x + x].y;
@@ -226,7 +226,7 @@ namespace tnah {
 
 	void Terrain::GenerateVertexIndices()
 	{
-		uint32_t size = m_Size.x;
+		uint32_t size = (uint32_t)m_Size.x;
 
 		for (unsigned int z = 0; z < size - 1; ++z)
 		{
@@ -242,7 +242,7 @@ namespace tnah {
 			}
 		}
 
-		m_IBOSize = m_IndicesData.size();
+		m_IBOSize = (uint32_t)m_IndicesData.size();
 
 	}
 
@@ -296,17 +296,17 @@ namespace tnah {
 
 	void Terrain::GenerateVertexNormals(TerrainInformation& terrainInformation)
 	{
-		for (unsigned int z = 0; z < m_Size.x; ++z)
+		for (uint32_t z = 0; z < m_Size.x; ++z)
 		{
-			for (unsigned int x = 0; x < m_Size.x; ++x)
+			for (uint32_t x = 0; x < m_Size.x; ++x)
 			{
-				const glm::vec3& west = m_TerrainInfo.position[(x > 0 ? x - 1 : 0) + z * (int)m_Size.x];
-				const glm::vec3& east = m_TerrainInfo.position[(x < (int)m_Size.x - 1 ? x + 1 : x) + z * (int)m_Size.x];
+				const glm::vec3& west = m_TerrainInfo.position[(x > 0 ? x - 1 : 0) + z * (uint32_t)m_Size.x];
+				const glm::vec3& east = m_TerrainInfo.position[(x < (uint32_t)m_Size.x - 1 ? x + 1 : x) + z * (uint32_t)m_Size.x];
 
 				glm::vec3 slope_x = east - west;
 
-				const glm::vec3& south = m_TerrainInfo.position[x + (z > 0 ? z - 1 : 0) * (int)m_Size.x];
-				const glm::vec3& north = m_TerrainInfo.position[x + (z < (int)m_Size.x - 1 ? z + 1 : z) * (int)m_Size.x];
+				const glm::vec3& south = m_TerrainInfo.position[x + (z > 0 ? z - 1 : 0) * (uint32_t)m_Size.x];
+				const glm::vec3& north = m_TerrainInfo.position[x + (z < (uint32_t)m_Size.x - 1 ? z + 1 : z) * (uint32_t)m_Size.x];
 
 				glm::vec3 slope_y = north - south;
 

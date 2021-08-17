@@ -123,6 +123,9 @@
     <ClCompile Include="src\TNAH\Scene\Light\SpotLight.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\TNAH\Renderer\Image.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\TNAH\Core\Core.h">
@@ -272,9 +275,6 @@
     <ClInclude Include="src\TNAH\Physics\PhysicsTimestep.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Platform\OpenGL\stb_image.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\TNAH\Core\AABB.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -294,6 +294,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\TNAH\Scene\Light\SpotLight.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\TNAH\Renderer\Image.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\TNAH\Renderer\stb_image.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\TNAH-App.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

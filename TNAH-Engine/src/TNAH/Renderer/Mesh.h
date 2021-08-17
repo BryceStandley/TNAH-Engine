@@ -103,7 +103,7 @@ struct AnimatedVertex
         
     
         std::vector<Mesh> GetMeshes() const { return m_Meshes; }
-        uint32_t GetNumberOfMeshes() const { return m_Meshes.size(); }
+        uint32_t GetNumberOfMeshes() const { return static_cast<uint32_t>(m_Meshes.size()); }
     private:
         Model();
         Model(const std::string& filePath);

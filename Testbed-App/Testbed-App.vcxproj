@@ -13,10 +13,10 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{285161fe-761f-4cbb-b34b-cf531cf62379}</ProjectGuid>
-    <RootNamespace>TNAH_Editor</RootNamespace>
+    <ProjectGuid>{bfef544a-2328-45de-a093-d7e011c6715b}</ProjectGuid>
+    <RootNamespace>Testbed-App</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-    <ProjectName>TNAH-Editor</ProjectName>
+    <ProjectName>TNAH-Testbed</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
@@ -105,11 +105,15 @@ XCOPY "$(ProjectDir)assets\" "$(OutDir)assets\" /E /Y</Command>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Editor.cpp" />
+    <ClCompile Include="src\MainLayer.cpp" />
+    <ClCompile Include="src\Application.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\meshes\cube.fbx" />
     <Content Include="assets\meshes\cube_texture.fbx" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\MainLayer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

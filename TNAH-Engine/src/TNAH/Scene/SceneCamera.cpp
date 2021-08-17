@@ -36,11 +36,11 @@ namespace tnah {
 			float aspect = (float)width / (float)height;
 			m_ViewportWidth = width;
 			m_ViewportHeight = height;
-			float width = m_OrthographicSize * aspect;
-			float height = m_OrthographicSize;
-			m_ProjectionMatrix = glm::ortho(-width * 0.5f, width * 0.5f, -height * 0.5f, height * 0.5f);
-			m_ViewportWidth = width;
-			m_ViewportHeight = height;
+			float w = m_OrthographicSize * aspect;
+			float h = m_OrthographicSize;
+			m_ProjectionMatrix = glm::ortho(-w * 0.5f, w * 0.5f, -h * 0.5f, h * 0.5f);
+			m_ViewportWidth = (uint32_t)w;
+			m_ViewportHeight = (uint32_t)h;
 			break;
 		}
 	}

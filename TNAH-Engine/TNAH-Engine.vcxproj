@@ -60,6 +60,7 @@
     <ClInclude Include="src\Platform\OpenGL\OpenGLTexture.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLVertexArray.h" />
     <ClInclude Include="src\Platform\Windows\WinInput.h" />
+    <ClInclude Include="src\TNAH-App.h" />
     <ClInclude Include="src\TNAH\Core\AABB.h" />
     <ClInclude Include="src\TNAH\Core\Buffer.h" />
     <ClInclude Include="src\TNAH\Core\Timer.h" />
@@ -113,17 +114,6 @@
     <ClInclude Include="src\TNAH\Scene\Scene.h" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Glad\Glad.vcxproj">
-      <Project>{71655e79-1016-42d8-b795-0fa251bbb159}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\GLFW\GLFW.vcxproj">
-      <Project>{6a144f8f-30a9-43b6-aa6b-968953d8a5bb}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\ImGUI\ImGUI.vcxproj">
-      <Project>{11bb4bf9-7d1e-4ada-aa26-b828e14ec6b3}</Project>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Resources\fonts\opensans\LICENSE.txt" />
     <Content Include="Resources\fonts\opensans\OpenSans-Bold.ttf" />
     <Content Include="Resources\fonts\opensans\OpenSans-BoldItalic.ttf" />
@@ -143,12 +133,24 @@
     <Content Include="Resources\textures\default\default_missing.jpg" />
     <Content Include="Resources\textures\default\default_white.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Engine Dependences Projects\Glad\Glad.vcxproj">
+      <Project>{71655e79-1016-42d8-b795-0fa251bbb159}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Engine Dependences Projects\GLFW\GLFW.vcxproj">
+      <Project>{6a144f8f-30a9-43b6-aa6b-968953d8a5bb}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Engine Dependences Projects\ImGUI\ImGUI.vcxproj">
+      <Project>{11bb4bf9-7d1e-4ada-aa26-b828e14ec6b3}</Project>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
     <ProjectGuid>{bebbf5ca-71ba-43dc-8a58-a2cc6db632f5}</ProjectGuid>
     <RootNamespace>TNAHEngine</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>TNAH-Engine Core</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
@@ -193,7 +195,7 @@
       <PreprocessorDefinitions>TNAH_DEBUG;TNAH_PLATFORM_WINDOWS;TNAH_BUILD_DLL;GLFW_INCLUDE_NONE;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)vender\assimp\include;$(SolutionDir)GLFW\include;$(SolutionDir)vender\glad\include;$(SolutionDir)vender\glm\include;$(SolutionDir)vender\lua\include;$(SolutionDir)vender\luabridge\include;$(SolutionDir)vender\reactphysics3d\include;$(SolutionDir)vender\spdlog\include;$(ProjectDir)/src/;$(SolutionDir)ImGui/;$(SolutionDir)vender/entt/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)vender\assimp\include;"$(SolutionDir)Engine Dependences Projects\GLFW\include";$(SolutionDir)vender\glad\include;$(SolutionDir)vender\glm\include;$(SolutionDir)vender\lua\include;$(SolutionDir)vender\luabridge\include;$(SolutionDir)vender\reactphysics3d\include;$(SolutionDir)vender\spdlog\include;$(ProjectDir)src\;"$(SolutionDir)Engine Dependences Projects\ImGui\";$(SolutionDir)vender/entt/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>tnahpch.h</PrecompiledHeaderFile>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>

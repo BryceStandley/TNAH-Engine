@@ -20,11 +20,11 @@ namespace tnah {
         };
         m_Vao.reset(VertexArray::Create());
         
-        m_Vbo.reset(VertexBuffer::Create(&vertices[0], sizeof(Vertex) * vertices.size()));
+        m_Vbo.reset(VertexBuffer::Create(&vertices[0], (uint32_t)(sizeof(Vertex) * vertices.size())));
         m_Vbo->SetLayout(m_BufferLayout);
         m_Vao->AddVertexBuffer(m_Vbo);
 
-        m_Ibo.reset(IndexBuffer::Create(&indices[0], indices.size()));
+        m_Ibo.reset(IndexBuffer::Create(&indices[0], (uint32_t)indices.size()));
         m_Vao->SetIndexBuffer(m_Ibo);
 
         const std::string defaultVertexShader = "Resources/shaders/default/mesh/mesh_vertex.glsl";

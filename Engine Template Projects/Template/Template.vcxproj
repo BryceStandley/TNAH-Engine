@@ -13,10 +13,10 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{285161fe-761f-4cbb-b34b-cf531cf62379}</ProjectGuid>
-    <RootNamespace>TNAH_Editor</RootNamespace>
+    <ProjectGuid>{3fc4e7db-f83f-48e4-8e32-6150999780b8}</ProjectGuid>
+    <RootNamespace>Template</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-    <ProjectName>TNAH-Editor</ProjectName>
+    <ProjectName>TNAH-Engine Application Template</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
@@ -58,7 +58,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>TNAH_PLATFORM_WINDOWS;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)vender\assimp\include;"$(SolutionDir)Engine Dependences Projects\GLFW\include";$(SolutionDir)vender\glad\include;$(SolutionDir)vender\glm\include;$(SolutionDir)vender\lua\include;$(SolutionDir)vender\luabridge\include;$(SolutionDir)vender\reactphysics3d\include;$(SolutionDir)vender\spdlog\include;$(SolutionDir)TNAH-Engine\src\;"$(SolutionDir)Engine Dependences Projects\ImGui\";$(SolutionDir)vender/entt/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)vender\assimp\include;$(SolutionDir)Engine Dependences Projects\GLFW\include;$(SolutionDir)vender\glad\include;$(SolutionDir)vender\glm\include;$(SolutionDir)vender\lua\include;$(SolutionDir)vender\luabridge\include;$(SolutionDir)vender\reactphysics3d\include;$(SolutionDir)vender\spdlog\include;$(ProjectDir)src\;$(SolutionDir)Engine Dependences Projects\ImGui\;$(SolutionDir)vender/entt/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
@@ -73,15 +73,11 @@
       </Command>
     </PostBuildEvent>
     <PreBuildEvent>
-      <Command>
-      </Command>
-    </PreBuildEvent>
-    <PreLinkEvent>
       <Command>XCOPY "$(SolutionDir)vender\glfw\lib\glfw3.dll" "$(OutDir)" /E /Y
 XCOPY "$(SolutionDir)TNAH-Engine\Resources\" "$(OutDir)Resources\" /E /Y
 XCOPY "$(SolutionDir)vender\assimp\lib\*.pdb" "$(OutDir)" /E /Y
 XCOPY "$(ProjectDir)assets\" "$(OutDir)assets\" /E /Y</Command>
-    </PreLinkEvent>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -100,16 +96,20 @@ XCOPY "$(ProjectDir)assets\" "$(OutDir)assets\" /E /Y</Command>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TNAH-Engine\TNAH-Engine.vcxproj">
-      <Project>{bebbf5ca-71ba-43dc-8a58-a2cc6db632f5}</Project>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="src\Editor.cpp" />
+    <ClCompile Include="src\ApplicationLayer.cpp" />
+    <ClCompile Include="src\Application.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\meshes\cube.fbx" />
     <Content Include="assets\meshes\cube_texture.fbx" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\ApplicationLayer.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\TNAH-Engine\TNAH-Engine.vcxproj">
+      <Project>{bebbf5ca-71ba-43dc-8a58-a2cc6db632f5}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
