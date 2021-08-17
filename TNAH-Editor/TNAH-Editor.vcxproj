@@ -105,11 +105,18 @@ XCOPY "$(ProjectDir)assets\" "$(OutDir)assets\" /E /Y</Command>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\EditorLayer.cpp" />
     <ClCompile Include="src\Editor.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="assets\meshes\cube.fbx" />
-    <Content Include="assets\meshes\cube_texture.fbx" />
+    <ClInclude Include="src\Editor.h" />
+    <ClInclude Include="src\EditorLayer.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="assets\Editor\icons\MoveTool.png" />
+    <Content Include="assets\Editor\icons\RotateTool.png" />
+    <Content Include="assets\Editor\icons\ScaleTool.png" />
+    <Content Include="assets\Editor\icons\SelectTool.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

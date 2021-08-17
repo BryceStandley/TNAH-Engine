@@ -95,7 +95,6 @@ namespace tnah {
 	private:
 		std::unordered_map<GLenum, std::pair<std::string, std::string>> PreProcess(const std::string& source, const std::string& shaderFilePath);
 		void Compile(const std::unordered_map<GLenum, std::pair<std::string, std::string>>& shaderSources);
-		std::string FindFileName(const std::string& filePath);
 		std::string ReadFile(const std::string& filepath);
 
 		std::string PreProcessPaths(const std::string& shaderSorceFilePath);

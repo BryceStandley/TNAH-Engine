@@ -1,7 +1,9 @@
 #include "tnahpch.h"
 #include "Application.h"
 
-#include <GLFW/glfw3.h>
+#define GLFW_EXPOSE_NATIVE_WIN32
+#include "GLFW/glfw3.h"
+#include "GLFW/glfw3native.h"
 
 namespace tnah
 {
@@ -77,7 +79,75 @@ namespace tnah
 		GetWindow().SetScreenResolution(width, height);
 		return true;
 	}
-	
+
+	std::pair<std::string,int> Application::OpenFileFromBrowser()
+	{
+#ifdef TNAH_PLATFORM_WINDOWS
+		const char* filter = "TNAH Scene (*.tnah.scene)\0*.tnah.scene\0All Files *.*\0*.*\0";
+		int error = 0;
+		OPENFILENAMEA ofn;       // common dialog box structure
+		CHAR szFile[260] = { 0 };       // if using TCHAR macros
+		
+		// Initialize OPENFILENAME
+		ZeroMemory(&ofn, sizeof(OPENFILENAME));
+		ofn.lStructSize = sizeof(OPENFILENAME);
+		ofn.hwndOwner = glfwGetWin32Window((GLFWwindow*)Get().GetWindow().GetNativeWindow());
+		ofn.lpstrFile = szFile;
+		ofn.nMaxFile = sizeof(szFile);
+		ofn.lpstrFilter = filter;
+		ofn.nFilterIndex = 1;
+		ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST | OFN_NOCHANGEDIR;
+
+		if (GetOpenFileNameA(&ofn) == TRUE)
+		{
+			return {ofn.lpstrFile, 0};
+		}
+		
+		switch(CommDlgExtendedError())
+		{
+			case FNERR_INVALIDFILENAME : error = 2; break;
+			default: error = 1; break;
+		}
+		return {std::string(), error};
+#else
+	//not on windows, use imgui file browser. NOT IMPLIMENTED 
+#endif 
+	}
+
+	std::pair<std::string,int> Application::SaveFileAs(const char* fileName)
+	{
+#ifdef TNAH_PLATFORM_WINDOWS
+		const char* filter = "TNAH Scene (*.tnah.scene)\0*.tnah.scene\0All Files *.*\0*.*\0";
+		int error = 0;
+		OPENFILENAMEA ofn;       // common dialog box structure
+		CHAR szFile[260] = { 0 };// if using TCHAR macros
+		strcat(szFile, fileName);
+		
+		// Initialize OPENFILENAME
+		ZeroMemory(&ofn, sizeof(OPENFILENAME));
+		ofn.lStructSize = sizeof(OPENFILENAME);
+		ofn.hwndOwner = glfwGetWin32Window((GLFWwindow*)Get().GetWindow().GetNativeWindow());
+		ofn.lpstrFile = szFile;
+		ofn.nMaxFile = sizeof(szFile);
+		ofn.lpstrFilter = filter;
+		ofn.nFilterIndex = 1;
+		ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST | OFN_NOCHANGEDIR;
+
+		if (GetSaveFileNameA(&ofn) == TRUE)
+		{
+			return {ofn.lpstrFile,0};
+		}
+			switch(CommDlgExtendedError())
+			{
+				case FNERR_INVALIDFILENAME : error = 2; break;
+				default: error = 1; break;
+			}
+		return {std::string(), error};
+#else
+		//not on windows, use imgui file browser. NOT IMPLIMENTED 
+#endif
+	}
+
 	bool Application::OnWindowClose(WindowCloseEvent& e)
 	{
 		m_Running = false;
@@ -123,5 +193,9 @@ namespace tnah
 	{
 		m_LayerStack.PushOverlay(overlay);
 		overlay->OnAttach();
+	}
+	void Application::Close()
+	{
+		m_Running = false;
 	}
 }

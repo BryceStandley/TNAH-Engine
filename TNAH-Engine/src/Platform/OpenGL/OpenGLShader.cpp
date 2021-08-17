@@ -30,8 +30,8 @@ namespace tnah {
 		m_FilePaths.first = vertexSrcPath;
 		m_FilePaths.second = fragmentSrcPath;
 		std::unordered_map<GLenum, std::pair<std::string, std::string>> src;
-		src[GL_VERTEX_SHADER] = std::pair(FindFileName(vertexSrcPath), PreProcessPaths(vertexSrcPath));
-		src[GL_FRAGMENT_SHADER] = std::pair(FindFileName(fragmentSrcPath), PreProcessPaths(fragmentSrcPath));
+		src[GL_VERTEX_SHADER] = std::pair(utility::FindFileNameFromPath(vertexSrcPath), PreProcessPaths(vertexSrcPath));
+		src[GL_FRAGMENT_SHADER] = std::pair(utility::FindFileNameFromPath(fragmentSrcPath), PreProcessPaths(fragmentSrcPath));
 		Compile(src);
 	}
 
@@ -45,7 +45,7 @@ namespace tnah {
 		auto shaderSources = PreProcess(source, shaderFilePath);
 		
 
-		m_ShaderName = FindFileName(shaderFilePath);
+		m_ShaderName = utility::FindFileNameFromPath((shaderFilePath));
 
 		Compile(shaderSources);
 	}
@@ -135,7 +135,7 @@ namespace tnah {
 			TNAH_CORE_ASSERT(nextLinePos != std::string::npos, "Syntax error");
 			pos = source.find(typeToken, nextLinePos); //Start of next shader type declaration line
 
-			shaderSources[Utils::ShaderTypeFromString(type)] = std::pair(FindFileName(shaderFilePath), (pos == std::string::npos) ? source.substr(nextLinePos) : source.substr(nextLinePos, pos - nextLinePos));
+			shaderSources[Utils::ShaderTypeFromString(type)] = std::pair(utility::FindFileNameFromPath(shaderFilePath), (pos == std::string::npos) ? source.substr(nextLinePos) : source.substr(nextLinePos, pos - nextLinePos));
 		}
 
 		return shaderSources;
@@ -214,15 +214,6 @@ namespace tnah {
 			glDetachShader(program, id);
 		}
 
-	}
-
-	std::string OpenGLShader::FindFileName(const std::string& filePath)
-	{
-		auto lastSlash = filePath.find_last_of("/\\");
-		lastSlash = lastSlash == std::string::npos ? 0 : lastSlash + 1;
-		auto lastDot = filePath.rfind('.');
-		auto count = lastDot == std::string::npos ? filePath.size() - lastSlash : lastDot - lastSlash;
-		return filePath.substr(lastSlash, count);
 	}
 
 

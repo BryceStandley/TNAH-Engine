@@ -3,16 +3,23 @@
 #include "GameObject.h"
 #include "Components/Components.h"
 #include "TNAH/Renderer/Renderer.h"
-
+#include "TNAH/Scene/Components/EditorCamera.h"
 namespace tnah{
 
-	Scene::Scene()
+	Scene::Scene(bool editor)
 	{
-		
+		if(editor)
+		{
+			auto c = CreateEditorCamera();
+			m_EditorCamera.reset(c);
+		}
+
 		auto c = CreateGameObject("Main Camera");
 		m_ActiveCamera.reset(c);
 		m_ActiveCamera->AddComponent<CameraComponent>();
-
+		
+		
+		
 		auto l = CreateGameObject("Main Light");
 		m_SceneLight.reset(l);
 		auto& light = m_SceneLight->AddComponent<LightComponent>();
@@ -24,11 +31,40 @@ namespace tnah{
 	{
 	}
 
+	Scene* Scene::CreateEditorSceneFromFile(const std::string& filePath)
+	{
+		return CreateSceneFromFile(filePath);
+	}
+
+	Scene* Scene::CreateNewEditorScene()
+	{
+		return new Scene(true);
+	}
+
+	Scene* Scene::CreateSceneFromFile(const std::string& filePath, bool editor)
+	{
+		
+		if(editor)
+		{
+			Scene* s = new Scene(editor);
+			
+			//Load scene file
+			return s;
+		}
+		return CreateSceneFromFile(filePath);
+	}
+
+	Ref<GameObject> Scene::GetEditorCameraGameObject()
+	{
+		return m_EditorCamera;
+	}
+
 	Scene* Scene::CreateSceneFromFile(const std::string& filePath)
 	{
+		auto s = new Scene();
 		//Do Something here to load a scene file, possibly with the scene serializer
-
-		return new Scene();
+		
+		return s;
 	}
 
 	Scene* Scene::CreateEmptyScene()
@@ -186,6 +222,8 @@ namespace tnah{
 		return &m_GameObjectsInScene[idComponent.ID];
 	}
 
+	
+
 
 	GameObject Scene::CreateGameObject()
 	{
@@ -200,7 +238,14 @@ namespace tnah{
 		m_GameObjectsInScene[idComponent.ID] = go;
 		return go;
 	}
-	
+
+	GameObject* Scene::CreateEditorCamera()
+	{
+		auto go = CreateGameObject("Editor Camera");
+		go->AddComponent<EditorCameraComponent>();
+		return go;
+	}
+
 	GameObject Scene::FindEntityByTag(const std::string& tag)
 	{
 		auto view = m_Registry.view<TagComponent>();

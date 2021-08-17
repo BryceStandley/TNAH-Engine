@@ -1,6 +1,6 @@
 #include <tnahpch.h>
 #include "WinInput.h"
-#include "TNAH/Application.h"
+#include "TNAH/Core/Application.h"
 
 namespace tnah {
 

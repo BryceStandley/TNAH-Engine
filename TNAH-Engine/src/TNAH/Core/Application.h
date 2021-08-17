@@ -4,11 +4,11 @@
 
 #include "TNAH/Core/Window.h"
 #include "TNAH/Events/ApplicationEvent.h"
-#include "Layers/LayerStack.h"
+#include "TNAH/Layers/LayerStack.h"
 
-#include "TNAH/Core/Timestep.h"
+#include "Timestep.h"
 
-#include "Layers/ImGuiLayer.h"
+#include "TNAH/Layers/ImGuiLayer.h"
 #include "TNAH/Renderer/Shader.h"
 #include "TNAH/Renderer/Renderer.h"
 
@@ -37,11 +37,18 @@ namespace tnah
 		void PushLayer(Layer* layer);
 		void PushOverlay(Layer* overlay);
 
+		void Close();
+
 		inline static Application& Get() { return *s_Instance; }
 		inline Window& GetWindow() { return *m_Window; }
 
+		static std::pair<std::string,int> OpenFileFromBrowser();
+		static std::pair<std::string,int> SaveFileAs(const char* fileName);
+
 
 	private:
+
+		
 		bool OnWindowClose(WindowCloseEvent& e);
 		bool OnWindowResize(WindowResizeEvent& e);
 		bool OnMonitorResolutionChange(MonitorResolutionChangeEvent& e);

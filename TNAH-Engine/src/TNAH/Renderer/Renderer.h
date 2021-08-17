@@ -20,9 +20,9 @@ namespace tnah {
 
 		static void BeginScene(SceneCamera& camera);
 		static void EndScene();
-		static void IncrementTextureSlot() {m_CurrentTextureSlot++;}
-		static uint32_t GetCurrentTextureSlot() {return m_CurrentTextureSlot;}
-		static uint32_t GetAndIncrementTextureSlot() {m_CurrentTextureSlot++; return m_CurrentTextureSlot - 1;}
+		static void IncrementTextureSlot() { s_CurrentTextureSlot++; }
+		static uint32_t GetCurrentTextureSlot() { return s_CurrentTextureSlot; }
+		static uint32_t GetAndIncrementTextureSlot() { s_CurrentTextureSlot++; return s_CurrentTextureSlot - 1; }
 
 		static void SetCullMode(const CullMode mode);
 
@@ -43,15 +43,36 @@ namespace tnah {
 
 		static std::vector<Ref<Model>> GetLoadedModels();
 		static void RegisterModel(Ref<Model>& model);
-		
+
+		//RenderStats
+		static uint32_t GetDrawCallsPerFrame();
+		static uint32_t GetTotalLoadedTextures();
+		static uint32_t GetTotalLoadedShaders();
+		static uint32_t GetTotalLoadedModels();
+
+
 	
 	private:
+
+		static void IncrementDrawCallsPerFrame();
+		static void IncrementTotalLoadedTextures();
+		static void IncrementTotalLoadedShaders();
+		static void IncrementTotalLoadedModels();
+
+		static void ResetDrawCallsPerFrame();
+		static void ResetTotalLoadedTextures();
+		static void ResetTotalLoadedShaders();
+		static void ResetTotalLoadedModels();
+
 		struct SceneData
 		{
 			glm::mat4 ViewProjection;
 		};
 
-		static uint32_t m_CurrentTextureSlot;
+
+
+		static uint32_t s_CurrentTextureSlot;
 		static SceneData* s_SceneData;
+		
 	};
 }

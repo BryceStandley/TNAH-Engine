@@ -1,5 +1,6 @@
 #pragma once
 #include <memory>
+#include "Utility.h"
 
 #ifdef TNAH_PLATFORM_WINDOWS
 	#if TNAH_DYNAMIC_LINK
@@ -14,6 +15,7 @@
 #else
 	#error TNAH-Engine only supports Windows x64!
 #endif
+
 
 #define TNAH_EXPAND_MACRO(x) x
 #define TNAH_STRINGIFY_MACRO(x) #x

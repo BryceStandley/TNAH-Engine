@@ -5,9 +5,6 @@
 #include "Platform/OpenGL/OpenGLShader.h"
 namespace tnah {
 
-	Renderer::SceneData* Renderer::s_SceneData = new Renderer::SceneData();
-	uint32_t Renderer::m_CurrentTextureSlot = 0;
-
 	struct RendererData
 	{
 		Ref<Texture2D> WhiteTexture;
@@ -18,7 +15,34 @@ namespace tnah {
 		std::vector<Ref<Model>> LoadedModels;
 	};
 
+	struct RenderStats
+	{
+		uint32_t LoadedShaders;
+		uint32_t LoadedTextures;
+		uint32_t LoadedModels;
+		uint32_t DrawCalls;
+	};
+
+	Renderer::SceneData* Renderer::s_SceneData = new Renderer::SceneData();
+	uint32_t Renderer::s_CurrentTextureSlot = 0;
+	static RenderStats* s_RenderStats = new RenderStats();
 	static RendererData* s_Data = nullptr;
+
+	uint32_t Renderer::GetDrawCallsPerFrame() { return s_RenderStats->DrawCalls; }
+	uint32_t Renderer::GetTotalLoadedTextures() { return s_RenderStats->LoadedTextures; }
+	uint32_t Renderer::GetTotalLoadedShaders() { return s_RenderStats->LoadedShaders; }
+	uint32_t Renderer::GetTotalLoadedModels() { return s_RenderStats->LoadedModels; }
+
+	void Renderer::IncrementDrawCallsPerFrame() { s_RenderStats->DrawCalls++; }
+	void Renderer::IncrementTotalLoadedTextures() { s_RenderStats->LoadedTextures++; }
+	void Renderer::IncrementTotalLoadedShaders() { s_RenderStats->LoadedShaders++; }
+	void Renderer::IncrementTotalLoadedModels() { s_RenderStats->LoadedModels++; }
+
+	void Renderer::ResetDrawCallsPerFrame() { s_RenderStats->DrawCalls = 0; }
+	void Renderer::ResetTotalLoadedTextures() { s_RenderStats->LoadedTextures = 0; }
+	void Renderer::ResetTotalLoadedShaders() { s_RenderStats->LoadedShaders = 0; }
+	void Renderer::ResetTotalLoadedModels() { s_RenderStats->LoadedModels = 0; }
+
 
 	void Renderer::Init()
 	{
@@ -28,16 +52,34 @@ namespace tnah {
 		s_Data->WhiteTexture.reset(Texture2D::Create("Resources/textures/default/default_white.jpg"));
 		s_Data->BlackTexture.reset(Texture2D::Create("Resources/textures/default/default_black.jpg"));
 		s_Data->MissingTexture.reset(Texture2D::Create("Resources/textures/default/default_missing.jpg"));
-		if(s_Data->WhiteTexture != nullptr) s_Data->LoadedTextures.push_back(s_Data->WhiteTexture);
-		if(s_Data->BlackTexture != nullptr) s_Data->LoadedTextures.push_back(s_Data->BlackTexture);
-		if(s_Data->MissingTexture != nullptr) s_Data->LoadedTextures.push_back(s_Data->MissingTexture);
+
+		if (s_Data->WhiteTexture != nullptr)  RegisterTexture(s_Data->WhiteTexture);
+		if (s_Data->BlackTexture != nullptr) RegisterTexture(s_Data->BlackTexture);
+		if (s_Data->MissingTexture != nullptr) RegisterTexture(s_Data->MissingTexture);
+		
 	}
 
 	
 
 	void Renderer::Shutdown()
 	{
+		//Resetting all the loaded objects to shutdown
+		for (auto t : s_Data->LoadedTextures)
+		{
+			t.reset();
+		}
 
+		for (auto s : s_Data->LoadedShaders)
+		{
+			s.reset();
+		}
+
+		for (auto m : s_Data->LoadedModels)
+		{
+			m.reset();
+		}
+
+		delete[] s_Data;
 	}
 
 	void Renderer::OnWindowResize(uint32_t width, uint32_t height)
@@ -48,6 +90,7 @@ namespace tnah {
 	void Renderer::BeginScene(SceneCamera& camera)
 	{
 		s_SceneData->ViewProjection = camera.GetViewProjectionMatrix();
+		ResetDrawCallsPerFrame();
 	}
 
 	void Renderer::EndScene()
@@ -119,6 +162,7 @@ namespace tnah {
 
 		vertexArray->Bind();
 		RenderCommand::DrawIndexed(vertexArray);
+		IncrementDrawCallsPerFrame();
 	}
 
 	void Renderer::SubmitTerrain(const Ref<VertexArray>& vertexArray, const Ref<Material>& material,
@@ -134,6 +178,7 @@ namespace tnah {
 		
 		vertexArray->Bind();
 		RenderCommand::DrawIndexed(vertexArray);
+		IncrementDrawCallsPerFrame();
 	}
 
 	void Renderer::SubmitMesh(const Ref<VertexArray>& vertexArray, const Ref<Material>& material,
@@ -151,6 +196,7 @@ namespace tnah {
 		vertexArray->Bind();
 		RenderCommand::DrawIndexed(vertexArray);
 		SetCullMode(CullMode::Front);
+		IncrementDrawCallsPerFrame();
 	}
 
 	void Renderer::SetCullMode(const CullMode mode)
@@ -186,11 +232,13 @@ namespace tnah {
 	void Renderer::RegisterTexture(Ref<Texture2D>& texture)
 	{
 		s_Data->LoadedTextures.push_back(texture);
+		IncrementTotalLoadedTextures();
 	}
 
 	void Renderer::RegisterShader(Ref<Shader>& shader)
 	{
 		s_Data->LoadedShaders.push_back(shader);
+		IncrementTotalLoadedShaders();
 	}
 
 	std::vector<Ref<Model>> Renderer::GetLoadedModels()
@@ -201,6 +249,8 @@ namespace tnah {
 	void Renderer::RegisterModel(Ref<Model>& model)
 	{
 		s_Data->LoadedModels.push_back(model);
+		IncrementTotalLoadedModels();
 	}
+
 
 }

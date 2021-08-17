@@ -1,5 +1,8 @@
 #include "tnahpch.h"
 #include "TNAH/Renderer/Texture.h"
+
+#include <entt.hpp>
+
 #include "TNAH/Renderer/Image.h"
 
 #include "TNAH/Renderer/Renderer.h"
@@ -71,10 +74,18 @@ namespace tnah {
 
 	Texture2D* Texture2D::Create(uint32_t width, uint32_t height)
 	{
+		Texture2D* t = nullptr;
 		switch (Renderer::GetAPI())
 		{
 			case RendererAPI::API::None:    TNAH_CORE_ASSERT(false, "RendererAPI::None is currently not supported!"); return nullptr;
-			case RendererAPI::API::OpenGL:  return new OpenGLTexture2D(width, height);
+			case RendererAPI::API::OpenGL:  t =  new OpenGLTexture2D(width, height);
+		}
+
+		if(t != nullptr)
+		{
+			Ref<Texture2D> texture; texture.reset(t);
+			Renderer::RegisterTexture(texture);
+			return t;
 		}
 
 		TNAH_CORE_ASSERT(false, "Unknown RendererAPI!");
@@ -83,10 +94,17 @@ namespace tnah {
 
 	Texture2D* Texture2D::Create(const std::string& path, const std::string& textureName, bool loadFromMemory, void* assimpTexture)
 	{
+		Texture2D* t = nullptr;
 		switch (Renderer::GetAPI())
 		{
 			case RendererAPI::API::None:    TNAH_CORE_ASSERT(false, "RendererAPI::None is currently not supported!"); return nullptr;
-			case RendererAPI::API::OpenGL:  return new OpenGLTexture2D(path, textureName, loadFromMemory, assimpTexture);
+			case RendererAPI::API::OpenGL:  t = new OpenGLTexture2D(path, textureName, loadFromMemory, assimpTexture);
+		}
+		if(t != nullptr)
+		{
+			Ref<Texture2D> texture; texture.reset(t);
+			Renderer::RegisterTexture(texture);
+			return t;
 		}
 
 		TNAH_CORE_ASSERT(false, "Unknown RendererAPI!");

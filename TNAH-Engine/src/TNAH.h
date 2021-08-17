@@ -4,7 +4,7 @@
 #include "TNAH-App.h"
 
 // --- Entry Point --- //
-#include "TNAH/EntryPoint.h"
+#include "TNAH/Core/EntryPoint.h"
 
 
 

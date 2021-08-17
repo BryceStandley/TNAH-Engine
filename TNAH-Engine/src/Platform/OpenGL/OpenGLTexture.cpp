@@ -44,11 +44,11 @@ namespace tnah {
 		if(path.find(".png") != std::string::npos)
 		{
 			// .png was found in the file path, flip vertically on load
-			stbi_set_flip_vertically_on_load(true);
+			stbi_set_flip_vertically_on_load(0);
 		}
 		else
 		{
-			stbi_set_flip_vertically_on_load(false);
+			stbi_set_flip_vertically_on_load(1);
 		}
 
 		if(loadFromMemory && assimpTexture != nullptr)
