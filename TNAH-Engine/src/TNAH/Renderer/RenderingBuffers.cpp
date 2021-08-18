@@ -49,8 +49,20 @@ namespace tnah {
 	{
 		switch (Renderer::GetAPI())
 		{
-		case RendererAPI::API::None:    TNAH_CORE_ASSERT(false, "RendererAPI::None is currently not supported!"); return nullptr;
-		case RendererAPI::API::OpenGL:  return new OpenGLIndexBuffer(indices, size);
+			case RendererAPI::API::None:    TNAH_CORE_ASSERT(false, "RendererAPI::None is currently not supported!"); return nullptr;
+			case RendererAPI::API::OpenGL:  return new OpenGLIndexBuffer(indices, size);
+		}
+
+		TNAH_CORE_ASSERT(false, "Unknown RendererAPI!");
+		return nullptr;
+	}
+
+	Framebuffer* Framebuffer::Create(const FramebufferSpecification& spec)
+	{
+		switch (Renderer::GetAPI())
+		{
+			case RendererAPI::API::None:    TNAH_CORE_ASSERT(false, "RendererAPI::None is currently not supported!"); return nullptr;
+			case RendererAPI::API::OpenGL:  return new OpenGLFramebuffer(spec);
 		}
 
 		TNAH_CORE_ASSERT(false, "Unknown RendererAPI!");

@@ -132,6 +132,7 @@ namespace tnah {
 		Ref<tnah::Model> Model;
 
 		MeshComponent() = default;
+		MeshComponent(const std::string& modelPath) :Model(Model::Create(modelPath)) {}
 		MeshComponent(const MeshComponent& other) = default;
 		MeshComponent(const Ref<tnah::Model>& model)
 			: Model(model) {}

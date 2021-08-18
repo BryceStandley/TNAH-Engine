@@ -36,4 +36,32 @@ namespace tnah {
 		uint32_t m_RendererID;
 		uint32_t m_Count;
 	};
+
+	typedef unsigned int GLenum;
+	class OpenGLFramebuffer : public Framebuffer
+	{
+	public:
+		OpenGLFramebuffer(const FramebufferSpecification& spec);
+		virtual ~OpenGLFramebuffer();
+
+		void Bind() override;
+		void Unbind() override;
+		void Reset(const FramebufferSpecification& spec) override;
+		
+		const FramebufferSpecification& GetSpecification() const override { return m_Specification; }
+		uint32_t GetRendererID() const override { return m_RendererID; }
+		uint32_t GetColorAttachmentRendererID() const override { return m_ColorAttachment; }
+		
+
+	private:
+		void Invalidate();
+		
+		uint32_t m_RendererID;
+		uint32_t m_ColorAttachment;
+		uint32_t m_DepthAttachment;
+		FramebufferSpecification m_Specification;
+
+		static GLenum GetGLFormatFromSpec(const FramebufferSpecification& spec);
+		
+	};
 }

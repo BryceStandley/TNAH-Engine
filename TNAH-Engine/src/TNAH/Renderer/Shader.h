@@ -80,6 +80,8 @@ namespace tnah {
 		static Ref<Shader> CheckShaderExists(const std::string& vertexSrc, const std::string& fragmentSrc);
 
 		std::pair<std::string, std::string> m_FilePaths;
+		std::string m_ShaderName;
+		friend class EditorUI;
 	};
 
 

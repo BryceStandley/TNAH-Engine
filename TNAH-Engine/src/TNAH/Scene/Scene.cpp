@@ -6,12 +6,24 @@
 #include "TNAH/Scene/Components/EditorCamera.h"
 namespace tnah{
 
+	std::unordered_map<UUID, GameObject>& Scene::GetGameObjectsInScene()
+	{
+		return m_GameObjectsInScene;
+	}
+
+	GameObject* Scene::GetRefGameObject(const UUID id)
+	{
+		return &m_GameObjectsInScene[id];
+	}
+
 	Scene::Scene(bool editor)
 	{
 		if(editor)
 		{
-			auto c = CreateEditorCamera();
-			m_EditorCamera.reset(c);
+			m_EditorCamera.reset(CreateEditorCamera());
+			FramebufferSpecification fbspec = {1280, 720};
+			m_SceneFramebuffer.reset(Framebuffer::Create(fbspec));
+			IsEditorScene = true;
 		}
 
 		auto c = CreateGameObject("Main Camera");
@@ -97,6 +109,7 @@ namespace tnah{
 			}
 		}
 
+		if(IsEditorScene) m_SceneFramebuffer->Bind();
 		//after the transform is updated, update the camera matrix etc
 		{
 			auto view = m_Registry.view<TransformComponent, CameraComponent>();
@@ -111,19 +124,34 @@ namespace tnah{
 		//Renderer Stuff
 		{
 			glm::vec3 cameraPosition;
+			
 			RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1.0f });
 			RenderCommand::Clear();
 			{
-				auto view = m_Registry.view<TransformComponent, CameraComponent>();
-				for(auto entity : view)
-				{ 
-					auto& camera = view.get<CameraComponent>(entity);
-					auto& transform = view.get<TransformComponent>(entity);
+				//Check if its were in the editor, if so render from the perspective of the editor camera
+				if(IsEditorScene)
+				{
+					auto& camera = m_EditorCamera->GetComponent<EditorCameraComponent>();
+					auto transform = m_EditorCamera->GetComponent<TransformComponent>();
 					cameraPosition = transform.Position;
 					Renderer::BeginScene(camera);
-					break;
-					TNAH_CORE_ASSERT(false, "The TNAH-Engine only supports rendering from a single camera!")
+					
 				}
+				else
+				{
+					auto view = m_Registry.view<TransformComponent, CameraComponent>();
+					for(auto entity : view)
+					{ 
+						auto& camera = view.get<CameraComponent>(entity);
+						auto& transform = view.get<TransformComponent>(entity);
+						cameraPosition = transform.Position;
+						Renderer::BeginScene(camera);
+						break;
+						TNAH_CORE_ASSERT(false, "The TNAH-Engine only supports rendering from a single camera!")
+					}
+				}
+				
+				
 			}
 
 			std::vector<Ref<Light>> sceneLights;
@@ -174,6 +202,7 @@ namespace tnah{
 
 			
 			Renderer::EndScene();
+			if(IsEditorScene) m_SceneFramebuffer->Unbind();
 		}
 	}
 
@@ -242,7 +271,10 @@ namespace tnah{
 	GameObject* Scene::CreateEditorCamera()
 	{
 		auto go = CreateGameObject("Editor Camera");
-		go->AddComponent<EditorCameraComponent>();
+		auto& c = go->AddComponent<EditorCameraComponent>();
+		auto& t = go->GetComponent<TransformComponent>();
+		c.EditorCamera.SetViewportSize(1280, 720);
+		t.Position = {0,0,0};
 		return go;
 	}
 

@@ -131,4 +131,32 @@ namespace tnah {
 		static IndexBuffer* Create(void* indices, uint32_t size);
 	};
 
+	enum class FramebufferFormat
+	{
+		SDR, HDR
+	};
+	
+	struct FramebufferSpecification
+	{
+		uint32_t Width, Height;
+		FramebufferFormat Format = FramebufferFormat::SDR;
+		uint32_t Samples = 1;
+		bool SwapChainTarget = false;
+	};
+	
+	class Framebuffer
+	{
+	public:
+		virtual ~Framebuffer() = default;
+		virtual const FramebufferSpecification& GetSpecification() const = 0;
+		virtual uint32_t GetColorAttachmentRendererID() const = 0;
+		virtual uint32_t GetRendererID() const = 0;
+
+		virtual void Bind() = 0;
+		virtual void Unbind() = 0;
+		virtual void Reset(const FramebufferSpecification& spec) = 0;
+		
+		static Framebuffer* Create(const FramebufferSpecification& spec);
+	};
+
 }

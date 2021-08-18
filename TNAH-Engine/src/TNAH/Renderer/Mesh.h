@@ -94,6 +94,7 @@ struct AnimatedVertex
         Ref<IndexBuffer> m_Ibo;
         Ref<Material> m_Material;
         BufferLayout m_BufferLayout;
+        friend class EditorUI;
     };
 
     class Model
@@ -119,6 +120,7 @@ struct AnimatedVertex
         void ProcessNode(aiNode* node, const aiScene* scene);
         Mesh ProcessMesh(aiMesh* mesh, const aiScene* scene);
         std::vector<Ref<Texture2D>> LoadMaterialTextures(const aiScene* scene, aiMaterial* material, aiTextureType type, const std::string& typeName);
+        friend class EditorUI;
     };
 
 }

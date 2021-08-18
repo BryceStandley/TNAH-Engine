@@ -128,6 +128,7 @@ namespace tnah {
 
 		glm::vec3 m_HighestPoint = glm::vec3(0.0f);
 		glm::vec3 m_LowestPoint = glm::vec3(0.0f);
+		friend class EditorUI;
 	};
 
 	struct TerrainComponent

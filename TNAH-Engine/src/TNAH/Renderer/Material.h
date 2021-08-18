@@ -47,6 +47,8 @@ namespace tnah
 		Ref<Shader> m_Shader;
 		std::vector<Ref<Texture2D>> m_Textures;
 		MaterialProperties m_Properties;
+
+		friend class EditorUI;
 		
 	};
 

@@ -3,23 +3,33 @@
 
 #include <imgui.h>
 #include "TNAH/Layers/ImGuizmo.h"
+#include "TNAH/Scene/Components/EditorCamera.h"
+#include "TNAH/Editor/EditorUI.h"
 
 namespace tnah {
 
 		EditorLayer::EditorLayer()
-			: Layer("Editor Layer")
+			: Layer("Editor Layer"), t_Cube(nullptr), m_FocusedWindow(FocusedWindow::None)
 		{
-			m_ActiveScene = Scene::CreateEmptyScene();
-			m_SelectToolTex.reset(Texture2D::Create("assets/Editor/icons/SelectTool.png"));
-			m_MoveToolTex.reset(Texture2D::Create("assets/Editor/icons/MoveTool.png"));
-			m_RotateToolTex.reset(Texture2D::Create("assets/Editor/icons/RotateTool.png"));
-			m_ScaleToolTex.reset(Texture2D::Create("assets/Editor/icons/ScaleTool.png"));
+			m_ActiveScene = Scene::CreateNewEditorScene();
 		}
 
 		void EditorLayer::OnUpdate(Timestep deltaTime)
 		{
+			auto& c = t_Cube->GetComponent<TransformComponent>();
+			//c.Rotation.y += 2.5 * deltaTime.GetSeconds();
 
-
+			if(m_FocusedWindow == FocusedWindow::SceneView)
+			{
+				if(Input::IsKeyPressed(Key::LeftShift) || Input::IsKeyPressed(Key::RightShift))
+				{
+					auto& cam = m_ActiveScene->GetEditorCameraGameObject()->GetComponent<TransformComponent>();
+					if(Input::IsKeyPressed(Key::Down)) cam.Position -= cam.Forward * 5.0f * deltaTime.GetSeconds();
+					if(Input::IsKeyPressed(Key::Up)) cam.Position += cam.Forward * 5.0f * deltaTime.GetSeconds();
+					if(Input::IsKeyPressed(Key::Left)) cam.Position -= cam.Right * 5.0f * deltaTime.GetSeconds();
+					if(Input::IsKeyPressed(Key::Right)) cam.Position += cam.Right * 5.0f * deltaTime.GetSeconds();
+				}
+			}
 			//Rendering is managed by the scene!
 			m_ActiveScene->OnUpdate(deltaTime);
 		}
@@ -35,6 +45,10 @@ namespace tnah {
 			static bool dockspaceOpen = true;
 			static bool sceneViewOpen = true;
 			static bool statsViewOpen = true;
+			static bool propertiesOpen = true;
+			static bool notImplPopup = false;
+			static bool hierarchyOpen = true;
+			static bool helpOpen = false;
 
 			//Imgui dock space setup, DONT TOUCH
 			static bool opt_fullscreen = true;
@@ -167,15 +181,109 @@ namespace tnah {
 					{
 						sceneViewOpen = !sceneViewOpen;
 					}
-					if (ImGui::MenuItem("Statistics View"))
+					if (ImGui::MenuItem("Statistics"))
 					{
 						statsViewOpen = !statsViewOpen;
+					}
+					if (ImGui::MenuItem("Properties"))
+					{
+						propertiesOpen = !propertiesOpen;
+					}
+					if (ImGui::MenuItem("Hierarchy"))
+					{
+						hierarchyOpen = !hierarchyOpen;
 					}
 
 					ImGui::EndMenu();
 				}
+
+				if(ImGui::BeginMenu("Resolution"))
+				{
+					if(ImGui::MenuItem("640 x 480 (480p)"))
+					{
+						FramebufferSpecification spec {640, 480};
+						m_SceneFramebuffer->Reset(spec);
+						auto& ec = m_EditorCamera->GetComponent<EditorCameraComponent>();
+						ec.EditorCamera.SetViewportSize(spec.Width, spec.Height);
+					}
+					if(ImGui::MenuItem("1280 x 720 (720p)"))
+					{
+						FramebufferSpecification spec {1280, 720};
+						m_SceneFramebuffer->Reset(spec);
+						auto& ec = m_EditorCamera->GetComponent<EditorCameraComponent>();
+						ec.EditorCamera.SetViewportSize(spec.Width, spec.Height);
+					}
+					if(ImGui::MenuItem("1920 x 1080 (1080p)"))
+					{
+						FramebufferSpecification spec {1920, 1080};
+						m_SceneFramebuffer->Reset(spec);
+						auto& ec = m_EditorCamera->GetComponent<EditorCameraComponent>();
+						ec.EditorCamera.SetViewportSize(spec.Width, spec.Height);
+					}
+					if(ImGui::MenuItem("2560 x 1080 (UW 1080p)"))
+					{
+						auto& ec = m_EditorCamera->GetComponent<EditorCameraComponent>();
+						ec.EditorCamera.SetViewportSize(2560, 1080);
+						FramebufferSpecification spec {2560, 1080};
+						m_SceneFramebuffer->Reset(spec);
+						
+					}
+					if(ImGui::MenuItem("2560 x 1440 (1440p)"))
+					{
+						FramebufferSpecification spec {2560, 1440};
+						m_SceneFramebuffer->Reset(spec);
+						auto& ec = m_EditorCamera->GetComponent<EditorCameraComponent>();
+						ec.EditorCamera.SetViewportSize(spec.Width, spec.Height);
+					}
+					if(ImGui::MenuItem("3840 x 2160 (4K)"))
+					{
+						FramebufferSpecification spec {3840, 2160};
+						m_SceneFramebuffer->Reset(spec);
+						auto& ec = m_EditorCamera->GetComponent<EditorCameraComponent>();
+						ec.EditorCamera.SetViewportSize(spec.Width, spec.Height);
+					}
+					if(ImGui::MenuItem("Custom"))
+					{
+						notImplPopup = true;
+						
+						//FramebufferSpecification spec {1280, 720};
+						//m_SceneFramebuffer->Reset(spec);
+					}
+					ImGui::EndMenu();
+				}
+
+				if(ImGui::BeginMenu("Help"))
+				{
+					if(ImGui::MenuItem("Key Bindings"))
+					{
+						helpOpen = true;
+						
+					}
+					ImGui::EndMenu();
+				}
 				
 				ImGui::EndMainMenuBar();
+			}
+
+			if(helpOpen)
+			{
+				ImGui::OpenPopup("Key Bindings");
+				if(ImGui::BeginPopup("Key Bindings"))
+				{
+					ImGui::Text("Editor Camera");
+					ImGui::BulletText("Movement: Shift + Arrow Keys");
+
+					ImGui::Separator();
+
+					if(ImGui::Button("Close"))
+					{
+						helpOpen = false;
+						ImGui::CloseCurrentPopup();
+					}
+					ImGui::EndPopup();
+				}
+
+				//put other help popups here
 			}
 
 			
@@ -209,6 +317,20 @@ namespace tnah {
 				ImGui::EndMenuBar();
 			}
 
+			if(notImplPopup)
+			{
+				ImGui::OpenPopup("Not Implemented Yet!");
+				if(ImGui::BeginPopup("Not Implemented Yet!"))
+				{
+					ImGui::Text("This function hasn't been implemented yet!");
+					if(ImGui::Button("Close"))
+					{
+						notImplPopup = false;
+						ImGui::CloseCurrentPopup();
+					}
+					ImGui::EndPopup();
+				}
+			}
 			
 
 			//Stats window
@@ -216,6 +338,7 @@ namespace tnah {
 			if(statsViewOpen)
 			{
 				ImGui::Begin("Statistics", &statsViewOpen);
+				if(ImGui::IsWindowFocused()) m_FocusedWindow = FocusedWindow::Statistics;
 				ImGui::BulletText("Draw Calls: %d", Renderer::GetDrawCallsPerFrame());
 				ImGui::BulletText("Textures Loaded: %d", Renderer::GetTotalLoadedTextures());
 				ImGui::BulletText("Shaders Loaded: %d", Renderer::GetTotalLoadedShaders());
@@ -232,13 +355,68 @@ namespace tnah {
 				// pass that in as a texture to imgui to make it seem its a scene view
 
 				ImGui::Begin("Scene View", &sceneViewOpen);
-				//ImGui::Image(Renderer::GetSceneView());
-				auto framebuffer = Renderer::GetMissingTexture();
-				uint32_t id = framebuffer->GetRendererID();
+				if(ImGui::IsWindowFocused()) m_FocusedWindow = FocusedWindow::SceneView;
+				uint32_t id = 0;
+				if(m_SceneFramebuffer == nullptr)
+				{
+					id = Renderer::GetMissingTexture()->GetRendererID();
+				}
+				else
+				{
+					id = m_SceneFramebuffer->GetColorAttachmentRendererID();
+				}
+				
 				auto size = ImGui::GetContentRegionAvail();
 				ImGui::Image((void*)id, size);
 				ImGui::End();
 			}
+
+			if(hierarchyOpen)
+			{
+				ImGui::Begin("Hierarchy", &hierarchyOpen);
+				if(ImGui::IsWindowFocused()) m_FocusedWindow = FocusedWindow::Hierarchy;
+
+				auto objects = m_ActiveScene->GetGameObjectsInScene();
+				for(auto& go : objects)
+				{
+					auto& g = go.second;
+					std::string name = "GameObject";
+					if(g.HasComponent<TagComponent>()) name = g.GetComponent<TagComponent>().Tag;
+					if(ImGui::Button(name.c_str()))
+					{
+						m_HasObjectSelected = true;
+						m_SelectedGameObject = m_ActiveScene->GetRefGameObject(g.GetUUID());
+					}
+				}
+				
+				ImGui::End();
+			}
+
+			if(propertiesOpen)
+			{
+				ImGui::Begin("Properties", &propertiesOpen);
+				if(ImGui::IsWindowFocused()) m_FocusedWindow = FocusedWindow::Properties;
+				
+				if(m_HasObjectSelected)
+				{
+					// TODO: Properties rendering
+					//Create a UI class that takes in the selected gameobject
+					//That class will check for every type of component the engine supports
+					// like if(object->HasComponent<MeshComponent>()
+					// Then use a set function to each part of the components property panel
+					// like DrawVec3Control()
+					EditorUI::DrawComponentProperties(m_SelectedGameObject);
+					
+				}
+				else
+				{
+					EditorUI::DrawComponentProperties(m_EditorCamera.get());
+				}
+				
+				ImGui::End();
+			}
+
+			
 
 
 			//*************************************************************//
@@ -246,7 +424,29 @@ namespace tnah {
 			// All dockable windows must be defined above
 			// This End() is ending the ImGui docking space and anything below it
 			// cant be docked
-			ImGui::End(); 
+			ImGui::End();
+
+			switch (m_FocusedWindow)
+			{
+				case FocusedWindow::None:
+					m_HasObjectSelected = false;
+					m_SelectedGameObject = nullptr;
+					break;
+				case FocusedWindow::SceneView:
+					m_HasObjectSelected = false;
+					m_SelectedGameObject = nullptr;
+					break;
+				case FocusedWindow::Hierarchy:
+					break;
+				case FocusedWindow::Properties:
+					break;
+				case FocusedWindow::Statistics:
+					m_HasObjectSelected = false;
+					m_SelectedGameObject = nullptr;
+					break;
+				default:
+					break;
+			}
 		}
 
 		void EditorLayer::OnEvent(Event& event)
@@ -254,7 +454,28 @@ namespace tnah {
 
 		}
 
+		EditorLayer::~EditorLayer()
+		{
+		}
 
+		void EditorLayer::OnAttach()
+		{
+			m_EditorCamera = m_ActiveScene->GetEditorCameraGameObject();
+			m_SceneFramebuffer = m_ActiveScene->GetSceneFramebuffer();
+			m_SelectToolTex.reset(Texture2D::Create("assets/Editor/icons/SelectTool.png"));
+			m_MoveToolTex.reset(Texture2D::Create("assets/Editor/icons/MoveTool.png"));
+			m_RotateToolTex.reset(Texture2D::Create("assets/Editor/icons/RotateTool.png"));
+			m_ScaleToolTex.reset(Texture2D::Create("assets/Editor/icons/ScaleTool.png"));
+
+			// Test, Load a test cube from the editor mesh folder
+			t_Cube = m_ActiveScene->CreateGameObject("Cube");
+			auto& c = t_Cube->AddComponent<MeshComponent>("assets/Editor/meshes/cube_texture.fbx");
+			m_SelectedGameObject = nullptr;
+		}
+
+		void EditorLayer::OnDetach()
+		{
+		}
 
 
 }

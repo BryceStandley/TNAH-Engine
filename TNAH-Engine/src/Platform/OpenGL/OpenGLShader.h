@@ -101,7 +101,7 @@ namespace tnah {
 
 		uint32_t m_ShaderID;
 		
-		std::string m_ShaderName;
+		
 		bool m_Bound = false;
 	};
 

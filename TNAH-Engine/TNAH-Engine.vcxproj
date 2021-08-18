@@ -19,6 +19,7 @@
     <ClCompile Include="src\Platform\OpenGL\OpenGLTexture.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLVertexArray.cpp" />
     <ClCompile Include="src\TNAH\Core\UUID.cpp" />
+    <ClCompile Include="src\TNAH\Editor\EditorUI.cpp" />
     <ClCompile Include="src\TNAH\Layers\ImGuizmo.cpp" />
     <ClCompile Include="src\TNAH\Physics\PhysicsTimestep.cpp" />
     <ClCompile Include="src\TNAH\Renderer\Image.cpp" />
@@ -72,6 +73,7 @@
     <ClInclude Include="src\TNAH\Core\Timestep.h" />
     <ClInclude Include="src\TNAH\Core\Utility.h" />
     <ClInclude Include="src\TNAH\Core\UUID.h" />
+    <ClInclude Include="src\TNAH\Editor\EditorUI.h" />
     <ClInclude Include="src\TNAH\Layers\ImGuizmo.h" />
     <ClInclude Include="src\TNAH\Physics\PhysicsTimestep.h" />
     <ClInclude Include="src\TNAH\Renderer\Image.h" />
