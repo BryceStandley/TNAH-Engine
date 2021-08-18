@@ -113,6 +113,7 @@ namespace tnah {
 						{
 							m_ActiveScene = Scene::CreateNewEditorScene();
 							m_EditorCamera = m_ActiveScene->GetEditorCameraGameObject();
+							m_SceneFramebuffer = m_ActiveScene->GetSceneFramebuffer();
 						}
 					}
 

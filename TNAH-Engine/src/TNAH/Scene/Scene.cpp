@@ -112,12 +112,22 @@ namespace tnah{
 		if(IsEditorScene) m_SceneFramebuffer->Bind();
 		//after the transform is updated, update the camera matrix etc
 		{
-			auto view = m_Registry.view<TransformComponent, CameraComponent>();
-			for(auto entity : view)
-			{ 
-				auto& camera = view.get<CameraComponent>(entity);
-				auto& transform = view.get<TransformComponent>(entity);
-				camera.Camera.OnUpdate(transform);
+
+			if(IsEditorScene)
+			{
+				auto& camera = m_EditorCamera->GetComponent<EditorCameraComponent>().EditorCamera;
+				auto& transform = m_EditorCamera->GetComponent<TransformComponent>();
+				camera.OnUpdate(transform);
+			}
+			else
+			{
+				auto view = m_Registry.view<TransformComponent, CameraComponent>();
+				for(auto entity : view)
+				{ 
+					auto& camera = view.get<CameraComponent>(entity);
+					auto& transform = view.get<TransformComponent>(entity);
+					camera.Camera.OnUpdate(transform);
+				}
 			}
 		}
 
