@@ -2,7 +2,7 @@
 
 
 #include <imgui.h>
-
+#include <glm/gtx/string_cast.hpp>
 #include "TNAH/Layers/ImGuizmo.h"
 #include "TNAH/Scene/Components/EditorCamera.h"
 #include "TNAH/Editor/EditorUI.h"
@@ -11,7 +11,7 @@
 namespace tnah {
 
 		EditorLayer::EditorLayer()
-			: Layer("Editor Layer"),  m_FocusedWindow(FocusedWindow::None), m_ObjectNames("")
+			: Layer("Editor Layer"),  m_FocusedWindow(FocusedWindow::None)
 		{
 			m_ActiveScene = Scene::CreateNewEditorScene();
 		}
@@ -29,7 +29,7 @@ namespace tnah {
 					if(Input::IsKeyPressed(Key::Left)) cam.Position -= cam.Right * 5.0f * deltaTime.GetSeconds();
 					if(Input::IsKeyPressed(Key::Right)) cam.Position += cam.Right * 5.0f * deltaTime.GetSeconds();
 
-					if(Input::IsMouseButtonPressed(Mouse::ButtonMiddle))
+					if(Input::IsMouseButtonPressed(Mouse::ButtonLeft))
 					{
 						auto mousePos = tnah::Input::GetMousePos();
 						if (m_FirstMouseInput)
@@ -123,16 +123,16 @@ namespace tnah {
 			// Add any menu items or windows here following the same structure as below
 
 			//Menu bar of the editor
-			if(ImGui::BeginMainMenuBar())
+			if (ImGui::BeginMainMenuBar())
 			{
 				if (ImGui::BeginMenu("File"))
 				{
-					if(ImGui::MenuItem("New Scene"))
+					if (ImGui::MenuItem("New Scene"))
 					{
-						if(!FileManager::NewScene())
+						if (!FileManager::NewScene())
 						{
 							auto sceneFile = FileManager::GetActiveFile();
-							if(sceneFile->FileOpenError == FileError::PathInvalid)
+							if (sceneFile->FileOpenError == FileError::PathInvalid)
 							{
 								TNAH_WARN("The path or file was invalid!");
 							}
@@ -145,12 +145,12 @@ namespace tnah {
 						}
 					}
 
-					if(ImGui::MenuItem("Open Scene"))
+					if (ImGui::MenuItem("Open Scene"))
 					{
 						if (!FileManager::OpenScene())
 						{
 							auto sceneFile = FileManager::GetActiveFile();
-							if(sceneFile->FileOpenError == FileError::PathInvalid)
+							if (sceneFile->FileOpenError == FileError::PathInvalid)
 							{
 								TNAH_WARN("The path or file was invalid!");
 							}
@@ -163,12 +163,12 @@ namespace tnah {
 						}
 					}
 
-					if(ImGui::MenuItem("Save Scene"))
+					if (ImGui::MenuItem("Save Scene"))
 					{
 						if (!FileManager::SaveScene())
 						{
 							auto sceneFile = FileManager::GetActiveFile();
-							if(sceneFile->FileOpenError == FileError::PathInvalid)
+							if (sceneFile->FileOpenError == FileError::PathInvalid)
 							{
 								TNAH_WARN("The path or file was invalid!");
 							}
@@ -178,15 +178,15 @@ namespace tnah {
 							auto sceneFile = FileManager::GetActiveFile();
 							// serialize the scene
 						}
-						
+
 					}
 
-					if(ImGui::MenuItem("Save Scene As"))
+					if (ImGui::MenuItem("Save Scene As"))
 					{
 						if (!FileManager::SaveSceneAs())
 						{
 							auto sceneFile = FileManager::GetActiveFile();
-							if(sceneFile->FileOpenError == FileError::PathInvalid)
+							if (sceneFile->FileOpenError == FileError::PathInvalid)
 							{
 								TNAH_WARN("The path or file was invalid!");
 							}
@@ -227,78 +227,187 @@ namespace tnah {
 					ImGui::EndMenu();
 				}
 
-				if(ImGui::BeginMenu("Resolution"))
+				if (ImGui::BeginMenu("GameObject"))
 				{
-					if(ImGui::MenuItem("640 x 480 (480p)"))
+					if (ImGui::MenuItem("Create Empty GameObject"))
 					{
-						FramebufferSpecification spec {640, 480};
+						int num = 1;
+
+						auto objects = m_ActiveScene->GetGameObjectsInScene();
+						for (auto& go : objects)
+						{
+							auto& g = go.second;
+							std::string object_name = "GameObject";
+							if (g.HasComponent<TagComponent>()) object_name = g.GetComponent<TagComponent>().Tag;
+							if (object_name.find("Game Object") != std::string::npos)
+							{
+								num++;
+							}
+						}
+
+						m_ActiveScene->CreateGameObject("Game Object (" + std::to_string(num) + ")");
+					}
+
+					if (ImGui::BeginMenu("Create 3D GameObject"))
+					{
+						if (ImGui::MenuItem("Cube"))
+						{
+							int num = 1;
+
+							auto objects = m_ActiveScene->GetGameObjectsInScene();
+							for (auto& go : objects)
+							{
+								auto& g = go.second;
+								std::string object_name = "GameObject";
+								if (g.HasComponent<TagComponent>()) object_name = g.GetComponent<TagComponent>().Tag;
+								if (object_name.find("Cube") != std::string::npos)
+								{
+									num++;
+								}
+							}
+
+							auto newObject = m_ActiveScene->CreateGameObject("Cube (" + std::to_string(num) + ")");
+							newObject->AddComponent<MeshComponent>("assets/Editor/meshes/cube.fbx");
+						}
+
+						if (ImGui::MenuItem("Sphere"))
+						{
+							int num = 1;
+
+							auto objects = m_ActiveScene->GetGameObjectsInScene();
+							for (auto& go : objects)
+							{
+								auto& g = go.second;
+								std::string object_name = "GameObject";
+								if (g.HasComponent<TagComponent>()) object_name = g.GetComponent<TagComponent>().Tag;
+								if (object_name.find("Sphere") != std::string::npos)
+								{
+									num++;
+								}
+							}
+
+							auto newObject = m_ActiveScene->CreateGameObject("Sphere (" + std::to_string(num) + ")");
+							newObject->AddComponent<MeshComponent>("assets/Editor/meshes/sphere.fbx");
+						}
+
+						if (ImGui::MenuItem("Plane"))
+						{
+							int num = 1;
+
+							auto objects = m_ActiveScene->GetGameObjectsInScene();
+							for (auto& go : objects)
+							{
+								auto& g = go.second;
+								std::string object_name = "GameObject";
+								if (g.HasComponent<TagComponent>()) object_name = g.GetComponent<TagComponent>().Tag;
+								if (object_name.find("Plane") != std::string::npos)
+								{
+									num++;
+								}
+							}
+
+							auto newObject = m_ActiveScene->CreateGameObject("Plane (" + std::to_string(num) + ")");
+							newObject->AddComponent<MeshComponent>("assets/Editor/meshes/plane.fbx");
+						}
+
+						if (ImGui::MenuItem("Cylinder"))
+						{
+							int num = 1;
+
+							auto objects = m_ActiveScene->GetGameObjectsInScene();
+							for (auto& go : objects)
+							{
+								auto& g = go.second;
+								std::string object_name = "GameObject";
+								if (g.HasComponent<TagComponent>()) object_name = g.GetComponent<TagComponent>().Tag;
+								if (object_name.find("Cylinder") != std::string::npos)
+								{
+									num++;
+								}
+							}
+
+							auto newObject = m_ActiveScene->CreateGameObject("Cylinder (" + std::to_string(num) + ")");
+							newObject->AddComponent<MeshComponent>("assets/Editor/meshes/cylinder.fbx");
+						}
+
+						ImGui::EndMenu();
+					}
+
+					ImGui::EndMenu();
+				}
+
+				if (ImGui::BeginMenu("Resolution"))
+				{
+					if (ImGui::MenuItem("640 x 480 (480p)"))
+					{
+						FramebufferSpecification spec{ 640, 480 };
 						m_SceneFramebuffer->Reset(spec);
 						auto& ec = m_EditorCamera->GetComponent<EditorCameraComponent>();
 						ec.EditorCamera.SetViewportSize(spec.Width, spec.Height);
 					}
-					if(ImGui::MenuItem("1280 x 720 (720p)"))
+					if (ImGui::MenuItem("1280 x 720 (720p)"))
 					{
-						FramebufferSpecification spec {1280, 720};
+						FramebufferSpecification spec{ 1280, 720 };
 						m_SceneFramebuffer->Reset(spec);
 						auto& ec = m_EditorCamera->GetComponent<EditorCameraComponent>();
 						ec.EditorCamera.SetViewportSize(spec.Width, spec.Height);
 					}
-					if(ImGui::MenuItem("1920 x 1080 (1080p)"))
+					if (ImGui::MenuItem("1920 x 1080 (1080p)"))
 					{
-						FramebufferSpecification spec {1920, 1080};
+						FramebufferSpecification spec{ 1920, 1080 };
 						m_SceneFramebuffer->Reset(spec);
 						auto& ec = m_EditorCamera->GetComponent<EditorCameraComponent>();
 						ec.EditorCamera.SetViewportSize(spec.Width, spec.Height);
 					}
-					if(ImGui::MenuItem("2560 x 1080 (UW 1080p)"))
+					if (ImGui::MenuItem("2560 x 1080 (UW 1080p)"))
 					{
 						auto& ec = m_EditorCamera->GetComponent<EditorCameraComponent>();
 						ec.EditorCamera.SetViewportSize(2560, 1080);
-						FramebufferSpecification spec {2560, 1080};
+						FramebufferSpecification spec{ 2560, 1080 };
 						m_SceneFramebuffer->Reset(spec);
-						
+
 					}
-					if(ImGui::MenuItem("2560 x 1440 (1440p)"))
+					if (ImGui::MenuItem("2560 x 1440 (1440p)"))
 					{
-						FramebufferSpecification spec {2560, 1440};
+						FramebufferSpecification spec{ 2560, 1440 };
 						m_SceneFramebuffer->Reset(spec);
 						auto& ec = m_EditorCamera->GetComponent<EditorCameraComponent>();
 						ec.EditorCamera.SetViewportSize(spec.Width, spec.Height);
 					}
-					if(ImGui::MenuItem("3840 x 2160 (4K)"))
+					if (ImGui::MenuItem("3840 x 2160 (4K)"))
 					{
-						FramebufferSpecification spec {3840, 2160};
+						FramebufferSpecification spec{ 3840, 2160 };
 						m_SceneFramebuffer->Reset(spec);
 						auto& ec = m_EditorCamera->GetComponent<EditorCameraComponent>();
 						ec.EditorCamera.SetViewportSize(spec.Width, spec.Height);
 					}
-					if(ImGui::MenuItem("Custom"))
+					if (ImGui::MenuItem("Custom"))
 					{
 						notImplPopup = true;
-						
+
 						//FramebufferSpecification spec {1280, 720};
 						//m_SceneFramebuffer->Reset(spec);
 					}
 					ImGui::EndMenu();
 				}
 
-				if(ImGui::BeginMenu("Help"))
+				if (ImGui::BeginMenu("Help"))
 				{
-					if(ImGui::MenuItem("Key Bindings"))
+					if (ImGui::MenuItem("Key Bindings"))
 					{
 						helpOpen = true;
-						
+
 					}
 					ImGui::EndMenu();
 				}
-				
+
 				ImGui::EndMainMenuBar();
 			}
 
-			if(helpOpen)
+			if (helpOpen)
 			{
 				ImGui::OpenPopup("Key Bindings");
-				if(ImGui::BeginPopup("Key Bindings"))
+				if (ImGui::BeginPopup("Key Bindings"))
 				{
 					ImGui::Text("Editor Camera");
 					ImGui::BulletText("Movement: Shift + Arrow Keys");
@@ -306,7 +415,7 @@ namespace tnah {
 
 					ImGui::Separator();
 
-					if(ImGui::Button("Close"))
+					if (ImGui::Button("Close"))
 					{
 						helpOpen = false;
 						ImGui::CloseCurrentPopup();
@@ -399,6 +508,21 @@ namespace tnah {
 
 				auto size = ImGui::GetContentRegionAvail();
 				ImGui::Image((void*)id, size);
+				if (m_SelectedGameObject != NULL)
+				{
+					ImGuizmo::SetOrthographic(false);
+					ImGuizmo::SetDrawlist();
+					float w_Width = (float)ImGui::GetWindowWidth();
+					float w_Height = (float)ImGui::GetWindowHeight();
+					ImGuizmo::SetRect(ImGui::GetWindowPos().x, ImGui::GetWindowPos().y, w_Width, w_Height);
+					const auto& e_Camera = m_EditorCamera->GetComponent<EditorCameraComponent>();
+					const glm::mat4 c_Proj = e_Camera.EditorCamera.GetProjectionMatrix();
+					glm::mat4 c_View = glm::inverse(m_EditorCamera->GetComponent<TransformComponent>().GetTransform());
+
+					auto& e_Transform = m_SelectedGameObject->GetComponent<TransformComponent>();
+					glm::mat4 c_Transform = e_Transform.GetTransform();
+					ImGuizmo::Manipulate(glm::value_ptr(c_View), glm::value_ptr(c_Proj), ImGuizmo::OPERATION::TRANSLATE, ImGuizmo::LOCAL, glm::value_ptr(c_Transform));
+				}
 				ImGui::End();
 			}
 
@@ -406,78 +530,46 @@ namespace tnah {
 			{
 				ImGui::Begin("Hierarchy", &hierarchyOpen);
 				if (ImGui::IsWindowFocused()) m_FocusedWindow = FocusedWindow::Hierarchy;
-				ImGui::InputText("Name", m_ObjectNames, sizeof(m_ObjectNames));
 
-				if (ImGui::Button("Create New Object"))
-				{
-					std::string name(m_ObjectNames);
-					if (name.size() > 0)
-					{
-						bool exists = false;
-
-						//Im not sure if tag is meant to be the title/name of the object, but im using it for now, easily can be changed if it is not
-						auto objects = m_ActiveScene->GetGameObjectsInScene();
-						for (auto& go : objects)
-						{
-							auto& g = go.second;
-							std::string object_name = "GameObject";
-							if (g.HasComponent<TagComponent>()) object_name = g.GetComponent<TagComponent>().Tag;
-							if (name == object_name)
-							{
-								exists = true;
-								break;
-							}
-						}
-
-						if(!exists)
-							m_ActiveScene->CreateGameObject(name);
-						//else
-						// error
-					}
-					else
-					{
-						int num = 1;
-
-						//Im not sure if tag is meant to be the title/name of the object, but im using it for now, easily can be changed if it is not
-						auto objects = m_ActiveScene->GetGameObjectsInScene();
-						for (auto& go : objects)
-						{
-							auto& g = go.second;
-							std::string object_name = "GameObject";
-							if (g.HasComponent<TagComponent>()) object_name = g.GetComponent<TagComponent>().Tag;
-							if (object_name.find("Game Object") != std::string::npos)
-							{
-								num++;
-							}
-						}
-						m_ActiveScene->CreateGameObject("Game Object (" + std::to_string(num) + ")");
-					}
-				}
 
 				ImGui::Separator();
 
 				auto objects = m_ActiveScene->GetGameObjectsInScene();
-				for(auto& go : objects)
+				for (auto& go : objects)
 				{
 					auto& g = go.second;
 					std::string name = "GameObject";
-					if(g.HasComponent<TagComponent>()) name = g.GetComponent<TagComponent>().Tag;
-					if(ImGui::Button(name.c_str()))
+					if (g.HasComponent<TagComponent>()) name = g.GetComponent<TagComponent>().Tag;
+
+					if (m_SelectedGameObject != NULL && m_SelectedGameObject->GetTag() == name)
+					{
+						ImGui::PushStyleColor(ImGuiCol_Button, ImVec4{ 0.0f, 0.3f, 1.0f, 1.0f });
+						ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4{ 0.0f, 0.5f, 1.0f, 1.0f });
+					}
+					else
+					{
+						ImGui::PushStyleColor(ImGuiCol_Button, ImVec4{ 0.38f, 0.38f, 0.38f, 1.0f });
+						ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4{ 0.63f, 0.63f, 0.63f, 1.0f });
+					}
+
+					if (ImGui::Button(name.c_str()))
 					{
 						m_HasObjectSelected = true;
 						m_SelectedGameObject = m_ActiveScene->GetRefGameObject(g.GetUUID());
 					}
+
+					ImGui::PopStyleColor(2);
 				}
-				
+
 				ImGui::End();
 			}
 
-			if(propertiesOpen)
+			if (propertiesOpen)
 			{
 				ImGui::Begin("Properties", &propertiesOpen);
-				if(ImGui::IsWindowFocused()) m_FocusedWindow = FocusedWindow::Properties;
-				
-				if(m_HasObjectSelected)
+				if (ImGui::IsWindowFocused()) m_FocusedWindow = FocusedWindow::Properties;
+
+				if (m_HasObjectSelected)
 				{
 					// TODO: Properties rendering
 					//Create a UI class that takes in the selected gameobject
@@ -486,17 +578,17 @@ namespace tnah {
 					// Then use a set function to each part of the components property panel
 					// like DrawVec3Control()
 					EditorUI::DrawComponentProperties(m_SelectedGameObject);
-					
+
 				}
 				else
 				{
 					EditorUI::DrawComponentProperties(m_EditorCamera.get());
 				}
-				
+
 				ImGui::End();
 			}
 
-			
+
 
 
 			//*************************************************************//
@@ -508,24 +600,24 @@ namespace tnah {
 
 			switch (m_FocusedWindow)
 			{
-				case FocusedWindow::None:
-					m_HasObjectSelected = false;
-					m_SelectedGameObject = nullptr;
-					break;
-				case FocusedWindow::SceneView:
-					m_HasObjectSelected = false;
-					m_SelectedGameObject = nullptr;
-					break;
-				case FocusedWindow::Hierarchy:
-					break;
-				case FocusedWindow::Properties:
-					break;
-				case FocusedWindow::Statistics:
-					m_HasObjectSelected = false;
-					m_SelectedGameObject = nullptr;
-					break;
-				default:
-					break;
+			case FocusedWindow::None:
+				m_HasObjectSelected = false;
+				m_SelectedGameObject = nullptr;
+				break;
+			case FocusedWindow::SceneView:
+				//m_HasObjectSelected = false;
+				//m_SelectedGameObject = nullptr;
+				break;
+			case FocusedWindow::Hierarchy:
+				break;
+			case FocusedWindow::Properties:
+				break;
+			case FocusedWindow::Statistics:
+				//m_HasObjectSelected = false;
+				//m_SelectedGameObject = nullptr;
+				break;
+			default:
+				break;
 			}
 		}
 

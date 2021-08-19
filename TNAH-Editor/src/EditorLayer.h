@@ -44,8 +44,6 @@ namespace tnah {
 
 		//Scene view framebuffer
 		Ref<Framebuffer> m_SceneFramebuffer;
-
-		char m_ObjectNames[128];
 	};
 
 
