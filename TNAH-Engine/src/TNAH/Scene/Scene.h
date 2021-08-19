@@ -90,6 +90,7 @@ namespace tnah {
 		bool IsEditorScene = false;
 		friend class EditorLayer;
 		friend class Editor;
+		friend class Serializer;
 	};
 
 

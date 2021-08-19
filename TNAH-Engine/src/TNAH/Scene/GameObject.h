@@ -119,15 +119,12 @@ namespace tnah {
 		inline void RemoveComponent()
 		{
 
-			if (!HasComponent<T>())
-			{
-				TNAH_CORE_ASSERT(!HasComponent<T>, "GameObject doesn't have that component! You can't remove what isn't there!");
-				return;
-			}
-			else
+			if (HasComponent<T>())
 			{
 				m_Scene->m_Registry.remove<T>(m_EntityID);
+				
 			}
+			TNAH_CORE_ASSERT(false, "GameObject doesn't have that component! You can't remove what isn't there!");
 		}
 
 		/**********************************************************************************************//**

@@ -103,7 +103,8 @@ namespace tnah {
 
 
 	private:
-
+		std::string m_HeightmapPath = "";
+		
 		float m_MinHeightmapHeight = 40.0f;
 		float m_MaxHeightmapHeight = 100.0f;
 
@@ -129,6 +130,7 @@ namespace tnah {
 		glm::vec3 m_HighestPoint = glm::vec3(0.0f);
 		glm::vec3 m_LowestPoint = glm::vec3(0.0f);
 		friend class EditorUI;
+		friend class Serializer;
 	};
 
 	struct TerrainComponent

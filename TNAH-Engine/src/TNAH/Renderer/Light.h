@@ -123,6 +123,7 @@ namespace tnah {
         friend class Scene;
         friend class Renderer;
         friend class EditorUI;
+        friend class Serializer;
     
     };
 }

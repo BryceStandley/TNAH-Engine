@@ -32,6 +32,11 @@ namespace tnah {
 
 		GameObject* m_SelectedGameObject;
 		bool m_HasObjectSelected;
+		bool m_FirstMouseInput = true;
+		float m_LastMouseXPos = 0.0f;
+		float m_LastMouseYPos = 0.0f;
+		float m_CameraMouseSensitivity = 0.1f;
+		bool m_CameraMovementToggle = true;
 
 		Ref<Texture2D> m_SelectToolTex, m_MoveToolTex, m_RotateToolTex, m_ScaleToolTex;
 		
@@ -39,9 +44,6 @@ namespace tnah {
 
 		//Scene view framebuffer
 		Ref<Framebuffer> m_SceneFramebuffer;
-
-		//Test objects
-		GameObject* t_Cube;
 
 		char m_ObjectNames[128];
 	};

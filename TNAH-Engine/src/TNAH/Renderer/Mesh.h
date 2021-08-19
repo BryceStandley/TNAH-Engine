@@ -121,6 +121,7 @@ struct AnimatedVertex
         Mesh ProcessMesh(aiMesh* mesh, const aiScene* scene);
         std::vector<Ref<Texture2D>> LoadMaterialTextures(const aiScene* scene, aiMaterial* material, aiTextureType type, const std::string& typeName);
         friend class EditorUI;
+        friend class Serializer;
     };
 
 }

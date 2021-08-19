@@ -9,8 +9,14 @@ namespace tnah {
     void EditorUI::DrawComponentProperties(GameObject* object)
     {
 
-        ImGui::Text(object->GetTag().c_str());
-        ImGui::Separator();
+        if(object->HasComponent<TagComponent>())
+        {
+        	auto& tag = object->GetComponent<TagComponent>();
+			DrawTextControl("Name", tag.Tag, "GameObject");
+        	ImGui::Separator();
+        }
+    	
+       
         if(object->HasComponent<TransformComponent>())
         {
         	ImGui::Text("Transform");
@@ -78,7 +84,10 @@ namespace tnah {
     			}
     		}
     		
-    		
+    		if(DrawRemoveComponentButton())
+    		{
+    			object->RemoveComponent<CameraComponent>();
+    		}
     		
     		ImGui::Separator();
     	}
@@ -115,6 +124,12 @@ namespace tnah {
 			ImGui::Text("Terrain");
 			DrawVec2Control("Size", t->m_Size, true);
 			ImGui::BulletText("Maybe have more options here to set the terrain textures?");
+
+			if(DrawRemoveComponentButton())
+			{
+				object->RemoveComponent<TerrainComponent>();
+			}
+			
 			ImGui::Separator();
 		}
     	
@@ -135,6 +150,12 @@ namespace tnah {
     			}
     			count++;
     		}
+    		
+    		if(DrawRemoveComponentButton())
+    		{
+    			object->RemoveComponent<MeshComponent>();
+    		}
+    		
     		ImGui::Separator();
     	}
 
@@ -174,85 +195,68 @@ namespace tnah {
     			ImGui::Text("ERROR: Unknown light type");
     			ImGui::PopStyleColor();
     		}
+    		if(!l->m_IsSceneLight)
+    		{
+    			if(DrawRemoveComponentButton())
+    			{
+    				object->RemoveComponent<LightComponent>();
+    			}
+    		}
     	}
-        const char* items[] = { "Camera", "EditorCamera", "Terrain", "Mesh",  "Light" };
-        static int item_current_idx = 0;
-        const char* combo_preview_value = items[item_current_idx];
-        if (ImGui::BeginCombo("Components", combo_preview_value))
-        {
-            for (int n = 0; n < IM_ARRAYSIZE(items); n++)
-            {
-                const bool is_selected = (item_current_idx == n);
-                if (ImGui::Selectable(items[n], is_selected))
-                    item_current_idx = n;
-                if (is_selected)
-                    ImGui::SetItemDefaultFocus();
-            }
-            ImGui::EndCombo();
-        }
 
-        //std::cout << items[item_current_idx] << std::endl;
+    	//Only add components to scene objects, the editor camera cant have components added to them
+    	if(!object->HasComponent<EditorCameraComponent>())
+    	{
+    		const char* items[] = { "Camera", "Terrain", "Mesh",  "Light" };
+    		static int item_current_idx = 0;
+    		const char* combo_preview_value = items[item_current_idx];
+    		if (ImGui::BeginCombo("Components", combo_preview_value))
+    		{
+    			for (int n = 0; n < IM_ARRAYSIZE(items); n++)
+    			{
+    				const bool is_selected = (item_current_idx == n);
+    				if (ImGui::Selectable(items[n], is_selected))
+    					item_current_idx = n;
+    				if (is_selected)
+    					ImGui::SetItemDefaultFocus();
+    			}
+    			ImGui::EndCombo();
+    		}
 
-        if (ImGui::Button("Add Component"))
-        {
-            if (!object->HasComponent<CameraComponent>() && items[item_current_idx] == "Camera")
-            {
-                object->AddComponent<CameraComponent>();
-            }
+    		
+        
 
-            if (!object->HasComponent<EditorCameraComponent>() && items[item_current_idx] == "EditorCamera")
-            {
-                object->AddComponent<EditorCameraComponent>();
-            }
+    		if (ImGui::Button("Add Component"))
+    		{
+    			if (!object->HasComponent<CameraComponent>() && items[item_current_idx] == "Camera")
+    			{
+    				object->AddComponent<CameraComponent>();
+    			}
 
-            if (!object->HasComponent<TerrainComponent>() && items[item_current_idx] == "Terrain")
-            {
-                //Add windows prompt to find heightmap
-                object->AddComponent<TerrainComponent>("assets/heightmaps/1k.tga");
-            }
+    			if (!object->HasComponent<EditorCameraComponent>() && items[item_current_idx] == "EditorCamera")
+    			{
+    				object->AddComponent<EditorCameraComponent>();
+    			}
 
-            if (!object->HasComponent<MeshComponent>() && items[item_current_idx] == "Mesh")
-            {
-                //Add windows prompt to find mesh
-                object->AddComponent<MeshComponent>("assets/Editor/meshes/cube_texture.fbx");
-            }
+    			if (!object->HasComponent<TerrainComponent>() && items[item_current_idx] == "Terrain")
+    			{
+    				//Add windows prompt to find heightmap
+    				object->AddComponent<TerrainComponent>("assets/heightmaps/1k.tga");
+    			}
 
-            if (!object->HasComponent<LightComponent>() && items[item_current_idx] == "Light")
-            {
-                object->AddComponent<LightComponent>();
-            }
-        }
+    			if (!object->HasComponent<MeshComponent>() && items[item_current_idx] == "Mesh")
+    			{
+    				//Add windows prompt to find mesh
+    				object->AddComponent<MeshComponent>("assets/Editor/meshes/cube_texture.fbx");
+    			}
 
-        //Remove idea, stopped by an error saying you cant remove whats not there
-        //if (ImGui::Button("Remove Component"))
-        //{
-        //    if (object->HasComponent<CameraComponent>() && items[item_current_idx] == "Camera")
-        //    {
-        //        object->RemoveComponent<CameraComponent>();
-        //    }
-
-        //    if (object->HasComponent<EditorCameraComponent>() && items[item_current_idx] == "EditorCamera")
-        //    {
-        //        object->RemoveComponent<EditorCameraComponent>();
-        //    }
-
-        //    if (object->HasComponent<TerrainComponent>() && items[item_current_idx] == "Terrain")
-        //    {
-        //        //Add windows prompt to find heightmap
-        //        object->RemoveComponent<TerrainComponent>();
-        //    }
-
-        //    if (object->HasComponent<MeshComponent>() && items[item_current_idx] == "Mesh")
-        //    {
-        //        //Add windows prompt to find mesh
-        //        object->RemoveComponent<MeshComponent>();
-        //    }
-
-        //    if (object->HasComponent<LightComponent>() && items[item_current_idx] == "Light")
-        //    {
-        //        object->RemoveComponent<LightComponent>();
-        //    }
-        //}
+    			if (!object->HasComponent<LightComponent>() && items[item_current_idx] == "Light")
+    			{
+    				object->AddComponent<LightComponent>();
+    			}
+    			
+    		}
+    	}
 
 
     	ImGui::Separator();
@@ -638,7 +642,7 @@ namespace tnah {
     	}
     	else
     	{
-    		ImGui::Text(text.c_str());
+    		ImGui::InputText(s_IDBuffer, buffer, 256, ImGuiInputTextFlags_ReadOnly);
     	}
 
     	ImGui::PushItemWidth(ImGui::GetWindowWidth());
@@ -662,4 +666,29 @@ namespace tnah {
 
     	return modified;
     }
+
+	bool EditorUI::DrawRemoveComponentButton()
+	{
+		bool pressed = false;
+		ImGui::PushItemWidth(ImGui::GetWindowWidth());
+		ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2{ 0, 0 });
+		float lineHeight = GImGui->Font->FontSize + GImGui->Style.FramePadding.y * 2.0f;
+		ImVec2 buttonSize = { lineHeight + 3.0f, lineHeight };
+
+		ImGui::PushStyleColor(ImGuiCol_Button, ImVec4{ 0.8f, 0.1f, 0.15f, 1.0f });
+		ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4{ 0.9f, 0.2f, 0.2f, 1.0f });
+		ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4{ 0.8f, 0.1f, 0.15f, 1.0f });
+    	
+		if(ImGui::Button("Remove Component"))
+		{
+			pressed = true;
+		}
+
+		ImGui::PopStyleColor(3);
+		ImGui::PopItemWidth();
+		ImGui::PopStyleVar();
+
+		return pressed;
+	}
+
 }

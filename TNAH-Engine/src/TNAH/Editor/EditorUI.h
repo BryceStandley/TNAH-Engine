@@ -16,6 +16,7 @@ namespace tnah {
         static bool DrawTextControl(const std::string& label, std::string& text, const std::string& resetText = "", bool readOnly = false);
         static bool Draw4ColorControl(const std::string& label, glm::vec4& value, bool readOnly = false,  const glm::vec4& resetValue = {0,0,0,0});
         static bool DrawMaterialProperties(Ref<Material> material);
+        static bool DrawRemoveComponentButton();
     };
 
 

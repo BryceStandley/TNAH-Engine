@@ -27,7 +27,7 @@ namespace tnah {
 		texture->m_Path = filePath;
 		
 		int width, height, channels;
-		if(filePath.find(".png") != std::string::npos)
+		if(filePath.find(".png") != std::string::npos || filePath.find(".tga") != std::string::npos)
 		{
 			// .png was found in the file path, flip vertically on load
 			stbi_set_flip_vertically_on_load(true);

@@ -54,6 +54,7 @@
     <ClCompile Include="src\TNAH\Renderer\VertexArray.cpp" />
     <ClCompile Include="src\TNAH\Scene\GameObject.cpp" />
     <ClCompile Include="src\TNAH\Scene\Scene.cpp" />
+    <ClCompile Include="src\TNAH\Scene\Serializer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\TNAH\Core\Application.h" />
@@ -120,6 +121,7 @@
     <ClInclude Include="src\TNAH\Scene\GameObject.h" />
     <ClInclude Include="src\TNAH\Scene\Components\TerrainComponent.h" />
     <ClInclude Include="src\TNAH\Scene\Scene.h" />
+    <ClInclude Include="src\TNAH\Scene\Serializer.h" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\fonts\opensans\LICENSE.txt" />

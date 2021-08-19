@@ -12,11 +12,6 @@ namespace tnah::utility {
         return filePath.substr(lastSlash, count);
     }
 
-    static std::string WStringToString(const std::wstring& str)
-    {
-        std::string out(str.begin(), str.end());
-        return out;
-    }
 
 
     

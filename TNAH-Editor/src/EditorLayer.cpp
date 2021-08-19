@@ -6,19 +6,18 @@
 #include "TNAH/Layers/ImGuizmo.h"
 #include "TNAH/Scene/Components/EditorCamera.h"
 #include "TNAH/Editor/EditorUI.h"
+#include "TNAH/Scene/Serializer.h"
 
 namespace tnah {
 
 		EditorLayer::EditorLayer()
-			: Layer("Editor Layer"), t_Cube(nullptr), m_FocusedWindow(FocusedWindow::None), m_ObjectNames("")
+			: Layer("Editor Layer"),  m_FocusedWindow(FocusedWindow::None), m_ObjectNames("")
 		{
 			m_ActiveScene = Scene::CreateNewEditorScene();
 		}
 
 		void EditorLayer::OnUpdate(Timestep deltaTime)
 		{
-			auto& c = t_Cube->GetComponent<TransformComponent>();
-			//c.Rotation.y += 2.5 * deltaTime.GetSeconds();
 
 			if(m_FocusedWindow == FocusedWindow::SceneView)
 			{
@@ -29,6 +28,34 @@ namespace tnah {
 					if(Input::IsKeyPressed(Key::Up)) cam.Position += cam.Forward * 5.0f * deltaTime.GetSeconds();
 					if(Input::IsKeyPressed(Key::Left)) cam.Position -= cam.Right * 5.0f * deltaTime.GetSeconds();
 					if(Input::IsKeyPressed(Key::Right)) cam.Position += cam.Right * 5.0f * deltaTime.GetSeconds();
+
+					if(Input::IsMouseButtonPressed(Mouse::ButtonMiddle))
+					{
+						auto mousePos = tnah::Input::GetMousePos();
+						if (m_FirstMouseInput)
+						{
+							m_LastMouseXPos = mousePos.first;
+							m_LastMouseYPos = mousePos.second;
+							m_FirstMouseInput = false;
+						}
+
+						float offsetX = mousePos.first - m_LastMouseXPos;
+						float offsetY = m_LastMouseYPos - mousePos.second;
+						m_LastMouseXPos = mousePos.first;
+						m_LastMouseYPos = mousePos.second;
+						offsetX *= m_CameraMouseSensitivity;
+						offsetY *= m_CameraMouseSensitivity;
+						cam.Rotation.x += offsetX;
+						cam.Rotation.y += offsetY;
+						if (cam.Rotation.y > 89.0f)
+						{
+							cam.Rotation.y = 89.0f;
+						}
+						if (cam.Rotation.y < -89.0f)
+						{
+							cam.Rotation.y = -89.0f;
+						}
+					}
 				}
 			}
 			//Rendering is managed by the scene!
@@ -168,6 +195,7 @@ namespace tnah {
 						{
 							auto sceneFile = FileManager::GetActiveFile();
 							// save the scene with the new file name and path
+							Serializer::SerializeScene(m_ActiveScene, sceneFile->FilePath);
 						}
 					}
 
@@ -274,6 +302,7 @@ namespace tnah {
 				{
 					ImGui::Text("Editor Camera");
 					ImGui::BulletText("Movement: Shift + Arrow Keys");
+					ImGui::BulletText("View: Shift + Mouse Scroll button");
 
 					ImGui::Separator();
 
@@ -382,7 +411,6 @@ namespace tnah {
 				if (ImGui::Button("Create New Object"))
 				{
 					std::string name(m_ObjectNames);
-					std::cout << name.size() << " " << name << std::endl;
 					if (name.size() > 0)
 					{
 						bool exists = false;
@@ -519,9 +547,6 @@ namespace tnah {
 			m_RotateToolTex.reset(Texture2D::Create("assets/Editor/icons/RotateTool.png"));
 			m_ScaleToolTex.reset(Texture2D::Create("assets/Editor/icons/ScaleTool.png"));
 
-			// Test, Load a test cube from the editor mesh folder
-			t_Cube = m_ActiveScene->CreateGameObject("Cube");
-			auto& c = t_Cube->AddComponent<MeshComponent>("assets/Editor/meshes/cube_texture.fbx");
 			m_SelectedGameObject = nullptr;
 		}
 
