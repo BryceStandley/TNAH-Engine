@@ -6,7 +6,6 @@
 #include "TNAH/Scene/Components/EditorCamera.h"
 
 namespace tnah {
-
     void EditorUI::DrawComponentProperties(GameObject* object)
     {
 
@@ -176,59 +175,85 @@ namespace tnah {
     			ImGui::PopStyleColor();
     		}
     	}
-
-        if (ImGui::BeginMenu("Add New Component"))
+        const char* items[] = { "Camera", "EditorCamera", "Terrain", "Mesh",  "Light" };
+        static int item_current_idx = 0;
+        const char* combo_preview_value = items[item_current_idx];
+        if (ImGui::BeginCombo("Components", combo_preview_value))
         {
-            if (!object->HasComponent<TransformComponent>())
+            for (int n = 0; n < IM_ARRAYSIZE(items); n++)
             {
-                if (ImGui::MenuItem("Transform"))
-                {
-                    object->AddComponent<TransformComponent>();
-                }
+                const bool is_selected = (item_current_idx == n);
+                if (ImGui::Selectable(items[n], is_selected))
+                    item_current_idx = n;
+                if (is_selected)
+                    ImGui::SetItemDefaultFocus();
             }
-
-            if (!object->HasComponent<CameraComponent>())
-            {
-                if (ImGui::MenuItem("Camera"))
-                {
-                    object->AddComponent<CameraComponent>();
-                }
-            }            
-            
-            if (!object->HasComponent<EditorCameraComponent>())
-            {
-                if (ImGui::MenuItem("Editor Camera"))
-                {
-                    object->AddComponent<EditorCameraComponent>();
-                }
-            }
-
-            if (!object->HasComponent<TerrainComponent>())
-            {
-                if (ImGui::MenuItem("Terrain"))
-                {
-                    object->AddComponent<TerrainComponent>("assets/heightmaps/1k.tga");
-                }
-            }
-
-            if (!object->HasComponent<MeshComponent>())
-            {
-                if (ImGui::MenuItem("Mesh"))
-                {
-                    object->AddComponent<MeshComponent>("assets/Editor/meshes/cube_texture.fbx");
-                }
-            }
-
-            if (!object->HasComponent<LightComponent>())
-            {
-                if (ImGui::MenuItem("Light"))
-                {
-                    object->HasComponent<LightComponent>();
-                }
-            }
-
-            ImGui::EndMenu();
+            ImGui::EndCombo();
         }
+
+        //std::cout << items[item_current_idx] << std::endl;
+
+        if (ImGui::Button("Add Component"))
+        {
+            if (!object->HasComponent<CameraComponent>() && items[item_current_idx] == "Camera")
+            {
+                object->AddComponent<CameraComponent>();
+            }
+
+            if (!object->HasComponent<EditorCameraComponent>() && items[item_current_idx] == "EditorCamera")
+            {
+                object->AddComponent<EditorCameraComponent>();
+            }
+
+            if (!object->HasComponent<TerrainComponent>() && items[item_current_idx] == "Terrain")
+            {
+                //Add windows prompt to find heightmap
+                object->AddComponent<TerrainComponent>("assets/heightmaps/1k.tga");
+            }
+
+            if (!object->HasComponent<MeshComponent>() && items[item_current_idx] == "Mesh")
+            {
+                //Add windows prompt to find mesh
+                object->AddComponent<MeshComponent>("assets/Editor/meshes/cube_texture.fbx");
+            }
+
+            if (!object->HasComponent<LightComponent>() && items[item_current_idx] == "Light")
+            {
+                object->AddComponent<LightComponent>();
+            }
+        }
+
+        //Remove idea, stopped by an error saying you cant remove whats not there
+        //if (ImGui::Button("Remove Component"))
+        //{
+        //    if (object->HasComponent<CameraComponent>() && items[item_current_idx] == "Camera")
+        //    {
+        //        object->RemoveComponent<CameraComponent>();
+        //    }
+
+        //    if (object->HasComponent<EditorCameraComponent>() && items[item_current_idx] == "EditorCamera")
+        //    {
+        //        object->RemoveComponent<EditorCameraComponent>();
+        //    }
+
+        //    if (object->HasComponent<TerrainComponent>() && items[item_current_idx] == "Terrain")
+        //    {
+        //        //Add windows prompt to find heightmap
+        //        object->RemoveComponent<TerrainComponent>();
+        //    }
+
+        //    if (object->HasComponent<MeshComponent>() && items[item_current_idx] == "Mesh")
+        //    {
+        //        //Add windows prompt to find mesh
+        //        object->RemoveComponent<MeshComponent>();
+        //    }
+
+        //    if (object->HasComponent<LightComponent>() && items[item_current_idx] == "Light")
+        //    {
+        //        object->RemoveComponent<LightComponent>();
+        //    }
+        //}
+
 
     	ImGui::Separator();
     }
