@@ -2,6 +2,7 @@
 
 
 #include <imgui.h>
+
 #include "TNAH/Layers/ImGuizmo.h"
 #include "TNAH/Scene/Components/EditorCamera.h"
 #include "TNAH/Editor/EditorUI.h"
@@ -9,7 +10,7 @@
 namespace tnah {
 
 		EditorLayer::EditorLayer()
-			: Layer("Editor Layer"), t_Cube(nullptr), m_FocusedWindow(FocusedWindow::None), m_count(0)
+			: Layer("Editor Layer"), t_Cube(nullptr), m_FocusedWindow(FocusedWindow::None), m_count(0), text("")
 		{
 			m_ActiveScene = Scene::CreateNewEditorScene();
 		}
@@ -376,11 +377,53 @@ namespace tnah {
 			{
 				ImGui::Begin("Hierarchy", &hierarchyOpen);
 				if (ImGui::IsWindowFocused()) m_FocusedWindow = FocusedWindow::Hierarchy;
+				ImGui::InputText("Name", m_ObjectNames, sizeof(m_ObjectNames));
 
 				if (ImGui::Button("Create New Object"))
 				{
-					m_ActiveScene->CreateGameObject("New Game Object (" + std::to_string(m_count) + ")");
-					m_count++;
+					std::string name(m_ObjectNames);
+					std::cout << name.size() << " " << name << std::endl;
+					if (name.size() > 0)
+					{
+						bool exists = false;
+
+						//Im not sure if tag is meant to be the title/name of the object, but im using it for now, easily can be changed if it is not
+						auto objects = m_ActiveScene->GetGameObjectsInScene();
+						for (auto& go : objects)
+						{
+							auto& g = go.second;
+							std::string object_name = "GameObject";
+							if (g.HasComponent<TagComponent>()) object_name = g.GetComponent<TagComponent>().Tag;
+							if (name == object_name)
+							{
+								exists = true;
+								break;
+							}
+						}
+
+						if(!exists)
+							m_ActiveScene->CreateGameObject(name);
+						//else
+						// error
+					}
+					else
+					{
+						int num = 1;
+
+						//Im not sure if tag is meant to be the title/name of the object, but im using it for now, easily can be changed if it is not
+						auto objects = m_ActiveScene->GetGameObjectsInScene();
+						for (auto& go : objects)
+						{
+							auto& g = go.second;
+							std::string object_name = "GameObject";
+							if (g.HasComponent<TagComponent>()) object_name = g.GetComponent<TagComponent>().Tag;
+							if (object_name.find("Game Object") != std::string::npos)
+							{
+								num++;
+							}
+						}
+						m_ActiveScene->CreateGameObject("Game Object (" + std::to_string(num) + ")");
+					}
 				}
 
 				ImGui::Separator();
