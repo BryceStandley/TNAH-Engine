@@ -9,7 +9,7 @@
 namespace tnah {
 
 		EditorLayer::EditorLayer()
-			: Layer("Editor Layer"), t_Cube(nullptr), m_FocusedWindow(FocusedWindow::None)
+			: Layer("Editor Layer"), t_Cube(nullptr), m_FocusedWindow(FocusedWindow::None), m_count(0)
 		{
 			m_ActiveScene = Scene::CreateNewEditorScene();
 		}
@@ -95,7 +95,7 @@ namespace tnah {
 			// Add any menu items or windows here following the same structure as below
 
 			//Menu bar of the editor
-			if (ImGui::BeginMainMenuBar())
+			if(ImGui::BeginMainMenuBar())
 			{
 				if (ImGui::BeginMenu("File"))
 				{
@@ -117,7 +117,7 @@ namespace tnah {
 						}
 					}
 
-					if (ImGui::MenuItem("Open Scene"))
+					if(ImGui::MenuItem("Open Scene"))
 					{
 						if (!FileManager::OpenScene())
 						{
@@ -135,7 +135,7 @@ namespace tnah {
 						}
 					}
 
-					if (ImGui::MenuItem("Save Scene"))
+					if(ImGui::MenuItem("Save Scene"))
 					{
 						if (!FileManager::SaveScene())
 						{
@@ -153,7 +153,7 @@ namespace tnah {
 						
 					}
 
-					if (ImGui::MenuItem("Save Scene As"))
+					if(ImGui::MenuItem("Save Scene As"))
 					{
 						if (!FileManager::SaveSceneAs())
 						{
@@ -287,8 +287,8 @@ namespace tnah {
 				//put other help popups here
 			}
 
-			
-			if(ImGui::BeginMenuBar())
+
+			if (ImGui::BeginMenuBar())
 			{
 				auto size = ImGui::GetWindowPos();
 				size.y += 100;
@@ -300,31 +300,31 @@ namespace tnah {
 				ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
 				ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0, 0, 0, 0));
 				ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0, 0, 0, 0));
-				
-				ImVec2 iconSize = {24,24};
-				if(ImGui::ImageButton((void*)m_SelectToolTex->GetRendererID(), iconSize, ImVec2(0,0), ImVec2(1,1), -1, ImVec4(0,0,0,0), m_GizmoType == -1 ? c_SelectedGizmoButtonColor : c_UnselectedGizmoButtonColor))
+
+				ImVec2 iconSize = { 24,24 };
+				if (ImGui::ImageButton((void*)m_SelectToolTex->GetRendererID(), iconSize, ImVec2(0, 0), ImVec2(1, 1), -1, ImVec4(0, 0, 0, 0), m_GizmoType == -1 ? c_SelectedGizmoButtonColor : c_UnselectedGizmoButtonColor))
 					m_GizmoType = -1;
 				ImGui::SameLine();
-				if(ImGui::ImageButton((void*)m_MoveToolTex->GetRendererID(), iconSize, ImVec2(0,0), ImVec2(1,1), -1, ImVec4(0,0,0,0), m_GizmoType == ImGuizmo::OPERATION::TRANSLATE ? c_SelectedGizmoButtonColor : c_UnselectedGizmoButtonColor))
+				if (ImGui::ImageButton((void*)m_MoveToolTex->GetRendererID(), iconSize, ImVec2(0, 0), ImVec2(1, 1), -1, ImVec4(0, 0, 0, 0), m_GizmoType == ImGuizmo::OPERATION::TRANSLATE ? c_SelectedGizmoButtonColor : c_UnselectedGizmoButtonColor))
 					m_GizmoType = ImGuizmo::OPERATION::TRANSLATE;
 				ImGui::SameLine();
-				if(ImGui::ImageButton((void*)m_RotateToolTex->GetRendererID(), iconSize, ImVec2(0,0), ImVec2(1,1), -1, ImVec4(0,0,0,0), m_GizmoType == ImGuizmo::OPERATION::ROTATE ? c_SelectedGizmoButtonColor : c_UnselectedGizmoButtonColor))
+				if (ImGui::ImageButton((void*)m_RotateToolTex->GetRendererID(), iconSize, ImVec2(0, 0), ImVec2(1, 1), -1, ImVec4(0, 0, 0, 0), m_GizmoType == ImGuizmo::OPERATION::ROTATE ? c_SelectedGizmoButtonColor : c_UnselectedGizmoButtonColor))
 					m_GizmoType = ImGuizmo::OPERATION::ROTATE;
 				ImGui::SameLine();
-				if(ImGui::ImageButton((void*)m_ScaleToolTex->GetRendererID(), iconSize, ImVec2(0,0), ImVec2(1,1), -1, ImVec4(0,0,0,0), m_GizmoType == ImGuizmo::OPERATION::SCALE ? c_SelectedGizmoButtonColor : c_UnselectedGizmoButtonColor))
+				if (ImGui::ImageButton((void*)m_ScaleToolTex->GetRendererID(), iconSize, ImVec2(0, 0), ImVec2(1, 1), -1, ImVec4(0, 0, 0, 0), m_GizmoType == ImGuizmo::OPERATION::SCALE ? c_SelectedGizmoButtonColor : c_UnselectedGizmoButtonColor))
 					m_GizmoType = ImGuizmo::OPERATION::SCALE;
 
 				ImGui::PopStyleColor(3);
 				ImGui::EndMenuBar();
 			}
 
-			if(notImplPopup)
+			if (notImplPopup)
 			{
 				ImGui::OpenPopup("Not Implemented Yet!");
-				if(ImGui::BeginPopup("Not Implemented Yet!"))
+				if (ImGui::BeginPopup("Not Implemented Yet!"))
 				{
 					ImGui::Text("This function hasn't been implemented yet!");
-					if(ImGui::Button("Close"))
+					if (ImGui::Button("Close"))
 					{
 						notImplPopup = false;
 						ImGui::CloseCurrentPopup();
@@ -332,14 +332,14 @@ namespace tnah {
 					ImGui::EndPopup();
 				}
 			}
-			
+
 
 			//Stats window
 			//Add stats to the editor to see whats going on
-			if(statsViewOpen)
+			if (statsViewOpen)
 			{
 				ImGui::Begin("Statistics", &statsViewOpen);
-				if(ImGui::IsWindowFocused()) m_FocusedWindow = FocusedWindow::Statistics;
+				if (ImGui::IsWindowFocused()) m_FocusedWindow = FocusedWindow::Statistics;
 				ImGui::BulletText("Draw Calls: %d", Renderer::GetDrawCallsPerFrame());
 				ImGui::BulletText("Textures Loaded: %d", Renderer::GetTotalLoadedTextures());
 				ImGui::BulletText("Shaders Loaded: %d", Renderer::GetTotalLoadedShaders());
@@ -356,9 +356,9 @@ namespace tnah {
 				// pass that in as a texture to imgui to make it seem its a scene view
 
 				ImGui::Begin("Scene View", &sceneViewOpen);
-				if(ImGui::IsWindowFocused()) m_FocusedWindow = FocusedWindow::SceneView;
+				if (ImGui::IsWindowFocused()) m_FocusedWindow = FocusedWindow::SceneView;
 				uint32_t id = 0;
-				if(m_SceneFramebuffer == nullptr)
+				if (m_SceneFramebuffer == nullptr)
 				{
 					id = Renderer::GetMissingTexture()->GetRendererID();
 				}
@@ -366,16 +366,24 @@ namespace tnah {
 				{
 					id = m_SceneFramebuffer->GetColorAttachmentRendererID();
 				}
-				
+
 				auto size = ImGui::GetContentRegionAvail();
 				ImGui::Image((void*)id, size);
 				ImGui::End();
 			}
 
-			if(hierarchyOpen)
+			if (hierarchyOpen)
 			{
 				ImGui::Begin("Hierarchy", &hierarchyOpen);
-				if(ImGui::IsWindowFocused()) m_FocusedWindow = FocusedWindow::Hierarchy;
+				if (ImGui::IsWindowFocused()) m_FocusedWindow = FocusedWindow::Hierarchy;
+
+				if (ImGui::Button("Create New Object"))
+				{
+					m_ActiveScene->CreateGameObject("New Game Object (" + std::to_string(m_count) + ")");
+					m_count++;
+				}
+
+				ImGui::Separator();
 
 				auto objects = m_ActiveScene->GetGameObjectsInScene();
 				for(auto& go : objects)

@@ -42,6 +42,8 @@ namespace tnah {
 
 		//Test objects
 		GameObject* t_Cube;
+
+		int m_count;
 	};
 
 

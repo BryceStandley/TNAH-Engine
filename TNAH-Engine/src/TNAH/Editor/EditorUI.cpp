@@ -9,6 +9,9 @@ namespace tnah {
 
     void EditorUI::DrawComponentProperties(GameObject* object)
     {
+
+        ImGui::Text(object->GetTag().c_str());
+        ImGui::Separator();
         if(object->HasComponent<TransformComponent>())
         {
         	ImGui::Text("Transform");
@@ -173,6 +176,60 @@ namespace tnah {
     			ImGui::PopStyleColor();
     		}
     	}
+
+        if (ImGui::BeginMenu("Add New Component"))
+        {
+            if (!object->HasComponent<TransformComponent>())
+            {
+                if (ImGui::MenuItem("Transform"))
+                {
+                    object->AddComponent<TransformComponent>();
+                }
+            }
+
+            if (!object->HasComponent<CameraComponent>())
+            {
+                if (ImGui::MenuItem("Camera"))
+                {
+                    object->AddComponent<CameraComponent>();
+                }
+            }            
+            
+            if (!object->HasComponent<EditorCameraComponent>())
+            {
+                if (ImGui::MenuItem("Editor Camera"))
+                {
+                    object->AddComponent<EditorCameraComponent>();
+                }
+            }
+
+            if (!object->HasComponent<TerrainComponent>())
+            {
+                if (ImGui::MenuItem("Terrain"))
+                {
+                    object->AddComponent<TerrainComponent>("assets/heightmaps/1k.tga");
+                }
+            }
+
+            if (!object->HasComponent<MeshComponent>())
+            {
+                if (ImGui::MenuItem("Mesh"))
+                {
+                    object->AddComponent<MeshComponent>("assets/Editor/meshes/cube_texture.fbx");
+                }
+            }
+
+            if (!object->HasComponent<LightComponent>())
+            {
+                if (ImGui::MenuItem("Light"))
+                {
+                    object->HasComponent<LightComponent>();
+                }
+            }
+
+            ImGui::EndMenu();
+        }
+
     	ImGui::Separator();
     }
 
