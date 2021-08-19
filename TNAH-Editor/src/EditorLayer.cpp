@@ -10,7 +10,7 @@
 namespace tnah {
 
 		EditorLayer::EditorLayer()
-			: Layer("Editor Layer"), t_Cube(nullptr), m_FocusedWindow(FocusedWindow::None), m_count(0), text("")
+			: Layer("Editor Layer"), t_Cube(nullptr), m_FocusedWindow(FocusedWindow::None), m_ObjectNames("")
 		{
 			m_ActiveScene = Scene::CreateNewEditorScene();
 		}
