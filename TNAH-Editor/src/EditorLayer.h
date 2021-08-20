@@ -1,5 +1,6 @@
 #pragma once
 
+#include <stdbool.h>
 #include <TNAH-App.h>
 
 namespace tnah {
@@ -37,6 +38,7 @@ namespace tnah {
 		float m_LastMouseYPos = 0.0f;
 		float m_CameraMouseSensitivity = 0.1f;
 		bool m_CameraMovementToggle = true;
+		bool m_CursorDisable = false;
 
 		Ref<Texture2D> m_SelectToolTex, m_MoveToolTex, m_RotateToolTex, m_ScaleToolTex;
 		

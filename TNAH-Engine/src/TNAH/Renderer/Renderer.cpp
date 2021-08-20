@@ -24,7 +24,7 @@ namespace tnah {
 	};
 
 	Renderer::SceneData* Renderer::s_SceneData = new Renderer::SceneData();
-	uint32_t Renderer::s_CurrentTextureSlot = 0;
+	uint32_t Renderer::s_CurrentTextureSlot = 1;
 	static RenderStats* s_RenderStats = new RenderStats();
 	static RendererData* s_Data = nullptr;
 

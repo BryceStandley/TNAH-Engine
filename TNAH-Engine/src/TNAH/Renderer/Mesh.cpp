@@ -48,7 +48,7 @@ namespace tnah {
             Renderer::RegisterShader(s);
         }
 
-        m_Material->SetTextures(textures);
+        
         
         //bind and set the textures inside the shader uniforms
         uint32_t diffuse = 1;
@@ -56,11 +56,15 @@ namespace tnah {
         m_Material->BindShader();
         if(textures.empty())
         {
+            textures.push_back(Renderer::GetMissingTexture());
+            textures.push_back(Renderer::GetBlackTexture());
             m_Material->GetShader()->SetInt("u_Material.texture_diffuse1", Renderer::GetMissingTexture()->m_Slot);
             m_Material->GetShader()->SetInt("u_Material.texture_specular1", Renderer::GetBlackTexture()->m_Slot);
+            m_Material->SetTextures(textures);
         }
         else
         {
+            m_Material->SetTextures(textures);
             bool dif = false;
             bool spec = false;
             for(auto t : textures)

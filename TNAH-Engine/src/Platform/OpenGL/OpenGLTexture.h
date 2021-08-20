@@ -27,4 +27,22 @@ namespace tnah {
 		
 	};
 
+	class OpenGLTexture3D : public Texture3D
+	{
+	public:
+		OpenGLTexture3D(const std::vector<std::string>& paths, const std::string& textureName = "");
+		OpenGLTexture3D(const Texture3DProperties& properties, const std::string& textureName = "");
+		~OpenGLTexture3D() override;
+
+		uint32_t GetWidth() const override { return m_Width;  }
+		uint32_t GetHeight() const override { return m_Height; }
+		uint32_t GetRendererID() const override { return m_RendererID; }
+		
+		void SetData(void* data, uint32_t size) override;
+
+		void Bind(uint32_t slot) const override;
+		void Bind() const override;
+		
+	};
+
 }

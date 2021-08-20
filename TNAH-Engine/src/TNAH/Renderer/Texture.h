@@ -5,6 +5,7 @@
 #include <string>
 
 #include "TNAH/Core/Core.h"
+#include "TNAH/Core/FileStructures.h"
 
 namespace tnah {
 
@@ -54,7 +55,7 @@ namespace tnah {
 	{
 		None = 0,
 		Texture2D,
-		TextureCube
+		Texture3D
 	};
 
 	struct TextureProperties
@@ -77,6 +78,16 @@ namespace tnah {
 		bool Deinterleaved = false;
 
 		std::string DebugName;
+	};
+
+	struct Texture3DProperties
+	{
+		Resource Front;
+		Resource Back;
+		Resource Left;
+		Resource Right;
+		Resource Top;
+		Resource Bottom;
 	};
 
 	
@@ -114,6 +125,24 @@ namespace tnah {
 		static Texture2D* Create(uint32_t width, uint32_t height);
 		static Texture2D* Create(const std::string& path, const std::string& textureName = "", bool loadFromMemory = false, void* assimpTexture = nullptr);
 
+		void ClearData();
+		virtual uint32_t GetRendererID() const { return m_RendererID; }
+		virtual uint32_t GetTextureSlot() const { return m_Slot; }
+		virtual void SetData(void* data, uint32_t size) = 0;
+		virtual void Bind(uint32_t slot) const = 0;
+		virtual void Bind() const = 0;
+
+		uint32_t m_RendererID;
+		uint32_t m_Slot;
+		
+	};
+
+	class Texture3D : public Texture
+	{
+	public:
+		static Texture3D* Create(const std::vector<std::string>& paths, const std::string& textureName = "");
+		static Texture3D* Create(const Texture3DProperties& properties, const std::string& textureName = "Cubemap");
+		
 		virtual uint32_t GetRendererID() const { return m_RendererID; }
 		virtual uint32_t GetTextureSlot() const { return m_Slot; }
 		virtual void SetData(void* data, uint32_t size) = 0;

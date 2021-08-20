@@ -28,7 +28,7 @@ namespace tnah {
 			{
 				// the file is valid, save its path and return true
 				s_ActiveFile->FilePath = file.first;
-				s_ActiveFile->FileName = utility::FindFileNameFromPath(file.first);
+				s_ActiveFile->FileName = Utility::FindFileNameFromPath(file.first);
 				s_ActiveFile->IsValid = true;
 				return true;
 			}
@@ -70,7 +70,7 @@ namespace tnah {
 			}
 			
 			s_ActiveFile->FilePath = file.first;
-			s_ActiveFile->FileName = utility::FindFileNameFromPath(file.first);
+			s_ActiveFile->FileName = Utility::FindFileNameFromPath(file.first);
 			s_ActiveFile->IsValid = true;
 			return true;
 		}

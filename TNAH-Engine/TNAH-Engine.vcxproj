@@ -70,6 +70,7 @@
     <ClInclude Include="src\TNAH-App.h" />
     <ClInclude Include="src\TNAH\Core\AABB.h" />
     <ClInclude Include="src\TNAH\Core\Buffer.h" />
+    <ClInclude Include="src\TNAH\Core\FileStructures.h" />
     <ClInclude Include="src\TNAH\Core\Timer.h" />
     <ClInclude Include="src\TNAH\Core\Timestep.h" />
     <ClInclude Include="src\TNAH\Core\Utility.h" />

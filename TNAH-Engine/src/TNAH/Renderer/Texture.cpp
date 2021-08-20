@@ -72,6 +72,12 @@ namespace tnah {
 		return texture;
 	}
 
+	void Texture2D::ClearData()
+	{
+		stbi_image_free(m_ImageData);
+		m_Loaded = false;
+	}
+
 	Texture2D* Texture2D::Create(uint32_t width, uint32_t height)
 	{
 		Texture2D* t = nullptr;
@@ -105,6 +111,34 @@ namespace tnah {
 			Ref<Texture2D> texture; texture.reset(t);
 			Renderer::RegisterTexture(texture);
 			return t;
+		}
+
+		TNAH_CORE_ASSERT(false, "Unknown RendererAPI!");
+		return nullptr;
+	}
+
+
+
+	Texture3D* Texture3D::Create(const std::vector<std::string>& paths, const std::string& textureName)
+	{
+		Texture3D* t = nullptr;
+		switch (Renderer::GetAPI())
+		{
+		case RendererAPI::API::None:    TNAH_CORE_ASSERT(false, "RendererAPI::None is currently not supported!"); return nullptr;
+		case RendererAPI::API::OpenGL:  t = new OpenGLTexture3D(paths, textureName);
+		}
+
+		TNAH_CORE_ASSERT(false, "Unknown RendererAPI!");
+		return nullptr;
+	}
+
+	Texture3D* Texture3D::Create(const Texture3DProperties& properties, const std::string& textureName)
+	{
+		Texture3D* t = nullptr;
+		switch (Renderer::GetAPI())
+		{
+		case RendererAPI::API::None:    TNAH_CORE_ASSERT(false, "RendererAPI::None is currently not supported!"); return nullptr;
+		case RendererAPI::API::OpenGL:  t = new OpenGLTexture3D(properties, textureName);
 		}
 
 		TNAH_CORE_ASSERT(false, "Unknown RendererAPI!");

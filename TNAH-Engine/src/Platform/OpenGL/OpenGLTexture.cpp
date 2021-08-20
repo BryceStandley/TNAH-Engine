@@ -201,4 +201,106 @@ namespace tnah {
 		glActiveTexture(GL_TEXTURE0 + m_Slot);
 		glBindTexture(GL_TEXTURE_2D, m_RendererID);
 	}
+
+
+
+	// Texture 3D / CubeMaps
+	OpenGLTexture3D::OpenGLTexture3D(const std::vector<std::string>& paths, const std::string& textureName)
+	{
+
+		glGenTextures(1, &m_RendererID);
+		glBindTexture(GL_TEXTURE_CUBE_MAP, m_RendererID);
+
+		int width, height, channels;
+		unsigned char* data;
+		stbi_set_flip_vertically_on_load(false);
+		for(uint32_t i = 0; paths.size(); i++)
+		{
+			data = stbi_load(paths[i].c_str(), &width	, &height, &channels, 0);
+			if(data)
+			{
+				glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+				stbi_image_free(data);
+			}
+			else
+			{
+				TNAH_CORE_ERROR("Failed to load texture for Texture3D with path: {0}", paths[i]);
+				TNAH_CORE_ASSERT(false, "Texture failed to load");
+			}
+			
+			
+		}
+		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+	}
+
+	OpenGLTexture3D::OpenGLTexture3D(const Texture3DProperties& properties, const std::string& textureName)
+	{
+
+		glGenTextures(1, &m_RendererID);
+		glBindTexture(GL_TEXTURE_CUBE_MAP, m_RendererID);
+
+		stbi_set_flip_vertically_on_load(false);
+
+		auto  dataRight = Texture2D::Load(properties.Right.AbsoluteDirectory);
+		auto dataLeft = Texture2D::Load(properties.Left.AbsoluteDirectory);
+		auto dataFront = Texture2D::Load(properties.Front.AbsoluteDirectory);
+		auto dataBack = Texture2D::Load(properties.Back.AbsoluteDirectory);
+		auto dataTop = Texture2D::Load(properties.Top.AbsoluteDirectory);
+		auto dataBottom = Texture2D::Load(properties.Bottom.AbsoluteDirectory);
+		
+		if(dataRight && dataLeft && dataFront && dataBack && dataTop && dataBottom)
+		{
+			glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X, 0, GL_RGB, dataRight->m_Width, dataRight->m_Height, 0, GL_RGB, GL_UNSIGNED_BYTE, dataRight->m_ImageData);
+			glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_X, 0, GL_RGB, dataLeft->m_Width, dataLeft->m_Height, 0, GL_RGB, GL_UNSIGNED_BYTE, dataLeft->m_ImageData);
+			glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_Y, 0, GL_RGB, dataTop->m_Width, dataTop->m_Height, 0, GL_RGB, GL_UNSIGNED_BYTE, dataTop->m_ImageData);
+			glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_Y, 0, GL_RGB, dataBottom->m_Width, dataBottom->m_Height, 0, GL_RGB, GL_UNSIGNED_BYTE, dataBottom->m_ImageData);
+			glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_Z, 0, GL_RGB, dataBack->m_Width, dataBack->m_Height, 0, GL_RGB, GL_UNSIGNED_BYTE, dataBack->m_ImageData);
+			glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_Y, 0, GL_RGB, dataFront->m_Width, dataFront->m_Height, 0, GL_RGB, GL_UNSIGNED_BYTE, dataFront->m_ImageData);
+			
+		}
+		else
+		{
+			TNAH_CORE_ASSERT(false, "One or more textures failed to load");
+		}
+
+		
+		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+
+		dataRight->ClearData();
+		dataLeft->ClearData();
+		dataTop->ClearData();
+		dataBottom->ClearData();
+		dataBack->ClearData();
+		dataFront->ClearData();
+	}
+
+	OpenGLTexture3D::~OpenGLTexture3D()
+	{
+		glDeleteTextures(1, &m_RendererID);
+	}
+
+	void OpenGLTexture3D::SetData(void* data, uint32_t size)
+	{
+		uint32_t bpp = m_DataFormat == GL_RGBA ? 4 : 3;
+		TNAH_CORE_ASSERT(size == m_Width * m_Height * bpp, "Data must be entire texture!");
+		glTextureSubImage2D(m_RendererID, 0, 0, 0, m_Width, m_Height, m_DataFormat, GL_UNSIGNED_BYTE, data);
+	}
+
+	void OpenGLTexture3D::Bind(uint32_t slot) const
+	{
+		glBindTexture(GL_TEXTURE_CUBE_MAP, m_RendererID);
+	}
+
+	void OpenGLTexture3D::Bind() const
+	{
+		glBindTexture(GL_TEXTURE_CUBE_MAP, m_RendererID);
+	}
 }

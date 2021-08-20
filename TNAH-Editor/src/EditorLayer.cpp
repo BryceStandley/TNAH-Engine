@@ -24,13 +24,14 @@ namespace tnah {
 				if(Input::IsKeyPressed(Key::LeftShift) || Input::IsKeyPressed(Key::RightShift))
 				{
 					auto& cam = m_ActiveScene->GetEditorCameraGameObject()->GetComponent<TransformComponent>();
-					if(Input::IsKeyPressed(Key::Down)) cam.Position -= cam.Forward * 5.0f * deltaTime.GetSeconds();
-					if(Input::IsKeyPressed(Key::Up)) cam.Position += cam.Forward * 5.0f * deltaTime.GetSeconds();
-					if(Input::IsKeyPressed(Key::Left)) cam.Position -= cam.Right * 5.0f * deltaTime.GetSeconds();
-					if(Input::IsKeyPressed(Key::Right)) cam.Position += cam.Right * 5.0f * deltaTime.GetSeconds();
+					if(Input::IsKeyPressed(Key::Down) || Input::IsKeyPressed(Key::S)) cam.Position -= cam.Forward * 5.0f * deltaTime.GetSeconds();
+					if(Input::IsKeyPressed(Key::Up) || Input::IsKeyPressed(Key::W)) cam.Position += cam.Forward * 5.0f * deltaTime.GetSeconds();
+					if(Input::IsKeyPressed(Key::Left) || Input::IsKeyPressed(Key::A)) cam.Position -= cam.Right * 5.0f * deltaTime.GetSeconds();
+					if(Input::IsKeyPressed(Key::Right) || Input::IsKeyPressed(Key::D)) cam.Position += cam.Right * 5.0f * deltaTime.GetSeconds();
 
 					if(Input::IsMouseButtonPressed(Mouse::ButtonLeft))
 					{
+						Application::Get().GetWindow().SetCursorDisabled(true);
 						auto mousePos = tnah::Input::GetMousePos();
 						if (m_FirstMouseInput)
 						{
@@ -46,7 +47,7 @@ namespace tnah {
 						offsetX *= m_CameraMouseSensitivity;
 						offsetY *= m_CameraMouseSensitivity;
 						cam.Rotation.x += offsetX;
-						cam.Rotation.y += offsetY;
+						cam.Rotation.y -= offsetY;
 						if (cam.Rotation.y > 89.0f)
 						{
 							cam.Rotation.y = 89.0f;
@@ -55,6 +56,10 @@ namespace tnah {
 						{
 							cam.Rotation.y = -89.0f;
 						}
+					}
+					else
+					{
+						Application::Get().GetWindow().SetCursorDisabled(false);
 					}
 				}
 			}
@@ -639,6 +644,7 @@ namespace tnah {
 			m_RotateToolTex.reset(Texture2D::Create("assets/Editor/icons/RotateTool.png"));
 			m_ScaleToolTex.reset(Texture2D::Create("assets/Editor/icons/ScaleTool.png"));
 
+			
 			m_SelectedGameObject = nullptr;
 		}
 

@@ -289,7 +289,7 @@ namespace tnah {
 	bool EditorUI::DrawMaterialProperties(Ref<Material> material)
     {
     	bool singleFile = false;
-    	if(material->m_Shader->m_FilePaths.second.compare("")) singleFile = true;
+    	if(std::strcmp(material->m_Shader->m_FilePaths.second.c_str(), "") == 0) singleFile = true;
     	ImGui::Text("Material");
     	ImGui::Separator();
     	ImGui::Text("Shader");
