@@ -2,6 +2,8 @@
 #include "Scene.h"
 #include "GameObject.h"
 #include "Components/Components.h"
+#include "TNAH/Core/Application.h"
+#include "TNAH/Core/Input.h"
 #include "TNAH/Renderer/Renderer.h"
 #include "TNAH/Scene/Components/EditorCamera.h"
 namespace tnah{
@@ -23,7 +25,7 @@ namespace tnah{
 			m_EditorCamera.reset(CreateEditorCamera());
 			FramebufferSpecification fbspec = {1280, 720};
 			m_SceneFramebuffer.reset(Framebuffer::Create(fbspec));
-			IsEditorScene = true;
+			m_IsEditorScene = true;
 		}
 
 		auto c = CreateGameObject("Main Camera");
@@ -86,6 +88,42 @@ namespace tnah{
 
 	void Scene::OnUpdate(Timestep deltaTime)
 	{
+		//TODO: Actually test the player controller component
+#if 0 
+		// Process any PlayerControllers before updating anything else in the scene
+		{
+			auto e = EditorComponent();
+			auto& editor = (m_EditorCamera->HasComponent<EditorComponent>()) ? m_EditorCamera->GetComponent<EditorComponent>() : e;
+			
+			auto view = m_Registry.view<PlayerControllerComponent, TransformComponent>();
+			for(auto obj : view)
+			{
+				//Only run this update for a player controller if the editor isnt empty, were in play mode to test the scene
+				// or this scene isnt being ran in a editor ie in the runtime
+				if((!editor.m_IsEmpty && editor.m_EditorMode == EditorComponent::EditorMode::Play) || (!m_IsEditorScene && this->FindGameObjectByID(obj).IsActive()))
+				{
+					auto& transform = view.get<TransformComponent>(obj);
+					auto& player = view.get<PlayerControllerComponent>(obj);
+					// Only continue if the component is active/enabled
+					if(player.IsActive())
+					{
+						if(!player.m_MouseDisabled) Application::Get().GetWindow().SetCursorDisabled(true); player.m_MouseDisabled = true;
+						float s = 0.0f;
+						// if were sprinting, use sprint speed else if were crouched use crouched speed else use the normal movement speed
+						auto speed = (player.IsSprinting()) ? player.SprintSpeed : (s = (player.IsCrouched()) ? player.CrouchSpeed : player.MovementSpeed);
+				
+						if(Input::IsKeyPressed(player.Forward)) transform.Position += transform.Forward * speed * deltaTime.GetSeconds();
+						if(Input::IsKeyPressed(player.Backward)) transform.Position -= transform.Forward * speed * deltaTime.GetSeconds();
+						if(Input::IsKeyPressed(player.Left)) transform.Position -= transform.Right * speed * deltaTime.GetSeconds();
+						if(Input::IsKeyPressed(player.Right)) transform.Position += transform.Right * speed * deltaTime.GetSeconds();
+						player.ProcessMouseRotation(transform);
+					}
+				}
+			}
+			
+		}
+#endif
+		
 		//Update all transform components and their forward, right and up vectors
 		{
 			auto view = m_Registry.view<TransformComponent>();
@@ -109,11 +147,10 @@ namespace tnah{
 			}
 		}
 
-		if(IsEditorScene) m_SceneFramebuffer->Bind();
-		//after the transform is updated, update the camera matrix etc
+		if(m_IsEditorScene) m_SceneFramebuffer->Bind();
+		//after the transform is updated, update the camera matrix etc 
 		{
-
-			if(IsEditorScene)
+			if(m_IsEditorScene)
 			{
 				auto& camera = m_EditorCamera->GetComponent<EditorCameraComponent>().EditorCamera;
 				auto& transform = m_EditorCamera->GetComponent<TransformComponent>();
@@ -134,16 +171,28 @@ namespace tnah{
 		//Renderer Stuff
 		{
 			glm::vec3 cameraPosition;
+			bool usingSkybox = false;
 			
-			RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1.0f });
-			RenderCommand::Clear();
+			
 			{
 				//Check if its were in the editor, if so render from the perspective of the editor camera
-				if(IsEditorScene)
+				if(m_IsEditorScene)
 				{
 					auto& camera = m_EditorCamera->GetComponent<EditorCameraComponent>();
 					auto transform = m_EditorCamera->GetComponent<TransformComponent>();
 					cameraPosition = transform.Position;
+					if(camera.ClearMode == CameraClearMode::Color)
+					{
+						RenderCommand::SetClearColor(camera.ClearColor);
+						RenderCommand::Clear();
+						usingSkybox = true;
+					}
+					else if(camera.ClearMode == CameraClearMode::Skybox)
+					{
+						RenderCommand::SetClearColor({0.0f, 0.0f, 0.0f, 0.0f});
+						RenderCommand::Clear();
+					}
+					
 					Renderer::BeginScene(camera);
 					
 				}
@@ -155,13 +204,37 @@ namespace tnah{
 						auto& camera = view.get<CameraComponent>(entity);
 						auto& transform = view.get<TransformComponent>(entity);
 						cameraPosition = transform.Position;
+						if(camera.ClearMode == CameraClearMode::Color)
+						{
+							RenderCommand::SetClearColor(camera.ClearColor);
+							RenderCommand::Clear();
+							usingSkybox = true;
+						}
+						else if(camera.ClearMode == CameraClearMode::Skybox)
+						{
+							RenderCommand::SetClearColor({0.0f, 0.0f, 0.0f, 0.0f});
+							RenderCommand::Clear();
+						}
+						
 						Renderer::BeginScene(camera);
 						break;
 						TNAH_CORE_ASSERT(false, "The TNAH-Engine only supports rendering from a single camera!")
 					}
 				}
-				
-				
+			}
+
+
+			// Skybox
+			if(usingSkybox)
+			{
+				auto view = m_Registry.view<SkyboxComponent>();
+				for(auto obj : view)
+				{
+					auto& skybox = view.get<SkyboxComponent>(obj);
+					// Bind the skybox shader
+					// Do any skybox render setup
+					//Renderer::SubmitSkybox(skybox.GetVertexArray(), skybox.GetMaterial());
+				}
 			}
 
 			std::vector<Ref<Light>> sceneLights;
@@ -212,7 +285,7 @@ namespace tnah{
 
 			
 			Renderer::EndScene();
-			if(IsEditorScene) m_SceneFramebuffer->Unbind();
+			if(m_IsEditorScene) m_SceneFramebuffer->Unbind();
 		}
 	}
 

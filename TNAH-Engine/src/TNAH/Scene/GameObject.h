@@ -210,12 +210,16 @@ namespace tnah {
 
 		void SetTag(const std::string& tag);
 		std::string GetTag();
-	private:
-		GameObject(const std::string& name);
+
+		void SetActive(const bool& active) { m_Active = active; }
+		bool IsActive() const { return m_Active; }
+		
 	private:
 		entt::entity m_EntityID{ entt::null };
 		Scene* m_Scene = nullptr;
 
+		bool m_Active = true;
+		
 		friend class Scene;
 		friend class SceneSerializer;
 		friend class ScriptEngine;

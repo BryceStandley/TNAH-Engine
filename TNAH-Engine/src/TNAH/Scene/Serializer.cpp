@@ -43,7 +43,7 @@ namespace tnah {
         std::stringstream ss;
 
         ss << GenerateTagOpen("global");
-        if(scene->IsEditorScene)
+        if(scene->m_IsEditorScene)
         {
             auto editorCam = scene->GetEditorCameraGameObject();
             ss << GenerateTagOpen("editorView");

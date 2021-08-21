@@ -87,7 +87,7 @@ namespace tnah {
 
 		Ref<GameObject> m_EditorCamera;
 		Ref<Framebuffer> m_SceneFramebuffer;
-		bool IsEditorScene = false;
+		bool m_IsEditorScene = false;
 		friend class EditorLayer;
 		friend class Editor;
 		friend class Serializer;

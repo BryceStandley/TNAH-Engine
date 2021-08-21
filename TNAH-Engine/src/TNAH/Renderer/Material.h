@@ -22,6 +22,7 @@ namespace tnah
 	class Material
 	{
 	public:
+		//TODO: ADD Skybox support to materials 
 		static Material* Create(const Ref<Shader>& shader);
 		static Material* Create(const Ref<Shader>& shader, const MaterialProperties& properties);
 		static Material* Create(const std::string& vertexShaderPath, const std::string& fragmentShaderPath);

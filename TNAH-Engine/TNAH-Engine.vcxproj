@@ -86,7 +86,6 @@
     <ClInclude Include="src\TNAH\Renderer\Mesh.h" />
     <ClInclude Include="src\TNAH\Renderer\stb_image.h" />
     <ClInclude Include="src\TNAH\Renderer\Texture.h" />
-    <ClInclude Include="src\TNAH\Scene\Components\EditorCamera.h" />
     <ClInclude Include="src\TNAH\Scene\Light\DirectionalLight.h" />
     <ClInclude Include="src\TNAH\Scene\Light\PointLight.h" />
     <ClInclude Include="src\TNAH\Scene\Light\SpotLight.h" />

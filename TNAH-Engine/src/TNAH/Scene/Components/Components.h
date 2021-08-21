@@ -1,6 +1,7 @@
 #pragma once
 
 #include <TNAH/Core/Core.h>
+#include "TNAH/Core/KeyCodes.h"
 #include "TNAH/Core/UUID.h"
 #include "TNAH/Scene/SceneCamera.h"
 #include "TerrainComponent.h"
@@ -15,6 +16,8 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtx/quaternion.hpp>
+
+#include "TNAH/Core/Input.h"
 
 
 /**********************************************************************************************//**
@@ -66,7 +69,7 @@ namespace tnah {
 	 * @struct	Transform
 	 *
 	 * @brief	Transform component, placed on every object to give it a real transform in the scene
-	 * 			i.e. Position, Rotation (Quaternion), Scale and as well as a raw transform 
+	 * 			i.e. Position, Rotation and Scale. Including a raw 4x4 matrix transform (mat4)
 	 * 			matrix for rendering
 	 *
 	 * @author	Bryce Standley
@@ -96,6 +99,8 @@ namespace tnah {
 		}
 	};
 
+
+	enum class CameraClearMode { Skybox, Color, None};
 	/**********************************************************************************************//**
 	 * @struct	CameraComponent
 	 *
@@ -108,6 +113,8 @@ namespace tnah {
 	struct CameraComponent
 	{
 		SceneCamera Camera;
+		CameraClearMode ClearMode = CameraClearMode::Color;
+		glm::vec4 ClearColor = { 0.1f, 0.1f, 0.1f, 1.0f };
 		bool Primary = true;
 
 		CameraComponent() = default;
@@ -116,6 +123,8 @@ namespace tnah {
 		operator SceneCamera& () { return Camera; }
 		operator const SceneCamera& () const { return Camera; }
 	};
+
+	
 
 
 	/**********************************************************************************************//**
@@ -138,6 +147,154 @@ namespace tnah {
 			: Model(model) {}
 
 		operator Ref<tnah::Model>() { return Model; }
+	};
+
+	enum class MovementType
+	{
+		Direct, Physics
+	};
+
+	class PlayerControllerComponent
+	{
+	public:
+		
+		KeyCode Forward = Key::W;
+		KeyCode Backward = Key::S;
+		KeyCode Left = Key::A;
+		KeyCode Right = Key::D;
+
+		std::pair<KeyCode, KeyCode> Sprint = {Key::LeftShift, Key::RightShift};
+		KeyCode Jump = Key::Space;
+		KeyCode Crouch = Key::C;
+		MovementType MovementStyle = MovementType::Direct;
+
+		float PlayerHeight = 3.5f;
+		float MovementSpeed = 5.0f;
+		float RotationSensitivity = 0.1f;
+		float SprintSpeed = 10.0f;
+		float CrouchSpeed = 2.5f;
+		float CrouchHeightMultiplier = 0.5f;
+
+		PlayerControllerComponent() = default;
+
+		bool IsSprinting() const { return Input::IsKeyPressed(Sprint.first) || Input::IsKeyPressed(Sprint.second); }
+		bool IsCrouched() const { return Input::IsKeyPressed(Crouch); }
+		bool IsJumping() const { return Input::IsKeyPressed(Jump); }
+		bool IsMoving() const { return Input::IsKeyPressed(Forward) || Input::IsKeyPressed(Backward) ||
+			Input::IsKeyPressed(Left) || Input::IsKeyPressed(Right); }
+		
+		void SetActive(const bool& active) { m_Active = active; }
+		bool IsActive() const{ return m_Active; }
+	
+	private:
+
+		void ProcessMouseRotation(TransformComponent& transform)
+		{
+			const auto [fst, snd] = Input::GetMousePos();
+            if (m_FirstMouseInput)
+            {
+            	m_LastMouseXPos = fst;
+            	m_LastMouseYPos = snd;
+            	m_FirstMouseInput = false;
+            }
+            float offsetX = fst - m_LastMouseXPos;
+            float offsetY = m_LastMouseYPos - snd;
+            m_LastMouseXPos = fst;
+            m_LastMouseYPos = snd;
+            offsetX *= RotationSensitivity;
+            offsetY *= RotationSensitivity;
+            transform.Rotation.x += offsetX;
+            transform.Rotation.y -= offsetY;
+            if (transform.Rotation.y > 89.0f)
+            {
+            	transform.Rotation.y = 89.0f;
+            }
+            if (transform.Rotation.y < -89.0f)
+            {
+            	transform.Rotation.y = -89.0f;
+            }
+		}
+
+		bool m_Active = true;
+		bool m_FirstMouseInput = true;
+		float m_LastMouseXPos = 0.0f;
+		float m_LastMouseYPos = 0.0f;
+		bool m_MouseDisabled = false;
+		friend class Scene;
+		
+	};
+
+	struct EditorCameraComponent
+	{
+		SceneCamera EditorCamera;
+		CameraClearMode ClearMode = CameraClearMode::Color;
+		glm::vec4 ClearColor = { 0.1f, 0.1f, 0.1f, 1.0f };
+
+		EditorCameraComponent() = default;
+		EditorCameraComponent(const EditorCameraComponent& other) = default;
+
+		operator SceneCamera& () { return EditorCamera; }
+		operator const SceneCamera& () const { return EditorCamera; }
+	};
+	
+	/**
+	 *	@class EditorComponent
+	 *
+	 *	@brief A component that's placed on a editor camera to control and maintain editor related controls and values.
+	 *
+	 *	@author Bryce Standley
+	 *	@date 21/08/2021
+	 */
+	class EditorComponent
+	{
+		// TODO: Set up the editor component properly 
+	private:
+		enum class EditorMode
+		{
+			Edit, Play, Pause
+		};
+
+		EditorMode m_EditorMode = EditorMode::Edit;
+		bool m_IsEmpty = true;
+		EditorComponent() = default;
+		
+		friend class Scene;
+		friend class EditorLayer;
+		friend class EditorUI;
+		friend class Editor;
+	};
+
+	class SkyboxComponent
+	{
+	public:
+//TODO:  Build the constructor to set the skybox cubemap, and cube vao/vbo/ibo/bufferlayout and material
+		//TODO: Add GetVertexArray() and GetMaterial()
+		SkyboxComponent(const Ref<Texture3D> skybox)
+			:m_Skybox(skybox)
+		{
+			
+		}
+
+		SkyboxComponent(const Texture3DProperties& skymapProperties)
+		{
+			m_Skybox.reset(Texture3D::Create(skymapProperties));
+		}
+
+		
+		void SetSkybox(Ref<Texture3D> skybox) { m_Skybox = skybox; }
+		Ref<Texture3D> GetSkybox() { return m_Skybox; }
+
+	operator Ref<Texture3D>() { return m_Skybox; }
+	operator Ref<Texture3D>() const { return m_Skybox; }
+	private:
+		Ref<Texture3D> m_Skybox;
+		Ref<VertexArray> m_VAO;
+		Ref<VertexBuffer> m_VBO;
+		Ref<IndexBuffer> m_IBO;
+		BufferLayout m_BufferLayout;
+		Ref<Material> m_Material;
+
+		friend class Scene;
 	};
 
 	/**********************************************************************************************//**
