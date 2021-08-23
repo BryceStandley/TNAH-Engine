@@ -11,18 +11,23 @@ namespace tnah {
 		OpenGLVertexArray();
 		virtual ~OpenGLVertexArray();
 
-		virtual void Bind() const override;
-		virtual void Unbind() const override;
+		void Bind() const override;
+		void Unbind() const override;
 
-		virtual void AddVertexBuffer(const std::shared_ptr<VertexBuffer>& vertexBuffer) override;
-		virtual void SetIndexBuffer(const std::shared_ptr<IndexBuffer>& indexBuffer) override;
-
+		void SetID(const uint32_t& id) override { m_RendererID = id; }
+		
+		void AddVertexBuffer(const std::shared_ptr<VertexBuffer>& vertexBuffer) override;
+		void SetIndexBuffer(const std::shared_ptr<IndexBuffer>& indexBuffer) override;
+		void SetIndexSize(const uint32_t& size) override { m_IndexSize = size; }
+		
 		virtual const std::vector<Ref<VertexBuffer>>& GetVertexBuffers() const { return m_VertexBuffers; }
 		virtual const Ref<IndexBuffer>& GetIndexBuffer() const { return m_IndexBuffer; }
+		uint32_t GetIndexSize() const override { return m_IndexSize; }
 	private:
 		uint32_t m_RendererID;
 		std::vector<Ref<VertexBuffer>> m_VertexBuffers;
 		Ref<IndexBuffer> m_IndexBuffer;
+		uint32_t m_IndexSize = 0;
 	};
 
 

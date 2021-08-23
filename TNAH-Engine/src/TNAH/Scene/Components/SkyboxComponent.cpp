@@ -33,8 +33,7 @@ namespace tnah {
 		m_VBO->SetLayout(m_BufferLayout);
 		m_VAO->AddVertexBuffer(m_VBO);
 
-		m_IBO.reset(IndexBuffer::Create(36));
-		m_VAO->SetIndexBuffer(m_IBO);
+		m_VAO->SetIndexSize(36);
 		
 	}
 
@@ -46,12 +45,17 @@ namespace tnah {
 		m_Material.reset(SkyboxMaterial::Create(shader, skyboxTextureProperties));
 		m_SkyboxTexture = m_Material->GetCubemapTextures();
 
+		m_Material->BindShader();
+		m_Material->GetShader()->SetInt("u_SkyboxTexture", 0);
+		m_Material->UnBindShader();
+
 		m_BufferLayout = { {ShaderDataType::Float3, "a_Position"} };
 
 		m_VAO.reset(VertexArray::Create());
 		m_VBO.reset(VertexBuffer::Create(GetVBOData(), GetVBODataSize()));
 		m_VBO->SetLayout(m_BufferLayout);
 		m_VAO->AddVertexBuffer(m_VBO);
+		m_VAO->SetIndexSize(36);
 	}
 
 	void Skybox::Create()
@@ -78,7 +82,7 @@ namespace tnah {
 
 		m_VBOData.insert(m_VBOData.begin(), std::begin(skyBoxVertices), std::end(skyBoxVertices));
 
-		m_VBOSize = (uint32_t)(sizeof(float) * m_VBOData.size());
+		m_VBOSize = 3 * 36 * sizeof(float);
 	}
 
 

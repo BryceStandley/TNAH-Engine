@@ -56,7 +56,20 @@ namespace tnah {
 			s_RendererAPI->SetDepthMask(enabled);
 		}
 
+		inline static void SetDepthFunc(const RendererAPI::DepthFunc& func)
+		{
+			s_RendererAPI->SetDepthFunc(func);
+		}
 
+		inline static void Disable(const RendererAPI::APIEnum& value)
+		{
+			s_RendererAPI->Disable(value);
+		}
+
+		inline static void Enable(const RendererAPI::APIEnum& value)
+		{
+			s_RendererAPI->Enable(value);
+		}
 
 	private:
 		static RendererAPI* s_RendererAPI;

@@ -19,6 +19,19 @@ namespace tnah {
 		{
 			None = 0, OpenGL = 1
 		};
+
+		enum class DepthFunc
+		{
+			Never, Less, Equal, Lequal, Greater, NotEqual, Gequal, Always
+		};
+
+		enum class APIEnum
+		{
+			CullFace, DepthTest, DepthMask,
+			FrontFace_CW, FrontFace_CCW,
+			CubeMap
+		};
+	
 	public:
 		virtual ~RendererAPI() = default;
 
@@ -26,6 +39,8 @@ namespace tnah {
 		virtual void SetViewport(uint32_t x, uint32_t y, uint32_t width, uint32_t height) = 0;
 		virtual void SetClearColor(const glm::vec4& color) = 0;
 		virtual void Clear() = 0;
+		virtual void Disable(const APIEnum& value) = 0;
+		virtual void Enable(const APIEnum& value) = 0;
 
 		virtual void DrawArray(const Ref<VertexArray>& vertexArray) = 0;
 		virtual void DrawIndexed(const Ref<VertexArray>& vertexArray) = 0;
@@ -33,6 +48,7 @@ namespace tnah {
 		virtual bool CheckFullScreen(const int& width, const int& height) = 0;
 		virtual void SetCullMode(const CullMode& mode) = 0;
 		virtual void SetDepthMask(const bool& enabled) = 0;
+		virtual void SetDepthFunc(const DepthFunc& enabled) = 0;
 		
 		
 		static API GetAPI() { return s_API; }

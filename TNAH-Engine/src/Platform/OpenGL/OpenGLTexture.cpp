@@ -207,7 +207,7 @@ namespace tnah {
 	// Texture 3D / CubeMaps
 	OpenGLTexture3D::OpenGLTexture3D(const std::vector<std::string>& paths, const std::string& textureName)
 	{
-
+		glActiveTexture(GL_TEXTURE0);
 		glGenTextures(1, &m_RendererID);
 		glBindTexture(GL_TEXTURE_CUBE_MAP, m_RendererID);
 
@@ -240,6 +240,8 @@ namespace tnah {
 	OpenGLTexture3D::OpenGLTexture3D(const Texture3DProperties& properties, const std::string& textureName)
 	{
 		m_Name = textureName;
+		m_Path = properties.Front.RelativeDirectory;
+		glActiveTexture(GL_TEXTURE0);
 		glGenTextures(1, &m_RendererID);
 		glBindTexture(GL_TEXTURE_CUBE_MAP, m_RendererID);
 
@@ -260,7 +262,13 @@ namespace tnah {
 			glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_Y, 0, GL_RGB, dataBottom->m_Width, dataBottom->m_Height, 0, GL_RGB, GL_UNSIGNED_BYTE, dataBottom->m_ImageData);
 			glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_Z, 0, GL_RGB, dataBack->m_Width, dataBack->m_Height, 0, GL_RGB, GL_UNSIGNED_BYTE, dataBack->m_ImageData);
 			glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_Z, 0, GL_RGB, dataFront->m_Width, dataFront->m_Height, 0, GL_RGB, GL_UNSIGNED_BYTE, dataFront->m_ImageData);
-			
+
+			dataRight->ClearData();
+			dataLeft->ClearData();
+			dataTop->ClearData();
+			dataBottom->ClearData();
+			dataBack->ClearData();
+			dataFront->ClearData();
 		}
 		else
 		{
@@ -274,12 +282,7 @@ namespace tnah {
 		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
 
-		dataRight->ClearData();
-		dataLeft->ClearData();
-		dataTop->ClearData();
-		dataBottom->ClearData();
-		dataBack->ClearData();
-		dataFront->ClearData();
+		
 		m_Loaded = true;
 		m_Slot = Renderer::GetAndIncrementTextureSlot();
 	}
@@ -298,11 +301,13 @@ namespace tnah {
 
 	void OpenGLTexture3D::Bind(uint32_t slot) const
 	{
+		glActiveTexture(GL_TEXTURE0 + slot);
 		glBindTexture(GL_TEXTURE_CUBE_MAP, m_RendererID);
 	}
 
 	void OpenGLTexture3D::Bind() const
 	{
+		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_CUBE_MAP, m_RendererID);
 	}
 }

@@ -68,6 +68,8 @@ namespace tnah {
 
 		struct SceneData
 		{
+			glm::mat4 View;
+			glm::mat4 Projection;
 			glm::mat4 ViewProjection;
 		};
 

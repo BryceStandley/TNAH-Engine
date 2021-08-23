@@ -13,6 +13,9 @@ namespace tnah {
 		void SetClearColor(const glm::vec4& color) override;
 		void Clear() override;
 
+		void Disable(const APIEnum& value) override;
+		void Enable(const APIEnum& value) override;
+		
 		void DrawIndexed(const Ref<VertexArray>& vertexArray) override;
 		void DrawArray(const Ref<VertexArray>& vertexArray) override;
 
@@ -20,6 +23,7 @@ namespace tnah {
 		bool CheckFullScreen(const int& width, const int& height) override;
 		void SetCullMode(const CullMode& mode) override;
 		void SetDepthMask(const bool& enabled) override;
+		void SetDepthFunc(const DepthFunc& func) override;
 	};
 
 }

@@ -57,7 +57,8 @@ namespace tnah {
 	{
 		m_ProjectionMatrix = glm::scale(glm::perspective(m_PerspectiveFOV, (float)m_ViewportWidth / (float)m_ViewportHeight, m_PerspectiveNear, m_PerspectiveFar), glm::vec3(-1, 1, -1));
 		glm::vec3 r = transform.Right;
-		m_ViewMatrix = glm::inverse(transform.GetTransform());
+		//m_ViewMatrix = glm::inverse(transform.GetTransform());
+		m_ViewMatrix = glm::lookAt(transform.Position, transform.Position + transform.Forward, transform.Up);
 		m_ViewProjection = m_ProjectionMatrix * m_ViewMatrix;
 	}
 

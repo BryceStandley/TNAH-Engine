@@ -14,6 +14,7 @@ MainLayer::MainLayer()
 	cc.Camera.SetViewportSize(1280, 720);
 	ct.Position = glm::vec3(500, 60, 500);
 	cc.ClearMode = tnah::CameraClearMode::Skybox;
+	
 	m_SceneLight = m_ActiveScene->GetSceneLightGameObject();
 
 	m_Terrain = m_ActiveScene->CreateGameObject("Terrain");
@@ -29,7 +30,7 @@ MainLayer::MainLayer()
 	auto& light = m_PointLight->GetComponent<tnah::LightComponent>();
 	light.Light.reset(tnah::Light::CreatePoint());
 
-	for (int i = 0; i < 50; i++)
+	for (int i = 0; i < 0; i++)
 	{
 		//Test Cube
 		std::string name = "Cube" + std::to_string(i);
@@ -43,6 +44,7 @@ MainLayer::MainLayer()
 		meshT.Position = p;
 		m_MeshObjects.push_back(go);
 	}
+
 }
 
 void MainLayer::OnUpdate(tnah::Timestep deltaTime)
@@ -120,6 +122,7 @@ void MainLayer::OnUpdate(tnah::Timestep deltaTime)
 		mesh.Rotation.y += 1.0f * deltaTime;
 		mesh.Rotation.z += 1.0f * deltaTime;
 	}
+
 
 	//Rendering is managed by the scene!
 	m_ActiveScene->OnUpdate(deltaTime);

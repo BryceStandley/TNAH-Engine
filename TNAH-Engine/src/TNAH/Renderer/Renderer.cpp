@@ -3,6 +3,8 @@
 
 #include "Texture.h"
 #include "Platform/OpenGL/OpenGLShader.h"
+#include "TNAH/Core/Math.h"
+
 namespace tnah {
 
 	struct RendererData
@@ -89,6 +91,8 @@ namespace tnah {
 
 	void Renderer::BeginScene(SceneCamera& camera)
 	{
+		s_SceneData->View = camera.GetViewMatrix();
+		s_SceneData->Projection = camera.GetProjectionMatrix();
 		s_SceneData->ViewProjection = camera.GetViewProjectionMatrix();
 		ResetDrawCallsPerFrame();
 	}
@@ -177,7 +181,7 @@ namespace tnah {
 		material->BindTextures();
 		
 		vertexArray->Bind();
-		RenderCommand::DrawIndexed(vertexArray);
+		//RenderCommand::DrawIndexed(vertexArray);
 		IncrementDrawCallsPerFrame();
 	}
 
@@ -201,16 +205,27 @@ namespace tnah {
 
 	void Renderer::SubmitSkybox(const Ref<VertexArray>& vertexArray, const Ref<SkyboxMaterial>& material)
 	{
-		RenderCommand::SetDepthMask(false);
+		//RenderCommand::SetDepthFunc(RendererAPI::DepthFunc::Lequal);
+		SetCullMode(CullMode::Back);
 		material->BindShader();
-		material->GetShader()->SetMat4("u_ViewProjection", s_SceneData->ViewProjection);
+
+		glm::mat4 view = glm::mat4(glm::mat3(s_SceneData->View));
+
+		auto t = glm::translate(glm::mat4(1.0f), {0,0,0})
+						* glm::toMat4(glm::quat({0,0,0}))
+						* glm::scale(glm::mat4(1.0f), {400,400,400});
+		
+		material->GetShader()->SetMat4("u_Projection", s_SceneData->Projection);
+		material->GetShader()->SetMat4("u_View", s_SceneData->View);
+		material->GetShader()->SetMat4("u_Transform", t);
+		//material->GetShader()->SetMat4("u_ViewProjection", s_SceneData->ViewProjection);
 		
 		material->BindTextures();
 		
 		vertexArray->Bind();
-		RenderCommand::DrawArray(vertexArray);
-		RenderCommand::SetDepthMask(true);
 		
+		RenderCommand::DrawArray(vertexArray);
+		//RenderCommand::SetDepthFunc(RendererAPI::DepthFunc::Less);
 		IncrementDrawCallsPerFrame();
 	}
 

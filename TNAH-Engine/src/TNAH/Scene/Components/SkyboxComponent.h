@@ -26,7 +26,6 @@ namespace tnah {
 		Ref<VertexArray> m_VAO;
 		Ref<VertexBuffer> m_VBO;
 		BufferLayout m_BufferLayout;
-		Ref<IndexBuffer> m_IBO;
 		
 		Ref<SkyboxMaterial> m_Material;
 		Ref<Texture3D> m_SkyboxTexture;
@@ -50,9 +49,9 @@ namespace tnah {
 		
 		SkyboxComponent(const SkyboxComponent& other) = default;
 
-		//SkyboxComponent(const Texture3DProperties& cubemapProperties)
-		//{
-		//	SceneSkybox = new Skybox(cubemapProperties);
-		//}
+		SkyboxComponent(const Texture3DProperties& cubemapProperties)
+		{
+			SceneSkybox = new Skybox(cubemapProperties);
+		}
 	};
 }

@@ -200,7 +200,7 @@ namespace tnah{
 						}
 						else if(camera.ClearMode == CameraClearMode::Skybox)
 						{
-							RenderCommand::SetClearColor({0.0f, 0.0f, 0.0f, 0.0f});
+							RenderCommand::SetClearColor({0.0f, 0.0f, 0.0f, 1.0f});
 							RenderCommand::Clear();
 							usingSkybox = true;
 						}
@@ -236,18 +236,7 @@ namespace tnah{
 				}
 
 
-				// Skybox
-				if(usingSkybox)
-				{
-					auto view = m_Registry.view<SkyboxComponent>();
-					for(auto obj : view)
-					{
-						auto& skybox = view.get<SkyboxComponent>(obj);
-						// Bind the skybox shader
-						// Do any skybox render setup
-						Renderer::SubmitSkybox(skybox.SceneSkybox->GetVertexArray(), skybox.SceneSkybox->GetMaterial());
-					}
-				}
+				
 
 				std::vector<Ref<Light>> sceneLights;
 				{
@@ -292,7 +281,18 @@ namespace tnah{
 				}
 
 
-
+				// Skybox
+				if(usingSkybox)
+				{
+					auto view = m_Registry.view<SkyboxComponent>();
+					for(auto obj : view)
+					{
+						auto& skybox = view.get<SkyboxComponent>(obj);
+						// Bind the skybox shader
+						// Do any skybox render setup
+						Renderer::SubmitSkybox(skybox.SceneSkybox->GetVertexArray(), skybox.SceneSkybox->GetMaterial());
+					}
+				}
 
 
 			

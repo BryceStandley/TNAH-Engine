@@ -33,6 +33,34 @@ namespace tnah {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
 
+	void OpenGLRendererAPI::Disable(const APIEnum& value)
+	{
+		switch (value)
+		{
+		case APIEnum::CullFace: glDisable(GL_CULL_FACE); break;
+		case APIEnum::DepthTest: glDisable(GL_DEPTH_TEST); break;
+		case APIEnum::DepthMask: glDepthMask(GL_FALSE); break;
+		case APIEnum::FrontFace_CW: glFrontFace(GL_CCW); break;
+		case APIEnum::FrontFace_CCW: glFrontFace(GL_CW); break;
+		case APIEnum::CubeMap: glDisable(GL_TEXTURE_CUBE_MAP);  break;
+		default: break;
+		}
+	}
+
+	void OpenGLRendererAPI::Enable(const APIEnum& value)
+	{
+		switch (value)
+		{
+		case APIEnum::CullFace: glEnable(GL_CULL_FACE); break;
+		case APIEnum::DepthTest: glEnable(GL_DEPTH_TEST); break;
+		case APIEnum::DepthMask: glDepthMask(GL_TRUE); break;
+		case APIEnum::FrontFace_CW: glFrontFace(GL_CW); break;
+		case APIEnum::FrontFace_CCW: glFrontFace(GL_CCW); break;
+		case APIEnum::CubeMap: glEnable(GL_TEXTURE_CUBE_MAP); break;
+		default: break;
+		}
+	}
+
 	void OpenGLRendererAPI::DrawIndexed(const Ref<VertexArray>& vertexArray)
 	{
 		glDrawElements(GL_TRIANGLES, vertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
@@ -40,7 +68,23 @@ namespace tnah {
 
 	void OpenGLRendererAPI::DrawArray(const Ref<VertexArray>& vertexArray)
 	{
-		glDrawArrays(GL_TRIANGLES, 0, vertexArray->GetIndexBuffer()->GetCount());
+		glDrawArrays(GL_TRIANGLES, 0, vertexArray->GetIndexSize());
+	}
+
+	void OpenGLRendererAPI::SetDepthFunc(const DepthFunc& func)
+	{
+		switch (func)
+		{
+		case DepthFunc::Never: glDepthFunc(GL_NEVER); break;
+		case DepthFunc::Less: glDepthFunc(GL_LESS); break;
+		case DepthFunc::Equal: glDepthFunc(GL_EQUAL); break;
+		case DepthFunc::Lequal: glDepthFunc(GL_LEQUAL); break;
+		case DepthFunc::Greater: glDepthFunc(GL_GREATER); break;
+		case DepthFunc::NotEqual: glDepthFunc(GL_NOTEQUAL); break;
+		case DepthFunc::Gequal: glDepthFunc(GL_GEQUAL); break;
+		case DepthFunc::Always: glDepthFunc(GL_ALWAYS); break;
+		default:  glDepthFunc(GL_LESS); break;
+		}
 	}
 
 	void OpenGLRendererAPI::SetWireframe(const bool& enable)
