@@ -168,7 +168,10 @@ namespace tnah {
     SkyboxMaterial::~SkyboxMaterial() {}
 
     SkyboxMaterial::SkyboxMaterial(const Ref<Shader>& shader, const Texture3DProperties& cubemapProperties)
-        :Material(shader), m_CubemapProperties(cubemapProperties) {}
+        :Material(shader), m_CubemapProperties(cubemapProperties)
+    {
+        m_Cubemap.reset(Texture3D::Create(m_CubemapProperties));
+    }
     
     SkyboxMaterial::SkyboxMaterial(const Ref<Shader>& shader)
         :Material(shader, MaterialProperties())

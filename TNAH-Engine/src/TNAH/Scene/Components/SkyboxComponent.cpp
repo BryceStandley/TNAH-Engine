@@ -7,17 +7,24 @@ namespace tnah {
 	{
 		Create();
 
-		const std::string front = "Resources/textures/skybox/front.jpg";
-		const std::string back = "Resources/textures/skybox/back.jpg";
-		const std::string top = "Resources/textures/skybox/top.jpg";
-		const std::string bottom = "Resources/textures/skybox/bottom.jpg";
-		const std::string left = "Resources/textures/skybox/left.jpg";
-		const std::string right = "Resources/textures/skybox/right.jpg";
-		Texture3DProperties properties ={ front, back, left, right, top, bottom};
+		Texture3DProperties properties = {
+		{"Resources/textures/skybox/front.jpg"},
+		{"Resources/textures/skybox/back.jpg"},
+		 {"Resources/textures/skybox/top.jpg"},
+		{"Resources/textures/skybox/bottom.jpg"},
+		{"Resources/textures/skybox/left.jpg"},
+		{"Resources/textures/skybox/right.jpg"}
+		};
+		
 		Ref<Shader> shader;
 		shader.reset(Shader::Create("Resources/shaders/default/skybox/skybox_vertex.glsl", "Resources/shaders/default/skybox/skybox_fragment.glsl"));
 		m_Material.reset(SkyboxMaterial::Create(shader, properties));
 		m_SkyboxTexture = m_Material->GetCubemapTextures();
+
+		m_Material->BindShader();
+		m_Material->GetShader()->SetInt("u_SkyboxTexture", m_SkyboxTexture->m_Slot);
+		m_Material->UnBindShader();
+		
 		
 		m_BufferLayout = { {ShaderDataType::Float3, "a_Position"} };
 
@@ -25,6 +32,10 @@ namespace tnah {
 		m_VBO.reset(VertexBuffer::Create(GetVBOData(), GetVBODataSize()));
 		m_VBO->SetLayout(m_BufferLayout);
 		m_VAO->AddVertexBuffer(m_VBO);
+
+		m_IBO.reset(IndexBuffer::Create(36));
+		m_VAO->SetIndexBuffer(m_IBO);
+		
 	}
 
 	Skybox::Skybox(const Texture3DProperties& skyboxTextureProperties)

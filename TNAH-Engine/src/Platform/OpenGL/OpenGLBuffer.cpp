@@ -48,6 +48,11 @@ namespace tnah {
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_RendererID);
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, count * sizeof(uint32_t), indices, GL_STATIC_DRAW);
 	}
+	
+	OpenGLIndexBuffer::OpenGLIndexBuffer(uint32_t count)
+		: m_Count(count), m_RendererID(0)
+	{
+	}
 
 	OpenGLIndexBuffer::OpenGLIndexBuffer(void* indices, uint32_t count)
 		: m_Count(count)

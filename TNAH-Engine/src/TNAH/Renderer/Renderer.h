@@ -31,7 +31,8 @@ namespace tnah {
 		static void Submit(const Ref<VertexArray>& vertexArray, const Ref<Shader>& shader, const glm::mat4& transform = glm::mat4(1.0f));
 		static void SubmitTerrain(const Ref<VertexArray>& vertexArray, const Ref<Material>& material, std::vector<Ref<Light>> sceneLights, const glm::mat4& transform = glm::mat4(1.0f));
 		static void SubmitMesh(const Ref<VertexArray>& vertexArray, const Ref<Material>& material, std::vector<Ref<Light>> sceneLights, const glm::mat4& transform = glm::mat4(1.0f));
-		static void SubmitSkybox(const Ref<VertexArray>& vertexArray, const Ref<Material>& material);
+		
+		static void SubmitSkybox(const Ref<VertexArray>& vertexArray, const Ref<SkyboxMaterial>& material);
 		
 		static RendererAPI::API GetAPI() { return RendererAPI::GetAPI(); }
 		static Ref<Texture2D> GetWhiteTexture();

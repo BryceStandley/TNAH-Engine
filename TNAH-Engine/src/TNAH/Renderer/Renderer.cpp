@@ -199,16 +199,18 @@ namespace tnah {
 		IncrementDrawCallsPerFrame();
 	}
 
-	void Renderer::SubmitSkybox(const Ref<VertexArray>& vertexArray, const Ref<Material>& material)
+	void Renderer::SubmitSkybox(const Ref<VertexArray>& vertexArray, const Ref<SkyboxMaterial>& material)
 	{
+		RenderCommand::SetDepthMask(false);
 		material->BindShader();
 		material->GetShader()->SetMat4("u_ViewProjection", s_SceneData->ViewProjection);
 		
 		material->BindTextures();
 		
 		vertexArray->Bind();
-		RenderCommand::DrawIndexed(vertexArray);
-
+		RenderCommand::DrawArray(vertexArray);
+		RenderCommand::SetDepthMask(true);
+		
 		IncrementDrawCallsPerFrame();
 	}
 

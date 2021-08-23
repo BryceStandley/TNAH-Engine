@@ -239,7 +239,7 @@ namespace tnah {
 
 	OpenGLTexture3D::OpenGLTexture3D(const Texture3DProperties& properties, const std::string& textureName)
 	{
-
+		m_Name = textureName;
 		glGenTextures(1, &m_RendererID);
 		glBindTexture(GL_TEXTURE_CUBE_MAP, m_RendererID);
 
@@ -259,7 +259,7 @@ namespace tnah {
 			glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_Y, 0, GL_RGB, dataTop->m_Width, dataTop->m_Height, 0, GL_RGB, GL_UNSIGNED_BYTE, dataTop->m_ImageData);
 			glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_Y, 0, GL_RGB, dataBottom->m_Width, dataBottom->m_Height, 0, GL_RGB, GL_UNSIGNED_BYTE, dataBottom->m_ImageData);
 			glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_Z, 0, GL_RGB, dataBack->m_Width, dataBack->m_Height, 0, GL_RGB, GL_UNSIGNED_BYTE, dataBack->m_ImageData);
-			glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_Y, 0, GL_RGB, dataFront->m_Width, dataFront->m_Height, 0, GL_RGB, GL_UNSIGNED_BYTE, dataFront->m_ImageData);
+			glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_Z, 0, GL_RGB, dataFront->m_Width, dataFront->m_Height, 0, GL_RGB, GL_UNSIGNED_BYTE, dataFront->m_ImageData);
 			
 		}
 		else
@@ -280,6 +280,8 @@ namespace tnah {
 		dataBottom->ClearData();
 		dataBack->ClearData();
 		dataFront->ClearData();
+		m_Loaded = true;
+		m_Slot = Renderer::GetAndIncrementTextureSlot();
 	}
 
 	OpenGLTexture3D::~OpenGLTexture3D()

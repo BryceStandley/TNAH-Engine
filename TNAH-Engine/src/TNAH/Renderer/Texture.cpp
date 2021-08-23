@@ -128,6 +128,11 @@ namespace tnah {
 		case RendererAPI::API::OpenGL:  t = new OpenGLTexture3D(paths, textureName);
 		}
 
+		if(t != nullptr)
+		{
+			return t;
+		}
+		
 		TNAH_CORE_ASSERT(false, "Unknown RendererAPI!");
 		return nullptr;
 	}
@@ -137,8 +142,13 @@ namespace tnah {
 		Texture3D* t = nullptr;
 		switch (Renderer::GetAPI())
 		{
-		case RendererAPI::API::None:    TNAH_CORE_ASSERT(false, "RendererAPI::None is currently not supported!"); return nullptr;
-		case RendererAPI::API::OpenGL:  t = new OpenGLTexture3D(properties, textureName);
+			case RendererAPI::API::None:    TNAH_CORE_ASSERT(false, "RendererAPI::None is currently not supported!"); return nullptr;
+			case RendererAPI::API::OpenGL:  t = new OpenGLTexture3D(properties, textureName);
+		}
+
+		if(t != nullptr)
+		{
+			return t;
 		}
 
 		TNAH_CORE_ASSERT(false, "Unknown RendererAPI!");

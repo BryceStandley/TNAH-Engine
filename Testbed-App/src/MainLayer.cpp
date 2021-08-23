@@ -13,7 +13,7 @@ MainLayer::MainLayer()
 	auto& cc = m_Camera->GetComponent<tnah::CameraComponent>();
 	cc.Camera.SetViewportSize(1280, 720);
 	ct.Position = glm::vec3(500, 60, 500);
-
+	cc.ClearMode = tnah::CameraClearMode::Skybox;
 	m_SceneLight = m_ActiveScene->GetSceneLightGameObject();
 
 	m_Terrain = m_ActiveScene->CreateGameObject("Terrain");

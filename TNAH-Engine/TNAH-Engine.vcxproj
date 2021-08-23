@@ -140,6 +140,8 @@
     <Content Include="Resources\fonts\opensans\OpenSans-SemiBoldItalic.ttf" />
     <Content Include="Resources\shaders\default\mesh\mesh_fragment.glsl" />
     <Content Include="Resources\shaders\default\mesh\mesh_vertex.glsl" />
+    <Content Include="Resources\shaders\default\skybox\skybox_fragment.glsl" />
+    <Content Include="Resources\shaders\default\skybox\skybox_vertex.glsl" />
     <Content Include="Resources\shaders\default\terrain\terrain_fragment.glsl" />
     <Content Include="Resources\shaders\default\terrain\terrain_vertex.glsl" />
     <Content Include="Resources\textures\default\default_black.jpg" />

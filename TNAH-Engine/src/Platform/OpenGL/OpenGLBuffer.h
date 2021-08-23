@@ -24,6 +24,7 @@ namespace tnah {
 	class OpenGLIndexBuffer : public IndexBuffer
 	{
 	public:
+		OpenGLIndexBuffer(uint32_t count);
 		OpenGLIndexBuffer(uint32_t* indices, uint32_t count);
 		OpenGLIndexBuffer(void* indices, uint32_t count);
 		virtual ~OpenGLIndexBuffer();

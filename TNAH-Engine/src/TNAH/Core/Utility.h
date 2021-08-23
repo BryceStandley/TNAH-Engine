@@ -11,9 +11,9 @@ namespace tnah::Utility {
         auto lastSlash = filePath.find_last_of("/\\");
         lastSlash = lastSlash == std::string::npos ? 0 : lastSlash;
 
-        split.first = filePath.substr(0, lastSlash);
+        split.first = filePath.substr(0, lastSlash + 1);
         auto count = filePath.size() - 1;
-        split.second = filePath.substr(lastSlash, count);
+        split.second = filePath.substr(lastSlash + 1, count);
         return split;
         
     }
@@ -50,6 +50,14 @@ namespace tnah::Utility {
             return std::string(absolutePath.substr(relative, wd.string().length()));
         }
         return "null";
+        
+    }
+
+    static std::string AbsolutePathFromRelative(const std::string& relativePath)
+    {
+        auto wd = std::filesystem::current_path();
+        std::string out = wd.string() + "/" + relativePath;
+        return out;
         
     }
 

@@ -17,7 +17,7 @@ namespace tnah {
 		uint32_t GetVBODataSize() { return m_VBOSize; }
 		inline Ref<VertexArray> GetVertexArray() { return m_VAO; }
 		inline Ref<VertexBuffer> GetVertexBuffer() { return m_VBO; }
-		inline Ref<Material> GetMaterial() { return m_Material; }
+		inline Ref<SkyboxMaterial> GetMaterial() { return m_Material; }
 
 
 	private:
@@ -26,6 +26,7 @@ namespace tnah {
 		Ref<VertexArray> m_VAO;
 		Ref<VertexBuffer> m_VBO;
 		BufferLayout m_BufferLayout;
+		Ref<IndexBuffer> m_IBO;
 		
 		Ref<SkyboxMaterial> m_Material;
 		Ref<Texture3D> m_SkyboxTexture;

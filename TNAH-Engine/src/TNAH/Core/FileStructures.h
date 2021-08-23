@@ -192,17 +192,18 @@ namespace tnah {
 			AbsoluteDirectory = RootDirectory + "/" + fileName;
 		}
 
-		Resource(const std::string& filePath)
+		Resource(const std::string& relativeFilePath)
 		{
-			RelativeDirectory = Utility::RelativePathFromAbsolute(filePath);
-			auto dirSplit = Utility::SplitDirectoryAndFilePath(filePath);
+			
+			auto dirSplit = Utility::SplitDirectoryAndFilePath(relativeFilePath);
 			RootDirectory = dirSplit.first;
 			FileName.FullFile = dirSplit.second;
 			auto nameSplit = Utility::SplitFileNameAndExtension(dirSplit.second);
 			FileName.FileName = nameSplit.first;
 			FileName.Extension = nameSplit.second;
 			Type.Type = ResourceType::GuessType(FileName.Extension);
-			AbsoluteDirectory = filePath;
+			AbsoluteDirectory = Utility::AbsolutePathFromRelative(relativeFilePath);
+			RelativeDirectory = relativeFilePath;
 		}
 
 

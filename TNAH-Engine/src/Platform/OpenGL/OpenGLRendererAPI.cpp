@@ -38,6 +38,11 @@ namespace tnah {
 		glDrawElements(GL_TRIANGLES, vertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
 	}
 
+	void OpenGLRendererAPI::DrawArray(const Ref<VertexArray>& vertexArray)
+	{
+		glDrawArrays(GL_TRIANGLES, 0, vertexArray->GetIndexBuffer()->GetCount());
+	}
+
 	void OpenGLRendererAPI::SetWireframe(const bool& enable)
 	{
 		if(enable)
@@ -55,7 +60,7 @@ namespace tnah {
 		return false;
 	}
 
-	void OpenGLRendererAPI::SetCullMode(const CullMode mode)
+	void OpenGLRendererAPI::SetCullMode(const CullMode& mode)
 	{
 		switch (mode)
 		{
@@ -80,4 +85,10 @@ namespace tnah {
 				break;
 		}
 	}
+
+	void OpenGLRendererAPI::SetDepthMask(const bool& enabled)
+	{
+		glDepthMask(enabled);
+	}
+
 }

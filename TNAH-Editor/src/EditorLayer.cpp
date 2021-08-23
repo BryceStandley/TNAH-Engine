@@ -587,7 +587,7 @@ namespace tnah {
 					spec = m_GameFramebuffer->GetSpecification();
 					
 				}
-				float imageHeight = Utility::Remap(spec.Height, 0, spec.Height, 0, size.y);
+				float imageHeight = Math::Remap(spec.Height, 0, spec.Height, 0, size.y);
 				glm::vec2 imageSize  = {size.x, imageHeight};
 				auto window = glm::vec2(ImGui::GetWindowWidth(), ImGui::GetWindowHeight());
 

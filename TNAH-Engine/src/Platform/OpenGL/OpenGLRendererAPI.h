@@ -14,10 +14,12 @@ namespace tnah {
 		void Clear() override;
 
 		void DrawIndexed(const Ref<VertexArray>& vertexArray) override;
+		void DrawArray(const Ref<VertexArray>& vertexArray) override;
 
 		void SetWireframe(const bool& enable) override;
 		bool CheckFullScreen(const int& width, const int& height) override;
-		void SetCullMode(const CullMode mode) override;
+		void SetCullMode(const CullMode& mode) override;
+		void SetDepthMask(const bool& enabled) override;
 	};
 
 }

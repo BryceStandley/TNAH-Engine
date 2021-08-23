@@ -21,6 +21,11 @@ namespace tnah {
 			s_RendererAPI->Clear();
 		}
 
+		inline static void DrawArray(const Ref<VertexArray> vertexArray)
+		{
+			s_RendererAPI->DrawArray(vertexArray);
+		}
+
 		inline static void DrawIndexed(const Ref<VertexArray> vertexArray)
 		{
 			s_RendererAPI->DrawIndexed(vertexArray);
@@ -41,9 +46,14 @@ namespace tnah {
 			return s_RendererAPI->CheckFullScreen(width, height);
 		}
 
-		inline static void SetCullMode(const CullMode mode)
+		inline static void SetCullMode(const CullMode& mode)
 		{
 			s_RendererAPI->SetCullMode(mode);
+		}
+
+		inline static void SetDepthMask(const bool& enabled)
+		{
+			s_RendererAPI->SetDepthMask(enabled);
 		}
 
 

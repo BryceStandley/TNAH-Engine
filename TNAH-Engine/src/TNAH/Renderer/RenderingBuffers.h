@@ -129,6 +129,11 @@ namespace tnah {
 
 		static IndexBuffer* Create(uint32_t* indices, uint32_t size);
 		static IndexBuffer* Create(void* indices, uint32_t size);
+
+		/*
+		 * Creates a empty index buffer with a size
+		 */
+		static IndexBuffer* Create(uint32_t size);
 	};
 
 	enum class FramebufferFormat
