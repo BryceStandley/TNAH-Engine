@@ -39,10 +39,10 @@ namespace tnah {
 		SkyboxComponent() = default;
 		SkyboxComponent(const SkyboxComponent& other) = default;
 
-		SkyboxComponent() 
-		{
-			SceneSkybox = new Skybox();
-		}
+		//SkyboxComponent() 
+		//{
+			//SceneSkybox = new Skybox();
+		//}
 
 		SkyboxComponent(const Texture3DProperties& skymapProperties)
 		{}

@@ -5,6 +5,7 @@
 #include "TNAH/Core/Application.h"
 #include "TNAH/Core/Input.h"
 #include "TNAH/Renderer/Renderer.h"
+#include "../../../Skybox.h"
 namespace tnah{
 
 	std::unordered_map<UUID, GameObject>& Scene::GetGameObjectsInScene()

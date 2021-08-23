@@ -1,3 +1,4 @@
+#include "tnahpch.h"
 #include "Skybox.h"
 
 namespace tnah {
@@ -29,6 +30,9 @@ namespace tnah {
 		m_VBO.reset(VertexBuffer::Create(GetVBOData(), GetVBODataSize()));
 		m_VBO->SetLayout(m_BufferLayout);
 		m_VAO->AddVertexBuffer(m_VBO);
+
+		m_Material.reset(Material::Create("Resources/shaders/default/skybox/skybox_vertex.glsl", "Resources/shaders/default/terrain/skybox_fragment.glsl"));
+
 	}
 
 	Skybox::Skybox(const Texture3DProperties& skymapProperties)

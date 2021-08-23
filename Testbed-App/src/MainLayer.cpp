@@ -24,7 +24,7 @@ MainLayer::MainLayer()
 	auto& light = m_PointLight->GetComponent<tnah::LightComponent>();
 	light.Light.reset(tnah::Light::CreatePoint());
 
-	for (int i = 0; i < 100; i++)
+	for (int i = 0; i < 50; i++)
 	{
 		//Test Cube
 		std::string name = "Cube" + std::to_string(i);
@@ -113,6 +113,7 @@ void MainLayer::OnUpdate(tnah::Timestep deltaTime)
 	{
 		auto& mesh = go->GetComponent<tnah::TransformComponent>();
 		mesh.Rotation.y += 1.0f * deltaTime;
+		mesh.Rotation.z += 1.0f * deltaTime;
 	}
 
 	//Rendering is managed by the scene!
