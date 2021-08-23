@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include <unordered_map>
 #include "Utility.h"
+#include <filesystem>
 
 namespace tnah {
 	//Structure of a file, contains a name and a extension
@@ -168,6 +169,7 @@ namespace tnah {
 
 	struct Resource
 	{
+		Directory RelativeDirectory = Directory("");
 		Directory RootDirectory = Directory("");
 		Directory AbsoluteDirectory = Directory("");
 		File FileName = File("", "");
@@ -192,6 +194,7 @@ namespace tnah {
 
 		Resource(const std::string& filePath)
 		{
+			RelativeDirectory = Utility::RelativePathFromAbsolute(filePath);
 			auto dirSplit = Utility::SplitDirectoryAndFilePath(filePath);
 			RootDirectory = dirSplit.first;
 			FileName.FullFile = dirSplit.second;

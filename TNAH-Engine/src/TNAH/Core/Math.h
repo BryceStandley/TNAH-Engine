@@ -39,6 +39,11 @@ namespace tnah {
 			
 			return false;
 		}
+
+		static float Remap(float value, float oldMin, float oldMax, float newMin, float newMax)
+		{
+			return newMin + (newMax - newMin) * ((value - oldMin) / (oldMax - oldMin));
+		}
 	}
 
 }

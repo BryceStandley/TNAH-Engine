@@ -1,6 +1,6 @@
 ﻿#pragma once
 #include <string>
-
+#include <filesystem>
 
 namespace tnah::Utility {
 
@@ -38,9 +38,19 @@ namespace tnah::Utility {
         return split;
     }
 
-    static float Remap(float value, float oldMin, float oldMax, float newMin, float newMax)
+
+
+    static std::string RelativePathFromAbsolute(const std::string& absolutePath)
     {
-        return newMin + (newMax - newMin) * ((value - oldMin) / (oldMax - oldMin));
+        auto wd = std::filesystem::current_path();
+
+        auto relative = absolutePath.find(wd.string());
+        if(relative != std::string::npos)
+        {
+            return std::string(absolutePath.substr(relative, wd.string().length()));
+        }
+        return "null";
+        
     }
 
 
