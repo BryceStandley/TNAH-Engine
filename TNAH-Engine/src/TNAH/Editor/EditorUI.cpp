@@ -3,7 +3,7 @@
 
 #include <imgui.h>
 #include "imgui_internal.h"
-#include "TNAH/Scene/Components/EditorCamera.h"
+#include "TNAH/Scene/Components/Components.h"
 
 namespace tnah {
     void EditorUI::DrawComponentProperties(GameObject* object)

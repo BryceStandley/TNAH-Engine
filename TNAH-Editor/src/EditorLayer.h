@@ -2,7 +2,9 @@
 
 #include <stdbool.h>
 #include <TNAH-App.h>
-
+#include <imgui.h>
+#include <glm/gtx/string_cast.hpp>
+#include "TNAH/Layers/ImGuizmo.h"
 namespace tnah {
 
 	class EditorLayer : public Layer

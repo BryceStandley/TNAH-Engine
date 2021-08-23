@@ -18,6 +18,7 @@
     <ClCompile Include="src\Platform\OpenGL\OpenGLShader.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLTexture.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLVertexArray.cpp" />
+    <ClCompile Include="src\TNAH\Core\Math.cpp" />
     <ClCompile Include="src\TNAH\Core\UUID.cpp" />
     <ClCompile Include="src\TNAH\Editor\EditorUI.cpp" />
     <ClCompile Include="src\TNAH\Layers\ImGuizmo.cpp" />

@@ -132,6 +132,15 @@
     <ClCompile Include="src\TNAH\Core\Application.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\TNAH\Editor\EditorUI.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TNAH\Scene\Serializer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TNAH\Core\Math.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\TNAH\Core\Core.h">
@@ -314,13 +323,19 @@
     <ClInclude Include="src\TNAH\Core\Utility.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\TNAH\Scene\Components\EditorCamera.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\TNAH\Layers\ImGuizmo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\TNAH\Core\Application.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\TNAH\Core\FileStructures.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\TNAH\Editor\EditorUI.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\TNAH\Scene\Serializer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

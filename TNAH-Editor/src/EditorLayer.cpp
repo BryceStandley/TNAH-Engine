@@ -4,9 +4,10 @@
 #include <imgui.h>
 #include <glm/gtx/string_cast.hpp>
 #include "TNAH/Layers/ImGuizmo.h"
-#include "TNAH/Scene/Components/EditorCamera.h"
+#include "TNAH/Scene/Components/Components.h"
 #include "TNAH/Editor/EditorUI.h"
 #include "TNAH/Scene/Serializer.h"
+#include "TNAH/Core/Math.h"
 
 namespace tnah {
 
@@ -17,7 +18,7 @@ namespace tnah {
 		}
 
 		void EditorLayer::OnUpdate(Timestep deltaTime)
-		{
+		{	
 
 			if(m_FocusedWindow == FocusedWindow::SceneView)
 			{
@@ -512,21 +513,36 @@ namespace tnah {
 				}
 
 				auto size = ImGui::GetContentRegionAvail();
-				ImGui::Image((void*)id, size);
-				if (m_SelectedGameObject != NULL)
+				ImGui::Image((void*)id, size, { 0, 0 }, { 1, -1 });
+				if (m_SelectedGameObject != nullptr)
 				{
 					ImGuizmo::SetOrthographic(false);
 					ImGuizmo::SetDrawlist();
-					float w_Width = (float)ImGui::GetWindowWidth();
-					float w_Height = (float)ImGui::GetWindowHeight();
-					ImGuizmo::SetRect(ImGui::GetWindowPos().x, ImGui::GetWindowPos().y, w_Width, w_Height);
-					const auto& e_Camera = m_EditorCamera->GetComponent<EditorCameraComponent>();
-					const glm::mat4 c_Proj = e_Camera.EditorCamera.GetProjectionMatrix();
-					glm::mat4 c_View = glm::inverse(m_EditorCamera->GetComponent<TransformComponent>().GetTransform());
-
+					ImGuizmo::SetRect(ImGui::GetWindowPos().x, ImGui::GetWindowPos().y, size.x, size.y);
+					auto& e_Camera = m_EditorCamera->GetComponent<EditorCameraComponent>();
+					glm::mat4 c_Proj = e_Camera.EditorCamera.GetProjectionMatrix();
+					glm::mat4 c_View = e_Camera.EditorCamera.GetViewMatrix();
 					auto& e_Transform = m_SelectedGameObject->GetComponent<TransformComponent>();
 					glm::mat4 c_Transform = e_Transform.GetTransform();
-					ImGuizmo::Manipulate(glm::value_ptr(c_View), glm::value_ptr(c_Proj), ImGuizmo::OPERATION::TRANSLATE, ImGuizmo::LOCAL, glm::value_ptr(c_Transform));
+
+					glm::vec3 snapValues(0.5f);
+					const float identityMatrix[16] =
+					{ 1.f, 0.f, 0.f, 0.f,
+						0.f, 1.f, 0.f, 0.f,
+						0.f, 0.f, 1.f, 0.f,
+						0.f, 0.f, 0.f, 1.f };
+					
+					ImGuizmo::Manipulate(glm::value_ptr(c_View), glm::value_ptr(c_Proj), (ImGuizmo::OPERATION)m_GizmoType, ImGuizmo::LOCAL, glm::value_ptr(c_Transform), nullptr, true ? glm::value_ptr(snapValues) : nullptr);
+					if (ImGuizmo::IsUsing())
+					{
+						glm::vec3 position, rotation, scale;
+						Math::DecomposeTransform(c_Transform, position, rotation, scale);
+
+							e_Transform.Position = position;
+							e_Transform.Rotation = rotation;
+							e_Transform.Scale = scale;
+						
+					}
 				}
 				ImGui::End();
 			}
@@ -546,7 +562,7 @@ namespace tnah {
 					std::string name = "GameObject";
 					if (g.HasComponent<TagComponent>()) name = g.GetComponent<TagComponent>().Tag;
 
-					if (m_SelectedGameObject != NULL && m_SelectedGameObject->GetTag() == name)
+					if (m_SelectedGameObject != nullptr && m_SelectedGameObject->GetTag() == name)
 					{
 						ImGui::PushStyleColor(ImGuiCol_Button, ImVec4{ 0.0f, 0.3f, 1.0f, 1.0f });
 						ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4{ 0.0f, 0.5f, 1.0f, 1.0f });

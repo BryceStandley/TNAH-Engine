@@ -5,7 +5,8 @@
 #include "TNAH/Core/Application.h"
 #include "TNAH/Core/Input.h"
 #include "TNAH/Renderer/Renderer.h"
-#include "TNAH/Scene/Components/EditorCamera.h"
+#include "TNAH/Scene/Components/Components.h"
+
 namespace tnah{
 
 	std::unordered_map<UUID, GameObject>& Scene::GetGameObjectsInScene()
@@ -140,7 +141,6 @@ namespace tnah{
 				forward = glm::normalize(forward);
 				right = glm::normalize(glm::cross(forward, glm::vec3(0, 1, 0)));
 				up = glm::normalize(glm::cross(right, forward));
-
 				transform.Forward = forward;
 				transform.Right = right;
 				transform.Up = up;

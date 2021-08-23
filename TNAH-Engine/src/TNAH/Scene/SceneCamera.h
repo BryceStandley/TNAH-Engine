@@ -29,7 +29,7 @@ namespace tnah {
 
 		void SetProjectionType(ProjectionType type) { m_ProjectionType = type; }
 		ProjectionType GetProjectionType() const { return m_ProjectionType; }
-		const glm::mat4& GetViewMatrix() { return m_ViewMatrix; }
+		const glm::mat4& GetViewMatrix() const { return m_ViewMatrix; }
 
 
 		void OnUpdate(TransformComponent& transform);
