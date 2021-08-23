@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Skybox.cpp" />
     <ClCompile Include="src\TNAH\Core\Application.cpp" />
     <ClCompile Include="src\TNAH\Core\FileManager.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp" />
@@ -57,6 +58,7 @@
     <ClCompile Include="src\TNAH\Scene\Serializer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Skybox.h" />
     <ClInclude Include="src\TNAH\Core\Application.h" />
     <ClInclude Include="src\TNAH\Core\EntryPoint.h" />
     <ClInclude Include="src\TNAH\Core\FileManager.h" />

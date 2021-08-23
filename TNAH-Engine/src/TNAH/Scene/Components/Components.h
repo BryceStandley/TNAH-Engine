@@ -263,7 +263,7 @@ namespace tnah {
 		friend class EditorUI;
 		friend class Editor;
 	};
-
+	/*
 	class SkyboxComponent
 	{
 	public:
@@ -296,6 +296,7 @@ namespace tnah {
 
 		friend class Scene;
 	};
+	*/
 
 	/**********************************************************************************************//**
 	 * @struct	NativeScript
