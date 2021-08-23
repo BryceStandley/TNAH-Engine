@@ -245,7 +245,7 @@ namespace tnah {
 
 		stbi_set_flip_vertically_on_load(false);
 
-		auto  dataRight = Texture2D::Load(properties.Right.AbsoluteDirectory);
+		auto dataRight = Texture2D::Load(properties.Right.AbsoluteDirectory);
 		auto dataLeft = Texture2D::Load(properties.Left.AbsoluteDirectory);
 		auto dataFront = Texture2D::Load(properties.Front.AbsoluteDirectory);
 		auto dataBack = Texture2D::Load(properties.Back.AbsoluteDirectory);

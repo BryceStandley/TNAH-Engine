@@ -22,6 +22,8 @@ namespace tnah {
 		glm::mat4 m_ViewMatrix = glm::mat4(1.0f);
 
 		glm::mat4 m_ViewProjection = m_ProjectionMatrix * m_ViewMatrix;
+
+		friend class Scene;
 	};
 
 

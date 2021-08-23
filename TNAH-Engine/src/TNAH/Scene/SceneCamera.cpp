@@ -31,6 +31,7 @@ namespace tnah {
 			m_ProjectionMatrix = glm::perspective(m_PerspectiveFOV, (float)width / (float)height, m_PerspectiveNear, m_PerspectiveFar);
 			m_ViewportWidth = width;
 			m_ViewportHeight = height;
+			
 			break;
 		case ProjectionType::Orthographic:
 			float aspect = (float)width / (float)height;
@@ -60,4 +61,8 @@ namespace tnah {
 		m_ViewProjection = m_ProjectionMatrix * m_ViewMatrix;
 	}
 
+	glm::quat SceneCamera::GetOrientation(TransformComponent& transform)
+	{
+		return glm::quat(glm::vec3(-transform.Rotation.x, -transform.Rotation.y, 0));
+	}
 }

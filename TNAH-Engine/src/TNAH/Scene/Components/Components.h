@@ -18,6 +18,7 @@
 #include <glm/gtx/quaternion.hpp>
 
 #include "TNAH/Core/Input.h"
+#include "TNAH/Core/Math.h"
 
 
 /**********************************************************************************************//**
@@ -97,6 +98,12 @@ namespace tnah {
 				* glm::toMat4(glm::quat(Rotation))
 				* glm::scale(glm::mat4(1.0f), Scale);
 		}
+
+		void SetTransform(const glm::mat4& transform)
+		{
+			Math::DecomposeTransform(transform, Position, Rotation, Scale);
+			
+		}
 	};
 
 
@@ -110,18 +117,31 @@ namespace tnah {
 	 * @date	3/08/2021
 	 **************************************************************************************************/
 
-	struct CameraComponent
+	class CameraComponent
 	{
+	public:
 		SceneCamera Camera;
 		CameraClearMode ClearMode = CameraClearMode::Color;
 		glm::vec4 ClearColor = { 0.1f, 0.1f, 0.1f, 1.0f };
 		bool Primary = true;
+
+		void SetClearMode(const CameraClearMode& mode)
+		{
+			if(mode != ClearMode)
+			{
+				ClearMode = mode;
+				m_UpdatedClear = true;
+			}
+		}
 
 		CameraComponent() = default;
 		CameraComponent(const CameraComponent& other) = default;
 
 		operator SceneCamera& () { return Camera; }
 		operator const SceneCamera& () const { return Camera; }
+	private:
+		bool m_UpdatedClear = false;
+		friend class EditorUI;
 	};
 
 	
@@ -229,12 +249,23 @@ namespace tnah {
 		SceneCamera EditorCamera;
 		CameraClearMode ClearMode = CameraClearMode::Color;
 		glm::vec4 ClearColor = { 0.1f, 0.1f, 0.1f, 1.0f };
+		bool Primary = true;
 
+		void SetClearMode(const CameraClearMode& mode)
+		{
+			if(mode != ClearMode)
+			{
+				ClearMode = mode;
+			}
+		}
+		
 		EditorCameraComponent() = default;
 		EditorCameraComponent(const EditorCameraComponent& other) = default;
 
 		operator SceneCamera& () { return EditorCamera; }
 		operator const SceneCamera& () const { return EditorCamera; }
+
+		friend class Scene;
 	};
 	
 	/**
@@ -247,6 +278,8 @@ namespace tnah {
 	 */
 	class EditorComponent
 	{
+	public:
+		EditorComponent() = default;
 		// TODO: Set up the editor component properly 
 	private:
 		enum class EditorMode
@@ -256,7 +289,7 @@ namespace tnah {
 
 		EditorMode m_EditorMode = EditorMode::Edit;
 		bool m_IsEmpty = true;
-		EditorComponent() = default;
+		
 		
 		friend class Scene;
 		friend class EditorLayer;
@@ -272,7 +305,13 @@ namespace tnah {
 		SkyboxComponent(const Ref<Texture3D> skybox)
 			:m_Skybox(skybox)
 		{
+			Texture3DProperties properties;
+			properties.Front = Resource("filepath.jpg");
 			
+			
+
+
+			m_Skybox.reset(Texture3D::Create(properties));			
 		}
 
 		SkyboxComponent(const Texture3DProperties& skymapProperties)

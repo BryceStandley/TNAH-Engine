@@ -72,6 +72,7 @@ namespace tnah {
 
 		Ref<GameObject> GetEditorCameraGameObject();
 		Ref<Framebuffer> GetSceneFramebuffer() { return m_SceneFramebuffer; }
+		Ref<Framebuffer> GetGameFramebuffer() { return m_GameFramebuffer; }
 
 		entt::registry& GetRegistry() { return m_Registry; }
 		std::unordered_map<UUID, GameObject>& GetGameObjectsInScene();
@@ -87,7 +88,10 @@ namespace tnah {
 
 		Ref<GameObject> m_EditorCamera;
 		Ref<Framebuffer> m_SceneFramebuffer;
+		Ref<Framebuffer> m_GameFramebuffer;
 		bool m_IsEditorScene = false;
+		uint32_t m_RenderPasses = 0;
+		
 		friend class EditorLayer;
 		friend class Editor;
 		friend class Serializer;

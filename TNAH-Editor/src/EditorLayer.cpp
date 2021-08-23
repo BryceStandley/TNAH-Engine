@@ -1,5 +1,6 @@
 #include "EditorLayer.h"
 
+#include "TNAH/Core/Math.h"
 
 #include <imgui.h>
 #include <glm/gtx/string_cast.hpp>
@@ -78,6 +79,7 @@ namespace tnah {
 			//toggles for each view/window
 			static bool dockspaceOpen = true;
 			static bool sceneViewOpen = true;
+			static bool gameViewOpen = true;
 			static bool statsViewOpen = true;
 			static bool propertiesOpen = true;
 			static bool notImplPopup = false;
@@ -217,6 +219,10 @@ namespace tnah {
 					{
 						sceneViewOpen = !sceneViewOpen;
 					}
+					if(ImGui::MenuItem("Game View"))
+					{
+						gameViewOpen = !gameViewOpen;
+					}
 					if (ImGui::MenuItem("Statistics"))
 					{
 						statsViewOpen = !statsViewOpen;
@@ -342,59 +348,59 @@ namespace tnah {
 					ImGui::EndMenu();
 				}
 
-				if (ImGui::BeginMenu("Resolution"))
+				if(gameViewOpen)
 				{
-					if (ImGui::MenuItem("640 x 480 (480p)"))
+					if (ImGui::BeginMenu("Game View"))
 					{
-						FramebufferSpecification spec{ 640, 480 };
-						m_SceneFramebuffer->Reset(spec);
-						auto& ec = m_EditorCamera->GetComponent<EditorCameraComponent>();
-						ec.EditorCamera.SetViewportSize(spec.Width, spec.Height);
-					}
-					if (ImGui::MenuItem("1280 x 720 (720p)"))
-					{
-						FramebufferSpecification spec{ 1280, 720 };
-						m_SceneFramebuffer->Reset(spec);
-						auto& ec = m_EditorCamera->GetComponent<EditorCameraComponent>();
-						ec.EditorCamera.SetViewportSize(spec.Width, spec.Height);
-					}
-					if (ImGui::MenuItem("1920 x 1080 (1080p)"))
-					{
-						FramebufferSpecification spec{ 1920, 1080 };
-						m_SceneFramebuffer->Reset(spec);
-						auto& ec = m_EditorCamera->GetComponent<EditorCameraComponent>();
-						ec.EditorCamera.SetViewportSize(spec.Width, spec.Height);
-					}
-					if (ImGui::MenuItem("2560 x 1080 (UW 1080p)"))
-					{
-						auto& ec = m_EditorCamera->GetComponent<EditorCameraComponent>();
-						ec.EditorCamera.SetViewportSize(2560, 1080);
-						FramebufferSpecification spec{ 2560, 1080 };
-						m_SceneFramebuffer->Reset(spec);
+						if(ImGui::BeginMenu("Resolution"))
+						{
+							if (ImGui::MenuItem("640 x 480 (480p)"))
+							{
+								FramebufferSpecification spec{ 640, 480 };
+								m_GameFramebuffer->Reset(spec);
+								auto& ec = m_ActiveScene->GetMainCameraGameObject()->GetComponent<CameraComponent>();
+								ec.Camera.SetViewportSize(spec.Width, spec.Height);
+							}
+							if (ImGui::MenuItem("1280 x 720 (720p)"))
+							{
+								FramebufferSpecification spec{ 1280, 720 };
+								m_GameFramebuffer->Reset(spec);
+								auto& ec = m_ActiveScene->GetMainCameraGameObject()->GetComponent<CameraComponent>();
+								ec.Camera.SetViewportSize(spec.Width, spec.Height);
+							}
+							if (ImGui::MenuItem("1920 x 1080 (1080p)"))
+							{
+								FramebufferSpecification spec{ 1920, 1080 };
+								m_GameFramebuffer->Reset(spec);
+								auto& ec = m_ActiveScene->GetMainCameraGameObject()->GetComponent<CameraComponent>();
+								ec.Camera.SetViewportSize(spec.Width, spec.Height);
+							}
+							if (ImGui::MenuItem("2560 x 1080 (UW 1080p)"))
+							{
+								FramebufferSpecification spec{ 2560, 1080 };
+								m_GameFramebuffer->Reset(spec);
+								auto& ec = m_ActiveScene->GetMainCameraGameObject()->GetComponent<CameraComponent>();
+								ec.Camera.SetViewportSize(spec.Width, spec.Height);
 
+							}
+							if (ImGui::MenuItem("2560 x 1440 (1440p)"))
+							{
+								FramebufferSpecification spec{ 2560, 1440 };
+								m_GameFramebuffer->Reset(spec);
+								auto& ec = m_ActiveScene->GetMainCameraGameObject()->GetComponent<CameraComponent>();
+								ec.Camera.SetViewportSize(spec.Width, spec.Height);
+							}
+							if (ImGui::MenuItem("3840 x 2160 (4K)"))
+							{
+								FramebufferSpecification spec{ 3840, 2160 };
+								m_GameFramebuffer->Reset(spec);
+								auto& ec = m_ActiveScene->GetMainCameraGameObject()->GetComponent<CameraComponent>();
+								ec.Camera.SetViewportSize(spec.Width, spec.Height);
+							}
+							ImGui::EndMenu();
+						}
+						ImGui::EndMenu();
 					}
-					if (ImGui::MenuItem("2560 x 1440 (1440p)"))
-					{
-						FramebufferSpecification spec{ 2560, 1440 };
-						m_SceneFramebuffer->Reset(spec);
-						auto& ec = m_EditorCamera->GetComponent<EditorCameraComponent>();
-						ec.EditorCamera.SetViewportSize(spec.Width, spec.Height);
-					}
-					if (ImGui::MenuItem("3840 x 2160 (4K)"))
-					{
-						FramebufferSpecification spec{ 3840, 2160 };
-						m_SceneFramebuffer->Reset(spec);
-						auto& ec = m_EditorCamera->GetComponent<EditorCameraComponent>();
-						ec.EditorCamera.SetViewportSize(spec.Width, spec.Height);
-					}
-					if (ImGui::MenuItem("Custom"))
-					{
-						notImplPopup = true;
-
-						//FramebufferSpecification spec {1280, 720};
-						//m_SceneFramebuffer->Reset(spec);
-					}
-					ImGui::EndMenu();
 				}
 
 				if (ImGui::BeginMenu("Help"))
@@ -448,7 +454,7 @@ namespace tnah {
 
 				ImVec2 iconSize = { 24,24 };
 				if (ImGui::ImageButton((void*)m_SelectToolTex->GetRendererID(), iconSize, ImVec2(0, 0), ImVec2(1, 1), -1, ImVec4(0, 0, 0, 0), m_GizmoType == -1 ? c_SelectedGizmoButtonColor : c_UnselectedGizmoButtonColor))
-					m_GizmoType = -1;
+					m_GizmoType = ImGuizmo::OPERATION::BOUNDS;
 				ImGui::SameLine();
 				if (ImGui::ImageButton((void*)m_MoveToolTex->GetRendererID(), iconSize, ImVec2(0, 0), ImVec2(1, 1), -1, ImVec4(0, 0, 0, 0), m_GizmoType == ImGuizmo::OPERATION::TRANSLATE ? c_SelectedGizmoButtonColor : c_UnselectedGizmoButtonColor))
 					m_GizmoType = ImGuizmo::OPERATION::TRANSLATE;
@@ -496,26 +502,41 @@ namespace tnah {
 			//Scene View Window 
 			if (sceneViewOpen)
 			{
-				// for now imgui is just rendering the missing texture image but
-				// we need to render the scene from the editor camera to a framebuffer and then
-				// pass that in as a texture to imgui to make it seem its a scene view
 
 				ImGui::Begin("Scene View", &sceneViewOpen);
 				if (ImGui::IsWindowFocused()) m_FocusedWindow = FocusedWindow::SceneView;
 				uint32_t id = 0;
-				if (m_SceneFramebuffer == nullptr)
+				ImVec2 size = ImGui::GetContentRegionAvail();
+				
+
+				if(m_EditorCamera != nullptr)
 				{
-					id = Renderer::GetMissingTexture()->GetRendererID();
-				}
-				else
-				{
-					id = m_SceneFramebuffer->GetColorAttachmentRendererID();
+ 					if(!Math::CompareImVec2(ImGui::GetWindowSize(), m_SceneViewSize))
+					{
+ 						if(!Input::IsMouseButtonPressed(Mouse::ButtonLeft))
+ 						{
+ 							m_SceneViewSize = ImGui::GetWindowSize();
+ 							auto& cam = m_EditorCamera->GetComponent<EditorCameraComponent>();
+ 							cam.EditorCamera.SetViewportSize(size.x, size.y);
+ 							if(m_SceneFramebuffer == nullptr)
+ 								id = Renderer::GetMissingTexture()->GetRendererID();
+ 							else
+ 							{
+ 								FramebufferSpecification spec = {size.x, size.y};
+ 								m_SceneFramebuffer->Reset(spec);
+ 								id = m_SceneFramebuffer->GetColorAttachmentRendererID();
+ 							}
+ 						}
+					}
+					
 				}
 
-				auto size = ImGui::GetContentRegionAvail();
-				ImGui::Image((void*)id, size, { 0, 0 }, { 1, -1 });
+				ImGui::Image((void*)id, size, {0, 0}, {1, -1});
+
+				
 				if (m_SelectedGameObject != nullptr)
 				{
+
 					ImGuizmo::SetOrthographic(false);
 					ImGuizmo::SetDrawlist();
 					ImGuizmo::SetRect(ImGui::GetWindowPos().x, ImGui::GetWindowPos().y, size.x, size.y);
@@ -545,6 +566,37 @@ namespace tnah {
 					}
 				}
 				ImGui::End();
+			}
+
+			if(gameViewOpen)
+			{
+				ImGui::Begin("Game View", &gameViewOpen);
+
+				auto size = ImGui::GetContentRegionAvail();
+				uint32_t id = 0;
+				FramebufferSpecification spec;
+				if(m_GameFramebuffer == nullptr)
+				{
+					id = Renderer::GetMissingTexture()->GetRendererID();
+					spec.Width = size.x;
+					spec.Height = size.y * 1.77777f;
+				}
+				else
+				{
+					id = m_GameFramebuffer->GetColorAttachmentRendererID();
+					spec = m_GameFramebuffer->GetSpecification();
+					
+				}
+				float imageHeight = Utility::Remap(spec.Height, 0, spec.Height, 0, size.y);
+				glm::vec2 imageSize  = {size.x, imageHeight};
+				auto window = glm::vec2(ImGui::GetWindowWidth(), ImGui::GetWindowHeight());
+
+				auto s = (window - imageSize) * 0.5f;
+				ImGui::SetCursorPos({s.x, s.y});
+				ImGui::Image((void*)id, {imageSize.x, imageSize.y}, {0,0}, {-1, -1});
+				
+				ImGui::End();
+				
 			}
 
 			if (hierarchyOpen)
@@ -655,6 +707,7 @@ namespace tnah {
 		{
 			m_EditorCamera = m_ActiveScene->GetEditorCameraGameObject();
 			m_SceneFramebuffer = m_ActiveScene->GetSceneFramebuffer();
+			m_GameFramebuffer = m_ActiveScene->GetGameFramebuffer();
 			m_SelectToolTex.reset(Texture2D::Create("assets/Editor/icons/SelectTool.png"));
 			m_MoveToolTex.reset(Texture2D::Create("assets/Editor/icons/MoveTool.png"));
 			m_RotateToolTex.reset(Texture2D::Create("assets/Editor/icons/RotateTool.png"));
@@ -662,6 +715,9 @@ namespace tnah {
 
 			
 			m_SelectedGameObject = nullptr;
+
+			auto& c = m_EditorCamera->GetComponent<TransformComponent>();
+			c.Position -= c.Forward * 5.0f;
 		}
 
 		void EditorLayer::OnDetach()

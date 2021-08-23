@@ -5,8 +5,6 @@
 #include "TNAH/Core/Application.h"
 #include "TNAH/Core/Input.h"
 #include "TNAH/Renderer/Renderer.h"
-#include "TNAH/Scene/Components/Components.h"
-
 namespace tnah{
 
 	std::unordered_map<UUID, GameObject>& Scene::GetGameObjectsInScene()
@@ -26,7 +24,9 @@ namespace tnah{
 			m_EditorCamera.reset(CreateEditorCamera());
 			FramebufferSpecification fbspec = {1280, 720};
 			m_SceneFramebuffer.reset(Framebuffer::Create(fbspec));
+			m_GameFramebuffer.reset(Framebuffer::Create(fbspec));
 			m_IsEditorScene = true;
+			m_RenderPasses = 2;
 		}
 
 		auto c = CreateGameObject("Main Camera");
@@ -90,18 +90,18 @@ namespace tnah{
 	void Scene::OnUpdate(Timestep deltaTime)
 	{
 		//TODO: Actually test the player controller component
-#if 0 
 		// Process any PlayerControllers before updating anything else in the scene
 		{
 			auto e = EditorComponent();
-			auto& editor = (m_EditorCamera->HasComponent<EditorComponent>()) ? m_EditorCamera->GetComponent<EditorComponent>() : e;
+			
 			
 			auto view = m_Registry.view<PlayerControllerComponent, TransformComponent>();
 			for(auto obj : view)
 			{
+				auto& editor = m_EditorCamera->GetComponent<EditorComponent>();
 				//Only run this update for a player controller if the editor isnt empty, were in play mode to test the scene
 				// or this scene isnt being ran in a editor ie in the runtime
-				if((!editor.m_IsEmpty && editor.m_EditorMode == EditorComponent::EditorMode::Play) || (!m_IsEditorScene && this->FindGameObjectByID(obj).IsActive()))
+				if((m_EditorCamera != nullptr && editor.m_EditorMode == EditorComponent::EditorMode::Play) || (!m_IsEditorScene && this->FindGameObjectByID(obj).IsActive()))
 				{
 					auto& transform = view.get<TransformComponent>(obj);
 					auto& player = view.get<PlayerControllerComponent>(obj);
@@ -123,7 +123,6 @@ namespace tnah{
 			}
 			
 		}
-#endif
 		
 		//Update all transform components and their forward, right and up vectors
 		{
@@ -147,54 +146,24 @@ namespace tnah{
 			}
 		}
 
-		if(m_IsEditorScene) m_SceneFramebuffer->Bind();
-		//after the transform is updated, update the camera matrix etc 
+		uint32_t passes = 0;
+		
+
+		do
 		{
 			if(m_IsEditorScene)
 			{
-				auto& camera = m_EditorCamera->GetComponent<EditorCameraComponent>().EditorCamera;
-				auto& transform = m_EditorCamera->GetComponent<TransformComponent>();
-				camera.OnUpdate(transform);
+				if(passes == 0) m_SceneFramebuffer->Bind();
+				if(passes == 1) m_GameFramebuffer->Bind();
 			}
-			else
+		
+			//after the transform is updated, update the camera matrix etc 
 			{
-				auto view = m_Registry.view<TransformComponent, CameraComponent>();
-				for(auto entity : view)
-				{ 
-					auto& camera = view.get<CameraComponent>(entity);
-					auto& transform = view.get<TransformComponent>(entity);
-					camera.Camera.OnUpdate(transform);
-				}
-			}
-		}
-
-		//Renderer Stuff
-		{
-			glm::vec3 cameraPosition;
-			bool usingSkybox = false;
-			
-			
-			{
-				//Check if its were in the editor, if so render from the perspective of the editor camera
-				if(m_IsEditorScene)
+				if(m_IsEditorScene && passes == 0)
 				{
-					auto& camera = m_EditorCamera->GetComponent<EditorCameraComponent>();
-					auto transform = m_EditorCamera->GetComponent<TransformComponent>();
-					cameraPosition = transform.Position;
-					if(camera.ClearMode == CameraClearMode::Color)
-					{
-						RenderCommand::SetClearColor(camera.ClearColor);
-						RenderCommand::Clear();
-						usingSkybox = true;
-					}
-					else if(camera.ClearMode == CameraClearMode::Skybox)
-					{
-						RenderCommand::SetClearColor({0.0f, 0.0f, 0.0f, 0.0f});
-						RenderCommand::Clear();
-					}
-					
-					Renderer::BeginScene(camera);
-					
+					auto& camera = m_EditorCamera->GetComponent<EditorCameraComponent>().EditorCamera;
+					auto& transform = m_EditorCamera->GetComponent<TransformComponent>();
+					camera.OnUpdate(transform);
 				}
 				else
 				{
@@ -203,91 +172,140 @@ namespace tnah{
 					{ 
 						auto& camera = view.get<CameraComponent>(entity);
 						auto& transform = view.get<TransformComponent>(entity);
+						camera.Camera.OnUpdate(transform);
+					}
+				}
+			}
+
+			//Renderer Stuff
+			{
+				glm::vec3 cameraPosition;
+				bool usingSkybox = false;
+			
+			
+				{
+					//Check if its were in the editor, if so render from the perspective of the editor camera
+					if(m_IsEditorScene && passes == 0)
+					{
+						auto& camera = m_EditorCamera->GetComponent<EditorCameraComponent>();
+						auto transform = m_EditorCamera->GetComponent<TransformComponent>();
 						cameraPosition = transform.Position;
 						if(camera.ClearMode == CameraClearMode::Color)
 						{
 							RenderCommand::SetClearColor(camera.ClearColor);
 							RenderCommand::Clear();
-							usingSkybox = true;
+						
 						}
 						else if(camera.ClearMode == CameraClearMode::Skybox)
 						{
 							RenderCommand::SetClearColor({0.0f, 0.0f, 0.0f, 0.0f});
 							RenderCommand::Clear();
+							usingSkybox = true;
 						}
-						
+					
 						Renderer::BeginScene(camera);
-						break;
-						TNAH_CORE_ASSERT(false, "The TNAH-Engine only supports rendering from a single camera!")
+					
 					}
-				}
-			}
-
-
-			// Skybox
-			if(usingSkybox)
-			{
-				auto view = m_Registry.view<SkyboxComponent>();
-				for(auto obj : view)
-				{
-					auto& skybox = view.get<SkyboxComponent>(obj);
-					// Bind the skybox shader
-					// Do any skybox render setup
-					//Renderer::SubmitSkybox(skybox.GetVertexArray(), skybox.GetMaterial());
-				}
-			}
-
-			std::vector<Ref<Light>> sceneLights;
-			{
-				auto view = m_Registry.view<LightComponent, TransformComponent>();
-				for(auto entity : view)
-				{
-					auto& light = view.get<LightComponent>(entity);
-					auto& transform = view.get<TransformComponent>(entity);
-					if(light.Light == nullptr) continue; 
-					light.Light->SetPosition(transform.Position);
-					light.Light->UpdateShaderLightInfo(cameraPosition);
-					sceneLights.push_back(light.Light);
-				}
-			}
-////
-			
-			//Render any terrain objects
-			{
-				auto view = m_Registry.view<TransformComponent, TerrainComponent>();
-				for(auto entity : view)
-				{
-					auto& terrain = view.get<TerrainComponent>(entity);
-					auto& transform = view.get<TransformComponent>(entity);
-
-					Renderer::SubmitTerrain(terrain.SceneTerrain->GetVertexArray(), terrain.SceneTerrain->GetMaterial(), sceneLights, transform.GetTransform());
-				}
-			}
-
-			//Render all mesh components
-			{
-				auto view = m_Registry.view<TransformComponent, MeshComponent>();
-				for(auto entity : view)
-				{
-					auto& model = view.get<MeshComponent>(entity);
-					auto& transform = view.get<TransformComponent>(entity);
-
-					for(auto& mesh : model.Model->GetMeshes())
+					else
 					{
-						Renderer::SubmitMesh(mesh.GetMeshVertexArray(), mesh.GetMeshMaterial(), sceneLights, transform.GetTransform());
+						auto view = m_Registry.view<TransformComponent, CameraComponent>();
+						for(auto entity : view)
+						{ 
+							auto& camera = view.get<CameraComponent>(entity);
+							auto& transform = view.get<TransformComponent>(entity);
+							cameraPosition = transform.Position;
+							if(camera.ClearMode == CameraClearMode::Color)
+							{
+								RenderCommand::SetClearColor(camera.ClearColor);
+								RenderCommand::Clear();
+							}
+							else if(camera.ClearMode == CameraClearMode::Skybox)
+							{
+								RenderCommand::SetClearColor({0.0f, 0.0f, 0.0f, 1.0f});
+								RenderCommand::Clear();
+								usingSkybox = true;
+							}
+						
+							Renderer::BeginScene(camera);
+							break;
+							TNAH_CORE_ASSERT(false, "The TNAH-Engine only supports rendering from a single camera!")
+						}
 					}
 				}
-			}
+
+
+				// Skybox
+				if(usingSkybox)
+				{
+					auto view = m_Registry.view<SkyboxComponent>();
+					for(auto obj : view)
+					{
+						auto& skybox = view.get<SkyboxComponent>(obj);
+						// Bind the skybox shader
+						// Do any skybox render setup
+						//Renderer::SubmitSkybox(skybox.GetVertexArray(), skybox.GetMaterial());
+					}
+				}
+
+				std::vector<Ref<Light>> sceneLights;
+				{
+					auto view = m_Registry.view<LightComponent, TransformComponent>();
+					for(auto entity : view)
+					{
+						auto& light = view.get<LightComponent>(entity);
+						auto& transform = view.get<TransformComponent>(entity);
+						if(light.Light == nullptr) continue; 
+						light.Light->SetPosition(transform.Position);
+						light.Light->UpdateShaderLightInfo(cameraPosition);
+						sceneLights.push_back(light.Light);
+					}
+				}
+				////
+			
+				//Render any terrain objects
+				{
+					auto view = m_Registry.view<TransformComponent, TerrainComponent>();
+					for(auto entity : view)
+					{
+						auto& terrain = view.get<TerrainComponent>(entity);
+						auto& transform = view.get<TransformComponent>(entity);
+
+						Renderer::SubmitTerrain(terrain.SceneTerrain->GetVertexArray(), terrain.SceneTerrain->GetMaterial(), sceneLights, transform.GetTransform());
+					}
+				}
+
+				//Render all mesh components
+				{
+					auto view = m_Registry.view<TransformComponent, MeshComponent>();
+					for(auto entity : view)
+					{
+						auto& model = view.get<MeshComponent>(entity);
+						auto& transform = view.get<TransformComponent>(entity);
+
+						for(auto& mesh : model.Model->GetMeshes())
+						{
+							Renderer::SubmitMesh(mesh.GetMeshVertexArray(), mesh.GetMeshMaterial(), sceneLights, transform.GetTransform());
+						}
+					}
+				}
 
 
 
 
 
 			
-			Renderer::EndScene();
-			if(m_IsEditorScene) m_SceneFramebuffer->Unbind();
-		}
+				Renderer::EndScene();
+			}
+			if(m_IsEditorScene)
+			{
+				if(passes == 0) m_SceneFramebuffer->Unbind();
+				if(passes == 1) m_GameFramebuffer->Bind();
+				
+			}
+			passes++;
+		}while(passes < m_RenderPasses);
 	}
+
 
 	void Scene::OnFixedUpdate(PhysicsTimestep time)
 	{

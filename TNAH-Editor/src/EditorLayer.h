@@ -44,10 +44,13 @@ namespace tnah {
 
 		Ref<Texture2D> m_SelectToolTex, m_MoveToolTex, m_RotateToolTex, m_ScaleToolTex;
 		
-		int m_GizmoType = -1; // -1 = no gizmo
+		int m_GizmoType; // -1 = no gizmo
 
 		//Scene view framebuffer
 		Ref<Framebuffer> m_SceneFramebuffer;
+		ImVec2 m_SceneViewSize = {0,0};
+		
+		Ref<Framebuffer> m_GameFramebuffer;
 	};
 
 

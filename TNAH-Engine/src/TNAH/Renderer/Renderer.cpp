@@ -199,10 +199,24 @@ namespace tnah {
 		IncrementDrawCallsPerFrame();
 	}
 
+	void Renderer::SubmitSkybox(const Ref<VertexArray>& vertexArray, const Ref<Material>& material)
+	{
+		material->BindShader();
+		material->GetShader()->SetMat4("u_ViewProjection", s_SceneData->ViewProjection);
+		
+		material->BindTextures();
+		
+		vertexArray->Bind();
+		RenderCommand::DrawIndexed(vertexArray);
+
+		IncrementDrawCallsPerFrame();
+	}
+
 	void Renderer::SetCullMode(const CullMode mode)
 	{
 		RenderCommand::SetCullMode(mode);
 	}
+
 
 	Ref<Texture2D> Renderer::GetWhiteTexture()
 	{

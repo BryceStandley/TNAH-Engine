@@ -47,6 +47,7 @@ namespace tnah {
 		}
 
 
+
 	private:
 		static RendererAPI* s_RendererAPI;
 	};

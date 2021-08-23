@@ -1,5 +1,6 @@
 ﻿#include "tnahpch.h"
 #include "EditorUI.h"
+#include "TNAH/Scene/Components/Components.h"
 
 #include <imgui.h>
 #include "imgui_internal.h"
@@ -30,24 +31,63 @@ namespace tnah {
     	if(object->HasComponent<CameraComponent>())
     	{
     		ImGui::Text("Camera");
-    		auto& c = object->GetComponent<CameraComponent>().Camera;
+    		auto& c = object->GetComponent<CameraComponent>();
 			static int selectedType = 1;
     		static const char* CameraTypes[]
     		{
     			"Orthographic", "Perspective"	
     		};
+
+    		static int selectedClear = 1;
+    		static const char* CameraClear[] {"Skybox", "Color"};
     		bool modified = false;
     		ImGui::Combo("##T", &selectedType, CameraTypes, IM_ARRAYSIZE(CameraTypes));
+    		ImGui::Combo("##C", &selectedClear, CameraClear, IM_ARRAYSIZE(CameraClear));
+			if(selectedClear == 0)
+			{
+				ImGui::Text("Display some text here for setting a skybox or use default");
+				
+			}
+    		else if(selectedClear == 1 && c.ClearMode == CameraClearMode::Color)
+    		{
+    			Draw4ColorControl("Clear Color", c.ClearColor);
+    		}
+
+    		if(c.ClearMode == CameraClearMode::Skybox && selectedClear == 1)
+    		{
+    			if(ImGui::Button("Save"))
+    			{
+    				c.SetClearMode(CameraClearMode::Color);
+    			}
+    		}
+
+    		if(c.ClearMode == CameraClearMode::Color && selectedClear == 0)
+    		{
+    			if(ImGui::Button("Save"))
+    			{
+    				c.SetClearMode(CameraClearMode::Skybox);
+    			}
+    		}
+
+    		if(c.ClearMode == CameraClearMode::None)
+    		{
+    			if(ImGui::Button("Reset"))
+    			{
+    				c.SetClearMode(CameraClearMode::Skybox);
+    			}
+    		}
+
+    		
     		if(selectedType == 0)
     		{
     			//Ortho
-    			if(c.GetProjectionType() == SceneCamera::ProjectionType::Perspective)
+    			if(c.Camera.GetProjectionType() == SceneCamera::ProjectionType::Perspective)
     			{
-    				c.SetOrthographic(10);
+    				c.Camera.SetOrthographic(10);
     			}
-    			auto s = c.m_OrthographicSize;
-    			auto n = c.m_OrthographicNear;
-    			auto f = c.m_OrthographicFar;
+    			auto s = c.Camera.m_OrthographicSize;
+    			auto n = c.Camera.m_OrthographicNear;
+    			auto f = c.Camera.m_OrthographicFar;
     			ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.9f, 0.2f, 0.2f, 1.0f));
     			ImGui::Text("Orthographic Cameras currently not supported");
     			ImGui::PopStyleColor();
@@ -57,20 +97,20 @@ namespace tnah {
 
     			if(modified)
     			{
-    				c.SetOrthographicSize(s);
-    				c.SetOrthographicNearClip(n);
-    				c.SetOrthographicNearClip(f);
+    				c.Camera.SetOrthographicSize(s);
+    				c.Camera.SetOrthographicNearClip(n);
+    				c.Camera.SetOrthographicNearClip(f);
     			}
     		}
     		else
     		{
-    			if(c.GetProjectionType() == SceneCamera::ProjectionType::Orthographic)
+    			if(c.Camera.GetProjectionType() == SceneCamera::ProjectionType::Orthographic)
     			{
-    				c.SetPerspective(60);
+    				c.Camera.SetPerspective(60);
     			}
-    			auto fov = glm::degrees(c.m_PerspectiveFOV);
-    			auto nearc = c.m_PerspectiveNear;
-    			auto farc = c.m_PerspectiveFar;
+    			auto fov = glm::degrees(c.Camera.m_PerspectiveFOV);
+    			auto nearc = c.Camera.m_PerspectiveNear;
+    			auto farc = c.Camera.m_PerspectiveFar;
     			
     			modified |= DrawFloatControl("Field of View", fov, 60, 120);
     			modified |=DrawFloatControl("Near Plane", nearc,  0.01f, 1.0f);
@@ -78,9 +118,9 @@ namespace tnah {
     			
     			if(modified)
     			{
-    				c.SetPerspectiveVerticalFOV(fov);
-    				c.SetPerspectiveNearClip(nearc);
-    				c.SetPerspectiveFarClip(farc);
+    				c.Camera.SetPerspectiveVerticalFOV(fov);
+    				c.Camera.SetPerspectiveNearClip(nearc);
+    				c.Camera.SetPerspectiveFarClip(farc);
     			}
     		}
     		
@@ -96,13 +136,50 @@ namespace tnah {
     	if(object->HasComponent<EditorCameraComponent>())
     	{
     		ImGui::Text("Editor Camera");
-    		auto& c = object->GetComponent<EditorCameraComponent>().EditorCamera;
-    		auto fov = glm::degrees(c.m_PerspectiveFOV);
-    		auto nearc = c.m_PerspectiveNear;
-    		auto farc = c.m_PerspectiveFar;
-    		float w = (float)c.m_ViewportWidth;
-    		float h = (float)c.m_ViewportHeight;
+    		auto& c = object->GetComponent<EditorCameraComponent>();
+    		auto fov = glm::degrees(c.EditorCamera.m_PerspectiveFOV);
+    		auto nearc = c.EditorCamera.m_PerspectiveNear;
+    		auto farc = c.EditorCamera.m_PerspectiveFar;
+    		float w = (float)c.EditorCamera.m_ViewportWidth;
+    		float h = (float)c.EditorCamera.m_ViewportHeight;
     		bool modified = false;
+    		static int selectedClear = 1;
+    		static const char* CameraClear[] {"Skybox", "Color"};
+    		ImGui::Combo("##C", &selectedClear, CameraClear, IM_ARRAYSIZE(CameraClear));
+    		if(selectedClear == 0)
+    		{
+    			ImGui::Text("Display some text here for setting a skybox or use default");
+				
+    		}
+    		else if(selectedClear == 1 && c.ClearMode == CameraClearMode::Color)
+    		{
+    			Draw4ColorControl("Clear Color", c.ClearColor);
+    		}
+
+    		if(c.ClearMode == CameraClearMode::Skybox && selectedClear == 1)
+    		{
+    			if(ImGui::Button("Save"))
+    			{
+    				c.SetClearMode(CameraClearMode::Color);
+    			}
+    		}
+
+    		if(c.ClearMode == CameraClearMode::Color && selectedClear == 0)
+    		{
+    			if(ImGui::Button("Save"))
+    			{
+    				c.SetClearMode(CameraClearMode::Skybox);
+    			}
+    		}
+
+    		if(c.ClearMode == CameraClearMode::None)
+    		{
+    			if(ImGui::Button("Reset"))
+    			{
+    				c.SetClearMode(CameraClearMode::Skybox);
+    			}
+    		}
+
     		DrawFloatControl("Viewport Width", w, 0,0, true);
     		DrawFloatControl("Viewport Height", h, 0,0, true);
 			modified |= DrawFloatControl("Field of View", fov, 60, 120);
@@ -110,9 +187,9 @@ namespace tnah {
 			modified |=DrawFloatControl("Far Plane", farc,  100.0f, 10000.0f);
 			if(modified)
 			{
-				c.SetPerspectiveVerticalFOV(fov);
-				c.SetPerspectiveNearClip(nearc);
-				c.SetPerspectiveFarClip(farc);
+				c.EditorCamera.SetPerspectiveVerticalFOV(fov);
+				c.EditorCamera.SetPerspectiveNearClip(nearc);
+				c.EditorCamera.SetPerspectiveFarClip(farc);
 			}
     		
     		ImGui::Separator();

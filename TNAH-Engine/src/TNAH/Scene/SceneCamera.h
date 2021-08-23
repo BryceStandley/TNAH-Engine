@@ -34,6 +34,8 @@ namespace tnah {
 
 		void OnUpdate(TransformComponent& transform);
 		void OnCameraChange(TransformComponent& transform);
+
+		glm::quat GetOrientation(TransformComponent& transform);
 	private:
 		ProjectionType m_ProjectionType = ProjectionType::Perspective;
 
@@ -45,6 +47,7 @@ namespace tnah {
 
 		float m_OrthographicSize = 10.0f;
 		float m_OrthographicNear = -1.0f, m_OrthographicFar = 1.0f;
+
 		friend class EditorUI;
 		friend class Serializer;
 	};

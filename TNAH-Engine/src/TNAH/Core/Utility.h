@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include <string>
 
+
 namespace tnah::Utility {
 
     static std::pair<std::string, std::string> SplitDirectoryAndFilePath(const std::string& filePath)
@@ -37,6 +38,10 @@ namespace tnah::Utility {
         return split;
     }
 
+    static float Remap(float value, float oldMin, float oldMax, float newMin, float newMax)
+    {
+        return newMin + (newMax - newMin) * ((value - oldMin) / (oldMax - oldMin));
+    }
 
 
     
