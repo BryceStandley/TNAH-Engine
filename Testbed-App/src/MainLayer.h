@@ -18,6 +18,7 @@ private:
 	tnah::GameObject* m_Terrain = nullptr;
 	std::vector<tnah::GameObject*> m_MeshObjects;
 	tnah::Ref<tnah::GameObject> m_SceneLight;
+	tnah::GameObject* m_Skybox = nullptr;
 
 	tnah::GameObject* m_PointLight = nullptr;
 

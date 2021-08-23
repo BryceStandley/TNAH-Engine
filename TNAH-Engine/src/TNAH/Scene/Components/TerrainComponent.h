@@ -56,10 +56,13 @@ namespace tnah {
 
 		inline const BufferLayout GetBufferLayout() { return m_BufferLayout; }
 
-		inline Ref<VertexArray> GetVertexArray() {return m_VAO;}
-		inline Ref<VertexBuffer> GetVertexBuffer() {return m_VBO;}
-		inline Ref<IndexBuffer> GetIndexBuffer() {return m_IBO;}
-		inline Ref<Material> GetMaterial() {return m_Material;}
+		inline Ref<VertexArray> GetVertexArray() { return m_VAO; }
+		inline Ref<VertexBuffer> GetVertexBuffer() { return m_VBO; }
+		inline Ref<IndexBuffer> GetIndexBuffer() { return m_IBO; }
+		inline Ref<Material> GetMaterial() { return m_Material; }
+		
+
+		
 
 	private:
 		/**********************************************************************************************//**

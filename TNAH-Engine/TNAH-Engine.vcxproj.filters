@@ -138,7 +138,10 @@
     <ClCompile Include="src\TNAH\Scene\Serializer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Skybox.cpp">
+    <ClCompile Include="src\TNAH\Core\Math.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TNAH\Scene\Components\SkyboxComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -338,7 +341,7 @@
     <ClInclude Include="src\TNAH\Scene\Serializer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Skybox.h">
+    <ClInclude Include="src\TNAH\Scene\Components\SkyboxComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

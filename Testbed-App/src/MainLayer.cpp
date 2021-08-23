@@ -2,6 +2,7 @@
 
 #include <imgui.h>
 #include <glm/gtc/random.hpp>
+#include <TNAH/Scene/Components/SkyboxComponent.h>
 
 MainLayer::MainLayer()
 	:Layer("Main Layer")
@@ -19,6 +20,10 @@ MainLayer::MainLayer()
 	m_Terrain->AddComponent<tnah::TerrainComponent>("assets/heightmaps/1k.tga");
 	auto& terrT = m_Terrain->GetComponent<tnah::TransformComponent>();
 	terrT.Scale = glm::vec3(5.0f);
+
+	//m_Skybox = m_ActiveScene->CreateGameObject("Skybox");
+	//m_Skybox->AddComponent<tnah::SkyboxComponent>();
+	auto& m_Skybox = m_ActiveScene->GetMainCameraGameObject()->AddComponent<tnah::SkyboxComponent>();
 
 	m_PointLight = m_ActiveScene->CreateGameObject("PointLight");
 	auto& light = m_PointLight->GetComponent<tnah::LightComponent>();

@@ -5,7 +5,8 @@
 #include "TNAH/Core/Application.h"
 #include "TNAH/Core/Input.h"
 #include "TNAH/Renderer/Renderer.h"
-#include "../../../Skybox.h"
+#include <TNAH/Scene/Components/SkyboxComponent.h>
+
 namespace tnah{
 
 	std::unordered_map<UUID, GameObject>& Scene::GetGameObjectsInScene()
@@ -244,7 +245,7 @@ namespace tnah{
 						auto& skybox = view.get<SkyboxComponent>(obj);
 						// Bind the skybox shader
 						// Do any skybox render setup
-						//Renderer::SubmitSkybox(skybox.GetVertexArray(), skybox.GetMaterial());
+						Renderer::SubmitSkybox(skybox.SceneSkybox->GetVertexArray(), skybox.SceneSkybox->GetMaterial());
 					}
 				}
 

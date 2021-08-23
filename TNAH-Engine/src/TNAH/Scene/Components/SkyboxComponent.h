@@ -9,11 +9,20 @@
 namespace tnah {
 	class Skybox {
 
-	private:
+	public:
 		Skybox();
 		Skybox(const Texture3DProperties& skyboxTextureProperties);
+
+		float* GetVBOData() { return &m_VBOData[0]; }
+		uint32_t GetVBODataSize() { return m_VBOSize; }
+		inline Ref<VertexArray> GetVertexArray() { return m_VAO; }
+		inline Ref<VertexBuffer> GetVertexBuffer() { return m_VBO; }
+		inline Ref<Material> GetMaterial() { return m_Material; }
+
+
+	private:
 		
-		
+		void Create();
 		Ref<VertexArray> m_VAO;
 		Ref<VertexBuffer> m_VBO;
 		BufferLayout m_BufferLayout;
@@ -25,10 +34,6 @@ namespace tnah {
 		uint32_t m_VBOSize = 0;
 
 	private:
-		float* GetVBOData() { return &m_VBOData[0];}
-		void Create();
-		uint32_t GetVBODataSize() { return m_VBOSize; }
-
 		friend class scene;
 		friend struct SkyboxComponent;
 	};
@@ -37,12 +42,16 @@ namespace tnah {
 	{
 		Skybox* SceneSkybox;
 
-		SkyboxComponent() = default;
+		SkyboxComponent() 
+		{
+			SceneSkybox = new Skybox();
+		}
+		
 		SkyboxComponent(const SkyboxComponent& other) = default;
 
-		SkyboxComponent(const Texture3DProperties& cubemapProperties)
-		{
-			SceneSkybox = new Skybox(cubemapProperties);
-		}
+		//SkyboxComponent(const Texture3DProperties& cubemapProperties)
+		//{
+		//	SceneSkybox = new Skybox(cubemapProperties);
+		//}
 	};
 }

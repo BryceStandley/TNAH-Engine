@@ -7,15 +7,15 @@ namespace tnah {
 	{
 		Create();
 
-		const std::string front = "front.jpg";
-		const std::string back = "back.jpg";
-		const std::string top = "top.jpg";
-		const std::string bottom = "bottom.jpg";
-		const std::string left = "left.jpg";
-		const std::string right = "right.jpg";
+		const std::string front = "Resources/textures/skybox/front.jpg";
+		const std::string back = "Resources/textures/skybox/back.jpg";
+		const std::string top = "Resources/textures/skybox/top.jpg";
+		const std::string bottom = "Resources/textures/skybox/bottom.jpg";
+		const std::string left = "Resources/textures/skybox/left.jpg";
+		const std::string right = "Resources/textures/skybox/right.jpg";
 		Texture3DProperties properties ={ front, back, left, right, top, bottom};
 		Ref<Shader> shader;
-		shader.reset(Shader::Create("Resources/shaders/default/skybox_vertex.glsl", "Resources/shaders/default/skybox_fragment.glsl"));
+		shader.reset(Shader::Create("Resources/shaders/default/skybox/skybox_vertex.glsl", "Resources/shaders/default/skybox/skybox_fragment.glsl"));
 		m_Material.reset(SkyboxMaterial::Create(shader, properties));
 		m_SkyboxTexture = m_Material->GetCubemapTextures();
 		
@@ -31,7 +31,7 @@ namespace tnah {
 	{
 		Create();
 		Ref<Shader> shader;
-		shader.reset(Shader::Create("Resources/shaders/default/skybox_vertex.glsl", "Resources/shaders/default/skybox_fragment.glsl"));
+		shader.reset(Shader::Create("Resources/shaders/default/skybox/skybox_vertex.glsl", "Resources/shaders/default/skybox/skybox_fragment.glsl"));
 		m_Material.reset(SkyboxMaterial::Create(shader, skyboxTextureProperties));
 		m_SkyboxTexture = m_Material->GetCubemapTextures();
 
