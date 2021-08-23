@@ -2,7 +2,7 @@
 #include "Serializer.h"
 
 #include "GameObject.h"
-#include "Components/EditorCamera.h"
+#include "Components/Components.h"
 #include "Scene.h"
 
 namespace tnah {
