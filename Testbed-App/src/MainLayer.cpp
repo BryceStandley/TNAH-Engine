@@ -20,17 +20,15 @@ MainLayer::MainLayer()
 	m_Terrain = m_ActiveScene->CreateGameObject("Terrain");
 	m_Terrain->AddComponent<tnah::TerrainComponent>("assets/heightmaps/1k.tga");
 	auto& terrT = m_Terrain->GetComponent<tnah::TransformComponent>();
-	terrT.Scale = glm::vec3(5.0f);
+	terrT.Scale = glm::vec3(100.0f);
 
-	//m_Skybox = m_ActiveScene->CreateGameObject("Skybox");
-	//m_Skybox->AddComponent<tnah::SkyboxComponent>();
 	auto& m_Skybox = m_ActiveScene->GetMainCameraGameObject()->AddComponent<tnah::SkyboxComponent>();
 
 	m_PointLight = m_ActiveScene->CreateGameObject("PointLight");
 	auto& light = m_PointLight->GetComponent<tnah::LightComponent>();
 	light.Light.reset(tnah::Light::CreatePoint());
 
-	for (int i = 0; i < 0; i++)
+	for (int i = 0; i < 100; i++)
 	{
 		//Test Cube
 		std::string name = "Cube" + std::to_string(i);

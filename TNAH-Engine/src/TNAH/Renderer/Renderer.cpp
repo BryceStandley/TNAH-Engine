@@ -191,7 +191,7 @@ namespace tnah {
 		material->BindTextures();
 		
 		vertexArray->Bind();
-		//RenderCommand::DrawIndexed(vertexArray);
+		RenderCommand::DrawIndexed(vertexArray);
 		IncrementDrawCallsPerFrame();
 	}
 
@@ -216,14 +216,13 @@ namespace tnah {
 	void Renderer::SubmitSkybox(const Ref<VertexArray>& vertexArray, const Ref<SkyboxMaterial>& material)
 	{
 		RenderCommand::SetDepthFunc(RendererAPI::DepthFunc::Lequal);
+		
+		RenderCommand::SetDepthMask(false);
+		
 		SetCullMode(CullMode::Back);
 		material->BindShader();
 
 		const glm::mat4 view = glm::mat4(glm::mat3(s_SceneData->View));
-
-		
-		//material->GetShader()->SetMat4("u_Projection", s_SceneData->Projection);
-		//material->GetShader()->SetMat4("u_View", view);
 		
 		material->GetShader()->SetMat4("u_ViewProjection", s_SceneData->ViewProjection);
 		material->GetShader()->SetVec3("u_CameraPosition", s_SceneData->CameraTransform.Position);
@@ -234,7 +233,7 @@ namespace tnah {
 		
 		RenderCommand::DrawArray(vertexArray);
 		RenderCommand::SetDepthFunc(RendererAPI::DepthFunc::Less);
-		SetCullMode(CullMode::Front);
+		//SetCullMode(CullMode::Front);
 		IncrementDrawCallsPerFrame();
 	}
 
