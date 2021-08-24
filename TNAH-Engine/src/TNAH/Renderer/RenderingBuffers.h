@@ -1,6 +1,7 @@
 #pragma once
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
+
 namespace tnah {
 
 	enum class ShaderDataType
@@ -23,6 +24,8 @@ namespace tnah {
 			case ShaderDataType::Int3:     return 4 * 3;
 			case ShaderDataType::Int4:     return 4 * 4;
 			case ShaderDataType::Bool:     return 1;
+			case ShaderDataType::None: break;
+		default: break;
 		}
 
 		TNAH_CORE_ASSERT(false, "Unknown ShaderDataType!");
@@ -59,6 +62,7 @@ namespace tnah {
 				case ShaderDataType::Int3:    return 3;
 				case ShaderDataType::Int4:    return 4;
 				case ShaderDataType::Bool:    return 1;
+				default: break;
 			}
 
 			TNAH_CORE_ASSERT(false, "Unknown ShaderDataType!");
@@ -136,6 +140,28 @@ namespace tnah {
 		static IndexBuffer* Create(uint32_t size);
 	};
 
+	enum class RenderbufferFormat
+	{
+		Depth16, Depth24, Depth32F,
+		Depth24_Stencil8, Depth32F_Stencil8,
+		Stencil8
+		
+	};
+	
+	struct RenderbufferSpecification
+	{
+		uint32_t Width = 0; 
+		uint32_t Height = 0;
+		RenderbufferFormat Format = RenderbufferFormat::Depth24_Stencil8;
+		uint32_t Samples = 1;
+		bool SwapChainTarget = false;
+		bool IsValid = true;
+
+		RenderbufferSpecification() = default;
+		RenderbufferSpecification(uint32_t valid)
+			:IsValid(false) {}
+	};
+	
 	enum class FramebufferFormat
 	{
 		SDR, HDR
@@ -143,10 +169,27 @@ namespace tnah {
 	
 	struct FramebufferSpecification
 	{
-		uint32_t Width, Height;
+		uint32_t Width = 0;
+		uint32_t Height = 0;
 		FramebufferFormat Format = FramebufferFormat::SDR;
 		uint32_t Samples = 1;
 		bool SwapChainTarget = false;
+	};
+
+	struct ColorAttachmentSpecs
+	{
+		uint32_t Width = 0;
+		uint32_t Height = 0;
+		FramebufferFormat Format = FramebufferFormat::SDR;
+
+	};
+
+	/**
+	 *	Defines the different attachment draw modes.
+	 */
+	enum class FramebufferDrawMode
+	{
+		Depth, Color, Stencil, Render
 	};
 	
 	class Framebuffer
@@ -154,14 +197,53 @@ namespace tnah {
 	public:
 		virtual ~Framebuffer() = default;
 		virtual const FramebufferSpecification& GetSpecification() const = 0;
-		virtual uint32_t GetColorAttachmentRendererID() const = 0;
-		virtual uint32_t GetRendererID() const = 0;
 
+		virtual void DrawToNext() = 0;
+		virtual uint32_t GetColorAttachment() const = 0;
+		virtual uint32_t GetColorAttachment(uint32_t attachmentNumber) const = 0;
+		virtual uint32_t GetTotalColorAttachments() const = 0;
+
+		virtual uint32_t GetDepthAttachmentID() const = 0;
+		virtual uint32_t GetDepthAttachmentID(uint32_t attachmentNumber) const = 0;
+		virtual uint32_t GetTotalDepthAttachments() const = 0;
+
+		virtual uint32_t GetRenderBufferID() const = 0;
+		virtual void SetRenderbufferSpecification(uint32_t bufferSlot, const RenderbufferSpecification& spec) = 0;
+		
+		virtual uint32_t GetRendererID() const = 0;
+		
+		virtual void Bind(uint32_t attachmentSlot = 0) = 0;
+		virtual void Unbind() = 0;
+		virtual void Rebuild(const FramebufferSpecification& spec) = 0;
+		
+		static Framebuffer* Create(const FramebufferSpecification& spec, uint32_t colorAttachments = 1, uint32_t depthAttachments = 1);
+		static Framebuffer* Create(const FramebufferSpecification& spec, uint32_t colorAttachments, std::vector<ColorAttachmentSpecs> colorSpecs);
+		static Framebuffer* Create(const FramebufferSpecification& spec, const RenderbufferSpecification& renderSpec);
+		
+		virtual void SelectDrawToBuffer(const FramebufferDrawMode& mode = FramebufferDrawMode::Color, uint32_t attachmentNumber = 0) = 0;
+		virtual int GetFormatFromSpec(const FramebufferSpecification& spec) = 0;
+	};
+
+	class Renderbuffer
+	{
+	public:
+		virtual ~Renderbuffer() = default;
+
+		virtual uint32_t GetRendererID() const = 0;
+		
 		virtual void Bind() = 0;
 		virtual void Unbind() = 0;
-		virtual void Reset(const FramebufferSpecification& spec) = 0;
+		virtual void Rebuild(const RenderbufferSpecification& spec) = 0;
+		virtual void AttachToFramebuffer() = 0;
+
+		static Renderbuffer* Create(const RenderbufferSpecification& spec);
+		virtual int GetFormatFromSpecification(const RenderbufferSpecification& spec) = 0;
+		virtual int GetFramebufferFormatFromSpecification(const RenderbufferSpecification& spec) = 0;
+	private:
 		
-		static Framebuffer* Create(const FramebufferSpecification& spec);
+
+		friend class Framebuffer;
+		
 	};
 
 }

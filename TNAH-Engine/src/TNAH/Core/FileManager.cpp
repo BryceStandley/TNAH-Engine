@@ -11,7 +11,7 @@ namespace tnah {
 	bool FileManager::NewScene()
 	{
 		auto const wd = std::filesystem::current_path();
-		s_ActiveFile->FilePath = wd.string() + "\untitledScene.tnah.scene";
+		s_ActiveFile->FilePath = wd.string() + "/untitledScene.tnah.scene";
 		s_ActiveFile->FileName = "untitledScene";
 		s_ActiveFile->IsValid = true;
 		return true;

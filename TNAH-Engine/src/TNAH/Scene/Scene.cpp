@@ -25,8 +25,8 @@ namespace tnah{
 		{
 			m_EditorCamera.reset(CreateEditorCamera());
 			FramebufferSpecification fbspec = {1280, 720};
-			m_SceneFramebuffer.reset(Framebuffer::Create(fbspec));
-			m_GameFramebuffer.reset(Framebuffer::Create(fbspec));
+			m_EditorSceneFramebuffer.reset(Framebuffer::Create(fbspec));
+			m_EditorGameFramebuffer.reset(Framebuffer::Create(fbspec));
 			m_IsEditorScene = true;
 			m_RenderPasses = 2;
 		}
@@ -155,8 +155,16 @@ namespace tnah{
 		{
 			if(m_IsEditorScene)
 			{
-				if(passes == 0) m_SceneFramebuffer->Bind();
-				if(passes == 1) m_GameFramebuffer->Bind();
+				if(passes == 0)
+				{
+					m_EditorSceneFramebuffer->Bind(0);
+				}
+				
+				if(passes == 1)
+				{
+					
+					m_EditorGameFramebuffer->Bind(0);
+				}
 			}
 		
 			//after the transform is updated, update the camera matrix etc 
@@ -298,14 +306,12 @@ namespace tnah{
 			
 				Renderer::EndScene();
 			}
-			if(m_IsEditorScene)
-			{
-				if(passes == 0) m_SceneFramebuffer->Unbind();
-				if(passes == 1) m_GameFramebuffer->Bind();
-				
-			}
+			
 			passes++;
 		}while(passes < m_RenderPasses);
+
+		//Only need to call this on one buffer as its always going to bind FBO 0 ie no framebuffer
+		m_EditorSceneFramebuffer->Unbind();
 	}
 
 

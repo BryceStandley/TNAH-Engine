@@ -11,11 +11,11 @@ namespace tnah {
 		OpenGLVertexBuffer(void* vertices, uint32_t size);
 		virtual ~OpenGLVertexBuffer();
 
-		virtual void Bind() const override;
-		virtual void Unbind() const override;
+		void Bind() const override;
+		void Unbind() const override;
 
-		virtual const BufferLayout& GetLayout() const override { return m_Layout; }
-		virtual void SetLayout(const BufferLayout& layout) override { m_Layout = layout; }
+		const BufferLayout& GetLayout() const override { return m_Layout; }
+		void SetLayout(const BufferLayout& layout) override { m_Layout = layout; }
 	private:
 		uint32_t m_RendererID;
 		BufferLayout m_Layout;
@@ -29,40 +29,89 @@ namespace tnah {
 		OpenGLIndexBuffer(void* indices, uint32_t count);
 		virtual ~OpenGLIndexBuffer();
 
-		virtual void Bind() const;
-		virtual void Unbind() const;
+		void Bind() const override;
+		void Unbind() const override;
 
-		virtual uint32_t GetCount() const { return m_Count; }
+		uint32_t GetCount() const override { return m_Count; }
 	private:
 		uint32_t m_RendererID;
 		uint32_t m_Count;
 	};
 
-	typedef unsigned int GLenum;
 	class OpenGLFramebuffer : public Framebuffer
 	{
 	public:
-		OpenGLFramebuffer(const FramebufferSpecification& spec);
+		OpenGLFramebuffer(const FramebufferSpecification& spec, uint32_t colorAttachments = 1, uint32_t depthAttachments = 1);
+		OpenGLFramebuffer(const FramebufferSpecification& spec, uint32_t colorAttachments, std::vector<ColorAttachmentSpecs> colorSpecs);
+		OpenGLFramebuffer(const FramebufferSpecification& spec, const RenderbufferSpecification& renderSpec);
+
+		
 		virtual ~OpenGLFramebuffer();
 
-		void Bind() override;
+		void Bind(uint32_t attachmentSlot = 0) override;
 		void Unbind() override;
-		void Reset(const FramebufferSpecification& spec) override;
+		void Rebuild(const FramebufferSpecification& spec) override;
 		
 		const FramebufferSpecification& GetSpecification() const override { return m_Specification; }
-		uint32_t GetRendererID() const override { return m_RendererID; }
-		uint32_t GetColorAttachmentRendererID() const override { return m_ColorAttachment; }
 		
+		void DrawToNext() override;
+		
+		uint32_t GetRendererID() const override { return m_RendererID; }
+		uint32_t GetColorAttachment() const override { return GetColorAttachment(0); }
+		uint32_t GetColorAttachment(uint32_t attachmentNumber) const override;
+		uint32_t GetTotalColorAttachments() const override { return m_ColorAttachments.size(); }
+		
+		uint32_t GetDepthAttachmentID() const override { return GetDepthAttachmentID(0); }
+		uint32_t GetDepthAttachmentID(uint32_t attachmentNumber) const override;
+		uint32_t GetTotalDepthAttachments() const override { return m_DepthAttachments.size(); }
 
+		uint32_t GetRenderBufferID() const override { return m_Renderbuffer->GetRendererID(); }
+		void SetRenderbufferSpecification(uint32_t bufferSlot, const RenderbufferSpecification& spec) override;
+	
+	
+		void SelectDrawToBuffer(const FramebufferDrawMode& mode, uint32_t attachmentNumber) override;
+		
+		int GetFormatFromSpec(const FramebufferSpecification& spec) override;
 	private:
-		void Invalidate();
+		void Invalidate(uint32_t color = 1, uint32_t depth = 1, RenderbufferSpecification renderSpec = {0} );
 		
 		uint32_t m_RendererID;
-		uint32_t m_ColorAttachment;
-		uint32_t m_DepthAttachment;
 		FramebufferSpecification m_Specification;
-
-		static GLenum GetGLFormatFromSpec(const FramebufferSpecification& spec);
 		
+		std::vector<ColorAttachmentSpecs> m_ColorSpecifications;
+		std::vector<uint32_t> m_ColorAttachments;
+		std::vector<uint32_t> m_DepthAttachments;
+		Ref<Renderbuffer> m_Renderbuffer;
+		RenderbufferSpecification m_RenderbufferSpecification;
+
+		uint32_t m_ActiveColorAttachment = 0;
+		
+		
+	
+	};
+
+	class OpenGLRenderBuffer : public Renderbuffer
+	{
+	public:
+		virtual ~OpenGLRenderBuffer();
+		OpenGLRenderBuffer(const RenderbufferSpecification& spec);
+		uint32_t GetRendererID() const override { return m_RendererID; }
+		void Bind() override;
+		void Unbind() override;
+		void Rebuild(const RenderbufferSpecification& spec) override;
+		void AttachToFramebuffer() override;
+		
+		int GetFormatFromSpecification(const RenderbufferSpecification& spec) override;
+		int GetFramebufferFormatFromSpecification(const RenderbufferSpecification& spec) override;
+
+	private:
+		
+		
+		void Invalidate();
+		
+	
+	private:
+		uint32_t m_RendererID;
+		RenderbufferSpecification m_Specification;
 	};
 }

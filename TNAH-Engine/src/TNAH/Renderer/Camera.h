@@ -19,6 +19,7 @@ namespace tnah {
 	protected:
 		glm::mat4 m_ProjectionMatrix = glm::mat4(1.0f);
 		float m_Exposure = 0.8f;
+		glm::mat4 m_InvertTransformViewMatrix = glm::mat4(1.0f);
 		glm::mat4 m_ViewMatrix = glm::mat4(1.0f);
 
 		glm::mat4 m_ViewProjection = m_ProjectionMatrix * m_ViewMatrix;

@@ -13,7 +13,7 @@
 namespace tnah {
 
 		EditorLayer::EditorLayer()
-			: Layer("Editor Layer"),  m_FocusedWindow(FocusedWindow::None)
+			: Layer("Editor Layer"),  m_FocusedWindow(FocusedWindow::None), m_HasObjectSelected(false), m_GizmoType(-1)
 		{
 			m_ActiveScene = Scene::CreateNewEditorScene();
 		}
@@ -149,7 +149,8 @@ namespace tnah {
 						{
 							m_ActiveScene = Scene::CreateNewEditorScene();
 							m_EditorCamera = m_ActiveScene->GetEditorCameraGameObject();
-							m_SceneFramebuffer = m_ActiveScene->GetSceneFramebuffer();
+							m_EditorSceneFramebuffer = m_ActiveScene->GetEditorSceneFramebuffer();
+							m_EditorGameFramebuffer = m_ActiveScene->GetEditorGameFramebuffer();
 						}
 					}
 
@@ -357,28 +358,28 @@ namespace tnah {
 							if (ImGui::MenuItem("640 x 480 (480p)"))
 							{
 								FramebufferSpecification spec{ 640, 480 };
-								m_GameFramebuffer->Reset(spec);
+								m_EditorGameFramebuffer->Rebuild(spec);
 								auto& ec = m_ActiveScene->GetMainCameraGameObject()->GetComponent<CameraComponent>();
 								ec.Camera.SetViewportSize(spec.Width, spec.Height);
 							}
 							if (ImGui::MenuItem("1280 x 720 (720p)"))
 							{
 								FramebufferSpecification spec{ 1280, 720 };
-								m_GameFramebuffer->Reset(spec);
+								m_EditorGameFramebuffer->Rebuild(spec);
 								auto& ec = m_ActiveScene->GetMainCameraGameObject()->GetComponent<CameraComponent>();
 								ec.Camera.SetViewportSize(spec.Width, spec.Height);
 							}
 							if (ImGui::MenuItem("1920 x 1080 (1080p)"))
 							{
 								FramebufferSpecification spec{ 1920, 1080 };
-								m_GameFramebuffer->Reset(spec);
+								m_EditorGameFramebuffer->Rebuild(spec);
 								auto& ec = m_ActiveScene->GetMainCameraGameObject()->GetComponent<CameraComponent>();
 								ec.Camera.SetViewportSize(spec.Width, spec.Height);
 							}
 							if (ImGui::MenuItem("2560 x 1080 (UW 1080p)"))
 							{
 								FramebufferSpecification spec{ 2560, 1080 };
-								m_GameFramebuffer->Reset(spec);
+								m_EditorGameFramebuffer->Rebuild(spec);
 								auto& ec = m_ActiveScene->GetMainCameraGameObject()->GetComponent<CameraComponent>();
 								ec.Camera.SetViewportSize(spec.Width, spec.Height);
 
@@ -386,14 +387,14 @@ namespace tnah {
 							if (ImGui::MenuItem("2560 x 1440 (1440p)"))
 							{
 								FramebufferSpecification spec{ 2560, 1440 };
-								m_GameFramebuffer->Reset(spec);
+								m_EditorGameFramebuffer->Rebuild(spec);
 								auto& ec = m_ActiveScene->GetMainCameraGameObject()->GetComponent<CameraComponent>();
 								ec.Camera.SetViewportSize(spec.Width, spec.Height);
 							}
 							if (ImGui::MenuItem("3840 x 2160 (4K)"))
 							{
 								FramebufferSpecification spec{ 3840, 2160 };
-								m_GameFramebuffer->Reset(spec);
+								m_EditorGameFramebuffer->Rebuild(spec);
 								auto& ec = m_ActiveScene->GetMainCameraGameObject()->GetComponent<CameraComponent>();
 								ec.Camera.SetViewportSize(spec.Width, spec.Height);
 							}
@@ -518,15 +519,19 @@ namespace tnah {
  							m_SceneViewSize = ImGui::GetWindowSize();
  							auto& cam = m_EditorCamera->GetComponent<EditorCameraComponent>();
  							cam.EditorCamera.SetViewportSize(size.x, size.y);
- 							if(m_SceneFramebuffer == nullptr)
+ 							if(m_EditorSceneFramebuffer == nullptr)
  								id = Renderer::GetMissingTexture()->GetRendererID();
  							else
  							{
  								FramebufferSpecification spec = {size.x, size.y};
- 								m_SceneFramebuffer->Reset(spec);
- 								id = m_SceneFramebuffer->GetColorAttachmentRendererID();
+ 								m_EditorSceneFramebuffer->Rebuild(spec);
+ 								id = m_EditorSceneFramebuffer->GetColorAttachment();
  							}
  						}
+					}
+					else
+					{
+						id = m_EditorSceneFramebuffer->GetColorAttachment();
 					}
 					
 				}
@@ -542,7 +547,7 @@ namespace tnah {
 					ImGuizmo::SetRect(ImGui::GetWindowPos().x, ImGui::GetWindowPos().y, size.x, size.y);
 					auto& e_Camera = m_EditorCamera->GetComponent<EditorCameraComponent>();
 					glm::mat4 c_Proj = e_Camera.EditorCamera.GetProjectionMatrix();
-					glm::mat4 c_View = e_Camera.EditorCamera.GetViewMatrix();
+					glm::mat4 c_View = e_Camera.EditorCamera.GetInvertedTransformViewMatrix();
 					auto& e_Transform = m_SelectedGameObject->GetComponent<TransformComponent>();
 					glm::mat4 c_Transform = e_Transform.GetTransform();
 
@@ -575,16 +580,16 @@ namespace tnah {
 				auto size = ImGui::GetContentRegionAvail();
 				uint32_t id = 0;
 				FramebufferSpecification spec;
-				if(m_GameFramebuffer == nullptr)
+				if(m_EditorGameFramebuffer == nullptr)
 				{
 					id = Renderer::GetMissingTexture()->GetRendererID();
 					spec.Width = size.x;
-					spec.Height = size.y * 1.77777f;
+					spec.Height = size.y * (1280.0f / 720.0f);
 				}
 				else
 				{
-					id = m_GameFramebuffer->GetColorAttachmentRendererID();
-					spec = m_GameFramebuffer->GetSpecification();
+					id = m_EditorGameFramebuffer->GetColorAttachment();
+					spec = m_EditorGameFramebuffer->GetSpecification();
 					
 				}
 				float imageHeight = Math::Remap(spec.Height, 0, spec.Height, 0, size.y);
@@ -706,8 +711,10 @@ namespace tnah {
 		void EditorLayer::OnAttach()
 		{
 			m_EditorCamera = m_ActiveScene->GetEditorCameraGameObject();
-			m_SceneFramebuffer = m_ActiveScene->GetSceneFramebuffer();
-			m_GameFramebuffer = m_ActiveScene->GetGameFramebuffer();
+			
+			m_EditorSceneFramebuffer = m_ActiveScene->GetEditorSceneFramebuffer();
+			m_EditorGameFramebuffer = m_ActiveScene->GetEditorGameFramebuffer();
+			
 			m_SelectToolTex.reset(Texture2D::Create("assets/Editor/icons/SelectTool.png"));
 			m_MoveToolTex.reset(Texture2D::Create("assets/Editor/icons/MoveTool.png"));
 			m_RotateToolTex.reset(Texture2D::Create("assets/Editor/icons/RotateTool.png"));

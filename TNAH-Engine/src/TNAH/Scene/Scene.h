@@ -71,8 +71,8 @@ namespace tnah {
 		static Scene* CreateSceneFromFile(const std::string& filePath, bool editor);
 
 		Ref<GameObject> GetEditorCameraGameObject();
-		Ref<Framebuffer> GetSceneFramebuffer() { return m_SceneFramebuffer; }
-		Ref<Framebuffer> GetGameFramebuffer() { return m_GameFramebuffer; }
+		Ref<Framebuffer> GetEditorSceneFramebuffer() { return m_EditorSceneFramebuffer; }
+		Ref<Framebuffer> GetEditorGameFramebuffer() { return m_EditorGameFramebuffer; }
 
 		entt::registry& GetRegistry() { return m_Registry; }
 		std::unordered_map<UUID, GameObject>& GetGameObjectsInScene();
@@ -87,8 +87,8 @@ namespace tnah {
 		Ref<GameObject> m_SceneLight;
 
 		Ref<GameObject> m_EditorCamera;
-		Ref<Framebuffer> m_SceneFramebuffer;
-		Ref<Framebuffer> m_GameFramebuffer;
+		Ref<Framebuffer> m_EditorSceneFramebuffer;
+		Ref<Framebuffer> m_EditorGameFramebuffer;
 		bool m_IsEditorScene = false;
 		uint32_t m_RenderPasses = 0;
 		

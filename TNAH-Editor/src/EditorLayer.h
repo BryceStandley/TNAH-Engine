@@ -47,10 +47,9 @@ namespace tnah {
 		int m_GizmoType; // -1 = no gizmo
 
 		//Scene view framebuffer
-		Ref<Framebuffer> m_SceneFramebuffer;
+		Ref<Framebuffer> m_EditorSceneFramebuffer;
+		Ref<Framebuffer> m_EditorGameFramebuffer;
 		ImVec2 m_SceneViewSize = {0,0};
-		
-		Ref<Framebuffer> m_GameFramebuffer;
 	};
 
 

@@ -4,9 +4,8 @@
 #include <glad/glad.h>
 
 namespace tnah {
-
-
-	// VertexBuffer 
+	/***********************************************************************/
+	//Vertex Buffer
 
 	OpenGLVertexBuffer::OpenGLVertexBuffer(float* vertices, uint32_t size)
 	{
@@ -39,7 +38,8 @@ namespace tnah {
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 	}
 
-	// IndexBuffer 
+	/***********************************************************************/
+	//Index Buffer
 
 	OpenGLIndexBuffer::OpenGLIndexBuffer(uint32_t* indices, uint32_t count)
 		: m_Count(count)
@@ -78,10 +78,26 @@ namespace tnah {
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	}
 
-	OpenGLFramebuffer::OpenGLFramebuffer(const FramebufferSpecification& spec)
+	/***********************************************************************/
+	//FrameBuffer
+	
+	OpenGLFramebuffer::OpenGLFramebuffer(const FramebufferSpecification& spec, uint32_t colorAttachments, uint32_t depthAttachments)
 		:m_Specification(spec)
 	{
-		Invalidate();
+		Invalidate(colorAttachments, depthAttachments);
+	}
+
+	OpenGLFramebuffer::OpenGLFramebuffer(const FramebufferSpecification& spec, uint32_t colorAttachments, std::vector<ColorAttachmentSpecs> colorSpecs)
+			:m_Specification(spec), m_ColorSpecifications(colorSpecs)
+	{
+		Invalidate(colorAttachments, 1);
+	}
+
+	OpenGLFramebuffer::OpenGLFramebuffer(const FramebufferSpecification& spec,
+		const RenderbufferSpecification& renderSpec)
+			:m_Specification(spec)
+	{
+		Invalidate(0, 0, renderSpec);
 	}
 
 	OpenGLFramebuffer::~OpenGLFramebuffer()
@@ -89,9 +105,10 @@ namespace tnah {
 		glDeleteFramebuffers(1, &m_RendererID);
 	}
 
-	void OpenGLFramebuffer::Bind()
+	void OpenGLFramebuffer::Bind(uint32_t attachmentSlot)
 	{
 		glBindFramebuffer(GL_FRAMEBUFFER, m_RendererID);
+		SelectDrawToBuffer(FramebufferDrawMode::Color, attachmentSlot);
 	}
 
 	void OpenGLFramebuffer::Unbind()
@@ -99,39 +116,124 @@ namespace tnah {
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
 
-	void OpenGLFramebuffer::Reset(const FramebufferSpecification& spec)
+	void OpenGLFramebuffer::Rebuild(const FramebufferSpecification& spec)
 	{
 		m_Specification = spec;
 		glDeleteFramebuffers(1, &m_RendererID);
+		for(auto c : m_ColorAttachments)
+		{
+			glDeleteTextures(1, &c);
+		}
+		for(auto d : m_DepthAttachments)
+		{
+			glDeleteTextures(1, &d);
+		}
+		m_ColorAttachments.clear();
+		m_DepthAttachments.clear();
+		
 		Invalidate();
 	}
 
-	void OpenGLFramebuffer::Invalidate()
+	void OpenGLFramebuffer::SelectDrawToBuffer(const FramebufferDrawMode& mode, uint32_t attachmentNumber)
+	{
+		switch (mode)
+		{
+			case FramebufferDrawMode::Depth: break;
+			case FramebufferDrawMode::Color: glDrawBuffer(GL_COLOR_ATTACHMENT0 + attachmentNumber); break;
+			case FramebufferDrawMode::Stencil: break;
+			case FramebufferDrawMode::Render: break;
+			default: glDrawBuffer(GL_COLOR_ATTACHMENT0 + attachmentNumber);
+		}
+		m_ActiveColorAttachment = attachmentNumber;
+	}
+
+	void OpenGLFramebuffer::DrawToNext()
+	{
+		if(m_ActiveColorAttachment + 1 > m_ColorAttachments.size())
+		{
+			// loop back to the start
+			SelectDrawToBuffer(FramebufferDrawMode::Color, 0);
+			return;
+		}
+
+		SelectDrawToBuffer(FramebufferDrawMode::Color, m_ActiveColorAttachment + 1);
+	}
+
+	void OpenGLFramebuffer::SetRenderbufferSpecification(uint32_t bufferSlot, const RenderbufferSpecification& spec)
+	{
+		//TODO: remove buffer slot
+		m_RenderbufferSpecification = spec;
+	}
+
+	void OpenGLFramebuffer::Invalidate(uint32_t color, uint32_t depth, RenderbufferSpecification renderSpec)
 	{
 		glGenFramebuffers(1, &m_RendererID);
 		glBindFramebuffer(GL_FRAMEBUFFER, m_RendererID);
-		
-		glGenTextures(1, &m_ColorAttachment);
-		glBindTexture(GL_TEXTURE_2D, m_ColorAttachment);
-		auto format = GetGLFormatFromSpec(m_Specification);
-		glTexImage2D(GL_TEXTURE_2D, 0, format, m_Specification.Width, m_Specification.Height, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_ColorAttachment, 0);
+		for(int i = 0; i < color; i++)
+		{
+			uint32_t id;
+			glGenTextures(1, &id);
+			glBindTexture(GL_TEXTURE_2D, id);
+			const auto format = GetFormatFromSpec(m_Specification);
+			glTexImage2D(GL_TEXTURE_2D, 0, format, m_Specification.Width, m_Specification.Height, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-		glGenTextures(1, &m_DepthAttachment);
-		glBindTexture(GL_TEXTURE_2D, m_DepthAttachment);
-		glTexStorage2D(GL_TEXTURE_2D, 1, GL_DEPTH24_STENCIL8, m_Specification.Width, m_Specification.Height);
-		//glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH24_STENCIL8, m_Specification.Width, m_Specification.Height, 0, GL_DEPTH_STENCIL, GL_UNSIGNED_INT_24_8, nullptr);
-		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_TEXTURE_2D, m_DepthAttachment, 0);
+			glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + i, GL_TEXTURE_2D, id, 0);
+			m_ColorAttachments.emplace_back(id);
+		}
+
+		if(depth > 0)
+		{
+			for(int i = 0; i < depth; i++)
+			{
+				uint32_t id;
+				glGenTextures(1, &id);
+				glBindTexture(GL_TEXTURE_2D, id);
+				//glTexStorage2D(GL_TEXTURE_2D, 1, GL_DEPTH24_STENCIL8, m_Specification.Width, m_Specification.Height);
+				glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH24_STENCIL8, m_Specification.Width, m_Specification.Height, 0, GL_DEPTH_STENCIL, GL_UNSIGNED_INT_24_8, nullptr);
+				glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_TEXTURE_2D, id, 0);
+
+				m_DepthAttachments.emplace_back(id);
+			}
+		}
+		else if(renderSpec.IsValid)
+		{
+			
+			m_RenderbufferSpecification = renderSpec;
+			m_Renderbuffer.reset(Renderbuffer::Create(renderSpec));
+			m_Renderbuffer->AttachToFramebuffer();
+		}
 
 		TNAH_CORE_ASSERT(glCheckFramebufferStatus(GL_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE, "Framebuffer incomplete!")
 		
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
 
-	GLenum OpenGLFramebuffer::GetGLFormatFromSpec(const FramebufferSpecification& spec)
+	uint32_t OpenGLFramebuffer::GetColorAttachment(uint32_t attachmentNumber) const
+	{
+		if(attachmentNumber > m_ColorAttachments.size())
+		{
+			// if the color attachments are empty, return 0 else return the last attachment
+			return (m_ColorAttachments.empty() ? 0 : m_ColorAttachments.back());	
+		}
+
+		return m_ColorAttachments[attachmentNumber];
+	}
+
+	uint32_t OpenGLFramebuffer::GetDepthAttachmentID(uint32_t attachmentNumber) const
+	{
+		if(attachmentNumber > m_DepthAttachments.size())
+		{
+			// if the color attachments are empty, return 0 else return the last attachment
+			return (m_DepthAttachments.empty() ? 0 : m_DepthAttachments.back());	
+		}
+
+		return m_DepthAttachments[attachmentNumber];
+	}
+	
+	int OpenGLFramebuffer::GetFormatFromSpec(const FramebufferSpecification& spec)
 	{
 		switch(spec.Format)
 		{
@@ -141,6 +243,83 @@ namespace tnah {
 				return GL_RGBA16F;
 			default:
 				return GL_RGBA8;
+		}
+	}
+
+	/***********************************************************************/
+	//Render Buffer
+	
+	OpenGLRenderBuffer::~OpenGLRenderBuffer()
+	{
+		glDeleteRenderbuffers(1, &m_RendererID);
+	}
+	
+	void OpenGLRenderBuffer::Bind()
+	{
+		glBindRenderbuffer(GL_RENDERBUFFER, m_RendererID);
+	}
+
+	void OpenGLRenderBuffer::Unbind()
+	{
+		glBindRenderbuffer(GL_RENDERBUFFER, 0);
+	}
+
+	void OpenGLRenderBuffer::Rebuild(const RenderbufferSpecification& spec)
+	{
+		m_Specification = spec;
+		glDeleteRenderbuffers(1, &m_RendererID);
+		Invalidate();
+	}
+
+	void OpenGLRenderBuffer::AttachToFramebuffer()
+	{
+		const auto fbFormat = (GLenum)GetFramebufferFormatFromSpecification(m_Specification);
+		glFramebufferRenderbuffer(GL_FRAMEBUFFER, fbFormat, GL_RENDERBUFFER, m_RendererID);
+	}
+
+
+	OpenGLRenderBuffer::OpenGLRenderBuffer(const RenderbufferSpecification& spec)
+		:m_Specification(spec)
+	{
+		Invalidate();
+	}
+
+	void OpenGLRenderBuffer::Invalidate()
+	{
+		glGenRenderbuffers(1, &m_RendererID);
+		glBindRenderbuffer(GL_RENDERBUFFER, m_RendererID);
+
+		const auto format = (GLenum)GetFormatFromSpecification(m_Specification);
+		glRenderbufferStorage(GL_RENDERBUFFER, format, m_Specification.Width, m_Specification.Height);
+
+		glBindRenderbuffer(GL_RENDERBUFFER, 0);
+	}
+
+	int OpenGLRenderBuffer::GetFormatFromSpecification(const RenderbufferSpecification& spec)
+	{
+		switch (spec.Format)
+		{
+			case RenderbufferFormat::Depth16: return GL_DEPTH_COMPONENT16;
+			case RenderbufferFormat::Depth24: return GL_DEPTH_COMPONENT24;
+			case RenderbufferFormat::Depth32F: return GL_DEPTH_COMPONENT32F;
+			case RenderbufferFormat::Depth24_Stencil8: return GL_DEPTH24_STENCIL8;
+			case RenderbufferFormat::Depth32F_Stencil8:  return GL_DEPTH32F_STENCIL8;
+			case RenderbufferFormat::Stencil8:  return GL_STENCIL_INDEX8;
+			default: return GL_DEPTH24_STENCIL8;
+		}
+	}
+
+	int OpenGLRenderBuffer::GetFramebufferFormatFromSpecification(const RenderbufferSpecification& spec)
+	{
+		switch(spec.Format)
+		{
+			case RenderbufferFormat::Depth16: return GL_DEPTH_ATTACHMENT;
+			case RenderbufferFormat::Depth24: return GL_DEPTH_ATTACHMENT;
+			case RenderbufferFormat::Depth32F: return GL_DEPTH_ATTACHMENT;
+			case RenderbufferFormat::Depth24_Stencil8: return GL_DEPTH_STENCIL_ATTACHMENT;
+			case RenderbufferFormat::Depth32F_Stencil8: return GL_DEPTH_STENCIL_ATTACHMENT;
+			case RenderbufferFormat::Stencil8: return GL_STENCIL_ATTACHMENT;
+			default: return GL_DEPTH_STENCIL_ATTACHMENT;
 		}
 	}
 

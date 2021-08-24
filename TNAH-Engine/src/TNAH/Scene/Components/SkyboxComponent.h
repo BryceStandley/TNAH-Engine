@@ -34,7 +34,7 @@ namespace tnah {
 		uint32_t m_VBOSize = 0;
 
 	private:
-		friend class scene;
+		friend class Scene;
 		friend struct SkyboxComponent;
 	};
 
