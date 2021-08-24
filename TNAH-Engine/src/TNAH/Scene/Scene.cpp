@@ -29,6 +29,7 @@ namespace tnah{
 			m_EditorSceneFramebuffer.reset(Framebuffer::Create(fbspec));
 			m_EditorGameFramebuffer.reset(Framebuffer::Create(fbspec));
 			m_IsEditorScene = true;
+			m_EditorCamera->AddComponent<SkyboxComponent>();
 			m_RenderPasses = 2;
 		}
 
