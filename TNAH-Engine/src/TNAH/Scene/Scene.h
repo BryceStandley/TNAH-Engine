@@ -75,13 +75,13 @@ namespace tnah {
 		Ref<Framebuffer> GetEditorGameFramebuffer() { return m_EditorGameFramebuffer; }
 
 		entt::registry& GetRegistry() { return m_Registry; }
-		std::unordered_map<UUID, GameObject>& GetGameObjectsInScene();
+		std::map<UUID, GameObject>& GetGameObjectsInScene();
 		GameObject* GetRefGameObject(const UUID id);
 		
 		Scene(bool editor = false);
 		~Scene();
 		entt::registry m_Registry;
-		std::unordered_map<UUID, GameObject> m_GameObjectsInScene;
+		std::map<UUID, GameObject> m_GameObjectsInScene;
 
 		Ref<GameObject> m_ActiveCamera;
 		Ref<GameObject> m_SceneLight;

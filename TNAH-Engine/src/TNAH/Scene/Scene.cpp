@@ -9,7 +9,7 @@
 
 namespace tnah{
 
-	std::unordered_map<UUID, GameObject>& Scene::GetGameObjectsInScene()
+	std::map<UUID, GameObject>& Scene::GetGameObjectsInScene()
 	{
 		return m_GameObjectsInScene;
 	}
@@ -213,7 +213,7 @@ namespace tnah{
 							usingSkybox = true;
 						}
 					
-						Renderer::BeginScene(camera);
+						Renderer::BeginScene(camera, transform);
 					
 					}
 					else
@@ -236,13 +236,25 @@ namespace tnah{
 								usingSkybox = true;
 							}
 						
-							Renderer::BeginScene(camera);
+							Renderer::BeginScene(camera, transform);
 							break;
 							TNAH_CORE_ASSERT(false, "The TNAH-Engine only supports rendering from a single camera!")
 						}
 					}
 				}
 
+				// Skybox
+				if(usingSkybox)
+				{
+					auto view = m_Registry.view<SkyboxComponent>();
+					for(auto obj : view)
+					{
+						auto& skybox = view.get<SkyboxComponent>(obj);
+						// Bind the skybox shader
+						// Do any skybox render setup
+						Renderer::SubmitSkybox(skybox.SceneSkybox->GetVertexArray(), skybox.SceneSkybox->GetMaterial());
+					}
+				}
 
 				
 
@@ -289,18 +301,7 @@ namespace tnah{
 				}
 
 
-				// Skybox
-				if(usingSkybox)
-				{
-					auto view = m_Registry.view<SkyboxComponent>();
-					for(auto obj : view)
-					{
-						auto& skybox = view.get<SkyboxComponent>(obj);
-						// Bind the skybox shader
-						// Do any skybox render setup
-						Renderer::SubmitSkybox(skybox.SceneSkybox->GetVertexArray(), skybox.SceneSkybox->GetMaterial());
-					}
-				}
+				
 
 
 			
@@ -311,7 +312,7 @@ namespace tnah{
 		}while(passes < m_RenderPasses);
 
 		//Only need to call this on one buffer as its always going to bind FBO 0 ie no framebuffer
-		m_EditorSceneFramebuffer->Unbind();
+		if(m_IsEditorScene) m_EditorSceneFramebuffer->Unbind();
 	}
 
 

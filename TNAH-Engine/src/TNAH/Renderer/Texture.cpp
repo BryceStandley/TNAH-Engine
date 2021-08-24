@@ -21,20 +21,28 @@ namespace tnah {
 		return nullptr;
 	}
 
-	Texture2D* Texture2D::Load(const std::string& filePath)
+	Texture2D* Texture2D::Load(const std::string& filePath, const bool& flipOnLoad)
 	{
 		auto* texture = new Image();
 		texture->m_Path = filePath;
-		
+
 		int width, height, channels;
-		if(filePath.find(".png") != std::string::npos || filePath.find(".tga") != std::string::npos)
+
+		if(flipOnLoad)
 		{
-			// .png was found in the file path, flip vertically on load
 			stbi_set_flip_vertically_on_load(true);
 		}
 		else
 		{
-			stbi_set_flip_vertically_on_load(false);
+			if(filePath.find(".png") != std::string::npos)
+			{
+				// .png was found in the file path, flip vertically on load
+				stbi_set_flip_vertically_on_load(true);
+			}
+			else
+			{
+				stbi_set_flip_vertically_on_load(false);
+			}
 		}
 		
 		texture->m_ImageData = stbi_load(filePath.c_str(), &width, &height, &channels, 0);

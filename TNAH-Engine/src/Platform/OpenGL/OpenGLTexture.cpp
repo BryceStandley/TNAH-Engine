@@ -256,13 +256,23 @@ namespace tnah {
 		
 		if(dataRight && dataLeft && dataFront && dataBack && dataTop && dataBottom)
 		{
+			glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+			glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+			glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+			glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+			glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+			
 			glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X, 0, GL_RGB, dataRight->m_Width, dataRight->m_Height, 0, GL_RGB, GL_UNSIGNED_BYTE, dataRight->m_ImageData);
 			glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_X, 0, GL_RGB, dataLeft->m_Width, dataLeft->m_Height, 0, GL_RGB, GL_UNSIGNED_BYTE, dataLeft->m_ImageData);
+			
 			glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_Y, 0, GL_RGB, dataTop->m_Width, dataTop->m_Height, 0, GL_RGB, GL_UNSIGNED_BYTE, dataTop->m_ImageData);
 			glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_Y, 0, GL_RGB, dataBottom->m_Width, dataBottom->m_Height, 0, GL_RGB, GL_UNSIGNED_BYTE, dataBottom->m_ImageData);
+			
 			glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_Z, 0, GL_RGB, dataBack->m_Width, dataBack->m_Height, 0, GL_RGB, GL_UNSIGNED_BYTE, dataBack->m_ImageData);
 			glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_Z, 0, GL_RGB, dataFront->m_Width, dataFront->m_Height, 0, GL_RGB, GL_UNSIGNED_BYTE, dataFront->m_ImageData);
 
+			glGenerateMipmap(GL_TEXTURE_CUBE_MAP);
+			
 			dataRight->ClearData();
 			dataLeft->ClearData();
 			dataTop->ClearData();
@@ -274,17 +284,9 @@ namespace tnah {
 		{
 			TNAH_CORE_ASSERT(false, "One or more textures failed to load");
 		}
-
-		
-		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
-
 		
 		m_Loaded = true;
-		m_Slot = Renderer::GetAndIncrementTextureSlot();
+		//m_Slot = Renderer::GetAndIncrementTextureSlot();
 	}
 
 	OpenGLTexture3D::~OpenGLTexture3D()

@@ -4,6 +4,7 @@
 #include "Texture.h"
 #include "Platform/OpenGL/OpenGLShader.h"
 #include "TNAH/Core/Math.h"
+#include "TNAH/Scene/Components/Components.h"
 
 namespace tnah {
 
@@ -94,6 +95,15 @@ namespace tnah {
 		s_SceneData->View = camera.GetViewMatrix();
 		s_SceneData->Projection = camera.GetProjectionMatrix();
 		s_SceneData->ViewProjection = camera.GetViewProjectionMatrix();
+		ResetDrawCallsPerFrame();
+	}
+
+	void Renderer::BeginScene(SceneCamera& camera, TransformComponent& cameraTransform)
+	{
+		s_SceneData->View = camera.GetViewMatrix();
+		s_SceneData->Projection = camera.GetProjectionMatrix();
+		s_SceneData->ViewProjection = camera.GetViewProjectionMatrix();
+		s_SceneData->CameraTransform = cameraTransform;
 		ResetDrawCallsPerFrame();
 	}
 
@@ -205,27 +215,26 @@ namespace tnah {
 
 	void Renderer::SubmitSkybox(const Ref<VertexArray>& vertexArray, const Ref<SkyboxMaterial>& material)
 	{
-		//RenderCommand::SetDepthFunc(RendererAPI::DepthFunc::Lequal);
+		RenderCommand::SetDepthFunc(RendererAPI::DepthFunc::Lequal);
 		SetCullMode(CullMode::Back);
 		material->BindShader();
 
-		glm::mat4 view = glm::mat4(glm::mat3(s_SceneData->View));
+		const glm::mat4 view = glm::mat4(glm::mat3(s_SceneData->View));
 
-		auto t = glm::translate(glm::mat4(1.0f), {0,0,0})
-						* glm::toMat4(glm::quat({0,0,0}))
-						* glm::scale(glm::mat4(1.0f), {400,400,400});
 		
-		material->GetShader()->SetMat4("u_Projection", s_SceneData->Projection);
-		material->GetShader()->SetMat4("u_View", s_SceneData->View);
-		material->GetShader()->SetMat4("u_Transform", t);
-		//material->GetShader()->SetMat4("u_ViewProjection", s_SceneData->ViewProjection);
+		//material->GetShader()->SetMat4("u_Projection", s_SceneData->Projection);
+		//material->GetShader()->SetMat4("u_View", view);
+		
+		material->GetShader()->SetMat4("u_ViewProjection", s_SceneData->ViewProjection);
+		material->GetShader()->SetVec3("u_CameraPosition", s_SceneData->CameraTransform.Position);
 		
 		material->BindTextures();
 		
 		vertexArray->Bind();
 		
 		RenderCommand::DrawArray(vertexArray);
-		//RenderCommand::SetDepthFunc(RendererAPI::DepthFunc::Less);
+		RenderCommand::SetDepthFunc(RendererAPI::DepthFunc::Less);
+		SetCullMode(CullMode::Front);
 		IncrementDrawCallsPerFrame();
 	}
 

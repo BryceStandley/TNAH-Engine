@@ -3,6 +3,7 @@
 #include "TNAH/Renderer/RenderCommand.h"
 
 #include "TNAH/Scene/SceneCamera.h"
+#include "TNAH/Scene/Components/Components.h"
 #include "TNAH/Renderer/Material.h"
 #include "Light.h"
 #include "Mesh.h"
@@ -19,6 +20,7 @@ namespace tnah {
 		static void OnWindowResize(uint32_t width, uint32_t height);
 
 		static void BeginScene(SceneCamera& camera);
+		static void BeginScene(SceneCamera& camera, TransformComponent& cameraTransform);
 		static void EndScene();
 		static void IncrementTextureSlot() { s_CurrentTextureSlot++; }
 		static uint32_t GetCurrentTextureSlot() { return s_CurrentTextureSlot; }
@@ -71,6 +73,7 @@ namespace tnah {
 			glm::mat4 View;
 			glm::mat4 Projection;
 			glm::mat4 ViewProjection;
+			TransformComponent CameraTransform;
 		};
 
 

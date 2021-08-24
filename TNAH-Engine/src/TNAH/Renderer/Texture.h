@@ -120,7 +120,7 @@ namespace tnah {
 		/**
 		 * @brief Loads image to memory. NOTE this does NOT load a API specific texture and pass it to the GPU
 		 */
-		static Texture2D* Load(const std::string& filePath);
+		static Texture2D* Load(const std::string& filePath, const bool& flipOnLoad = false);
 		
 		static Texture2D* Create(uint32_t width, uint32_t height);
 		static Texture2D* Create(const std::string& path, const std::string& textureName = "", bool loadFromMemory = false, void* assimpTexture = nullptr);
