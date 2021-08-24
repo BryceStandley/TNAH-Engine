@@ -523,6 +523,8 @@ namespace tnah {
  								id = Renderer::GetMissingTexture()->GetRendererID();
  							else
  							{
+ 								if(size.x <= 0) size.x = 1;
+ 								if(size.y <= 0) size.y = 1;
  								FramebufferSpecification spec = {size.x, size.y};
  								m_EditorSceneFramebuffer->Rebuild(spec);
  								id = m_EditorSceneFramebuffer->GetColorAttachment();
