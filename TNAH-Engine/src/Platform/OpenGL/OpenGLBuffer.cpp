@@ -167,6 +167,28 @@ namespace tnah {
 
 	void OpenGLFramebuffer::Invalidate(uint32_t color, uint32_t depth, RenderbufferSpecification renderSpec)
 	{
+		// check the framebuffer size, cant be less than 1x1
+		bool errorW = false; bool errorH = false;
+		if(m_Specification.Width <= 0)
+		{
+			m_Specification.Width = 1;
+			errorW = true;
+		}
+		if(m_Specification.Height <= 0)
+		{
+			m_Specification.Height = 1;
+			errorH = true;
+		}
+		
+		if(errorW || errorH)
+		{
+			//Generate a warning about framebuffer resets
+			std::string error = "Framebuffer minimum dimensions <= 1. \t";
+			error += (errorW ? "Width reset to {0} \t" : "Width = {0} \t");
+			error += (errorH ? "Height reset to {1}" : "Height = {1}");
+			TNAH_CORE_WARN(error, m_Specification.Width, m_Specification.Height);
+		}
+		
 		glGenFramebuffers(1, &m_RendererID);
 		glBindFramebuffer(GL_FRAMEBUFFER, m_RendererID);
 
