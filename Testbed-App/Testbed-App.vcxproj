@@ -80,7 +80,8 @@
       <Command>XCOPY "$(SolutionDir)vender\glfw\lib\glfw3.dll" "$(OutDir)" /E /Y
 XCOPY "$(SolutionDir)TNAH-Engine\Resources\" "$(OutDir)Resources\" /E /Y
 XCOPY "$(SolutionDir)vender\assimp\lib\*.pdb" "$(OutDir)" /E /Y
-XCOPY "$(ProjectDir)assets\" "$(OutDir)assets\" /E /Y</Command>
+XCOPY "$(ProjectDir)assets\" "$(OutDir)assets\" /E /Y
+XCOPY "$(SolutionDir)vender\irrKlang\lib\*.dll" "$(OutDir)" /E /Y</Command>
     </PreLinkEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
