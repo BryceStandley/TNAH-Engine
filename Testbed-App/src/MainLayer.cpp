@@ -20,7 +20,7 @@ MainLayer::MainLayer()
 	m_Terrain = m_ActiveScene->CreateGameObject("Terrain");
 	m_Terrain->AddComponent<tnah::TerrainComponent>("assets/heightmaps/1k.tga");
 	auto& terrT = m_Terrain->GetComponent<tnah::TransformComponent>();
-	terrT.Scale = glm::vec3(100.0f);
+	terrT.Scale = glm::vec3(5.0f);
 
 	auto& m_Skybox = m_ActiveScene->GetMainCameraGameObject()->AddComponent<tnah::SkyboxComponent>();
 

@@ -233,7 +233,8 @@ namespace tnah {
 		
 		RenderCommand::DrawArray(vertexArray);
 		RenderCommand::SetDepthFunc(RendererAPI::DepthFunc::Less);
-		//SetCullMode(CullMode::Front);
+		RenderCommand::SetDepthMask(true);
+		SetCullMode(CullMode::Front);
 		IncrementDrawCallsPerFrame();
 	}
 
