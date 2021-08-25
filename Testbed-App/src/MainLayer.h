@@ -33,5 +33,6 @@ private:
 	float m_LastMouseYPos = 0.0f;
 	bool m_FirstMouseInput = true;
 	bool m_CameraMovementToggle = false;
+	bool m_CameraLookToggle = false;
 };
 

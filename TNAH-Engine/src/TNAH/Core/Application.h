@@ -45,9 +45,15 @@ namespace tnah
 		static std::pair<std::string, int> OpenFileFromBrowser();
 		static std::pair<std::string, int> SaveFileAs(const char* fileName);
 
+		virtual bool& GetCursorToggleStatus() = 0;
+		virtual bool& GetWireframeToggleStatus() = 0;
+		virtual bool& GetFullscreenToggleStatus() = 0;
+		virtual bool& GetVSyncToggleStatus() = 0;
+	
+	protected:
 
+	
 	private:
-
 
 		bool OnWindowClose(WindowCloseEvent& e);
 		bool OnWindowResize(WindowResizeEvent& e);
@@ -60,6 +66,8 @@ namespace tnah
 		float m_DeltaTime = 0.0f;
 		ImGuiLayer* m_ImGuiLayer;
 
+		
+		
 		static Application* s_Instance;
 
 		friend int ::main(int argc, char** argv);

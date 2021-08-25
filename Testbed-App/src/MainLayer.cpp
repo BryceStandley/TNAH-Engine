@@ -4,6 +4,8 @@
 #include <glm/gtc/random.hpp>
 #include <TNAH/Scene/Components/SkyboxComponent.h>
 
+#include <TNAH-App.h>
+
 MainLayer::MainLayer()
 	:Layer("Main Layer")
 {
@@ -85,7 +87,11 @@ void MainLayer::OnUpdate(tnah::Timestep deltaTime)
 		{
 			m_CameraMovementSpeed = m_CameraOverrideSpeed;
 		}
-
+	}
+	
+	if(m_CameraLookToggle)
+	{
+		auto& ct = m_Camera->GetComponent<tnah::TransformComponent>();
 		//Camera Mouse rotation controls
 		auto mousePos = tnah::Input::GetMousePos();
 		if (m_FirstMouseInput)
@@ -161,19 +167,36 @@ void MainLayer::OnImGuiRender()
 	ImGui::Text("%.1f FPS", ImGui::GetIO().Framerate);
 	ImGui::Text("Application Options");
 	ImGui::Separator();
-	ImGui::BulletText("Press 1 to toggle mouse lock");
+	ImGui::BulletText("Press 1 to toggle the cursor");
 	ImGui::BulletText("Press 2 to toggle wireframe mode");
 	ImGui::BulletText("Press 3 to toggle borderless fullscreen");
 	ImGui::BulletText("Press 4 to toggle VSync");
-	ImGui::BulletText("Press 5 to toggle camera movement");
+	ImGui::BulletText("Press 5 to toggle camera look");
+	ImGui::BulletText("Press 6 to toggle camera movement");
 	ImGui::BulletText("Hold Either Shift to move the camera faster");
 	ImGui::BulletText("Press ESC to exit");
 	ImGui::Separator();
+	
+	if(ImGui::CollapsingHeader("Toggles"))
+	{
+		auto& app = tnah::Application::Get();
+		ImGui::Checkbox("Cursor", &app.GetCursorToggleStatus());
+		ImGui::Checkbox("Wireframe", &app.GetWireframeToggleStatus());
+		ImGui::Checkbox("VSync", &app.GetVSyncToggleStatus());
+		ImGui::Checkbox("Fullscreen", &app.GetFullscreenToggleStatus());
+		ImGui::Checkbox("Camera Look", &m_CameraLookToggle);
+		ImGui::Checkbox("Camera Movement", &m_CameraMovementToggle);
+	}
 
 	if (ImGui::CollapsingHeader("Camera"))
 	{
 		ImGui::SliderFloat3("Camera Pos", glm::value_ptr(ct.Position), -10000, 10000);
 		ImGui::SliderFloat3("Camera Rotation", glm::value_ptr(ct.Rotation), -360, 360);
+		ImGui::Separator();
+		ImGui::SliderFloat3("Camera Forward", glm::value_ptr(ct.Forward), 0, 0, "%.3f",ImGuiInputTextFlags_ReadOnly);
+		ImGui::SliderFloat3("Camera Right", glm::value_ptr(ct.Right), 0, 0, "%.3f",ImGuiInputTextFlags_ReadOnly);
+		ImGui::SliderFloat3("Camera Up", glm::value_ptr(ct.Up), 0, 0, "%.3f",ImGuiInputTextFlags_ReadOnly);
+		ImGui::Separator();
 		ImGui::Checkbox("Camera Speed Override", &m_CameraMovementSpeedOverride);
 		if (m_CameraMovementSpeedOverride)
 		{
@@ -228,6 +251,15 @@ void MainLayer::OnEvent(tnah::Event& event)
 	{
 		auto& e = (tnah::KeyPressedEvent&)event;
 		if (e.GetKeyCode() == tnah::Key::D5)
+		{
+			m_CameraLookToggle = !m_CameraLookToggle;
+		}
+	}
+
+	if (event.GetEventType() == tnah::EventType::KeyPressed)
+	{
+		auto& e = (tnah::KeyPressedEvent&)event;
+		if (e.GetKeyCode() == tnah::Key::D6)
 		{
 			m_CameraMovementToggle = !m_CameraMovementToggle;
 		}

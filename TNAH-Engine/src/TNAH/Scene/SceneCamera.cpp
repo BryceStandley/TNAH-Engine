@@ -55,7 +55,7 @@ namespace tnah {
 
 	void SceneCamera::OnCameraChange(TransformComponent& transform)
 	{
-		m_ProjectionMatrix = glm::scale(glm::perspective(m_PerspectiveFOV, (float)m_ViewportWidth / (float)m_ViewportHeight, m_PerspectiveNear, m_PerspectiveFar), glm::vec3(-1, 1, -1));
+		m_ProjectionMatrix = glm::perspective(m_PerspectiveFOV, (float)m_ViewportWidth / (float)m_ViewportHeight, m_PerspectiveNear, m_PerspectiveFar);
 		glm::vec3 r = transform.Right;
 		m_InvertTransformViewMatrix = glm::inverse(transform.GetTransform());
 		m_ViewMatrix = glm::lookAt(transform.Position, transform.Position + transform.Forward, transform.Up);
