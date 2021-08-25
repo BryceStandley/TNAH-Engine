@@ -8,6 +8,7 @@ namespace tnah {
 			:tnah::Application("TNAH Editor")
 		{
 			GetWindow().SetVSync(m_VSync);
+			SetEditorMode(true);
 			PushLayer(new EditorLayer());
 		}
 

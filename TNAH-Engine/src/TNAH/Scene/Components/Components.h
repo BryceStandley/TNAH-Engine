@@ -4,6 +4,7 @@
 #include "TNAH/Core/KeyCodes.h"
 #include "TNAH/Core/UUID.h"
 #include "TNAH/Scene/SceneCamera.h"
+#include "SkyboxComponent.h"
 #include "TerrainComponent.h"
 #include "PhysicsComponents.h"
 #include "LightComponents.h"
@@ -91,6 +92,8 @@ namespace tnah {
 		TransformComponent(const TransformComponent& other) = default;
 		TransformComponent(const glm::vec3& position)
 			: Position(position) {}
+		TransformComponent(const glm::vec3& position, const glm::vec3& rotation,const glm::vec3& scale)
+			:Position(position), Rotation(rotation), Scale(scale) {}
 
 		glm::mat4 GetTransform() const
 		{
@@ -136,6 +139,11 @@ namespace tnah {
 
 		CameraComponent() = default;
 		CameraComponent(const CameraComponent& other) = default;
+
+		CameraComponent(const SceneCamera& camera)
+		{
+			Camera = camera;
+		}
 
 		operator SceneCamera& () { return Camera; }
 		operator const SceneCamera& () const { return Camera; }
@@ -296,46 +304,6 @@ namespace tnah {
 		friend class EditorUI;
 		friend class Editor;
 	};
-	/*
-	class SkyboxComponent
-	{
-	public:
-//TODO:  Build the constructor to set the skybox cubemap, and cube vao/vbo/ibo/bufferlayout and material
-		//TODO: Add GetVertexArray() and GetMaterial()
-		SkyboxComponent(const Ref<Texture3D> skybox)
-			:m_Skybox(skybox)
-		{
-			Texture3DProperties properties;
-			properties.Front = Resource("filepath.jpg");
-			
-			
-
-
-			m_Skybox.reset(Texture3D::Create(properties));			
-		}
-
-		SkyboxComponent(const Texture3DProperties& skymapProperties)
-		{
-			m_Skybox.reset(Texture3D::Create(skymapProperties));
-		}
-
-		
-		void SetSkybox(Ref<Texture3D> skybox) { m_Skybox = skybox; }
-		Ref<Texture3D> GetSkybox() { return m_Skybox; }
-
-	operator Ref<Texture3D>() { return m_Skybox; }
-	operator Ref<Texture3D>() const { return m_Skybox; }
-	private:
-		Ref<Texture3D> m_Skybox;
-		Ref<VertexArray> m_VAO;
-		Ref<VertexBuffer> m_VBO;
-		Ref<IndexBuffer> m_IBO;
-		BufferLayout m_BufferLayout;
-		Ref<Material> m_Material;
-
-		friend class Scene;
-	};
-	*/
 
 	/**********************************************************************************************//**
 	 * @struct	NativeScript
@@ -348,8 +316,12 @@ namespace tnah {
 	 * @date	20/07/2021
 	 **************************************************************************************************/
 
-	struct NativeScript 
+	struct NativeScriptComponent
 	{
+		std::string Script;
+		NativeScriptComponent() = default;
+		NativeScriptComponent(const std::string& scriptPath)
+			:Script(scriptPath) {}
 	};
 
 	/**********************************************************************************************//**
@@ -359,7 +331,7 @@ namespace tnah {
 	 * 			within the application using the engine. A C# script is written in C# and provided 
 	 * 			within the application using the engine.
 	 *
-	 * @author	NukBryce Standley
+	 * @author	Bryce Standley
 	 * @date	20/07/2021
 	 **************************************************************************************************/
 

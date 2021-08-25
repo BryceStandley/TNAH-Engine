@@ -169,6 +169,7 @@ namespace tnah {
 
 	struct Resource
 	{
+		std::string CustomName = "";
 		Directory RelativeDirectory = Directory("");
 		Directory RootDirectory = Directory("");
 		Directory AbsoluteDirectory = Directory("");
@@ -204,6 +205,7 @@ namespace tnah {
 			Type.Type = ResourceType::GuessType(FileName.Extension);
 			AbsoluteDirectory = Utility::AbsolutePathFromRelative(relativeFilePath);
 			RelativeDirectory = relativeFilePath;
+			CustomName = nameSplit.first;
 		}
 
 

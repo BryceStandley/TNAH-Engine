@@ -45,13 +45,13 @@ namespace tnah
 		static std::pair<std::string, int> OpenFileFromBrowser();
 		static std::pair<std::string, int> SaveFileAs(const char* fileName);
 
+		bool CheckEditor() const { return m_IsEditor; }
+		void SetEditorMode(const bool& isEditor) { m_IsEditor = isEditor; }
+		
 		virtual bool& GetCursorToggleStatus() = 0;
 		virtual bool& GetWireframeToggleStatus() = 0;
 		virtual bool& GetFullscreenToggleStatus() = 0;
 		virtual bool& GetVSyncToggleStatus() = 0;
-	
-	protected:
-
 	
 	private:
 
@@ -59,12 +59,15 @@ namespace tnah
 		bool OnWindowResize(WindowResizeEvent& e);
 		bool OnMonitorResolutionChange(MonitorResolutionChangeEvent& e);
 
+		
+		
 		Scope<Window> m_Window;
 		bool m_Running = true;
 		bool m_Minimized = false;
 		LayerStack m_LayerStack = LayerStack();
 		float m_DeltaTime = 0.0f;
 		ImGuiLayer* m_ImGuiLayer;
+		bool m_IsEditor = false;
 
 		
 		

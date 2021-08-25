@@ -6,7 +6,6 @@
 #include "TNAH/Core/Input.h"
 #include "TNAH/Renderer/Renderer.h"
 #include "TNAH/Audio/Audio.h"
-#include <TNAH/Scene/Components/SkyboxComponent.h>
 
 namespace tnah{
 
