@@ -18,7 +18,7 @@ namespace tnah {
             ss << GenerateTagOpen("scene");
             ss << GenerateGlobalSettings(scene);
 
-            ss << GenerateSceneSettings(scene);
+            //ss << GenerateSceneSettings(scene);
             
             ss << GenerateTagClose("scene");
 

@@ -8,6 +8,7 @@
 #include <glm/gtx/norm.hpp>
 #include <glm/gtx/quaternion.hpp>
 #include <corecrt_math_defines.h>
+#include <IrrKlang/irrKlang.h>
 
 #include "imgui.h"
 #include "glm/glm.hpp"
@@ -44,6 +45,8 @@ namespace tnah {
 		{
 			return newMin + (newMax - newMin) * ((value - oldMin) / (oldMax - oldMin));
 		}
+
+		irrklang::vec3df ConvertVec3ToVec3df(const glm::vec3& other);
 	}
 
 }

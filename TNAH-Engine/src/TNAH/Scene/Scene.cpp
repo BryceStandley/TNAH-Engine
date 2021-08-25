@@ -5,6 +5,7 @@
 #include "TNAH/Core/Application.h"
 #include "TNAH/Core/Input.h"
 #include "TNAH/Renderer/Renderer.h"
+#include "TNAH/Audio/Audio.h"
 #include <TNAH/Scene/Components/SkyboxComponent.h>
 
 namespace tnah{
@@ -95,7 +96,8 @@ namespace tnah{
 		// Process any PlayerControllers before updating anything else in the scene
 		{
 			auto e = EditorComponent();
-			
+
+			Audio::Update();
 			
 			auto view = m_Registry.view<PlayerControllerComponent, TransformComponent>();
 			for(auto obj : view)
@@ -300,10 +302,52 @@ namespace tnah{
 					}
 				}
 
+				//Handle audio
+				{
+					auto view = m_Registry.view<TransformComponent, AudioSource3D>();
+					for(auto entity : view)
+					{
+						auto& sound = view.get<AudioSource3D>(entity);
+						auto& transform = view.get<TransformComponent>(entity);
 
+						if(sound.m_Loaded)
+						{
+							if(sound.m_Shoot)
+							{
+								sound.m_Shoot = false;
+								Audio::PlayAudioSource(sound, transform);
+							}
+							else if(sound.m_Playing)
+							{
+								Audio::UpdateSound(sound, transform);
+							}
+						}
+						else
+						{
+							sound.m_Loaded = Audio::Add3DAudioSource(sound);
+						}
+					}
+				}
+
+				//Handles audio listeners
+				{
+					auto view = m_Registry.view<TransformComponent, AudioListener>();
+					for(auto entity : view)
+					{
+						auto& listen = view.get<AudioListener>(entity);
+						auto& transform = view.get<TransformComponent>(entity);
+
+						if(listen.m_ActiveListing)
+							Audio::SetListener(transform);
+						
+						// auto hear = m_Registry.view<AudioSource3D>();
+						// for(auto sound : hear)
+						// {
+						// 		//Call a OnAudioListenEnter type function where we can check distance
+						// }
+					}
+				}
 				
-
-
 			
 				Renderer::EndScene();
 			}

@@ -11,6 +11,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Platform\IrrKlang\Klang.cpp" />
+    <ClCompile Include="src\TNAH\Audio\Audio.cpp" />
+    <ClCompile Include="src\TNAH\Audio\AudioAPI.cpp" />
     <ClCompile Include="src\TNAH\Core\Application.cpp" />
     <ClCompile Include="src\TNAH\Core\FileManager.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp" />
@@ -59,6 +62,9 @@
     <ClCompile Include="src\TNAH\Scene\Serializer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Platform\IrrKlang\Klang.h" />
+    <ClInclude Include="src\TNAH\Audio\Audio.h" />
+    <ClInclude Include="src\TNAH\Audio\AudioAPI.h" />
     <ClInclude Include="src\TNAH\Core\Application.h" />
     <ClInclude Include="src\TNAH\Core\EntryPoint.h" />
     <ClInclude Include="src\TNAH\Core\FileManager.h" />
@@ -210,7 +216,7 @@
       <PreprocessorDefinitions>TNAH_DEBUG;TNAH_PLATFORM_WINDOWS;TNAH_BUILD_DLL;GLFW_INCLUDE_NONE;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)vender\assimp\include;$(SolutionDir)EngineDependencesProjects\GLFW\include;$(SolutionDir)vender\glad\include;$(SolutionDir)vender\glm\include;$(SolutionDir)vender\lua\include;$(SolutionDir)vender\luabridge\include;$(SolutionDir)vender\reactphysics3d\include;$(SolutionDir)vender\spdlog\include;$(ProjectDir)src\;$(SolutionDir)EngineDependencesProjects\ImGui\;$(SolutionDir)vender/entt/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)vender\assimp\include;$(SolutionDir)EngineDependencesProjects\GLFW\include;$(SolutionDir)vender\glad\include;$(SolutionDir)vender\glm\include;$(SolutionDir)vender\lua\include;$(SolutionDir)vender\luabridge\include;$(SolutionDir)vender\reactphysics3d\include;$(SolutionDir)vender\spdlog\include;$(ProjectDir)src\;$(SolutionDir)EngineDependencesProjects\ImGui\;$(SolutionDir)vender/entt/include;$(SolutionDir)vender\irrklang\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>tnahpch.h</PrecompiledHeaderFile>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -223,8 +229,8 @@
       <AdditionalDependencies>assimp-vc142-mtd.lib;lua54.lib;reactphysics3d.lib;spdlogd.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Lib>
-      <AdditionalDependencies>assimp-vc142-mtd.lib;zlibstaticd.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)vender\assimp\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>assimp-vc142-mtd.lib;zlibstaticd.lib;irrKlang.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)vender\irrklang\lib;$(SolutionDir)vender\assimp\lib</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">

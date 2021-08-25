@@ -12,7 +12,7 @@ namespace tnah {
 		void SetPerspective(float verticalFOV, float nearClip = 0.01f, float farClip = 1000.0f);
 		void SetOrthographic(float size, float nearClip = -1.0f, float farClip = 1.0f);
 		void SetViewportSize(uint32_t width, uint32_t height);
-
+		glm::vec2 GetViewportSize() const {return glm::vec2(m_ViewportWidth, m_ViewportHeight);}
 		void SetPerspectiveVerticalFOV(float verticalFov) { m_PerspectiveFOV = glm::radians(verticalFov); }
 		float GetPerspectiveVerticalFOV() const { return glm::degrees(m_PerspectiveFOV); }
 		void SetPerspectiveNearClip(float nearClip) { m_PerspectiveNear = nearClip; }

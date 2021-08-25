@@ -5,6 +5,7 @@
 #include <imgui.h>
 #include "imgui_internal.h"
 #include "TNAH/Scene/Components/Components.h"
+#include "TNAH/Core/FileManager.h"
 
 namespace tnah {
     void EditorUI::DrawComponentProperties(GameObject* object)
@@ -281,10 +282,12 @@ namespace tnah {
     		}
     	}
 
+		
+    	
     	//Only add components to scene objects, the editor camera cant have components added to them
     	if(!object->HasComponent<EditorCameraComponent>())
     	{
-    		const char* items[] = { "Camera", "Terrain", "Mesh",  "Light" };
+    		const char* items[] = { "Camera", "Terrain", "Mesh",  "Light", "AudioListener", "AudioSource3D"};
     		static int item_current_idx = 0;
     		const char* combo_preview_value = items[item_current_idx];
     		if (ImGui::BeginCombo("Components", combo_preview_value))
@@ -299,10 +302,7 @@ namespace tnah {
     			}
     			ImGui::EndCombo();
     		}
-
     		
-        
-
     		if (ImGui::Button("Add Component"))
     		{
     			if (!object->HasComponent<CameraComponent>() && items[item_current_idx] == "Camera")
@@ -331,10 +331,31 @@ namespace tnah {
     			{
     				object->AddComponent<LightComponent>();
     			}
-    			
+
+    			if (!object->HasComponent<AudioListener>() && items[item_current_idx] == "AudioListener")
+    			{
+    				object->AddComponent<AudioListener>();
+    			}
+
+    			if (!object->HasComponent<AudioSource3D>() && items[item_current_idx] == "AudioSource3D")
+    			{
+    				Resource file = {"file.wav"};
+    				object->AddComponent<AudioSource3D>(file, 10.0f, 1.0f, false);
+    				/*if (!FileManager::OpenScene())
+    				{
+    					auto sceneFile = FileManager::GetActiveFile();
+    					if (sceneFile->FileOpenError == FileError::PathInvalid)
+    					{
+    						TNAH_WARN("The path or file was invalid!");
+    					}
+    					else
+    					{
+    						object->AddComponent<AudioSource3D>(sceneFile->FileName);
+    					}
+    				}*/
+    			}
     		}
     	}
-
 
     	ImGui::Separator();
     }
