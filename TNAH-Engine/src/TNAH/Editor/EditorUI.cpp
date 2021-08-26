@@ -282,6 +282,40 @@ namespace tnah {
     		}
     	}
 
+    	if(object->HasComponent<AudioListener>())
+    	{
+    		auto& listener = object->GetComponent<AudioListener>();
+    		ImGui::Text("Audio Listener");
+    		
+    		//ImGui::RadioButton("Active Listening: ", listener.m_ActiveListing);
+    		
+			ImGui::Checkbox("Active listener", &listener.m_ActiveListing);
+
+    		if(DrawRemoveComponentButton())
+    		{
+    			object->RemoveComponent<AudioListener>();
+    		}
+			
+    		ImGui::Separator();
+    	}
+
+    	if(object->HasComponent<AudioSource3D>())
+    	{
+    		auto& source = object->GetComponent<AudioSource3D>();
+    		ImGui::Text("Audio Source 3D");
+    		
+    		DrawTextControl("Model File", source.m_File.RelativeDirectory);
+    		
+    		DrawFloatControl("Volume", source.m_Volume, 0, 1);
+    		DrawFloatControl("Minimum Reach Distance", source.m_MinDistance, 0, 100);
+
+    		if(DrawRemoveComponentButton())
+    		{
+    			object->RemoveComponent<AudioSource3D>();
+    		}
+			
+    		ImGui::Separator();
+    	}
 		
     	
     	//Only add components to scene objects, the editor camera cant have components added to them

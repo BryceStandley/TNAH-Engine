@@ -547,16 +547,16 @@ namespace tnah {
 					ImGuizmo::SetRect(ImGui::GetWindowPos().x, ImGui::GetWindowPos().y, size.x, size.y);
 					auto& e_Camera = m_EditorCamera->GetComponent<EditorCameraComponent>();
 					glm::mat4 c_Proj = e_Camera.EditorCamera.GetProjectionMatrix();
-					glm::mat4 c_View = e_Camera.EditorCamera.GetInvertedTransformViewMatrix();
+					glm::mat4 c_View = e_Camera.EditorCamera.GetViewMatrix();
 					auto& e_Transform = m_SelectedGameObject->GetComponent<TransformComponent>();
 					glm::mat4 c_Transform = e_Transform.GetTransform();
 
 					glm::vec3 snapValues(0.5f);
-					const float identityMatrix[16] =
+					/*const float identityMatrix[16] =
 					{ 1.f, 0.f, 0.f, 0.f,
 						0.f, 1.f, 0.f, 0.f,
 						0.f, 0.f, 1.f, 0.f,
-						0.f, 0.f, 0.f, 1.f };
+						0.f, 0.f, 0.f, 1.f };*/
 					
 					ImGuizmo::Manipulate(glm::value_ptr(c_View), glm::value_ptr(c_Proj), (ImGuizmo::OPERATION)m_GizmoType, ImGuizmo::LOCAL, glm::value_ptr(c_Transform), nullptr, true ? glm::value_ptr(snapValues) : nullptr);
 					if (ImGuizmo::IsUsing())
