@@ -8,12 +8,12 @@ namespace tnah {
 		Create();
 
 		Texture3DProperties properties = {
-		{"Resources/textures/skybox/front.jpg"},
-		{"Resources/textures/skybox/back.jpg"},
-		 {"Resources/textures/skybox/top.jpg"},
-		{"Resources/textures/skybox/bottom.jpg"},
-		{"Resources/textures/skybox/left.jpg"},
-		{"Resources/textures/skybox/right.jpg"}
+		{"Resources/textures/skybox/bluecloud_ft.jpg"},
+		{"Resources/textures/skybox/bluecloud_bk.jpg"},
+		 {"Resources/textures/skybox/bluecloud_lf.jpg"},
+		{"Resources/textures/skybox/bluecloud_rt.jpg"},
+		{"Resources/textures/skybox/bluecloud_up.jpg"},
+		{"Resources/textures/skybox/bluecloud_dn.jpg"}
 		};
 		
 		Ref<Shader> shader;
