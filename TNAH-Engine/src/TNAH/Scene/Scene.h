@@ -21,7 +21,10 @@ namespace tnah {
 		friend class GameObject;
 	public:
 		
-		static Scene* CreateSceneFromFile(const std::string& filePath);
+		Scene(bool editor = false);
+		~Scene();
+		
+		
 		static Scene* CreateEmptyScene();
 
 		/**********************************************************************************************//**
@@ -66,9 +69,10 @@ namespace tnah {
 
 	private:
 		GameObject* CreateEditorCamera();
-		static Scene* CreateEditorSceneFromFile(const std::string& filePath);
+
+		void Destroy();
+		
 		static Scene* CreateNewEditorScene();
-		static Scene* CreateSceneFromFile(const std::string& filePath, bool editor);
 
 		Ref<GameObject> GetEditorCameraGameObject();
 		Ref<Framebuffer> GetEditorSceneFramebuffer() { return m_EditorSceneFramebuffer; }
@@ -78,11 +82,9 @@ namespace tnah {
 		std::map<UUID, GameObject>& GetGameObjectsInScene();
 		GameObject* GetRefGameObject(const UUID id);
 		
-		Scene(bool editor = false);
-		~Scene();
 		entt::registry m_Registry;
 		std::map<UUID, GameObject> m_GameObjectsInScene;
-
+		
 		Ref<GameObject> m_ActiveCamera;
 		Ref<GameObject> m_SceneLight;
 
@@ -91,6 +93,9 @@ namespace tnah {
 		Ref<Framebuffer> m_EditorGameFramebuffer;
 		bool m_IsEditorScene = false;
 		uint32_t m_RenderPasses = 0;
+
+		entt::entity m_SceneEntity;
+		UUID m_SceneID;
 		
 		friend class EditorLayer;
 		friend class Editor;

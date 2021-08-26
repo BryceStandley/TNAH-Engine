@@ -47,7 +47,7 @@ namespace tnah {
 
 	enum class RType
 	{
-		EMPTY, Unknown, Model, Image, Texture, Shader, Audio, Material
+		EMPTY, Unknown, Model, Image, Texture, Shader, Audio, Material, TNAH
 	};
 
 	enum class RSubType
@@ -56,7 +56,8 @@ namespace tnah {
 		PBR_Material,
 		Heightmap, UI_Image, Texture_2D, Texture_3D,
 		Vertex_Shader, Fragment_Shader,
-		Audio_Clip
+		Audio_Clip,
+		TNAH_Scene, TNAH_Project, TNAH_Resource, TNAH_Prefab
 	};
 
 	struct ResourceType
@@ -104,6 +105,12 @@ namespace tnah {
 						else
 							SubType = subType;
 						break;
+				case RType::TNAH:
+					if(subType != RSubType::TNAH_Scene && subType != RSubType::TNAH_Prefab && subType != RSubType::TNAH_Project && subType != RSubType::TNAH_Resource)
+						SubType = RSubType::ILLEGAL_SUBTYPE;
+					else
+						SubType = subType;
+					break;
 					default:
 						SubType = RSubType::EMPTY;
 						break;
@@ -136,6 +143,11 @@ namespace tnah {
 				"material", "mat", "pbr"
 			};
 
+			std::string customGuess[] = {
+				"tnah.scene", "tnahproj", "tnah.resource"
+				, "tnah.meta", "tnah.prefab"
+			};
+
 			for(auto s : modelGuess)
 			{
 				if(fileExtension.find(s) != std::string::npos)
@@ -161,6 +173,12 @@ namespace tnah {
 			{
 				if(fileExtension.find(s) != std::string::npos)
 					return RType::Material;
+			}
+
+			for(auto s : customGuess)
+			{
+				if(fileExtension.find(s) != std::string::npos)
+					return RType::TNAH;
 			}
 
 			return RType::Unknown;
@@ -195,17 +213,32 @@ namespace tnah {
 
 		Resource(const std::string& relativeFilePath)
 		{
-			
-			auto dirSplit = Utility::SplitDirectoryAndFilePath(relativeFilePath);
-			RootDirectory = dirSplit.first;
-			FileName.FullFile = dirSplit.second;
-			auto nameSplit = Utility::SplitFileNameAndExtension(dirSplit.second);
-			FileName.FileName = nameSplit.first;
-			FileName.Extension = nameSplit.second;
-			Type.Type = ResourceType::GuessType(FileName.Extension);
-			AbsoluteDirectory = Utility::AbsolutePathFromRelative(relativeFilePath);
-			RelativeDirectory = relativeFilePath;
-			CustomName = nameSplit.first;
+			if(relativeFilePath.find("\\/") != std::string::npos)
+			{
+				auto dirSplit = Utility::SplitDirectoryAndFilePath(relativeFilePath);
+				RootDirectory = dirSplit.first;
+				FileName.FullFile = dirSplit.second;
+				auto nameSplit = Utility::SplitFileNameAndExtension(dirSplit.second);
+				FileName.FileName = nameSplit.first;
+				FileName.Extension = nameSplit.second;
+				Type.Type = ResourceType::GuessType(FileName.Extension);
+				AbsoluteDirectory = relativeFilePath;
+				RelativeDirectory = Utility::RelativePathFromAbsolute(relativeFilePath);
+				CustomName = nameSplit.first;
+			}
+			else
+			{
+				auto dirSplit = Utility::SplitDirectoryAndFilePath(relativeFilePath);
+				RootDirectory = dirSplit.first;
+				FileName.FullFile = dirSplit.second;
+				auto nameSplit = Utility::SplitFileNameAndExtension(dirSplit.second);
+				FileName.FileName = nameSplit.first;
+				FileName.Extension = nameSplit.second;
+				Type.Type = ResourceType::GuessType(FileName.Extension);
+				AbsoluteDirectory = Utility::AbsolutePathFromRelative(relativeFilePath);
+				RelativeDirectory = relativeFilePath;
+				CustomName = nameSplit.first;
+			}
 		}
 
 

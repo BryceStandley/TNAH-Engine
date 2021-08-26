@@ -9,6 +9,13 @@
 
 namespace tnah{
 
+	std::unordered_map<UUID, Scene*> s_ActiveScenes;
+
+	struct SceneComponent
+	{
+		UUID SceneID;
+	};
+	
 	std::map<UUID, GameObject>& Scene::GetGameObjectsInScene()
 	{
 		return m_GameObjectsInScene;
@@ -21,6 +28,8 @@ namespace tnah{
 
 	Scene::Scene(bool editor)
 	{
+		m_SceneEntity = m_Registry.create();
+		m_Registry.emplace<SceneComponent>(m_SceneEntity, m_SceneID);
 		if(editor)
 		{
 			m_EditorCamera.reset(CreateEditorCamera());
@@ -43,46 +52,31 @@ namespace tnah{
 		auto& light = m_SceneLight->AddComponent<LightComponent>();
 		light.Light.reset(Light::CreateDirectional());
 		light.Light->m_IsSceneLight = true;
+
+		s_ActiveScenes[m_SceneID] = this;
 	}
 
 	Scene::~Scene()
 	{
-	}
-
-	Scene* Scene::CreateEditorSceneFromFile(const std::string& filePath)
-	{
-		return CreateSceneFromFile(filePath);
+		m_Registry.clear();
+		s_ActiveScenes.erase(m_SceneID);
+		m_EditorGameFramebuffer.reset();
+		m_EditorSceneFramebuffer.reset();
+		//m_GameObjectsInScene.clear();
+		//m_ActiveCamera.reset();
+		//m_EditorCamera.reset();
+		//m_SceneLight.reset();
 	}
 
 	Scene* Scene::CreateNewEditorScene()
 	{
 		return new Scene(true);
 	}
-
-	Scene* Scene::CreateSceneFromFile(const std::string& filePath, bool editor)
-	{
-		
-		if(editor)
-		{
-			Scene* s = new Scene(editor);
-			
-			//Load scene file
-			return s;
-		}
-		return CreateSceneFromFile(filePath);
-	}
+	
 
 	Ref<GameObject> Scene::GetEditorCameraGameObject()
 	{
 		return m_EditorCamera;
-	}
-
-	Scene* Scene::CreateSceneFromFile(const std::string& filePath)
-	{
-		auto s = new Scene();
-		//Do Something here to load a scene file, possibly with the scene serializer
-		
-		return s;
 	}
 
 	Scene* Scene::CreateEmptyScene()
@@ -430,6 +424,16 @@ namespace tnah{
 		c.EditorCamera.SetViewportSize(1280, 720);
 		t.Position = {0,0,0};
 		return go;
+	}
+
+	void Scene::Destroy()
+	{
+		m_EditorGameFramebuffer->~Framebuffer();
+		m_EditorSceneFramebuffer->~Framebuffer();
+		//m_EditorCamera->~GameObject();
+		//m_ActiveCamera ->~GameObject();
+		//m_SceneLight->~GameObject();
+		
 	}
 
 	GameObject Scene::FindEntityByTag(const std::string& tag)

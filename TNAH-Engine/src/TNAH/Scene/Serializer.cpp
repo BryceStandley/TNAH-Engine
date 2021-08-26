@@ -4,8 +4,11 @@
 #include "GameObject.h"
 #include "TNAH/Core/Application.h"
 
-namespace tnah {
+#define ALPHA_SEARCH_STRING "QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm"
 
+namespace tnah {
+    
+    
     Resource Serializer::s_SceneResource = Resource();
     
     bool Serializer::SerializeScene(Scene* scene, const std::string& filePath)
@@ -187,7 +190,7 @@ namespace tnah {
         std::stringstream ss;
 
         ss << GenerateTagOpen("terrain", totalTabs);
-        ss << GenerateDirectoryEntry(terrain.SceneTerrain->m_HeightmapPath, totalTabs + 1);
+        ss << GenerateDirectoryEntry("heightmap", terrain.SceneTerrain->m_HeightmapPath, totalTabs + 1);
         ss << GenerateTagClose("terrain", totalTabs);
 
         return ss.str();
@@ -200,12 +203,12 @@ namespace tnah {
         ss << GenerateTagOpen("skybox", totalTabs);
         const auto textures = skybox.SceneSkybox->GetMaterial()->GetCubemapProperties();
         
-        ss << GenerateDirectoryEntry(textures.Front.RelativeDirectory, totalTabs + 1);
-        ss << GenerateDirectoryEntry(textures.Back.RelativeDirectory, totalTabs + 1);
-        ss << GenerateDirectoryEntry(textures.Top.RelativeDirectory, totalTabs + 1);
-        ss << GenerateDirectoryEntry(textures.Bottom.RelativeDirectory, totalTabs + 1);
-        ss << GenerateDirectoryEntry(textures.Left.RelativeDirectory, totalTabs + 1);
-        ss << GenerateDirectoryEntry(textures.Right.RelativeDirectory, totalTabs + 1);
+        ss << GenerateDirectoryEntry("front", textures.Front.RelativeDirectory, totalTabs + 1);
+        ss << GenerateDirectoryEntry("back", textures.Back.RelativeDirectory, totalTabs + 1);
+        ss << GenerateDirectoryEntry("top", textures.Top.RelativeDirectory, totalTabs + 1);
+        ss << GenerateDirectoryEntry("bottom", textures.Bottom.RelativeDirectory, totalTabs + 1);
+        ss << GenerateDirectoryEntry("left", textures.Left.RelativeDirectory, totalTabs + 1);
+        ss << GenerateDirectoryEntry("right", textures.Right.RelativeDirectory, totalTabs + 1);
         
         ss << GenerateTagClose("skybox", totalTabs);
 
@@ -217,7 +220,7 @@ namespace tnah {
     {
         std::stringstream ss;
         ss << GenerateTagOpen("mesh", totalTabs);
-        ss << GenerateDirectoryEntry(mesh.Model->m_FilePath, totalTabs + 1);
+        ss << GenerateDirectoryEntry("model", mesh.Model->m_FilePath, totalTabs + 1);
         ss << GenerateTagClose("mesh", totalTabs);
 
         return ss.str();
@@ -284,13 +287,15 @@ namespace tnah {
         return ss.str();
     }
 
-    std::string Serializer::GenerateDirectoryEntry(const std::string& path, const uint32_t& totalTabs)
+    std::string Serializer::GenerateDirectoryEntry(const std::string& tagType, const std::string& path, const uint32_t& totalTabs)
     {
         std::stringstream ss;
 
-        ss << GenerateTagOpen("directory", totalTabs);
-        ss << GenerateValueEntry("path", path, totalTabs+1);
-        ss << GenerateTagClose("directory", totalTabs);
+        ss << GenerateTagOpen(tagType, totalTabs);
+        ss << GenerateTagOpen("directory", totalTabs+1);
+        ss << GenerateValueEntry("path", path, totalTabs+2);
+        ss << GenerateTagClose("directory", totalTabs+1);
+        ss << GenerateTagClose(tagType, totalTabs);
         return ss.str();
     }
 
@@ -401,10 +406,11 @@ namespace tnah {
         int currentPos = 0;
         Scene* scene = nullptr;
         s_SceneResource = Resource(filePath);
-        
-        if(GetGlobalSettingsFromFile(scene, result, currentPos))
+        scene = GetGlobalSettingsFromFile(scene, result, currentPos);
+        if(scene != nullptr)
         {
-           if(GetSceneStructureFromFile(scene, result, currentPos))
+            scene = GetSceneStructureFromFile(scene, result, currentPos);
+           if(scene != nullptr)
            {
                return scene;
            }
@@ -414,7 +420,7 @@ namespace tnah {
         return nullptr;
     }
 
-    bool Serializer::GetGlobalSettingsFromFile(Scene* scene, const std::string& fileContents, int& currentPos)
+    Scene* Serializer::GetGlobalSettingsFromFile(Scene* scene, const std::string& fileContents, int& currentPos)
     {
         //check each level of the global settings to make sure nothing is missing
         // if anything is missing, the file is corrupt, return false
@@ -436,12 +442,12 @@ namespace tnah {
                         if(CheckTags(tag))
                         {
                             auto editorCam = scene->GetEditorCameraGameObject();
-                            auto tagPos = FindTags("tag", fileContents, editor.first, editor.second);
+                            //auto tagPos = FindTags("tag", fileContents, editor.first, editor.second);
                             auto transformPos = FindTags("transform", fileContents, editor.first, editor.second);
                             auto cameraPos = FindTags("camera", fileContents, editor.first, editor.second);
                         
                             auto& t = editorCam->GetComponent<TagComponent>();
-                            t = GetTagFromFile(fileContents, tagPos);
+                            t = GetTagFromFile(fileContents, tag);
 
                             auto& transform = editorCam->GetComponent<TransformComponent>();
                             transform = GetTransformFromFile(fileContents, transformPos);
@@ -487,16 +493,14 @@ namespace tnah {
                     sLight.Light = GetLightFromFile(fileContents, lightPos).Light;
                 }
                 else GenerateValuesLoadError("Scene Light");
-                
+                return scene;
             }
-            else return false;
+            return nullptr; 
         }
-        else return false;
-
-        return true;
+        return nullptr;
     }
 
-    bool Serializer::GetSceneStructureFromFile(Scene* scene, const std::string& fileContents, int& currentPos)
+    Scene* Serializer::GetSceneStructureFromFile(Scene* scene, const std::string& fileContents, int& currentPos)
     {
         
         auto hierarchy = FindTags("hierarchy", fileContents, currentPos);
@@ -513,12 +517,12 @@ namespace tnah {
                 nextGameobjectPos = go.second + strlen("</gameObject>");
                 go = FindTags("gameObject", fileContents, nextGameobjectPos);
             }
-            return true;
+            return scene;
         }
-        return false;
+        return nullptr;
     }
 
-    bool Serializer::GetGameObjectFromFile(Scene* scene, const std::string& fileContents,
+    Scene* Serializer::GetGameObjectFromFile(Scene* scene, const std::string& fileContents,
         std::pair<size_t, size_t> gameObjectTagPositions)
     {
         
@@ -526,7 +530,7 @@ namespace tnah {
         auto tagPos = FindTags("tag", fileContents, gameObjectTagPositions.first, gameObjectTagPositions.second);
         auto transformPos = FindTags("transform", fileContents, gameObjectTagPositions.first, gameObjectTagPositions.second);
 
-        if(!CheckTags(tagPos) || !CheckTags(transformPos)) return false;
+        if(!CheckTags(tagPos) || !CheckTags(transformPos)) return nullptr;
         
         auto tag = GetTagFromFile(fileContents, tagPos);
         auto object = scene->CreateGameObject(tag.Tag);
@@ -535,7 +539,7 @@ namespace tnah {
         
         FindAndAddComponentsFromFile(object, fileContents, gameObjectTagPositions);
 
-        return true;
+        return scene;
     }
 
     int Serializer::FindAndAddComponentsFromFile(GameObject* gameObject, const std::string& fileContents,
@@ -614,8 +618,23 @@ namespace tnah {
     SceneCamera Serializer::GetCameraFromFile(const std::string& fileContents,
         std::pair<size_t, size_t> componentTagPositions)
     {
-        //TODO: finish camera
         SceneCamera camera;
+        bool perspective = GetBoolValueFromFile("perspective", fileContents, componentTagPositions);
+        
+        if(perspective)
+        {
+            float fov = GetFloatValueFromFile("fov", fileContents, componentTagPositions);
+            float nearVal = GetFloatValueFromFile("near", fileContents, componentTagPositions);
+            float farVal = GetFloatValueFromFile("far", fileContents, componentTagPositions);
+            camera.SetPerspective(fov, nearVal, farVal);
+        }
+        else
+        {
+            float size = GetFloatValueFromFile("size", fileContents, componentTagPositions);
+            float nearClip = GetFloatValueFromFile("near", fileContents, componentTagPositions);
+            float farClip = GetFloatValueFromFile("far", fileContents, componentTagPositions);
+            camera.SetOrthographic(size, nearClip, farClip);
+        }
         
         return camera;
     }
@@ -624,20 +643,31 @@ namespace tnah {
                                                   std::pair<size_t, size_t> componentTagPositions)
     {
         //TODO: finish skybox
-        return SkyboxComponent();
+
+        Texture3DProperties skybox = {
+            GetDirectoryFromFile("front", fileContents, componentTagPositions),
+            GetDirectoryFromFile("back", fileContents, componentTagPositions),
+            GetDirectoryFromFile("left", fileContents, componentTagPositions),
+            GetDirectoryFromFile("right", fileContents, componentTagPositions),
+            GetDirectoryFromFile("top", fileContents, componentTagPositions),
+            GetDirectoryFromFile("bottom", fileContents, componentTagPositions)
+        };
+
+        
+        return SkyboxComponent(skybox);
     }
 
     TerrainComponent Serializer::GetTerrainFromFile(const std::string& fileContents,
                                                     std::pair<size_t, size_t> componentTagPositions)
     {
-        auto heightmap = GetDirectoryFromFile("", fileContents, componentTagPositions);
+        auto heightmap = GetDirectoryFromFile("heightmap", fileContents, componentTagPositions);
         return TerrainComponent(heightmap);
     }
 
     MeshComponent Serializer::GetMeshFromFile(const std::string& fileContents,
         std::pair<size_t, size_t> componentTagPositions)
     {
-        auto mesh = GetDirectoryFromFile("", fileContents, componentTagPositions);
+        auto mesh = GetDirectoryFromFile("model", fileContents, componentTagPositions);
         return MeshComponent(mesh);
     }
 
@@ -736,14 +766,14 @@ namespace tnah {
         std::string c = "</"; c += tagToFind + ">";
         if(from == 0 && to == 0)
         {
-            auto open = fileContents.find_first_of(o, from);
-            auto close = fileContents.find_first_of(c, from);
-            return {open, close};
+            size_t openTag = fileContents.find(o, from);
+            size_t closeTag = fileContents.find(c, from);
+            return {openTag, closeTag};
         }
 
         const auto count = to - from;
-        auto open = fileContents.find_first_of(o, from);
-        auto close = fileContents.find_first_of(c.c_str(), from, count);
+        auto open = fileContents.find(o, from);
+        auto close = fileContents.find(c, from);
         
         if(CheckTags({open, close}))
             return {open, close};
@@ -793,7 +823,12 @@ namespace tnah {
     std::string Serializer::GetDirectoryFromFile(const std::string& tagName, const std::string& fileContents,
                                                  std::pair<size_t, size_t> componentTagPositions)
     {
-        return GetStringValueFromFile("path", fileContents, componentTagPositions);
+        auto t = FindTags(tagName, fileContents, componentTagPositions.first);
+        if(CheckTags(t))
+        {
+            return GetStringValueFromFile("path", fileContents, t);
+        }
+        return "";
     }
 
     int Serializer::GetIntValueFromFile(const std::string& tagName, const std::string& fileContents, std::pair<size_t, size_t> componentTagPositions)
@@ -805,7 +840,9 @@ namespace tnah {
             if(CheckTags(v))
             {
                 size_t from = v.first + strlen("<value>\n");
-                std::string out =  fileContents.substr(from, v.second);
+                size_t numberStart = fileContents.find_first_of("-0123456789", from);
+                size_t numberEnd = fileContents.find_first_of("\r\n", numberStart);
+                std::string out =  fileContents.substr(numberStart, (numberEnd - numberStart));
                 return std::stoi(out);
             }
         }
@@ -822,7 +859,9 @@ namespace tnah {
             if(CheckTags(v))
             {
                 size_t from = v.first + strlen("<value>\n");
-                std::string out =  fileContents.substr(from, v.second);
+                size_t numberStart = fileContents.find_first_of("-0123456789", from);
+                size_t numberEnd = fileContents.find_first_of("\n", numberStart);
+                std::string out =  fileContents.substr(numberStart, (numberEnd - numberStart));
                 return std::stof(out);
             }
         }
@@ -839,11 +878,11 @@ namespace tnah {
             if(CheckTags(v))
             {
                 size_t from = v.first + strlen("<value>\n");
-                std::string out =  fileContents.substr(from, v.second);
+                size_t boolStart = fileContents.find_first_of("tf", from);
+                size_t boolEnd = fileContents.find_first_of("\r\n", boolStart);
+                std::string out =  fileContents.substr(boolStart, (boolEnd - boolStart));
                 if(out.compare("true") == 0)
                     return true;
-                else
-                    return false;
             }
         }
         return false;
@@ -858,8 +897,12 @@ namespace tnah {
             auto v = FindTags("value", fileContents, t.first, t.second);
             if(CheckTags(v))
             {
-                size_t from = v.first + strlen("<value>\n");
-                return fileContents.substr(from, v.second);
+                size_t from = v.first + strlen("<value>\r\n");
+                // Use a capital search string to find the start of the drive letter
+                size_t stringStart = fileContents.find_first_of(ALPHA_SEARCH_STRING, from);
+                size_t stringEnd = fileContents.find_first_of("\r\n", stringStart);
+                std::string out =  fileContents.substr(stringStart, (stringEnd - stringStart));
+                return out;
             }
         }
         return "";

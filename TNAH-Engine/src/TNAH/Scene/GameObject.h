@@ -24,9 +24,11 @@ namespace tnah {
 
 		GameObject(entt::entity id, Scene* scene)
 			: m_EntityID(id), m_Scene(scene)
-		{}
+		{
+		}
 
-		~GameObject() {}
+		~GameObject()
+		{}
 
 		/**********************************************************************************************//**
 		 * @fn	GameObject::GameObject(const GameObject& other) = default;
@@ -122,7 +124,7 @@ namespace tnah {
 			if (HasComponent<T>())
 			{
 				m_Scene->m_Registry.remove<T>(m_EntityID);
-				
+				return;
 			}
 			TNAH_CORE_ASSERT(false, "GameObject doesn't have that component! You can't remove what isn't there!");
 		}
@@ -155,16 +157,26 @@ namespace tnah {
 
 		entt::entity GetID() { return m_EntityID; }
 
-		TransformComponent& Transform() { return m_Scene->m_Registry.get<TransformComponent>(m_EntityID); }
-		const glm::mat4& Transform() const { return m_Scene->m_Registry.get<TransformComponent>(m_EntityID).GetTransform(); }
+		TransformComponent& Transform()
+		{
+			return m_Scene->m_Registry.get<TransformComponent>(m_EntityID);
+		}
+		const glm::mat4& Transform() const
+		{
+			return m_Scene->m_Registry.get<TransformComponent>(m_EntityID).GetTransform();
+		}
 
 
 		operator uint32_t () const { return (uint32_t)m_EntityID; }
 		operator entt::entity() const { return m_EntityID; }
-		operator bool() const { return (m_EntityID != entt::null) && m_Scene; }
+		operator bool() const
+		{
+			return (m_EntityID != entt::null) && m_Scene;
+		}
 
 		bool operator==(const GameObject& other) const
 		{
+
 			return m_EntityID == other.m_EntityID && m_Scene == other.m_Scene;
 		}
 
@@ -177,7 +189,10 @@ namespace tnah {
 		UUID GetParentUUID() { return GetComponent<RelationshipComponent>().ParentHandle; }
 		std::vector<UUID>& Children() { return GetComponent<RelationshipComponent>().Children; }
 
-		bool HasParent() { return m_Scene->FindEntityByUUID(GetParentUUID()); }
+		bool HasParent()
+		{
+			return m_Scene->FindEntityByUUID(GetParentUUID());
+		}
 
 		bool IsAncesterOf(GameObject entity)
 		{
@@ -216,7 +231,7 @@ namespace tnah {
 		
 	private:
 		entt::entity m_EntityID{ entt::null };
-		Scene* m_Scene = nullptr;
+		Scene* m_Scene;
 
 		bool m_Active = true;
 		

@@ -30,7 +30,7 @@ namespace tnah
         static std::string GenerateVec4(const glm::vec4& value, const uint32_t& totalTabs = 0);
         static std::string GenerateVec3Entry(const std::string& tagType, const glm::vec3& value, const uint32_t& totalTabs = 0);
         static std::string GenerateVec4Entry(const std::string& tagType, const glm::vec4& value, const uint32_t& totalTabs = 0);
-        static std::string GenerateDirectoryEntry(const std::string& path, const uint32_t& totalTabs = 0);
+        static std::string GenerateDirectoryEntry(const std::string& tagType, const std::string& path, const uint32_t& totalTabs = 0);
         static std::string GenerateValueEntry(const std::string& tagType, const float& value, const uint32_t& totalTabs = 0);
         static std::string GenerateValueEntry(const std::string& tagType, const int& value, const uint32_t& totalTabs = 0);
         static std::string GenerateValueEntry(const std::string& tagType, const bool& value, const uint32_t& totalTabs = 0);
@@ -43,17 +43,17 @@ namespace tnah
         /**
          * Finds the all data for the scene within <global> </global> tags
          */
-        static bool GetGlobalSettingsFromFile(Scene* scene, const std::string& fileContents, int& currentPos);
+        static Scene* GetGlobalSettingsFromFile(Scene* scene, const std::string& fileContents, int& currentPos);
         static std::pair<size_t, size_t> FindTags(const std::string& tagToFind, const std::string& fileContents, size_t from = 0, size_t to = 0);
         static bool CheckTags(std::pair<size_t, size_t> tags);
         /**
         * Finds the all data for the scene within <hierarchy> </hierarchy> tags
         */
-        static bool GetSceneStructureFromFile(Scene* scene, const std::string& fileContents, int& currentPos);
+        static Scene* GetSceneStructureFromFile(Scene* scene, const std::string& fileContents, int& currentPos);
         /**
         * Finds the all data for the scene within <gameobject> </gameobject> tags
         */
-        static bool GetGameObjectFromFile(Scene* scene, const std::string& fileContents, std::pair<size_t, size_t> gameObjectTagPositions);
+        static Scene* GetGameObjectFromFile(Scene* scene, const std::string& fileContents, std::pair<size_t, size_t> gameObjectTagPositions);
         static int FindAndAddComponentsFromFile(GameObject* gameObject, const std::string& fileContents, std::pair<size_t, size_t> gameObjectTagPositions);
 
         /**

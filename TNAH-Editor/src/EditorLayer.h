@@ -29,7 +29,7 @@ namespace tnah {
 		};
 	
 		
-		Scene* m_ActiveScene;
+		Ref<Scene> m_ActiveScene;
 		Ref<GameObject> m_EditorCamera;
 		FocusedWindow m_FocusedWindow;
 
