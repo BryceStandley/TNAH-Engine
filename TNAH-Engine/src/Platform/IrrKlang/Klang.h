@@ -3,10 +3,13 @@
 #include <IrrKlang/irrKlang.h>
 #include <vector>
 #include <string>
+#include <map>
 
-typedef std::vector<irrklang::ISoundSource*> AudioSource;
+typedef std::vector<irrklang::ISoundSource*> AudioSources;
+//typedef std::pair<std::string, irrklang::ISoundSource*> AudioSourcePair;
 typedef std::vector<irrklang::ISound*> AudioPlaying;
 
+//TODO Add pause and loop functionality
 namespace  tnah
 {
     class Klang : public AudioAPI
@@ -15,16 +18,17 @@ namespace  tnah
         Klang();
         ~Klang();
 
-        bool SetListener(TransformComponent &transform) const;//Updated to take trasnform, look = foward
-        bool Add3DAudioSource(AudioSource3D&sound);
-        bool UpdateAudioSource(AudioSource3D&sound);
-        bool PlayAudioSource(AudioSource3D& sound, TransformComponent &transform);
-        void Update();
-        void UpdateSound(AudioSource3D& sound, TransformComponent &transform);
-        bool Active() const {return m_Engine;}
+        bool SetListener(TransformComponent &transform) const override;//Updated to take trasnform, look = foward
+        bool AddAudioSource(AudioSource&sound) override;
+        bool UpdateAudioSource(AudioSource&sound) override;
+        void OnUpdate() override;
+        void UpdateSound(AudioSource& sound, TransformComponent &transform) override;
+        bool Active() const override {return m_Engine;}
+        void Clear() override;
         
     private:
-        AudioSource m_Source;
+        bool PlayAudioSource(AudioSource& sound, TransformComponent &transform);
+        AudioSources m_Source;
         AudioPlaying m_Playing;
         irrklang::ISoundEngine* m_Engine;
     };    

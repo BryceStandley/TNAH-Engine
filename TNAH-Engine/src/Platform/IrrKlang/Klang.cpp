@@ -11,8 +11,7 @@ namespace tnah
     
     Klang::~Klang()
     {
-        m_Playing.erase(m_Playing.begin(), m_Playing.end());
-        m_Source.erase(m_Source.begin(), m_Source.end());
+        Clear();
 
         //Make sure it is gonzo
         delete m_Engine;
@@ -33,7 +32,7 @@ namespace tnah
             return false;
     }
     
-    bool Klang::Add3DAudioSource(AudioSource3D& sound)
+    bool Klang::AddAudioSource(AudioSource& sound)
     {
         irrklang::ISoundSource* source(m_Engine ->addSoundSourceFromFile(sound.m_File.RelativeDirectory.c_str()));
         
@@ -45,11 +44,11 @@ namespace tnah
             sound.m_SourceReference = m_Source.size()-1;
             return true;
         }
-        else
-            return false;
+        
+        return false;
     }
 
-    bool Klang::UpdateAudioSource(AudioSource3D& sound)
+    bool Klang::UpdateAudioSource(AudioSource& sound)
     {
         auto & source = m_Source[sound.m_SourceReference];
         if(source)
@@ -62,54 +61,78 @@ namespace tnah
             return false;
     }
 
-    void Klang::Update()
+    void Klang::OnUpdate()
     {
         m_Engine->update();
     }
 
-    bool Klang::PlayAudioSource(AudioSource3D& sound, TransformComponent &transform)
+    //Can probably become private
+    bool Klang::PlayAudioSource(AudioSource& sound, TransformComponent &transform)
     {
         auto & source = m_Source[sound.m_SourceReference];
         if(source)
         {
-            if(!sound.m_Playing)
+            irrklang::ISound * play;
+            
+            if(sound.m_3D)
+                play = m_Engine->play3D(source, Math::ConvertVec3ToVec3df(transform.Position), sound.m_Loop, false, true);
+            else
+                play = m_Engine->play2D(source, sound.m_Loop, false, true);
+            
+            if(play)
             {
-                irrklang::ISound * play = m_Engine->play3D(source, Math::ConvertVec3ToVec3df(transform.Position), sound.m_Loop, false, true);
-                if(play)
-                {
-                    
-                    m_Playing.push_back(play);
-                    sound.m_PlayReference = m_Playing.size()-1;
-                    sound.m_Playing = true;
-                    return true;
-                }   
-            }
+                m_Playing.push_back(play);
+                sound.m_PlayReference = m_Playing.size()-1;
+                sound.m_Playing = true;
+                return true;
+            }   
         }
         
         return false;
     }
 
-    void Klang::UpdateSound(AudioSource3D& sound, TransformComponent &transform)
+    void Klang::UpdateSound(AudioSource& sound, TransformComponent &transform)
     {
-        if(m_Playing.size() > 0)
+        if(sound.m_Shoot && !sound.m_Playing)
         {
-            auto& play = m_Playing[sound.m_PlayReference];
-            if(play)
+            PlayAudioSource(sound, transform);
+            sound.m_Shoot = false;
+        }
+        else if(sound.m_Playing)
+        {
+            TNAH_CORE_INFO("Audio should be playing");
+            //Might not need this line no more
+            if(m_Playing.size() > 0)
             {
-                if(play->isFinished())
+                auto& play = m_Playing[sound.m_PlayReference];
+                if(play)
                 {
-                    AudioPlaying::iterator itr;
+                    if(play->isFinished())
+                    {
+                        AudioPlaying::iterator itr;
+                        itr = remove(m_Playing.begin(), m_Playing.end(), play);
+                        play->drop();
+                        m_Playing.erase(itr);
+                        sound.m_Playing = false;
+                        sound.m_PlayReference = NULL;
+                    }
+                    else
+                    {
+                        if(sound.m_3D)
+                            play->setPosition(Math::ConvertVec3ToVec3df(transform.Position));
 
-                    itr = remove(m_Playing.begin(), m_Playing.end(), play);
-                    m_Playing.erase(itr);
-                    sound.m_Playing = false;
-                    sound.m_PlayReference = NULL;
+                        play->setIsPaused(sound.m_Paused);
+                        play->setIsLooped(sound.m_Loop);
+                    }
                 }
-                else
-                {
-                    play->setPosition(Math::ConvertVec3ToVec3df(transform.Position));
-                }
-            }
+            }   
         }
     }
+
+    void Klang::Clear()
+    {
+        m_Playing.erase(m_Playing.begin(), m_Playing.end());
+        m_Source.erase(m_Source.begin(), m_Source.end());
+    }
+
 }

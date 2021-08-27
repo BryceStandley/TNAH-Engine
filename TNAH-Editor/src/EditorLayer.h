@@ -41,6 +41,7 @@ namespace tnah {
 		float m_CameraMouseSensitivity = 0.1f;
 		bool m_CameraMovementToggle = true;
 		bool m_CursorDisable = false;
+		bool m_Snap = false;
 
 		Ref<Texture2D> m_SelectToolTex, m_MoveToolTex, m_RotateToolTex, m_ScaleToolTex;
 		
@@ -50,6 +51,8 @@ namespace tnah {
 		Ref<Framebuffer> m_EditorSceneFramebuffer;
 		Ref<Framebuffer> m_EditorGameFramebuffer;
 		ImVec2 m_SceneViewSize = {0,0};
+		glm::vec3 m_SnapValue;
+		
 	};
 
 

@@ -299,19 +299,26 @@ namespace tnah {
     		ImGui::Separator();
     	}
 
-    	if(object->HasComponent<AudioSource3D>())
+    	if(object->HasComponent<AudioSource>())
     	{
-    		auto& source = object->GetComponent<AudioSource3D>();
-    		ImGui::Text("Audio Source 3D");
+    		auto& source = object->GetComponent<AudioSource>();
+    		ImGui::Text("Audio Source");
     		
-    		DrawTextControl("Model File", source.m_File.RelativeDirectory);
-    		
-    		DrawFloatControl("Volume", source.m_Volume, 0, 1);
-    		DrawFloatControl("Minimum Reach Distance", source.m_MinDistance, 0, 100);
+    		DrawTextControl("Source File", source.m_File.RelativeDirectory);
+    		ImGui::Checkbox("3D Audio", &source.m_3D);
+    		ImGui::Checkbox("Loop", &source.m_Loop);
 
+    		DrawFloatControl("Volume", source.m_Volume, 0, 1);
+    		
+    		if(source.m_3D)
+    			DrawFloatControl("Minimum Reach Distance", source.m_MinDistance, 0, 100);
+    		
+			ImGui::Text("Testing Options");
+    		ImGui::Checkbox("Shoot", &source.m_Shoot);
+    		ImGui::Checkbox("Pause", &source.m_Paused);
     		if(DrawRemoveComponentButton())
     		{
-    			object->RemoveComponent<AudioSource3D>();
+    			object->RemoveComponent<AudioSource>();
     		}
 			
     		ImGui::Separator();
@@ -321,7 +328,7 @@ namespace tnah {
     	//Only add components to scene objects, the editor camera cant have components added to them
     	if(!object->HasComponent<EditorCameraComponent>())
     	{
-    		const char* items[] = { "Camera", "Terrain", "Mesh",  "Light", "AudioListener", "AudioSource3D"};
+    		const char* items[] = { "Camera", "Terrain", "Mesh",  "Light", "AudioListener", "AudioSource"};
     		static int item_current_idx = 0;
     		const char* combo_preview_value = items[item_current_idx];
     		if (ImGui::BeginCombo("Components", combo_preview_value))
@@ -371,10 +378,10 @@ namespace tnah {
     				object->AddComponent<AudioListener>();
     			}
 
-    			if (!object->HasComponent<AudioSource3D>() && items[item_current_idx] == "AudioSource3D")
+    			if (!object->HasComponent<AudioSource>() && items[item_current_idx] == "AudioSource")
     			{
     				Resource file = {"file.wav"};
-    				object->AddComponent<AudioSource3D>(file, 10.0f, 1.0f, false);
+    				object->AddComponent<AudioSource>(file, 10.0f, 1.0f);
     				/*if (!FileManager::OpenScene())
     				{
     					auto sceneFile = FileManager::GetActiveFile();

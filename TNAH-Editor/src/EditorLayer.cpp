@@ -13,7 +13,7 @@
 namespace tnah {
 
 		EditorLayer::EditorLayer()
-			: Layer("Editor Layer"),  m_FocusedWindow(FocusedWindow::None), m_HasObjectSelected(false), m_GizmoType(-1), m_SelectedGameObject(nullptr)
+			: Layer("Editor Layer"),  m_FocusedWindow(FocusedWindow::None), m_HasObjectSelected(false), m_GizmoType(-1), m_SelectedGameObject(nullptr), m_SnapValue(1.0f)
 		{
 			
 		}
@@ -254,6 +254,17 @@ namespace tnah {
 					ImGui::EndMenu();
 				}
 
+				if (ImGui::BeginMenu("Options"))
+				{
+					if (ImGui::MenuItem("Snap"))
+					{
+						//TODO Add popup for snap option
+						/*ImGui::Checkbox("Active", &m_Snap);
+						ImGui::Text("Add options to change snap amount (feeling to lazy rn ngl)");*/
+					}
+					ImGui::EndMenu();
+				}
+				
 				if(m_ActiveScene != nullptr)
 				{
 					if (ImGui::BeginMenu("GameObject"))
@@ -472,7 +483,7 @@ namespace tnah {
 
 				ImVec2 iconSize = { 24,24 };
 				if (ImGui::ImageButton((void*)m_SelectToolTex->GetRendererID(), iconSize, ImVec2(0, 0), ImVec2(1, 1), -1, ImVec4(0, 0, 0, 0), m_GizmoType == -1 ? c_SelectedGizmoButtonColor : c_UnselectedGizmoButtonColor))
-					m_GizmoType = ImGuizmo::OPERATION::BOUNDS;
+					m_GizmoType = -1;
 				ImGui::SameLine();
 				if (ImGui::ImageButton((void*)m_MoveToolTex->GetRendererID(), iconSize, ImVec2(0, 0), ImVec2(1, 1), -1, ImVec4(0, 0, 0, 0), m_GizmoType == ImGuizmo::OPERATION::TRANSLATE ? c_SelectedGizmoButtonColor : c_UnselectedGizmoButtonColor))
 					m_GizmoType = ImGuizmo::OPERATION::TRANSLATE;
@@ -482,7 +493,14 @@ namespace tnah {
 				ImGui::SameLine();
 				if (ImGui::ImageButton((void*)m_ScaleToolTex->GetRendererID(), iconSize, ImVec2(0, 0), ImVec2(1, 1), -1, ImVec4(0, 0, 0, 0), m_GizmoType == ImGuizmo::OPERATION::SCALE ? c_SelectedGizmoButtonColor : c_UnselectedGizmoButtonColor))
 					m_GizmoType = ImGuizmo::OPERATION::SCALE;
+				ImGui::SameLine();
 
+				//Need to add some sort of style to it
+				if(!m_Snap)
+					if(ImGui::Button("Snap"))
+						m_Snap = !m_Snap;
+				
+				//TODO add new image for snap tool and move it down the bar to the right side
 				ImGui::PopStyleColor(3);
 				ImGui::EndMenuBar();
 			}
@@ -556,7 +574,7 @@ namespace tnah {
 				ImGui::Image((void*)id, size, {0, 0}, {1, -1});
 
 				
-				if (m_SelectedGameObject != nullptr && m_ActiveScene != nullptr)
+				if (m_SelectedGameObject && m_ActiveScene)
 				{
 
 					ImGuizmo::SetOrthographic(false);
@@ -567,15 +585,8 @@ namespace tnah {
 					glm::mat4 c_View = e_Camera.EditorCamera.GetViewMatrix();
 					auto& e_Transform = m_SelectedGameObject->GetComponent<TransformComponent>();
 					glm::mat4 c_Transform = e_Transform.GetTransform();
-
-					glm::vec3 snapValues(0.5f);
-					/*const float identityMatrix[16] =
-					{ 1.f, 0.f, 0.f, 0.f,
-						0.f, 1.f, 0.f, 0.f,
-						0.f, 0.f, 1.f, 0.f,
-						0.f, 0.f, 0.f, 1.f };*/
 					
-					ImGuizmo::Manipulate(glm::value_ptr(c_View), glm::value_ptr(c_Proj), (ImGuizmo::OPERATION)m_GizmoType, ImGuizmo::LOCAL, glm::value_ptr(c_Transform), nullptr, true ? glm::value_ptr(snapValues) : nullptr);
+					ImGuizmo::Manipulate(glm::value_ptr(c_View), glm::value_ptr(c_Proj), (ImGuizmo::OPERATION)m_GizmoType, ImGuizmo::LOCAL, glm::value_ptr(c_Transform), nullptr, m_Snap ? glm::value_ptr(m_SnapValue) : nullptr);
 					if (ImGuizmo::IsUsing())
 					{
 						glm::vec3 position, rotation, scale;

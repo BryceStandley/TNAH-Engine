@@ -24,24 +24,21 @@ namespace tnah
     {
         return m_AudioEngine->SetListener(transform);
     }
-    bool Audio::Add3DAudioSource(AudioSource3D &sound)
+    bool Audio::AddAudioSource(AudioSource &sound)
     {
-        return m_AudioEngine->Add3DAudioSource(sound);
+        return m_AudioEngine->AddAudioSource(sound);
     }
-    bool Audio::UpdateAudioSource(AudioSource3D &sound)
+    bool Audio::UpdateAudioSource(AudioSource &sound)
     {
         return m_AudioEngine->UpdateAudioSource(sound);
     }
-    bool Audio::PlayAudioSource(AudioSource3D& sound, TransformComponent &transform)
+ 
+    void Audio::OnUpdate()
     {
-        return m_AudioEngine->PlayAudioSource(sound, transform);
-    }
-    void Audio::Update()
-    {
-        m_AudioEngine->Update();
+        m_AudioEngine->OnUpdate();
     }
     
-    void Audio::UpdateSound(AudioSource3D& sound, TransformComponent &transform)
+    void Audio::UpdateSound(AudioSource& sound, TransformComponent &transform)
     {
         m_AudioEngine->UpdateSound(sound, transform);
     }
@@ -50,4 +47,10 @@ namespace tnah
     {
         return m_AudioEngine->Active();
     }
+
+    void Audio::Clear()
+    {
+        m_AudioEngine->Clear();
+    }
+
 }

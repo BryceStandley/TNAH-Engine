@@ -91,7 +91,7 @@ namespace tnah{
 		{
 			auto e = EditorComponent();
 
-			Audio::Update();
+			Audio::OnUpdate();
 			
 			auto view = m_Registry.view<PlayerControllerComponent, TransformComponent>();
 			for(auto obj : view)
@@ -298,27 +298,22 @@ namespace tnah{
 
 				//Handle audio
 				{
-					auto view = m_Registry.view<TransformComponent, AudioSource3D>();
+					auto view = m_Registry.view<TransformComponent, AudioSource>();
 					for(auto entity : view)
 					{
-						auto& sound = view.get<AudioSource3D>(entity);
+						auto& sound = view.get<AudioSource>(entity);
 						auto& transform = view.get<TransformComponent>(entity);
 
 						if(sound.m_Loaded)
 						{
-							if(sound.m_Shoot)
-							{
-								sound.m_Shoot = false;
-								Audio::PlayAudioSource(sound, transform);
-							}
-							else if(sound.m_Playing)
+							if(sound.m_Playing)
 							{
 								Audio::UpdateSound(sound, transform);
 							}
 						}
 						else
 						{
-							sound.m_Loaded = Audio::Add3DAudioSource(sound);
+							sound.m_Loaded = Audio::AddAudioSource(sound);
 						}
 					}
 				}
@@ -334,10 +329,11 @@ namespace tnah{
 						if(listen.m_ActiveListing)
 							Audio::SetListener(transform);
 						
-						// auto hear = m_Registry.view<AudioSource3D>();
+						// auto hear = m_Registry.view<AudioSource>();
 						// for(auto sound : hear)
 						// {
-						// 		//Call a OnAudioListenEnter type function where we can check distance
+						//		if(sound.m_3D)
+						// 		//Call a OnAudioListen type function where we can check distance
 						// }
 					}
 				}
