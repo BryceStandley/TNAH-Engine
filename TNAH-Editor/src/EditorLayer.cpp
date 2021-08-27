@@ -271,108 +271,67 @@ namespace tnah {
 					{
 						if (ImGui::MenuItem("Create Empty GameObject"))
 						{
-							int num = 1;
-
-							auto objects = m_ActiveScene->GetGameObjectsInScene();
-							for (auto& go : objects)
-							{
-								auto& g = go.second;
-								std::string object_name = "GameObject";
-								if (g.HasComponent<TagComponent>()) object_name = g.GetComponent<TagComponent>().Tag;
-								if (object_name.find("Game Object") != std::string::npos)
-								{
-									num++;
-								}
-							}
-
-							m_ActiveScene->CreateGameObject("Game Object (" + std::to_string(num) + ")");
+							m_ActiveScene->CreateGameObject("Game Object (" + std::to_string(CountGameObjects("Game Object")) + ")");
 						}
 
 						if (ImGui::BeginMenu("Create 3D GameObject"))
 						{
 							if (ImGui::MenuItem("Cube"))
 							{
-								int num = 1;
-
-								auto objects = m_ActiveScene->GetGameObjectsInScene();
-								for (auto& go : objects)
-								{
-									auto& g = go.second;
-									std::string object_name = "GameObject";
-									if (g.HasComponent<TagComponent>()) object_name = g.GetComponent<TagComponent>().Tag;
-									if (object_name.find("Cube") != std::string::npos)
-									{
-										num++;
-									}
-								}
-
-								auto newObject = m_ActiveScene->CreateGameObject("Cube (" + std::to_string(num) + ")");
+								auto newObject = m_ActiveScene->CreateGameObject("Cube (" + std::to_string(CountGameObjects("Cube")) + ")");
 								newObject->AddComponent<MeshComponent>("assets/Editor/meshes/cube.fbx");
 							}
 
 							if (ImGui::MenuItem("Sphere"))
 							{
-								int num = 1;
-
-								auto objects = m_ActiveScene->GetGameObjectsInScene();
-								for (auto& go : objects)
-								{
-									auto& g = go.second;
-									std::string object_name = "GameObject";
-									if (g.HasComponent<TagComponent>()) object_name = g.GetComponent<TagComponent>().Tag;
-									if (object_name.find("Sphere") != std::string::npos)
-									{
-										num++;
-									}
-								}
-
-								auto newObject = m_ActiveScene->CreateGameObject("Sphere (" + std::to_string(num) + ")");
+								auto newObject = m_ActiveScene->CreateGameObject("Sphere (" + std::to_string(CountGameObjects("Sphere")) + ")");
 								newObject->AddComponent<MeshComponent>("assets/Editor/meshes/sphere.fbx");
 							}
 
 							if (ImGui::MenuItem("Plane"))
 							{
-								int num = 1;
-
-								auto objects = m_ActiveScene->GetGameObjectsInScene();
-								for (auto& go : objects)
-								{
-									auto& g = go.second;
-									std::string object_name = "GameObject";
-									if (g.HasComponent<TagComponent>()) object_name = g.GetComponent<TagComponent>().Tag;
-									if (object_name.find("Plane") != std::string::npos)
-									{
-										num++;
-									}
-								}
-
-								auto newObject = m_ActiveScene->CreateGameObject("Plane (" + std::to_string(num) + ")");
+								auto newObject = m_ActiveScene->CreateGameObject("Plane (" + std::to_string(CountGameObjects("Plane")) + ")");
 								newObject->AddComponent<MeshComponent>("assets/Editor/meshes/plane.fbx");
 							}
 
 							if (ImGui::MenuItem("Cylinder"))
 							{
-								int num = 1;
-
-								auto objects = m_ActiveScene->GetGameObjectsInScene();
-								for (auto& go : objects)
-								{
-									auto& g = go.second;
-									std::string object_name = "GameObject";
-									if (g.HasComponent<TagComponent>()) object_name = g.GetComponent<TagComponent>().Tag;
-									if (object_name.find("Cylinder") != std::string::npos)
-									{
-										num++;
-									}
-								}
-
-								auto newObject = m_ActiveScene->CreateGameObject("Cylinder (" + std::to_string(num) + ")");
+								auto newObject = m_ActiveScene->CreateGameObject("Cylinder (" + std::to_string(CountGameObjects("Cylinder")) + ")");
 								newObject->AddComponent<MeshComponent>("assets/Editor/meshes/cylinder.fbx");
 							}
-
+							
 							ImGui::EndMenu();
 						}
 
+						if (ImGui::BeginMenu("Create Audio GameObject"))
+						{
+							if(ImGui::MenuItem("Audio Listener"))
+							{
+								auto newObject = m_ActiveScene->CreateGameObject("AudioListener (" + std::to_string(CountGameObjects("AudioListener")) + ")");
+								newObject->AddComponent<AudioListener>();
+							}
+
+							if(ImGui::MenuItem("Audio Source"))
+							{
+								if (FileManager::OpenAudio())
+								{
+									auto soundFile = FileManager::GetActiveFile();
+									if (soundFile->FileOpenError == FileError::PathInvalid)
+									{
+										TNAH_WARN("The path or file was invalid!");
+									}
+									else if(soundFile->FileOpenError != FileError::UserClosed)
+									{
+										Resource file = {soundFile->FilePath};
+										auto newObject = m_ActiveScene->CreateGameObject("AudioSource (" + std::to_string(CountGameObjects("AudioSource")) + ")");
+										newObject->AddComponent<AudioSource>(soundFile->FilePath);
+									}
+								}
+							}
+							
+							ImGui::EndMenu();
+						}
+						
 						ImGui::EndMenu();
 					}
 				}
@@ -763,6 +722,23 @@ namespace tnah {
 
 		void EditorLayer::OnDetach()
 		{
+		}
+
+		int EditorLayer::CountGameObjects(std::string name)
+		{
+			int num = 1;
+			auto objects = m_ActiveScene->GetGameObjectsInScene();
+			for (auto& go : objects)
+			{
+				auto& g = go.second;
+				std::string object_name = "GameObject";
+				if (g.HasComponent<TagComponent>()) object_name = g.GetComponent<TagComponent>().Tag;
+				if (object_name.find(name) != std::string::npos)
+				{
+					num++;
+				}
+			}
+			return num;
 		}
 
 

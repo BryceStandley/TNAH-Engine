@@ -43,6 +43,7 @@ namespace tnah
 		inline Window& GetWindow() { return *m_Window; }
 
 		static std::pair<std::string, int> OpenFileFromBrowser();
+		static std::pair<std::string, int> OpenAudioFromBrowser();
 		static std::pair<std::string, int> SaveFileAs(const char* fileName);
 
 		bool CheckEditor() const { return m_IsEditor; }

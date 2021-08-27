@@ -280,7 +280,7 @@ namespace tnah{
 						Renderer::SubmitTerrain(terrain.SceneTerrain->GetVertexArray(), terrain.SceneTerrain->GetMaterial(), sceneLights, transform.GetTransform());
 					}
 				}
-
+				
 				//Render all mesh components
 				{
 					auto view = m_Registry.view<TransformComponent, MeshComponent>();
@@ -292,28 +292,6 @@ namespace tnah{
 						for(auto& mesh : model.Model->GetMeshes())
 						{
 							Renderer::SubmitMesh(mesh.GetMeshVertexArray(), mesh.GetMeshMaterial(), sceneLights, transform.GetTransform());
-						}
-					}
-				}
-
-				//Handle audio
-				{
-					auto view = m_Registry.view<TransformComponent, AudioSource>();
-					for(auto entity : view)
-					{
-						auto& sound = view.get<AudioSource>(entity);
-						auto& transform = view.get<TransformComponent>(entity);
-
-						if(sound.m_Loaded)
-						{
-							if(sound.m_Playing)
-							{
-								Audio::UpdateSound(sound, transform);
-							}
-						}
-						else
-						{
-							sound.m_Loaded = Audio::AddAudioSource(sound);
 						}
 					}
 				}
@@ -338,7 +316,25 @@ namespace tnah{
 					}
 				}
 				
-			
+				//Handle audio
+				{
+					auto view = m_Registry.view<TransformComponent, AudioSource>();
+					for(auto entity : view)
+					{
+						auto& sound = view.get<AudioSource>(entity);
+						auto& transform = view.get<TransformComponent>(entity);
+
+						if(sound.m_Loaded)
+						{
+							Audio::UpdateSound(sound, transform);
+						}
+						else
+						{
+							sound.m_Loaded = Audio::AddAudioSource(sound);
+						}
+					}
+				}
+				
 				Renderer::EndScene();
 			}
 			

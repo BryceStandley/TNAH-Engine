@@ -311,7 +311,9 @@ namespace tnah {
     		DrawFloatControl("Volume", source.m_Volume, 0, 1);
     		
     		if(source.m_3D)
-    			DrawFloatControl("Minimum Reach Distance", source.m_MinDistance, 0, 100);
+    		{
+    			DrawFloatControl("Minimum Reach Distance", source.m_MinDistance, 0, 100);	
+    		}
     		
 			ImGui::Text("Testing Options");
     		ImGui::Checkbox("Shoot", &source.m_Shoot);
@@ -380,20 +382,19 @@ namespace tnah {
 
     			if (!object->HasComponent<AudioSource>() && items[item_current_idx] == "AudioSource")
     			{
-    				Resource file = {"file.wav"};
-    				object->AddComponent<AudioSource>(file, 10.0f, 1.0f);
-    				/*if (!FileManager::OpenScene())
+    				if (FileManager::OpenAudio())
     				{
-    					auto sceneFile = FileManager::GetActiveFile();
-    					if (sceneFile->FileOpenError == FileError::PathInvalid)
+    					auto soundFile = FileManager::GetActiveFile();
+    					if (soundFile->FileOpenError == FileError::PathInvalid)
     					{
     						TNAH_WARN("The path or file was invalid!");
     					}
-    					else
+    					else if(soundFile->FileOpenError != FileError::UserClosed)
     					{
-    						object->AddComponent<AudioSource3D>(sceneFile->FileName);
+    						Resource file = {soundFile->FilePath};
+    						object->AddComponent<AudioSource>(file);
     					}
-    				}*/
+    				}
     			}
     		}
     	}

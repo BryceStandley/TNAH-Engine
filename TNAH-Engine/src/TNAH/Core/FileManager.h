@@ -28,6 +28,7 @@ namespace tnah {
 	public:
 		static bool NewScene();
 		static bool OpenScene();
+		static bool OpenAudio();
 		static bool SaveScene();
 		static bool SaveSceneAs();
 

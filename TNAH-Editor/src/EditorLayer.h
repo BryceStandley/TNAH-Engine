@@ -52,6 +52,7 @@ namespace tnah {
 		Ref<Framebuffer> m_EditorGameFramebuffer;
 		ImVec2 m_SceneViewSize = {0,0};
 		glm::vec3 m_SnapValue;
+		int CountGameObjects(std::string name);
 		
 	};
 

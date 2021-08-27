@@ -35,7 +35,7 @@ namespace tnah
     bool Klang::AddAudioSource(AudioSource& sound)
     {
         irrklang::ISoundSource* source(m_Engine ->addSoundSourceFromFile(sound.m_File.RelativeDirectory.c_str()));
-        
+
         if(source)
         {
             m_Source.push_back(source);
@@ -100,7 +100,6 @@ namespace tnah
         }
         else if(sound.m_Playing)
         {
-            TNAH_CORE_INFO("Audio should be playing");
             //Might not need this line no more
             if(m_Playing.size() > 0)
             {
@@ -119,8 +118,12 @@ namespace tnah
                     else
                     {
                         if(sound.m_3D)
+                        {
                             play->setPosition(Math::ConvertVec3ToVec3df(transform.Position));
+                            play->setMinDistance(sound.m_MinDistance);
+                        }
 
+                        play->setVolume(sound.m_Volume);
                         play->setIsPaused(sound.m_Paused);
                         play->setIsLooped(sound.m_Loop);
                     }
