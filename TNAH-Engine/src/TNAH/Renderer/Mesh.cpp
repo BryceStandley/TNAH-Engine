@@ -6,29 +6,60 @@
 #include "Renderer.h"
 
 namespace tnah {
-    Mesh::Mesh(std::vector<Vertex> vertices, std::vector<uint32_t> indices, std::vector<Ref<Texture2D>> textures)
+    Mesh::Mesh(std::vector<Vertex> vertices, std::vector<uint32_t> indices, std::vector<Ref<Texture2D>> textures, bool animated)
     {
         this->m_Vertices = vertices;
         this->m_Indices = indices;
-        
-        m_BufferLayout = {
+        this->m_Animated = animated;
+
+        std::string defaultVertexShader = "";
+        std::string defaultFragmentShader = "";
+
+        if (m_Animated) 
+        {
+            m_BufferLayout = {
+            {ShaderDataType::Float3, "a_Position"},
+            {ShaderDataType::Float3, "a_Normal"},
+            {ShaderDataType::Float3, "a_TexCoord"},
+            {ShaderDataType::Int4, "a_BoneIds"},
+            {ShaderDataType::Float4, "a_Weights"}
+            };
+        }
+        else 
+        {
+            m_BufferLayout = {
             {ShaderDataType::Float3, "a_Position"},
             {ShaderDataType::Float3, "a_Normal"},
             {ShaderDataType::Float3, "a_Tangent"},
-            {ShaderDataType::Float3, "a_Bitangents"},
+            {ShaderDataType::Float3, "a_Bitangent"},
             {ShaderDataType::Float2, "a_TexCoord"}
-        };
+            };
+        }
+        
         m_Vao.reset(VertexArray::Create());
         
-        m_Vbo.reset(VertexBuffer::Create(&vertices[0], (uint32_t)(sizeof(Vertex) * vertices.size())));
+        if (m_Animated)
+            m_Vbo.reset(VertexBuffer::Create(&vertices[0], (uint32_t)(sizeof(AnimatedVertex) * vertices.size())));
+        else
+            m_Vbo.reset(VertexBuffer::Create(&vertices[0], (uint32_t)(sizeof(Vertex) * vertices.size())));
+
         m_Vbo->SetLayout(m_BufferLayout);
         m_Vao->AddVertexBuffer(m_Vbo);
 
         m_Ibo.reset(IndexBuffer::Create(&indices[0], (uint32_t)indices.size()));
         m_Vao->SetIndexBuffer(m_Ibo);
 
-        const std::string defaultVertexShader = "Resources/shaders/default/mesh/mesh_vertex.glsl";
-        const std::string defaultFragmentShader = "Resources/shaders/default/mesh/mesh_fragment.glsl";
+        if (m_Animated)
+        {
+            defaultVertexShader = "Resources/shaders/default/animation/anim_vertex.glsl";
+            defaultFragmentShader = "Resources/shaders/default/animaiton/anim_fragment.glsl";
+        }
+        else 
+        {
+            defaultVertexShader = "Resources/shaders/default/mesh/mesh_vertex.glsl";
+            defaultFragmentShader = "Resources/shaders/default/mesh/mesh_fragment.glsl";
+        }
+        
         
         bool skip = false;
         for(auto& shader : Renderer::GetLoadedShaders())
@@ -162,6 +193,65 @@ namespace tnah {
         LoadModel(filePath);
     }
 
+    void Model::SetVertexBoneDataToDefault(Vertex& vertex) 
+    {
+        for (int i = 0; i < MAX_BONE_INFLUENCE; i++) 
+        {
+            vertex.IDs[i] = -1;
+            vertex.Weights[i] = 0.0f;
+        }
+    }
+
+
+    void Model::SetVertexBoneData(Vertex& vertex, int boneID, float weight) 
+    {
+        for (int i = 0; i < MAX_BONE_INFLUENCE; ++i) 
+        {
+            if (vertex.IDs[i] < 0) 
+            {
+                vertex.Weights[i] = weight;
+                vertex.IDs[i] = boneID;
+                break;
+            }
+        }
+    }
+
+    void Model::ExtractBoneWeightForVertices(std::vector<Vertex>& vertices, aiMesh* mesh, const aiScene* scene) 
+    {
+        for (int boneIndex = 0; boneIndex < mesh->mNumBones; ++boneIndex) 
+        {
+            int boneID = -1;
+            std::string boneName = mesh->mBones[boneIndex]->mName.C_Str();
+
+            if (m_BoneInfoMap.find(boneName) == m_BoneInfoMap.end()) 
+            {
+                BoneInfo newBoneInfo;
+                newBoneInfo.id = m_BoneCounter;
+                //newBoneInfo.offset = AssimpGLMHelpers::ConvertMatrixToGLMFormat(mesh->mBones[boneIndex]->mOffsetMatrix);
+                m_BoneInfoMap[boneName] = newBoneInfo;
+                boneID = m_BoneCounter;
+                m_BoneCounter++;
+            }
+            else 
+            {
+                boneID = m_BoneInfoMap[boneName].id;
+            }
+            //assert(boneID != -1)
+            auto weights = mesh->mBones[boneIndex]->mWeights;
+            int numWeights = mesh->mBones[boneIndex]->mNumWeights;
+
+            for (int weightIndex = 0; weightIndex < numWeights; ++weightIndex) 
+            {
+                int vertexId = weights[weightIndex].mVertexId;
+                float weight = weights[weightIndex].mWeight;
+                //assert(vertexId <= vertices.size());
+                SetVertexBoneData(vertices[vertexId], boneID, weight);
+
+            }
+        }
+
+    }
+
     void Model::LoadModel(const std::string& filePath)
     {
         Assimp::Importer importer;
@@ -221,7 +311,7 @@ namespace tnah {
         return textures;
     }
 
-    Mesh Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
+    Mesh Model::ProcessMesh(aiMesh* mesh, const aiScene* scene, bool animated)
     {
         std::vector<Vertex> vertices;
         std::vector<uint32_t> indices;
@@ -230,6 +320,13 @@ namespace tnah {
         for(uint32_t i = 0; i < mesh->mNumVertices; i++)
         {
             Vertex v;
+
+            SetVertexBoneDataToDefault(v);
+
+            //vertex.Position = AssimpGLMHelpers::GetGLMVec(mesh->mVertices[i]);
+            //vertex.Normal = AssimpGLMHelpers::GetGLMVec(mesh->mNormals[i]);
+
+
             glm::vec3 vec;
             if(mesh->HasPositions())
             {
@@ -299,16 +396,17 @@ namespace tnah {
             textures.insert(textures.end(), heightMaps.begin(), heightMaps.end());
         }
 
+        ExtractBoneWeightForVertices(vertices, mesh, scene);
 
-        return Mesh(vertices, indices, textures);
+        return Mesh(vertices, indices, textures, animated);
     }
 
     void Model::ProcessNode(aiNode* node, const aiScene* scene)
-    {
+    { 
         for(uint32_t i = 0; i < node->mNumMeshes; i++)
         {
             aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
-            m_Meshes.push_back(ProcessMesh(mesh, scene));
+            m_Meshes.push_back(ProcessMesh(mesh, scene, 0));
         }
 
         for(uint32_t i = 0; i < node->mNumChildren; i++)

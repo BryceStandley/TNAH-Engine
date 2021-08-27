@@ -1,4 +1,6 @@
 #pragma once
+#define MAX_BONE_INFLUENCE 4
+
 #include <vector>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -23,8 +25,29 @@ struct Vertex
     glm::vec3 Tangent;
     glm::vec3 Bitangents;
     glm::vec2 Texcoord;
+
+    int IDs[MAX_BONE_INFLUENCE];
+    float Weights[MAX_BONE_INFLUENCE];
+
+    void AddBoneData(uint32_t BoneID, float Weight)
+    {
+        for (size_t i = 0; i < 4; i++)
+        {
+            if (Weights[i] == 0.0)
+            {
+                IDs[i] = BoneID;
+                Weights[i] = Weight;
+                return;
+            }
+        }
+
+        // TODO: Keep top weights
+        TNAH_CORE_WARN("Vertex has more than four bones/weights affecting it, extra data will be discarded (BoneID={0}, Weight={1})", BoneID, Weight);
+    }
+
 };
 
+/*
 struct AnimatedVertex
 {
     glm::vec3 Position;
@@ -33,8 +56,8 @@ struct AnimatedVertex
     glm::vec3 Bitangents;
     glm::vec2 Texcoord;
 
-    uint32_t IDs[4] = { 0, 0,0, 0 };
-    float Weights[4]{ 0.0f, 0.0f, 0.0f, 0.0f };
+    int IDs[MAX_BONE_INFLUENCE];
+    float Weights[MAX_BONE_INFLUENCE];
 
     void AddBoneData(uint32_t BoneID, float Weight)
     {
@@ -52,6 +75,7 @@ struct AnimatedVertex
         TNAH_CORE_WARN("Vertex has more than four bones/weights affecting it, extra data will be discarded (BoneID={0}, Weight={1})", BoneID, Weight);
     }
 };
+*/
 
     struct MeshTexture
     {
@@ -78,7 +102,7 @@ struct AnimatedVertex
     public:
 
 
-        Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Ref<Texture2D>> textures);
+        Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Ref<Texture2D>> textures, bool animated);
 
         Ref<VertexArray> GetMeshVertexArray() const {return m_Vao;}
         Ref<VertexBuffer> GetMeshVertexBuffer() const {return m_Vbo;}
@@ -88,6 +112,7 @@ struct AnimatedVertex
         // mesh data
         std::vector<Vertex> m_Vertices;
         std::vector<uint32_t> m_Indices;
+        bool m_Animated;
         
         Ref<VertexArray> m_Vao;
         Ref<VertexBuffer> m_Vbo;
@@ -95,6 +120,15 @@ struct AnimatedVertex
         Ref<Material> m_Material;
         BufferLayout m_BufferLayout;
         friend class EditorUI;
+    };
+
+    struct BoneInfo 
+    {
+            // index in finalBoneMatrices
+        int id;
+
+            // transform vertex from model space to bone space
+        glm::mat4 offset;
     };
 
     class Model
@@ -112,13 +146,19 @@ struct AnimatedVertex
         std::string m_Directory;
         std::string m_FilePath;
 
+        std::map<std::string, BoneInfo> m_BoneInfoMap;
+        int m_BoneCounter = 0; 
+
         glm::mat4 AiToGLM(aiMatrix4x4t<float> m);
         glm::vec3 AiToGLM(aiVector3t<float> v);
         glm::quat AiToGLM(aiQuaterniont<float> q);
         
+        void SetVertexBoneDataToDefault(Vertex& vertex);
+        void SetVertexBoneData(Vertex& vertex, int boneID, float weight);
+        void ExtractBoneWeightForVertices(std::vector<Vertex>& vertices, aiMesh* mesh, const aiScene* scene);
         void LoadModel(const std::string& filePath);
         void ProcessNode(aiNode* node, const aiScene* scene);
-        Mesh ProcessMesh(aiMesh* mesh, const aiScene* scene);
+        Mesh ProcessMesh(aiMesh* mesh, const aiScene* scene, bool animated);
         std::vector<Ref<Texture2D>> LoadMaterialTextures(const aiScene* scene, aiMaterial* material, aiTextureType type, const std::string& typeName);
         friend class EditorUI;
         friend class Serializer;
