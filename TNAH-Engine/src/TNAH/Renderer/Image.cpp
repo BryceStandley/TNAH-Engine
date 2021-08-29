@@ -5,7 +5,7 @@ namespace tnah {
 
     Image::~Image()
     {
-        stbi_image_free(this->m_ImageData);
+        //stbi_image_free(this->m_ImageData);
     }
 
     void Image::SetData(void* data, uint32_t size)

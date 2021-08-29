@@ -6,6 +6,7 @@
 
 #include "TNAH/Core/Core.h"
 #include "TNAH/Core/FileStructures.h"
+#include "TNAH/Core/Ref.h"
 
 namespace tnah {
 
@@ -91,7 +92,7 @@ namespace tnah {
 	};
 
 	
-	class Texture
+	class Texture : public RefCounted
 	{
 	public:
 		virtual ~Texture() = default;
@@ -115,15 +116,15 @@ namespace tnah {
 	class Texture2D : public Texture
 	{
 	public:
-		static Texture2D* Create(ImageFormat format, uint32_t width, uint32_t height, const void* data, TextureProperties properties);
+		static Ref<Texture2D> Create(ImageFormat format, uint32_t width, uint32_t height, const void* data, TextureProperties properties);
 
 		/**
 		 * @brief Loads image to memory. NOTE this does NOT load a API specific texture and pass it to the GPU
 		 */
-		static Texture2D* Load(const std::string& filePath, const bool& flipOnLoad = false);
+		static Ref<Texture2D> Load(const std::string& filePath, const bool& flipOnLoad = false);
 		
-		static Texture2D* Create(uint32_t width, uint32_t height);
-		static Texture2D* Create(const std::string& path, const std::string& textureName = "", bool loadFromMemory = false, void* assimpTexture = nullptr);
+		static Ref<Texture2D> Create(uint32_t width, uint32_t height);
+		static Ref<Texture2D> Create(const std::string& path, const std::string& textureName = "", bool loadFromMemory = false, void* assimpTexture = nullptr);
 
 		void ClearData();
 		virtual uint32_t GetRendererID() const { return m_RendererID; }
@@ -140,8 +141,8 @@ namespace tnah {
 	class Texture3D : public Texture
 	{
 	public:
-		static Texture3D* Create(const std::vector<std::string>& paths, const std::string& textureName = "");
-		static Texture3D* Create(const Texture3DProperties& properties, const std::string& textureName = "Cubemap");
+		static Ref<Texture3D> Create(const std::vector<std::string>& paths, const std::string& textureName = "");
+		static Ref<Texture3D> Create(const Texture3DProperties& properties, const std::string& textureName = "Cubemap");
 		
 		virtual uint32_t GetRendererID() const { return m_RendererID; }
 		virtual uint32_t GetTextureSlot() const { return m_Slot; }

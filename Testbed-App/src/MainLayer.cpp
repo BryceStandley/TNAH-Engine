@@ -10,25 +10,25 @@ MainLayer::MainLayer()
 	:Layer("Main Layer")
 {
 	m_ActiveScene = tnah::Scene::CreateEmptyScene();
-	m_Camera = m_ActiveScene->GetMainCameraGameObject();
-	auto& ct = m_Camera->GetComponent<tnah::TransformComponent>();
-	auto& cc = m_Camera->GetComponent<tnah::CameraComponent>();
+	m_Camera = m_ActiveScene->GetSceneCamera();
+	auto& ct = m_Camera.Transform();
+	auto& cc = m_Camera.GetComponent<tnah::CameraComponent>();
 	cc.Camera.SetViewportSize(1280, 720);
 	ct.Position = glm::vec3(500, 60, 500);
 	cc.ClearMode = tnah::CameraClearMode::Skybox;
 	
-	m_SceneLight = m_ActiveScene->GetSceneLightGameObject();
+	m_SceneLight = m_ActiveScene->GetSceneLight();
 
 	m_Terrain = m_ActiveScene->CreateGameObject("Terrain");
-	m_Terrain->AddComponent<tnah::TerrainComponent>("assets/heightmaps/1k.tga");
-	auto& terrT = m_Terrain->GetComponent<tnah::TransformComponent>();
+	m_Terrain.AddComponent<tnah::TerrainComponent>("assets/heightmaps/1k.tga");
+	auto& terrT = m_Terrain.Transform();
 	terrT.Scale = glm::vec3(5.0f);
 
-	auto& m_Skybox = m_ActiveScene->GetMainCameraGameObject()->AddComponent<tnah::SkyboxComponent>();
+	auto& m_Skybox = m_ActiveScene->GetSceneCamera().AddComponent<tnah::SkyboxComponent>();
 
 	m_PointLight = m_ActiveScene->CreateGameObject("PointLight");
-	auto& light = m_PointLight->GetComponent<tnah::LightComponent>();
-	light.Light.reset(tnah::Light::CreatePoint());
+	auto& light = m_PointLight.GetComponent<tnah::LightComponent>();
+	light.Light = tnah::Light::CreatePoint();
 
 	for (int i = 0; i < 100; i++)
 	{
@@ -36,9 +36,9 @@ MainLayer::MainLayer()
 		std::string name = "Cube" + std::to_string(i);
 		auto go = m_ActiveScene->CreateGameObject(name);
 
-		auto& mesh = go->AddComponent<tnah::MeshComponent>();
-		mesh.Model.reset(tnah::Model::Create("assets/meshes/cube_texture.fbx"));
-		auto& meshT = go->GetComponent<tnah::TransformComponent>();
+		auto& mesh = go.AddComponent<tnah::MeshComponent>();
+		mesh.Model = tnah::Model::Create("assets/meshes/cube_texture.fbx");
+		auto& meshT = go.Transform();
 
 		glm::vec3 p(glm::linearRand(500, 700), glm::linearRand(50, 100), glm::linearRand(500, 700));
 		meshT.Position = p;
@@ -54,7 +54,7 @@ void MainLayer::OnUpdate(tnah::Timestep deltaTime)
 		//Only move the camera if its enabled
 	if (m_CameraMovementToggle)
 	{
-		auto& ct = m_Camera->GetComponent<tnah::TransformComponent>();
+		auto& ct = m_Camera.Transform();
 		if (tnah::Input::IsKeyPressed(tnah::Key::W))
 		{
 			ct.Position += ct.Forward * m_CameraMovementSpeed * deltaTime.GetSeconds();
@@ -91,7 +91,7 @@ void MainLayer::OnUpdate(tnah::Timestep deltaTime)
 	
 	if(m_CameraLookToggle)
 	{
-		auto& ct = m_Camera->GetComponent<tnah::TransformComponent>();
+		auto& ct = m_Camera.GetComponent<tnah::TransformComponent>();
 		//Camera Mouse rotation controls
 		auto mousePos = tnah::Input::GetMousePos();
 		if (m_FirstMouseInput)
@@ -122,7 +122,7 @@ void MainLayer::OnUpdate(tnah::Timestep deltaTime)
 
 	for (auto go : m_MeshObjects)
 	{
-		auto& mesh = go->GetComponent<tnah::TransformComponent>();
+		auto& mesh = go.GetComponent<tnah::TransformComponent>();
 		mesh.Rotation.y += 1.0f * deltaTime;
 		mesh.Rotation.z += 1.0f * deltaTime;
 	}
@@ -139,13 +139,13 @@ void MainLayer::OnFixedUpdate(tnah::PhysicsTimestep ps)
 
 void MainLayer::OnImGuiRender()
 {
-	auto& terr = m_Terrain->GetComponent<tnah::TransformComponent>();
-	auto& ct = m_Camera->GetComponent<tnah::TransformComponent>();
-	auto& l = m_SceneLight->GetComponent<tnah::LightComponent>();
-	auto& lt = m_SceneLight->GetComponent<tnah::TransformComponent>();
+	auto& terr = m_Terrain.Transform();
+	auto& ct = m_Camera.Transform();
+	auto& l = m_SceneLight.GetComponent<tnah::LightComponent>();
+	auto& lt = m_SceneLight.Transform();
 
-	auto& plt = m_PointLight->GetComponent<tnah::TransformComponent>();
-	auto& pl = m_PointLight->GetComponent<tnah::LightComponent>();
+	auto& plt = m_PointLight.Transform();
+	auto& pl = m_PointLight.GetComponent<tnah::LightComponent>();
 	static int lightType = 0;
 	static const char* LightTypes[]
 	{
@@ -240,11 +240,9 @@ void MainLayer::OnEvent(tnah::Event& event)
 		auto& re = (tnah::WindowResizeEvent&)event;
 		uint32_t  width = re.GetWidth();
 		uint32_t height = re.GetHeight();
-		if (m_Camera != nullptr)
-		{
-			auto& c = m_Camera->GetComponent<tnah::CameraComponent>();
-			c.Camera.SetViewportSize(width, height);
-		}
+		auto& c = m_Camera.GetComponent<tnah::CameraComponent>();
+		c.Camera.SetViewportSize(width, height);
+	
 	}
 
 	if (event.GetEventType() == tnah::EventType::KeyPressed)

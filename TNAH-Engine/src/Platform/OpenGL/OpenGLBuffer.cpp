@@ -192,7 +192,7 @@ namespace tnah {
 		glGenFramebuffers(1, &m_RendererID);
 		glBindFramebuffer(GL_FRAMEBUFFER, m_RendererID);
 
-		for(int i = 0; i < color; i++)
+		for(uint32_t i = 0; i < color; i++)
 		{
 			uint32_t id;
 			glGenTextures(1, &id);
@@ -208,7 +208,7 @@ namespace tnah {
 
 		if(depth > 0)
 		{
-			for(int i = 0; i < depth; i++)
+			for(uint32_t i = 0; i < depth; i++)
 			{
 				uint32_t id;
 				glGenTextures(1, &id);
@@ -224,7 +224,7 @@ namespace tnah {
 		{
 			
 			m_RenderbufferSpecification = renderSpec;
-			m_Renderbuffer.reset(Renderbuffer::Create(renderSpec));
+			m_Renderbuffer = Renderbuffer::Create(renderSpec);
 			m_Renderbuffer->AttachToFramebuffer();
 		}
 

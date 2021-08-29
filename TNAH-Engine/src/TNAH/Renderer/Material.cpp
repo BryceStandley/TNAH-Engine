@@ -23,7 +23,7 @@ namespace tnah {
 
     Material::Material(const std::string& vertexShaderPath, const std::string& fragmentShaderPath)
     {
-        m_Shader.reset(Shader::Create(vertexShaderPath, fragmentShaderPath));
+        m_Shader = Shader::Create(vertexShaderPath, fragmentShaderPath);
         m_Properties = MaterialProperties();
     }
 
@@ -31,65 +31,62 @@ namespace tnah {
         const MaterialProperties& properties)
             :m_Properties(properties)
     {
-        m_Shader.reset(Shader::Create(vertexShaderPath, fragmentShaderPath));
+        m_Shader = Shader::Create(vertexShaderPath, fragmentShaderPath);
     }
 
     Material::Material(const std::string& vertexShaderPath, const std::string& fragmentShaderPath,
         const float& shininess, const float& metalness)
     {
-        m_Shader.reset(Shader::Create(vertexShaderPath, fragmentShaderPath));
+        m_Shader = Shader::Create(vertexShaderPath, fragmentShaderPath);
         m_Properties = {shininess, metalness};
     }
 
     Material::Material(const MaterialProperties& properties)
         :m_Properties(properties)
     {
-           m_Shader.reset(Shader::Create("Resources/shaders/default/mesh/mesh_vertex.glsl", "Resources/shaders/default/mesh/mesh_fragment.glsl"));
+        m_Shader = Shader::Create("Resources/shaders/default/mesh/mesh_vertex.glsl", "Resources/shaders/default/mesh/mesh_fragment.glsl");
     }
 
     Material::Material()
     {
-        m_Shader.reset(Shader::Create("Resources/shaders/default/mesh/mesh_vertex.glsl", "Resources/shaders/default/mesh/mesh_fragment.glsl"));
+        m_Shader = Shader::Create("Resources/shaders/default/mesh/mesh_vertex.glsl", "Resources/shaders/default/mesh/mesh_fragment.glsl");
         m_Properties = MaterialProperties();
     }
 
     
 
-    Material* Material::Create(const Ref<Shader>& shader)
+    Ref<Material> Material::Create(const Ref<Shader>& shader)
     {
         MaterialProperties p = MaterialProperties();
         return new Material(shader, p);
     }
 
-    Material* Material::Create(const Ref<Shader>& shader, const MaterialProperties& properties)
+    Ref<Material> Material::Create(const Ref<Shader>& shader, const MaterialProperties& properties)
     {
-        return new Material(shader, properties);
+        return Ref<Material>::Create(shader, properties);
     }
 
-    Material* Material::Create(const std::string& vertexShaderPath, const std::string& fragmentShaderPath)
+    Ref<Material> Material::Create(const std::string& vertexShaderPath, const std::string& fragmentShaderPath)
     {
-        Ref<Shader> s;
-        s.reset(Shader::Create(vertexShaderPath, fragmentShaderPath));
+        Ref<Shader> s = Shader::Create(vertexShaderPath, fragmentShaderPath);
         MaterialProperties p = MaterialProperties();
-        return new Material(s, p);
+        return Ref<Material>::Create(s, p);
     }
 
-    Material* Material::Create(const std::string& vertexShaderPath, const std::string& fragmentShaderPath,
+    Ref<Material> Material::Create(const std::string& vertexShaderPath, const std::string& fragmentShaderPath,
                                const MaterialProperties& properties)
     {
-        Ref<Shader> s;
-        s.reset(Shader::Create(vertexShaderPath, fragmentShaderPath));
-        return new Material(s, properties);
+        Ref<Shader> s = Shader::Create(vertexShaderPath, fragmentShaderPath);
+        return Ref<Material>::Create(s, properties);
         
     }
 
-    Material* Material::Create(const std::string& vertexShaderPath, const std::string& fragmentShaderPath,
+    Ref<Material> Material::Create(const std::string& vertexShaderPath, const std::string& fragmentShaderPath,
         const float& shininess, const float& metalness)
     {
-        Ref<Shader> s;
-        s.reset(Shader::Create(vertexShaderPath, fragmentShaderPath));
+        Ref<Shader> s = Shader::Create(vertexShaderPath, fragmentShaderPath);
         MaterialProperties p  = MaterialProperties(shininess, metalness);
-        return new Material(s, p);
+        return Ref<Material>::Create(s, p);
     }
 
     void Material::SetTextures(std::vector<Ref<Texture2D>> textures)
@@ -102,7 +99,7 @@ namespace tnah {
         if(!m_Shader->IsBound())m_Shader->Bind();
         for(auto t : m_Textures)
         {
-            t->Bind(t->m_Slot);
+            t->Bind(t->m_RendererID);
         }
     }
 
@@ -119,48 +116,48 @@ namespace tnah {
 //***********************************************************************************
     //Skybox Material
     
-    SkyboxMaterial* SkyboxMaterial::Create(const Ref<Shader>& shader)
+    Ref<SkyboxMaterial> SkyboxMaterial::Create(const Ref<Shader>& shader)
     {
-        return new SkyboxMaterial(shader);
+        return Ref<SkyboxMaterial>::Create(shader);
     }
 
-    SkyboxMaterial* SkyboxMaterial::Create(const Ref<Shader>& shader, const Texture3DProperties& cubemapProperties)
+    Ref<SkyboxMaterial> SkyboxMaterial::Create(const Ref<Shader>& shader, const Texture3DProperties& cubemapProperties)
     {
-        return new SkyboxMaterial(shader, cubemapProperties);
+        return Ref<SkyboxMaterial>::Create(shader, cubemapProperties);
     }
 
-    SkyboxMaterial* SkyboxMaterial::Create(const Ref<Shader>& shader, const MaterialProperties& properties,
+    Ref<SkyboxMaterial> SkyboxMaterial::Create(const Ref<Shader>& shader, const MaterialProperties& properties,
         const Texture3DProperties& cubemapProperties)
     {
-        return new SkyboxMaterial(shader, properties, cubemapProperties);
+        return Ref<SkyboxMaterial>::Create(shader, properties, cubemapProperties);
     }
 
-    SkyboxMaterial* SkyboxMaterial::Create(const std::string& vertexShaderPath, const std::string& fragmentShaderPath,
+    Ref<SkyboxMaterial> SkyboxMaterial::Create(const std::string& vertexShaderPath, const std::string& fragmentShaderPath,
         const MaterialProperties& properties, const Texture3DProperties& cubemapProperties)
     {
-        return new SkyboxMaterial(vertexShaderPath, fragmentShaderPath, properties, cubemapProperties);
+        return Ref<SkyboxMaterial>::Create(vertexShaderPath, fragmentShaderPath, properties, cubemapProperties);
     }
 
-    SkyboxMaterial* SkyboxMaterial::Create(const Ref<Shader>& shader, const MaterialProperties& properties)
+    Ref<SkyboxMaterial> SkyboxMaterial::Create(const Ref<Shader>& shader, const MaterialProperties& properties)
     {
-        return new SkyboxMaterial(shader, properties);
+        return Ref<SkyboxMaterial>::Create(shader, properties);
     }
 
-    SkyboxMaterial* SkyboxMaterial::Create(const std::string& vertexShaderPath, const std::string& fragmentShaderPath)
+    Ref<SkyboxMaterial> SkyboxMaterial::Create(const std::string& vertexShaderPath, const std::string& fragmentShaderPath)
     {
-        return new SkyboxMaterial(vertexShaderPath, fragmentShaderPath);
+        return Ref<SkyboxMaterial>::Create(vertexShaderPath, fragmentShaderPath);
     }
 
-    SkyboxMaterial* SkyboxMaterial::Create(const std::string& vertexShaderPath, const std::string& fragmentShaderPath,
+    Ref<SkyboxMaterial> SkyboxMaterial::Create(const std::string& vertexShaderPath, const std::string& fragmentShaderPath,
         const MaterialProperties& properties)
     {
-        return new SkyboxMaterial(vertexShaderPath, fragmentShaderPath, properties);
+        return Ref<SkyboxMaterial>::Create(vertexShaderPath, fragmentShaderPath, properties);
     }
 
-    SkyboxMaterial* SkyboxMaterial::Create(const std::string& vertexShaderPath, const std::string& fragmentShaderPath,
+    Ref<SkyboxMaterial> SkyboxMaterial::Create(const std::string& vertexShaderPath, const std::string& fragmentShaderPath,
         const float& shininess, const float& metalness)
     {
-        return new SkyboxMaterial(vertexShaderPath, fragmentShaderPath, shininess, metalness);
+        return Ref<SkyboxMaterial>::Create(vertexShaderPath, fragmentShaderPath, shininess, metalness);
     }
 
     void SkyboxMaterial::BindTextures() { m_Cubemap->Bind(); }
@@ -170,7 +167,7 @@ namespace tnah {
     SkyboxMaterial::SkyboxMaterial(const Ref<Shader>& shader, const Texture3DProperties& cubemapProperties)
         :Material(shader), m_CubemapProperties(cubemapProperties)
     {
-        m_Cubemap.reset(Texture3D::Create(m_CubemapProperties));
+        m_Cubemap = (Texture3D::Create(m_CubemapProperties));
     }
     
     SkyboxMaterial::SkyboxMaterial(const Ref<Shader>& shader)
@@ -184,7 +181,7 @@ namespace tnah {
             {"Resources/textures/default/skybox/default_top.jpg"},
             {"Resources/textures/default/skybox/default_bottom.jpg"}
         };
-        m_Cubemap.reset(Texture3D::Create(m_CubemapProperties));
+        m_Cubemap = (Texture3D::Create(m_CubemapProperties));
     }
 
     SkyboxMaterial::SkyboxMaterial(const Ref<Shader>& shader, const MaterialProperties& properties)
@@ -198,21 +195,21 @@ namespace tnah {
             {"Resources/textures/default/skybox/default_top.jpg"},
             {"Resources/textures/default/skybox/default_bottom.jpg"}
         };
-        m_Cubemap.reset(Texture3D::Create(m_CubemapProperties));
+        m_Cubemap = (Texture3D::Create(m_CubemapProperties));
     }
 
     SkyboxMaterial::SkyboxMaterial(const Ref<Shader>& shader, const MaterialProperties& properties,
         const Texture3DProperties& cubemapProperties)
             :Material(shader, properties), m_CubemapProperties(cubemapProperties)
     {
-        m_Cubemap.reset(Texture3D::Create(m_CubemapProperties));
+        m_Cubemap = (Texture3D::Create(m_CubemapProperties));
     }
 
     SkyboxMaterial::SkyboxMaterial(const std::string& vertexShaderPath, const std::string& fragmentShaderPath,
         const MaterialProperties& properties, const Texture3DProperties& cubemapProperties)
             :Material(vertexShaderPath, fragmentShaderPath, properties), m_CubemapProperties(cubemapProperties)
     {
-        m_Cubemap.reset(Texture3D::Create(m_CubemapProperties));
+        m_Cubemap = (Texture3D::Create(m_CubemapProperties));
     }
 
     SkyboxMaterial::SkyboxMaterial(const std::string& vertexShaderPath, const std::string& fragmentShaderPath)
@@ -226,7 +223,7 @@ namespace tnah {
             {"Resources/textures/default/skybox/default_top.jpg"},
             {"Resources/textures/default/skybox/default_bottom.jpg"}
         };
-        m_Cubemap.reset(Texture3D::Create(m_CubemapProperties));
+        m_Cubemap = (Texture3D::Create(m_CubemapProperties));
     }
 
     SkyboxMaterial::SkyboxMaterial(const std::string& vertexShaderPath, const std::string& fragmentShaderPath,
@@ -241,7 +238,7 @@ namespace tnah {
             {"Resources/textures/default/skybox/default_top.jpg"},
             {"Resources/textures/default/skybox/default_bottom.jpg"}
         };
-        m_Cubemap.reset(Texture3D::Create(m_CubemapProperties));
+        m_Cubemap = (Texture3D::Create(m_CubemapProperties));
     }
 
     SkyboxMaterial::SkyboxMaterial(const std::string& vertexShaderPath, const std::string& fragmentShaderPath,
@@ -256,7 +253,7 @@ namespace tnah {
             {"Resources/textures/default/skybox/default_top.jpg"},
             {"Resources/textures/default/skybox/default_bottom.jpg"}
         };
-        m_Cubemap.reset(Texture3D::Create(m_CubemapProperties));
+        m_Cubemap = (Texture3D::Create(m_CubemapProperties));
     }
 
 

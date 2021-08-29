@@ -16,9 +16,8 @@ namespace tnah {
 		{"Resources/textures/skybox/bluecloud_dn.jpg"}
 		};
 		
-		Ref<Shader> shader;
-		shader.reset(Shader::Create("Resources/shaders/default/skybox/skybox_vertex.glsl", "Resources/shaders/default/skybox/skybox_fragment.glsl"));
-		m_Material.reset(SkyboxMaterial::Create(shader, properties));
+		Ref<Shader> shader = Shader::Create("Resources/shaders/default/skybox/skybox_vertex.glsl", "Resources/shaders/default/skybox/skybox_fragment.glsl");
+		m_Material = (SkyboxMaterial::Create(shader, properties));
 		m_SkyboxTexture = m_Material->GetCubemapTextures();
 
 		m_Material->BindShader();
@@ -28,8 +27,8 @@ namespace tnah {
 		
 		m_BufferLayout = { {ShaderDataType::Float3, "a_Position"} };
 
-		m_VAO.reset(VertexArray::Create());
-		m_VBO.reset(VertexBuffer::Create(GetVBOData(), GetVBODataSize()));
+		m_VAO = (VertexArray::Create());
+		m_VBO = (VertexBuffer::Create(GetVBOData(), GetVBODataSize()));
 		m_VBO->SetLayout(m_BufferLayout);
 		m_VAO->AddVertexBuffer(m_VBO);
 
@@ -40,9 +39,8 @@ namespace tnah {
 	Skybox::Skybox(const Texture3DProperties& skyboxTextureProperties)
 	{
 		Create();
-		Ref<Shader> shader;
-		shader.reset(Shader::Create("Resources/shaders/default/skybox/skybox_vertex.glsl", "Resources/shaders/default/skybox/skybox_fragment.glsl"));
-		m_Material.reset(SkyboxMaterial::Create(shader, skyboxTextureProperties));
+		Ref<Shader> shader = Shader::Create("Resources/shaders/default/skybox/skybox_vertex.glsl", "Resources/shaders/default/skybox/skybox_fragment.glsl");
+		m_Material = (SkyboxMaterial::Create(shader, skyboxTextureProperties));
 		m_SkyboxTexture = m_Material->GetCubemapTextures();
 
 		m_Material->BindShader();
@@ -51,8 +49,8 @@ namespace tnah {
 
 		m_BufferLayout = { {ShaderDataType::Float3, "a_Position"} };
 
-		m_VAO.reset(VertexArray::Create());
-		m_VBO.reset(VertexBuffer::Create(GetVBOData(), GetVBODataSize()));
+		m_VAO = (VertexArray::Create());
+		m_VBO = (VertexBuffer::Create(GetVBOData(), GetVBODataSize()));
 		m_VBO->SetLayout(m_BufferLayout);
 		m_VAO->AddVertexBuffer(m_VBO);
 		m_VAO->SetIndexSize(36);

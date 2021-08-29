@@ -9,6 +9,7 @@
 #include "Components/Components.h"
 #include "TNAH/Core/Timestep.h"
 #include "TNAH/Core/Math.h"
+#include "TNAH/Core/Ref.h"
 #include "TNAH/Physics/PhysicsTimestep.h"
 
 namespace tnah {
@@ -16,16 +17,24 @@ namespace tnah {
 
 	class GameObject;
 
-	class Scene
+	class Scene : public RefCounted
 	{
 		friend class GameObject;
 	public:
+
+		struct ActiveScene
+		{
+			Ref<Scene> Scene;
+			
+		};
 		
 		Scene(bool editor = false);
 		~Scene();
+
+		static ActiveScene s_ActiveScene;
+		static void ClearActiveScene();
 		
-		
-		static Scene* CreateEmptyScene();
+		static Ref<Scene> CreateEmptyScene();
 
 		/**********************************************************************************************//**
 		 * @fn	GameObject Scene::CreateGameObject();
@@ -43,7 +52,7 @@ namespace tnah {
 
 		glm::mat4 GetTransformRelativeToParent(GameObject gameObject);
 
-		GameObject* CreateGameObject(const std::string& name);
+		GameObject CreateGameObject(const std::string& name);
 		GameObject CreateGameObject();
 		
 		
@@ -55,26 +64,17 @@ namespace tnah {
 
 		void DestroyGameObject(GameObject gameObject);
 
-		Ref<GameObject> GetMainCameraGameObject();
-		Ref<GameObject> GetSceneLightGameObject();
-
-		Ref<CameraComponent> GetMainCameraComponent();
-		Ref<LightComponent> GetSceneLightComponent();
-
-		Ref<TransformComponent> GetMainCameraTransform();
-		Ref<TransformComponent> GetSceneLightTransform();
-
-		Ref<SceneCamera> GetMainCamera();
-		Ref<Light> GetSceneLight();
+		GameObject& GetSceneCamera();
+		GameObject& GetSceneLight();
 
 	private:
-		GameObject* CreateEditorCamera();
+		GameObject CreateEditorCamera();
 
 		void Destroy();
 		
-		static Scene* CreateNewEditorScene();
+		static Ref<Scene> CreateNewEditorScene();
 
-		Ref<GameObject> GetEditorCameraGameObject();
+		GameObject& GetEditorCamera();
 		Ref<Framebuffer> GetEditorSceneFramebuffer() { return m_EditorSceneFramebuffer; }
 		Ref<Framebuffer> GetEditorGameFramebuffer() { return m_EditorGameFramebuffer; }
 
@@ -85,10 +85,10 @@ namespace tnah {
 		entt::registry m_Registry;
 		std::map<UUID, GameObject> m_GameObjectsInScene;
 		
-		Ref<GameObject> m_ActiveCamera;
-		Ref<GameObject> m_SceneLight;
+		UUID m_ActiveCamera;
+		UUID m_SceneLight;
 
-		Ref<GameObject> m_EditorCamera;
+		UUID m_EditorCamera;
 		Ref<Framebuffer> m_EditorSceneFramebuffer;
 		Ref<Framebuffer> m_EditorGameFramebuffer;
 		bool m_IsEditorScene = false;

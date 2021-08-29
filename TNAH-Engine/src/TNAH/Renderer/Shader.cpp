@@ -8,7 +8,7 @@
 
 namespace tnah {
 
-	Shader* Shader::Create(const std::string& filepath)
+	Ref<Shader> Shader::Create(const std::string& filepath)
 	{
 		auto shader = CheckShaderExists(filepath);
 		if(!shader)
@@ -17,19 +17,17 @@ namespace tnah {
 			{
 			case RendererAPI::API::None:    TNAH_CORE_ASSERT(false, "RendererAPI::None is currently not supported!"); return nullptr;
 			case RendererAPI::API::OpenGL:  
-				auto s = new OpenGLShader(filepath);
-				Ref<Shader> ref;
-				ref.reset(s);
+				Ref<Shader> ref = Ref<OpenGLShader>::Create(filepath);
 				Renderer::RegisterShader(ref);
-				return s;
+				return ref;
 			}
 			TNAH_CORE_ASSERT(false, "Unknown RendererAPI!");
 			return nullptr;
 		}
-		return shader.get();
+		return shader;
 	}
 
-	Shader* Shader::Create(const std::string& vertexSrc, const std::string& fragmentSrc)
+	Ref<Shader> Shader::Create(const std::string& vertexSrc, const std::string& fragmentSrc)
 	{
 		auto shader = CheckShaderExists(vertexSrc, fragmentSrc);
 		if(!shader)
@@ -38,17 +36,15 @@ namespace tnah {
 			{
 			case RendererAPI::API::None:    TNAH_CORE_ASSERT(false, "RendererAPI::None is currently not supported!"); return nullptr;
 			case RendererAPI::API::OpenGL:
-				auto s = new OpenGLShader(vertexSrc, fragmentSrc);
-				Ref<Shader> ref;
-				ref.reset(s);
+				Ref<Shader> ref = Ref<OpenGLShader>::Create(vertexSrc, fragmentSrc);
 				Renderer::RegisterShader(ref);
-				return s;
+				return ref;
 			}
 
 			TNAH_CORE_ASSERT(false, "Unknown RendererAPI!");
 			return nullptr;
 		}
-		return shader.get();
+		return shader;
 	}
 
 	Ref<Shader> Shader::CheckShaderExists(const std::string& filePath)

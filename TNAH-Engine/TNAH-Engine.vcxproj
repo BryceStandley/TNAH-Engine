@@ -22,6 +22,7 @@
     <ClCompile Include="src\Platform\OpenGL\OpenGLTexture.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLVertexArray.cpp" />
     <ClCompile Include="src\TNAH\Core\Math.cpp" />
+    <ClCompile Include="src\TNAH\Core\Ref.cpp" />
     <ClCompile Include="src\TNAH\Core\UUID.cpp" />
     <ClCompile Include="src\TNAH\Editor\EditorUI.cpp" />
     <ClCompile Include="src\TNAH\Layers\ImGuizmo.cpp" />
@@ -144,6 +145,8 @@
     <Content Include="Resources\fonts\opensans\OpenSans-Regular.ttf" />
     <Content Include="Resources\fonts\opensans\OpenSans-SemiBold.ttf" />
     <Content Include="Resources\fonts\opensans\OpenSans-SemiBoldItalic.ttf" />
+    <Content Include="Resources\shaders\default\mesh\mesh_anim_fragment.glsl" />
+    <Content Include="Resources\shaders\default\mesh\mesh_anim_vertex.glsl" />
     <Content Include="Resources\shaders\default\mesh\mesh_fragment.glsl" />
     <Content Include="Resources\shaders\default\mesh\mesh_vertex.glsl" />
     <Content Include="Resources\shaders\default\skybox\skybox_fragment.glsl" />
@@ -153,6 +156,7 @@
     <Content Include="Resources\textures\default\default_black.jpg" />
     <Content Include="Resources\textures\default\default_missing.jpg" />
     <Content Include="Resources\textures\default\default_white.jpg" />
+    <ClInclude Include="src\TNAH\Core\Ref.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EngineDependencesProjects\Glad\Glad.vcxproj">

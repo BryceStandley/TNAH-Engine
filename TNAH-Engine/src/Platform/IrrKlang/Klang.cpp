@@ -11,7 +11,7 @@ namespace tnah
     
     Klang::~Klang()
     {
-        Clear();
+        Klang::Clear();
 
         //Make sure it is gonzo
         delete m_Engine;
@@ -28,8 +28,7 @@ namespace tnah
             
             return true;
         }
-        else
-            return false;
+        return false;
     }
     
     bool Klang::AddAudioSource(AudioSource& sound)
@@ -41,7 +40,7 @@ namespace tnah
             m_Source.push_back(source);
             source->setDefaultVolume(sound.m_Volume);
             source->setDefaultMinDistance(sound.m_MinDistance);
-            sound.m_SourceReference = m_Source.size()-1;
+            sound.m_SourceReference = (int)m_Source.size()-1;
             return true;
         }
         
@@ -57,8 +56,8 @@ namespace tnah
             source->setDefaultMinDistance(sound.m_MinDistance);
             return true;
         }
-        else
-            return false;
+
+        return false;
     }
 
     void Klang::OnUpdate()
@@ -82,7 +81,7 @@ namespace tnah
             if(play)
             {
                 m_Playing.push_back(play);
-                sound.m_PlayReference = m_Playing.size()-1;
+                sound.m_PlayReference = (int)m_Playing.size()-1;
                 sound.m_Playing = true;
                 return true;
             }   

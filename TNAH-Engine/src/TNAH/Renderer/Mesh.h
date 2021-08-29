@@ -47,35 +47,6 @@ struct Vertex
 
 };
 
-/*
-struct AnimatedVertex
-{
-    glm::vec3 Position;
-    glm::vec3 Normal;
-    glm::vec3 Tangent;
-    glm::vec3 Bitangents;
-    glm::vec2 Texcoord;
-
-    int IDs[MAX_BONE_INFLUENCE];
-    float Weights[MAX_BONE_INFLUENCE];
-
-    void AddBoneData(uint32_t BoneID, float Weight)
-    {
-        for (size_t i = 0; i < 4; i++)
-        {
-            if (Weights[i] == 0.0)
-            {
-                IDs[i] = BoneID;
-                Weights[i] = Weight;
-                return;
-            }
-        }
-
-        // TODO: Keep top weights
-        TNAH_CORE_WARN("Vertex has more than four bones/weights affecting it, extra data will be discarded (BoneID={0}, Weight={1})", BoneID, Weight);
-    }
-};
-*/
 
     struct MeshTexture
     {
@@ -98,7 +69,7 @@ struct AnimatedVertex
         {}
     };
 
-    class Mesh {
+    class Mesh  {
     public:
 
 
@@ -131,17 +102,17 @@ struct AnimatedVertex
         glm::mat4 offset;
     };
 
-    class Model
+    class Model : public RefCounted
     {
     public:
-        static Model* Create(const std::string& filePath);
-        
+        static Ref<Model> Create(const std::string& filePath);
+        Model();
+        Model(const std::string& filePath);
     
         std::vector<Mesh> GetMeshes() const { return m_Meshes; }
         uint32_t GetNumberOfMeshes() const { return static_cast<uint32_t>(m_Meshes.size()); }
     private:
-        Model();
-        Model(const std::string& filePath);
+
         std::vector<Mesh> m_Meshes;
         std::string m_Directory;
         std::string m_FilePath;

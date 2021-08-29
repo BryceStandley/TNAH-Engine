@@ -9,7 +9,7 @@
 
 namespace tnah{
 
-	std::unordered_map<UUID, Scene*> s_ActiveScenes;
+	Scene::ActiveScene Scene::s_ActiveScene = Scene::ActiveScene();
 
 	struct SceneComponent
 	{
@@ -32,56 +32,57 @@ namespace tnah{
 		m_Registry.emplace<SceneComponent>(m_SceneEntity, m_SceneID);
 		if(editor)
 		{
-			m_EditorCamera.reset(CreateEditorCamera());
+			m_EditorCamera = CreateEditorCamera().GetUUID();
 			FramebufferSpecification fbspec = {1280, 720};
-			m_EditorSceneFramebuffer.reset(Framebuffer::Create(fbspec));
-			m_EditorGameFramebuffer.reset(Framebuffer::Create(fbspec));
+			m_EditorSceneFramebuffer = Framebuffer::Create(fbspec);
+			m_EditorGameFramebuffer = Framebuffer::Create(fbspec);
 			m_IsEditorScene = true;
-			m_EditorCamera->AddComponent<SkyboxComponent>();
 			m_RenderPasses = 2;
 		}
 
-		auto c = CreateGameObject("Main Camera");
-		m_ActiveCamera.reset(c);
-		m_ActiveCamera->AddComponent<CameraComponent>();
-		
+		auto cam = CreateGameObject("Main Camera");
+		m_ActiveCamera = cam.GetUUID();
+		auto& camera = cam.AddComponent<CameraComponent>();
+		Camera::SetMainCamera(camera.Camera);
 		
 		
 		auto l = CreateGameObject("Main Light");
-		m_SceneLight.reset(l);
-		auto& light = m_SceneLight->AddComponent<LightComponent>();
-		light.Light.reset(Light::CreateDirectional());
+		m_SceneLight = l.GetUUID();
+		auto& light = l.AddComponent<LightComponent>();
+		light.Light = Light::CreateDirectional();
 		light.Light->m_IsSceneLight = true;
 
-		s_ActiveScenes[m_SceneID] = this;
+		s_ActiveScene.Scene.Reset(this);
 	}
 
 	Scene::~Scene()
 	{
 		m_Registry.clear();
-		s_ActiveScenes.erase(m_SceneID);
-		m_EditorGameFramebuffer.reset();
-		m_EditorSceneFramebuffer.reset();
-		//m_GameObjectsInScene.clear();
-		//m_ActiveCamera.reset();
-		//m_EditorCamera.reset();
-		//m_SceneLight.reset();
+		m_GameObjectsInScene.clear();
+		//s_ActiveScenes.erase(m_SceneID);
+		m_EditorGameFramebuffer.Reset();
+		m_EditorSceneFramebuffer.Reset();
+
 	}
 
-	Scene* Scene::CreateNewEditorScene()
+	void Scene::ClearActiveScene()
 	{
-		return new Scene(true);
-	}
-	
-
-	Ref<GameObject> Scene::GetEditorCameraGameObject()
-	{
-		return m_EditorCamera;
+		s_ActiveScene.Scene.Reset();
 	}
 
-	Scene* Scene::CreateEmptyScene()
+	Ref<Scene> Scene::CreateNewEditorScene()
 	{
-		return new Scene();
+		return Ref<Scene>::Create(true);
+	}
+
+	GameObject& Scene::GetEditorCamera()
+	{
+		return m_GameObjectsInScene[m_EditorCamera];
+	}
+
+	Ref<Scene> Scene::CreateEmptyScene()
+	{
+		return Ref<Scene>::Create();
 	}
 
 	void Scene::OnUpdate(Timestep deltaTime)
@@ -96,10 +97,10 @@ namespace tnah{
 			auto view = m_Registry.view<PlayerControllerComponent, TransformComponent>();
 			for(auto obj : view)
 			{
-				auto& editor = m_EditorCamera->GetComponent<EditorComponent>();
+				auto& editor = m_GameObjectsInScene[m_EditorCamera].GetComponent<EditorComponent>();
 				//Only run this update for a player controller if the editor isnt empty, were in play mode to test the scene
 				// or this scene isnt being ran in a editor ie in the runtime
-				if((m_EditorCamera != nullptr && editor.m_EditorMode == EditorComponent::EditorMode::Play) || (!m_IsEditorScene && this->FindGameObjectByID(obj).IsActive()))
+				if((editor.m_EditorMode == EditorComponent::EditorMode::Play) || (!m_IsEditorScene && this->FindGameObjectByID(obj).IsActive()))
 				{
 					auto& transform = view.get<TransformComponent>(obj);
 					auto& player = view.get<PlayerControllerComponent>(obj);
@@ -167,8 +168,8 @@ namespace tnah{
 			{
 				if(m_IsEditorScene && passes == 0)
 				{
-					auto& camera = m_EditorCamera->GetComponent<EditorCameraComponent>().EditorCamera;
-					auto& transform = m_EditorCamera->GetComponent<TransformComponent>();
+					auto& camera = GetEditorCamera().GetComponent<EditorCameraComponent>().EditorCamera;
+					auto& transform = GetEditorCamera().Transform();
 					camera.OnUpdate(transform);
 				}
 				else
@@ -193,8 +194,8 @@ namespace tnah{
 					//Check if its were in the editor, if so render from the perspective of the editor camera
 					if(m_IsEditorScene && passes == 0)
 					{
-						auto& camera = m_EditorCamera->GetComponent<EditorCameraComponent>();
-						auto transform = m_EditorCamera->GetComponent<TransformComponent>();
+						auto& camera = GetEditorCamera().GetComponent<EditorCameraComponent>();
+						auto& transform = GetEditorCamera().Transform();
 						cameraPosition = transform.Position;
 						if(camera.ClearMode == CameraClearMode::Color)
 						{
@@ -373,7 +374,7 @@ namespace tnah{
 		return transform * gameObject.Transform().GetTransform();
 	}
 
-	GameObject* Scene::CreateGameObject(const std::string& name)
+	GameObject Scene::CreateGameObject(const std::string& name)
 	{
 		GameObject go = { m_Registry.create(), this };
 		auto& idComponent = go.AddComponent<IDComponent>();
@@ -388,7 +389,7 @@ namespace tnah{
 
 		
 		m_GameObjectsInScene[idComponent.ID] = go;
-		return &m_GameObjectsInScene[idComponent.ID];
+		return m_GameObjectsInScene[idComponent.ID];
 	}
 
 	
@@ -408,13 +409,15 @@ namespace tnah{
 		return go;
 	}
 
-	GameObject* Scene::CreateEditorCamera()
+	GameObject Scene::CreateEditorCamera()
 	{
 		auto go = CreateGameObject("Editor Camera");
-		auto& c = go->AddComponent<EditorCameraComponent>();
-		auto& t = go->GetComponent<TransformComponent>();
+		auto& c = go.AddComponent<EditorCameraComponent>();
+		auto& t = go.GetComponent<TransformComponent>();
 		c.EditorCamera.SetViewportSize(1280, 720);
 		t.Position = {0,0,0};
+		go.AddComponent<SkyboxComponent>();
+		m_EditorCamera = go.GetUUID();
 		return go;
 	}
 
@@ -471,57 +474,15 @@ namespace tnah{
 		m_Registry.destroy(gameObject.GetID());
 	}
 
-	Ref<GameObject> Scene::GetMainCameraGameObject()
+	GameObject& Scene::GetSceneCamera()
 	{
-		return m_ActiveCamera;
+		return m_GameObjectsInScene[m_ActiveCamera];
 	}
 
-	Ref<GameObject> Scene::GetSceneLightGameObject()
+	GameObject& Scene::GetSceneLight()
 	{
-		return m_SceneLight;
+		return m_GameObjectsInScene[m_SceneLight];
 	}
-
-	Ref<CameraComponent> Scene::GetMainCameraComponent()
-	{
-		Ref<CameraComponent> c;
-		c.reset(&m_ActiveCamera->GetComponent<CameraComponent>());
-		return c;
-	}
-
-	Ref<LightComponent> Scene::GetSceneLightComponent()
-	{
-		Ref<LightComponent> l;
-		l.reset(&m_SceneLight->GetComponent<LightComponent>());
-		return l;
-	}
-
-	Ref<TransformComponent> Scene::GetMainCameraTransform()
-	{
-		Ref<TransformComponent> t;
-		auto& ct = m_ActiveCamera->GetComponent<TransformComponent>();
-		t.reset(&ct);
-		return t;
-	}
-
-	Ref<TransformComponent> Scene::GetSceneLightTransform()
-	{
-		Ref<TransformComponent> t;
-		TransformComponent* lt = &m_SceneLight->GetComponent<TransformComponent>();
-		t.reset(lt);
-		return t;
-	}
-
-	Ref<SceneCamera> Scene::GetMainCamera()
-	{
-		Ref<SceneCamera> c;
-		auto& cam  = m_ActiveCamera->GetComponent<CameraComponent>();
-		c.reset(&cam.Camera);
-		return c;
-	}
-
-	Ref<Light> Scene::GetSceneLight()
-	{
-		return m_SceneLight->GetComponent<LightComponent>().Light;
-	}
+	
 }
 

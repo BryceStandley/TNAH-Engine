@@ -6,9 +6,9 @@ namespace tnah
     class Serializer
     {
     private:  
-        static bool SerializeScene(Scene* scene, const std::string& filePath);
-        static std::string GenerateGlobalSettings(Scene* scene);
-        static std::string GenerateSceneSettings(Scene* scene);
+        static bool SerializeScene(Ref<Scene> scene, const std::string& filePath);
+        static std::string GenerateGlobalSettings(Ref<Scene> scene);
+        static std::string GenerateSceneSettings(Ref<Scene> scene);
 
 
         //Components
@@ -38,23 +38,23 @@ namespace tnah
         static std::string GenerateValueEntry(const std::string& tagType, const std::string& value, const uint32_t& totalTabs = 0);
 
     private:
-        static Scene* DeserializeScene(const std::string& filePath);
+        static Ref<Scene> DeserializeScene(const std::string& filePath);
 
         /**
          * Finds the all data for the scene within <global> </global> tags
          */
-        static Scene* GetGlobalSettingsFromFile(Scene* scene, const std::string& fileContents, int& currentPos);
+        static Ref<Scene> GetGlobalSettingsFromFile(Ref<Scene> scene, const std::string& fileContents, int& currentPos);
         static std::pair<size_t, size_t> FindTags(const std::string& tagToFind, const std::string& fileContents, size_t from = 0, size_t to = 0);
         static bool CheckTags(std::pair<size_t, size_t> tags);
         /**
         * Finds the all data for the scene within <hierarchy> </hierarchy> tags
         */
-        static Scene* GetSceneStructureFromFile(Scene* scene, const std::string& fileContents, int& currentPos);
+        static Ref<Scene> GetSceneStructureFromFile(Ref<Scene> scene, const std::string& fileContents, int& currentPos);
         /**
         * Finds the all data for the scene within <gameobject> </gameobject> tags
         */
-        static Scene* GetGameObjectFromFile(Scene* scene, const std::string& fileContents, std::pair<size_t, size_t> gameObjectTagPositions);
-        static int FindAndAddComponentsFromFile(GameObject* gameObject, const std::string& fileContents, std::pair<size_t, size_t> gameObjectTagPositions);
+        static Ref<Scene> GetGameObjectFromFile(Ref<Scene> scene, const std::string& fileContents, std::pair<size_t, size_t> gameObjectTagPositions);
+        static int FindAndAddComponentsFromFile(GameObject& gameObject, const std::string& fileContents, std::pair<size_t, size_t> gameObjectTagPositions);
 
         /**
         * Finds the all data for the scene within <tag> </tag> tags

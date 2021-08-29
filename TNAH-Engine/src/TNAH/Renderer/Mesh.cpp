@@ -8,51 +8,41 @@
 namespace tnah {
     Mesh::Mesh(std::vector<Vertex> vertices, std::vector<uint32_t> indices, std::vector<Ref<Texture2D>> textures, bool animated)
     {
-        this->m_Vertices = vertices;
-        this->m_Indices = indices;
-        this->m_Animated = animated;
+         m_Vertices = vertices;
+        m_Indices = indices;
+        m_Animated = animated;
 
         std::string defaultVertexShader = "";
         std::string defaultFragmentShader = "";
 
-        if (m_Animated) 
-        {
-            m_BufferLayout = {
-            {ShaderDataType::Float3, "a_Position"},
-            {ShaderDataType::Float3, "a_Normal"},
-            {ShaderDataType::Float3, "a_TexCoord"},
-            {ShaderDataType::Int4, "a_BoneIds"},
-            {ShaderDataType::Float4, "a_Weights"}
-            };
-        }
-        else 
-        {
-            m_BufferLayout = {
+        m_BufferLayout = {
             {ShaderDataType::Float3, "a_Position"},
             {ShaderDataType::Float3, "a_Normal"},
             {ShaderDataType::Float3, "a_Tangent"},
             {ShaderDataType::Float3, "a_Bitangent"},
-            {ShaderDataType::Float2, "a_TexCoord"}
-            };
-        }
+            {ShaderDataType::Float2, "a_TexCoord"},
+            {ShaderDataType::Int4, "a_BoneIds"},
+            {ShaderDataType::Float4, "a_Weights"}
+        };
         
-        m_Vao.reset(VertexArray::Create());
+        m_Vao = VertexArray::Create();
         
         if (m_Animated)
-            m_Vbo.reset(VertexBuffer::Create(&vertices[0], (uint32_t)(sizeof(AnimatedVertex) * vertices.size())));
+            m_Vbo = VertexBuffer::Create(&vertices[0], (uint32_t)(sizeof(Vertex) * vertices.size()));
         else
-            m_Vbo.reset(VertexBuffer::Create(&vertices[0], (uint32_t)(sizeof(Vertex) * vertices.size())));
+            m_Vbo = VertexBuffer::Create(&vertices[0], (uint32_t)(sizeof(Vertex) * vertices.size()));
 
+        
         m_Vbo->SetLayout(m_BufferLayout);
         m_Vao->AddVertexBuffer(m_Vbo);
 
-        m_Ibo.reset(IndexBuffer::Create(&indices[0], (uint32_t)indices.size()));
+        m_Ibo = IndexBuffer::Create(&indices[0], (uint32_t)indices.size());
         m_Vao->SetIndexBuffer(m_Ibo);
 
         if (m_Animated)
         {
-            defaultVertexShader = "Resources/shaders/default/animation/anim_vertex.glsl";
-            defaultFragmentShader = "Resources/shaders/default/animaiton/anim_fragment.glsl";
+            defaultVertexShader = "Resources/shaders/default/mesh/mesh_anim_vertex.glsl";
+            defaultFragmentShader = "Resources/shaders/default/mesh/mesh_anim_fragment.glsl";
         }
         else 
         {
@@ -67,19 +57,17 @@ namespace tnah {
             if(std::strcmp(shader->m_FilePaths.first.data(), defaultVertexShader.c_str()) == 0 && std::strcmp(shader->m_FilePaths.second.data(), defaultFragmentShader.c_str()) == 0)
             {
                 //The shaders already been loaded, dont load it again
-                m_Material.reset(Material::Create(shader));
+                m_Material = Material::Create(shader);
                 skip = true;
                 break;
             }
         }
         if(!skip)
         {
-            m_Material.reset(Material::Create(defaultVertexShader, defaultFragmentShader));
+            m_Material = Material::Create(defaultVertexShader, defaultFragmentShader);
             auto s = m_Material->GetShader();
             Renderer::RegisterShader(s);
         }
-
-        
         
         //bind and set the textures inside the shader uniforms
         uint32_t diffuse = 1;
@@ -89,8 +77,8 @@ namespace tnah {
         {
             textures.push_back(Renderer::GetMissingTexture());
             textures.push_back(Renderer::GetBlackTexture());
-            m_Material->GetShader()->SetInt("u_Material.texture_diffuse1", Renderer::GetMissingTexture()->m_Slot);
-            m_Material->GetShader()->SetInt("u_Material.texture_specular1", Renderer::GetBlackTexture()->m_Slot);
+            m_Material->GetShader()->SetInt("u_Material.texture_diffuse1", Renderer::GetMissingTexture()->GetRendererID());
+            m_Material->GetShader()->SetInt("u_Material.texture_specular1", Renderer::GetBlackTexture()->GetRendererID());
             m_Material->SetTextures(textures);
         }
         else
@@ -116,20 +104,21 @@ namespace tnah {
                 }
                 else
                 {
-                    m_Material->GetShader()->SetInt("u_Material.texture_diffuse1", Renderer::GetMissingTexture()->m_Slot);
-                    m_Material->GetShader()->SetInt("u_Material.texture_specular1", Renderer::GetBlackTexture()->m_Slot);
+                    m_Material->GetShader()->SetInt("u_Material.texture_diffuse1", Renderer::GetMissingTexture()->GetRendererID());
+                    m_Material->GetShader()->SetInt("u_Material.texture_specular1", Renderer::GetBlackTexture()->GetRendererID());
                 }
 
                 if(dif && !spec)
                 {
-                    m_Material->GetShader()->SetInt("u_Material.texture_specular1", Renderer::GetBlackTexture()->m_Slot);
+                    m_Material->GetShader()->SetInt("u_Material.texture_specular1", Renderer::GetBlackTexture()->GetRendererID());
                 }
                 
-                m_Material->GetShader()->SetInt(("u_Material." + name + number ).c_str(), t->m_Slot);
+                m_Material->GetShader()->SetInt(("u_Material." + name + number ).c_str(), t->GetRendererID());
             }
         }
         m_Material->UnBindShader();
     }
+    
 
     static const uint32_t s_MeshImportFlags =
             aiProcess_CalcTangentSpace |        // Create binormals/tangents just in case
@@ -139,7 +128,7 @@ namespace tnah {
             aiProcess_GenUVCoords |             // Convert UVs if required 
             aiProcess_OptimizeMeshes |          // Batch draws where possible
             aiProcess_JoinIdenticalVertices |          
-            aiProcess_ValidateDataStructure;    // Validation
+            aiProcess_ValidateDataStructure;  // Validation
 
     glm::mat4 Model::AiToGLM(aiMatrix4x4t<float> m)
     {
@@ -148,6 +137,7 @@ namespace tnah {
                 m.a3, m.b3, m.c3, m.d3,
                 m.a4, m.b4, m.c4, m.d4 };
     }
+    
 
     glm::vec3 Model::AiToGLM(aiVector3t<float> v)
     {
@@ -160,16 +150,16 @@ namespace tnah {
     }
 
 
-    Model* Model::Create(const std::string& filePath)
+    Ref<Model> Model::Create(const std::string& filePath)
     {
-        auto model = new Model();
+        auto model = Ref<Model>::Create();
         bool duplicate = false;
         for(auto& m : Renderer::GetLoadedModels())
         {
             if(std::strcmp(m->m_FilePath.data(), filePath.c_str()) == 0)
             {
                 // this model has already been loaded, no need to process it again
-                model = m.get();
+                model = m;
                 duplicate = true;
             }
         }
@@ -177,10 +167,8 @@ namespace tnah {
         if(duplicate) return model;
 
         //if theres no duplicate model, read in the file as normal and return the new model
-        model = new Model(filePath);
-        Ref<Model> m;
-        m.reset(model);
-        Renderer::RegisterModel(m);
+        model = Ref<Model>::Create(filePath);
+        Renderer::RegisterModel(model);
         return model;
     }
 
@@ -218,7 +206,7 @@ namespace tnah {
 
     void Model::ExtractBoneWeightForVertices(std::vector<Vertex>& vertices, aiMesh* mesh, const aiScene* scene) 
     {
-        for (int boneIndex = 0; boneIndex < mesh->mNumBones; ++boneIndex) 
+        for (uint32_t boneIndex = 0; boneIndex < mesh->mNumBones; ++boneIndex) 
         {
             int boneID = -1;
             std::string boneName = mesh->mBones[boneIndex]->mName.C_Str();
@@ -292,14 +280,14 @@ namespace tnah {
                 {
                     aiTexture* aiTex = const_cast<aiTexture*>(t);
                     //read file from memory
-                    tex.reset(Texture2D::Create(str.C_Str(), typeName,true, aiTex));
+                    tex = (Texture2D::Create(str.C_Str(), typeName,true, aiTex));
                     textures.push_back(tex);
                     //m_LoadedTextures.push_back(MeshTexture(tex, str.data));
                     Renderer::RegisterTexture(tex);
                 }
                 else
                 {
-                    tex.reset(Texture2D::Create(str.data, typeName));
+                    tex = (Texture2D::Create(str.data, typeName));
                     textures.push_back(tex);
                     //m_LoadedTextures.push_back(MeshTexture(tex, str.data));
                     Renderer::RegisterTexture(tex);
@@ -321,7 +309,19 @@ namespace tnah {
         {
             Vertex v;
 
-            SetVertexBoneDataToDefault(v);
+            if(animated)
+            {
+                SetVertexBoneDataToDefault(v);
+            }
+            else
+            {
+                // if the mesh isnt animated, set the id's and weights to 0
+                for(uint32_t j = 0; j < 4; j++)
+                {
+                    v.IDs[j] = 0;
+                    v.Weights[j] = 0;
+                }
+            }
 
             //vertex.Position = AssimpGLMHelpers::GetGLMVec(mesh->mVertices[i]);
             //vertex.Normal = AssimpGLMHelpers::GetGLMVec(mesh->mNormals[i]);
@@ -396,17 +396,26 @@ namespace tnah {
             textures.insert(textures.end(), heightMaps.begin(), heightMaps.end());
         }
 
-        ExtractBoneWeightForVertices(vertices, mesh, scene);
+        if(animated) ExtractBoneWeightForVertices(vertices, mesh, scene);
 
         return Mesh(vertices, indices, textures, animated);
     }
 
     void Model::ProcessNode(aiNode* node, const aiScene* scene)
-    { 
+    {
+        bool anim = false;
+        if(scene->mNumAnimations > 0)
+        {
+            anim = true;
+        }
+        
         for(uint32_t i = 0; i < node->mNumMeshes; i++)
         {
             aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
-            m_Meshes.push_back(ProcessMesh(mesh, scene, 0));
+            if(anim)
+                m_Meshes.push_back(ProcessMesh(mesh, scene, true));
+            else
+                m_Meshes.push_back(ProcessMesh(mesh, scene, false));
         }
 
         for(uint32_t i = 0; i < node->mNumChildren; i++)

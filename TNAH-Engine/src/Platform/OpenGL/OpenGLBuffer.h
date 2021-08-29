@@ -59,11 +59,11 @@ namespace tnah {
 		uint32_t GetRendererID() const override { return m_RendererID; }
 		uint32_t GetColorAttachment() const override { return GetColorAttachment(0); }
 		uint32_t GetColorAttachment(uint32_t attachmentNumber) const override;
-		uint32_t GetTotalColorAttachments() const override { return m_ColorAttachments.size(); }
+		uint32_t GetTotalColorAttachments() const override { return (uint32_t)m_ColorAttachments.size(); }
 		
 		uint32_t GetDepthAttachmentID() const override { return GetDepthAttachmentID(0); }
 		uint32_t GetDepthAttachmentID(uint32_t attachmentNumber) const override;
-		uint32_t GetTotalDepthAttachments() const override { return m_DepthAttachments.size(); }
+		uint32_t GetTotalDepthAttachments() const override { return (uint32_t)m_DepthAttachments.size(); }
 
 		uint32_t GetRenderBufferID() const override { return m_Renderbuffer->GetRendererID(); }
 		void SetRenderbufferSpecification(uint32_t bufferSlot, const RenderbufferSpecification& spec) override;

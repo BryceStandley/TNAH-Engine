@@ -5,7 +5,7 @@
 #include "entt.hpp"
 
 namespace tnah {
-	class TNAH_API GameObject
+	class GameObject
 	{
 	public:
 
@@ -28,20 +28,8 @@ namespace tnah {
 		}
 
 		~GameObject()
-		{}
-
-		/**********************************************************************************************//**
-		 * @fn	GameObject::GameObject(const GameObject& other) = default;
-		 *
-		 * @brief	Defaulted copy constructor
-		 *
-		 * @author	Bryce Standley
-		 * @date	18/07/2021
-		 *
-		 * @param 	other	The other.
-		 **************************************************************************************************/
-
-		GameObject(const GameObject& other) = default;
+		{
+		}
 
 		/**********************************************************************************************//**
 		 * @fn	template<typename T, typename... Args> inline T& GameObject::AddComponent(Args&&... args)
@@ -194,7 +182,7 @@ namespace tnah {
 			return m_Scene->FindEntityByUUID(GetParentUUID());
 		}
 
-		bool IsAncesterOf(GameObject entity)
+		bool IsAncesterOf(GameObject& entity)
 		{
 			const auto& children = Children();
 
@@ -231,7 +219,7 @@ namespace tnah {
 		
 	private:
 		entt::entity m_EntityID{ entt::null };
-		Scene* m_Scene;
+		Scene* m_Scene = nullptr;
 
 		bool m_Active = true;
 		

@@ -3,6 +3,8 @@
 #include <string>
 #include <glm/glm.hpp>
 
+#include "TNAH/Core/Ref.h"
+
 
 namespace tnah {
 
@@ -54,7 +56,7 @@ namespace tnah {
 
 	typedef std::vector<ShaderResourceDeclaration*> ShaderResourceList;
 	
-	class Shader
+	class Shader : public RefCounted
 	{
 	public:
 		virtual ~Shader() = default;
@@ -74,8 +76,8 @@ namespace tnah {
 
 		virtual const std::string& GetName() const = 0;
 
-		static Shader* Create(const std::string& filePath);
-		static Shader* Create(const std::string& vertexSrc, const std::string& fragmentSrc);
+		static Ref<Shader> Create(const std::string& filePath);
+		static Ref<Shader> Create(const std::string& vertexSrc, const std::string& fragmentSrc);
 		static Ref<Shader> CheckShaderExists(const std::string& filePath);
 		static Ref<Shader> CheckShaderExists(const std::string& vertexSrc, const std::string& fragmentSrc);
 

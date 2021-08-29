@@ -13,14 +13,14 @@ public:
 	void OnEvent(tnah::Event& event) override;
 
 private:
-	tnah::Scene* m_ActiveScene = nullptr;
-	tnah::Ref<tnah::GameObject> m_Camera;
-	tnah::GameObject* m_Terrain = nullptr;
-	std::vector<tnah::GameObject*> m_MeshObjects;
-	tnah::Ref<tnah::GameObject> m_SceneLight;
-	tnah::GameObject* m_Skybox = nullptr;
+	tnah::Ref<tnah::Scene> m_ActiveScene = nullptr;
+	tnah::GameObject m_Camera;
+	tnah::GameObject m_Terrain;
+	std::vector<tnah::GameObject> m_MeshObjects;
+	tnah::GameObject m_SceneLight;
+	tnah::GameObject m_Skybox;
 
-	tnah::GameObject* m_PointLight = nullptr;
+	tnah::GameObject m_PointLight;
 
 	float m_LightCutoff = 12.5f;
 	float m_CameraMovementSpeed = 20.0f;

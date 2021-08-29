@@ -10,7 +10,7 @@ namespace tnah {
 	void SceneCamera::SetPerspective(float verticalFOV, float nearClip, float farClip)
 	{
 		m_ProjectionType = ProjectionType::Perspective;
-		m_PerspectiveFOV = verticalFOV;
+		m_PerspectiveFOV = glm::radians(verticalFOV);
 		m_PerspectiveNear = nearClip;
 		m_PerspectiveFar = farClip;
 	}

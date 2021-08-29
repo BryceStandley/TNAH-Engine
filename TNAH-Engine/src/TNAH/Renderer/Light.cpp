@@ -7,65 +7,65 @@
 
 namespace tnah {
 
-    Light* Light::Create(LightType type)
+    Ref<Light> Light::Create(LightType type)
     {
         switch(type)
         {
             case LightType::Directional:
-                return new DirectionLight();
+                return Ref<DirectionLight>::Create();
             case LightType::Point:
-                return new PointLight();
+                return Ref<PointLight>::Create();
             case LightType::Spot:
-                return new SpotLight();
+                return Ref<SpotLight>::Create();
             default:
-                return new DirectionLight();
+                return Ref<DirectionLight>::Create();
         }
     }
 
-    Light* Light::CreateDirectional(const glm::vec3& direction, const glm::vec3& ambient, const glm::vec3& diffuse,
+    Ref<Light> Light::CreateDirectional(const glm::vec3& direction, const glm::vec3& ambient, const glm::vec3& diffuse,
         const glm::vec3& specular)
     {
-        auto light = new DirectionLight(direction, ambient, diffuse, specular);
+        auto light = Ref<DirectionLight>::Create(direction, ambient, diffuse, specular);
         light->SetType(LightType::Directional);
         light->UpdateShaderLightInfo(glm::vec3(0.0f));
         return light;
     }
 
-    Light* Light::CreateDirectional()
+    Ref<Light> Light::CreateDirectional()
     {
-        auto light = new DirectionLight();
+        auto light = Ref<DirectionLight>::Create();
         light->SetType(LightType::Directional);
         light->UpdateShaderLightInfo(glm::vec3(0.0f));
         return light;
     }
 
-    Light* Light::CreatePoint()
+    Ref<Light> Light::CreatePoint()
     {
-        auto light = new PointLight();
+        auto light = Ref<PointLight>::Create();
         light->SetType(LightType::Point);
         light->UpdateShaderLightInfo(glm::vec3(0.0f));
         return light;
     }
 
-    Light* Light::CreateSpot()
+    Ref<Light> Light::CreateSpot()
     {
-        auto light = new SpotLight();
+        auto light = Ref<SpotLight>::Create();
         light->SetType(LightType::Spot);
         light->UpdateShaderLightInfo(glm::vec3(0.0f));
         return light;
     }
 
-    Light* Light::CreatePoint(const float& constant, const float& linear, const float& quadratic)
+    Ref<Light> Light::CreatePoint(const float& constant, const float& linear, const float& quadratic)
     {
-        auto light = new PointLight(constant, linear, quadratic);
+        auto light = Ref<PointLight>::Create(constant, linear, quadratic);
         light->SetType(LightType::Point);
         light->UpdateShaderLightInfo(glm::vec3(0.0f));
         return light;
     }
 
-    Light* Light::CreateSpot(const float& cutoff)
+    Ref<Light> Light::CreateSpot(const float& cutoff)
     {
-        auto light = new SpotLight(cutoff);
+        auto light = Ref<SpotLight>::Create(cutoff);
         light->SetType(LightType::Spot);
         light->UpdateShaderLightInfo(glm::vec3(0.0f));
         return light;

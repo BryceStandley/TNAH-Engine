@@ -26,15 +26,15 @@ namespace tnah {
 		static uint32_t GetCurrentTextureSlot() { return s_CurrentTextureSlot; }
 		static uint32_t GetAndIncrementTextureSlot() { s_CurrentTextureSlot++; return s_CurrentTextureSlot - 1; }
 
-		static void SetCullMode(const CullMode mode);
+		static void SetCullMode(const CullMode& mode);
 
-		static void SetShaderLightInfo(const Ref<Material>& material, std::vector<Ref<Light>> lights);
+		static void SetShaderLightInfo(Ref<Material> material, std::vector<Ref<Light>> lights);
 
-		static void Submit(const Ref<VertexArray>& vertexArray, const Ref<Shader>& shader, const glm::mat4& transform = glm::mat4(1.0f));
-		static void SubmitTerrain(const Ref<VertexArray>& vertexArray, const Ref<Material>& material, std::vector<Ref<Light>> sceneLights, const glm::mat4& transform = glm::mat4(1.0f));
-		static void SubmitMesh(const Ref<VertexArray>& vertexArray, const Ref<Material>& material, std::vector<Ref<Light>> sceneLights, const glm::mat4& transform = glm::mat4(1.0f));
+		static void Submit(Ref<VertexArray> vertexArray, Ref<Shader> shader, const glm::mat4& transform = glm::mat4(1.0f));
+		static void SubmitTerrain(Ref<VertexArray> vertexArray, Ref<Material> material, std::vector<Ref<Light>> sceneLights, const glm::mat4& transform = glm::mat4(1.0f));
+		static void SubmitMesh(Ref<VertexArray> vertexArray, Ref<Material> material, std::vector<Ref<Light>> sceneLights, const glm::mat4& transform = glm::mat4(1.0f));
 		
-		static void SubmitSkybox(const Ref<VertexArray>& vertexArray, const Ref<SkyboxMaterial>& material);
+		static void SubmitSkybox(Ref<VertexArray> vertexArray, Ref<SkyboxMaterial> material);
 		
 		static RendererAPI::API GetAPI() { return RendererAPI::GetAPI(); }
 		static Ref<Texture2D> GetWhiteTexture();
@@ -42,11 +42,11 @@ namespace tnah {
 		static Ref<Texture2D> GetMissingTexture();
 		static std::vector<Ref<Texture2D>> GetLoadedTextures();
 		static std::vector<Ref<Shader>> GetLoadedShaders();
-		static void RegisterTexture(Ref<Texture2D>& texture);
-		static void RegisterShader(Ref<Shader>& shader);
+		static void RegisterTexture(Ref<Texture2D> texture);
+		static void RegisterShader(Ref<Shader> shader);
 
 		static std::vector<Ref<Model>> GetLoadedModels();
-		static void RegisterModel(Ref<Model>& model);
+		static void RegisterModel(Ref<Model> model);
 
 		//RenderStats
 		static uint32_t GetDrawCallsPerFrame();

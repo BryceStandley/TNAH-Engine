@@ -5,7 +5,7 @@
 #include "Shader.h"
 
 namespace tnah {
-    class Light
+    class Light : public RefCounted
     {
     public:
         enum class LightType
@@ -40,15 +40,16 @@ namespace tnah {
         
 
         Light(LightType type) :m_Type(type) {}
+        virtual ~Light() = default;
         
-        static Light* Create(LightType type);
-        static Light* CreateDirectional(const glm::vec3& direction, const glm::vec3& ambient,
+        static Ref<Light> Create(LightType type);
+        static Ref<Light> CreateDirectional(const glm::vec3& direction, const glm::vec3& ambient,
             const glm::vec3& diffuse, const glm::vec3& specular);
-        static Light* CreateDirectional();
-        static Light* CreatePoint(const float& constant, const float& linear, const float& quadratic);
-        static Light* CreatePoint();
-        static Light* CreateSpot(const float& cutoff);
-        static Light* CreateSpot();
+        static Ref<Light> CreateDirectional();
+        static Ref<Light> CreatePoint(const float& constant, const float& linear, const float& quadratic);
+        static Ref<Light> CreatePoint();
+        static Ref<Light> CreateSpot(const float& cutoff);
+        static Ref<Light> CreateSpot();
         
         virtual void SetColor(const glm::vec4& value) { m_Color = value; }
         virtual void SetIntensity(const float& value) { m_Intensity = value; }

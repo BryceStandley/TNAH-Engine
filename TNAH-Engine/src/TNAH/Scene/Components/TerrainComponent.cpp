@@ -17,15 +17,15 @@ namespace tnah {
 			{ShaderDataType::Float3, "a_TexCoord"},
 			{ShaderDataType::Float3, "a_Normal"}
 		};
-		m_VAO.reset(VertexArray::Create());
-		m_VBO.reset(VertexBuffer::Create(GetTotalData(), GetTotalDataSize()));
+		m_VAO = VertexArray::Create();
+		m_VBO = VertexBuffer::Create(GetTotalData(), GetTotalDataSize());
 		m_VBO->SetLayout(m_BufferLayout);
 		m_VAO->AddVertexBuffer(m_VBO);
 
-		m_IBO.reset(IndexBuffer::Create(GetIndicesData(), GetIndicesSize()));
+		m_IBO= IndexBuffer::Create(GetIndicesData(), GetIndicesSize());
 		m_VAO->SetIndexBuffer(m_IBO);
 
-		m_Material.reset(Material::Create("Resources/shaders/default/terrain/terrain_vertex.glsl", "Resources/shaders/default/terrain/terrain_fragment.glsl"));
+		m_Material = Material::Create("Resources/shaders/default/terrain/terrain_vertex.glsl", "Resources/shaders/default/terrain/terrain_fragment.glsl");
 	}
 
 	Terrain::Terrain(const std::string& heightmapFilePath)
@@ -39,15 +39,15 @@ namespace tnah {
 				{ShaderDataType::Float3, "a_TexCoord"},
 				{ShaderDataType::Float3, "a_Normal"}
 			};
-			m_VAO.reset(VertexArray::Create());
-			m_VBO.reset(VertexBuffer::Create(GetTotalData(), GetTotalDataSize()));
+			m_VAO = VertexArray::Create();
+			m_VBO = VertexBuffer::Create(GetTotalData(), GetTotalDataSize());
 			m_VBO->SetLayout(m_BufferLayout);
 			m_VAO->AddVertexBuffer(m_VBO);
 
-			m_IBO.reset(IndexBuffer::Create(GetIndicesData(), GetIndicesSize()));
+			m_IBO= IndexBuffer::Create(GetIndicesData(), GetIndicesSize());
 			m_VAO->SetIndexBuffer(m_IBO);
 
-			m_Material.reset(Material::Create("Resources/shaders/default/terrain/terrain_vertex.glsl", "Resources/shaders/default/terrain/terrain_fragment.glsl"));
+			m_Material = Material::Create("Resources/shaders/default/terrain/terrain_vertex.glsl", "Resources/shaders/default/terrain/terrain_fragment.glsl");
 
 			m_TextureFileNames.emplace_back("dirt");
 			m_TextureFileNames.emplace_back("grass");
@@ -58,8 +58,7 @@ namespace tnah {
 			m_Material->BindShader();
 			for(int i = 0; i < m_TextureFileNames.size(); i++)
 			{
-				Ref<Texture2D> texture;
-				texture.reset(Texture2D::Create("assets/textures/terrain/" + m_TextureFileNames[i] + ".jpg"));
+				Ref<Texture2D> texture = Texture2D::Create("assets/textures/terrain/" + m_TextureFileNames[i] + ".jpg");
 				textures.emplace_back(texture);
 				m_Material->GetShader()->SetInt("u_" + m_TextureFileNames[i] + "Texture", texture->m_Slot);
 			}
@@ -79,15 +78,15 @@ namespace tnah {
 			{ShaderDataType::Float3, "a_TexCoord"},
 			{ShaderDataType::Float3, "a_Normal"}
 		};
-		m_VAO.reset(VertexArray::Create());
-		m_VBO.reset(VertexBuffer::Create(GetTotalData(), GetTotalDataSize()));
+		m_VAO = VertexArray::Create();
+		m_VBO = VertexBuffer::Create(GetTotalData(), GetTotalDataSize());
 		m_VBO->SetLayout(m_BufferLayout);
 		m_VAO->AddVertexBuffer(m_VBO);
 
-		m_IBO.reset(IndexBuffer::Create(GetIndicesData(), GetIndicesSize()));
+		m_IBO= IndexBuffer::Create(GetIndicesData(), GetIndicesSize());
 		m_VAO->SetIndexBuffer(m_IBO);
 
-		m_Material.reset(Material::Create("Resources/shaders/default/terrain/terrain_vertex.glsl", "../TNAH-Engine/Resources/shaders/default/terrain/terrain_fragment.glsl"));
+		m_Material = Material::Create("Resources/shaders/default/terrain/terrain_vertex.glsl", "Resources/shaders/default/terrain/terrain_fragment.glsl");
 	}
 
 	Terrain::~Terrain()
@@ -150,8 +149,8 @@ namespace tnah {
 		m_TerrainHeights = result;
 		m_Size.x = (float)texture->m_Width;
 		m_Size.y = (float)texture->m_Height;
-		delete[] texture;
 		return true;
+		
 	}
 
 	const float Terrain::GetHeight(int x, int z)

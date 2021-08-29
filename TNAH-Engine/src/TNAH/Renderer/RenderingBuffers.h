@@ -2,6 +2,8 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+#include "TNAH/Core/Ref.h"
+
 namespace tnah {
 
 	enum class ShaderDataType
@@ -105,7 +107,7 @@ namespace tnah {
 		uint32_t m_Stride = 0;
 	};
 
-	class VertexBuffer
+	class VertexBuffer : public RefCounted
 	{
 	public:
 		virtual ~VertexBuffer() = default;
@@ -116,12 +118,12 @@ namespace tnah {
 		virtual const BufferLayout& GetLayout() const = 0;
 		virtual void SetLayout(const BufferLayout& layout) = 0;
 
-		static VertexBuffer* Create(float* verticies, uint32_t size);
-		static VertexBuffer* Create(void* verticies, uint32_t size);
+		static Ref<VertexBuffer> Create(float* verticies, uint32_t size);
+		static Ref<VertexBuffer> Create(void* verticies, uint32_t size);
 	};
 
 	// Currently tnah only supports 32-bit index buffers
-	class IndexBuffer
+	class IndexBuffer : public RefCounted
 	{
 	public:
 		virtual ~IndexBuffer() = default;
@@ -131,13 +133,13 @@ namespace tnah {
 
 		virtual uint32_t GetCount() const = 0;
 
-		static IndexBuffer* Create(uint32_t* indices, uint32_t size);
-		static IndexBuffer* Create(void* indices, uint32_t size);
+		static Ref<IndexBuffer> Create(uint32_t* indices, uint32_t size);
+		static Ref<IndexBuffer> Create(void* indices, uint32_t size);
 
 		/*
 		 * Creates a empty index buffer with a size
 		 */
-		static IndexBuffer* Create(uint32_t size);
+		static Ref<IndexBuffer> Create(uint32_t size);
 	};
 
 	enum class RenderbufferFormat
@@ -192,7 +194,7 @@ namespace tnah {
 		Depth, Color, Stencil, Render
 	};
 	
-	class Framebuffer
+	class Framebuffer : public RefCounted
 	{
 	public:
 		virtual ~Framebuffer() = default;
@@ -216,15 +218,15 @@ namespace tnah {
 		virtual void Unbind() = 0;
 		virtual void Rebuild(const FramebufferSpecification& spec) = 0;
 		
-		static Framebuffer* Create(const FramebufferSpecification& spec, uint32_t colorAttachments = 1, uint32_t depthAttachments = 1);
-		static Framebuffer* Create(const FramebufferSpecification& spec, uint32_t colorAttachments, std::vector<ColorAttachmentSpecs> colorSpecs);
-		static Framebuffer* Create(const FramebufferSpecification& spec, const RenderbufferSpecification& renderSpec);
+		static Ref<Framebuffer> Create(const FramebufferSpecification& spec, uint32_t colorAttachments = 1, uint32_t depthAttachments = 1);
+		static Ref<Framebuffer> Create(const FramebufferSpecification& spec, uint32_t colorAttachments, std::vector<ColorAttachmentSpecs> colorSpecs);
+		static Ref<Framebuffer> Create(const FramebufferSpecification& spec, const RenderbufferSpecification& renderSpec);
 		
 		virtual void SelectDrawToBuffer(const FramebufferDrawMode& mode = FramebufferDrawMode::Color, uint32_t attachmentNumber = 0) = 0;
 		virtual int GetFormatFromSpec(const FramebufferSpecification& spec) = 0;
 	};
 
-	class Renderbuffer
+	class Renderbuffer : public RefCounted
 	{
 	public:
 		virtual ~Renderbuffer() = default;
@@ -236,7 +238,7 @@ namespace tnah {
 		virtual void Rebuild(const RenderbufferSpecification& spec) = 0;
 		virtual void AttachToFramebuffer() = 0;
 
-		static Renderbuffer* Create(const RenderbufferSpecification& spec);
+		static Ref<Renderbuffer> Create(const RenderbufferSpecification& spec);
 		virtual int GetFormatFromSpecification(const RenderbufferSpecification& spec) = 0;
 		virtual int GetFramebufferFormatFromSpecification(const RenderbufferSpecification& spec) = 0;
 	private:

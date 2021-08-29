@@ -52,9 +52,9 @@ namespace tnah {
 		s_Data = new RendererData();
 		RenderCommand::Init();
 
-		s_Data->WhiteTexture.reset(Texture2D::Create("Resources/textures/default/default_white.jpg"));
-		s_Data->BlackTexture.reset(Texture2D::Create("Resources/textures/default/default_black.jpg"));
-		s_Data->MissingTexture.reset(Texture2D::Create("Resources/textures/default/default_missing.jpg"));
+		s_Data->WhiteTexture = (Texture2D::Create("Resources/textures/default/default_white.jpg"));
+		s_Data->BlackTexture = (Texture2D::Create("Resources/textures/default/default_black.jpg"));
+		s_Data->MissingTexture = (Texture2D::Create("Resources/textures/default/default_missing.jpg"));
 
 		if (s_Data->WhiteTexture != nullptr)  RegisterTexture(s_Data->WhiteTexture);
 		if (s_Data->BlackTexture != nullptr) RegisterTexture(s_Data->BlackTexture);
@@ -69,17 +69,17 @@ namespace tnah {
 		//Resetting all the loaded objects to shutdown
 		for (auto t : s_Data->LoadedTextures)
 		{
-			t.reset();
+			t.Reset();
 		}
 
 		for (auto s : s_Data->LoadedShaders)
 		{
-			s.reset();
+			s.Reset();
 		}
 
 		for (auto m : s_Data->LoadedModels)
 		{
-			m.reset();
+			m.Reset();
 		}
 
 		delete[] s_Data;
@@ -111,7 +111,7 @@ namespace tnah {
 	{
 	}
 
-	void Renderer::SetShaderLightInfo(const Ref<Material>& material, std::vector<Ref<Light>> lights)
+	void Renderer::SetShaderLightInfo(Ref<Material> material, std::vector<Ref<Light>> lights)
 	{
 		if(!material->GetShader()->IsBound()) material->BindShader();
 
@@ -167,7 +167,7 @@ namespace tnah {
 	}
 
 
-	void Renderer::Submit(const Ref<VertexArray>& vertexArray, const Ref<Shader>& shader, const glm::mat4& transform)
+	void Renderer::Submit(Ref<VertexArray> vertexArray, Ref<Shader> shader, const glm::mat4& transform)
 	{
 		shader->Bind();
 		shader->SetMat4("u_ViewProjection", s_SceneData->ViewProjection);
@@ -179,7 +179,7 @@ namespace tnah {
 		IncrementDrawCallsPerFrame();
 	}
 
-	void Renderer::SubmitTerrain(const Ref<VertexArray>& vertexArray, const Ref<Material>& material,
+	void Renderer::SubmitTerrain(Ref<VertexArray> vertexArray, Ref<Material> material,
 			std::vector<Ref<Light>> sceneLights, const glm::mat4& transform)
 	{
 		material->BindShader();
@@ -195,7 +195,7 @@ namespace tnah {
 		IncrementDrawCallsPerFrame();
 	}
 
-	void Renderer::SubmitMesh(const Ref<VertexArray>& vertexArray, const Ref<Material>& material,
+	void Renderer::SubmitMesh(Ref<VertexArray> vertexArray, Ref<Material> material,
 			 std::vector<Ref<Light>> sceneLights, const glm::mat4& transform)
 	{
 		SetCullMode(CullMode::Back);
@@ -213,7 +213,7 @@ namespace tnah {
 		IncrementDrawCallsPerFrame();
 	}
 
-	void Renderer::SubmitSkybox(const Ref<VertexArray>& vertexArray, const Ref<SkyboxMaterial>& material)
+	void Renderer::SubmitSkybox(Ref<VertexArray> vertexArray, Ref<SkyboxMaterial> material)
 	{
 		RenderCommand::SetDepthFunc(RendererAPI::DepthFunc::Lequal);
 		
@@ -238,7 +238,7 @@ namespace tnah {
 		IncrementDrawCallsPerFrame();
 	}
 
-	void Renderer::SetCullMode(const CullMode mode)
+	void Renderer::SetCullMode(const CullMode& mode)
 	{
 		RenderCommand::SetCullMode(mode);
 	}
@@ -269,13 +269,13 @@ namespace tnah {
 		return s_Data->LoadedShaders;
 	}
 
-	void Renderer::RegisterTexture(Ref<Texture2D>& texture)
+	void Renderer::RegisterTexture(Ref<Texture2D> texture)
 	{
 		s_Data->LoadedTextures.push_back(texture);
 		IncrementTotalLoadedTextures();
 	}
 
-	void Renderer::RegisterShader(Ref<Shader>& shader)
+	void Renderer::RegisterShader(Ref<Shader> shader)
 	{
 		s_Data->LoadedShaders.push_back(shader);
 		IncrementTotalLoadedShaders();
@@ -286,7 +286,7 @@ namespace tnah {
 		return s_Data->LoadedModels;
 	}
 
-	void Renderer::RegisterModel(Ref<Model>& model)
+	void Renderer::RegisterModel(Ref<Model> model)
 	{
 		s_Data->LoadedModels.push_back(model);
 		IncrementTotalLoadedModels();

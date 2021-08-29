@@ -13,7 +13,7 @@
 namespace tnah {
 
 		EditorLayer::EditorLayer()
-			: Layer("Editor Layer"),  m_FocusedWindow(FocusedWindow::None), m_HasObjectSelected(false), m_GizmoType(-1), m_SelectedGameObject(nullptr), m_SnapValue(1.0f)
+			: Layer("Editor Layer"),  m_FocusedWindow(FocusedWindow::None), m_SelectedGameObject(nullptr), m_HasObjectSelected(false), m_GizmoType(-1), m_SnapValue(1.0f)
 		{
 			
 		}
@@ -21,11 +21,11 @@ namespace tnah {
 		void EditorLayer::OnUpdate(Timestep deltaTime)
 		{	
 
-			if(m_FocusedWindow == FocusedWindow::SceneView)
+			if(m_FocusedWindow == FocusedWindow::SceneView && m_State != EditorState::LoadingScene)
 			{
 				if(Input::IsKeyPressed(Key::LeftShift) || Input::IsKeyPressed(Key::RightShift))
 				{
-					auto& cam = m_ActiveScene->GetEditorCameraGameObject()->GetComponent<TransformComponent>();
+					auto& cam = m_ActiveScene->GetEditorCamera().Transform();
 					if(Input::IsKeyPressed(Key::Down) || Input::IsKeyPressed(Key::S)) cam.Position -= cam.Forward * 5.0f * deltaTime.GetSeconds();
 					if(Input::IsKeyPressed(Key::Up) || Input::IsKeyPressed(Key::W)) cam.Position += cam.Forward * 5.0f * deltaTime.GetSeconds();
 					if(Input::IsKeyPressed(Key::Left) || Input::IsKeyPressed(Key::A)) cam.Position -= cam.Right * 5.0f * deltaTime.GetSeconds();
@@ -139,6 +139,7 @@ namespace tnah {
 					{
 						if (!FileManager::NewScene())
 						{
+							
 							auto sceneFile = FileManager::GetActiveFile();
 							if (sceneFile->FileOpenError == FileError::PathInvalid)
 							{
@@ -147,11 +148,15 @@ namespace tnah {
 						}
 						else
 						{
-							m_ActiveScene.reset();
-							m_ActiveScene = CreateRef<Scene>(true);
-							m_EditorCamera = m_ActiveScene->GetEditorCameraGameObject();
+							m_State = EditorState::LoadingScene;
+							CloseScene(m_ActiveScene);
+							m_HasObjectSelected = false;
+							m_SelectedGameObject = nullptr;
+							m_ActiveScene = Scene::CreateNewEditorScene();
+							m_EditorCamera = m_ActiveScene->GetEditorCamera();
 							m_EditorSceneFramebuffer = m_ActiveScene->GetEditorSceneFramebuffer();
 							m_EditorGameFramebuffer = m_ActiveScene->GetEditorGameFramebuffer();
+							m_State = EditorState::Idle;
 						}
 					}
 
@@ -167,20 +172,26 @@ namespace tnah {
 						}
 						else
 						{
+							m_State = EditorState::LoadingScene;
+							m_HasObjectSelected = false;
+							m_SelectedGameObject = nullptr;
 							auto sceneFile = FileManager::GetActiveFile();
 							if(m_ActiveScene != nullptr)
 							{
-								m_EditorCamera.reset();
-								m_EditorGameFramebuffer.reset();
-								m_EditorSceneFramebuffer.reset();
-								m_ActiveScene.reset();
-								m_ActiveScene = CreateRef<Scene>(Serializer::DeserializeScene(sceneFile->FilePath));
-								if(m_ActiveScene != nullptr) m_EditorCamera = m_ActiveScene->GetEditorCameraGameObject();
+								CloseScene(m_ActiveScene);
+								m_ActiveScene = Serializer::DeserializeScene(sceneFile->FilePath);
+								if(m_ActiveScene != nullptr)
+								{
+									m_EditorCamera = m_ActiveScene->GetEditorCamera();
+									m_EditorGameFramebuffer = m_ActiveScene->GetEditorGameFramebuffer();
+									m_EditorSceneFramebuffer = m_ActiveScene->GetEditorSceneFramebuffer();
+									m_State = EditorState::Idle;
+								}
 							}
 							else
 							{
 								TNAH_ERROR("Failed to load scene file");
-								m_ActiveScene = CreateRef<Scene>(true);
+								m_ActiveScene = Ref<Scene>::Create(true);
 							}
 						}
 					}
@@ -199,7 +210,7 @@ namespace tnah {
 						{
 							auto sceneFile = FileManager::GetActiveFile();
 							// serialize the scene
-							Serializer::SerializeScene(m_ActiveScene.get(), sceneFile->FilePath);
+							Serializer::SerializeScene(m_ActiveScene, sceneFile->FilePath);
 						}
 
 					}
@@ -218,13 +229,19 @@ namespace tnah {
 						{
 							auto sceneFile = FileManager::GetActiveFile();
 							// save the scene with the new file name and path
-							Serializer::SerializeScene(m_ActiveScene.get(), sceneFile->FilePath);
+							Serializer::SerializeScene(m_ActiveScene, sceneFile->FilePath);
 						}
 					}
 
 					ImGui::Separator();
 
 					if (ImGui::MenuItem("Close Editor")) Application::Get().Close();
+					ImGui::Separator();
+
+					ImGui::Text("Current API:");
+					std::string label = RendererAPI::GetAPI() == RendererAPI::API::OpenGL ? "OpenGL" : "Unknown";
+					ImGui::Text(label.c_str());
+					
 					ImGui::EndMenu();
 				}
 
@@ -279,25 +296,25 @@ namespace tnah {
 							if (ImGui::MenuItem("Cube"))
 							{
 								auto newObject = m_ActiveScene->CreateGameObject("Cube (" + std::to_string(CountGameObjects("Cube")) + ")");
-								newObject->AddComponent<MeshComponent>("assets/Editor/meshes/cube.fbx");
+								newObject.AddComponent<MeshComponent>("assets/Editor/meshes/cube.fbx");
 							}
 
 							if (ImGui::MenuItem("Sphere"))
 							{
 								auto newObject = m_ActiveScene->CreateGameObject("Sphere (" + std::to_string(CountGameObjects("Sphere")) + ")");
-								newObject->AddComponent<MeshComponent>("assets/Editor/meshes/sphere.fbx");
+								newObject.AddComponent<MeshComponent>("assets/Editor/meshes/sphere.fbx");
 							}
 
 							if (ImGui::MenuItem("Plane"))
 							{
 								auto newObject = m_ActiveScene->CreateGameObject("Plane (" + std::to_string(CountGameObjects("Plane")) + ")");
-								newObject->AddComponent<MeshComponent>("assets/Editor/meshes/plane.fbx");
+								newObject.AddComponent<MeshComponent>("assets/Editor/meshes/plane.fbx");
 							}
 
 							if (ImGui::MenuItem("Cylinder"))
 							{
 								auto newObject = m_ActiveScene->CreateGameObject("Cylinder (" + std::to_string(CountGameObjects("Cylinder")) + ")");
-								newObject->AddComponent<MeshComponent>("assets/Editor/meshes/cylinder.fbx");
+								newObject.AddComponent<MeshComponent>("assets/Editor/meshes/cylinder.fbx");
 							}
 							
 							ImGui::EndMenu();
@@ -308,7 +325,7 @@ namespace tnah {
 							if(ImGui::MenuItem("Audio Listener"))
 							{
 								auto newObject = m_ActiveScene->CreateGameObject("AudioListener (" + std::to_string(CountGameObjects("AudioListener")) + ")");
-								newObject->AddComponent<AudioListener>();
+								newObject.AddComponent<AudioListener>();
 							}
 
 							if(ImGui::MenuItem("Audio Source"))
@@ -324,7 +341,7 @@ namespace tnah {
 									{
 										Resource file = {soundFile->FilePath};
 										auto newObject = m_ActiveScene->CreateGameObject("AudioSource (" + std::to_string(CountGameObjects("AudioSource")) + ")");
-										newObject->AddComponent<AudioSource>(soundFile->FilePath);
+										newObject.AddComponent<AudioSource>(soundFile->FilePath);
 									}
 								}
 							}
@@ -346,28 +363,28 @@ namespace tnah {
 							{
 								FramebufferSpecification spec{ 640, 480 };
 								m_EditorGameFramebuffer->Rebuild(spec);
-								auto& ec = m_ActiveScene->GetMainCameraGameObject()->GetComponent<CameraComponent>();
+								auto& ec = m_ActiveScene->GetSceneCamera().GetComponent<CameraComponent>();
 								ec.Camera.SetViewportSize(spec.Width, spec.Height);
 							}
 							if (ImGui::MenuItem("1280 x 720 (720p)"))
 							{
 								FramebufferSpecification spec{ 1280, 720 };
 								m_EditorGameFramebuffer->Rebuild(spec);
-								auto& ec = m_ActiveScene->GetMainCameraGameObject()->GetComponent<CameraComponent>();
+								auto& ec = m_ActiveScene->GetSceneCamera().GetComponent<CameraComponent>();
 								ec.Camera.SetViewportSize(spec.Width, spec.Height);
 							}
 							if (ImGui::MenuItem("1920 x 1080 (1080p)"))
 							{
 								FramebufferSpecification spec{ 1920, 1080 };
 								m_EditorGameFramebuffer->Rebuild(spec);
-								auto& ec = m_ActiveScene->GetMainCameraGameObject()->GetComponent<CameraComponent>();
+								auto& ec = m_ActiveScene->GetSceneCamera().GetComponent<CameraComponent>();
 								ec.Camera.SetViewportSize(spec.Width, spec.Height);
 							}
 							if (ImGui::MenuItem("2560 x 1080 (UW 1080p)"))
 							{
 								FramebufferSpecification spec{ 2560, 1080 };
 								m_EditorGameFramebuffer->Rebuild(spec);
-								auto& ec = m_ActiveScene->GetMainCameraGameObject()->GetComponent<CameraComponent>();
+								auto& ec = m_ActiveScene->GetSceneCamera().GetComponent<CameraComponent>();
 								ec.Camera.SetViewportSize(spec.Width, spec.Height);
 
 							}
@@ -375,14 +392,14 @@ namespace tnah {
 							{
 								FramebufferSpecification spec{ 2560, 1440 };
 								m_EditorGameFramebuffer->Rebuild(spec);
-								auto& ec = m_ActiveScene->GetMainCameraGameObject()->GetComponent<CameraComponent>();
+								auto& ec = m_ActiveScene->GetSceneCamera().GetComponent<CameraComponent>();
 								ec.Camera.SetViewportSize(spec.Width, spec.Height);
 							}
 							if (ImGui::MenuItem("3840 x 2160 (4K)"))
 							{
 								FramebufferSpecification spec{ 3840, 2160 };
 								m_EditorGameFramebuffer->Rebuild(spec);
-								auto& ec = m_ActiveScene->GetMainCameraGameObject()->GetComponent<CameraComponent>();
+								auto& ec = m_ActiveScene->GetSceneCamera().GetComponent<CameraComponent>();
 								ec.Camera.SetViewportSize(spec.Width, spec.Height);
 							}
 							ImGui::EndMenu();
@@ -426,16 +443,20 @@ namespace tnah {
 				//put other help popups here
 			}
 
-
-			if (ImGui::BeginMenuBar())
 			{
-				auto size = ImGui::GetWindowPos();
-				size.y += 100;
-				ImGui::SetNextWindowSize(size);
+				auto viewportStart = ImGui::GetItemRectMin();
+
+				ImGui::SetNextWindowPos(ImVec2(viewportStart.x + 10, viewportStart.y + 5));
+				ImGui::SetNextWindowSize(ImVec2(128 * 2, 28));
 				ImGui::SetNextWindowBgAlpha(0.75f);
+				ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 7.0f);
+				ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(6, 4));
+				ImGui::Begin("##viewport_tools", 0, ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoDocking);
+				
 				const ImVec4 c_SelectedGizmoButtonColor = ImVec4(0.925490196f, 0.619607843f, 0.141176471f, 1.0f);
 				const ImVec4 c_UnselectedGizmoButtonColor = ImVec4(1.0f, 1.0f, 1.0f, 1.0f);
 
+				
 				ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
 				ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0, 0, 0, 0));
 				ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0, 0, 0, 0));
@@ -459,9 +480,10 @@ namespace tnah {
 					if(ImGui::Button("Snap"))
 						m_Snap = !m_Snap;
 				
-				//TODO add new image for snap tool and move it down the bar to the right side
 				ImGui::PopStyleColor(3);
-				ImGui::EndMenuBar();
+
+				ImGui::End();
+				ImGui::PopStyleVar(2);
 			}
 
 			if (notImplPopup)
@@ -490,73 +512,6 @@ namespace tnah {
 				ImGui::BulletText("Textures Loaded: %d", Renderer::GetTotalLoadedTextures());
 				ImGui::BulletText("Shaders Loaded: %d", Renderer::GetTotalLoadedShaders());
 				ImGui::BulletText("Models Loaded: %d", Renderer::GetTotalLoadedModels());
-				ImGui::End();
-			}
-
-
-			//Scene View Window 
-			if (sceneViewOpen)
-			{
-
-				ImGui::Begin("Scene View", &sceneViewOpen);
-				if (ImGui::IsWindowFocused()) m_FocusedWindow = FocusedWindow::SceneView;
-				uint32_t id = 0;
-				ImVec2 size = ImGui::GetContentRegionAvail();
-				
-
-				if(m_EditorCamera != nullptr)
-				{
- 					if(!Math::CompareImVec2(ImGui::GetWindowSize(), m_SceneViewSize))
-					{
- 						if(!Input::IsMouseButtonPressed(Mouse::ButtonLeft))
- 						{
- 							m_SceneViewSize = ImGui::GetWindowSize();
- 							auto& cam = m_EditorCamera->GetComponent<EditorCameraComponent>();
- 							cam.EditorCamera.SetViewportSize(size.x, size.y);
- 							if(m_EditorSceneFramebuffer == nullptr)
- 								id = Renderer::GetMissingTexture()->GetRendererID();
- 							else
- 							{
- 								FramebufferSpecification spec = {size.x, size.y};
- 								m_EditorSceneFramebuffer->Rebuild(spec);
- 								id = m_EditorSceneFramebuffer->GetColorAttachment();
- 							}
- 						}
-					}
-					else
-					{
-						id = m_EditorSceneFramebuffer->GetColorAttachment();
-					}
-					
-				}
-
-				ImGui::Image((void*)id, size, {0, 0}, {1, -1});
-
-				
-				if (m_SelectedGameObject && m_ActiveScene)
-				{
-
-					ImGuizmo::SetOrthographic(false);
-					ImGuizmo::SetDrawlist();
-					ImGuizmo::SetRect(ImGui::GetWindowPos().x, ImGui::GetWindowPos().y, size.x, size.y);
-					auto& e_Camera = m_EditorCamera->GetComponent<EditorCameraComponent>();
-					glm::mat4 c_Proj = e_Camera.EditorCamera.GetProjectionMatrix();
-					glm::mat4 c_View = e_Camera.EditorCamera.GetViewMatrix();
-					auto& e_Transform = m_SelectedGameObject->GetComponent<TransformComponent>();
-					glm::mat4 c_Transform = e_Transform.GetTransform();
-					
-					ImGuizmo::Manipulate(glm::value_ptr(c_View), glm::value_ptr(c_Proj), (ImGuizmo::OPERATION)m_GizmoType, ImGuizmo::LOCAL, glm::value_ptr(c_Transform), nullptr, m_Snap ? glm::value_ptr(m_SnapValue) : nullptr);
-					if (ImGuizmo::IsUsing())
-					{
-						glm::vec3 position, rotation, scale;
-						Math::DecomposeTransform(c_Transform, position, rotation, scale);
-
-							e_Transform.Position = position;
-							e_Transform.Rotation = rotation;
-							e_Transform.Scale = scale;
-						
-					}
-				}
 				ImGui::End();
 			}
 
@@ -590,6 +545,84 @@ namespace tnah {
 				ImGui::End();
 				
 			}
+			
+			//Scene View Window 
+			if (sceneViewOpen)
+			{
+
+				ImGui::Begin("Scene View", &sceneViewOpen);
+				if (ImGui::IsWindowFocused()) m_FocusedWindow = FocusedWindow::SceneView;
+				uint32_t id = 0;
+				ImVec2 size = ImGui::GetContentRegionAvail();
+				
+
+				if(m_EditorCamera && m_State != EditorState::LoadingScene)
+				{
+ 					if(!Math::CompareImVec2(ImGui::GetWindowSize(), m_SceneViewSize))
+					{
+ 						if(!Input::IsMouseButtonPressed(Mouse::ButtonLeft))
+ 						{
+ 							m_SceneViewSize = ImGui::GetWindowSize();
+ 							auto& cam = m_EditorCamera.GetComponent<EditorCameraComponent>();
+ 							cam.EditorCamera.SetViewportSize(size.x, size.y);
+ 							if(m_EditorSceneFramebuffer == nullptr)
+ 								id = Renderer::GetMissingTexture()->GetRendererID();
+ 							else
+ 							{
+ 								FramebufferSpecification spec = {size.x, size.y};
+ 								m_EditorSceneFramebuffer->Rebuild(spec);
+ 								id = m_EditorSceneFramebuffer->GetColorAttachment();
+ 							}
+ 						}
+					}
+					else
+					{
+						id = m_EditorSceneFramebuffer->GetColorAttachment();
+					}
+					
+				}
+
+				ImGui::Image((void*)id, size, {0, 0}, {1, -1});
+
+				
+				if (m_GizmoType != -1 && m_SelectedGameObject && m_ActiveScene && m_State != EditorState::LoadingScene)
+				{
+					m_Snap = Input::IsKeyPressed(Key::LeftControl);
+					float rw = (float)ImGui::GetWindowWidth();
+					float rh = (float)ImGui::GetWindowHeight();
+					ImGuizmo::SetOrthographic(false);
+					ImGuizmo::SetDrawlist();
+					ImGuizmo::SetRect(ImGui::GetWindowPos().x, ImGui::GetWindowPos().y, rw, rh);
+					auto& e_Camera = m_EditorCamera.GetComponent<EditorCameraComponent>();
+					glm::mat4 c_Proj = e_Camera.EditorCamera.GetProjectionMatrix();
+					glm::mat4 c_View = e_Camera.EditorCamera.GetViewMatrix();
+					auto& e_Transform = m_SelectedGameObject->Transform();
+					glm::mat4 c_Transform = e_Transform.GetTransform();
+					auto snap = GetSnapValue();
+					float snapValues[3] = {snap, snap, snap};
+					ImGuizmo::Manipulate(glm::value_ptr(e_Camera.EditorCamera.GetViewMatrix()),
+						glm::value_ptr(e_Camera.EditorCamera.GetProjectionMatrix()),
+						(ImGuizmo::OPERATION)m_GizmoType,
+						ImGuizmo::LOCAL,
+						glm::value_ptr(c_Transform),
+						nullptr,
+						m_Snap ? snapValues : nullptr);
+					
+					if (ImGuizmo::IsUsing())
+					{
+						glm::vec3 position, rotation, scale;
+						Math::DecomposeTransform(c_Transform, position, rotation, scale);
+							glm::vec3 delta = rotation - e_Transform.Rotation;
+							e_Transform.Position = position;
+							e_Transform.Rotation += delta;
+							e_Transform.Scale = scale;
+						
+					}
+				}
+				ImGui::End();
+			}
+
+			
 
 			if (hierarchyOpen)
 			{
@@ -598,8 +631,9 @@ namespace tnah {
 
 
 				ImGui::Separator();
-				if(m_ActiveScene != nullptr)
+				if(m_ActiveScene != nullptr && m_State != EditorState::LoadingScene)
 				{
+					auto size = ImGui::GetWindowSize();
 					auto objects = m_ActiveScene->GetGameObjectsInScene();
 					for (auto& go : objects)
 					{
@@ -618,7 +652,7 @@ namespace tnah {
 							ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4{ 0.63f, 0.63f, 0.63f, 1.0f });
 						}
 
-						if (ImGui::Button(name.c_str()))
+						if (ImGui::Button(name.c_str(), {size.x, 0}))
 						{
 							m_HasObjectSelected = true;
 							m_SelectedGameObject = m_ActiveScene->GetRefGameObject(g.GetUUID());
@@ -644,12 +678,15 @@ namespace tnah {
 					// like if(object->HasComponent<MeshComponent>()
 					// Then use a set function to each part of the components property panel
 					// like DrawVec3Control()
-					EditorUI::DrawComponentProperties(m_SelectedGameObject);
+					if(m_State != EditorState::LoadingScene) EditorUI::DrawComponentProperties(*m_SelectedGameObject);
 
 				}
 				else
 				{
-					if(m_ActiveScene != nullptr) EditorUI::DrawComponentProperties(m_EditorCamera.get());
+					if(m_ActiveScene != nullptr && m_State != EditorState::LoadingScene)
+					{
+						EditorUI::DrawComponentProperties(m_EditorCamera);
+					}
 				}
 
 				ImGui::End();
@@ -693,32 +730,52 @@ namespace tnah {
 
 		}
 
+		void EditorLayer::CloseScene(Ref<Scene> scene)
+		{
+			m_EditorGameFramebuffer = nullptr;
+			m_EditorSceneFramebuffer = nullptr;
+
+			m_SelectedGameObject = nullptr;
+			 TNAH_CORE_ASSERT(m_ActiveScene->GetRefCount() == 1, "Scene cant be destroyed! Something is still holding a reference!");
+			m_ActiveScene = nullptr;
+		}
+
 		EditorLayer::~EditorLayer()
 		{
 		}
 
 		void EditorLayer::OnAttach()
 		{
-			m_ActiveScene = CreateRef<Scene>(true);
+			m_ActiveScene = Ref<Scene>::Create(true);
 			if(m_ActiveScene != nullptr)
 			{
-				m_EditorCamera = m_ActiveScene->GetEditorCameraGameObject();
 			
 				m_EditorSceneFramebuffer = m_ActiveScene->GetEditorSceneFramebuffer();
 				m_EditorGameFramebuffer = m_ActiveScene->GetEditorGameFramebuffer();
-			
-				m_SelectToolTex.reset(Texture2D::Create("assets/Editor/icons/SelectTool.png"));
-				m_MoveToolTex.reset(Texture2D::Create("assets/Editor/icons/MoveTool.png"));
-				m_RotateToolTex.reset(Texture2D::Create("assets/Editor/icons/RotateTool.png"));
-				m_ScaleToolTex.reset(Texture2D::Create("assets/Editor/icons/ScaleTool.png"));
+				m_EditorCamera = m_ActiveScene->GetEditorCamera();
+				
+				m_SelectToolTex = (Texture2D::Create("assets/Editor/icons/SelectTool.png"));
+				m_MoveToolTex = (Texture2D::Create("assets/Editor/icons/MoveTool.png"));
+				m_RotateToolTex = (Texture2D::Create("assets/Editor/icons/RotateTool.png"));
+				m_ScaleToolTex = (Texture2D::Create("assets/Editor/icons/ScaleTool.png"));
 
 			
 				m_SelectedGameObject = nullptr;
-
-				auto& c = m_EditorCamera->GetComponent<TransformComponent>();
-				c.Position -= c.Forward * 5.0f;
 			}
 		}
+	
+	float EditorLayer::GetSnapValue()
+		{
+			switch (m_GizmoType)
+			{
+			case  ImGuizmo::OPERATION::TRANSLATE: return 0.5f;
+			case  ImGuizmo::OPERATION::ROTATE: return 45.0f;
+			case  ImGuizmo::OPERATION::SCALE: return 0.5f;
+			default: return 0.5f;
+			}
+			return 0.0f;
+		}
+
 
 		void EditorLayer::OnDetach()
 		{

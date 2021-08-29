@@ -9,21 +9,21 @@
 #include "Platform/OpenGL/OpenGLTexture.h"
 
 namespace tnah {
-	Texture2D* Texture2D::Create(ImageFormat format, uint32_t width, uint32_t height, const void* data, TextureProperties properties)
+	Ref<Texture2D> Texture2D::Create(ImageFormat format, uint32_t width, uint32_t height, const void* data, TextureProperties properties)
 	{
 		switch (Renderer::GetAPI())
 		{
 		case RendererAPI::API::None:    TNAH_CORE_ASSERT(false, "RendererAPI::None is currently not supported!"); return nullptr;
-		case RendererAPI::API::OpenGL:  return new OpenGLTexture2D(format, width, height, data, properties);
+		case RendererAPI::API::OpenGL:  return Ref<OpenGLTexture2D>::Create(format, width, height, data, properties);
 		}
 
 		TNAH_CORE_ASSERT(false, "Unknown RendererAPI!");
 		return nullptr;
 	}
 
-	Texture2D* Texture2D::Load(const std::string& filePath, const bool& flipOnLoad)
+	Ref<Texture2D> Texture2D::Load(const std::string& filePath, const bool& flipOnLoad)
 	{
-		auto* texture = new Image();
+		auto texture = Ref<Image>::Create();
 		texture->m_Path = filePath;
 
 		int width, height, channels;
@@ -86,19 +86,18 @@ namespace tnah {
 		m_Loaded = false;
 	}
 
-	Texture2D* Texture2D::Create(uint32_t width, uint32_t height)
+	Ref<Texture2D> Texture2D::Create(uint32_t width, uint32_t height)
 	{
-		Texture2D* t = nullptr;
+		Ref<Texture2D> t = nullptr;
 		switch (Renderer::GetAPI())
 		{
 			case RendererAPI::API::None:    TNAH_CORE_ASSERT(false, "RendererAPI::None is currently not supported!"); return nullptr;
-			case RendererAPI::API::OpenGL:  t =  new OpenGLTexture2D(width, height);
+			case RendererAPI::API::OpenGL:  t =  Ref<OpenGLTexture2D>::Create(width, height);
 		}
 
 		if(t != nullptr)
 		{
-			Ref<Texture2D> texture; texture.reset(t);
-			Renderer::RegisterTexture(texture);
+			Renderer::RegisterTexture(t);
 			return t;
 		}
 
@@ -106,18 +105,17 @@ namespace tnah {
 		return nullptr;
 	}
 
-	Texture2D* Texture2D::Create(const std::string& path, const std::string& textureName, bool loadFromMemory, void* assimpTexture)
+	Ref<Texture2D> Texture2D::Create(const std::string& path, const std::string& textureName, bool loadFromMemory, void* assimpTexture)
 	{
-		Texture2D* t = nullptr;
+		Ref<Texture2D> t = nullptr;
 		switch (Renderer::GetAPI())
 		{
 			case RendererAPI::API::None:    TNAH_CORE_ASSERT(false, "RendererAPI::None is currently not supported!"); return nullptr;
-			case RendererAPI::API::OpenGL:  t = new OpenGLTexture2D(path, textureName, loadFromMemory, assimpTexture);
+			case RendererAPI::API::OpenGL:  t = Ref<OpenGLTexture2D>::Create(path, textureName, loadFromMemory, assimpTexture);
 		}
 		if(t != nullptr)
 		{
-			Ref<Texture2D> texture; texture.reset(t);
-			Renderer::RegisterTexture(texture);
+			Renderer::RegisterTexture(t);
 			return t;
 		}
 
@@ -127,13 +125,13 @@ namespace tnah {
 
 
 
-	Texture3D* Texture3D::Create(const std::vector<std::string>& paths, const std::string& textureName)
+	Ref<Texture3D> Texture3D::Create(const std::vector<std::string>& paths, const std::string& textureName)
 	{
-		Texture3D* t = nullptr;
+		Ref<Texture3D> t = nullptr;
 		switch (Renderer::GetAPI())
 		{
 		case RendererAPI::API::None:    TNAH_CORE_ASSERT(false, "RendererAPI::None is currently not supported!"); return nullptr;
-		case RendererAPI::API::OpenGL:  t = new OpenGLTexture3D(paths, textureName);
+		case RendererAPI::API::OpenGL:  t = Ref<OpenGLTexture3D>::Create(paths, textureName);
 		}
 
 		if(t != nullptr)
@@ -145,13 +143,13 @@ namespace tnah {
 		return nullptr;
 	}
 
-	Texture3D* Texture3D::Create(const Texture3DProperties& properties, const std::string& textureName)
+	Ref<Texture3D> Texture3D::Create(const Texture3DProperties& properties, const std::string& textureName)
 	{
-		Texture3D* t = nullptr;
+		Ref<Texture3D> t = nullptr;
 		switch (Renderer::GetAPI())
 		{
 			case RendererAPI::API::None:    TNAH_CORE_ASSERT(false, "RendererAPI::None is currently not supported!"); return nullptr;
-			case RendererAPI::API::OpenGL:  t = new OpenGLTexture3D(properties, textureName);
+			case RendererAPI::API::OpenGL:  t = Ref<OpenGLTexture3D>::Create(properties, textureName);
 		}
 
 		if(t != nullptr)

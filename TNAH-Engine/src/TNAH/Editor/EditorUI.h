@@ -6,7 +6,7 @@ namespace tnah {
     {
     public:
         EditorUI();
-        static void DrawComponentProperties(GameObject* object);
+        static void DrawComponentProperties(GameObject& object);
 
     private:
         static bool DrawFloatControl(const std::string& label, float& value, float min = 0.0f, float max = 0.0f, bool readOnly = false);

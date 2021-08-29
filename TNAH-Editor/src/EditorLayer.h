@@ -17,7 +17,8 @@ namespace tnah {
 		void OnImGuiRender() override;
 
 		void OnEvent(Event& event) override;
-
+		void CloseScene(Ref<Scene> scene);
+		float GetSnapValue();
 
 		~EditorLayer() override;
 		void OnAttach() override;
@@ -27,10 +28,16 @@ namespace tnah {
 		{
 			None, SceneView, Statistics, Properties, Hierarchy
 		};
+
+		enum class EditorState
+		{
+			LoadingScene, Play, Edit, Idle
+		};
 	
+		EditorState m_State = EditorState::Idle;
 		
 		Ref<Scene> m_ActiveScene;
-		Ref<GameObject> m_EditorCamera;
+		GameObject m_EditorCamera;
 		FocusedWindow m_FocusedWindow;
 
 		GameObject* m_SelectedGameObject;

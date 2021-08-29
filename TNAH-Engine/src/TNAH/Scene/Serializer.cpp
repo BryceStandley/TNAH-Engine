@@ -11,7 +11,7 @@ namespace tnah {
     
     Resource Serializer::s_SceneResource = Resource();
     
-    bool Serializer::SerializeScene(Scene* scene, const std::string& filePath)
+    bool Serializer::SerializeScene(Ref<Scene> scene, const std::string& filePath)
     {
         std::fstream sceneFile;
         sceneFile.exceptions(std::fstream::failbit | std::fstream::badbit);
@@ -39,35 +39,35 @@ namespace tnah {
         return false;
     }
 
-    std::string Serializer::GenerateGlobalSettings(Scene* scene)
+    std::string Serializer::GenerateGlobalSettings(Ref<Scene> scene)
     {
         
-        auto sceneCam = scene->GetMainCameraGameObject();
-        auto sceneLight = scene->GetSceneLightGameObject();
+        auto sceneCam = scene->GetSceneCamera();
+        auto sceneLight = scene->GetSceneLight();
         std::stringstream ss;
 
         ss << GenerateTagOpen("global", 1);
         if(scene->m_IsEditorScene)
         {
-            auto editorCam = scene->GetEditorCameraGameObject();
+            auto editorCam = scene->GetEditorCamera();
             ss << GenerateTagOpen("editor", 2);
-            ss << GenerateTagEntry(editorCam->GetComponent<TagComponent>(), 3);
-            ss << GenerateTransform(editorCam->GetComponent<TransformComponent>(), 3);
-            ss << GenerateCamera(editorCam->GetComponent<EditorCameraComponent>(), 3);
+            ss << GenerateTagEntry(editorCam.GetComponent<TagComponent>(), 3);
+            ss << GenerateTransform(editorCam.GetComponent<TransformComponent>(), 3);
+            ss << GenerateCamera(editorCam.GetComponent<EditorCameraComponent>(), 3);
             ss << GenerateTagClose("editor", 2);
         }
 
         ss << GenerateTagOpen("sceneCamera", 2);
-        ss << GenerateTagEntry(sceneCam->GetComponent<TagComponent>(), 3);
-        ss << GenerateTransform(sceneCam->GetComponent<TransformComponent>(),3 );
-        ss << GenerateCamera(sceneCam->GetComponent<CameraComponent>(), 3);
+        ss << GenerateTagEntry(sceneCam.GetComponent<TagComponent>(), 3);
+        ss << GenerateTransform(sceneCam.GetComponent<TransformComponent>(),3 );
+        ss << GenerateCamera(sceneCam.GetComponent<CameraComponent>(), 3);
         ss << GenerateTagClose("sceneCamera", 2);
 
         ss << GenerateTagOpen("sceneLight", 2);
-        if(sceneLight->HasComponent<TagComponent>(), 3)
-            ss << GenerateTagEntry(sceneLight->GetComponent<TagComponent>(), 3);
-        ss << GenerateTransform(sceneLight->GetComponent<TransformComponent>(), 3);
-        ss << GenerateLight(sceneLight->GetComponent<LightComponent>(), 3);
+        if(sceneLight.HasComponent<TagComponent>(), 3)
+            ss << GenerateTagEntry(sceneLight.GetComponent<TagComponent>(), 3);
+        ss << GenerateTransform(sceneLight.GetComponent<TransformComponent>(), 3);
+        ss << GenerateLight(sceneLight.GetComponent<LightComponent>(), 3);
         ss << GenerateTagClose("sceneLight", 2);
         
         ss << GenerateTagClose("global", 1);
@@ -75,7 +75,7 @@ namespace tnah {
         return ss.str();
     }
 
-    std::string Serializer::GenerateSceneSettings(Scene* scene)
+    std::string Serializer::GenerateSceneSettings(Ref<Scene> scene)
     {
         auto& objects = scene->GetGameObjectsInScene();
         std::stringstream ss;
@@ -83,9 +83,9 @@ namespace tnah {
         for(auto& go : objects)
         {
             //Skip if the game object is a global game object
-            if(go.first == scene->GetMainCameraGameObject()->GetUUID()) continue;
-            if(go.first == scene->GetSceneLightGameObject()->GetUUID()) continue;
-            if(go.first == scene->GetEditorCameraGameObject()->GetUUID()) continue;
+            if(go.first == scene->GetSceneCamera().GetUUID()) continue;
+            if(go.first == scene->GetSceneLight().GetUUID()) continue;
+            if(go.first == scene->GetEditorCamera().GetUUID()) continue;
             
             ss << GenerateTagOpen("gameObject", 2);
             auto& g = go.second;
@@ -113,7 +113,7 @@ namespace tnah {
     std::string Serializer::GenerateTagOpen(const std::string& tagType, const uint32_t& totalTabs)
     {
         std::string tabs = "";
-        for(int i = 0; i < totalTabs; i++)
+        for(uint32_t i = 0; i < totalTabs; i++)
             tabs += "\t"; 
         return tabs +"<" + tagType + ">\n";
     }
@@ -121,7 +121,7 @@ namespace tnah {
     std::string Serializer::GenerateTagClose(const std::string& tagType, const uint32_t& totalTabs)
     {
         std::string tabs = "";
-        for(int i = 0; i < totalTabs; i++)
+        for(uint32_t i = 0; i < totalTabs; i++)
             tabs += "\t"; 
         return tabs + "</" + tagType + ">\n";
     }
@@ -129,7 +129,7 @@ namespace tnah {
     std::string Serializer::GenerateTagOpen(const char* tagType, const uint32_t& totalTabs)
     {
         std::string tabs = "";
-        for(int i = 0; i < totalTabs; i++)
+        for(uint32_t i = 0; i < totalTabs; i++)
             tabs += "\t"; 
         std::string s = tabs + "<";
         s += tagType;
@@ -140,7 +140,7 @@ namespace tnah {
     std::string Serializer::GenerateTagClose(const char* tagType, const uint32_t& totalTabs)
     {
         std::string tabs = "";
-        for(int i = 0; i < totalTabs; i++)
+        for(uint32_t i = 0; i < totalTabs; i++)
             tabs += "\t"; 
         
         std::string s = tabs +"</";
@@ -247,7 +247,7 @@ namespace tnah {
     {
         std::stringstream ss;
         const char* comp[] = {"x", "y", "z"};
-        for(int i = 0; i < 3; i++)
+        for(uint32_t i = 0; i < 3; i++)
         {
             ss << GenerateValueEntry(comp[i], value[i],totalTabs);
             
@@ -260,7 +260,7 @@ namespace tnah {
     {
         std::stringstream ss;
         const char* comp[] = {"x", "y", "z", "w"};
-        for(int i = 0; i < 4; i++)
+        for(uint32_t i = 0; i < 4; i++)
         {
             ss << GenerateValueEntry(comp[i], value[i],totalTabs);
             
@@ -311,7 +311,7 @@ namespace tnah {
     std::string Serializer::GenerateValueEntry(const std::string& tagType, const float& value, const uint32_t& totalTabs)
     {
         std::string tabs = "";
-        for(int i = 0; i < totalTabs +2; i++)
+        for(uint32_t i = 0; i < totalTabs +2; i++)
             tabs += "\t";
         
         std::stringstream ss;
@@ -327,7 +327,7 @@ namespace tnah {
     std::string Serializer::GenerateValueEntry(const std::string& tagType, const int& value, const uint32_t& totalTabs)
     {
         std::string tabs = "";
-        for(int i = 0; i < totalTabs +2; i++)
+        for(uint32_t i = 0; i < totalTabs +2; i++)
             tabs += "\t";
         std::stringstream ss;
 
@@ -342,7 +342,7 @@ namespace tnah {
     std::string Serializer::GenerateValueEntry(const std::string& tagType, const bool& value, const uint32_t& totalTabs)
     {
         std::string tabs = "";
-        for(int i = 0; i < totalTabs +2; i++)
+        for(uint32_t i = 0; i < totalTabs +2; i++)
             tabs += "\t";
         std::stringstream ss;
 
@@ -360,7 +360,7 @@ namespace tnah {
     std::string Serializer::GenerateValueEntry(const std::string& tagType, const std::string& value, const uint32_t& totalTabs)
     {
         std::string tabs = "";
-        for(int i = 0; i < totalTabs +2; i++)
+        for(uint32_t i = 0; i < totalTabs +2; i++)
             tabs += "\t";
         
         std::stringstream ss;
@@ -375,7 +375,7 @@ namespace tnah {
 //***********************************************************************************************************************
     //Deserialize scene functions
     
-    Scene* Serializer::DeserializeScene(const std::string& filePath)
+    Ref<Scene> Serializer::DeserializeScene(const std::string& filePath)
     {
         std::string result;
         std::ifstream in(filePath, std::ios::in | std::ios::binary);
@@ -404,7 +404,7 @@ namespace tnah {
 
         // the file has been opened and read in to a string, now parse the string like normal finding the required tags
         int currentPos = 0;
-        Scene* scene = nullptr;
+        Ref<Scene> scene = nullptr;
         s_SceneResource = Resource(filePath);
         scene = GetGlobalSettingsFromFile(scene, result, currentPos);
         if(scene != nullptr)
@@ -420,7 +420,7 @@ namespace tnah {
         return nullptr;
     }
 
-    Scene* Serializer::GetGlobalSettingsFromFile(Scene* scene, const std::string& fileContents, int& currentPos)
+    Ref<Scene> Serializer::GetGlobalSettingsFromFile(Ref<Scene> scene, const std::string& fileContents, int& currentPos)
     {
         //check each level of the global settings to make sure nothing is missing
         // if anything is missing, the file is corrupt, return false
@@ -430,7 +430,7 @@ namespace tnah {
             const auto global = FindTags("global", fileContents);
             if(CheckTags(global))
             {
-                currentPos = global.second; // the current position in the string is the end of the global section
+                currentPos = (int)global.second; // the current position in the string is the end of the global section
                 if(Application::Get().CheckEditor()) // Only create and check editor scene related objects if the application is in editor mode
                 {
                     const auto editor = FindTags("editor", fileContents);
@@ -441,18 +441,18 @@ namespace tnah {
                         auto tag = FindTags("tag", fileContents);
                         if(CheckTags(tag))
                         {
-                            auto editorCam = scene->GetEditorCameraGameObject();
+                            auto& editorCam = scene->GetEditorCamera();
                             //auto tagPos = FindTags("tag", fileContents, editor.first, editor.second);
                             auto transformPos = FindTags("transform", fileContents, editor.first, editor.second);
                             auto cameraPos = FindTags("camera", fileContents, editor.first, editor.second);
                         
-                            auto& t = editorCam->GetComponent<TagComponent>();
+                            auto& t = editorCam.GetComponent<TagComponent>();
                             t = GetTagFromFile(fileContents, tag);
 
-                            auto& transform = editorCam->GetComponent<TransformComponent>();
+                            auto& transform = editorCam.Transform();
                             transform = GetTransformFromFile(fileContents, transformPos);
 
-                            auto& camera = editorCam->GetComponent<EditorCameraComponent>();
+                            auto& camera = editorCam.GetComponent<EditorCameraComponent>();
                             camera.EditorCamera = GetCameraFromFile(fileContents, cameraPos);
                         }
                     }
@@ -461,14 +461,14 @@ namespace tnah {
                 auto sceneCam = FindTags("sceneCamera", fileContents);
                 if(CheckTags(sceneCam))
                 {
-                    auto cam = scene->GetMainCameraGameObject();
+                    auto cam = scene->GetSceneCamera();
                     auto tagPos = FindTags("tag", fileContents, sceneCam.first, sceneCam.second);
                     auto transformPos = FindTags("transform", fileContents, sceneCam.first, sceneCam.second);
                     auto cameraPos  = FindTags("camera", fileContents, sceneCam.first, sceneCam.second);
 
-                    auto& tag = cam->GetComponent<TagComponent>();
-                    auto& camera = cam->GetComponent<CameraComponent>();
-                    auto& transform = cam->GetComponent<TransformComponent>();
+                    auto& tag = cam.GetComponent<TagComponent>();
+                    auto& camera = cam.GetComponent<CameraComponent>();
+                    auto& transform = cam.Transform();
 
                     tag = GetTagFromFile(fileContents, tagPos);
                     camera.Camera = GetCameraFromFile(fileContents, cameraPos);
@@ -479,14 +479,14 @@ namespace tnah {
                 auto sceneLight = FindTags("sceneLight", fileContents);
                 if(CheckTags(sceneLight))
                 {
-                    auto light = scene->GetSceneLightGameObject();
+                    auto light = scene->GetSceneLight();
                     auto tagPos = FindTags("tag", fileContents, sceneLight.first, sceneLight.second);
                     auto transformPos = FindTags("transform", fileContents, sceneLight.first, sceneLight.second);
                     auto lightPos = FindTags("light", fileContents, sceneLight.first, sceneLight.second);
 
-                    auto& tag = light->GetComponent<TagComponent>();
-                    auto& transform = light->GetComponent<TransformComponent>();
-                    auto& sLight = light->GetComponent<LightComponent>();
+                    auto& tag = light.GetComponent<TagComponent>();
+                    auto& transform = light.Transform();
+                    auto& sLight = light.GetComponent<LightComponent>();
 
                     tag = GetTagFromFile(fileContents, tagPos);
                     transform = GetTransformFromFile(fileContents, transformPos);
@@ -500,11 +500,11 @@ namespace tnah {
         return nullptr;
     }
 
-    Scene* Serializer::GetSceneStructureFromFile(Scene* scene, const std::string& fileContents, int& currentPos)
+    Ref<Scene> Serializer::GetSceneStructureFromFile(Ref<Scene> scene, const std::string& fileContents, int& currentPos)
     {
         
         auto hierarchy = FindTags("hierarchy", fileContents, currentPos);
-        int nextGameobjectPos = hierarchy.first;
+        int nextGameobjectPos = (int)hierarchy.first;
         if(CheckTags(hierarchy))
         {
             auto go = FindTags("gameObject", fileContents, nextGameobjectPos);
@@ -514,7 +514,7 @@ namespace tnah {
                 {
                     GenerateValuesLoadError("GameObject");
                 }
-                nextGameobjectPos = go.second + strlen("</gameObject>");
+                nextGameobjectPos = (int)go.second + strlen("</gameObject>");
                 go = FindTags("gameObject", fileContents, nextGameobjectPos);
             }
             return scene;
@@ -522,7 +522,7 @@ namespace tnah {
         return nullptr;
     }
 
-    Scene* Serializer::GetGameObjectFromFile(Scene* scene, const std::string& fileContents,
+    Ref<Scene> Serializer::GetGameObjectFromFile(Ref<Scene> scene, const std::string& fileContents,
         std::pair<size_t, size_t> gameObjectTagPositions)
     {
         
@@ -534,7 +534,7 @@ namespace tnah {
         
         auto tag = GetTagFromFile(fileContents, tagPos);
         auto object = scene->CreateGameObject(tag.Tag);
-        auto& transform = object->GetComponent<TransformComponent>();
+        auto& transform = object.Transform();
         transform = GetTransformFromFile(fileContents, transformPos);
         
         FindAndAddComponentsFromFile(object, fileContents, gameObjectTagPositions);
@@ -542,7 +542,7 @@ namespace tnah {
         return scene;
     }
 
-    int Serializer::FindAndAddComponentsFromFile(GameObject* gameObject, const std::string& fileContents,
+    int Serializer::FindAndAddComponentsFromFile(GameObject& gameObject, const std::string& fileContents,
         std::pair<size_t, size_t> gameObjectTagPositions)
     {
         //Here we just try and find each component in the file and add it to the component if we find a entry for ii
@@ -550,49 +550,49 @@ namespace tnah {
         auto cameraPos = FindTags("camera", fileContents, gameObjectTagPositions.first, gameObjectTagPositions.second);
         if(CheckTags(cameraPos))
         {
-            gameObject->AddComponent<CameraComponent>(GetCameraFromFile(fileContents, cameraPos));
+            gameObject.AddComponent<CameraComponent>(GetCameraFromFile(fileContents, cameraPos));
             added++;
         }
 
         auto meshPos = FindTags("mesh", fileContents, gameObjectTagPositions.first, gameObjectTagPositions.second);
         if(CheckTags(meshPos))
         {
-            gameObject->AddComponent<MeshComponent>(GetMeshFromFile(fileContents, meshPos));
+            gameObject.AddComponent<MeshComponent>(GetMeshFromFile(fileContents, meshPos));
             added++;
         }
 
         auto playerControllerPos = FindTags("playerController", fileContents, gameObjectTagPositions.first, gameObjectTagPositions.second);
         if(CheckTags(playerControllerPos))
         {
-            gameObject->AddComponent<PlayerControllerComponent>(GetPlayerControllerFromFile(fileContents, playerControllerPos));
+            gameObject.AddComponent<PlayerControllerComponent>(GetPlayerControllerFromFile(fileContents, playerControllerPos));
             added++;
         }
 
         auto nativePos = FindTags("nativeScript", fileContents, gameObjectTagPositions.first, gameObjectTagPositions.second);
         if(CheckTags(nativePos))
         {
-            gameObject->AddComponent<NativeScriptComponent>(GetNativeScriptFromFile(fileContents, nativePos));
+            gameObject.AddComponent<NativeScriptComponent>(GetNativeScriptFromFile(fileContents, nativePos));
             added++;
         }
 
         auto terrainPos = FindTags("terrain", fileContents, gameObjectTagPositions.first, gameObjectTagPositions.second);
         if(CheckTags(terrainPos))
         {
-            gameObject->AddComponent<TerrainComponent>(GetTerrainFromFile(fileContents, terrainPos));
+            gameObject.AddComponent<TerrainComponent>(GetTerrainFromFile(fileContents, terrainPos));
             added++;
         }
 
         auto lightPos = FindTags("light", fileContents, gameObjectTagPositions.first, gameObjectTagPositions.second);
         if(CheckTags(lightPos))
         {
-            gameObject->AddComponent<LightComponent>(GetLightFromFile(fileContents, lightPos));
+            gameObject.AddComponent<LightComponent>(GetLightFromFile(fileContents, lightPos));
             added++;
         }
 
         auto skyboxPos = FindTags("skybox", fileContents, gameObjectTagPositions.first, gameObjectTagPositions.second);
         if(CheckTags(skyboxPos))
         {
-            gameObject->AddComponent<SkyboxComponent>(GetSkyboxFromFile(fileContents, skyboxPos));
+            gameObject.AddComponent<SkyboxComponent>(GetSkyboxFromFile(fileContents, skyboxPos));
             added++;
         }
 

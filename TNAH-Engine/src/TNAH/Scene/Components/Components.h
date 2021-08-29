@@ -166,12 +166,12 @@ namespace tnah {
 
 	struct MeshComponent
 	{
-		Ref<tnah::Model> Model;
+		Ref<Model> Model;
 
 		MeshComponent() = default;
-		MeshComponent(const std::string& modelPath) :Model(Model::Create(modelPath)) {}
+		MeshComponent(const std::string& modelPath) { Model = Model::Create(modelPath); }
 		MeshComponent(const MeshComponent& other) = default;
-		MeshComponent(const Ref<tnah::Model>& model)
+		MeshComponent(Ref<tnah::Model> model)
 			: Model(model) {}
 
 		operator Ref<tnah::Model>() { return Model; }

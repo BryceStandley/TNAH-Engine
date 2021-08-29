@@ -8,24 +8,24 @@
 
 namespace tnah {
 
-	VertexBuffer* VertexBuffer::Create(float* vertices, uint32_t size)
+	Ref<VertexBuffer> VertexBuffer::Create(float* vertices, uint32_t size)
 	{
 		switch (Renderer::GetAPI())
 		{
 			case RendererAPI::API::None:    TNAH_CORE_ASSERT(false, "RendererAPI::None is currently not supported!"); return nullptr;
-			case RendererAPI::API::OpenGL:  return new OpenGLVertexBuffer(vertices, size);
+			case RendererAPI::API::OpenGL:  return Ref<OpenGLVertexBuffer>::Create(vertices, size);
 		}
 
 		TNAH_CORE_ASSERT(false, "Unknown RendererAPI!");
 		return nullptr;
 	}
 
-	VertexBuffer* VertexBuffer::Create(void* vertices, uint32_t size)
+	Ref<VertexBuffer> VertexBuffer::Create(void* vertices, uint32_t size)
 	{
 		switch (Renderer::GetAPI())
 		{
 		case RendererAPI::API::None:    TNAH_CORE_ASSERT(false, "RendererAPI::None is currently not supported!"); return nullptr;
-		case RendererAPI::API::OpenGL:  return new OpenGLVertexBuffer(vertices, size);
+		case RendererAPI::API::OpenGL:  return Ref<OpenGLVertexBuffer>::Create(vertices, size);
 		}
 
 		TNAH_CORE_ASSERT(false, "Unknown RendererAPI!");
@@ -33,85 +33,85 @@ namespace tnah {
 	}
 	
 
-	IndexBuffer* IndexBuffer::Create(uint32_t* indices, uint32_t size)
+	Ref<IndexBuffer> IndexBuffer::Create(uint32_t* indices, uint32_t size)
 	{
 		switch (Renderer::GetAPI())
 		{
 			case RendererAPI::API::None:    TNAH_CORE_ASSERT(false, "RendererAPI::None is currently not supported!"); return nullptr;
-			case RendererAPI::API::OpenGL:  return new OpenGLIndexBuffer(indices, size);
+			case RendererAPI::API::OpenGL:  return Ref<OpenGLIndexBuffer>::Create(indices, size);
 		}
 
 		TNAH_CORE_ASSERT(false, "Unknown RendererAPI!");
 		return nullptr;
 	}
 
-	IndexBuffer* IndexBuffer::Create(void* indices, uint32_t size)
+	Ref<IndexBuffer> IndexBuffer::Create(void* indices, uint32_t size)
 	{
 		switch (Renderer::GetAPI())
 		{
 			case RendererAPI::API::None:    TNAH_CORE_ASSERT(false, "RendererAPI::None is currently not supported!"); return nullptr;
-			case RendererAPI::API::OpenGL:  return new OpenGLIndexBuffer(indices, size);
+			case RendererAPI::API::OpenGL:  return Ref<OpenGLIndexBuffer>::Create(indices, size);
 		}
 
 		TNAH_CORE_ASSERT(false, "Unknown RendererAPI!");
 		return nullptr;
 	}
 
-	IndexBuffer* IndexBuffer::Create(uint32_t size)
+	Ref<IndexBuffer> IndexBuffer::Create(uint32_t size)
 	{
 		switch (Renderer::GetAPI())
 		{
 		case RendererAPI::API::None:    TNAH_CORE_ASSERT(false, "RendererAPI::None is currently not supported!"); return nullptr;
-		case RendererAPI::API::OpenGL:  return new OpenGLIndexBuffer(size);
+		case RendererAPI::API::OpenGL:  return Ref<OpenGLIndexBuffer>::Create(size);
 		}
 
 		TNAH_CORE_ASSERT(false, "Unknown RendererAPI!");
 		return nullptr;
 	}
 
-	Framebuffer* Framebuffer::Create(const FramebufferSpecification& spec, uint32_t colorAttachments,
+	Ref<Framebuffer> Framebuffer::Create(const FramebufferSpecification& spec, uint32_t colorAttachments,
 		uint32_t depthAttachments)
 	{
 		switch (Renderer::GetAPI())
 		{
 		case RendererAPI::API::None:    TNAH_CORE_ASSERT(false, "RendererAPI::None is currently not supported!"); return nullptr;
-		case RendererAPI::API::OpenGL:  return new OpenGLFramebuffer(spec, colorAttachments, depthAttachments);
+		case RendererAPI::API::OpenGL:  return Ref<OpenGLFramebuffer>::Create(spec, colorAttachments, depthAttachments);
 		}
 
 		TNAH_CORE_ASSERT(false, "Unknown RendererAPI!");
 		return nullptr;
 	}
 
-	Framebuffer* Framebuffer::Create(const FramebufferSpecification& spec, uint32_t colorAttachments, std::vector<ColorAttachmentSpecs> colorSpecs)
+	Ref<Framebuffer> Framebuffer::Create(const FramebufferSpecification& spec, uint32_t colorAttachments, std::vector<ColorAttachmentSpecs> colorSpecs)
 	{
 		switch (Renderer::GetAPI())
 		{
 		case RendererAPI::API::None:    TNAH_CORE_ASSERT(false, "RendererAPI::None is currently not supported!"); return nullptr;
-		case RendererAPI::API::OpenGL:  return new OpenGLFramebuffer(spec, colorAttachments, colorSpecs);
+		case RendererAPI::API::OpenGL:  return Ref<OpenGLFramebuffer>::Create(spec, colorAttachments, colorSpecs);
 		}
 
 		TNAH_CORE_ASSERT(false, "Unknown RendererAPI!");
 		return nullptr;
 	}
 
-	Framebuffer* Framebuffer::Create(const FramebufferSpecification& spec, const RenderbufferSpecification& renderSpec)
+	Ref<Framebuffer> Framebuffer::Create(const FramebufferSpecification& spec, const RenderbufferSpecification& renderSpec)
 	{
 		switch (Renderer::GetAPI())
 		{
 		case RendererAPI::API::None:    TNAH_CORE_ASSERT(false, "RendererAPI::None is currently not supported!"); return nullptr;
-		case RendererAPI::API::OpenGL:  return new OpenGLFramebuffer(spec, renderSpec);
+		case RendererAPI::API::OpenGL:  return Ref<OpenGLFramebuffer>::Create(spec, renderSpec);
 		}
 
 		TNAH_CORE_ASSERT(false, "Unknown RendererAPI!");
 		return nullptr;
 	}
 
-	Renderbuffer* Renderbuffer::Create(const RenderbufferSpecification& renderSpec)
+	Ref<Renderbuffer> Renderbuffer::Create(const RenderbufferSpecification& renderSpec)
 	{
 		switch (Renderer::GetAPI())
 		{
 		case RendererAPI::API::None:    TNAH_CORE_ASSERT(false, "RendererAPI::None is currently not supported!"); return nullptr;
-		case RendererAPI::API::OpenGL:  return new OpenGLRenderBuffer(renderSpec);
+		case RendererAPI::API::OpenGL:  return Ref<OpenGLRenderBuffer>::Create(renderSpec);
 		}
 
 		TNAH_CORE_ASSERT(false, "Unknown RendererAPI!");

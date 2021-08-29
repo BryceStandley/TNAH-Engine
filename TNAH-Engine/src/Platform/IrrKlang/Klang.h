@@ -12,11 +12,11 @@ typedef std::vector<irrklang::ISound*> AudioPlaying;
 //TODO Add pause and loop functionality
 namespace  tnah
 {
-    class Klang : public AudioAPI
+    class Klang final : public AudioAPI
     {
     public:
         Klang();
-        ~Klang();
+        virtual ~Klang();
 
         bool SetListener(TransformComponent &transform) const override;//Updated to take trasnform, look = foward
         bool AddAudioSource(AudioSource&sound) override;

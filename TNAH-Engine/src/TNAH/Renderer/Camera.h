@@ -5,6 +5,7 @@ namespace tnah {
 	class Camera
 	{
 	public:
+		
 		Camera() = default;
 		Camera(const glm::mat4& projectionMatrix);
 		virtual ~Camera() = default;
@@ -16,7 +17,11 @@ namespace tnah {
 		float& GetExposure() { return m_Exposure; }
 
 		const glm::mat4& GetViewProjectionMatrix() const { return m_ViewProjection; }
+		static Camera* Main();
 	protected:
+		
+		static void SetMainCamera(Camera& other);
+		static Camera* MainCamera;
 		glm::mat4 m_ProjectionMatrix = glm::mat4(1.0f);
 		float m_Exposure = 0.8f;
 		glm::mat4 m_InvertTransformViewMatrix = glm::mat4(1.0f);
@@ -27,6 +32,7 @@ namespace tnah {
 		friend class Scene;
 	};
 
+	
 
 
 

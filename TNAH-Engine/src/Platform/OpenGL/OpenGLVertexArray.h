@@ -1,5 +1,6 @@
 #pragma once
 
+#include "TNAH/Core/Ref.h"
 #include "TNAH/Renderer/VertexArray.h"
 
 
@@ -16,8 +17,8 @@ namespace tnah {
 
 		void SetID(const uint32_t& id) override { m_RendererID = id; }
 		
-		void AddVertexBuffer(const std::shared_ptr<VertexBuffer>& vertexBuffer) override;
-		void SetIndexBuffer(const std::shared_ptr<IndexBuffer>& indexBuffer) override;
+		void AddVertexBuffer(const Ref<VertexBuffer>& vertexBuffer) override;
+		void SetIndexBuffer(const Ref<IndexBuffer>& indexBuffer) override;
 		void SetIndexSize(const uint32_t& size) override { m_IndexSize = size; }
 		
 		virtual const std::vector<Ref<VertexBuffer>>& GetVertexBuffers() const { return m_VertexBuffers; }

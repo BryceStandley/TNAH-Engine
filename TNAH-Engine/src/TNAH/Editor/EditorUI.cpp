@@ -8,31 +8,31 @@
 #include "TNAH/Core/FileManager.h"
 
 namespace tnah {
-    void EditorUI::DrawComponentProperties(GameObject* object)
+    void EditorUI::DrawComponentProperties(GameObject& object)
     {
 
-        if(object->HasComponent<TagComponent>())
+        if(object.HasComponent<TagComponent>())
         {
-        	auto& tag = object->GetComponent<TagComponent>();
+        	auto& tag = object.GetComponent<TagComponent>();
 			DrawTextControl("Name", tag.Tag, "GameObject");
         	ImGui::Separator();
         }
     	
        
-        if(object->HasComponent<TransformComponent>())
+        if(object.HasComponent<TransformComponent>())
         {
         	ImGui::Text("Transform");
-            auto& t = object->GetComponent<TransformComponent>();
+            auto& t = object.GetComponent<TransformComponent>();
             DrawVec3Control("Position", t.Position);
             DrawVec3Control("Rotation", t.Rotation);
             DrawVec3Control("Scale", t.Scale, false, 1);
         	ImGui::Separator();
         }
 
-    	if(object->HasComponent<CameraComponent>())
+    	if(object.HasComponent<CameraComponent>())
     	{
     		ImGui::Text("Camera");
-    		auto& c = object->GetComponent<CameraComponent>();
+    		auto& c = object.GetComponent<CameraComponent>();
 			static int selectedType = 1;
     		static const char* CameraTypes[]
     		{
@@ -109,7 +109,7 @@ namespace tnah {
     			{
     				c.Camera.SetPerspective(60);
     			}
-    			auto fov = glm::degrees(c.Camera.m_PerspectiveFOV);
+    			auto fov = c.Camera.GetPerspectiveVerticalFOV();
     			auto nearc = c.Camera.m_PerspectiveNear;
     			auto farc = c.Camera.m_PerspectiveFar;
     			
@@ -127,17 +127,17 @@ namespace tnah {
     		
     		if(DrawRemoveComponentButton())
     		{
-    			object->RemoveComponent<CameraComponent>();
+    			object.RemoveComponent<CameraComponent>();
     		}
     		
     		ImGui::Separator();
     	}
     	
 
-    	if(object->HasComponent<EditorCameraComponent>())
+    	if(object.HasComponent<EditorCameraComponent>())
     	{
     		ImGui::Text("Editor Camera");
-    		auto& c = object->GetComponent<EditorCameraComponent>();
+    		auto& c = object.GetComponent<EditorCameraComponent>();
     		auto fov = glm::degrees(c.EditorCamera.m_PerspectiveFOV);
     		auto nearc = c.EditorCamera.m_PerspectiveNear;
     		auto farc = c.EditorCamera.m_PerspectiveFar;
@@ -196,24 +196,24 @@ namespace tnah {
     		ImGui::Separator();
     	}
     	
-		if(object->HasComponent<TerrainComponent>())
+		if(object.HasComponent<TerrainComponent>())
 		{
-			auto& t = object->GetComponent<TerrainComponent>().SceneTerrain;
+			auto& t = object.GetComponent<TerrainComponent>().SceneTerrain;
 			ImGui::Text("Terrain");
 			DrawVec2Control("Size", t->m_Size, true);
 			ImGui::BulletText("Maybe have more options here to set the terrain textures?");
 
 			if(DrawRemoveComponentButton())
 			{
-				object->RemoveComponent<TerrainComponent>();
+				object.RemoveComponent<TerrainComponent>();
 			}
 			
 			ImGui::Separator();
 		}
     	
-    	if(object->HasComponent<MeshComponent>())
+    	if(object.HasComponent<MeshComponent>())
     	{
-    		auto m = object->GetComponent<MeshComponent>().Model;
+    		auto m = object.GetComponent<MeshComponent>().Model;
 			ImGui::Text("Mesh");
     		DrawTextControl("Model File", m->m_FilePath);
     		ImGui::Separator();
@@ -231,15 +231,15 @@ namespace tnah {
     		
     		if(DrawRemoveComponentButton())
     		{
-    			object->RemoveComponent<MeshComponent>();
+    			object.RemoveComponent<MeshComponent>();
     		}
     		
     		ImGui::Separator();
     	}
 
-    	if(object->HasComponent<LightComponent>())
+    	if(object.HasComponent<LightComponent>())
     	{
-    		auto& l = object->GetComponent<LightComponent>().Light;
+    		auto& l = object.GetComponent<LightComponent>().Light;
     		auto name = l->GetTypeAsString() + " Light";
     		ImGui::Text(name.c_str());
     		if(l->GetType() == Light::LightType::Directional)
@@ -277,14 +277,14 @@ namespace tnah {
     		{
     			if(DrawRemoveComponentButton())
     			{
-    				object->RemoveComponent<LightComponent>();
+    				object.RemoveComponent<LightComponent>();
     			}
     		}
     	}
 
-    	if(object->HasComponent<AudioListener>())
+    	if(object.HasComponent<AudioListener>())
     	{
-    		auto& listener = object->GetComponent<AudioListener>();
+    		auto& listener = object.GetComponent<AudioListener>();
     		ImGui::Text("Audio Listener");
     		
     		//ImGui::RadioButton("Active Listening: ", listener.m_ActiveListing);
@@ -293,15 +293,15 @@ namespace tnah {
 
     		if(DrawRemoveComponentButton())
     		{
-    			object->RemoveComponent<AudioListener>();
+    			object.RemoveComponent<AudioListener>();
     		}
 			
     		ImGui::Separator();
     	}
 
-    	if(object->HasComponent<AudioSource>())
+    	if(object.HasComponent<AudioSource>())
     	{
-    		auto& source = object->GetComponent<AudioSource>();
+    		auto& source = object.GetComponent<AudioSource>();
     		ImGui::Text("Audio Source");
     		
     		DrawTextControl("Source File", source.m_File.RelativeDirectory);
@@ -320,7 +320,7 @@ namespace tnah {
     		ImGui::Checkbox("Pause", &source.m_Paused);
     		if(DrawRemoveComponentButton())
     		{
-    			object->RemoveComponent<AudioSource>();
+    			object.RemoveComponent<AudioSource>();
     		}
 			
     		ImGui::Separator();
@@ -328,7 +328,7 @@ namespace tnah {
 		
     	
     	//Only add components to scene objects, the editor camera cant have components added to them
-    	if(!object->HasComponent<EditorCameraComponent>())
+    	if(!object.HasComponent<EditorCameraComponent>())
     	{
     		const char* items[] = { "Camera", "Terrain", "Mesh",  "Light", "AudioListener", "AudioSource"};
     		static int item_current_idx = 0;
@@ -348,39 +348,39 @@ namespace tnah {
     		
     		if (ImGui::Button("Add Component"))
     		{
-    			if (!object->HasComponent<CameraComponent>() && items[item_current_idx] == "Camera")
+    			if (!object.HasComponent<CameraComponent>() && items[item_current_idx] == "Camera")
     			{
-    				object->AddComponent<CameraComponent>();
+    				object.AddComponent<CameraComponent>();
     			}
 
-    			if (!object->HasComponent<EditorCameraComponent>() && items[item_current_idx] == "EditorCamera")
+    			if (!object.HasComponent<EditorCameraComponent>() && items[item_current_idx] == "EditorCamera")
     			{
-    				object->AddComponent<EditorCameraComponent>();
+    				object.AddComponent<EditorCameraComponent>();
     			}
 
-    			if (!object->HasComponent<TerrainComponent>() && items[item_current_idx] == "Terrain")
+    			if (!object.HasComponent<TerrainComponent>() && items[item_current_idx] == "Terrain")
     			{
     				//Add windows prompt to find heightmap
-    				object->AddComponent<TerrainComponent>("assets/heightmaps/1k.tga");
+    				object.AddComponent<TerrainComponent>("assets/heightmaps/1k.tga");
     			}
 
-    			if (!object->HasComponent<MeshComponent>() && items[item_current_idx] == "Mesh")
+    			if (!object.HasComponent<MeshComponent>() && items[item_current_idx] == "Mesh")
     			{
     				//Add windows prompt to find mesh
-    				object->AddComponent<MeshComponent>("assets/Editor/meshes/cube_texture.fbx");
+    				object.AddComponent<MeshComponent>("assets/Editor/meshes/cube_texture.fbx");
     			}
 
-    			if (!object->HasComponent<LightComponent>() && items[item_current_idx] == "Light")
+    			if (!object.HasComponent<LightComponent>() && items[item_current_idx] == "Light")
     			{
-    				object->AddComponent<LightComponent>();
+    				object.AddComponent<LightComponent>();
     			}
 
-    			if (!object->HasComponent<AudioListener>() && items[item_current_idx] == "AudioListener")
+    			if (!object.HasComponent<AudioListener>() && items[item_current_idx] == "AudioListener")
     			{
-    				object->AddComponent<AudioListener>();
+    				object.AddComponent<AudioListener>();
     			}
 
-    			if (!object->HasComponent<AudioSource>() && items[item_current_idx] == "AudioSource")
+    			if (!object.HasComponent<AudioSource>() && items[item_current_idx] == "AudioSource")
     			{
     				if (FileManager::OpenAudio())
     				{
@@ -392,7 +392,7 @@ namespace tnah {
     					else if(soundFile->FileOpenError != FileError::UserClosed)
     					{
     						Resource file = {soundFile->FilePath};
-    						object->AddComponent<AudioSource>(file);
+    						object.AddComponent<AudioSource>(file);
     					}
     				}
     			}
