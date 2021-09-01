@@ -17,6 +17,7 @@
 #include <Assimp/scene.h>
 #include <Assimp/postprocess.h>
 
+
 namespace tnah {
 struct Vertex
 {
@@ -111,6 +112,8 @@ struct Vertex
     
         std::vector<Mesh> GetMeshes() const { return m_Meshes; }
         uint32_t GetNumberOfMeshes() const { return static_cast<uint32_t>(m_Meshes.size()); }
+        auto& GetBoneInfoMap() { return m_BoneInfoMap; }
+        int& GetBoneCount() { return m_BoneCounter; }
     private:
 
         std::vector<Mesh> m_Meshes;
@@ -123,6 +126,7 @@ struct Vertex
         glm::mat4 AiToGLM(aiMatrix4x4t<float> m);
         glm::vec3 AiToGLM(aiVector3t<float> v);
         glm::quat AiToGLM(aiQuaterniont<float> q);
+        
         
         void SetVertexBoneDataToDefault(Vertex& vertex);
         void SetVertexBoneData(Vertex& vertex, int boneID, float weight);

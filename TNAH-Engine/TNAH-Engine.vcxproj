@@ -63,6 +63,9 @@
     <ClCompile Include="src\TNAH\Scene\Serializer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Animation.h" />
+    <ClInclude Include="AssimpGLMHelpers.h" />
+    <ClInclude Include="Bone.h" />
     <ClInclude Include="src\Platform\IrrKlang\Klang.h" />
     <ClInclude Include="src\TNAH\Audio\Audio.h" />
     <ClInclude Include="src\TNAH\Audio\AudioAPI.h" />
@@ -87,6 +90,7 @@
     <ClInclude Include="src\TNAH\Editor\EditorUI.h" />
     <ClInclude Include="src\TNAH\Layers\ImGuizmo.h" />
     <ClInclude Include="src\TNAH\Physics\PhysicsTimestep.h" />
+    <ClInclude Include="src\TNAH\Renderer\Animator.h" />
     <ClInclude Include="src\TNAH\Renderer\Image.h" />
     <ClInclude Include="src\TNAH\Renderer\Light.h" />
     <ClInclude Include="src\TNAH\Renderer\RenderingBuffers.h" />

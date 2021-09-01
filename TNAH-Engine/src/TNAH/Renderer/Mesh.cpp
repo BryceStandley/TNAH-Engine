@@ -1,6 +1,6 @@
 #include <tnahpch.h>
 #include "Mesh.h"
-
+#include "AssimpGLMHelpers.h"
 
 
 #include "Renderer.h"
@@ -215,7 +215,7 @@ namespace tnah {
             {
                 BoneInfo newBoneInfo;
                 newBoneInfo.id = m_BoneCounter;
-                //newBoneInfo.offset = AssimpGLMHelpers::ConvertMatrixToGLMFormat(mesh->mBones[boneIndex]->mOffsetMatrix);
+                newBoneInfo.offset = AssimpGLMHelpers::ConvertMatrixToGLMFormat(mesh->mBones[boneIndex]->mOffsetMatrix);
                 m_BoneInfoMap[boneName] = newBoneInfo;
                 boneID = m_BoneCounter;
                 m_BoneCounter++;
@@ -224,7 +224,7 @@ namespace tnah {
             {
                 boneID = m_BoneInfoMap[boneName].id;
             }
-            //assert(boneID != -1)
+            assert(boneID != -1);
             auto weights = mesh->mBones[boneIndex]->mWeights;
             int numWeights = mesh->mBones[boneIndex]->mNumWeights;
 
@@ -232,7 +232,7 @@ namespace tnah {
             {
                 int vertexId = weights[weightIndex].mVertexId;
                 float weight = weights[weightIndex].mWeight;
-                //assert(vertexId <= vertices.size());
+                assert(vertexId <= vertices.size());
                 SetVertexBoneData(vertices[vertexId], boneID, weight);
 
             }
@@ -323,8 +323,8 @@ namespace tnah {
                 }
             }
 
-            //vertex.Position = AssimpGLMHelpers::GetGLMVec(mesh->mVertices[i]);
-            //vertex.Normal = AssimpGLMHelpers::GetGLMVec(mesh->mNormals[i]);
+            v.Position = AssimpGLMHelpers::GetGLMVec(mesh->mVertices[i]);
+            v.Normal = AssimpGLMHelpers::GetGLMVec(mesh->mNormals[i]);
 
 
             glm::vec3 vec;
