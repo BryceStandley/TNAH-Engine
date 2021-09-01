@@ -11,11 +11,11 @@ namespace tnah
         static bool Init();
         static void Shutdown();
         static bool SetListener(TransformComponent &transforms);
-        static bool AddAudioSource(AudioSource &sound);
-        static bool UpdateAudioSource(AudioSource &sound);
+        static bool AddAudioSource(AudioSourceComponent &sound);
+        static bool UpdateAudioSource(AudioSourceComponent &sound);
         //static bool PlayAudioSource(AudioSource3D& sound, TransformComponent &transforms);
         static void OnUpdate();
-        static void UpdateSound(AudioSource& sound, TransformComponent &transforms);
+        static void UpdateSound(AudioSourceComponent& sound, TransformComponent &transforms);
         static bool Active();
         static void Clear();
     private:

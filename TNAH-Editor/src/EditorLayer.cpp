@@ -21,7 +21,7 @@ namespace tnah {
 		void EditorLayer::OnUpdate(Timestep deltaTime)
 		{	
 
-			if(m_FocusedWindow == FocusedWindow::SceneView && m_State != EditorState::LoadingScene)
+			if(m_SceneViewActive && m_State != EditorState::LoadingScene)
 			{
 				if(Input::IsKeyPressed(Key::LeftShift) || Input::IsKeyPressed(Key::RightShift))
 				{
@@ -87,52 +87,49 @@ namespace tnah {
 			static bool helpOpen = false;
 
 			//Imgui dock space setup, DONT TOUCH
-			static bool opt_fullscreen = true;
-			static bool opt_padding = false;
-			static ImGuiDockNodeFlags dockspace_flags = ImGuiDockNodeFlags_None;
+			static bool opt_fullscreen_persistant = true;
+			static ImGuiDockNodeFlags opt_Flags = ImGuiDockNodeFlags_None;
+			bool opt_fullscreen = opt_fullscreen_persistant;
+
+			ImGuiIO& io = ImGui::GetIO();
+			ImGuiStyle& style = ImGui::GetStyle();
+			
 			ImGuiWindowFlags window_flags = ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoDocking;
 			if (opt_fullscreen)
 			{
 				const ImGuiViewport* viewport = ImGui::GetMainViewport();
-				ImGui::SetNextWindowPos(viewport->WorkPos);
-				ImGui::SetNextWindowSize(viewport->WorkSize);
+				ImGui::SetNextWindowPos(viewport->Pos);
+				ImGui::SetNextWindowSize(viewport->Size);
 				ImGui::SetNextWindowViewport(viewport->ID);
 				ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.0f);
 				ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize, 0.0f);
 				window_flags |= ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove;
 				window_flags |= ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoNavFocus;
 			}
-			else
-			{
-				dockspace_flags &= ~ImGuiDockNodeFlags_PassthruCentralNode;
-			}
 
-			if (dockspace_flags & ImGuiDockNodeFlags_PassthruCentralNode)
-				window_flags |= ImGuiWindowFlags_NoBackground;
+			ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, {0, 0});
+			ImGui::Begin("Dockspace Demo", &dockspaceOpen, window_flags);
+			ImGui::PopStyleVar();
 
-			if (!opt_padding)
-				ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
-			ImGui::Begin("DockSpace Demo", &dockspaceOpen, window_flags);
-			if (!opt_padding)
-				ImGui::PopStyleVar();
-
-			if (opt_fullscreen)
+			if(opt_fullscreen)
 				ImGui::PopStyleVar(2);
 
-			// Submit the DockSpace
-			ImGuiIO& io = ImGui::GetIO();
+			float minWinSizeX = style.WindowMinSize.x;
+			style.WindowMinSize.x = 370.0f;
 			if (io.ConfigFlags & ImGuiConfigFlags_DockingEnable)
 			{
 				ImGuiID dockspace_id = ImGui::GetID("MyDockSpace");
-				ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), dockspace_flags);
+				ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), opt_Flags);
 			}
+
+			style.WindowMinSize.x = minWinSizeX;
 
 			//******************************************************************************//
 			// Add any menu items or windows here following the same structure as below
-
 			//Menu bar of the editor
 			if (ImGui::BeginMainMenuBar())
 			{
+			
 				if (ImGui::BeginMenu("File"))
 				{
 					if (ImGui::MenuItem("New Scene"))
@@ -156,7 +153,7 @@ namespace tnah {
 							m_EditorCamera = m_ActiveScene->GetEditorCamera();
 							m_EditorSceneFramebuffer = m_ActiveScene->GetEditorSceneFramebuffer();
 							m_EditorGameFramebuffer = m_ActiveScene->GetEditorGameFramebuffer();
-							m_State = EditorState::Idle;
+							m_State = EditorState::Edit;
 						}
 					}
 
@@ -185,7 +182,7 @@ namespace tnah {
 									m_EditorCamera = m_ActiveScene->GetEditorCamera();
 									m_EditorGameFramebuffer = m_ActiveScene->GetEditorGameFramebuffer();
 									m_EditorSceneFramebuffer = m_ActiveScene->GetEditorSceneFramebuffer();
-									m_State = EditorState::Idle;
+									m_State = EditorState::Edit;
 								}
 							}
 							else
@@ -325,7 +322,7 @@ namespace tnah {
 							if(ImGui::MenuItem("Audio Listener"))
 							{
 								auto newObject = m_ActiveScene->CreateGameObject("AudioListener (" + std::to_string(CountGameObjects("AudioListener")) + ")");
-								newObject.AddComponent<AudioListener>();
+								newObject.AddComponent<AudioListenerComponent>();
 							}
 
 							if(ImGui::MenuItem("Audio Source"))
@@ -341,7 +338,7 @@ namespace tnah {
 									{
 										Resource file = {soundFile->FilePath};
 										auto newObject = m_ActiveScene->CreateGameObject("AudioSource (" + std::to_string(CountGameObjects("AudioSource")) + ")");
-										newObject.AddComponent<AudioSource>(soundFile->FilePath);
+										newObject.AddComponent<AudioSourceComponent>(soundFile->FilePath);
 									}
 								}
 							}
@@ -421,6 +418,38 @@ namespace tnah {
 				ImGui::EndMainMenuBar();
 			}
 
+		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 2));
+		ImGui::PushStyleVar(ImGuiStyleVar_ItemInnerSpacing, ImVec2(0, 0));
+		ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
+		ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.3f, 0.305f, 0.31f, 0.5f));
+		ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0.15f, 0.1505f, 0.151f, 0.5f));
+
+		
+		{
+			ImGui::Begin("##tool_bar", NULL, ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
+			float size = ImGui::GetWindowHeight() - 4.0f;
+			ImGui::SameLine((ImGui::GetWindowContentRegionMax().x / 2.0f) - (1.5f * (ImGui::GetFontSize() + ImGui::GetStyle().ItemSpacing.x)) - (size / 2.0f));
+			Ref<Texture2D> buttonTex = m_State == EditorState::Play ? m_StopButtonTex : m_PlayButtonTex;
+			if (ImGui::ImageButton((void*)(intptr_t)buttonTex->GetRendererID(), ImVec2(size, size), ImVec2(0, 0), ImVec2(1, 1), 0))
+			{
+				// if in play mode and the button is pressed, change to edit mode or play mode if currently in edit mode
+				m_State = m_State == EditorState::Play ? EditorState::Edit : EditorState::Play;
+			}
+
+			ImGui::SameLine();
+			if(ImGui::ImageButton((ImTextureID)(size_t)m_PauseButtonTex->GetRendererID(), {size, size}, {0,0}, {1,1}, 0))
+			{
+				m_State = EditorState::Pause;
+			}
+			
+			
+
+			ImGui::PopStyleColor(3);
+			ImGui::PopStyleVar(2);
+			ImGui::End();
+		}
+		
+
 			if (helpOpen)
 			{
 				ImGui::OpenPopup("Key Bindings");
@@ -441,49 +470,6 @@ namespace tnah {
 				}
 
 				//put other help popups here
-			}
-
-			{
-				auto viewportStart = ImGui::GetItemRectMin();
-
-				ImGui::SetNextWindowPos(ImVec2(viewportStart.x + 10, viewportStart.y + 5));
-				ImGui::SetNextWindowSize(ImVec2(128 * 2, 28));
-				ImGui::SetNextWindowBgAlpha(0.75f);
-				ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 7.0f);
-				ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(6, 4));
-				ImGui::Begin("##viewport_tools", 0, ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoDocking);
-				
-				const ImVec4 c_SelectedGizmoButtonColor = ImVec4(0.925490196f, 0.619607843f, 0.141176471f, 1.0f);
-				const ImVec4 c_UnselectedGizmoButtonColor = ImVec4(1.0f, 1.0f, 1.0f, 1.0f);
-
-				
-				ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
-				ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0, 0, 0, 0));
-				ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0, 0, 0, 0));
-
-				ImVec2 iconSize = { 24,24 };
-				if (ImGui::ImageButton((void*)m_SelectToolTex->GetRendererID(), iconSize, ImVec2(0, 0), ImVec2(1, 1), -1, ImVec4(0, 0, 0, 0), m_GizmoType == -1 ? c_SelectedGizmoButtonColor : c_UnselectedGizmoButtonColor))
-					m_GizmoType = -1;
-				ImGui::SameLine();
-				if (ImGui::ImageButton((void*)m_MoveToolTex->GetRendererID(), iconSize, ImVec2(0, 0), ImVec2(1, 1), -1, ImVec4(0, 0, 0, 0), m_GizmoType == ImGuizmo::OPERATION::TRANSLATE ? c_SelectedGizmoButtonColor : c_UnselectedGizmoButtonColor))
-					m_GizmoType = ImGuizmo::OPERATION::TRANSLATE;
-				ImGui::SameLine();
-				if (ImGui::ImageButton((void*)m_RotateToolTex->GetRendererID(), iconSize, ImVec2(0, 0), ImVec2(1, 1), -1, ImVec4(0, 0, 0, 0), m_GizmoType == ImGuizmo::OPERATION::ROTATE ? c_SelectedGizmoButtonColor : c_UnselectedGizmoButtonColor))
-					m_GizmoType = ImGuizmo::OPERATION::ROTATE;
-				ImGui::SameLine();
-				if (ImGui::ImageButton((void*)m_ScaleToolTex->GetRendererID(), iconSize, ImVec2(0, 0), ImVec2(1, 1), -1, ImVec4(0, 0, 0, 0), m_GizmoType == ImGuizmo::OPERATION::SCALE ? c_SelectedGizmoButtonColor : c_UnselectedGizmoButtonColor))
-					m_GizmoType = ImGuizmo::OPERATION::SCALE;
-				ImGui::SameLine();
-
-				//Need to add some sort of style to it
-				if(!m_Snap)
-					if(ImGui::Button("Snap"))
-						m_Snap = !m_Snap;
-				
-				ImGui::PopStyleColor(3);
-
-				ImGui::End();
-				ImGui::PopStyleVar(2);
 			}
 
 			if (notImplPopup)
@@ -518,15 +504,15 @@ namespace tnah {
 			if(gameViewOpen)
 			{
 				ImGui::Begin("Game View", &gameViewOpen);
-
+				if(ImGui::IsWindowFocused()) m_FocusedWindow = FocusedWindow::GameView;
 				auto size = ImGui::GetContentRegionAvail();
 				uint32_t id = 0;
 				FramebufferSpecification spec;
 				if(m_EditorGameFramebuffer == nullptr)
 				{
 					id = Renderer::GetMissingTexture()->GetRendererID();
-					spec.Width = size.x;
-					spec.Height = size.y * (1280.0f / 720.0f);
+					spec.Width = (uint32_t)size.x;
+					spec.Height = (uint32_t)size.y * (uint32_t)(1280.0f / 720.0f);
 				}
 				else
 				{
@@ -534,13 +520,13 @@ namespace tnah {
 					spec = m_EditorGameFramebuffer->GetSpecification();
 					
 				}
-				float imageHeight = Math::Remap(spec.Height, 0, spec.Height, 0, size.y);
+				float imageHeight = Math::Remap((float)spec.Height, 0.0f, (float)spec.Height, 0.0f, (float)size.y);
 				glm::vec2 imageSize  = {size.x, imageHeight};
 				auto window = glm::vec2(ImGui::GetWindowWidth(), ImGui::GetWindowHeight());
 
 				auto s = (window - imageSize) * 0.5f;
 				ImGui::SetCursorPos({s.x, s.y});
-				ImGui::Image((void*)id, {imageSize.x, imageSize.y}, {0,0}, {-1, -1});
+				ImGui::Image((void*)(intptr_t)id, {imageSize.x, imageSize.y}, {0,0}, {-1, -1});
 				
 				ImGui::End();
 				
@@ -564,12 +550,13 @@ namespace tnah {
  						{
  							m_SceneViewSize = ImGui::GetWindowSize();
  							auto& cam = m_EditorCamera.GetComponent<EditorCameraComponent>();
- 							cam.EditorCamera.SetViewportSize(size.x, size.y);
+ 							cam.EditorCamera.SetProjectionMatrix(glm::perspectiveFov(glm::radians(45.0f), size.x, size.y, 0.1f, 1000.0f));
+ 							cam.EditorCamera.SetViewportSize((uint32_t)size.x, (uint32_t)size.y);
  							if(m_EditorSceneFramebuffer == nullptr)
  								id = Renderer::GetMissingTexture()->GetRendererID();
  							else
  							{
- 								FramebufferSpecification spec = {size.x, size.y};
+ 								FramebufferSpecification spec = {(uint32_t)size.x, (uint32_t)size.y};
  								m_EditorSceneFramebuffer->Rebuild(spec);
  								id = m_EditorSceneFramebuffer->GetColorAttachment();
  							}
@@ -582,7 +569,51 @@ namespace tnah {
 					
 				}
 
-				ImGui::Image((void*)id, size, {0, 0}, {1, -1});
+				ImGui::Image((void*)(intptr_t)id, size, {0, 0}, {1, -1});
+
+				if(m_SceneViewActive)
+				{
+					auto viewportStart = ImGui::GetItemRectMin();
+
+					ImGui::SetNextWindowPos(ImVec2(viewportStart.x + 10, viewportStart.y + 5));
+					ImGui::SetNextWindowSize(ImVec2(128 * 2, 38));
+					ImGui::SetNextWindowBgAlpha(0.75f);
+					ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 7.0f);
+					ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(6, 4));
+					ImGui::Begin("##viewport_tools", nullptr, ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoDocking);
+					const ImVec4 c_SelectedGizmoButtonColor = ImVec4(0.925490196f, 0.619607843f, 0.141176471f, 1.0f);
+					const ImVec4 c_UnselectedGizmoButtonColor = ImVec4(1.0f, 1.0f, 1.0f, 1.0f);
+
+			
+					ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
+					ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0, 0, 0, 0));
+					ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0, 0, 0, 0));
+
+					ImVec2 iconSize = { 24,24 };
+					if (ImGui::ImageButton((void*)(intptr_t)m_SelectToolTex->GetRendererID(), iconSize, ImVec2(0, 0), ImVec2(1, 1), -1, ImVec4(0, 0, 0, 0), m_GizmoType == -1 ? c_SelectedGizmoButtonColor : c_UnselectedGizmoButtonColor))
+						m_GizmoType = -1;
+					ImGui::SameLine();
+					if (ImGui::ImageButton((void*)(intptr_t)m_MoveToolTex->GetRendererID(), iconSize, ImVec2(0, 0), ImVec2(1, 1), -1, ImVec4(0, 0, 0, 0), m_GizmoType == ImGuizmo::OPERATION::TRANSLATE ? c_SelectedGizmoButtonColor : c_UnselectedGizmoButtonColor))
+						m_GizmoType = ImGuizmo::OPERATION::TRANSLATE;
+					ImGui::SameLine();
+					if (ImGui::ImageButton((void*)(intptr_t)m_RotateToolTex->GetRendererID(), iconSize, ImVec2(0, 0), ImVec2(1, 1), -1, ImVec4(0, 0, 0, 0), m_GizmoType == ImGuizmo::OPERATION::ROTATE ? c_SelectedGizmoButtonColor : c_UnselectedGizmoButtonColor))
+						m_GizmoType = ImGuizmo::OPERATION::ROTATE;
+					ImGui::SameLine();
+					if (ImGui::ImageButton((void*)(intptr_t)m_ScaleToolTex->GetRendererID(), iconSize, ImVec2(0, 0), ImVec2(1, 1), -1, ImVec4(0, 0, 0, 0), m_GizmoType == ImGuizmo::OPERATION::SCALE ? c_SelectedGizmoButtonColor : c_UnselectedGizmoButtonColor))
+						m_GizmoType = ImGuizmo::OPERATION::SCALE;
+					ImGui::SameLine();
+
+					//Need to add some sort of style to it
+					if(!m_Snap)
+						if(ImGui::Button("Snap"))
+							m_Snap = !m_Snap;
+			
+					ImGui::PopStyleColor(3);
+
+					ImGui::End();
+					ImGui::PopStyleVar(2);
+				}
+				
 
 				
 				if (m_GizmoType != -1 && m_SelectedGameObject && m_ActiveScene && m_State != EditorState::LoadingScene)
@@ -702,26 +733,13 @@ namespace tnah {
 			// cant be docked
 			ImGui::End();
 
-			switch (m_FocusedWindow)
+			if(m_FocusedWindow != FocusedWindow::SceneView)
 			{
-			case FocusedWindow::None:
-				m_HasObjectSelected = false;
-				m_SelectedGameObject = nullptr;
-				break;
-			case FocusedWindow::SceneView:
-				//m_HasObjectSelected = false;
-				//m_SelectedGameObject = nullptr;
-				break;
-			case FocusedWindow::Hierarchy:
-				break;
-			case FocusedWindow::Properties:
-				break;
-			case FocusedWindow::Statistics:
-				//m_HasObjectSelected = false;
-				//m_SelectedGameObject = nullptr;
-				break;
-			default:
-				break;
+				m_SceneViewActive = false;
+			}
+			else
+			{
+				m_SceneViewActive = true;
 			}
 		}
 
@@ -759,7 +777,10 @@ namespace tnah {
 				m_RotateToolTex = (Texture2D::Create("assets/Editor/icons/RotateTool.png"));
 				m_ScaleToolTex = (Texture2D::Create("assets/Editor/icons/ScaleTool.png"));
 
-			
+				m_PlayButtonTex = (Texture2D::Create("assets/Editor/icons/PlayButton.png"));
+				m_PauseButtonTex = (Texture2D::Create("assets/Editor/icons/PauseButton.png"));
+				m_StopButtonTex = (Texture2D::Create("assets/Editor/icons/StopButton.png"));
+				
 				m_SelectedGameObject = nullptr;
 			}
 		}

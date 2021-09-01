@@ -4,13 +4,15 @@
 #include "TNAH/Scene/Light/DirectionalLight.h"
 #include "TNAH/Scene/Light/PointLight.h"
 #include "TNAH/Scene/Light/SpotLight.h"
+#include "ComponentBase.h"
 
 namespace tnah {
 
 	
 	
-	struct LightComponent
+	class LightComponent : public Component
 	{
+	public:
 		Ref<Light> Light;
 
 		
@@ -36,6 +38,10 @@ namespace tnah {
 		}
 
 		operator const Ref<tnah::Light> () const { return Light; }
+
+	private:
+		friend class EditorUI;
+		inline static std::string s_SearchString = "light component";
 	};
 
 }

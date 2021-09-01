@@ -24,6 +24,7 @@
 // SOFTWARE.
 //
 #include <tnahpch.h>
+#pragma warning(push, 0)
 #include "imgui.h"
 #ifndef IMGUI_DEFINE_MATH_OPERATORS
 #define IMGUI_DEFINE_MATH_OPERATORS
@@ -1455,10 +1456,10 @@ namespace ImGuizmo
       // compute best projection axis
       vec_t axesWorldDirections[3];
       vec_t bestAxisWorldDirection = { 0.0f, 0.0f, 0.0f, 0.0f };
-      int axes[3];
+      unsigned int axes[3];
       unsigned int numAxes = 1;
       axes[0] = gContext.mBoundsBestAxis;
-      int bestAxis = axes[0];
+      unsigned int bestAxis = axes[0];
       if (!gContext.mbUsingBounds)
       {
          numAxes = 0;
@@ -1712,7 +1713,7 @@ namespace ImGuizmo
    static int GetScaleType(OPERATION op)
    {
       ImGuiIO& io = ImGui::GetIO();
-      int type = MT_NONE;
+      unsigned int type = MT_NONE;
 
       // screen
       if (io.MousePos.x >= gContext.mScreenSquareMin.x && io.MousePos.x <= gContext.mScreenSquareMax.x &&
@@ -2728,3 +2729,4 @@ namespace ImGuizmo
       ComputeContext(svgView.m16, svgProjection.m16, gContext.mModelSource.m16, gContext.mMode);
    }
 };
+#pragma warning(pop)

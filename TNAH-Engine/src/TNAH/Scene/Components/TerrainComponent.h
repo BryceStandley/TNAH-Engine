@@ -1,6 +1,8 @@
 #pragma once
 #include "TNAH/Core/Core.h"
 #include <glm/glm.hpp>
+
+#include "ComponentBase.h"
 #include "Platform/OpenGL/OpenGLVertexArray.h"
 #include "Platform/OpenGL/OpenGLBuffer.h"
 #include "Platform/OpenGL/OpenGLShader.h"
@@ -136,8 +138,9 @@ namespace tnah {
 		friend class Serializer;
 	};
 
-	struct TerrainComponent
+	class TerrainComponent : public Component
 	{
+	public:
 		Terrain* SceneTerrain;
 
 		TerrainComponent() = default;
@@ -153,6 +156,9 @@ namespace tnah {
 			SceneTerrain = new Terrain(width, maxHeight, minHeight);
 		}
 
+	private:
+		friend class EditorUI;
+		inline static std::string s_SearchString = "terrain component";
 	};
 
 }

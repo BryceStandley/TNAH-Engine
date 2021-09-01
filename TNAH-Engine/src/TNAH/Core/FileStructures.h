@@ -127,7 +127,8 @@ namespace tnah {
 
 			std::string imageGuess[] = {
 				"jpg", "png", "tga", "gif", "tiff",
-				"raw", "bmp", "jpeg", "tif"
+				"raw", "bmp", "jpeg", "tif", "ktx",
+				"ktx2"
 			};
 
 			std::string audioGuess[] = {

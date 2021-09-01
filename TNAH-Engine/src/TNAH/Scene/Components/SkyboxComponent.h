@@ -1,6 +1,8 @@
 #pragma once
 #include "TNAH/Core/Core.h"
 #include <glm/glm.hpp>
+
+#include "ComponentBase.h"
 #include "TNAH/Renderer/RenderingBuffers.h"
 #include "TNAH/Renderer/Material.h"
 #include "TNAH/Renderer/VertexArray.h"
@@ -35,11 +37,12 @@ namespace tnah {
 
 	private:
 		friend class Scene;
-		friend struct SkyboxComponent;
+		friend class SkyboxComponent;
 	};
 
-	struct SkyboxComponent
+	class SkyboxComponent : public Component
 	{
+	public:
 		Skybox* SceneSkybox;
 
 		SkyboxComponent() 
@@ -53,5 +56,9 @@ namespace tnah {
 		{
 			SceneSkybox = new Skybox(cubemapProperties);
 		}
+
+	private:
+		friend class EditorUI;
+		inline static std::string s_SearchString = "skybox component";
 	};
 }

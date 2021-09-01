@@ -51,10 +51,9 @@ namespace tnah {
 				TNAH_CORE_ASSERT(HasComponent<T>(), "GameObject already has that component!");
 				return GetComponent<T>(); 
 			}
-			else
-			{
-				return m_Scene->m_Registry.emplace<T>(m_EntityID, std::forward<Args>(args)...);
-			}
+			FindComponentTypeFromTemplate<T>();
+			return m_Scene->m_Registry.emplace<T>(m_EntityID, std::forward<Args>(args)...);
+			
 		}
 
 		/**********************************************************************************************//**
@@ -216,12 +215,37 @@ namespace tnah {
 
 		void SetActive(const bool& active) { m_Active = active; }
 		bool IsActive() const { return m_Active; }
+
+		std::vector<ComponentTypes> GetComponentList() const { return m_HeldTypes; }
+
+	private:
+		template<typename T>
+		void FindComponentTypeFromTemplate()
+		{
+			if(std::is_same_v<T, IDComponent>) { m_HeldTypes.emplace_back(ComponentTypes::ID); }
+			if(std::is_same_v<T, TagComponent>) { m_HeldTypes.emplace_back(ComponentTypes::Tag); }
+			if(std::is_same_v<T, RelationshipComponent>) { m_HeldTypes.emplace_back(ComponentTypes::Relationship); }
+			if(std::is_same_v<T, TransformComponent>) { m_HeldTypes.emplace_back(ComponentTypes::Transform);  }
+			if(std::is_same_v<T, CameraComponent>) { m_HeldTypes.emplace_back(ComponentTypes::Camera);  }
+			if(std::is_same_v<T, EditorCameraComponent>) { m_HeldTypes.emplace_back(ComponentTypes::EditorCamera); }
+			if(std::is_same_v<T, EditorComponent>) { m_HeldTypes.emplace_back(ComponentTypes::Editor);  }
+			if(std::is_same_v<T, SkyboxComponent>) { m_HeldTypes.emplace_back(ComponentTypes::Skybox);  }
+			if(std::is_same_v<T, LightComponent>) { m_HeldTypes.emplace_back(ComponentTypes::Light);  }
+			if(std::is_same_v<T, TerrainComponent>) { m_HeldTypes.emplace_back(ComponentTypes::Terrain);  }
+			if(std::is_same_v<T, MeshComponent>) { m_HeldTypes.emplace_back(ComponentTypes::Mesh);  }
+			if(std::is_same_v<T, PlayerControllerComponent>) { m_HeldTypes.emplace_back(ComponentTypes::PlayerController); }
+			if(std::is_same_v<T, AudioListenerComponent>) { m_HeldTypes.emplace_back(ComponentTypes::AudioListener);  }
+			if(std::is_same_v<T, AudioSourceComponent>) { m_HeldTypes.emplace_back(ComponentTypes::AudioSource);  }
+		}
+
+		
 		
 	private:
 		entt::entity m_EntityID{ entt::null };
 		Scene* m_Scene = nullptr;
 
 		bool m_Active = true;
+		std::vector<ComponentTypes> m_HeldTypes = {};
 		
 		friend class Scene;
 		friend class SceneSerializer;

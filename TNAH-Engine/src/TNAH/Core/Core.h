@@ -1,7 +1,6 @@
 #pragma once
 #include <memory>
-#include "Utility.h"
-#include "TNAH/Core/Ref.h"
+
 #ifdef TNAH_PLATFORM_WINDOWS
 	#if TNAH_DYNAMIC_LINK
 		#ifdef TNAH_BUILD_DLL

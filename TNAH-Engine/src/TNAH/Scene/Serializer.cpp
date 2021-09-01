@@ -514,7 +514,7 @@ namespace tnah {
                 {
                     GenerateValuesLoadError("GameObject");
                 }
-                nextGameobjectPos = (int)go.second + strlen("</gameObject>");
+                nextGameobjectPos = (int)go.second + (int)strlen("</gameObject>");
                 go = FindTags("gameObject", fileContents, nextGameobjectPos);
             }
             return scene;
@@ -674,18 +674,18 @@ namespace tnah {
     PlayerControllerComponent Serializer::GetPlayerControllerFromFile(const std::string& fileContents,
         std::pair<size_t, size_t> componentTagPositions)
     {
-        auto forward = GetIntValueFromFile("keyForward", fileContents, componentTagPositions);
-        auto backward = GetIntValueFromFile("keyBackward", fileContents, componentTagPositions);
-        auto left = GetIntValueFromFile("keyLeft", fileContents, componentTagPositions);
-        auto right = GetIntValueFromFile("keyRight", fileContents, componentTagPositions);
+        uint16_t forward = (uint16_t)GetIntValueFromFile("keyForward", fileContents, componentTagPositions);
+        uint16_t backward = (uint16_t)GetIntValueFromFile("keyBackward", fileContents, componentTagPositions);
+        uint16_t left = (uint16_t)GetIntValueFromFile("keyLeft", fileContents, componentTagPositions);
+        uint16_t right = (uint16_t)GetIntValueFromFile("keyRight", fileContents, componentTagPositions);
 
-        std::pair<int, int> sprint = {
-            GetIntValueFromFile("keySprint1", fileContents, componentTagPositions),
-            GetIntValueFromFile("keySprint2", fileContents, componentTagPositions)
+        std::pair<uint16_t, uint16_t> sprint = {
+            (uint16_t)GetIntValueFromFile("keySprint1", fileContents, componentTagPositions),
+            (uint16_t)GetIntValueFromFile("keySprint2", fileContents, componentTagPositions)
         };
         
-        auto jump = GetIntValueFromFile("keyJump", fileContents, componentTagPositions);
-        auto crouch = GetIntValueFromFile("keyCrouch", fileContents, componentTagPositions);
+        uint16_t jump = (uint16_t)GetIntValueFromFile("keyJump", fileContents, componentTagPositions);
+        uint16_t crouch = (uint16_t)GetIntValueFromFile("keyCrouch", fileContents, componentTagPositions);
 
         auto playerHeight = GetFloatValueFromFile("playerHeight", fileContents, componentTagPositions);
         auto movementSpeed = GetFloatValueFromFile("movementSpeed", fileContents, componentTagPositions);

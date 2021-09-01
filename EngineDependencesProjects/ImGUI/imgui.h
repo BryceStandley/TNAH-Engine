@@ -38,7 +38,7 @@ Index of this file:
 */
 
 #pragma once
-
+#pragma warning(push, 0)
 // Configuration file with compile-time options (edit imconfig.h or '#define IMGUI_USER_CONFIG "myfilename.h" from your build system')
 #ifdef IMGUI_USER_CONFIG
 #include IMGUI_USER_CONFIG
@@ -3046,6 +3046,13 @@ struct ImGuiPlatformMonitor
     ImGuiPlatformMonitor()          { MainPos = MainSize = WorkPos = WorkSize = ImVec2(0, 0); DpiScale = 1.0f; }
 };
 
+
+
+
+
+
+
+
 //-----------------------------------------------------------------------------
 // [SECTION] Obsolete functions and types
 // (Will be removed! Read 'API BREAKING CHANGES' section in imgui.cpp for details)
@@ -3124,3 +3131,4 @@ enum ImDrawCornerFlags_
 #endif
 
 #endif // #ifndef IMGUI_DISABLE
+#pragma warning(pop)

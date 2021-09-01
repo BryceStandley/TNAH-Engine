@@ -89,7 +89,7 @@ namespace tnah {
             for(auto t : textures)
             {
                 std::string number;
-                std::string name = t->m_Name;
+                std::string name = t->m_TextureResource.CustomName;
                 if(name == "texture_diffuse")
                 {
                     number = std::to_string(diffuse++);
@@ -185,7 +185,7 @@ namespace tnah {
     {
         for (int i = 0; i < MAX_BONE_INFLUENCE; i++) 
         {
-            vertex.IDs[i] = -1;
+            vertex.IDs[i] = 0;
             vertex.Weights[i] = 0.0f;
         }
     }
@@ -195,12 +195,9 @@ namespace tnah {
     {
         for (int i = 0; i < MAX_BONE_INFLUENCE; ++i) 
         {
-            if (vertex.IDs[i] < 0) 
-            {
-                vertex.Weights[i] = weight;
-                vertex.IDs[i] = boneID;
-                break;
-            }
+            vertex.Weights[i] = weight;
+            vertex.IDs[i] = boneID;
+            
         }
     }
 
@@ -265,7 +262,7 @@ namespace tnah {
 
             for(uint32_t j = 0; j < Renderer::GetLoadedTextures().size(); j++)
             {
-                if(std::strcmp(Renderer::GetLoadedTextures()[j]->m_Path.data(), str.C_Str()) == 0)
+                if(std::strcmp(Renderer::GetLoadedTextures()[j]->m_TextureResource.RelativeDirectory.data(), str.C_Str()) == 0)
                 {
                     textures.push_back(Renderer::GetLoadedTextures()[j]);
                     skip = true;
@@ -379,22 +376,21 @@ namespace tnah {
             }
         }
 
-        if(mesh->mMaterialIndex >= 0)
-        {
-            aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
-            // 1. diffuse maps
-            std::vector<Ref<Texture2D>> diffuseMaps = LoadMaterialTextures(scene, material, aiTextureType_DIFFUSE, "texture_diffuse");
-            textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
-            /// 2. specular maps
-             std::vector<Ref<Texture2D>> specularMaps = LoadMaterialTextures(scene, material, aiTextureType_SPECULAR, "texture_specular");
-            textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
-            /// 3. normal maps
-            std::vector<Ref<Texture2D>> normalMaps = LoadMaterialTextures(scene, material, aiTextureType_HEIGHT, "texture_normal");
-            textures.insert(textures.end(), normalMaps.begin(), normalMaps.end());
-            /// 4. height maps
-            std::vector<Ref<Texture2D>> heightMaps = LoadMaterialTextures(scene, material, aiTextureType_AMBIENT, "texture_height");
-            textures.insert(textures.end(), heightMaps.begin(), heightMaps.end());
-        }
+
+        aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
+        // 1. diffuse maps
+        std::vector<Ref<Texture2D>> diffuseMaps = LoadMaterialTextures(scene, material, aiTextureType_DIFFUSE, "texture_diffuse");
+        textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
+        /// 2. specular maps
+            std::vector<Ref<Texture2D>> specularMaps = LoadMaterialTextures(scene, material, aiTextureType_SPECULAR, "texture_specular");
+        textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
+        /// 3. normal maps
+        std::vector<Ref<Texture2D>> normalMaps = LoadMaterialTextures(scene, material, aiTextureType_HEIGHT, "texture_normal");
+        textures.insert(textures.end(), normalMaps.begin(), normalMaps.end());
+        /// 4. height maps
+        std::vector<Ref<Texture2D>> heightMaps = LoadMaterialTextures(scene, material, aiTextureType_AMBIENT, "texture_height");
+        textures.insert(textures.end(), heightMaps.begin(), heightMaps.end());
+        
 
         if(animated) ExtractBoneWeightForVertices(vertices, mesh, scene);
 

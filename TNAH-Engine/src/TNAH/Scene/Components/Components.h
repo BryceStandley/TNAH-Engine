@@ -9,7 +9,7 @@
 #include "PhysicsComponents.h"
 #include "LightComponents.h"
 #include "AudioComponents.h"
-
+#include "ComponentBase.h"
 
 #include "TNAH/Renderer/Mesh.h"
 
@@ -17,6 +17,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtx/quaternion.hpp>
+
 
 #include "TNAH/Core/Input.h"
 #include "TNAH/Core/Math.h"
@@ -37,13 +38,29 @@
 
 namespace tnah {
 
-	struct IDComponent
+	enum class ComponentTypes
 	{
-		UUID ID = 0;
+		None,
+		ID, Tag, Relationship, Transform,
+		Camera, EditorCamera, Editor, Skybox, Light,
+		Terrain, Mesh, PlayerController, AudioSource, AudioListener
 	};
 
-	struct TagComponent
+	
+
+	class IDComponent : public Component
 	{
+	public:
+		UUID ID = 0;
+	
+	private:
+		friend class EditorUI;
+		inline static std::string s_SearchString = "id component";
+	};
+
+	class TagComponent : public Component
+	{
+	public:
 		std::string Tag;
 
 		TagComponent() = default;
@@ -53,10 +70,14 @@ namespace tnah {
 
 		operator std::string& () { return Tag; }
 		operator const std::string& () const { return Tag; }
+	private:
+		friend class EditorUI;
+		inline static std::string s_SearchString = "tag component";
 	};
 
-	struct RelationshipComponent
+	class RelationshipComponent : public Component
 	{
+	public:
 		UUID ParentHandle = 0;
 		std::vector<UUID> Children;
 
@@ -64,11 +85,14 @@ namespace tnah {
 		RelationshipComponent(const RelationshipComponent& other) = default;
 		RelationshipComponent(UUID parent)
 			: ParentHandle(parent) {}
+	private:
+		friend class EditorUI;
+		inline static std::string s_SearchString = "relationship component";
 	};
 
 
 	/**********************************************************************************************//**
-	 * @struct	Transform
+	 * @class	Transform
 	 *
 	 * @brief	Transform component, placed on every object to give it a real transform in the scene
 	 * 			i.e. Position, Rotation and Scale. Including a raw 4x4 matrix transform (mat4)
@@ -78,8 +102,9 @@ namespace tnah {
 	 * @date	20/07/2021
 	 **************************************************************************************************/
 
-	struct TransformComponent
+	class TransformComponent : public Component
 	{
+	public:
 		glm::vec3 Position = { 0.0f, 0.0f, 0.0f };
 		glm::vec3 Rotation = { 0.0f, 0.0f, 0.0f };
 		glm::vec3 Scale = { 1.0f, 1.0f, 1.0f };
@@ -105,8 +130,11 @@ namespace tnah {
 		void SetTransform(const glm::mat4& transform)
 		{
 			Math::DecomposeTransform(transform, Position, Rotation, Scale);
-			
 		}
+
+	private:
+		friend class EditorUI;
+		inline static std::string s_SearchString = "transform component";
 	};
 
 
@@ -120,11 +148,11 @@ namespace tnah {
 	 * @date	3/08/2021
 	 **************************************************************************************************/
 
-	class CameraComponent
+	class CameraComponent : public Component
 	{
 	public:
 		SceneCamera Camera;
-		CameraClearMode ClearMode = CameraClearMode::Color;
+		CameraClearMode ClearMode = CameraClearMode::Skybox;
 		glm::vec4 ClearColor = { 0.1f, 0.1f, 0.1f, 1.0f };
 		bool Primary = true;
 
@@ -149,6 +177,7 @@ namespace tnah {
 		operator const SceneCamera& () const { return Camera; }
 	private:
 		bool m_UpdatedClear = false;
+		inline static std::string s_SearchString = "camera component";
 		friend class EditorUI;
 	};
 
@@ -164,9 +193,10 @@ namespace tnah {
 	 * @date	3/08/2021
 	 **************************************************************************************************/
 
-	struct MeshComponent
+	class MeshComponent : public Component
 	{
-		Ref<Model> Model;
+	public:
+		Ref<Model> Model = nullptr;
 
 		MeshComponent() = default;
 		MeshComponent(const std::string& modelPath) { Model = Model::Create(modelPath); }
@@ -175,6 +205,9 @@ namespace tnah {
 			: Model(model) {}
 
 		operator Ref<tnah::Model>() { return Model; }
+	private:
+		friend class EditorUI;
+		inline static std::string s_SearchString = "mesh component";
 	};
 
 	enum class MovementType
@@ -182,7 +215,7 @@ namespace tnah {
 		Direct, Physics
 	};
 
-	class PlayerControllerComponent
+	class PlayerControllerComponent : public Component
 	{
 	public:
 		
@@ -219,28 +252,28 @@ namespace tnah {
 		void ProcessMouseRotation(TransformComponent& transform)
 		{
 			const auto [fst, snd] = Input::GetMousePos();
-            if (m_FirstMouseInput)
-            {
-            	m_LastMouseXPos = fst;
-            	m_LastMouseYPos = snd;
-            	m_FirstMouseInput = false;
-            }
-            float offsetX = fst - m_LastMouseXPos;
-            float offsetY = m_LastMouseYPos - snd;
-            m_LastMouseXPos = fst;
-            m_LastMouseYPos = snd;
-            offsetX *= RotationSensitivity;
-            offsetY *= RotationSensitivity;
-            transform.Rotation.x += offsetX;
-            transform.Rotation.y -= offsetY;
-            if (transform.Rotation.y > 89.0f)
-            {
-            	transform.Rotation.y = 89.0f;
-            }
-            if (transform.Rotation.y < -89.0f)
-            {
-            	transform.Rotation.y = -89.0f;
-            }
+			if (m_FirstMouseInput)
+			{
+				m_LastMouseXPos = fst;
+				m_LastMouseYPos = snd;
+				m_FirstMouseInput = false;
+			}
+			float offsetX = fst - m_LastMouseXPos;
+			float offsetY = m_LastMouseYPos - snd;
+			m_LastMouseXPos = fst;
+			m_LastMouseYPos = snd;
+			offsetX *= RotationSensitivity;
+			offsetY *= RotationSensitivity;
+			transform.Rotation.x += offsetX;
+			transform.Rotation.y -= offsetY;
+			if (transform.Rotation.y > 89.0f)
+			{
+				transform.Rotation.y = 89.0f;
+			}
+			if (transform.Rotation.y < -89.0f)
+			{
+				transform.Rotation.y = -89.0f;
+			}
 		}
 
 		bool m_Active = true;
@@ -248,14 +281,18 @@ namespace tnah {
 		float m_LastMouseXPos = 0.0f;
 		float m_LastMouseYPos = 0.0f;
 		bool m_MouseDisabled = false;
+
+		inline static std::string s_SearchString = "player controller component";
 		friend class Scene;
+		friend class EditorUI;
 		
 	};
 
-	struct EditorCameraComponent
+	class EditorCameraComponent: public Component
 	{
+	public:
 		SceneCamera EditorCamera;
-		CameraClearMode ClearMode = CameraClearMode::Color;
+		CameraClearMode ClearMode = CameraClearMode::Skybox;
 		glm::vec4 ClearColor = { 0.1f, 0.1f, 0.1f, 1.0f };
 		bool Primary = true;
 
@@ -272,8 +309,10 @@ namespace tnah {
 
 		operator SceneCamera& () { return EditorCamera; }
 		operator const SceneCamera& () const { return EditorCamera; }
-
+	private:
+		inline static std::string s_SearchString = "editor camera component";
 		friend class Scene;
+		friend class EditorUI;
 	};
 	
 	/**
@@ -284,7 +323,7 @@ namespace tnah {
 	 *	@author Bryce Standley
 	 *	@date 21/08/2021
 	 */
-	class EditorComponent
+	class EditorComponent : public Component
 	{
 	public:
 		EditorComponent() = default;
@@ -298,7 +337,7 @@ namespace tnah {
 		EditorMode m_EditorMode = EditorMode::Edit;
 		bool m_IsEmpty = true;
 		
-		
+		inline static std::string s_SearchString = "editor component";
 		friend class Scene;
 		friend class EditorLayer;
 		friend class EditorUI;
@@ -316,12 +355,16 @@ namespace tnah {
 	 * @date	20/07/2021
 	 **************************************************************************************************/
 
-	struct NativeScriptComponent
+	class NativeScriptComponent : public Component
 	{
+	public:
 		std::string Script;
 		NativeScriptComponent() = default;
 		NativeScriptComponent(const std::string& scriptPath)
 			:Script(scriptPath) {}
+	private:
+		friend class EditorUI;
+		inline static std::string s_SearchString = "";
 	};
 
 	/**********************************************************************************************//**

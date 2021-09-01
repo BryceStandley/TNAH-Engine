@@ -24,11 +24,11 @@ namespace tnah
     {
         return m_AudioEngine->SetListener(transform);
     }
-    bool Audio::AddAudioSource(AudioSource &sound)
+    bool Audio::AddAudioSource(AudioSourceComponent &sound)
     {
         return m_AudioEngine->AddAudioSource(sound);
     }
-    bool Audio::UpdateAudioSource(AudioSource &sound)
+    bool Audio::UpdateAudioSource(AudioSourceComponent &sound)
     {
         return m_AudioEngine->UpdateAudioSource(sound);
     }
@@ -38,7 +38,7 @@ namespace tnah
         m_AudioEngine->OnUpdate();
     }
     
-    void Audio::UpdateSound(AudioSource& sound, TransformComponent &transform)
+    void Audio::UpdateSound(AudioSourceComponent& sound, TransformComponent &transform)
     {
         m_AudioEngine->UpdateSound(sound, transform);
     }

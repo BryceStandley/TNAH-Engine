@@ -26,15 +26,15 @@ namespace tnah {
 	private:
 		enum class FocusedWindow
 		{
-			None, SceneView, Statistics, Properties, Hierarchy
+			None, SceneView, GameView, Statistics, Properties, Hierarchy
 		};
 
 		enum class EditorState
 		{
-			LoadingScene, Play, Edit, Idle
+			LoadingScene = 0, Play = 1, Edit = 2, Pause = 3
 		};
 	
-		EditorState m_State = EditorState::Idle;
+		EditorState m_State = EditorState::Edit;
 		
 		Ref<Scene> m_ActiveScene;
 		GameObject m_EditorCamera;
@@ -50,7 +50,7 @@ namespace tnah {
 		bool m_CursorDisable = false;
 		bool m_Snap = false;
 
-		Ref<Texture2D> m_SelectToolTex, m_MoveToolTex, m_RotateToolTex, m_ScaleToolTex;
+		Ref<Texture2D> m_SelectToolTex, m_MoveToolTex, m_RotateToolTex, m_ScaleToolTex, m_PlayButtonTex, m_StopButtonTex, m_PauseButtonTex;
 		
 		int m_GizmoType; // -1 = no gizmo
 
@@ -58,10 +58,12 @@ namespace tnah {
 		Ref<Framebuffer> m_EditorSceneFramebuffer;
 		Ref<Framebuffer> m_EditorGameFramebuffer;
 		ImVec2 m_SceneViewSize = {0,0};
+		bool m_SceneViewActive = false;
 		glm::vec3 m_SnapValue;
 		int CountGameObjects(std::string name);
 		
 	};
+	
 
 
 }

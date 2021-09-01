@@ -37,7 +37,7 @@ namespace tnah
 		virtual bool IsFullscreen() const = 0;
 		virtual void ToggleFullScreen(const bool& enabled) = 0;
 
-		virtual void SetScreenResolution(const int& width, const int& height) = 0;
+		virtual void SetScreenResolution(const uint32_t& width, const uint32_t& height) = 0;
 
 		virtual void* GetNativeWindow() const = 0;
 

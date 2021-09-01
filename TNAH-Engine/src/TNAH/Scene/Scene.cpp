@@ -40,13 +40,14 @@ namespace tnah{
 			m_RenderPasses = 2;
 		}
 
-		auto cam = CreateGameObject("Main Camera");
+		auto& cam = CreateGameObject("Main Camera");
 		m_ActiveCamera = cam.GetUUID();
 		auto& camera = cam.AddComponent<CameraComponent>();
 		Camera::SetMainCamera(camera.Camera);
+		cam.AddComponent<SkyboxComponent>();
 		
 		
-		auto l = CreateGameObject("Main Light");
+		auto& l = CreateGameObject("Main Light");
 		m_SceneLight = l.GetUUID();
 		auto& light = l.AddComponent<LightComponent>();
 		light.Light = Light::CreateDirectional();
@@ -289,20 +290,23 @@ namespace tnah{
 					{
 						auto& model = view.get<MeshComponent>(entity);
 						auto& transform = view.get<TransformComponent>(entity);
-
-						for(auto& mesh : model.Model->GetMeshes())
+						
+						if(model.Model)
 						{
-							Renderer::SubmitMesh(mesh.GetMeshVertexArray(), mesh.GetMeshMaterial(), sceneLights, transform.GetTransform());
+							for(auto& mesh : model.Model->GetMeshes())
+							{
+								Renderer::SubmitMesh(mesh.GetMeshVertexArray(), mesh.GetMeshMaterial(), sceneLights, transform.GetTransform());
+							}
 						}
 					}
 				}
 
 				//Handles audio listeners
 				{
-					auto view = m_Registry.view<TransformComponent, AudioListener>();
+					auto view = m_Registry.view<TransformComponent, AudioListenerComponent>();
 					for(auto entity : view)
 					{
-						auto& listen = view.get<AudioListener>(entity);
+						auto& listen = view.get<AudioListenerComponent>(entity);
 						auto& transform = view.get<TransformComponent>(entity);
 
 						if(listen.m_ActiveListing)
@@ -319,10 +323,10 @@ namespace tnah{
 				
 				//Handle audio
 				{
-					auto view = m_Registry.view<TransformComponent, AudioSource>();
+					auto view = m_Registry.view<TransformComponent, AudioSourceComponent>();
 					for(auto entity : view)
 					{
-						auto& sound = view.get<AudioSource>(entity);
+						auto& sound = view.get<AudioSourceComponent>(entity);
 						auto& transform = view.get<TransformComponent>(entity);
 
 						if(sound.m_Loaded)
@@ -374,7 +378,7 @@ namespace tnah{
 		return transform * gameObject.Transform().GetTransform();
 	}
 
-	GameObject Scene::CreateGameObject(const std::string& name)
+	GameObject& Scene::CreateGameObject(const std::string& name)
 	{
 		GameObject go = { m_Registry.create(), this };
 		auto& idComponent = go.AddComponent<IDComponent>();
@@ -416,7 +420,8 @@ namespace tnah{
 		auto& t = go.GetComponent<TransformComponent>();
 		c.EditorCamera.SetViewportSize(1280, 720);
 		t.Position = {0,0,0};
-		go.AddComponent<SkyboxComponent>();
+		Texture3DProperties properties = {{"Resources/textures/default/skybox/default_linear_skybox.ktx2"}};
+		go.AddComponent<SkyboxComponent>(properties);
 		m_EditorCamera = go.GetUUID();
 		return go;
 	}

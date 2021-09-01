@@ -52,7 +52,7 @@ namespace tnah {
 
 		glm::mat4 GetTransformRelativeToParent(GameObject gameObject);
 
-		GameObject CreateGameObject(const std::string& name);
+		GameObject& CreateGameObject(const std::string& name);
 		GameObject CreateGameObject();
 		
 		

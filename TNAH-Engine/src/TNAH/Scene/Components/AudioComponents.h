@@ -1,14 +1,16 @@
 #pragma once
 #include "TNAH/Core/Core.h"
 #include "TNAH/Core/FileStructures.h"
+#include "ComponentBase.h"
 
 namespace tnah {
 
-	struct AudioSource
+	class AudioSourceComponent : public Component
 	{
-		AudioSource(Resource file = {"defaultsoundfile.wav"}, float minDistance = 1.0f, float volume = 1.0f, bool threeDim = true, bool loop = false)
-		: m_MinDistance(minDistance), m_Volume(volume), m_Loop(loop), m_SourceReference(NULL),
-		m_PlayReference(NULL), m_Playing(false), m_Loaded(false), m_Shoot(false), m_3D(threeDim), m_Paused(false) {m_File = file;}
+	public:
+		AudioSourceComponent(Resource file = {"defaultsoundfile.wav"}, float minDistance = 1.0f, float volume = 1.0f, bool threeDim = true, bool loop = false)
+		: m_MinDistance(minDistance), m_Volume(volume), m_Loop(loop), m_SourceReference(0),
+		m_PlayReference(0), m_Playing(false), m_Loaded(false), m_Shoot(false), m_3D(threeDim), m_Paused(false) {m_File = file;}
 
 		int m_SourceReference;
 		int m_PlayReference;
@@ -21,12 +23,21 @@ namespace tnah {
 		bool m_Shoot;
 		bool m_3D;
 		Resource m_File;
+
+	private:
+		friend class EditorUI;
+		inline static std::string s_SearchString = "audio source component";
 	};
 
-	struct AudioListener 
+	class AudioListenerComponent : public Component
 	{
-		AudioListener(bool active = false) : m_ActiveListing(active) {}
+	public:
+		AudioListenerComponent(bool active = false) : m_ActiveListing(active) {}
 		bool m_ActiveListing;
+
+	private:
+		friend class EditorUI;
+		inline static std::string s_SearchString = "audio listener component";
 	};
 
 }

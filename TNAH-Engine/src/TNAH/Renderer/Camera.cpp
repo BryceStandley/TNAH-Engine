@@ -9,16 +9,11 @@ namespace tnah {
 	}
 
 
-	Camera* Camera::MainCamera = new Camera();
+	Camera* Camera::Main = new Camera();
 
 	void Camera::SetMainCamera(Camera& other)
 	{
-		MainCamera = &other;
+		Main = &other;
 	}
 
-	Camera* Camera::Main()
-	{
-		return MainCamera;
-	}
-	
 }

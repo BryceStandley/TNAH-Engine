@@ -27,7 +27,7 @@ namespace tnah {
 		void SetVSync(bool enabled) override;
 		bool IsVSync() const override;
 
-		inline virtual void* GetNativeWindow() const { return m_Window; }
+		inline void* GetNativeWindow() const override { return m_Window; }
 
 		inline virtual void SetCursorDisabled(bool disable) override
 		{
@@ -39,7 +39,7 @@ namespace tnah {
 
 	virtual void ToggleFullScreen(const bool& enabled) override;
 	inline bool IsFullscreen() const override {return m_Data.Fullscreen;}
-	virtual void SetScreenResolution(const int& width, const int& height) override;
+	virtual void SetScreenResolution(const uint32_t& width, const uint32_t& height) override;
 	
 	private:
 		virtual void Init(const WindowProps& props);

@@ -1,11 +1,8 @@
 #pragma once
 
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtx/quaternion.hpp>
-#include <vector>
-#include <string>
-#include <TNAH-App.h>
+#include "AssimpGLMHelpers.h"
+#include "TNAH/Core/Core.h"
+
 #include "Bone.h"
 
 namespace tnah 
@@ -70,7 +67,7 @@ namespace tnah
 			{
 				auto channel = animation->mChannels[i];
 				std::string boneName = channel->mNodeName.data;
-
+				
 				if (boneInfoMap.find(boneName) == boneInfoMap.end())
 				{
 					boneInfoMap[boneName].id = boneCount;

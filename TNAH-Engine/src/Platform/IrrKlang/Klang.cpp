@@ -31,7 +31,7 @@ namespace tnah
         return false;
     }
     
-    bool Klang::AddAudioSource(AudioSource& sound)
+    bool Klang::AddAudioSource(AudioSourceComponent& sound)
     {
         irrklang::ISoundSource* source(m_Engine ->addSoundSourceFromFile(sound.m_File.RelativeDirectory.c_str()));
 
@@ -47,9 +47,9 @@ namespace tnah
         return false;
     }
 
-    bool Klang::UpdateAudioSource(AudioSource& sound)
+    bool Klang::UpdateAudioSource(AudioSourceComponent& sound)
     {
-        auto & source = m_Source[sound.m_SourceReference];
+        auto& source = m_Source[sound.m_SourceReference];
         if(source)
         {
             source->setDefaultVolume(sound.m_Volume);
@@ -66,7 +66,7 @@ namespace tnah
     }
 
     //Can probably become private
-    bool Klang::PlayAudioSource(AudioSource& sound, TransformComponent &transform)
+    bool Klang::PlayAudioSource(AudioSourceComponent& sound, TransformComponent &transform)
     {
         auto & source = m_Source[sound.m_SourceReference];
         if(source)
@@ -90,7 +90,7 @@ namespace tnah
         return false;
     }
 
-    void Klang::UpdateSound(AudioSource& sound, TransformComponent &transform)
+    void Klang::UpdateSound(AudioSourceComponent& sound, TransformComponent &transform)
     {
         if(sound.m_Shoot && !sound.m_Playing)
         {

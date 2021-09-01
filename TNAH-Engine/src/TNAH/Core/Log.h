@@ -1,10 +1,12 @@
 #pragma once
 
 #include "Core.h"
+#pragma warning(push, 0)
 #include <memory>
 #include <spdlog/spdlog.h>
 #include <spdlog/sinks/stdout_color_sinks.h>
 #include "spdlog/fmt/ostr.h"
+#pragma warning(pop)
 
 namespace tnah
 {

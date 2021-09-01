@@ -153,6 +153,7 @@ namespace tnah
 
 	std::pair<std::string, int> Application::SaveFileAs(const char* fileName)
 	{
+
 #ifdef TNAH_PLATFORM_WINDOWS
 		const char* filter = "TNAH Scene (*.tnah.scene)\0*.tnah.scene\0All Files *.*\0*.*\0";
 		int error = 0;
@@ -180,9 +181,12 @@ namespace tnah
 		default: error = 1; break;
 		}
 		return { std::string(), error };
-#else
-		//not on windows, use imgui file browser. NOT IMPLIMENTED 
 #endif
+		
+
+		//auto file = UI::OpenFileBrowser("Save Scene As", UI::FileBrowserMode::Save, {0,0}, "*.tnah.scene");
+		//return {file, (file.compare("") ? 1 : 2)};
+		
 	}
 
 	bool Application::OnWindowClose(WindowCloseEvent& e)

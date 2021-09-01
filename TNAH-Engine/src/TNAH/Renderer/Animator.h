@@ -31,7 +31,7 @@ namespace tnah
 			m_FinalBoneMatrices.push_back(glm::mat4(1.0f));
 	}
 
-	void Animator::UpdateAnimation(float dt) 
+	inline void Animator::UpdateAnimation(float dt) 
 	{
 		m_DeltaTime = dt;
 		if (m_CurrentAnimation) 
@@ -42,13 +42,13 @@ namespace tnah
 		}
 	}
 
-	void Animator::PlayAnimation(Animation* pAnimation)
+	inline void Animator::PlayAnimation(Animation* pAnimation)
 	{
 		m_CurrentAnimation = pAnimation;
 		m_CurrentTime = 0.0f;
 	}
 
-	void Animator::CalculateBoneTransform(const AssimpNodeData* node, glm::mat4 parentTransform) 
+	inline void Animator::CalculateBoneTransform(const AssimpNodeData* node, glm::mat4 parentTransform) 
 	{
 		std::string nodeName = node->name;
 		glm::mat4 nodeTransform = node->transformation;

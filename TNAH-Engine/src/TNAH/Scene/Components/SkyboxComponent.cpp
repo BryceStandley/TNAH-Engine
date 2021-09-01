@@ -6,14 +6,14 @@ namespace tnah {
 	Skybox::Skybox() 
 	{
 		Create();
-
+		
 		Texture3DProperties properties = {
-		{"Resources/textures/skybox/bluecloud_ft.jpg"},
-		{"Resources/textures/skybox/bluecloud_bk.jpg"},
-		 {"Resources/textures/skybox/bluecloud_lf.jpg"},
-		{"Resources/textures/skybox/bluecloud_rt.jpg"},
-		{"Resources/textures/skybox/bluecloud_up.jpg"},
-		{"Resources/textures/skybox/bluecloud_dn.jpg"}
+		{"Resources/textures/default/skybox/clouds/bluecloud_ft.jpg"},
+		{"Resources/textures/default/skybox/clouds/bluecloud_bk.jpg"},
+		 {"Resources/textures/default/skybox/clouds/bluecloud_lf.jpg"},
+		{"Resources/textures/default/skybox/clouds/bluecloud_rt.jpg"},
+		{"Resources/textures/default/skybox/clouds/bluecloud_up.jpg"},
+		{"Resources/textures/default/skybox/clouds/bluecloud_dn.jpg"}
 		};
 		
 		Ref<Shader> shader = Shader::Create("Resources/shaders/default/skybox/skybox_vertex.glsl", "Resources/shaders/default/skybox/skybox_fragment.glsl");

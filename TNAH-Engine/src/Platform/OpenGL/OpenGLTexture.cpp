@@ -3,7 +3,9 @@
 
 #include "TNAH/Renderer/Renderer.h"
 
+#pragma warning(push, 0)
 #include <Assimp/scene.h>
+#pragma warning(pop)
 
 namespace tnah {
 	
@@ -37,8 +39,8 @@ namespace tnah {
 
 	OpenGLTexture2D::OpenGLTexture2D(const std::string& path, const std::string& textureName, bool loadFromMemory, void* assimpTexture)
 	{
-		m_Path = path;
-		m_Name = textureName;
+		m_TextureResource = path;
+		m_TextureResource.CustomName = textureName;
 		int width, height, channels;
 		unsigned char* data = nullptr;
 		if(path.find(".png") != std::string::npos)
@@ -67,9 +69,9 @@ namespace tnah {
 		
 		if(!loadFromMemory)
 		{
-			m_Width = width;
-			m_Height = height;
-			m_Channels = channels;
+			m_Width = (uint32_t)width;
+			m_Height = (uint32_t)height;
+			m_Channels = (uint32_t)channels;
 
 			GLenum internalFormat = 0, dataFormat = 0;
 			if (channels == 4)
@@ -157,9 +159,9 @@ namespace tnah {
 			}
 			else
 			{
-				m_Width = width;
-				m_Height = height;
-				m_Channels = channels;
+				m_Width = (uint32_t)width;
+				m_Height = (uint32_t)height;
+				m_Channels = (uint32_t)channels;
 				return data;
 			}
 		}
@@ -174,9 +176,9 @@ namespace tnah {
 			}
 			else
 			{
-				m_Width = width;
-				m_Height = height;
-				m_Channels = channels;
+				m_Width = (uint32_t)width;
+				m_Height = (uint32_t)height;
+				m_Channels = (uint32_t)channels;
 				return data;
 			}
 		}
@@ -191,7 +193,6 @@ namespace tnah {
 
 	void OpenGLTexture2D::Bind(uint32_t slot) const
 	{
-		if(slot < 0) {slot = 0;}
 		glActiveTexture(GL_TEXTURE0 + slot);
 		glBindTexture(GL_TEXTURE_2D, m_RendererID);
 	}
@@ -239,22 +240,30 @@ namespace tnah {
 
 	OpenGLTexture3D::OpenGLTexture3D(const Texture3DProperties& properties, const std::string& textureName)
 	{
-		m_Name = textureName;
-		m_Path = properties.Front.RelativeDirectory;
+		m_TextureResource.CustomName = textureName;
+		m_TextureResource = properties.IsKtx ? properties.Cubemap.RelativeDirectory : properties.Front.RelativeDirectory;
 		glActiveTexture(GL_TEXTURE0);
 		glGenTextures(1, &m_RendererID);
 		glBindTexture(GL_TEXTURE_CUBE_MAP, m_RendererID);
 
-		stbi_set_flip_vertically_on_load(false);
+		Ref<Texture2D> dataRight, dataLeft, dataFront, dataBack, dataTop, dataBottom, dataCubemap;	
 
-		auto dataRight = Texture2D::Load(properties.Right.AbsoluteDirectory);
-		auto dataLeft = Texture2D::Load(properties.Left.AbsoluteDirectory);
-		auto dataFront = Texture2D::Load(properties.Front.AbsoluteDirectory);
-		auto dataBack = Texture2D::Load(properties.Back.AbsoluteDirectory);
-		auto dataTop = Texture2D::Load(properties.Top.AbsoluteDirectory);
-		auto dataBottom = Texture2D::Load(properties.Bottom.AbsoluteDirectory);
+		if(!properties.IsKtx)
+		{
+			stbi_set_flip_vertically_on_load(false);
+			dataRight = Texture2D::LoadImageToMemory(properties.Right.AbsoluteDirectory);
+			dataLeft = Texture2D::LoadImageToMemory(properties.Left.AbsoluteDirectory);
+			dataFront = Texture2D::LoadImageToMemory(properties.Front.AbsoluteDirectory);
+			dataBack = Texture2D::LoadImageToMemory(properties.Back.AbsoluteDirectory);
+			dataTop = Texture2D::LoadImageToMemory(properties.Top.AbsoluteDirectory);
+			dataBottom = Texture2D::LoadImageToMemory(properties.Bottom.AbsoluteDirectory);
+		}
+		else
+		{
+			dataCubemap = Texture2D::LoadImageToMemory(properties.Cubemap.AbsoluteDirectory);
+		}
 		
-		if(dataRight && dataLeft && dataFront && dataBack && dataTop && dataBottom)
+		if(!properties.IsKtx && dataRight && dataLeft && dataFront && dataBack && dataTop && dataBottom)
 		{
 			glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 			glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
@@ -268,17 +277,42 @@ namespace tnah {
 			glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_Y, 0, GL_RGB, dataTop->m_Width, dataTop->m_Height, 0, GL_RGB, GL_UNSIGNED_BYTE, dataTop->m_ImageData);
 			glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_Y, 0, GL_RGB, dataBottom->m_Width, dataBottom->m_Height, 0, GL_RGB, GL_UNSIGNED_BYTE, dataBottom->m_ImageData);
 			
-			glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_Z, 0, GL_RGB, dataBack->m_Width, dataBack->m_Height, 0, GL_RGB, GL_UNSIGNED_BYTE, dataBack->m_ImageData);
-			glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_Z, 0, GL_RGB, dataFront->m_Width, dataFront->m_Height, 0, GL_RGB, GL_UNSIGNED_BYTE, dataFront->m_ImageData);
-
+			glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_Z, 0, GL_RGB, dataFront->m_Width, dataFront->m_Height, 0, GL_RGB, GL_UNSIGNED_BYTE, dataFront->m_ImageData);
+			glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_Z, 0, GL_RGB, dataBack->m_Width, dataBack->m_Height, 0, GL_RGB, GL_UNSIGNED_BYTE, dataBack->m_ImageData);
+			
 			glGenerateMipmap(GL_TEXTURE_CUBE_MAP);
 			
-			dataRight->ClearData();
-			dataLeft->ClearData();
-			dataTop->ClearData();
-			dataBottom->ClearData();
-			dataBack->ClearData();
-			dataFront->ClearData();
+			dataRight->Free();
+			dataLeft->Free();
+			dataTop->Free();
+			dataBottom->Free();
+			dataBack->Free();
+			dataFront->Free();
+		}
+		else if(properties.IsKtx && dataCubemap)
+		{
+			/*
+			auto size = dataCubemap->m_CubemapInformation.CubeSize;
+			glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+			glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+			glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+			glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+			glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+			
+			glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X, 0, GL_RGB, size, size, 0, GL_RGB, GL_UNSIGNED_BYTE, dataRight->m_ImageData);
+			glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_X, 0, GL_RGB, size, size, 0, GL_RGB, GL_UNSIGNED_BYTE, dataLeft->m_ImageData);
+			
+			glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_Y, 0, GL_RGB, size, size, 0, GL_RGB, GL_UNSIGNED_BYTE, dataTop->m_ImageData);
+			glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_Y, 0, GL_RGB, size, size, 0, GL_RGB, GL_UNSIGNED_BYTE, dataBottom->m_ImageData);
+			
+			glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_Z, 0, GL_RGB, size, size, 0, GL_RGB, GL_UNSIGNED_BYTE, dataFront->m_ImageData);
+			glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_Z, 0, GL_RGB, size, size, 0, GL_RGB, GL_UNSIGNED_BYTE, dataBack->m_ImageData);
+			*/
+			GLenum target, error;
+			ktxTexture_GLUpload(dataCubemap->GetKtxData(), &m_RendererID, &target, &error);
+			dataCubemap->Free(dataCubemap->GetKtxData());
+			
+			//glGenerateMipmap(GL_TEXTURE_CUBE_MAP);
 		}
 		else
 		{

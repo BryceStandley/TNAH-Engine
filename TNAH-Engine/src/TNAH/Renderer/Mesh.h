@@ -13,9 +13,11 @@
 #include "TNAH/Renderer/Shader.h"
 #include "TNAH/Renderer/Material.h"
 
+#pragma warning(push, 0)
 #include <Assimp/Importer.hpp>
 #include <Assimp/scene.h>
 #include <Assimp/postprocess.h>
+#pragma warning(pop)
 
 
 namespace tnah {
@@ -27,7 +29,7 @@ struct Vertex
     glm::vec3 Bitangents;
     glm::vec2 Texcoord;
 
-    int IDs[MAX_BONE_INFLUENCE];
+    uint32_t IDs[MAX_BONE_INFLUENCE];
     float Weights[MAX_BONE_INFLUENCE];
 
     void AddBoneData(uint32_t BoneID, float Weight)
@@ -120,7 +122,7 @@ struct Vertex
         std::string m_Directory;
         std::string m_FilePath;
 
-        std::map<std::string, BoneInfo> m_BoneInfoMap;
+        std::unordered_map<std::string, BoneInfo> m_BoneInfoMap;
         int m_BoneCounter = 0; 
 
         glm::mat4 AiToGLM(aiMatrix4x4t<float> m);

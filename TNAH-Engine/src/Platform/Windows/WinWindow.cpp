@@ -37,7 +37,7 @@ namespace tnah{
 	}
 
 
-	void WinWindow::SetScreenResolution(const int& width, const int& height)
+	void WinWindow::SetScreenResolution(const uint32_t& width, const uint32_t& height)
 	{
 		if(width > 0 && height > 0)
 		{

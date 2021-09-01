@@ -5,6 +5,7 @@
 #include "TNAH/Core/Window.h"
 #include "TNAH/Events/ApplicationEvent.h"
 #include "TNAH/Layers/LayerStack.h"
+#include "TNAH/Layers/UI.h"
 
 
 #include "Timestep.h"

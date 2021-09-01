@@ -17,7 +17,7 @@ namespace tnah {
 		float& GetExposure() { return m_Exposure; }
 
 		const glm::mat4& GetViewProjectionMatrix() const { return m_ViewProjection; }
-		static Camera* Main();
+		static Camera* Main;
 	protected:
 		
 		static void SetMainCamera(Camera& other);

@@ -56,7 +56,7 @@ namespace tnah {
 
 			std::vector<Ref<Texture2D>> textures;
 			m_Material->BindShader();
-			for(int i = 0; i < m_TextureFileNames.size(); i++)
+			for(int i = 0; i < (int)m_TextureFileNames.size(); i++)
 			{
 				Ref<Texture2D> texture = Texture2D::Create("assets/textures/terrain/" + m_TextureFileNames[i] + ".jpg");
 				textures.emplace_back(texture);
@@ -104,7 +104,7 @@ namespace tnah {
 		GenerateVertexIndices();
 
 		int size = (int)m_TerrainInfo.position.size();
-		for (int i = 0; i < m_TerrainInfo.position.size(); i++)
+		for (int i = 0; i < (int)m_TerrainInfo.position.size(); i++)
 		{
 			m_VBOData.emplace_back(m_TerrainInfo.position[i]);
 
@@ -128,7 +128,7 @@ namespace tnah {
 
 	bool Terrain::LoadHeightField(const std::string& fileName)
 	{
-		auto texture = Texture2D::Load(fileName);
+		auto texture = Texture2D::LoadImageToMemory(fileName);
 		if(!texture)
 		{
 			TNAH_CORE_ERROR("Terrain Component couldn't load heightmap at path: {0}", fileName.c_str());
@@ -136,7 +136,7 @@ namespace tnah {
 		}
 		
 		std::vector<float> result;
-		auto pixelPtr = &texture->m_ImageData[0];
+		auto pixelPtr = texture->GetImageData();
 		for (uint32_t z = 0; z < texture->m_Height; ++z)
 		{
 			for (uint32_t x = 0; x < texture->m_Width; ++x)
@@ -149,6 +149,7 @@ namespace tnah {
 		m_TerrainHeights = result;
 		m_Size.x = (float)texture->m_Width;
 		m_Size.y = (float)texture->m_Height;
+		texture->Free();
 		return true;
 		
 	}
@@ -161,18 +162,21 @@ namespace tnah {
 		if (z > m_Size.x) { z = (int)m_Size.x; }
 		if (InBounds(x, z))
 		{
-			return m_TerrainHeights[z * (int)m_Size.x + x];
+			int val = z * (int)m_Size.x + x;
+			return m_TerrainHeights[val];
 		}
 		else
 		{
-			return m_TerrainHeights[((z - 1) * (int)m_Size.x) + x];
+			int val = ((z - 1) * (int)m_Size.x) + x;
+			return m_TerrainHeights[val];
 		}
 	}
 
 	const float Terrain::GetHeightColor(int x, int z)
 	{
 		if (InBounds(x, z)) {
-			return m_TerrainHeights[(z * (int)m_Size.x) + x];
+			int val = (z * (int)m_Size.x) + x;
+			return m_TerrainHeights[val];
 		}
 		return 1;
 	}
@@ -185,17 +189,19 @@ namespace tnah {
 		if (z >= m_Size.x) { z = (int)m_Size.x - 1; }
 		if (InBounds(x, z))
 		{
-			return m_TerrainInfo.position[z * (int)m_Size.x + x].y;
+			int val = z * (int)m_Size.x + x;
+			return m_TerrainInfo.position[val].y;
 		}
 		else
 		{
-			return m_TerrainInfo.position[((z - 1) * (int)m_Size.x) + x].y;
+			int val = ((z - 1) * (int)m_Size.x) + x;
+			return m_TerrainInfo.position[val].y;
 		}
 	}
 
 	bool Terrain::InBounds(int x, int z)
 	{
-		if ((x >= 0 && (float)x < m_Size.x) && (z >= 0 && z < m_Size.x))
+		if ((x >= 0 && (float)x < m_Size.x) && (z >= 0 && (float)z < m_Size.x))
 			return true;
 		else
 			return false;
@@ -204,9 +210,15 @@ namespace tnah {
 	void Terrain::SetVertexHeight(int x, int z, const float newHeight)
 	{
 		if (InBounds(x, z))
-			m_TerrainInfo.position[(z * (int)m_Size.x) + x].y = newHeight;
+		{
+			int val = (z * (int)m_Size.x) + x;
+			m_TerrainInfo.position[val].y = newHeight;
+		}
 		else
-			m_TerrainInfo.position[(z - 1 * (int)m_Size.x) + x].y = newHeight;
+		{
+			int val = (z - 1 * (int)m_Size.x) + x;
+			m_TerrainInfo.position[val].y = newHeight;
+		}
 	}
 
 	void Terrain::GenerateVertexPositions(TerrainInformation& terrainInformation)

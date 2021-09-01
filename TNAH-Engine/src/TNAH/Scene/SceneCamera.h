@@ -3,7 +3,7 @@
 #include "TNAH/Renderer/Camera.h"
 
 namespace tnah {
-	struct TransformComponent;
+	class TransformComponent;
 	class SceneCamera : public Camera
 	{
 	public:

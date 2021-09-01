@@ -1,6 +1,9 @@
 ﻿#pragma once
 #include <string>
 #include <filesystem>
+#include <map>
+#include <set>
+
 
 namespace tnah::Utility {
 
@@ -61,6 +64,28 @@ namespace tnah::Utility {
         
     }
 
+    template<typename T>
+    static bool Contains(const std::list<T>& list, const T& searchItem)
+    {
+        return (std::find(list.begin(), list.end(), searchItem) != list.end());
+    }
+   
+    template<typename T>
+    static bool Contains(const std::vector<T>& vector, const T& searchItem)
+    {
+        return (std::find(vector.begin(), vector.end(), searchItem) != vector.end());
+    }
 
+    template<typename T>
+    static bool Contains(const std::set<T>& set, const T& searchItem)
+    {
+        return (std::find(set.begin(), set.end(), searchItem) != set.end());
+    }
+
+    template<typename T, typename J>
+    static bool Contains(const std::map<T, J>& map, const T& searchItem)
+    {
+        return (std::find(map.begin(), map.end(), searchItem) != map.end());
+    }
     
 }
