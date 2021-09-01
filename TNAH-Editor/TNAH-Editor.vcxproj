@@ -60,7 +60,7 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)vender\ktx\include;$(SolutionDir)vender\assimp\include;$(SolutionDir)EngineDependencesProjects\GLFW\include;$(SolutionDir)vender\glad\include;$(SolutionDir)vender\glm\include;$(SolutionDir)vender\lua\include;$(SolutionDir)vender\luabridge\include;$(SolutionDir)vender\reactphysics3d\include;$(SolutionDir)vender\spdlog\include;$(SolutionDir)TNAH-Engine\src\;$(SolutionDir)EngineDependencesProjects\ImGui\;$(SolutionDir)vender/entt/include;$(SolutionDir)vender\irrKlang\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

@@ -3,6 +3,7 @@
 #include <unordered_map>
 #include <fstream>
 #include <glad/glad.h>
+#include <sstream>
 
 #include <glm/gtc/type_ptr.hpp>
 

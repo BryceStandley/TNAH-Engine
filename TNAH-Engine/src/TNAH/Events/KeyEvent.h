@@ -1,5 +1,6 @@
 #pragma once
 
+#include <sstream>
 #include "TNAH/Events/Event.h"
 #include "TNAH/Core/KeyCodes.h"
 

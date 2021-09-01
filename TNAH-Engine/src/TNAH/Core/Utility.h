@@ -45,6 +45,7 @@ namespace tnah::Utility {
 
     static std::string RelativePathFromAbsolute(const std::string& absolutePath)
     {
+        
         auto wd = std::filesystem::current_path();
 
         auto relative = absolutePath.find(wd.string());

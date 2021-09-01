@@ -26,7 +26,7 @@ namespace tnah {
 		void Bind() const override;
 		
 		ktxTexture* GetKtxData() const override { return nullptr; }
-		char8_t* GetImageData() const override { return nullptr; }
+		unsigned char* GetImageData() const override { return nullptr; }
 		void Free() override {}
 		void Free(void* data) override {}
 	};
@@ -47,7 +47,7 @@ namespace tnah {
 		void Bind(uint32_t slot) const override;
 		void Bind() const override;
 		ktxTexture* GetKtxData() const override { return nullptr; }
-		char8_t* GetImageData() const override { return nullptr; }
+		unsigned char* GetImageData() const override { return nullptr; }
 	};
 
 }

@@ -12,6 +12,6 @@ namespace tnah {
         void Free() override;
         void Free(void* data) override;
         ktxTexture* GetKtxData() const override;
-        char8_t* GetImageData() const override;
+        unsigned char* GetImageData() const override;
     };
 }

@@ -13,8 +13,8 @@ namespace tnah {
         TNAH_CORE_ASSERT(size == m_Width * m_Height * m_Channels, "Data must be entire image!");
         switch (m_LoadFormat)
         {
-            case ImageLoadFormat::KTX: m_ImageData = static_cast<char8_t*>(data); break;
-            case ImageLoadFormat::STB: m_ImageData = static_cast<char8_t*>(data); break;
+            case ImageLoadFormat::KTX: m_ImageData = static_cast<unsigned char*>(data); break;
+            case ImageLoadFormat::STB: m_ImageData = static_cast<unsigned char*>(data); break;
             default: ;
         }
     }
@@ -62,16 +62,16 @@ namespace tnah {
         return nullptr;
     }
 
-    char8_t* Image::GetImageData() const
+    unsigned char* Image::GetImageData() const
     {
         if(m_LoadFormat == ImageLoadFormat::STB)
         {
-            return static_cast<char8_t*>(m_ImageData);
+            return static_cast<unsigned char*>(m_ImageData);
         }
 
         if(m_LoadFormat == ImageLoadFormat::KTX)
         {
-            return reinterpret_cast<char8_t*>(ktxTexture_GetData(static_cast<ktxTexture*>(m_ImageData)));
+            return reinterpret_cast<unsigned char*>(ktxTexture_GetData(static_cast<ktxTexture*>(m_ImageData)));
         }
         
         return nullptr;

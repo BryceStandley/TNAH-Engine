@@ -147,7 +147,7 @@ namespace tnah {
 		/**
 		 * @brief Returns a unsigned char of image data or nullptr if invalid
 		 */
-		virtual char8_t* GetImageData() const = 0;
+		virtual unsigned char* GetImageData() const = 0;
 
 		Resource m_TextureResource;
 		
