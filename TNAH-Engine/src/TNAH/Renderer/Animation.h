@@ -15,12 +15,12 @@ namespace tnah
 		std::vector<AssimpNodeData> children;
 	};
 
-	class Animation 
+	class Animation : public RefCounted
 	{
 	public:
 		Animation() = default;
 
-		Animation(const std::string& animationPath, Model* model) 
+		Animation(const std::string& animationPath, Ref<Model> model) 
 		{
 			Assimp::Importer importer;
 			const aiScene* scene = importer.ReadFile(animationPath, aiProcess_Triangulate);
@@ -29,7 +29,7 @@ namespace tnah
 			m_Duration = animation->mDuration;
 			m_TicksPerSecond = animation->mTicksPerSecond;
 			ReadHeirarchyData(m_RootNode, scene->mRootNode);
-			ReadMissingBones(animation, *model);
+			ReadMissingBones(animation, model);
 		}
 
 		~Animation() {}
@@ -55,12 +55,12 @@ namespace tnah
 		}
 
 	private:
-		void ReadMissingBones(const aiAnimation* animation, Model& model) 
+		void ReadMissingBones(const aiAnimation* animation, Ref<Model> model) 
 		{
 			int size = animation->mNumChannels;
 
-			auto& boneInfoMap = model.GetBoneInfoMap(); //getting m_BoneInfoMap from Model Class
-			int& boneCount = model.GetBoneCount(); //getting m_BoneCounter from Model Class
+			auto& boneInfoMap = model->GetBoneInfoMap(); //getting m_BoneInfoMap from Model Class
+			int& boneCount = model->GetBoneCount(); //getting m_BoneCounter from Model Class
 
 			//reading channels (bone engaged in an animation and their keyframes)
 			for (int i = 0; i < size; i++) 

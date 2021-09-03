@@ -13,6 +13,7 @@
 
 namespace tnah {
 
+	using uchar8_t = unsigned char;
 	enum class ImageLoadFormat
 	{
 		KTX, STB
@@ -145,9 +146,9 @@ namespace tnah {
 		virtual ktxTexture* GetKtxData() const = 0;
 
 		/**
-		 * @brief Returns a unsigned char of image data or nullptr if invalid
+		 * @brief Returns a uchar8_t of image data or nullptr if invalid
 		 */
-		virtual unsigned char* GetImageData() const = 0;
+		virtual uchar8_t* GetImageData() const = 0;
 
 		Resource m_TextureResource;
 		

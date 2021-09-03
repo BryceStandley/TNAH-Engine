@@ -122,7 +122,7 @@ struct Vertex
         std::string m_Directory;
         std::string m_FilePath;
 
-        std::unordered_map<std::string, BoneInfo> m_BoneInfoMap;
+        std::map<std::string, BoneInfo> m_BoneInfoMap;
         int m_BoneCounter = 0; 
 
         glm::mat4 AiToGLM(aiMatrix4x4t<float> m);
