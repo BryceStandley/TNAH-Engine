@@ -223,6 +223,21 @@ namespace tnah {
 			if(m)
 			{
 				DrawTextControl("Model File", m->m_FilePath, false, true);
+				if(ImGui::Button("Change Mesh"))
+				{
+					if (FileManager::OpenMesh())
+					{
+						auto file = FileManager::GetActiveFile();
+						if (file->FileOpenError == FileError::PathInvalid)
+						{
+							TNAH_WARN("The path or file was invalid!");
+						}
+						else
+						{
+							object.GetComponent<MeshComponent>().LoadMesh(file->FilePath);
+						}
+					}
+				}
 				ImGui::Separator();
 				ImGui::Text("Sub Meshes");
 				int count = 0;
@@ -240,13 +255,27 @@ namespace tnah {
 			{
 				std::string error = "Empty";
 				DrawTextControl("Model File", error, true);
+				if(ImGui::Button("Add Mesh"))
+				{
+					if (FileManager::OpenMesh())
+					{
+						auto file = FileManager::GetActiveFile();
+						if (file->FileOpenError == FileError::PathInvalid)
+						{
+							TNAH_WARN("The path or file was invalid!");
+						}
+						else
+						{
+							object.GetComponent<MeshComponent>().LoadMesh(file->FilePath);
+						}
+					}
+				}
 				ImGui::Separator();
 				ImGui::Text("Sub Meshes");
 				if(ImGui::CollapsingHeader("Empty"))
 				{
 					DrawMaterialProperties(true);
 				}
-				
 			}
 			
 			if(DrawRemoveComponentButton("Mesh"))
@@ -323,25 +352,68 @@ namespace tnah {
 		{
 			auto& source = object.GetComponent<AudioSourceComponent>();
 			ImGui::Text("Audio Source");
-			
-			DrawTextControl("Source File", source.m_File.RelativeDirectory);
-			ImGui::Checkbox("3D Audio", &source.m_3D);
-			ImGui::Checkbox("Loop", &source.m_Loop);
 
-			DrawFloatControl("Volume", source.m_Volume, 0, 1);
-			
-			if(source.m_3D)
+			if(source.GetStartLoad())
 			{
-				DrawFloatControl("Minimum Reach Distance", source.m_MinDistance, 0, 100);	
+				DrawTextControl("Source File", source.m_File.RelativeDirectory);
+				if(ImGui::Button("Change audio file"))
+				{
+					if (FileManager::OpenAudio())
+					{
+						auto soundFile = FileManager::GetActiveFile();
+						if (soundFile->FileOpenError == FileError::PathInvalid)
+						{
+							TNAH_WARN("The path or file was invalid!");
+						}
+						else if(soundFile->FileOpenError != FileError::UserClosed)
+						{
+							Resource file = {soundFile->FilePath};
+							source.m_File = file;
+							source.m_Loaded = false;
+							source.SetStartLoad(true);
+						}
+					}
+				}
+				ImGui::Checkbox("3D Audio", &source.m_3D);
+				ImGui::Checkbox("Loop", &source.m_Loop);
+
+				DrawFloatControl("Volume", source.m_Volume, 0, 1);
+			
+				if(source.m_3D)
+				{
+					DrawFloatControl("Minimum Reach Distance", source.m_MinDistance, 0, 100);	
+				}
+			
+				ImGui::Text("Testing Options");
+				ImGui::Checkbox("Shoot", &source.m_Shoot);
+				ImGui::Checkbox("Pause", &source.m_Paused);
+				if(DrawRemoveComponentButton("AudioSource"))
+				{
+					object.RemoveComponent<AudioSourceComponent>();
+				}	
+			}
+			else
+			{
+				if(ImGui::Button("Add audio file"))
+				{
+					if (FileManager::OpenAudio())
+					{
+						auto soundFile = FileManager::GetActiveFile();
+						if (soundFile->FileOpenError == FileError::PathInvalid)
+						{
+							TNAH_WARN("The path or file was invalid!");
+						}
+						else
+						{
+							Resource file = {soundFile->FilePath};
+							source.m_File = file;
+							source.m_Loaded = false;
+							source.SetStartLoad(true);
+						}
+					}
+				}
 			}
 			
-			ImGui::Text("Testing Options");
-			ImGui::Checkbox("Shoot", &source.m_Shoot);
-			ImGui::Checkbox("Pause", &source.m_Paused);
-			if(DrawRemoveComponentButton("AudioSource"))
-			{
-				object.RemoveComponent<AudioSourceComponent>();
-			}
 			
 			ImGui::Separator();
 		}
@@ -350,7 +422,6 @@ namespace tnah {
 		//Only add components to scene objects, the editor camera cant have components added to it
 		if(!object.HasComponent<EditorCameraComponent>())
 		{
-
 			ImGui::Separator();
 			ImGui::NewLine();
 			auto width = ImGui::GetWindowWidth();

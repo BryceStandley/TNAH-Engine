@@ -46,6 +46,7 @@ namespace tnah
 
 		static std::pair<std::string, int> OpenFileFromBrowser();
 		static std::pair<std::string, int> OpenAudioFromBrowser();
+		static std::pair<std::string, int> OpenMeshFromBrowser();
 		static std::pair<std::string, int> SaveFileAs(const char* fileName);
 
 		bool CheckEditor() const { return m_IsEditor; }

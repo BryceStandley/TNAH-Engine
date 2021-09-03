@@ -3,15 +3,15 @@
 #pragma warning(push, 0)
 #include <IrrKlang/irrKlang.h>
 #include <vector>
+#include <unordered_map>
 #include <string>
-#include <map>
 #pragma warning(pop)
 
-typedef std::vector<irrklang::ISoundSource*> AudioSources;
-//typedef std::pair<std::string, irrklang::ISoundSource*> AudioSourcePair;
+typedef std::pair<u_int, irrklang::ISoundSource*> AudioSourcePair;
+typedef std::unordered_map<std::string, irrklang::ISoundSource*> AudioSources;
 typedef std::vector<irrklang::ISound*> AudioPlaying;
+typedef std::vector<std::string> AudioKeys;
 
-//TODO Add pause and loop functionality
 namespace  tnah
 {
     class Klang final : public AudioAPI
@@ -32,6 +32,7 @@ namespace  tnah
         bool PlayAudioSource(AudioSourceComponent& sound, TransformComponent &transform);
         AudioSources m_Source;
         AudioPlaying m_Playing;
+        AudioKeys m_Keys;
         irrklang::ISoundEngine* m_Engine;
     };    
 };

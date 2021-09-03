@@ -33,14 +33,21 @@ namespace tnah
     
     bool Klang::AddAudioSource(AudioSourceComponent& sound)
     {
-        irrklang::ISoundSource* source(m_Engine ->addSoundSourceFromFile(sound.m_File.RelativeDirectory.c_str()));
+        const std::string key(sound.m_File.RelativeDirectory.c_str());
 
+        //The file is already loaded in
+        if(m_Source[key] != nullptr)
+            return true;
+        
+        irrklang::ISoundSource* source(m_Engine ->addSoundSourceFromFile(key.c_str()));
+        
         if(source)
         {
-            m_Source.push_back(source);
+            m_Source[key] = source;
+            m_Keys.push_back(key);
             source->setDefaultVolume(sound.m_Volume);
             source->setDefaultMinDistance(sound.m_MinDistance);
-            sound.m_SourceReference = (int)m_Source.size()-1;
+            //sound.m_SourceReference = (int)m_Source.size()-1;
             return true;
         }
         
@@ -49,7 +56,7 @@ namespace tnah
 
     bool Klang::UpdateAudioSource(AudioSourceComponent& sound)
     {
-        auto& source = m_Source[sound.m_SourceReference];
+        auto& source = m_Source[sound.m_File.RelativeDirectory.c_str()];
         if(source)
         {
             source->setDefaultVolume(sound.m_Volume);
@@ -68,7 +75,7 @@ namespace tnah
     //Can probably become private
     bool Klang::PlayAudioSource(AudioSourceComponent& sound, TransformComponent &transform)
     {
-        auto & source = m_Source[sound.m_SourceReference];
+        auto & source = m_Source[sound.m_File.RelativeDirectory.c_str()];
         if(source)
         {
             irrklang::ISound * play;
@@ -133,8 +140,23 @@ namespace tnah
 
     void Klang::Clear()
     {
+        for(auto playing : m_Playing)
+        {
+            playing->drop();
+        }
+        
         m_Playing.erase(m_Playing.begin(), m_Playing.end());
-        m_Source.erase(m_Source.begin(), m_Source.end());
+
+        //Drop is IrrKlang way of deleting memory, but will only fully delete it if it isnt being used by another file, in most cases it will delete, but all will be deleted by the end of the map
+        for(auto points : m_Keys)
+        {
+            if(m_Source[points])
+            m_Source[points]->drop();
+        }
+        
+        m_Source.clear();
+        
+        m_Keys.erase(m_Keys.begin(), m_Keys.end());
     }
 
 }

@@ -338,7 +338,8 @@ namespace tnah {
 									{
 										Resource file = {soundFile->FilePath};
 										auto newObject = m_ActiveScene->CreateGameObject("AudioSource (" + std::to_string(CountGameObjects("AudioSource")) + ")");
-										newObject.AddComponent<AudioSourceComponent>(soundFile->FilePath);
+										auto & temp = newObject.AddComponent<AudioSourceComponent>(soundFile->FilePath);
+										temp.SetStartLoad(true);
 									}
 								}
 							}

@@ -346,7 +346,7 @@ namespace tnah{
 						{
 							Audio::UpdateSound(sound, transform);
 						}
-						else
+						else if(sound.GetStartLoad())
 						{
 							sound.m_Loaded = Audio::AddAudioSource(sound);
 						}
@@ -443,6 +443,7 @@ namespace tnah{
 	{
 		m_EditorGameFramebuffer->~Framebuffer();
 		m_EditorSceneFramebuffer->~Framebuffer();
+		Audio::Clear();
 		//m_EditorCamera->~GameObject();
 		//m_ActiveCamera ->~GameObject();
 		//m_SceneLight->~GameObject();

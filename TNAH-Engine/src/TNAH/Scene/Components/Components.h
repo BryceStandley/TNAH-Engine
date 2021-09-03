@@ -213,6 +213,12 @@ namespace tnah {
 			Animation = Model->GetAnimation();
 		}
 
+		void LoadMesh(const std::string& modelPath)
+		{
+			Model = Model::Create(modelPath);
+			Animation = Model->GetAnimation();
+		};
+		
 		operator Ref<tnah::Model>() const { return Model; }
 	private:
 		friend class EditorUI;
