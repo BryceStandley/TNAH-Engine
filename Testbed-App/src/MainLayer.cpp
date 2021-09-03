@@ -30,7 +30,7 @@ MainLayer::MainLayer()
 	auto& light = m_PointLight.GetComponent<tnah::LightComponent>();
 	light.Light = tnah::Light::CreatePoint();
 
-	for (int i = 0; i < 100; i++)
+	for (int i = 0; i < 10; i++)
 	{
 		//Test Cube
 		std::string name = "Cube" + std::to_string(i);

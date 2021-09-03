@@ -202,6 +202,7 @@ namespace tnah {
 		material->BindShader();
 		material->GetShader()->SetMat4("u_ViewProjection", s_SceneData->ViewProjection);
 		material->GetShader()->SetMat4("u_Transform", transform);
+		material->GetShader()->SetBool("u_Animated", )
 
 		SetShaderLightInfo(material, sceneLights);
 		

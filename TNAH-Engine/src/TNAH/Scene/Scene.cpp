@@ -293,9 +293,17 @@ namespace tnah{
 						
 						if(model.Model)
 						{
-							for(auto& mesh : model.Model->GetMeshes())
+							if (FindGameObjectByID(entity).HasComponent<AnimatorComponent>()) 
 							{
-								Renderer::SubmitMesh(mesh.GetMeshVertexArray(), mesh.GetMeshMaterial(), sceneLights, transform.GetTransform());
+
+
+							}
+							else 
+							{
+								for (auto& mesh : model.Model->GetMeshes())
+								{
+									Renderer::SubmitMesh(mesh.GetMeshVertexArray(), mesh.GetMeshMaterial(), sceneLights, transform.GetTransform());
+								}
 							}
 						}
 					}

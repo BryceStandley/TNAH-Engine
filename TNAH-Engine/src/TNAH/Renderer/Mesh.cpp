@@ -12,9 +12,6 @@ namespace tnah {
         m_Indices = indices;
         m_Animated = animated;
 
-        std::string defaultVertexShader = "";
-        std::string defaultFragmentShader = "";
-
         m_BufferLayout = {
             {ShaderDataType::Float3, "a_Position"},
             {ShaderDataType::Float3, "a_Normal"},
@@ -27,29 +24,17 @@ namespace tnah {
         
         m_Vao = VertexArray::Create();
         
-        if (m_Animated)
-            m_Vbo = VertexBuffer::Create(&vertices[0], (uint32_t)(sizeof(Vertex) * vertices.size()));
-        else
-            m_Vbo = VertexBuffer::Create(&vertices[0], (uint32_t)(sizeof(Vertex) * vertices.size()));
+        m_Vbo = VertexBuffer::Create(&vertices[0], (uint32_t)(sizeof(Vertex) * vertices.size()));
 
-        
         m_Vbo->SetLayout(m_BufferLayout);
         m_Vao->AddVertexBuffer(m_Vbo);
 
         m_Ibo = IndexBuffer::Create(&indices[0], (uint32_t)indices.size());
         m_Vao->SetIndexBuffer(m_Ibo);
 
-        if (m_Animated)
-        {
-            defaultVertexShader = "Resources/shaders/default/mesh/mesh_anim_vertex.glsl";
-            defaultFragmentShader = "Resources/shaders/default/mesh/mesh_anim_fragment.glsl";
-        }
-        else 
-        {
-            defaultVertexShader = "Resources/shaders/default/mesh/mesh_vertex.glsl";
-            defaultFragmentShader = "Resources/shaders/default/mesh/mesh_fragment.glsl";
-        }
         
+        std::string defaultVertexShader = "Resources/shaders/default/mesh/mesh_vertex.glsl";
+        std::string defaultFragmentShader = "Resources/shaders/default/mesh/mesh_fragment.glsl";
         
         bool skip = false;
         for(auto& shader : Renderer::GetLoadedShaders())
@@ -352,6 +337,7 @@ namespace tnah {
                 vec.z = mesh->mBitangents[i].z;
                 v.Bitangents = vec;
             }
+            
             
             if(mesh->mTextureCoords[0])
             {

@@ -28,7 +28,7 @@ struct Vertex
     glm::vec3 Tangent;
     glm::vec3 Bitangents;
     glm::vec2 Texcoord;
-
+    
     uint32_t IDs[MAX_BONE_INFLUENCE];
     float Weights[MAX_BONE_INFLUENCE];
 
@@ -47,7 +47,6 @@ struct Vertex
         // TODO: Keep top weights
         TNAH_CORE_WARN("Vertex has more than four bones/weights affecting it, extra data will be discarded (BoneID={0}, Weight={1})", BoneID, Weight);
     }
-
 };
 
 
