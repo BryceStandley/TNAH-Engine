@@ -2,16 +2,18 @@
 
 #include <TNAH/Core/Core.h>
 #include "TNAH/Core/UUID.h"
-#include "entt.hpp"
 #include <vector>
-
 #include "SceneCamera.h"
 #include "Components/Components.h"
 #include "TNAH/Core/Timestep.h"
 #include "TNAH/Core/Math.h"
 #include "TNAH/Core/Ref.h"
 #include "TNAH/Physics/PhysicsTimestep.h"
+
+#pragma warning(push, 0)
+#include "entt.hpp"
 //#include <reactphysics3d/reactphysics3d.h>
+#pragma warning(pop)
 
 namespace tnah {
 	class Light;
@@ -61,7 +63,7 @@ namespace tnah {
 		GameObject FindEntityByTag(const std::string& tag);
 		GameObject FindEntityByUUID(UUID id);
 
-		GameObject FindGameObjectByID(const entt::entity& id);
+		GameObject& FindGameObjectByID(const entt::entity& id);
 
 		void DestroyGameObject(GameObject gameObject);
 
@@ -81,7 +83,12 @@ namespace tnah {
 
 		entt::registry& GetRegistry() { return m_Registry; }
 		std::map<UUID, GameObject>& GetGameObjectsInScene();
-		GameObject* GetRefGameObject(const UUID id);
+		GameObject* GetRefGameObject(const UUID& id);
+
+		// ReactPhysics Global scene objects
+		//rp3d::PhysicsCommon m_PhysicsCommon;
+		//rp3d::PhysicsWorld m_PhysicsWorld;
+		
 		
 		entt::registry m_Registry;
 		std::map<UUID, GameObject> m_GameObjectsInScene;

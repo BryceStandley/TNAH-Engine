@@ -30,18 +30,22 @@ MainLayer::MainLayer()
 	auto& light = m_PointLight.GetComponent<tnah::LightComponent>();
 	light.Light = tnah::Light::CreatePoint();
 
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < 1; i++)
 	{
 		//Test Cube
 		std::string name = "Cube" + std::to_string(i);
 		auto go = m_ActiveScene->CreateGameObject(name);
 
 		auto& mesh = go.AddComponent<tnah::MeshComponent>();
-		mesh.Model = tnah::Model::Create("assets/meshes/cube_texture.fbx");
+		mesh.Model = tnah::Model::Create("assets/meshes/girl/girl_3d_model.fbx");
+		
+		//mesh.Model = tnah::Model::Create("assets/meshes/cube_texture.fbx");
 		auto& meshT = go.Transform();
 
 		glm::vec3 p(glm::linearRand(500, 700), glm::linearRand(50, 100), glm::linearRand(500, 700));
 		meshT.Position = p;
+
+		go.AddComponent<tnah::AnimatorComponent>(mesh.Animation);
 		m_MeshObjects.push_back(go);
 	}
 

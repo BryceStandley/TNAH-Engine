@@ -2,11 +2,12 @@
 
 #include "AssimpGLMHelpers.h"
 #include "TNAH/Core/Core.h"
+#include <Assimp/scene.h>
 
 #include "Bone.h"
+#include "BoneInfo.h"
 
-namespace tnah 
-{
+namespace tnah  {
 	struct AssimpNodeData 
 	{
 		glm::mat4 transformation;
@@ -15,21 +16,17 @@ namespace tnah
 		std::vector<AssimpNodeData> children;
 	};
 
-	class Animation : public RefCounted
+	class Animation
 	{
 	public:
+		
 		Animation() = default;
-
-		Animation(const std::string& animationPath, Ref<Model> model) 
+		Animation(const aiScene* scene) 
 		{
-			Assimp::Importer importer;
-			const aiScene* scene = importer.ReadFile(animationPath, aiProcess_Triangulate);
-			assert(scene && scene->mRootNode);
-			auto animation = scene->mAnimations[0];
-			m_Duration = animation->mDuration;
-			m_TicksPerSecond = animation->mTicksPerSecond;
+			m_Animation = scene->mAnimations[0];
+			m_Duration = m_Animation->mDuration;
+			m_TicksPerSecond = m_Animation->mTicksPerSecond;
 			ReadHeirarchyData(m_RootNode, scene->mRootNode);
-			ReadMissingBones(animation, model);
 		}
 
 		~Animation() {}
@@ -54,18 +51,15 @@ namespace tnah
 			return m_BoneInfoMap;
 		}
 
-	private:
-		void ReadMissingBones(const aiAnimation* animation, Ref<Model> model) 
+	
+		void ReadMissingBones(std::map<std::string, BoneInfo>& boneInfoMap, int& boneCount) 
 		{
-			int size = animation->mNumChannels;
-
-			auto& boneInfoMap = model->GetBoneInfoMap(); //getting m_BoneInfoMap from Model Class
-			int& boneCount = model->GetBoneCount(); //getting m_BoneCounter from Model Class
+			int size = m_Animation->mNumChannels;
 
 			//reading channels (bone engaged in an animation and their keyframes)
 			for (int i = 0; i < size; i++) 
 			{
-				auto channel = animation->mChannels[i];
+				auto channel = m_Animation->mChannels[i];
 				std::string boneName = channel->mNodeName.data;
 				
 				if (boneInfoMap.find(boneName) == boneInfoMap.end())
@@ -78,7 +72,8 @@ namespace tnah
 
 			m_BoneInfoMap = boneInfoMap;
 		}
-
+	
+	private:
 		void ReadHeirarchyData(AssimpNodeData& dest, const aiNode* src) 
 		{
 			assert(src);
@@ -95,11 +90,13 @@ namespace tnah
 			}
 		}
 
-		float m_Duration;
-		int m_TicksPerSecond;
+		float m_Duration = 0.0f;
+		int m_TicksPerSecond = 0.0f;
 		std::vector<Bone> m_Bones;
 		AssimpNodeData m_RootNode;
 		std::map<std::string, BoneInfo> m_BoneInfoMap;
+		aiAnimation* m_Animation;
+		
 
 	};
 }

@@ -10,6 +10,7 @@
 #include "LightComponents.h"
 #include "AudioComponents.h"
 #include "ComponentBase.h"
+#include "AnimatorComponent.h"
 
 #include "TNAH/Renderer/Mesh.h"
 
@@ -197,14 +198,22 @@ namespace tnah {
 	{
 	public:
 		Ref<Model> Model = nullptr;
+		Animation Animation;
 
 		MeshComponent() = default;
-		MeshComponent(const std::string& modelPath) { Model = Model::Create(modelPath); }
+		MeshComponent(const std::string& modelPath)
+		{
+			Model = Model::Create(modelPath);
+			Animation = Model->GetAnimation();
+		}
 		MeshComponent(const MeshComponent& other) = default;
 		MeshComponent(Ref<tnah::Model> model)
-			: Model(model) {}
+			: Model(model)
+		{
+			Animation = Model->GetAnimation();
+		}
 
-		operator Ref<tnah::Model>() { return Model; }
+		operator Ref<tnah::Model>() const { return Model; }
 	private:
 		friend class EditorUI;
 		inline static std::string s_SearchString = "mesh component";

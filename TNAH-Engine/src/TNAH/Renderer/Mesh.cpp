@@ -385,16 +385,16 @@ namespace tnah {
 
     void Model::ProcessNode(aiNode* node, const aiScene* scene)
     {
-        bool anim = false;
         if(scene->mNumAnimations > 0)
         {
-            anim = true;
+            m_IsAnimated = true;
+            m_Animation = Animation(scene);
         }
         
         for(uint32_t i = 0; i < node->mNumMeshes; i++)
         {
             aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
-            if(anim)
+            if(m_IsAnimated)
                 m_Meshes.push_back(ProcessMesh(mesh, scene, true));
             else
                 m_Meshes.push_back(ProcessMesh(mesh, scene, false));
@@ -404,5 +404,7 @@ namespace tnah {
         {
             ProcessNode(node->mChildren[i], scene);
         }
+
+        if(m_IsAnimated) m_Animation.ReadMissingBones(m_BoneInfoMap, m_BoneCounter);
     }
 }

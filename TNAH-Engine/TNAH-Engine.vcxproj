@@ -167,6 +167,7 @@
     <ClInclude Include="src\TNAH\Renderer\Animation.h" />
     <ClInclude Include="src\TNAH\Renderer\AssimpGLMHelpers.h" />
     <ClInclude Include="src\TNAH\Renderer\Bone.h" />
+    <ClInclude Include="src\TNAH\Renderer\BoneInfo.h" />
     <ClInclude Include="src\TNAH\Renderer\Image.h" />
     <ClInclude Include="src\TNAH\Renderer\Light.h" />
     <ClInclude Include="src\TNAH\Renderer\RenderingBuffers.h" />

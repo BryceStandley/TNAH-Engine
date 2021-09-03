@@ -11,7 +11,7 @@ uniform mat4 u_Transform;
 
 const int MAX_BONES = 100;
 const int MAX_BONE_INFLUENCE = 4;
-uniform mat4 finalBonesMatrices[MAX_BONES];
+uniform mat4 u_FinalBonesMatrices[MAX_BONES];
 
 out vec2 v_TexCoords;
 
@@ -28,9 +28,9 @@ void main()
 			v_totalPosition = vec4(a_Position, 1.0f);
 			break;
 		}
-		vec4 v_localPosition = finalBonesMatrices[a_BoneIds[i]] * vec4(a_Position, 1.0f)
+		vec4 v_localPosition = u_FinalBonesMatrices[a_BoneIds[i]] * vec4(a_Position, 1.0f);
 		v_totalPosition += v_localPosition * a_Weights[i];
-		vec3 v_localNormal = mat3(finalBonesMatrices[a_BoneIds[i]]) * a_Normal;
+		vec3 v_localNormal = mat3(u_FinalBonesMatrices[a_BoneIds[i]]) * a_Normal;
 	}
 	
 	gl_Position = u_ViewProjection * u_Transform;

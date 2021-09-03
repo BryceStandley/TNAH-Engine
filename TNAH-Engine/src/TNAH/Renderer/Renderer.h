@@ -32,7 +32,7 @@ namespace tnah {
 
 		static void Submit(Ref<VertexArray> vertexArray, Ref<Shader> shader, const glm::mat4& transform = glm::mat4(1.0f));
 		static void SubmitTerrain(Ref<VertexArray> vertexArray, Ref<Material> material, std::vector<Ref<Light>> sceneLights, const glm::mat4& transform = glm::mat4(1.0f));
-		static void SubmitMesh(Ref<VertexArray> vertexArray, Ref<Material> material, std::vector<Ref<Light>> sceneLights, const glm::mat4& transform = glm::mat4(1.0f));
+		static void SubmitMesh(Ref<VertexArray> vertexArray, Ref<Material> material, std::vector<Ref<Light>> sceneLights, const glm::mat4& transform = glm::mat4(1.0f), const bool& isAnimated = false, const std::vector<glm::mat4>& animTransforms = {glm::mat4(1.0f)});
 		
 		static void SubmitSkybox(Ref<VertexArray> vertexArray, Ref<SkyboxMaterial> material);
 		

@@ -1,22 +1,26 @@
 #pragma once
 #define MAX_BONE_INFLUENCE 4
 
-#include <vector>
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include<glm/gtx/matrix_decompose.hpp>
-
 #include "TNAH/Core/Core.h"
 #include "TNAH/Core/Timestep.h"
 #include "TNAH/Renderer/VertexArray.h"
 #include "TNAH/Renderer/RenderingBuffers.h"
 #include "TNAH/Renderer/Shader.h"
 #include "TNAH/Renderer/Material.h"
+#include "Animation.h"
+#include "BoneInfo.h"
 
 #pragma warning(push, 0)
 #include <Assimp/Importer.hpp>
 #include <Assimp/scene.h>
 #include <Assimp/postprocess.h>
+
+#include <vector>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include<glm/gtx/matrix_decompose.hpp>
+
+
 #pragma warning(pop)
 
 
@@ -95,14 +99,7 @@ struct Vertex
         friend class EditorUI;
     };
 
-    struct BoneInfo 
-    {
-            // index in finalBoneMatrices
-        int id;
-
-            // transform vertex from model space to bone space
-        glm::mat4 offset;
-    };
+    
 
     class Model : public RefCounted
     {
@@ -110,7 +107,9 @@ struct Vertex
         static Ref<Model> Create(const std::string& filePath);
         Model();
         Model(const std::string& filePath);
-    
+
+        auto& GetAnimation() { return m_Animation; }
+        
         std::vector<Mesh> GetMeshes() const { return m_Meshes; }
         uint32_t GetNumberOfMeshes() const { return static_cast<uint32_t>(m_Meshes.size()); }
         auto& GetBoneInfoMap() { return m_BoneInfoMap; }
@@ -121,8 +120,10 @@ struct Vertex
         std::string m_Directory;
         std::string m_FilePath;
 
+        Animation m_Animation;
         std::map<std::string, BoneInfo> m_BoneInfoMap;
-        int m_BoneCounter = 0; 
+        int m_BoneCounter = 0;
+        bool m_IsAnimated = false;
 
         glm::mat4 AiToGLM(aiMatrix4x4t<float> m);
         glm::vec3 AiToGLM(aiVector3t<float> v);

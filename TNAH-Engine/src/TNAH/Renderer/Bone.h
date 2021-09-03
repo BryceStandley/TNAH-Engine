@@ -5,7 +5,7 @@
 #include <glm/gtx/quaternion.hpp>
 #include <vector>
 #include <string>
-#include <TNAH-App.h>
+#include <Assimp/anim.h>
 
 namespace tnah {
 
@@ -107,6 +107,7 @@ namespace tnah {
 					return index;
 			}
 			assert(0);
+			return 0;
 		}
 
 		/* Gets the current index on mKeyRotations to interpolate to based on the current
@@ -119,6 +120,7 @@ namespace tnah {
 					return index;
 			}
 			assert(0);
+			return 0;
 		}
 
 		/* Gets the current index on mKeyScalings to interpolate to based on the current
@@ -131,6 +133,7 @@ namespace tnah {
 					return index;
 			}
 			assert(0);
+			return 0;
 		}
 
 		private:

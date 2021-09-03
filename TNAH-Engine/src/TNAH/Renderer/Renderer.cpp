@@ -196,13 +196,22 @@ namespace tnah {
 	}
 
 	void Renderer::SubmitMesh(Ref<VertexArray> vertexArray, Ref<Material> material,
-			 std::vector<Ref<Light>> sceneLights, const glm::mat4& transform)
+			 std::vector<Ref<Light>> sceneLights, const glm::mat4& transform, const bool& isAnimated, const std::vector<glm::mat4>& animTransforms)
 	{
 		SetCullMode(CullMode::Back);
 		material->BindShader();
 		material->GetShader()->SetMat4("u_ViewProjection", s_SceneData->ViewProjection);
 		material->GetShader()->SetMat4("u_Transform", transform);
-		material->GetShader()->SetBool("u_Animated", )
+		material->GetShader()->SetBool("u_Animated", isAnimated);
+
+		if(isAnimated)
+		{
+			for(uint32_t i = 0; i < animTransforms.size(); ++i)
+			{
+				std::string name = "u_FinalBonesMatrices[" + std::to_string(i) + "]";
+				material->GetShader()->SetMat4(name.c_str(), animTransforms[i]);
+			}
+		}
 
 		SetShaderLightInfo(material, sceneLights);
 		

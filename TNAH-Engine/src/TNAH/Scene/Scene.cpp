@@ -21,7 +21,7 @@ namespace tnah{
 		return m_GameObjectsInScene;
 	}
 
-	GameObject* Scene::GetRefGameObject(const UUID id)
+	GameObject* Scene::GetRefGameObject(const UUID& id)
 	{
 		return &m_GameObjectsInScene[id];
 	}
@@ -293,10 +293,15 @@ namespace tnah{
 						
 						if(model.Model)
 						{
-							if (FindGameObjectByID(entity).HasComponent<AnimatorComponent>()) 
+							auto& go = FindGameObjectByID(entity);
+							if (go.HasComponent<AnimatorComponent>()) 
 							{
-
-
+								auto& anim = go.GetComponent<AnimatorComponent>();
+								anim.UpdateAnimation(deltaTime);
+								for (auto& mesh : model.Model->GetMeshes())
+								{
+									Renderer::SubmitMesh(mesh.GetMeshVertexArray(), mesh.GetMeshMaterial(), sceneLights, transform.GetTransform(), true, anim.GetFinalBonesMatrices());
+								}
 							}
 							else 
 							{
@@ -470,7 +475,7 @@ namespace tnah{
 		return GameObject{};
 	}
 
-	GameObject Scene::FindGameObjectByID(const entt::entity& id)
+	GameObject& Scene::FindGameObjectByID(const entt::entity& id)
 	{
 		for(auto go : m_GameObjectsInScene)
 		{
@@ -479,7 +484,8 @@ namespace tnah{
 				return go.second;
 			}
 		}
-		return GameObject();
+		auto obj = GameObject();
+		return obj;
 	}
 	
 	void Scene::DestroyGameObject(GameObject gameObject)
