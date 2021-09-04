@@ -71,7 +71,7 @@ namespace tnah {
 
         if(m_LoadFormat == ImageLoadFormat::KTX)
         {
-            return reinterpret_cast<uchar8_t*>(ktxTexture_GetData(static_cast<ktxTexture*>(m_ImageData)));
+            return ktxTexture_GetData(static_cast<ktxTexture*>(m_ImageData));
         }
         
         return nullptr;

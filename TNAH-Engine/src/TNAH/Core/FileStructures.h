@@ -114,6 +114,8 @@ namespace tnah {
 					default:
 						SubType = RSubType::EMPTY;
 						break;
+					case RType::EMPTY: break;
+					case RType::Unknown: break;
 				}
 			}
 		}
