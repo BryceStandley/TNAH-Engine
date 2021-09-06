@@ -28,6 +28,9 @@ namespace tnah
 			m_ImGuiLayer = new ImGuiLayer();
 			PushOverlay(m_ImGuiLayer);
 		}
+
+		//seed for any rand() functions
+		srand(static_cast<unsigned>(time(0)));
 	}
 
 	Application::~Application()

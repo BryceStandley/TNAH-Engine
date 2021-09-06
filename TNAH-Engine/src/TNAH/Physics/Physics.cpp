@@ -24,70 +24,123 @@ namespace tnah
 
     rp3d::CollisionBody* Physics::CreateCollisionBody(const TransformComponent& transformValues)
     {
-        return m_PhysicsManager->CreateCollisionBody(transformValues);
+        if(m_PhysicsManager->m_Active)
+            return m_PhysicsManager->CreateCollisionBody(transformValues);
+        return nullptr;
     }
     
     void Physics::DestroyCollisionBody(rp3d::CollisionBody* body)
     {
-        m_PhysicsManager->DestroyCollisionBody(body);
+        if(m_PhysicsManager->m_Active)
+            m_PhysicsManager->DestroyCollisionBody(body);
     }
 
-    rp3d::BoxShape* Physics::CreateBoxShape(const rp3d::Vector3& halfExtents) 
+    void Physics::DestroyRigidbody(rp3d::RigidBody* body)
     {
-        return m_PhysicsManager->m_PhysicsCommon.createBoxShape(halfExtents);
+        if(m_PhysicsManager->m_Active)
+            m_PhysicsManager->DestroyRigidBody(body);
     }
 
-    rp3d::SphereShape* Physics::CreateSphereShape(const float& radius)
+    rp3d::RigidBody* Physics::CreateRigidbody(const TransformComponent& transform)
     {
-        return m_PhysicsManager->m_PhysicsCommon.createSphereShape(radius);
+        if(m_PhysicsManager->m_Active)
+            return m_PhysicsManager->m_PhysicsWorld->createRigidBody(Math::ToRp3dTransform(transform));
+        return nullptr;
     }
 
-    rp3d::CapsuleShape* Physics::CreateCapsuleShape(const float& radius, const float& height)
+    rp3d::RigidBody* Physics::CreateRigidbody(const rp3d::Transform transform)
     {
-        return m_PhysicsManager->m_PhysicsCommon.createCapsuleShape(radius, height);
+        if(m_PhysicsManager->m_Active)
+            return m_PhysicsManager->m_PhysicsWorld->createRigidBody(transform);
+        return nullptr;
     }
 
-    rp3d::HeightFieldShape* Physics::CreateHeightFieldShape(const int &columns, const int& rows, const float &minHeight, const float& maxHeight, const float* terrainColliderHeightData, rp3d::HeightFieldShape::HeightDataType &heightDataType)
+    rp3d::RigidBody* Physics::CreateRigidbody(const glm::vec3& position, const glm::vec3& rotation)
     {
-        return m_PhysicsManager->m_PhysicsCommon.createHeightFieldShape(columns, rows, minHeight, maxHeight, terrainColliderHeightData, heightDataType);
-    }
-
-    rp3d::PolyhedronMesh* Physics::CreatePolyhedronMesh(rp3d::PolygonVertexArray* polygonVertexArray)
-    {
-        return m_PhysicsManager->m_PhysicsCommon.createPolyhedronMesh(polygonVertexArray);
-    }
-
-    rp3d::ConvexMeshShape* Physics::CreateConvexMeshShape(rp3d::PolyhedronMesh* polyhedronMesh)
-    {
-        return m_PhysicsManager->m_PhysicsCommon.createConvexMeshShape(polyhedronMesh);
-    }
-
-    rp3d::ConcaveMeshShape* Physics::CreateConcaveMeshShape(rp3d::TriangleMesh* triangleMesh)
-    {
-        return m_PhysicsManager->m_PhysicsCommon.createConcaveMeshShape(triangleMesh);
-    }
-
-    rp3d::TriangleMesh* Physics::CreateTriangleMesh()
-    {
-        return m_PhysicsManager->m_PhysicsCommon.createTriangleMesh();
+        if(m_PhysicsManager->m_Active)
+        {
+            const TransformComponent transform  = TransformComponent(position, rotation, {1,1,1});
+            return m_PhysicsManager->m_PhysicsWorld->createRigidBody(Math::ToRp3dTransform(transform));
+        }
+        return nullptr;
     }
 
     void Physics::CreateTerrainCollider(tnah::Terrain* terrain)
     {
-        // gameTerrain = terrain;
-        // gameTerrain->SetCollisionTag(BoundingBox::TERRAIN);
-        int rows = terrain->GetSize().x;
-        int columns = terrain->GetSize().y;
-
-        float minHeight = terrain->GetMinHeight().y;
-        float maxHeight = terrain->GetMaxHeight().y;
-
-        int size = rows * columns;
-        //std::vector<float> terrainHeights = terrain->GetTerrainHeights();
-
-
-
     }
+
+    rp3d::BoxShape* Physics::CreateBoxShape(const float& halfX, const float& halfY, const float& halfZ)
+    {
+        if(m_PhysicsManager->m_Active)
+            return m_PhysicsManager->m_PhysicsCommon.createBoxShape(rp3d::Vector3(halfX, halfY, halfZ));
+        return nullptr;
+    }
+
+    rp3d::BoxShape* Physics::CreateBoxShape(const glm::vec3& halfExtents)
+    {
+        if(m_PhysicsManager->m_Active)
+            return m_PhysicsManager->m_PhysicsCommon.createBoxShape(Math::ToRp3dVec3(halfExtents));
+        return nullptr;
+    }
+
+    rp3d::BoxShape* Physics::CreateBoxShape(const rp3d::Vector3& halfExtents) 
+    {
+        if(m_PhysicsManager->m_Active)
+            return m_PhysicsManager->m_PhysicsCommon.createBoxShape(halfExtents);
+        return nullptr;
+    }
+
+    rp3d::SphereShape* Physics::CreateSphereShape(const float& radius)
+    {
+        if(m_PhysicsManager->m_Active)
+            return m_PhysicsManager->m_PhysicsCommon.createSphereShape(radius);
+        return nullptr;
+    }
+
+    rp3d::CapsuleShape* Physics::CreateCapsuleShape(const float& radius, const float& height)
+    {
+        if(m_PhysicsManager->m_Active)
+            return m_PhysicsManager->m_PhysicsCommon.createCapsuleShape(radius, height);
+
+        return nullptr;
+    }
+
+    rp3d::HeightFieldShape* Physics::CreateHeightFieldShape(const int &columns, const int& rows, const float &minHeight, const float& maxHeight, const float* terrainColliderHeightData)
+    {
+        if(m_PhysicsManager->m_Active)
+            return m_PhysicsManager->m_PhysicsCommon.createHeightFieldShape(columns, rows, minHeight, maxHeight, terrainColliderHeightData, rp3d::HeightFieldShape::HeightDataType::HEIGHT_FLOAT_TYPE);
+        return nullptr;
+    }
+
+    rp3d::PolyhedronMesh* Physics::CreatePolyhedronMesh(rp3d::PolygonVertexArray* polygonVertexArray)
+    {
+        if(m_PhysicsManager->m_Active)
+            return m_PhysicsManager->m_PhysicsCommon.createPolyhedronMesh(polygonVertexArray);
+        return nullptr;
+    }
+
+    rp3d::ConvexMeshShape* Physics::CreateConvexMeshShape(rp3d::PolyhedronMesh* polyhedronMesh)
+    {
+        if(m_PhysicsManager->m_Active)
+            return m_PhysicsManager->m_PhysicsCommon.createConvexMeshShape(polyhedronMesh);
+        return nullptr;
+    }
+
+    rp3d::ConcaveMeshShape* Physics::CreateConcaveMeshShape(rp3d::TriangleMesh* triangleMesh)
+    {
+        if(m_PhysicsManager->m_Active)
+            return m_PhysicsManager->m_PhysicsCommon.createConcaveMeshShape(triangleMesh);
+        return nullptr;
+    }
+
+    rp3d::TriangleMesh* Physics::CreateTriangleMesh()
+    {
+        if(m_PhysicsManager->m_Active)
+            return m_PhysicsManager->m_PhysicsCommon.createTriangleMesh();
+        return nullptr;
+    }
+
+    
 
     void Physics::PhysicsLoggerInit()
     {
@@ -107,7 +160,7 @@ namespace tnah
         m_PhysicsManager->Destroy();
     }
 
-/********************* Physics Collision ***************************/
+/********************* Physics Manager ***************************/
 
     
     PhysicsManager::PhysicsManager()

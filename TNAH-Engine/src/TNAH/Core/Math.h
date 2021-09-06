@@ -66,6 +66,24 @@ namespace tnah {
 		{
 			return rp3d::Transform(ToRp3dVec3(transform.Position), ToRp3dQuat(glm::quat(transform.Rotation)));
 		}
+
+		static float Random()
+		{
+			float r = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+			return r;
+		}
+
+		static float Random(const float& max)
+		{
+			float r2 = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX/max));
+			return r2;
+		}
+
+		static float Random(const float& min, const float& max)
+		{
+			float r3 = min + static_cast <float> (rand()) /( static_cast <float> (RAND_MAX/(max-min)));
+			return r3;
+		}
 	}
 
 }

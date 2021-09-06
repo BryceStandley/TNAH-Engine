@@ -15,8 +15,36 @@ namespace tnah {
  * @date	20/07/2021
  **************************************************************************************************/
 
-	class RigidBodyComponent 
+	class RigidBodyComponent : public Component
 	{
+	public:
+		enum class ForceType
+		{
+			FromWorld, FromLocal, FromCentre
+		};
+		
+		glm::vec3 Position = {0,0,0};
+		glm::vec3 Rotation = {0,0,0};
+		glm::quat Orientation = {0,0,0,0};
+		rp3d::RigidBody* Body = nullptr;
+
+		RigidBodyComponent();
+		RigidBodyComponent(const RigidBodyComponent& other) = default;
+
+		RigidBodyComponent(const glm::vec3& position, const glm::vec3& rotation);
+		RigidBodyComponent(const TransformComponent& transform);
+		RigidBodyComponent(const rp3d::Transform& transform);
+		RigidBodyComponent(const rp3d::Vector3& position, const rp3d::Vector3& rotation);
+		RigidBodyComponent(const rp3d::Vector3& position, const rp3d::Quaternion orientation);
+		
+		void AddCollider(rp3d::CollisionShape* collider, const TransformComponent& transform) const;
+		void RemoveCollider(rp3d::Collider* collider);
+		void ApplyForce(const ForceType& forceType, const glm::vec3& direction, const glm::vec3& force, const glm::vec3& forcePoint) const;
+		void ApplyTorque(const glm::vec3& torque) const;
+	
+	private:
+		rp3d::Transform m_Transform = rp3d::Transform::identity();
+		std::list<rp3d::CollisionShape*> m_ColliderList;
 	};
 
 	/**********************************************************************************************//**
@@ -29,8 +57,16 @@ namespace tnah {
 	 * @date	20/07/2021
 	 **************************************************************************************************/
 
-	class CollisionBodyComponent
+	class CollisionBodyComponent : public Component
 	{
+	public:
+		glm::vec3 Position = {0,0,0};
+		glm::vec3 Rotation = {0,0,0};
+		rp3d::CollisionBody* Body = nullptr;
+	
+	private:
+		rp3d::Transform m_Transform = rp3d::Transform::identity();
+		std::list<rp3d::CollisionShape*> m_ColliderList;
 	};
 
 	/**********************************************************************************************//**
@@ -45,11 +81,20 @@ namespace tnah {
 	class BoxColliderComponent : public Component
 	{
 	public:
+		glm::vec3 Size = {1.0f, 1.0f, 1.0f};
+		rp3d::BoxShape* Collider;
+
+		BoxColliderComponent();
+		BoxColliderComponent(const BoxColliderComponent& other) = default;
+
+		BoxColliderComponent(const glm::vec3& size);
+		BoxColliderComponent(const rp3d::Vector3& size);
+		BoxColliderComponent(const float& x, const float& y, const float& z);
 	private:
 	};
 
 	/**********************************************************************************************//**
-	 * @class	HeightMeshColliderComponent
+	 * @class	HeightFieldColliderComponent
 	 *
 	 * @brief	Height field collider using height values. Used for terrains
 	 *
@@ -57,9 +102,20 @@ namespace tnah {
 	 * @date	20/07/2021
 	 **************************************************************************************************/
 
-	class HeightMeshColliderComponent : public Component
+	class HeightFieldColliderComponent : public Component
 	{
 	public:
+		rp3d::HeightFieldShape* Collider;
+		std::vector<float> HeightData;
+		float MinHeight = 0.0f;
+		float MaxHeight = 1.0f;
+		uint32_t TotalRows = 10;
+		uint32_t TotalColumns = 10;
+
+	HeightFieldColliderComponent();
+	HeightFieldColliderComponent(const HeightFieldColliderComponent& other) = default;
+
+	HeightFieldColliderComponent(const TerrainComponent& terrain);
 	private:
 	};
 
@@ -75,6 +131,13 @@ namespace tnah {
 	class SphereColliderComponent : public Component
 	{
 	public:
+		float Radius = 1.0f;
+		rp3d::SphereShape* Collider;
+
+		SphereColliderComponent();
+		SphereColliderComponent(const SphereColliderComponent& other) = default;
+
+		SphereColliderComponent(const float& radius);
 	private:
 	};
 
