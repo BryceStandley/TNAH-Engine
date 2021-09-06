@@ -14,25 +14,166 @@ typedef std::vector<std::string> AudioKeys;
 
 namespace  tnah
 {
+        /**
+         * @class	Klang
+         *
+         * @brief	A derived IrrKlang class that inherits from the base class AudioAPI. Responsible for the in-game audio.
+         *
+         * @author	Plush
+         * @date	6/09/2021
+         */
+
     class Klang final : public AudioAPI
     {
     public:
+
+            /**
+             * @fn	final::Klang();
+             *
+             * @brief	Default constructor
+             *
+             * @author	Plush
+             * @date	6/09/2021
+             */
+
         Klang();
+
+            /**
+             * @fn	virtual final::~Klang();
+             *
+             * @brief	Destructor
+             *
+             * @author	Plush
+             * @date	6/09/2021
+             */
+
         virtual ~Klang();
 
-        bool SetListener(TransformComponent &transform) const override;//Updated to take trasnform, look = foward
+            /**
+             * @fn	bool final::SetListener(TransformComponent &transform) const override;
+             *
+             * @brief	Sets a audio listeners position to the transform
+             *
+             * @author	Plush
+             * @date	6/09/2021
+             *
+             * @param [in,out]	transform	The transform component.
+             *
+             * @returns	True if it succeeds, false if it fails.
+             */
+
+        bool SetListener(TransformComponent &transform) const override;
+
+            /**
+             * @fn	bool final::AddAudioSource(AudioSourceComponent&sound) override;
+             *
+             * @brief	Adds an audio source to the audio source unordered_map, returns false if it doesn't load and returns true if loads in or is already loaded in.
+             *
+             * @author	Plush
+             * @date	6/09/2021
+             *
+             * @param [in,out]	sound	The sound component.
+             *
+             * @returns	True if it succeeds, false if it fails.
+             */
+
         bool AddAudioSource(AudioSourceComponent&sound) override;
+
+            /**
+             * @fn	bool final::UpdateAudioSource(AudioSourceComponent&sound) override;
+             *
+             * @brief	Updates the audio source file
+             *
+             * @author	Plush
+             * @date	6/09/2021
+             *
+             * @param [in,out]	sound	The sound component.
+             *
+             * @returns	True if it succeeds, false if it fails.
+             */
+
         bool UpdateAudioSource(AudioSourceComponent&sound) override;
+
+            /**
+             * @fn	void final::OnUpdate() override;
+             *
+             * @brief	Updates the audio class
+             *
+             * @author	Plush
+             * @date	7/09/2021
+             */
+
         void OnUpdate() override;
+
+            /**
+             * @fn	void final::UpdateSound(AudioSourceComponent& sound, TransformComponent &transform) override;
+             *
+             * @brief	Updates the sound
+             *
+             * @author	Plush
+             * @date	7/09/2021
+             *
+             * @param [in,out]	sound	 	The sound component.
+             * @param [in,out]	transform	The transform component.
+             */
+
         void UpdateSound(AudioSourceComponent& sound, TransformComponent &transform) override;
+
+            /**
+             * @fn	bool final::Active() const override
+             *
+             * @brief	Checks if sound engine is active
+             *
+             * @author	Plush
+             * @date	7/09/2021
+             *
+             * @returns	True if it succeeds, false if it fails.
+             */
+
         bool Active() const override {return m_Engine;}
+
+            /**
+             * @fn	void final::Clear() override;
+             *
+             * @brief	Clears this object to its blank/initial state
+             *
+             * @author	Plush
+             * @date	6/09/2021
+             */
+
         void Clear() override;
         
     private:
+
+            /**
+             * @fn	bool final::PlayAudioSource(AudioSourceComponent& sound, TransformComponent &transform);
+             *
+             * @brief	Plays the audio source if returned bool is true, doesn't if false
+             *
+             * @author	Plush
+             * @date	6/09/2021
+             *
+             * @param [in,out]	sound	 	The sound component.
+             * @param [in,out]	transform	The transform component.
+             *
+             * @returns	True if it succeeds, false if it fails.
+             */
+
         bool PlayAudioSource(AudioSourceComponent& sound, TransformComponent &transform);
+
+
+            /** @brief	Represents the audio source */
         AudioSources m_Source;
+
+
+            /** @brief	Represents the playing of the audio source */
         AudioPlaying m_Playing;
+
+
+            /** @brief	The audio keys */
         AudioKeys m_Keys;
+
+            /** @brief	A pointer to the sound engine */
         irrklang::ISoundEngine* m_Engine;
     };    
 };
