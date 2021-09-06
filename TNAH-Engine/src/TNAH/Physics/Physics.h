@@ -53,7 +53,7 @@ namespace tnah
         static void PhysicsLoggerInit();
     
     private:
-        static Ref<PhysicsManager> m_PhysicsCollision;
+        static Ref<PhysicsManager> m_PhysicsManager;
     };
 
     
