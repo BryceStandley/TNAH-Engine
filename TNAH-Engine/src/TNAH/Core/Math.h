@@ -2,6 +2,7 @@
 #define USE_MATH_DEFINES
 
 #include <TNAH/Core/Core.h>
+#pragma warning(push, 0)
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtx/matrix_decompose.hpp>
 
@@ -12,6 +13,9 @@
 
 #include "imgui.h"
 #include "glm/glm.hpp"
+#include "reactphysics3d/reactphysics3d.h"
+#include "TNAH/Scene/Components/Components.h"
+#pragma warning(pop)
 
 namespace tnah {
 	namespace Math {
@@ -47,6 +51,21 @@ namespace tnah {
 		}
 
 		irrklang::vec3df ConvertVec3ToVec3df(const glm::vec3& other);
+
+		static rp3d::Vector3 ToRp3dVec3(const glm::vec3& values)
+		{
+			return rp3d::Vector3(values.x, values.y, values.z);
+		}
+
+		static rp3d::Quaternion ToRp3dQuat(const glm::quat& values)
+		{
+			return rp3d::Quaternion(values.x, values.y, values.z, values.w);
+		}
+
+		static rp3d::Transform ToRp3dTransform(const TransformComponent& transform)
+		{
+			return rp3d::Transform(ToRp3dVec3(transform.Position), ToRp3dQuat(glm::quat(transform.Rotation)));
+		}
 	}
 
 }

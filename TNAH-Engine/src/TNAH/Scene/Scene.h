@@ -86,8 +86,8 @@ namespace tnah {
 		GameObject* GetRefGameObject(const UUID& id);
 
 		// ReactPhysics Global scene objects
-		rp3d::PhysicsCommon m_PhysicsCommon;
-		rp3d::PhysicsWorld* m_PhysicsWorld;
+
+		void InitPhysicsLogger();
 		
 		
 		entt::registry m_Registry;

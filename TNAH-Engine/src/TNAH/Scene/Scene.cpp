@@ -26,6 +26,11 @@ namespace tnah{
 		return &m_GameObjectsInScene[id];
 	}
 
+	void Scene::InitPhysicsLogger()
+	{
+		
+	}
+
 	Scene::Scene(bool editor)
 	{
 		m_SceneEntity = m_Registry.create();

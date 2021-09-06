@@ -1,79 +1,118 @@
 ﻿#include "tnahpch.h"
-/*#include "Physics.h"
+#include "Physics.h"
 
 namespace tnah
 {
-    PhysicsCollision * Physics::m_CollisionSystem = new PhysicsCollision();
+    Ref<PhysicsManager> Physics::m_PhysicsCollision = Ref<PhysicsManager>::Create();
+
+    Ref<PhysicsManager> Physics::GetManager()
+    {
+        return m_PhysicsCollision;
+    }
 
     bool Physics::Initialise(rp3d::EventListener* collisionEventListener)
     {
-        return m_CollisionSystem->Initialise(collisionEventListener);
+        return m_PhysicsCollision->Initialise(collisionEventListener);
     }
 
-    rp3d::CollisionBody* Physics::CreateCollisionBody(const TransformComponent transformValues)
+    rp3d::CollisionBody* Physics::CreateCollisionBody(const TransformComponent& transformValues)
     {
-        return m_CollisionSystem->CreateCollisionBody(transformValues);
-    }
-
-    void Physics::DestoryCollisionBody(rp3d::CollisionBody* body)
-    {
-        m_CollisionSystem->DestoryCollisionBody(body);
-    }
-
-    void Physics::onFixedUpdate(PhysicsTimestep timestep)
-    {
-        m_CollisionSystem->onFixedUpdate(timestep);
-    }
-
-    void Physics::Destory()
-    {
-        m_CollisionSystem->Destroy();
+        return m_PhysicsCollision->CreateCollisionBody(transformValues);
     }
     
-    PhysicsCollision::PhysicsCollision()
+    void Physics::DestroyCollisionBody(rp3d::CollisionBody* body)
     {
-        m_Active = false;
+        m_PhysicsCollision->DestroyCollisionBody(body);
     }
 
-    PhysicsCollision::~PhysicsCollision()
+    void Physics::PhysicsLoggerInit()
+    {
+        m_PhysicsCollision->m_PhysicsLogger = m_PhysicsCollision->m_PhysicsCommon.createDefaultLogger();
+        const rp3d::uint logLevel = static_cast<rp3d::uint>(rp3d::Logger::Level::Warning) | static_cast<rp3d::uint>(rp3d::Logger::Level::Error) | static_cast<rp3d::uint>(rp3d::Logger::Level::Information);
+        m_PhysicsCollision->m_PhysicsLogger->addFileDestination("Log/reactphysics3D/rp3d_log.html", logLevel, rp3d::DefaultLogger::Format::HTML);
+        m_PhysicsCollision->m_PhysicsCommon.setLogger(m_PhysicsCollision->m_PhysicsLogger);
+    }
+
+    void Physics::OnFixedUpdate(PhysicsTimestep timestep)
+    {
+        m_PhysicsCollision->OnFixedUpdate(timestep);
+    }
+
+    void Physics::Destroy()
+    {
+        m_PhysicsCollision->Destroy();
+    }
+
+/********************* Physics Collision ***************************/
+
+    
+    PhysicsManager::PhysicsManager()
+    {
+    }
+
+    PhysicsManager::~PhysicsManager()
     {
         Destroy();
     }
 
-    void PhysicsCollision::Destroy()
+    void PhysicsManager::Destroy()
     {
-        m_Common.destroyPhysicsWorld(m_World);
+        m_PhysicsCommon.destroyDefaultLogger(m_PhysicsLogger);
+        m_PhysicsCommon.destroyPhysicsWorld(m_PhysicsWorld);
         m_Active = false;
     }
 
-    void PhysicsCollision::DestoryCollisionBody(rp3d::CollisionBody* body)
-    {
-        m_World->destroyCollisionBody(body);
-    }
-
-    rp3d::CollisionBody* PhysicsCollision::CreateCollisionBody(const TransformComponent transformValues)
+    rp3d::RigidBody* PhysicsManager::CreateRigidBody(const TransformComponent& transform)
     {
         if(m_Active)
-            return m_World->createCollisionBody(ConvertTransformComponentToRP3DTransform(transformValues));
+        {
+            return m_PhysicsWorld->createRigidBody(Math::ToRp3dTransform(transform));
+        }
 
         return nullptr;
     }
-    
-    bool PhysicsCollision::Initialise(rp3d::EventListener * collisionEventListener)
+
+    void PhysicsManager::DestroyRigidBody(rp3d::RigidBody* rigidBody)
     {
-        m_World = m_Common.createPhysicsWorld();
-        if(m_World == nullptr || collisionEventListener == nullptr)
+        if(m_PhysicsWorld)
+        {
+            m_PhysicsWorld->destroyRigidBody(rigidBody);
+        }
+    }
+
+    void PhysicsManager::DestroyCollisionBody(rp3d::CollisionBody* body)
+    {
+        if(m_PhysicsWorld)
+        {
+            m_PhysicsWorld->destroyCollisionBody(body);
+        }
+    }
+
+    rp3d::CollisionBody* PhysicsManager::CreateCollisionBody(const TransformComponent& transform)
+    {
+        if(m_Active)
+        {
+            return m_PhysicsWorld->createCollisionBody(Math::ToRp3dTransform(transform));
+        }
+        
+        return nullptr;
+    }
+    
+    bool PhysicsManager::Initialise(rp3d::EventListener* collisionEventListener)
+    {
+        m_PhysicsWorld = m_PhysicsCommon.createPhysicsWorld();
+        if(m_PhysicsWorld == nullptr || collisionEventListener == nullptr)
             return false;
         
-        m_World->setEventListener(collisionEventListener);
+        m_PhysicsWorld->setEventListener(collisionEventListener);
         m_Active = true;
         return true;
     }
 
-    void PhysicsCollision::onFixedUpdate(PhysicsTimestep timestep)
+    void PhysicsManager::OnFixedUpdate(PhysicsTimestep timestep)
     {
         
     }
 
 
-}*/
+}
