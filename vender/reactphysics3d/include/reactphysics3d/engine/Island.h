@@ -105,35 +105,35 @@ class Island {
 };
 
 // Add a body into the island
-RP3D_FORCE_INLINE void Island::addBody(RigidBody* body) {
+inline void Island::addBody(RigidBody* body) {
     assert(!body->isSleeping());
     mBodies[mNbBodies] = body;
     mNbBodies++;
 }
 
 // Add a contact manifold into the island
-RP3D_FORCE_INLINE void Island::addContactManifold(ContactManifold* contactManifold) {
+inline void Island::addContactManifold(ContactManifold* contactManifold) {
     mContactManifolds[mNbContactManifolds] = contactManifold;
     mNbContactManifolds++;
 }
 
 // Return the number of bodies in the island
-RP3D_FORCE_INLINE uint Island::getNbBodies() const {
+inline uint Island::getNbBodies() const {
     return mNbBodies;
 }
 
 // Return the number of contact manifolds in the island
-RP3D_FORCE_INLINE uint Island::getNbContactManifolds() const {
+inline uint Island::getNbContactManifolds() const {
     return mNbContactManifolds;
 }
 
 // Return a pointer to the array of bodies
-RP3D_FORCE_INLINE RigidBody** Island::getBodies() {
+inline RigidBody** Island::getBodies() {
     return mBodies;
 }
 
 // Return a pointer to the array of contact manifolds
-RP3D_FORCE_INLINE ContactManifold** Island::getContactManifolds() {
+inline ContactManifold** Island::getContactManifolds() {
     return mContactManifolds;
 }
 

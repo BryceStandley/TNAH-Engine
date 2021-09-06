@@ -12,7 +12,7 @@
 
 #pragma warning(push, 0)
 #include "entt.hpp"
-//#include <reactphysics3d/reactphysics3d.h>
+#include <reactphysics3d/reactphysics3d.h>
 #pragma warning(pop)
 
 namespace tnah {
@@ -86,8 +86,8 @@ namespace tnah {
 		GameObject* GetRefGameObject(const UUID& id);
 
 		// ReactPhysics Global scene objects
-		//rp3d::PhysicsCommon m_PhysicsCommon;
-		//rp3d::PhysicsWorld m_PhysicsWorld;
+		rp3d::PhysicsCommon m_PhysicsCommon;
+		rp3d::PhysicsWorld* m_PhysicsWorld;
 		
 		
 		entt::registry m_Registry;

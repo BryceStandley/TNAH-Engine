@@ -185,7 +185,7 @@ class SATAlgorithm {
 #ifdef IS_RP3D_PROFILING_ENABLED
 
 // Set the profiler
-RP3D_FORCE_INLINE void SATAlgorithm::setProfiler(Profiler* profiler) {
+inline void SATAlgorithm::setProfiler(Profiler* profiler) {
 
 	mProfiler = profiler;
 }

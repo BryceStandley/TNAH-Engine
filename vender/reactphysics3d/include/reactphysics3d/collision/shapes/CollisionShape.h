@@ -30,7 +30,7 @@
 #include <cassert>
 #include <reactphysics3d/configuration.h>
 #include <reactphysics3d/utils/Profiler.h>
-#include <reactphysics3d/containers/Array.h>
+#include <reactphysics3d/containers/List.h>
 
 /// ReactPhysics3D namespace
 namespace reactphysics3d {
@@ -76,8 +76,8 @@ class CollisionShape {
         /// Unique identifier of the shape inside an overlapping pair
         uint32 mId;
 
-        /// Array of the colliders associated with this shape
-        Array<Collider*> mColliders;
+        /// List of the colliders associated with this shape
+        List<Collider*> mColliders;
 
 #ifdef IS_RP3D_PROFILING_ENABLED
 
@@ -164,7 +164,6 @@ class CollisionShape {
         friend class Collider;
         friend class CollisionBody;
         friend class RigidBody;
-        friend class PhysicsWorld;
         friend class BroadPhaseSystem;
 };
 
@@ -172,7 +171,7 @@ class CollisionShape {
 /**
 * @return The name of the collision shape (box, sphere, triangle, ...)
 */
-RP3D_FORCE_INLINE CollisionShapeName CollisionShape::getName() const {
+inline CollisionShapeName CollisionShape::getName() const {
 	return mName;
 }
 
@@ -180,29 +179,29 @@ RP3D_FORCE_INLINE CollisionShapeName CollisionShape::getName() const {
 /**
  * @return The type of the collision shape (sphere, capsule, convex polyhedron, concave mesh)
  */
-RP3D_FORCE_INLINE CollisionShapeType CollisionShape::getType() const {
+inline CollisionShapeType CollisionShape::getType() const {
     return mType;
 }
 
 // Return the id of the shape
-RP3D_FORCE_INLINE uint32 CollisionShape::getId() const {
+inline uint32 CollisionShape::getId() const {
    return mId;
 }
 
 // Assign a new collider to the collision shape
-RP3D_FORCE_INLINE void CollisionShape::addCollider(Collider* collider) {
+inline void CollisionShape::addCollider(Collider* collider) {
     mColliders.add(collider);
 }
 
 // Remove an assigned collider from the collision shape
-RP3D_FORCE_INLINE void CollisionShape::removeCollider(Collider* collider) {
+inline void CollisionShape::removeCollider(Collider* collider) {
     mColliders.remove(collider);
 }
 
 #ifdef IS_RP3D_PROFILING_ENABLED
 
 // Set the profiler
-RP3D_FORCE_INLINE void CollisionShape::setProfiler(Profiler* profiler) {
+inline void CollisionShape::setProfiler(Profiler* profiler) {
 
 	mProfiler = profiler;
 }

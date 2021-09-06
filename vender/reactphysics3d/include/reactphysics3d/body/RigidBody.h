@@ -57,7 +57,7 @@ class RigidBody : public CollisionBody {
         void setIsSleeping(bool isSleeping);
 
         /// Update whether the current overlapping pairs where this body is involed are active or not
-        void resetOverlappingPairs();
+        void updateOverlappingPairs();
 
         /// Compute and return the local-space center of mass of the body using its colliders
         Vector3 computeCenterOfMass() const;
@@ -65,8 +65,8 @@ class RigidBody : public CollisionBody {
         /// Compute the local-space inertia tensor and total mass of the body using its colliders
         void computeMassAndInertiaTensorLocal(Vector3& inertiaTensorLocal, decimal& totalMass) const;
 
-        /// Compute the inverse of the inertia tensor in world coordinates.
-        static void computeWorldInertiaTensorInverse(const Matrix3x3& orientation, const Vector3& inverseInertiaTensorLocal, Matrix3x3& outInverseInertiaTensorWorld);
+        /// Return the inverse of the inertia tensor in world coordinates.
+        static const Matrix3x3 getWorldInertiaTensorInverse(PhysicsWorld& world, Entity bodyEntity);
 
     public :
 
@@ -153,18 +153,6 @@ class RigidBody : public CollisionBody {
         /// Set the angular damping factor
         void setAngularDamping(decimal angularDamping);
 
-        /// Return the lock translation factor
-        const Vector3& getLinearLockAxisFactor() const;
-
-        /// Set the linear lock factor
-        void setLinearLockAxisFactor(const Vector3& linearLockAxisFactor) const;
-
-        /// Return the lock rotation factor
-        const Vector3& getAngularLockAxisFactor() const;
-
-        /// Set the lock rotation factor
-        void setAngularLockAxisFactor(const Vector3& angularLockAxisFactor) const;
-
         /// Apply an external force to the body at its center of mass.
         void applyForceToCenterOfMass(const Vector3& force);
 
@@ -176,12 +164,6 @@ class RigidBody : public CollisionBody {
 
         /// Apply an external torque to the body.
         void applyTorque(const Vector3& torque);
-
-        /// Reset the accumulated force to zero
-        void resetForce();
-
-        /// Reset the accumulated torque to zero
-        void resetTorque();
 
         /// Return whether or not the body is allowed to sleep
         bool isAllowedToSleep() const;
@@ -223,24 +205,6 @@ class RigidBody : public CollisionBody {
         friend class SolveSliderJointSystem;
         friend class Joint;
 };
-
-/// Compute the inverse of the inertia tensor in world coordinates.
-RP3D_FORCE_INLINE void RigidBody::computeWorldInertiaTensorInverse(const Matrix3x3& orientation, const Vector3& inverseInertiaTensorLocal, Matrix3x3& outInverseInertiaTensorWorld) {
-
-    outInverseInertiaTensorWorld[0][0] = orientation[0][0] * inverseInertiaTensorLocal.x;
-    outInverseInertiaTensorWorld[0][1] = orientation[1][0] * inverseInertiaTensorLocal.x;
-    outInverseInertiaTensorWorld[0][2] = orientation[2][0] * inverseInertiaTensorLocal.x;
-
-    outInverseInertiaTensorWorld[1][0] = orientation[0][1] * inverseInertiaTensorLocal.y;
-    outInverseInertiaTensorWorld[1][1] = orientation[1][1] * inverseInertiaTensorLocal.y;
-    outInverseInertiaTensorWorld[1][2] = orientation[2][1] * inverseInertiaTensorLocal.y;
-
-    outInverseInertiaTensorWorld[2][0] = orientation[0][2] * inverseInertiaTensorLocal.z;
-    outInverseInertiaTensorWorld[2][1] = orientation[1][2] * inverseInertiaTensorLocal.z;
-    outInverseInertiaTensorWorld[2][2] = orientation[2][2] * inverseInertiaTensorLocal.z;
-
-    outInverseInertiaTensorWorld = orientation * outInverseInertiaTensorWorld;
-}
 
 }
 

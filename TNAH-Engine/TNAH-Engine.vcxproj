@@ -177,6 +177,10 @@
     <ProjectReference Include="..\EngineDependencesProjects\ImGUI\ImGUI.vcxproj">
       <Project>{11bb4bf9-7d1e-4ada-aa26-b828e14ec6b3}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\EngineDependencesProjects\ReactPhysics3D\ReactPhysics3D.vcxproj">
+      <Project>{2f2998f1-3d89-4812-8ef6-c65ebf9a18d7}</Project>
+      <Name>ReactPhysics3D</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
