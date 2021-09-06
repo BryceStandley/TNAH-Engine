@@ -59,7 +59,7 @@ namespace tnah{
 		light.Light->m_IsSceneLight = true;
 
 		//Physics
-		m_PhysicsWorld = m_PhysicsCommon.createPhysicsWorld();// We can pass in some settings here for the physics if we want
+		//m_PhysicsWorld = m_PhysicsCommon.createPhysicsWorld();// We can pass in some settings here for the physics if we want
 
 		
 		s_ActiveScene.Scene.Reset(this);

@@ -128,11 +128,6 @@ namespace tnah {
 				* glm::scale(glm::mat4(1.0f), Scale);
 		}
 
-		void SetTransform(const glm::mat4& transform)
-		{
-			Math::DecomposeTransform(transform, Position, Rotation, Scale);
-		}
-
 	private:
 		friend class EditorUI;
 		inline static std::string s_SearchString = "transform component";
