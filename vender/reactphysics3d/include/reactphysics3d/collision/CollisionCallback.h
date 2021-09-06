@@ -27,7 +27,7 @@
 #define REACTPHYSICS3D_COLLISION_CALLBACK_H
 
 // Libraries
-#include <reactphysics3d/containers/Array.h>
+#include <reactphysics3d/containers/List.h>
 #include <reactphysics3d/collision/ContactPair.h>
 #include <reactphysics3d/constraint/ContactPoint.h>
 
@@ -114,7 +114,7 @@ class CollisionCallback {
         // Class ContactPair
         /**
          * This class represents the contact between two colliders of the physics world.
-         * A contact pair contains an array of contact points.
+         * A contact pair contains a list of contact points.
          */
         class ContactPair {
 
@@ -141,7 +141,7 @@ class CollisionCallback {
                 const reactphysics3d::ContactPair& mContactPair;
 
                 /// Pointer to the contact points
-                Array<reactphysics3d::ContactPoint>* mContactPoints;
+                List<reactphysics3d::ContactPoint>* mContactPoints;
 
                 /// Reference to the physics world
                 PhysicsWorld& mWorld;
@@ -152,7 +152,7 @@ class CollisionCallback {
                 // -------------------- Methods -------------------- //
 
                 /// Constructor
-                ContactPair(const reactphysics3d::ContactPair& contactPair, Array<reactphysics3d::ContactPoint>* contactPoints,
+                ContactPair(const reactphysics3d::ContactPair& contactPair, List<reactphysics3d::ContactPoint>* contactPoints,
                             PhysicsWorld& world, bool mIsLostContactPair);
 
             public:
@@ -226,23 +226,23 @@ class CollisionCallback {
 
                 // -------------------- Attributes -------------------- //
 
-                /// Pointer to the array of contact pairs (contains contacts and triggers events)
-                Array<reactphysics3d::ContactPair>* mContactPairs;
+                /// Pointer to the list of contact pairs (contains contacts and triggers events)
+                List<reactphysics3d::ContactPair>* mContactPairs;
 
-                /// Pointer to the array of contact manifolds
-                Array<ContactManifold>* mContactManifolds;
+                /// Pointer to the list of contact manifolds
+                List<ContactManifold>* mContactManifolds;
 
                 /// Pointer to the contact points
-                Array<reactphysics3d::ContactPoint>* mContactPoints;
+                List<reactphysics3d::ContactPoint>* mContactPoints;
 
-                /// Pointer to the array of lost contact pairs (contains contacts and triggers events)
-                Array<reactphysics3d::ContactPair>& mLostContactPairs;
+                /// Pointer to the list of lost contact pairs (contains contacts and triggers events)
+                List<reactphysics3d::ContactPair>& mLostContactPairs;
 
-                /// Array of indices in the mContactPairs array that are contact events (not overlap/triggers)
-                Array<uint> mContactPairsIndices;
+                /// List of indices of the mContactPairs list that are contact events (not overlap/triggers)
+                List<uint> mContactPairsIndices;
 
-                /// Array of indices in the mLostContactPairs array that are contact events (not overlap/triggers)
-                Array<uint> mLostContactPairsIndices;
+                /// List of indices of the mLostContactPairs list that are contact events (not overlap/triggers)
+                List<uint> mLostContactPairsIndices;
 
                 /// Reference to the physics world
                 PhysicsWorld& mWorld;
@@ -250,8 +250,8 @@ class CollisionCallback {
                 // -------------------- Methods -------------------- //
 
                 /// Constructor
-                CallbackData(Array<reactphysics3d::ContactPair>* contactPairs, Array<ContactManifold>* manifolds,
-                             Array<reactphysics3d::ContactPoint>* contactPoints, Array<reactphysics3d::ContactPair>& lostContactPairs,
+                CallbackData(List<reactphysics3d::ContactPair>* contactPairs, List<ContactManifold>* manifolds,
+                             List<reactphysics3d::ContactPoint>* contactPoints, List<reactphysics3d::ContactPair>& lostContactPairs,
                              PhysicsWorld& world);
 
                 /// Deleted copy constructor
@@ -278,7 +278,7 @@ class CollisionCallback {
                  * @param index Index of the contact pair to retrieve
                  * @return A contact pair object
                  */
-                ContactPair getContactPair(uint32 index) const;
+                ContactPair getContactPair(uint index) const;
 
                 // -------------------- Friendship -------------------- //
 
@@ -296,7 +296,7 @@ class CollisionCallback {
 /**
  * @return The number of contact pairs
  */
-RP3D_FORCE_INLINE uint32 CollisionCallback::CallbackData::getNbContactPairs() const {
+inline uint CollisionCallback::CallbackData::getNbContactPairs() const {
     return mContactPairsIndices.size() + mLostContactPairsIndices.size();
 }
 
@@ -304,7 +304,7 @@ RP3D_FORCE_INLINE uint32 CollisionCallback::CallbackData::getNbContactPairs() co
 /**
  * @return The number of contact points
  */
-RP3D_FORCE_INLINE uint CollisionCallback::ContactPair::getNbContactPoints() const {
+inline uint CollisionCallback::ContactPair::getNbContactPoints() const {
    return mContactPair.nbToTalContactPoints;
 }
 
@@ -312,7 +312,7 @@ RP3D_FORCE_INLINE uint CollisionCallback::ContactPair::getNbContactPoints() cons
 /**
  * @return The penetration depth (larger than zero)
  */
-RP3D_FORCE_INLINE decimal CollisionCallback::ContactPoint::getPenetrationDepth() const {
+inline decimal CollisionCallback::ContactPoint::getPenetrationDepth() const {
    return mContactPoint.getPenetrationDepth();
 }
 
@@ -320,7 +320,7 @@ RP3D_FORCE_INLINE decimal CollisionCallback::ContactPoint::getPenetrationDepth()
 /**
  * @return The contact normal direction at the contact point (in world-space)
  */
-RP3D_FORCE_INLINE const Vector3& CollisionCallback::ContactPoint::getWorldNormal() const {
+inline const Vector3& CollisionCallback::ContactPoint::getWorldNormal() const {
    return mContactPoint.getNormal();
 }
 
@@ -328,7 +328,7 @@ RP3D_FORCE_INLINE const Vector3& CollisionCallback::ContactPoint::getWorldNormal
 /**
  * @return The contact point in the local-space of the first collider (from body1) in contact
  */
-RP3D_FORCE_INLINE const Vector3& CollisionCallback::ContactPoint::getLocalPointOnCollider1() const {
+inline const Vector3& CollisionCallback::ContactPoint::getLocalPointOnCollider1() const {
    return mContactPoint.getLocalPointOnShape1();
 }
 
@@ -336,7 +336,7 @@ RP3D_FORCE_INLINE const Vector3& CollisionCallback::ContactPoint::getLocalPointO
 /**
  * @return The contact point in the local-space of the second collider (from body2) in contact
  */
-RP3D_FORCE_INLINE const Vector3& CollisionCallback::ContactPoint::getLocalPointOnCollider2() const {
+inline const Vector3& CollisionCallback::ContactPoint::getLocalPointOnCollider2() const {
    return mContactPoint.getLocalPointOnShape2();
 }
 

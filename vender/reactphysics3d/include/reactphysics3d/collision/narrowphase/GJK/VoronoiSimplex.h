@@ -28,7 +28,6 @@
 
 // Libraries
 #include <reactphysics3d/mathematics/Vector3.h>
-#include <reactphysics3d/mathematics/Vector2.h>
 
 /// ReactPhysics3D namespace
 namespace reactphysics3d {
@@ -172,17 +171,17 @@ class VoronoiSimplex {
 };
 
 // Return true if the simplex contains 4 points
-RP3D_FORCE_INLINE bool VoronoiSimplex::isFull() const {
+inline bool VoronoiSimplex::isFull() const {
     return mNbPoints == 4;
 }
 
 // Return true if the simple is empty
-RP3D_FORCE_INLINE bool VoronoiSimplex::isEmpty() const {
+inline bool VoronoiSimplex::isEmpty() const {
     return mNbPoints == 0;
 }
 
 // Set the barycentric coordinates of the closest point
-RP3D_FORCE_INLINE void VoronoiSimplex::setBarycentricCoords(decimal a, decimal b, decimal c, decimal d) {
+inline void VoronoiSimplex::setBarycentricCoords(decimal a, decimal b, decimal c, decimal d) {
     mBarycentricCoords[0] = a;
     mBarycentricCoords[1] = b;
     mBarycentricCoords[2] = c;
@@ -190,7 +189,7 @@ RP3D_FORCE_INLINE void VoronoiSimplex::setBarycentricCoords(decimal a, decimal b
 }
 
 // Compute the closest point "v" to the origin of the current simplex.
-RP3D_FORCE_INLINE bool VoronoiSimplex::computeClosestPoint(Vector3& v) {
+inline bool VoronoiSimplex::computeClosestPoint(Vector3& v) {
 
     bool isValid = recomputeClosestPoint();
     v = mClosestPoint;
@@ -198,7 +197,7 @@ RP3D_FORCE_INLINE bool VoronoiSimplex::computeClosestPoint(Vector3& v) {
 }
 
 // Return true if the
-RP3D_FORCE_INLINE bool VoronoiSimplex::checkClosestPointValid() const {
+inline bool VoronoiSimplex::checkClosestPointValid() const {
     return mBarycentricCoords[0] >= decimal(0.0) && mBarycentricCoords[1] >= decimal(0.0) &&
            mBarycentricCoords[2] >= decimal(0.0) && mBarycentricCoords[3] >= decimal(0.0);
 }

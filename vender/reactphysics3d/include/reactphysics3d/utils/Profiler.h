@@ -29,16 +29,15 @@
 // If profiling is enabled
 #ifdef IS_RP3D_PROFILING_ENABLED
 
+
 // Libraries
 #include <reactphysics3d/configuration.h>
+#include <reactphysics3d/engine/Timer.h>
 #include <fstream>
-#include <chrono>
-#include <reactphysics3d/containers/Array.h>
+#include <reactphysics3d/containers/List.h>
 
 /// ReactPhysics3D namespace
 namespace reactphysics3d {
-
-using clock = std::chrono::high_resolution_clock;
 
 // Class ProfileNode
 /**
@@ -57,10 +56,10 @@ class ProfileNode {
         uint mNbTotalCalls;
 
         /// Starting time of the sampling of corresponding block of code
-        std::chrono::time_point<clock> mStartingTime;
+        long double mStartingTime;
 
         /// Total time spent in the block of code
-        std::chrono::duration<double, std::milli> mTotalTime;
+        long double mTotalTime;
 
         /// Recursion counter
         int mRecursionCounter;
@@ -103,7 +102,7 @@ class ProfileNode {
         uint getNbTotalCalls() const;
 
         /// Return the total time spent in the block of code
-        std::chrono::duration<double, std::milli> getTotalTime() const;
+        long double getTotalTime() const;
 
         /// Called when we enter the block of code corresponding to this profile node
         void enterBlockOfCode();
@@ -163,7 +162,7 @@ class ProfileNodeIterator {
         const char* getCurrentName();
 
         /// Return the total time of the current node
-        std::chrono::duration<double, std::milli> getCurrentTotalTime();
+        long double getCurrentTotalTime();
 
         /// Return the total number of calls of the current node
         uint getCurrentNbTotalCalls();
@@ -172,7 +171,7 @@ class ProfileNodeIterator {
         const char* getCurrentParentName();
 
         /// Return the total time of the current parent node
-        std::chrono::duration<double, std::milli> getCurrentParentTotalTime();
+        long double getCurrentParentTotalTime();
 
         /// Return the total number of calls of the current parent node
         uint getCurrentParentNbTotalCalls();
@@ -291,7 +290,7 @@ class Profiler {
         uint mFrameCounter;
 
         /// Starting profiling time
-        std::chrono::time_point<clock> mProfilingStartTime;
+        long double mProfilingStartTime;
 
         /// Number of allocated destinations
         uint mNbAllocatedDestinations;
@@ -337,7 +336,7 @@ class Profiler {
         uint getNbFrames();
 
         /// Return the elasped time since the start/reset of the profiling
-        std::chrono::duration<double, std::milli> getElapsedTimeSinceStart();
+        long double getElapsedTimeSinceStart();
 
         /// Increment the frame counter
         void incrementFrameCounter();
@@ -402,112 +401,113 @@ class ProfileSample {
 #define RP3D_PROFILE(name, profiler) ProfileSample profileSample(name, profiler)
 
 // Return true if we are at the root of the profiler tree
-RP3D_FORCE_INLINE bool ProfileNodeIterator::isRoot() {
+inline bool ProfileNodeIterator::isRoot() {
     return (mCurrentParentNode->getParentNode() == nullptr);
 }
 
 // Return true if we are at the end of a branch of the profiler tree
-RP3D_FORCE_INLINE bool ProfileNodeIterator::isEnd() {
+inline bool ProfileNodeIterator::isEnd() {
     return (mCurrentChildNode == nullptr);
 }
 
 // Return the name of the current node
-RP3D_FORCE_INLINE const char* ProfileNodeIterator::getCurrentName() {
+inline const char* ProfileNodeIterator::getCurrentName() {
     return mCurrentChildNode->getName();
 }
 
 // Return the total time of the current node
-RP3D_FORCE_INLINE std::chrono::duration<double, std::milli> ProfileNodeIterator::getCurrentTotalTime() {
+inline long double ProfileNodeIterator::getCurrentTotalTime() {
     return mCurrentChildNode->getTotalTime();
 }
 
 // Return the total number of calls of the current node
-RP3D_FORCE_INLINE uint ProfileNodeIterator::getCurrentNbTotalCalls() {
+inline uint ProfileNodeIterator::getCurrentNbTotalCalls() {
     return mCurrentChildNode->getNbTotalCalls();
 }
 
 // Return the name of the current parent node
-RP3D_FORCE_INLINE const char* ProfileNodeIterator::getCurrentParentName() {
+inline const char* ProfileNodeIterator::getCurrentParentName() {
     return mCurrentParentNode->getName();
 }
 
 // Return the total time of the current parent node
-RP3D_FORCE_INLINE std::chrono::duration<double, std::milli> ProfileNodeIterator::getCurrentParentTotalTime() {
+inline long double ProfileNodeIterator::getCurrentParentTotalTime() {
     return mCurrentParentNode->getTotalTime();
 }
 
 // Return the total number of calls of the current parent node
-RP3D_FORCE_INLINE uint ProfileNodeIterator::getCurrentParentNbTotalCalls() {
+inline uint ProfileNodeIterator::getCurrentParentNbTotalCalls() {
     return mCurrentParentNode->getNbTotalCalls();
 }
 
 // Go to the first node
-RP3D_FORCE_INLINE void ProfileNodeIterator::first() {
+inline void ProfileNodeIterator::first() {
     mCurrentChildNode = mCurrentParentNode->getChildNode();
 }
 
 // Go to the next node
-RP3D_FORCE_INLINE void ProfileNodeIterator::next() {
+inline void ProfileNodeIterator::next() {
     mCurrentChildNode = mCurrentChildNode->getSiblingNode();
 }
 
 // Return a pointer to the parent node
-RP3D_FORCE_INLINE ProfileNode* ProfileNode::getParentNode() {
+inline ProfileNode* ProfileNode::getParentNode() {
     return mParentNode;
 }
 
 // Return a pointer to a sibling node
-RP3D_FORCE_INLINE ProfileNode* ProfileNode::getSiblingNode() {
+inline ProfileNode* ProfileNode::getSiblingNode() {
     return mSiblingNode;
 }
 
 // Return a pointer to a child node
-RP3D_FORCE_INLINE ProfileNode* ProfileNode::getChildNode() {
+inline ProfileNode* ProfileNode::getChildNode() {
     return mChildNode;
 }
 
 // Return the name of the node
-RP3D_FORCE_INLINE const char* ProfileNode::getName() {
+inline const char* ProfileNode::getName() {
     return mName;
 }
 
 // Return the total number of call of the corresponding block of code
-RP3D_FORCE_INLINE uint ProfileNode::getNbTotalCalls() const {
+inline uint ProfileNode::getNbTotalCalls() const {
     return mNbTotalCalls;
 }
 
 // Return the total time spent in the block of code
-RP3D_FORCE_INLINE std::chrono::duration<double, std::milli> ProfileNode::getTotalTime() const {
+inline long double ProfileNode::getTotalTime() const {
     return mTotalTime;
 }
 
 // Return the number of frames
-RP3D_FORCE_INLINE uint Profiler::getNbFrames() {
+inline uint Profiler::getNbFrames() {
     return mFrameCounter;
 }
 
 // Return the elasped time since the start/reset of the profiling
-RP3D_FORCE_INLINE std::chrono::duration<double, std::milli> Profiler::getElapsedTimeSinceStart() {
-    return (clock::now() - mProfilingStartTime);
+inline long double Profiler::getElapsedTimeSinceStart() {
+    long double currentTime = Timer::getCurrentSystemTime() * 1000.0L;
+    return currentTime - mProfilingStartTime;
 }
 
 // Increment the frame counter
-RP3D_FORCE_INLINE void Profiler::incrementFrameCounter() {
+inline void Profiler::incrementFrameCounter() {
     mFrameCounter++;
 }
 
 // Return an iterator over the profiler tree starting at the root
-RP3D_FORCE_INLINE ProfileNodeIterator* Profiler::getIterator() {
+inline ProfileNodeIterator* Profiler::getIterator() {
     return new ProfileNodeIterator(&mRootNode);
 }
 
 // Destroy a previously allocated iterator
-RP3D_FORCE_INLINE void Profiler::destroyIterator(ProfileNodeIterator* iterator) {
+inline void Profiler::destroyIterator(ProfileNodeIterator* iterator) {
     delete iterator;
 }
 
 // Destroy the profiler (release the memory)
-RP3D_FORCE_INLINE void Profiler::destroy() {
+inline void Profiler::destroy() {
     mRootNode.destroy();
 }
 

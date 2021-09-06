@@ -34,7 +34,7 @@ namespace reactphysics3d {
 
 // Declarations
 class ContactPoint;
-struct NarrowPhaseInfoBatch;
+struct SphereVsSphereNarrowPhaseInfoBatch;
 
 // Class SphereVsSphereAlgorithm
 /**
@@ -65,7 +65,7 @@ class SphereVsSphereAlgorithm : public NarrowPhaseAlgorithm {
         SphereVsSphereAlgorithm& operator=(const SphereVsSphereAlgorithm& algorithm) = delete;
 
         /// Compute a contact info if the two bounding volume collide
-        bool testCollision(NarrowPhaseInfoBatch& narrowPhaseInfoBatch, uint batchStartIndex,
+        bool testCollision(SphereVsSphereNarrowPhaseInfoBatch& narrowPhaseInfoBatch, uint batchStartIndex,
                            uint batchNbItems, MemoryAllocator& memoryAllocator);
 };
 

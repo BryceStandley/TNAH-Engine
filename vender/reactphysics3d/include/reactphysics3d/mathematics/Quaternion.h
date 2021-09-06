@@ -182,28 +182,28 @@ struct Quaternion {
 };
 
 // Constructor of the class
-RP3D_FORCE_INLINE Quaternion::Quaternion() : x(0.0), y(0.0), z(0.0), w(0.0) {
+inline Quaternion::Quaternion() : x(0.0), y(0.0), z(0.0), w(0.0) {
 
 }
 
 // Constructor with arguments
-RP3D_FORCE_INLINE Quaternion::Quaternion(decimal newX, decimal newY, decimal newZ, decimal newW)
+inline Quaternion::Quaternion(decimal newX, decimal newY, decimal newZ, decimal newW)
            :x(newX), y(newY), z(newZ), w(newW) {
 
 }
 
 // Constructor with the component w and the vector v=(x y z)
-RP3D_FORCE_INLINE Quaternion::Quaternion(decimal newW, const Vector3& v) : x(v.x), y(v.y), z(v.z), w(newW) {
+inline Quaternion::Quaternion(decimal newW, const Vector3& v) : x(v.x), y(v.y), z(v.z), w(newW) {
 
 }
 
 // Constructor with the component w and the vector v=(x y z)
-RP3D_FORCE_INLINE Quaternion::Quaternion(const Vector3& v, decimal newW) : x(v.x), y(v.y), z(v.z), w(newW) {
+inline Quaternion::Quaternion(const Vector3& v, decimal newW) : x(v.x), y(v.y), z(v.z), w(newW) {
 
 }
 
 // Set all the values
-RP3D_FORCE_INLINE void Quaternion::setAllValues(decimal newX, decimal newY, decimal newZ, decimal newW) {
+inline void Quaternion::setAllValues(decimal newX, decimal newY, decimal newZ, decimal newW) {
     x = newX;
     y = newY;
     z = newZ;
@@ -211,7 +211,7 @@ RP3D_FORCE_INLINE void Quaternion::setAllValues(decimal newX, decimal newY, deci
 }
 
 // Set the quaternion to zero
-RP3D_FORCE_INLINE void Quaternion::setToZero() {
+inline void Quaternion::setToZero() {
     x = 0;
     y = 0;
     z = 0;
@@ -219,7 +219,7 @@ RP3D_FORCE_INLINE void Quaternion::setToZero() {
 }
 
 // Set to the identity quaternion
-RP3D_FORCE_INLINE void Quaternion::setToIdentity() {
+inline void Quaternion::setToIdentity() {
     x = 0;
     y = 0;
     z = 0;
@@ -227,24 +227,24 @@ RP3D_FORCE_INLINE void Quaternion::setToIdentity() {
 }
 
 // Return the vector v=(x y z) of the quaternion
-RP3D_FORCE_INLINE Vector3 Quaternion::getVectorV() const {
+inline Vector3 Quaternion::getVectorV() const {
 
     // Return the vector v
     return Vector3(x, y, z);
 }
 
-// Return the length of the quaternion (RP3D_FORCE_INLINE)
-RP3D_FORCE_INLINE decimal Quaternion::length() const {
+// Return the length of the quaternion (inline)
+inline decimal Quaternion::length() const {
     return std::sqrt(x*x + y*y + z*z + w*w);
 }
 
 // Return the square of the length of the quaternion
-RP3D_FORCE_INLINE decimal Quaternion::lengthSquare() const {
+inline decimal Quaternion::lengthSquare() const {
     return x*x + y*y + z*z + w*w;
 }
 
 // Normalize the quaternion
-RP3D_FORCE_INLINE void Quaternion::normalize() {
+inline void Quaternion::normalize() {
 
     decimal l = length();
 
@@ -258,7 +258,7 @@ RP3D_FORCE_INLINE void Quaternion::normalize() {
 }
 
 // Inverse the quaternion
-RP3D_FORCE_INLINE void Quaternion::inverse() {
+inline void Quaternion::inverse() {
 
     // Use the conjugate of the current quaternion
     x = -x;
@@ -267,7 +267,7 @@ RP3D_FORCE_INLINE void Quaternion::inverse() {
 }
 
 // Return the unit quaternion
-RP3D_FORCE_INLINE Quaternion Quaternion::getUnit() const {
+inline Quaternion Quaternion::getUnit() const {
     decimal lengthQuaternion = length();
 
     // Check if the length is not equal to zero
@@ -279,60 +279,60 @@ RP3D_FORCE_INLINE Quaternion Quaternion::getUnit() const {
 }
 
 // Return the identity quaternion
-RP3D_FORCE_INLINE Quaternion Quaternion::identity() {
+inline Quaternion Quaternion::identity() {
     return Quaternion(0.0, 0.0, 0.0, 1.0);
 }
 
-// Return the conjugate of the quaternion (RP3D_FORCE_INLINE)
-RP3D_FORCE_INLINE Quaternion Quaternion::getConjugate() const {
+// Return the conjugate of the quaternion (inline)
+inline Quaternion Quaternion::getConjugate() const {
     return Quaternion(-x, -y, -z, w);
 }
 
-// Return the inverse of the quaternion (RP3D_FORCE_INLINE)
-RP3D_FORCE_INLINE Quaternion Quaternion::getInverse() const {
+// Return the inverse of the quaternion (inline)
+inline Quaternion Quaternion::getInverse() const {
 
     // Return the conjugate quaternion
     return Quaternion(-x, -y, -z, w);
 }
 
 // Scalar product between two quaternions
-RP3D_FORCE_INLINE decimal Quaternion::dot(const Quaternion& quaternion) const {
+inline decimal Quaternion::dot(const Quaternion& quaternion) const {
     return (x*quaternion.x + y*quaternion.y + z*quaternion.z + w*quaternion.w);
 }
 
 // Return true if the values are not NAN OR INF
-RP3D_FORCE_INLINE bool Quaternion::isFinite() const {
+inline bool Quaternion::isFinite() const {
     return std::isfinite(x) && std::isfinite(y) && std::isfinite(z) && std::isfinite(w);
 }
 
 // Return true if it is a unit quaternion
-RP3D_FORCE_INLINE bool Quaternion::isUnit() const {
+inline bool Quaternion::isUnit() const {
     const decimal length = std::sqrt(x*x + y*y + z*z + w*w);
     const decimal tolerance = 1e-5f;
     return std::abs(length - decimal(1.0)) < tolerance;
 }
 
 // Return true if it is a valid quaternion
-RP3D_FORCE_INLINE bool Quaternion::isValid() const {
+inline bool Quaternion::isValid() const {
    return isFinite() && isUnit();
 }
 
 // Overloaded operator for the addition of two quaternions
-RP3D_FORCE_INLINE Quaternion Quaternion::operator+(const Quaternion& quaternion) const {
+inline Quaternion Quaternion::operator+(const Quaternion& quaternion) const {
 
     // Return the result quaternion
     return Quaternion(x + quaternion.x, y + quaternion.y, z + quaternion.z, w + quaternion.w);
 }
 
 // Overloaded operator for the substraction of two quaternions
-RP3D_FORCE_INLINE Quaternion Quaternion::operator-(const Quaternion& quaternion) const {
+inline Quaternion Quaternion::operator-(const Quaternion& quaternion) const {
 
     // Return the result of the substraction
     return Quaternion(x - quaternion.x, y - quaternion.y, z - quaternion.z, w - quaternion.w);
 }
 
 // Overloaded operator for addition with assignment
-RP3D_FORCE_INLINE Quaternion& Quaternion::operator+=(const Quaternion& quaternion) {
+inline Quaternion& Quaternion::operator+=(const Quaternion& quaternion) {
     x += quaternion.x;
     y += quaternion.y;
     z += quaternion.z;
@@ -341,7 +341,7 @@ RP3D_FORCE_INLINE Quaternion& Quaternion::operator+=(const Quaternion& quaternio
 }
 
 // Overloaded operator for substraction with assignment
-RP3D_FORCE_INLINE Quaternion& Quaternion::operator-=(const Quaternion& quaternion) {
+inline Quaternion& Quaternion::operator-=(const Quaternion& quaternion) {
     x -= quaternion.x;
     y -= quaternion.y;
     z -= quaternion.z;
@@ -350,12 +350,12 @@ RP3D_FORCE_INLINE Quaternion& Quaternion::operator-=(const Quaternion& quaternio
 }
 
 // Overloaded operator for the multiplication with a constant
-RP3D_FORCE_INLINE Quaternion Quaternion::operator*(decimal nb) const {
+inline Quaternion Quaternion::operator*(decimal nb) const {
     return Quaternion(nb * x, nb * y, nb * z, nb * w);
 }
 
 // Overloaded operator for the multiplication of two quaternions
-RP3D_FORCE_INLINE Quaternion Quaternion::operator*(const Quaternion& quaternion) const {
+inline Quaternion Quaternion::operator*(const Quaternion& quaternion) const {
 
     /* The followin code is equivalent to this
     return Quaternion(w * quaternion.w - getVectorV().dot(quaternion.getVectorV()),
@@ -371,7 +371,7 @@ RP3D_FORCE_INLINE Quaternion Quaternion::operator*(const Quaternion& quaternion)
 
 // Overloaded operator for the multiplication with a vector.
 /// This methods rotates a point given the rotation of a quaternion.
-RP3D_FORCE_INLINE Vector3 Quaternion::operator*(const Vector3& point) const {
+inline Vector3 Quaternion::operator*(const Vector3& point) const {
 
     /* The following code is equivalent to this
      * Quaternion p(point.x, point.y, point.z, 0.0);
@@ -388,7 +388,7 @@ RP3D_FORCE_INLINE Vector3 Quaternion::operator*(const Vector3& point) const {
 }
 
 // Overloaded operator for the assignment
-RP3D_FORCE_INLINE Quaternion& Quaternion::operator=(const Quaternion& quaternion) {
+inline Quaternion& Quaternion::operator=(const Quaternion& quaternion) {
 
     // Check for self-assignment
     if (this != &quaternion) {
@@ -403,13 +403,13 @@ RP3D_FORCE_INLINE Quaternion& Quaternion::operator=(const Quaternion& quaternion
 }
 
 // Overloaded operator for equality condition
-RP3D_FORCE_INLINE bool Quaternion::operator==(const Quaternion& quaternion) const {
+inline bool Quaternion::operator==(const Quaternion& quaternion) const {
     return (x == quaternion.x && y == quaternion.y &&
             z == quaternion.z && w == quaternion.w);
 }
 
 // Get the string representation
-RP3D_FORCE_INLINE std::string Quaternion::to_string() const {
+inline std::string Quaternion::to_string() const {
     return "Quaternion(" + std::to_string(x) + "," + std::to_string(y) + "," + std::to_string(z) + "," +
             std::to_string(w) + ")";
 }

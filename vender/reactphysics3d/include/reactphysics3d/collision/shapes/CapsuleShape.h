@@ -126,7 +126,7 @@ class CapsuleShape : public ConvexShape {
 /**
  * @return The radius of the capsule shape (in meters)
  */
-RP3D_FORCE_INLINE decimal CapsuleShape::getRadius() const {
+inline decimal CapsuleShape::getRadius() const {
     return mMargin;
 }
 
@@ -136,7 +136,7 @@ RP3D_FORCE_INLINE decimal CapsuleShape::getRadius() const {
 /**
  * @param radius The radius of the capsule (in meters)
  */
-RP3D_FORCE_INLINE void CapsuleShape::setRadius(decimal radius) {
+inline void CapsuleShape::setRadius(decimal radius) {
 
     assert(radius > decimal(0.0));
     mMargin = radius;
@@ -148,7 +148,7 @@ RP3D_FORCE_INLINE void CapsuleShape::setRadius(decimal radius) {
 /**
  * @return The height of the capsule shape (in meters)
  */
-RP3D_FORCE_INLINE decimal CapsuleShape::getHeight() const {
+inline decimal CapsuleShape::getHeight() const {
     return mHalfHeight + mHalfHeight;
 }
 
@@ -158,7 +158,7 @@ RP3D_FORCE_INLINE decimal CapsuleShape::getHeight() const {
 /**
  * @param height The height of the capsule (in meters)
  */
-RP3D_FORCE_INLINE void CapsuleShape::setHeight(decimal height) {
+inline void CapsuleShape::setHeight(decimal height) {
 
     assert(height > decimal(0.0));
     mHalfHeight = height * decimal(0.5);
@@ -167,7 +167,7 @@ RP3D_FORCE_INLINE void CapsuleShape::setHeight(decimal height) {
 }
 
 // Return the number of bytes used by the collision shape
-RP3D_FORCE_INLINE size_t CapsuleShape::getSizeInBytes() const {
+inline size_t CapsuleShape::getSizeInBytes() const {
     return sizeof(CapsuleShape);
 }
 
@@ -177,7 +177,7 @@ RP3D_FORCE_INLINE size_t CapsuleShape::getSizeInBytes() const {
  * @param min The minimum bounds of the shape in local-space coordinates
  * @param max The maximum bounds of the shape in local-space coordinates
  */
-RP3D_FORCE_INLINE void CapsuleShape::getLocalBounds(Vector3& min, Vector3& max) const {
+inline void CapsuleShape::getLocalBounds(Vector3& min, Vector3& max) const {
 
     // Maximum bounds
     max.x = mMargin;
@@ -191,12 +191,12 @@ RP3D_FORCE_INLINE void CapsuleShape::getLocalBounds(Vector3& min, Vector3& max) 
 }
 
 // Compute and return the volume of the collision shape
-RP3D_FORCE_INLINE decimal CapsuleShape::getVolume() const {
-    return reactphysics3d::PI_RP3D * mMargin * mMargin * (decimal(4.0) * mMargin / decimal(3.0) + decimal(2.0) * mHalfHeight);
+inline decimal CapsuleShape::getVolume() const {
+    return reactphysics3d::PI * mMargin * mMargin * (decimal(4.0) * mMargin / decimal(3.0) + decimal(2.0) * mHalfHeight);
 }
 
 // Return true if the collision shape is a polyhedron
-RP3D_FORCE_INLINE bool CapsuleShape::isPolyhedron() const {
+inline bool CapsuleShape::isPolyhedron() const {
     return false;
 }
 
@@ -207,7 +207,7 @@ RP3D_FORCE_INLINE bool CapsuleShape::isPolyhedron() const {
 /// Therefore, in this method, we compute the support points of both top and bottom spheres of
 /// the capsule and return the point with the maximum dot product with the direction vector. Note
 /// that the object margin is implicitly the radius and height of the capsule.
-RP3D_FORCE_INLINE Vector3 CapsuleShape::getLocalSupportPointWithoutMargin(const Vector3& direction) const {
+inline Vector3 CapsuleShape::getLocalSupportPointWithoutMargin(const Vector3& direction) const {
 
     // Support point top sphere
     decimal dotProductTop = mHalfHeight * direction.y;
@@ -225,7 +225,7 @@ RP3D_FORCE_INLINE Vector3 CapsuleShape::getLocalSupportPointWithoutMargin(const 
 }
 
 // Return the string representation of the shape
-RP3D_FORCE_INLINE std::string CapsuleShape::to_string() const {
+inline std::string CapsuleShape::to_string() const {
     return "CapsuleShape{halfHeight=" + std::to_string(mHalfHeight) + ", radius=" + std::to_string(getRadius()) + "}";
 }
 

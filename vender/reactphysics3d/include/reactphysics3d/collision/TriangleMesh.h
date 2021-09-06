@@ -28,7 +28,7 @@
 
 // Libraries
 #include <cassert>
-#include <reactphysics3d/containers/Array.h>
+#include <reactphysics3d/containers/List.h>
 #include <reactphysics3d/memory/MemoryAllocator.h>
 
 namespace reactphysics3d {
@@ -49,7 +49,7 @@ class TriangleMesh {
     protected:
 
         /// All the triangle arrays of the mesh (one triangle array per part)
-        Array<TriangleVertexArray*> mTriangleArrays;
+        List<TriangleVertexArray*> mTriangleArrays;
 
         /// Constructor
         TriangleMesh(reactphysics3d::MemoryAllocator& allocator);
@@ -78,7 +78,7 @@ class TriangleMesh {
 /**
  * @param triangleVertexArray Pointer to the TriangleVertexArray to add into the mesh
  */
-RP3D_FORCE_INLINE void TriangleMesh::addSubpart(TriangleVertexArray* triangleVertexArray) {
+inline void TriangleMesh::addSubpart(TriangleVertexArray* triangleVertexArray) {
     mTriangleArrays.add(triangleVertexArray );
 }
 
@@ -87,7 +87,7 @@ RP3D_FORCE_INLINE void TriangleMesh::addSubpart(TriangleVertexArray* triangleVer
  * @param indexSubpart The index of the sub-part of the mesh
  * @return A pointer to the triangle vertex array of a given sub-part of the mesh
  */
-RP3D_FORCE_INLINE TriangleVertexArray* TriangleMesh::getSubpart(uint32 indexSubpart) const {
+inline TriangleVertexArray* TriangleMesh::getSubpart(uint indexSubpart) const {
    assert(indexSubpart < mTriangleArrays.size());
    return mTriangleArrays[indexSubpart];
 }
@@ -96,7 +96,7 @@ RP3D_FORCE_INLINE TriangleVertexArray* TriangleMesh::getSubpart(uint32 indexSubp
 /**
  * @return The number of sub-parts of the mesh
  */
-RP3D_FORCE_INLINE uint32 TriangleMesh::getNbSubparts() const {
+inline uint TriangleMesh::getNbSubparts() const {
     return mTriangleArrays.size();
 }
 

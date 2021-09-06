@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\body\CollisionBody.cpp" />
+    <ClCompile Include="src\body\RigidBody.cpp" />
+    <ClCompile Include="src\collision\broadphase\DynamicAABBTree.cpp" />
+    <ClCompile Include="src\collision\Collider.cpp" />
+    <ClCompile Include="src\collision\CollisionCallback.cpp" />
+    <ClCompile Include="src\collision\ContactManifold.cpp" />
+    <ClCompile Include="src\collision\HalfEdgeStructure.cpp" />
+    <ClCompile Include="src\collision\narrowphase\CapsuleVsCapsuleAlgorithm.cpp" />
+    <ClCompile Include="src\collision\narrowphase\CapsuleVsCapsuleNarrowPhaseInfoBatch.cpp" />
+    <ClCompile Include="src\collision\narrowphase\CapsuleVsConvexPolyhedronAlgorithm.cpp" />
+    <ClCompile Include="src\collision\narrowphase\CollisionDispatch.cpp" />
+    <ClCompile Include="src\collision\narrowphase\ConvexPolyhedronVsConvexPolyhedronAlgorithm.cpp" />
+    <ClCompile Include="src\collision\narrowphase\GJK\GJKAlgorithm.cpp" />
+    <ClCompile Include="src\collision\narrowphase\GJK\VoronoiSimplex.cpp" />
+    <ClCompile Include="src\collision\narrowphase\NarrowPhaseInfoBatch.cpp" />
+    <ClCompile Include="src\collision\narrowphase\NarrowPhaseInput.cpp" />
+    <ClCompile Include="src\collision\narrowphase\SAT\SATAlgorithm.cpp" />
+    <ClCompile Include="src\collision\narrowphase\SphereVsCapsuleAlgorithm.cpp" />
+    <ClCompile Include="src\collision\narrowphase\SphereVsCapsuleNarrowPhaseInfoBatch.cpp" />
+    <ClCompile Include="src\collision\narrowphase\SphereVsConvexPolyhedronAlgorithm.cpp" />
+    <ClCompile Include="src\collision\narrowphase\SphereVsSphereAlgorithm.cpp" />
+    <ClCompile Include="src\collision\narrowphase\SphereVsSphereNarrowPhaseInfoBatch.cpp" />
+    <ClCompile Include="src\collision\OverlapCallback.cpp" />
+    <ClCompile Include="src\collision\PolygonVertexArray.cpp" />
+    <ClCompile Include="src\collision\PolyhedronMesh.cpp" />
+    <ClCompile Include="src\collision\RaycastInfo.cpp" />
+    <ClCompile Include="src\collision\shapes\AABB.cpp" />
+    <ClCompile Include="src\collision\shapes\BoxShape.cpp" />
+    <ClCompile Include="src\collision\shapes\CapsuleShape.cpp" />
+    <ClCompile Include="src\collision\shapes\CollisionShape.cpp" />
+    <ClCompile Include="src\collision\shapes\ConcaveMeshShape.cpp" />
+    <ClCompile Include="src\collision\shapes\ConcaveShape.cpp" />
+    <ClCompile Include="src\collision\shapes\ConvexMeshShape.cpp" />
+    <ClCompile Include="src\collision\shapes\ConvexPolyhedronShape.cpp" />
+    <ClCompile Include="src\collision\shapes\ConvexShape.cpp" />
+    <ClCompile Include="src\collision\shapes\HeightFieldShape.cpp" />
+    <ClCompile Include="src\collision\shapes\SphereShape.cpp" />
+    <ClCompile Include="src\collision\shapes\TriangleShape.cpp" />
+    <ClCompile Include="src\collision\TriangleMesh.cpp" />
+    <ClCompile Include="src\collision\TriangleVertexArray.cpp" />
+    <ClCompile Include="src\components\BallAndSocketJointComponents.cpp" />
+    <ClCompile Include="src\components\ColliderComponents.cpp" />
+    <ClCompile Include="src\components\CollisionBodyComponents.cpp" />
+    <ClCompile Include="src\components\Components.cpp" />
+    <ClCompile Include="src\components\FixedJointComponents.cpp" />
+    <ClCompile Include="src\components\HingeJointComponents.cpp" />
+    <ClCompile Include="src\components\JointComponents.cpp" />
+    <ClCompile Include="src\components\RigidBodyComponents.cpp" />
+    <ClCompile Include="src\components\SliderJointComponents.cpp" />
+    <ClCompile Include="src\components\TransformComponents.cpp" />
+    <ClCompile Include="src\constraint\BallAndSocketJoint.cpp" />
+    <ClCompile Include="src\constraint\ContactPoint.cpp" />
+    <ClCompile Include="src\constraint\FixedJoint.cpp" />
+    <ClCompile Include="src\constraint\HingeJoint.cpp" />
+    <ClCompile Include="src\constraint\Joint.cpp" />
+    <ClCompile Include="src\constraint\SliderJoint.cpp" />
+    <ClCompile Include="src\engine\Entity.cpp" />
+    <ClCompile Include="src\engine\EntityManager.cpp" />
+    <ClCompile Include="src\engine\Island.cpp" />
+    <ClCompile Include="src\engine\Material.cpp" />
+    <ClCompile Include="src\engine\OverlappingPairs.cpp" />
+    <ClCompile Include="src\engine\PhysicsCommon.cpp" />
+    <ClCompile Include="src\engine\PhysicsWorld.cpp" />
+    <ClCompile Include="src\engine\Timer.cpp" />
+    <ClCompile Include="src\mathematics\mathematics_functions.cpp" />
+    <ClCompile Include="src\mathematics\Matrix2x2.cpp" />
+    <ClCompile Include="src\mathematics\Matrix3x3.cpp" />
+    <ClCompile Include="src\mathematics\Quaternion.cpp" />
+    <ClCompile Include="src\mathematics\Transform.cpp" />
+    <ClCompile Include="src\mathematics\Vector2.cpp" />
+    <ClCompile Include="src\mathematics\Vector3.cpp" />
+    <ClCompile Include="src\memory\HeapAllocator.cpp" />
+    <ClCompile Include="src\memory\MemoryManager.cpp" />
+    <ClCompile Include="src\memory\PoolAllocator.cpp" />
+    <ClCompile Include="src\memory\SingleFrameAllocator.cpp" />
+    <ClCompile Include="src\systems\BroadPhaseSystem.cpp" />
+    <ClCompile Include="src\systems\CollisionDetectionSystem.cpp" />
+    <ClCompile Include="src\systems\ConstraintSolverSystem.cpp" />
+    <ClCompile Include="src\systems\ContactSolverSystem.cpp" />
+    <ClCompile Include="src\systems\DynamicsSystem.cpp" />
+    <ClCompile Include="src\systems\SolveBallAndSocketJointSystem.cpp" />
+    <ClCompile Include="src\systems\SolveFixedJointSystem.cpp" />
+    <ClCompile Include="src\systems\SolveHingeJointSystem.cpp" />
+    <ClCompile Include="src\systems\SolveSliderJointSystem.cpp" />
+    <ClCompile Include="src\utils\DebugRenderer.cpp" />
+    <ClCompile Include="src\utils\DefaultLogger.cpp" />
+    <ClCompile Include="src\utils\Profiler.cpp" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>15.0</VCProjectVersion>
+    <ProjectGuid>{2F2998F1-3D89-4812-8EF6-C65EBF9A18D7}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>ReactPhysics3D</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.19041.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)bin\$(Configuration)-$(Platform)\$(ProjectName)\</OutDir>
+    <IntDir>$(SolutionDir)bin-int\$(Configuration)-$(Platform)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>TurnOffAllWarnings</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>$(SolutionDir)vender\reactphysics3d\include;</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

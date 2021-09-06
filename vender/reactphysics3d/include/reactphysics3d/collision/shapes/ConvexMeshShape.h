@@ -147,19 +147,19 @@ class ConvexMeshShape : public ConvexPolyhedronShape {
 };
 
 // Return the number of bytes used by the collision shape
-RP3D_FORCE_INLINE size_t ConvexMeshShape::getSizeInBytes() const {
+inline size_t ConvexMeshShape::getSizeInBytes() const {
     return sizeof(ConvexMeshShape);
 }
 
 // Return the scaling vector
-RP3D_FORCE_INLINE const Vector3& ConvexMeshShape::getScale() const {
+inline const Vector3& ConvexMeshShape::getScale() const {
     return mScale;
 }
 
 // Set the scale
 /// Note that you might want to recompute the inertia tensor and center of mass of the body
 /// after changing the scale of a collision shape
-RP3D_FORCE_INLINE void ConvexMeshShape::setScale(const Vector3& scale) {
+inline void ConvexMeshShape::setScale(const Vector3& scale) {
     mScale = scale;
     recalculateBounds();
     notifyColliderAboutChangedSize();
@@ -170,7 +170,7 @@ RP3D_FORCE_INLINE void ConvexMeshShape::setScale(const Vector3& scale) {
  * @param min The minimum bounds of the shape in local-space coordinates
  * @param max The maximum bounds of the shape in local-space coordinates
  */
-RP3D_FORCE_INLINE void ConvexMeshShape::getLocalBounds(Vector3& min, Vector3& max) const {
+inline void ConvexMeshShape::getLocalBounds(Vector3& min, Vector3& max) const {
     min = mMinBounds;
     max = mMaxBounds;
 }
@@ -181,7 +181,7 @@ RP3D_FORCE_INLINE void ConvexMeshShape::getLocalBounds(Vector3& min, Vector3& ma
 /**
 * @param mass Mass to use to compute the inertia tensor of the collision shape
 */
-RP3D_FORCE_INLINE Vector3 ConvexMeshShape::getLocalInertiaTensor(decimal mass) const {
+inline Vector3 ConvexMeshShape::getLocalInertiaTensor(decimal mass) const {
     const decimal factor = (decimal(1.0) / decimal(3.0)) * mass;
     const Vector3 realExtent = decimal(0.5) * (mMaxBounds - mMinBounds);
     assert(realExtent.x > 0 && realExtent.y > 0 && realExtent.z > 0);
@@ -192,58 +192,58 @@ RP3D_FORCE_INLINE Vector3 ConvexMeshShape::getLocalInertiaTensor(decimal mass) c
 }
 
 // Return the number of faces of the polyhedron
-RP3D_FORCE_INLINE uint ConvexMeshShape::getNbFaces() const {
+inline uint ConvexMeshShape::getNbFaces() const {
     return mPolyhedronMesh->getHalfEdgeStructure().getNbFaces();
 }
 
 // Return a given face of the polyhedron
-RP3D_FORCE_INLINE const HalfEdgeStructure::Face& ConvexMeshShape::getFace(uint faceIndex) const {
+inline const HalfEdgeStructure::Face& ConvexMeshShape::getFace(uint faceIndex) const {
     assert(faceIndex < getNbFaces());
     return mPolyhedronMesh->getHalfEdgeStructure().getFace(faceIndex);
 }
 
 // Return the number of vertices of the polyhedron
-RP3D_FORCE_INLINE uint ConvexMeshShape::getNbVertices() const {
+inline uint ConvexMeshShape::getNbVertices() const {
     return mPolyhedronMesh->getHalfEdgeStructure().getNbVertices();
 }
 
 // Return a given vertex of the polyhedron
-RP3D_FORCE_INLINE HalfEdgeStructure::Vertex ConvexMeshShape::getVertex(uint vertexIndex) const {
+inline HalfEdgeStructure::Vertex ConvexMeshShape::getVertex(uint vertexIndex) const {
     assert(vertexIndex < getNbVertices());
     return mPolyhedronMesh->getHalfEdgeStructure().getVertex(vertexIndex);
 }
 
 // Return the number of half-edges of the polyhedron
-RP3D_FORCE_INLINE uint ConvexMeshShape::getNbHalfEdges() const {
+inline uint ConvexMeshShape::getNbHalfEdges() const {
     return mPolyhedronMesh->getHalfEdgeStructure().getNbHalfEdges();
 }
 
 // Return a given half-edge of the polyhedron
-RP3D_FORCE_INLINE const HalfEdgeStructure::Edge& ConvexMeshShape::getHalfEdge(uint edgeIndex) const {
+inline const HalfEdgeStructure::Edge& ConvexMeshShape::getHalfEdge(uint edgeIndex) const {
     assert(edgeIndex < getNbHalfEdges());
     return mPolyhedronMesh->getHalfEdgeStructure().getHalfEdge(edgeIndex);
 }
 
 // Return the position of a given vertex
-RP3D_FORCE_INLINE Vector3 ConvexMeshShape::getVertexPosition(uint vertexIndex) const {
+inline Vector3 ConvexMeshShape::getVertexPosition(uint vertexIndex) const {
     assert(vertexIndex < getNbVertices());
     return mPolyhedronMesh->getVertex(vertexIndex) * mScale;
 }
 
 // Return the normal vector of a given face of the polyhedron
-RP3D_FORCE_INLINE Vector3 ConvexMeshShape::getFaceNormal(uint faceIndex) const {
+inline Vector3 ConvexMeshShape::getFaceNormal(uint faceIndex) const {
     assert(faceIndex < getNbFaces());
     return mPolyhedronMesh->getFaceNormal(faceIndex);
 }
 
 // Return the centroid of the polyhedron
-RP3D_FORCE_INLINE Vector3 ConvexMeshShape::getCentroid() const {
+inline Vector3 ConvexMeshShape::getCentroid() const {
     return mPolyhedronMesh->getCentroid() * mScale;
 }
 
 
 // Compute and return the volume of the collision shape
-RP3D_FORCE_INLINE decimal ConvexMeshShape::getVolume() const {
+inline decimal ConvexMeshShape::getVolume() const {
     return mPolyhedronMesh->getVolume();
 }
 

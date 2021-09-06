@@ -59,6 +59,9 @@ class Collider {
         /// Pointer to the parent body
         CollisionBody* mBody;
 
+        /// Material properties of the rigid body
+        Material mMaterial;
+
         /// Pointer to user data
         void* mUserData;
 
@@ -185,7 +188,7 @@ class Collider {
 /**
  * @return The entity of the collider
  */
-RP3D_FORCE_INLINE Entity Collider::getEntity() const {
+inline Entity Collider::getEntity() const {
     return mEntity;
 }
 
@@ -193,7 +196,7 @@ RP3D_FORCE_INLINE Entity Collider::getEntity() const {
 /**
  * @return Pointer to the parent body
  */
-RP3D_FORCE_INLINE CollisionBody* Collider::getBody() const {
+inline CollisionBody* Collider::getBody() const {
     return mBody;
 }
 
@@ -201,7 +204,7 @@ RP3D_FORCE_INLINE CollisionBody* Collider::getBody() const {
 /**
  * @return A pointer to the user data stored into the collider
  */
-RP3D_FORCE_INLINE void* Collider::getUserData() const {
+inline void* Collider::getUserData() const {
     return mUserData;
 }
 
@@ -209,7 +212,7 @@ RP3D_FORCE_INLINE void* Collider::getUserData() const {
 /**
  * @param userData Pointer to the user data you want to store within the collider
  */
-RP3D_FORCE_INLINE void Collider::setUserData(void* userData) {
+inline void Collider::setUserData(void* userData) {
     mUserData = userData;
 }
 
@@ -218,8 +221,16 @@ RP3D_FORCE_INLINE void Collider::setUserData(void* userData) {
 * @param worldAABB The AABB (in world-space coordinates) that will be used to test overlap
 * @return True if the given AABB overlaps with the AABB of the collision body
 */
-RP3D_FORCE_INLINE bool Collider::testAABBOverlap(const AABB& worldAABB) const {
+inline bool Collider::testAABBOverlap(const AABB& worldAABB) const {
     return worldAABB.testCollision(getWorldAABB());
+}
+
+// Return a reference to the material properties of the collider
+/**
+ * @return A reference to the material of the body
+ */
+inline Material& Collider::getMaterial() {
+    return mMaterial;
 }
 
 }

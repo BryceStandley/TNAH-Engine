@@ -47,11 +47,8 @@ struct ContactPair {
         /// Overlapping pair Id
         uint64 pairId;
 
-        /// Number of potential contact manifolds
-        uint8 nbPotentialContactManifolds;
-
         /// Indices of the potential contact manifolds
-        uint potentialContactManifoldsIndices[NB_MAX_POTENTIAL_CONTACT_MANIFOLDS];
+        List<uint> potentialContactManifoldsIndices;
 
         /// Entity of the first body of the contact
         Entity body1Entity;
@@ -69,19 +66,19 @@ struct ContactPair {
         bool isAlreadyInIsland;
 
         /// Index of the contact pair in the array of pairs
-        uint32 contactPairIndex;
+        uint contactPairIndex;
 
         /// Index of the first contact manifold in the array
-        uint32 contactManifoldsIndex;
+        uint contactManifoldsIndex;
 
         /// Number of contact manifolds
         int8 nbContactManifolds;
 
         /// Index of the first contact point in the array of contact points
-        uint32 contactPointsIndex;
+        uint contactPointsIndex;
 
         /// Total number of contact points in all the manifolds of the contact pair
-        uint32 nbToTalContactPoints;
+        uint nbToTalContactPoints;
 
         /// True if the colliders of the pair were already colliding in the previous frame
         bool collidingInPreviousFrame;
@@ -93,20 +90,12 @@ struct ContactPair {
 
         /// Constructor
         ContactPair(uint64 pairId, Entity body1Entity, Entity body2Entity, Entity collider1Entity,
-                    Entity collider2Entity, uint contactPairIndex, bool collidingInPreviousFrame, bool isTrigger)
-            : pairId(pairId), nbPotentialContactManifolds(0), body1Entity(body1Entity), body2Entity(body2Entity),
+                    Entity collider2Entity, uint contactPairIndex, bool collidingInPreviousFrame, bool isTrigger, MemoryAllocator& allocator)
+            : pairId(pairId), potentialContactManifoldsIndices(allocator), body1Entity(body1Entity), body2Entity(body2Entity),
               collider1Entity(collider1Entity), collider2Entity(collider2Entity),
               isAlreadyInIsland(false), contactPairIndex(contactPairIndex), contactManifoldsIndex(0), nbContactManifolds(0),
               contactPointsIndex(0), nbToTalContactPoints(0), collidingInPreviousFrame(collidingInPreviousFrame), isTrigger(isTrigger) {
 
-        }
-
-        // Remove a potential manifold at a given index in the array
-        void removePotentialManifoldAtIndex(uint index) {
-            assert(index < nbPotentialContactManifolds);
-
-            potentialContactManifoldsIndices[index] = potentialContactManifoldsIndices[nbPotentialContactManifolds - 1];
-            nbPotentialContactManifolds--;
         }
 };
 

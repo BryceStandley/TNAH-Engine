@@ -107,23 +107,23 @@ struct Entity {
 };
 
 // Return the lookup index of the entity in a array
-RP3D_FORCE_INLINE uint32 Entity::getIndex() const {
+inline uint32 Entity::getIndex() const {
     return id & ENTITY_INDEX_MASK;
 }
 
 // Return the generation number of the entity
-RP3D_FORCE_INLINE uint32 Entity::getGeneration() const {
+inline uint32 Entity::getGeneration() const {
     return (id >> ENTITY_INDEX_BITS) & ENTITY_GENERATION_MASK;
 }
 
 // Equality operator
-RP3D_FORCE_INLINE bool Entity::operator==(const Entity& entity) const {
+inline bool Entity::operator==(const Entity& entity) const {
 
     return entity.id == id;
 }
 
 // Inequality operator
-RP3D_FORCE_INLINE bool Entity::operator!=(const Entity& entity) const {
+inline bool Entity::operator!=(const Entity& entity) const {
     return entity.id != id;
 }
 

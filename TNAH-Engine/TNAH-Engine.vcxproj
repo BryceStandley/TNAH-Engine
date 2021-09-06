@@ -27,6 +27,8 @@
     <ClCompile Include="src\TNAH\Editor\EditorUI.cpp" />
     <ClCompile Include="src\TNAH\Layers\ImGuizmo.cpp" />
     <ClCompile Include="src\TNAH\Layers\UI.cpp" />
+    <ClCompile Include="src\TNAH\Physics\Physics.cpp" />
+    <ClCompile Include="src\TNAH\Physics\PhysicsEvents.cpp" />
     <ClCompile Include="src\TNAH\Physics\PhysicsTimestep.cpp" />
     <ClCompile Include="src\TNAH\Renderer\Image.cpp" />
     <ClCompile Include="src\TNAH\Renderer\Light.cpp" />
@@ -89,6 +91,8 @@
     <ClInclude Include="src\TNAH\Editor\EditorUI.h" />
     <ClInclude Include="src\TNAH\Layers\ImGuizmo.h" />
     <ClInclude Include="src\TNAH\Layers\UI.h" />
+    <ClInclude Include="src\TNAH\Physics\Physics.h" />
+    <ClInclude Include="src\TNAH\Physics\PhysicsEvents.h" />
     <ClInclude Include="src\TNAH\Physics\PhysicsTimestep.h" />
     <ClInclude Include="src\TNAH\Renderer\Animation.h" />
     <ClInclude Include="src\TNAH\Renderer\AssimpGLMHelpers.h" />
@@ -176,6 +180,10 @@
     </ProjectReference>
     <ProjectReference Include="..\EngineDependencesProjects\ImGUI\ImGUI.vcxproj">
       <Project>{11bb4bf9-7d1e-4ada-aa26-b828e14ec6b3}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\EngineDependencesProjects\ReactPhysics3D\ReactPhysics3D.vcxproj">
+      <Project>{2f2998f1-3d89-4812-8ef6-c65ebf9a18d7}</Project>
+      <Name>ReactPhysics3D</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup Label="Globals">
