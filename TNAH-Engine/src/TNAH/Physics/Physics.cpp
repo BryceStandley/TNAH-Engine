@@ -32,9 +32,24 @@ namespace tnah
         m_PhysicsManager->DestroyCollisionBody(body);
     }
 
+    rp3d::BoxShape* Physics::CreateBoxShape(const rp3d::Vector3& halfExtents) 
+    {
+        return m_PhysicsManager->m_PhysicsCommon.createBoxShape(halfExtents);
+    }
+
+    rp3d::SphereShape* Physics::CreateSphereShape(const float& radius)
+    {
+        return m_PhysicsManager->m_PhysicsCommon.createSphereShape(radius);
+    }
+
     rp3d::CapsuleShape* Physics::CreateCapsuleShape(const float& radius, const float& height)
     {
         return m_PhysicsManager->m_PhysicsCommon.createCapsuleShape(radius, height);
+    }
+
+    rp3d::HeightFieldShape* Physics::CreateHeightFieldShape(const int &columns, const int& rows, const float &minHeight, const float& maxHeight, const float* terrainColliderHeightData, rp3d::HeightFieldShape::HeightDataType &heightDataType)
+    {
+        return m_PhysicsManager->m_PhysicsCommon.createHeightFieldShape(columns, rows, minHeight, maxHeight, terrainColliderHeightData, heightDataType);
     }
 
     rp3d::PolyhedronMesh* Physics::CreatePolyhedronMesh(rp3d::PolygonVertexArray* polygonVertexArray)
@@ -55,6 +70,23 @@ namespace tnah
     rp3d::TriangleMesh* Physics::CreateTriangleMesh()
     {
         return m_PhysicsManager->m_PhysicsCommon.createTriangleMesh();
+    }
+
+    void Physics::CreateTerrainCollider(tnah::Terrain* terrain)
+    {
+        // gameTerrain = terrain;
+        // gameTerrain->SetCollisionTag(BoundingBox::TERRAIN);
+        int rows = terrain->GetSize().x;
+        int columns = terrain->GetSize().y;
+
+        float minHeight = terrain->GetMinHeight().y;
+        float maxHeight = terrain->GetMaxHeight().y;
+
+        int size = rows * columns;
+        //std::vector<float> terrainHeights = terrain->GetTerrainHeights();
+
+
+
     }
 
     void Physics::PhysicsLoggerInit()
@@ -145,6 +177,8 @@ namespace tnah
     {
         
     }
+
+
 
 
 }
