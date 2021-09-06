@@ -32,6 +32,8 @@ namespace tnah
     {
     public:
         static Ref<PhysicsManager> GetManager();
+
+        static bool IsActive();
         
         static bool Initialise(rp3d::EventListener * collisionEventListener);
         static void OnFixedUpdate(PhysicsTimestep timestep);
@@ -39,8 +41,18 @@ namespace tnah
         static rp3d::CollisionBody* CreateCollisionBody(const TransformComponent& transformValues);
         static void DestroyCollisionBody(rp3d::CollisionBody * body);
 
+
+        static rp3d::CapsuleShape* CreateCapsuleShape(const float& radius, const float& height);
+
+        static rp3d::PolyhedronMesh* CreatePolyhedronMesh(rp3d::PolygonVertexArray* polygonVertexArray);
+        static rp3d::ConvexMeshShape* CreateConvexMeshShape(rp3d::PolyhedronMesh* polyhedronMesh);
+        static rp3d::ConcaveMeshShape* CreateConcaveMeshShape(rp3d::TriangleMesh* triangleMesh);
+        static rp3d::TriangleMesh* CreateTriangleMesh();
+    
     private:
         static void PhysicsLoggerInit();
+    
+    private:
         static Ref<PhysicsManager> m_PhysicsCollision;
     };
 

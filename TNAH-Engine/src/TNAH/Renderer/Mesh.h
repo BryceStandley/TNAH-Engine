@@ -85,6 +85,8 @@ struct Vertex
         Ref<VertexBuffer> GetMeshVertexBuffer() const {return m_Vbo;}
         Ref<IndexBuffer> GetMeshIndexBuffer() const {return m_Ibo;}
         Ref<Material> GetMeshMaterial() const {return m_Material;}
+        std::vector<glm::vec3> GetVertexPositions() const;
+        std::vector<uint32_t> GetIndices() const { return m_Indices; }
     private:
         // mesh data
         std::vector<Vertex> m_Vertices;

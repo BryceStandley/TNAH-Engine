@@ -10,9 +10,16 @@ namespace tnah
         return m_PhysicsCollision;
     }
 
+    bool Physics::IsActive()
+    {
+        return m_PhysicsCollision->m_Active;
+    }
+
     bool Physics::Initialise(rp3d::EventListener* collisionEventListener)
     {
-        return m_PhysicsCollision->Initialise(collisionEventListener);
+        const bool success = m_PhysicsCollision->Initialise(collisionEventListener);
+        if(success) PhysicsLoggerInit();
+        return success;
     }
 
     rp3d::CollisionBody* Physics::CreateCollisionBody(const TransformComponent& transformValues)
@@ -23,6 +30,31 @@ namespace tnah
     void Physics::DestroyCollisionBody(rp3d::CollisionBody* body)
     {
         m_PhysicsCollision->DestroyCollisionBody(body);
+    }
+
+    rp3d::CapsuleShape* Physics::CreateCapsuleShape(const float& radius, const float& height)
+    {
+        return m_PhysicsCollision->m_PhysicsCommon.createCapsuleShape(radius, height);
+    }
+
+    rp3d::PolyhedronMesh* Physics::CreatePolyhedronMesh(rp3d::PolygonVertexArray* polygonVertexArray)
+    {
+        return m_PhysicsCollision->m_PhysicsCommon.createPolyhedronMesh(polygonVertexArray);
+    }
+
+    rp3d::ConvexMeshShape* Physics::CreateConvexMeshShape(rp3d::PolyhedronMesh* polyhedronMesh)
+    {
+        return m_PhysicsCollision->m_PhysicsCommon.createConvexMeshShape(polyhedronMesh);
+    }
+
+    rp3d::ConcaveMeshShape* Physics::CreateConcaveMeshShape(rp3d::TriangleMesh* triangleMesh)
+    {
+        return m_PhysicsCollision->m_PhysicsCommon.createConcaveMeshShape(triangleMesh);
+    }
+
+    rp3d::TriangleMesh* Physics::CreateTriangleMesh()
+    {
+        return m_PhysicsCollision->m_PhysicsCommon.createTriangleMesh();
     }
 
     void Physics::PhysicsLoggerInit()

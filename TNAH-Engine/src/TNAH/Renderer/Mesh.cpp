@@ -103,7 +103,19 @@ namespace tnah {
         }
         m_Material->UnBindShader();
     }
-    
+
+    std::vector<glm::vec3> Mesh::GetVertexPositions() const
+    {
+        std::vector<glm::vec3> positions;
+        
+        for(auto& p : m_Vertices)
+        {
+            positions.push_back(p.Position);
+        }
+
+        return positions;
+    }
+
 
     static const uint32_t s_MeshImportFlags =
             aiProcess_CalcTangentSpace |        // Create binormals/tangents just in case
