@@ -12,7 +12,7 @@
 #include "ComponentBase.h"
 #include "AnimatorComponent.h"
 
-#include "TNAH/Renderer/Mesh.h"
+#include "TNAH/Renderer/Submesh.h"
 
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/glm.hpp>

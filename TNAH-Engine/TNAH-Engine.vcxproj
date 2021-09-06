@@ -99,7 +99,7 @@
     <ClInclude Include="src\TNAH\Renderer\RenderingBuffers.h" />
     <ClInclude Include="src\TNAH\Renderer\Camera.h" />
     <ClInclude Include="src\TNAH\Renderer\Material.h" />
-    <ClInclude Include="src\TNAH\Renderer\Mesh.h" />
+    <ClInclude Include="src\TNAH\Renderer\Submesh.h" />
     <ClInclude Include="src\TNAH\Renderer\stb_image.h" />
     <ClInclude Include="src\TNAH\Renderer\Texture.h" />
     <ClInclude Include="src\TNAH\Scene\Components\AnimatorComponent.h" />

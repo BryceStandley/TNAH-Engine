@@ -36,6 +36,34 @@ namespace tnah {
 	uint32_t Renderer::GetTotalLoadedShaders() { return s_RenderStats->LoadedShaders; }
 	uint32_t Renderer::GetTotalLoadedModels() { return s_RenderStats->LoadedModels; }
 
+	int Renderer::HasLoadedShader(const std::string& vertexShaderPath, const std::string& fragmentShaderPath)
+	{
+		for(auto& shader : s_Data->LoadedShaders)
+		{
+			auto& paths = shader->m_FilePaths;
+			if(paths.first == vertexShaderPath || paths.second == vertexShaderPath)
+			{
+				if(paths.first == fragmentShaderPath || paths.second == fragmentShaderPath)
+				{
+					return shader->GetRendererID();
+				}
+			}
+		}
+		return -1;
+	}
+
+	int Renderer::HasLoadedModel(const std::string& modelPath)
+	{
+		//ToDo:: Implement
+		return 0;
+	}
+
+	int Renderer::HasLoadedTexture(const std::string& texturePath)
+	{
+		//ToDo:: Implement
+		return 0;
+	}
+
 	void Renderer::IncrementDrawCallsPerFrame() { s_RenderStats->DrawCalls++; }
 	void Renderer::IncrementTotalLoadedTextures() { s_RenderStats->LoadedTextures++; }
 	void Renderer::IncrementTotalLoadedShaders() { s_RenderStats->LoadedShaders++; }

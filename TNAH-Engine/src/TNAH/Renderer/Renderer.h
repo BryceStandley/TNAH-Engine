@@ -6,7 +6,7 @@
 #include "TNAH/Scene/Components/Components.h"
 #include "TNAH/Renderer/Material.h"
 #include "Light.h"
-#include "Mesh.h"
+#include "Submesh.h"
 #include "Texture.h"
 
 namespace tnah {
@@ -55,6 +55,9 @@ namespace tnah {
 		static uint32_t GetTotalLoadedModels();
 
 
+		static int HasLoadedShader(const std::string& vertexShaderPath, const std::string& fragmentShaderPath);
+		static int HasLoadedModel(const std::string& modelPath);
+		static int HasLoadedTexture(const std::string& texturePath);
 	
 	private:
 

@@ -72,12 +72,12 @@ namespace tnah {
 		}
 	};
 
-	class BufferLayout
+	class VertexBufferLayout
 	{
 	public:
-		BufferLayout() {}
+		VertexBufferLayout() {}
 
-		BufferLayout(std::initializer_list<BufferElement> elements)
+		VertexBufferLayout(std::initializer_list<BufferElement> elements)
 			: m_Elements(elements)
 		{
 			CalculateOffsetsAndStride();
@@ -115,8 +115,8 @@ namespace tnah {
 		virtual void Bind() const = 0;
 		virtual void Unbind() const = 0;
 
-		virtual const BufferLayout& GetLayout() const = 0;
-		virtual void SetLayout(const BufferLayout& layout) = 0;
+		virtual const VertexBufferLayout& GetLayout() const = 0;
+		virtual void SetLayout(const VertexBufferLayout& layout) = 0;
 
 		static Ref<VertexBuffer> Create(float* verticies, uint32_t size);
 		static Ref<VertexBuffer> Create(void* verticies, uint32_t size);

@@ -10,6 +10,62 @@ namespace tnah {
     {
     }
 
+    void Material::Set(const std::string& materialUniform, int value)
+    {
+        m_Shader->Bind();
+        m_Shader->SetInt(materialUniform, value);
+        m_Shader->Unbind();
+    }
+
+    void Material::Set(const std::string& materialUniform, float value)
+    {
+        m_Shader->Bind();
+        m_Shader->SetFloat(materialUniform, value);
+        m_Shader->Unbind();
+    }
+
+    void Material::Set(const std::string& materialUniform, bool value)
+    {
+        m_Shader->Bind();
+        m_Shader->SetBool(materialUniform, value);
+        m_Shader->Unbind();
+    }
+
+    void Material::Set(const std::string& materialUniform, glm::vec2 value)
+    {
+        m_Shader->Bind();
+        m_Shader->SetVec2(materialUniform, value);
+        m_Shader->Unbind();
+    }
+
+    void Material::Set(const std::string& materialUniform, glm::vec3 value)
+    {
+        m_Shader->Bind();
+        m_Shader->SetVec3(materialUniform, value);
+        m_Shader->Unbind();
+    }
+
+    void Material::Set(const std::string& materialUniform, glm::vec4 value)
+    {
+        m_Shader->Bind();
+        m_Shader->SetVec4(materialUniform, value);
+        m_Shader->Unbind();
+    }
+
+    void Material::Set(const std::string& materialUniform, glm::mat4 value)
+    {
+        m_Shader->Bind();
+        m_Shader->SetMat4(materialUniform, value);
+        m_Shader->Unbind();
+    }
+
+    void Material::Set(const std::string& materialUniform, glm::mat3 value)
+    {
+        m_Shader->Bind();
+        m_Shader->SetMat3(materialUniform, value);
+        m_Shader->Unbind();
+    }
+
     Material::Material(const Ref<Shader>& shader)
         :m_Shader(shader)
     {

@@ -92,6 +92,8 @@ namespace tnah {
 		virtual void SetMat4(const std::string& name, const glm::mat4& mat) override;
 
 		inline virtual const std::string& GetName() const override { return m_ShaderName; }
+
+		uint32_t GetRendererID() override { return m_ShaderID; }
 	private:
 		std::unordered_map<GLenum, std::pair<std::string, std::string>> PreProcess(const std::string& source, const std::string& shaderFilePath);
 		void Compile(const std::unordered_map<GLenum, std::pair<std::string, std::string>>& shaderSources);

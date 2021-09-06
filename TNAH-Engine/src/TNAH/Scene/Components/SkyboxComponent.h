@@ -27,7 +27,7 @@ namespace tnah {
 		void Create();
 		Ref<VertexArray> m_VAO;
 		Ref<VertexBuffer> m_VBO;
-		BufferLayout m_BufferLayout;
+		VertexBufferLayout m_BufferLayout;
 		
 		Ref<SkyboxMaterial> m_Material;
 		Ref<Texture3D> m_SkyboxTexture;

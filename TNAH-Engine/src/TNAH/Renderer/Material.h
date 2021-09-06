@@ -37,6 +37,20 @@ namespace tnah
 		virtual MaterialProperties& GetProperties() { return m_Properties; }
 
 		virtual ~Material();
+
+		void Set(const std::string& materialUniform, int value);
+		void Set(const std::string& materialUniform, float value);
+		void Set(const std::string& materialUniform, bool value);
+		void Set(const std::string& materialUniform, glm::vec2 value);
+		void Set(const std::string& materialUniform, glm::vec3 value);
+		void Set(const std::string& materialUniform, glm::vec4 value);
+		void Set(const std::string& materialUniform, glm::mat4 value);
+		void Set(const std::string& materialUniform, glm::mat3 value);
+		
+
+
+
+
 		
 	
 		Material();

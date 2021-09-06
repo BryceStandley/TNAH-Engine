@@ -300,14 +300,14 @@ namespace tnah{
 								anim.UpdateAnimation(deltaTime);
 								for (auto& mesh : model.Model->GetMeshes())
 								{
-									Renderer::SubmitMesh(mesh.GetMeshVertexArray(), mesh.GetMeshMaterial(), sceneLights, transform.GetTransform(), true, anim.GetFinalBonesMatrices());
+									Renderer::SubmitMesh(mesh.GetVertexArray(), mesh.GetMaterials(), sceneLights, transform.GetTransform(), true, anim.GetFinalBonesMatrices());
 								}
 							}
 							else 
 							{
 								for (auto& mesh : model.Model->GetMeshes())
 								{
-									Renderer::SubmitMesh(mesh.GetMeshVertexArray(), mesh.GetMeshMaterial(), sceneLights, transform.GetTransform());
+									Renderer::SubmitMesh(mesh.GetVertexArray(), mesh.GetMaterials(), sceneLights, transform.GetTransform());
 								}
 							}
 						}
