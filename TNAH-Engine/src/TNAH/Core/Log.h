@@ -10,25 +10,61 @@
 
 namespace tnah
 {
+	/**
+	 * @class	Log
+	 *
+	 * @brief	A logging class that handles loggers for the core engine and the client
+	 *
+	 * @author	Bryce Standley
+	 * @date	7/09/2021
+	 */
+
 	class Log
 	{
 	public:
 
-		/**********************************************************************************************//**
+		/**
 		 * @fn	static void Log::Init();
 		 *
 		 * @brief	Initializes this object
 		 *
 		 * @author	Bryce Standley
-		 * @date	19/07/2021
-		 **************************************************************************************************/
+		 * @date	7/09/2021
+		 */
 
 		static void Init();
 
+		/**
+		 * @fn	inline static std::shared_ptr<spdlog::logger>& Log::GetCoreLogger()
+		 *
+		 * @brief	Gets core logger
+		 *
+		 * @author	Bryce Standley
+		 * @date	7/09/2021
+		 *
+		 * @returns	The core logger.
+		 */
+
 		inline static std::shared_ptr<spdlog::logger>& GetCoreLogger() { return s_CoreLogger; }
+
+		/**
+		 * @fn	inline static std::shared_ptr<spdlog::logger>& Log::GetClientLogger()
+		 *
+		 * @brief	Gets client logger
+		 *
+		 * @author	Bryce Standley
+		 * @date	7/09/2021
+		 *
+		 * @returns	The client logger.
+		 */
+
 		inline static std::shared_ptr<spdlog::logger>& GetClientLogger() { return s_ClientLogger; }
 	private:
+
+		/** @brief	The core logger */
 		static std::shared_ptr<spdlog::logger> s_CoreLogger;
+
+		/** @brief	The client logger */
 		static std::shared_ptr<spdlog::logger> s_ClientLogger;
 	};
 }

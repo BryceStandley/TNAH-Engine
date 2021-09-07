@@ -507,7 +507,7 @@ namespace tnah {
 			/**
 			 * @fn	void OpenGLFramebuffer::Invalidate(uint32_t color = 1, uint32_t depth = 1, RenderbufferSpecification renderSpec = {0} );
 			 *
-			 * @brief	Invalidates
+			 * @brief	Resets and regenerates frame buffer with new properties
 			 *
 			 * @author	Plush
 			 * @date	7/09/2021
@@ -677,25 +677,25 @@ namespace tnah {
 
 	private:
 
-			/**
-			 * @fn	void OpenGLRenderBuffer::Invalidate();
-			 *
-			 * @brief	Invalidates this object
-			 *
-			 * @author	Plush
-			 * @date	7/09/2021
-			 */
+		/**
+		* @fn	void OpenGLRenderBuffer::Invalidate();
+		*
+		* @brief	Resets and regenerates frame buffer with new properties
+		*
+		* @author	Plush
+		* @date	7/09/2021
+		*/
 
 		void Invalidate();
 		
 	
 	private:
 
-			/** @brief	Identifier for the renderer */
+		/** @brief	Identifier for the renderer */
 		uint32_t m_RendererID;
 
 
-			/** @brief	The specification */
+		/** @brief	The specification */
 		RenderbufferSpecification m_Specification;
 	};
 }
