@@ -16,6 +16,13 @@ MainLayer::MainLayer()
 	cc.Camera.SetViewportSize(1280, 720);
 	ct.Position = glm::vec3(500, 60, 500);
 	cc.ClearMode = tnah::CameraClearMode::Skybox;
+
+	auto& rb = m_Camera.AddComponent<tnah::RigidBodyComponent>(ct);
+	auto& box = m_Camera.AddComponent<tnah::BoxColliderComponent>(glm::vec3(10, 10, 10));
+	rb.Body->addCollider(box.Collider, rp3d::Transform::identity());
+	//rb.AddCollider(box.Collider, ct);
+
+	
 	
 	m_SceneLight = m_ActiveScene->GetSceneLight();
 
@@ -48,7 +55,20 @@ MainLayer::MainLayer()
 		go.AddComponent<tnah::AnimatorComponent>(mesh.Animation);
 		m_MeshObjects.push_back(go);
 	}
+	
+	auto go = m_ActiveScene->CreateGameObject("Floor is lava");
+		
+	//mesh.Model = tnah::Model::Create("assets/meshes/cube_texture.fbx");
+	auto& tt = go.Transform();
 
+	tt.Position = glm::vec3(500, 0, 500);	
+
+	auto& rb2 = go.AddComponent<tnah::RigidBodyComponent>(tt);
+	auto& b = go.AddComponent<tnah::BoxColliderComponent>(glm::vec3(1000, 10, 1000));
+	//rb2.AddCollider(b.Collider, rp3d::Transform::identity());
+	rb2.Body->addCollider(b.Collider, rp3d::Transform::identity());
+	rb2.Body->enableGravity(false);
+	rb2.Body->setType(rp3d::BodyType::KINEMATIC);
 }
 
 void MainLayer::OnUpdate(tnah::Timestep deltaTime)
@@ -56,6 +76,52 @@ void MainLayer::OnUpdate(tnah::Timestep deltaTime)
 	//Camera Movement in a first person way.
 		//This can be changed to also look like a 3rd person camera. Similar to a FPS camera in Unity and C#
 		//Only move the camera if its enabled
+	if(m_Camera.HasComponent<tnah::RigidBodyComponent>())
+	{
+		auto& rb = m_Camera.GetComponent<tnah::RigidBodyComponent>();
+		auto& ct = m_Camera.Transform();
+		auto vel = rb.Body->getLinearVelocity();
+		if(vel.x > m_Velocity.x)
+		{
+			vel.x = m_Velocity.x;
+		}
+		else if(vel.x < -m_Velocity.x)
+		{
+			vel.x = -m_Velocity.x;
+		}
+
+		if(vel.y > m_Velocity.y)
+		{
+			vel.y = m_Velocity.y;
+		}
+		else if(vel.y < -m_Velocity.y)
+		{
+			vel.y = -m_Velocity.y;
+		}
+
+		if(vel.z > m_Velocity.z)
+		{
+			vel.z = m_Velocity.z;
+		}
+		else if(vel.z < -m_Velocity.z)
+		{
+			vel.z = -m_Velocity.z;
+		}
+
+		rb.Body->setLinearVelocity(vel);
+
+		TNAH_CORE_INFO("x {0} y {1} z {2}", vel.x, vel.y, vel.z);
+		
+		if(tnah::Input::IsKeyPressed(tnah::Key::W))
+			rb.ApplyForce(tnah::RigidBodyComponent::ForceType::FromCentre, ct.Forward, glm::vec3(5), glm::vec3(0));
+		if(tnah::Input::IsKeyPressed(tnah::Key::S))
+			rb.ApplyForce(tnah::RigidBodyComponent::ForceType::FromCentre, -ct.Forward, glm::vec3(5), glm::vec3(0));
+		if(tnah::Input::IsKeyPressed(tnah::Key::A))
+			rb.ApplyForce(tnah::RigidBodyComponent::ForceType::FromCentre, -ct.Right, glm::vec3(5), glm::vec3(0));
+		if(tnah::Input::IsKeyPressed(tnah::Key::D))
+			rb.ApplyForce(tnah::RigidBodyComponent::ForceType::FromCentre, ct.Right, glm::vec3(5), glm::vec3(0));
+	}
+	
 	if (m_CameraMovementToggle)
 	{
 		auto& ct = m_Camera.Transform();

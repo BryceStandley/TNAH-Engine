@@ -6,6 +6,8 @@
 #include "TNAH/Core/Input.h"
 #include "TNAH/Renderer/Renderer.h"
 #include "TNAH/Audio/Audio.h"
+#include "TNAH/Physics/PhysicsEvents.h"
+#include <glm/gtx/string_cast.hpp>
 
 namespace tnah{
 
@@ -59,8 +61,9 @@ namespace tnah{
 		light.Light->m_IsSceneLight = true;
 
 		//Physics
-		//m_PhysicsWorld = m_PhysicsCommon.createPhysicsWorld();// We can pass in some settings here for the physics if we want
-
+		listener = new PhysicsEvents();
+		Physics::Initialise(listener);
+		TNAH_CORE_INFO("Physics setup");
 		
 		s_ActiveScene.Scene.Reset(this);
 	}
@@ -387,6 +390,21 @@ namespace tnah{
 		//		//Do the physics stuff around here
 		//	}
 		//}
+
+		Physics::OnFixedUpdate(time);
+		
+		{
+			auto view = m_Registry.view<TransformComponent, RigidBodyComponent>();
+			{
+				for(auto entity : view)
+				{
+					auto & rb = view.get<RigidBodyComponent>(entity);
+					auto& transform = view.get<TransformComponent>(entity);
+					auto& go = FindGameObjectByID(entity);
+					transform.Position = glm::vec3(rb.Body->getTransform().getPosition().x, rb.Body->getTransform().getPosition().y, rb.Body->getTransform().getPosition().z);
+				}
+			}
+		}
 	}
 
 	glm::mat4 Scene::GetTransformRelativeToParent(GameObject gameObject)

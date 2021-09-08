@@ -103,6 +103,10 @@ namespace tnah {
                 ss << GenerateLight(g.GetComponent<LightComponent>(), 3);
             if(g.HasComponent<SkyboxComponent>())
                 ss << GenerateSkybox(g.GetComponent<SkyboxComponent>(), 3);
+            if(g.HasComponent<AudioListenerComponent>())
+                ss << GenerateAudioListener(g.GetComponent<AudioListenerComponent>(), 3);
+            if(g.HasComponent<AudioSourceComponent>())
+                ss << GenerateAudioSource(g.GetComponent<AudioSourceComponent>(), 3);
             ss << GenerateTagClose("gameObject", 2);
         }
         ss << GenerateTagClose("hierarchy", 1);
@@ -242,6 +246,29 @@ namespace tnah {
 
         return ss.str();
     }
+
+    std::string Serializer::GenerateAudioListener(const AudioListenerComponent& sound, const uint32_t& totalTabs)
+    {
+        std::stringstream ss;
+        ss << GenerateTagOpen("audiolistener", totalTabs);
+        ss << GenerateValueEntry("active", sound.m_ActiveListing,totalTabs +1);
+        ss << GenerateTagClose("audiolistener", totalTabs);
+        return ss.str();
+    }
+
+    std::string Serializer::GenerateAudioSource(const AudioSourceComponent& sound, const uint32_t& totalTabs)
+    {
+        std::stringstream ss;
+        ss << GenerateTagOpen("audiosource", totalTabs);
+        ss << GenerateDirectoryEntry("sound", sound.m_File.RelativeDirectory.c_str(), totalTabs+1);
+        ss << GenerateValueEntry("minimum", sound.m_MinDistance, totalTabs+1);
+        ss << GenerateValueEntry("volume", sound.m_Volume, totalTabs+1);
+        ss << GenerateValueEntry("shoot", sound.m_Shoot, totalTabs+1);
+        ss << GenerateValueEntry("loop", sound.m_Loop, totalTabs+1);
+        ss << GenerateTagClose("audiosource", totalTabs);
+        return ss.str();
+    }
+
 
     std::string tnah::Serializer::GenerateVec3(const glm::vec3& value, const uint32_t& totalTabs)
     {

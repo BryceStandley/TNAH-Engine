@@ -41,7 +41,8 @@ namespace tnah {
 		void RemoveCollider(rp3d::Collider* collider);
 		void ApplyForce(const ForceType& forceType, const glm::vec3& direction, const glm::vec3& force, const glm::vec3& forcePoint) const;
 		void ApplyTorque(const glm::vec3& torque) const;
-	
+
+		bool isPlayer = false;
 	private:
 		rp3d::Transform m_Transform = rp3d::Transform::identity();
 		std::list<rp3d::CollisionShape*> m_ColliderList;

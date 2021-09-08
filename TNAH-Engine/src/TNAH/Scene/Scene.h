@@ -101,9 +101,11 @@ namespace tnah {
 		Ref<Framebuffer> m_EditorGameFramebuffer;
 		bool m_IsEditorScene = false;
 		uint32_t m_RenderPasses = 0;
-
+		
 		entt::entity m_SceneEntity;
 		UUID m_SceneID;
+
+		rp3d::EventListener * listener;
 		
 		friend class EditorLayer;
 		friend class Editor;

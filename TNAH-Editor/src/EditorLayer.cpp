@@ -23,6 +23,20 @@ namespace tnah {
 
 			if(m_SceneViewActive && m_State != EditorState::LoadingScene)
 			{
+				if(m_SelectedGameObject != nullptr)
+				{
+					if(Input::IsKeyPressed(Key::F))
+					{
+						auto & editorTransform = m_EditorCamera.GetComponent<TransformComponent>();
+						auto & gameObjectTransform = m_SelectedGameObject->GetComponent<TransformComponent>();
+						glm::vec3 newPos(gameObjectTransform.Position);
+						newPos.x -= 6.5;
+						newPos.y += 2.5;
+						editorTransform.Position = newPos;
+						editorTransform.Rotation = glm::vec3(0, -15, 0);	
+					}
+				}
+				
 				if(Input::IsKeyPressed(Key::LeftShift) || Input::IsKeyPressed(Key::RightShift))
 				{
 					auto& cam = m_ActiveScene->GetEditorCamera().Transform();

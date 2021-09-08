@@ -9,8 +9,7 @@ namespace tnah
         static bool SerializeScene(Ref<Scene> scene, const std::string& filePath);
         static std::string GenerateGlobalSettings(Ref<Scene> scene);
         static std::string GenerateSceneSettings(Ref<Scene> scene);
-
-
+        
         //Components
         static std::string GenerateTransform(const TransformComponent& transform, const uint32_t& totalTabs = 0);
         static std::string GenerateCamera(const SceneCamera& camera, const uint32_t& totalTabs = 0);
@@ -18,6 +17,8 @@ namespace tnah
         static std::string GenerateTerrain(const TerrainComponent& terrain, const uint32_t& totalTabs = 0);
         static std::string GenerateMesh(const MeshComponent& mesh, const uint32_t& totalTabs = 0);
         static std::string GenerateLight(const LightComponent& light, const uint32_t& totalTabs = 0);
+        static std::string GenerateAudioListener(const AudioListenerComponent& sound, const uint32_t& totalTabs = 0);
+        static std::string GenerateAudioSource(const AudioSourceComponent& sound, const uint32_t& totalTabs = 0);
         
         //Tag creators
         static std::string GenerateTagOpen(const std::string& tagType, const uint32_t& totalTabs = 0);

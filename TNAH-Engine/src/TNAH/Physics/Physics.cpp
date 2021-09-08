@@ -152,7 +152,8 @@ namespace tnah
 
     void Physics::OnFixedUpdate(PhysicsTimestep timestep)
     {
-        m_PhysicsManager->OnFixedUpdate(timestep);
+        if(IsActive())
+            m_PhysicsManager->OnFixedUpdate(timestep);
     }
 
     void Physics::Destroy()
@@ -162,7 +163,7 @@ namespace tnah
 
 /********************* Physics Manager ***************************/
 
-    
+        
     PhysicsManager::PhysicsManager()
     {
     }
@@ -222,13 +223,17 @@ namespace tnah
             return false;
         
         m_PhysicsWorld->setEventListener(collisionEventListener);
+
+        //m_PhysicsWorld->setNbIterationsVelocitySolver (30) ;
+
+        //m_PhysicsWorld->setNbIterationsPositionSolver (30) ;
         m_Active = true;
         return true;
     }
 
     void PhysicsManager::OnFixedUpdate(PhysicsTimestep timestep)
     {
-        
+        m_PhysicsWorld->update(timestep.GetSimulationSpeed());
     }
 
 
