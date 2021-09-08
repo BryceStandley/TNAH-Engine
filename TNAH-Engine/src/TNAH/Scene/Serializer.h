@@ -19,6 +19,8 @@ namespace tnah
         static std::string GenerateLight(const LightComponent& light, const uint32_t& totalTabs = 0);
         static std::string GenerateAudioListener(const AudioListenerComponent& sound, const uint32_t& totalTabs = 0);
         static std::string GenerateAudioSource(const AudioSourceComponent& sound, const uint32_t& totalTabs = 0);
+        static std::string GenerateRigidBody(const RigidBodyComponent& rb, const uint32_t& totalTabs = 0);
+        static std::string GenerateBoxCollider(const BoxColliderComponent& box, const uint32_t& totalTabs = 0);
         
         //Tag creators
         static std::string GenerateTagOpen(const std::string& tagType, const uint32_t& totalTabs = 0);
@@ -87,6 +89,9 @@ namespace tnah
         */
         static MeshComponent GetMeshFromFile(const std::string& fileContents, std::pair<size_t, size_t> componentTagPositions);
 
+        static RigidBodyComponent GetRigidBodyFromFile(const std::string& fileContents, std::pair<size_t, size_t> componentTagPositions, const TransformComponent& transform);
+        static BoxColliderComponent GetBoxColliderFromFile(const std::string& fileContents, std::pair<size_t, size_t> componentTagPositions, RigidBodyComponent& rb);
+        
         static PlayerControllerComponent GetPlayerControllerFromFile(const std::string& fileContents, std::pair<size_t, size_t> componentTagPositions);
 
         static NativeScriptComponent GetNativeScriptFromFile(const std::string& fileContents, std::pair<size_t, size_t> componentTagPositions);

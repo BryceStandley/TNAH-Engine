@@ -66,9 +66,9 @@ MainLayer::MainLayer()
 	auto& rb2 = go.AddComponent<tnah::RigidBodyComponent>(tt);
 	auto& b = go.AddComponent<tnah::BoxColliderComponent>(glm::vec3(1000, 10, 1000));
 	//rb2.AddCollider(b.Collider, rp3d::Transform::identity());
-	rb2.Body->addCollider(b.Collider, rp3d::Transform::identity());
-	rb2.Body->enableGravity(false);
+	b.colliderPointer = rb2.AddCollider(b.Collider, rp3d::Transform::identity());
 	rb2.Body->setType(rp3d::BodyType::KINEMATIC);
+	rb2.RemoveCollider(b.colliderPointer);
 }
 
 void MainLayer::OnUpdate(tnah::Timestep deltaTime)
@@ -109,8 +109,6 @@ void MainLayer::OnUpdate(tnah::Timestep deltaTime)
 		}
 
 		rb.Body->setLinearVelocity(vel);
-
-		TNAH_CORE_INFO("x {0} y {1} z {2}", vel.x, vel.y, vel.z);
 		
 		if(tnah::Input::IsKeyPressed(tnah::Key::W))
 			rb.ApplyForce(tnah::RigidBodyComponent::ForceType::FromCentre, ct.Forward, glm::vec3(5), glm::vec3(0));

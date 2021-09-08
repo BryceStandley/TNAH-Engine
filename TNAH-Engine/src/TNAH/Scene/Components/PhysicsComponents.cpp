@@ -9,6 +9,8 @@ namespace tnah
         {
             m_Transform = Math::ToRp3dTransform({Position, Rotation, {1,1,1}});
             Body = Physics::CreateRigidbody(m_Transform);
+            m_BodyType = rp3d::BodyType::KINEMATIC;
+            Body->setType(m_BodyType);
         }
     }
 
@@ -19,6 +21,8 @@ namespace tnah
         {
             m_Transform = Math::ToRp3dTransform({Position, Rotation, {1,1,1}});
             Body = Physics::CreateRigidbody(m_Transform);
+            m_BodyType = rp3d::BodyType::KINEMATIC;
+            Body->setType(m_BodyType);
         }
     }
 
@@ -29,6 +33,8 @@ namespace tnah
         {
             m_Transform = Math::ToRp3dTransform(transform);
             Body = Physics::CreateRigidbody(m_Transform);
+            m_BodyType = rp3d::BodyType::KINEMATIC;
+            Body->setType(m_BodyType);
         }
     }
 
@@ -42,6 +48,19 @@ namespace tnah
         if(Physics::IsActive())
         {
             Body = Physics::CreateRigidbody(m_Transform);
+            m_BodyType = rp3d::BodyType::KINEMATIC;
+            Body->setType(m_BodyType);
+        }
+    }
+
+    RigidBodyComponent::RigidBodyComponent(const TransformComponent& transform, rp3d::BodyType type)
+    {
+        if(Physics::IsActive())
+        {
+            m_Transform = Math::ToRp3dTransform(transform);
+            Body = Physics::CreateRigidbody(m_Transform);
+            m_BodyType = type;
+            Body->setType(type);
         }
     }
 
@@ -53,8 +72,12 @@ namespace tnah
         {
             m_Transform = Math::ToRp3dTransform({Position, Rotation, {1,1,1,}});
             Body = Physics::CreateRigidbody(m_Transform);
+            m_BodyType = rp3d::BodyType::KINEMATIC;
+            Body->setType(m_BodyType);
         }
     }
+
+    
 
     RigidBodyComponent::RigidBodyComponent(const rp3d::Vector3& position, const rp3d::Quaternion orientation)
     {
@@ -64,15 +87,36 @@ namespace tnah
         {
             m_Transform = rp3d::Transform(position, orientation);
             Body = Physics::CreateRigidbody(m_Transform);
+            m_BodyType = rp3d::BodyType::KINEMATIC;
+            Body->setType(m_BodyType);
         }
     }
 
-    void RigidBodyComponent::AddCollider(rp3d::CollisionShape* collider, const TransformComponent& transform) const
+    void RigidBodyComponent::SetBodyType(rp3d::BodyType newType)
+    {
+        m_BodyType = newType;
+        Body->setType(m_BodyType);
+    }
+
+    rp3d::Collider* RigidBodyComponent::AddCollider(rp3d::CollisionShape* collider, const rp3d::Transform &transform)
     {
         if(Physics::IsActive() && Body)
         {
-            Body->addCollider(collider, Math::ToRp3dTransform(transform));
+            return Body->addCollider(collider, transform);
         }
+
+        return nullptr;
+    }
+
+    rp3d::Collider* RigidBodyComponent::UpdateCollider(rp3d::Collider* oldCollider, rp3d::CollisionShape* collider, const rp3d::Transform& transform)
+    {
+        if(Physics::IsActive() && Body)
+        {
+            RemoveCollider(oldCollider);
+            return Body->addCollider(collider, transform);
+        }
+
+        return nullptr;
     }
 
     void RigidBodyComponent::RemoveCollider(rp3d::Collider* collider)

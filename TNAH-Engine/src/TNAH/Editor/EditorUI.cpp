@@ -417,7 +417,54 @@ namespace tnah {
 			
 			ImGui::Separator();
 		}
+
+		if(object.HasComponent<RigidBodyComponent>())
+		{
+			auto & rb = object.GetComponent<RigidBodyComponent>();
+
+			if(rb.m_BodyType == rp3d::BodyType::KINEMATIC)
+			{
+				ImGui::Text("Object Type: Kinematic");
+				if(ImGui::Button("Change to Dynamic"))
+				{
+					rb.SetBodyType(rp3d::BodyType::DYNAMIC);
+				}
+			}
+			else
+			{
+				ImGui::Text("Object Type: Dynamic");
+				if(ImGui::Button("Change to Kinematic"))
+				{
+					rb.SetBodyType(rp3d::BodyType::STATIC);
+					rb.SetBodyType(rp3d::BodyType::KINEMATIC);
+				}
+			}
+			ImGui::Separator();
+			ImGui::Text("Colliders");
+			bool hasCollider = false;
 		
+			if(object.HasComponent<BoxColliderComponent>())
+			{
+				auto & box = object.GetComponent<BoxColliderComponent>();
+				rp3d::Vector3 s = box.Collider->getHalfExtents();
+				std::string text = "Actual Size: " + std::to_string(s.x) + " " + std::to_string(s.y) + " " + std::to_string(s.z);
+				ImGui::Text("Box Collider");
+				ImGui::Separator();
+				ImGui::Text(text.c_str());
+				DrawVec3Control("Size", box.Size);
+				if(ImGui::Button("Change Size"))
+				{
+					box.Collider->setHalfExtents(Math::ToRp3dVec3(box.Size));
+					box.colliderPointer = rb.UpdateCollider(box.colliderPointer, box.Collider, rp3d::Transform::identity());
+				}
+				hasCollider = true;
+			}
+
+			if(!hasCollider)
+				ImGui::Text("No colliders added");
+		}
+
+		ImGui::Separator();
 		
 		//Only add components to scene objects, the editor camera cant have components added to it
 		if(!object.HasComponent<EditorCameraComponent>())
@@ -889,7 +936,7 @@ namespace tnah {
 				ComponentTypes::ID, ComponentTypes::Tag, ComponentTypes::Relationship, ComponentTypes::Transform,
 				ComponentTypes::Camera, ComponentTypes::EditorCamera, ComponentTypes::Editor, ComponentTypes::Skybox,
 				ComponentTypes::Light, ComponentTypes::Terrain, ComponentTypes::Mesh, ComponentTypes::PlayerController,
-				ComponentTypes::AudioListener, ComponentTypes::AudioSource
+				ComponentTypes::AudioListener, ComponentTypes::AudioSource, ComponentTypes::RigidBody, ComponentTypes::BoxCollider
 			};
 
 		std::list<ComponentTypes> allTypesNotHeld = allTypes;
@@ -1017,6 +1064,12 @@ namespace tnah {
 
 		if(AudioListenerComponent::s_SearchString.find(term) != std::string::npos && Utility::Contains<ComponentTypes>(componentsToSearch, ComponentTypes::AudioListener))
 			foundComponents.emplace_back(ComponentTypes::AudioListener);
+
+		if(RigidBodyComponent::s_SearchString.find(term) != std::string::npos && Utility::Contains<ComponentTypes>(componentsToSearch, ComponentTypes::RigidBody))
+			foundComponents.emplace_back(ComponentTypes::RigidBody);
+
+		if(BoxColliderComponent::s_SearchString.find(term) != std::string::npos && Utility::Contains<ComponentTypes>(componentsToSearch, ComponentTypes::BoxCollider))
+			foundComponents.emplace_back(ComponentTypes::BoxCollider);
 		
 		return foundComponents;
 	}
@@ -1055,6 +1108,10 @@ namespace tnah {
             return "Audio Source Component";
         case ComponentTypes::AudioListener:
             return "Audio Listener Component";
+        case ComponentTypes::RigidBody:
+			return "Rigid Body Component";
+        case ComponentTypes::BoxCollider:
+        	return "Box Collider Component";
         default: return "";
         }
     }
@@ -1141,6 +1198,24 @@ namespace tnah {
         case ComponentTypes::AudioListener:
             object.AddComponent<AudioListenerComponent>();
             return true;
+        case ComponentTypes::RigidBody:
+        	object.AddComponent<RigidBodyComponent>(object.Transform());
+        	return true;
+        case ComponentTypes::BoxCollider:
+        	if(object.HasComponent<RigidBodyComponent>())
+        	{
+        		auto& rb = object.GetComponent<RigidBodyComponent>();
+        		auto& b = object.AddComponent<BoxColliderComponent>();
+        		b.colliderPointer = rb.AddCollider(b.Collider, rp3d::Transform::identity());
+        		return true;
+        	}
+        	else
+        	{
+        		auto& rb = object.AddComponent<RigidBodyComponent>(object.Transform());
+        		auto& b = object.AddComponent<BoxColliderComponent>();
+        		b.colliderPointer = rb.AddCollider(b.Collider, rp3d::Transform::identity());
+        		return true;
+        	}
         default: return false;
         }
     }
