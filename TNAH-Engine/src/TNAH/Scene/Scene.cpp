@@ -63,7 +63,7 @@ namespace tnah{
 		//Physics
 		listener = new PhysicsEvents();
 		Physics::Initialise(listener);
-		TNAH_CORE_INFO("Physics setup");
+		Physics::ToggleColliderRendering();
 		
 		s_ActiveScene.Scene.Reset(this);
 	}
@@ -364,7 +364,7 @@ namespace tnah{
 						}
 					}
 				}
-				
+
 				Renderer::EndScene();
 			}
 			
@@ -390,9 +390,9 @@ namespace tnah{
 		//		//Do the physics stuff around here
 		//	}
 		//}
-
 		Physics::OnFixedUpdate(time);
-		
+
+		Physics::UpdateColliderRenderer();
 		{
 			auto view = m_Registry.view<TransformComponent, RigidBodyComponent>();
 			{
@@ -408,6 +408,13 @@ namespace tnah{
 				}
 			}
 		}
+		auto pair = Physics::GetColliderRenderObjects();
+		auto lineArr = pair.first.first;
+		auto lineBuf = pair.first.second;
+				
+		auto triArr = pair.second.first;
+		auto triBuf = pair.second.second;
+		Renderer::SubmitCollider(lineArr, lineBuf,triArr,triBuf);
 	}
 
 	glm::mat4 Scene::GetTransformRelativeToParent(GameObject gameObject)

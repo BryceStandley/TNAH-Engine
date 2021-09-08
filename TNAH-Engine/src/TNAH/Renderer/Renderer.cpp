@@ -270,7 +270,7 @@ namespace tnah {
 			lineVertexBuffer->CreateLayout(1, lineColor, sizeof(rp3d::Vector3) + sizeof(rp3d::uint32));
 
 			//RenderCommand::DrawArray(); TODO: add a overload that allows GL_LINES to be set and the count to be set independently from the vertex array with a internal layout
-			//glDrawArrays(GL_LINES, 0, debugRenderer.getNbLines() * 2);
+			glDrawArrays(GL_LINES, 0, renderer.getNbLines() * 2);
 
 		}
 
@@ -279,23 +279,21 @@ namespace tnah {
 		{
 			triangleVertexArray->Bind();
 			triangleVertexBuffer->Bind();
-
 			BufferElement trianglePosition = {ShaderDataType::Float3, "", false};
 			BufferElement triangleColor = {ShaderDataType::Int, "", false};
 			triangleColor.Offset = sizeof(rp3d::Vector3);
 			triangleVertexBuffer->CreateLayout(0, trianglePosition, sizeof(rp3d::Vector3) + sizeof(rp3d::uint32));
 			triangleVertexBuffer->CreateLayout(1, triangleColor, sizeof(rp3d::Vector3) + sizeof(rp3d::uint32));
-
+			glDrawArrays(GL_TRIANGLES, 0, renderer.getNbTriangles() * 3);
 			/*
 			glDrawArrays(GL_TRIANGLES, 0, debugRenderer.getNbTriangles() * 3);
 			RenderCommand::DrawArray();
 			
 			*/
-
 		}
+
 		shader->Unbind();
 		RenderCommand::SetWireframe(false);
-		
 	}
 
 	void Renderer::SetCullMode(const CullMode& mode)

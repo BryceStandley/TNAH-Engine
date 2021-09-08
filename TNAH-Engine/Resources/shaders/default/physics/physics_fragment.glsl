@@ -21,6 +21,6 @@ void main()
     }
     else 
     {
-        color = vertexColorOut;
+        color = v_VertexColor;
     }
 }

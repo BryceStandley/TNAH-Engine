@@ -36,7 +36,7 @@ namespace tnah {
 		
 		static void SubmitSkybox(Ref<VertexArray> vertexArray, Ref<SkyboxMaterial> material);
 
-		static void SubmitCollider(Ref<VertexArray> lineVertexArray, Ref<VertexBuffer> lineVertexBuffer, Ref<VertexArray> triangleVertexArray, Ref<VertexBuffer> triangleVertexBuffer)
+		static void SubmitCollider(Ref<VertexArray> lineVertexArray, Ref<VertexBuffer> lineVertexBuffer, Ref<VertexArray> triangleVertexArray, Ref<VertexBuffer> triangleVertexBuffer);
 		
 		static RendererAPI::API GetAPI() { return RendererAPI::GetAPI(); }
 		static Ref<Texture2D> GetWhiteTexture();

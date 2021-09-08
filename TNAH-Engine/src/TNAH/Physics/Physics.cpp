@@ -71,6 +71,7 @@ namespace tnah
         {
             m_PhysicsManager->m_ColliderRender = !m_PhysicsManager->m_ColliderRender;
             m_PhysicsManager->m_PhysicsWorld->setIsDebugRenderingEnabled(m_PhysicsManager->m_ColliderRender);
+            TNAH_CORE_INFO("THIS IS CALLLLED");
         }
     }
 
@@ -303,11 +304,11 @@ namespace tnah
         if(m_ColliderRender)
         {
             m_PhysicsWorld->getDebugRenderer().setIsDebugItemDisplayed(rp3d::DebugRenderer::DebugItem::COLLISION_SHAPE, true);
+            m_PhysicsWorld->getDebugRenderer().setIsDebugItemDisplayed(rp3d::DebugRenderer::DebugItem::COLLIDER_AABB, true);
         }
         //m_PhysicsWorld->getDebugRenderer().setIsDebugItemDisplayed(rp3d::DebugRenderer::DebugItem::COLLIDER_AABB, true);
         
         m_PhysicsWorld->update(timestep.GetSimulationSpeed());
-
         
     }
 
