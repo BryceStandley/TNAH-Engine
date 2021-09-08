@@ -246,15 +246,15 @@ namespace tnah {
 		glGenTextures(1, &m_RendererID);
 		glBindTexture(GL_TEXTURE_CUBE_MAP, m_RendererID);
 
-		Ref<Texture2D> dataRight, dataLeft, dataFront, dataBack, dataTop, dataBottom, dataCubemap;	
+		Ref<Texture2D> dataRight, dataLeft, dataBack, dataFront, dataTop, dataBottom, dataCubemap;	
 
 		if(!properties.IsKtx)
 		{
 			stbi_set_flip_vertically_on_load(false);
 			dataRight = Texture2D::LoadImageToMemory(properties.Right.AbsoluteDirectory);
 			dataLeft = Texture2D::LoadImageToMemory(properties.Left.AbsoluteDirectory);
-			dataFront = Texture2D::LoadImageToMemory(properties.Front.AbsoluteDirectory);
 			dataBack = Texture2D::LoadImageToMemory(properties.Back.AbsoluteDirectory);
+			dataFront = Texture2D::LoadImageToMemory(properties.Front.AbsoluteDirectory);
 			dataTop = Texture2D::LoadImageToMemory(properties.Top.AbsoluteDirectory);
 			dataBottom = Texture2D::LoadImageToMemory(properties.Bottom.AbsoluteDirectory);
 		}
@@ -263,7 +263,7 @@ namespace tnah {
 			dataCubemap = Texture2D::LoadImageToMemory(properties.Cubemap.AbsoluteDirectory);
 		}
 		
-		if(!properties.IsKtx && dataRight && dataLeft && dataFront && dataBack && dataTop && dataBottom)
+		if(!properties.IsKtx && dataRight && dataLeft && dataBack && dataFront && dataTop && dataBottom)
 		{
 			glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 			glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
@@ -277,8 +277,8 @@ namespace tnah {
 			glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_Y, 0, GL_RGB, dataTop->m_Width, dataTop->m_Height, 0, GL_RGB, GL_UNSIGNED_BYTE, dataTop->m_ImageData);
 			glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_Y, 0, GL_RGB, dataBottom->m_Width, dataBottom->m_Height, 0, GL_RGB, GL_UNSIGNED_BYTE, dataBottom->m_ImageData);
 			
-			glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_Z, 0, GL_RGB, dataFront->m_Width, dataFront->m_Height, 0, GL_RGB, GL_UNSIGNED_BYTE, dataFront->m_ImageData);
-			glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_Z, 0, GL_RGB, dataBack->m_Width, dataBack->m_Height, 0, GL_RGB, GL_UNSIGNED_BYTE, dataBack->m_ImageData);
+			glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_Z, 0, GL_RGB, dataBack->m_Width, dataBack->m_Height, 0, GL_RGB, GL_UNSIGNED_BYTE, dataBack->m_ImageData);
+			glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_Z, 0, GL_RGB, dataFront->m_Width, dataFront->m_Height, 0, GL_RGB, GL_UNSIGNED_BYTE, dataFront->m_ImageData);
 			
 			glGenerateMipmap(GL_TEXTURE_CUBE_MAP);
 			
@@ -286,8 +286,8 @@ namespace tnah {
 			dataLeft->Free();
 			dataTop->Free();
 			dataBottom->Free();
-			dataBack->Free();
 			dataFront->Free();
+			dataBack->Free();
 		}
 		else if(properties.IsKtx && dataCubemap)
 		{
