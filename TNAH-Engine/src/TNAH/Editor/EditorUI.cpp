@@ -439,6 +439,7 @@ namespace tnah {
 					rb.SetBodyType(rp3d::BodyType::KINEMATIC);
 				}
 			}
+			ImGui::Checkbox("Edit mode", &rb.edit);
 			ImGui::Separator();
 			ImGui::Text("Colliders");
 			bool hasCollider = false;

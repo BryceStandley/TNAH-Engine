@@ -401,7 +401,10 @@ namespace tnah{
 					auto & rb = view.get<RigidBodyComponent>(entity);
 					auto& transform = view.get<TransformComponent>(entity);
 					auto& go = FindGameObjectByID(entity);
-					transform.Position = glm::vec3(rb.Body->getTransform().getPosition().x, rb.Body->getTransform().getPosition().y, rb.Body->getTransform().getPosition().z);
+					if(!rb.edit)
+						transform.Position = glm::vec3(rb.Body->getTransform().getPosition().x, rb.Body->getTransform().getPosition().y, rb.Body->getTransform().getPosition().z);
+					else
+						rb.Body->setTransform(Math::ToRp3dTransform(transform.Position));
 				}
 			}
 		}

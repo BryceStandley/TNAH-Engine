@@ -27,6 +27,7 @@ namespace tnah {
 		glm::vec3 Rotation = {0,0,0};
 		glm::quat Orientation = {0,0,0,0};
 		rp3d::RigidBody* Body = nullptr;
+		bool edit = false;
 
 		RigidBodyComponent();
 		RigidBodyComponent(const RigidBodyComponent& other) = default;
