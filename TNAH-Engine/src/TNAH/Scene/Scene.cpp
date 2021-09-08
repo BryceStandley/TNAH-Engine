@@ -405,7 +405,7 @@ namespace tnah{
 		//}
 		Physics::OnFixedUpdate(time);
 
-		Physics::UpdateColliderRenderer();
+		//Physics::UpdateColliderRenderer();
 		{
 			auto view = m_Registry.view<TransformComponent, RigidBodyComponent>();
 			{
@@ -415,7 +415,20 @@ namespace tnah{
 					auto& transform = view.get<TransformComponent>(entity);
 					auto& go = FindGameObjectByID(entity);
 					if(!rb.edit)
+					{
 						transform.Position = glm::vec3(rb.Body->getTransform().getPosition().x, rb.Body->getTransform().getPosition().y, rb.Body->getTransform().getPosition().z);
+						if(rb.useEdit)
+						{
+							if(tnah::Input::IsKeyPressed(tnah::Key::W))
+								rb.ApplyForce(tnah::RigidBodyComponent::ForceType::FromCentre, transform.Forward, glm::vec3(5), glm::vec3(0));
+							if(tnah::Input::IsKeyPressed(tnah::Key::S))
+								rb.ApplyForce(tnah::RigidBodyComponent::ForceType::FromCentre, -transform.Forward, glm::vec3(5), glm::vec3(0));
+							if(tnah::Input::IsKeyPressed(tnah::Key::A))
+								rb.ApplyForce(tnah::RigidBodyComponent::ForceType::FromCentre, -transform.Right, glm::vec3(5), glm::vec3(0));
+							if(tnah::Input::IsKeyPressed(tnah::Key::D))
+								rb.ApplyForce(tnah::RigidBodyComponent::ForceType::FromCentre, transform.Right, glm::vec3(5), glm::vec3(0));
+						}
+					}
 					else
 						rb.Body->setTransform(Math::ToRp3dTransform(transform.Position));
 				}

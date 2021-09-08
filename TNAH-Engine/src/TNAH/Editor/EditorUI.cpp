@@ -440,6 +440,7 @@ namespace tnah {
 				}
 			}
 			ImGui::Checkbox("Edit mode", &rb.edit);
+			ImGui::Checkbox("Keyboard Controls", &rb.useEdit);
 			ImGui::Separator();
 			ImGui::Text("Colliders");
 			bool hasCollider = false;

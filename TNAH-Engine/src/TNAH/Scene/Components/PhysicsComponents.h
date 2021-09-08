@@ -28,6 +28,7 @@ namespace tnah {
 		glm::quat Orientation = {0,0,0,0};
 		rp3d::RigidBody* Body = nullptr;
 		bool edit = false;
+		bool useEdit = false;
 
 		RigidBodyComponent();
 		RigidBodyComponent(const RigidBodyComponent& other) = default;
@@ -195,7 +196,7 @@ namespace tnah {
 		ShapeType ColliderType = ShapeType::Convex;
 		std::vector<glm::vec3> MeshVertexPositions;
 		std::vector<uint32_t> MeshIndices;
-
+		rp3d::Collider* colliderPointer = nullptr;
 		rp3d::ConvexMeshShape* GetConvexCollider() const { return m_ConvexCollider; }
 		rp3d::ConcaveMeshShape* GetConcaveCollider() const { return m_ConcaveCollider; }
 		

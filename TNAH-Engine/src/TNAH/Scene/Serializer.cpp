@@ -545,7 +545,7 @@ namespace tnah {
 
                     tag = GetTagFromFile(fileContents, tagPos);
                     transform = GetTransformFromFile(fileContents, transformPos);
-                    sLight.Light = GetLightFromFile(fileContents, lightPos).Light;
+                    //sLight.Light = GetLightFromFile(fileContents, lightPos).Light;
                 }
                 else GenerateValuesLoadError("Scene Light");
                 return scene;
