@@ -35,6 +35,8 @@ namespace tnah {
 		static void SubmitMesh(Ref<VertexArray> vertexArray, Ref<Material> material, std::vector<Ref<Light>> sceneLights, const glm::mat4& transform = glm::mat4(1.0f), const bool& isAnimated = false, const std::vector<glm::mat4>& animTransforms = {glm::mat4(1.0f)});
 		
 		static void SubmitSkybox(Ref<VertexArray> vertexArray, Ref<SkyboxMaterial> material);
+
+		static void SubmitCollider(Ref<VertexArray> lineVertexArray, Ref<VertexBuffer> lineVertexBuffer, Ref<VertexArray> triangleVertexArray, Ref<VertexBuffer> triangleVertexBuffer);
 		
 		static RendererAPI::API GetAPI() { return RendererAPI::GetAPI(); }
 		static Ref<Texture2D> GetWhiteTexture();

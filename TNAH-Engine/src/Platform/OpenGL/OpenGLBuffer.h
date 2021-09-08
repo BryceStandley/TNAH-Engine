@@ -16,6 +16,17 @@ namespace tnah {
 	class OpenGLVertexBuffer : public VertexBuffer
 	{
 	public:
+		/**
+		* @fn	OpenGLVertexBuffer::OpenGLVertexBuffer(float* vertices, uint32_t size);
+		*
+		* @brief	Constructor
+		*
+		* @author	Plush
+		* @date	7/09/2021
+		*/
+
+		OpenGLVertexBuffer();
+		
 
 			/**
 			 * @fn	OpenGLVertexBuffer::OpenGLVertexBuffer(float* vertices, uint32_t size);
@@ -105,8 +116,16 @@ namespace tnah {
 
 		void SetLayout(const BufferLayout& layout) override { m_Layout = layout; }
 
+		void SetData(uint32_t size, const void* data, DrawType type = DrawType::STATIC, TypeMode mode = TypeMode::DRAW) const override;
+		static int GetDrawMode(DrawType type, TypeMode mode);
+		void CreateLayout(uint32_t location, BufferElement element, uint32_t stride) override;
 	private:
+		static void CalculateOffsetAndStride(BufferElement& element, uint32_t& stride);
 
+
+	public:
+		void DisableLayout(uint32_t location) override;
+	private:
 			/** @brief	Identifier for the renderer */
 		uint32_t m_RendererID;
 

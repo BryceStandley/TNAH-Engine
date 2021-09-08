@@ -44,7 +44,7 @@ namespace tnah {
 		None,
 		ID, Tag, Relationship, Transform,
 		Camera, EditorCamera, Editor, Skybox, Light,
-		Terrain, Mesh, PlayerController, AudioSource, AudioListener
+		Terrain, Mesh, PlayerController, AudioSource, AudioListener, RigidBody, BoxCollider
 	};
 
 	

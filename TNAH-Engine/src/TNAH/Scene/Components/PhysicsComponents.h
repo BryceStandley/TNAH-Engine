@@ -27,24 +27,31 @@ namespace tnah {
 		glm::vec3 Rotation = {0,0,0};
 		glm::quat Orientation = {0,0,0,0};
 		rp3d::RigidBody* Body = nullptr;
+		bool edit = false;
 
 		RigidBodyComponent();
 		RigidBodyComponent(const RigidBodyComponent& other) = default;
 
 		RigidBodyComponent(const glm::vec3& position, const glm::vec3& rotation);
 		RigidBodyComponent(const TransformComponent& transform);
+		RigidBodyComponent(const TransformComponent& transform, rp3d::BodyType type);
 		RigidBodyComponent(const rp3d::Transform& transform);
 		RigidBodyComponent(const rp3d::Vector3& position, const rp3d::Vector3& rotation);
 		RigidBodyComponent(const rp3d::Vector3& position, const rp3d::Quaternion orientation);
 		
-		void AddCollider(rp3d::CollisionShape* collider, const TransformComponent& transform) const;
+		rp3d::Collider* AddCollider(rp3d::CollisionShape* collider, const rp3d::Transform &transform);
+		rp3d::Collider* UpdateCollider(rp3d::Collider * oldCollider, rp3d::CollisionShape* collider, const rp3d::Transform &transform);
 		void RemoveCollider(rp3d::Collider* collider);
 		void ApplyForce(const ForceType& forceType, const glm::vec3& direction, const glm::vec3& force, const glm::vec3& forcePoint) const;
 		void ApplyTorque(const glm::vec3& torque) const;
-	
+		void SetBodyType(rp3d::BodyType newType);
+		rp3d::BodyType GetType() const {return m_BodyType;}
 	private:
+		rp3d::BodyType m_BodyType;
 		rp3d::Transform m_Transform = rp3d::Transform::identity();
 		std::list<rp3d::CollisionShape*> m_ColliderList;
+		inline static std::string s_SearchString = "rigidbody component";
+		friend class EditorUI;
 	};
 
 	/**********************************************************************************************//**
@@ -83,6 +90,7 @@ namespace tnah {
 	public:
 		glm::vec3 Size = {1.0f, 1.0f, 1.0f};
 		rp3d::BoxShape* Collider;
+		rp3d::Collider* colliderPointer = nullptr;
 
 		BoxColliderComponent();
 		BoxColliderComponent(const BoxColliderComponent& other) = default;
@@ -91,6 +99,8 @@ namespace tnah {
 		BoxColliderComponent(const rp3d::Vector3& size);
 		BoxColliderComponent(const float& x, const float& y, const float& z);
 	private:
+		inline static std::string s_SearchString = "box collider component";
+		friend class EditorUI;
 	};
 
 	/**********************************************************************************************//**

@@ -21,9 +21,20 @@ namespace tnah
         void DestroyCollisionBody(rp3d::CollisionBody * body);
     
     private:
+        void CreateColliderRenderer();
+        
         rp3d::PhysicsCommon m_PhysicsCommon;
         rp3d::PhysicsWorld* m_PhysicsWorld = nullptr;
         rp3d::DefaultLogger* m_PhysicsLogger = nullptr;
+
+        bool m_ColliderRender = false;
+        Ref<VertexArray> m_LinesVertexArray;
+        Ref<VertexBuffer> m_LinesVertexBuffer;
+
+        Ref<VertexArray> m_TriangleVertexArray;
+        Ref<VertexBuffer> m_TriangleVertexBuffer;
+        Ref<Shader> m_Shader;
+        
         bool m_Active = false;
         friend class Physics;
     };
@@ -44,8 +55,9 @@ namespace tnah
         static rp3d::RigidBody* CreateRigidbody(const TransformComponent& transform);
         static rp3d::RigidBody* CreateRigidbody(const rp3d::Transform transform);
         static rp3d::RigidBody* CreateRigidbody(const glm::vec3& position, const glm::vec3& rotation);
-        
 
+        static void ToggleColliderRendering();
+        
 
         // could use the Transform component and half each of its values?
         static rp3d::BoxShape* CreateBoxShape(const float& halfX, const float& halfY, const float& halfZ);
@@ -63,10 +75,18 @@ namespace tnah
         void CreateTerrainCollider(tnah::Terrain* terrain);
     
     private:
+        static bool IsColliderRenderingEnabled();
+        static std::pair<std::pair<Ref<VertexArray>, Ref<VertexBuffer>>, std::pair<Ref<VertexArray>, Ref<VertexBuffer>>> GetColliderRenderObjects();
+        static Ref<Shader> GetColliderShader();
+        static void UpdateColliderRenderer();
+        static rp3d::DebugRenderer GetColliderRenderer();
         static void PhysicsLoggerInit();
     
     private:
         static Ref<PhysicsManager> m_PhysicsManager;
+
+        friend class Scene;
+        friend class Renderer;
     };
 
     

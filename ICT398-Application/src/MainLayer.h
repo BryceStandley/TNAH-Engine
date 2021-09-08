@@ -143,5 +143,10 @@ private:
 
 		/** @brief	True to allow camera look, false to keep camera look disabled */
 	bool m_CameraLookToggle = false;
+
+	/** @brief Texture for the close screen*/
+	tnah::Ref<tnah::Texture2D> m_CloseScreenTexture;
+
+	bool m_CloseScreenDisplay = false;
 };
 

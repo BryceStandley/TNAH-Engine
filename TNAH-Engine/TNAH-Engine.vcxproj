@@ -165,6 +165,8 @@
     <Content Include="Resources\shaders\default\mesh\mesh_anim_vertex.glsl" />
     <Content Include="Resources\shaders\default\mesh\mesh_fragment.glsl" />
     <Content Include="Resources\shaders\default\mesh\mesh_vertex.glsl" />
+    <Content Include="Resources\shaders\default\physics\physics_fragment.glsl" />
+    <Content Include="Resources\shaders\default\physics\physics_vertex.glsl" />
     <Content Include="Resources\shaders\default\skybox\skybox_fragment.glsl" />
     <Content Include="Resources\shaders\default\skybox\skybox_vertex.glsl" />
     <Content Include="Resources\shaders\default\terrain\terrain_fragment.glsl" />
@@ -236,7 +238,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <WarningLevel>EnableAllWarnings</WarningLevel>
+      <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>TNAH_DEBUG;TNAH_PLATFORM_WINDOWS;TNAH_BUILD_DLL;GLFW_INCLUDE_NONE;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>

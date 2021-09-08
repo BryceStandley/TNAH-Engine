@@ -43,6 +43,7 @@ namespace tnah {
 		virtual void Enable(const APIEnum& value) = 0;
 
 		virtual void DrawArray(const Ref<VertexArray>& vertexArray) = 0;
+		virtual void DrawArray(std::string type, uint32_t size) = 0;
 		virtual void DrawIndexed(const Ref<VertexArray>& vertexArray) = 0;
 		virtual void SetWireframe(const bool& enable) = 0;
 		virtual bool CheckFullScreen(const int& width, const int& height) = 0;

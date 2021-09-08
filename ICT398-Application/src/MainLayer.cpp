@@ -30,6 +30,8 @@ MainLayer::MainLayer()
 	auto& light = m_PointLight.GetComponent<tnah::LightComponent>();
 	light.Light = tnah::Light::CreatePoint();
 
+	m_CloseScreenTexture = tnah::Texture2D::Create("assets/images/team.png");
+	
 	for (int i = 0; i < 1; i++)
 	{
 		//Test Cube
@@ -184,6 +186,7 @@ void MainLayer::OnImGuiRender()
 	if(ImGui::CollapsingHeader("Toggles"))
 	{
 		auto& app = tnah::Application::Get();
+		ImGui::Checkbox("Team Screen", &m_CloseScreenDisplay);
 		ImGui::Checkbox("Cursor", &app.GetCursorToggleStatus());
 		ImGui::Checkbox("Wireframe", &app.GetWireframeToggleStatus());
 		ImGui::Checkbox("VSync", &app.GetVSyncToggleStatus());
@@ -234,6 +237,17 @@ void MainLayer::OnImGuiRender()
 		ImGui::ColorEdit3("Point Color", glm::value_ptr(pl.Light->GetColor()));
 	}
 	ImGui::End();
+
+	if(m_CloseScreenDisplay)
+	{
+		ImGui::Begin("EndScreen");
+		ImGui::SetWindowPos({0,0});
+		ImGui::SetWindowSize({(float)tnah::Application::Get().GetWindow().GetWidth(), (float)tnah::Application::Get().GetWindow().GetHeight()});
+		auto size = ImGui::GetContentRegionAvail();
+		ImGui::Image((void*)m_CloseScreenTexture->GetRendererID(), size);
+		ImGui::End();
+	}
+	
 }
 
 void MainLayer::OnEvent(tnah::Event& event)
