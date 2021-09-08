@@ -80,7 +80,7 @@ namespace tnah {
 		BufferLayout(std::initializer_list<BufferElement> elements)
 			: m_Elements(elements)
 		{
-			CalculateOffsetsAndStride();
+			CalculateOffsetsAndStride(m_Elements, m_Stride);
 		}
 
 		uint32_t GetStride() const { return m_Stride; }
@@ -91,20 +91,37 @@ namespace tnah {
 		std::vector<BufferElement>::const_iterator begin() const { return m_Elements.begin(); }
 		std::vector<BufferElement>::const_iterator end() const { return m_Elements.end(); }
 	private:
-		void CalculateOffsetsAndStride()
+		static void CalculateOffsetsAndStride(std::vector<BufferElement>& elements, uint32_t& stride)
 		{
 			size_t offset = 0;
-			m_Stride = 0;
-			for (auto& element : m_Elements)
+			stride = 0;
+			for (auto& element : elements)
 			{
 				element.Offset = offset;
 				offset += element.Size;
-				m_Stride += element.Size;
+				stride += element.Size;
 			}
 		}
 	private:
 		std::vector<BufferElement> m_Elements;
 		uint32_t m_Stride = 0;
+		friend class VertexBuffer;
+	};
+
+	enum class DrawType
+	{
+		STREAM, STATIC, DYNAMIC
+	};
+
+	enum class TypeMode
+	{
+		DRAW, READ, COPY
+	};
+
+	struct DrawMode
+	{
+		DrawType Type = DrawType::STATIC;
+		TypeMode Mode = TypeMode::DRAW;
 	};
 
 	class VertexBuffer : public RefCounted
@@ -114,10 +131,16 @@ namespace tnah {
 
 		virtual void Bind() const = 0;
 		virtual void Unbind() const = 0;
+		virtual void SetData(uint32_t size, const void* data, DrawType type = DrawType::STATIC, TypeMode mode = TypeMode::DRAW) const = 0;
 
+		virtual void CreateLayout(uint32_t location, BufferElement element, uint32_t stride) = 0;
+		
 		virtual const BufferLayout& GetLayout() const = 0;
 		virtual void SetLayout(const BufferLayout& layout) = 0;
 
+		
+		
+		static Ref<VertexBuffer> Create();
 		static Ref<VertexBuffer> Create(float* verticies, uint32_t size);
 		static Ref<VertexBuffer> Create(void* verticies, uint32_t size);
 	};

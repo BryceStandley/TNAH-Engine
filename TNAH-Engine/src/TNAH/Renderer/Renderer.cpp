@@ -248,6 +248,56 @@ namespace tnah {
 		IncrementDrawCallsPerFrame();
 	}
 
+	void Renderer::SubmitCollider(Ref<VertexArray> lineVertexArray, Ref<VertexBuffer> lineVertexBuffer,
+		Ref<VertexArray> triangleVertexArray, Ref<VertexBuffer> triangleVertexBuffer)
+	{
+		RenderCommand::SetWireframe(true);
+		auto shader = Physics::GetColliderShader();
+		shader->Bind();
+		shader->SetMat4("u_ViewProjectionMatrix", s_SceneData->ViewProjection);
+		shader->SetInt("u_isGlobalVertexColorEnabled", 0); // Disable global color
+		
+		auto renderer = Physics::GetColliderRenderer();
+		if(renderer.getNbLines() > 0)
+		{
+			lineVertexArray->Bind();
+			lineVertexBuffer->Bind();
+
+			BufferElement linePosition = {ShaderDataType::Float3, "", false};
+			BufferElement lineColor = {ShaderDataType::Int, "", false};
+			lineColor.Offset = sizeof(rp3d::Vector3);
+			lineVertexBuffer->CreateLayout(0, linePosition, sizeof(rp3d::Vector3) + sizeof(rp3d::uint32));
+			lineVertexBuffer->CreateLayout(1, lineColor, sizeof(rp3d::Vector3) + sizeof(rp3d::uint32));
+
+			//RenderCommand::DrawArray(); TODO: add a overload that allows GL_LINES to be set and the count to be set independently from the vertex array with a internal layout
+			//glDrawArrays(GL_LINES, 0, debugRenderer.getNbLines() * 2);
+
+		}
+
+		//TODO: Do the same as above but with the triangles
+		if(renderer.getNbTriangles() > 0)
+		{
+			triangleVertexArray->Bind();
+			triangleVertexBuffer->Bind();
+
+			BufferElement trianglePosition = {ShaderDataType::Float3, "", false};
+			BufferElement triangleColor = {ShaderDataType::Int, "", false};
+			triangleColor.Offset = sizeof(rp3d::Vector3);
+			triangleVertexBuffer->CreateLayout(0, trianglePosition, sizeof(rp3d::Vector3) + sizeof(rp3d::uint32));
+			triangleVertexBuffer->CreateLayout(1, triangleColor, sizeof(rp3d::Vector3) + sizeof(rp3d::uint32));
+
+			/*
+			glDrawArrays(GL_TRIANGLES, 0, debugRenderer.getNbTriangles() * 3);
+			RenderCommand::DrawArray();
+			
+			*/
+
+		}
+		shader->Unbind();
+		RenderCommand::SetWireframe(false);
+		
+	}
+
 	void Renderer::SetCullMode(const CullMode& mode)
 	{
 		RenderCommand::SetCullMode(mode);

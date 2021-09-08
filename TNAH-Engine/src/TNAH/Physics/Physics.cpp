@@ -65,8 +65,65 @@ namespace tnah
         return nullptr;
     }
 
-    void Physics::CreateTerrainCollider(tnah::Terrain* terrain)
+    void Physics::ToggleColliderRendering()
     {
+        if(m_PhysicsManager->m_Active)
+        {
+            m_PhysicsManager->m_ColliderRender = !m_PhysicsManager->m_ColliderRender;
+            m_PhysicsManager->m_PhysicsWorld->setIsDebugRenderingEnabled(m_PhysicsManager->m_ColliderRender);
+        }
+    }
+
+    rp3d::DebugRenderer Physics::GetColliderRenderer()
+    {
+        if(m_PhysicsManager->m_Active)
+        {
+            return m_PhysicsManager->m_PhysicsWorld->getDebugRenderer();
+        }
+    }
+
+    void Physics::CreateTerrainCollider(Terrain* terrain)
+    {
+    }
+
+    std::pair<std::pair<Ref<VertexArray>, Ref<VertexBuffer>>, std::pair<Ref<VertexArray>, Ref<VertexBuffer>>> Physics::
+    GetColliderRenderObjects()
+    {
+        std::pair<Ref<VertexArray>, Ref<VertexBuffer>> lines;
+        lines.first = m_PhysicsManager->m_LinesVertexArray;
+        lines.second = m_PhysicsManager->m_LinesVertexBuffer;
+
+        std::pair<Ref<VertexArray>, Ref<VertexBuffer>> triangles;
+        triangles.first = m_PhysicsManager->m_TriangleVertexArray;
+        triangles.second = m_PhysicsManager->m_TriangleVertexBuffer;
+
+        return {lines, triangles};
+    }
+
+    Ref<Shader> Physics::GetColliderShader()
+    {
+        return m_PhysicsManager->m_Shader;
+    }
+
+    void Physics::UpdateColliderRenderer()
+    {
+        if(m_PhysicsManager->m_Active)
+        {
+            const rp3d::uint nbLines = GetColliderRenderer().getNbLines();
+            if(nbLines > 0)
+            {
+                const GLsizei size = static_cast<GLsizei>(nbLines * sizeof(rp3d::DebugRenderer::DebugLine));
+                m_PhysicsManager->m_LinesVertexBuffer->SetData(size, GetColliderRenderer().getLinesArray(), DrawType::STREAM, TypeMode::DRAW);
+            }
+
+            // Triangles
+            const rp3d::uint nbTriangles = GetColliderRenderer().getNbTriangles();
+            if(nbTriangles > 0)
+            {
+                GLsizei size = static_cast<GLsizei>(nbTriangles * sizeof(rp3d::DebugRenderer::DebugTriangle));
+                m_PhysicsManager->m_LinesVertexBuffer->SetData(size, GetColliderRenderer().getTrianglesArray(), DrawType::STREAM, TypeMode::DRAW);
+            }
+        }
     }
 
     rp3d::BoxShape* Physics::CreateBoxShape(const float& halfX, const float& halfY, const float& halfZ)
@@ -206,6 +263,17 @@ namespace tnah
         }
     }
 
+    void PhysicsManager::CreateColliderRenderer()
+    {
+        m_LinesVertexArray = VertexArray::Create();
+        m_LinesVertexBuffer = VertexBuffer::Create();
+
+        m_TriangleVertexArray = VertexArray::Create();
+        m_TriangleVertexBuffer = VertexBuffer::Create();
+
+        m_Shader = Shader::Create("Resources/shaders/default/physics/physics_vertex.glsl","Resources/shaders/default/physics/physics_fragment.glsl");
+    }
+
     rp3d::CollisionBody* PhysicsManager::CreateCollisionBody(const TransformComponent& transform)
     {
         if(m_Active)
@@ -225,15 +293,22 @@ namespace tnah
         m_PhysicsWorld->setEventListener(collisionEventListener);
         m_PhysicsWorld->setIsDebugRenderingEnabled(true);
         m_Active = true;
+
+        CreateColliderRenderer();
         return true;
     }
 
     void PhysicsManager::OnFixedUpdate(PhysicsTimestep timestep)
     {
-        m_PhysicsWorld->getDebugRenderer().setIsDebugItemDisplayed(rp3d::DebugRenderer::DebugItem::COLLISION_SHAPE, true);
-        m_PhysicsWorld->getDebugRenderer().setIsDebugItemDisplayed(rp3d::DebugRenderer::DebugItem::COLLIDER_AABB, true);
+        if(m_ColliderRender)
+        {
+            m_PhysicsWorld->getDebugRenderer().setIsDebugItemDisplayed(rp3d::DebugRenderer::DebugItem::COLLISION_SHAPE, true);
+        }
+        //m_PhysicsWorld->getDebugRenderer().setIsDebugItemDisplayed(rp3d::DebugRenderer::DebugItem::COLLIDER_AABB, true);
         
         m_PhysicsWorld->update(timestep.GetSimulationSpeed());
+
+        
     }
 
 

@@ -8,6 +8,18 @@
 
 namespace tnah {
 
+	Ref<VertexBuffer> VertexBuffer::Create()
+	{
+		switch (Renderer::GetAPI())
+		{
+		case RendererAPI::API::None:    TNAH_CORE_ASSERT(false, "RendererAPI::None is currently not supported!"); return nullptr;
+		case RendererAPI::API::OpenGL:  return Ref<OpenGLVertexBuffer>::Create();
+		}
+
+		TNAH_CORE_ASSERT(false, "Unknown RendererAPI!");
+		return nullptr;
+	}
+
 	Ref<VertexBuffer> VertexBuffer::Create(float* vertices, uint32_t size)
 	{
 		switch (Renderer::GetAPI())
