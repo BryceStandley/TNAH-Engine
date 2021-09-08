@@ -18,6 +18,19 @@
 
 #include "TNAH/Physics/PhysicsTimestep.h"
 
+/**
+ * @fn	int main(int argc, char** argv);
+ *
+ * @brief	Main entry-point for this application
+ *
+ * @author	Plush
+ * @date	7/09/2021
+ *
+ * @param 	argc	The number of command-line arguments provided.
+ * @param 	argv	An array of command-line argument strings.
+ *
+ * @returns	Exit-code for the process - 0 for success, else an error code.
+ */
 
 int main(int argc, char** argv);
 

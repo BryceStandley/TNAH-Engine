@@ -5,6 +5,15 @@
 
 namespace tnah {
 
+	/**
+	 * @class	RefCounted
+	 *
+	 * @brief	A reference counted class that keeps a count on the .
+	 *
+	 * @author	Plush
+	 * @date	7/09/2021
+	 */
+
 	class RefCounted
 	{
 	public:
