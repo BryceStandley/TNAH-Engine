@@ -24,6 +24,7 @@
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -111,6 +112,7 @@ XCOPY "$(SolutionDir)vender\ktx\lib\*.dll" "$(OutDir)" /E /Y</Command>
     <ClCompile Include="src\Application.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="assets\images\team.png" />
     <Content Include="assets\meshes\cube.fbx" />
     <Content Include="assets\meshes\cube_texture.fbx" />
   </ItemGroup>

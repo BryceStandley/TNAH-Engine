@@ -134,6 +134,7 @@ namespace tnah {
 		virtual void SetData(uint32_t size, const void* data, DrawType type = DrawType::STATIC, TypeMode mode = TypeMode::DRAW) const = 0;
 
 		virtual void CreateLayout(uint32_t location, BufferElement element, uint32_t stride) = 0;
+		virtual void DisableLayout(uint32_t location) = 0;
 		
 		virtual const BufferLayout& GetLayout() const = 0;
 		virtual void SetLayout(const BufferLayout& layout) = 0;

@@ -270,8 +270,10 @@ namespace tnah {
 			lineVertexBuffer->CreateLayout(0, linePosition, sizeof(rp3d::Vector3) + sizeof(rp3d::uint32));
 			lineVertexBuffer->CreateLayout(1, lineColor, sizeof(rp3d::Vector3) + sizeof(rp3d::uint32));
 
-			RenderCommand::DrawArray("lines", renderer.getNbLines() * 2);
+			//RenderCommand::DrawArray("lines", renderer.getNbLines() * 2);
 
+			lineVertexBuffer->DisableLayout(0);
+			lineVertexBuffer->DisableLayout(1);
 
 		}
 
@@ -286,8 +288,12 @@ namespace tnah {
 			triangleVertexBuffer->CreateLayout(0, trianglePosition, sizeof(rp3d::Vector3) + sizeof(rp3d::uint32));
 			triangleVertexBuffer->CreateLayout(1, triangleColor, sizeof(rp3d::Vector3) + sizeof(rp3d::uint32));
 
-			RenderCommand::DrawArray("triangles", renderer.getNbTriangles() * 3);
+			//RenderCommand::DrawArray("triangles", renderer.getNbTriangles() * 3);
+			triangleVertexBuffer->DisableLayout(0);
+			triangleVertexBuffer->DisableLayout(1);
 		}
+		triangleVertexArray->Unbind();
+		triangleVertexBuffer->Unbind();
 
 		shader->Unbind();
 		RenderCommand::SetWireframe(false);

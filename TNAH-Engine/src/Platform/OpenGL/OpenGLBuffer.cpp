@@ -109,6 +109,11 @@ namespace tnah {
 		}
 	}
 
+	void OpenGLVertexBuffer::DisableLayout(uint32_t location)
+	{
+		glDisableVertexAttribArray(location);
+	}
+
 
 	/***********************************************************************/
 	//Index Buffer

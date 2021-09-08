@@ -123,6 +123,9 @@ namespace tnah {
 		static void CalculateOffsetAndStride(BufferElement& element, uint32_t& stride);
 
 
+	public:
+		void DisableLayout(uint32_t location) override;
+	private:
 			/** @brief	Identifier for the renderer */
 		uint32_t m_RendererID;
 
