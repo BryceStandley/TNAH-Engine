@@ -26,6 +26,11 @@ namespace tnah {
 			s_RendererAPI->DrawArray(vertexArray);
 		}
 
+		inline static void DrawArray(std::string type, uint32_t size)
+		{
+			s_RendererAPI->DrawArray(type, size);
+		}
+
 		inline static void DrawIndexed(const Ref<VertexArray> vertexArray)
 		{
 			s_RendererAPI->DrawIndexed(vertexArray);

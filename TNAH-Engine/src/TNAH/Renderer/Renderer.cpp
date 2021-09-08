@@ -258,6 +258,7 @@ namespace tnah {
 		shader->SetInt("u_isGlobalVertexColorEnabled", 0); // Disable global color
 		
 		auto renderer = Physics::GetColliderRenderer();
+		
 		if(renderer.getNbLines() > 0)
 		{
 			lineVertexArray->Bind();
@@ -269,8 +270,8 @@ namespace tnah {
 			lineVertexBuffer->CreateLayout(0, linePosition, sizeof(rp3d::Vector3) + sizeof(rp3d::uint32));
 			lineVertexBuffer->CreateLayout(1, lineColor, sizeof(rp3d::Vector3) + sizeof(rp3d::uint32));
 
-			//RenderCommand::DrawArray(); TODO: add a overload that allows GL_LINES to be set and the count to be set independently from the vertex array with a internal layout
-			glDrawArrays(GL_LINES, 0, renderer.getNbLines() * 2);
+			RenderCommand::DrawArray("lines", renderer.getNbLines());
+
 
 		}
 
@@ -284,12 +285,8 @@ namespace tnah {
 			triangleColor.Offset = sizeof(rp3d::Vector3);
 			triangleVertexBuffer->CreateLayout(0, trianglePosition, sizeof(rp3d::Vector3) + sizeof(rp3d::uint32));
 			triangleVertexBuffer->CreateLayout(1, triangleColor, sizeof(rp3d::Vector3) + sizeof(rp3d::uint32));
-			glDrawArrays(GL_TRIANGLES, 0, renderer.getNbTriangles() * 3);
-			/*
-			glDrawArrays(GL_TRIANGLES, 0, debugRenderer.getNbTriangles() * 3);
-			RenderCommand::DrawArray();
-			
-			*/
+
+			RenderCommand::DrawArray("triangles", renderer.getNbTriangles());
 		}
 
 		shader->Unbind();

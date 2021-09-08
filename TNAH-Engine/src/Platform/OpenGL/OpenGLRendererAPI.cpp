@@ -71,6 +71,15 @@ namespace tnah {
 		glDrawArrays(GL_TRIANGLES, 0, vertexArray->GetIndexSize());
 	}
 
+	void OpenGLRendererAPI::DrawArray(std::string type, uint32_t size)
+	{
+		if(type == "lines")
+			glDrawArrays(GL_LINES, 0, size);
+		else
+			glDrawArrays(GL_TRIANGLES, 0, size);
+	}
+
+
 	void OpenGLRendererAPI::SetDepthFunc(const DepthFunc& func)
 	{
 		switch (func)

@@ -119,6 +119,7 @@ namespace tnah {
 			 */
 
 		void DrawArray(const Ref<VertexArray>& vertexArray) override;
+		void DrawArray(std::string type, uint32_t size) override;
 
 			/**
 			 * @fn	void OpenGLRendererAPI::SetWireframe(const bool& enable) override;
