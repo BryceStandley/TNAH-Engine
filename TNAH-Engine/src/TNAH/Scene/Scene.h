@@ -16,9 +16,37 @@
 #pragma warning(pop)
 
 namespace tnah {
+
+	/**
+	 * @class	Light
+	 *
+	 * @brief	A light.
+	 *
+	 * @author	Plush
+	 * @date	7/09/2021
+	 */
+
 	class Light;
 
+	/**
+	 * @class	GameObject
+	 *
+	 * @brief	A game object.
+	 *
+	 * @author	Plush
+	 * @date	7/09/2021
+	 */
+
 	class GameObject;
+
+	/**
+	 * @class	Scene
+	 *
+	 * @brief	A scene
+	 *
+	 * @author	Plush
+	 * @date	7/09/2021
+	 */
 
 	class Scene : public RefCounted
 	{
