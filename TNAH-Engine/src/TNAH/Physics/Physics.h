@@ -75,6 +75,7 @@ namespace tnah
         void CreateTerrainCollider(tnah::Terrain* terrain);
     
     private:
+        static bool IsColliderRenderingEnabled();
         static std::pair<std::pair<Ref<VertexArray>, Ref<VertexBuffer>>, std::pair<Ref<VertexArray>, Ref<VertexBuffer>>> GetColliderRenderObjects();
         static Ref<Shader> GetColliderShader();
         static void UpdateColliderRenderer();

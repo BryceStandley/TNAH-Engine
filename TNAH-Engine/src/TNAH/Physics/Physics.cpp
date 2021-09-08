@@ -87,6 +87,11 @@ namespace tnah
     {
     }
 
+    bool Physics::IsColliderRenderingEnabled()
+    {
+        return m_PhysicsManager->m_ColliderRender;
+    }
+
     std::pair<std::pair<Ref<VertexArray>, Ref<VertexBuffer>>, std::pair<Ref<VertexArray>, Ref<VertexBuffer>>> Physics::
     GetColliderRenderObjects()
     {

@@ -513,6 +513,12 @@ namespace tnah {
 				ImGui::BulletText("Textures Loaded: %d", Renderer::GetTotalLoadedTextures());
 				ImGui::BulletText("Shaders Loaded: %d", Renderer::GetTotalLoadedShaders());
 				ImGui::BulletText("Models Loaded: %d", Renderer::GetTotalLoadedModels());
+				ImGui::Separator();
+				ImGui::Text("Debug");
+				if(ImGui::Button("Toggle Collider Render"))
+				{
+					Physics::ToggleColliderRendering();
+				}
 				ImGui::End();
 			}
 
