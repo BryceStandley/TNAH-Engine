@@ -223,16 +223,16 @@ namespace tnah
             return false;
         
         m_PhysicsWorld->setEventListener(collisionEventListener);
-
-        //m_PhysicsWorld->setNbIterationsVelocitySolver (30) ;
-
-        //m_PhysicsWorld->setNbIterationsPositionSolver (30) ;
+        m_PhysicsWorld->setIsDebugRenderingEnabled(true);
         m_Active = true;
         return true;
     }
 
     void PhysicsManager::OnFixedUpdate(PhysicsTimestep timestep)
     {
+        m_PhysicsWorld->getDebugRenderer().setIsDebugItemDisplayed(rp3d::DebugRenderer::DebugItem::COLLISION_SHAPE, true);
+        m_PhysicsWorld->getDebugRenderer().setIsDebugItemDisplayed(rp3d::DebugRenderer::DebugItem::COLLIDER_AABB, true);
+        
         m_PhysicsWorld->update(timestep.GetSimulationSpeed());
     }
 
