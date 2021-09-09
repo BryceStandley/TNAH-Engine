@@ -28,10 +28,10 @@ MainLayer::MainLayer()
 	
 	m_SceneLight = m_ActiveScene->GetSceneLight();
 
-	m_Terrain = m_ActiveScene->CreateGameObject("Terrain");
-	m_Terrain.AddComponent<tnah::TerrainComponent>("assets/heightmaps/1k.tga");
-	auto& terrT = m_Terrain.Transform();
-	terrT.Scale = glm::vec3(5.0f);
+	//m_Terrain = m_ActiveScene->CreateGameObject("Terrain");
+	//m_Terrain.AddComponent<tnah::TerrainComponent>("assets/heightmaps/1k.tga");
+	//auto& terrT = m_Terrain.Transform();
+	//terrT.Scale = glm::vec3(5.0f);
 
 	auto& m_Skybox = m_ActiveScene->GetSceneCamera().AddComponent<tnah::SkyboxComponent>();
 
@@ -261,7 +261,7 @@ void MainLayer::OnFixedUpdate(tnah::PhysicsTimestep ps)
 
 void MainLayer::OnImGuiRender()
 {
-	auto& terr = m_Terrain.Transform();
+	//auto& terr = m_Terrain.Transform();
 	auto& ct = m_Camera.Transform();
 	auto& l = m_SceneLight.GetComponent<tnah::LightComponent>();
 	auto& lt = m_SceneLight.Transform();
@@ -330,10 +330,10 @@ void MainLayer::OnImGuiRender()
 		}
 	}
 
-	if (ImGui::CollapsingHeader("Terrain"))
-	{
-		ImGui::SliderFloat3("Terrain Scale", glm::value_ptr(terr.Scale), 1, 20);
-	}
+	//if (ImGui::CollapsingHeader("Terrain"))
+	//{
+	//	ImGui::SliderFloat3("Terrain Scale", glm::value_ptr(terr.Scale), 1, 20);
+	//}
 
 	if (ImGui::CollapsingHeader("Global Lighting"))
 	{
