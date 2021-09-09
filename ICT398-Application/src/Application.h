@@ -105,7 +105,7 @@ public:
 private:
 
 		/** @brief	True to disable, false to enable the cursor */
-	bool m_CursorDisabled = true;
+	bool m_CursorDisabled = false;
 
 		/** @brief	True to enable, false to disable the wireframe */
 	bool m_WireframeEnabled = false;

@@ -448,16 +448,17 @@ namespace tnah {
 			if(object.HasComponent<BoxColliderComponent>())
 			{
 				auto & box = object.GetComponent<BoxColliderComponent>();
-				rp3d::Vector3 s = box.Collider->getHalfExtents();
+				rp3d::Vector3 s = ((rp3d::BoxShape*)(box.Components.Shape))->getHalfExtents();
 				std::string text = "Actual Size: " + std::to_string(s.x) + " " + std::to_string(s.y) + " " + std::to_string(s.z);
 				ImGui::Text("Box Collider");
 				ImGui::Separator();
 				ImGui::Text(text.c_str());
 				DrawVec3Control("Size", box.Size);
+				
 				if(ImGui::Button("Change Size"))
 				{
-					box.Collider->setHalfExtents(Math::ToRp3dVec3(box.Size));
-					box.colliderPointer = rb.UpdateCollider(box.colliderPointer, box.Collider, rp3d::Transform::identity());
+					((rp3d::BoxShape*)(box.Components.Shape))->setHalfExtents(Math::ToRp3dVec3(box.Size));
+					box.Components.BodyCollider = rb.UpdateCollider(box.Components.BodyCollider, box.Components.Shape, rp3d::Transform::identity());
 				}
 				hasCollider = true;
 			}
@@ -1208,14 +1209,14 @@ namespace tnah {
         	{
         		auto& rb = object.GetComponent<RigidBodyComponent>();
         		auto& b = object.AddComponent<BoxColliderComponent>();
-        		b.colliderPointer = rb.AddCollider(b.Collider, rp3d::Transform::identity());
+        		b.Components.BodyCollider = rb.AddCollider(b.Components.Shape, rp3d::Transform::identity());
         		return true;
         	}
         	else
         	{
         		auto& rb = object.AddComponent<RigidBodyComponent>(object.Transform());
         		auto& b = object.AddComponent<BoxColliderComponent>();
-        		b.colliderPointer = rb.AddCollider(b.Collider, rp3d::Transform::identity());
+        		b.Components.BodyCollider = rb.AddCollider(b.Components.Shape, rp3d::Transform::identity());
         		return true;
         	}
         default: return false;

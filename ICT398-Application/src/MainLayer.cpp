@@ -19,20 +19,20 @@ MainLayer::MainLayer()
 
 	{
 		auto& rb = m_Camera.AddComponent<tnah::RigidBodyComponent>(ct);
-		auto& box = m_Camera.AddComponent<tnah::BoxColliderComponent>();
-		rb.Body->addCollider(box.Collider, rp3d::Transform::identity());
-		box.colliderPointer = rb.AddCollider(box.Collider, rp3d::Transform::identity());
+		auto& cap = m_Camera.AddComponent<tnah::CapsuleColliderComponent>();
+		rb.Body->addCollider(cap.Components.Shape, rp3d::Transform::identity());
+		cap.Components.BodyCollider = rb.AddCollider(cap.Components.Shape, rp3d::Transform::identity());
 		rb.SetBodyType(rp3d::BodyType::DYNAMIC);	
 	}
 	
 	
 	m_SceneLight = m_ActiveScene->GetSceneLight();
 
-	//m_Terrain = m_ActiveScene->CreateGameObject("Terrain");
-	//m_Terrain.AddComponent<tnah::TerrainComponent>("assets/heightmaps/1k.tga");
-	//auto& terrT = m_Terrain.Transform();
-	//terrT.Scale = glm::vec3(5.0f);
-	//terrT.Position = glm::vec3(-1000, -200, -500);
+	m_Terrain = m_ActiveScene->CreateGameObject("Terrain");
+	m_Terrain.AddComponent<tnah::TerrainComponent>("assets/heightmaps/1k.tga");
+	auto& terrT = m_Terrain.Transform();
+	terrT.Scale = glm::vec3(5.0f);
+	terrT.Position = glm::vec3(-1000, -200, -500);
 
 	auto& m_Skybox = m_ActiveScene->GetSceneCamera().AddComponent<tnah::SkyboxComponent>();
 
@@ -60,8 +60,8 @@ MainLayer::MainLayer()
 		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
 		auto& box = go.AddComponent<tnah::BoxColliderComponent>(glm::vec3(1, 40, 60));
 		
-		rb.Body->addCollider(box.Collider, rp3d::Transform::identity());
-		box.colliderPointer = rb.AddCollider(box.Collider, rp3d::Transform::identity());
+		rb.Body->addCollider(box.Components.Shape, rp3d::Transform::identity());
+		box.Components.BodyCollider = rb.AddCollider(box.Components.Shape, rp3d::Transform::identity());
 		
 		rb.SetBodyType(rp3d::BodyType::KINEMATIC);	
 	}
@@ -77,8 +77,8 @@ MainLayer::MainLayer()
 		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
 		auto& box = go.AddComponent<tnah::BoxColliderComponent>(glm::vec3(60, 2, 60));
 		
-		rb.Body->addCollider(box.Collider, rp3d::Transform::identity());
-		box.colliderPointer = rb.AddCollider(box.Collider, rp3d::Transform::identity());
+		rb.Body->addCollider(box.Components.Shape, rp3d::Transform::identity());
+		box.Components.BodyCollider = rb.AddCollider(box.Components.Shape, rp3d::Transform::identity());
 		
 		rb.SetBodyType(rp3d::BodyType::KINEMATIC);	
 	}
@@ -94,8 +94,8 @@ MainLayer::MainLayer()
 		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
 		auto& box = go.AddComponent<tnah::BoxColliderComponent>(glm::vec3(1, 60, 60));
 		
-		rb.Body->addCollider(box.Collider, rp3d::Transform::identity());
-		box.colliderPointer = rb.AddCollider(box.Collider, rp3d::Transform::identity());
+		rb.Body->addCollider(box.Components.Shape, rp3d::Transform::identity());
+		box.Components.BodyCollider = rb.AddCollider(box.Components.Shape, rp3d::Transform::identity());
 		
 		rb.SetBodyType(rp3d::BodyType::KINEMATIC);	
 	}
@@ -111,8 +111,8 @@ MainLayer::MainLayer()
 		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
 		auto& box = go.AddComponent<tnah::BoxColliderComponent>(glm::vec3(65, 50, 1));
 		
-		rb.Body->addCollider(box.Collider, rp3d::Transform::identity());
-		box.colliderPointer = rb.AddCollider(box.Collider, rp3d::Transform::identity());
+		rb.Body->addCollider(box.Components.Shape, rp3d::Transform::identity());
+		box.Components.BodyCollider = rb.AddCollider(box.Components.Shape, rp3d::Transform::identity());
 		
 		rb.SetBodyType(rp3d::BodyType::KINEMATIC);	
 	}
@@ -128,8 +128,8 @@ MainLayer::MainLayer()
 		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
 		auto& box = go.AddComponent<tnah::BoxColliderComponent>(glm::vec3(65, 50, 1));
 		
-		rb.Body->addCollider(box.Collider, rp3d::Transform::identity());
-		box.colliderPointer = rb.AddCollider(box.Collider, rp3d::Transform::identity());
+		rb.Body->addCollider(box.Components.Shape, rp3d::Transform::identity());
+		box.Components.BodyCollider = rb.AddCollider(box.Components.Shape, rp3d::Transform::identity());
 		
 		rb.SetBodyType(rp3d::BodyType::KINEMATIC);	
 	}
@@ -146,8 +146,8 @@ MainLayer::MainLayer()
 		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
 		auto& box = go.AddComponent<tnah::BoxColliderComponent>(glm::vec3(pillarSize));
 		
-		rb.Body->addCollider(box.Collider, rp3d::Transform::identity());
-		box.colliderPointer = rb.AddCollider(box.Collider, rp3d::Transform::identity());
+		rb.Body->addCollider(box.Components.Shape, rp3d::Transform::identity());
+		box.Components.BodyCollider = rb.AddCollider(box.Components.Shape, rp3d::Transform::identity());
 		
 		rb.SetBodyType(rp3d::BodyType::KINEMATIC);	
 	}
@@ -163,8 +163,8 @@ MainLayer::MainLayer()
 		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
 		auto& box = go.AddComponent<tnah::BoxColliderComponent>(glm::vec3(pillarSize));
 		
-		rb.Body->addCollider(box.Collider, rp3d::Transform::identity());
-		box.colliderPointer = rb.AddCollider(box.Collider, rp3d::Transform::identity());
+		rb.Body->addCollider(box.Components.Shape, rp3d::Transform::identity());
+		box.Components.BodyCollider = rb.AddCollider(box.Components.Shape, rp3d::Transform::identity());
 		
 		rb.SetBodyType(rp3d::BodyType::KINEMATIC);	
 	}
@@ -180,8 +180,8 @@ MainLayer::MainLayer()
 		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
 		auto& box = go.AddComponent<tnah::BoxColliderComponent>(glm::vec3(pillarSize));
 		
-		rb.Body->addCollider(box.Collider, rp3d::Transform::identity());
-		box.colliderPointer = rb.AddCollider(box.Collider, rp3d::Transform::identity());
+		rb.Body->addCollider(box.Components.Shape, rp3d::Transform::identity());
+		box.Components.BodyCollider = rb.AddCollider(box.Components.Shape, rp3d::Transform::identity());
 		
 		rb.SetBodyType(rp3d::BodyType::KINEMATIC);	
 	}
@@ -197,8 +197,8 @@ MainLayer::MainLayer()
 		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
 		auto& box = go.AddComponent<tnah::BoxColliderComponent>(glm::vec3(pillarSize));
 		
-		rb.Body->addCollider(box.Collider, rp3d::Transform::identity());
-		box.colliderPointer = rb.AddCollider(box.Collider, rp3d::Transform::identity());
+		rb.Body->addCollider(box.Components.Shape, rp3d::Transform::identity());
+		box.Components.BodyCollider = rb.AddCollider(box.Components.Shape, rp3d::Transform::identity());
 		
 		rb.SetBodyType(rp3d::BodyType::KINEMATIC);	
 	}
@@ -277,8 +277,8 @@ MainLayer::MainLayer()
 		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
 		auto& box = go.AddComponent<tnah::BoxColliderComponent>(glm::vec3(binSize));
 		
-		rb.Body->addCollider(box.Collider, rp3d::Transform::identity());
-		box.colliderPointer = rb.AddCollider(box.Collider, rp3d::Transform::identity());
+		rb.Body->addCollider(box.Components.Shape, rp3d::Transform::identity());
+		box.Components.BodyCollider = rb.AddCollider(box.Components.Shape, rp3d::Transform::identity());
 		
 		rb.SetBodyType(rp3d::BodyType::KINEMATIC);	
 	}
@@ -297,8 +297,8 @@ MainLayer::MainLayer()
 		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
 		auto& box = go.AddComponent<tnah::BoxColliderComponent>(glm::vec3(binSize));
 		
-		rb.Body->addCollider(box.Collider, rp3d::Transform::identity());
-		box.colliderPointer = rb.AddCollider(box.Collider, rp3d::Transform::identity());
+		rb.Body->addCollider(box.Components.Shape, rp3d::Transform::identity());
+		box.Components.BodyCollider = rb.AddCollider(box.Components.Shape, rp3d::Transform::identity());
 		
 		rb.SetBodyType(rp3d::BodyType::KINEMATIC);	
 	}
@@ -318,8 +318,8 @@ MainLayer::MainLayer()
 		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
 		auto& box = go.AddComponent<tnah::BoxColliderComponent>(tableSize);
 		
-		rb.Body->addCollider(box.Collider, rp3d::Transform::identity());
-		box.colliderPointer = rb.AddCollider(box.Collider, rp3d::Transform::identity());
+		rb.Body->addCollider(box.Components.Shape, rp3d::Transform::identity());
+		box.Components.BodyCollider = rb.AddCollider(box.Components.Shape, rp3d::Transform::identity());
 		
 		rb.SetBodyType(rp3d::BodyType::KINEMATIC);	
 	}
@@ -338,8 +338,8 @@ MainLayer::MainLayer()
 		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
 		auto& box = go.AddComponent<tnah::BoxColliderComponent>(tableSize);
 		
-		rb.Body->addCollider(box.Collider, rp3d::Transform::identity());
-		box.colliderPointer = rb.AddCollider(box.Collider, rp3d::Transform::identity());
+		rb.Body->addCollider(box.Components.Shape, rp3d::Transform::identity());
+		box.Components.BodyCollider = rb.AddCollider(box.Components.Shape, rp3d::Transform::identity());
 		
 		rb.SetBodyType(rp3d::BodyType::KINEMATIC);	
 	}
@@ -358,8 +358,8 @@ MainLayer::MainLayer()
 		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
 		auto& box = go.AddComponent<tnah::BoxColliderComponent>(glm::vec3(1, 1, 1));
 		
-		rb.Body->addCollider(box.Collider, rp3d::Transform::identity());
-		box.colliderPointer = rb.AddCollider(box.Collider, rp3d::Transform::identity());
+		rb.Body->addCollider(box.Components.Shape, rp3d::Transform::identity());
+		box.Components.BodyCollider = rb.AddCollider(box.Components.Shape, rp3d::Transform::identity());
 		
 		rb.SetBodyType(rp3d::BodyType::KINEMATIC);	
 	}
@@ -379,8 +379,8 @@ MainLayer::MainLayer()
 		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
 		auto& box = go.AddComponent<tnah::BoxColliderComponent>(glm::vec3(1, 1, 1));
 		
-		rb.Body->addCollider(box.Collider, rp3d::Transform::identity());
-		box.colliderPointer = rb.AddCollider(box.Collider, rp3d::Transform::identity());
+		rb.Body->addCollider(box.Components.Shape, rp3d::Transform::identity());
+		box.Components.BodyCollider = rb.AddCollider(box.Components.Shape, rp3d::Transform::identity());
 		
 		rb.SetBodyType(rp3d::BodyType::KINEMATIC);	
 	}
@@ -399,8 +399,8 @@ MainLayer::MainLayer()
 		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
 		auto& box = go.AddComponent<tnah::BoxColliderComponent>(glm::vec3(1, 1, 1));
 		
-		rb.Body->addCollider(box.Collider, rp3d::Transform::identity());
-		box.colliderPointer = rb.AddCollider(box.Collider, rp3d::Transform::identity());
+		rb.Body->addCollider(box.Components.Shape, rp3d::Transform::identity());
+		box.Components.BodyCollider = rb.AddCollider(box.Components.Shape, rp3d::Transform::identity());
 		
 		rb.SetBodyType(rp3d::BodyType::KINEMATIC);	
 	}
@@ -419,8 +419,8 @@ MainLayer::MainLayer()
 		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
 		auto& box = go.AddComponent<tnah::BoxColliderComponent>(glm::vec3(1, 1, 1));
 		
-		rb.Body->addCollider(box.Collider, rp3d::Transform::identity());
-		box.colliderPointer = rb.AddCollider(box.Collider, rp3d::Transform::identity());
+		rb.Body->addCollider(box.Components.Shape, rp3d::Transform::identity());
+		box.Components.BodyCollider = rb.AddCollider(box.Components.Shape, rp3d::Transform::identity());
 		
 		rb.SetBodyType(rp3d::BodyType::KINEMATIC);	
 	}

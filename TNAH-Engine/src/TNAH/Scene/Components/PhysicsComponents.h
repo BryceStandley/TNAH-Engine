@@ -4,7 +4,25 @@
 
 #include "TNAH/Renderer/Mesh.h"
 
-namespace tnah {
+namespace tnah{
+
+	/**
+	 * @struct ColliderComponents
+	 *
+	 * @brief Contains the shape and collider pointers to be used within the physics system
+	 *
+	 * @author Bryce Standley
+	 * @date 09/09/2021
+	 * 
+	 * @param Shape ReactPhysics3D collision shape, base type of all colliders
+	 * @param BodyCollider ReactPhysics3D collider
+	 */
+	struct ColliderComponents
+	{
+		rp3d::CollisionShape* Shape = nullptr;
+		rp3d::Collider* BodyCollider = nullptr;
+	};
+	
 
 	/**********************************************************************************************//**
  * @class	RigidBodyComponent
@@ -90,9 +108,11 @@ namespace tnah {
 	{
 	public:
 		glm::vec3 Size = {1.0f, 1.0f, 1.0f};
-		rp3d::BoxShape* Collider;
-		rp3d::Collider* colliderPointer = nullptr;
-
+		//rp3d::BoxShape* Collider;
+		//rp3d::Collider* colliderPointer = nullptr;
+	
+		 ColliderComponents Components;
+		
 		BoxColliderComponent();
 		BoxColliderComponent(const BoxColliderComponent& other) = default;
 
@@ -166,8 +186,10 @@ namespace tnah {
 	public:
 		float Radius = 1.0f;
 		float Height = 2.0f;
-		rp3d::CapsuleShape* Collider = nullptr;
+		//rp3d::CapsuleShape* Collider = nullptr;
 
+		ColliderComponents Components;
+		
 		CapsuleColliderComponent();
 		CapsuleColliderComponent(const CapsuleColliderComponent& other) = default;
 

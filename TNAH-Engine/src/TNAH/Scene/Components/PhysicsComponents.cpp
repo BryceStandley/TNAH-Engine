@@ -3,6 +3,8 @@
 
 namespace tnah
 {
+
+#pragma region Rigidbody
     RigidBodyComponent::RigidBodyComponent()
     {
         if(Physics::IsActive())
@@ -76,8 +78,6 @@ namespace tnah
             Body->setType(m_BodyType);
         }
     }
-
-    
 
     RigidBodyComponent::RigidBodyComponent(const rp3d::Vector3& position, const rp3d::Quaternion orientation)
     {
@@ -164,14 +164,15 @@ namespace tnah
             Body->applyTorque(Math::ToRp3dVec3(torque));
         }
     }
+#pragma endregion
 
-
+#pragma region BoxCollider
     BoxColliderComponent::BoxColliderComponent()
     {
         if(Physics::IsActive())
         {
             // make each measurement of the box, half extents as react requires half
-            Collider = Physics::CreateBoxShape(Size * 0.5f);
+            Components.Shape = Physics::CreateBoxShape(Size * 0.5f);
         }
     }
 
@@ -180,7 +181,7 @@ namespace tnah
     {
         if(Physics::IsActive())
         {
-            Collider = Physics::CreateBoxShape(Size * 0.5f);
+            Components.Shape = Physics::CreateBoxShape(Size * 0.5f);
         }
     }
 
@@ -189,7 +190,7 @@ namespace tnah
         Size = {size.x, size.y, size.z};
         if(Physics::IsActive())
         {
-            Collider = Physics::CreateBoxShape(Size * 0.5f);
+            Components.Shape = Physics::CreateBoxShape(Size * 0.5f);
         }
     }
 
@@ -198,10 +199,13 @@ namespace tnah
         Size = {x, y, z};
         if(Physics::IsActive())
         {
-            Collider = Physics::CreateBoxShape(Size * 0.5f);
+            Components.Shape = Physics::CreateBoxShape(Size * 0.5f);
         }
     }
 
+#pragma endregion
+
+#pragma region HeighFieldCollider
     HeightFieldColliderComponent::HeightFieldColliderComponent()
     {
         if(Physics::IsActive())
@@ -231,7 +235,9 @@ namespace tnah
         }
     }
 
+#pragma endregion
 
+#pragma region SphereCollider
     SphereColliderComponent::SphereColliderComponent()
     {
         if(Physics::IsActive())
@@ -249,11 +255,14 @@ namespace tnah
         }
     }
 
+#pragma endregion 
+
+#pragma region CapsuleCollider
     CapsuleColliderComponent::CapsuleColliderComponent()
     {
         if(Physics::IsActive())
         {
-            Collider = Physics::CreateCapsuleShape(Radius, Height);
+            Components.Shape = Physics::CreateCapsuleShape(Radius, Height);
         }
     }
 
@@ -262,14 +271,12 @@ namespace tnah
     {
         if(Physics::IsActive())
         {
-            Collider = Physics::CreateCapsuleShape(Radius, Height);
+            Components.Shape = Physics::CreateCapsuleShape(Radius, Height);
         }
     }
+#pragma endregion 
 
-
-
-
-
+#pragma region MeshCollider
     
     MeshColliderComponent::MeshColliderComponent()
     {} // Maybe add something here to check and see if the gameobject the component is on
@@ -339,4 +346,6 @@ namespace tnah
                       rp3d::TriangleVertexArray::IndexDataType::INDEX_INTEGER_TYPE);
         
     }
+
+#pragma endregion 
 }

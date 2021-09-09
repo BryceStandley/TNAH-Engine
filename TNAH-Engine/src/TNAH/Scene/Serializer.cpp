@@ -756,7 +756,7 @@ namespace tnah {
     {
         auto size = GetVec3FromFile("size", fileContents, componentTagPositions);
         BoxColliderComponent box(size);
-        box.colliderPointer = rb.AddCollider(box.Collider, rp3d::Transform::identity());
+        box.Components.BodyCollider = rb.AddCollider(box.Components.Shape, rp3d::Transform::identity());
         return box;
     }
 
