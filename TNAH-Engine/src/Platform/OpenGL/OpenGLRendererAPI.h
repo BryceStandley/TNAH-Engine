@@ -9,7 +9,7 @@ namespace tnah {
 		 *
 		 * @brief	An OpenGLRendererAPI class that inherits from the RendererAPI base class
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 */
 
@@ -22,7 +22,7 @@ namespace tnah {
 			 *
 			 * @brief	Initializes this object
 			 *
-			 * @author	Plush
+			 * @author	Dylan Blereau
 			 * @date	7/09/2021
 			 */
 
@@ -33,7 +33,7 @@ namespace tnah {
 			 *
 			 * @brief	Sets the  glViewport
 			 *
-			 * @author	Plush
+			 * @author	Dylan Blereau
 			 * @date	7/09/2021
 			 *
 			 * @param 	x	  	An uint32_t to process.
@@ -49,7 +49,7 @@ namespace tnah {
 			 *
 			 * @brief	Sets clear color
 			 *
-			 * @author	Plush
+			 * @author	Dylan Blereau
 			 * @date	7/09/2021
 			 *
 			 * @param 	color	The color provided in a vec4.
@@ -62,7 +62,7 @@ namespace tnah {
 			 *
 			 * @brief	Clears this object to its blank/initial state
 			 *
-			 * @author	Plush
+			 * @author	Dylan Blereau
 			 * @date	7/09/2021
 			 */
 
@@ -73,7 +73,7 @@ namespace tnah {
 			 *
 			 * @brief	Disables the given value
 			 *
-			 * @author	Plush
+			 * @author	Dylan Blereau
 			 * @date	7/09/2021
 			 *
 			 * @param 	value	The value.
@@ -86,7 +86,7 @@ namespace tnah {
 			 *
 			 * @brief	Enables the given value
 			 *
-			 * @author	Plush
+			 * @author	Dylan Blereau
 			 * @date	7/09/2021
 			 *
 			 * @param 	value	The value.
@@ -99,7 +99,7 @@ namespace tnah {
 			 *
 			 * @brief	Draw indexed using glDrawElements
 			 *
-			 * @author	Plush
+			 * @author	Dylan Blereau
 			 * @date	7/09/2021
 			 *
 			 * @param 	vertexArray	Array of vertices.
@@ -112,7 +112,7 @@ namespace tnah {
 			 *
 			 * @brief	Draws an array using glDrawArrays
 			 *
-			 * @author	Plush
+			 * @author	Dylan Blereau
 			 * @date	7/09/2021
 			 *
 			 * @param 	vertexArray	Array of vertices.
@@ -126,7 +126,7 @@ namespace tnah {
 			 *
 			 * @brief	Sets a wireframe
 			 *
-			 * @author	Plush
+			 * @author	Dylan Blereau
 			 * @date	7/09/2021
 			 *
 			 * @param 	enable	True to enable wireframe, false to disable.
@@ -139,7 +139,7 @@ namespace tnah {
 			 *
 			 * @brief	Check full screen
 			 *
-			 * @author	Plush
+			 * @author	Dylan Blereau
 			 * @date	7/09/2021
 			 *
 			 * @param 	width 	The width.
@@ -155,7 +155,7 @@ namespace tnah {
 			 *
 			 * @brief	Sets cull mode
 			 *
-			 * @author	Plush
+			 * @author	Dylan Blereau
 			 * @date	7/09/2021
 			 *
 			 * @param 	mode	The mode.
@@ -168,7 +168,7 @@ namespace tnah {
 			 *
 			 * @brief	Sets depth mask
 			 *
-			 * @author	Plush
+			 * @author	Dylan Blereau
 			 * @date	7/09/2021
 			 *
 			 * @param 	enabled	True to enable, false to disable.
@@ -181,7 +181,7 @@ namespace tnah {
 			 *
 			 * @brief	Sets depth function
 			 *
-			 * @author	Plush
+			 * @author	Dylan Blereau
 			 * @date	7/09/2021
 			 *
 			 * @param 	func	The function.

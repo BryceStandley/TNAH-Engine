@@ -13,6 +13,7 @@
 
 namespace tnah {
 
+#pragma region Enums
 	using uchar8_t = unsigned char;
 	enum class ImageLoadFormat
 	{
@@ -127,6 +128,7 @@ namespace tnah {
 	};
 
 
+#pragma endregion
 	
 	class Texture : public RefCounted
 	{
@@ -150,6 +152,8 @@ namespace tnah {
 		 */
 		virtual uchar8_t* GetImageData() const = 0;
 
+		std::string m_UniformName = "";
+		
 		Resource m_TextureResource;
 		
 		bool m_Loaded = false;

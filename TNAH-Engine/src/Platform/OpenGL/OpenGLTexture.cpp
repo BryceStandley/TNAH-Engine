@@ -41,6 +41,7 @@ namespace tnah {
 	{
 		m_TextureResource = path;
 		m_TextureResource.CustomName = textureName;
+		m_UniformName = "u_" + textureName;
 		int width, height, channels;
 		unsigned char* data = nullptr;
 		if(path.find(".png") != std::string::npos)

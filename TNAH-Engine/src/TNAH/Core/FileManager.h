@@ -22,7 +22,7 @@ namespace tnah {
 	 *
 	 * @brief	An active file.
 	 *
-	 * @author	Plush
+	 * @author	Dylan Blereau
 	 * @date	7/09/2021
 	 */
 
@@ -38,7 +38,7 @@ namespace tnah {
 		 *
 		 * @brief	Default constructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 */
 
@@ -52,7 +52,7 @@ namespace tnah {
 	 *
 	 * @brief	Manager for files.
 	 *
-	 * @author	Plush
+	 * @author	Dylan Blereau
 	 * @date	7/09/2021
 	 */
 
@@ -65,7 +65,7 @@ namespace tnah {
 		 *
 		 * @brief	Creates a new scene
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @returns	True if it succeeds, false if it fails.
@@ -78,7 +78,7 @@ namespace tnah {
 		 *
 		 * @brief	Opens the scene
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @returns	True if it succeeds, false if it fails.
@@ -91,7 +91,7 @@ namespace tnah {
 		 *
 		 * @brief	Opens the audio
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @returns	True if it succeeds, false if it fails.
@@ -104,7 +104,7 @@ namespace tnah {
 		 *
 		 * @brief	Opens the mesh
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @returns	True if it succeeds, false if it fails.
@@ -117,7 +117,7 @@ namespace tnah {
 		 *
 		 * @brief	Saves the scene
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @returns	True if it succeeds, false if it fails.
@@ -130,7 +130,7 @@ namespace tnah {
 		 *
 		 * @brief	Saves the scene as
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @returns	True if it succeeds, false if it fails.
@@ -143,7 +143,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets active file
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @returns	Null if it fails, else the active file.
@@ -158,7 +158,7 @@ namespace tnah {
 		 *
 		 * @brief	Check valid file
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @param 	filePath	Full pathname of the file.

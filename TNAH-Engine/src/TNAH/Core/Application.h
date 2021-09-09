@@ -23,7 +23,7 @@
  *
  * @brief	Main entry-point for this application
  *
- * @author	Plush
+ * @author	Dylan Blereau
  * @date	7/09/2021
  *
  * @param 	argc	The number of command-line arguments provided.

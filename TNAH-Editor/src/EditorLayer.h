@@ -12,7 +12,7 @@ namespace tnah {
 		 *
 		 * @brief	An editor layer.
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 */
 
@@ -25,7 +25,7 @@ namespace tnah {
 			 *
 			 * @brief	Default constructor
 			 *
-			 * @author	Plush
+			 * @author	Dylan Blereau
 			 * @date	7/09/2021
 			 */
 
@@ -36,7 +36,7 @@ namespace tnah {
 			 *
 			 * @brief	Executes the functions on update
 			 *
-			 * @author	Plush
+			 * @author	Dylan Blereau
 			 * @date	7/09/2021
 			 *
 			 * @param 	deltaTime	The delta time.
@@ -49,7 +49,7 @@ namespace tnah {
 			 *
 			 * @brief	Executes the function on fixed update
 			 *
-			 * @author	Plush
+			 * @author	Dylan Blereau
 			 * @date	7/09/2021
 			 *
 			 * @param 	ps	The PhysicsTimestep.
@@ -62,7 +62,7 @@ namespace tnah {
 			 *
 			 * @brief	Executes when ImGui is rendering
 			 *
-			 * @author	Plush
+			 * @author	Dylan Blereau
 			 * @date	7/09/2021
 			 */
 
@@ -73,7 +73,7 @@ namespace tnah {
 		 *
 		 * @brief	Executes the 'event' action
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @param [in,out]	event	The event.
@@ -86,7 +86,7 @@ namespace tnah {
 			 *
 			 * @brief	Closes a scene
 			 *
-			 * @author	Plush
+			 * @author	Dylan Blereau
 			 * @date	7/09/2021
 			 *
 			 * @param 	scene	A smart pointer to the scene.
@@ -99,7 +99,7 @@ namespace tnah {
 			 *
 			 * @brief	Gets snap value
 			 *
-			 * @author	Plush
+			 * @author	Dylan Blereau
 			 * @date	7/09/2021
 			 *
 			 * @returns	The ImGuizmo snap value.
@@ -112,7 +112,7 @@ namespace tnah {
 			 *
 			 * @brief	Destructor
 			 *
-			 * @author	Plush
+			 * @author	Dylan Blereau
 			 * @date	7/09/2021
 			 */
 
@@ -123,7 +123,7 @@ namespace tnah {
 		 *
 		 * @brief	Executes the function on attach
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 */
 
@@ -134,7 +134,7 @@ namespace tnah {
 			 *
 			 * @brief	Executes the function on detach
 			 *
-			 * @author	Plush
+			 * @author	Dylan Blereau
 			 * @date	7/09/2021
 			 */
 
@@ -255,7 +255,7 @@ namespace tnah {
 			 *
 			 * @brief	Count game object of the given name and names them accordingly
 			 *
-			 * @author	Plush
+			 * @author	Dylan Blereau
 			 * @date	7/09/2021
 			 *
 			 * @param 	name	The name of the gameObject.

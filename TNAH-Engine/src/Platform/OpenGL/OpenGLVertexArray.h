@@ -11,7 +11,7 @@ namespace tnah {
 	 *
 	 * @brief	An OpenGLVertexArray class that inherits from base class VertexArray.
 	 *
-	 * @author	Plush
+	 * @author	Dylan Blereau
 	 * @date	7/09/2021
 	 */
 
@@ -24,7 +24,7 @@ namespace tnah {
 		 *
 		 * @brief	Default constructor that generates the vertex array 
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 */
 
@@ -35,7 +35,7 @@ namespace tnah {
 		 *
 		 * @brief	Destructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 */
 
@@ -46,7 +46,7 @@ namespace tnah {
 		 *
 		 * @brief	Binds this object
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 */
 
@@ -57,7 +57,7 @@ namespace tnah {
 		 *
 		 * @brief	Unbinds this object
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 */
 
@@ -68,7 +68,7 @@ namespace tnah {
 		 *
 		 * @brief	Sets an identifier
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @param 	id	The identifier.
@@ -81,7 +81,7 @@ namespace tnah {
 		 *
 		 * @brief	Adds a vertex buffer
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @param 	vertexBuffer	Buffer for vertex data.
@@ -94,7 +94,7 @@ namespace tnah {
 		 *
 		 * @brief	Sets index buffer
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @param 	indexBuffer	Buffer for index data.
@@ -107,7 +107,7 @@ namespace tnah {
 		 *
 		 * @brief	Sets index size
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @param 	size	The size.
@@ -120,7 +120,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets vertex buffers
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @returns	The vertex buffers.
@@ -133,7 +133,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets index buffer
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @returns	The index buffer.
@@ -146,7 +146,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets index size
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @returns	The index size.

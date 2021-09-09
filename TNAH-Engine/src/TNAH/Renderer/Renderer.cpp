@@ -257,9 +257,9 @@ namespace tnah {
 		shader->SetMat4("u_ViewProjectionMatrix", s_SceneData->ViewProjection);
 		shader->SetInt("u_isGlobalVertexColorEnabled", 0); // Disable global color
 		
-		auto renderer = Physics::GetColliderRenderer();
+		const auto renderer = Physics::GetColliderRenderer();
 		
-		if(renderer.getNbLines() > 0)
+		if(renderer->getNbLines() > 0)
 		{
 			lineVertexArray->Bind();
 			lineVertexBuffer->Bind();
@@ -278,7 +278,7 @@ namespace tnah {
 		}
 
 		//TODO: Do the same as above but with the triangles
-		if(renderer.getNbTriangles() > 0)
+		if(renderer->getNbTriangles() > 0)
 		{
 			triangleVertexArray->Bind();
 			triangleVertexBuffer->Bind();

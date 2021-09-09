@@ -36,6 +36,8 @@ namespace tnah
         Ref<Shader> m_Shader;
         
         bool m_Active = false;
+        /** @brief Used to tell the physics system if the logging should be enabled*/
+        bool m_Logging = false;
         friend class Physics;
     };
     
@@ -75,11 +77,13 @@ namespace tnah
         void CreateTerrainCollider(tnah::Terrain* terrain);
     
     private:
+        static void EnableLogging();
+        
         static bool IsColliderRenderingEnabled();
         static std::pair<std::pair<Ref<VertexArray>, Ref<VertexBuffer>>, std::pair<Ref<VertexArray>, Ref<VertexBuffer>>> GetColliderRenderObjects();
         static Ref<Shader> GetColliderShader();
         static void UpdateColliderRenderer();
-        static rp3d::DebugRenderer GetColliderRenderer();
+        static rp3d::DebugRenderer* GetColliderRenderer();
         static void PhysicsLoggerInit();
     
     private:

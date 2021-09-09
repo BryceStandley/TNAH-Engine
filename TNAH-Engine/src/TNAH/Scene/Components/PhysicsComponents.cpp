@@ -131,7 +131,10 @@ namespace tnah
     {
         if(Physics::IsActive() && Body)
         {
-            auto finalForce = direction * force;
+            glm::vec3 finalForce = direction;
+            finalForce.x *= force.x;
+            finalForce.y *= -10;
+            finalForce.z *= force.z;
             switch (forceType)
             {
             case ForceType::FromWorld:

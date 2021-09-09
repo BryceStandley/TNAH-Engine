@@ -18,7 +18,6 @@ namespace tnah
     bool Physics::Initialise(rp3d::EventListener* collisionEventListener)
     {
         const bool success = m_PhysicsManager->Initialise(collisionEventListener);
-        if(success) PhysicsLoggerInit();
         return success;
     }
 
@@ -71,20 +70,33 @@ namespace tnah
         {
             m_PhysicsManager->m_ColliderRender = !m_PhysicsManager->m_ColliderRender;
             m_PhysicsManager->m_PhysicsWorld->setIsDebugRenderingEnabled(m_PhysicsManager->m_ColliderRender);
-            TNAH_CORE_INFO("THIS IS CALLLLED");
         }
     }
 
-    rp3d::DebugRenderer Physics::GetColliderRenderer()
+    rp3d::DebugRenderer* Physics::GetColliderRenderer()
     {
         if(m_PhysicsManager->m_Active)
         {
-            return m_PhysicsManager->m_PhysicsWorld->getDebugRenderer();
+            return &m_PhysicsManager->m_PhysicsWorld->getDebugRenderer();
         }
+        return nullptr;
     }
 
     void Physics::CreateTerrainCollider(Terrain* terrain)
     {
+        if(IsActive())
+        {
+            //TODO: Set up the terrain/Height field collider
+        }
+    }
+
+    void Physics::EnableLogging()
+    {
+        if(IsActive())
+        {
+            m_PhysicsManager->m_Logging = true;
+            PhysicsLoggerInit();
+        }
     }
 
     bool Physics::IsColliderRenderingEnabled()
@@ -115,19 +127,19 @@ namespace tnah
     {
         if(m_PhysicsManager->m_Active)
         {
-            const rp3d::uint nbLines = GetColliderRenderer().getNbLines();
+            const rp3d::uint nbLines = GetColliderRenderer()->getNbLines();
             if(nbLines > 0)
             {
                 const GLsizei size = static_cast<GLsizei>(nbLines * sizeof(rp3d::DebugRenderer::DebugLine));
-                m_PhysicsManager->m_LinesVertexBuffer->SetData(size, GetColliderRenderer().getLinesArray(), DrawType::STREAM, TypeMode::DRAW);
+                m_PhysicsManager->m_LinesVertexBuffer->SetData(size, GetColliderRenderer()->getLinesArray(), DrawType::STREAM, TypeMode::DRAW);
             }
 
             // Triangles
-            const rp3d::uint nbTriangles = GetColliderRenderer().getNbTriangles();
+            const rp3d::uint nbTriangles = GetColliderRenderer()->getNbTriangles();
             if(nbTriangles > 0)
             {
                 GLsizei size = static_cast<GLsizei>(nbTriangles * sizeof(rp3d::DebugRenderer::DebugTriangle));
-                m_PhysicsManager->m_LinesVertexBuffer->SetData(size, GetColliderRenderer().getTrianglesArray(), DrawType::STREAM, TypeMode::DRAW);
+                m_PhysicsManager->m_LinesVertexBuffer->SetData(size, GetColliderRenderer()->getTrianglesArray(), DrawType::STREAM, TypeMode::DRAW);
             }
         }
     }

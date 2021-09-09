@@ -9,7 +9,7 @@ namespace tnah {
 	 *
 	 * @brief	OpenGLVertexBuffer class that inherits from the VertexBuffer class
 	 *
-	 * @author	Plush
+	 * @author	Dylan Blereau
 	 * @date	7/09/2021
 	 */
 
@@ -21,7 +21,7 @@ namespace tnah {
 		*
 		* @brief	Constructor
 		*
-		* @author	Plush
+		* @author	Dylan Blereau
 		* @date	7/09/2021
 		*/
 
@@ -33,7 +33,7 @@ namespace tnah {
 			 *
 			 * @brief	Constructor
 			 *
-			 * @author	Plush
+			 * @author	Dylan Blereau
 			 * @date	7/09/2021
 			 *
 			 * @param [in,out]	vertices	If non-null, the vertices.
@@ -47,7 +47,7 @@ namespace tnah {
 			 *
 			 * @brief	Constructor
 			 *
-			 * @author	Plush
+			 * @author	Dylan Blereau
 			 * @date	7/09/2021
 			 *
 			 * @param [in,out]	vertices	If non-null, the vertices.
@@ -62,7 +62,7 @@ namespace tnah {
 			 *
 			 * @brief	Destructor
 			 *
-			 * @author	Plush
+			 * @author	Dylan Blereau
 			 * @date	7/09/2021
 			 */
 
@@ -73,7 +73,7 @@ namespace tnah {
 		 *
 		 * @brief	Binds the buffer
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 */
 
@@ -84,7 +84,7 @@ namespace tnah {
 		 *
 		 * @brief	Unbinds the buffer
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 */
 
@@ -95,7 +95,7 @@ namespace tnah {
 			 *
 			 * @brief	Gets the layout of the buffer
 			 *
-			 * @author	Plush
+			 * @author	Dylan Blereau
 			 * @date	7/09/2021
 			 *
 			 * @returns	The layout.
@@ -108,7 +108,7 @@ namespace tnah {
 			 *
 			 * @brief	Sets the layout of a buffer
 			 *
-			 * @author	Plush
+			 * @author	Dylan Blereau
 			 * @date	7/09/2021
 			 *
 			 * @param 	layout	The layout.
@@ -138,7 +138,7 @@ namespace tnah {
 		 *
 		 * @brief	OpenGLIndexBuffer class that inherits from the IndexBuffer class.
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 */
 
@@ -151,7 +151,7 @@ namespace tnah {
 			 *
 			 * @brief	Constructor
 			 *
-			 * @author	Plush
+			 * @author	Dylan Blereau
 			 * @date	7/09/2021
 			 *
 			 * @param 	count	Number of vertices.
@@ -164,7 +164,7 @@ namespace tnah {
 			 *
 			 * @brief	Constructor
 			 *
-			 * @author	Plush
+			 * @author	Dylan Blereau
 			 * @date	7/09/2021
 			 *
 			 * @param [in,out]	indices	If non-null, the indices.
@@ -178,7 +178,7 @@ namespace tnah {
 			 *
 			 * @brief	Constructor
 			 *
-			 * @author	Plush
+			 * @author	Dylan Blereau
 			 * @date	7/09/2021
 			 *
 			 * @param [in,out]	indices	If non-null, the indices.
@@ -192,7 +192,7 @@ namespace tnah {
 			 *
 			 * @brief	Destructor
 			 *
-			 * @author	Plush
+			 * @author	Dylan Blereau
 			 * @date	7/09/2021
 			 */
 
@@ -203,7 +203,7 @@ namespace tnah {
 			 *
 			 * @brief	Binds the index buffer
 			 *
-			 * @author	Plush
+			 * @author	Dylan Blereau
 			 * @date	7/09/2021
 			 */
 
@@ -214,7 +214,7 @@ namespace tnah {
 		 *
 		 * @brief	Unbinds the index buffer
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 */
 
@@ -225,7 +225,7 @@ namespace tnah {
 			 *
 			 * @brief	Gets the count
 			 *
-			 * @author	Plush
+			 * @author	Dylan Blereau
 			 * @date	7/09/2021
 			 *
 			 * @returns	The count.
@@ -246,7 +246,7 @@ namespace tnah {
 		 *
 		 * @brief	An OpenGLFrameBuffer class that inherits from the FrameBuffer base class
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 */
 
@@ -259,7 +259,7 @@ namespace tnah {
 			 *
 			 * @brief	Constructor
 			 *
-			 * @author	Plush
+			 * @author	Dylan Blereau
 			 * @date	7/09/2021
 			 *
 			 * @param 	spec				The specifier.
@@ -274,7 +274,7 @@ namespace tnah {
 			 *
 			 * @brief	Constructor
 			 *
-			 * @author	Plush
+			 * @author	Dylan Blereau
 			 * @date	7/09/2021
 			 *
 			 * @param 	spec				The specifier.
@@ -289,7 +289,7 @@ namespace tnah {
 			 *
 			 * @brief	Constructor
 			 *
-			 * @author	Plush
+			 * @author	Dylan Blereau
 			 * @date	7/09/2021
 			 *
 			 * @param 	spec	  	The specifier.
@@ -303,7 +303,7 @@ namespace tnah {
 			 *
 			 * @brief	Destructor
 			 *
-			 * @author	Plush
+			 * @author	Dylan Blereau
 			 * @date	7/09/2021
 			 */
 
@@ -314,7 +314,7 @@ namespace tnah {
 			 *
 			 * @brief	Binds the given attachment slot
 			 *
-			 * @author	Plush
+			 * @author	Dylan Blereau
 			 * @date	7/09/2021
 			 *
 			 * @param 	attachmentSlot	(Optional) The attachment slot.
@@ -327,7 +327,7 @@ namespace tnah {
 			 *
 			 * @brief	Unbinds the frameBuffer
 			 *
-			 * @author	Plush
+			 * @author	Dylan Blereau
 			 * @date	7/09/2021
 			 */
 
@@ -338,7 +338,7 @@ namespace tnah {
 			 *
 			 * @brief	Rebuilds the given specifier
 			 *
-			 * @author	Plush
+			 * @author	Dylan Blereau
 			 * @date	7/09/2021
 			 *
 			 * @param 	spec	The specifier.
@@ -351,7 +351,7 @@ namespace tnah {
 			 *
 			 * @brief	Gets the FrameBuffer specification
 			 *
-			 * @author	Plush
+			 * @author	Dylan Blereau
 			 * @date	7/09/2021
 			 *
 			 * @returns	The specification.
@@ -364,7 +364,7 @@ namespace tnah {
 			 *
 			 * @brief	Draws to the buffer
 			 *
-			 * @author	Plush
+			 * @author	Dylan Blereau
 			 * @date	7/09/2021
 			 */
 
@@ -375,7 +375,7 @@ namespace tnah {
 			 *
 			 * @brief	Gets renderer identifier
 			 *
-			 * @author	Plush
+			 * @author	Dylan Blereau
 			 * @date	7/09/2021
 			 *
 			 * @returns	The renderer identifier.
@@ -388,7 +388,7 @@ namespace tnah {
 			 *
 			 * @brief	Gets color attachment
 			 *
-			 * @author	Plush
+			 * @author	Dylan Blereau
 			 * @date	7/09/2021
 			 *
 			 * @returns	The color attachment.
@@ -401,7 +401,7 @@ namespace tnah {
 			 *
 			 * @brief	Gets color attachment
 			 *
-			 * @author	Plush
+			 * @author	Dylan Blereau
 			 * @date	7/09/2021
 			 *
 			 * @param 	attachmentNumber	The attachment number.
@@ -416,7 +416,7 @@ namespace tnah {
 			 *
 			 * @brief	Gets total color attachments
 			 *
-			 * @author	Plush
+			 * @author	Dylan Blereau
 			 * @date	7/09/2021
 			 *
 			 * @returns	The total color attachments.
@@ -429,7 +429,7 @@ namespace tnah {
 			 *
 			 * @brief	Gets depth attachment identifier
 			 *
-			 * @author	Plush
+			 * @author	Dylan Blereau
 			 * @date	7/09/2021
 			 *
 			 * @returns	The depth attachment identifier.
@@ -442,7 +442,7 @@ namespace tnah {
 			 *
 			 * @brief	Gets depth attachment identifier
 			 *
-			 * @author	Plush
+			 * @author	Dylan Blereau
 			 * @date	7/09/2021
 			 *
 			 * @param 	attachmentNumber	The attachment number.
@@ -457,7 +457,7 @@ namespace tnah {
 			 *
 			 * @brief	Gets total depth attachments
 			 *
-			 * @author	Plush
+			 * @author	Dylan Blereau
 			 * @date	7/09/2021
 			 *
 			 * @returns	The size of total depth attachments.
@@ -470,7 +470,7 @@ namespace tnah {
 			 *
 			 * @brief	Gets render buffer identifier
 			 *
-			 * @author	Plush
+			 * @author	Dylan Blereau
 			 * @date	7/09/2021
 			 *
 			 * @returns	The render buffer identifier.
@@ -483,7 +483,7 @@ namespace tnah {
 			 *
 			 * @brief	Sets renderbuffer specification
 			 *
-			 * @author	Plush
+			 * @author	Dylan Blereau
 			 * @date	7/09/2021
 			 *
 			 * @param 	bufferSlot	The buffer slot.
@@ -497,7 +497,7 @@ namespace tnah {
 			 *
 			 * @brief	Select draw to buffer mode
 			 *
-			 * @author	Plush
+			 * @author	Dylan Blereau
 			 * @date	7/09/2021
 			 *
 			 * @param 	mode				The mode of the FrameBuffer.
@@ -511,7 +511,7 @@ namespace tnah {
 			 *
 			 * @brief	Gets format from specifier
 			 *
-			 * @author	Plush
+			 * @author	Dylan Blereau
 			 * @date	7/09/2021
 			 *
 			 * @param 	spec	The specifier.
@@ -528,7 +528,7 @@ namespace tnah {
 			 *
 			 * @brief	Resets and regenerates frame buffer with new properties
 			 *
-			 * @author	Plush
+			 * @author	Dylan Blereau
 			 * @date	7/09/2021
 			 *
 			 * @param 	color	  	(Optional) The color.
@@ -573,7 +573,7 @@ namespace tnah {
 		 *
 		 * @brief	OpenGLRenderBuffer class that inherits from the RenderBuffer base class
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 */
 
@@ -586,7 +586,7 @@ namespace tnah {
 			 *
 			 * @brief	Destructor
 			 *
-			 * @author	Plush
+			 * @author	Dylan Blereau
 			 * @date	7/09/2021
 			 */
 
@@ -597,7 +597,7 @@ namespace tnah {
 			 *
 			 * @brief	Constructor
 			 *
-			 * @author	Plush
+			 * @author	Dylan Blereau
 			 * @date	7/09/2021
 			 *
 			 * @param 	spec	The specifier.
@@ -610,7 +610,7 @@ namespace tnah {
 			 *
 			 * @brief	Gets renderer identifier
 			 *
-			 * @author	Plush
+			 * @author	Dylan Blereau
 			 * @date	7/09/2021
 			 *
 			 * @returns	The renderer identifier.
@@ -623,7 +623,7 @@ namespace tnah {
 			 *
 			 * @brief	Binds the render buffer
 			 *
-			 * @author	Plush
+			 * @author	Dylan Blereau
 			 * @date	7/09/2021
 			 */
 
@@ -634,7 +634,7 @@ namespace tnah {
 			 *
 			 * @brief	Unbinds the render buffer
 			 *
-			 * @author	Plush
+			 * @author	Dylan Blereau
 			 * @date	7/09/2021
 			 */
 
@@ -645,7 +645,7 @@ namespace tnah {
 			 *
 			 * @brief	Rebuilds the given specifier
 			 *
-			 * @author	Plush
+			 * @author	Dylan Blereau
 			 * @date	7/09/2021
 			 *
 			 * @param 	spec	The specifier.
@@ -658,7 +658,7 @@ namespace tnah {
 			 *
 			 * @brief	Attaches the render buffer to framebuffer
 			 *
-			 * @author	Plush
+			 * @author	Dylan Blereau
 			 * @date	7/09/2021
 			 */
 
@@ -669,7 +669,7 @@ namespace tnah {
 			 *
 			 * @brief	Gets format from specification
 			 *
-			 * @author	Plush
+			 * @author	Dylan Blereau
 			 * @date	7/09/2021
 			 *
 			 * @param 	spec	The specifier.
@@ -684,7 +684,7 @@ namespace tnah {
 			 *
 			 * @brief	Gets framebuffer format from specification
 			 *
-			 * @author	Plush
+			 * @author	Dylan Blereau
 			 * @date	7/09/2021
 			 *
 			 * @param 	spec	The specifier.
@@ -701,7 +701,7 @@ namespace tnah {
 		*
 		* @brief	Resets and regenerates frame buffer with new properties
 		*
-		* @author	Plush
+		* @author	Dylan Blereau
 		* @date	7/09/2021
 		*/
 

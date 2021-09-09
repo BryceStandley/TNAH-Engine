@@ -11,7 +11,7 @@ namespace tnah {
 	 *
 	 * @brief	An OpenGLTexture2D class that inherits from the Texture2D class 
 	 *
-	 * @author	Plush
+	 * @author	Dylan Blereau
 	 * @date	7/09/2021
 	 */
 
@@ -24,7 +24,7 @@ namespace tnah {
 		 *
 		 * @brief	Constructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @param 	format	  	Describes the image format to use.
@@ -41,7 +41,7 @@ namespace tnah {
 		 *
 		 * @brief	Constructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @param 	width 	The width.
@@ -55,7 +55,7 @@ namespace tnah {
 		 *
 		 * @brief	Constructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @param 		  	path		  	Full pathname of the file.
@@ -71,7 +71,7 @@ namespace tnah {
 		 *
 		 * @brief	Destructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 */
 
@@ -82,7 +82,7 @@ namespace tnah {
 		 *
 		 * @brief	Loads from memory
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @param 		  	path		 	Full pathname of the file.
@@ -98,7 +98,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets the width
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @returns	The width.
@@ -111,7 +111,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets the height
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @returns	The height.
@@ -124,7 +124,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets renderer identifier
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @returns	The renderer identifier.
@@ -137,7 +137,7 @@ namespace tnah {
 		 *
 		 * @brief	Sets the data
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @param [in,out]	data	If non-null, the data.
@@ -151,7 +151,7 @@ namespace tnah {
 		 *
 		 * @brief	Binds the given slot
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @param 	slot	The slot.
@@ -164,7 +164,7 @@ namespace tnah {
 		 *
 		 * @brief	Binds this object
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 */
 
@@ -175,7 +175,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets ktx data
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @returns	Null if it fails, else the ktx data.
@@ -188,7 +188,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets image data
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @returns	Null if it fails, else the image data.
@@ -201,7 +201,7 @@ namespace tnah {
 		 *
 		 * @brief	Frees this object
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 */
 
@@ -212,7 +212,7 @@ namespace tnah {
 		 *
 		 * @brief	Frees the given data
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @param [in,out]	data	If non-null, the data.
@@ -226,7 +226,7 @@ namespace tnah {
 	 *
 	 * @brief	An OpenGLTexture3D that inherits from the base glass Texture3D
 	 *
-	 * @author	Plush
+	 * @author	Dylan Blereau
 	 * @date	7/09/2021
 	 */
 
@@ -239,7 +239,7 @@ namespace tnah {
 		 *
 		 * @brief	Constructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @param 	paths	   	A vector of texture paths.
@@ -253,7 +253,7 @@ namespace tnah {
 		 *
 		 * @brief	Constructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @param 	properties 	The properties.
@@ -267,7 +267,7 @@ namespace tnah {
 		 *
 		 * @brief	Destructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 */
 
@@ -278,7 +278,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets the width
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @returns	The width.
@@ -291,7 +291,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets the height
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @returns	The height.
@@ -304,7 +304,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets renderer identifier
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @returns	The renderer identifier.
@@ -317,7 +317,7 @@ namespace tnah {
 		 *
 		 * @brief	Sets a data
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @param [in,out]	data	If non-null, the data.
@@ -331,7 +331,7 @@ namespace tnah {
 		 *
 		 * @brief	Binds the given slot
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @param 	slot	The slot.
@@ -344,7 +344,7 @@ namespace tnah {
 		 *
 		 * @brief	Binds this object
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 */
 
@@ -355,7 +355,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets ktx data
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @returns	nullptr.
@@ -368,7 +368,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets image data
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @returns	nullptr.

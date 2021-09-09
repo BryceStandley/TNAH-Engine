@@ -7,7 +7,7 @@
  *
  * @brief	Form for viewing the glfw.
  *
- * @author	Plush
+ * @author	Dylan Blereau
  * @date	7/09/2021
  */
 
@@ -20,7 +20,7 @@ namespace tnah {
 		 *
 		 * @brief	An OpenGlGraphicsContext class that inherbits from a base GraphicsContext.
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 */
 
@@ -33,7 +33,7 @@ namespace tnah {
 			 *
 			 * @brief	Constructor
 			 *
-			 * @author	Plush
+			 * @author	Dylan Blereau
 			 * @date	7/09/2021
 			 *
 			 * @param [in,out]	window	A pointer to the GLFWwindow.
@@ -46,7 +46,7 @@ namespace tnah {
 			 *
 			 * @brief	Initializes GLFW
 			 *
-			 * @author	Plush
+			 * @author	Dylan Blereau
 			 * @date	7/09/2021
 			 */
 
@@ -57,7 +57,7 @@ namespace tnah {
 			 *
 			 * @brief	Swap buffers
 			 *
-			 * @author	Plush
+			 * @author	Dylan Blereau
 			 * @date	7/09/2021
 			 */
 

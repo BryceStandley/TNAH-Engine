@@ -8,7 +8,7 @@ namespace tnah {
 	 *
 	 * @brief	A buffer struct
 	 *
-	 * @author	Plush
+	 * @author	Dylan Blereau
 	 * @date	7/09/2021
 	 */
 
@@ -26,7 +26,7 @@ namespace tnah {
 		 *
 		 * @brief	Default constructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 */
 
@@ -40,7 +40,7 @@ namespace tnah {
 		 *
 		 * @brief	Constructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @param [in,out]	data	If non-null, the data.
@@ -57,7 +57,7 @@ namespace tnah {
 		 *
 		 * @brief	Copies this object
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @param 	data	The data.
@@ -79,7 +79,7 @@ namespace tnah {
 		 *
 		 * @brief	Allocates the given size
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @param 	size	The size.
@@ -102,7 +102,7 @@ namespace tnah {
 		 *
 		 * @brief	Releases this object
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 */
 
@@ -118,7 +118,7 @@ namespace tnah {
 		 *
 		 * @brief	Zero initialize
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 */
 
@@ -150,7 +150,7 @@ namespace tnah {
 		 *
 		 * @brief	Reads the bytes
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @param 	size  	The size.
@@ -172,7 +172,7 @@ namespace tnah {
 		 *
 		 * @brief	Writes
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @param [in,out]	data  	If non-null, the data.
@@ -191,7 +191,7 @@ namespace tnah {
 		 *
 		 * @brief	Cast that converts the given  to a bool
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @returns	The result of the operation.
@@ -207,7 +207,7 @@ namespace tnah {
 		 *
 		 * @brief	Array indexer operator
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @param 	index	Zero-based index of the.
@@ -225,7 +225,7 @@ namespace tnah {
 		 *
 		 * @brief	Array indexer operator
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @param 	index	Zero-based index of the.
@@ -259,7 +259,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets the size
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @returns	The size.

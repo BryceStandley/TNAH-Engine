@@ -10,7 +10,7 @@ namespace tnah {
 	 *
 	 * @brief	A reference counted class that keeps a count on the .
 	 *
-	 * @author	Plush
+	 * @author	Dylan Blereau
 	 * @date	7/09/2021
 	 */
 

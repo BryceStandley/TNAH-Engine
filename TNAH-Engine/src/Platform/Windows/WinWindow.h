@@ -17,7 +17,7 @@ namespace tnah {
 	 *
 	 * @brief	Form for viewing the window.
 	 *
-	 * @author	Plush
+	 * @author	Dylan Blereau
 	 * @date	7/09/2021
 	 */
 
@@ -30,7 +30,7 @@ namespace tnah {
 		 *
 		 * @brief	Constructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @param 	props	The properties.
@@ -43,7 +43,7 @@ namespace tnah {
 		 *
 		 * @brief	Destructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 */
 
@@ -54,7 +54,7 @@ namespace tnah {
 		 *
 		 * @brief	Executes the 'update' action
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 */
 
@@ -65,7 +65,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets the width of window
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @returns	The width.
@@ -78,7 +78,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets the height of window
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @returns	The height.
@@ -91,7 +91,7 @@ namespace tnah {
 		 *
 		 * @brief	Sets the event callback
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @param 	callback	The callback.
@@ -104,7 +104,7 @@ namespace tnah {
 		 *
 		 * @brief	Sets v synchronize
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @param 	enabled	True to enable, false to disable.
@@ -117,7 +117,7 @@ namespace tnah {
 		 *
 		 * @brief	Query if this object is v synchronize
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @returns	True if v synchronize, false if not.
@@ -130,7 +130,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets native window
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @returns	Null if it fails, else the native window.
@@ -143,7 +143,7 @@ namespace tnah {
 		 *
 		 * @brief	Sets cursor status
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @param 	disable	True to disable, false to enable.
@@ -162,7 +162,7 @@ namespace tnah {
 	 *
 	 * @brief	Toggle full screen
 	 *
-	 * @author	Plush
+	 * @author	Dylan Blereau
 	 * @date	7/09/2021
 	 *
 	 * @param 	enabled	True to enable, false to disable.
@@ -175,7 +175,7 @@ namespace tnah {
 	 *
 	 * @brief	Query if this object is fullscreen
 	 *
-	 * @author	Plush
+	 * @author	Dylan Blereau
 	 * @date	7/09/2021
 	 *
 	 * @returns	True if fullscreen, false if not.
@@ -188,7 +188,7 @@ namespace tnah {
 	 *
 	 * @brief	Sets screen resolution
 	 *
-	 * @author	Plush
+	 * @author	Dylan Blereau
 	 * @date	7/09/2021
 	 *
 	 * @param 	width 	The width.
@@ -204,7 +204,7 @@ namespace tnah {
 		 *
 		 * @brief	Initializes this object
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @param 	props	The properties.
@@ -217,7 +217,7 @@ namespace tnah {
 		 *
 		 * @brief	Shuts down this object and frees any resources it is using
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 */
 
@@ -235,7 +235,7 @@ namespace tnah {
 		 *
 		 * @brief	A struct containing Window data.
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 */
 

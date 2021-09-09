@@ -10,7 +10,7 @@ namespace tnah
      *
      * @brief	An audio class responisble for handling the audio engine
      *
-     * @author	Plush
+     * @author	Dylan Blereau
      * @date	7/09/2021
      */
 
@@ -23,7 +23,7 @@ namespace tnah
          *
          * @brief	Initializes this object
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	7/09/2021
          *
          * @returns	True if it succeeds, false if it fails.
@@ -36,7 +36,7 @@ namespace tnah
          *
          * @brief	Shuts down this object and frees any resources it is using
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	7/09/2021
          */
 
@@ -47,7 +47,7 @@ namespace tnah
          *
          * @brief	Sets a listener to a given transform component
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	7/09/2021
          *
          * @param [in,out]	transforms	The transforms.
@@ -62,7 +62,7 @@ namespace tnah
          *
          * @brief	Adds an audio source
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	7/09/2021
          *
          * @param [in,out]	sound	The sound.
@@ -77,7 +77,7 @@ namespace tnah
          *
          * @brief	Updates the audio source described by sound
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	7/09/2021
          *
          * @param [in,out]	sound	The sound.
@@ -92,7 +92,7 @@ namespace tnah
          *
          * @brief	Executes the 'update' action
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	7/09/2021
          */
 
@@ -103,7 +103,7 @@ namespace tnah
          *
          * @brief	Updates the sound
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	7/09/2021
          *
          * @param [in,out]	sound	  	The sound.
@@ -117,7 +117,7 @@ namespace tnah
          *
          * @brief	Activatea this object
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	7/09/2021
          *
          * @returns	True if it succeeds, false if it fails.
@@ -130,7 +130,7 @@ namespace tnah
          *
          * @brief	Clears this object to its blank/initial state
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	7/09/2021
          */
 
