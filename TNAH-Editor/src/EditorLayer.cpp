@@ -73,10 +73,10 @@ namespace tnah {
 							cam.Rotation.y = -89.0f;
 						}
 					}
-					else
-					{
-						Application::Get().GetWindow().SetCursorDisabled(false);
-					}
+				}
+				else
+				{
+					Application::Get().GetWindow().SetCursorDisabled(false);
 				}
 			}
 			//Rendering is managed by the scene!
