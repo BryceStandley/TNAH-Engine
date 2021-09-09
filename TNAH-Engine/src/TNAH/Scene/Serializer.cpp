@@ -612,6 +612,7 @@ namespace tnah {
         auto meshPos = FindTags("mesh", fileContents, gameObjectTagPositions.first, gameObjectTagPositions.second);
         if(CheckTags(meshPos))
         {
+            TNAH_CORE_INFO("Mesh: {0} {1}", meshPos.first, meshPos.second);
             gameObject.AddComponent<MeshComponent>(GetMeshFromFile(fileContents, meshPos));
             added++;
         }
@@ -654,6 +655,7 @@ namespace tnah {
         auto rigidPos = FindTags("rigidbody", fileContents, gameObjectTagPositions.first, gameObjectTagPositions.second);
         if(CheckTags(rigidPos))
         {
+            TNAH_CORE_INFO("Rigid: {0} {1}", rigidPos.first, rigidPos.second);
             gameObject.AddComponent<RigidBodyComponent>(GetRigidBodyFromFile(fileContents, rigidPos, gameObject.Transform()));
             added++;
         }
