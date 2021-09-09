@@ -28,10 +28,11 @@ MainLayer::MainLayer()
 	
 	m_SceneLight = m_ActiveScene->GetSceneLight();
 
-	//m_Terrain = m_ActiveScene->CreateGameObject("Terrain");
-	//m_Terrain.AddComponent<tnah::TerrainComponent>("assets/heightmaps/1k.tga");
-	//auto& terrT = m_Terrain.Transform();
-	//terrT.Scale = glm::vec3(5.0f);
+	m_Terrain = m_ActiveScene->CreateGameObject("Terrain");
+	m_Terrain.AddComponent<tnah::TerrainComponent>("assets/heightmaps/1k.tga");
+	auto& terrT = m_Terrain.Transform();
+	terrT.Scale = glm::vec3(5.0f);
+	terrT.Position = glm::vec3(-1000, -200, -500);
 
 	auto& m_Skybox = m_ActiveScene->GetSceneCamera().AddComponent<tnah::SkyboxComponent>();
 
@@ -331,11 +332,92 @@ MainLayer::MainLayer()
 		auto& mesh = go.AddComponent<tnah::MeshComponent>();
 		mesh.Model = tnah::Model::Create("assets/meshes/table.fbx");
 		
-		tt.Position = {-6, -3.2, 7};
+		tt.Position = {-7, -3.2, 7};
 		tt.Rotation = tableRotation;
 		tt.Scale = tableScale;
 		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
 		auto& box = go.AddComponent<tnah::BoxColliderComponent>(tableSize);
+		
+		rb.Body->addCollider(box.Collider, rp3d::Transform::identity());
+		box.colliderPointer = rb.AddCollider(box.Collider, rp3d::Transform::identity());
+		
+		rb.SetBodyType(rp3d::BodyType::KINEMATIC);	
+	}
+	glm::vec3 chairScale(0.1, 0.1, 0.1);
+	{
+		std::string name = "Chair (1)";
+		
+		auto&go = m_ActiveScene->CreateGameObject(name);
+		auto&tt = go.Transform();
+		auto& mesh = go.AddComponent<tnah::MeshComponent>();
+		mesh.Model = tnah::Model::Create("assets/meshes/chair.fbx");
+		
+		tt.Position = {-3.5, -3.8, 6};
+		//tt.Rotation = glm::vec3(glm::radians(180.0f), 0, 0);
+		tt.Scale = chairScale;
+		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
+		auto& box = go.AddComponent<tnah::BoxColliderComponent>(glm::vec3(1, 1, 1));
+		
+		rb.Body->addCollider(box.Collider, rp3d::Transform::identity());
+		box.colliderPointer = rb.AddCollider(box.Collider, rp3d::Transform::identity());
+		
+		rb.SetBodyType(rp3d::BodyType::KINEMATIC);	
+	}
+
+	{
+		std::string name = "Chair (2)";
+		
+		auto&go = m_ActiveScene->CreateGameObject(name);
+		auto&tt = go.Transform();
+		auto& mesh = go.AddComponent<tnah::MeshComponent>();
+		mesh.Model = tnah::Model::Create("assets/meshes/chair.fbx");
+		
+		tt.Position = {-1.9, -3.8, 6};
+		tt.Rotation = glm::vec3(0, glm::radians(180.0f), 0);
+		tt.Scale = chairScale;
+		
+		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
+		auto& box = go.AddComponent<tnah::BoxColliderComponent>(glm::vec3(1, 1, 1));
+		
+		rb.Body->addCollider(box.Collider, rp3d::Transform::identity());
+		box.colliderPointer = rb.AddCollider(box.Collider, rp3d::Transform::identity());
+		
+		rb.SetBodyType(rp3d::BodyType::KINEMATIC);	
+	}
+	
+	{
+		std::string name = "Chair (3)";
+		
+		auto&go = m_ActiveScene->CreateGameObject(name);
+		auto&tt = go.Transform();
+		auto& mesh = go.AddComponent<tnah::MeshComponent>();
+		mesh.Model = tnah::Model::Create("assets/meshes/chair.fbx");
+		
+		tt.Position = {-7.9, -3.8, 7};
+		tt.Rotation = glm::vec3(0, 0, 0);
+		tt.Scale = chairScale;
+		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
+		auto& box = go.AddComponent<tnah::BoxColliderComponent>(glm::vec3(1, 1, 1));
+		
+		rb.Body->addCollider(box.Collider, rp3d::Transform::identity());
+		box.colliderPointer = rb.AddCollider(box.Collider, rp3d::Transform::identity());
+		
+		rb.SetBodyType(rp3d::BodyType::KINEMATIC);	
+	}
+
+	{
+		std::string name = "Chair (4)";
+		
+		auto&go = m_ActiveScene->CreateGameObject(name);
+		auto&tt = go.Transform();
+		auto& mesh = go.AddComponent<tnah::MeshComponent>();
+		mesh.Model = tnah::Model::Create("assets/meshes/chair.fbx");
+		
+		tt.Position = {-6.1, -3.8, 7};
+		tt.Rotation = glm::vec3(0, glm::radians(180.0f), 0);
+		tt.Scale = chairScale;
+		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
+		auto& box = go.AddComponent<tnah::BoxColliderComponent>(glm::vec3(1, 1, 1));
 		
 		rb.Body->addCollider(box.Collider, rp3d::Transform::identity());
 		box.colliderPointer = rb.AddCollider(box.Collider, rp3d::Transform::identity());

@@ -34,6 +34,6 @@ private:
 	bool m_FirstMouseInput = true;
 	bool m_CameraMovementToggle = false;
 	bool m_CameraLookToggle = false;
-	rp3d::Vector3 m_Velocity = rp3d::Vector3(30, 1, 30);
+	rp3d::Vector3 m_Velocity = rp3d::Vector3(10, 0, 10);
 };
 
