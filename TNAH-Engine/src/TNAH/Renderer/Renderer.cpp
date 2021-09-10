@@ -277,7 +277,7 @@ namespace tnah {
 		shader->Bind();
 		shader->SetMat4("u_ViewProjectionMatrix", s_SceneData->ViewProjection);
 		shader->SetMat4("u_Transform", glm::mat4(1.0f));
-		shader->SetInt("u_isGlobalVertexColorEnabled", 1); // use global color
+		shader->SetInt("u_isGlobalVertexColorEnabled", 0); // use global color
 		shader->SetVec4("u_GlobalVertexColor", glm::vec4(1.0f)); // Disable global color
 		
 		

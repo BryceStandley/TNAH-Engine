@@ -196,19 +196,7 @@ namespace tnah{
 				}
 			}
 
-			{
-				if(m_IsEditorScene && Physics::IsColliderRenderingEnabled())
-				{
-					auto pair = Physics::GetColliderRenderObjects();
-					auto lineArr = pair.first.first;
-					auto lineBuf = pair.first.second;
-				
-					auto triArr = pair.second.first;
-					auto triBuf = pair.second.second;
-					Renderer::SubmitCollider(lineArr, lineBuf,triArr,triBuf);
-				}
-				
-			}
+			
 
 			//Renderer Stuff
 			{
@@ -294,7 +282,21 @@ namespace tnah{
 						sceneLights.push_back(light.Light);
 					}
 				}
-				////
+				//
+				{
+					if(m_IsEditorScene && Physics::IsColliderRenderingEnabled())
+					{
+						auto pair = Physics::GetColliderRenderObjects();
+						auto lineArr = pair.first.first;
+						auto lineBuf = pair.first.second;
+				
+						auto triArr = pair.second.first;
+						auto triBuf = pair.second.second;
+						Renderer::SubmitCollider(lineArr, lineBuf,triArr,triBuf);
+					}
+				}
+				
+			
 			
 				//Render any terrain objects
 				{
