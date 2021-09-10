@@ -48,7 +48,7 @@ namespace tnah {
 		 * @returns	True if it succeeds, false if it fails.
 		 **************************************************************************************************/
 
-		bool GetStartLoad() const {return m_StartLoad;
+		bool GetStartLoad() const { return m_StartLoad; }
 
 		/**********************************************************************************************//**
 		 * @fn	void AudioSourceComponent::SetStartLoad(const bool b)
