@@ -8,7 +8,7 @@ namespace tnah
      *
      * @brief	An abstract audioAPI class that contains virtual functions that the audio class will inherit
      *
-     * @author	Plush
+     * @author	Christopher Logan
      * @date	7/09/2021
      */
 
@@ -21,7 +21,7 @@ namespace tnah
          *
          * @brief	Sets a listener
          *
-         * @author	Plush
+         * @author	Christopher Logan
          * @date	7/09/2021
          *
          * @param [in,out]	transforms	The transform.
@@ -36,7 +36,7 @@ namespace tnah
          *
          * @brief	Adds an audio source
          *
-         * @author	Plush
+         * @author	Christopher Logan
          * @date	7/09/2021
          *
          * @param [in,out]	sound	The sound.
@@ -51,7 +51,7 @@ namespace tnah
          *
          * @brief	Updates the audio source described by sound
          *
-         * @author	Plush
+         * @author	Christopher Logan
          * @date	7/09/2021
          *
          * @param [in,out]	sound	The sound.
@@ -66,7 +66,7 @@ namespace tnah
          *
          * @brief	Executes the action on update
          *
-         * @author	Plush
+         * @author	Christopher Logan
          * @date	7/09/2021
          */
 
@@ -77,7 +77,7 @@ namespace tnah
          *
          * @brief	Updates the sound
          *
-         * @author	Plush
+         * @author	Christopher Logan
          * @date	7/09/2021
          *
          * @param [in,out]	sound	  	The sound.
@@ -91,7 +91,7 @@ namespace tnah
          *
          * @brief	Actives this object
          *
-         * @author	Plush
+         * @author	Christopher Logan
          * @date	7/09/2021
          *
          * @returns	True if it succeeds, false if it fails.
@@ -104,7 +104,7 @@ namespace tnah
          *
          * @brief	Clears this object to its blank/initial state
          *
-         * @author	Plush
+         * @author	Christopher Logan
          * @date	7/09/2021
          */
 
