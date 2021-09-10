@@ -9,59 +9,74 @@ namespace tnah {
     Material::~Material()
     {
     }
-
+    void Material::Set(const std::string& materialUniform, uint32_t value)
+    {
+        if(!m_Shader->IsBound())
+            m_Shader->Bind();
+        m_Shader->SetInt(materialUniform, (int)value);
+        m_Shader->Unbind();
+    }
+    
     void Material::Set(const std::string& materialUniform, int value)
     {
-        m_Shader->Bind();
+        if(!m_Shader->IsBound())
+            m_Shader->Bind();
         m_Shader->SetInt(materialUniform, value);
         m_Shader->Unbind();
     }
 
     void Material::Set(const std::string& materialUniform, float value)
     {
-        m_Shader->Bind();
+        if(!m_Shader->IsBound())
+            m_Shader->Bind();
         m_Shader->SetFloat(materialUniform, value);
         m_Shader->Unbind();
     }
 
     void Material::Set(const std::string& materialUniform, bool value)
     {
-        m_Shader->Bind();
+        if(!m_Shader->IsBound())
+            m_Shader->Bind();
         m_Shader->SetBool(materialUniform, value);
         m_Shader->Unbind();
     }
 
     void Material::Set(const std::string& materialUniform, glm::vec2 value)
     {
-        m_Shader->Bind();
+        if(!m_Shader->IsBound())
+            m_Shader->Bind();
         m_Shader->SetVec2(materialUniform, value);
         m_Shader->Unbind();
     }
 
     void Material::Set(const std::string& materialUniform, glm::vec3 value)
     {
-        m_Shader->Bind();
+        if(!m_Shader->IsBound())
+            m_Shader->Bind();
         m_Shader->SetVec3(materialUniform, value);
         m_Shader->Unbind();
     }
 
     void Material::Set(const std::string& materialUniform, glm::vec4 value)
     {
-        m_Shader->Bind();
+        if(!m_Shader->IsBound())
+            m_Shader->Bind();
         m_Shader->SetVec4(materialUniform, value);
         m_Shader->Unbind();
     }
 
-    void Material::Set(const std::string& materialUniform, glm::mat4 value)
+    void Material::Set(const std::string& materialUniform, glm::mat4 value, bool transpose)
     {
-        m_Shader->Bind();
-        m_Shader->SetMat4(materialUniform, value);
+        if(!m_Shader->IsBound())
+            m_Shader->Bind();
+        m_Shader->SetMat4(materialUniform, value, transpose);
         m_Shader->Unbind();
     }
 
     void Material::Set(const std::string& materialUniform, glm::mat3 value)
     {
-        m_Shader->Bind();
+        if(!m_Shader->IsBound())
+            m_Shader->Bind();
         m_Shader->SetMat3(materialUniform, value);
         m_Shader->Unbind();
     }
@@ -148,6 +163,44 @@ namespace tnah {
     void Material::SetTextures(std::vector<Ref<Texture2D>> textures)
     {
         m_Textures = textures;
+    }
+
+    void Material::InsertTextures(std::vector<Ref<Texture2D>> textures, uint32_t startIndex)
+    {
+        if(startIndex < 0) return;
+        
+        for(uint32_t i = 0; i < textures.size(); i++)
+        {
+            m_Textures[startIndex + i] = textures[i];
+        }
+    }
+
+    void Material::InsertTexture(Ref<Texture2D> texture, uint32_t index)
+    {
+        if(index < 0) return;
+        m_Textures[index] = texture;
+    }
+
+    void Material::AddTexture(Ref<Texture2D> texture, const uint32_t& index)
+    {
+        if(texture)
+        {
+            if(m_Shader)
+            {
+                Set("u_" + texture->GetName() +std::to_string(index), texture->GetRendererID());
+            }
+            m_Textures.emplace_back(texture);
+        }
+    }
+
+    void Material::AddTextures(std::vector<Ref<Texture2D>> textures)
+    {
+        uint32_t index = 0;
+        for(auto t : textures)
+        {
+            AddTexture(t,index);
+            index++;
+        }
     }
 
     void Material::BindTextures()

@@ -10,6 +10,7 @@ namespace tnah {
 	{
 	public:
 		OpenGLTexture2D(ImageFormat format, uint32_t width, uint32_t height, const void* data, TextureProperties properties);
+		OpenGLTexture2D(ImageFormat format, uint32_t width, uint32_t height, const glm::vec4& color);
 		OpenGLTexture2D(uint32_t width, uint32_t height);
 		OpenGLTexture2D(const std::string& path, const std::string& textureName = "", bool loadFromMemory = false, void* assimpTexture = nullptr);
 		~OpenGLTexture2D() override;

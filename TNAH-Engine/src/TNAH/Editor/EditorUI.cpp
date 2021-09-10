@@ -222,7 +222,7 @@ namespace tnah {
 			ImGui::Text("Mesh");
 			if(m)
 			{
-				DrawTextControl("Model File", m->m_FilePath, false, true);
+				DrawTextControl("Model File", m->m_Resource.RelativeDirectory, false, true);
 				if(ImGui::Button("Change Mesh"))
 				{
 					if (FileManager::OpenMesh())
@@ -241,12 +241,12 @@ namespace tnah {
 				ImGui::Separator();
 				ImGui::Text("Sub Meshes");
 				int count = 0;
-				for(auto& mesh : m->m_Meshes)
+				for(auto& submesh : m->GetSubmeshes())
 				{
 					std::string label = "SubMesh " + std::to_string(count);
 					if(ImGui::CollapsingHeader(label.c_str()))
 					{
-						DrawMaterialProperties(false, mesh.m_Material);
+						DrawMaterialProperties(false, m->GetMaterials()[submesh.MaterialIndex]);
 					}
 					count++;
 				}

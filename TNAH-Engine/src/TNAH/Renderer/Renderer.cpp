@@ -223,32 +223,69 @@ namespace tnah {
 		IncrementDrawCallsPerFrame();
 	}
 
-	void Renderer::SubmitMesh(Ref<VertexArray> vertexArray, Ref<Material> material,
-			 std::vector<Ref<Light>> sceneLights, const glm::mat4& transform, const bool& isAnimated, const std::vector<glm::mat4>& animTransforms)
+	void Renderer::SubmitMesh(Ref<Model> model, std::vector<Ref<Light>> sceneLights, const glm::mat4& transform)
 	{
 		SetCullMode(CullMode::Back);
-		material->BindShader();
-		material->GetShader()->SetMat4("u_ViewProjection", s_SceneData->ViewProjection);
-		material->GetShader()->SetMat4("u_Transform", transform);
-		material->GetShader()->SetBool("u_Animated", isAnimated);
 
-		if(isAnimated)
+		for(auto material : model->GetMaterials())
 		{
-			for(uint32_t i = 0; i < animTransforms.size(); ++i)
+			material->BindShader();
+			if(model->IsAnimated())
 			{
-				std::string name = "u_FinalBonesMatrices[" + std::to_string(i) + "]";
-				material->GetShader()->SetMat4(name.c_str(), animTransforms[i]);
+				for(uint32_t i = 0; i < model->GetBoneTransforms().size(); i++)
+				{
+					if(i > 100) break; // No more than 100 transforms in the shader
+					material->Set("u_BoneTransform[" +std::to_string(i) + "]", model->GetBoneTransforms()[i], true);
+				}
 			}
+			material->Set("u_ViewProjectionMatrix", s_SceneData->ViewProjection);
+			material->Set("u_ViewMatrix", s_SceneData->View);
+			material->Set("u_CameraPosition", s_SceneData->CameraTransform.Position);
+			material->Set("u_Transform", transform);
 		}
 
-		SetShaderLightInfo(material, sceneLights);
+		model->GetVertexArray()->Bind();
+		for(uint32_t i = 0; i < model->GetSubmeshes().size(); i++)
+		{
+			
+			auto& submesh = model->GetSubmeshes()[i];
+			const uint32_t matIndex = submesh.MaterialIndex;
+			if(model->GetMaterials()[matIndex])
+			{
+				model->GetMaterials()[i]->BindTextures();
+			}
+			RenderCommand::DrawElements(submesh.IndexCount, submesh.BaseIndex, submesh.BaseVertex);
+			IncrementDrawCallsPerFrame();
+		}
+
+#if 0
+		for(auto& submesh : model->GetSubmeshes())
+		{
+			auto material = model->GetMaterials()[submesh.MaterialIndex].As<Material>();
+			material->BindShader();
+			material->GetShader()->SetMat4("u_ViewProjectionMatrix", s_SceneData->ViewProjection);
+			material->GetShader()->SetMat4("u_ViewMatrix", s_SceneData->View);
+			auto transformUniform = transform * submesh.Transform;
+			material->GetShader()->SetMat4("u_Transform", transform);
+			SetShaderLightInfo(material, sceneLights);
+			material->BindTextures();
+
+			if(model->IsAnimated())
+			{
+				for(size_t i = 0; i < model->GetBoneTransforms().size(); i++)
+				{
+					std::string uniformName = std::string("u_BoneTransforms[") + std::to_string(i) + std::string("]");
+					material->Set(uniformName, model->GetBoneTransforms()[i]);
+				}
+			}
+
+			
+		}
+		model->GetVertexArray()->Bind();
+		RenderCommand::DrawIndexed(model->GetVertexArray());
+#endif
 		
-		material->BindTextures();
-		
-		vertexArray->Bind();
-		RenderCommand::DrawIndexed(vertexArray);
-		SetCullMode(CullMode::Front);
-		IncrementDrawCallsPerFrame();
+		SetCullMode(CullMode::Front);		
 	}
 
 	void Renderer::SubmitSkybox(Ref<VertexArray> vertexArray, Ref<SkyboxMaterial> material)

@@ -24,6 +24,7 @@ namespace tnah {
 		void SetCullMode(const CullMode& mode) override;
 		void SetDepthMask(const bool& enabled) override;
 		void SetDepthFunc(const DepthFunc& func) override;
+		void DrawElements(const uint32_t& indexCount, const uint32_t& baseIndex, const uint32_t& baseVertex) override;
 	};
 
 }

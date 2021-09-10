@@ -46,7 +46,6 @@ namespace reactphysics3d {
  * or errors during the execution of the library code for easier debugging.
  */
 class DefaultLogger : public Logger {
-
     public:
 
         /// Log verbosity level

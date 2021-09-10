@@ -78,8 +78,8 @@ namespace tnah {
         static bool EntrySlider(const std::string& label, glm::vec4& value, bool readOnly = false, float min = 0.0f, float max = 0.0f, float resetValue = 0);
 
         //*********************** Drag Controls ++++++++++++++++++++++++++++++++//
-        static bool EntryDrag(const char* label, int& value, bool readOnly = false, int speed = 1, int min = 0.0f, int max = 0.0f, float resetValue = 0);
-        static bool EntryDrag(const std::string& label, int& value, bool readOnly = false, int speed = 1, int min = 0.0f, int max = 0.0f, float resetValue = 0);
+        static bool EntryDrag(const char* label, int& value, bool readOnly = false, float speed = 1, int min = 0.0f, int max = 0.0f, int resetValue = 0);
+        static bool EntryDrag(const std::string& label, int& value, bool readOnly = false, int speed = 1, int min = 0.0f, int max = 0.0f, int resetValue = 0);
         
         static bool EntryDrag(const char* label, float& value, bool readOnly = false, float speed = 1.0f, float min = 0.0f, float max = 0.0f, float resetValue = 0);
         static bool EntryDrag(const std::string& label, float& value, bool readOnly = false, float speed = 1.0f, float min = 0.0f, float max = 0.0f, float resetValue = 0);

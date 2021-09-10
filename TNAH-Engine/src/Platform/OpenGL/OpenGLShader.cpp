@@ -279,11 +279,11 @@ namespace tnah {
 		glUniformMatrix3fv(location, 1, GL_FALSE, glm::value_ptr(matrix));
 	}
 
-	void OpenGLShader::SetMat4(const std::string& name, const glm::mat4& matrix)
+	void OpenGLShader::SetMat4(const std::string& name, const glm::mat4& value, bool transpose)
 	{
 		if(!IsBound()) Bind();
-		GLint location = glGetUniformLocation(m_ShaderID, name.c_str());
-		glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(matrix));
+		const GLint location = glGetUniformLocation(m_ShaderID, name.c_str());
+		glUniformMatrix4fv(location, 1, transpose ? GL_TRUE : GL_FALSE, glm::value_ptr(value));
 	}
 
 }

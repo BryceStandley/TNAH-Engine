@@ -8,6 +8,10 @@
 #include "TNAH/Renderer/Renderer.h"
 #include "Platform/OpenGL/OpenGLTexture.h"
 
+#pragma warning(push, 0)
+#include <ktx.h>
+#pragma warning(pop)
+
 
 namespace tnah {
 	Ref<Texture2D> Texture2D::Create(ImageFormat format, uint32_t width, uint32_t height, const void* data, TextureProperties properties)
@@ -30,6 +34,50 @@ namespace tnah {
 		}
 
 		return LoadSTBiImage(filePath, flipOnLoad);
+	}
+
+	uint32_t Texture2D::GetComponentsFromFormat(ImageFormat format)
+	{
+		switch (format)
+		{
+		case ImageFormat::None:
+			return 0;
+		case ImageFormat::RED32F:
+			return 1;
+		case ImageFormat::RGB:
+			return 3;
+		case ImageFormat::RGBA:
+			return 4;
+		case ImageFormat::RGBA16F:
+			return 4;
+		case ImageFormat::RGBA32F:
+			return 4;
+		case ImageFormat::RG16F:
+			return 2;
+		case ImageFormat::RG32F:
+			return 2;
+		case ImageFormat::SRGB:
+			return 3;
+		case ImageFormat::DEPTH32F:
+			return 0;
+		case ImageFormat::DEPTH24STENCIL8:
+			return 0;
+		default: return 0;
+		}
+	}
+
+	Ref<Texture2D> Texture2D::CheckLoadedTextures(const std::string& filePath)
+	{
+		for(uint32_t i = 0; i < Renderer::GetTotalLoadedTextures(); i++)
+		{
+			if(Renderer::GetLoadedTextures()[i]->m_TextureResource.RelativeDirectory.compare(filePath) == 0)
+			{
+				auto t = Renderer::GetLoadedTextures()[i];
+				t->m_Duplicated = true;
+				return t;
+			}
+		}
+		return nullptr;
 	}
 
 	Ref<Texture2D> Texture2D::LoadKTXImage(const std::string& filePath, const bool& isCubemap)
@@ -218,14 +266,32 @@ namespace tnah {
 		return nullptr;
 	}
 
-	Ref<Texture2D> Texture2D::Create(const std::string& path, const std::string& textureName, bool loadFromMemory, void* assimpTexture)
+	Ref<Texture2D> Texture2D::Create(ImageFormat format, uint32_t width, uint32_t height, glm::vec4 color)
+	{
+		switch (Renderer::GetAPI())
+		{
+		case RendererAPI::API::None:    TNAH_CORE_ASSERT(false, "RendererAPI::None is currently not supported!"); return nullptr;
+		case RendererAPI::API::OpenGL: return Ref<OpenGLTexture2D>::Create(format, width, height, color); 
+		}
+		return nullptr;
+	}
+
+	Ref<Texture2D> Texture2D::Create(const std::string& path, const std::string& textureName, bool loadFromMemory, void* texture)
 	{
 		Ref<Texture2D> t = nullptr;
 		switch (Renderer::GetAPI())
 		{
 			case RendererAPI::API::None:    TNAH_CORE_ASSERT(false, "RendererAPI::None is currently not supported!"); return nullptr;
-			case RendererAPI::API::OpenGL:  t = Ref<OpenGLTexture2D>::Create(path, textureName, loadFromMemory, assimpTexture);
+			case RendererAPI::API::OpenGL:  t = CheckLoadedTextures(path);
 		}
+		if(t != nullptr)
+		{
+			if(!t->m_Duplicated)
+				Renderer::RegisterTexture(t);
+			return t;
+		}
+		
+		t = Ref<OpenGLTexture2D>::Create(path, textureName, loadFromMemory, texture);
 		if(t != nullptr)
 		{
 			Renderer::RegisterTexture(t);

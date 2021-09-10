@@ -53,9 +53,6 @@ namespace tnah{
 		light.Light = Light::CreateDirectional();
 		light.Light->m_IsSceneLight = true;
 
-		//Physics
-		m_PhysicsWorld = m_PhysicsCommon.createPhysicsWorld();// We can pass in some settings here for the physics if we want
-
 		
 		s_ActiveScene.Scene.Reset(this);
 	}
@@ -297,23 +294,8 @@ namespace tnah{
 						
 						if(model.Model)
 						{
-							auto& go = FindGameObjectByID(entity);
-							if (go.HasComponent<AnimatorComponent>()) 
-							{
-								auto& anim = go.GetComponent<AnimatorComponent>();
-								anim.UpdateAnimation(deltaTime);
-								for (auto& mesh : model.Model->GetMeshes())
-								{
-									Renderer::SubmitMesh(mesh.GetVertexArray(), mesh.GetMaterials(), sceneLights, transform.GetTransform(), true, anim.GetFinalBonesMatrices());
-								}
-							}
-							else 
-							{
-								for (auto& mesh : model.Model->GetMeshes())
-								{
-									Renderer::SubmitMesh(mesh.GetVertexArray(), mesh.GetMaterials(), sceneLights, transform.GetTransform());
-								}
-							}
+							model.Model->OnUpdate(deltaTime);
+							Renderer::SubmitMesh(model.Model, sceneLights, transform.GetTransform());
 						}
 					}
 				}
@@ -480,19 +462,18 @@ namespace tnah{
 		return GameObject{};
 	}
 
+	// ReSharper disable once CppNotAllPathsReturnValue
 	GameObject& Scene::FindGameObjectByID(const entt::entity& id)
 	{
-		for(auto go : m_GameObjectsInScene)
+		for(auto& go : m_GameObjectsInScene)
 		{
 			if(go.second.GetID() == id)
 			{
 				return go.second;
 			}
 		}
-		auto obj = GameObject();
-		return obj;
 	}
-	
+
 	void Scene::DestroyGameObject(GameObject gameObject)
 	{
 		m_Registry.destroy(gameObject.GetID());

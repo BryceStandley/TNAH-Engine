@@ -56,11 +56,12 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>TNAH_PLATFORM_WINDOWS;_DEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>TNAH_PLATFORM_WINDOWS;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)vender\reactphysics3d\include;$(SolutionDir)vender\ktx\include;$(SolutionDir)vender\assimp\include;$(SolutionDir)EngineDependencesProjects\GLFW\include;$(SolutionDir)vender\glad\include;$(SolutionDir)vender\glm\include;$(SolutionDir)vender\lua\include;$(SolutionDir)vender\luabridge\include;$(SolutionDir)vender\reactphysics3d\include;$(SolutionDir)vender\spdlog\include;$(SolutionDir)TNAH-Engine\src\;$(SolutionDir)EngineDependencesProjects\ImGui\;$(SolutionDir)vender/entt/include;$(SolutionDir)vender\irrklang\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)EngineDependencesProjects\libktx\include;$(SolutionDir)vender\assimp\include;$(SolutionDir)EngineDependencesProjects\GLFW\include;$(SolutionDir)vender\glad\include;$(SolutionDir)vender\glm\include;$(SolutionDir)vender\lua\include;$(SolutionDir)vender\luabridge\include;$(SolutionDir)vender\reactphysics3d\include;$(SolutionDir)vender\spdlog\include;$(SolutionDir)TNAH-Engine\src\;$(SolutionDir)EngineDependencesProjects\ImGui\;$(SolutionDir)vender/entt/include;$(SolutionDir)vender\irrKlang\include;$(SolutionDir)vender\reactphysics3d\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <LanguageStandard>stdcpplatest</LanguageStandard>
+      <DisableSpecificWarnings>4996</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

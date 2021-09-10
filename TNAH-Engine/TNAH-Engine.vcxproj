@@ -48,12 +48,11 @@
     </ClCompile>
     <ClCompile Include="src\TNAH\Renderer\Camera.cpp" />
     <ClCompile Include="src\TNAH\Renderer\Material.cpp" />
-    <ClCompile Include="src\TNAH\Renderer\Mesh.cpp" />
+    <ClCompile Include="src\TNAH\Renderer\Model.cpp" />
     <ClCompile Include="src\TNAH\Renderer\RenderCommand.cpp" />
     <ClCompile Include="src\TNAH\Renderer\Renderer.cpp" />
     <ClCompile Include="src\TNAH\Renderer\RendererAPI.cpp" />
     <ClCompile Include="src\TNAH\Renderer\Texture.cpp" />
-    <ClCompile Include="src\TNAH\Scene\Components\AnimatorComponent.cpp" />
     <ClCompile Include="src\TNAH\Scene\Components\SkyboxComponent.cpp" />
     <ClCompile Include="src\TNAH\Scene\Components\TerrainComponent.cpp" />
     <ClCompile Include="src\TNAH\Scene\Light\DirectionalLight.cpp" />
@@ -94,19 +93,14 @@
     <ClInclude Include="src\TNAH\Physics\Physics.h" />
     <ClInclude Include="src\TNAH\Physics\PhysicsEvents.h" />
     <ClInclude Include="src\TNAH\Physics\PhysicsTimestep.h" />
-    <ClInclude Include="src\TNAH\Renderer\Animation.h" />
-    <ClInclude Include="src\TNAH\Renderer\AssimpGLMHelpers.h" />
-    <ClInclude Include="src\TNAH\Renderer\Bone.h" />
-    <ClInclude Include="src\TNAH\Renderer\BoneInfo.h" />
     <ClInclude Include="src\TNAH\Renderer\Image.h" />
     <ClInclude Include="src\TNAH\Renderer\Light.h" />
     <ClInclude Include="src\TNAH\Renderer\RenderingBuffers.h" />
     <ClInclude Include="src\TNAH\Renderer\Camera.h" />
     <ClInclude Include="src\TNAH\Renderer\Material.h" />
-    <ClInclude Include="src\TNAH\Renderer\Submesh.h" />
+    <ClInclude Include="src\TNAH\Renderer\Model.h" />
     <ClInclude Include="src\TNAH\Renderer\stb_image.h" />
     <ClInclude Include="src\TNAH\Renderer\Texture.h" />
-    <ClInclude Include="src\TNAH\Scene\Components\AnimatorComponent.h" />
     <ClInclude Include="src\TNAH\Scene\Components\ComponentBase.h" />
     <ClInclude Include="src\TNAH\Scene\Components\SkyboxComponent.h" />
     <ClInclude Include="src\TNAH\Scene\Light\DirectionalLight.h" />
@@ -161,7 +155,11 @@
     <Content Include="Resources\shaders\default\mesh\mesh_anim_fragment.glsl" />
     <Content Include="Resources\shaders\default\mesh\mesh_anim_vertex.glsl" />
     <Content Include="Resources\shaders\default\mesh\mesh_fragment.glsl" />
+    <Content Include="Resources\shaders\default\mesh\mesh_fragment_anim_pbr.glsl" />
+    <Content Include="Resources\shaders\default\mesh\mesh_fragment_static_pbr.glsl" />
     <Content Include="Resources\shaders\default\mesh\mesh_vertex.glsl" />
+    <Content Include="Resources\shaders\default\mesh\mesh_vertex_anim_pbr.glsl" />
+    <Content Include="Resources\shaders\default\mesh\mesh_vertex_static_pbr.glsl" />
     <Content Include="Resources\shaders\default\skybox\skybox_fragment.glsl" />
     <Content Include="Resources\shaders\default\skybox\skybox_vertex.glsl" />
     <Content Include="Resources\shaders\default\terrain\terrain_fragment.glsl" />
@@ -233,7 +231,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <WarningLevel>EnableAllWarnings</WarningLevel>
+      <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>TNAH_DEBUG;TNAH_PLATFORM_WINDOWS;TNAH_BUILD_DLL;GLFW_INCLUDE_NONE;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
@@ -253,8 +251,8 @@
       <AdditionalDependencies>ktx.lib;ktx_read.lib;objUtil.lib;assimp-vc142-mtd.lib;lua54.lib;reactphysics3d.lib;spdlogd.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Lib>
-      <AdditionalDependencies>ktx.lib;objUtil.lib;assimp-vc142-mtd.lib;zlibstaticd.lib;irrKlang.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)vender\irrklang\lib;$(SolutionDir)vender\ktx\lib;$(SolutionDir)vender\assimp\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>ktx.lib;assimp-vc142-mtd.lib;zlibstaticd.lib;irrKlang.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)vender\irrklang\lib;$(SolutionDir)vender\assimp\lib;$(SolutionDir)vender\ktx\lib</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">

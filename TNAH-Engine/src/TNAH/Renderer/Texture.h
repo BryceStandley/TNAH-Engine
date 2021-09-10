@@ -3,15 +3,17 @@
 #define STBI_FAILURE_USERMSG
 #include "stb_image.h"
 #include <string>
-#pragma warning(push, 0)
-#include <ktx.h>
-#pragma warning(pop)
+
 
 #include "TNAH/Core/Core.h"
 #include "TNAH/Core/FileStructures.h"
 #include "TNAH/Core/Ref.h"
 
+struct ktxTexture;
+
 namespace tnah {
+
+	
 
 	using uchar8_t = unsigned char;
 	enum class ImageLoadFormat
@@ -151,7 +153,7 @@ namespace tnah {
 		virtual uchar8_t* GetImageData() const = 0;
 
 		Resource m_TextureResource;
-		
+		bool m_Duplicated = false;
 		bool m_Loaded = false;
 		uint32_t m_Width = 0, m_Height = 0;
 		uint32_t m_Channels = 0, m_InternalFormat = 0, m_DataFormat = 0;
@@ -177,9 +179,22 @@ namespace tnah {
 		static Ref<Texture2D> LoadImageToMemory(const std::string& filePath, const bool& flipOnLoad = false, const bool& isCubemap = false);
 		
 		
-		
+		/**
+		 * @brief Creates a empty texture with a set width and height
+		 */
 		static Ref<Texture2D> Create(uint32_t width, uint32_t height);
-		static Ref<Texture2D> Create(const std::string& path, const std::string& textureName = "", bool loadFromMemory = false, void* assimpTexture = nullptr);
+
+		/**
+		 * @brief Creates a texture with the given width and height using the provided color and format
+		 */
+		static Ref<Texture2D> Create(ImageFormat format, uint32_t width, uint32_t height, glm::vec4 color);
+
+		/**
+		 * @brief Creates a texture from a image file
+		 *
+		 * @note This function can also create a texture by loading it from memory
+		 */
+		static Ref<Texture2D> Create(const std::string& path, const std::string& textureName = "", bool loadFromMemory = false, void* texture = nullptr);
 
 		virtual void Free() = 0;
 		virtual void Free(void* data) = 0;
@@ -189,9 +204,12 @@ namespace tnah {
 		virtual void Bind(uint32_t slot) const = 0;
 		virtual void Bind() const = 0;
 
+		static uint32_t GetComponentsFromFormat(ImageFormat format);
+
 		uint32_t m_RendererID;
 		uint32_t m_Slot;
 	private:
+		static Ref<Texture2D> CheckLoadedTextures(const std::string& filePath);
 		static Ref<Texture2D> LoadKTXImage(const std::string& filePath, const bool& isKtx2 = false);
 		static std::string KtxErrorReason(const int& ktxError);
 		static Ref<Texture2D> LoadSTBiImage(const std::string& filePath, const bool& flipOnLoad = false);

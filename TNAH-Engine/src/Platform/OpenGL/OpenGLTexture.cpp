@@ -5,6 +5,7 @@
 
 #pragma warning(push, 0)
 #include <Assimp/scene.h>
+#include "ktx.h"
 #pragma warning(pop)
 
 namespace tnah {
@@ -18,6 +19,45 @@ namespace tnah {
 		m_InternalFormat = GL_RGBA8;
 		
 		TNAH_CORE_WARN("Generating a texture at runtime isn't implimented yet!");
+	}
+
+	OpenGLTexture2D::OpenGLTexture2D(ImageFormat format, uint32_t width, uint32_t height, const glm::vec4& color)
+	{;
+		const uint32_t components = Texture2D::GetComponentsFromFormat(format);
+		GLubyte* imageData = new GLubyte[width * height * components];
+		
+		for(uint32_t x = 0; x < width; x++)
+		{
+			for(uint32_t y = 0; y < height; y++)
+			{
+				for(uint32_t i = 0; i < components; i++)
+				{
+					imageData[x + y + i] = Math::Clamp(color[i], 0, 255);
+				}
+			}
+		}
+
+		m_Width = width;
+		m_Height = height;
+		m_InternalFormat = (int)format;
+		m_DataFormat = (int)format;
+		m_Channels = components;
+
+		glGenTextures(1, &m_RendererID);
+		glBindTexture(GL_TEXTURE_2D, m_RendererID);
+
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	
+		glTexImage2D(GL_TEXTURE_2D, 0, (int)m_InternalFormat, m_Width, m_Height, 0, m_InternalFormat, GL_UNSIGNED_BYTE, imageData);
+		glGenerateMipmap(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D, 0);
+		
+		m_Loaded = true;
+		m_Slot = m_RendererID;
+		delete[] imageData;
 	}
 
 	OpenGLTexture2D::OpenGLTexture2D(uint32_t width, uint32_t height)
@@ -66,7 +106,7 @@ namespace tnah {
 				TNAH_CORE_ASSERT(data, "Failed to load texture or image at path: " + path);
 			}
 		}
-		
+	
 		if(!loadFromMemory)
 		{
 			m_Width = (uint32_t)width;
@@ -120,21 +160,22 @@ namespace tnah {
 			TNAH_CORE_ASSERT(internalFormat & dataFormat, "Format not supported!");
 		}
 
-			glGenTextures(1, &m_RendererID);
-			glBindTexture(GL_TEXTURE_2D, m_RendererID);
+		glGenTextures(1, &m_RendererID);
+		glBindTexture(GL_TEXTURE_2D, m_RendererID);
 
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	
+		glTexImage2D(GL_TEXTURE_2D, 0, (int)m_InternalFormat, m_Width, m_Height, 0, m_InternalFormat, GL_UNSIGNED_BYTE, data);
+		glGenerateMipmap(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		stbi_image_free(data);
+		m_Loaded = true;
+		m_Slot = Renderer::GetAndIncrementTextureSlot();
 		
-			glTexImage2D(GL_TEXTURE_2D, 0, (int)m_InternalFormat, m_Width, m_Height, 0, m_InternalFormat, GL_UNSIGNED_BYTE, data);
-			glGenerateMipmap(GL_TEXTURE_2D);
-			glBindTexture(GL_TEXTURE_2D, 0);
-
-			stbi_image_free(data);
-			m_Loaded = true;
-			m_Slot = Renderer::GetAndIncrementTextureSlot();
 		
 	}
 
@@ -202,8 +243,6 @@ namespace tnah {
 		glActiveTexture(GL_TEXTURE0 + m_Slot);
 		glBindTexture(GL_TEXTURE_2D, m_RendererID);
 	}
-
-
 
 	// Texture 3D / CubeMaps
 	OpenGLTexture3D::OpenGLTexture3D(const std::vector<std::string>& paths, const std::string& textureName)

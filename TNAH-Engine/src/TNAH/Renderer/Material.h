@@ -10,12 +10,18 @@ namespace tnah
 {
 	struct MaterialProperties
 	{
-		float Shininess = 32.0f;
+		glm::vec3 AlbedoColor = glm::vec3(0.8f);
+		float Emission = 0.0f;
+		float Roughness = 0.0f;
+		float Shininess = 80.0f;
 		float Metalness = 0.0f;
 
 		MaterialProperties() = default;
 		MaterialProperties(float shine, float metal)
 			:Shininess(shine), Metalness(metal) {}
+
+		MaterialProperties(const glm::vec3& albedoColor, const float& emission, const float& roughness, const float& shininess, const float& metalness)
+			:AlbedoColor(albedoColor), Emission(emission), Roughness(roughness), Shininess(shininess), Metalness(metalness) {}
 	};
 	
 	
@@ -28,6 +34,11 @@ namespace tnah
 		static Ref<Material> Create(const std::string& vertexShaderPath, const std::string& fragmentShaderPath, const MaterialProperties& properties);
 		static Ref<Material> Create(const std::string& vertexShaderPath, const std::string& fragmentShaderPath, const float& shininess, const float& metalness);
 		void SetTextures(std::vector<Ref<Texture2D>> textures);
+		void InsertTextures(std::vector<Ref<Texture2D>> textures, uint32_t startIndex);
+		void InsertTexture(Ref<Texture2D> texture, uint32_t index);
+		void AddTexture(Ref<Texture2D> texture, const uint32_t& index = 0);
+		void AddTextures(std::vector<Ref<Texture2D>> textures);
+		void ResizeTextureStorage(const uint32_t& size) { m_Textures.resize(size); }
 		virtual void BindTextures();
 		virtual void BindShader();
 		virtual void UnBindShader();
@@ -35,23 +46,19 @@ namespace tnah
 		virtual Ref<Shader> GetShader() const { return m_Shader; }
 		std::vector<Ref<Texture2D>> GetTextures() const { return m_Textures; }
 		virtual MaterialProperties& GetProperties() { return m_Properties; }
+		virtual void SetProperties(const MaterialProperties& properties) { m_Properties = properties; }
 
 		virtual ~Material();
 
+		void Set(const std::string& materialUniform, uint32_t value);
 		void Set(const std::string& materialUniform, int value);
 		void Set(const std::string& materialUniform, float value);
 		void Set(const std::string& materialUniform, bool value);
 		void Set(const std::string& materialUniform, glm::vec2 value);
 		void Set(const std::string& materialUniform, glm::vec3 value);
 		void Set(const std::string& materialUniform, glm::vec4 value);
-		void Set(const std::string& materialUniform, glm::mat4 value);
+		void Set(const std::string& materialUniform, glm::mat4 value, bool transpose = false);
 		void Set(const std::string& materialUniform, glm::mat3 value);
-		
-
-
-
-
-		
 	
 		Material();
 		Material(const Ref<Shader>& shader);

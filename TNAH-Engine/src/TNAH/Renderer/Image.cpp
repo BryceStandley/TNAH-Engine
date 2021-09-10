@@ -1,6 +1,10 @@
 ﻿#include "tnahpch.h"
 #include "Image.h"
 
+#pragma warning(push, 0)
+#include "ktx.h"
+#pragma warning(pop)
+
 namespace tnah {
 
 

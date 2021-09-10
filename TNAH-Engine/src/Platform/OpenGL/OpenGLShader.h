@@ -86,10 +86,11 @@ namespace tnah {
 
 		/**
 		* @brief Sets a mat4 for use in the shader program
-		* @param name - represents the name of the variable
-		* @param mat - represents the variable value
+		* @param name  represents the name of the variable
+		* @param value  represents the variable value
+		*  @param transpose  represents to transpose or not
 		*/
-		virtual void SetMat4(const std::string& name, const glm::mat4& mat) override;
+		void SetMat4(const std::string& name, const glm::mat4& value, bool transpose = false) override;
 
 		inline virtual const std::string& GetName() const override { return m_ShaderName; }
 
@@ -101,6 +102,8 @@ namespace tnah {
 
 		std::string PreProcessPaths(const std::string& shaderSorceFilePath);
 
+		
+	private:
 		uint32_t m_ShaderID;
 		
 		

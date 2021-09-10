@@ -58,12 +58,25 @@ namespace tnah {
 		for (const auto& element : layout)
 		{
 			glEnableVertexAttribArray(index);
-			glVertexAttribPointer(index,
+			if (element.Type == ShaderDataType::Int || element.Type == ShaderDataType::Int2 || element.Type ==
+				ShaderDataType::Int3 || element.Type == ShaderDataType::Int4)
+			{
+				//Use glVertexAttrib I Pointer() for int types
+				glVertexAttribIPointer(index,
+				element.GetComponentCount(),
+				ShaderDataTypeToOpenGLBaseType(element.Type),
+				layout.GetStride(),
+				(const void*)element.Offset);
+			}
+			else
+			{
+				glVertexAttribPointer(index,
 				element.GetComponentCount(),
 				ShaderDataTypeToOpenGLBaseType(element.Type),
 				element.Normalized ? GL_TRUE : GL_FALSE,
 				layout.GetStride(),
 				(const void*)element.Offset);
+			}
 			index++;
 		}
 		m_VertexBuffers.push_back(vertexBuffer);

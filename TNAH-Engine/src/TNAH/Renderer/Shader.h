@@ -72,7 +72,7 @@ namespace tnah {
 		virtual void SetVec3(const std::string& name, const glm::vec3& value) = 0;
 		virtual void SetVec4(const std::string& name, const glm::vec4& value) = 0;
 		virtual void SetMat3(const std::string& name, const glm::mat3& value) = 0;
-		virtual void SetMat4(const std::string& name, const glm::mat4& value) = 0;
+		virtual void SetMat4(const std::string& name, const glm::mat4& value, bool transpose = false) = 0;
 		virtual uint32_t GetRendererID() = 0;
 
 		virtual const std::string& GetName() const = 0;

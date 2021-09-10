@@ -10,9 +10,8 @@
 #include "LightComponents.h"
 #include "AudioComponents.h"
 #include "ComponentBase.h"
-#include "AnimatorComponent.h"
 
-#include "TNAH/Renderer/Submesh.h"
+#include "TNAH/Renderer/Model.h"
 
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/glm.hpp>
@@ -198,25 +197,20 @@ namespace tnah {
 	{
 	public:
 		Ref<Model> Model = nullptr;
-		Animation Animation;
 
 		MeshComponent() = default;
 		MeshComponent(const std::string& modelPath)
 		{
 			Model = Model::Create(modelPath);
-			Animation = Model->GetAnimation();
 		}
 		MeshComponent(const MeshComponent& other) = default;
 		MeshComponent(Ref<tnah::Model> model)
 			: Model(model)
-		{
-			Animation = Model->GetAnimation();
-		}
+		{}
 
 		void LoadMesh(const std::string& modelPath)
 		{
 			Model = Model::Create(modelPath);
-			Animation = Model->GetAnimation();
 		};
 		
 		operator Ref<tnah::Model>() const { return Model; }

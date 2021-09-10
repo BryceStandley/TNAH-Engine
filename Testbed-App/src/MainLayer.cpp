@@ -37,7 +37,7 @@ MainLayer::MainLayer()
 		auto go = m_ActiveScene->CreateGameObject(name);
 
 		auto& mesh = go.AddComponent<tnah::MeshComponent>();
-		mesh.Model = tnah::Model::Create("assets/meshes/girl/girl_3d_model.fbx");
+		mesh.Model = tnah::Model::Create("assets/meshes/girl/embed_girl_3d_model.fbx");
 		
 		//mesh.Model = tnah::Model::Create("assets/meshes/cube_texture.fbx");
 		auto& meshT = go.Transform();
@@ -45,7 +45,6 @@ MainLayer::MainLayer()
 		glm::vec3 p(glm::linearRand(500, 700), glm::linearRand(50, 100), glm::linearRand(500, 700));
 		meshT.Position = p;
 
-		go.AddComponent<tnah::AnimatorComponent>(mesh.Animation);
 		m_MeshObjects.push_back(go);
 	}
 
@@ -126,9 +125,9 @@ void MainLayer::OnUpdate(tnah::Timestep deltaTime)
 
 	for (auto go : m_MeshObjects)
 	{
-		auto& mesh = go.GetComponent<tnah::TransformComponent>();
-		mesh.Rotation.y += 1.0f * deltaTime;
-		mesh.Rotation.z += 1.0f * deltaTime;
+		//auto& mesh = go.GetComponent<tnah::TransformComponent>();
+		//mesh.Rotation.y += 1.0f * deltaTime;
+		//mesh.Rotation.z += 1.0f * deltaTime;
 	}
 
 
@@ -150,6 +149,8 @@ void MainLayer::OnImGuiRender()
 
 	auto& plt = m_PointLight.Transform();
 	auto& pl = m_PointLight.GetComponent<tnah::LightComponent>();
+	auto& mesh = m_MeshObjects[0].GetComponent<tnah::MeshComponent>();
+	auto& meshT = m_MeshObjects[0].Transform();
 	static int lightType = 0;
 	static const char* LightTypes[]
 	{
@@ -232,6 +233,14 @@ void MainLayer::OnImGuiRender()
 		ImGui::SliderFloat3("Point Position", glm::value_ptr(plt.Position), -1000, 1000);
 		ImGui::SliderFloat("Point Intensity", &pl.Light->GetIntensity(), 0, 10);
 		ImGui::ColorEdit3("Point Color", glm::value_ptr(pl.Light->GetColor()));
+	}
+
+	if(ImGui::CollapsingHeader("Models"))
+	{
+		ImGui::DragFloat3("Position", glm::value_ptr(meshT.Position));
+		ImGui::DragFloat3("Rotation", glm::value_ptr(meshT.Rotation));
+		ImGui::DragFloat3("Scale", glm::value_ptr(meshT.Scale));
+		ImGui::Checkbox("Animation", &mesh.Model->GetIsAnimationPlaying());
 	}
 	ImGui::End();
 }

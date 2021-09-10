@@ -46,6 +46,20 @@ namespace tnah {
 			return newMin + (newMax - newMin) * ((value - oldMin) / (oldMax - oldMin));
 		}
 
+		static float Clamp(float value, float lowClamp, float highClamp)
+		{
+			if(value < lowClamp) value = lowClamp;
+			if(value > highClamp) value = highClamp;
+			return value;
+		}
+		
+		static int Clamp(float value, int lowClamp, int highClamp)
+		{
+			if(value < lowClamp) value = (float)lowClamp;
+			if(value > highClamp) value = (float)highClamp;
+			return (int)value;
+		}
+
 		irrklang::vec3df ConvertVec3ToVec3df(const glm::vec3& other);
 	}
 

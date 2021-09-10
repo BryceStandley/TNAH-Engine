@@ -42,6 +42,7 @@ namespace tnah {
 		virtual void Disable(const APIEnum& value) = 0;
 		virtual void Enable(const APIEnum& value) = 0;
 
+		virtual void DrawElements(const uint32_t& indexCount, const uint32_t& baseIndex, const uint32_t& baseVertex) = 0;
 		virtual void DrawArray(const Ref<VertexArray>& vertexArray) = 0;
 		virtual void DrawIndexed(const Ref<VertexArray>& vertexArray) = 0;
 		virtual void SetWireframe(const bool& enable) = 0;

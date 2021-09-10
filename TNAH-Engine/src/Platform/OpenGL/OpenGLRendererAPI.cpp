@@ -87,6 +87,11 @@ namespace tnah {
 		}
 	}
 
+	void OpenGLRendererAPI::DrawElements(const uint32_t& indexCount, const uint32_t& baseIndex, const uint32_t& baseVertex)
+	{
+		glDrawElementsBaseVertex(GL_TRIANGLES, indexCount, GL_UNSIGNED_INT, reinterpret_cast<void*>(sizeof(uint32_t) * baseIndex), baseVertex);
+	}
+
 	void OpenGLRendererAPI::SetWireframe(const bool& enable)
 	{
 		if(enable)
