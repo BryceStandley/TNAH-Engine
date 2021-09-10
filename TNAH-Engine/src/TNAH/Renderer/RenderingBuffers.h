@@ -8,7 +8,8 @@ namespace tnah {
 
 	enum class ShaderDataType
 	{
-		None = 0, Float, Float2, Float3, Float4, Mat3, Mat4, Int, Int2, Int3, Int4, Bool
+		None = 0, Float, Float2, Float3, Float4, Mat3, Mat4, Int, Int2, Int3, Int4, Bool,
+		UInt
 	};
 
 	static uint32_t ShaderDataTypeSize(ShaderDataType type)
@@ -21,6 +22,7 @@ namespace tnah {
 			case ShaderDataType::Float4:   return 4 * 4;
 			case ShaderDataType::Mat3:     return 4 * 3 * 3;
 			case ShaderDataType::Mat4:     return 4 * 4 * 4;
+			case ShaderDataType::UInt:		return 4;
 			case ShaderDataType::Int:      return 4;
 			case ShaderDataType::Int2:     return 4 * 2;
 			case ShaderDataType::Int3:     return 4 * 3;
@@ -59,6 +61,7 @@ namespace tnah {
 				case ShaderDataType::Float4:  return 4;
 				case ShaderDataType::Mat3:    return 3; // 3* float3
 				case ShaderDataType::Mat4:    return 4; // 4* float4
+				case ShaderDataType::UInt:		return 3;
 				case ShaderDataType::Int:     return 1;
 				case ShaderDataType::Int2:    return 2;
 				case ShaderDataType::Int3:    return 3;
@@ -72,12 +75,12 @@ namespace tnah {
 		}
 	};
 
-	class BufferLayout
+	class VertexBufferLayout
 	{
 	public:
-		BufferLayout() {}
+		VertexBufferLayout() {}
 
-		BufferLayout(std::initializer_list<BufferElement> elements)
+		VertexBufferLayout(std::initializer_list<BufferElement> elements)
 			: m_Elements(elements)
 		{
 			CalculateOffsetsAndStride(m_Elements, m_Stride);
@@ -85,7 +88,9 @@ namespace tnah {
 
 		uint32_t GetStride() const { return m_Stride; }
 		const std::vector<BufferElement>& GetElements() const { return m_Elements; }
-
+		std::vector<BufferElement>& GetElements() { return m_Elements; }
+		void SetStride(const uint32_t& stride) { m_Stride = stride; }
+		
 		std::vector<BufferElement>::iterator begin() { return m_Elements.begin(); }
 		std::vector<BufferElement>::iterator end() { return m_Elements.end(); }
 		std::vector<BufferElement>::const_iterator begin() const { return m_Elements.begin(); }
@@ -118,7 +123,7 @@ namespace tnah {
 		DRAW, READ, COPY
 	};
 
-	struct DrawMode
+	struct BufferDrawMode
 	{
 		DrawType Type = DrawType::STATIC;
 		TypeMode Mode = TypeMode::DRAW;
@@ -136,16 +141,21 @@ namespace tnah {
 		virtual void CreateLayout(uint32_t location, BufferElement element, uint32_t stride) = 0;
 		virtual void DisableLayout(uint32_t location) = 0;
 		
-		virtual const BufferLayout& GetLayout() const = 0;
-		virtual void SetLayout(const BufferLayout& layout) = 0;
+		virtual const VertexBufferLayout& GetLayout() const = 0;
+		virtual void SetLayout(const VertexBufferLayout& layout) = 0;
 
 		
-		
+		static bool CheckIntShaderDataTypes(const BufferElement& element);
 		static Ref<VertexBuffer> Create();
 		static Ref<VertexBuffer> Create(float* verticies, uint32_t size);
 		static Ref<VertexBuffer> Create(void* verticies, uint32_t size);
 	};
 
+	enum class IndexBufferDataType
+	{
+		Byte = 0, Short = 1, Int = 2
+	};
+	
 	// Currently tnah only supports 32-bit index buffers
 	class IndexBuffer : public RefCounted
 	{
@@ -154,7 +164,7 @@ namespace tnah {
 
 		virtual void Bind() const = 0;
 		virtual void Unbind() const = 0;
-
+		virtual int GetDataType() const = 0;
 		virtual uint32_t GetCount() const = 0;
 
 		static Ref<IndexBuffer> Create(uint32_t* indices, uint32_t size);

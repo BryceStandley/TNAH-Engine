@@ -328,10 +328,10 @@ namespace tnah
 
 
         m_PolygonVertexArray =
-            new rp3d::PolygonVertexArray(MeshVertexPositions.size(),
+            new rp3d::PolygonVertexArray((rp3d::uint)MeshVertexPositions.size(),
                 &MeshVertexPositions[0],
                 sizeof(glm::vec3), &MeshIndices[0], sizeof(uint32_t),
-                MeshIndices.size(), m_PolygonFace,
+                (rp3d::uint)MeshIndices.size(), m_PolygonFace,
                 rp3d::PolygonVertexArray::VertexDataType::VERTEX_FLOAT_TYPE,
                 rp3d::PolygonVertexArray::IndexDataType::INDEX_INTEGER_TYPE);
     }
@@ -339,9 +339,9 @@ namespace tnah
     void MeshColliderComponent::CreateTriangleVertexArray()
     {
         m_TriangleVertexArray =
-            new rp3d::TriangleVertexArray(MeshVertexPositions.size(),
-            &MeshVertexPositions[0], sizeof(glm::vec3),
-                      MeshIndices.size() / 3, &MeshIndices[0], 3 * sizeof(uint32_t),
+            new rp3d::TriangleVertexArray((rp3d::uint)MeshVertexPositions.size(),
+                &MeshVertexPositions[0], sizeof(glm::vec3),
+                      (rp3d::uint)MeshIndices.size() / 3, &MeshIndices[0], 3 * sizeof(uint32_t),
                       rp3d::TriangleVertexArray::VertexDataType::VERTEX_FLOAT_TYPE,
                       rp3d::TriangleVertexArray::IndexDataType::INDEX_INTEGER_TYPE);
         

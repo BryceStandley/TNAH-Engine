@@ -119,7 +119,7 @@ namespace tnah {
 	//Index Buffer
 
 	OpenGLIndexBuffer::OpenGLIndexBuffer(uint32_t* indices, uint32_t count)
-		: m_Count(count)
+		: m_Count(count), m_DataType(IndexBufferDataType::Int)
 	{
 		glGenBuffers(1, &m_RendererID);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_RendererID);
@@ -127,12 +127,12 @@ namespace tnah {
 	}
 	
 	OpenGLIndexBuffer::OpenGLIndexBuffer(uint32_t count)
-		: m_Count(count), m_RendererID(0)
+		: m_Count(count), m_RendererID(0), m_DataType(IndexBufferDataType::Int)
 	{
 	}
 
 	OpenGLIndexBuffer::OpenGLIndexBuffer(void* indices, uint32_t count)
-		: m_Count(count)
+		: m_Count(count), m_DataType(IndexBufferDataType::Int)
 	{
 		auto i = static_cast<uint32_t*>(indices);
 		glGenBuffers(1, &m_RendererID);
@@ -153,6 +153,20 @@ namespace tnah {
 	void OpenGLIndexBuffer::Unbind() const
 	{
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	}
+
+	int OpenGLIndexBuffer::GetDataType() const
+	{
+		switch(m_DataType)
+		{
+		case IndexBufferDataType::Byte:
+			return GL_UNSIGNED_BYTE;
+		case IndexBufferDataType::Short:
+			return GL_UNSIGNED_SHORT;
+		case IndexBufferDataType::Int:
+			return GL_UNSIGNED_INT;
+		default: return GL_UNSIGNED_INT;
+		}
 	}
 
 	/***********************************************************************/

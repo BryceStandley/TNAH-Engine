@@ -13,12 +13,12 @@ namespace tnah
         PhysicsManager();
         ~PhysicsManager();
         bool Initialise(rp3d::EventListener * collisionEventListener);
-        void OnFixedUpdate(PhysicsTimestep timestep);
+        void OnFixedUpdate(PhysicsTimestep timestep) const;
         void Destroy();
-        rp3d::RigidBody* CreateRigidBody(const TransformComponent& transform);
-        void DestroyRigidBody(rp3d::RigidBody* rigidBody);
-        rp3d::CollisionBody* CreateCollisionBody(const TransformComponent& transform);
-        void DestroyCollisionBody(rp3d::CollisionBody * body);
+        rp3d::RigidBody* CreateRigidBody(const TransformComponent& transform) const;
+        void DestroyRigidBody(rp3d::RigidBody* rigidBody) const;
+        rp3d::CollisionBody* CreateCollisionBody(const TransformComponent& transform) const;
+        void DestroyCollisionBody(rp3d::CollisionBody * body) const;
     
     private:
         void CreateColliderRenderer();
@@ -28,12 +28,15 @@ namespace tnah
         rp3d::DefaultLogger* m_PhysicsLogger = nullptr;
 
         bool m_ColliderRender = false;
+        bool m_ColliderRendererInit = false;
         Ref<VertexArray> m_LinesVertexArray;
         Ref<VertexBuffer> m_LinesVertexBuffer;
-
+        
         Ref<VertexArray> m_TriangleVertexArray;
         Ref<VertexBuffer> m_TriangleVertexBuffer;
+        
         Ref<Shader> m_Shader;
+        VertexBufferLayout m_ColliderLayout;
         
         bool m_Active = false;
         /** @brief Used to tell the physics system if the logging should be enabled*/

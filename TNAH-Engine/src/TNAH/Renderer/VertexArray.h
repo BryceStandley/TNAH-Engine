@@ -16,6 +16,7 @@ namespace tnah {
 		virtual void SetID(const uint32_t& id) = 0;
 
 		virtual void AddVertexBuffer(const Ref<VertexBuffer>& vertexBuffer) = 0;
+		virtual void UpdateVertexBuffer() = 0;
 		virtual void SetIndexBuffer(const Ref<IndexBuffer>& indexBuffer) = 0;
 		virtual void SetIndexSize(const uint32_t& size) = 0;
 
@@ -35,8 +36,8 @@ namespace tnah {
 		 **************************************************************************************************/
 
 		static VertexArray* Create();
-
-		uint32_t m_IndicesSize;
+		
+		
 	};
 
 }

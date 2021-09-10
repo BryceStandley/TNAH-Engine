@@ -56,7 +56,7 @@ namespace tnah {
 
 		inline const uint32_t GetIndicesSize() { return m_IBOSize; }
 
-		inline const BufferLayout GetBufferLayout() { return m_BufferLayout; }
+		inline const VertexBufferLayout GetBufferLayout() { return m_BufferLayout; }
 
 		inline Ref<VertexArray> GetVertexArray() { return m_VAO; }
 		inline Ref<VertexBuffer> GetVertexBuffer() { return m_VBO; }
@@ -124,7 +124,7 @@ namespace tnah {
 		std::vector<uint32_t> m_IndicesData;
 		uint32_t m_VBOSize;
 		uint32_t m_IBOSize;
-		BufferLayout m_BufferLayout;
+		VertexBufferLayout m_BufferLayout;
 		Ref<VertexArray> m_VAO;
 		Ref<VertexBuffer> m_VBO;
 		Ref<IndexBuffer> m_IBO;

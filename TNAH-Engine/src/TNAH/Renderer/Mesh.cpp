@@ -175,6 +175,7 @@ namespace tnah {
     Model::Model(const std::string& filePath)
     {
         m_FilePath = filePath;
+        m_Resource = Resource(filePath);
         LoadModel(filePath);
     }
 

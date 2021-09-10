@@ -391,21 +391,7 @@ namespace tnah{
 
 	void Scene::OnFixedUpdate(PhysicsTimestep time)
 	{
-		//Physics calculations go here, they are not rendered here however
-
-		//{
-		//	auto view = m_Registry.view<TransformComponent, PhysicsComponent>(); //Rigidbody whatever we call it
-		//	for (auto entity : view)
-		//	{
-		//		auto& physics = view.get<PhysicsComponent>(entity);
-		//		auto& transform = view.get<TransformComponent>(entity);
-
-		//		//Do the physics stuff around here
-		//	}
-		//}
 		Physics::OnFixedUpdate(time);
-
-		//Physics::UpdateColliderRenderer();
 		{
 			auto view = m_Registry.view<TransformComponent, RigidBodyComponent>();
 			{
@@ -532,17 +518,25 @@ namespace tnah{
 		return GameObject{};
 	}
 
+	// ReSharper disable once CppNotAllPathsReturnValue
 	GameObject& Scene::FindGameObjectByID(const entt::entity& id)
 	{
-		for(auto go : m_GameObjectsInScene)
+		try
 		{
-			if(go.second.GetID() == id)
+			for(auto go : m_GameObjectsInScene)
 			{
-				return go.second;
+				if(go.second.GetID() == id)
+				{
+					return go.second;
+				}
 			}
+
+			throw "GameObject not found!";
 		}
-		auto obj = GameObject();
-		return obj;
+		catch (const char* error)
+		{
+			TNAH_CORE_INFO("{0}", error);
+		}
 	}
 	
 	void Scene::DestroyGameObject(GameObject gameObject)

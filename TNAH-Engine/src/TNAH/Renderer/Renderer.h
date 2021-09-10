@@ -17,16 +17,12 @@ namespace tnah {
 		static void Init();
 		static void Shutdown();
 
-		static void OnWindowResize(uint32_t width, uint32_t height);
-
 		static void BeginScene(SceneCamera& camera);
 		static void BeginScene(SceneCamera& camera, TransformComponent& cameraTransform);
 		static void EndScene();
 		static void IncrementTextureSlot() { s_CurrentTextureSlot++; }
 		static uint32_t GetCurrentTextureSlot() { return s_CurrentTextureSlot; }
 		static uint32_t GetAndIncrementTextureSlot() { s_CurrentTextureSlot++; return s_CurrentTextureSlot - 1; }
-
-		static void SetCullMode(const CullMode& mode);
 
 		static void SetShaderLightInfo(Ref<Material> material, std::vector<Ref<Light>> lights);
 

@@ -97,7 +97,7 @@ struct Vertex
         Ref<VertexBuffer> m_Vbo;
         Ref<IndexBuffer> m_Ibo;
         Ref<Material> m_Material;
-        BufferLayout m_BufferLayout;
+        VertexBufferLayout m_BufferLayout;
         friend class EditorUI;
     };
 
@@ -116,9 +116,11 @@ struct Vertex
         uint32_t GetNumberOfMeshes() const { return static_cast<uint32_t>(m_Meshes.size()); }
         auto& GetBoneInfoMap() { return m_BoneInfoMap; }
         int& GetBoneCount() { return m_BoneCounter; }
+        const Resource& GetResource() const { return m_Resource; }
     private:
 
         std::vector<Mesh> m_Meshes;
+        Resource m_Resource;
         std::string m_Directory;
         std::string m_FilePath;
 

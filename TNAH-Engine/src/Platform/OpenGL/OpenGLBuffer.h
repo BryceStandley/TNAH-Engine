@@ -101,7 +101,7 @@ namespace tnah {
 			 * @returns	The layout.
 			 */
 
-		const BufferLayout& GetLayout() const override { return m_Layout; }
+		const VertexBufferLayout& GetLayout() const override { return m_Layout; }
 
 			/**
 			 * @fn	void OpenGLVertexBuffer::SetLayout(const BufferLayout& layout) override
@@ -114,13 +114,11 @@ namespace tnah {
 			 * @param 	layout	The layout.
 			 */
 
-		void SetLayout(const BufferLayout& layout) override { m_Layout = layout; }
+		void SetLayout(const VertexBufferLayout& layout) override { m_Layout = layout; }
 
 		void SetData(uint32_t size, const void* data, DrawType type = DrawType::STATIC, TypeMode mode = TypeMode::DRAW) const override;
 		static int GetDrawMode(DrawType type, TypeMode mode);
 		void CreateLayout(uint32_t location, BufferElement element, uint32_t stride) override;
-	private:
-		static void CalculateOffsetAndStride(BufferElement& element, uint32_t& stride);
 
 
 	public:
@@ -130,7 +128,7 @@ namespace tnah {
 		uint32_t m_RendererID;
 
 			/** @brief	The buffer layout */
-		BufferLayout m_Layout;
+		VertexBufferLayout m_Layout;
 	};
 
 		/**
@@ -232,8 +230,11 @@ namespace tnah {
 			 */
 
 		uint32_t GetCount() const override { return m_Count; }
-	private:
+		int GetDataType() const override;
+		private:
 
+		IndexBufferDataType m_DataType;
+		
 			/** @brief	Identifier for the renderer */
 		uint32_t m_RendererID;
 

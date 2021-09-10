@@ -153,6 +153,8 @@ namespace tnah {
 		 */
 
 		uint32_t GetIndexSize() const override { return m_IndexSize; }
+		
+		void UpdateVertexBuffer() override;
 	private:
 
 		/** @brief	Identifier for the renderer */

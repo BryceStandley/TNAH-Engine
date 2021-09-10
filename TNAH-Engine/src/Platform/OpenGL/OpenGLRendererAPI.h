@@ -93,7 +93,7 @@ namespace tnah {
 			 */
 
 		void Enable(const APIEnum& value) override;
-
+		
 			/**
 			 * @fn	void OpenGLRendererAPI::DrawIndexed(const Ref<VertexArray>& vertexArray) override;
 			 *
@@ -103,9 +103,11 @@ namespace tnah {
 			 * @date	7/09/2021
 			 *
 			 * @param 	vertexArray	Array of vertices.
+			 * @param	mode	Drawing Mode
+			 * @param	indicesStart Pointer to the first element of the indices array. Void pointer to be any type
 			 */
 
-		void DrawIndexed(const Ref<VertexArray>& vertexArray) override;
+		void DrawIndexed(const Ref<VertexArray>& vertexArray, const DrawMode& mode = DrawMode::Triangles, void* indicesStart = nullptr) override;
 
 			/**
 			 * @fn	void OpenGLRendererAPI::DrawArray(const Ref<VertexArray>& vertexArray) override;
@@ -118,8 +120,7 @@ namespace tnah {
 			 * @param 	vertexArray	Array of vertices.
 			 */
 
-		void DrawArray(const Ref<VertexArray>& vertexArray) override;
-		void DrawArray(std::string type, uint32_t size) override;
+		void DrawArray(const Ref<VertexArray>& vertexArray, const DrawMode& mode) override;
 
 			/**
 			 * @fn	void OpenGLRendererAPI::SetWireframe(const bool& enable) override;
@@ -188,6 +189,23 @@ namespace tnah {
 			 */
 
 		void SetDepthFunc(const DepthFunc& func) override;
+	
+		protected:
+
+			/**
+			* @fn	void OpenGLRendererAPI::ModeFromDrawMode(const DrawMode& mode) override;
+			*
+			* @brief	Gets a API specific value based on provided Enum Mode.
+			*
+			* @note		This is a protected function as it is intended to be implemented per API but not accessed externally.
+			*
+			* @author	Dylan Blereau
+			* @date	7/09/2021
+			*
+			* @param 	mode The mode enum.
+			* @return	The API specific enum int value.
+			*/
+		int ModeFromDrawMode(const DrawMode& mode) override;
 	};
 
 }

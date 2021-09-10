@@ -244,7 +244,7 @@ void MainLayer::OnImGuiRender()
 		ImGui::SetWindowPos({0,0});
 		ImGui::SetWindowSize({(float)tnah::Application::Get().GetWindow().GetWidth(), (float)tnah::Application::Get().GetWindow().GetHeight()});
 		auto size = ImGui::GetContentRegionAvail();
-		ImGui::Image((void*)m_CloseScreenTexture->GetRendererID(), size);
+		ImGui::Image((void*)(intptr_t)m_CloseScreenTexture->GetRendererID(), size);
 		ImGui::End();
 	}
 	

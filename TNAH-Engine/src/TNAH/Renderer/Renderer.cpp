@@ -8,6 +8,7 @@
 
 namespace tnah {
 
+#pragma region RenderDataHolders
 	struct RendererData
 	{
 		Ref<Texture2D> WhiteTexture;
@@ -30,7 +31,9 @@ namespace tnah {
 	uint32_t Renderer::s_CurrentTextureSlot = 1;
 	static RenderStats* s_RenderStats = new RenderStats();
 	static RendererData* s_Data = nullptr;
-
+#pragma endregion 
+	
+#pragma region RendererStats
 	uint32_t Renderer::GetDrawCallsPerFrame() { return s_RenderStats->DrawCalls; }
 	uint32_t Renderer::GetTotalLoadedTextures() { return s_RenderStats->LoadedTextures; }
 	uint32_t Renderer::GetTotalLoadedShaders() { return s_RenderStats->LoadedShaders; }
@@ -45,8 +48,9 @@ namespace tnah {
 	void Renderer::ResetTotalLoadedTextures() { s_RenderStats->LoadedTextures = 0; }
 	void Renderer::ResetTotalLoadedShaders() { s_RenderStats->LoadedShaders = 0; }
 	void Renderer::ResetTotalLoadedModels() { s_RenderStats->LoadedModels = 0; }
+#pragma endregion 
 
-
+#pragma region RendererInitAndShutdown
 	void Renderer::Init()
 	{
 		s_Data = new RendererData();
@@ -61,8 +65,6 @@ namespace tnah {
 		if (s_Data->MissingTexture != nullptr) RegisterTexture(s_Data->MissingTexture);
 		
 	}
-
-	
 
 	void Renderer::Shutdown()
 	{
@@ -84,12 +86,11 @@ namespace tnah {
 
 		delete[] s_Data;
 	}
+#pragma endregion
 
-	void Renderer::OnWindowResize(uint32_t width, uint32_t height)
-	{
-
-	}
-
+#pragma region Rendering
+	
+#pragma region StartAndEndScene
 	void Renderer::BeginScene(SceneCamera& camera)
 	{
 		s_SceneData->View = camera.GetViewMatrix();
@@ -110,7 +111,10 @@ namespace tnah {
 	void Renderer::EndScene()
 	{
 	}
+#pragma endregion
 
+#pragma region LightSubmit
+	
 	void Renderer::SetShaderLightInfo(Ref<Material> material, std::vector<Ref<Light>> lights)
 	{
 		if(!material->GetShader()->IsBound()) material->BindShader();
@@ -166,7 +170,12 @@ namespace tnah {
 		///////
 	}
 
+#pragma endregion 
 
+#pragma region RendererSubmits
+
+#pragma region Submit
+	
 	void Renderer::Submit(Ref<VertexArray> vertexArray, Ref<Shader> shader, const glm::mat4& transform)
 	{
 		shader->Bind();
@@ -179,6 +188,38 @@ namespace tnah {
 		IncrementDrawCallsPerFrame();
 	}
 
+#pragma endregion 
+	
+#pragma region SkyboxRendering
+	
+	void Renderer::SubmitSkybox(Ref<VertexArray> vertexArray, Ref<SkyboxMaterial> material)
+	{
+		RenderCommand::SetDepthFunc(DepthFunc::Lequal);
+		
+		RenderCommand::SetDepthMask(false);
+		
+		RenderCommand::SetCullMode(CullMode::Back);
+		material->BindShader();
+
+		const glm::mat4 view = glm::mat4(glm::mat3(s_SceneData->View));
+		
+		material->GetShader()->SetMat4("u_ViewProjection", s_SceneData->ViewProjection);
+		material->GetShader()->SetVec3("u_CameraPosition", s_SceneData->CameraTransform.Position);
+		
+		material->BindTextures();
+		
+		vertexArray->Bind();
+		
+		RenderCommand::DrawArray(vertexArray);
+		RenderCommand::SetDepthFunc(DepthFunc::Less);
+		RenderCommand::SetDepthMask(true);
+		RenderCommand::SetCullMode(CullMode::Front);
+		IncrementDrawCallsPerFrame();
+	}
+
+#pragma endregion
+
+#pragma region TerrainRendering
 	void Renderer::SubmitTerrain(Ref<VertexArray> vertexArray, Ref<Material> material,
 			std::vector<Ref<Light>> sceneLights, const glm::mat4& transform)
 	{
@@ -194,11 +235,13 @@ namespace tnah {
 		RenderCommand::DrawIndexed(vertexArray);
 		IncrementDrawCallsPerFrame();
 	}
+#pragma endregion
 
+#pragma region MeshRendering
 	void Renderer::SubmitMesh(Ref<VertexArray> vertexArray, Ref<Material> material,
 			 std::vector<Ref<Light>> sceneLights, const glm::mat4& transform, const bool& isAnimated, const std::vector<glm::mat4>& animTransforms)
 	{
-		SetCullMode(CullMode::Back);
+		RenderCommand::SetCullMode(CullMode::Back);
 		material->BindShader();
 		material->GetShader()->SetMat4("u_ViewProjection", s_SceneData->ViewProjection);
 		material->GetShader()->SetMat4("u_Transform", transform);
@@ -219,35 +262,13 @@ namespace tnah {
 		
 		vertexArray->Bind();
 		RenderCommand::DrawIndexed(vertexArray);
-		SetCullMode(CullMode::Front);
+		RenderCommand::SetCullMode(CullMode::Front);
 		IncrementDrawCallsPerFrame();
 	}
+#pragma endregion
 
-	void Renderer::SubmitSkybox(Ref<VertexArray> vertexArray, Ref<SkyboxMaterial> material)
-	{
-		RenderCommand::SetDepthFunc(RendererAPI::DepthFunc::Lequal);
-		
-		RenderCommand::SetDepthMask(false);
-		
-		SetCullMode(CullMode::Back);
-		material->BindShader();
-
-		const glm::mat4 view = glm::mat4(glm::mat3(s_SceneData->View));
-		
-		material->GetShader()->SetMat4("u_ViewProjection", s_SceneData->ViewProjection);
-		material->GetShader()->SetVec3("u_CameraPosition", s_SceneData->CameraTransform.Position);
-		
-		material->BindTextures();
-		
-		vertexArray->Bind();
-		
-		RenderCommand::DrawArray(vertexArray);
-		RenderCommand::SetDepthFunc(RendererAPI::DepthFunc::Less);
-		RenderCommand::SetDepthMask(true);
-		SetCullMode(CullMode::Front);
-		IncrementDrawCallsPerFrame();
-	}
-
+#pragma region PhysicsColliderRendering
+	
 	void Renderer::SubmitCollider(Ref<VertexArray> lineVertexArray, Ref<VertexBuffer> lineVertexBuffer,
 		Ref<VertexArray> triangleVertexArray, Ref<VertexBuffer> triangleVertexBuffer)
 	{
@@ -255,56 +276,36 @@ namespace tnah {
 		auto shader = Physics::GetColliderShader();
 		shader->Bind();
 		shader->SetMat4("u_ViewProjectionMatrix", s_SceneData->ViewProjection);
-		shader->SetInt("u_isGlobalVertexColorEnabled", 0); // Disable global color
+		shader->SetMat4("u_Transform", glm::mat4(1.0f));
+		shader->SetInt("u_isGlobalVertexColorEnabled", 1); // use global color
+		shader->SetVec4("u_GlobalVertexColor", glm::vec4(1.0f)); // Disable global color
+		
 		
 		const auto renderer = Physics::GetColliderRenderer();
 		
 		if(renderer->getNbLines() > 0)
 		{
-			lineVertexArray->Bind();
-			lineVertexBuffer->Bind();
-
-			BufferElement linePosition = {ShaderDataType::Float3, "", false};
-			BufferElement lineColor = {ShaderDataType::Int, "", false};
-			lineColor.Offset = sizeof(rp3d::Vector3);
-			lineVertexBuffer->CreateLayout(0, linePosition, sizeof(rp3d::Vector3) + sizeof(rp3d::uint32));
-			lineVertexBuffer->CreateLayout(1, lineColor, sizeof(rp3d::Vector3) + sizeof(rp3d::uint32));
-
-			//RenderCommand::DrawArray("lines", renderer.getNbLines() * 2);
-
-			lineVertexBuffer->DisableLayout(0);
-			lineVertexBuffer->DisableLayout(1);
-
+			lineVertexArray->UpdateVertexBuffer();
+			RenderCommand::DrawArray(lineVertexArray, DrawMode::Lines);
 		}
-
-		//TODO: Do the same as above but with the triangles
+		
 		if(renderer->getNbTriangles() > 0)
 		{
-			triangleVertexArray->Bind();
-			triangleVertexBuffer->Bind();
-			BufferElement trianglePosition = {ShaderDataType::Float3, "", false};
-			BufferElement triangleColor = {ShaderDataType::Int, "", false};
-			triangleColor.Offset = sizeof(rp3d::Vector3);
-			triangleVertexBuffer->CreateLayout(0, trianglePosition, sizeof(rp3d::Vector3) + sizeof(rp3d::uint32));
-			triangleVertexBuffer->CreateLayout(1, triangleColor, sizeof(rp3d::Vector3) + sizeof(rp3d::uint32));
-
-			//RenderCommand::DrawArray("triangles", renderer.getNbTriangles() * 3);
-			triangleVertexBuffer->DisableLayout(0);
-			triangleVertexBuffer->DisableLayout(1);
+			triangleVertexArray->UpdateVertexBuffer();
+			RenderCommand::DrawArray(triangleVertexArray, DrawMode::Triangles);
 		}
-		triangleVertexArray->Unbind();
-		triangleVertexBuffer->Unbind();
 
 		shader->Unbind();
 		RenderCommand::SetWireframe(false);
 	}
-
-	void Renderer::SetCullMode(const CullMode& mode)
-	{
-		RenderCommand::SetCullMode(mode);
-	}
-
-
+#pragma endregion
+	
+#pragma endregion
+	
+#pragma endregion 
+	
+#pragma region ResourceManagement
+	
 	Ref<Texture2D> Renderer::GetWhiteTexture()
 	{
 		return s_Data->WhiteTexture;
@@ -352,6 +353,6 @@ namespace tnah {
 		s_Data->LoadedModels.push_back(model);
 		IncrementTotalLoadedModels();
 	}
-
+#pragma endregion 
 
 }

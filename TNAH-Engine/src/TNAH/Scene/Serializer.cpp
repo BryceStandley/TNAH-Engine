@@ -229,7 +229,7 @@ namespace tnah {
     {
         std::stringstream ss;
         ss << GenerateTagOpen("mesh", totalTabs);
-        ss << GenerateDirectoryEntry("model", mesh.Model->m_FilePath, totalTabs + 1);
+        ss << GenerateDirectoryEntry("model", mesh.Model->GetResource().RelativeDirectory, totalTabs + 1);
         ss << GenerateTagClose("mesh", totalTabs);
 
         return ss.str();
