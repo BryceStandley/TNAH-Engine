@@ -276,7 +276,7 @@ namespace tnah {
 		auto shader = Physics::GetColliderShader();
 		shader->Bind();
 		shader->SetMat4("u_ViewProjectionMatrix", s_SceneData->ViewProjection);
-		shader->SetMat4("u_Transform", glm::mat4(1.0f));
+		shader->SetMat4("u_Transform",  glm::scale(glm::mat4(1.0f), {2,2,2}));
 		shader->SetInt("u_isGlobalVertexColorEnabled", 0); // use global color
 		shader->SetVec4("u_GlobalVertexColor", glm::vec4(1.0f)); // Disable global color
 		

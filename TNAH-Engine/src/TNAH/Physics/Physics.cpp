@@ -3,8 +3,12 @@
 
 namespace tnah
 {
+    
+#pragma region Physics
     Ref<PhysicsManager> Physics::m_PhysicsManager = Ref<PhysicsManager>::Create();
+    TransformComponent Physics::m_ColliderTransform = TransformComponent();
 
+#pragma region InitAndHelpers
     Ref<PhysicsManager> Physics::GetManager()
     {
         return m_PhysicsManager;
@@ -20,49 +24,6 @@ namespace tnah
         return m_PhysicsManager->Initialise(collisionEventListener);
     }
 
-    rp3d::CollisionBody* Physics::CreateCollisionBody(const TransformComponent& transformValues)
-    {
-        if(m_PhysicsManager->m_Active)
-            return m_PhysicsManager->CreateCollisionBody(transformValues);
-        return nullptr;
-    }
-    
-    void Physics::DestroyCollisionBody(rp3d::CollisionBody* body)
-    {
-        if(m_PhysicsManager->m_Active)
-            m_PhysicsManager->DestroyCollisionBody(body);
-    }
-
-    void Physics::DestroyRigidbody(rp3d::RigidBody* body)
-    {
-        if(m_PhysicsManager->m_Active)
-            m_PhysicsManager->DestroyRigidBody(body);
-    }
-
-    rp3d::RigidBody* Physics::CreateRigidbody(const TransformComponent& transform)
-    {
-        if(m_PhysicsManager->m_Active)
-            return m_PhysicsManager->m_PhysicsWorld->createRigidBody(Math::ToRp3dTransform(transform));
-        return nullptr;
-    }
-
-    rp3d::RigidBody* Physics::CreateRigidbody(const rp3d::Transform transform)
-    {
-        if(m_PhysicsManager->m_Active)
-            return m_PhysicsManager->m_PhysicsWorld->createRigidBody(transform);
-        return nullptr;
-    }
-
-    rp3d::RigidBody* Physics::CreateRigidbody(const glm::vec3& position, const glm::vec3& rotation)
-    {
-        if(m_PhysicsManager->m_Active)
-        {
-            const TransformComponent transform  = TransformComponent(position, rotation, {1,1,1});
-            return m_PhysicsManager->m_PhysicsWorld->createRigidBody(Math::ToRp3dTransform(transform));
-        }
-        return nullptr;
-    }
-
     void Physics::ToggleColliderRendering()
     {
         if(m_PhysicsManager->m_Active)
@@ -74,9 +35,39 @@ namespace tnah
             }
             else
             {
+                m_ColliderTransform.Scale = glm::vec3(2.1f);
                 m_PhysicsManager->CreateColliderRenderer();
             }
         }
+    }
+
+    void Physics::PhysicsLoggerInit()
+    {
+        m_PhysicsManager->m_PhysicsLogger = m_PhysicsManager->m_PhysicsCommon.createDefaultLogger();
+        const rp3d::uint logLevel = static_cast<rp3d::uint>(rp3d::Logger::Level::Warning) | static_cast<rp3d::uint>(rp3d::Logger::Level::Error) | static_cast<rp3d::uint>(rp3d::Logger::Level::Information);
+        m_PhysicsManager->m_PhysicsLogger->addFileDestination("rp3d_log.html", logLevel, rp3d::DefaultLogger::Format::HTML);
+        m_PhysicsManager->m_PhysicsCommon.setLogger(m_PhysicsManager->m_PhysicsLogger);
+    }
+
+    void Physics::OnFixedUpdate(PhysicsTimestep timestep)
+    {
+        if(IsActive())
+        {
+            m_PhysicsManager->OnFixedUpdate(timestep);
+            UpdateColliderRenderer();
+        }
+    }
+
+    void Physics::Destroy()
+    {
+        m_PhysicsManager->Destroy();
+    }
+#pragma endregion 
+
+#pragma region ColliderRenderer
+    bool& Physics::GetColliderRendererHandle()
+    {
+        return m_PhysicsManager->m_ColliderRender;
     }
 
     rp3d::DebugRenderer* Physics::GetColliderRenderer()
@@ -86,14 +77,6 @@ namespace tnah
             return &m_PhysicsManager->m_PhysicsWorld->getDebugRenderer();
         }
         return nullptr;
-    }
-
-    void Physics::CreateTerrainCollider(Terrain* terrain)
-    {
-        if(IsActive())
-        {
-            //TODO: Set up the terrain/Height field collider
-        }
     }
 
     void Physics::EnableLogging()
@@ -179,6 +162,59 @@ namespace tnah
             }
         }
     }
+#pragma endregion 
+
+#pragma region RigidbodyAndCollider
+    rp3d::CollisionBody* Physics::CreateCollisionBody(const TransformComponent& transformValues)
+    {
+        if(m_PhysicsManager->m_Active)
+            return m_PhysicsManager->CreateCollisionBody(transformValues);
+        return nullptr;
+    }
+    
+    void Physics::DestroyCollisionBody(rp3d::CollisionBody* body)
+    {
+        if(m_PhysicsManager->m_Active)
+            m_PhysicsManager->DestroyCollisionBody(body);
+    }
+
+    void Physics::DestroyRigidbody(rp3d::RigidBody* body)
+    {
+        if(m_PhysicsManager->m_Active)
+            m_PhysicsManager->DestroyRigidBody(body);
+    }
+
+    rp3d::RigidBody* Physics::CreateRigidbody(const TransformComponent& transform)
+    {
+        if(m_PhysicsManager->m_Active)
+            return m_PhysicsManager->m_PhysicsWorld->createRigidBody(Math::ToRp3dTransform(transform));
+        return nullptr;
+    }
+
+    rp3d::RigidBody* Physics::CreateRigidbody(const rp3d::Transform transform)
+    {
+        if(m_PhysicsManager->m_Active)
+            return m_PhysicsManager->m_PhysicsWorld->createRigidBody(transform);
+        return nullptr;
+    }
+
+    rp3d::RigidBody* Physics::CreateRigidbody(const glm::vec3& position, const glm::vec3& rotation)
+    {
+        if(m_PhysicsManager->m_Active)
+        {
+            const TransformComponent transform  = TransformComponent(position, rotation, {1,1,1});
+            return m_PhysicsManager->m_PhysicsWorld->createRigidBody(Math::ToRp3dTransform(transform));
+        }
+        return nullptr;
+    }
+
+    void Physics::CreateTerrainCollider(Terrain* terrain)
+    {
+        if(IsActive())
+        {
+            //TODO: Set up the terrain/Height field collider
+        }
+    }
 
     rp3d::BoxShape* Physics::CreateBoxShape(const float& halfX, const float& halfY, const float& halfZ)
     {
@@ -250,33 +286,15 @@ namespace tnah
             return m_PhysicsManager->m_PhysicsCommon.createTriangleMesh();
         return nullptr;
     }
+#pragma endregion 
+
+#pragma endregion
 
     
+ /***************************************/
 
-    void Physics::PhysicsLoggerInit()
-    {
-        m_PhysicsManager->m_PhysicsLogger = m_PhysicsManager->m_PhysicsCommon.createDefaultLogger();
-        const rp3d::uint logLevel = static_cast<rp3d::uint>(rp3d::Logger::Level::Warning) | static_cast<rp3d::uint>(rp3d::Logger::Level::Error) | static_cast<rp3d::uint>(rp3d::Logger::Level::Information);
-        m_PhysicsManager->m_PhysicsLogger->addFileDestination("rp3d_log.html", logLevel, rp3d::DefaultLogger::Format::HTML);
-        m_PhysicsManager->m_PhysicsCommon.setLogger(m_PhysicsManager->m_PhysicsLogger);
-    }
-
-    void Physics::OnFixedUpdate(PhysicsTimestep timestep)
-    {
-        if(IsActive())
-        {
-            m_PhysicsManager->OnFixedUpdate(timestep);
-            UpdateColliderRenderer();
-        }
-    }
-
-    void Physics::Destroy()
-    {
-        m_PhysicsManager->Destroy();
-    }
-
-/********************* Physics Manager ***************************/
-
+    
+#pragma region PhysicsManager
         
     PhysicsManager::PhysicsManager()
     {
@@ -319,6 +337,16 @@ namespace tnah
             m_PhysicsWorld->destroyCollisionBody(body);
         }
     }
+    
+    rp3d::CollisionBody* PhysicsManager::CreateCollisionBody(const TransformComponent& transform) const
+    {
+        if(m_Active)
+        {
+            return m_PhysicsWorld->createCollisionBody(Math::ToRp3dTransform(transform));
+        }
+        
+        return nullptr;
+    }
 
     void PhysicsManager::CreateColliderRenderer()
     {
@@ -339,18 +367,11 @@ namespace tnah
         m_TriangleVertexArray->AddVertexBuffer(m_TriangleVertexBuffer);
         
         m_Shader = Shader::Create("Resources/shaders/default/physics/physics_vertex.glsl","Resources/shaders/default/physics/physics_fragment.glsl");
+
         m_ColliderRendererInit = true;
     }
 
-    rp3d::CollisionBody* PhysicsManager::CreateCollisionBody(const TransformComponent& transform) const
-    {
-        if(m_Active)
-        {
-            return m_PhysicsWorld->createCollisionBody(Math::ToRp3dTransform(transform));
-        }
-        
-        return nullptr;
-    }
+    
     
     bool PhysicsManager::Initialise(rp3d::EventListener* collisionEventListener)
     {
@@ -372,7 +393,7 @@ namespace tnah
         m_PhysicsWorld->update(timestep.GetSimulationSpeed());
         
     }
-
+#pragma endregion 
 
 
 

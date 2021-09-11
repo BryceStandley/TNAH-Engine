@@ -25,9 +25,30 @@ namespace tnah {
 		{
 			ImGui::Text("Transform");
 			auto& t = object.GetComponent<TransformComponent>();
-			DrawVec3Control("Position", t.Position);
-			DrawVec3Control("Rotation", t.Rotation);
-			DrawVec3Control("Scale", t.Scale, false, 1);
+			if(DrawVec3Control("Position", t.Position))
+			{
+				if(object.HasComponent<RigidBodyComponent>())
+				{
+					auto& rb = object.GetComponent<RigidBodyComponent>();
+					rb.UpdateTransform(t);
+				}
+			}
+			if(DrawVec3Control("Rotation", t.Rotation))
+			{
+				if(object.HasComponent<RigidBodyComponent>())
+				{
+					auto& rb = object.GetComponent<RigidBodyComponent>();
+					rb.UpdateTransform(t);
+				}
+			}
+			if(DrawVec3Control("Scale", t.Scale, false, 1))
+			{
+				if(object.HasComponent<RigidBodyComponent>())
+				{
+					auto& rb = object.GetComponent<RigidBodyComponent>();
+					rb.UpdateTransform(t);
+				}
+			}
 			ImGui::Separator();
 		}
 
@@ -146,8 +167,8 @@ namespace tnah {
 			auto fov = glm::degrees(c.EditorCamera.m_PerspectiveFOV);
 			auto nearc = c.EditorCamera.m_PerspectiveNear;
 			auto farc = c.EditorCamera.m_PerspectiveFar;
-			float w = (float)c.EditorCamera.m_ViewportWidth;
-			float h = (float)c.EditorCamera.m_ViewportHeight;
+			float w = static_cast<float>(c.EditorCamera.m_ViewportWidth);
+			float h = static_cast<float>(c.EditorCamera.m_ViewportHeight);
 			bool modified = false;
 			static int selectedClear = 1;
 			static const char* CameraClear[] {"Skybox", "Color"};
@@ -439,8 +460,8 @@ namespace tnah {
 					rb.SetBodyType(rp3d::BodyType::KINEMATIC);
 				}
 			}
-			ImGui::Checkbox("Edit mode", &rb.edit);
-			ImGui::Checkbox("Keyboard Controls", &rb.useEdit);
+			ImGui::Checkbox("Edit mode", &rb.Edit);
+			ImGui::Checkbox("Keyboard Controls", &rb.UseEdit);
 			ImGui::Separator();
 			ImGui::Text("Colliders");
 			bool hasCollider = false;
@@ -448,18 +469,83 @@ namespace tnah {
 			if(object.HasComponent<BoxColliderComponent>())
 			{
 				auto & box = object.GetComponent<BoxColliderComponent>();
-				rp3d::Vector3 s = ((rp3d::BoxShape*)(box.Components.Shape))->getHalfExtents();
-				std::string text = "Actual Size: " + std::to_string(s.x) + " " + std::to_string(s.y) + " " + std::to_string(s.z);
+				rp3d::Vector3 s = static_cast<rp3d::BoxShape*>(box.Components.Shape)->getHalfExtents();
+				std::string text = "Actual Size: " + std::to_string(box.Size.x) + " " + std::to_string(box.Size.y) + " " + std::to_string(box.Size.z);
 				ImGui::Text("Box Collider");
 				ImGui::Separator();
 				ImGui::Text(text.c_str());
-				DrawVec3Control("Size", box.Size);
-				
-				if(ImGui::Button("Change Size"))
+				if(DrawVec3Control("Size", box.Size))
 				{
-					((rp3d::BoxShape*)(box.Components.Shape))->setHalfExtents(Math::ToRp3dVec3(box.Size));
+					static_cast<rp3d::BoxShape*>(box.Components.Shape)->setHalfExtents(Math::ToRp3dVec3(box.Size));
 					box.Components.BodyCollider = rb.UpdateCollider(box.Components.BodyCollider, box.Components.Shape, rp3d::Transform::identity());
 				}
+				hasCollider = true;
+			}
+
+			if(object.HasComponent<CapsuleColliderComponent>())
+			{
+				auto & capsule = object.GetComponent<CapsuleColliderComponent>();
+				ImGui::Text("Capsule Collider");
+				ImGui::Separator();
+				if(DrawFloatControl("Radius", capsule.Radius))
+				{
+					static_cast<rp3d::CapsuleShape*>(capsule.Components.Shape)->setRadius(capsule.Radius);
+					capsule.Components.BodyCollider = rb.UpdateCollider(capsule.Components.BodyCollider, capsule.Components.Shape, rp3d::Transform::identity());
+				}
+
+				if(DrawFloatControl("Height", capsule.Height))
+				{
+					static_cast<rp3d::CapsuleShape*>(capsule.Components.Shape)->setHeight(capsule.Height);
+				}
+				
+				hasCollider = true;
+			}
+
+			if(object.HasComponent<SphereColliderComponent>())
+			{
+				auto & sphere = object.GetComponent<SphereColliderComponent>();
+				ImGui::Text("Sphere Collider");
+				ImGui::Separator();
+				if(DrawFloatControl("Radius", sphere.Radius))
+				{
+					static_cast<rp3d::SphereShape*>(sphere.Components.Shape)->setRadius(sphere.Radius);
+					sphere.Components.BodyCollider = rb.UpdateCollider(sphere.Components.BodyCollider, sphere.Components.Shape, rp3d::Transform::identity());
+				}
+				
+				hasCollider = true;
+			}
+
+			if(object.HasComponent<ConcaveMeshColliderComponent>())
+			{
+				auto & mesh = object.GetComponent<ConcaveMeshColliderComponent>();
+				ImGui::Text("Concave Mesh Collider");
+				ImGui::Separator();
+				//Todo: Add collider update if its animated
+				
+				/*
+				if(DrawFloatControl("Radius", sphere.Radius))
+				{
+					static_cast<rp3d::SphereShape*>(sphere.Components.Shape)->setRadius(sphere.Radius);
+					sphere.Components.BodyCollider = rb.UpdateCollider(sphere.Components.BodyCollider, sphere.Components.Shape, rp3d::Transform::identity());
+				}*/
+				
+				hasCollider = true;
+			}
+
+			if(object.HasComponent<ConvexMeshColliderComponent>())
+			{
+				auto & mesh = object.GetComponent<ConvexMeshColliderComponent>();
+				ImGui::Text("Convex Mesh Collider");
+				ImGui::Separator();
+				//Todo: Add collider update if its animated
+				
+				/*
+				if(DrawFloatControl("Radius", sphere.Radius))
+				{
+				static_cast<rp3d::SphereShape*>(sphere.Components.Shape)->setRadius(sphere.Radius);
+				sphere.Components.BodyCollider = rb.UpdateCollider(sphere.Components.BodyCollider, sphere.Components.Shape, rp3d::Transform::identity());
+				}*/
+				
 				hasCollider = true;
 			}
 
@@ -561,7 +647,7 @@ namespace tnah {
 					ImGui::Separator();
 					if(ImGui::CollapsingHeader("Preview"))
 					{
-						ImGui::Image((void*)(intptr_t)t->m_RendererID, ImVec2(size, size));
+						ImGui::Image((void*)static_cast<intptr_t>(t->m_RendererID), ImVec2(size, size));
 					}	
 				}
 			}
@@ -1073,6 +1159,23 @@ namespace tnah {
 
 		if(BoxColliderComponent::s_SearchString.find(term) != std::string::npos && Utility::Contains<ComponentTypes>(componentsToSearch, ComponentTypes::BoxCollider))
 			foundComponents.emplace_back(ComponentTypes::BoxCollider);
+
+		if(HeightFieldColliderComponent::s_SearchString.find(term) != std::string::npos && Utility::Contains<ComponentTypes>(componentsToSearch, ComponentTypes::HeightFieldCollider))
+			foundComponents.emplace_back(ComponentTypes::HeightFieldCollider);
+		
+		if(CapsuleColliderComponent::s_SearchString.find(term) != std::string::npos && Utility::Contains<ComponentTypes>(componentsToSearch, ComponentTypes::CapsuleCollider))
+			foundComponents.emplace_back(ComponentTypes::CapsuleCollider);
+
+		if(SphereColliderComponent::s_SearchString.find(term) != std::string::npos && Utility::Contains<ComponentTypes>(componentsToSearch, ComponentTypes::SphereCollider))
+			foundComponents.emplace_back(ComponentTypes::SphereCollider);
+
+		if(ConvexMeshColliderComponent::s_SearchString.find(term) != std::string::npos && Utility::Contains<ComponentTypes>(componentsToSearch, ComponentTypes::ConvexMeshCollider))
+			foundComponents.emplace_back(ComponentTypes::ConvexMeshCollider);
+
+		if(ConcaveMeshColliderComponent::s_SearchString.find(term) != std::string::npos && Utility::Contains<ComponentTypes>(componentsToSearch, ComponentTypes::ConcaveMeshCollider))
+			foundComponents.emplace_back(ComponentTypes::ConcaveMeshCollider);
+
+		
 		
 		return foundComponents;
 	}
@@ -1084,37 +1187,45 @@ namespace tnah {
         case ComponentTypes::None:
             return "No Component";
         case ComponentTypes::ID:
-            return "ID Component";
+            return "ID";
         case ComponentTypes::Tag:
-            return "Tag Component";
+            return "Tag";
         case ComponentTypes::Relationship:
-            return "Relationship Component";
+            return "Relationship";
         case ComponentTypes::Transform:
-            return "Transform Component";
+            return "Transform";
         case ComponentTypes::Camera:
-            return "Camera Component";
+            return "Camera";
         case ComponentTypes::EditorCamera:
-            return "Editor Camera Component";
+            return "Editor Camera";
         case ComponentTypes::Editor:
-            return "Editor Component";
+            return "Editor";
         case ComponentTypes::Skybox:
-            return "Skybox Component";
+            return "Skybox";
         case ComponentTypes::Light:
-            return "Light Component";
+            return "Light";
         case ComponentTypes::Terrain:
-            return "Terrain Component";
-        case ComponentTypes::Mesh:
-            return "Mesh Component";
+            return "Terrain";
         case ComponentTypes::PlayerController:
-            return "Player Controller Component";
+            return "Player Controller";
         case ComponentTypes::AudioSource:
-            return "Audio Source Component";
+            return "Audio Source";
         case ComponentTypes::AudioListener:
-            return "Audio Listener Component";
+            return "Audio Listener";
         case ComponentTypes::RigidBody:
-			return "Rigid Body Component";
+			return "Rigid Body";
         case ComponentTypes::BoxCollider:
-        	return "Box Collider Component";
+        	return "Box Collider";
+        case ComponentTypes::SphereCollider:
+        	return "Sphere Collider";
+        case ComponentTypes::CapsuleCollider:
+        	return "Capsule Collider";
+        case ComponentTypes::HeightFieldCollider:
+        	return "Height Field Collider";
+        case ComponentTypes::ConvexMeshCollider:
+        	return "Convex Mesh Collider";
+        case ComponentTypes::ConcaveMeshCollider:
+        	return "Concave Mesh Collider";
         default: return "";
         }
     }
@@ -1150,9 +1261,23 @@ namespace tnah {
 		case ComponentTypes::PlayerController:
 			return "Control";
 		case ComponentTypes::AudioSource:
-			return "Audio";
+			return "Physics";
 		case ComponentTypes::AudioListener:
-			return "Audio";
+			return "Physics";
+		case ComponentTypes::RigidBody:
+			return "Physics";
+		case ComponentTypes::BoxCollider:
+			return "Physics";
+		case ComponentTypes::SphereCollider:
+			return "Physics";
+		case ComponentTypes::CapsuleCollider:
+			return "Physics";
+		case ComponentTypes::HeightFieldCollider:
+			return "Physics";
+		case ComponentTypes::ConvexMeshCollider:
+			return "Physics";
+		case ComponentTypes::ConcaveMeshCollider:
+			return "Physics";
 		default: return "";
 		}
 		return "";
@@ -1216,6 +1341,81 @@ namespace tnah {
         	{
         		auto& rb = object.AddComponent<RigidBodyComponent>(object.Transform());
         		auto& b = object.AddComponent<BoxColliderComponent>();
+        		b.Components.BodyCollider = rb.AddCollider(b.Components.Shape, rp3d::Transform::identity());
+        		return true;
+        	}
+        case ComponentTypes::SphereCollider:
+        	if(object.HasComponent<RigidBodyComponent>())
+        	{
+        		auto& rb = object.GetComponent<RigidBodyComponent>();
+        		auto& b = object.AddComponent<SphereColliderComponent>();
+        		b.Components.BodyCollider = rb.AddCollider(b.Components.Shape, rp3d::Transform::identity());
+        		return true;
+        	}
+        	else
+        	{
+        		auto& rb = object.AddComponent<RigidBodyComponent>(object.Transform());
+        		auto& b = object.AddComponent<SphereColliderComponent>();
+        		b.Components.BodyCollider = rb.AddCollider(b.Components.Shape, rp3d::Transform::identity());
+        		return true;
+        	}
+        case ComponentTypes::CapsuleCollider:
+        	if(object.HasComponent<RigidBodyComponent>())
+        	{
+        		auto& rb = object.GetComponent<RigidBodyComponent>();
+        		auto& b = object.AddComponent<CapsuleColliderComponent>();
+        		b.Components.BodyCollider = rb.AddCollider(b.Components.Shape, rp3d::Transform::identity());
+        		return true;
+        	}
+        	else
+        	{
+        		auto& rb = object.AddComponent<RigidBodyComponent>(object.Transform());
+        		auto& b = object.AddComponent<CapsuleColliderComponent>();
+        		b.Components.BodyCollider = rb.AddCollider(b.Components.Shape, rp3d::Transform::identity());
+        		return true;
+        	}
+        case ComponentTypes::HeightFieldCollider:
+        	if(object.HasComponent<RigidBodyComponent>())
+        	{
+        		auto& rb = object.GetComponent<RigidBodyComponent>();
+        		auto& b = object.AddComponent<HeightFieldColliderComponent>();
+        		b.Components.BodyCollider = rb.AddCollider(b.Components.Shape, rp3d::Transform::identity());
+        		return true;
+        	}
+        	else
+        	{
+        		auto& rb = object.AddComponent<RigidBodyComponent>(object.Transform());
+        		auto& b = object.AddComponent<HeightFieldColliderComponent>();
+        		b.Components.BodyCollider = rb.AddCollider(b.Components.Shape, rp3d::Transform::identity());
+        		return true;
+        	}
+        case ComponentTypes::ConvexMeshCollider:
+        	if(object.HasComponent<RigidBodyComponent>())
+        	{
+        		auto& rb = object.GetComponent<RigidBodyComponent>();
+        		auto& b = object.AddComponent<ConvexMeshColliderComponent>();
+        		b.Components.BodyCollider = rb.AddCollider(b.Components.Shape, rp3d::Transform::identity());
+        		return true;
+        	}
+        	else
+        	{
+        		auto& rb = object.AddComponent<RigidBodyComponent>(object.Transform());
+        		auto& b = object.AddComponent<ConvexMeshColliderComponent>();
+        		b.Components.BodyCollider = rb.AddCollider(b.Components.Shape, rp3d::Transform::identity());
+        		return true;
+        	}
+        case ComponentTypes::ConcaveMeshCollider:
+        	if(object.HasComponent<RigidBodyComponent>())
+        	{
+        		auto& rb = object.GetComponent<RigidBodyComponent>();
+        		auto& b = object.AddComponent<ConcaveMeshColliderComponent>();
+        		b.Components.BodyCollider = rb.AddCollider(b.Components.Shape, rp3d::Transform::identity());
+        		return true;
+        	}
+        	else
+        	{
+        		auto& rb = object.AddComponent<RigidBodyComponent>(object.Transform());
+        		auto& b = object.AddComponent<ConcaveMeshColliderComponent>();
         		b.Components.BodyCollider = rb.AddCollider(b.Components.Shape, rp3d::Transform::identity());
         		return true;
         	}

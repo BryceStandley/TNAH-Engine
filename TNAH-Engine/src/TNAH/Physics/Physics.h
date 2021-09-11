@@ -1,9 +1,11 @@
 ﻿#pragma once
 #pragma warning(push, 0)
 #include <reactphysics3d/reactphysics3d.h>
+
+#pragma warning(pop)
+
 #include "TNAH/Physics/PhysicsTimestep.h"
 #include "TNAH/Scene/Components/Components.h"
-#pragma warning(pop)
 
 namespace tnah
 {
@@ -38,6 +40,7 @@ namespace tnah
         Ref<Shader> m_Shader;
         VertexBufferLayout m_ColliderLayout;
         
+        
         bool m_Active = false;
         /** @brief Used to tell the physics system if the logging should be enabled*/
         bool m_Logging = false;
@@ -62,6 +65,7 @@ namespace tnah
         static rp3d::RigidBody* CreateRigidbody(const glm::vec3& position, const glm::vec3& rotation);
 
         static void ToggleColliderRendering();
+        static bool& GetColliderRendererHandle();
         
 
         // could use the Transform component and half each of its values?
@@ -90,8 +94,11 @@ namespace tnah
         static void PhysicsLoggerInit();
     
     private:
+        /** @brief a static reference to the active physics manager */
         static Ref<PhysicsManager> m_PhysicsManager;
 
+        /** @brief Transform used for rendering the colliders within the scene*/
+        static TransformComponent m_ColliderTransform;
         friend class Scene;
         friend class Renderer;
     };

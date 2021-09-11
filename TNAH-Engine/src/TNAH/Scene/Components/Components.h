@@ -10,7 +10,6 @@
 #include "LightComponents.h"
 #include "AudioComponents.h"
 #include "ComponentBase.h"
-#include "AnimatorComponent.h"
 
 #include "TNAH/Renderer/Mesh.h"
 
@@ -44,7 +43,9 @@ namespace tnah {
 		None,
 		ID, Tag, Relationship, Transform,
 		Camera, EditorCamera, Editor, Skybox, Light,
-		Terrain, Mesh, PlayerController, AudioSource, AudioListener, RigidBody, BoxCollider
+		Terrain, Mesh, PlayerController, AudioSource, AudioListener,
+		RigidBody, BoxCollider, SphereCollider, CapsuleCollider, HeightFieldCollider,
+		ConvexMeshCollider, ConcaveMeshCollider
 	};
 
 	

@@ -11,6 +11,8 @@
 
 namespace tnah{
 
+#pragma region SceneSetups
+	
 	Scene::ActiveScene Scene::s_ActiveScene = Scene::ActiveScene();
 
 	struct SceneComponent
@@ -97,8 +99,12 @@ namespace tnah{
 		return Ref<Scene>::Create();
 	}
 
+#pragma endregion 
+
+#pragma region SceneUpdate
 	void Scene::OnUpdate(Timestep deltaTime)
 	{
+#pragma region PlayerControllerUpdate
 		//TODO: Actually test the player controller component
 		// Process any PlayerControllers before updating anything else in the scene
 		{
@@ -134,6 +140,9 @@ namespace tnah{
 			}
 			
 		}
+#pragma endregion
+
+#pragma region TransformComponentUpdate
 		
 		//Update all transform components and their forward, right and up vectors
 		{
@@ -156,10 +165,10 @@ namespace tnah{
 				transform.Up = up;
 			}
 		}
-
-		uint32_t passes = 0;
+#pragma endregion	
 		
-
+#pragma region FramebufferBindings
+		uint32_t passes = 0;
 		do
 		{
 			if(m_IsEditorScene)
@@ -195,15 +204,13 @@ namespace tnah{
 					}
 				}
 			}
+#pragma endregion 			
 
-			
-
-			//Renderer Stuff
+#pragma region Rendering
 			{
+#pragma region ClearColorAndSkybox
 				glm::vec3 cameraPosition;
 				bool usingSkybox = false;
-			
-			
 				{
 					//Check if its were in the editor, if so render from the perspective of the editor camera
 					if(m_IsEditorScene && passes == 0)
@@ -266,9 +273,9 @@ namespace tnah{
 						Renderer::SubmitSkybox(skybox.SceneSkybox->GetVertexArray(), skybox.SceneSkybox->GetMaterial());
 					}
 				}
-
+#pragma endregion 
 				
-
+#pragma region Lighting
 				std::vector<Ref<Light>> sceneLights;
 				{
 					auto view = m_Registry.view<LightComponent, TransformComponent>();
@@ -282,22 +289,9 @@ namespace tnah{
 						sceneLights.push_back(light.Light);
 					}
 				}
-				//
-				{
-					if(m_IsEditorScene && Physics::IsColliderRenderingEnabled())
-					{
-						auto pair = Physics::GetColliderRenderObjects();
-						auto lineArr = pair.first.first;
-						auto lineBuf = pair.first.second;
-				
-						auto triArr = pair.second.first;
-						auto triBuf = pair.second.second;
-						Renderer::SubmitCollider(lineArr, lineBuf,triArr,triBuf);
-					}
-				}
-				
-			
-			
+#pragma endregion
+
+#pragma region TerrainRender
 				//Render any terrain objects
 				{
 					auto view = m_Registry.view<TransformComponent, TerrainComponent>();
@@ -309,7 +303,9 @@ namespace tnah{
 						Renderer::SubmitTerrain(terrain.SceneTerrain->GetVertexArray(), terrain.SceneTerrain->GetMaterial(), sceneLights, transform.GetTransform());
 					}
 				}
-				
+#pragma endregion
+
+#pragma region MeshRender
 				//Render all mesh components
 				{
 					auto view = m_Registry.view<TransformComponent, MeshComponent>();
@@ -320,26 +316,32 @@ namespace tnah{
 						
 						if(model.Model)
 						{
-							auto& go = FindGameObjectByID(entity);
-							if (go.HasComponent<AnimatorComponent>()) 
+							for (auto& mesh : model.Model->GetMeshes())
 							{
-								auto& anim = go.GetComponent<AnimatorComponent>();
-								anim.UpdateAnimation(deltaTime);
-								for (auto& mesh : model.Model->GetMeshes())
-								{
-									Renderer::SubmitMesh(mesh.GetMeshVertexArray(), mesh.GetMeshMaterial(), sceneLights, transform.GetTransform(), true, anim.GetFinalBonesMatrices());
-								}
-							}
-							else 
-							{
-								for (auto& mesh : model.Model->GetMeshes())
-								{
-									Renderer::SubmitMesh(mesh.GetMeshVertexArray(), mesh.GetMeshMaterial(), sceneLights, transform.GetTransform());
-								}
+								Renderer::SubmitMesh(mesh.GetMeshVertexArray(), mesh.GetMeshMaterial(), sceneLights, transform.GetTransform());
 							}
 						}
 					}
 				}
+#pragma endregion
+
+#pragma region ColliderRender
+
+				{
+					if(m_IsEditorScene && Physics::IsColliderRenderingEnabled() && passes == 0)
+					{
+						auto pair = Physics::GetColliderRenderObjects();
+						auto lineArr = pair.first.first;
+						auto lineBuf = pair.first.second;
+				
+						auto triArr = pair.second.first;
+						auto triBuf = pair.second.second;
+						Renderer::SubmitCollider(lineArr, lineBuf,triArr,triBuf);
+					}
+				}
+#pragma endregion
+
+#pragma region AudioListeners
 
 				//Handles audio listeners
 				{
@@ -360,6 +362,10 @@ namespace tnah{
 						// }
 					}
 				}
+
+#pragma endregion
+				
+#pragma region AudioSource
 				
 				//Handle audio
 				{
@@ -379,20 +385,27 @@ namespace tnah{
 						}
 					}
 				}
+#pragma endregion 
 
 				Renderer::EndScene();
 			}
-			
+#pragma endregion 
+
+#pragma region FramebufferEndings
 			passes++;
 		}while(passes < m_RenderPasses);
 
 		//Only need to call this on one buffer as its always going to bind FBO 0 ie no framebuffer
 		if(m_IsEditorScene) m_EditorSceneFramebuffer->Unbind();
+#pragma endregion
+		
 	}
+#pragma endregion 
 
-
+#pragma  region ScenePhyscisUpdate
 	void Scene::OnFixedUpdate(PhysicsTimestep time)
 	{
+#pragma region PhysicsStep
 		Physics::OnFixedUpdate(time);
 		{
 			auto view = m_Registry.view<TransformComponent, RigidBodyComponent>();
@@ -402,10 +415,10 @@ namespace tnah{
 					auto & rb = view.get<RigidBodyComponent>(entity);
 					auto& transform = view.get<TransformComponent>(entity);
 					auto& go = FindGameObjectByID(entity);
-					if(!rb.edit)
+					if(!rb.Edit)
 					{
 						transform.Position = glm::vec3(rb.Body->getTransform().getPosition().x, rb.Body->getTransform().getPosition().y, rb.Body->getTransform().getPosition().z);
-						if(rb.useEdit)
+						if(rb.UseEdit)
 						{
 							if(tnah::Input::IsKeyPressed(tnah::Key::W))
 								rb.ApplyForce(tnah::RigidBodyComponent::ForceType::FromCentre, transform.Forward, glm::vec3(5), glm::vec3(0));
@@ -422,8 +435,11 @@ namespace tnah{
 				}
 			}
 		}
+#pragma endregion 
 	}
+#pragma endregion 
 
+#pragma region SceneHelpers
 	glm::mat4 Scene::GetTransformRelativeToParent(GameObject gameObject)
 	{
 		glm::mat4 transform(1.0f);
@@ -555,6 +571,7 @@ namespace tnah{
 	{
 		return m_GameObjectsInScene[m_SceneLight];
 	}
+#pragma endregion 
 	
 }
 

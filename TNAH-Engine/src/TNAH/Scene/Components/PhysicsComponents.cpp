@@ -79,7 +79,7 @@ namespace tnah
         }
     }
 
-    RigidBodyComponent::RigidBodyComponent(const rp3d::Vector3& position, const rp3d::Quaternion orientation)
+    RigidBodyComponent::RigidBodyComponent(const rp3d::Vector3& position, const rp3d::Quaternion& orientation)
     {
         Position = {position.x, position.y, position.z};
         Orientation = {orientation.x, orientation.y, orientation.x, orientation.w};
@@ -96,6 +96,19 @@ namespace tnah
     {
         m_BodyType = newType;
         Body->setType(m_BodyType);
+    }
+
+    void RigidBodyComponent::UpdateTransform(const TransformComponent& transform)
+    {
+        if(Physics::IsActive())
+        {
+            Position = transform.Position;
+            Rotation = transform.Rotation;
+
+            m_Transform = Math::ToRp3dTransform(transform);
+
+            Body->setTransform(m_Transform);
+        }
     }
 
     rp3d::Collider* RigidBodyComponent::AddCollider(rp3d::CollisionShape* collider, const rp3d::Transform &transform)
@@ -222,7 +235,7 @@ namespace tnah
                 }
             }
             
-            Collider = Physics::CreateHeightFieldShape(TotalColumns, TotalRows, MinHeight, MaxHeight, &HeightData[0]);
+            Components.Shape = Physics::CreateHeightFieldShape(TotalColumns, TotalRows, MinHeight, MaxHeight, &HeightData[0]);
         }
     }
 
@@ -231,7 +244,7 @@ namespace tnah
         if(Physics::IsActive())
         {
             //Todo: Get the info from the terrain component and assign each item then create the collider
-            Collider = Physics::CreateHeightFieldShape(TotalColumns, TotalRows, MinHeight, MaxHeight, &HeightData[0]);
+            Components.Shape = Physics::CreateHeightFieldShape(TotalColumns, TotalRows, MinHeight, MaxHeight, &HeightData[0]);
         }
     }
 
@@ -242,7 +255,7 @@ namespace tnah
     {
         if(Physics::IsActive())
         {
-            Collider = Physics::CreateSphereShape(Radius);
+            Components.Shape = Physics::CreateSphereShape(Radius);
         }
     }
 
@@ -251,7 +264,7 @@ namespace tnah
     {
         if(Physics::IsActive())
         {
-            Collider = Physics::CreateSphereShape(Radius);
+            Components.Shape = Physics::CreateSphereShape(Radius);
         }
     }
 
@@ -276,46 +289,69 @@ namespace tnah
     }
 #pragma endregion 
 
-#pragma region MeshCollider
+#pragma region MeshColliders
     
-    MeshColliderComponent::MeshColliderComponent()
+    ConcaveMeshColliderComponent::ConcaveMeshColliderComponent()
     {} // Maybe add something here to check and see if the gameobject the component is on
     // has a mesh and create one with out passing in values
 
-    MeshColliderComponent::MeshColliderComponent(const MeshColliderComponent& other)
-    {}
-
-    MeshColliderComponent::MeshColliderComponent(const Mesh& mesh)
+    ConcaveMeshColliderComponent::ConcaveMeshColliderComponent(Ref<Model> model)
     {
-        MeshVertexPositions = mesh.GetVertexPositions();
-        MeshIndices = mesh.GetIndices();
+        auto meshes = model->GetMeshes();
+        for(auto m : meshes)
+        {
+            MeshVertexPositions = (m.GetVertexPositions());
+            MeshIndices = (m.GetIndices());
+        }
         
         if(Physics::IsActive())
         {
             auto manager = Physics::GetManager();
-            switch (ColliderType)
-            {
-            case ShapeType::Convex:
-                {
-                    CreateConvexPolygonArray();
-                    m_PolyhedronMesh = Physics::CreatePolyhedronMesh(m_PolygonVertexArray);
-                    m_ConvexCollider = Physics::CreateConvexMeshShape(m_PolyhedronMesh);
-                    break;
-                }
-            case ShapeType::Concave:
-                {
-                    CreateTriangleVertexArray();
-                    m_TriangleMesh = Physics::CreateTriangleMesh();
-                    m_TriangleMesh->addSubpart(m_TriangleVertexArray);
-                    m_ConcaveCollider = Physics::CreateConcaveMeshShape(m_TriangleMesh);
-                    break;
-                }
-            default: break;
-            }
+            CreateTriangleVertexArray();
+            m_TriangleMesh = Physics::CreateTriangleMesh();
+            m_TriangleMesh->addSubpart(m_TriangleVertexArray);
+            Components.Shape = Physics::CreateConcaveMeshShape(m_TriangleMesh);
         }
     }
 
-    void MeshColliderComponent::CreateConvexPolygonArray()
+    void ConcaveMeshColliderComponent::CreateTriangleVertexArray()
+    {
+        m_TriangleVertexArray =
+            new rp3d::TriangleVertexArray((rp3d::uint)MeshVertexPositions.size(),
+                &MeshVertexPositions[0], sizeof(glm::vec3),
+                      (rp3d::uint)MeshIndices.size() / 3, &MeshIndices[0], 3 * sizeof(uint32_t),
+                      rp3d::TriangleVertexArray::VertexDataType::VERTEX_FLOAT_TYPE,
+                      rp3d::TriangleVertexArray::IndexDataType::INDEX_INTEGER_TYPE);
+        
+    }
+
+/************************** Convex ******************************/
+    
+    
+    ConvexMeshColliderComponent::ConvexMeshColliderComponent()
+    {} // Maybe add something here to check and see if the gameobject the component is on
+    // has a mesh and create one with out passing in values
+
+    ConvexMeshColliderComponent::ConvexMeshColliderComponent(Ref<Model> model)
+    {
+        auto meshes = model->GetMeshes();
+        for(auto m : meshes)
+        {
+            MeshVertexPositions = (m.GetVertexPositions());
+            MeshIndices = (m.GetIndices());
+        }
+        
+        if(Physics::IsActive())
+        {
+            auto manager = Physics::GetManager();
+            CreateConvexPolygonArray();
+            m_PolyhedronMesh = Physics::CreatePolyhedronMesh(m_PolygonVertexArray);
+            Components.Shape = Physics::CreateConvexMeshShape(m_PolyhedronMesh);
+          
+        }
+    }
+
+    void ConvexMeshColliderComponent::CreateConvexPolygonArray()
     {
         m_PolygonFace = new rp3d::PolygonVertexArray::PolygonFace[MeshIndices.size()];
         rp3d::PolygonVertexArray::PolygonFace* face = m_PolygonFace;
@@ -334,17 +370,6 @@ namespace tnah
                 (rp3d::uint)MeshIndices.size(), m_PolygonFace,
                 rp3d::PolygonVertexArray::VertexDataType::VERTEX_FLOAT_TYPE,
                 rp3d::PolygonVertexArray::IndexDataType::INDEX_INTEGER_TYPE);
-    }
-
-    void MeshColliderComponent::CreateTriangleVertexArray()
-    {
-        m_TriangleVertexArray =
-            new rp3d::TriangleVertexArray((rp3d::uint)MeshVertexPositions.size(),
-                &MeshVertexPositions[0], sizeof(glm::vec3),
-                      (rp3d::uint)MeshIndices.size() / 3, &MeshIndices[0], 3 * sizeof(uint32_t),
-                      rp3d::TriangleVertexArray::VertexDataType::VERTEX_FLOAT_TYPE,
-                      rp3d::TriangleVertexArray::IndexDataType::INDEX_INTEGER_TYPE);
-        
     }
 
 #pragma endregion 
