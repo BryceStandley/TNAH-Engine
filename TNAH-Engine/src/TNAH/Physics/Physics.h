@@ -1,9 +1,11 @@
 ﻿#pragma once
 #pragma warning(push, 0)
 #include <reactphysics3d/reactphysics3d.h>
+
+#pragma warning(pop)
+
 #include "TNAH/Physics/PhysicsTimestep.h"
 #include "TNAH/Scene/Components/Components.h"
-#pragma warning(pop)
 
 namespace tnah
 {
@@ -56,6 +58,7 @@ namespace tnah
          */
 
         bool Initialise(rp3d::EventListener * collisionEventListener);
+
 
         /**
          * @fn	void PhysicsManager::OnFixedUpdate(PhysicsTimestep timestep);
@@ -136,7 +139,14 @@ namespace tnah
          */
 
         void DestroyCollisionBody(rp3d::CollisionBody * body);
-    
+
+        void OnFixedUpdate(PhysicsTimestep timestep) const;
+        void Destroy();
+        rp3d::RigidBody* CreateRigidBody(const TransformComponent& transform) const;
+        void DestroyRigidBody(rp3d::RigidBody* rigidBody) const;
+        rp3d::CollisionBody* CreateCollisionBody(const TransformComponent& transform) const;
+        void DestroyCollisionBody(rp3d::CollisionBody * body) const;
+
     private:
 
         /**
@@ -166,23 +176,20 @@ namespace tnah
         /** @brief	True to collider render */
         bool m_ColliderRender = false;
 
-
-        /** @brief	Pointer to array of vertices */
         Ref<VertexArray> m_LinesVertexArray;
 
 
         /** @brief	Pointer to the buffer for lines vertex data */
         Ref<VertexBuffer> m_LinesVertexBuffer;
 
-
-        /** @brief  Pointer to Array of vertices */
         Ref<VertexArray> m_TriangleVertexArray;
 
         /** @brief	Pointer to Buffer for triangle vertex data */
         Ref<VertexBuffer> m_TriangleVertexBuffer;
 
-        /** @brief	Pointer to the shader */
         Ref<Shader> m_Shader;
+        VertexBufferLayout m_ColliderLayout;
+        
         
 
         /** @brief	True to active */
@@ -537,17 +544,6 @@ namespace tnah
     
     private:
 
-        /**
-         * @fn	static bool Physics::IsColliderRenderingEnabled();
-         *
-         * @brief	Queries if the collider rendering is enabled
-         *
-         * @author	Plush
-         * @date	12/09/2021
-         *
-         * @returns	True if the collider rendering is enabled, false if not.
-         */
-
         static bool IsColliderRenderingEnabled();
 
         /**
@@ -585,7 +581,7 @@ namespace tnah
          * @date	12/09/2021
          */
 
-        static void UpdateColliderRenderer();
+        static void UpdateCol
 
         /**
          * @fn	static rp3d::DebugRenderer Physics::GetColliderRenderer();
@@ -615,8 +611,17 @@ namespace tnah
 
 
         /** @brief	Manager for physics */
+=======
+        static rp3d::DebugRenderer* GetColliderRenderer();
+        static void PhysicsLoggerInit();
+    
+    private:
+        /** @brief a static reference to the active physics manager */
+
         static Ref<PhysicsManager> m_PhysicsManager;
 
+        /** @brief Transform used for rendering the colliders within the scene*/
+        static TransformComponent m_ColliderTransform;
         friend class Scene;
         friend class Renderer;
     };

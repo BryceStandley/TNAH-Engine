@@ -223,6 +223,7 @@ namespace tnah {
 
 		inline const uint32_t GetIndicesSize() { return m_IBOSize; }
 
+
 		/**********************************************************************************************//**
 		 * @fn	inline const BufferLayout Terrain::GetBufferLayout()
 		 *
@@ -234,7 +235,8 @@ namespace tnah {
 		 * @returns	The buffer layout.
 		 **************************************************************************************************/
 
-		inline const BufferLayout GetBufferLayout() { return m_BufferLayout; }
+		inline const VertexBufferLayout GetBufferLayout() { return m_BufferLayout; }
+
 
 		/**********************************************************************************************//**
 		 * @fn	inline Ref<VertexArray> Terrain::GetVertexArray()
@@ -491,8 +493,10 @@ namespace tnah {
 		/** @brief	Size of the ibo */
 		uint32_t m_IBOSize;
 		/** @brief	The buffer layout */
-		BufferLayout m_BufferLayout;
+		VertexBufferLayout m_BufferLayout;
 		/** @brief	The vao */
+		
+
 		Ref<VertexArray> m_VAO;
 		/** @brief	The vbo */
 		Ref<VertexBuffer> m_VBO;

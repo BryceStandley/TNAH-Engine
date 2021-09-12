@@ -17,7 +17,7 @@ namespace tnah {
 		*
 		* @brief	A constructor that takes in a path to the shader and generates it
 		*
-		* @author	Plush
+		* @author	Dylan Blereau
 		* @date	7/09/2021
 		*
 		* @param 	shaderFilePath	- represents the path to the vertex shader.
@@ -32,7 +32,7 @@ namespace tnah {
 		 *
 		 * @brief	Constructor that takes in the paths for both the fragment and vertex shaders
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @param 	vertexSrc  	The vertex source.
@@ -46,7 +46,7 @@ namespace tnah {
 		 *
 		 * @brief	Destructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 */
 
@@ -57,7 +57,7 @@ namespace tnah {
 		 *
 		 * @brief	Allows you to activate and use the shader
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 */
 
@@ -68,7 +68,7 @@ namespace tnah {
 		 *
 		 * @brief	Unbind the shader from the program.
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 */
 		
@@ -79,7 +79,7 @@ namespace tnah {
 		 *
 		 * @brief	Queries if this object is bound
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @returns	True if bound, false if not.
@@ -92,7 +92,7 @@ namespace tnah {
 		 *
 		 * @brief	Sets a boolean for use in the shader program
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @param 	name 	- represents the name of the variable.
@@ -106,7 +106,7 @@ namespace tnah {
 		 *
 		 * @brief	Sets an integer for use in the shader program
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @param 	name 	- represents the name of the variable.
@@ -120,7 +120,7 @@ namespace tnah {
 		 *
 		 * @brief	Sets a float for use in the shader program
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @param 	name 	- represents the name of the variable.
@@ -134,7 +134,7 @@ namespace tnah {
 		 *
 		 * @brief	Sets a vec2 for use in the shader program
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @param 	name 	- represents the name of the variable.
@@ -148,7 +148,7 @@ namespace tnah {
 		 *
 		 * @brief	Sets a vec3 for use in the shader program
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @param 	name 	- represents the name of the variable.
@@ -162,7 +162,7 @@ namespace tnah {
 		 *
 		 * @brief	Sets a vec4 for use in the shader program
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @param 	name 	- represents the name of the variable.
@@ -176,7 +176,7 @@ namespace tnah {
 		 *
 		 * @brief	Sets a mat3 for use in the shader program
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @param 	name	- represents the name of the variable.
@@ -190,7 +190,7 @@ namespace tnah {
 		 *
 		 * @brief	Sets a mat4 for use in the shader program
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @param 	name	- represents the name of the variable.
@@ -204,7 +204,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets the name of the shader
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @returns	The name of the shader.
@@ -218,7 +218,7 @@ namespace tnah {
 		 *
 		 * @brief	Allows for the processing of vertex and fragment shaders within a singular file
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @param 	source		  	Source code of the shader.
@@ -234,7 +234,7 @@ namespace tnah {
 		 *
 		 * @brief	Compiles the given shader sources
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @param 	shaderSources	The shader sources.
@@ -247,7 +247,7 @@ namespace tnah {
 		 *
 		 * @brief	Reads a file from a given filepath
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @param 	filepath	The filepath.
@@ -262,7 +262,7 @@ namespace tnah {
 		 *
 		 * @brief	Applies pre-processing to the paths
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @param 	shaderSorceFilePath	Full pathname of the shader source file.

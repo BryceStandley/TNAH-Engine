@@ -7,7 +7,7 @@
  *
  * @brief	A testbed.
  *
- * @author	Plush
+ * @author	Dylan Blereau
  * @date	6/09/2021
  */
 
@@ -20,7 +20,7 @@ public:
 		 *
 		 * @brief	Constructor that creates a new Application called Testbed and pushes a test layer onto the layerstack
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	6/09/2021
 		 */
 
@@ -31,7 +31,7 @@ public:
 		 *
 		 * @brief	Destructor for Testbed
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	6/09/2021
 		 */
 
@@ -42,7 +42,7 @@ public:
 		 *
 		 * @brief	Executes the 'event' action
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	6/09/2021
 		 *
 		 * @param [in,out]	e	A tnah::Event to process.
@@ -55,7 +55,7 @@ public:
 		 *
 		 * @brief	Gets cursor toggle status
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	6/09/2021
 		 *
 		 * @returns	The cursor toggle status.
@@ -68,7 +68,7 @@ public:
 		 *
 		 * @brief	Gets wireframe toggle status
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	6/09/2021
 		 *
 		 * @returns	The wireframe toggle status.
@@ -81,7 +81,7 @@ public:
 		 *
 		 * @brief	Gets fullscreen toggle status
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	6/09/2021
 		 *
 		 * @returns	The fullscreen toggle status.
@@ -94,7 +94,7 @@ public:
 		 *
 		 * @brief	Gets v synchronize toggle status
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	6/09/2021
 		 *
 		 * @returns	The v synchronize toggle status.
@@ -125,7 +125,7 @@ private:
 	 *  this is a single project and only uses engine classes and doesn't have access to all engine
 	 *  specific functions like raw OpenGL calls, thats a job for the engine to handle internally.
 	 *
-	 * @author	Plush
+	 * @author	Dylan Blereau
 	 * @date	6/09/2021
 	 *
 	 * @returns	the new application.

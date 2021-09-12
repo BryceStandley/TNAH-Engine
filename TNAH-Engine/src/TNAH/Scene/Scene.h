@@ -22,7 +22,7 @@ namespace tnah {
 	 *
 	 * @brief	A light.
 	 *
-	 * @author	Plush
+	 * @author	Dylan Blereau
 	 * @date	7/09/2021
 	 */
 
@@ -33,7 +33,7 @@ namespace tnah {
 	 *
 	 * @brief	A game object.
 	 *
-	 * @author	Plush
+	 * @author	Dylan Blereau
 	 * @date	7/09/2021
 	 */
 
@@ -44,7 +44,7 @@ namespace tnah {
 	 *
 	 * @brief	A scene
 	 *
-	 * @author	Plush
+	 * @author	Dylan Blereau
 	 * @date	7/09/2021
 	 **************************************************************************************************/
 

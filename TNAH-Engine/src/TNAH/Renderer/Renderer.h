@@ -70,7 +70,6 @@ namespace tnah {
 		 *
 		 * @param [in,out]	camera	The camera.
 		 */
-
 		static void BeginScene(SceneCamera& camera);
 
 		/**
@@ -135,6 +134,7 @@ namespace tnah {
 
 		static uint32_t GetAndIncrementTextureSlot() { s_CurrentTextureSlot++; return s_CurrentTextureSlot - 1; }
 
+
 		/**
 		 * @fn	static void Renderer::SetCullMode(const CullMode& mode);
 		 *
@@ -159,7 +159,6 @@ namespace tnah {
 		 * @param 	material	The material.
 		 * @param 	lights  	The lights.
 		 */
-
 		static void SetShaderLightInfo(Ref<Material> material, std::vector<Ref<Light>> lights);
 
 		/**

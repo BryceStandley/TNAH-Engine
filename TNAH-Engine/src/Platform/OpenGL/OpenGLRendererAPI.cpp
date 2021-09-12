@@ -61,24 +61,22 @@ namespace tnah {
 		}
 	}
 
-	void OpenGLRendererAPI::DrawIndexed(const Ref<VertexArray>& vertexArray)
+	void OpenGLRendererAPI::DrawIndexed(const Ref<VertexArray>& vertexArray, const DrawMode& mode, void* indicesStart)
 	{
-		glDrawElements(GL_TRIANGLES, vertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
+		glDrawElements(ModeFromDrawMode(mode),
+							vertexArray->GetIndexBuffer()->GetCount(),
+							vertexArray->GetIndexBuffer()->GetDataType(),
+							indicesStart
+						);
 	}
 
-	void OpenGLRendererAPI::DrawArray(const Ref<VertexArray>& vertexArray)
+	void OpenGLRendererAPI::DrawArray(const Ref<VertexArray>& vertexArray, const DrawMode& mode)
 	{
-		glDrawArrays(GL_TRIANGLES, 0, vertexArray->GetIndexSize());
+		glDrawArrays(ModeFromDrawMode(mode),
+						0,
+						vertexArray->GetIndexSize()
+					);
 	}
-
-	void OpenGLRendererAPI::DrawArray(std::string type, uint32_t size)
-	{
-		if(type == "lines")
-			glDrawArrays(GL_LINES, 0, size);
-		else
-			glDrawArrays(GL_TRIANGLES, 0, size);
-	}
-
 
 	void OpenGLRendererAPI::SetDepthFunc(const DepthFunc& func)
 	{
@@ -93,6 +91,38 @@ namespace tnah {
 		case DepthFunc::Gequal: glDepthFunc(GL_GEQUAL); break;
 		case DepthFunc::Always: glDepthFunc(GL_ALWAYS); break;
 		default:  glDepthFunc(GL_LESS); break;
+		}
+	}
+
+	int OpenGLRendererAPI::ModeFromDrawMode(const DrawMode& mode)
+	{
+		switch (mode)
+		{
+		case DrawMode::Points:
+			return GL_POINTS;
+		case DrawMode::Line_Strip:
+			return GL_LINE_STRIP;
+		case DrawMode::Line_Loop:
+			return GL_LINE_LOOP;
+		case DrawMode::Line_Strip_Adjacency:
+			return GL_LINE_STRIP_ADJACENCY;
+		case DrawMode::Lines_Adjacency:
+			return GL_LINES_ADJACENCY;
+		case DrawMode::Triangle_Strip:
+			return GL_TRIANGLE_STRIP;
+		case DrawMode::Triangle_Fan:
+			return GL_TRIANGLE_FAN;
+		case DrawMode::Triangles:
+			return GL_TRIANGLES;
+		case DrawMode::Triangles_Strip_Adjacency:
+			return GL_TRIANGLE_STRIP_ADJACENCY;
+		case DrawMode::Triangles_Adjacency:
+			return GL_TRIANGLES_ADJACENCY;
+		case DrawMode::Patches:
+			return GL_PATCHES;
+		case DrawMode::Lines:
+			return GL_LINES;
+		default: return GL_TRIANGLES;
 		}
 	}
 

@@ -99,7 +99,8 @@ namespace tnah {
         if(!m_Shader->IsBound())m_Shader->Bind();
         for(auto t : m_Textures)
         {
-            t->Bind(t->m_RendererID);
+            m_Shader->SetInt("u_Material.texture_diffuse1", t->m_RendererID);
+            t->Bind();
         }
     }
 

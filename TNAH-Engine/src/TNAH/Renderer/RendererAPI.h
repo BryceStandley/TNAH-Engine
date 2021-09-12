@@ -27,6 +27,26 @@ namespace tnah {
 	 * @date	12/09/2021
 	 */
 
+	enum class DepthFunc
+	{
+		Never, Less, Equal, Lequal, Greater, NotEqual, Gequal, Always
+	};
+
+	enum class APIEnum
+	{
+		CullFace, DepthTest, DepthMask,
+		FrontFace_CW, FrontFace_CCW,
+		CubeMap
+	};
+
+	enum class DrawMode
+	{
+		Points,
+		Lines, Line_Strip, Line_Loop, Line_Strip_Adjacency, Lines_Adjacency,
+		Triangle_Strip, Triangle_Fan, Triangles, Triangles_Strip_Adjacency, Triangles_Adjacency,
+		Patches
+	};
+	
 	class RendererAPI
 	{
 	public:
@@ -205,7 +225,9 @@ namespace tnah {
 		 * @date	12/09/2021
 		 *
 		 * @param 	enable	True to enable, false to disable.
-		 */
+			*/
+		virtual void DrawArray(const Ref<VertexArray>& vertexArray, const DrawMode& mode = DrawMode::Triangles) = 0;
+		virtual void DrawIndexed(const Ref<VertexArray>& vertexArray, const DrawMode& mode = DrawMode::Triangles, void* indicesStart = nullptr) = 0;
 
 		virtual void SetWireframe(const bool& enable) = 0;
 
@@ -289,7 +311,10 @@ namespace tnah {
 		 */
 
 		static Scope<RendererAPI> Create();
-		
+	
+	protected:
+		virtual int ModeFromDrawMode(const DrawMode& mode) = 0;
+	
 	private:
 
 		/** @brief	The API */

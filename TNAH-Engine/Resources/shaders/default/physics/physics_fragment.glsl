@@ -3,7 +3,7 @@
 
 // Uniform variables
 uniform bool u_isGlobalVertexColorEnabled;          // True if we need to use the global vertex color
-uniform vec4 globalVertexColor;                   // Vertex color
+uniform vec4 u_GlobalVertexColor;                   // Vertex color
 
 // In variables
 in vec4 v_VertexColor;
@@ -17,7 +17,7 @@ void main()
     // Compute the final color
     if (u_isGlobalVertexColorEnabled) 
     {
-        color = globalVertexColor;
+        color = u_GlobalVertexColor;
     }
     else 
     {

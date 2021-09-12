@@ -2,7 +2,7 @@
 #include "MainLayer.h"
 
 	Testbed::Testbed()
-		:tnah::Application("TNAH Testbed Application")
+		:tnah::Application("ICT398 Milestone 1 - TNAH-Engine")
 	{
 		GetWindow().SetCursorDisabled(m_CursorDisabled);
 		GetWindow().SetVSync(m_VSync);

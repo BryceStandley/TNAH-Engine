@@ -229,7 +229,7 @@ namespace tnah {
     {
         std::stringstream ss;
         ss << GenerateTagOpen("mesh", totalTabs);
-        ss << GenerateDirectoryEntry("model", mesh.Model->m_FilePath, totalTabs + 1);
+        ss << GenerateDirectoryEntry("model", mesh.Model->GetResource().RelativeDirectory, totalTabs + 1);
         ss << GenerateTagClose("mesh", totalTabs);
 
         return ss.str();
@@ -612,6 +612,7 @@ namespace tnah {
         auto meshPos = FindTags("mesh", fileContents, gameObjectTagPositions.first, gameObjectTagPositions.second);
         if(CheckTags(meshPos))
         {
+            TNAH_CORE_INFO("Mesh: {0} {1}", meshPos.first, meshPos.second);
             gameObject.AddComponent<MeshComponent>(GetMeshFromFile(fileContents, meshPos));
             added++;
         }
@@ -654,6 +655,7 @@ namespace tnah {
         auto rigidPos = FindTags("rigidbody", fileContents, gameObjectTagPositions.first, gameObjectTagPositions.second);
         if(CheckTags(rigidPos))
         {
+            TNAH_CORE_INFO("Rigid: {0} {1}", rigidPos.first, rigidPos.second);
             gameObject.AddComponent<RigidBodyComponent>(GetRigidBodyFromFile(fileContents, rigidPos, gameObject.Transform()));
             added++;
         }
@@ -754,7 +756,7 @@ namespace tnah {
     {
         auto size = GetVec3FromFile("size", fileContents, componentTagPositions);
         BoxColliderComponent box(size);
-        box.colliderPointer = rb.AddCollider(box.Collider, rp3d::Transform::identity());
+        box.Components.BodyCollider = rb.AddCollider(box.Components.Shape, rp3d::Transform::identity());
         return box;
     }
 

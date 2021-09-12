@@ -22,7 +22,7 @@ namespace tnah
 		 *
 		 * @brief	Constructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @param 	title 	(Optional) The title.
@@ -43,7 +43,7 @@ namespace tnah
 	 *
 	 * @brief	An abstract window class that provides the virtual function defintions required to create a window
 	 *
-	 * @author	Plush
+	 * @author	Dylan Blereau
 	 * @date	7/09/2021
 	 */
 
@@ -59,7 +59,7 @@ namespace tnah
 		 *
 		 * @brief	Destructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 */
 
@@ -70,7 +70,7 @@ namespace tnah
 		 *
 		 * @brief	Executes the 'update' action
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 */
 
@@ -81,7 +81,7 @@ namespace tnah
 		 *
 		 * @brief	Gets the width
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @returns	The width.
@@ -94,7 +94,7 @@ namespace tnah
 		 *
 		 * @brief	Gets the height
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @returns	The height.
@@ -107,7 +107,7 @@ namespace tnah
 		 *
 		 * @brief	sets the event callback to the callback given as a parameter
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @param 	callback	The callback.
@@ -120,7 +120,7 @@ namespace tnah
 		 *
 		 * @brief	Sets v synchronize
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @param 	enabled	True to enable, false to disable.
@@ -133,7 +133,7 @@ namespace tnah
 		 *
 		 * @brief	Query if this object is v synchronize
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @returns	True if v synchronize, false if not.
@@ -146,7 +146,7 @@ namespace tnah
 		 *
 		 * @brief	Query if this object is fullscreen
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @returns	True if fullscreen, false if not.
@@ -159,7 +159,7 @@ namespace tnah
 		 *
 		 * @brief	Toggle full screen
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @param 	enabled	True to enable, false to disable.
@@ -172,7 +172,7 @@ namespace tnah
 		 *
 		 * @brief	Sets screen resolution
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @param 	width 	The width.
@@ -186,7 +186,7 @@ namespace tnah
 		 *
 		 * @brief	Gets native window
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @returns	Null if it fails, else the native window.
@@ -199,7 +199,7 @@ namespace tnah
 		 *
 		 * @brief	Sets cursor disabled
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @param 	disable	True to disable, false to enable.
@@ -212,7 +212,7 @@ namespace tnah
 		 *
 		 * @brief	Creates a new Scope&lt;Window&gt;
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @param 	props	(Optional) The properties.

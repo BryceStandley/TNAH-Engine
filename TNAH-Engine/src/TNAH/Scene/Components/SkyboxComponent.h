@@ -130,8 +130,9 @@ namespace tnah {
 		Ref<VertexArray> m_VAO;
 		/** @brief	The vbo */
 		Ref<VertexBuffer> m_VBO;
+
 		/** @brief	The buffer layout */
-		BufferLayout m_BufferLayout;
+		VertexBufferLayout m_BufferLayout;
 		
 		/** @brief	The material */
 		Ref<SkyboxMaterial> m_Material;

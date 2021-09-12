@@ -199,7 +199,7 @@ bool tnah::UI::Entry(const char* label, glm::vec2& value, bool readOnly, float r
 
 bool tnah::UI::Entry(std::string& label, glm::vec2& value, bool readOnly, float resetValue)
 {
-    return Entry(label, value, readOnly, resetValue);
+    return Entry(label.c_str(), value, readOnly, resetValue);
 }
 
 bool tnah::UI::Entry(const char* label, glm::vec3& value, bool readOnly, float resetValue)
@@ -643,7 +643,7 @@ bool tnah::UI::EntrySlider(const std::string& label, glm::vec4& value,bool readO
 
 //***************************************** Drag Controls ******************************************************************
 
-bool tnah::UI::EntryDrag(const char* label, int& value, bool readOnly, int speed, int min, int max, float resetValue)
+bool tnah::UI::EntryDrag(const char* label, int& value, bool readOnly, float speed, int min, int max, int resetValue)
 {
     bool modified = false;
     ImGui::Columns(2);
@@ -680,7 +680,7 @@ bool tnah::UI::EntryDrag(const char* label, int& value, bool readOnly, int speed
     return modified;
 }
 
-bool tnah::UI::EntryDrag(const std::string& label, int& value, bool readOnly, int speed, int min, int max, float resetValue)
+bool tnah::UI::EntryDrag(const std::string& label, int& value, bool readOnly, float speed, int min, int max, int resetValue)
 {
     return EntryDrag(label.c_str(), value, readOnly, speed, min, max, resetValue);
 }
@@ -1108,7 +1108,7 @@ bool tnah::UI::EntryDropdown(const char* label, const char** options, uint32_t o
 	const std::string id = "##" + std::string(label);
 	if (ImGui::BeginCombo(id.c_str(), current))
 	{
-		for (int i = 0; i < optionCount; i++)
+		for (uint32_t i = 0; i < optionCount; i++)
 		{
 			const bool is_selected = (current == options[i]);
 			if (ImGui::Selectable(options[i], is_selected))
@@ -1148,7 +1148,7 @@ bool tnah::UI::EntryDropdown(const char* label, const std::vector<std::string>& 
 	const std::string id = "##" + std::string(label);
 	if (ImGui::BeginCombo(id.c_str(), current))
 	{
-		for (int i = 0; i < optionCount; i++)
+		for (uint32_t i = 0; i < optionCount; i++)
 		{
 			const bool is_selected = (current == options[i]);
 			if (ImGui::Selectable(options[i].c_str(), is_selected))

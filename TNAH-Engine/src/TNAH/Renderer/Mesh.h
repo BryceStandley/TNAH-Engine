@@ -292,8 +292,6 @@ struct Vertex
         /** @brief	The material */
         Ref<Material> m_Material;
 
-        /** @brief	The buffer layout */
-        BufferLayout m_BufferLayout;
         friend class EditorUI;
     };
 
@@ -413,13 +411,12 @@ struct Vertex
          */
 
         int& GetBoneCount() { return m_BoneCounter; }
+        const Resource& GetResource() const { return m_Resource; }
     private:
 
 
         /** @brief	The meshes */
         std::vector<Mesh> m_Meshes;
-
-        /** @brief	Pathname of the directory */
         std::string m_Directory;
 
         /** @brief	Full pathname of the file */

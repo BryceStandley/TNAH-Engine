@@ -13,7 +13,7 @@ namespace tnah {
      *
      * @brief	An editor user interface.
      *
-     * @author	Plush
+     * @author	Dylan Blereau
      * @date	7/09/2021
      */
 
@@ -26,7 +26,7 @@ namespace tnah {
          *
          * @brief	Draw component properties
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	7/09/2021
          *
          * @param [in,out]	object	The object.
@@ -41,7 +41,7 @@ namespace tnah {
          *
          * @brief	Draw float control
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	7/09/2021
          *
          * @param 		  	label   	The label.
@@ -60,7 +60,7 @@ namespace tnah {
          *
          * @brief	Draw vector 4 control
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	7/09/2021
          *
          * @param 		  	label	   	The label.
@@ -79,7 +79,7 @@ namespace tnah {
          *
          * @brief	Draw vector 3 control
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	7/09/2021
          *
          * @param 		  	label	   	The label.
@@ -98,7 +98,7 @@ namespace tnah {
          *
          * @brief	Draw vector 2 control
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	7/09/2021
          *
          * @param 		  	label	   	The label.
@@ -117,7 +117,7 @@ namespace tnah {
          *
          * @brief	Draw text control
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	7/09/2021
          *
          * @param 		  	label   	The label.
@@ -135,7 +135,7 @@ namespace tnah {
          *
          * @brief	Draw 4 color control
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	7/09/2021
          *
          * @param 		  	label	  	The label.
@@ -153,7 +153,7 @@ namespace tnah {
          *
          * @brief	Draw material properties
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	7/09/2021
          *
          * @param 	empty   	True to empty.
@@ -169,7 +169,7 @@ namespace tnah {
          *
          * @brief	Draw remove component button
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	7/09/2021
          *
          * @param 	id	The identifier.
@@ -184,7 +184,7 @@ namespace tnah {
          *
          * @brief	Draw reset button
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	7/09/2021
          *
          * @param 	id	The identifier.
@@ -199,7 +199,7 @@ namespace tnah {
          *
          * @brief	Draw red button
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	7/09/2021
          *
          * @param 	label	The label.
@@ -214,7 +214,7 @@ namespace tnah {
          *
          * @brief	Gets the possible component types
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	7/09/2021
          *
          * @param 	typesHeld	The types held.
@@ -231,7 +231,7 @@ namespace tnah {
          *
          * @brief	Draw add component
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	7/09/2021
          *
          * @param [in,out]	object	  	The object.
@@ -247,7 +247,7 @@ namespace tnah {
          *
          * @brief	Finds all the components that contain the search terms and draws the component list
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	7/09/2021
          *
          * @param 	typesToSearch	The types to search.
@@ -263,7 +263,7 @@ namespace tnah {
          *
          * @brief	Draw component list
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	7/09/2021
          *
          * @param 	componentsToDisplay	The components to display.
@@ -278,7 +278,7 @@ namespace tnah {
          *
          * @brief	Searches for all components containing the given
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	7/09/2021
          *
          * @param 	componentsToSearch	The components to search.
@@ -294,7 +294,7 @@ namespace tnah {
          *
          * @brief	Finds the string that matches the given component type
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	7/09/2021
          *
          * @param 	type	The type.
@@ -309,7 +309,7 @@ namespace tnah {
          *
          * @brief	Searches for the component type category
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	7/09/2021
          *
          * @param 	type	The type.
@@ -324,7 +324,7 @@ namespace tnah {
          *
          * @brief	Adds a component from type
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	7/09/2021
          *
          * @param [in,out]	object	The object.

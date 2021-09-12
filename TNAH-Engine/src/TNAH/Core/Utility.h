@@ -12,7 +12,7 @@ namespace tnah::Utility {
      *
      * @brief	Splits directory and file path
      *
-     * @author	Plush
+     * @author	Dylan Blereau
      * @date	7/09/2021
      *
      * @param 	filePath	Full pathname of the file.
@@ -39,7 +39,7 @@ namespace tnah::Utility {
      *
      * @brief	Searches for the first file name from path
      *
-     * @author	Plush
+     * @author	Dylan Blereau
      * @date	7/09/2021
      *
      * @param 	filePath	Full pathname of the file.
@@ -61,7 +61,7 @@ namespace tnah::Utility {
      *
      * @brief	Splits file name and extension
      *
-     * @author	Plush
+     * @author	Dylan Blereau
      * @date	7/09/2021
      *
      * @param 	fileName	Filename of the file.
@@ -85,7 +85,7 @@ namespace tnah::Utility {
      *
      * @brief	Relative path from absolute
      *
-     * @author	Plush
+     * @author	Dylan Blereau
      * @date	7/09/2021
      *
      * @param 	absolutePath	Full pathname of the absolute file.
@@ -112,7 +112,7 @@ namespace tnah::Utility {
      *
      * @brief	Absolute path from relative
      *
-     * @author	Plush
+     * @author	Dylan Blereau
      * @date	7/09/2021
      *
      * @param 	relativePath	Full pathname of the relative file.

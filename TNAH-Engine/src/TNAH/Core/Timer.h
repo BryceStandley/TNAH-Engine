@@ -9,7 +9,7 @@ namespace tnah {
 	 *
 	 * @brief	A timer class used to manage aspects of time
 	 *
-	 * @author	Plush
+	 * @author	Dylan Blereau
 	 * @date	7/09/2021
 	 */
 
@@ -22,7 +22,7 @@ namespace tnah {
 		 *
 		 * @brief	Default constructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 */
 
@@ -36,7 +36,7 @@ namespace tnah {
 		 *
 		 * @brief	Resets this object
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 */
 
@@ -50,7 +50,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets the elapsed time
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @returns	A float.
@@ -66,7 +66,7 @@ namespace tnah {
 		 *
 		 * @brief	Returns Elapsed milliseconds
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @returns	A float.

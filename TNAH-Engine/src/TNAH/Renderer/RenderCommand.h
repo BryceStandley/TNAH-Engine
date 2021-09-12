@@ -60,53 +60,12 @@ namespace tnah {
 			s_RendererAPI->Clear();
 		}
 
-		/**
-		 * @fn	inline static void RenderCommand::DrawArray(const Ref<VertexArray> vertexArray)
-		 *
-		 * @brief	Draws using the VAO and a glDrawArrays call
-		 *
-		 * @author	Plush
-		 * @date	12/09/2021
-		 *
-		 * @param 	vertexArray	Array of vertices.
-		 */
 
-		inline static void DrawArray(const Ref<VertexArray> vertexArray)
 		{
-			s_RendererAPI->DrawArray(vertexArray);
+			s_RendererAPI->DrawArray(vertexArray, mode);
 		}
 
-		/**
-		 * @fn	inline static void RenderCommand::DrawArray(std::string type, uint32_t size)
-		 *
-		 * @brief	Draws according to type and size, using glDrawArrays
-		 *
-		 * @author	Plush
-		 * @date	12/09/2021
-		 *
-		 * @param 	type	The type.
-		 * @param 	size	The size.
-		 */
 
-		inline static void DrawArray(std::string type, uint32_t size)
-		{
-			s_RendererAPI->DrawArray(type, size);
-		}
-
-		/**
-		 * @fn	inline static void RenderCommand::DrawIndexed(const Ref<VertexArray> vertexArray)
-		 *
-		 * @brief	Draws using glDrawElements
-		 *
-		 * @author	Plush
-		 * @date	12/09/2021
-		 *
-		 * @param 	vertexArray	Array of vertices.
-		 */
-
-		inline static void DrawIndexed(const Ref<VertexArray> vertexArray)
-		{
-			s_RendererAPI->DrawIndexed(vertexArray);
 		}
 
 		/**
@@ -195,50 +154,16 @@ namespace tnah {
 			s_RendererAPI->SetDepthMask(enabled);
 		}
 
-		/**
-		 * @fn	inline static void RenderCommand::SetDepthFunc(const RendererAPI::DepthFunc& func)
-		 *
-		 * @brief	Sets depth function
-		 *
-		 * @author	Plush
-		 * @date	12/09/2021
-		 *
-		 * @param 	func	The function.
-		 */
 
-		inline static void SetDepthFunc(const RendererAPI::DepthFunc& func)
 		{
 			s_RendererAPI->SetDepthFunc(func);
 		}
 
-		/**
-		 * @fn	inline static void RenderCommand::Disable(const RendererAPI::APIEnum& value)
-		 *
-		 * @brief	Disables the given value
-		 *
-		 * @author	Plush
-		 * @date	12/09/2021
-		 *
-		 * @param 	value	The value.
-		 */
-
-		inline static void Disable(const RendererAPI::APIEnum& value)
 		{
 			s_RendererAPI->Disable(value);
 		}
 
-		/**
-		 * @fn	inline static void RenderCommand::Enable(const RendererAPI::APIEnum& value)
-		 *
-		 * @brief	Enables the given value
-		 *
-		 * @author	Plush
-		 * @date	12/09/2021
-		 *
-		 * @param 	value	The value.
-		 */
 
-		inline static void Enable(const RendererAPI::APIEnum& value)
 		{
 			s_RendererAPI->Enable(value);
 		}

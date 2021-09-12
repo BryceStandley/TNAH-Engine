@@ -77,6 +77,7 @@ namespace tnah {
 
 		virtual void AddVertexBuffer(const Ref<VertexBuffer>& vertexBuffer) = 0;
 
+
 		/**
 		 * @fn	virtual void VertexArray::SetIndexBuffer(const Ref<IndexBuffer>& indexBuffer) = 0;
 		 *
@@ -87,6 +88,8 @@ namespace tnah {
 		 *
 		 * @param 	indexBuffer	Buffer for index data.
 		 */
+
+		virtual void UpdateVertexBuffer() = 0;
 
 		virtual void SetIndexBuffer(const Ref<IndexBuffer>& indexBuffer) = 0;
 

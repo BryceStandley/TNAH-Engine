@@ -8,7 +8,7 @@ namespace tnah
      *
      * @brief	An aabb bounding box
      *
-     * @author	Plush
+     * @author	Dylan Blereau
      * @date	7/09/2021
      */
 
@@ -24,7 +24,7 @@ namespace tnah
          *
          * @brief	Default constructor
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	7/09/2021
          */
 
@@ -36,7 +36,7 @@ namespace tnah
          *
          * @brief	Constructor
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	7/09/2021
          *
          * @param 	min	The minimum.

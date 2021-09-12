@@ -10,7 +10,7 @@ namespace tnah {
 	 *
 	 * @brief	Structure of a file, contains a name and a extension.
 	 *
-	 * @author	Plush
+	 * @author	Dylan Blereau
 	 * @date	7/09/2021
 	 */
 	
@@ -25,7 +25,7 @@ namespace tnah {
 		 *
 		 * @brief	Defaulted constructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 */
 
@@ -36,7 +36,7 @@ namespace tnah {
 		 *
 		 * @brief	Constructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @param 	name	 	The file name.
@@ -51,7 +51,7 @@ namespace tnah {
 		 *
 		 * @brief	Cast that converts the given  to a string&amp;
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @returns	The result of the operation.
@@ -73,7 +73,7 @@ namespace tnah {
 	 *
 	 * @brief	Structure of a Folder, contains a vector of files inside a root folder path
 	 *
-	 * @author	Plush
+	 * @author	Dylan Blereau
 	 * @date	7/09/2021
 	 */
 	
@@ -91,7 +91,7 @@ namespace tnah {
 		 *
 		 * @brief	Defaulted constructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 */
 
@@ -103,7 +103,7 @@ namespace tnah {
 	 *
 	 * @brief	Structure of a Project, contains a root directory and vector of sub directories.
 	 *
-	 * @author	Plush
+	 * @author	Dylan Blereau
 	 * @date	7/09/2021
 	 */
 	
@@ -127,7 +127,7 @@ namespace tnah {
 		 *
 		 * @brief	Constructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @param 	root	The root.
@@ -141,7 +141,7 @@ namespace tnah {
 		 *
 		 * @brief	Cast that converts the given  to a string&amp;
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @returns	The result of the operation.
@@ -154,7 +154,7 @@ namespace tnah {
 		 *
 		 * @brief	Cast that converts the given  to a vector
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @returns	The result of the operation.
@@ -167,7 +167,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets the folder>&amp;
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @returns	A std::unordered_map&lt;Directory.
@@ -208,7 +208,7 @@ namespace tnah {
 	 *
 	 * @brief	A resource type.
 	 *
-	 * @author	Plush
+	 * @author	Dylan Blereau
 	 * @date	7/09/2021
 	 */
 
@@ -226,7 +226,7 @@ namespace tnah {
 		 *
 		 * @brief	Defaulted constructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 */
 
@@ -237,7 +237,7 @@ namespace tnah {
 		 *
 		 * @brief	Constructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @param 	type   	The type.
@@ -303,7 +303,7 @@ namespace tnah {
 		 *
 		 * @brief	Guess type of the file from its extension
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @param 	fileExtension	The file extension.
@@ -384,7 +384,7 @@ namespace tnah {
 	 *
 	 * @brief	A resource.
 	 *
-	 * @author	Plush
+	 * @author	Dylan Blereau
 	 * @date	7/09/2021
 	 */
 
@@ -414,7 +414,7 @@ namespace tnah {
 		 *
 		 * @brief	Defaulted constructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 */
 
@@ -425,7 +425,7 @@ namespace tnah {
 		 *
 		 * @brief	Constructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @param 	fileDirectory	Pathname of the file directory.
@@ -444,7 +444,7 @@ namespace tnah {
 		 *
 		 * @brief	Constructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @param 	fileDirectory	Pathname of the file directory.
@@ -467,7 +467,7 @@ namespace tnah {
 		 *
 		 * @brief	Constructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @param 	relativeFilePath	Full pathname of the relative file.

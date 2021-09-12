@@ -9,7 +9,7 @@ namespace tnah {
 		 *
 		 * @brief	An Editor class that inherits from the base class Application
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 */
 
@@ -22,7 +22,7 @@ namespace tnah {
 			 *
 			 * @brief	Constructor that creates a new Application called Editor and push an EditorLayer onto the layerstack
 			 *
-			 * @author	Plush
+			 * @author	Dylan Blereau
 			 * @date	7/09/2021
 			 */
 
@@ -33,7 +33,7 @@ namespace tnah {
 			 *
 			 * @brief	Destructor
 			 *
-			 * @author	Plush
+			 * @author	Dylan Blereau
 			 * @date	7/09/2021
 			 */
 
@@ -44,7 +44,7 @@ namespace tnah {
 			 *
 			 * @brief	Executes the 'event' action
 			 *
-			 * @author	Plush
+			 * @author	Dylan Blereau
 			 * @date	7/09/2021
 			 *
 			 * @param [in,out]	e	A tnah::Event to process.
@@ -57,7 +57,7 @@ namespace tnah {
 			 *
 			 * @brief	Gets cursor toggle status
 			 *
-			 * @author	Plush
+			 * @author	Dylan Blereau
 			 * @date	7/09/2021
 			 *
 			 * @returns	The cursor toggle status.
@@ -70,7 +70,7 @@ namespace tnah {
 			 *
 			 * @brief	Gets wireframe toggle status
 			 *
-			 * @author	Plush
+			 * @author	Dylan Blereau
 			 * @date	7/09/2021
 			 *
 			 * @returns	The wireframe toggle status.
@@ -83,7 +83,7 @@ namespace tnah {
 			 *
 			 * @brief	Gets fullscreen toggle status
 			 *
-			 * @author	Plush
+			 * @author	Dylan Blereau
 			 * @date	7/09/2021
 			 *
 			 * @returns	The fullscreen toggle status.
@@ -96,7 +96,7 @@ namespace tnah {
 			 *
 			 * @brief	Gets v synchronize toggle status
 			 *
-			 * @author	Plush
+			 * @author	Dylan Blereau
 			 * @date	7/09/2021
 			 *
 			 * @returns	The v synchronize toggle status.

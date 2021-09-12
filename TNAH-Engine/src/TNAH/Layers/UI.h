@@ -561,6 +561,7 @@ namespace tnah {
 
         //*********************** Drag Controls ++++++++++++++++++++++++++++++++//
 
+
         /**
          * @fn	static bool UI::EntryDrag(const char* label, int& value, bool readOnly = false, int speed = 1, int min = 0.0f, int max = 0.0f, float resetValue = 0);
          *
@@ -583,7 +584,7 @@ namespace tnah {
         static bool EntryDrag(const char* label, int& value, bool readOnly = false, int speed = 1, int min = 0.0f, int max = 0.0f, float resetValue = 0);
 
         /**
-         * @fn	static bool UI::EntryDrag(const std::string& label, int& value, bool readOnly = false, int speed = 1, int min = 0.0f, int max = 0.0f, float resetValue = 0);
+         * @fn	static bool UI::EntryDrag(const std::string& label, int& value, bool readOnly = false, float speed = 1, int min = 0.0f, int max = 0.0f, int resetValue = 0);
          *
          * @brief	Entry drag
          *
@@ -601,7 +602,8 @@ namespace tnah {
          * @returns	True if it succeeds, false if it fails.
          */
 
-        static bool EntryDrag(const std::string& label, int& value, bool readOnly = false, int speed = 1, int min = 0.0f, int max = 0.0f, float resetValue = 0);
+         static bool EntryDrag(const std::string& label, int& value, bool readOnly = false, float speed = 1, int min = 0.0f, int max = 0.0f, int
+                              resetValue = 0);
 
         /**
          * @fn	static bool UI::EntryDrag(const char* label, float& value, bool readOnly = false, float speed = 1.0f, float min = 0.0f, float max = 0.0f, float resetValue = 0);
@@ -617,11 +619,16 @@ namespace tnah {
          * @param 		  	speed	  	(Optional) The speed.
          * @param 		  	min		  	(Optional) The minimum.
          * @param 		  	max		  	(Optional) The maximum.
-         * @param 		  	resetValue	(Optional) The reset value.
+	resetValue	(Optional) The reset value.
          *
          * @returns	True if it succeeds, false if it fails.
          */
 
+
+        static bool EntryDrag(const char* label, int& value, bool readOnly = false, float speed = 1, int min = 0.0f, int max = 0.0f, int resetValue =
+                                  0);
+       
+        
         static bool EntryDrag(const char* label, float& value, bool readOnly = false, float speed = 1.0f, float min = 0.0f, float max = 0.0f, float resetValue = 0);
 
         /**

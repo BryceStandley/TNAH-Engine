@@ -11,7 +11,7 @@ namespace tnah {
 	 *
 	 * @brief	A Window Input class that inherits from the base Input class
 	 *
-	 * @author	Plush
+	 * @author	Dylan Blereau
 	 * @date	7/09/2021
 	 */
 
@@ -25,7 +25,7 @@ namespace tnah {
 		 *
 		 * @brief	Query if 'keycode' is pressed implementation
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @param 	keycode	The keycode.
@@ -40,7 +40,7 @@ namespace tnah {
 		 *
 		 * @brief	Query if 'button' is mouse button pressed
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @param 	button	The button.
@@ -55,7 +55,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets mouse x coordinate implementation
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @returns	The mouse x coordinate implementation.
@@ -68,7 +68,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets mouse y coordinate implementation
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @returns	The mouse y coordinate implementation.
@@ -81,7 +81,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets mouse position implementation
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	7/09/2021
 		 *
 		 * @returns	The mouse position implementation.
