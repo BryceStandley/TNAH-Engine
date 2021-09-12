@@ -9,41 +9,118 @@
 
 namespace tnah {
 
+	/**
+	 * @struct	KeyPosition
+	 *
+	 * @brief	A key position.
+	 *
+	 * @author	Plush
+	 * @date	12/09/2021
+	 */
+
 	struct KeyPosition 
 	{
+
+		/** @brief	The position */
 		glm::vec3 position;
+
+		/** @brief	The time stamp */
 		float timeStamp;
 	};
+
+	/**
+	 * @struct	KeyRotation
+	 *
+	 * @brief	A key rotation.
+	 *
+	 * @author	Plush
+	 * @date	12/09/2021
+	 */
 
 	struct KeyRotation
 	{
+
+		/** @brief	The orientation */
 		glm::quat orientation;
+
+		/** @brief	The time stamp */
 		float timeStamp;
 	};
 
+	/**
+	 * @struct	KeyScale
+	 *
+	 * @brief	A key scale.
+	 *
+	 * @author	Plush
+	 * @date	12/09/2021
+	 */
+
 	struct KeyScale
 	{
+
+		/** @brief	The scale */
 		glm::vec3 scale;
+
+		/** @brief	The time stamp */
 		float timeStamp;
 	};
+
+	/**
+	 * @class	Bone
+	 *
+	 * @brief	A bone class responsible for handling the bones used in animation 
+	 *
+	 * @author	Plush
+	 * @date	12/09/2021
+	 */
 
 	class Bone 
 	{
 	private:
+
+		/** @brief	The positions */
 		std::vector<KeyPosition> m_Positions;
+
+		/** @brief	The rotations */
 		std::vector<KeyRotation> m_Rotations;
+
+		/** @brief	The scales */
 		std::vector<KeyScale> m_Scales;
 
+		/** @brief	Number of positions */
 		int m_NumPositions;
+
+		/** @brief	Number of rotations */
 		int m_NumRotations;
+
+		/** @brief	Number of scalings */
 		int m_NumScalings;
 
+		/** @brief	The local transform */
 		glm::mat4 m_LocalTransform;
+
+		/** @brief	The name */
 		std::string m_Name;
+
+		/** @brief	The identifier */
 		int m_ID;
 
 	public:
-		/*reads keyframes from aiNodeAnim*/
+
+		/**
+		 * @fn	Bone::Bone(const std::string& name, int ID, const aiNodeAnim* channel)
+		 *
+		 * @brief	Constructor that reads keyframes from aiNodeAnim.
+		 *
+		 * @author	Plush
+		 * @date	12/09/2021
+		 *
+		 * @param 	name   	The name.
+		 * @param 	ID	   	The identifier.
+		 * @param 	channel	The channel.
+		 */
+
 		Bone(const std::string& name, int ID, const aiNodeAnim* channel) : m_Name(name), m_ID(ID), m_LocalTransform(1.0f) 
 		{
 			m_NumPositions = channel->mNumPositionKeys;
@@ -85,6 +162,18 @@ namespace tnah {
 
 		/* Interpolates b/w positions,rotations & scaling keys based on the curren time of the
 		animation and prepares the local transformation matrix by combining all keys tranformations */
+
+		/**
+		 * @fn	void Bone::Update(float animationTime)
+		 *
+		 * @brief	Updates the given animationTime by interpolating between position, rotation, scale and combining them all together to form the localTransform
+		 *
+		 * @author	Plush
+		 * @date	12/09/2021
+		 *
+		 * @param 	animationTime	The animation time.
+		 */
+
 		void Update(float animationTime) 
 		{
 			glm::mat4 translation = InterpolatePosition(animationTime);
@@ -93,12 +182,58 @@ namespace tnah {
 			m_LocalTransform = translation * rotation * scale;
 		}
 
+		/**
+		 * @fn	glm::mat4 Bone::GetLocalTransform()
+		 *
+		 * @brief	Gets local transform
+		 *
+		 * @author	Plush
+		 * @date	12/09/2021
+		 *
+		 * @returns	The local transform.
+		 */
+
 		glm::mat4 GetLocalTransform() { return m_LocalTransform; }
+
+		/**
+		 * @fn	std::string Bone::GetBoneName() const
+		 *
+		 * @brief	Gets bone name
+		 *
+		 * @author	Plush
+		 * @date	12/09/2021
+		 *
+		 * @returns	The bone name.
+		 */
+
 		std::string GetBoneName() const { return m_Name; }
+
+		/**
+		 * @fn	int Bone::GetBoneID()
+		 *
+		 * @brief	Gets bone identifier
+		 *
+		 * @author	Plush
+		 * @date	12/09/2021
+		 *
+		 * @returns	The bone identifier.
+		 */
+
 		int GetBoneID() { return m_ID; }
 
-		/* Gets the current index on mKeyPositions to interpolate to based on the current
-		animation time */
+		/**
+		 * @fn	int Bone::GetPositionIndex(float animationTime)
+		 *
+		 * @brief	Gets the index of the position to interpolate to based on the current animation time
+		 *
+		 * @author	Plush
+		 * @date	12/09/2021
+		 *
+		 * @param 	animationTime	The animation time.
+		 *
+		 * @returns	The position index.
+		 */
+
 		int GetPositionIndex(float animationTime)
 		{
 			for (int index = 0; index < m_NumPositions - 1; ++index) 
@@ -110,8 +245,19 @@ namespace tnah {
 			return 0;
 		}
 
-		/* Gets the current index on mKeyRotations to interpolate to based on the current
-		animation time */
+		/**
+		 * @fn	int Bone::GetRotationIndex(float animationTime)
+		 *
+		 * @brief	Gets the index of the rotation to interpolate to based on the current animation time
+		 *
+		 * @author	Plush
+		 * @date	12/09/2021
+		 *
+		 * @param 	animationTime	The animation time.
+		 *
+		 * @returns	The rotation index.
+		 */
+
 		int GetRotationIndex(float animationTime)
 		{
 			for (int index = 0; index < m_NumRotations - 1; ++index)
@@ -123,8 +269,19 @@ namespace tnah {
 			return 0;
 		}
 
-		/* Gets the current index on mKeyScalings to interpolate to based on the current
-		animation time */
+		/**
+		 * @fn	int Bone::GetScaleIndex(float animationTime)
+		 *
+		 * @brief	Gets the index of the scale to interpolate to based on the current animation time
+		 *
+		 * @author	Plush
+		 * @date	12/09/2021
+		 *
+		 * @param 	animationTime	The animation time.
+		 *
+		 * @returns	The scale index.
+		 */
+
 		int GetScaleIndex(float animationTime)
 		{
 			for (int index = 0; index < m_NumScalings - 1; ++index)
@@ -138,7 +295,21 @@ namespace tnah {
 
 		private:
 
-			/* Gets normalized value for Lerp and Slerp*/
+			/**
+			 * @fn	float Bone::GetScaleFactor(float lastTimeStamp, float nextTimeStamp, float animationTime)
+			 *
+			 * @brief	Gets scale factor
+			 *
+			 * @author	Plush
+			 * @date	12/09/2021
+			 *
+			 * @param 	lastTimeStamp	The last time stamp.
+			 * @param 	nextTimeStamp	The next time stamp.
+			 * @param 	animationTime	The animation time.
+			 *
+			 * @returns	The scale factor.
+			 */
+
 			float GetScaleFactor(float lastTimeStamp, float nextTimeStamp, float animationTime) 
 			{
 				float scaleFactor = 0.0f;
@@ -148,8 +319,19 @@ namespace tnah {
 				return scaleFactor;
 			}
 
-			/* figures out which position keys to interpolate b/w and performs the interpolation
-			and returns the translation matrix */
+			/**
+			 * @fn	glm::mat4 Bone::InterpolatePosition(float animationTime)
+			 *
+			 * @brief	Interpolate position
+			 *
+			 * @author	Plush
+			 * @date	12/09/2021
+			 *
+			 * @param 	animationTime	The animation time.
+			 *
+			 * @returns	A glm::mat4.
+			 */
+
 			glm::mat4 InterpolatePosition(float animationTime) 
 			{
 				if (1 == m_NumPositions)
@@ -164,8 +346,19 @@ namespace tnah {
 				return glm::translate(glm::mat4(1.0f), finalPosition);
 			}
 
-			/* figures out which rotations keys to interpolate b/w and performs the interpolation
-			and returns the rotation matrix */
+			/**
+			 * @fn	glm::mat4 Bone::InterpolateRotation(float animationTime)
+			 *
+			 * @brief	Interpolate rotation
+			 *
+			 * @author	Plush
+			 * @date	12/09/2021
+			 *
+			 * @param 	animationTime	The animation time.
+			 *
+			 * @returns	A glm::mat4.
+			 */
+
 			glm::mat4 InterpolateRotation(float animationTime) 
 			{
 				if (1 == m_NumRotations) 
@@ -183,8 +376,19 @@ namespace tnah {
 				return glm::toMat4(finalRotation);
 			}
 
-			/* figures out which scaling keys to interpolate b/w and performs the interpolation
-			and returns the scale matrix */
+			/**
+			 * @fn	glm::mat4 Bone::InterpolateScaling(float animationTime)
+			 *
+			 * @brief	Interpolate scaling
+			 *
+			 * @author	Plush
+			 * @date	12/09/2021
+			 *
+			 * @param 	animationTime	The animation time.
+			 *
+			 * @returns	A glm::mat4.
+			 */
+
 			glm::mat4 InterpolateScaling(float animationTime) 
 			{
 				if (1 == m_NumScalings)

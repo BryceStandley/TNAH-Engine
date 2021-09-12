@@ -5,36 +5,86 @@
 #include "Shader.h"
 
 namespace tnah {
+
+    /**
+     * @class	Light
+     *
+     * @brief	A light class that inherits from the refCounted class to allow the use of ref pointers. Responsible for lighting in applications
+     *
+     * @author	Plush
+     * @date	12/09/2021
+     */
+
     class Light : public RefCounted
     {
     public:
+
+        /**
+         * @enum	LightType
+         *
+         * @brief	Values that represent light types
+         */
+
         enum class LightType
         {
             Directional = 0,
             Point = 1,
             Spot = 2
         };
-        
+
+        /**
+         * @struct	ShaderLightInformation
+         *
+         * @brief	Information about the shader light.
+         *
+         * @author	Plush
+         * @date	12/09/2021
+         */
+
         struct ShaderLightInformation {
-            //shader light type, 0 = Directional, 1 = Point, 2 = Spot, Any other value = disabled lighting in shader
+
+            /**
+            * @brief	Shader light type, 0 = Directional, 1 = Point, 2 = Spot, Any other value = disabled
+            * lightng in shader.
+            */
             int type = 0;
-            //Camera View
+
+            /** @brief	Camera View */
             glm::vec3 cameraPosition = glm::vec3(0.0f);
-            //Light position
+            
+
+            /** @brief	The light position */
             glm::vec3 position = glm::vec3(0.0f);
-            //directional
+            
+            /** @brief	The light direction direction */
             glm::vec3 direction = glm::vec3(0.0f);
-            //all lights
+            
+
+            /** @brief	The ambient lighting */
             glm::vec3 ambient = glm::vec3(0.0f);
+
+            /** @brief	The diffuse lighting */
             glm::vec3 diffuse = glm::vec3(0.0f);
+
+            /** @brief	The specular lighting */
             glm::vec3 specular = glm::vec3(0.0f);
+
+            /** @brief	The color of the light */
             glm::vec3 color = glm::vec3(0.0f);
+
+            /** @brief	The intensity */
             float intensity = 1.0f;
-	        //point
+
+            /** @brief the constant */
             float constant = 0.0f;
+
+            /** @brief	The linear */
             float linear = 0.0f;
+
+            /** @brief	The quadratic */
             float quadratic = 0.0f;
-            //Spot
+           
+            /** @brief	The cutoff for a spotlight */
             float cutoff = 0.0f;
         };
         
