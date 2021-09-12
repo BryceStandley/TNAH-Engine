@@ -19,7 +19,7 @@ namespace  tnah
          *
          * @brief	A derived IrrKlang class that inherits from the base class AudioAPI. Responsible for the in-game audio.
          *
-         * @author	Dylan Blereau
+         * @author	Christopher Logan
          * @date	6/09/2021
          */
 
@@ -32,7 +32,7 @@ namespace  tnah
              *
              * @brief	Default constructor
              *
-             * @author	Dylan Blereau
+             * @author	Christopher Logan
              * @date	6/09/2021
              */
 
@@ -43,7 +43,7 @@ namespace  tnah
              *
              * @brief	Destructor
              *
-             * @author	Dylan Blereau
+             * @author	Christopher Logan
              * @date	6/09/2021
              */
 
@@ -54,7 +54,7 @@ namespace  tnah
              *
              * @brief	Sets a audio listeners position to the transform
              *
-             * @author	Dylan Blereau
+             * @author	Christopher Logan
              * @date	6/09/2021
              *
              * @param [in,out]	transform	The transform component.
@@ -69,7 +69,7 @@ namespace  tnah
              *
              * @brief	Adds an audio source to the audio source unordered_map, returns false if it doesn't load and returns true if loads in or is already loaded in.
              *
-             * @author	Dylan Blereau
+             * @author	Christopher Logan
              * @date	6/09/2021
              *
              * @param [in,out]	sound	The sound component.
@@ -84,7 +84,7 @@ namespace  tnah
              *
              * @brief	Updates the audio source file
              *
-             * @author	Dylan Blereau
+             * @author	Christopher Logan
              * @date	6/09/2021
              *
              * @param [in,out]	sound	The sound component.
@@ -99,7 +99,7 @@ namespace  tnah
              *
              * @brief	Updates the audio class
              *
-             * @author	Dylan Blereau
+             * @author	Christopher Logan
              * @date	7/09/2021
              */
 
@@ -110,7 +110,7 @@ namespace  tnah
              *
              * @brief	Updates the sound
              *
-             * @author	Dylan Blereau
+             * @author	Christopher Logan
              * @date	7/09/2021
              *
              * @param [in,out]	sound	 	The sound component.
@@ -124,7 +124,7 @@ namespace  tnah
              *
              * @brief	Checks if sound engine is active
              *
-             * @author	Dylan Blereau
+             * @author	Christopher Logan
              * @date	7/09/2021
              *
              * @returns	True if it succeeds, false if it fails.
@@ -137,7 +137,7 @@ namespace  tnah
              *
              * @brief	Clears this object to its blank/initial state
              *
-             * @author	Dylan Blereau
+             * @author	Christopher Logan
              * @date	6/09/2021
              */
 
@@ -150,7 +150,7 @@ namespace  tnah
              *
              * @brief	Plays the audio source if returned bool is true, doesn't if false
              *
-             * @author	Dylan Blereau
+             * @author	Christopher Logan
              * @date	6/09/2021
              *
              * @param [in,out]	sound	 	The sound component.

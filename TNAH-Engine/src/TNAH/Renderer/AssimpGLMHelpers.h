@@ -8,9 +8,31 @@
 
 namespace tnah 
 {
+	/**
+	 * @class	AssimpGLMHelpers
+	 *
+	 * @brief	An assimp glm helpers class that converts Assimp matrices, vectors and quaternions into GLM
+	 *
+	 * @author	Plush
+	 * @date	12/09/2021
+	 */
+
 	class AssimpGLMHelpers 
 	{
 	public:
+
+		/**
+		 * @fn	static inline glm::mat4 AssimpGLMHelpers::ConvertMatrixToGLMFormat(const aiMatrix4x4& from)
+		 *
+		 * @brief	Convert aiMatrix to glm format
+		 *
+		 * @author	Plush
+		 * @date	12/09/2021
+		 *
+		 * @param 	from	Source for the.
+		 *
+		 * @returns	The matrix converted to glm format.
+		 */
 
 		static inline glm::mat4 ConvertMatrixToGLMFormat(const aiMatrix4x4& from)
 		{
@@ -23,10 +45,36 @@ namespace tnah
 			return to;
 		}
 
+		/**
+		 * @fn	static inline glm::vec3 AssimpGLMHelpers::GetGLMVec(const aiVector3D& vec)
+		 *
+		 * @brief	Converts an aiVector3D to glm vec3 and returns
+		 *
+		 * @author	Plush
+		 * @date	12/09/2021
+		 *
+		 * @param 	vec	The vector.
+		 *
+		 * @returns	The glm vector.
+		 */
+
 		static inline glm::vec3 GetGLMVec(const aiVector3D& vec) 
 		{
 			return glm::vec3(vec.x, vec.y, vec.z);
 		}
+
+		/**
+		 * @fn	static inline glm::quat AssimpGLMHelpers::GetGLMQuat(const aiQuaternion& pOrientation)
+		 *
+		 * @brief	Converts an aiQuaternion to glm::quat and returns
+		 *
+		 * @author	Plush
+		 * @date	12/09/2021
+		 *
+		 * @param 	pOrientation	The orientation.
+		 *
+		 * @returns	The glm quaternion.
+		 */
 
 		static inline glm::quat GetGLMQuat(const aiQuaternion& pOrientation)
 		{

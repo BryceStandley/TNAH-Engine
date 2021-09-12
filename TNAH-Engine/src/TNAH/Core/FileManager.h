@@ -28,9 +28,17 @@ namespace tnah {
 
 	struct ActiveFile
 	{
+
+		/** @brief	Filename of the file */
 		std::string FileName;
+		
+		/** @brief	Full pathname of the file */
 		std::string FilePath;
+
+		/** @brief	True if file is valid, false if not */
 		bool IsValid = false;
+
+		/** @brief	The file open error */
 		FileError FileOpenError;
 
 		/**

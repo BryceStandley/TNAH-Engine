@@ -9,65 +9,114 @@ namespace tnah {
 	class TNAH_API ImGuiLayer : public Layer
 	{
 	public:
+
 		/**
-		 * \fn ImGuiLayer
-		* \author Bryce Standley
-		* \date   July 2021
-		*/
+		 * @fn	ImGuiLayer::ImGuiLayer();
+		 *
+		 * @brief	Default constructor
+		 *
+		 * @author	Plush
+		 * @date	10/09/2021
+		 */
+
 		ImGuiLayer();
 
 		/**
-		 * \fn ~ImGuiLayer
-		* \author Bryce Standley
-		* \date   July 2021
-		*/
+		 * @fn	ImGuiLayer::~ImGuiLayer();
+		 *
+		 * @brief	Destructor
+		 *
+		 * @author	Plush
+		 * @date	10/09/2021
+		 */
+
 		~ImGuiLayer();
 
 		/**
-		 * \fn OnAttach
-		* \author Bryce Standley
-		* \date   July 2021
-		*/
+		 * @fn	virtual void ImGuiLayer::OnAttach() override;
+		 *
+		 * @brief	Executes on attach of the layer
+		 *
+		 * @author	Plush
+		 * @date	10/09/2021
+		 */
+
 		virtual void OnAttach() override;
 
 		/**
-		 * \fn OnDetach
-		* \author Bryce Standley
-		* \date   July 2021
-		*/
+		 * @fn	virtual void ImGuiLayer::OnDetach() override;
+		 *
+		 * @brief	Executes on imgui layer detach
+		 *
+		 * @author	Plush
+		 * @date	10/09/2021
+		 */
+
 		virtual void OnDetach() override;
 
 		/**
-		 * \fn OnBegin
-		* \author Bryce Standley
-		* \date   July 2021
-		* \brief Called at the start of a ImGui Frame
-		*/
+		 * @fn	void ImGuiLayer::Begin();
+		 *
+		 * @brief	Begins the imgui layer
+		 *
+		 * @author	Plush
+		 * @date	10/09/2021
+		 */
+
 		void Begin();
 
 		/**
-		 * \fn OnEnd
-		* \author Bryce Standley
-		* \date   July 2021
-		* \brief Called at the end of a ImGui Frame
-		*/
+		 * @fn	void ImGuiLayer::End();
+		 *
+		 * @brief	Ends the layer
+		 *
+		 * @author	Plush
+		 * @date	10/09/2021
+		 */
+
 		void End();
 
 		/**
-		 * \fn OnEvent
-		* \author Bryce Standley
-		* \date   July 2021
-		* \param event
-		*/
+		 * @fn	virtual void ImGuiLayer::OnEvent(Event& event) override;
+		 *
+		 * @brief	Executes on event
+		 *
+		 * @author	Plush
+		 * @date	10/09/2021
+		 *
+		 * @param [in,out]	event	The event.
+		 */
+
 		virtual void OnEvent(Event& event) override;
 
+		/**
+		 * @fn	virtual void ImGuiLayer::OnImGuiRender() override;
+		 *
+		 * @brief	Executes on imgui render
+		 *
+		 * @author	Plush
+		 * @date	10/09/2021
+		 */
 
 		virtual void OnImGuiRender() override;
+
+		/**
+		 * @fn	void ImGuiLayer::SetDarkThemeColors();
+		 *
+		 * @brief	Sets dark theme colors
+		 *
+		 * @author	Plush
+		 * @date	10/09/2021
+		 */
 
 		void SetDarkThemeColors();
 
 	private:
+
+		/** @brief	True to block events */
 		bool m_BlockEvents = true;
+
+		/** @brief	The time */
 		float m_Time = 0.0f;
 
 	};

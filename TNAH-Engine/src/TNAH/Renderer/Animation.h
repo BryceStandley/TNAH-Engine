@@ -8,19 +8,67 @@
 #include "BoneInfo.h"
 
 namespace tnah  {
+
+	/**
+	 * @struct	AssimpNodeData
+	 *
+	 * @brief	A struct containing the Assimp node data
+	 *
+	 * @author	Plush
+	 * @date	12/09/2021
+	 */
+
 	struct AssimpNodeData 
 	{
+
+		/** @brief	The transformation */
 		glm::mat4 transformation;
+
+		/** @brief	The name */
 		std::string name;
+
+		/** @brief	Number of childrens */
 		int childrenCount;
+
+		/** @brief	The children */
 		std::vector<AssimpNodeData> children;
 	};
+
+	/**
+	 * @class	Animation
+	 *
+	 * @brief	An animation class responsible for the skeletal animation
+	 *
+	 * @author	Plush
+	 * @date	12/09/2021
+	 */
 
 	class Animation
 	{
 	public:
-		
+
+		/**
+		 * @fn	Animation::Animation() = default;
+		 *
+		 * @brief	Defaulted constructor
+		 *
+		 * @author	Plush
+		 * @date	12/09/2021
+		 */
+
 		Animation() = default;
+
+		/**
+		 * @fn	Animation::Animation(const aiScene* scene)
+		 *
+		 * @brief	Constructor
+		 *
+		 * @author	Plush
+		 * @date	12/09/2021
+		 *
+		 * @param 	scene	The scene.
+		 */
+
 		Animation(const aiScene* scene) 
 		{
 			m_Animation = scene->mAnimations[0];
@@ -29,7 +77,29 @@ namespace tnah  {
 			ReadHeirarchyData(m_RootNode, scene->mRootNode);
 		}
 
+		/**
+		 * @fn	Animation::~Animation()
+		 *
+		 * @brief	Destructor
+		 *
+		 * @author	Plush
+		 * @date	12/09/2021
+		 */
+
 		~Animation() {}
+
+		/**
+		 * @fn	Bone* Animation::FindBone(const std::string& name)
+		 *
+		 * @brief	Searches for the first bone
+		 *
+		 * @author	Plush
+		 * @date	12/09/2021
+		 *
+		 * @param 	name	The name.
+		 *
+		 * @returns	Null if it fails, else the found bone.
+		 */
 
 		Bone* FindBone(const std::string& name) 
 		{
@@ -43,15 +113,73 @@ namespace tnah  {
 			else return &(*iter);
 		}
 
+		/**
+		 * @fn	inline float Animation::GetTicksPerSecond()
+		 *
+		 * @brief	Gets ticks per second
+		 *
+		 * @author	Plush
+		 * @date	12/09/2021
+		 *
+		 * @returns	The ticks per second.
+		 */
+
 		inline float GetTicksPerSecond() { return m_TicksPerSecond; }
+
+		/**
+		 * @fn	inline float Animation::GetDuration()
+		 *
+		 * @brief	Gets the duration
+		 *
+		 * @author	Plush
+		 * @date	12/09/2021
+		 *
+		 * @returns	The duration.
+		 */
+
 		inline float GetDuration() { return m_Duration; }
+
+		/**
+		 * @fn	inline const AssimpNodeData& Animation::GetRootNode()
+		 *
+		 * @brief	Gets root node
+		 *
+		 * @author	Plush
+		 * @date	12/09/2021
+		 *
+		 * @returns	The root node.
+		 */
+
 		inline const AssimpNodeData& GetRootNode() { return m_RootNode; }
+
+		/**
+		 * @fn	inline const std::map<std::string, BoneInfo>& Animation::GetBoneIDMap()
+		 *
+		 * @brief	Gets bone identifier map
+		 *
+		 * @author	Plush
+		 * @date	12/09/2021
+		 *
+		 * @returns	The bone identifier map.
+		 */
+
 		inline const std::map<std::string, BoneInfo>& GetBoneIDMap() 
 		{
 			return m_BoneInfoMap;
 		}
 
-	
+		/**
+		 * @fn	void Animation::ReadMissingBones(std::map<std::string, BoneInfo>& boneInfoMap, int& boneCount)
+		 *
+		 * @brief	Reads missing bones
+		 *
+		 * @author	Plush
+		 * @date	12/09/2021
+		 *
+		 * @param [in,out]	boneInfoMap	The bone information map.
+		 * @param [in,out]	boneCount  	Number of bones.
+		 */
+
 		void ReadMissingBones(std::map<std::string, BoneInfo>& boneInfoMap, int& boneCount) 
 		{
 			int size = m_Animation->mNumChannels;
@@ -74,6 +202,19 @@ namespace tnah  {
 		}
 	
 	private:
+
+		/**
+		 * @fn	void Animation::ReadHeirarchyData(AssimpNodeData& dest, const aiNode* src)
+		 *
+		 * @brief	Reads heirarchy data
+		 *
+		 * @author	Plush
+		 * @date	12/09/2021
+		 *
+		 * @param [in,out]	dest	Destination for the.
+		 * @param 		  	src 	Source for the.
+		 */
+
 		void ReadHeirarchyData(AssimpNodeData& dest, const aiNode* src) 
 		{
 			assert(src);
@@ -90,11 +231,23 @@ namespace tnah  {
 			}
 		}
 
+
+		/** @brief	The duration of the animation */
 		float m_Duration = 0.0f;
+
+		/** @brief	The ticks per second, which notes how fast interpolation between frames should be */
 		int m_TicksPerSecond = 0.0f;
+
+		/** @brief	The bones required for the animation */
 		std::vector<Bone> m_Bones;
+
+		/** @brief	The root node */
 		AssimpNodeData m_RootNode;
+
+		/** @brief	The bone information map */
 		std::map<std::string, BoneInfo> m_BoneInfoMap;
+
+		/** @brief	The animation */
 		aiAnimation* m_Animation;
 		
 
