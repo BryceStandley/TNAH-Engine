@@ -4,7 +4,7 @@
 	ICT398Application::ICT398Application()
 		:tnah::Application("ICT398 Milestone 1 - TNAH-Engine")
 	{
-		tnah::Application::Get().GetWindow().SetCursorDisabled(false);
+		tnah::Application::Get().GetWindow().SetCursorDisabled(true);
 		tnah::Application::Get().GetWindow().SetVSync(false);
 		PushLayer(new MainLayer());
 	}

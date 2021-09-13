@@ -44,13 +44,19 @@ MainLayer::MainLayer()
 	
 #pragma region SceneCreation
 	// Note this is a temp solution to building our scene.
+	//
+	// 
 	// Scene Serialization is currently undergoing testing and bug fixes
 	{
 		std::string name = "World";
 		auto go = m_ActiveScene->CreateGameObject(name);
 
 		auto& mesh = go.AddComponent<tnah::MeshComponent>();
-		mesh.Model = tnah::Model::Create("assets/meshes/wholething2.fbx");
+		mesh.Model = tnah::Model::Create("assets/meshes/wholething3.fbx");
+		go.Transform().Position = {-1.1f, -4.3f, 0.6f};
+		go.Transform().Rotation = {glm::radians(-90.0f), 0, 0};
+		
+
 	}
 
 	//Colliders Only
@@ -173,7 +179,7 @@ MainLayer::MainLayer()
 		auto&go = m_ActiveScene->CreateGameObject(name);
 		auto&tt = go.Transform();
 		
-		tt.Position = {-2.3, 0, 4.6};
+		tt.Position = {-1.8, 0, 4.6};
 		
 		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
 		auto& box = go.AddComponent<tnah::BoxColliderComponent>(glm::vec3(pillarSize));
@@ -189,7 +195,7 @@ MainLayer::MainLayer()
 		auto&go = m_ActiveScene->CreateGameObject(name);
 		auto&tt = go.Transform();
 		
-		tt.Position = {-2.6, 0, 9.0};
+		tt.Position = {-1.8, 0, 9.0};
 		
 		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
 		auto& box = go.AddComponent<tnah::BoxColliderComponent>(glm::vec3(pillarSize));
@@ -199,7 +205,7 @@ MainLayer::MainLayer()
 		rb.SetBodyType(rp3d::BodyType::KINEMATIC);	
 	}
 
-	glm::vec3 bushScale(1.76f, 1.76f, 1.76f), bushRotation(-1.75, 0, 0);
+	glm::vec3 bushScale(1.5f), bushRotation(-1.75, 0, 0);
 	{
 		std::string name = "Bush (1)";
 		
@@ -240,7 +246,7 @@ MainLayer::MainLayer()
 		
 		auto&go = m_ActiveScene->CreateGameObject(name);
 		auto&tt = go.Transform();
-		tt.Position = {-5.5, -5.03, -1};
+		tt.Position = {-6.5, -5.03, -1.5};
 		tt.Rotation = bushRotation;
 		tt.Scale = bushScale - glm::vec3(0.5);
 		auto& mesh = go.AddComponent<tnah::MeshComponent>();
@@ -251,7 +257,7 @@ MainLayer::MainLayer()
 		
 		auto&go = m_ActiveScene->CreateGameObject(name);
 		auto&tt = go.Transform();
-		tt.Position = {-7.75, -5.03, -0.75};
+		tt.Position = {-6.75, -5.03, -2.0};
 		tt.Rotation = bushRotation;
 		//tt.Scale = bushScale - glm::vec3(0.76);
 		auto& mesh = go.AddComponent<tnah::MeshComponent>();
@@ -267,7 +273,7 @@ MainLayer::MainLayer()
 		auto& mesh = go.AddComponent<tnah::MeshComponent>();
 		mesh.Model = tnah::Model::Create("assets/meshes/bin.fbx");
 		
-		tt.Position = {5.3, -3.6, 3.9};
+		tt.Position = {5.3, -3.7, 3.9};
 		tt.Rotation = binRotation;
 		tt.Scale = binScale;
 		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
@@ -286,7 +292,7 @@ MainLayer::MainLayer()
 		auto& mesh = go.AddComponent<tnah::MeshComponent>();
 		mesh.Model = tnah::Model::Create("assets/meshes/bin.fbx");
 		
-		tt.Position = {-2.6, -3.6, 3.9};
+		tt.Position = {-1.9, -3.7, 3.9};
 		tt.Rotation = binRotation;
 		tt.Scale = binScale;
 		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
@@ -297,7 +303,7 @@ MainLayer::MainLayer()
 		rb.SetBodyType(rp3d::BodyType::KINEMATIC);	
 	}
 
-	glm::vec3 tableScale(0.01, 0.02, 0.01), tableRotation(glm::radians(180.0f), 0, 0), tableSize(1);
+	glm::vec3 tableScale(0.01, 0.02, 0.01), tableRotation(0, 0, 0), tableSize(1);
 	{
 		std::string name = "Table (1)";
 		
@@ -306,7 +312,7 @@ MainLayer::MainLayer()
 		auto& mesh = go.AddComponent<tnah::MeshComponent>();
 		mesh.Model = tnah::Model::Create("assets/meshes/table.fbx");
 		
-		tt.Position = {-2.6, -3.1, 6};
+		tt.Position = {-2.6, -3.6, 6};
 		tt.Rotation = tableRotation;
 		tt.Scale = tableScale;
 		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
@@ -325,7 +331,7 @@ MainLayer::MainLayer()
 		auto& mesh = go.AddComponent<tnah::MeshComponent>();
 		mesh.Model = tnah::Model::Create("assets/meshes/table.fbx");
 		
-		tt.Position = {-7, -3.2, 7};
+		tt.Position = {-7, -3.6, 7};
 		tt.Rotation = tableRotation;
 		tt.Scale = tableScale;
 		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);

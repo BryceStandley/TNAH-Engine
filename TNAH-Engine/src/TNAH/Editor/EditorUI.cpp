@@ -33,14 +33,17 @@ namespace tnah {
 					rb.UpdateTransform(t);
 				}
 			}
-			if(DrawVec3Control("Rotation", t.Rotation))
+			glm::vec3 rotation = glm::degrees(t.Rotation);
+			if(DrawVec3Control("Rotation", rotation))
 			{
+				t.Rotation = glm::radians(rotation);
 				if(object.HasComponent<RigidBodyComponent>())
 				{
 					auto& rb = object.GetComponent<RigidBodyComponent>();
 					rb.UpdateTransform(t);
 				}
 			}
+			
 			if(DrawVec3Control("Scale", t.Scale, false, 1))
 			{
 				if(object.HasComponent<RigidBodyComponent>())
