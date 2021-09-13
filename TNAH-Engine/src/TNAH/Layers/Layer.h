@@ -11,7 +11,7 @@ namespace tnah {
 	 *
 	 * @brief	The layer class is used to allow for the creation of layers, which allow for things to be rendered and/or events to be received on multiple different layers. 
 	 *
-	 * @author	Plush
+	 * @author	Dylan Blereau
 	 * @date	10/09/2021
 	 */
 
@@ -24,7 +24,7 @@ namespace tnah {
 		 *
 		 * @brief	Constructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 *
 		 * @param 	name	(Optional) The name.
@@ -37,7 +37,7 @@ namespace tnah {
 		 *
 		 * @brief	Defaulted destructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 */
 
@@ -48,7 +48,7 @@ namespace tnah {
 		 *
 		 * @brief	Executes when the layer is attached
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 */
 
@@ -59,7 +59,7 @@ namespace tnah {
 		 *
 		 * @brief	Executes when the layer is detached
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 */
 
@@ -70,7 +70,7 @@ namespace tnah {
 		 *
 		 * @brief	Executes on update
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 *
 		 * @param 	ts	The timestep.
@@ -83,7 +83,7 @@ namespace tnah {
 		 *
 		 * @brief	Executes on fixed update (for physics purposes)
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 *
 		 * @param 	ps	The physicsTimestep.
@@ -96,7 +96,7 @@ namespace tnah {
 		 *
 		 * @brief	Executes when imgui renders
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 */
 
@@ -107,7 +107,7 @@ namespace tnah {
 		 *
 		 * @brief	Executes when an event occurs
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 *
 		 * @param [in,out]	event	The event.
@@ -120,7 +120,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets the name
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 *
 		 * @returns	The name.

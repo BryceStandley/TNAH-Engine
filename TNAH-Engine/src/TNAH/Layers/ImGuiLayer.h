@@ -15,7 +15,7 @@ namespace tnah {
 		 *
 		 * @brief	Default constructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 */
 
@@ -26,7 +26,7 @@ namespace tnah {
 		 *
 		 * @brief	Destructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 */
 
@@ -37,7 +37,7 @@ namespace tnah {
 		 *
 		 * @brief	Executes on attach of the layer
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 */
 
@@ -48,7 +48,7 @@ namespace tnah {
 		 *
 		 * @brief	Executes on imgui layer detach
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 */
 
@@ -59,7 +59,7 @@ namespace tnah {
 		 *
 		 * @brief	Begins the imgui layer
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 */
 
@@ -70,7 +70,7 @@ namespace tnah {
 		 *
 		 * @brief	Ends the layer
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 */
 
@@ -81,7 +81,7 @@ namespace tnah {
 		 *
 		 * @brief	Executes on event
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 *
 		 * @param [in,out]	event	The event.
@@ -94,7 +94,7 @@ namespace tnah {
 		 *
 		 * @brief	Executes on imgui render
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 */
 
@@ -105,7 +105,7 @@ namespace tnah {
 		 *
 		 * @brief	Sets dark theme colors
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 */
 

@@ -13,12 +13,6 @@ namespace tnah {
 	class Terrain
 	{
 	public:
-		/*
-		rp3d::CollisionBody* terrainCB;
-		rp3d::RigidBody* terrainRB;
-		rp3d::Collider* terrainCollider;
-		float* terrainColliderHeightData;
-		*/
 
 		/**********************************************************************************************//**
 		 * @fn	Terrain::Terrain() = default;

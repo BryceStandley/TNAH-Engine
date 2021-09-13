@@ -111,7 +111,7 @@ namespace tnah {
 	 *
 	 * @brief	texture properties.
 	 *
-	 * @author	Plush
+	 * @author	Dylan Blereau
 	 * @date	12/09/2021
 	 */
 
@@ -139,7 +139,7 @@ namespace tnah {
 	 *
 	 * @brief	An image specification struct
 	 *
-	 * @author	Plush
+	 * @author	Dylan Blereau
 	 * @date	12/09/2021
 	 */
 
@@ -176,7 +176,7 @@ namespace tnah {
 	 *
 	 * @brief	A texture 3D properties class. Used to assist with skybox creation
 	 *
-	 * @author	Plush
+	 * @author	Dylan Blereau
 	 * @date	12/09/2021
 	 */
 
@@ -189,7 +189,7 @@ namespace tnah {
 		 *
 		 * @brief	Defaulted constructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 */
 
@@ -200,7 +200,7 @@ namespace tnah {
 		 *
 		 * @brief	Constructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	front 	The front.
@@ -219,7 +219,7 @@ namespace tnah {
 		 *
 		 * @brief	Constructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	cubemap	The cubemap.
@@ -276,7 +276,7 @@ namespace tnah {
 	 *
 	 * @brief	Information about the cubemap.
 	 *
-	 * @author	Plush
+	 * @author	Dylan Blereau
 	 * @date	12/09/2021
 	 */
 
@@ -291,7 +291,7 @@ namespace tnah {
 	 *
 	 * @brief	A texture class responsible for loading and applying textures
 	 *
-	 * @author	Plush
+	 * @author	Dylan Blereau
 	 * @date	12/09/2021
 	 */
 
@@ -306,7 +306,7 @@ namespace tnah {
 		 *
 		 * @brief	Defaulted destructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 */
 
@@ -317,7 +317,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets the width
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @returns	The width.
@@ -330,7 +330,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets the height
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @returns	The height.
@@ -343,7 +343,7 @@ namespace tnah {
 		 *
 		 * @brief	Query if this object is loaded
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @returns	True if loaded, false if not.
@@ -356,7 +356,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets the path
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @returns	The path.
@@ -369,7 +369,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets the name
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @returns	The name.
@@ -382,7 +382,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets load format
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @returns	The load format.
@@ -395,7 +395,7 @@ namespace tnah {
 		 *
 		 * @brief	Returns a KTX Texture or nullptr if invalid
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @returns	Null if it fails, else the ktx data.
@@ -408,7 +408,7 @@ namespace tnah {
 		 *
 		 * @brief	Returns a uchar8_t of image data or nullptr if invalid
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @returns	Null if it fails, else the image data.
@@ -447,7 +447,7 @@ namespace tnah {
 	 *
 	 * @brief	A texture 2d class that inherits from the Texture class. Handles 2D textures
 	 *
-	 * @author	Plush
+	 * @author	Dylan Blereau
 	 * @date	12/09/2021
 	 */
 
@@ -460,7 +460,7 @@ namespace tnah {
 		 *
 		 * @brief	Creates a new Texture2D
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	format	  	Describes the format to use.
@@ -480,7 +480,7 @@ namespace tnah {
 		 * @brief	Loads a image to memory
 		 * @warning Image must be cleared by the user with tnah::Texture2D::Free()
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	filePath  	absolute or relative file path to image.
@@ -497,7 +497,7 @@ namespace tnah {
 		 *
 		 * @brief	Creates a new Texture2D
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	width 	The width.
@@ -513,7 +513,7 @@ namespace tnah {
 		 *
 		 * @brief	Creates a new Texture2D
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 		  	path		  	Full pathname of the file.
@@ -531,7 +531,7 @@ namespace tnah {
 		 *
 		 * @brief	Frees this object
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 */
 
@@ -542,7 +542,7 @@ namespace tnah {
 		 *
 		 * @brief	Frees the given data
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param [in,out]	data	If non-null, the data.
@@ -555,7 +555,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets renderer identifier
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @returns	The renderer identifier.
@@ -568,7 +568,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets texture slot
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @returns	The texture slot.
@@ -581,7 +581,7 @@ namespace tnah {
 		 *
 		 * @brief	Sets data
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param [in,out]	data	If non-null, the data.
@@ -595,7 +595,7 @@ namespace tnah {
 		 *
 		 * @brief	Binds the given slot
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	slot	The slot.
@@ -608,7 +608,7 @@ namespace tnah {
 		 *
 		 * @brief	Binds this object
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 */
 
@@ -626,7 +626,7 @@ namespace tnah {
 		 *
 		 * @brief	Loads ktx image
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	filePath	Full pathname of the file.
@@ -642,7 +642,7 @@ namespace tnah {
 		 *
 		 * @brief	Ktx error reason
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	ktxError	The ktx error.
@@ -657,7 +657,7 @@ namespace tnah {
 		 *
 		 * @brief	Loads stbi image
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	filePath  	Full pathname of the file.
@@ -673,7 +673,7 @@ namespace tnah {
 		 *
 		 * @brief	Searches for the first cubemap information
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	texture	The texture.
@@ -689,7 +689,7 @@ namespace tnah {
 	 *
 	 * @brief	A texture 3d class that inherits from the Texture class. Used for 3D Textures like a Skybox
 	 *
-	 * @author	Plush
+	 * @author	Dylan Blereau
 	 * @date	12/09/2021
 	 */
 
@@ -702,7 +702,7 @@ namespace tnah {
 		 *
 		 * @brief	Creates a new Texture3D
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	paths	   	The paths.
@@ -718,7 +718,7 @@ namespace tnah {
 		 *
 		 * @brief	Creates a new Texture3D
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	properties 	The properties.
@@ -734,7 +734,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets renderer identifier
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @returns	The renderer identifier.
@@ -747,7 +747,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets texture slot
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @returns	The texture slot.
@@ -760,7 +760,7 @@ namespace tnah {
 		 *
 		 * @brief	Sets data
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param [in,out]	data	If non-null, the data.
@@ -774,7 +774,7 @@ namespace tnah {
 		 *
 		 * @brief	Binds the given slot
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	slot	The slot.
@@ -787,7 +787,7 @@ namespace tnah {
 		 *
 		 * @brief	Binds this object
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 */
 

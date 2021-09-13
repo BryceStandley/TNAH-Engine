@@ -61,7 +61,7 @@ namespace tnah {
 	*
 	* @brief	A renderer API class that provides the functions required to render, regardless of API used
 	*
-	* @author	Plush
+	* @author	Dylan Blereau
 	* @date	12/09/2021
 	*/
 	class RendererAPI
@@ -85,7 +85,7 @@ namespace tnah {
 		 *
 		 * @brief	Defaulted destructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 */
 
@@ -96,7 +96,7 @@ namespace tnah {
 		 *
 		 * @brief	Initializes this object
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 */
 
@@ -107,7 +107,7 @@ namespace tnah {
 		 *
 		 * @brief	Sets a viewport
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	x	  	An uint32_t to process.
@@ -123,7 +123,7 @@ namespace tnah {
 		 *
 		 * @brief	Sets clear color
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	color	The color.
@@ -136,7 +136,7 @@ namespace tnah {
 		 *
 		 * @brief	Clears this object to its blank/initial state
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 */
 
@@ -147,7 +147,7 @@ namespace tnah {
 		 *
 		 * @brief	Disables the given value
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	value	The value.
@@ -160,7 +160,7 @@ namespace tnah {
 		 *
 		 * @brief	Enables the given value
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	value	The value.
@@ -174,7 +174,7 @@ namespace tnah {
 		 *
 		 * @brief	Draws a vertex array
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	vertexArray The VertexArray object to be bound and drawn from.
@@ -188,7 +188,7 @@ namespace tnah {
 		 *
 		 * @brief	Draw indexed
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	vertexArray	Array of vertices.
@@ -206,7 +206,7 @@ namespace tnah {
 		 *
 		 * @brief	Sets a wireframe
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	enable	True to enable, false to disable.
@@ -220,7 +220,7 @@ namespace tnah {
 		 *
 		 * @brief	Check full screen
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	width 	The width.
@@ -236,7 +236,7 @@ namespace tnah {
 		 *
 		 * @brief	Sets cull mode
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	mode	The mode.
@@ -249,7 +249,7 @@ namespace tnah {
 		 *
 		 * @brief	Sets depth mask
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	enabled	True to enable, false to disable.
@@ -262,7 +262,7 @@ namespace tnah {
 		 *
 		 * @brief	Sets depth function
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	enabled	The enabled.
@@ -275,7 +275,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets api
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @returns	api.
@@ -288,7 +288,7 @@ namespace tnah {
 		 *
 		 * @brief	Creates a unique ptr to the API ;
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @returns	A unique ptr to the API;
@@ -297,6 +297,20 @@ namespace tnah {
 		static Scope<RendererAPI> Create();
 	
 	protected:
+		/**
+		 * 
+		 * \fn int ModeFromDrawMode
+		 * 
+		 * \brief Gets the mode from a given DrawMode. This is intended to be overwritten by a derived API class.
+		 * 
+		 * \author Bryce Standley
+		 * \date 13/9/2021
+		 * 
+		 * \param mode The mode to get.
+		 * 
+		 * \return int value of the API mode.
+		 * 
+		 */
 		virtual int ModeFromDrawMode(const DrawMode& mode) = 0;
 	
 	private:

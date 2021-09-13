@@ -13,7 +13,7 @@ namespace tnah
 	 *
 	 * @brief	An assimp glm helpers class that converts Assimp matrices, vectors and quaternions into GLM
 	 *
-	 * @author	Plush
+	 * @author	Dylan Blereau
 	 * @date	12/09/2021
 	 */
 
@@ -26,7 +26,7 @@ namespace tnah
 		 *
 		 * @brief	Convert aiMatrix to glm format
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	from	Source for the.
@@ -50,7 +50,7 @@ namespace tnah
 		 *
 		 * @brief	Converts an aiVector3D to glm vec3 and returns
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	vec	The vector.
@@ -68,7 +68,7 @@ namespace tnah
 		 *
 		 * @brief	Converts an aiQuaternion to glm::quat and returns
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	pOrientation	The orientation.

@@ -45,7 +45,7 @@ namespace tnah
 	 *
 	 * @brief	A base Application class.
 	 *
-	 * @author	Plush
+	 * @author	Dylan Blereau
 	 * @date	10/09/2021
 	 */
 
@@ -58,7 +58,7 @@ namespace tnah
 		 *
 		 * @brief	Constructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 *
 		 * @param 	name	(Optional) The name of the application.
@@ -71,7 +71,7 @@ namespace tnah
 		 *
 		 * @brief	Destructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 */
 
@@ -82,7 +82,7 @@ namespace tnah
 		 *
 		 * @brief	Runs this object
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 */
 
@@ -93,7 +93,7 @@ namespace tnah
 		 *
 		 * @brief	Executes the 'event' action
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 *
 		 * @param [in,out]	e	an Event to process.
@@ -106,7 +106,7 @@ namespace tnah
 		 *
 		 * @brief	Pushes a layer
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 *
 		 * @param [in,out]	layer	If non-null, the layer.
@@ -119,7 +119,7 @@ namespace tnah
 		 *
 		 * @brief	Pushes an overlay
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 *
 		 * @param [in,out]	overlay	If non-null, the overlay.
@@ -132,7 +132,7 @@ namespace tnah
 		 *
 		 * @brief	Closes this object
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 */
 
@@ -145,7 +145,7 @@ namespace tnah
 		 *
 		 * @brief	Gets the window
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 *
 		 * @returns	The window.
@@ -158,7 +158,7 @@ namespace tnah
 		 *
 		 * @brief	Opens file from browser
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 *
 		 * @returns	A std::pair&lt;std::string,int&gt;
@@ -171,7 +171,7 @@ namespace tnah
 		 *
 		 * @brief	Opens audio from browser
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 *
 		 * @returns	A std::pair&lt;std::string,int&gt;
@@ -184,7 +184,7 @@ namespace tnah
 		 *
 		 * @brief	Opens mesh from browser
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 *
 		 * @returns	A std::pair&lt;std::string,int&gt;
@@ -197,7 +197,7 @@ namespace tnah
 		 *
 		 * @brief	Saves a file
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 *
 		 * @param 	fileName	Filename of the file.
@@ -212,7 +212,7 @@ namespace tnah
 		 *
 		 * @brief	Determines if the editor if active
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 *
 		 * @returns	True if it succeeds, false if it fails.
@@ -225,7 +225,7 @@ namespace tnah
 		 *
 		 * @brief	Sets editor mode
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 *
 		 * @param 	isEditor	True if is editor, false if not.
@@ -242,7 +242,7 @@ namespace tnah
 		 *
 		 * @brief	Executes the 'window close' action
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 *
 		 * @param [in,out]	e	A WindowCloseEvent to process.
@@ -257,7 +257,7 @@ namespace tnah
 		 *
 		 * @brief	Executes the 'window resize' action
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 *
 		 * @param [in,out]	e	A WindowResizeEvent to process.
@@ -272,7 +272,7 @@ namespace tnah
 		 *
 		 * @brief	Executes the 'monitor resolution change' action
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 *
 		 * @param [in,out]	e	A MonitorResolutionChangeEvent to process.
@@ -350,7 +350,7 @@ namespace tnah
 		 *
 		 * @brief	Main entry-point for this application
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 *
 		 * @param 	argc	The number of command-line arguments provided.
@@ -369,7 +369,7 @@ namespace tnah
 	 *
 	 * @brief	Creates the application
 	 *
-	 * @author	Plush
+	 * @author	Dylan Blereau
 	 * @date	10/09/2021
 	 *
 	 * @returns	Null if it fails, else the new application.

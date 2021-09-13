@@ -327,10 +327,12 @@ namespace tnah{
 		rp3d::Transform m_Transform = rp3d::Transform::identity();
 		/** @brief	List of colliders */
 		std::list<rp3d::CollisionShape*> m_ColliderList;
+		/** @brief	Search string for the component in the editor */
 		inline static std::string s_SearchString = "rigidbody component";
+		/** @brief	Component search types and groupings  */
 		inline static ComponentTypes s_Types = {
 			{ComponentVariations::RigidBody},
-{{ComponentCategory::Physics}}
+		{{ComponentCategory::Physics}}
 		};
 		friend class EditorUI;
 	};
@@ -347,17 +349,24 @@ namespace tnah{
 
 	struct CollisionBodyComponent
 	{
+		/** @brief	Position of the body */
 		glm::vec3 Position = {0,0,0};
+		/** @brief	Rotation of the body */
 		glm::vec3 Rotation = {0,0,0};
+		/** @brief	Pointer to the body */
 		rp3d::CollisionBody* Body = nullptr;
 
 
 	
 	private:
+		/** @brief	Reactphysics transform of the body */
 		rp3d::Transform m_Transform = rp3d::Transform::identity();
+		/** @brief	List of colliders */
 		std::list<rp3d::CollisionShape*> m_ColliderList;
 
+		/** @brief	Search string for the component in the editor */
 		inline static std::string s_SearchString = "collision body component";
+		/** @brief	Groupings for adding components in the editor */
 		inline static ComponentTypes s_Types = {
 			{ComponentVariations::CollisionBody},
 {{ComponentCategory::Physics}}
@@ -453,11 +462,12 @@ namespace tnah{
 
 		BoxColliderComponent(const float& x, const float& y, const float& z);
 	private:
+		/** @brief	Search string for the component in the editor */
 		inline static std::string s_SearchString = "box collider component";
 		/** @brief	Type identifiers for the component */
 		inline static ComponentTypes s_Types = {
 			{ComponentVariations::BoxCollider},
-{{ComponentCategory::Physics}}
+			{{ComponentCategory::Physics}}
 		};
 		friend class EditorUI;
 	};
@@ -529,7 +539,7 @@ namespace tnah{
 
 	HeightFieldColliderComponent(const TerrainComponent& terrain);
 	private:
-
+		/** @brief	Search string for adding the component in the editor */
 		inline static std::string s_SearchString = "height field collider component";
 		/** @brief	Type identifiers for the component */
 		inline static ComponentTypes s_Types = {
@@ -551,7 +561,9 @@ namespace tnah{
 	struct SphereColliderComponent
 	{
 	public:
+		/** @brief	Radius of the sphere */
 		float Radius = 1.0f;
+		/** @brief	Components of the collider */
 		ColliderComponents Components;
 
 		
@@ -594,6 +606,7 @@ namespace tnah{
 		SphereColliderComponent(const float& radius);
 	private:
 
+		/** @brief	Search string for adding the component in the editor */
 		inline static std::string s_SearchString = "sphere collider component";
 		/** @brief	Type identifiers for the component */
 		inline static ComponentTypes s_Types = {
@@ -663,7 +676,7 @@ namespace tnah{
 
 		CapsuleColliderComponent(const float& radius, const float& height);
 	private:
-
+		/** @brief	Search string for adding the component in the editor */
 		inline static std::string s_SearchString = "capsule collider component";
 		/** @brief	Type identifiers for the component */
 		inline static ComponentTypes s_Types = {
@@ -720,7 +733,7 @@ namespace tnah{
 		ConvexMeshColliderComponent(Ref<Model> mesh);
 
 		/**********************************************************************************************//**
-		 * @fn	MeshColliderComponent::MeshColliderComponent(const std::vector<glm::vec3>& vertexPositions, const std::vector<uint32_t>& indices)
+		 * @fn	ConvexMeshColliderComponent::ConvexMeshColliderComponent(const std::vector<glm::vec3>& vertexPositions, const std::vector<uint32_t>& indices)
 		 *
 		 * @brief	Constructor
 		 *
@@ -777,14 +790,46 @@ namespace tnah{
 		std::vector<uint32_t> MeshIndices;
 
 		
-
+		/**********************************************************************************************//**
+		 * @fn	ConcaveMeshColliderComponent::ConcaveMeshColliderComponent()
+		 *
+		 * @brief	Constructor
+		 *
+		 * @author	Bryce Standley
+		 * @date	10/09/2021
+		 *
+		 **************************************************************************************************/
 		ConcaveMeshColliderComponent();
+
+		/**********************************************************************************************//**
+		 * @fn	ConcaveMeshColliderComponent::ConcaveMeshColliderComponent(Ref<Model> model)
+		 *
+		 * @brief	Constructor
+		 *
+		 * @author	Bryce Standley
+		 * @date	10/09/2021
+		 *
+		 * @param 	model	Reference to a Model component.
+		 **************************************************************************************************/
 		ConcaveMeshColliderComponent(Ref<Model> model);
+
+		/**********************************************************************************************//**
+		 * @fn	ConcaveMeshColliderComponent::ConcaveMeshColliderComponent(const std::vector<glm::vec3>& vertexPositions, const std::vector<uint32_t>& indices)
+		 *
+		 * @brief	Constructor
+		 *
+		 * @author	Bryce Standley
+		 * @date	10/09/2021
+		 *
+		 * @param 	vertexPositions	The vertex positions.
+		 * @param 	indices		   	The indices.
+		 **************************************************************************************************/
 		ConcaveMeshColliderComponent(const std::vector<glm::vec3>& vertexPositions, const std::vector<uint32_t>& indices)
 				:MeshVertexPositions(vertexPositions), MeshIndices(indices) {}
+
 	private:
 		
-		//Concave
+		/** @brief	Triangle vertex array of information for the mesh */
 		rp3d::TriangleVertexArray* m_TriangleVertexArray = nullptr;
 		/** @brief	The triangle mesh */
 		rp3d::TriangleMesh* m_TriangleMesh = nullptr;
@@ -796,6 +841,7 @@ namespace tnah{
 		*/
 		void CreateTriangleVertexArray();
 
+		/** @brief	Search string for adding the component in the editor */
 		inline static std::string s_SearchString = "concave mesh collider component";
 		/** @brief	Type identifiers for the component */
 		inline static ComponentTypes s_Types = {
