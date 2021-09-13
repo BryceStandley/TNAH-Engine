@@ -28,7 +28,7 @@
 
 // Libraries
 #include <reactphysics3d/configuration.h>
-#include <reactphysics3d/containers/Array.h>
+#include <reactphysics3d/containers/List.h>
 #include <reactphysics3d/engine/Entity.h>
 #include <reactphysics3d/constraint/Joint.h>
 
@@ -46,17 +46,10 @@ struct Islands {
 
     private:
 
-        /// Number of islands in the previous frame
-        uint32 mNbIslandsPreviousFrame;
+        // -------------------- Attributes -------------------- //
 
-        /// Number of items in the bodyEntities array in the previous frame
-        uint32 mNbBodyEntitiesPreviousFrame;
-
-        /// Maximum number of bodies in a single island in the previous frame
-        uint32 mNbMaxBodiesInIslandPreviousFrame;
-
-        /// Maximum number of bodies in a single island in the current frame
-        uint32 mNbMaxBodiesInIslandCurrentFrame;
+        /// Reference to the memory allocator
+        MemoryAllocator& memoryAllocator;
 
     public:
 
@@ -64,27 +57,20 @@ struct Islands {
 
 
         /// For each island, index of the first contact manifold of the island in the array of contact manifolds
-        Array<uint> contactManifoldsIndices;
+        List<uint> contactManifoldsIndices;
 
         /// For each island, number of contact manifolds in the island
-        Array<uint> nbContactManifolds;
+        List<uint> nbContactManifolds;
 
-        /// Array of all the entities of the bodies in the islands (stored sequentially)
-        Array<Entity> bodyEntities;
-
-        /// For each island we store the starting index of the bodies of that island in the "bodyEntities" array
-        Array<uint32> startBodyEntitiesIndex;
-
-        /// For each island, total number of bodies in the island
-        Array<uint32> nbBodiesInIsland;
+        /// For each island, list of all the entities of the bodies in the island
+        List<List<Entity>> bodyEntities;
 
         // -------------------- Methods -------------------- //
 
         /// Constructor
         Islands(MemoryAllocator& allocator)
-            :mNbIslandsPreviousFrame(16), mNbBodyEntitiesPreviousFrame(32), mNbMaxBodiesInIslandPreviousFrame(0), mNbMaxBodiesInIslandCurrentFrame(0),
-             contactManifoldsIndices(allocator), nbContactManifolds(allocator),
-             bodyEntities(allocator), startBodyEntitiesIndex(allocator), nbBodiesInIsland(allocator) {
+            :memoryAllocator(allocator), contactManifoldsIndices(allocator), nbContactManifolds(allocator),
+             bodyEntities(allocator) {
 
         }
 
@@ -92,76 +78,34 @@ struct Islands {
         ~Islands() = default;
 
         /// Assignment operator
-        Islands& operator=(const Islands& island) = delete;
+        Islands& operator=(const Islands& island) = default;
 
         /// Copy-constructor
         Islands(const Islands& island) = default;
 
         /// Return the number of islands
         uint32 getNbIslands() const {
-            return contactManifoldsIndices.size();
+            return static_cast<uint32>(contactManifoldsIndices.size());
         }
 
         /// Add an island and return its index
         uint32 addIsland(uint32 contactManifoldStartIndex) {
 
-            const uint32 islandIndex = contactManifoldsIndices.size();
+            uint32 islandIndex = contactManifoldsIndices.size();
 
             contactManifoldsIndices.add(contactManifoldStartIndex);
             nbContactManifolds.add(0);
-            startBodyEntitiesIndex.add(bodyEntities.size());
-            nbBodiesInIsland.add(0);
-
-            if (islandIndex > 0 && nbBodiesInIsland[islandIndex-1] > mNbMaxBodiesInIslandCurrentFrame) {
-                mNbMaxBodiesInIslandCurrentFrame = nbBodiesInIsland[islandIndex-1];
-            }
+            bodyEntities.add(List<Entity>(memoryAllocator));
 
             return islandIndex;
-        }
-
-        void addBodyToIsland(Entity bodyEntity) {
-
-            const uint32 islandIndex = contactManifoldsIndices.size();
-            assert(islandIndex > 0);
-
-            bodyEntities.add(bodyEntity);
-            nbBodiesInIsland[islandIndex - 1]++;
-        }
-
-        /// Reserve memory for the current frame
-        void reserveMemory() {
-
-            contactManifoldsIndices.reserve(mNbIslandsPreviousFrame);
-            nbContactManifolds.reserve(mNbIslandsPreviousFrame);
-            startBodyEntitiesIndex.reserve(mNbIslandsPreviousFrame);
-            nbBodiesInIsland.reserve(mNbIslandsPreviousFrame);
-
-            bodyEntities.reserve(mNbBodyEntitiesPreviousFrame);
         }
 
         /// Clear all the islands
         void clear() {
 
-            const uint32 nbIslands = nbContactManifolds.size();
-
-            if (nbIslands > 0 && nbBodiesInIsland[nbIslands-1] > mNbMaxBodiesInIslandCurrentFrame) {
-                mNbMaxBodiesInIslandCurrentFrame = nbBodiesInIsland[nbIslands-1];
-            }
-
-            mNbMaxBodiesInIslandPreviousFrame = mNbMaxBodiesInIslandCurrentFrame;
-            mNbIslandsPreviousFrame = nbIslands;
-            mNbMaxBodiesInIslandCurrentFrame = 0;
-            mNbBodyEntitiesPreviousFrame = bodyEntities.size();
-
             contactManifoldsIndices.clear(true);
             nbContactManifolds.clear(true);
             bodyEntities.clear(true);
-            startBodyEntitiesIndex.clear(true);
-            nbBodiesInIsland.clear(true);
-        }
-
-        uint32 getNbMaxBodiesInIslandPreviousFrame() const {
-            return mNbMaxBodiesInIslandPreviousFrame;
         }
 };
 

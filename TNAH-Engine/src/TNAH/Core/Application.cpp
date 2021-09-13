@@ -4,11 +4,11 @@
 #define GLFW_EXPOSE_NATIVE_WIN32
 #include "GLFW/glfw3.h"
 #include "GLFW/glfw3native.h"
+#include "TNAH/Audio/Audio.h"
 
 namespace tnah
 {
-
-
+	
 	Application* Application::s_Instance = nullptr;
 
 	Application::Application(const std::string& name)
@@ -21,12 +21,16 @@ namespace tnah
 
 
 		Renderer::Init();
+		Audio::Init();
 
 		if (m_ImGuiLayer == nullptr)
 		{
 			m_ImGuiLayer = new ImGuiLayer();
 			PushOverlay(m_ImGuiLayer);
 		}
+
+		//seed for any rand() functions
+		srand(static_cast<unsigned>(time(0)));
 	}
 
 	Application::~Application()
@@ -80,7 +84,8 @@ namespace tnah
 		return true;
 	}
 
-	std::pair<std::string, int> Application::OpenFileFromBrowser()
+	//Could use same function again but pass filter in?
+	std::pair<std::string, int> Application::OpenFileFromBrowser(/*const char * filter*/)
 	{
 #ifdef TNAH_PLATFORM_WINDOWS
 		const char* filter = "TNAH Scene (*.tnah.scene)\0*.tnah.scene\0All Files *.*\0*.*\0";
@@ -114,8 +119,79 @@ namespace tnah
 #endif 
 	}
 
+	std::pair<std::string, int> Application::OpenAudioFromBrowser(/*const char * filter*/)
+	{
+#ifdef TNAH_PLATFORM_WINDOWS
+		//TODO add more audio files being MP3, OGG
+		const char* filter = "WAV (*.WAV)\0*.WAV\0MP3 (*.MP3)\0*.MP3\0All Files *.*\0*.*\0";
+		int error = 0;
+		OPENFILENAMEA ofn;       // common dialog box structure
+		CHAR szFile[260] = { 0 };       // if using TCHAR macros
+
+		// Initialize OPENFILENAME
+		ZeroMemory(&ofn, sizeof(OPENFILENAME));
+		ofn.lStructSize = sizeof(OPENFILENAME);
+		ofn.hwndOwner = glfwGetWin32Window((GLFWwindow*)Get().GetWindow().GetNativeWindow());
+		ofn.lpstrFile = szFile;
+		ofn.nMaxFile = sizeof(szFile);
+		ofn.lpstrFilter = filter;
+		ofn.nFilterIndex = 1;
+		ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST | OFN_NOCHANGEDIR;
+
+		if (GetOpenFileNameA(&ofn) == TRUE)
+		{
+			return { ofn.lpstrFile, 0 };
+		}
+
+		switch (CommDlgExtendedError())
+		{
+		case FNERR_INVALIDFILENAME: error = 2; break;
+		default: error = 1; break;
+		}
+		return { std::string(), error };
+#else
+		//not on windows, use imgui file browser. NOT IMPLIMENTED 
+		#endif 
+	}
+
+	std::pair<std::string, int> Application::OpenMeshFromBrowser(/*const char * filter*/)
+	{
+#ifdef TNAH_PLATFORM_WINDOWS
+		//TODO add more audio files being MP3, OGG
+		const char* filter = "FBX (*.FBX)\0*.FBX\0All Files *.*\0*.*\0";
+		int error = 0;
+		OPENFILENAMEA ofn;       // common dialog box structure
+		CHAR szFile[260] = { 0 };       // if using TCHAR macros
+
+		// Initialize OPENFILENAME
+		ZeroMemory(&ofn, sizeof(OPENFILENAME));
+		ofn.lStructSize = sizeof(OPENFILENAME);
+		ofn.hwndOwner = glfwGetWin32Window((GLFWwindow*)Get().GetWindow().GetNativeWindow());
+		ofn.lpstrFile = szFile;
+		ofn.nMaxFile = sizeof(szFile);
+		ofn.lpstrFilter = filter;
+		ofn.nFilterIndex = 1;
+		ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST | OFN_NOCHANGEDIR;
+
+		if (GetOpenFileNameA(&ofn) == TRUE)
+		{
+			return { ofn.lpstrFile, 0 };
+		}
+
+		switch (CommDlgExtendedError())
+		{
+		case FNERR_INVALIDFILENAME: error = 2; break;
+		default: error = 1; break;
+		}
+		return { std::string(), error };
+#else
+		//not on windows, use imgui file browser. NOT IMPLIMENTED 
+		#endif 
+	}
+	
 	std::pair<std::string, int> Application::SaveFileAs(const char* fileName)
 	{
+
 #ifdef TNAH_PLATFORM_WINDOWS
 		const char* filter = "TNAH Scene (*.tnah.scene)\0*.tnah.scene\0All Files *.*\0*.*\0";
 		int error = 0;
@@ -143,9 +219,12 @@ namespace tnah
 		default: error = 1; break;
 		}
 		return { std::string(), error };
-#else
-		//not on windows, use imgui file browser. NOT IMPLIMENTED 
 #endif
+		
+
+		//auto file = UI::OpenFileBrowser("Save Scene As", UI::FileBrowserMode::Save, {0,0}, "*.tnah.scene");
+		//return {file, (file.compare("") ? 1 : 2)};
+		
 	}
 
 	bool Application::OnWindowClose(WindowCloseEvent& e)
@@ -196,6 +275,7 @@ namespace tnah
 	}
 	void Application::Close()
 	{
+		Audio::Shutdown();
 		m_Running = false;
 	}
 }

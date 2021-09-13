@@ -83,7 +83,7 @@ class ConvexShape : public CollisionShape {
 };
 
 // Return true if the collision shape is convex, false if it is concave
-RP3D_FORCE_INLINE bool ConvexShape::isConvex() const {
+inline bool ConvexShape::isConvex() const {
     return true;
 }
 
@@ -91,7 +91,7 @@ RP3D_FORCE_INLINE bool ConvexShape::isConvex() const {
 /**
  * @return The margin (in meters) around the collision shape
  */
-RP3D_FORCE_INLINE decimal ConvexShape::getMargin() const {
+inline decimal ConvexShape::getMargin() const {
     return mMargin;
 }
 

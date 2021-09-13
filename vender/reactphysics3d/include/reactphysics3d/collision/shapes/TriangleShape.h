@@ -33,9 +33,6 @@
 /// ReactPhysics3D namespace
 namespace reactphysics3d {
 
-// Forward declarations
-class PhysicsCommon;
-
 /// Raycast test side for the triangle
 enum class TriangleRaycastSide {
 
@@ -76,8 +73,11 @@ class TriangleShape : public ConvexPolyhedronShape {
         /// Raycast test type for the triangle (front, back, front-back)
         TriangleRaycastSide mRaycastTestType;
 
-        /// Reference to triangle half-edge structure
-        HalfEdgeStructure& mTriangleHalfEdgeStructure;
+        /// Faces information for the two faces of the triangle
+        HalfEdgeStructure::Face mFaces[2];
+
+        /// Edges information for the six edges of the triangle
+        HalfEdgeStructure::Edge mEdges[6];
 
         // -------------------- Methods -------------------- //
 
@@ -91,7 +91,8 @@ class TriangleShape : public ConvexPolyhedronShape {
         virtual bool testPointInside(const Vector3& localPoint, Collider* collider) const override;
 
         /// Raycast method with feedback information
-        virtual bool raycast(const Ray& ray, RaycastInfo& raycastInfo, Collider* collider, MemoryAllocator& allocator) const override;
+        virtual bool raycast(const Ray& ray, RaycastInfo& raycastInfo, Collider* collider,
+                             MemoryAllocator& allocator) const override;
 
         /// Return the number of bytes used by the collision shape
         virtual size_t getSizeInBytes() const override;
@@ -107,11 +108,8 @@ class TriangleShape : public ConvexPolyhedronShape {
                                       Vector3& outNewLocalContactPointOtherShape, Vector3& outSmoothWorldContactTriangleNormal) const;
 
         /// Constructor
-        TriangleShape(const Vector3* vertices, const Vector3* verticesNormals, uint shapeId, HalfEdgeStructure& triangleHalfEdgeStructure,
-                      MemoryAllocator& allocator);
-
-        /// Constructor
-        TriangleShape(const Vector3* vertices, uint shapeId, HalfEdgeStructure& triangleHalfEdgeStructure, MemoryAllocator& allocator);
+        TriangleShape(const Vector3* vertices, const Vector3* verticesNormals,
+                      uint shapeId, MemoryAllocator& allocator);
 
         /// Destructor
         virtual ~TriangleShape() override = default;
@@ -190,12 +188,12 @@ class TriangleShape : public ConvexPolyhedronShape {
 };
 
 // Return the number of bytes used by the collision shape
-RP3D_FORCE_INLINE size_t TriangleShape::getSizeInBytes() const {
+inline size_t TriangleShape::getSizeInBytes() const {
     return sizeof(TriangleShape);
 }
 
 // Return a local support point in a given direction without the object margin
-RP3D_FORCE_INLINE Vector3 TriangleShape::getLocalSupportPointWithoutMargin(const Vector3& direction) const {
+inline Vector3 TriangleShape::getLocalSupportPointWithoutMargin(const Vector3& direction) const {
     Vector3 dotProducts(direction.dot(mPoints[0]), direction.dot(mPoints[1]), direction.dot(mPoints[2]));
     return mPoints[dotProducts.getMaxAxis()];
 }
@@ -206,7 +204,7 @@ RP3D_FORCE_INLINE Vector3 TriangleShape::getLocalSupportPointWithoutMargin(const
  * @param min The minimum bounds of the shape in local-space coordinates
  * @param max The maximum bounds of the shape in local-space coordinates
  */
-RP3D_FORCE_INLINE void TriangleShape::getLocalBounds(Vector3& min, Vector3& max) const {
+inline void TriangleShape::getLocalBounds(Vector3& min, Vector3& max) const {
 
     const Vector3 xAxis(mPoints[0].x, mPoints[1].x, mPoints[2].x);
     const Vector3 yAxis(mPoints[0].y, mPoints[1].y, mPoints[2].y);
@@ -224,27 +222,33 @@ RP3D_FORCE_INLINE void TriangleShape::getLocalBounds(Vector3& min, Vector3& max)
  *                    coordinates
  * @param mass Mass to use to compute the inertia tensor of the collision shape
  */
-RP3D_FORCE_INLINE Vector3 TriangleShape::getLocalInertiaTensor(decimal mass) const {
+inline Vector3 TriangleShape::getLocalInertiaTensor(decimal mass) const {
     return Vector3(0, 0, 0);
 }
 
 // Return true if a point is inside the collision shape
-RP3D_FORCE_INLINE bool TriangleShape::testPointInside(const Vector3& localPoint, Collider* collider) const {
+inline bool TriangleShape::testPointInside(const Vector3& localPoint, Collider* collider) const {
     return false;
 }
 
 // Return the number of faces of the polyhedron
-RP3D_FORCE_INLINE uint TriangleShape::getNbFaces() const {
+inline uint TriangleShape::getNbFaces() const {
     return 2;
 }
 
+// Return a given face of the polyhedron
+inline const HalfEdgeStructure::Face& TriangleShape::getFace(uint faceIndex) const {
+    assert(faceIndex < 2);
+    return mFaces[faceIndex];
+}
+
 // Return the number of vertices of the polyhedron
-RP3D_FORCE_INLINE uint TriangleShape::getNbVertices() const {
+inline uint TriangleShape::getNbVertices() const {
     return 3;
 }
 
 // Return a given vertex of the polyhedron
-RP3D_FORCE_INLINE HalfEdgeStructure::Vertex TriangleShape::getVertex(uint vertexIndex) const {
+inline HalfEdgeStructure::Vertex TriangleShape::getVertex(uint vertexIndex) const {
     assert(vertexIndex < 3);
 
     HalfEdgeStructure::Vertex vertex(vertexIndex);
@@ -256,31 +260,36 @@ RP3D_FORCE_INLINE HalfEdgeStructure::Vertex TriangleShape::getVertex(uint vertex
     return vertex;
 }
 
+// Return a given half-edge of the polyhedron
+inline const HalfEdgeStructure::Edge& TriangleShape::getHalfEdge(uint edgeIndex) const {
+    assert(edgeIndex < getNbHalfEdges());
+    return mEdges[edgeIndex];
+}
+
 // Return the position of a given vertex
-RP3D_FORCE_INLINE Vector3 TriangleShape::getVertexPosition(uint vertexIndex) const {
+inline Vector3 TriangleShape::getVertexPosition(uint vertexIndex) const {
     assert(vertexIndex < 3);
     return mPoints[vertexIndex];
 }
 
 // Return the normal vector of a given face of the polyhedron
-RP3D_FORCE_INLINE Vector3 TriangleShape::getFaceNormal(uint faceIndex) const {
+inline Vector3 TriangleShape::getFaceNormal(uint faceIndex) const {
     assert(faceIndex < 2);
-    assert(mNormal.length() > decimal(0.0));
     return faceIndex == 0 ? mNormal : -mNormal;
 }
 
 // Return the centroid of the box
-RP3D_FORCE_INLINE Vector3 TriangleShape::getCentroid() const {
+inline Vector3 TriangleShape::getCentroid() const {
     return (mPoints[0] + mPoints[1] + mPoints[2]) / decimal(3.0);
 }
 
 // Return the number of half-edges of the polyhedron
-RP3D_FORCE_INLINE uint TriangleShape::getNbHalfEdges() const {
+inline uint TriangleShape::getNbHalfEdges() const {
     return 6;
 }
 
 // Return the raycast test type (front, back, front-back)
-RP3D_FORCE_INLINE TriangleRaycastSide TriangleShape::getRaycastTestType() const {
+inline TriangleRaycastSide TriangleShape::getRaycastTestType() const {
     return mRaycastTestType;
 }
 
@@ -288,98 +297,19 @@ RP3D_FORCE_INLINE TriangleRaycastSide TriangleShape::getRaycastTestType() const 
 /**
  * @param testType Raycast test type for the triangle (front, back, front-back)
  */
-RP3D_FORCE_INLINE void TriangleShape::setRaycastTestType(TriangleRaycastSide testType) {
+inline void TriangleShape::setRaycastTestType(TriangleRaycastSide testType) {
     mRaycastTestType = testType;
 }
 
 // Return the string representation of the shape
-RP3D_FORCE_INLINE std::string TriangleShape::to_string() const {
+inline std::string TriangleShape::to_string() const {
     return "TriangleShape{v1=" + mPoints[0].to_string() + ", v2=" + mPoints[1].to_string() + "," +
             "v3=" + mPoints[2].to_string() + "}";
 }
 
 // Compute and return the volume of the collision shape
-RP3D_FORCE_INLINE decimal TriangleShape::getVolume() const {
+inline decimal TriangleShape::getVolume() const {
     return decimal(0.0);
-}
-
-// Get a smooth contact normal for collision for a triangle of the mesh
-/// This is used to avoid the internal edges issue that occurs when a shape is colliding with
-/// several triangles of a concave mesh. If the shape collide with an edge of the triangle for instance,
-/// the computed contact normal from this triangle edge is not necessarily in the direction of the surface
-/// normal of the mesh at this point. The idea to solve this problem is to use the real (smooth) surface
-/// normal of the mesh at this point as the contact normal. This technique is described in the chapter 5
-/// of the Game Physics Pearl book by Gino van der Bergen and Dirk Gregorius. The vertices normals of the
-/// mesh are either provided by the user or precomputed if the user did not provide them. Note that we only
-/// use the interpolated normal if the contact point is on an edge of the triangle. If the contact is in the
-/// middle of the triangle, we return the true triangle normal.
-RP3D_FORCE_INLINE Vector3 TriangleShape::computeSmoothLocalContactNormalForTriangle(const Vector3& localContactPoint) const {
-
-    assert(mNormal.length() > decimal(0.0));
-
-    // Compute the barycentric coordinates of the point in the triangle
-    decimal u, v, w;
-    computeBarycentricCoordinatesInTriangle(mPoints[0], mPoints[1], mPoints[2], localContactPoint, u, v, w);
-
-    // If the contact is in the middle of the triangle face (not on the edges)
-    if (u > MACHINE_EPSILON && v > MACHINE_EPSILON && w > MACHINE_EPSILON) {
-
-        // We return the true triangle face normal (not the interpolated one)
-        return mNormal;
-    }
-
-    // We compute the contact normal as the barycentric interpolation of the three vertices normals
-    const Vector3 interpolatedNormal = u * mVerticesNormals[0] + v * mVerticesNormals[1] + w * mVerticesNormals[2];
-
-    // If the interpolated normal is degenerated
-    if (interpolatedNormal.lengthSquare() < MACHINE_EPSILON) {
-
-        // Return the original normal
-        return mNormal;
-    }
-
-    return interpolatedNormal.getUnit();
-}
-
-// This method compute the smooth mesh contact with a triangle in case one of the two collision
-// shapes is a triangle. The idea in this case is to use a smooth vertex normal of the triangle mesh
-// at the contact point instead of the triangle normal to avoid the internal edge collision issue.
-// This method will return the new smooth world contact
-// normal of the triangle and the the local contact point on the other shape.
-RP3D_FORCE_INLINE void TriangleShape::computeSmoothTriangleMeshContact(const CollisionShape* shape1, const CollisionShape* shape2,
-                                                     Vector3& localContactPointShape1, Vector3& localContactPointShape2,
-                                                     const Transform& shape1ToWorld, const Transform& shape2ToWorld,
-                                                     decimal penetrationDepth, Vector3& outSmoothVertexNormal) {
-
-    assert(shape1->getName() != CollisionShapeName::TRIANGLE || shape2->getName() != CollisionShapeName::TRIANGLE);
-
-    // If one the shape is a triangle
-    bool isShape1Triangle = shape1->getName() == CollisionShapeName::TRIANGLE;
-    if (isShape1Triangle || shape2->getName() == CollisionShapeName::TRIANGLE) {
-
-        const TriangleShape* triangleShape = isShape1Triangle ? static_cast<const TriangleShape*>(shape1):
-                                                                static_cast<const TriangleShape*>(shape2);
-
-        // Compute the smooth triangle mesh contact normal and recompute the local contact point on the other shape
-        triangleShape->computeSmoothMeshContact(isShape1Triangle ? localContactPointShape1 : localContactPointShape2,
-                                                isShape1Triangle ? shape1ToWorld : shape2ToWorld,
-                                                isShape1Triangle ? shape2ToWorld.getInverse() : shape1ToWorld.getInverse(),
-                                                penetrationDepth, isShape1Triangle,
-                                                isShape1Triangle ? localContactPointShape2 : localContactPointShape1,
-                                                outSmoothVertexNormal);
-    }
-}
-
-// Return a given face of the polyhedron
-RP3D_FORCE_INLINE const HalfEdgeStructure::Face& TriangleShape::getFace(uint faceIndex) const {
-    assert(faceIndex < 2);
-    return mTriangleHalfEdgeStructure.getFace(faceIndex);
-}
-
-// Return a given half-edge of the polyhedron
-RP3D_FORCE_INLINE const HalfEdgeStructure::Edge& TriangleShape::getHalfEdge(uint edgeIndex) const {
-    assert(edgeIndex < getNbHalfEdges());
-    return mTriangleHalfEdgeStructure.getHalfEdge(edgeIndex);
 }
 
 }

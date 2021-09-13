@@ -124,20 +124,20 @@ class SolveSliderJointSystem {
 #ifdef IS_RP3D_PROFILING_ENABLED
 
 // Set the profiler
-RP3D_FORCE_INLINE void SolveSliderJointSystem::setProfiler(Profiler* profiler) {
+inline void SolveSliderJointSystem::setProfiler(Profiler* profiler) {
     mProfiler = profiler;
 }
 
 #endif
 
 // Set the time step
-RP3D_FORCE_INLINE void SolveSliderJointSystem::setTimeStep(decimal timeStep) {
+inline void SolveSliderJointSystem::setTimeStep(decimal timeStep) {
     assert(timeStep > decimal(0.0));
     mTimeStep = timeStep;
 }
 
 // Set to true to enable warm starting
-RP3D_FORCE_INLINE void SolveSliderJointSystem::setIsWarmStartingActive(bool isWarmStartingActive) {
+inline void SolveSliderJointSystem::setIsWarmStartingActive(bool isWarmStartingActive) {
     mIsWarmStartingActive = isWarmStartingActive;
 }
 

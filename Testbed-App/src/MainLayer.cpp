@@ -2,42 +2,55 @@
 
 #include <imgui.h>
 #include <glm/gtc/random.hpp>
+#include <TNAH/Scene/Components/SkyboxComponent.h>
+
+#include <TNAH-App.h>
 
 MainLayer::MainLayer()
 	:Layer("Main Layer")
 {
 	m_ActiveScene = tnah::Scene::CreateEmptyScene();
-	m_Camera = m_ActiveScene->GetMainCameraGameObject();
-	auto& ct = m_Camera->GetComponent<tnah::TransformComponent>();
-	auto& cc = m_Camera->GetComponent<tnah::CameraComponent>();
+	m_Camera = m_ActiveScene->GetSceneCamera();
+	auto& ct = m_Camera.Transform();
+	auto& cc = m_Camera.GetComponent<tnah::CameraComponent>();
 	cc.Camera.SetViewportSize(1280, 720);
 	ct.Position = glm::vec3(500, 60, 500);
-
-	m_SceneLight = m_ActiveScene->GetSceneLightGameObject();
+	cc.ClearMode = tnah::CameraClearMode::Skybox;
+	
+	m_SceneLight = m_ActiveScene->GetSceneLight();
 
 	m_Terrain = m_ActiveScene->CreateGameObject("Terrain");
-	m_Terrain->AddComponent<tnah::TerrainComponent>("assets/heightmaps/1k.tga");
-	auto& terrT = m_Terrain->GetComponent<tnah::TransformComponent>();
+	m_Terrain.AddComponent<tnah::TerrainComponent>("assets/heightmaps/1k.tga");
+	auto& terrT = m_Terrain.Transform();
 	terrT.Scale = glm::vec3(5.0f);
 
-	m_PointLight = m_ActiveScene->CreateGameObject("PointLight");
-	auto& light = m_PointLight->GetComponent<tnah::LightComponent>();
-	light.Light.reset(tnah::Light::CreatePoint());
+	auto& m_Skybox = m_ActiveScene->GetSceneCamera().AddComponent<tnah::SkyboxComponent>();
 
-	for (int i = 0; i < 100; i++)
+	m_PointLight = m_ActiveScene->CreateGameObject("PointLight");
+	auto& light = m_PointLight.GetComponent<tnah::LightComponent>();
+	light.Light = tnah::Light::CreatePoint();
+
+	m_CloseScreenTexture = tnah::Texture2D::Create("assets/images/team.png");
+	
+	for (int i = 0; i < 1; i++)
 	{
 		//Test Cube
 		std::string name = "Cube" + std::to_string(i);
 		auto go = m_ActiveScene->CreateGameObject(name);
 
-		auto& mesh = go->AddComponent<tnah::MeshComponent>();
-		mesh.Model.reset(tnah::Model::Create("assets/meshes/cube_texture.fbx"));
-		auto& meshT = go->GetComponent<tnah::TransformComponent>();
+		auto& mesh = go.AddComponent<tnah::MeshComponent>();
+		mesh.Model = tnah::Model::Create("assets/meshes/girl/girl_3d_model.fbx");
+		
+		//mesh.Model = tnah::Model::Create("assets/meshes/cube_texture.fbx");
+		auto& meshT = go.Transform();
 
 		glm::vec3 p(glm::linearRand(500, 700), glm::linearRand(50, 100), glm::linearRand(500, 700));
 		meshT.Position = p;
+
+		go.AddComponent<tnah::AnimatorComponent>(mesh.Animation);
 		m_MeshObjects.push_back(go);
 	}
+
 }
 
 void MainLayer::OnUpdate(tnah::Timestep deltaTime)
@@ -47,7 +60,7 @@ void MainLayer::OnUpdate(tnah::Timestep deltaTime)
 		//Only move the camera if its enabled
 	if (m_CameraMovementToggle)
 	{
-		auto& ct = m_Camera->GetComponent<tnah::TransformComponent>();
+		auto& ct = m_Camera.Transform();
 		if (tnah::Input::IsKeyPressed(tnah::Key::W))
 		{
 			ct.Position += ct.Forward * m_CameraMovementSpeed * deltaTime.GetSeconds();
@@ -80,7 +93,11 @@ void MainLayer::OnUpdate(tnah::Timestep deltaTime)
 		{
 			m_CameraMovementSpeed = m_CameraOverrideSpeed;
 		}
-
+	}
+	
+	if(m_CameraLookToggle)
+	{
+		auto& ct = m_Camera.GetComponent<tnah::TransformComponent>();
 		//Camera Mouse rotation controls
 		auto mousePos = tnah::Input::GetMousePos();
 		if (m_FirstMouseInput)
@@ -111,9 +128,11 @@ void MainLayer::OnUpdate(tnah::Timestep deltaTime)
 
 	for (auto go : m_MeshObjects)
 	{
-		auto& mesh = go->GetComponent<tnah::TransformComponent>();
+		auto& mesh = go.GetComponent<tnah::TransformComponent>();
 		mesh.Rotation.y += 1.0f * deltaTime;
+		mesh.Rotation.z += 1.0f * deltaTime;
 	}
+
 
 	//Rendering is managed by the scene!
 	m_ActiveScene->OnUpdate(deltaTime);
@@ -126,13 +145,13 @@ void MainLayer::OnFixedUpdate(tnah::PhysicsTimestep ps)
 
 void MainLayer::OnImGuiRender()
 {
-	auto& terr = m_Terrain->GetComponent<tnah::TransformComponent>();
-	auto& ct = m_Camera->GetComponent<tnah::TransformComponent>();
-	auto& l = m_SceneLight->GetComponent<tnah::LightComponent>();
-	auto& lt = m_SceneLight->GetComponent<tnah::TransformComponent>();
+	auto& terr = m_Terrain.Transform();
+	auto& ct = m_Camera.Transform();
+	auto& l = m_SceneLight.GetComponent<tnah::LightComponent>();
+	auto& lt = m_SceneLight.Transform();
 
-	auto& plt = m_PointLight->GetComponent<tnah::TransformComponent>();
-	auto& pl = m_PointLight->GetComponent<tnah::LightComponent>();
+	auto& plt = m_PointLight.Transform();
+	auto& pl = m_PointLight.GetComponent<tnah::LightComponent>();
 	static int lightType = 0;
 	static const char* LightTypes[]
 	{
@@ -154,19 +173,37 @@ void MainLayer::OnImGuiRender()
 	ImGui::Text("%.1f FPS", ImGui::GetIO().Framerate);
 	ImGui::Text("Application Options");
 	ImGui::Separator();
-	ImGui::BulletText("Press 1 to toggle mouse lock");
+	ImGui::BulletText("Press 1 to toggle the cursor");
 	ImGui::BulletText("Press 2 to toggle wireframe mode");
 	ImGui::BulletText("Press 3 to toggle borderless fullscreen");
 	ImGui::BulletText("Press 4 to toggle VSync");
-	ImGui::BulletText("Press 5 to toggle camera movement");
+	ImGui::BulletText("Press 5 to toggle camera look");
+	ImGui::BulletText("Press 6 to toggle camera movement");
 	ImGui::BulletText("Hold Either Shift to move the camera faster");
 	ImGui::BulletText("Press ESC to exit");
 	ImGui::Separator();
+	
+	if(ImGui::CollapsingHeader("Toggles"))
+	{
+		auto& app = tnah::Application::Get();
+		ImGui::Checkbox("Team Screen", &m_CloseScreenDisplay);
+		ImGui::Checkbox("Cursor", &app.GetCursorToggleStatus());
+		ImGui::Checkbox("Wireframe", &app.GetWireframeToggleStatus());
+		ImGui::Checkbox("VSync", &app.GetVSyncToggleStatus());
+		ImGui::Checkbox("Fullscreen", &app.GetFullscreenToggleStatus());
+		ImGui::Checkbox("Camera Look", &m_CameraLookToggle);
+		ImGui::Checkbox("Camera Movement", &m_CameraMovementToggle);
+	}
 
 	if (ImGui::CollapsingHeader("Camera"))
 	{
 		ImGui::SliderFloat3("Camera Pos", glm::value_ptr(ct.Position), -10000, 10000);
 		ImGui::SliderFloat3("Camera Rotation", glm::value_ptr(ct.Rotation), -360, 360);
+		ImGui::Separator();
+		ImGui::SliderFloat3("Camera Forward", glm::value_ptr(ct.Forward), 0, 0, "%.3f",ImGuiInputTextFlags_ReadOnly);
+		ImGui::SliderFloat3("Camera Right", glm::value_ptr(ct.Right), 0, 0, "%.3f",ImGuiInputTextFlags_ReadOnly);
+		ImGui::SliderFloat3("Camera Up", glm::value_ptr(ct.Up), 0, 0, "%.3f",ImGuiInputTextFlags_ReadOnly);
+		ImGui::Separator();
 		ImGui::Checkbox("Camera Speed Override", &m_CameraMovementSpeedOverride);
 		if (m_CameraMovementSpeedOverride)
 		{
@@ -200,6 +237,17 @@ void MainLayer::OnImGuiRender()
 		ImGui::ColorEdit3("Point Color", glm::value_ptr(pl.Light->GetColor()));
 	}
 	ImGui::End();
+
+	if(m_CloseScreenDisplay)
+	{
+		ImGui::Begin("EndScreen");
+		ImGui::SetWindowPos({0,0});
+		ImGui::SetWindowSize({(float)tnah::Application::Get().GetWindow().GetWidth(), (float)tnah::Application::Get().GetWindow().GetHeight()});
+		auto size = ImGui::GetContentRegionAvail();
+		ImGui::Image((void*)(intptr_t)m_CloseScreenTexture->GetRendererID(), size);
+		ImGui::End();
+	}
+	
 }
 
 void MainLayer::OnEvent(tnah::Event& event)
@@ -210,17 +258,24 @@ void MainLayer::OnEvent(tnah::Event& event)
 		auto& re = (tnah::WindowResizeEvent&)event;
 		uint32_t  width = re.GetWidth();
 		uint32_t height = re.GetHeight();
-		if (m_Camera != nullptr)
-		{
-			auto& c = m_Camera->GetComponent<tnah::CameraComponent>();
-			c.Camera.SetViewportSize(width, height);
-		}
+		auto& c = m_Camera.GetComponent<tnah::CameraComponent>();
+		c.Camera.SetViewportSize(width, height);
+	
 	}
 
 	if (event.GetEventType() == tnah::EventType::KeyPressed)
 	{
 		auto& e = (tnah::KeyPressedEvent&)event;
 		if (e.GetKeyCode() == tnah::Key::D5)
+		{
+			m_CameraLookToggle = !m_CameraLookToggle;
+		}
+	}
+
+	if (event.GetEventType() == tnah::EventType::KeyPressed)
+	{
+		auto& e = (tnah::KeyPressedEvent&)event;
+		if (e.GetKeyCode() == tnah::Key::D6)
 		{
 			m_CameraMovementToggle = !m_CameraMovementToggle;
 		}

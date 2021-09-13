@@ -102,7 +102,7 @@ class MemoryManager {
 };
 
 // Allocate memory of a given type
-RP3D_FORCE_INLINE void* MemoryManager::allocate(AllocationType allocationType, size_t size) {
+inline void* MemoryManager::allocate(AllocationType allocationType, size_t size) {
 
     switch (allocationType) {
        case AllocationType::Base: return mBaseAllocator->allocate(size);
@@ -115,7 +115,7 @@ RP3D_FORCE_INLINE void* MemoryManager::allocate(AllocationType allocationType, s
 }
 
 // Release previously allocated memory.
-RP3D_FORCE_INLINE void MemoryManager::release(AllocationType allocationType, void* pointer, size_t size) {
+inline void MemoryManager::release(AllocationType allocationType, void* pointer, size_t size) {
 
     switch (allocationType) {
        case AllocationType::Base: mBaseAllocator->release(pointer, size); break;
@@ -126,22 +126,22 @@ RP3D_FORCE_INLINE void MemoryManager::release(AllocationType allocationType, voi
 }
 
 // Return the pool allocator
-RP3D_FORCE_INLINE PoolAllocator& MemoryManager::getPoolAllocator() {
+inline PoolAllocator& MemoryManager::getPoolAllocator() {
    return mPoolAllocator;
 }
 
 // Return the single frame stack allocator
-RP3D_FORCE_INLINE SingleFrameAllocator& MemoryManager::getSingleFrameAllocator() {
+inline SingleFrameAllocator& MemoryManager::getSingleFrameAllocator() {
    return mSingleFrameAllocator;
 }
 
 // Return the heap allocator
-RP3D_FORCE_INLINE HeapAllocator& MemoryManager::getHeapAllocator() {
+inline HeapAllocator& MemoryManager::getHeapAllocator() {
    return mHeapAllocator;
 }
 
 // Reset the single frame allocator
-RP3D_FORCE_INLINE void MemoryManager::resetFrameAllocator() {
+inline void MemoryManager::resetFrameAllocator() {
    mSingleFrameAllocator.reset();
 }
 

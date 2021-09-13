@@ -3,8 +3,12 @@
 
 #include "Texture.h"
 #include "Platform/OpenGL/OpenGLShader.h"
+#include "TNAH/Core/Math.h"
+#include "TNAH/Scene/Components/Components.h"
+
 namespace tnah {
 
+#pragma region RenderDataHolders
 	struct RendererData
 	{
 		Ref<Texture2D> WhiteTexture;
@@ -24,10 +28,12 @@ namespace tnah {
 	};
 
 	Renderer::SceneData* Renderer::s_SceneData = new Renderer::SceneData();
-	uint32_t Renderer::s_CurrentTextureSlot = 0;
+	uint32_t Renderer::s_CurrentTextureSlot = 1;
 	static RenderStats* s_RenderStats = new RenderStats();
 	static RendererData* s_Data = nullptr;
-
+#pragma endregion 
+	
+#pragma region RendererStats
 	uint32_t Renderer::GetDrawCallsPerFrame() { return s_RenderStats->DrawCalls; }
 	uint32_t Renderer::GetTotalLoadedTextures() { return s_RenderStats->LoadedTextures; }
 	uint32_t Renderer::GetTotalLoadedShaders() { return s_RenderStats->LoadedShaders; }
@@ -42,16 +48,17 @@ namespace tnah {
 	void Renderer::ResetTotalLoadedTextures() { s_RenderStats->LoadedTextures = 0; }
 	void Renderer::ResetTotalLoadedShaders() { s_RenderStats->LoadedShaders = 0; }
 	void Renderer::ResetTotalLoadedModels() { s_RenderStats->LoadedModels = 0; }
+#pragma endregion 
 
-
+#pragma region RendererInitAndShutdown
 	void Renderer::Init()
 	{
 		s_Data = new RendererData();
 		RenderCommand::Init();
 
-		s_Data->WhiteTexture.reset(Texture2D::Create("Resources/textures/default/default_white.jpg"));
-		s_Data->BlackTexture.reset(Texture2D::Create("Resources/textures/default/default_black.jpg"));
-		s_Data->MissingTexture.reset(Texture2D::Create("Resources/textures/default/default_missing.jpg"));
+		s_Data->WhiteTexture = (Texture2D::Create("Resources/textures/default/default_white.jpg"));
+		s_Data->BlackTexture = (Texture2D::Create("Resources/textures/default/default_black.jpg"));
+		s_Data->MissingTexture = (Texture2D::Create("Resources/textures/default/default_missing.jpg"));
 
 		if (s_Data->WhiteTexture != nullptr)  RegisterTexture(s_Data->WhiteTexture);
 		if (s_Data->BlackTexture != nullptr) RegisterTexture(s_Data->BlackTexture);
@@ -59,45 +66,56 @@ namespace tnah {
 		
 	}
 
-	
-
 	void Renderer::Shutdown()
 	{
 		//Resetting all the loaded objects to shutdown
 		for (auto t : s_Data->LoadedTextures)
 		{
-			t.reset();
+			t.Reset();
 		}
 
 		for (auto s : s_Data->LoadedShaders)
 		{
-			s.reset();
+			s.Reset();
 		}
 
 		for (auto m : s_Data->LoadedModels)
 		{
-			m.reset();
+			m.Reset();
 		}
 
 		delete[] s_Data;
 	}
+#pragma endregion
 
-	void Renderer::OnWindowResize(uint32_t width, uint32_t height)
-	{
-
-	}
-
+#pragma region Rendering
+	
+#pragma region StartAndEndScene
 	void Renderer::BeginScene(SceneCamera& camera)
 	{
+		s_SceneData->View = camera.GetViewMatrix();
+		s_SceneData->Projection = camera.GetProjectionMatrix();
 		s_SceneData->ViewProjection = camera.GetViewProjectionMatrix();
+		ResetDrawCallsPerFrame();
+	}
+
+	void Renderer::BeginScene(SceneCamera& camera, TransformComponent& cameraTransform)
+	{
+		s_SceneData->View = camera.GetViewMatrix();
+		s_SceneData->Projection = camera.GetProjectionMatrix();
+		s_SceneData->ViewProjection = camera.GetViewProjectionMatrix();
+		s_SceneData->CameraTransform = cameraTransform;
 		ResetDrawCallsPerFrame();
 	}
 
 	void Renderer::EndScene()
 	{
 	}
+#pragma endregion
 
-	void Renderer::SetShaderLightInfo(const Ref<Material>& material, std::vector<Ref<Light>> lights)
+#pragma region LightSubmit
+	
+	void Renderer::SetShaderLightInfo(Ref<Material> material, std::vector<Ref<Light>> lights)
 	{
 		if(!material->GetShader()->IsBound()) material->BindShader();
 
@@ -152,8 +170,13 @@ namespace tnah {
 		///////
 	}
 
+#pragma endregion 
 
-	void Renderer::Submit(const Ref<VertexArray>& vertexArray, const Ref<Shader>& shader, const glm::mat4& transform)
+#pragma region RendererSubmits
+
+#pragma region Submit
+	
+	void Renderer::Submit(Ref<VertexArray> vertexArray, Ref<Shader> shader, const glm::mat4& transform)
 	{
 		shader->Bind();
 		shader->SetMat4("u_ViewProjection", s_SceneData->ViewProjection);
@@ -165,7 +188,39 @@ namespace tnah {
 		IncrementDrawCallsPerFrame();
 	}
 
-	void Renderer::SubmitTerrain(const Ref<VertexArray>& vertexArray, const Ref<Material>& material,
+#pragma endregion 
+	
+#pragma region SkyboxRendering
+	
+	void Renderer::SubmitSkybox(Ref<VertexArray> vertexArray, Ref<SkyboxMaterial> material)
+	{
+		RenderCommand::SetDepthFunc(DepthFunc::Lequal);
+		
+		RenderCommand::SetDepthMask(false);
+		
+		RenderCommand::SetCullMode(CullMode::Back);
+		material->BindShader();
+
+		const glm::mat4 view = glm::mat4(glm::mat3(s_SceneData->View));
+		
+		material->GetShader()->SetMat4("u_ViewProjection", s_SceneData->ViewProjection);
+		material->GetShader()->SetVec3("u_CameraPosition", s_SceneData->CameraTransform.Position);
+		
+		material->BindTextures();
+		
+		vertexArray->Bind();
+		
+		RenderCommand::DrawArray(vertexArray);
+		RenderCommand::SetDepthFunc(DepthFunc::Less);
+		RenderCommand::SetDepthMask(true);
+		RenderCommand::SetCullMode(CullMode::Front);
+		IncrementDrawCallsPerFrame();
+	}
+
+#pragma endregion
+
+#pragma region TerrainRendering
+	void Renderer::SubmitTerrain(Ref<VertexArray> vertexArray, Ref<Material> material,
 			std::vector<Ref<Light>> sceneLights, const glm::mat4& transform)
 	{
 		material->BindShader();
@@ -180,14 +235,26 @@ namespace tnah {
 		RenderCommand::DrawIndexed(vertexArray);
 		IncrementDrawCallsPerFrame();
 	}
+#pragma endregion
 
-	void Renderer::SubmitMesh(const Ref<VertexArray>& vertexArray, const Ref<Material>& material,
-			 std::vector<Ref<Light>> sceneLights, const glm::mat4& transform)
+#pragma region MeshRendering
+	void Renderer::SubmitMesh(Ref<VertexArray> vertexArray, Ref<Material> material,
+			 std::vector<Ref<Light>> sceneLights, const glm::mat4& transform, const bool& isAnimated, const std::vector<glm::mat4>& animTransforms)
 	{
-		SetCullMode(CullMode::Back);
+		RenderCommand::SetCullMode(CullMode::Back);
 		material->BindShader();
 		material->GetShader()->SetMat4("u_ViewProjection", s_SceneData->ViewProjection);
 		material->GetShader()->SetMat4("u_Transform", transform);
+		material->GetShader()->SetBool("u_Animated", isAnimated);
+
+		if(isAnimated)
+		{
+			for(uint32_t i = 0; i < animTransforms.size(); ++i)
+			{
+				std::string name = "u_FinalBonesMatrices[" + std::to_string(i) + "]";
+				material->GetShader()->SetMat4(name.c_str(), animTransforms[i]);
+			}
+		}
 
 		SetShaderLightInfo(material, sceneLights);
 		
@@ -195,15 +262,50 @@ namespace tnah {
 		
 		vertexArray->Bind();
 		RenderCommand::DrawIndexed(vertexArray);
-		SetCullMode(CullMode::Front);
+		RenderCommand::SetCullMode(CullMode::Front);
 		IncrementDrawCallsPerFrame();
 	}
+#pragma endregion
 
-	void Renderer::SetCullMode(const CullMode mode)
+#pragma region PhysicsColliderRendering
+	
+	void Renderer::SubmitCollider(Ref<VertexArray> lineVertexArray, Ref<VertexBuffer> lineVertexBuffer,
+		Ref<VertexArray> triangleVertexArray, Ref<VertexBuffer> triangleVertexBuffer)
 	{
-		RenderCommand::SetCullMode(mode);
-	}
+		RenderCommand::SetWireframe(true);
+		auto shader = Physics::GetColliderShader();
+		shader->Bind();
+		shader->SetMat4("u_ViewProjectionMatrix", s_SceneData->ViewProjection);
+		shader->SetMat4("u_Transform",  glm::scale(glm::mat4(1.0f), {2,2,2}));
+		shader->SetInt("u_isGlobalVertexColorEnabled", 0); // use global color
+		shader->SetVec4("u_GlobalVertexColor", glm::vec4(1.0f)); // Disable global color
+		
+		
+		const auto renderer = Physics::GetColliderRenderer();
+		
+		if(renderer->getNbLines() > 0)
+		{
+			lineVertexArray->UpdateVertexBuffer();
+			RenderCommand::DrawArray(lineVertexArray, DrawMode::Lines);
+		}
+		
+		if(renderer->getNbTriangles() > 0)
+		{
+			triangleVertexArray->UpdateVertexBuffer();
+			RenderCommand::DrawArray(triangleVertexArray, DrawMode::Triangles);
+		}
 
+		shader->Unbind();
+		RenderCommand::SetWireframe(false);
+	}
+#pragma endregion
+	
+#pragma endregion
+	
+#pragma endregion 
+	
+#pragma region ResourceManagement
+	
 	Ref<Texture2D> Renderer::GetWhiteTexture()
 	{
 		return s_Data->WhiteTexture;
@@ -229,13 +331,13 @@ namespace tnah {
 		return s_Data->LoadedShaders;
 	}
 
-	void Renderer::RegisterTexture(Ref<Texture2D>& texture)
+	void Renderer::RegisterTexture(Ref<Texture2D> texture)
 	{
 		s_Data->LoadedTextures.push_back(texture);
 		IncrementTotalLoadedTextures();
 	}
 
-	void Renderer::RegisterShader(Ref<Shader>& shader)
+	void Renderer::RegisterShader(Ref<Shader> shader)
 	{
 		s_Data->LoadedShaders.push_back(shader);
 		IncrementTotalLoadedShaders();
@@ -246,11 +348,11 @@ namespace tnah {
 		return s_Data->LoadedModels;
 	}
 
-	void Renderer::RegisterModel(Ref<Model>& model)
+	void Renderer::RegisterModel(Ref<Model> model)
 	{
 		s_Data->LoadedModels.push_back(model);
 		IncrementTotalLoadedModels();
 	}
-
+#pragma endregion 
 
 }

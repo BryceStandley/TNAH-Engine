@@ -93,20 +93,20 @@ class LinkedList {
 
 // Return the first element of the list
 template<typename T>
-RP3D_FORCE_INLINE typename LinkedList<T>::ListElement* LinkedList<T>::getListHead() const {
+inline typename LinkedList<T>::ListElement* LinkedList<T>::getListHead() const {
     return mListHead;
 }
 
 // Insert an element at the beginning of the linked list
 template<typename T>
-RP3D_FORCE_INLINE void LinkedList<T>::insert(const T& data) {
+inline void LinkedList<T>::insert(const T& data) {
     ListElement* element = new (mAllocator.allocate(sizeof(ListElement))) ListElement(data, mListHead);
     mListHead = element;
 }
 
 // Remove all the elements of the list
 template<typename T>
-RP3D_FORCE_INLINE void LinkedList<T>::reset() {
+inline void LinkedList<T>::reset() {
 
     // Release all the list elements
     ListElement* element = mListHead;

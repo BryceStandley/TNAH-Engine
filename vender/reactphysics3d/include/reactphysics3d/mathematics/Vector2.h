@@ -148,9 +148,6 @@ struct Vector2 {
         /// Return the zero vector
         static Vector2 zero();
 
-        /// Function to test if two vectors are (almost) equal
-        static bool approxEqual(const Vector2& vec1, const Vector2& vec2, decimal epsilon = MACHINE_EPSILON);
-
         // -------------------- Friends -------------------- //
 
         friend Vector2 operator+(const Vector2& vector1, const Vector2& vector2);
@@ -164,50 +161,50 @@ struct Vector2 {
 };
 
 // Constructor
-RP3D_FORCE_INLINE Vector2::Vector2() : x(0.0), y(0.0) {
+inline Vector2::Vector2() : x(0.0), y(0.0) {
 
 }
 
 // Constructor with arguments
-RP3D_FORCE_INLINE Vector2::Vector2(decimal newX, decimal newY) : x(newX), y(newY) {
+inline Vector2::Vector2(decimal newX, decimal newY) : x(newX), y(newY) {
 
 }
 
 // Copy-constructor
-RP3D_FORCE_INLINE Vector2::Vector2(const Vector2& vector) : x(vector.x), y(vector.y) {
+inline Vector2::Vector2(const Vector2& vector) : x(vector.x), y(vector.y) {
 
 }
 
 
 // Set the vector to zero
-RP3D_FORCE_INLINE void Vector2::setToZero() {
+inline void Vector2::setToZero() {
     x = 0;
     y = 0;
 }
 
 // Set all the values of the vector
-RP3D_FORCE_INLINE void Vector2::setAllValues(decimal newX, decimal newY) {
+inline void Vector2::setAllValues(decimal newX, decimal newY) {
     x = newX;
     y = newY;
 }
 
 // Return the length of the vector
-RP3D_FORCE_INLINE decimal Vector2::length() const {
+inline decimal Vector2::length() const {
     return std::sqrt(x*x + y*y);
 }
 
 // Return the square of the length of the vector
-RP3D_FORCE_INLINE decimal Vector2::lengthSquare() const {
+inline decimal Vector2::lengthSquare() const {
     return x*x + y*y;
 }
 
-// Scalar product of two vectors (RP3D_FORCE_INLINE)
-RP3D_FORCE_INLINE decimal Vector2::dot(const Vector2& vector) const {
+// Scalar product of two vectors (inline)
+inline decimal Vector2::dot(const Vector2& vector) const {
     return (x*vector.x + y*vector.y);
 }
 
 // Normalize the vector
-RP3D_FORCE_INLINE void Vector2::normalize() {
+inline void Vector2::normalize() {
     decimal l = length();
     if (l < MACHINE_EPSILON) {
         return;
@@ -217,68 +214,68 @@ RP3D_FORCE_INLINE void Vector2::normalize() {
 }
 
 // Return the corresponding absolute value vector
-RP3D_FORCE_INLINE Vector2 Vector2::getAbsoluteVector() const {
+inline Vector2 Vector2::getAbsoluteVector() const {
     return Vector2(std::abs(x), std::abs(y));
 }
 
 // Return the axis with the minimal value
-RP3D_FORCE_INLINE int Vector2::getMinAxis() const {
+inline int Vector2::getMinAxis() const {
     return (x < y ? 0 : 1);
 }
 
 // Return the axis with the maximal value
-RP3D_FORCE_INLINE int Vector2::getMaxAxis() const {
+inline int Vector2::getMaxAxis() const {
     return (x < y ? 1 : 0);
 }
 
 // Return true if the vector is unit and false otherwise
-RP3D_FORCE_INLINE bool Vector2::isUnit() const {
-    return reactphysics3d::approxEqual(lengthSquare(), decimal(1.0));
+inline bool Vector2::isUnit() const {
+    return approxEqual(lengthSquare(), 1.0);
 }
 
 // Return true if the values are not NAN OR INF
-RP3D_FORCE_INLINE bool Vector2::isFinite() const {
+inline bool Vector2::isFinite() const {
     return std::isfinite(x) && std::isfinite(y);
 }
 
 // Return true if the vector is the zero vector
-RP3D_FORCE_INLINE bool Vector2::isZero() const {
-    return reactphysics3d::approxEqual(lengthSquare(), decimal(0.0));
+inline bool Vector2::isZero() const {
+    return approxEqual(lengthSquare(), 0.0);
 }
 
 // Overloaded operator for the equality condition
-RP3D_FORCE_INLINE bool Vector2::operator== (const Vector2& vector) const {
+inline bool Vector2::operator== (const Vector2& vector) const {
     return (x == vector.x && y == vector.y);
 }
 
 // Overloaded operator for the is different condition
-RP3D_FORCE_INLINE bool Vector2::operator!= (const Vector2& vector) const {
+inline bool Vector2::operator!= (const Vector2& vector) const {
     return !(*this == vector);
 }
 
 // Overloaded operator for addition with assignment
-RP3D_FORCE_INLINE Vector2& Vector2::operator+=(const Vector2& vector) {
+inline Vector2& Vector2::operator+=(const Vector2& vector) {
     x += vector.x;
     y += vector.y;
     return *this;
 }
 
 // Overloaded operator for substraction with assignment
-RP3D_FORCE_INLINE Vector2& Vector2::operator-=(const Vector2& vector) {
+inline Vector2& Vector2::operator-=(const Vector2& vector) {
     x -= vector.x;
     y -= vector.y;
     return *this;
 }
 
 // Overloaded operator for multiplication with a number with assignment
-RP3D_FORCE_INLINE Vector2& Vector2::operator*=(decimal number) {
+inline Vector2& Vector2::operator*=(decimal number) {
     x *= number;
     y *= number;
     return *this;
 }
 
 // Overloaded operator for division by a number with assignment
-RP3D_FORCE_INLINE Vector2& Vector2::operator/=(decimal number) {
+inline Vector2& Vector2::operator/=(decimal number) {
     assert(number > std::numeric_limits<decimal>::epsilon());
     x /= number;
     y /= number;
@@ -286,60 +283,60 @@ RP3D_FORCE_INLINE Vector2& Vector2::operator/=(decimal number) {
 }
 
 // Overloaded operator for value access
-RP3D_FORCE_INLINE decimal& Vector2::operator[] (int index) {
+inline decimal& Vector2::operator[] (int index) {
     return (&x)[index];
 }
 
 // Overloaded operator for value access
-RP3D_FORCE_INLINE const decimal& Vector2::operator[] (int index) const {
+inline const decimal& Vector2::operator[] (int index) const {
     return (&x)[index];
 }
 
 // Overloaded operator for addition
-RP3D_FORCE_INLINE Vector2 operator+(const Vector2& vector1, const Vector2& vector2) {
+inline Vector2 operator+(const Vector2& vector1, const Vector2& vector2) {
     return Vector2(vector1.x + vector2.x, vector1.y + vector2.y);
 }
 
 // Overloaded operator for substraction
-RP3D_FORCE_INLINE Vector2 operator-(const Vector2& vector1, const Vector2& vector2) {
+inline Vector2 operator-(const Vector2& vector1, const Vector2& vector2) {
     return Vector2(vector1.x - vector2.x, vector1.y - vector2.y);
 }
 
 // Overloaded operator for the negative of a vector
-RP3D_FORCE_INLINE Vector2 operator-(const Vector2& vector) {
+inline Vector2 operator-(const Vector2& vector) {
     return Vector2(-vector.x, -vector.y);
 }
 
 // Overloaded operator for multiplication with a number
-RP3D_FORCE_INLINE Vector2 operator*(const Vector2& vector, decimal number) {
+inline Vector2 operator*(const Vector2& vector, decimal number) {
     return Vector2(number * vector.x, number * vector.y);
 }
 
 // Overloaded operator for multiplication of two vectors
-RP3D_FORCE_INLINE Vector2 operator*(const Vector2& vector1, const Vector2& vector2) {
+inline Vector2 operator*(const Vector2& vector1, const Vector2& vector2) {
     return Vector2(vector1.x * vector2.x, vector1.y * vector2.y);
 }
 
 // Overloaded operator for division by a number
-RP3D_FORCE_INLINE Vector2 operator/(const Vector2& vector, decimal number) {
+inline Vector2 operator/(const Vector2& vector, decimal number) {
     assert(number > MACHINE_EPSILON);
     return Vector2(vector.x / number, vector.y / number);
 }
 
 // Overload operator for division between two vectors
-RP3D_FORCE_INLINE Vector2 operator/(const Vector2& vector1, const Vector2& vector2) {
+inline Vector2 operator/(const Vector2& vector1, const Vector2& vector2) {
     assert(vector2.x > MACHINE_EPSILON);
     assert(vector2.y > MACHINE_EPSILON);
     return Vector2(vector1.x / vector2.x, vector1.y / vector2.y);
 }
 
 // Overloaded operator for multiplication with a number
-RP3D_FORCE_INLINE Vector2 operator*(decimal number, const Vector2& vector) {
+inline Vector2 operator*(decimal number, const Vector2& vector) {
     return vector * number;
 }
 
 // Assignment operator
-RP3D_FORCE_INLINE Vector2& Vector2::operator=(const Vector2& vector) {
+inline Vector2& Vector2::operator=(const Vector2& vector) {
     if (&vector != this) {
         x = vector.x;
         y = vector.y;
@@ -348,35 +345,30 @@ RP3D_FORCE_INLINE Vector2& Vector2::operator=(const Vector2& vector) {
 }
 
 // Overloaded less than operator for ordering to be used inside std::set for instance
-RP3D_FORCE_INLINE bool Vector2::operator<(const Vector2& vector) const {
+inline bool Vector2::operator<(const Vector2& vector) const {
     return (x == vector.x ? y < vector.y : x < vector.x);
 }
 
 // Return a vector taking the minimum components of two vectors
-RP3D_FORCE_INLINE Vector2 Vector2::min(const Vector2& vector1, const Vector2& vector2) {
+inline Vector2 Vector2::min(const Vector2& vector1, const Vector2& vector2) {
     return Vector2(std::min(vector1.x, vector2.x),
                    std::min(vector1.y, vector2.y));
 }
 
 // Return a vector taking the maximum components of two vectors
-RP3D_FORCE_INLINE Vector2 Vector2::max(const Vector2& vector1, const Vector2& vector2) {
+inline Vector2 Vector2::max(const Vector2& vector1, const Vector2& vector2) {
     return Vector2(std::max(vector1.x, vector2.x),
                    std::max(vector1.y, vector2.y));
 }
 
 // Get the string representation
-RP3D_FORCE_INLINE std::string Vector2::to_string() const {
+inline std::string Vector2::to_string() const {
     return "Vector2(" + std::to_string(x) + "," + std::to_string(y) + ")";
 }
 
 // Return the zero vector
-RP3D_FORCE_INLINE Vector2 Vector2::zero() {
+inline Vector2 Vector2::zero() {
     return Vector2(0, 0);
-}
-
-// Function to test if two vectors are (almost) equal
-RP3D_FORCE_INLINE bool approxEqual(const Vector2& vec1, const Vector2& vec2, decimal epsilon) {
-    return approxEqual(vec1.x, vec2.x, epsilon) && approxEqual(vec1.y, vec2.y, epsilon);
 }
 
 }

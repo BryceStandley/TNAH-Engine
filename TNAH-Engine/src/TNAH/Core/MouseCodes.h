@@ -6,6 +6,12 @@ namespace tnah
 
 	namespace Mouse
 	{
+		/**
+		 * @enum	
+		 *
+		 * @brief	Values that represent mouseCodes
+		 */
+
 		enum : MouseCode
 		{
 			// From glfw3.h

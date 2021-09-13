@@ -28,7 +28,6 @@
 
 // Libraries
 #include <cassert>
-#include <cmath>
 #include <reactphysics3d/configuration.h>
 
 namespace reactphysics3d {
@@ -45,8 +44,11 @@ class Material {
 
         // -------------------- Attributes -------------------- //
 
-        /// Square root of the friction coefficient
-        decimal mFrictionCoefficientSqrt;
+        /// Friction coefficient (positive value)
+        decimal mFrictionCoefficient;
+
+        /// Rolling resistance factor (positive value)
+        decimal mRollingResistance;
 
         /// Bounciness during collisions (between 0 and 1) where 1 is for a very bouncy body
         decimal mBounciness;
@@ -57,7 +59,14 @@ class Material {
         // -------------------- Methods -------------------- //
 
         /// Constructor
-        Material(decimal frictionCoefficient, decimal bounciness, decimal massDensity = decimal(1.0));
+        Material(decimal frictionCoefficient, decimal rollingResistance, decimal bounciness,
+                 decimal massDensity = decimal(1.0));
+
+        /// Copy-constructor
+        Material(const Material& material);
+
+        /// Destructor
+        ~Material() = default;
 
     public :
 
@@ -75,8 +84,11 @@ class Material {
         /// Set the friction coefficient.
         void setFrictionCoefficient(decimal frictionCoefficient);
 
-        /// Return the square root friction coefficient
-        decimal getFrictionCoefficientSqrt() const;
+        /// Return the rolling resistance factor
+        decimal getRollingResistance() const;
+
+        /// Set the rolling resistance factor
+        void setRollingResistance(decimal rollingResistance);
 
         /// Return the mass density of the collider
         decimal getMassDensity() const;
@@ -87,18 +99,19 @@ class Material {
         /// Return a string representation for the material
         std::string to_string() const;
 
+        /// Overloaded assignment operator
+        Material& operator=(const Material& material);
+
         // ---------- Friendship ---------- //
 
         friend class Collider;
-        friend class CollisionBody;
-        friend class RigidBody;
 };
 
 // Return the bounciness
 /**
  * @return Bounciness factor (between 0 and 1) where 1 is very bouncy
  */
-RP3D_FORCE_INLINE decimal Material::getBounciness() const {
+inline decimal Material::getBounciness() const {
     return mBounciness;
 }
 
@@ -108,7 +121,7 @@ RP3D_FORCE_INLINE decimal Material::getBounciness() const {
 /**
  * @param bounciness Bounciness factor (between 0 and 1) where 1 is very bouncy
  */
-RP3D_FORCE_INLINE void Material::setBounciness(decimal bounciness) {
+inline void Material::setBounciness(decimal bounciness) {
     assert(bounciness >= decimal(0.0) && bounciness <= decimal(1.0));
     mBounciness = bounciness;
 }
@@ -117,8 +130,8 @@ RP3D_FORCE_INLINE void Material::setBounciness(decimal bounciness) {
 /**
  * @return Friction coefficient (positive value)
  */
-RP3D_FORCE_INLINE decimal Material::getFrictionCoefficient() const {
-    return mFrictionCoefficientSqrt * mFrictionCoefficientSqrt;
+inline decimal Material::getFrictionCoefficient() const {
+    return mFrictionCoefficient;
 }
 
 // Set the friction coefficient.
@@ -127,18 +140,34 @@ RP3D_FORCE_INLINE decimal Material::getFrictionCoefficient() const {
 /**
  * @param frictionCoefficient Friction coefficient (positive value)
  */
-RP3D_FORCE_INLINE void Material::setFrictionCoefficient(decimal frictionCoefficient) {
+inline void Material::setFrictionCoefficient(decimal frictionCoefficient) {
     assert(frictionCoefficient >= decimal(0.0));
-    mFrictionCoefficientSqrt = std::sqrt(frictionCoefficient);
+    mFrictionCoefficient = frictionCoefficient;
 }
 
-// Return the square root friction coefficient
-RP3D_FORCE_INLINE decimal Material::getFrictionCoefficientSqrt() const {
-    return mFrictionCoefficientSqrt;
+// Return the rolling resistance factor. If this value is larger than zero,
+// it will be used to slow down the body when it is rolling
+// against another body.
+/**
+ * @return The rolling resistance factor (positive value)
+ */
+inline decimal Material::getRollingResistance() const {
+    return mRollingResistance;
+}
+
+// Set the rolling resistance factor. If this value is larger than zero,
+// it will be used to slow down the body when it is rolling
+// against another body.
+/**
+ * @param rollingResistance The rolling resistance factor
+ */
+inline void Material::setRollingResistance(decimal rollingResistance) {
+    assert(rollingResistance >= 0);
+    mRollingResistance = rollingResistance;
 }
 
 // Return the mass density of the collider
-RP3D_FORCE_INLINE decimal Material::getMassDensity() const {
+inline decimal Material::getMassDensity() const {
    return mMassDensity;
 }
 
@@ -146,19 +175,34 @@ RP3D_FORCE_INLINE decimal Material::getMassDensity() const {
 /**
  * @param massDensity The mass density of the collider
  */
-RP3D_FORCE_INLINE void Material::setMassDensity(decimal massDensity) {
+inline void Material::setMassDensity(decimal massDensity) {
    mMassDensity = massDensity;
 }
 
 // Return a string representation for the material
-RP3D_FORCE_INLINE std::string Material::to_string() const {
+inline std::string Material::to_string() const {
 
     std::stringstream ss;
 
-    ss << "frictionCoefficient=" << (mFrictionCoefficientSqrt * mFrictionCoefficientSqrt) << std::endl;
+    ss << "frictionCoefficient=" << mFrictionCoefficient << std::endl;
+    ss << "rollingResistance=" << mRollingResistance << std::endl;
     ss << "bounciness=" << mBounciness << std::endl;
 
     return ss.str();
+}
+
+// Overloaded assignment operator
+inline Material& Material::operator=(const Material& material) {
+
+    // Check for self-assignment
+    if (this != &material) {
+        mFrictionCoefficient = material.mFrictionCoefficient;
+        mBounciness = material.mBounciness;
+        mRollingResistance = material.mRollingResistance;
+    }
+
+    // Return this material
+    return *this;
 }
 
 }

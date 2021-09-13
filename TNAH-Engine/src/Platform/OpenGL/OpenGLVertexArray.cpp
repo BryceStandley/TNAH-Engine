@@ -15,6 +15,7 @@ namespace tnah {
 		case tnah::ShaderDataType::Float4:   return GL_FLOAT;
 		case tnah::ShaderDataType::Mat3:     return GL_FLOAT;
 		case tnah::ShaderDataType::Mat4:     return GL_FLOAT;
+		case ShaderDataType::UInt:		return GL_UNSIGNED_INT;
 		case tnah::ShaderDataType::Int:      return GL_INT;
 		case tnah::ShaderDataType::Int2:     return GL_INT;
 		case tnah::ShaderDataType::Int3:     return GL_INT;
@@ -46,7 +47,7 @@ namespace tnah {
 		glBindVertexArray(0);
 	}
 
-	void OpenGLVertexArray::AddVertexBuffer(const std::shared_ptr<VertexBuffer>& vertexBuffer)
+	void OpenGLVertexArray::AddVertexBuffer(const Ref<VertexBuffer>& vertexBuffer)
 	{
 		TNAH_CORE_ASSERT(vertexBuffer->GetLayout().GetElements().size(), "Vertex Buffer has no layout!");
 
@@ -69,12 +70,44 @@ namespace tnah {
 		m_VertexBuffers.push_back(vertexBuffer);
 	}
 
-	void OpenGLVertexArray::SetIndexBuffer(const std::shared_ptr<IndexBuffer>& indexBuffer)
+	void OpenGLVertexArray::SetIndexBuffer(const Ref<IndexBuffer>& indexBuffer)
 	{
 		glBindVertexArray(m_RendererID);
 		indexBuffer->Bind();
 
 		m_IndexBuffer = indexBuffer;
+	}
+
+	void OpenGLVertexArray::UpdateVertexBuffer()
+	{
+		glBindVertexArray(m_RendererID);
+		m_VertexBuffers.at(0)->Bind();
+
+		uint32_t index = 0;
+		const auto& layout = m_VertexBuffers.at(0)->GetLayout();
+		for (const auto& element : layout)
+		{
+			glEnableVertexAttribArray(index);
+			if(VertexBuffer::CheckIntShaderDataTypes(element))
+			{
+				glVertexAttribIPointer(index,
+					element.GetComponentCount(),
+					ShaderDataTypeToOpenGLBaseType(element.Type),
+					layout.GetStride(),
+					(const void*)element.Offset);
+			}
+			else
+			{
+				glVertexAttribPointer(index,
+					element.GetComponentCount(),
+					ShaderDataTypeToOpenGLBaseType(element.Type),
+					element.Normalized ? GL_TRUE : GL_FALSE,
+					layout.GetStride(),
+					(const void*)element.Offset);
+			}
+			
+			index++;
+		}
 	}
 
 }

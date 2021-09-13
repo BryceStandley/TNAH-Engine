@@ -11,6 +11,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Platform\IrrKlang\Klang.cpp" />
+    <ClCompile Include="src\TNAH\Audio\Audio.cpp" />
+    <ClCompile Include="src\TNAH\Audio\AudioAPI.cpp" />
     <ClCompile Include="src\TNAH\Core\Application.cpp" />
     <ClCompile Include="src\TNAH\Core\FileManager.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp" />
@@ -18,10 +21,16 @@
     <ClCompile Include="src\Platform\OpenGL\OpenGLShader.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLTexture.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLVertexArray.cpp" />
+    <ClCompile Include="src\TNAH\Core\Math.cpp" />
+    <ClCompile Include="src\TNAH\Core\Ref.cpp" />
     <ClCompile Include="src\TNAH\Core\UUID.cpp" />
     <ClCompile Include="src\TNAH\Editor\EditorUI.cpp" />
     <ClCompile Include="src\TNAH\Layers\ImGuizmo.cpp" />
+    <ClCompile Include="src\TNAH\Layers\UI.cpp" />
+    <ClCompile Include="src\TNAH\Physics\Physics.cpp" />
+    <ClCompile Include="src\TNAH\Physics\PhysicsEvents.cpp" />
     <ClCompile Include="src\TNAH\Physics\PhysicsTimestep.cpp" />
+    <ClCompile Include="src\TNAH\Physics\PhysicsWrapper.cpp" />
     <ClCompile Include="src\TNAH\Renderer\Image.cpp" />
     <ClCompile Include="src\TNAH\Renderer\Light.cpp" />
     <ClCompile Include="src\TNAH\Renderer\RenderingBuffers.cpp" />
@@ -45,6 +54,9 @@
     <ClCompile Include="src\TNAH\Renderer\Renderer.cpp" />
     <ClCompile Include="src\TNAH\Renderer\RendererAPI.cpp" />
     <ClCompile Include="src\TNAH\Renderer\Texture.cpp" />
+    <ClCompile Include="src\TNAH\Scene\Components\AnimatorComponent.cpp" />
+    <ClCompile Include="src\TNAH\Scene\Components\PhysicsComponents.cpp" />
+    <ClCompile Include="src\TNAH\Scene\Components\SkyboxComponent.cpp" />
     <ClCompile Include="src\TNAH\Scene\Components\TerrainComponent.cpp" />
     <ClCompile Include="src\TNAH\Scene\Light\DirectionalLight.cpp" />
     <ClCompile Include="src\TNAH\Scene\Light\PointLight.cpp" />
@@ -54,8 +66,12 @@
     <ClCompile Include="src\TNAH\Renderer\VertexArray.cpp" />
     <ClCompile Include="src\TNAH\Scene\GameObject.cpp" />
     <ClCompile Include="src\TNAH\Scene\Scene.cpp" />
+    <ClCompile Include="src\TNAH\Scene\Serializer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Platform\IrrKlang\Klang.h" />
+    <ClInclude Include="src\TNAH\Audio\Audio.h" />
+    <ClInclude Include="src\TNAH\Audio\AudioAPI.h" />
     <ClInclude Include="src\TNAH\Core\Application.h" />
     <ClInclude Include="src\TNAH\Core\EntryPoint.h" />
     <ClInclude Include="src\TNAH\Core\FileManager.h" />
@@ -69,13 +85,22 @@
     <ClInclude Include="src\TNAH-App.h" />
     <ClInclude Include="src\TNAH\Core\AABB.h" />
     <ClInclude Include="src\TNAH\Core\Buffer.h" />
+    <ClInclude Include="src\TNAH\Core\FileStructures.h" />
     <ClInclude Include="src\TNAH\Core\Timer.h" />
     <ClInclude Include="src\TNAH\Core\Timestep.h" />
     <ClInclude Include="src\TNAH\Core\Utility.h" />
     <ClInclude Include="src\TNAH\Core\UUID.h" />
     <ClInclude Include="src\TNAH\Editor\EditorUI.h" />
     <ClInclude Include="src\TNAH\Layers\ImGuizmo.h" />
+    <ClInclude Include="src\TNAH\Layers\UI.h" />
+    <ClInclude Include="src\TNAH\Physics\Physics.h" />
+    <ClInclude Include="src\TNAH\Physics\PhysicsEvents.h" />
     <ClInclude Include="src\TNAH\Physics\PhysicsTimestep.h" />
+    <ClInclude Include="src\TNAH\Physics\PhysicsWrapper.h" />
+    <ClInclude Include="src\TNAH\Renderer\Animation.h" />
+    <ClInclude Include="src\TNAH\Renderer\AssimpGLMHelpers.h" />
+    <ClInclude Include="src\TNAH\Renderer\Bone.h" />
+    <ClInclude Include="src\TNAH\Renderer\BoneInfo.h" />
     <ClInclude Include="src\TNAH\Renderer\Image.h" />
     <ClInclude Include="src\TNAH\Renderer\Light.h" />
     <ClInclude Include="src\TNAH\Renderer\RenderingBuffers.h" />
@@ -84,7 +109,9 @@
     <ClInclude Include="src\TNAH\Renderer\Mesh.h" />
     <ClInclude Include="src\TNAH\Renderer\stb_image.h" />
     <ClInclude Include="src\TNAH\Renderer\Texture.h" />
-    <ClInclude Include="src\TNAH\Scene\Components\EditorCamera.h" />
+    <ClInclude Include="src\TNAH\Scene\Components\AnimatorComponent.h" />
+    <ClInclude Include="src\TNAH\Scene\Components\ComponentBase.h" />
+    <ClInclude Include="src\TNAH\Scene\Components\SkyboxComponent.h" />
     <ClInclude Include="src\TNAH\Scene\Light\DirectionalLight.h" />
     <ClInclude Include="src\TNAH\Scene\Light\PointLight.h" />
     <ClInclude Include="src\TNAH\Scene\Light\SpotLight.h" />
@@ -120,6 +147,7 @@
     <ClInclude Include="src\TNAH\Scene\GameObject.h" />
     <ClInclude Include="src\TNAH\Scene\Components\TerrainComponent.h" />
     <ClInclude Include="src\TNAH\Scene\Scene.h" />
+    <ClInclude Include="src\TNAH\Scene\Serializer.h" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\fonts\opensans\LICENSE.txt" />
@@ -133,13 +161,20 @@
     <Content Include="Resources\fonts\opensans\OpenSans-Regular.ttf" />
     <Content Include="Resources\fonts\opensans\OpenSans-SemiBold.ttf" />
     <Content Include="Resources\fonts\opensans\OpenSans-SemiBoldItalic.ttf" />
+    <Content Include="Resources\shaders\default\mesh\mesh_anim_fragment.glsl" />
+    <Content Include="Resources\shaders\default\mesh\mesh_anim_vertex.glsl" />
     <Content Include="Resources\shaders\default\mesh\mesh_fragment.glsl" />
     <Content Include="Resources\shaders\default\mesh\mesh_vertex.glsl" />
+    <Content Include="Resources\shaders\default\physics\physics_fragment.glsl" />
+    <Content Include="Resources\shaders\default\physics\physics_vertex.glsl" />
+    <Content Include="Resources\shaders\default\skybox\skybox_fragment.glsl" />
+    <Content Include="Resources\shaders\default\skybox\skybox_vertex.glsl" />
     <Content Include="Resources\shaders\default\terrain\terrain_fragment.glsl" />
     <Content Include="Resources\shaders\default\terrain\terrain_vertex.glsl" />
     <Content Include="Resources\textures\default\default_black.jpg" />
     <Content Include="Resources\textures\default\default_missing.jpg" />
     <Content Include="Resources\textures\default\default_white.jpg" />
+    <ClInclude Include="src\TNAH\Core\Ref.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EngineDependencesProjects\Glad\Glad.vcxproj">
@@ -150,6 +185,10 @@
     </ProjectReference>
     <ProjectReference Include="..\EngineDependencesProjects\ImGUI\ImGUI.vcxproj">
       <Project>{11bb4bf9-7d1e-4ada-aa26-b828e14ec6b3}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\EngineDependencesProjects\ReactPhysics3D\ReactPhysics3D.vcxproj">
+      <Project>{2f2998f1-3d89-4812-8ef6-c65ebf9a18d7}</Project>
+      <Name>ReactPhysics3D</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -166,6 +205,7 @@
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
+    <EnableASAN>false</EnableASAN>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
@@ -203,21 +243,24 @@
       <PreprocessorDefinitions>TNAH_DEBUG;TNAH_PLATFORM_WINDOWS;TNAH_BUILD_DLL;GLFW_INCLUDE_NONE;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)vender\assimp\include;$(SolutionDir)EngineDependencesProjects\GLFW\include;$(SolutionDir)vender\glad\include;$(SolutionDir)vender\glm\include;$(SolutionDir)vender\lua\include;$(SolutionDir)vender\luabridge\include;$(SolutionDir)vender\reactphysics3d\include;$(SolutionDir)vender\spdlog\include;$(ProjectDir)src\;$(SolutionDir)EngineDependencesProjects\ImGui\;$(SolutionDir)vender/entt/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)vender\assimp\include;$(SolutionDir)EngineDependencesProjects\GLFW\include;$(SolutionDir)vender\glad\include;$(SolutionDir)vender\glm\include;$(SolutionDir)vender\lua\include;$(SolutionDir)vender\luabridge\include;$(SolutionDir)vender\reactphysics3d\include;$(SolutionDir)vender\spdlog\include;$(ProjectDir)src\;$(SolutionDir)EngineDependencesProjects\ImGui\;$(SolutionDir)vender/entt/include;$(SolutionDir)vender\irrklang\include;$(SolutionDir)vender\ktx\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>tnahpch.h</PrecompiledHeaderFile>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <AdditionalOptions> %(AdditionalOptions)</AdditionalOptions>
+      <MultiProcessorCompilation>false</MultiProcessorCompilation>
+      <MinimalRebuild>false</MinimalRebuild>
+      <DisableSpecificWarnings></DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)vender\assimp\lib;$(SolutionDir)vender\glfw\lib;$(SolutionDir)vender\lua\lib;$(SolutionDir)vender\reactphysics3d\lib;$(SolutionDir)vender\spdlog\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>assimp-vc142-mtd.lib;lua54.lib;reactphysics3d.lib;spdlogd.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)vender\assimp\lib;$(SolutionDir)vender\glfw\lib;$(SolutionDir)vender\lua\lib;$(SolutionDir)vender\reactphysics3d\lib;$(SolutionDir)vender\spdlog\lib;$(SolutionDir)vender\ktx\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>ktx.lib;ktx_read.lib;objUtil.lib;assimp-vc142-mtd.lib;lua54.lib;reactphysics3d.lib;spdlogd.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Lib>
-      <AdditionalDependencies>assimp-vc142-mtd.lib;zlibstaticd.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)vender\assimp\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>ktx.lib;objUtil.lib;assimp-vc142-mtd.lib;zlibstaticd.lib;irrKlang.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)vender\irrklang\lib;$(SolutionDir)vender\ktx\lib;$(SolutionDir)vender\assimp\lib</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -228,7 +271,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>TNAH_PLATFORM_WINDOWS;TNAH_BUILD_DLL;_CRT_SECURE_NO_WARNINGS;GLFW_INCLUDE_NONE;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalIncludeDirectories>$(SolutionDir)vender\assimp\include;$(SolutionDir)GLFW\include;$(SolutionDir)vender\glad\include;$(SolutionDir)vender\glm\include;$(SolutionDir)vender\lua\include;$(SolutionDir)vender\luabridge\include;$(SolutionDir)vender\reactphysics3d\include;$(SolutionDir)vender\spdlog\include;$(ProjectDir)/src/;$(SolutionDir)ImGui/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>tnahpch.h</PrecompiledHeaderFile>
@@ -239,8 +282,8 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)vender\assimp\lib;$(SolutionDir)vender\glfw\lib;$(SolutionDir)vender\lua\lib;$(SolutionDir)vender\reactphysics3d\lib;$(SolutionDir)vender\spdlog\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>assimp-vc142-mtd.lib;lua54.lib;reactphysics3d.lib;spdlogd.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)vender\assimp\lib;$(SolutionDir)vender\glfw\lib;$(SolutionDir)vender\lua\lib;$(SolutionDir)vender\reactphysics3d\lib;$(SolutionDir)vender\spdlog\lib;$(SolutionDir)vender\ktx\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>ktx.lib;ktx_read.lib;objUtil.lib;assimp-vc142-mtd.lib;lua54.lib;reactphysics3d.lib;spdlogd.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

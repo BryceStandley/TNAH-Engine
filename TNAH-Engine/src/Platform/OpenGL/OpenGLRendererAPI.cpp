@@ -33,9 +33,97 @@ namespace tnah {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
 
-	void OpenGLRendererAPI::DrawIndexed(const Ref<VertexArray>& vertexArray)
+	void OpenGLRendererAPI::Disable(const APIEnum& value)
 	{
-		glDrawElements(GL_TRIANGLES, vertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
+		switch (value)
+		{
+		case APIEnum::CullFace: glDisable(GL_CULL_FACE); break;
+		case APIEnum::DepthTest: glDisable(GL_DEPTH_TEST); break;
+		case APIEnum::DepthMask: glDepthMask(GL_FALSE); break;
+		case APIEnum::FrontFace_CW: glFrontFace(GL_CCW); break;
+		case APIEnum::FrontFace_CCW: glFrontFace(GL_CW); break;
+		case APIEnum::CubeMap: glDisable(GL_TEXTURE_CUBE_MAP);  break;
+		default: break;
+		}
+	}
+
+	void OpenGLRendererAPI::Enable(const APIEnum& value)
+	{
+		switch (value)
+		{
+		case APIEnum::CullFace: glEnable(GL_CULL_FACE); break;
+		case APIEnum::DepthTest: glEnable(GL_DEPTH_TEST); break;
+		case APIEnum::DepthMask: glDepthMask(GL_TRUE); break;
+		case APIEnum::FrontFace_CW: glFrontFace(GL_CW); break;
+		case APIEnum::FrontFace_CCW: glFrontFace(GL_CCW); break;
+		case APIEnum::CubeMap: glEnable(GL_TEXTURE_CUBE_MAP); break;
+		default: break;
+		}
+	}
+
+	void OpenGLRendererAPI::DrawIndexed(const Ref<VertexArray>& vertexArray, const DrawMode& mode, void* indicesStart)
+	{
+		glDrawElements(ModeFromDrawMode(mode),
+							vertexArray->GetIndexBuffer()->GetCount(),
+							vertexArray->GetIndexBuffer()->GetDataType(),
+							indicesStart
+						);
+	}
+
+	void OpenGLRendererAPI::DrawArray(const Ref<VertexArray>& vertexArray, const DrawMode& mode)
+	{
+		glDrawArrays(ModeFromDrawMode(mode),
+						0,
+						vertexArray->GetIndexSize()
+					);
+	}
+
+	void OpenGLRendererAPI::SetDepthFunc(const DepthFunc& func)
+	{
+		switch (func)
+		{
+		case DepthFunc::Never: glDepthFunc(GL_NEVER); break;
+		case DepthFunc::Less: glDepthFunc(GL_LESS); break;
+		case DepthFunc::Equal: glDepthFunc(GL_EQUAL); break;
+		case DepthFunc::Lequal: glDepthFunc(GL_LEQUAL); break;
+		case DepthFunc::Greater: glDepthFunc(GL_GREATER); break;
+		case DepthFunc::NotEqual: glDepthFunc(GL_NOTEQUAL); break;
+		case DepthFunc::Gequal: glDepthFunc(GL_GEQUAL); break;
+		case DepthFunc::Always: glDepthFunc(GL_ALWAYS); break;
+		default:  glDepthFunc(GL_LESS); break;
+		}
+	}
+
+	int OpenGLRendererAPI::ModeFromDrawMode(const DrawMode& mode)
+	{
+		switch (mode)
+		{
+		case DrawMode::Points:
+			return GL_POINTS;
+		case DrawMode::Line_Strip:
+			return GL_LINE_STRIP;
+		case DrawMode::Line_Loop:
+			return GL_LINE_LOOP;
+		case DrawMode::Line_Strip_Adjacency:
+			return GL_LINE_STRIP_ADJACENCY;
+		case DrawMode::Lines_Adjacency:
+			return GL_LINES_ADJACENCY;
+		case DrawMode::Triangle_Strip:
+			return GL_TRIANGLE_STRIP;
+		case DrawMode::Triangle_Fan:
+			return GL_TRIANGLE_FAN;
+		case DrawMode::Triangles:
+			return GL_TRIANGLES;
+		case DrawMode::Triangles_Strip_Adjacency:
+			return GL_TRIANGLE_STRIP_ADJACENCY;
+		case DrawMode::Triangles_Adjacency:
+			return GL_TRIANGLES_ADJACENCY;
+		case DrawMode::Patches:
+			return GL_PATCHES;
+		case DrawMode::Lines:
+			return GL_LINES;
+		default: return GL_TRIANGLES;
+		}
 	}
 
 	void OpenGLRendererAPI::SetWireframe(const bool& enable)
@@ -55,7 +143,7 @@ namespace tnah {
 		return false;
 	}
 
-	void OpenGLRendererAPI::SetCullMode(const CullMode mode)
+	void OpenGLRendererAPI::SetCullMode(const CullMode& mode)
 	{
 		switch (mode)
 		{
@@ -80,4 +168,10 @@ namespace tnah {
 				break;
 		}
 	}
+
+	void OpenGLRendererAPI::SetDepthMask(const bool& enabled)
+	{
+		glDepthMask(enabled);
+	}
+
 }

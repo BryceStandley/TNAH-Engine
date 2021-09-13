@@ -3,7 +3,9 @@
 
 #include "TNAH/Renderer/Renderer.h"
 
+#pragma warning(push, 0)
 #include <Assimp/scene.h>
+#pragma warning(pop)
 
 namespace tnah {
 	
@@ -37,8 +39,9 @@ namespace tnah {
 
 	OpenGLTexture2D::OpenGLTexture2D(const std::string& path, const std::string& textureName, bool loadFromMemory, void* assimpTexture)
 	{
-		m_Path = path;
-		m_Name = textureName;
+		m_TextureResource = path;
+		m_TextureResource.CustomName = textureName;
+		m_UniformName = "u_" + textureName;
 		int width, height, channels;
 		unsigned char* data = nullptr;
 		if(path.find(".png") != std::string::npos)
@@ -67,9 +70,9 @@ namespace tnah {
 		
 		if(!loadFromMemory)
 		{
-			m_Width = width;
-			m_Height = height;
-			m_Channels = channels;
+			m_Width = (uint32_t)width;
+			m_Height = (uint32_t)height;
+			m_Channels = (uint32_t)channels;
 
 			GLenum internalFormat = 0, dataFormat = 0;
 			if (channels == 4)
@@ -157,9 +160,9 @@ namespace tnah {
 			}
 			else
 			{
-				m_Width = width;
-				m_Height = height;
-				m_Channels = channels;
+				m_Width = (uint32_t)width;
+				m_Height = (uint32_t)height;
+				m_Channels = (uint32_t)channels;
 				return data;
 			}
 		}
@@ -174,9 +177,9 @@ namespace tnah {
 			}
 			else
 			{
-				m_Width = width;
-				m_Height = height;
-				m_Channels = channels;
+				m_Width = (uint32_t)width;
+				m_Height = (uint32_t)height;
+				m_Channels = (uint32_t)channels;
 				return data;
 			}
 		}
@@ -191,7 +194,6 @@ namespace tnah {
 
 	void OpenGLTexture2D::Bind(uint32_t slot) const
 	{
-		if(slot < 0) {slot = 0;}
 		glActiveTexture(GL_TEXTURE0 + slot);
 		glBindTexture(GL_TEXTURE_2D, m_RendererID);
 	}
@@ -200,5 +202,149 @@ namespace tnah {
 	{
 		glActiveTexture(GL_TEXTURE0 + m_Slot);
 		glBindTexture(GL_TEXTURE_2D, m_RendererID);
+	}
+
+
+
+	// Texture 3D / CubeMaps
+	OpenGLTexture3D::OpenGLTexture3D(const std::vector<std::string>& paths, const std::string& textureName)
+	{
+		glActiveTexture(GL_TEXTURE0);
+		glGenTextures(1, &m_RendererID);
+		glBindTexture(GL_TEXTURE_CUBE_MAP, m_RendererID);
+
+		int width, height, channels;
+		unsigned char* data;
+		stbi_set_flip_vertically_on_load(false);
+		for(uint32_t i = 0; paths.size(); i++)
+		{
+			data = stbi_load(paths[i].c_str(), &width	, &height, &channels, 0);
+			if(data)
+			{
+				glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+				stbi_image_free(data);
+			}
+			else
+			{
+				TNAH_CORE_ERROR("Failed to load texture for Texture3D with path: {0}", paths[i]);
+				TNAH_CORE_ASSERT(false, "Texture failed to load");
+			}
+			
+			
+		}
+		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+	}
+
+	OpenGLTexture3D::OpenGLTexture3D(const Texture3DProperties& properties, const std::string& textureName)
+	{
+		m_TextureResource.CustomName = textureName;
+		m_TextureResource = properties.IsKtx ? properties.Cubemap.RelativeDirectory : properties.Front.RelativeDirectory;
+		glActiveTexture(GL_TEXTURE0);
+		glGenTextures(1, &m_RendererID);
+		glBindTexture(GL_TEXTURE_CUBE_MAP, m_RendererID);
+
+		Ref<Texture2D> dataRight, dataLeft, dataBack, dataFront, dataTop, dataBottom, dataCubemap;	
+
+		if(!properties.IsKtx)
+		{
+			stbi_set_flip_vertically_on_load(false);
+			dataRight = Texture2D::LoadImageToMemory(properties.Right.AbsoluteDirectory);
+			dataLeft = Texture2D::LoadImageToMemory(properties.Left.AbsoluteDirectory);
+			dataBack = Texture2D::LoadImageToMemory(properties.Back.AbsoluteDirectory);
+			dataFront = Texture2D::LoadImageToMemory(properties.Front.AbsoluteDirectory);
+			dataTop = Texture2D::LoadImageToMemory(properties.Top.AbsoluteDirectory);
+			dataBottom = Texture2D::LoadImageToMemory(properties.Bottom.AbsoluteDirectory);
+		}
+		else
+		{
+			dataCubemap = Texture2D::LoadImageToMemory(properties.Cubemap.AbsoluteDirectory);
+		}
+		
+		if(!properties.IsKtx && dataRight && dataLeft && dataBack && dataFront && dataTop && dataBottom)
+		{
+			glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+			glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+			glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+			glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+			glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+			
+			glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X, 0, GL_RGB, dataRight->m_Width, dataRight->m_Height, 0, GL_RGB, GL_UNSIGNED_BYTE, dataRight->m_ImageData);
+			glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_X, 0, GL_RGB, dataLeft->m_Width, dataLeft->m_Height, 0, GL_RGB, GL_UNSIGNED_BYTE, dataLeft->m_ImageData);
+			
+			glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_Y, 0, GL_RGB, dataTop->m_Width, dataTop->m_Height, 0, GL_RGB, GL_UNSIGNED_BYTE, dataTop->m_ImageData);
+			glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_Y, 0, GL_RGB, dataBottom->m_Width, dataBottom->m_Height, 0, GL_RGB, GL_UNSIGNED_BYTE, dataBottom->m_ImageData);
+			
+			glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_Z, 0, GL_RGB, dataBack->m_Width, dataBack->m_Height, 0, GL_RGB, GL_UNSIGNED_BYTE, dataBack->m_ImageData);
+			glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_Z, 0, GL_RGB, dataFront->m_Width, dataFront->m_Height, 0, GL_RGB, GL_UNSIGNED_BYTE, dataFront->m_ImageData);
+			
+			glGenerateMipmap(GL_TEXTURE_CUBE_MAP);
+			
+			dataRight->Free();
+			dataLeft->Free();
+			dataTop->Free();
+			dataBottom->Free();
+			dataFront->Free();
+			dataBack->Free();
+		}
+		else if(properties.IsKtx && dataCubemap)
+		{
+			/*
+			auto size = dataCubemap->m_CubemapInformation.CubeSize;
+			glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+			glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+			glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+			glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+			glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+			
+			glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X, 0, GL_RGB, size, size, 0, GL_RGB, GL_UNSIGNED_BYTE, dataRight->m_ImageData);
+			glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_X, 0, GL_RGB, size, size, 0, GL_RGB, GL_UNSIGNED_BYTE, dataLeft->m_ImageData);
+			
+			glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_Y, 0, GL_RGB, size, size, 0, GL_RGB, GL_UNSIGNED_BYTE, dataTop->m_ImageData);
+			glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_Y, 0, GL_RGB, size, size, 0, GL_RGB, GL_UNSIGNED_BYTE, dataBottom->m_ImageData);
+			
+			glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_Z, 0, GL_RGB, size, size, 0, GL_RGB, GL_UNSIGNED_BYTE, dataFront->m_ImageData);
+			glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_Z, 0, GL_RGB, size, size, 0, GL_RGB, GL_UNSIGNED_BYTE, dataBack->m_ImageData);
+			*/
+			GLenum target, error;
+			ktxTexture_GLUpload(dataCubemap->GetKtxData(), &m_RendererID, &target, &error);
+			dataCubemap->Free(dataCubemap->GetKtxData());
+			
+			//glGenerateMipmap(GL_TEXTURE_CUBE_MAP);
+		}
+		else
+		{
+			TNAH_CORE_ASSERT(false, "One or more textures failed to load");
+		}
+		
+		m_Loaded = true;
+		//m_Slot = Renderer::GetAndIncrementTextureSlot();
+	}
+
+	OpenGLTexture3D::~OpenGLTexture3D()
+	{
+		glDeleteTextures(1, &m_RendererID);
+	}
+
+	void OpenGLTexture3D::SetData(void* data, uint32_t size)
+	{
+		uint32_t bpp = m_DataFormat == GL_RGBA ? 4 : 3;
+		TNAH_CORE_ASSERT(size == m_Width * m_Height * bpp, "Data must be entire texture!");
+		glTextureSubImage2D(m_RendererID, 0, 0, 0, m_Width, m_Height, m_DataFormat, GL_UNSIGNED_BYTE, data);
+	}
+
+	void OpenGLTexture3D::Bind(uint32_t slot) const
+	{
+		glActiveTexture(GL_TEXTURE0 + slot);
+		glBindTexture(GL_TEXTURE_CUBE_MAP, m_RendererID);
+	}
+
+	void OpenGLTexture3D::Bind() const
+	{
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_CUBE_MAP, m_RendererID);
 	}
 }

@@ -3,7 +3,7 @@
 #include "TNAH/Renderer/Camera.h"
 
 namespace tnah {
-	struct TransformComponent;
+	class TransformComponent;
 	class SceneCamera : public Camera
 	{
 	public:
@@ -12,7 +12,7 @@ namespace tnah {
 		void SetPerspective(float verticalFOV, float nearClip = 0.01f, float farClip = 1000.0f);
 		void SetOrthographic(float size, float nearClip = -1.0f, float farClip = 1.0f);
 		void SetViewportSize(uint32_t width, uint32_t height);
-
+		glm::vec2 GetViewportSize() const {return glm::vec2(m_ViewportWidth, m_ViewportHeight);}
 		void SetPerspectiveVerticalFOV(float verticalFov) { m_PerspectiveFOV = glm::radians(verticalFov); }
 		float GetPerspectiveVerticalFOV() const { return glm::degrees(m_PerspectiveFOV); }
 		void SetPerspectiveNearClip(float nearClip) { m_PerspectiveNear = nearClip; }
@@ -29,11 +29,13 @@ namespace tnah {
 
 		void SetProjectionType(ProjectionType type) { m_ProjectionType = type; }
 		ProjectionType GetProjectionType() const { return m_ProjectionType; }
-		const glm::mat4& GetViewMatrix() { return m_ViewMatrix; }
-
+		const glm::mat4& GetViewMatrix() const { return m_ViewMatrix; }
+		const glm::mat4& GetInvertedTransformViewMatrix() const { return m_InvertTransformViewMatrix; }
 
 		void OnUpdate(TransformComponent& transform);
 		void OnCameraChange(TransformComponent& transform);
+
+		glm::quat GetOrientation(TransformComponent& transform);
 	private:
 		ProjectionType m_ProjectionType = ProjectionType::Perspective;
 
@@ -45,6 +47,8 @@ namespace tnah {
 
 		float m_OrthographicSize = 10.0f;
 		float m_OrthographicNear = -1.0f, m_OrthographicFar = 1.0f;
+
 		friend class EditorUI;
+		friend class Serializer;
 	};
 }

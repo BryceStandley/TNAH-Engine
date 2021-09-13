@@ -113,9 +113,6 @@ class Components {
         /// Return true if there is a component for a given entity
         bool hasComponent(Entity entity) const;
 
-        /// Return true if there is a component for a given entiy and if so set the entity index
-        bool hasComponentGetIndex(Entity entity, uint32& entityIndex) const;
-
         /// Return the number of components
         uint32 getNbComponents() const;
 
@@ -127,41 +124,28 @@ class Components {
 };
 
 // Return true if an entity is sleeping
-RP3D_FORCE_INLINE bool Components::getIsEntityDisabled(Entity entity) const {
+inline bool Components::getIsEntityDisabled(Entity entity) const {
     assert(hasComponent(entity));
     return mMapEntityToComponentIndex[entity] >= mDisabledStartIndex;
 }
 
 // Return true if there is a component for a given entity
-RP3D_FORCE_INLINE bool Components::hasComponent(Entity entity) const {
+inline bool Components::hasComponent(Entity entity) const {
     return mMapEntityToComponentIndex.containsKey(entity);
 }
 
-// Return true if there is a component for a given entiy and if so set the entity index
-RP3D_FORCE_INLINE bool Components::hasComponentGetIndex(Entity entity, uint32& entityIndex) const {
-
-    auto it = mMapEntityToComponentIndex.find(entity);
-
-    if (it != mMapEntityToComponentIndex.end()) {
-        entityIndex = it->second;
-        return true;
-    }
-
-    return false;
-}
-
 // Return the number of components
-RP3D_FORCE_INLINE uint32 Components::getNbComponents() const {
+inline uint32 Components::getNbComponents() const {
     return mNbComponents;
 }
 
 // Return the number of enabled components
-RP3D_FORCE_INLINE uint32 Components::getNbEnabledComponents() const {
+inline uint32 Components::getNbEnabledComponents() const {
     return mDisabledStartIndex;
 }
 
 // Return the index in the arrays for a given entity
-RP3D_FORCE_INLINE uint32 Components::getEntityIndex(Entity entity) const {
+inline uint32 Components::getEntityIndex(Entity entity) const {
     assert(hasComponent(entity));
     return mMapEntityToComponentIndex[entity];
 }

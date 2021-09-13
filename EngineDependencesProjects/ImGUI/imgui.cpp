@@ -1,3 +1,4 @@
+#pragma warning(push, 0)
 // dear imgui, v1.84 WIP
 // (main code and documentation)
 
@@ -773,7 +774,7 @@ CODE
 //-------------------------------------------------------------------------
 // [SECTION] INCLUDES
 //-------------------------------------------------------------------------
-
+#pragma warning(default, 6011, 28182)
 #if defined(_MSC_VER) && !defined(_CRT_SECURE_NO_WARNINGS)
 #define _CRT_SECURE_NO_WARNINGS
 #endif
@@ -17197,6 +17198,8 @@ void ImGui::DebugNodeWindowsList(ImVector<ImGuiWindow*>* windows, const char* la
     TreePop();
 }
 
+
+
 #else
 
 void ImGui::ShowMetricsWindow(bool*) {}
@@ -17225,3 +17228,4 @@ void ImGui::DebugNodeViewport(ImGuiViewportP*) {}
 //-----------------------------------------------------------------------------
 
 #endif // #ifndef IMGUI_DISABLE
+#pragma warning(pop)

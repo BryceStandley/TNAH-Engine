@@ -8,4 +8,12 @@ namespace tnah {
 	{
 	}
 
+
+	Camera* Camera::Main = new Camera();
+
+	void Camera::SetMainCamera(Camera& other)
+	{
+		Main = &other;
+	}
+
 }

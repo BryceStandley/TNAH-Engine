@@ -10,7 +10,7 @@ namespace tnah {
 	void SceneCamera::SetPerspective(float verticalFOV, float nearClip, float farClip)
 	{
 		m_ProjectionType = ProjectionType::Perspective;
-		m_PerspectiveFOV = verticalFOV;
+		m_PerspectiveFOV = glm::radians(verticalFOV);
 		m_PerspectiveNear = nearClip;
 		m_PerspectiveFar = farClip;
 	}
@@ -31,6 +31,7 @@ namespace tnah {
 			m_ProjectionMatrix = glm::perspective(m_PerspectiveFOV, (float)width / (float)height, m_PerspectiveNear, m_PerspectiveFar);
 			m_ViewportWidth = width;
 			m_ViewportHeight = height;
+			
 			break;
 		case ProjectionType::Orthographic:
 			float aspect = (float)width / (float)height;
@@ -55,8 +56,14 @@ namespace tnah {
 	void SceneCamera::OnCameraChange(TransformComponent& transform)
 	{
 		m_ProjectionMatrix = glm::perspective(m_PerspectiveFOV, (float)m_ViewportWidth / (float)m_ViewportHeight, m_PerspectiveNear, m_PerspectiveFar);
-		m_ViewMatrix = glm::lookAt(transform.Position, transform.Position + transform.Forward, glm::vec3(0, 1, 0));
+		glm::vec3 r = transform.Right;
+		m_InvertTransformViewMatrix = glm::inverse(transform.GetTransform());
+		m_ViewMatrix = glm::lookAt(transform.Position, transform.Position + transform.Forward, transform.Up);
 		m_ViewProjection = m_ProjectionMatrix * m_ViewMatrix;
 	}
 
+	glm::quat SceneCamera::GetOrientation(TransformComponent& transform)
+	{
+		return glm::quat(glm::vec3(-transform.Rotation.x, -transform.Rotation.y, 0));
+	}
 }

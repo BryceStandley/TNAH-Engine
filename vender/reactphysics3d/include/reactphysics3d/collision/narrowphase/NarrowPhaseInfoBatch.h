@@ -28,8 +28,6 @@
 
 // Libraries
 #include <reactphysics3d/engine/OverlappingPairs.h>
-#include <reactphysics3d/collision/ContactPointInfo.h>
-#include <reactphysics3d/configuration.h>
 
 /// Namespace ReactPhysics3D
 namespace reactphysics3d {
@@ -42,143 +40,93 @@ struct ContactPointInfo;
 
 // Struct NarrowPhaseInfoBatch
 /**
- * This structure collects all the potential collisions from the middle-phase algorithm
- * that have to be tested during narrow-phase collision detection.
+ * This abstract structure collects all the potential collisions from the middle-phase algorithm
+ * that have to be tested during narrow-phase collision detection. There is an implementation of
+ * this class for each kind of collision detection test. For instance, one for sphere vs sphere,
+ * one for sphere vs capsule, ...
  */
 struct NarrowPhaseInfoBatch {
 
-    struct NarrowPhaseInfo {
-
-        /// Broadphase overlapping pairs ids
-        uint64 overlappingPairId;
-
-        /// Entity of the first collider to test collision with
-        Entity colliderEntity1;
-
-        /// Entity of the second collider to test collision with
-        Entity colliderEntity2;
-
-        /// Collision info of the previous frame
-        LastFrameCollisionInfo* lastFrameCollisionInfo;
-
-        /// Memory allocator for the collision shape (Used to release TriangleShape memory in destructor)
-        MemoryAllocator* collisionShapeAllocator;
-
-        /// Shape local to world transform of sphere 1
-        Transform shape1ToWorldTransform;
-
-        /// Shape local to world transform of sphere 2
-        Transform shape2ToWorldTransform;
-
-        /// Pointer to the first collision shapes to test collision with
-        CollisionShape* collisionShape1;
-
-        /// Pointer to the second collision shapes to test collision with
-        CollisionShape* collisionShape2;
-
-        /// True if we need to report contacts (false for triggers for instance)
-        bool reportContacts;
-
-        /// Result of the narrow-phase collision detection test
-        bool isColliding;
-
-        /// Number of contact points
-        uint8 nbContactPoints;
-
-        /// Array of contact points created during the narrow-phase
-        ContactPointInfo contactPoints[NB_MAX_CONTACT_POINTS_IN_NARROWPHASE_INFO];
-
-        /// Constructor
-        NarrowPhaseInfo(uint64 pairId, Entity collider1, Entity collider2, LastFrameCollisionInfo* lastFrameInfo, MemoryAllocator& shapeAllocator,
-                             const Transform& shape1ToWorldTransform, const Transform& shape2ToWorldTransform, CollisionShape* shape1,
-                             CollisionShape* shape2, bool needToReportContacts)
-                      : overlappingPairId(pairId), colliderEntity1(collider1), colliderEntity2(collider2), lastFrameCollisionInfo(lastFrameInfo),
-                         collisionShapeAllocator(&shapeAllocator), shape1ToWorldTransform(shape1ToWorldTransform),
-                         shape2ToWorldTransform(shape2ToWorldTransform), collisionShape1(shape1),
-                        collisionShape2(shape2), reportContacts(needToReportContacts), isColliding(false), nbContactPoints(0) {
-
-        }
-    };
-
     protected:
 
-        /// Reference to the memory allocator
+        /// Memory allocator
         MemoryAllocator& mMemoryAllocator;
 
         /// Reference to all the broad-phase overlapping pairs
         OverlappingPairs& mOverlappingPairs;
 
         /// Cached capacity
-        uint32 mCachedCapacity = 0;
+        uint mCachedCapacity = 0;
 
     public:
 
-        /// For each collision test, we keep some meta data
-        Array<NarrowPhaseInfo> narrowPhaseInfos;
+        /// List of Broadphase overlapping pairs ids
+        List<uint64> overlappingPairIds;
+
+        /// List of pointers to the first colliders to test collision with
+        List<Entity> colliderEntities1;
+
+        /// List of pointers to the second colliders to test collision with
+        List<Entity> colliderEntities2;
+
+        /// List of pointers to the first collision shapes to test collision with
+        List<CollisionShape*> collisionShapes1;
+
+        /// List of pointers to the second collision shapes to test collision with
+        List<CollisionShape*> collisionShapes2;
+
+        /// List of transforms that maps from collision shape 1 local-space to world-space
+        List<Transform> shape1ToWorldTransforms;
+
+        /// List of transforms that maps from collision shape 2 local-space to world-space
+        List<Transform> shape2ToWorldTransforms;
+
+        /// True for each pair of objects that we need to report contacts (false for triggers for instance)
+        List<bool> reportContacts;
+
+        /// Result of the narrow-phase collision detection test
+        List<bool> isColliding;
+
+        /// List of contact points created during the narrow-phase
+        List<List<ContactPointInfo*>> contactPoints;
+
+        /// Memory allocators for the collision shape (Used to release TriangleShape memory in destructor)
+        List<MemoryAllocator*> collisionShapeAllocators;
+
+        /// Collision infos of the previous frame
+        List<LastFrameCollisionInfo*> lastFrameCollisionInfos;
 
         /// Constructor
-        NarrowPhaseInfoBatch(OverlappingPairs& overlappingPairs, MemoryAllocator& allocator);
+        NarrowPhaseInfoBatch(MemoryAllocator& allocator, OverlappingPairs& overlappingPairs);
 
         /// Destructor
-        ~NarrowPhaseInfoBatch();
-
-        /// Add shapes to be tested during narrow-phase collision detection into the batch
-        void addNarrowPhaseInfo(uint64 pairId, Entity collider1, Entity collider2, CollisionShape* shape1,
-                                                      CollisionShape* shape2, const Transform& shape1Transform, const Transform& shape2Transform,
-                                                      bool needToReportContacts, LastFrameCollisionInfo* lastFrameInfo, MemoryAllocator& shapeAllocator);
+        virtual ~NarrowPhaseInfoBatch();
 
         /// Return the number of objects in the batch
-        uint32 getNbObjects() const;
+        uint getNbObjects() const;
+
+        /// Add shapes to be tested during narrow-phase collision detection into the batch
+        virtual void addNarrowPhaseInfo(uint64 pairId, uint64 pairIndex, Entity collider1, Entity collider2, CollisionShape* shape1,
+                                CollisionShape* shape2, const Transform& shape1Transform,
+                                const Transform& shape2Transform, bool needToReportContacts, MemoryAllocator& shapeAllocator);
 
         /// Add a new contact point
-        void addContactPoint(uint32 index, const Vector3& contactNormal, decimal penDepth,
+        virtual void addContactPoint(uint index, const Vector3& contactNormal, decimal penDepth,
                              const Vector3& localPt1, const Vector3& localPt2);
 
         /// Reset the remaining contact points
         void resetContactPoints(uint index);
 
         // Initialize the containers using cached capacity
-        void reserveMemory();
+        virtual void reserveMemory();
 
         /// Clear all the objects in the batch
-        void clear();
+        virtual void clear();
 };
 
 /// Return the number of objects in the batch
-RP3D_FORCE_INLINE uint32 NarrowPhaseInfoBatch::getNbObjects() const {
-    return narrowPhaseInfos.size();
-}
-
-// Add shapes to be tested during narrow-phase collision detection into the batch
-RP3D_FORCE_INLINE void NarrowPhaseInfoBatch::addNarrowPhaseInfo(uint64 pairId, Entity collider1, Entity collider2, CollisionShape* shape1,
-                                              CollisionShape* shape2, const Transform& shape1Transform, const Transform& shape2Transform,
-                                              bool needToReportContacts, LastFrameCollisionInfo* lastFrameInfo, MemoryAllocator& shapeAllocator) {
-
-    // Create a meta data object
-    narrowPhaseInfos.emplace(pairId, collider1, collider2, lastFrameInfo, shapeAllocator, shape1Transform, shape2Transform, shape1, shape2, needToReportContacts);
-}
-
-// Add a new contact point
-RP3D_FORCE_INLINE void NarrowPhaseInfoBatch::addContactPoint(uint index, const Vector3& contactNormal, decimal penDepth, const Vector3& localPt1, const Vector3& localPt2) {
-
-    assert(penDepth > decimal(0.0));
-
-    if (narrowPhaseInfos[index].nbContactPoints < NB_MAX_CONTACT_POINTS_IN_NARROWPHASE_INFO) {
-
-        assert(contactNormal.length() > 0.8f);
-
-        // Add it into the array of contact points
-        narrowPhaseInfos[index].contactPoints[narrowPhaseInfos[index].nbContactPoints].normal = contactNormal;
-        narrowPhaseInfos[index].contactPoints[narrowPhaseInfos[index].nbContactPoints].penetrationDepth = penDepth;
-        narrowPhaseInfos[index].contactPoints[narrowPhaseInfos[index].nbContactPoints].localPoint1 = localPt1;
-        narrowPhaseInfos[index].contactPoints[narrowPhaseInfos[index].nbContactPoints].localPoint2 = localPt2;
-        narrowPhaseInfos[index].nbContactPoints++;
-    }
-}
-
-// Reset the remaining contact points
-RP3D_FORCE_INLINE void NarrowPhaseInfoBatch::resetContactPoints(uint index) {
-    narrowPhaseInfos[index].nbContactPoints = 0;
+inline uint NarrowPhaseInfoBatch::getNbObjects() const {
+    return overlappingPairIds.size();
 }
 
 }

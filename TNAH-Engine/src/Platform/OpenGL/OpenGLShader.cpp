@@ -3,6 +3,7 @@
 #include <unordered_map>
 #include <fstream>
 #include <glad/glad.h>
+#include <sstream>
 
 #include <glm/gtc/type_ptr.hpp>
 
@@ -30,8 +31,8 @@ namespace tnah {
 		m_FilePaths.first = vertexSrcPath;
 		m_FilePaths.second = fragmentSrcPath;
 		std::unordered_map<GLenum, std::pair<std::string, std::string>> src;
-		src[GL_VERTEX_SHADER] = std::pair(utility::FindFileNameFromPath(vertexSrcPath), PreProcessPaths(vertexSrcPath));
-		src[GL_FRAGMENT_SHADER] = std::pair(utility::FindFileNameFromPath(fragmentSrcPath), PreProcessPaths(fragmentSrcPath));
+		src[GL_VERTEX_SHADER] = std::pair(Utility::FindFileNameFromPath(vertexSrcPath), PreProcessPaths(vertexSrcPath));
+		src[GL_FRAGMENT_SHADER] = std::pair(Utility::FindFileNameFromPath(fragmentSrcPath), PreProcessPaths(fragmentSrcPath));
 		Compile(src);
 	}
 
@@ -45,7 +46,7 @@ namespace tnah {
 		auto shaderSources = PreProcess(source, shaderFilePath);
 		
 
-		m_ShaderName = utility::FindFileNameFromPath((shaderFilePath));
+		m_ShaderName = Utility::FindFileNameFromPath((shaderFilePath));
 
 		Compile(shaderSources);
 	}
@@ -135,7 +136,7 @@ namespace tnah {
 			TNAH_CORE_ASSERT(nextLinePos != std::string::npos, "Syntax error");
 			pos = source.find(typeToken, nextLinePos); //Start of next shader type declaration line
 
-			shaderSources[Utils::ShaderTypeFromString(type)] = std::pair(utility::FindFileNameFromPath(shaderFilePath), (pos == std::string::npos) ? source.substr(nextLinePos) : source.substr(nextLinePos, pos - nextLinePos));
+			shaderSources[Utils::ShaderTypeFromString(type)] = std::pair(Utility::FindFileNameFromPath(shaderFilePath), (pos == std::string::npos) ? source.substr(nextLinePos) : source.substr(nextLinePos, pos - nextLinePos));
 		}
 
 		return shaderSources;

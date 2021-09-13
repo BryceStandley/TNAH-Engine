@@ -120,20 +120,20 @@ class SolveFixedJointSystem {
 #ifdef IS_RP3D_PROFILING_ENABLED
 
 // Set the profiler
-RP3D_FORCE_INLINE void SolveFixedJointSystem::setProfiler(Profiler* profiler) {
+inline void SolveFixedJointSystem::setProfiler(Profiler* profiler) {
     mProfiler = profiler;
 }
 
 #endif
 
 // Set the time step
-RP3D_FORCE_INLINE void SolveFixedJointSystem::setTimeStep(decimal timeStep) {
+inline void SolveFixedJointSystem::setTimeStep(decimal timeStep) {
     assert(timeStep > decimal(0.0));
     mTimeStep = timeStep;
 }
 
 // Set to true to enable warm starting
-RP3D_FORCE_INLINE void SolveFixedJointSystem::setIsWarmStartingActive(bool isWarmStartingActive) {
+inline void SolveFixedJointSystem::setIsWarmStartingActive(bool isWarmStartingActive) {
     mIsWarmStartingActive = isWarmStartingActive;
 }
 

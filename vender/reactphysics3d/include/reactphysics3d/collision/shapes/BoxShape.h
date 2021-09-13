@@ -36,7 +36,6 @@ namespace reactphysics3d {
 // Declarations
 class CollisionBody;
 class DefaultAllocator;
-class PhysicsCommon;
 
 // Class BoxShape
 /**
@@ -54,13 +53,13 @@ class BoxShape : public ConvexPolyhedronShape {
         /// Half-extents of the box in the x, y and z direction
         Vector3 mHalfExtents;
 
-        /// Reference to the physics common object
-        PhysicsCommon& mPhysicsCommon;
+        /// Half-edge structure of the polyhedron
+        HalfEdgeStructure mHalfEdgeStructure;
 
         // -------------------- Methods -------------------- //
 
         /// Constructor
-        BoxShape(const Vector3& halfExtents, MemoryAllocator& allocator, PhysicsCommon& physicsCommon);
+        BoxShape(const Vector3& halfExtents, MemoryAllocator& allocator);
 
         /// Return a local support point in a given direction without the object margin
         virtual Vector3 getLocalSupportPointWithoutMargin(const Vector3& direction) const override;
@@ -141,7 +140,7 @@ class BoxShape : public ConvexPolyhedronShape {
 /**
  * @return The vector with the three half-extents of the box shape
  */
-RP3D_FORCE_INLINE Vector3 BoxShape::getHalfExtents() const {
+inline Vector3 BoxShape::getHalfExtents() const {
     return mHalfExtents;
 }
 
@@ -151,7 +150,7 @@ RP3D_FORCE_INLINE Vector3 BoxShape::getHalfExtents() const {
 /**
  * @param halfExtents The vector with the three half-extents of the box
  */
-RP3D_FORCE_INLINE void BoxShape::setHalfExtents(const Vector3& halfExtents) {
+inline void BoxShape::setHalfExtents(const Vector3& halfExtents) {
     mHalfExtents = halfExtents;
 
     notifyColliderAboutChangedSize();
@@ -163,7 +162,7 @@ RP3D_FORCE_INLINE void BoxShape::setHalfExtents(const Vector3& halfExtents) {
  * @param min The minimum bounds of the shape in local-space coordinates
  * @param max The maximum bounds of the shape in local-space coordinates
  */
-RP3D_FORCE_INLINE void BoxShape::getLocalBounds(Vector3& min, Vector3& max) const {
+inline void BoxShape::getLocalBounds(Vector3& min, Vector3& max) const {
 
     // Maximum bounds
     max = mHalfExtents;
@@ -173,12 +172,12 @@ RP3D_FORCE_INLINE void BoxShape::getLocalBounds(Vector3& min, Vector3& max) cons
 }
 
 // Return the number of bytes used by the collision shape
-RP3D_FORCE_INLINE size_t BoxShape::getSizeInBytes() const {
+inline size_t BoxShape::getSizeInBytes() const {
     return sizeof(BoxShape);
 }
 
 // Return a local support point in a given direction without the object margin
-RP3D_FORCE_INLINE Vector3 BoxShape::getLocalSupportPointWithoutMargin(const Vector3& direction) const {
+inline Vector3 BoxShape::getLocalSupportPointWithoutMargin(const Vector3& direction) const {
 
     return Vector3(direction.x < decimal(0.0) ? -mHalfExtents.x : mHalfExtents.x,
                    direction.y < decimal(0.0) ? -mHalfExtents.y : mHalfExtents.y,
@@ -186,35 +185,49 @@ RP3D_FORCE_INLINE Vector3 BoxShape::getLocalSupportPointWithoutMargin(const Vect
 }
 
 // Return true if a point is inside the collision shape
-RP3D_FORCE_INLINE bool BoxShape::testPointInside(const Vector3& localPoint, Collider* collider) const {
+inline bool BoxShape::testPointInside(const Vector3& localPoint, Collider* collider) const {
     return (localPoint.x < mHalfExtents[0] && localPoint.x > -mHalfExtents[0] &&
             localPoint.y < mHalfExtents[1] && localPoint.y > -mHalfExtents[1] &&
             localPoint.z < mHalfExtents[2] && localPoint.z > -mHalfExtents[2]);
 }
 
 // Return the number of faces of the polyhedron
-RP3D_FORCE_INLINE uint BoxShape::getNbFaces() const {
+inline uint BoxShape::getNbFaces() const {
     return 6;
 }
 
+// Return a given face of the polyhedron
+inline const HalfEdgeStructure::Face& BoxShape::getFace(uint faceIndex) const {
+    assert(faceIndex < mHalfEdgeStructure.getNbFaces());
+    return mHalfEdgeStructure.getFace(faceIndex);
+}
+
 // Return the number of vertices of the polyhedron
-RP3D_FORCE_INLINE uint BoxShape::getNbVertices() const {
+inline uint BoxShape::getNbVertices() const {
     return 8;
 }
 
+// Return a given vertex of the polyhedron
+inline HalfEdgeStructure::Vertex BoxShape::getVertex(uint vertexIndex) const {
+    assert(vertexIndex < getNbVertices());
+    return mHalfEdgeStructure.getVertex(vertexIndex);
+}
+
 // Return the position of a given vertex
-RP3D_FORCE_INLINE Vector3 BoxShape::getVertexPosition(uint vertexIndex) const {
+inline Vector3 BoxShape::getVertexPosition(uint vertexIndex) const {
     assert(vertexIndex < getNbVertices());
 
+    Vector3 extent = getHalfExtents();
+
     switch(vertexIndex) {
-        case 0: return Vector3(-mHalfExtents.x, -mHalfExtents.y, mHalfExtents.z);
-        case 1: return Vector3(mHalfExtents.x, -mHalfExtents.y, mHalfExtents.z);
-        case 2: return Vector3(mHalfExtents.x, mHalfExtents.y, mHalfExtents.z);
-        case 3: return Vector3(-mHalfExtents.x, mHalfExtents.y, mHalfExtents.z);
-        case 4: return Vector3(-mHalfExtents.x, -mHalfExtents.y, -mHalfExtents.z);
-        case 5: return Vector3(mHalfExtents.x, -mHalfExtents.y, -mHalfExtents.z);
-        case 6: return Vector3(mHalfExtents.x, mHalfExtents.y, -mHalfExtents.z);
-        case 7: return Vector3(-mHalfExtents.x, mHalfExtents.y, -mHalfExtents.z);
+        case 0: return Vector3(-extent.x, -extent.y, extent.z);
+        case 1: return Vector3(extent.x, -extent.y, extent.z);
+        case 2: return Vector3(extent.x, extent.y, extent.z);
+        case 3: return Vector3(-extent.x, extent.y, extent.z);
+        case 4: return Vector3(-extent.x, -extent.y, -extent.z);
+        case 5: return Vector3(extent.x, -extent.y, -extent.z);
+        case 6: return Vector3(extent.x, extent.y, -extent.z);
+        case 7: return Vector3(-extent.x, extent.y, -extent.z);
     }
 
     assert(false);
@@ -222,7 +235,7 @@ RP3D_FORCE_INLINE Vector3 BoxShape::getVertexPosition(uint vertexIndex) const {
 }
 
 // Return the normal vector of a given face of the polyhedron
-RP3D_FORCE_INLINE Vector3 BoxShape::getFaceNormal(uint faceIndex) const {
+inline Vector3 BoxShape::getFaceNormal(uint faceIndex) const {
     assert(faceIndex < getNbFaces());
 
     switch(faceIndex) {
@@ -239,23 +252,29 @@ RP3D_FORCE_INLINE Vector3 BoxShape::getFaceNormal(uint faceIndex) const {
 }
 
 // Return the centroid of the box
-RP3D_FORCE_INLINE Vector3 BoxShape::getCentroid() const {
+inline Vector3 BoxShape::getCentroid() const {
     return Vector3::zero();
 }
 
 // Compute and return the volume of the collision shape
-RP3D_FORCE_INLINE decimal BoxShape::getVolume() const {
+inline decimal BoxShape::getVolume() const {
     return 8 * mHalfExtents.x * mHalfExtents.y * mHalfExtents.z;
 }
 
 // Return the string representation of the shape
-RP3D_FORCE_INLINE std::string BoxShape::to_string() const {
+inline std::string BoxShape::to_string() const {
     return "BoxShape{extents=" + mHalfExtents.to_string() + "}";
 }
 
 // Return the number of half-edges of the polyhedron
-RP3D_FORCE_INLINE uint BoxShape::getNbHalfEdges() const {
+inline uint BoxShape::getNbHalfEdges() const {
     return 24;
+}
+
+// Return a given half-edge of the polyhedron
+inline const HalfEdgeStructure::Edge& BoxShape::getHalfEdge(uint edgeIndex) const {
+    assert(edgeIndex < getNbHalfEdges());
+    return mHalfEdgeStructure.getHalfEdge(edgeIndex);
 }
 
 }
