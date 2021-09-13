@@ -1358,6 +1358,8 @@ namespace tnah {
             return "Skybox";
         case ComponentVariations::Light:
             return "Light";
+        case ComponentVariations::Mesh:
+        	return "Mesh";
         case ComponentVariations::Terrain:
             return "Terrain";
         case ComponentVariations::PlayerController:
