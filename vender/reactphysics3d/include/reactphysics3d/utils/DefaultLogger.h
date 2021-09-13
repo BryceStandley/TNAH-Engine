@@ -22,13 +22,13 @@
 * 3. This notice may not be removed or altered from any source distribution.    *
 *                                                                               *
 ********************************************************************************/
-#define _CRT_SECURE_NO_WARNINGS
+
 #ifndef REACTPHYSICS3D_DEFAULT_LOGGER_H
 #define REACTPHYSICS3D_DEFAULT_LOGGER_H
 
 // Libraries
 #include <reactphysics3d/utils/Logger.h>
-#include <reactphysics3d/containers/List.h>
+#include <reactphysics3d/containers/Array.h>
 #include <reactphysics3d/containers/Map.h>
 #include <string>
 #include <iostream>
@@ -445,7 +445,7 @@ class DefaultLogger : public Logger {
         MemoryAllocator& mAllocator;
 
         /// All the log destinations
-        List<Destination*> mDestinations;
+        Array<Destination*> mDestinations;
 
         /// Map a log format to the given formatter object
         Map<Format, Formatter*> mFormatters;

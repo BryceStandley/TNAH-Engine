@@ -147,47 +147,36 @@ namespace tnah {
 	};
 
 	/**
-	 * @class	BufferLayout
-	 *
-	 * @brief	A buffer layout class responsible for handling the contents of a buffer
-	 *
-	 * @author	Plush
-	 * @date	12/09/2021
-	 */
-
-	class BufferLayout
-	{
-	public:
-
-		/**
-		 * @fn	BufferLayout::BufferLayout()
-		 *
-		 * @brief	Default constructor
-		 *
-		 * @author	Plush
-		 * @date	12/09/2021
-		 */
-
-		BufferLayout() {}
-
-		/**
-		 * @fn	BufferLayout::BufferLayout(std::initializer_list<BufferElement> elements)
-		 *
-		 * @brief	Constructor
-		 *
-		 * @author	Plush
-		 * @date	12/09/2021
-		 *
-		 * @param 	elements	The elements.
-		 */
-
-		BufferLayout(std::initializer_list<BufferElement> elements)
-
+	* @class	VertexBufferLayout
+	*
+	* @brief	A buffer layout class responsible for handling the contents of a buffer
+	*
+	* @author	Plush
+	* @date	12/09/2021
+	*/
 	class VertexBufferLayout
 	{
 	public:
+		/**
+		* @fn	VertexBufferLayout::VertexBufferLayout()
+		*
+		* @brief	Default constructor
+		*
+		* @author	Plush
+		* @date	12/09/2021
+		*/
 		VertexBufferLayout() {}
 
+		/**
+		* @fn	VertexBufferLayout::VertexBufferLayout(std::initializer_list<BufferElement> elements)
+		*
+		* @brief	Constructor
+		*
+		* @author	Plush
+		* @date	12/09/2021
+		*
+		* @param 	elements	The elements.
+		*/
 		VertexBufferLayout(std::initializer_list<BufferElement> elements)
 
 			: m_Elements(elements)
@@ -196,7 +185,7 @@ namespace tnah {
 		}
 
 		/**
-		 * @fn	uint32_t BufferLayout::GetStride() const
+		 * @fn	uint32_t VertexBufferLayout::GetStride() const
 		 *
 		 * @brief	Gets the stride
 		 *
@@ -209,7 +198,7 @@ namespace tnah {
 		uint32_t GetStride() const { return m_Stride; }
 
 		/**
-		 * @fn	const std::vector<BufferElement>& BufferLayout::GetElements() const
+		 * @fn	const std::vector<BufferElement>& VertexBufferLayout::GetElements() const
 		 *
 		 * @brief	Gets the elements
 		 *
@@ -223,7 +212,7 @@ namespace tnah {
 
 
 		/**
-		 * @fn	std::vector<BufferElement>::iterator BufferLayout::begin()
+		 * @fn	std::vector<BufferElement>::iterator VertexBufferLayout::begin()
 		 *
 		 * @brief	Gets an iterator from the begin point of a vector
 		 *
@@ -240,7 +229,7 @@ namespace tnah {
 		std::vector<BufferElement>::iterator begin() { return m_Elements.begin(); }
 
 		/**
-		 * @fn	std::vector<BufferElement>::iterator BufferLayout::end()
+		 * @fn	std::vector<BufferElement>::iterator VertexBufferLayout::end()
 		 *
 		 * @brief	Gets an iterator from the end point of a vector
 		 *
@@ -253,7 +242,7 @@ namespace tnah {
 		std::vector<BufferElement>::iterator end() { return m_Elements.end(); }
 
 		/**
-		 * @fn	std::vector<BufferElement>::const_iterator BufferLayout::begin() const
+		 * @fn	std::vector<BufferElement>::const_iterator VertexBufferLayout::begin() const
 		 *
 		 * @brief	Gets a const iterator from the begin point of a vector
 		 *
@@ -266,7 +255,7 @@ namespace tnah {
 		std::vector<BufferElement>::const_iterator begin() const { return m_Elements.begin(); }
 
 		/**
-		 * @fn	std::vector<BufferElement>::const_iterator BufferLayout::end() const
+		 * @fn	std::vector<BufferElement>::const_iterator VertexBufferLayout::end() const
 		 *
 		 * @brief	Gets a const iterator from the end point of a vector
 		 *
@@ -280,7 +269,7 @@ namespace tnah {
 	private:
 
 		/**
-		 * @fn	static void BufferLayout::CalculateOffsetsAndStride(std::vector<BufferElement>& elements, uint32_t& stride)
+		 * @fn	static void VertexBufferLayout::CalculateOffsetsAndStride(std::vector<BufferElement>& elements, uint32_t& stride)
 		 *
 		 * @brief	Calculates the offsets and stride
 		 *
@@ -337,15 +326,13 @@ namespace tnah {
 
 
 	/**
-	 * @struct	DrawMode
+	 * @struct	BufferDrawMode
 	 *
 	 * @brief	A draw mode.
 	 *
 	 * @author	Plush
 	 * @date	12/09/2021
 	 */
-
-	struct DrawMode
 
 	struct BufferDrawMode
 
@@ -446,7 +433,7 @@ namespace tnah {
 
 
 		/**
-		 * @fn	virtual const BufferLayout& VertexBuffer::GetLayout() const = 0;
+		 * @fn	virtual const VertexBufferLayout& VertexBuffer::GetLayout() const = 0;
 		 *
 		 * @brief	Gets the layout
 		 *
@@ -455,11 +442,10 @@ namespace tnah {
 		 *
 		 * @returns	The layout.
 		 */
-
-		virtual const BufferLayout& GetLayout() const = 0;
+		virtual const VertexBufferLayout& GetLayout() const = 0;
 
 		/**
-		 * @fn	virtual void VertexBuffer::SetLayout(const BufferLayout& layout) = 0;
+		 * @fn	virtual void VertexBuffer::SetLayout(const VertexBufferLayout& layout) = 0;
 		 *
 		 * @brief	Sets a layout
 		 *
@@ -468,8 +454,7 @@ namespace tnah {
 		 *
 		 * @param 	layout	The layout.
 		 */
-
-		virtual void SetLayout(const BufferLayout& layout) = 0;
+		virtual void SetLayout(const VertexBufferLayout& layout) = 0;
 
 		/**
 		 * @fn	static Ref<VertexBuffer> VertexBuffer::Create();
@@ -481,15 +466,14 @@ namespace tnah {
 		 *
 		 * @returns	A VertexBuffer
 		 */
+		static Ref<VertexBuffer> Create();
+
 		
-		virtual const VertexBufferLayout& GetLayout() const = 0;
-		virtual void SetLayout(const VertexBufferLayout& layout) = 0;
+		
 
 		
 		static bool CheckIntShaderDataTypes(const BufferElement& element);
-
-		static Ref<VertexBuffer> Create();
-
+		
 		/**
 		 * @fn	static Ref<VertexBuffer> VertexBuffer::Create(float* verticies, uint32_t size);
 		 *
@@ -587,12 +571,11 @@ namespace tnah {
 		 *
 		 * @returns	The count.
 		 */
+		virtual uint32_t GetCount() const = 0;
 
 
 		virtual int GetDataType() const = 0;
-
-		virtual uint32_t GetCount() const = 0;
-
+		
 		/**
 		 * @fn	static Ref<IndexBuffer> IndexBuffer::Create(uint32_t* indices, uint32_t size);
 		 *

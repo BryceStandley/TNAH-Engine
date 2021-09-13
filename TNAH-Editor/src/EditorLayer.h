@@ -218,6 +218,15 @@ namespace tnah {
 			/** @brief	True to snap, false to not snap */
 		bool m_Snap = false;
 
+		/** @brief	True to enable, false to disable the wireframe */
+		bool m_Wireframe = false;
+
+		/** @brief	True to fullscreen */
+		bool m_Fullscreen = false;
+
+		/** @brief	True to synchronize */
+		bool m_VSync = false;
+
 			/**
 			 * @property	Ref<Texture2D> m_SelectToolTex, m_MoveToolTex, m_RotateToolTex, m_ScaleToolTex, m_PlayButtonTex, m_StopButtonTex, m_PauseButtonTex
 			 *

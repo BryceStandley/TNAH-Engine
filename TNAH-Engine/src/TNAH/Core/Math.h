@@ -160,6 +160,24 @@ namespace tnah {
 		}
 
 		/**
+		* @fn	static glm::vec3 FromRp3dVec3(const rp3d::Vector3& values)
+		*
+		* @brief	Converts the reactphysics3d vector3 values to a glm vec3 values
+		*
+		* @author	Dylan Blereau
+		* @date	7/09/2021
+		*
+		* @param 	values	The values.
+		*
+		* @returns	Values as a glm::vec3.
+		*/
+
+		static glm::vec3 FromRp3dVec3(const rp3d::Vector3& values)
+		{
+			return glm::vec3(values.x, values.y, values.z);
+		}
+		
+		/**
 		 * @fn	static rp3d::Quaternion ToRp3dQuat(const glm::quat& values)
 		 *
 		 * @brief	Converts the glm quaternion values to a rp3D quaternion

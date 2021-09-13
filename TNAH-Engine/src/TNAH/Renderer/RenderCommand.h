@@ -60,14 +60,17 @@ namespace tnah {
 			s_RendererAPI->Clear();
 		}
 
-
+		inline static void DrawArray(const Ref<VertexArray> vertexArray, const DrawMode& mode = DrawMode::Triangles)
 		{
 			s_RendererAPI->DrawArray(vertexArray, mode);
 		}
 
-
+		inline static void DrawIndexed(const Ref<VertexArray> vertexArray, const  DrawMode& mode = DrawMode::Triangles, void* indicesStart = nullptr)
+		{
+			s_RendererAPI->DrawIndexed(vertexArray, mode, indicesStart);
 		}
 
+		
 		/**
 		 * @fn	inline static void RenderCommand::SetViewport(const uint32_t x, const uint32_t y, const uint32_t width, const uint32_t height)
 		 *
@@ -154,16 +157,17 @@ namespace tnah {
 			s_RendererAPI->SetDepthMask(enabled);
 		}
 
-
+		inline static void SetDepthFunc(const DepthFunc& func)
 		{
 			s_RendererAPI->SetDepthFunc(func);
 		}
-
+		
+		inline static void Disable(const APIEnum& value)
 		{
 			s_RendererAPI->Disable(value);
 		}
 
-
+		inline static void Enable(const APIEnum& value)
 		{
 			s_RendererAPI->Enable(value);
 		}

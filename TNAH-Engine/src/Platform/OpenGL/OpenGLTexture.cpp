@@ -41,7 +41,7 @@ namespace tnah {
 	{
 		m_TextureResource = path;
 		m_TextureResource.CustomName = textureName;
-		m_UniformName = "u_" + textureName;
+		m_UniformName = textureName;
 		int width, height, channels;
 		unsigned char* data = nullptr;
 		if(path.find(".png") != std::string::npos)
@@ -135,7 +135,7 @@ namespace tnah {
 
 			stbi_image_free(data);
 			m_Loaded = true;
-			m_Slot = Renderer::GetAndIncrementTextureSlot();
+			m_Slot = m_RendererID;
 		
 	}
 

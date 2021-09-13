@@ -2,7 +2,7 @@
 #include "TNAH/Core/Core.h"
 #include <glm/glm.hpp>
 
-#include "ComponentBase.h"
+#include "ComponentIdentification.h"
 #include "Platform/OpenGL/OpenGLVertexArray.h"
 #include "Platform/OpenGL/OpenGLBuffer.h"
 #include "Platform/OpenGL/OpenGLShader.h"
@@ -535,11 +535,13 @@ namespace tnah {
 	 * @date	10/09/2021
 	 **************************************************************************************************/
 
-	class TerrainComponent : public Component
+	class TerrainComponent
 	{
 	public:
 		/** @brief	The scene terrain */
 		Terrain* SceneTerrain;
+
+		
 
 		/**********************************************************************************************//**
 		 * @fn	TerrainComponent::TerrainComponent() = default;
@@ -602,6 +604,10 @@ namespace tnah {
 	private:
 		friend class EditorUI;
 		inline static std::string s_SearchString = "terrain component";
+		inline static ComponentTypes s_Types = {
+			{ComponentVariations::Terrain},
+{{ComponentCategory::Objects, ComponentCategory::Environment, ComponentCategory::Objects}}
+		};
 	};
 
 }

@@ -153,7 +153,7 @@ namespace tnah {
         bool duplicate = false;
         for(auto& m : Renderer::GetLoadedModels())
         {
-            if(std::strcmp(m->m_FilePath.data(), filePath.c_str()) == 0)
+            if(std::strcmp(m->m_Resource.RelativeDirectory.c_str(), filePath.c_str()) == 0)
             {
                 // this model has already been loaded, no need to process it again
                 model = m;
@@ -170,11 +170,11 @@ namespace tnah {
     }
 
     Model::Model()
+        :m_Animation(Animation())
     {}
 
     Model::Model(const std::string& filePath)
     {
-        m_FilePath = filePath;
         m_Resource = Resource(filePath);
         LoadModel(filePath);
     }
@@ -245,7 +245,6 @@ namespace tnah {
             TNAH_CORE_ERROR("Error Importing file: {0}    error: {1}", filePath, importer.GetErrorString());
             return;
         }
-        m_Directory = filePath.substr(0, filePath.find_last_of('/'));
         ProcessNode(scene->mRootNode, scene);
     }
 
@@ -275,14 +274,14 @@ namespace tnah {
                 {
                     aiTexture* aiTex = const_cast<aiTexture*>(t);
                     //read file from memory
-                    tex = (Texture2D::Create(str.C_Str(), typeName,true, aiTex));
+                    tex = (Texture2D::Create(str.C_Str(), typeName + std::to_string(i+1),true, aiTex));
                     textures.push_back(tex);
                     //m_LoadedTextures.push_back(MeshTexture(tex, str.data));
                     Renderer::RegisterTexture(tex);
                 }
                 else
                 {
-                    tex = (Texture2D::Create(str.data, typeName));
+                    tex = (Texture2D::Create(str.data, typeName + std::to_string(i+1)));
                     textures.push_back(tex);
                     //m_LoadedTextures.push_back(MeshTexture(tex, str.data));
                     Renderer::RegisterTexture(tex);

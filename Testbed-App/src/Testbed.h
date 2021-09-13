@@ -10,16 +10,6 @@ public:
 	~Testbed();
 	
 	void OnEvent(tnah::Event& e) override;
-	bool& GetCursorToggleStatus() override { return m_CursorDisabled; }
-	bool& GetWireframeToggleStatus() override  { return m_WireframeEnabled; }
-	bool& GetFullscreenToggleStatus() override { return m_Fullscreen; }
-	bool& GetVSyncToggleStatus() override { return m_VSync; }
-private:
-	bool m_CursorDisabled = false;
-	bool m_WireframeEnabled = false;
-	bool m_Fullscreen = false;
-	bool m_VSync = false;
-
 };
 
 //This is required to make a new application with our set layers inside this project.

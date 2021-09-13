@@ -18,20 +18,24 @@ namespace tnah {
 		Disabled = 3
 	};
 
+	
+
 	/**
-	 * @class	RendererAPI
-	 *
-	 * @brief	A renderer API class that provides the functions required to render, regardless of API used
-	 *
-	 * @author	Plush
-	 * @date	12/09/2021
-	 */
+	* @enum	DepthFunc
+	*
+	* @brief	Values that represent depth Functions
+	*/
 
 	enum class DepthFunc
 	{
 		Never, Less, Equal, Lequal, Greater, NotEqual, Gequal, Always
 	};
 
+	/**
+	* @enum	APIEnum
+	*
+	* @brief	Values that represent API enums
+	*/
 	enum class APIEnum
 	{
 		CullFace, DepthTest, DepthMask,
@@ -39,6 +43,11 @@ namespace tnah {
 		CubeMap
 	};
 
+	/**
+	* @enum	DrawMode
+	*
+	* @brief	Different modes for drawing
+	*/
 	enum class DrawMode
 	{
 		Points,
@@ -46,7 +55,15 @@ namespace tnah {
 		Triangle_Strip, Triangle_Fan, Triangles, Triangles_Strip_Adjacency, Triangles_Adjacency,
 		Patches
 	};
-	
+
+	/**
+	* @class	RendererAPI
+	*
+	* @brief	A renderer API class that provides the functions required to render, regardless of API used
+	*
+	* @author	Plush
+	* @date	12/09/2021
+	*/
 	class RendererAPI
 	{
 	public:
@@ -61,32 +78,7 @@ namespace tnah {
 		{
 			None = 0, OpenGL = 1
 		};
-
-		/**
-		 * @enum	DepthFunc
-		 *
-		 * @brief	Values that represent depth Functions
-		 */
-
-		enum class DepthFunc
-		{
-			Never, Less, Equal, Lequal, Greater, NotEqual, Gequal, Always
-		};
-
-		/**
-		 * @enum	APIEnum
-		 *
-		 * @brief	Values that represent API enums
-		 */
-
-		enum class APIEnum
-		{
-			CullFace, DepthTest, DepthMask,
-			FrontFace_CW, FrontFace_CCW,
-			CubeMap
-		};
-	
-	public:
+		
 
 		/**
 		 * @fn	virtual RendererAPI::~RendererAPI() = default;
@@ -175,36 +167,24 @@ namespace tnah {
 		 */
 
 		virtual void Enable(const APIEnum& value) = 0;
+		;
 
 		/**
-		 * @fn	virtual void RendererAPI::DrawArray(const Ref<VertexArray>& vertexArray) = 0;
+		 * @fn	virtual void RendererAPI::DrawArray(const Ref<VertexArray>& vertexArray, const DrawMode& mode = DrawMode::Triangles) = 0;
 		 *
-		 * @brief	Draw array
+		 * @brief	Draws a vertex array
 		 *
 		 * @author	Plush
 		 * @date	12/09/2021
 		 *
-		 * @param 	vertexArray	Array of vertices.
+		 * @param 	vertexArray The VertexArray object to be bound and drawn from.
+		 * @param 	mode The draw mode of the VertexArray. Default to DrawMode::Triangles
 		 */
 
-		virtual void DrawArray(const Ref<VertexArray>& vertexArray) = 0;
+		virtual void DrawArray(const Ref<VertexArray>& vertexArray, const DrawMode& mode = DrawMode::Triangles) = 0;
 
 		/**
-		 * @fn	virtual void RendererAPI::DrawArray(std::string type, uint32_t size) = 0;
-		 *
-		 * @brief	Draw array
-		 *
-		 * @author	Plush
-		 * @date	12/09/2021
-		 *
-		 * @param 	type	The type.
-		 * @param 	size	The size.
-		 */
-
-		virtual void DrawArray(std::string type, uint32_t size) = 0;
-
-		/**
-		 * @fn	virtual void RendererAPI::DrawIndexed(const Ref<VertexArray>& vertexArray) = 0;
+		 * @fn	virtual void RendererAPI::DrawIndexed(const Ref<VertexArray>& vertexArray, const DrawMode& mode = DrawMode::Triangles, void* indicesStart = nullptr) = 0;
 		 *
 		 * @brief	Draw indexed
 		 *
@@ -212,10 +192,15 @@ namespace tnah {
 		 * @date	12/09/2021
 		 *
 		 * @param 	vertexArray	Array of vertices.
+		 * @param 	mode	The draw mode of the VertexArray. Default to DrawMode::Triangles
+		 * @param 	indicesStart	Starting position of the indices. 
 		 */
 
-		virtual void DrawIndexed(const Ref<VertexArray>& vertexArray) = 0;
+		virtual void DrawIndexed(const Ref<VertexArray>& vertexArray, const DrawMode& mode = DrawMode::Triangles, void* indicesStart = nullptr) = 0;
 
+		
+		
+		
 		/**
 		 * @fn	virtual void RendererAPI::SetWireframe(const bool& enable) = 0;
 		 *
@@ -226,8 +211,7 @@ namespace tnah {
 		 *
 		 * @param 	enable	True to enable, false to disable.
 			*/
-		virtual void DrawArray(const Ref<VertexArray>& vertexArray, const DrawMode& mode = DrawMode::Triangles) = 0;
-		virtual void DrawIndexed(const Ref<VertexArray>& vertexArray, const DrawMode& mode = DrawMode::Triangles, void* indicesStart = nullptr) = 0;
+		
 
 		virtual void SetWireframe(const bool& enable) = 0;
 

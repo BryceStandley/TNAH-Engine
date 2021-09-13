@@ -66,7 +66,8 @@ namespace tnah{
 
 		
 
-		TNAH_INFO("Creating window {0} ({1}, {2})", props.Title, props.Width, props.Height);
+		TNAH_INFO("Window: {0}", props.Title);
+		TNAH_INFO("{0}, {1}", props.Width, props.Height);
 
 		if (!s_GLFWInitialized)
 		{

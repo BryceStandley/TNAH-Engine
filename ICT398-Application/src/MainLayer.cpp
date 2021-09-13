@@ -6,6 +6,8 @@
 
 #include <TNAH-App.h>
 
+#include "TNAH/Editor/EditorUI.h"
+
 MainLayer::MainLayer()
 	:Layer("Main Layer")
 {
@@ -16,13 +18,17 @@ MainLayer::MainLayer()
 	cc.Camera.SetViewportSize(1280, 720);
 	ct.Position = glm::vec3(0, 0, 1);
 	cc.ClearMode = tnah::CameraClearMode::Skybox;
-
+	auto& m_Skybox = m_Camera.AddComponent<tnah::SkyboxComponent>();
+	
 	{
 		auto& rb = m_Camera.AddComponent<tnah::RigidBodyComponent>(ct);
-		auto& cap = m_Camera.AddComponent<tnah::CapsuleColliderComponent>();
-		rb.Body->addCollider(cap.Components.Shape, rp3d::Transform::identity());
-		cap.Components.BodyCollider = rb.AddCollider(cap.Components.Shape, rp3d::Transform::identity());
-		rb.SetBodyType(rp3d::BodyType::DYNAMIC);	
+		auto& box = m_Camera.AddComponent<tnah::BoxColliderComponent>(glm::vec3(0.2f, 0.8f, 0.2f));
+		box.Components.TransformRelativeToCollisionBody.setPosition({0, -0.7f, 0});
+		
+		box.Components.BodyCollider = rb.AddCollider(box.Components);
+		rb.Body->setAngularLockAxisFactor({0,1,0}); // Lock the rigidbody from falling over
+		rb.SetBodyType(rp3d::BodyType::DYNAMIC);
+		
 	}
 	
 	
@@ -34,12 +40,11 @@ MainLayer::MainLayer()
 	terrT.Scale = glm::vec3(5.0f);
 	terrT.Position = glm::vec3(-1000, -200, -500);
 
-	auto& m_Skybox = m_ActiveScene->GetSceneCamera().AddComponent<tnah::SkyboxComponent>();
-
-	m_PointLight = m_ActiveScene->CreateGameObject("PointLight");
-	auto& light = m_PointLight.GetComponent<tnah::LightComponent>();
-	light.Light = tnah::Light::CreatePoint();
-
+	
+	
+#pragma region SceneCreation
+	// Note this is a temp solution to building our scene.
+	// Scene Serialization is currently undergoing testing and bug fixes
 	{
 		std::string name = "World";
 		auto go = m_ActiveScene->CreateGameObject(name);
@@ -60,7 +65,6 @@ MainLayer::MainLayer()
 		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
 		auto& box = go.AddComponent<tnah::BoxColliderComponent>(glm::vec3(1, 40, 60));
 		
-		rb.Body->addCollider(box.Components.Shape, rp3d::Transform::identity());
 		box.Components.BodyCollider = rb.AddCollider(box.Components.Shape, rp3d::Transform::identity());
 		
 		rb.SetBodyType(rp3d::BodyType::KINEMATIC);	
@@ -76,8 +80,7 @@ MainLayer::MainLayer()
 		
 		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
 		auto& box = go.AddComponent<tnah::BoxColliderComponent>(glm::vec3(60, 2, 60));
-		
-		rb.Body->addCollider(box.Components.Shape, rp3d::Transform::identity());
+
 		box.Components.BodyCollider = rb.AddCollider(box.Components.Shape, rp3d::Transform::identity());
 		
 		rb.SetBodyType(rp3d::BodyType::KINEMATIC);	
@@ -94,7 +97,6 @@ MainLayer::MainLayer()
 		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
 		auto& box = go.AddComponent<tnah::BoxColliderComponent>(glm::vec3(1, 60, 60));
 		
-		rb.Body->addCollider(box.Components.Shape, rp3d::Transform::identity());
 		box.Components.BodyCollider = rb.AddCollider(box.Components.Shape, rp3d::Transform::identity());
 		
 		rb.SetBodyType(rp3d::BodyType::KINEMATIC);	
@@ -111,7 +113,6 @@ MainLayer::MainLayer()
 		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
 		auto& box = go.AddComponent<tnah::BoxColliderComponent>(glm::vec3(65, 50, 1));
 		
-		rb.Body->addCollider(box.Components.Shape, rp3d::Transform::identity());
 		box.Components.BodyCollider = rb.AddCollider(box.Components.Shape, rp3d::Transform::identity());
 		
 		rb.SetBodyType(rp3d::BodyType::KINEMATIC);	
@@ -128,7 +129,6 @@ MainLayer::MainLayer()
 		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
 		auto& box = go.AddComponent<tnah::BoxColliderComponent>(glm::vec3(65, 50, 1));
 		
-		rb.Body->addCollider(box.Components.Shape, rp3d::Transform::identity());
 		box.Components.BodyCollider = rb.AddCollider(box.Components.Shape, rp3d::Transform::identity());
 		
 		rb.SetBodyType(rp3d::BodyType::KINEMATIC);	
@@ -146,7 +146,6 @@ MainLayer::MainLayer()
 		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
 		auto& box = go.AddComponent<tnah::BoxColliderComponent>(glm::vec3(pillarSize));
 		
-		rb.Body->addCollider(box.Components.Shape, rp3d::Transform::identity());
 		box.Components.BodyCollider = rb.AddCollider(box.Components.Shape, rp3d::Transform::identity());
 		
 		rb.SetBodyType(rp3d::BodyType::KINEMATIC);	
@@ -163,7 +162,6 @@ MainLayer::MainLayer()
 		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
 		auto& box = go.AddComponent<tnah::BoxColliderComponent>(glm::vec3(pillarSize));
 		
-		rb.Body->addCollider(box.Components.Shape, rp3d::Transform::identity());
 		box.Components.BodyCollider = rb.AddCollider(box.Components.Shape, rp3d::Transform::identity());
 		
 		rb.SetBodyType(rp3d::BodyType::KINEMATIC);	
@@ -175,12 +173,11 @@ MainLayer::MainLayer()
 		auto&go = m_ActiveScene->CreateGameObject(name);
 		auto&tt = go.Transform();
 		
-		tt.Position = {-2.6, 0, 4.6};
+		tt.Position = {-2.3, 0, 4.6};
 		
 		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
 		auto& box = go.AddComponent<tnah::BoxColliderComponent>(glm::vec3(pillarSize));
 		
-		rb.Body->addCollider(box.Components.Shape, rp3d::Transform::identity());
 		box.Components.BodyCollider = rb.AddCollider(box.Components.Shape, rp3d::Transform::identity());
 		
 		rb.SetBodyType(rp3d::BodyType::KINEMATIC);	
@@ -197,7 +194,6 @@ MainLayer::MainLayer()
 		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
 		auto& box = go.AddComponent<tnah::BoxColliderComponent>(glm::vec3(pillarSize));
 		
-		rb.Body->addCollider(box.Components.Shape, rp3d::Transform::identity());
 		box.Components.BodyCollider = rb.AddCollider(box.Components.Shape, rp3d::Transform::identity());
 		
 		rb.SetBodyType(rp3d::BodyType::KINEMATIC);	
@@ -277,7 +273,6 @@ MainLayer::MainLayer()
 		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
 		auto& box = go.AddComponent<tnah::BoxColliderComponent>(glm::vec3(binSize));
 		
-		rb.Body->addCollider(box.Components.Shape, rp3d::Transform::identity());
 		box.Components.BodyCollider = rb.AddCollider(box.Components.Shape, rp3d::Transform::identity());
 		
 		rb.SetBodyType(rp3d::BodyType::KINEMATIC);	
@@ -297,7 +292,6 @@ MainLayer::MainLayer()
 		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
 		auto& box = go.AddComponent<tnah::BoxColliderComponent>(glm::vec3(binSize));
 		
-		rb.Body->addCollider(box.Components.Shape, rp3d::Transform::identity());
 		box.Components.BodyCollider = rb.AddCollider(box.Components.Shape, rp3d::Transform::identity());
 		
 		rb.SetBodyType(rp3d::BodyType::KINEMATIC);	
@@ -317,8 +311,7 @@ MainLayer::MainLayer()
 		tt.Scale = tableScale;
 		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
 		auto& box = go.AddComponent<tnah::BoxColliderComponent>(tableSize);
-		
-		rb.Body->addCollider(box.Components.Shape, rp3d::Transform::identity());
+
 		box.Components.BodyCollider = rb.AddCollider(box.Components.Shape, rp3d::Transform::identity());
 		
 		rb.SetBodyType(rp3d::BodyType::KINEMATIC);	
@@ -337,8 +330,7 @@ MainLayer::MainLayer()
 		tt.Scale = tableScale;
 		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
 		auto& box = go.AddComponent<tnah::BoxColliderComponent>(tableSize);
-		
-		rb.Body->addCollider(box.Components.Shape, rp3d::Transform::identity());
+
 		box.Components.BodyCollider = rb.AddCollider(box.Components.Shape, rp3d::Transform::identity());
 		
 		rb.SetBodyType(rp3d::BodyType::KINEMATIC);	
@@ -357,8 +349,7 @@ MainLayer::MainLayer()
 		tt.Scale = chairScale;
 		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
 		auto& box = go.AddComponent<tnah::BoxColliderComponent>(glm::vec3(1, 1, 1));
-		
-		rb.Body->addCollider(box.Components.Shape, rp3d::Transform::identity());
+
 		box.Components.BodyCollider = rb.AddCollider(box.Components.Shape, rp3d::Transform::identity());
 		
 		rb.SetBodyType(rp3d::BodyType::KINEMATIC);	
@@ -378,8 +369,7 @@ MainLayer::MainLayer()
 		
 		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
 		auto& box = go.AddComponent<tnah::BoxColliderComponent>(glm::vec3(1, 1, 1));
-		
-		rb.Body->addCollider(box.Components.Shape, rp3d::Transform::identity());
+
 		box.Components.BodyCollider = rb.AddCollider(box.Components.Shape, rp3d::Transform::identity());
 		
 		rb.SetBodyType(rp3d::BodyType::KINEMATIC);	
@@ -398,8 +388,7 @@ MainLayer::MainLayer()
 		tt.Scale = chairScale;
 		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
 		auto& box = go.AddComponent<tnah::BoxColliderComponent>(glm::vec3(1, 1, 1));
-		
-		rb.Body->addCollider(box.Components.Shape, rp3d::Transform::identity());
+
 		box.Components.BodyCollider = rb.AddCollider(box.Components.Shape, rp3d::Transform::identity());
 		
 		rb.SetBodyType(rp3d::BodyType::KINEMATIC);	
@@ -419,13 +408,21 @@ MainLayer::MainLayer()
 		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
 		auto& box = go.AddComponent<tnah::BoxColliderComponent>(glm::vec3(1, 1, 1));
 		
-		rb.Body->addCollider(box.Components.Shape, rp3d::Transform::identity());
 		box.Components.BodyCollider = rb.AddCollider(box.Components.Shape, rp3d::Transform::identity());
 		
 		rb.SetBodyType(rp3d::BodyType::KINEMATIC);	
 	}
+#pragma endregion SceneCreation
 	
 }
+
+void MainLayer::OnAttach()
+{
+	tnah::Application::Get().GetWindow().SetCursorDisabled(m_CursorVisible);
+
+	m_EndScreenImage = tnah::Texture2D::Create("assets/images/team.png");
+}
+
 
 void MainLayer::OnUpdate(tnah::Timestep deltaTime)
 {
@@ -436,6 +433,7 @@ void MainLayer::OnUpdate(tnah::Timestep deltaTime)
 	{
 		auto& rb = m_Camera.GetComponent<tnah::RigidBodyComponent>();
 		auto& ct = m_Camera.Transform();
+		/*
 		auto vel = rb.Body->getLinearVelocity();
 		if(vel.x > m_Velocity.x)
 		{
@@ -465,17 +463,41 @@ void MainLayer::OnUpdate(tnah::Timestep deltaTime)
 		}
 
 		rb.Body->setLinearVelocity(vel);
-
+		*/
 		if(m_CameraMovementToggle)
 		{
 			if(tnah::Input::IsKeyPressed(tnah::Key::W))
-				rb.ApplyForce(tnah::RigidBodyComponent::ForceType::FromCentre, ct.Forward, glm::vec3(5), glm::vec3(0));
+			{
+				ct.Position += ct.Forward * m_CameraMovementSpeed * deltaTime.GetSeconds();
+				rp3d::Transform rt = rb.Body->getTransform();
+				rt.setPosition(tnah::Math::ToRp3dVec3(ct.Position));
+				rb.Body->setTransform(rt);
+				//rb.ApplyForce(tnah::RigidBodyComponent::ForceType::FromCentre, ct.Forward, glm::vec3(5), glm::vec3(0));
+			}
 			if(tnah::Input::IsKeyPressed(tnah::Key::S))
-				rb.ApplyForce(tnah::RigidBodyComponent::ForceType::FromCentre, -ct.Forward, glm::vec3(5), glm::vec3(0));
+			{
+				ct.Position -= ct.Forward * m_CameraMovementSpeed * deltaTime.GetSeconds();
+				rp3d::Transform rt = rb.Body->getTransform();
+				rt.setPosition(tnah::Math::ToRp3dVec3(ct.Position));
+				rb.Body->setTransform(rt);
+				//rb.ApplyForce(tnah::RigidBodyComponent::ForceType::FromCentre, -ct.Forward, glm::vec3(5), glm::vec3(0));
+			}
 			if(tnah::Input::IsKeyPressed(tnah::Key::A))
-				rb.ApplyForce(tnah::RigidBodyComponent::ForceType::FromCentre, -ct.Right, glm::vec3(5), glm::vec3(0));
+			{
+				ct.Position -= ct.Right * m_CameraMovementSpeed * deltaTime.GetSeconds();
+				rp3d::Transform rt = rb.Body->getTransform();
+				rt.setPosition(tnah::Math::ToRp3dVec3(ct.Position));
+				rb.Body->setTransform(rt);
+				//rb.ApplyForce(tnah::RigidBodyComponent::ForceType::FromCentre, -ct.Right, glm::vec3(5), glm::vec3(0));
+			}
 			if(tnah::Input::IsKeyPressed(tnah::Key::D))
-				rb.ApplyForce(tnah::RigidBodyComponent::ForceType::FromCentre, ct.Right, glm::vec3(5), glm::vec3(0));
+			{
+				ct.Position += ct.Right * m_CameraMovementSpeed * deltaTime.GetSeconds();
+				rp3d::Transform rt = rb.Body->getTransform();
+				rt.setPosition(tnah::Math::ToRp3dVec3(ct.Position));
+				rb.Body->setTransform(rt);
+				//rb.ApplyForce(tnah::RigidBodyComponent::ForceType::FromCentre, ct.Right, glm::vec3(5), glm::vec3(0));
+			}
 		}
 	}
 
@@ -559,98 +581,181 @@ void MainLayer::OnFixedUpdate(tnah::PhysicsTimestep ps)
 
 void MainLayer::OnImGuiRender()
 {
-	//auto& terr = m_Terrain.Transform();
+	auto& terr = m_Terrain.Transform();
 	auto& ct = m_Camera.Transform();
 	auto& l = m_SceneLight.GetComponent<tnah::LightComponent>();
 	auto& lt = m_SceneLight.Transform();
 
-	auto& plt = m_PointLight.Transform();
-	auto& pl = m_PointLight.GetComponent<tnah::LightComponent>();
-	static int lightType = 0;
-	static const char* LightTypes[]
-	{
-		"Directional", "Point", "Spot"
-	};
-
-	static int lightDistance = 0;
-	static const char* lightDistances[]
-	{
-		"10", "15", "20", "50", "100", "200"
-	};
-
-	static const char* resolutions[]
-	{
-		"1280x720", "1920x1080", "2560x1080", "2560x1440"
-	};
-	static int selectedRes = 0;
-	ImGui::Begin("Controls");
+	ImGui::Begin("Control Panel", 0, ImGuiWindowFlags_NoDocking);
 	
-	ImGui::Text("%.1f FPS", ImGui::GetIO().Framerate);
-	ImGui::Text("Application Options");
-	ImGui::Separator();
-	ImGui::BulletText("Press 1 to toggle the cursor");
-	ImGui::BulletText("Press 2 to toggle wireframe mode");
-	ImGui::BulletText("Press 3 to toggle borderless fullscreen");
-	ImGui::BulletText("Press 4 to toggle VSync");
-	ImGui::BulletText("Press 5 to toggle camera look");
-	ImGui::BulletText("Press 6 to toggle camera movement");
-	ImGui::BulletText("Hold Either Shift to move the camera faster");
-	ImGui::BulletText("Press ESC to exit");
-	ImGui::Separator();
-	
-	if(ImGui::CollapsingHeader("Toggles"))
+	ImGui::Text("%.1f FPS | %.1f ms", ImGui::GetIO().Framerate, 1000.0f / ImGui::GetIO().Framerate);
+	ImGui::Text("This Window can be dragged around and even pulled off the window!");
+	ImGui::BulletText("Press ESC to display the team!");
+	if(ImGui::Button("Team Screen"))
 	{
-		auto& app = tnah::Application::Get();
-		ImGui::Checkbox("Cursor", &app.GetCursorToggleStatus());
-		ImGui::Checkbox("Wireframe", &app.GetWireframeToggleStatus());
-		ImGui::Checkbox("VSync", &app.GetVSyncToggleStatus());
-		ImGui::Checkbox("Fullscreen", &app.GetFullscreenToggleStatus());
-		ImGui::Checkbox("Camera Look", &m_CameraLookToggle);
-		ImGui::Checkbox("Camera Movement", &m_CameraMovementToggle);
-	}
-
-	if (ImGui::CollapsingHeader("Camera"))
-	{
-		ImGui::SliderFloat3("Camera Pos", glm::value_ptr(ct.Position), -10000, 10000);
-		ImGui::SliderFloat3("Camera Rotation", glm::value_ptr(ct.Rotation), -360, 360);
-		ImGui::Separator();
-		ImGui::SliderFloat3("Camera Forward", glm::value_ptr(ct.Forward), 0, 0, "%.3f",ImGuiInputTextFlags_ReadOnly);
-		ImGui::SliderFloat3("Camera Right", glm::value_ptr(ct.Right), 0, 0, "%.3f",ImGuiInputTextFlags_ReadOnly);
-		ImGui::SliderFloat3("Camera Up", glm::value_ptr(ct.Up), 0, 0, "%.3f",ImGuiInputTextFlags_ReadOnly);
-		ImGui::Separator();
-		ImGui::Checkbox("Camera Speed Override", &m_CameraMovementSpeedOverride);
-		if (m_CameraMovementSpeedOverride)
+		m_CloseScreen = !m_CloseScreen;
+		if(m_CloseScreen)
 		{
-			ImGui::SliderFloat("Camera Movement Speed", &m_CameraOverrideSpeed, 1, m_MaxCameraMovementSpeed);
+			m_CameraLookToggle = false;
+			m_CameraMovementToggle = false;
+			m_CursorVisible = true;
+			tnah::Application::Get().GetWindow().SetCursorDisabled(!m_CursorVisible);
 		}
 		else
 		{
-			ImGui::Text("Camera Movement Speed: %0.1f", m_CameraMovementSpeed);
+			m_CameraLookToggle = true;
+			m_CameraMovementToggle = true;
+			m_CursorVisible = false;
+			tnah::Application::Get().GetWindow().SetCursorDisabled(!m_CursorVisible);
 		}
 	}
-
-	//if (ImGui::CollapsingHeader("Terrain"))
-	//{
-	//	ImGui::SliderFloat3("Terrain Scale", glm::value_ptr(terr.Scale), 1, 20);
-	//}
-
-	if (ImGui::CollapsingHeader("Global Lighting"))
+	
+	ImGui::Separator();
+	
+	if(ImGui::CollapsingHeader("Application Options", ImGuiTreeNodeFlags_DefaultOpen))
 	{
-		ImGui::SliderFloat3("Light Direction", glm::value_ptr(l.Light->GetDirection()), -1, 1);
-		ImGui::SliderFloat("Light Intensity", &l.Light->GetIntensity(), 0, 10);
-		ImGui::ColorEdit3("Light Color", glm::value_ptr(l.Light->GetColor()));
-		ImGui::SliderFloat3("Light Ambient", glm::value_ptr(l.Light->GetAmbient()), 0, 1);
-		ImGui::SliderFloat3("Light Diffuse", glm::value_ptr(l.Light->GetDiffuse()), 0, 1);
-		ImGui::SliderFloat3("Light Specular", glm::value_ptr(l.Light->GetSpecular()), 0, 1);
-	}
+		ImGui::Text("Debug mode allows physics colliders to be rendered");
+		if(ImGui::Checkbox("Debug Mode", &tnah::Application::Get().GetDebugModeStatus()))
+		{
+			tnah::Application::Get().SetDebugStatusChange();
+		}
+		ImGui::Separator();
+		
+		if(ImGui::CollapsingHeader("Controls"))
+		{
+			ImGui::BulletText("Press 0 to toggle debug mode");
+			ImGui::BulletText("Press 1 to toggle the cursor");
+			ImGui::BulletText("Press 2 to toggle wireframe mode");
+			ImGui::BulletText("Press 3 to toggle borderless fullscreen");
+			ImGui::BulletText("Press 4 to toggle VSync");
+			ImGui::BulletText("Press 5 to toggle camera look");
+			ImGui::BulletText("Press 6 to toggle camera movement");
+			ImGui::BulletText("Hold Either Shift to move the camera faster");
+			ImGui::BulletText("Press ESC to display the team");
+			ImGui::BulletText("Press any mouse button to close when displaying the team");
+		}
+	
+		if(ImGui::CollapsingHeader("Toggles"))
+		{
+			auto& app = tnah::Application::Get();
+			if(ImGui::Checkbox("Cursor", &m_CursorVisible))
+			{
+				tnah::Application::Get().GetWindow().SetCursorDisabled(m_CursorVisible);
+			}
+			if(ImGui::Checkbox("Wireframe", &m_Wireframe))
+			{
+				tnah::RenderCommand::SetWireframe(m_Wireframe);
+			}
+			if(ImGui::Checkbox("VSync", &m_VSync))
+			{
+				tnah::Application::Get().GetWindow().SetVSync(m_VSync);
+			}
+			if(ImGui::Checkbox("Fullscreen", &m_Fullscreen))
+			{
+				tnah::Application::Get().GetWindow().ToggleFullScreen(m_Fullscreen);
+			}
+			if(ImGui::Checkbox("Camera Look", &m_CameraLookToggle))
+			{
+			
+			}
+			if(ImGui::Checkbox("Camera Movement", &m_CameraMovementToggle))
+			{
+			
+			}
+		}
 
-	if (ImGui::CollapsingHeader("Point Lighting"))
-	{
-		ImGui::SliderFloat3("Point Position", glm::value_ptr(plt.Position), -1000, 1000);
-		ImGui::SliderFloat("Point Intensity", &pl.Light->GetIntensity(), 0, 10);
-		ImGui::ColorEdit3("Point Color", glm::value_ptr(pl.Light->GetColor()));
+		if(ImGui::CollapsingHeader("Scene"))
+		{
+			if (ImGui::CollapsingHeader("Main Camera"))
+			{
+				ImGui::DragFloat3("Position", glm::value_ptr(ct.Position));
+				ImGui::DragFloat3("Rotation", glm::value_ptr(ct.Rotation), 1, -360, 360);
+				ImGui::Checkbox("Speed Override", &m_CameraMovementSpeedOverride);
+				if (m_CameraMovementSpeedOverride)
+				{
+					ImGui::DragFloat("Movement Speed", &m_CameraOverrideSpeed, 1, 1, m_MaxCameraMovementSpeed);
+				}
+				else
+				{
+					ImGui::Text("Movement Speed: %0.1f", m_CameraMovementSpeed);
+				}
+			}
+
+			if (ImGui::CollapsingHeader("Terrain"))
+			{
+				ImGui::DragFloat3("Position", glm::value_ptr(terr.Position));
+				ImGui::DragFloat3("Rotation", glm::value_ptr(terr.Rotation), 1, -360, 360);
+				ImGui::DragFloat3("Scale", glm::value_ptr(terr.Scale), 0.1f, 0.1f, 20);
+			}
+
+			if (ImGui::CollapsingHeader("Global Lighting"))
+			{
+				ImGui::SliderFloat3("Light Direction", glm::value_ptr(l.Light->GetDirection()), -1, 1);
+				ImGui::SliderFloat("Light Intensity", &l.Light->GetIntensity(), 0, 10);
+				ImGui::ColorEdit3("Light Color", glm::value_ptr(l.Light->GetColor()));
+				ImGui::SliderFloat3("Light Ambient", glm::value_ptr(l.Light->GetAmbient()), 0, 1);
+				ImGui::SliderFloat3("Light Diffuse", glm::value_ptr(l.Light->GetDiffuse()), 0, 1);
+				ImGui::SliderFloat3("Light Specular", glm::value_ptr(l.Light->GetSpecular()), 0, 1);
+			}
+
+			ImGui::NewLine();
+			ImGui::Separator();
+			ImGui::NewLine();
+			if(ImGui::CollapsingHeader("Objects"))
+			{
+				ImGui::Text("All objects within the scene. Each object and their components controlled");
+				ImGui::BulletText("Note this portion of the UI is using editor UI functions to display properties for each object");
+				ImGui::NewLine();
+				ImGui::Separator();
+				ImGui::NewLine();
+				for(auto& go : m_ActiveScene->GetGameObjectsInScene())
+				{
+					std::string name = go.second.GetComponent<tnah::TagComponent>().Tag;
+					if(ImGui::CollapsingHeader(name.c_str()))
+					{
+						tnah::EditorUI::DrawComponentProperties(go.second, false);
+					}
+				}
+			}
+		}
 	}
+	
 	ImGui::End();
+
+	if(m_CloseScreen)
+	{
+		auto io = ImGui::GetIO();
+		auto display = ImGui::GetIO().DisplaySize;
+		auto pos  = ImGui::GetWindowViewport()->Pos;
+		//ImGui::SetNextWindowSize({size.x, size.y});
+		ImGui::SetNextWindowSize({display.x + 10, display.y + 10});
+		ImGui::SetNextWindowPos({pos.x - 10, pos.y - 10}, true);
+		//ImGui::SetNextWindowPos({io.DisplaySize.x * 0.5f, io.DisplaySize.y * 0.5f}, ImGuiCond_Always, {0.5f, 0.5f});
+		ImGui::Begin("##EndScreen", 0, ImGuiWindowFlags_NoDocking | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoFocusOnAppearing);
+
+		if(m_EndScreenImage)
+		{
+			auto windowSpace = ImGui::GetContentRegionAvail();
+			ImGui::Image((void*)(intptr_t)m_EndScreenImage->GetRendererID(), windowSpace);
+		}
+		
+	/*
+		ImGui::SetCursorPos({(io.DisplaySize.x * 0.5f), (io.DisplaySize.y * 0.5f)});
+		if(ImGui::Button("Exit"))
+		{
+			tnah::WindowCloseEvent c = tnah::WindowCloseEvent();
+			tnah::Application::Get().OnEvent(c);
+		}
+	*/
+		
+		ImGui::End();
+
+		if(ImGui::GetIO().MouseClicked[tnah::Mouse::ButtonLeft] || ImGui::GetIO().MouseClicked[tnah::Mouse::ButtonRight])
+		{
+			tnah::WindowCloseEvent c = tnah::WindowCloseEvent();
+			tnah::Application::Get().OnEvent(c);
+		}
+	}
 }
 
 void MainLayer::OnEvent(tnah::Event& event)
@@ -668,19 +773,69 @@ void MainLayer::OnEvent(tnah::Event& event)
 
 	if (event.GetEventType() == tnah::EventType::KeyPressed)
 	{
-		auto& e = (tnah::KeyPressedEvent&)event;
-		if (e.GetKeyCode() == tnah::Key::D5)
+		auto& k = (tnah::KeyPressedEvent&)event;
+
+		if (k.GetKeyCode() == tnah::Key::Escape)
+		{
+			m_CloseScreen = !m_CloseScreen;
+			if(m_CloseScreen)
+			{
+				m_CameraLookToggle = false;
+				m_CameraMovementToggle = false;
+				m_CursorVisible = false;
+				tnah::Application::Get().GetWindow().SetCursorDisabled(!m_CursorVisible);
+			}
+			else
+			{
+				m_CameraLookToggle = true;
+				m_CameraMovementToggle = true;
+				m_CursorVisible = true;
+				tnah::Application::Get().GetWindow().SetCursorDisabled(!m_CursorVisible);
+			}
+		}
+		
+		//Toggle the Cursor on or off
+		if (k.GetKeyCode() == tnah::Key::D1 && m_EndScreenImage)
+		{
+			m_CursorVisible = !m_CursorVisible;
+			tnah::Application::Get().GetWindow().SetCursorDisabled(!m_CursorVisible);
+		}
+		//Toggle Wireframe on or off
+		if (k.GetKeyCode() == tnah::Key::D2 && m_EndScreenImage)
+		{
+			m_Wireframe = !m_Wireframe;
+			tnah::RenderCommand::SetWireframe(m_Wireframe);
+		}
+
+		//Toggle Fullscreen
+		if (k.GetKeyCode() == tnah::Key::D3)
+		{
+			m_Fullscreen = !m_Fullscreen;
+			tnah::Application::Get().GetWindow().ToggleFullScreen(m_Fullscreen);
+		}
+
+		//Toggle VSync
+		if (k.GetKeyCode() == tnah::Key::D4)
+		{
+			m_VSync = !m_VSync;
+			tnah::Application::Get().GetWindow().SetVSync(m_VSync);
+		}
+		
+		if (k.GetKeyCode() == tnah::Key::D5 && m_EndScreenImage)
 		{
 			m_CameraLookToggle = !m_CameraLookToggle;
 		}
-	}
-
-	if (event.GetEventType() == tnah::EventType::KeyPressed)
-	{
-		auto& e = (tnah::KeyPressedEvent&)event;
-		if (e.GetKeyCode() == tnah::Key::D6)
+		
+		if (k.GetKeyCode() == tnah::Key::D6 && m_EndScreenImage)
 		{
 			m_CameraMovementToggle = !m_CameraMovementToggle;
+		}
+
+		if (k.GetKeyCode() == tnah::Key::D0 && m_EndScreenImage)
+		{
+			auto& debug = tnah::Application::Get().GetDebugModeStatus();
+			debug = !debug;
+			tnah::Application::Get().SetDebugStatusChange();
 		}
 	}
 }

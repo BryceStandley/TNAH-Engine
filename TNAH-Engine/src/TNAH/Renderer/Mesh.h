@@ -278,8 +278,7 @@ struct Vertex
 
         /** @brief	True if animated */
         bool m_Animated;
-        
-
+     
         /** @brief	The vao */
         Ref<VertexArray> m_Vao;
 
@@ -289,9 +288,14 @@ struct Vertex
         /** @brief	The ibo */
         Ref<IndexBuffer> m_Ibo;
 
+        /** @brief	The VertexBufferLayout */
+        VertexBufferLayout m_BufferLayout;
+
         /** @brief	The material */
         Ref<Material> m_Material;
+     
 
+     
         friend class EditorUI;
     };
 
@@ -417,10 +421,8 @@ struct Vertex
 
         /** @brief	The meshes */
         std::vector<Mesh> m_Meshes;
-        std::string m_Directory;
 
-        /** @brief	Full pathname of the file */
-        std::string m_FilePath;
+        Resource m_Resource;
 
         /** @brief	The animation */
         Animation m_Animation;

@@ -12,9 +12,10 @@ namespace tnah
     /**
      * @class	PhysicsManager
      *
-     * @brief	Manager for physics that inherits from the RefCounted class 
+     * @brief	Manager for physics that inherits from the RefCounted class. This class is to remain private and contain
+     * all ReactPhysics3D world objects. Any control of the PhysicsManager should be done from tnah::Physics
      *
-     * @author	Plush
+     * @author	Chris Logan
      * @date	11/09/2021
      */
 
@@ -25,7 +26,8 @@ namespace tnah
         /**
          * @fn	PhysicsManager::PhysicsManager();
          *
-         * @brief	Default constructor
+         * @brief	Default constructor.
+         * This constructor is empty as the object requires the Physics::Initialise(rp3d::EventListener* collisionEventListener) to be called 
          *
          * @author	Plush
          * @date	12/09/2021
@@ -36,14 +38,17 @@ namespace tnah
         /**
          * @fn	PhysicsManager::~PhysicsManager();
          *
-         * @brief	Destructor
+         * @brief	Destructor. Safeguards prevent deletion of empty pointers of
+         * PhysicsManager::m_PhysicsWorld and PhysicsManager::m_PhysicsLogger if Physics::Initialise(rp3d::EventListener* collisionEventListener)
+         * was never called or Physics::Initialise(rp3d::EventListener* collisionEventListener) was called and Physics::PhysicsLoggerInit() was not.
          *
          * @author	Plush
          * @date	12/09/2021
          */
 
         ~PhysicsManager();
-
+    
+    private:
         /**
          * @fn	bool PhysicsManager::Initialise(rp3d::EventListener * collisionEventListener);
          *
@@ -71,7 +76,7 @@ namespace tnah
          * @param 	timestep	The timestep.
          */
 
-        void OnFixedUpdate(PhysicsTimestep timestep);
+        void OnFixedUpdate(PhysicsTimestep timestep) const;
 
         /**
          * @fn	void PhysicsManager::Destroy();
@@ -97,7 +102,7 @@ namespace tnah
          * @returns	Null if it fails, else the new rigid body.
          */
 
-        rp3d::RigidBody* CreateRigidBody(const TransformComponent& transform);
+        rp3d::RigidBody* CreateRigidBody(const TransformComponent& transform) const;
 
         /**
          * @fn	void PhysicsManager::DestroyRigidBody(rp3d::RigidBody* rigidBody);
@@ -110,7 +115,7 @@ namespace tnah
          * @param [in,out]	rigidBody	If non-null, the rigid body.
          */
 
-        void DestroyRigidBody(rp3d::RigidBody* rigidBody);
+        void DestroyRigidBody(rp3d::RigidBody* rigidBody) const;
 
         /**
          * @fn	rp3d::CollisionBody* PhysicsManager::CreateCollisionBody(const TransformComponent& transform);
@@ -125,7 +130,7 @@ namespace tnah
          * @returns	Null if it fails, else the new collision body.
          */
 
-        rp3d::CollisionBody* CreateCollisionBody(const TransformComponent& transform);
+        rp3d::CollisionBody* CreateCollisionBody(const TransformComponent& transform) const;
 
         /**
          * @fn	void PhysicsManager::DestroyCollisionBody(rp3d::CollisionBody * body);
@@ -138,16 +143,9 @@ namespace tnah
          * @param [in,out]	body	If non-null, the body.
          */
 
-        void DestroyCollisionBody(rp3d::CollisionBody * body);
-
-        void OnFixedUpdate(PhysicsTimestep timestep) const;
-        void Destroy();
-        rp3d::RigidBody* CreateRigidBody(const TransformComponent& transform) const;
-        void DestroyRigidBody(rp3d::RigidBody* rigidBody) const;
-        rp3d::CollisionBody* CreateCollisionBody(const TransformComponent& transform) const;
         void DestroyCollisionBody(rp3d::CollisionBody * body) const;
 
-    private:
+    
 
         /**
          * @fn	void PhysicsManager::CreateColliderRenderer();
@@ -160,7 +158,7 @@ namespace tnah
 
         void CreateColliderRenderer();
         
-
+    private:
         /** @brief	The physics common */
         rp3d::PhysicsCommon m_PhysicsCommon;
 
@@ -175,7 +173,10 @@ namespace tnah
 
         /** @brief	True to collider render */
         bool m_ColliderRender = false;
-
+     
+     /** @brief	True if the collider renderer has been initialized */
+      bool m_ColliderRendererInit = false;
+     
         Ref<VertexArray> m_LinesVertexArray;
 
 
@@ -194,6 +195,9 @@ namespace tnah
 
         /** @brief	True to active */
         bool m_Active = false;
+
+     /** @brief Used to tell the physics system if the logging should be enabled*/
+     bool m_Logging = false;
 
         friend class Physics;
     };
@@ -373,6 +377,9 @@ namespace tnah
          */
 
         static void ToggleColliderRendering();
+        static bool& GetColliderRendererHandle();
+        static TransformComponent GetColliderRendererTransform();
+        
 
         /**
          * @fn	static rp3d::BoxShape* Physics::CreateBoxShape(const float& halfX, const float& halfY, const float& halfZ);
@@ -544,6 +551,9 @@ namespace tnah
     
     private:
 
+        static void EnableLogging();
+     
+
         static bool IsColliderRenderingEnabled();
 
         /**
@@ -581,10 +591,10 @@ namespace tnah
          * @date	12/09/2021
          */
 
-        static void UpdateCol
+        static void UpdateColliderRenderer();
 
         /**
-         * @fn	static rp3d::DebugRenderer Physics::GetColliderRenderer();
+         * @fn	static rp3d::DebugRenderer* Physics::GetColliderRenderer();
          *
          * @brief	Gets collider renderer
          *
@@ -594,7 +604,7 @@ namespace tnah
          * @returns	The collider renderer.
          */
 
-        static rp3d::DebugRenderer GetColliderRenderer();
+        static rp3d::DebugRenderer* GetColliderRenderer();
 
         /**
          * @fn	static void Physics::PhysicsLoggerInit();
@@ -609,15 +619,8 @@ namespace tnah
     
     private:
 
-
-        /** @brief	Manager for physics */
-=======
-        static rp3d::DebugRenderer* GetColliderRenderer();
-        static void PhysicsLoggerInit();
-    
-    private:
+     
         /** @brief a static reference to the active physics manager */
-
         static Ref<PhysicsManager> m_PhysicsManager;
 
         /** @brief Transform used for rendering the colliders within the scene*/

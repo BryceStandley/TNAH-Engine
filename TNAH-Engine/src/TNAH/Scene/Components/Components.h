@@ -3,13 +3,13 @@
 #include <TNAH/Core/Core.h>
 #include "TNAH/Core/KeyCodes.h"
 #include "TNAH/Core/UUID.h"
+#include "ComponentIdentification.h"
 #include "TNAH/Scene/SceneCamera.h"
 #include "SkyboxComponent.h"
 #include "TerrainComponent.h"
 #include "PhysicsComponents.h"
 #include "LightComponents.h"
 #include "AudioComponents.h"
-#include "ComponentBase.h"
 
 #include "TNAH/Renderer/Mesh.h"
 
@@ -38,21 +38,7 @@
 
 namespace tnah {
 
-	/**********************************************************************************************//**
-	 * @enum	ComponentTypes
-	 *
-	 * @brief	Values that represent component types
-	 **************************************************************************************************/
-
-	enum class ComponentTypes
-	{
-		None,
-		ID, Tag, Relationship, Transform,
-		Camera, EditorCamera, Editor, Skybox, Light,
-		Terrain, Mesh, PlayerController, AudioSource, AudioListener,
-		RigidBody, BoxCollider, SphereCollider, CapsuleCollider, HeightFieldCollider,
-		ConvexMeshCollider, ConcaveMeshCollider
-	};
+	
 
 	/**********************************************************************************************//**
 	 * @class	IDComponent
@@ -63,14 +49,19 @@ namespace tnah {
 	 * @date	10/09/2021
 	 **************************************************************************************************/
 
-	class IDComponent : public Component
+	class IDComponent
 	{
 	public:
 		UUID ID = 0;
+		
 	
 	private:
 		friend class EditorUI;
 		inline static std::string s_SearchString = "id component";
+		inline static ComponentTypes s_Types = {
+			{ComponentVariations::ID},
+{{ComponentCategory::Core}}
+		};
 	};
 
 	/**********************************************************************************************//**
@@ -82,7 +73,7 @@ namespace tnah {
 	 * @date	10/09/2021
 	 **************************************************************************************************/
 
-	class TagComponent : public Component
+	class TagComponent
 	{
 	public:
 		std::string Tag;
@@ -153,6 +144,10 @@ namespace tnah {
 	private:
 		friend class EditorUI;
 		inline static std::string s_SearchString = "tag component";
+		inline static ComponentTypes s_Types= {
+			{ComponentVariations::Tag},
+{{ComponentCategory::Core}}
+		};
 	};
 
 	/**********************************************************************************************//**
@@ -164,13 +159,12 @@ namespace tnah {
 	 * @date	10/09/2021
 	 **************************************************************************************************/
 
-	class RelationshipComponent : public Component
+	class RelationshipComponent
 	{
 	public:
 
 		/** @brief	Handle of the parent */
 		UUID ParentHandle = 0;
-
 
 		/** @brief	The children */
 		std::vector<UUID> Children;
@@ -215,6 +209,12 @@ namespace tnah {
 	private:
 		friend class EditorUI;
 		inline static std::string s_SearchString = "relationship component";
+		
+	inline static ComponentTypes s_Types= {
+                {ComponentVariations::Relationship},
+    {{ComponentCategory::Core}}
+		};
+		
 	};
 
 
@@ -229,7 +229,7 @@ namespace tnah {
 	 * @date	20/07/2021
 	 **************************************************************************************************/
 
-	class TransformComponent : public Component
+	class TransformComponent
 	{
 	public:
 
@@ -255,6 +255,8 @@ namespace tnah {
 
 		/** @brief	The forward */
 		glm::vec3 Forward = { 0.0f, 0.0f, -1.0f };
+
+		
 
 		/**********************************************************************************************//**
 		 * @fn	TransformComponent::TransformComponent() = default;
@@ -331,6 +333,10 @@ namespace tnah {
 	private:
 		friend class EditorUI;
 		inline static std::string s_SearchString = "transform component";
+		inline static ComponentTypes s_Types= {
+			{ComponentVariations::Transform},
+{{ComponentCategory::Core}}
+		};
 	};
 
 	/**********************************************************************************************//**
@@ -349,7 +355,7 @@ namespace tnah {
 	 * @date	3/08/2021
 	 **************************************************************************************************/
 
-	class CameraComponent : public Component
+	class CameraComponent
 	{
 	public:
 
@@ -364,6 +370,8 @@ namespace tnah {
 
 		/** @brief	True to primary */
 		bool Primary = true;
+
+		
 
 		/**********************************************************************************************//**
 		 * @fn	void CameraComponent::SetClearMode(const CameraClearMode& mode)
@@ -455,6 +463,10 @@ namespace tnah {
 		/** @brief	True to updated clear */
 		bool m_UpdatedClear = false;
 		inline static std::string s_SearchString = "camera component";
+		inline static ComponentTypes s_Types = {
+			{ComponentVariations::Camera},
+{{ComponentCategory::Camera, ComponentCategory::Rendering}}
+		};
 		friend class EditorUI;
 	};
 
@@ -470,7 +482,7 @@ namespace tnah {
 	 * @date	3/08/2021
 	 **************************************************************************************************/
 
-	class MeshComponent : public Component
+	class MeshComponent
 	{
 	public:
 
@@ -479,6 +491,8 @@ namespace tnah {
 
 		/** @brief	The animation */
 		Animation Animation;
+
+		
 
 		/**********************************************************************************************//**
 		 * @fn	MeshComponent::MeshComponent() = default;
@@ -570,6 +584,10 @@ namespace tnah {
 	private:
 		friend class EditorUI;
 		inline static std::string s_SearchString = "mesh component";
+		inline static ComponentTypes s_Types = {
+			{ComponentVariations::Mesh},
+{{ComponentCategory::Rendering, ComponentCategory::Objects}}
+		};
 	};
 
 	/**********************************************************************************************//**
@@ -592,7 +610,7 @@ namespace tnah {
 	 * @date	10/09/2021
 	 **************************************************************************************************/
 
-	class PlayerControllerComponent : public Component
+	class PlayerControllerComponent
 	{
 	public:
 		
@@ -629,6 +647,8 @@ namespace tnah {
 		float CrouchSpeed = 2.5f;
 		/** @brief	The crouch height multiplier */
 		float CrouchHeightMultiplier = 0.5f;
+
+		
 
 		/**********************************************************************************************//**
 		 * @fn	PlayerControllerComponent::PlayerControllerComponent() = default;
@@ -772,6 +792,10 @@ namespace tnah {
 		bool m_MouseDisabled = false;
 
 		inline static std::string s_SearchString = "player controller component";
+		inline static ComponentTypes s_Types = {
+			{ComponentVariations::PlayerController},
+{{ComponentCategory::Controls, ComponentCategory::Objects}}
+		};
 		friend class Scene;
 		friend class EditorUI;
 		
@@ -786,7 +810,7 @@ namespace tnah {
 	 * @date	10/09/2021
 	 **************************************************************************************************/
 
-	class EditorCameraComponent: public Component
+	class EditorCameraComponent
 	{
 	public:
 		/** @brief	The editor camera */
@@ -797,6 +821,8 @@ namespace tnah {
 		glm::vec4 ClearColor = { 0.1f, 0.1f, 0.1f, 1.0f };
 		/** @brief	True to primary */
 		bool Primary = true;
+
+		
 
 		/**********************************************************************************************//**
 		 * @fn	void EditorCameraComponent::SetClearMode(const CameraClearMode& mode)
@@ -868,6 +894,10 @@ namespace tnah {
 		operator const SceneCamera& () const { return EditorCamera; }
 	private:
 		inline static std::string s_SearchString = "editor camera component";
+		inline static ComponentTypes s_Types = {
+			{ComponentVariations::EditorCamera},
+{{ComponentCategory::Core, ComponentCategory::Camera, ComponentCategory::Editor}}
+		};
 		friend class Scene;
 		friend class EditorUI;
 	};
@@ -880,10 +910,11 @@ namespace tnah {
 	 *	@author Bryce Standley
 	 *	@date 21/08/2021
 	 */
-	class EditorComponent : public Component
+	class EditorComponent
 	{
 	public:
 
+		
 		/**********************************************************************************************//**
 		 * @fn	EditorComponent::EditorComponent() = default;
 		 *
@@ -916,6 +947,10 @@ namespace tnah {
 		
 		/** @brief	The search string */
 		inline static std::string s_SearchString = "editor component";
+		inline static ComponentTypes s_Types = {
+			{ComponentVariations::Editor},
+{{ComponentCategory::Core, ComponentCategory::Editor}}
+		};
 		friend class Scene;
 		friend class EditorLayer;
 		friend class EditorUI;
@@ -933,17 +968,24 @@ namespace tnah {
 	 * @date	20/07/2021
 	 **************************************************************************************************/
 
-	class NativeScriptComponent : public Component
+	class NativeScriptComponent
 	{
 	public:
 
 		std::string Script;
+
+		
+		
 		NativeScriptComponent() = default;
 		NativeScriptComponent(const std::string& scriptPath)
 			:Script(scriptPath) {}
 	private:
 		friend class EditorUI;
 		inline static std::string s_SearchString = "";
+		inline static ComponentTypes s_Types = {
+			{ComponentVariations::NativeScript},
+{{ComponentCategory::Script, ComponentCategory::Custom}}
+		};
 	};
 
 	/**********************************************************************************************//**

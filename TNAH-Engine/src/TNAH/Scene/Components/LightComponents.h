@@ -4,7 +4,7 @@
 #include "TNAH/Scene/Light/DirectionalLight.h"
 #include "TNAH/Scene/Light/PointLight.h"
 #include "TNAH/Scene/Light/SpotLight.h"
-#include "ComponentBase.h"
+#include "ComponentIdentification.h"
 
 namespace tnah {
 
@@ -17,12 +17,14 @@ namespace tnah {
 	 * @date	10/09/2021
 	 **************************************************************************************************/
 
-	class LightComponent : public Component
+	class LightComponent
 	{
 	public:
 
 		/** @brief	The light */
 		Ref<Light> Light;
+
+		
 
 		/**********************************************************************************************//**
 		 * @fn	LightComponent::LightComponent() = default;
@@ -136,6 +138,10 @@ namespace tnah {
 	private:
 		friend class EditorUI;
 		inline static std::string s_SearchString = "light component";
+		inline static ComponentTypes s_Types = {
+			{ComponentVariations::Light},
+{{ComponentCategory::Core, ComponentCategory::Lighting}}
+		};
 	};
 
 }

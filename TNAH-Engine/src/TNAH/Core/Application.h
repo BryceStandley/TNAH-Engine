@@ -232,58 +232,8 @@ namespace tnah
 		 */
 
 		void SetEditorMode(const bool& isEditor) { m_IsEditor = isEditor; }
-
-		/**
-		 * @fn	virtual bool& Application::GetCursorToggleStatus() = 0;
-		 *
-		 * @brief	Pure virtual function that gets cursor toggle status
-		 *
-		 * @author	Plush
-		 * @date	10/09/2021
-		 *
-		 * @returns	The cursor toggle status.
-		 */
-
-		virtual bool& GetCursorToggleStatus() = 0;
-
-		/**
-		 * @fn	virtual bool& Application::GetWireframeToggleStatus() = 0;
-		 *
-		 * @brief	Pure virtual function that gets wireframe toggle status
-		 *
-		 * @author	Plush
-		 * @date	10/09/2021
-		 *
-		 * @returns	The wireframe toggle status.
-		 */
-
-		virtual bool& GetWireframeToggleStatus() = 0;
-
-		/**
-		 * @fn	virtual bool& Application::GetFullscreenToggleStatus() = 0;
-		 *
-		 * @brief	Pure virtual function that gets fullscreen toggle status
-		 *
-		 * @author	Plush
-		 * @date	10/09/2021
-		 *
-		 * @returns	The fullscreen toggle status.
-		 */
-
-		virtual bool& GetFullscreenToggleStatus() = 0;
-
-		/**
-		 * @fn	virtual bool& Application::GetVSyncToggleStatus() = 0;
-		 *
-		 * @brief	Pure virtual function that gets vsync toggle status
-		 *
-		 * @author	Plush
-		 * @date	10/09/2021
-		 *
-		 * @returns	The vsync toggle status.
-		 */
-
-		virtual bool& GetVSyncToggleStatus() = 0;
+		bool& GetDebugModeStatus() { return m_DebugModeEnabled;  }
+		void SetDebugStatusChange() { m_DebugModeToggled = true; }
 	
 	private:
 
@@ -333,8 +283,35 @@ namespace tnah
 		bool OnMonitorResolutionChange(MonitorResolutionChangeEvent& e);
 
 		
-		
-		/** @brief	The window */
+		/**
+		* @fn	void Application::CheckDebugModeStatus()
+		*
+		* @brief	Checks the status of the application and if in debug mode, set the logger to debuf
+		*
+		* @author	Bryce Standley
+		* @date	6/09/2021
+		*
+		*/
+		void CheckDebugModeStatus()
+		{
+			if(m_DebugModeEnabled && m_DebugModeToggled)
+			{
+				m_DebugModeToggled = false;
+				TNAH_CORE_INFO("Debug Mode Enabled");
+				Log::SetLoggerDebugMode();
+			}
+			else if(!m_DebugModeEnabled && m_DebugModeToggled)
+			{
+				m_DebugModeToggled = false;
+				Log::SetLoggerCoreMode();
+				TNAH_CORE_INFO("Debug Mode Disabled");
+			}
+			
+		} 
+
+	
+	private:
+        /** @brief	The window */		
 		Scope<Window> m_Window;
 
 
@@ -360,6 +337,8 @@ namespace tnah
 
 		/** @brief	True if is editor, false if not */
 		bool m_IsEditor = false;
+		bool m_DebugModeEnabled = false;
+		bool m_DebugModeToggled = false;
 
 		
 		

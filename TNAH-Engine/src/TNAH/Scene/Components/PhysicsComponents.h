@@ -3,6 +3,7 @@
 #include "TNAH/Physics/Physics.h"
 
 #include "TNAH/Renderer/Mesh.h"
+#include "ComponentIdentification.h"
 
 namespace tnah{
 
@@ -16,11 +17,20 @@ namespace tnah{
 	 * 
 	 * @param Shape ReactPhysics3D collision shape, base type of all colliders
 	 * @param BodyCollider ReactPhysics3D collider
+	 * @param TransformRelativeToCollisionBody ReactPhysics3D transform relative to the collision body transform.
 	 */
 	struct ColliderComponents
 	{
 		rp3d::CollisionShape* Shape = nullptr;
 		rp3d::Collider* BodyCollider = nullptr;
+		rp3d::Transform TransformRelativeToCollisionBody = rp3d::Transform::identity();
+
+		ColliderComponents() = default;
+		ColliderComponents(rp3d::CollisionShape* shape, rp3d::Collider* bodyCollider, rp3d::Transform transform)
+			:Shape(shape), BodyCollider(bodyCollider), TransformRelativeToCollisionBody(transform)
+		{}
+
+		~ColliderComponents() = default;
 	};
 	
 
@@ -53,9 +63,11 @@ namespace tnah{
 		rp3d::RigidBody* Body = nullptr;
 
 		/** @brief	True to edit */
-		bool edit = false;
+		bool Edit = false;
 		/** @brief	True to use edit */
-		bool useEdit = false;
+		bool UseEdit = false;
+
+		
 
 
 		/**********************************************************************************************//**
@@ -152,7 +164,7 @@ namespace tnah{
 
 
 		/**********************************************************************************************//**
-		 * @fn	RigidBodyComponent::RigidBodyComponent(const rp3d::Vector3& position, const rp3d::Quaternion orientation);
+		 * @fn	RigidBodyComponent::RigidBodyComponent(const rp3d::Vector3& position, const rp3d::Quaternion& orientation);
 		 *
 		 * @brief	Constructor
 		 *
@@ -163,7 +175,10 @@ namespace tnah{
 		 * @param 	orientation	The orientation.
 		 **************************************************************************************************/
 
-		RigidBodyComponent(const rp3d::Vector3& position, const rp3d::Quaternion orientation);
+		RigidBodyComponent(const rp3d::Vector3& position, const rp3d::Quaternion& orientation);
+		
+
+
 
 		/**********************************************************************************************//**
 		 * @fn	rp3d::Collider* RigidBodyComponent::AddCollider(rp3d::CollisionShape* collider, const rp3d::Transform &transform);
@@ -178,13 +193,21 @@ namespace tnah{
 		 *
 		 * @returns	Null if it fails, else a pointer to a rp3d::Collider.
 		 **************************************************************************************************/
-
-
-		RigidBodyComponent(const rp3d::Vector3& position, const rp3d::Quaternion& orientation);
-
-		void UpdateTransform(const TransformComponent& transform);
-
 		rp3d::Collider* AddCollider(rp3d::CollisionShape* collider, const rp3d::Transform &transform);
+
+		/**********************************************************************************************//**
+		* @fn	rp3d::Collider* RigidBodyComponent::AddCollider(ColliderComponents colliderComponents);
+		*
+		* @brief	Adds a collider to the rigidbody
+		*
+		* @author	Bryce Standley
+		* @date	10/09/2021
+		*
+		* @param [in,out]	colliderComponents 	Components of the collider to add
+		*
+		* @returns	Null if it fails, else a pointer to a rp3d::Collider.
+		**************************************************************************************************/
+		rp3d::Collider* AddCollider(ColliderComponents colliderComponents);
 
 		/**********************************************************************************************//**
 		 * @fn	rp3d::Collider* RigidBodyComponent::UpdateCollider(rp3d::Collider * oldCollider, rp3d::CollisionShape* collider, const rp3d::Transform &transform);
@@ -200,8 +223,22 @@ namespace tnah{
 		 *
 		 * @returns	Null if it fails, else a pointer to a rp3d::Collider.
 		 **************************************************************************************************/
-
 		rp3d::Collider* UpdateCollider(rp3d::Collider * oldCollider, rp3d::CollisionShape* collider, const rp3d::Transform &transform);
+
+		/**********************************************************************************************//**
+		* @fn	rp3d::Collider* RigidBodyComponent::UpdateCollider(ColliderComponents colliderComponents);
+		*
+		* @brief	Updates the collider
+		*
+		* @author	Bryce Standley
+		* @date	10/09/2021
+		*
+		* @param [in,out]	colliderComponents	the components of the collider to update
+		*
+		* @returns	Null if it fails, else a pointer to a rp3d::Collider.
+		**************************************************************************************************/
+		rp3d::Collider* UpdateCollider(ColliderComponents colliderComponents);
+
 
 		/**********************************************************************************************//**
 		 * @fn	void RigidBodyComponent::RemoveCollider(rp3d::Collider* collider);
@@ -270,6 +307,19 @@ namespace tnah{
 		 **************************************************************************************************/
 
 		rp3d::BodyType GetType() const {return m_BodyType;}
+
+		/**********************************************************************************************//**
+		* @fn	void RigidBodyComponent::UpdateTransform(const TransformComponent& transform)
+		*
+		* @brief	Updates the rigidbody transform from a TransformComponent
+		*
+		* @author	Bryce Standley
+		* @date	10/09/2021
+		*
+		* @param	transform The transform component to update with.
+		**************************************************************************************************/
+		void UpdateTransform(const TransformComponent& transform);
+	
 	private:
 		/** @brief	Type of the body */
 		rp3d::BodyType m_BodyType;
@@ -278,6 +328,10 @@ namespace tnah{
 		/** @brief	List of colliders */
 		std::list<rp3d::CollisionShape*> m_ColliderList;
 		inline static std::string s_SearchString = "rigidbody component";
+		inline static ComponentTypes s_Types = {
+			{ComponentVariations::RigidBody},
+{{ComponentCategory::Physics}}
+		};
 		friend class EditorUI;
 	};
 
@@ -296,12 +350,18 @@ namespace tnah{
 		glm::vec3 Position = {0,0,0};
 		glm::vec3 Rotation = {0,0,0};
 		rp3d::CollisionBody* Body = nullptr;
+
+
 	
 	private:
 		rp3d::Transform m_Transform = rp3d::Transform::identity();
 		std::list<rp3d::CollisionShape*> m_ColliderList;
 
 		inline static std::string s_SearchString = "collision body component";
+		inline static ComponentTypes s_Types = {
+			{ComponentVariations::CollisionBody},
+{{ComponentCategory::Physics}}
+		};
 		friend class EditorUI;
 	};
 
@@ -319,10 +379,11 @@ namespace tnah{
 	public:
 		/** @brief	The size */
 		glm::vec3 Size = {1.0f, 1.0f, 1.0f};
-		/** @brief	The collider */
-		rp3d::BoxShape* Collider;
-		/** @brief	The collider pointer */
-		rp3d::Collider* colliderPointer = nullptr;
+
+		/** @brief	The Collider Shape and Collision Body */
+		ColliderComponents Components;
+
+
 
 		/**********************************************************************************************//**
 		 * @fn	BoxColliderComponent::BoxColliderComponent();
@@ -333,10 +394,8 @@ namespace tnah{
 		 * @date	10/09/2021
 		 **************************************************************************************************/
 
-
-		glm::vec3 Size = {1.0f, 1.0f, 1.0f};
 	
-		ColliderComponents Components;
+		
 
 		BoxColliderComponent();
 
@@ -395,6 +454,11 @@ namespace tnah{
 		BoxColliderComponent(const float& x, const float& y, const float& z);
 	private:
 		inline static std::string s_SearchString = "box collider component";
+		/** @brief	Type identifiers for the component */
+		inline static ComponentTypes s_Types = {
+			{ComponentVariations::BoxCollider},
+{{ComponentCategory::Physics}}
+		};
 		friend class EditorUI;
 	};
 
@@ -415,6 +479,8 @@ namespace tnah{
 		rp3d::HeightFieldShape* Collider;
 		/** @brief	Information describing the height */
 		ColliderComponents Components;
+
+		
 
 		std::vector<float> HeightData;
 		/** @brief	The minimum height */
@@ -465,6 +531,11 @@ namespace tnah{
 	private:
 
 		inline static std::string s_SearchString = "height field collider component";
+		/** @brief	Type identifiers for the component */
+		inline static ComponentTypes s_Types = {
+			{ComponentVariations::HeightFieldCollider},
+{{ComponentCategory::Physics}}
+		};
 		friend class EditorUI;
 	};
 
@@ -482,6 +553,8 @@ namespace tnah{
 	public:
 		float Radius = 1.0f;
 		ColliderComponents Components;
+
+		
 
 		/**********************************************************************************************//**
 		 * @fn	SphereColliderComponent::SphereColliderComponent();
@@ -522,6 +595,11 @@ namespace tnah{
 	private:
 
 		inline static std::string s_SearchString = "sphere collider component";
+		/** @brief	Type identifiers for the component */
+		inline static ComponentTypes s_Types = {
+			{ComponentVariations::SphereCollider},
+{{ComponentCategory::Physics}}
+		};
 		friend class EditorUI;
 	};
 
@@ -536,13 +614,17 @@ namespace tnah{
 
 	struct CapsuleColliderComponent
 	{
-	public:
+		
 		/** @brief	The radius */
 		float Radius = 1.0f;
+		
 		/** @brief	The height */
 		float Height = 2.0f;
-		/** @brief	The collider */
-		rp3d::CapsuleShape* Collider = nullptr;
+		
+		/** @brief	The collider shape and body */
+		ColliderComponents Components;
+
+		
 
 		/**********************************************************************************************//**
 		 * @fn	CapsuleColliderComponent::CapsuleColliderComponent();
@@ -552,8 +634,6 @@ namespace tnah{
 		 * @author	Chris
 		 * @date	10/09/2021
 		 **************************************************************************************************/
-		ColliderComponents Components;
-
 		CapsuleColliderComponent();
 
 		/**********************************************************************************************//**
@@ -585,90 +665,50 @@ namespace tnah{
 	private:
 
 		inline static std::string s_SearchString = "capsule collider component";
+		/** @brief	Type identifiers for the component */
+		inline static ComponentTypes s_Types = {
+			{ComponentVariations::CapsuleCollider},
+{{ComponentCategory::Physics}}
+		};
 		friend class EditorUI;
 	};
 
+	/**********************************************************************************************//**
+	* @class	ConvexMeshColliderComponent
+	*
+	* @brief	A convex mesh collider complex collider using a Models meshes as a collider.
+	*
+	* @author	Bryce Standley
+	* @date	20/07/2021
+	**************************************************************************************************/
+
 	struct ConvexMeshColliderComponent
 	{
-
-	public:
-
-		/**********************************************************************************************//**
-		 * @enum	ShapeType
-		 *
-		 * @brief	Values that represent shape types
-		 **************************************************************************************************/
-
-		enum class ShapeType
-        {
-            Convex, Concave
-        };
-
-		/** @brief	Type of the collider */
-		ShapeType ColliderType = ShapeType::Convex;
 		/** @brief	The mesh vertex positions */
-
-		ColliderComponents Components;
-
 		std::vector<glm::vec3> MeshVertexPositions;
+		
 		/** @brief	The mesh indices */
 		std::vector<uint32_t> MeshIndices;
 
-		/** @brief	The collider pointer */
-		rp3d::Collider* colliderPointer = nullptr;
+		/** @brief	The Collider shape and Body components */
+		ColliderComponents Components;
+
+		
+
 
 		/**********************************************************************************************//**
-		 * @fn	rp3d::ConvexMeshShape* MeshColliderComponent::GetConvexCollider() const
-		 *
-		 * @brief	Gets convex collider
-		 *
-		 * @author	Chris
-		 * @date	10/09/2021
-		 *
-		 * @returns	Null if it fails, else the convex collider.
-		 **************************************************************************************************/
-
-		rp3d::ConvexMeshShape* GetConvexCollider() const { return m_ConvexCollider; }
-
-		/**********************************************************************************************//**
-		 * @fn	rp3d::ConcaveMeshShape* MeshColliderComponent::GetConcaveCollider() const
-		 *
-		 * @brief	Gets concave collider
-		 *
-		 * @author	Chris
-		 * @date	10/09/2021
-		 *
-		 * @returns	Null if it fails, else the concave collider.
-		 **************************************************************************************************/
-
-		rp3d::ConcaveMeshShape* GetConcaveCollider() const { return m_ConcaveCollider; }
-
-		/**********************************************************************************************//**
-		 * @fn	MeshColliderComponent::MeshColliderComponent();
+		 * @fn	ConvexMeshColliderComponent::ConvexMeshColliderComponent();
 		 *
 		 * @brief	Default constructor
 		 *
 		 * @author	Chris
 		 * @date	10/09/2021
 		 **************************************************************************************************/
+		ConvexMeshColliderComponent();
 
-		MeshColliderComponent();
-
-		/**********************************************************************************************//**
-		 * @fn	MeshColliderComponent::MeshColliderComponent(const MeshColliderComponent& other);
-		 *
-		 * @brief	Copy constructor
-		 *
-		 * @author	Chris
-		 * @date	10/09/2021
-		 *
-		 * @param 	other	The other.
-		 **************************************************************************************************/
-
-		MeshColliderComponent(const MeshColliderComponent& other);
 
 		/**********************************************************************************************//**
-		 * @fn	MeshColliderComponent::MeshColliderComponent(const Mesh& mesh);
+		 * @fn	ConvexMeshColliderComponent::ConvexMeshColliderComponent(const Mesh& mesh);
 		 *
 		 * @brief	Constructor
 		 *
@@ -677,8 +717,7 @@ namespace tnah{
 		 *
 		 * @param 	mesh	The mesh.
 		 **************************************************************************************************/
-
-		MeshColliderComponent(const Mesh& mesh);
+		ConvexMeshColliderComponent(Ref<Model> mesh);
 
 		/**********************************************************************************************//**
 		 * @fn	MeshColliderComponent::MeshColliderComponent(const std::vector<glm::vec3>& vertexPositions, const std::vector<uint32_t>& indices)
@@ -691,34 +730,20 @@ namespace tnah{
 		 * @param 	vertexPositions	The vertex positions.
 		 * @param 	indices		   	The indices.
 		 **************************************************************************************************/
-
-		MeshColliderComponent(const std::vector<glm::vec3>& vertexPositions, const std::vector<uint32_t>& indices)
-			:MeshVertexPositions(vertexPositions), MeshIndices(indices) {}
-		
-	private:
-		/** @brief	The convex collider */
-		rp3d::ConvexMeshShape* m_ConvexCollider = nullptr;
-		/** @brief	The concave collider */
-		rp3d::ConcaveMeshShape* m_ConcaveCollider = nullptr;
-
-		/** @brief	Convex */
-
-		ConvexMeshColliderComponent();
-		ConvexMeshColliderComponent(Ref<Model> model);
 		ConvexMeshColliderComponent(const std::vector<glm::vec3>& vertexPositions, const std::vector<uint32_t>& indices)
 				:MeshVertexPositions(vertexPositions), MeshIndices(indices) {}
 
 	private:
 		
-
+		/** @brief	Polyhedron mesh for the collider */
 		rp3d::PolyhedronMesh* m_PolyhedronMesh = nullptr;
+		
 		/** @brief	Array of vertices */
 		rp3d::PolygonVertexArray* m_PolygonVertexArray = nullptr;
+		
 		/** @brief	The polygon face */
 		rp3d::PolygonVertexArray::PolygonFace* m_PolygonFace = nullptr;
 
-		/*@fn CreateConvexPolygonArray  @brief Helper to create the polygon vertex array object.
-		 */
 		/**
 		* @fn CreateConvexPolygonArray
 		*
@@ -727,9 +752,22 @@ namespace tnah{
 		void CreateConvexPolygonArray();
 
 		inline static std::string s_SearchString = "concave mesh collider component";
+		/** @brief	Type identifiers for the component */
+		inline static ComponentTypes s_Types = {
+			{ComponentVariations::ConvexMeshCollider},
+{{ComponentCategory::Physics}}
+		};
 		friend class EditorUI;
-		
 	};
+
+	/**********************************************************************************************//**
+	* @class	ConcaveMeshColliderComponent
+	*
+	* @brief	A concave mesh collider complex collider using a Models meshes as a collider.
+	*
+	* @author	Bryce Standley
+	* @date	20/07/2021
+	**************************************************************************************************/
 
 	struct ConcaveMeshColliderComponent
 	{
@@ -737,6 +775,8 @@ namespace tnah{
 		
 		std::vector<glm::vec3> MeshVertexPositions;
 		std::vector<uint32_t> MeshIndices;
+
+		
 
 		ConcaveMeshColliderComponent();
 		ConcaveMeshColliderComponent(Ref<Model> model);
@@ -757,6 +797,11 @@ namespace tnah{
 		void CreateTriangleVertexArray();
 
 		inline static std::string s_SearchString = "concave mesh collider component";
+		/** @brief	Type identifiers for the component */
+		inline static ComponentTypes s_Types = {
+			{ComponentVariations::ConcaveMeshCollider},
+{{ComponentCategory::Physics}}
+		};
 		friend class EditorUI;
 	};
 

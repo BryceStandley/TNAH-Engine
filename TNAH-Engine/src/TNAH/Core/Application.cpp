@@ -49,6 +49,8 @@ namespace tnah
 			m_DeltaTime = time;
 
 			physicsTimestep.AddFrameTime(timestep);
+			
+			CheckDebugModeStatus();
 
 			if (!m_Minimized)
 			{

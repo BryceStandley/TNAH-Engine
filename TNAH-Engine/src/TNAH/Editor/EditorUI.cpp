@@ -9,8 +9,8 @@
 namespace tnah {
 
 	static std::string search = "";
-	static ComponentTypes selectedComponent = ComponentTypes::None;
-	void EditorUI::DrawComponentProperties(GameObject& object)
+	static ComponentVariations selectedComponent = ComponentVariations::None;
+	void EditorUI::DrawComponentProperties(GameObject& object, const bool& addComponents)
 	{
 		
 		if(object.HasComponent<TagComponent>())
@@ -148,7 +148,7 @@ namespace tnah {
 				}
 			}
 
-			if(Camera::Main != &c.Camera) // only allow the camera to be removed if its not the main camera
+			if(Camera::Main != &c.Camera && addComponents) // only allow the camera to be removed if its not the main camera
 			{
 				if(DrawRemoveComponentButton("camera"))
 				{
@@ -229,9 +229,12 @@ namespace tnah {
 			DrawVec2Control("Size", t->m_Size, true);
 			ImGui::BulletText("Maybe have more options here to set the terrain textures?");
 
-			if(DrawRemoveComponentButton("terrain"))
+			if(addComponents)
 			{
-				object.RemoveComponent<TerrainComponent>();
+				if(DrawRemoveComponentButton("terrain"))
+				{
+					object.RemoveComponent<TerrainComponent>();
+				}
 			}
 			
 			ImGui::Separator();
@@ -243,7 +246,7 @@ namespace tnah {
 			ImGui::Text("Mesh");
 			if(m)
 			{
-				DrawTextControl("Model File", m->m_FilePath, false, true);
+				DrawTextControl("Model File", m->m_Resource.FileName.FullFile, false, true);
 				if(ImGui::Button("Change Mesh"))
 				{
 					if (FileManager::OpenMesh())
@@ -298,10 +301,13 @@ namespace tnah {
 					DrawMaterialProperties(true);
 				}
 			}
-			
-			if(DrawRemoveComponentButton("Mesh"))
+
+			if(addComponents)
 			{
-				object.RemoveComponent<MeshComponent>();
+				if(DrawRemoveComponentButton("Mesh"))
+				{
+					object.RemoveComponent<MeshComponent>();
+				}
 			}
 			
 			ImGui::Separator();
@@ -343,7 +349,7 @@ namespace tnah {
 				ImGui::Text("ERROR: Unknown light type");
 				ImGui::PopStyleColor();
 			}
-			if(!l->m_IsSceneLight)
+			if(!l->m_IsSceneLight && addComponents)
 			{
 				if(DrawRemoveComponentButton("Light"))
 				{
@@ -361,9 +367,12 @@ namespace tnah {
 			
 			ImGui::Checkbox("Active listener", &listener.m_ActiveListing);
 
-			if(DrawRemoveComponentButton("AudioListener"))
+			if(addComponents)
 			{
-				object.RemoveComponent<AudioListenerComponent>();
+				if(DrawRemoveComponentButton("AudioListener"))
+				{
+					object.RemoveComponent<AudioListenerComponent>();
+				}
 			}
 			
 			ImGui::Separator();
@@ -408,10 +417,13 @@ namespace tnah {
 				ImGui::Text("Testing Options");
 				ImGui::Checkbox("Shoot", &source.m_Shoot);
 				ImGui::Checkbox("Pause", &source.m_Paused);
-				if(DrawRemoveComponentButton("AudioSource"))
+				if(addComponents)
 				{
-					object.RemoveComponent<AudioSourceComponent>();
-				}	
+					if(DrawRemoveComponentButton("AudioSource"))
+					{
+						object.RemoveComponent<AudioSourceComponent>();
+					}
+				}
 			}
 			else
 			{
@@ -469,17 +481,37 @@ namespace tnah {
 			if(object.HasComponent<BoxColliderComponent>())
 			{
 				auto & box = object.GetComponent<BoxColliderComponent>();
-				rp3d::Vector3 s = static_cast<rp3d::BoxShape*>(box.Components.Shape)->getHalfExtents();
-				std::string text = "Actual Size: " + std::to_string(box.Size.x) + " " + std::to_string(box.Size.y) + " " + std::to_string(box.Size.z);
 				ImGui::Text("Box Collider");
 				ImGui::Separator();
-				ImGui::Text(text.c_str());
+				if(ImGui::CollapsingHeader("Help"))
+				{
+					ImGui::Text("Box colliders use a half extent to be created");
+					ImGui::Text("When editing a box collider, use the final size of each axis as the component will handle the rest!");
+					ImGui::Text("Colliders have a transform just like an object but its relative to the holding objects transform.");
+					ImGui::Text("The position of the collider is usually at the origin of the object (0,0,0) also known as Identity");
+					ImGui::Text("Changing the transform doesn't alter the object it self");
+				}
 				if(DrawVec3Control("Size", box.Size))
 				{
-					static_cast<rp3d::BoxShape*>(box.Components.Shape)->setHalfExtents(Math::ToRp3dVec3(box.Size));
-					box.Components.BodyCollider = rb.UpdateCollider(box.Components.BodyCollider, box.Components.Shape, rp3d::Transform::identity());
+					static_cast<rp3d::BoxShape*>(box.Components.Shape)->setHalfExtents(Math::ToRp3dVec3(box.Size / 2.0f));
+					box.Components.BodyCollider = rb.UpdateCollider(box.Components);
+				}
+				auto transformPosition = Math::FromRp3dVec3(box.Components.TransformRelativeToCollisionBody.getPosition());
+				if(DrawVec3Control("Position", transformPosition))
+				{
+					auto transform = box.Components.TransformRelativeToCollisionBody;
+					transform.setPosition(Math::ToRp3dVec3(transformPosition));
+					box.Components.BodyCollider = rb.UpdateCollider(box.Components);
 				}
 				hasCollider = true;
+
+				if(addComponents)
+				{
+					if(DrawRemoveComponentButton("Box Collider"))
+					{
+						object.RemoveComponent<BoxColliderComponent>();
+					}
+				}
 			}
 
 			if(object.HasComponent<CapsuleColliderComponent>())
@@ -490,15 +522,24 @@ namespace tnah {
 				if(DrawFloatControl("Radius", capsule.Radius))
 				{
 					static_cast<rp3d::CapsuleShape*>(capsule.Components.Shape)->setRadius(capsule.Radius);
-					capsule.Components.BodyCollider = rb.UpdateCollider(capsule.Components.BodyCollider, capsule.Components.Shape, rp3d::Transform::identity());
+					capsule.Components.BodyCollider = rb.UpdateCollider(capsule.Components);
 				}
 
 				if(DrawFloatControl("Height", capsule.Height))
 				{
 					static_cast<rp3d::CapsuleShape*>(capsule.Components.Shape)->setHeight(capsule.Height);
+					capsule.Components.BodyCollider = rb.UpdateCollider(capsule.Components);
 				}
 				
 				hasCollider = true;
+
+				if(addComponents)
+				{
+					if(DrawRemoveComponentButton("Capsule Collider"))
+					{
+						object.RemoveComponent<CapsuleColliderComponent>();
+					}
+				}
 			}
 
 			if(object.HasComponent<SphereColliderComponent>())
@@ -509,10 +550,18 @@ namespace tnah {
 				if(DrawFloatControl("Radius", sphere.Radius))
 				{
 					static_cast<rp3d::SphereShape*>(sphere.Components.Shape)->setRadius(sphere.Radius);
-					sphere.Components.BodyCollider = rb.UpdateCollider(sphere.Components.BodyCollider, sphere.Components.Shape, rp3d::Transform::identity());
+					sphere.Components.BodyCollider = rb.UpdateCollider(sphere.Components);
 				}
 				
 				hasCollider = true;
+
+				if(addComponents)
+				{
+					if(DrawRemoveComponentButton("Sphere Collider"))
+					{
+						object.RemoveComponent<SphereColliderComponent>();
+					}
+				}
 			}
 
 			if(object.HasComponent<ConcaveMeshColliderComponent>())
@@ -530,6 +579,14 @@ namespace tnah {
 				}*/
 				
 				hasCollider = true;
+
+				if(addComponents)
+				{
+					if(DrawRemoveComponentButton("Concave Mesh Collider"))
+					{
+						object.RemoveComponent<ConcaveMeshColliderComponent>();
+					}
+				}
 			}
 
 			if(object.HasComponent<ConvexMeshColliderComponent>())
@@ -547,16 +604,32 @@ namespace tnah {
 				}*/
 				
 				hasCollider = true;
+
+				if(addComponents)
+				{
+					if(DrawRemoveComponentButton("Convex Mesh Collider"))
+					{
+						object.RemoveComponent<ConvexMeshColliderComponent>();
+					}
+				}
 			}
 
 			if(!hasCollider)
 				ImGui::Text("No colliders added");
+
+			if(addComponents)
+			{
+				if(DrawRemoveComponentButton("RigidBody"))
+				{
+					object.RemoveComponent<RigidBodyComponent>();
+				}
+			}
 		}
 
 		ImGui::Separator();
 		
 		//Only add components to scene objects, the editor camera cant have components added to it
-		if(!object.HasComponent<EditorCameraComponent>())
+		if(!object.HasComponent<EditorCameraComponent>() && addComponents)
 		{
 			ImGui::Separator();
 			ImGui::NewLine();
@@ -577,7 +650,7 @@ namespace tnah {
 				DrawTextControl("Search", search);
 				std::transform(search.begin(), search.end(), search.begin(), ::tolower);
 				ImGui::NewLine();
-				if(DrawAddComponent(object, search)) { addComponentPressed = false; search = ""; selectedComponent = ComponentTypes::None; }
+				if(DrawAddComponent(object, search)) { addComponentPressed = false; search = ""; selectedComponent = ComponentVariations::None; }
 				if(!ImGui::IsWindowFocused()) addComponentPressed = false;
 			}
 		}
@@ -1018,25 +1091,32 @@ namespace tnah {
 		return pressed;
 	}
 
-	std::list<ComponentTypes> EditorUI::GetPossibleComponentTypes(std::vector<ComponentTypes> typesHeld)
+	std::list<ComponentVariations> EditorUI::GetPossibleComponentTypes(std::vector<ComponentVariations> typesHeld)
 	{
 		std::list allTypes =
 			{
-				ComponentTypes::ID, ComponentTypes::Tag, ComponentTypes::Relationship, ComponentTypes::Transform,
-				ComponentTypes::Camera, ComponentTypes::EditorCamera, ComponentTypes::Editor, ComponentTypes::Skybox,
-				ComponentTypes::Light, ComponentTypes::Terrain, ComponentTypes::Mesh, ComponentTypes::PlayerController,
-				ComponentTypes::AudioListener, ComponentTypes::AudioSource, ComponentTypes::RigidBody, ComponentTypes::BoxCollider
+				ComponentVariations::ID, ComponentVariations::Tag, ComponentVariations::Relationship, ComponentVariations::Transform,
+				ComponentVariations::Camera, ComponentVariations::EditorCamera, ComponentVariations::Editor, ComponentVariations::Skybox,
+				ComponentVariations::Light, ComponentVariations::Terrain, ComponentVariations::Mesh, ComponentVariations::PlayerController,
+				ComponentVariations::AudioListener, ComponentVariations::AudioSource, ComponentVariations::RigidBody, ComponentVariations::BoxCollider,
+				ComponentVariations::CapsuleCollider, ComponentVariations::SphereCollider, ComponentVariations::ConcaveMeshCollider, ComponentVariations::ConvexMeshCollider
+				
 			};
 
-		std::list<ComponentTypes> allTypesNotHeld = allTypes;
+		std::list<ComponentVariations> allTypesNotHeld = allTypes;
 
 		for(auto type: typesHeld)
 		{
 			//remove any items from the list that are held by the game object
 			allTypesNotHeld.remove(type);
+			if(type == ComponentVariations::Terrain)
+			{
+				// add the Heightfield collider component to the list only if theres a terrain component of the object
+				allTypesNotHeld.push_back(ComponentVariations::HeightFieldCollider);
+			}
 		}
-		allTypesNotHeld.remove(ComponentTypes::EditorCamera);
-		allTypesNotHeld.remove(ComponentTypes::Editor);
+		allTypesNotHeld.remove(ComponentVariations::EditorCamera);
+		allTypesNotHeld.remove(ComponentVariations::Editor);
 
 		return allTypesNotHeld;
 		
@@ -1049,7 +1129,7 @@ namespace tnah {
 		bool emptySearch = searchTerm.compare("") == 0 ? true : false;
 		
 
-		if(selectedComponent == ComponentTypes::None)
+		if(selectedComponent == ComponentVariations::None)
 		{
 			if(!emptySearch)
 			{
@@ -1061,17 +1141,17 @@ namespace tnah {
 			}
 		}
 
-		if(selectedComponent != ComponentTypes::None)
+		if(selectedComponent != ComponentVariations::None)
 		{
 			ImGui::Text("Selected:");
 			std::string text = FindStringFromComponentType(selectedComponent);
 			ImGui::Text(text.c_str());
 			if(DrawResetButton("AddComponent"))
 			{
-				selectedComponent = ComponentTypes::None;
+				selectedComponent = ComponentVariations::None;
 			}
 			ImGui::NewLine();
-			if(selectedComponent != ComponentTypes::None)
+			if(selectedComponent != ComponentVariations::None)
 			{
 				auto width = ImGui::GetWindowWidth();
 				if(ImGui::Button("Add", {width, 0}))
@@ -1087,14 +1167,15 @@ namespace tnah {
 		
 	}
 
-	ComponentTypes EditorUI::FindAndDrawComponentSearchTerm(std::list<ComponentTypes> typesToSearch, const std::string& searchTerm)
+	ComponentVariations EditorUI::FindAndDrawComponentSearchTerm(std::list<ComponentVariations> typesToSearch, const std::string& searchTerm)
 	{
 		auto types = FindAllComponentsContaining(typesToSearch, searchTerm);
 		
 		return  DrawComponentList(types);
 	}
 
-	ComponentTypes EditorUI::DrawComponentList(std::list<ComponentTypes> componentsToDisplay)
+
+	ComponentVariations EditorUI::DrawComponentList(std::list<ComponentVariations> componentsToDisplay)
 	{
 		auto width = ImGui::GetWindowWidth();
 		for(auto t : componentsToDisplay)
@@ -1104,179 +1185,252 @@ namespace tnah {
 				return t;
 			}
 		}
-		return ComponentTypes::None;
+		return ComponentVariations::None;
 	}
-	
 
-	std::list<ComponentTypes> EditorUI::FindAllComponentsContaining(std::list<ComponentTypes> componentsToSearch, const std::string& term)
+		
+	std::list<ComponentVariations> EditorUI::FindAllSubtypesFromBaseType(
+	std::list<ComponentVariations> componentsToSearch, const ComponentCategory& category)
 	{
-		std::list<ComponentTypes> foundComponents;
+		std::list<ComponentVariations> foundComponents;
+
+		for(auto v : componentsToSearch)
+		{
+			if(v == ComponentVariations::ID && Utility::Contains<ComponentCategory>(IDComponent::s_Types.Categories, category))
+				foundComponents.emplace_back(ComponentVariations::ID);
+
+			if(v == ComponentVariations::Tag && Utility::Contains<ComponentCategory>(TagComponent::s_Types.Categories, category))
+				foundComponents.emplace_back(ComponentVariations::Tag);
+
+			if(v == ComponentVariations::Relationship && Utility::Contains<ComponentCategory>(RelationshipComponent::s_Types.Categories, category))
+				foundComponents.emplace_back(ComponentVariations::Relationship);
+			
+			if(v == ComponentVariations::Transform && Utility::Contains<ComponentCategory>(TransformComponent::s_Types.Categories, category))
+				foundComponents.emplace_back(ComponentVariations::Transform);
+			
+			if(v == ComponentVariations::Camera && Utility::Contains<ComponentCategory>(CameraComponent::s_Types.Categories, category))
+				foundComponents.emplace_back(ComponentVariations::Camera);
+			
+			if(v == ComponentVariations::EditorCamera && Utility::Contains<ComponentCategory>(EditorCameraComponent::s_Types.Categories, category))
+				foundComponents.emplace_back(ComponentVariations::EditorCamera);
+
+			if(v == ComponentVariations::Editor && Utility::Contains<ComponentCategory>(EditorComponent::s_Types.Categories, category))
+				foundComponents.emplace_back(ComponentVariations::Editor);
+
+			if(v == ComponentVariations::Skybox && Utility::Contains<ComponentCategory>(SkyboxComponent::s_Types.Categories, category))
+				foundComponents.emplace_back(ComponentVariations::Skybox);
+
+			if(v == ComponentVariations::Light && Utility::Contains<ComponentCategory>(LightComponent::s_Types.Categories, category))
+				foundComponents.emplace_back(ComponentVariations::Light);
+
+			if(v == ComponentVariations::Terrain && Utility::Contains<ComponentCategory>(TerrainComponent::s_Types.Categories, category))
+				foundComponents.emplace_back(ComponentVariations::Terrain);
+
+			if(v == ComponentVariations::Mesh && Utility::Contains<ComponentCategory>(MeshComponent::s_Types.Categories, category))
+				foundComponents.emplace_back(ComponentVariations::Mesh);
+
+			if(v == ComponentVariations::PlayerController && Utility::Contains<ComponentCategory>(PlayerControllerComponent::s_Types.Categories, category))
+				foundComponents.emplace_back(ComponentVariations::PlayerController);
+
+			if(v == ComponentVariations::AudioSource && Utility::Contains<ComponentCategory>(AudioSourceComponent::s_Types.Categories, category))
+				foundComponents.emplace_back(ComponentVariations::AudioSource);
+
+			if(v == ComponentVariations::AudioListener && Utility::Contains<ComponentCategory>(AudioListenerComponent::s_Types.Categories, category))
+				foundComponents.emplace_back(ComponentVariations::AudioListener);
+
+			if(v == ComponentVariations::RigidBody && Utility::Contains<ComponentCategory>(RigidBodyComponent::s_Types.Categories, category))
+				foundComponents.emplace_back(ComponentVariations::RigidBody);
+
+			if(v == ComponentVariations::BoxCollider && Utility::Contains<ComponentCategory>(BoxColliderComponent::s_Types.Categories, category))
+				foundComponents.emplace_back(ComponentVariations::BoxCollider);
+
+			if(v == ComponentVariations::HeightFieldCollider && Utility::Contains<ComponentCategory>(HeightFieldColliderComponent::s_Types.Categories, category))
+				foundComponents.emplace_back(ComponentVariations::HeightFieldCollider);
 		
-		if(IDComponent::s_SearchString.find(term) != std::string::npos && Utility::Contains<ComponentTypes>(componentsToSearch, ComponentTypes::ID))
-			foundComponents.emplace_back(ComponentTypes::ID);
+			if(v == ComponentVariations::CapsuleCollider && Utility::Contains<ComponentCategory>(CapsuleColliderComponent::s_Types.Categories, category))
+				foundComponents.emplace_back(ComponentVariations::CapsuleCollider);
 
-		if(TagComponent::s_SearchString.find(term) != std::string::npos && Utility::Contains<ComponentTypes>(componentsToSearch, ComponentTypes::Tag))
-			foundComponents.emplace_back(ComponentTypes::Tag);
+			if(v == ComponentVariations::SphereCollider && Utility::Contains<ComponentCategory>(SphereColliderComponent::s_Types.Categories, category))
+				foundComponents.emplace_back(ComponentVariations::SphereCollider);
 
-		if(RelationshipComponent::s_SearchString.find(term) != std::string::npos && Utility::Contains<ComponentTypes>(componentsToSearch, ComponentTypes::Relationship))
-			foundComponents.emplace_back(ComponentTypes::Relationship);
+			if(v == ComponentVariations::ConvexMeshCollider && Utility::Contains<ComponentCategory>(ConvexMeshColliderComponent::s_Types.Categories, category))
+				foundComponents.emplace_back(ComponentVariations::ConvexMeshCollider);
 
-		if(TransformComponent::s_SearchString.find(term) != std::string::npos && Utility::Contains<ComponentTypes>(componentsToSearch, ComponentTypes::Transform))
-			foundComponents.emplace_back(ComponentTypes::Transform);
+			if(v == ComponentVariations::ConcaveMeshCollider && Utility::Contains<ComponentCategory>(ConcaveMeshColliderComponent::s_Types.Categories, category))
+				foundComponents.emplace_back(ComponentVariations::ConcaveMeshCollider);
+		}
+		return foundComponents;
+	}
 
-		if(CameraComponent::s_SearchString.find(term) != std::string::npos && Utility::Contains<ComponentTypes>(componentsToSearch, ComponentTypes::Camera))
-			foundComponents.emplace_back(ComponentTypes::Camera);
-
-		if(EditorCameraComponent::s_SearchString.find(term) != std::string::npos && Utility::Contains<ComponentTypes>(componentsToSearch, ComponentTypes::EditorCamera))
-			foundComponents.emplace_back(ComponentTypes::EditorCamera);
-
-		if(EditorComponent::s_SearchString.find(term) != std::string::npos && Utility::Contains<ComponentTypes>(componentsToSearch, ComponentTypes::Editor))
-			foundComponents.emplace_back(ComponentTypes::Editor);
-
-		if(SkyboxComponent::s_SearchString.find(term) != std::string::npos && Utility::Contains<ComponentTypes>(componentsToSearch, ComponentTypes::Skybox))
-			foundComponents.emplace_back(ComponentTypes::Skybox);
-
-		if(LightComponent::s_SearchString.find(term) != std::string::npos && Utility::Contains<ComponentTypes>(componentsToSearch, ComponentTypes::Light))
-			foundComponents.emplace_back(ComponentTypes::Light);
-
-		if(TerrainComponent::s_SearchString.find(term) != std::string::npos && Utility::Contains<ComponentTypes>(componentsToSearch, ComponentTypes::Terrain))
-			foundComponents.emplace_back(ComponentTypes::Terrain);
-
-		if(MeshComponent::s_SearchString.find(term) != std::string::npos && Utility::Contains<ComponentTypes>(componentsToSearch, ComponentTypes::Mesh))
-			foundComponents.emplace_back(ComponentTypes::Mesh);
-
-		if(PlayerControllerComponent::s_SearchString.find(term) != std::string::npos && Utility::Contains<ComponentTypes>(componentsToSearch, ComponentTypes::PlayerController))
-			foundComponents.emplace_back(ComponentTypes::PlayerController);
-
-		if(AudioSourceComponent::s_SearchString.find(term) != std::string::npos && Utility::Contains<ComponentTypes>(componentsToSearch, ComponentTypes::AudioSource))
-			foundComponents.emplace_back(ComponentTypes::AudioSource);
-
-		if(AudioListenerComponent::s_SearchString.find(term) != std::string::npos && Utility::Contains<ComponentTypes>(componentsToSearch, ComponentTypes::AudioListener))
-			foundComponents.emplace_back(ComponentTypes::AudioListener);
-
-		if(RigidBodyComponent::s_SearchString.find(term) != std::string::npos && Utility::Contains<ComponentTypes>(componentsToSearch, ComponentTypes::RigidBody))
-			foundComponents.emplace_back(ComponentTypes::RigidBody);
-
-		if(BoxColliderComponent::s_SearchString.find(term) != std::string::npos && Utility::Contains<ComponentTypes>(componentsToSearch, ComponentTypes::BoxCollider))
-			foundComponents.emplace_back(ComponentTypes::BoxCollider);
-
-		if(HeightFieldColliderComponent::s_SearchString.find(term) != std::string::npos && Utility::Contains<ComponentTypes>(componentsToSearch, ComponentTypes::HeightFieldCollider))
-			foundComponents.emplace_back(ComponentTypes::HeightFieldCollider);
+	std::list<ComponentVariations> EditorUI::FindAllComponentsContaining(std::list<ComponentVariations> componentsToSearch, const std::string& term)
+	{
+		std::list<ComponentVariations> foundComponents;
 		
-		if(CapsuleColliderComponent::s_SearchString.find(term) != std::string::npos && Utility::Contains<ComponentTypes>(componentsToSearch, ComponentTypes::CapsuleCollider))
-			foundComponents.emplace_back(ComponentTypes::CapsuleCollider);
+		if(IDComponent::s_SearchString.find(term) != std::string::npos && Utility::Contains<ComponentVariations>(componentsToSearch, ComponentVariations::ID))
+			foundComponents.emplace_back(ComponentVariations::ID);
 
-		if(SphereColliderComponent::s_SearchString.find(term) != std::string::npos && Utility::Contains<ComponentTypes>(componentsToSearch, ComponentTypes::SphereCollider))
-			foundComponents.emplace_back(ComponentTypes::SphereCollider);
+		if(TagComponent::s_SearchString.find(term) != std::string::npos && Utility::Contains<ComponentVariations>(componentsToSearch, ComponentVariations::Tag))
+			foundComponents.emplace_back(ComponentVariations::Tag);
 
-		if(ConvexMeshColliderComponent::s_SearchString.find(term) != std::string::npos && Utility::Contains<ComponentTypes>(componentsToSearch, ComponentTypes::ConvexMeshCollider))
-			foundComponents.emplace_back(ComponentTypes::ConvexMeshCollider);
+		if(RelationshipComponent::s_SearchString.find(term) != std::string::npos && Utility::Contains<ComponentVariations>(componentsToSearch, ComponentVariations::Relationship))
+			foundComponents.emplace_back(ComponentVariations::Relationship);
 
-		if(ConcaveMeshColliderComponent::s_SearchString.find(term) != std::string::npos && Utility::Contains<ComponentTypes>(componentsToSearch, ComponentTypes::ConcaveMeshCollider))
-			foundComponents.emplace_back(ComponentTypes::ConcaveMeshCollider);
+		if(TransformComponent::s_SearchString.find(term) != std::string::npos && Utility::Contains<ComponentVariations>(componentsToSearch, ComponentVariations::Transform))
+			foundComponents.emplace_back(ComponentVariations::Transform);
+
+		if(CameraComponent::s_SearchString.find(term) != std::string::npos && Utility::Contains<ComponentVariations>(componentsToSearch, ComponentVariations::Camera))
+			foundComponents.emplace_back(ComponentVariations::Camera);
+
+		if(EditorCameraComponent::s_SearchString.find(term) != std::string::npos && Utility::Contains<ComponentVariations>(componentsToSearch, ComponentVariations::EditorCamera))
+			foundComponents.emplace_back(ComponentVariations::EditorCamera);
+
+		if(EditorComponent::s_SearchString.find(term) != std::string::npos && Utility::Contains<ComponentVariations>(componentsToSearch, ComponentVariations::Editor))
+			foundComponents.emplace_back(ComponentVariations::Editor);
+
+		if(SkyboxComponent::s_SearchString.find(term) != std::string::npos && Utility::Contains<ComponentVariations>(componentsToSearch, ComponentVariations::Skybox))
+			foundComponents.emplace_back(ComponentVariations::Skybox);
+
+		if(LightComponent::s_SearchString.find(term) != std::string::npos && Utility::Contains<ComponentVariations>(componentsToSearch, ComponentVariations::Light))
+			foundComponents.emplace_back(ComponentVariations::Light);
+
+		if(TerrainComponent::s_SearchString.find(term) != std::string::npos && Utility::Contains<ComponentVariations>(componentsToSearch, ComponentVariations::Terrain))
+			foundComponents.emplace_back(ComponentVariations::Terrain);
+
+		if(MeshComponent::s_SearchString.find(term) != std::string::npos && Utility::Contains<ComponentVariations>(componentsToSearch, ComponentVariations::Mesh))
+			foundComponents.emplace_back(ComponentVariations::Mesh);
+
+		if(PlayerControllerComponent::s_SearchString.find(term) != std::string::npos && Utility::Contains<ComponentVariations>(componentsToSearch, ComponentVariations::PlayerController))
+			foundComponents.emplace_back(ComponentVariations::PlayerController);
+
+		if(AudioSourceComponent::s_SearchString.find(term) != std::string::npos && Utility::Contains<ComponentVariations>(componentsToSearch, ComponentVariations::AudioSource))
+			foundComponents.emplace_back(ComponentVariations::AudioSource);
+
+		if(AudioListenerComponent::s_SearchString.find(term) != std::string::npos && Utility::Contains<ComponentVariations>(componentsToSearch, ComponentVariations::AudioListener))
+			foundComponents.emplace_back(ComponentVariations::AudioListener);
+
+		if(RigidBodyComponent::s_SearchString.find(term) != std::string::npos && Utility::Contains<ComponentVariations>(componentsToSearch, ComponentVariations::RigidBody))
+			foundComponents.emplace_back(ComponentVariations::RigidBody);
+
+		if(BoxColliderComponent::s_SearchString.find(term) != std::string::npos && Utility::Contains<ComponentVariations>(componentsToSearch, ComponentVariations::BoxCollider))
+			foundComponents.emplace_back(ComponentVariations::BoxCollider);
+
+		if(HeightFieldColliderComponent::s_SearchString.find(term) != std::string::npos && Utility::Contains<ComponentVariations>(componentsToSearch, ComponentVariations::HeightFieldCollider))
+			foundComponents.emplace_back(ComponentVariations::HeightFieldCollider);
+		
+		if(CapsuleColliderComponent::s_SearchString.find(term) != std::string::npos && Utility::Contains<ComponentVariations>(componentsToSearch, ComponentVariations::CapsuleCollider))
+			foundComponents.emplace_back(ComponentVariations::CapsuleCollider);
+
+		if(SphereColliderComponent::s_SearchString.find(term) != std::string::npos && Utility::Contains<ComponentVariations>(componentsToSearch, ComponentVariations::SphereCollider))
+			foundComponents.emplace_back(ComponentVariations::SphereCollider);
+
+		if(ConvexMeshColliderComponent::s_SearchString.find(term) != std::string::npos && Utility::Contains<ComponentVariations>(componentsToSearch, ComponentVariations::ConvexMeshCollider))
+			foundComponents.emplace_back(ComponentVariations::ConvexMeshCollider);
+
+		if(ConcaveMeshColliderComponent::s_SearchString.find(term) != std::string::npos && Utility::Contains<ComponentVariations>(componentsToSearch, ComponentVariations::ConcaveMeshCollider))
+			foundComponents.emplace_back(ComponentVariations::ConcaveMeshCollider);
 
 		
 		
 		return foundComponents;
 	}
 
-	std::string EditorUI::FindStringFromComponentType(ComponentTypes type)
+	std::string EditorUI::FindStringFromComponentType(ComponentVariations type)
     {
         switch (type)
         {
-        case ComponentTypes::None:
+        case ComponentVariations::None:
             return "No Component";
-        case ComponentTypes::ID:
+        case ComponentVariations::ID:
             return "ID";
-        case ComponentTypes::Tag:
+        case ComponentVariations::Tag:
             return "Tag";
-        case ComponentTypes::Relationship:
+        case ComponentVariations::Relationship:
             return "Relationship";
-        case ComponentTypes::Transform:
+        case ComponentVariations::Transform:
             return "Transform";
-        case ComponentTypes::Camera:
+        case ComponentVariations::Camera:
             return "Camera";
-        case ComponentTypes::EditorCamera:
+        case ComponentVariations::EditorCamera:
             return "Editor Camera";
-        case ComponentTypes::Editor:
+        case ComponentVariations::Editor:
             return "Editor";
-        case ComponentTypes::Skybox:
+        case ComponentVariations::Skybox:
             return "Skybox";
-        case ComponentTypes::Light:
+        case ComponentVariations::Light:
             return "Light";
-        case ComponentTypes::Terrain:
+        case ComponentVariations::Terrain:
             return "Terrain";
-        case ComponentTypes::PlayerController:
+        case ComponentVariations::PlayerController:
             return "Player Controller";
-        case ComponentTypes::AudioSource:
+        case ComponentVariations::AudioSource:
             return "Audio Source";
-        case ComponentTypes::AudioListener:
+        case ComponentVariations::AudioListener:
             return "Audio Listener";
-        case ComponentTypes::RigidBody:
+        case ComponentVariations::RigidBody:
 			return "Rigid Body";
-        case ComponentTypes::BoxCollider:
+        case ComponentVariations::BoxCollider:
         	return "Box Collider";
-        case ComponentTypes::SphereCollider:
+        case ComponentVariations::SphereCollider:
         	return "Sphere Collider";
-        case ComponentTypes::CapsuleCollider:
+        case ComponentVariations::CapsuleCollider:
         	return "Capsule Collider";
-        case ComponentTypes::HeightFieldCollider:
+        case ComponentVariations::HeightFieldCollider:
         	return "Height Field Collider";
-        case ComponentTypes::ConvexMeshCollider:
+        case ComponentVariations::ConvexMeshCollider:
         	return "Convex Mesh Collider";
-        case ComponentTypes::ConcaveMeshCollider:
+        case ComponentVariations::ConcaveMeshCollider:
         	return "Concave Mesh Collider";
         default: return "";
         }
     }
 
-	std::string EditorUI::FindComponentTypeCategory(ComponentTypes type)
+	std::string EditorUI::FindComponentTypeCategory(ComponentVariations type)
 	{
 		switch (type)
 		{
-		case ComponentTypes::None:
+		case ComponentVariations::None:
 			break;
-		case ComponentTypes::ID:
+		case ComponentVariations::ID:
 			break;
-		case ComponentTypes::Tag:
+		case ComponentVariations::Tag:
 			break;
-		case ComponentTypes::Relationship:
+		case ComponentVariations::Relationship:
 			break;
-		case ComponentTypes::Transform:
+		case ComponentVariations::Transform:
 			break;
-		case ComponentTypes::Camera:
+		case ComponentVariations::Camera:
 			return "Camera";
-		case ComponentTypes::EditorCamera:
+		case ComponentVariations::EditorCamera:
 			break;
-		case ComponentTypes::Editor:
+		case ComponentVariations::Editor:
 			break;
-		case ComponentTypes::Skybox:
+		case ComponentVariations::Skybox:
 			return "Camera";
-		case ComponentTypes::Light:
+		case ComponentVariations::Light:
 			return "Light";
-		case ComponentTypes::Terrain:
+		case ComponentVariations::Terrain:
 			return "Mesh";
-		case ComponentTypes::Mesh:
+		case ComponentVariations::Mesh:
 			return "Mesh";
-		case ComponentTypes::PlayerController:
+		case ComponentVariations::PlayerController:
 			return "Control";
-		case ComponentTypes::AudioSource:
+		case ComponentVariations::AudioSource:
 			return "Physics";
-		case ComponentTypes::AudioListener:
+		case ComponentVariations::AudioListener:
 			return "Physics";
-		case ComponentTypes::RigidBody:
+		case ComponentVariations::RigidBody:
 			return "Physics";
-		case ComponentTypes::BoxCollider:
+		case ComponentVariations::BoxCollider:
 			return "Physics";
-		case ComponentTypes::SphereCollider:
+		case ComponentVariations::SphereCollider:
 			return "Physics";
-		case ComponentTypes::CapsuleCollider:
+		case ComponentVariations::CapsuleCollider:
 			return "Physics";
-		case ComponentTypes::HeightFieldCollider:
+		case ComponentVariations::HeightFieldCollider:
 			return "Physics";
-		case ComponentTypes::ConvexMeshCollider:
+		case ComponentVariations::ConvexMeshCollider:
 			return "Physics";
-		case ComponentTypes::ConcaveMeshCollider:
+		case ComponentVariations::ConcaveMeshCollider:
 			return "Physics";
 		default: return "";
 		}
@@ -1284,52 +1438,52 @@ namespace tnah {
 	}
 
 
-	bool EditorUI::AddComponentFromType(GameObject& object, ComponentTypes type)
+	bool EditorUI::AddComponentFromType(GameObject& object, ComponentVariations type)
     {
         switch (type)
         {
-        case ComponentTypes::None:
+        case ComponentVariations::None:
             return false;
-        case ComponentTypes::ID:
+        case ComponentVariations::ID:
             return false;
-        case ComponentTypes::Tag:
+        case ComponentVariations::Tag:
             return false;
-        case ComponentTypes::Relationship:
+        case ComponentVariations::Relationship:
             return false;
-        case ComponentTypes::Transform:
+        case ComponentVariations::Transform:
             return false;
-        case ComponentTypes::Camera:
+        case ComponentVariations::Camera:
             object.AddComponent<CameraComponent>();
             return true;
-        case ComponentTypes::EditorCamera:
+        case ComponentVariations::EditorCamera:
             return false;
-        case ComponentTypes::Editor:
+        case ComponentVariations::Editor:
             return false;
-        case ComponentTypes::Skybox:
+        case ComponentVariations::Skybox:
             object.AddComponent<SkyboxComponent>();
             return true;
-        case ComponentTypes::Light:
+        case ComponentVariations::Light:
             object.AddComponent<LightComponent>();
             return true;
-        case ComponentTypes::Terrain:
+        case ComponentVariations::Terrain:
             object.AddComponent<TerrainComponent>();
             return true;
-        case ComponentTypes::Mesh:
+        case ComponentVariations::Mesh:
             object.AddComponent<MeshComponent>();
             return true;
-        case ComponentTypes::PlayerController:
+        case ComponentVariations::PlayerController:
             object.AddComponent<PlayerControllerComponent>();
             return true;
-        case ComponentTypes::AudioSource:
+        case ComponentVariations::AudioSource:
             object.AddComponent<AudioSourceComponent>();
             return true;
-        case ComponentTypes::AudioListener:
+        case ComponentVariations::AudioListener:
             object.AddComponent<AudioListenerComponent>();
             return true;
-        case ComponentTypes::RigidBody:
+        case ComponentVariations::RigidBody:
         	object.AddComponent<RigidBodyComponent>(object.Transform());
         	return true;
-        case ComponentTypes::BoxCollider:
+        case ComponentVariations::BoxCollider:
         	if(object.HasComponent<RigidBodyComponent>())
         	{
         		auto& rb = object.GetComponent<RigidBodyComponent>();
@@ -1344,7 +1498,7 @@ namespace tnah {
         		b.Components.BodyCollider = rb.AddCollider(b.Components.Shape, rp3d::Transform::identity());
         		return true;
         	}
-        case ComponentTypes::SphereCollider:
+        case ComponentVariations::SphereCollider:
         	if(object.HasComponent<RigidBodyComponent>())
         	{
         		auto& rb = object.GetComponent<RigidBodyComponent>();
@@ -1359,7 +1513,7 @@ namespace tnah {
         		b.Components.BodyCollider = rb.AddCollider(b.Components.Shape, rp3d::Transform::identity());
         		return true;
         	}
-        case ComponentTypes::CapsuleCollider:
+        case ComponentVariations::CapsuleCollider:
         	if(object.HasComponent<RigidBodyComponent>())
         	{
         		auto& rb = object.GetComponent<RigidBodyComponent>();
@@ -1374,7 +1528,7 @@ namespace tnah {
         		b.Components.BodyCollider = rb.AddCollider(b.Components.Shape, rp3d::Transform::identity());
         		return true;
         	}
-        case ComponentTypes::HeightFieldCollider:
+        case ComponentVariations::HeightFieldCollider:
         	if(object.HasComponent<RigidBodyComponent>())
         	{
         		auto& rb = object.GetComponent<RigidBodyComponent>();
@@ -1389,7 +1543,7 @@ namespace tnah {
         		b.Components.BodyCollider = rb.AddCollider(b.Components.Shape, rp3d::Transform::identity());
         		return true;
         	}
-        case ComponentTypes::ConvexMeshCollider:
+        case ComponentVariations::ConvexMeshCollider:
         	if(object.HasComponent<RigidBodyComponent>())
         	{
         		auto& rb = object.GetComponent<RigidBodyComponent>();
@@ -1404,7 +1558,7 @@ namespace tnah {
         		b.Components.BodyCollider = rb.AddCollider(b.Components.Shape, rp3d::Transform::identity());
         		return true;
         	}
-        case ComponentTypes::ConcaveMeshCollider:
+        case ComponentVariations::ConcaveMeshCollider:
         	if(object.HasComponent<RigidBodyComponent>())
         	{
         		auto& rb = object.GetComponent<RigidBodyComponent>();
