@@ -19,7 +19,6 @@
     <ClCompile Include="src\collision\ContactManifold.cpp" />
     <ClCompile Include="src\collision\HalfEdgeStructure.cpp" />
     <ClCompile Include="src\collision\narrowphase\CapsuleVsCapsuleAlgorithm.cpp" />
-    <ClCompile Include="src\collision\narrowphase\CapsuleVsCapsuleNarrowPhaseInfoBatch.cpp" />
     <ClCompile Include="src\collision\narrowphase\CapsuleVsConvexPolyhedronAlgorithm.cpp" />
     <ClCompile Include="src\collision\narrowphase\CollisionDispatch.cpp" />
     <ClCompile Include="src\collision\narrowphase\ConvexPolyhedronVsConvexPolyhedronAlgorithm.cpp" />
@@ -29,10 +28,8 @@
     <ClCompile Include="src\collision\narrowphase\NarrowPhaseInput.cpp" />
     <ClCompile Include="src\collision\narrowphase\SAT\SATAlgorithm.cpp" />
     <ClCompile Include="src\collision\narrowphase\SphereVsCapsuleAlgorithm.cpp" />
-    <ClCompile Include="src\collision\narrowphase\SphereVsCapsuleNarrowPhaseInfoBatch.cpp" />
     <ClCompile Include="src\collision\narrowphase\SphereVsConvexPolyhedronAlgorithm.cpp" />
     <ClCompile Include="src\collision\narrowphase\SphereVsSphereAlgorithm.cpp" />
-    <ClCompile Include="src\collision\narrowphase\SphereVsSphereNarrowPhaseInfoBatch.cpp" />
     <ClCompile Include="src\collision\OverlapCallback.cpp" />
     <ClCompile Include="src\collision\PolygonVertexArray.cpp" />
     <ClCompile Include="src\collision\PolyhedronMesh.cpp" />
@@ -74,8 +71,6 @@
     <ClCompile Include="src\engine\OverlappingPairs.cpp" />
     <ClCompile Include="src\engine\PhysicsCommon.cpp" />
     <ClCompile Include="src\engine\PhysicsWorld.cpp" />
-    <ClCompile Include="src\engine\Timer.cpp" />
-    <ClCompile Include="src\mathematics\mathematics_functions.cpp" />
     <ClCompile Include="src\mathematics\Matrix2x2.cpp" />
     <ClCompile Include="src\mathematics\Matrix3x3.cpp" />
     <ClCompile Include="src\mathematics\Quaternion.cpp" />
@@ -154,6 +149,7 @@
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>$(SolutionDir)vender\reactphysics3d\include;</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <DisableSpecificWarnings>4703</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

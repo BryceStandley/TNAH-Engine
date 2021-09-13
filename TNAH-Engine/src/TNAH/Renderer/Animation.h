@@ -14,7 +14,7 @@ namespace tnah  {
 	 *
 	 * @brief	A struct containing the Assimp node data
 	 *
-	 * @author	Plush
+	 * @author	Dylan Blereau
 	 * @date	12/09/2021
 	 */
 
@@ -39,7 +39,7 @@ namespace tnah  {
 	 *
 	 * @brief	An animation class responsible for the skeletal animation
 	 *
-	 * @author	Plush
+	 * @author	Dylan Blereau
 	 * @date	12/09/2021
 	 */
 
@@ -52,7 +52,7 @@ namespace tnah  {
 		 *
 		 * @brief	Defaulted constructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 */
 
@@ -63,7 +63,7 @@ namespace tnah  {
 		 *
 		 * @brief	Constructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	scene	The scene.
@@ -82,7 +82,7 @@ namespace tnah  {
 		 *
 		 * @brief	Destructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 */
 
@@ -93,7 +93,7 @@ namespace tnah  {
 		 *
 		 * @brief	Searches for the first bone
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	name	The name.
@@ -118,7 +118,7 @@ namespace tnah  {
 		 *
 		 * @brief	Gets ticks per second
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @returns	The ticks per second.
@@ -131,7 +131,7 @@ namespace tnah  {
 		 *
 		 * @brief	Gets the duration
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @returns	The duration.
@@ -144,7 +144,7 @@ namespace tnah  {
 		 *
 		 * @brief	Gets root node
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @returns	The root node.
@@ -157,7 +157,7 @@ namespace tnah  {
 		 *
 		 * @brief	Gets bone identifier map
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @returns	The bone identifier map.
@@ -173,7 +173,7 @@ namespace tnah  {
 		 *
 		 * @brief	Reads missing bones
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param [in,out]	boneInfoMap	The bone information map.
@@ -208,7 +208,7 @@ namespace tnah  {
 		 *
 		 * @brief	Reads heirarchy data
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param [in,out]	dest	Destination for the.

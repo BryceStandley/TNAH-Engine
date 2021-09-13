@@ -144,6 +144,18 @@ private:
 		/** @brief	True to allow camera look, false to keep camera look disabled */
 	bool m_CameraLookToggle = false;
 
+	/** @brief	True to disable, false to enable the cursor */
+	bool m_CursorVisible = false;
+
+	/** @brief	True to enable, false to disable the wireframe */
+	bool m_Wireframe = false;
+
+	/** @brief	True to fullscreen */
+	bool m_Fullscreen = false;
+
+	/** @brief	True to synchronize */
+	bool m_VSync = false;
+
 	/** @brief Texture for the close screen*/
 	tnah::Ref<tnah::Texture2D> m_CloseScreenTexture;
 

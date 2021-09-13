@@ -21,7 +21,9 @@ namespace tnah
 
     bool Physics::Initialise(rp3d::EventListener* collisionEventListener)
     {
-        return m_PhysicsManager->Initialise(collisionEventListener);
+        const bool result = m_PhysicsManager->Initialise(collisionEventListener);
+        ToggleColliderRendering();
+        return result;
     }
 
     void Physics::ToggleColliderRendering()
@@ -35,8 +37,9 @@ namespace tnah
             }
             else
             {
-                m_ColliderTransform.Scale = glm::vec3(2.1f);
+                m_ColliderTransform.Scale = glm::vec3(1.0f);
                 m_PhysicsManager->CreateColliderRenderer();
+                m_PhysicsManager->m_PhysicsWorld->setIsDebugRenderingEnabled(m_PhysicsManager->m_ColliderRender);
             }
         }
     }
@@ -68,6 +71,17 @@ namespace tnah
     bool& Physics::GetColliderRendererHandle()
     {
         return m_PhysicsManager->m_ColliderRender;
+    }
+
+    TransformComponent Physics::GetColliderRendererTransform()
+    {
+        if(m_PhysicsManager->m_Active)
+        {
+            return m_ColliderTransform;
+        }
+        
+        return TransformComponent();
+
     }
 
     rp3d::DebugRenderer* Physics::GetColliderRenderer()
@@ -308,7 +322,7 @@ namespace tnah
     void PhysicsManager::Destroy()
     {
         if(m_PhysicsLogger) m_PhysicsCommon.destroyDefaultLogger(m_PhysicsLogger);
-        m_PhysicsCommon.destroyPhysicsWorld(m_PhysicsWorld);
+        if(m_PhysicsWorld) m_PhysicsCommon.destroyPhysicsWorld(m_PhysicsWorld);
         m_Active = false;
     }
 

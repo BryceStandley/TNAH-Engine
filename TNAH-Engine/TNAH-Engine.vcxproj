@@ -110,7 +110,7 @@
     <ClInclude Include="src\TNAH\Renderer\stb_image.h" />
     <ClInclude Include="src\TNAH\Renderer\Texture.h" />
     <ClInclude Include="src\TNAH\Scene\Components\AnimatorComponent.h" />
-    <ClInclude Include="src\TNAH\Scene\Components\ComponentBase.h" />
+    <ClInclude Include="src\TNAH\Scene\Components\ComponentIdentification.h" />
     <ClInclude Include="src\TNAH\Scene\Components\SkyboxComponent.h" />
     <ClInclude Include="src\TNAH\Scene\Light\DirectionalLight.h" />
     <ClInclude Include="src\TNAH\Scene\Light\PointLight.h" />
@@ -161,6 +161,12 @@
     <Content Include="Resources\fonts\opensans\OpenSans-Regular.ttf" />
     <Content Include="Resources\fonts\opensans\OpenSans-SemiBold.ttf" />
     <Content Include="Resources\fonts\opensans\OpenSans-SemiBoldItalic.ttf" />
+    <Content Include="Resources\images\team\bryce.jpg" />
+    <Content Include="Resources\images\team\chris.jpg" />
+    <Content Include="Resources\images\team\dylan.jpg" />
+    <Content Include="Resources\images\team\team.png" />
+    <Content Include="Resources\images\team\team.xcf" />
+    <Content Include="Resources\images\team\TNAH-2.png" />
     <Content Include="Resources\shaders\default\mesh\mesh_anim_fragment.glsl" />
     <Content Include="Resources\shaders\default\mesh\mesh_anim_vertex.glsl" />
     <Content Include="Resources\shaders\default\mesh\mesh_fragment.glsl" />
@@ -235,6 +241,9 @@
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)bin\$(Configuration)-$(Platform)\$(ProjectName)\</OutDir>
     <IntDir>$(SolutionDir)bin-int\$(Configuration)-$(Platform)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup>
+    <LocalDebuggerWorkingDirectory>$(OutDir)</LocalDebuggerWorkingDirectory>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>

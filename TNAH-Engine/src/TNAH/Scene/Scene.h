@@ -20,7 +20,7 @@ namespace tnah {
 	/**
 	 * @class	Light
 	 *
-	 * @brief	A light.
+	 * @brief	A light object forward declaration.
 	 *
 	 * @author	Dylan Blereau
 	 * @date	7/09/2021
@@ -31,7 +31,7 @@ namespace tnah {
 	/**
 	 * @class	GameObject
 	 *
-	 * @brief	A game object.
+	 * @brief	A game object forward declaration.
 	 *
 	 * @author	Dylan Blereau
 	 * @date	7/09/2021
@@ -56,7 +56,7 @@ namespace tnah {
 		/**********************************************************************************************//**
 		 * @struct	ActiveScene
 		 *
-		 * @brief	An active scene.
+		 * @brief	The current active scene reference
 		 *
 		 * @author	Chris
 		 * @date	10/09/2021
@@ -76,7 +76,7 @@ namespace tnah {
 		 * @author	Chris
 		 * @date	10/09/2021
 		 *
-		 * @param 	editor	(Optional) True to editor.
+		 * @param 	editor	(Optional) True to create a scene for the editor.
 		 **************************************************************************************************/
 
 		Scene(bool editor = false);
@@ -92,8 +92,7 @@ namespace tnah {
 
 		~Scene();
 
-		/** @brief	The active scene */
-		static ActiveScene s_ActiveScene;
+
 
 		/**********************************************************************************************//**
 		 * @fn	static void Scene::ClearActiveScene();
@@ -274,6 +273,19 @@ namespace tnah {
 
 		GameObject& GetSceneLight();
 
+		/**********************************************************************************************//**
+		* @fn	std::map<UUID, GameObject>& Scene::GetGameObjectsInScene();
+		*
+		* @brief	Gets game objects in scene
+		*
+		* @author	Chris
+		* @date	10/09/2021
+		*
+		* @returns	The game objects in scene in a map.
+		**************************************************************************************************/
+
+		std::map<UUID, GameObject>& GetGameObjectsInScene();
+
 	private:
 
 		/**********************************************************************************************//**
@@ -365,18 +377,7 @@ namespace tnah {
 
 		entt::registry& GetRegistry() { return m_Registry; }
 
-		/**********************************************************************************************//**
-		 * @fn	std::map<UUID, GameObject>& Scene::GetGameObjectsInScene();
-		 *
-		 * @brief	Gets game objects in scene
-		 *
-		 * @author	Chris
-		 * @date	10/09/2021
-		 *
-		 * @returns	The game objects in scene.
-		 **************************************************************************************************/
 
-		std::map<UUID, GameObject>& GetGameObjectsInScene();
 
 		/**********************************************************************************************//**
 		 * @fn	GameObject* Scene::GetRefGameObject(const UUID& id);
@@ -393,13 +394,15 @@ namespace tnah {
 
 		GameObject* GetRefGameObject(const UUID& id);
 
-		// ReactPhysics Global scene objects
 
-		void InitPhysicsLogger();
+	private:
+
+		/** @brief	A active scene reference */
+		static ActiveScene s_ActiveScene;
 		
-		
-		/** @brief	The registry */
+		/** @brief	The component registry */
 		entt::registry m_Registry;
+		
 		/** @brief	The game objects in scene */
 		std::map<UUID, GameObject> m_GameObjectsInScene;
 		
@@ -416,7 +419,8 @@ namespace tnah {
 		Ref<Framebuffer> m_EditorGameFramebuffer;
 		/** @brief	True if is editor scene, false if not */
 		bool m_IsEditorScene = false;
-		/** @brief	The render passes */
+		
+		/** @brief	The render passes for scene rendering */
 		uint32_t m_RenderPasses = 0;
 		
 		/** @brief	The scene entity */

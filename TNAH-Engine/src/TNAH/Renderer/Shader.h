@@ -25,7 +25,7 @@ namespace tnah {
 	 *
 	 * @brief	Form for viewing the shader uniform.
 	 *
-	 * @author	Plush
+	 * @author	Dylan Blereau
 	 * @date	12/09/2021
 	 */
 
@@ -38,7 +38,7 @@ namespace tnah {
 		 *
 		 * @brief	Defaulted constructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 */
 
@@ -49,7 +49,7 @@ namespace tnah {
 		 *
 		 * @brief	Constructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	name  	The name.
@@ -65,7 +65,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets the name
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @returns	The name.
@@ -78,7 +78,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets the type
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @returns	The type.
@@ -91,7 +91,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets the size
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @returns	The size.
@@ -104,7 +104,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets the offset
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @returns	The offset.
@@ -117,7 +117,7 @@ namespace tnah {
 		 *
 		 * @brief	Uniform type to string
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	type	The type.
@@ -157,7 +157,7 @@ namespace tnah {
 	 *
 	 * @brief	A shader resource declaration class.
 	 *
-	 * @author	Plush
+	 * @author	Dylan Blereau
 	 * @date	12/09/2021
 	 */
 
@@ -170,7 +170,7 @@ namespace tnah {
 		 *
 		 * @brief	Defaulted constructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 */
 
@@ -181,7 +181,7 @@ namespace tnah {
 		 *
 		 * @brief	Constructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	name				The name.
@@ -197,7 +197,7 @@ namespace tnah {
 		 *
 		 * @brief	Destructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 */
 
@@ -208,7 +208,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets the name
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @returns	The name.
@@ -221,7 +221,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets the register
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @returns	The register.
@@ -234,7 +234,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets the count
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @returns	The count.
@@ -266,7 +266,7 @@ namespace tnah {
 	 *
 	 * @brief	A shader class which is used to access shaders
 	 *
-	 * @author	Plush
+	 * @author	Dylan Blereau
 	 * @date	12/09/2021
 	 */
 
@@ -279,7 +279,7 @@ namespace tnah {
 		 *
 		 * @brief	Defaulted destructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 */
 
@@ -290,7 +290,7 @@ namespace tnah {
 		 *
 		 * @brief	Binds this object
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 */
 
@@ -301,7 +301,7 @@ namespace tnah {
 		 *
 		 * @brief	Unbinds this object
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 */
 
@@ -312,7 +312,7 @@ namespace tnah {
 		 *
 		 * @brief	Query if this object is bound
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @returns	True if bound, false if not.
@@ -325,7 +325,7 @@ namespace tnah {
 		 *
 		 * @brief	Sets a bool
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	name 	The name.
@@ -339,7 +339,7 @@ namespace tnah {
 		 *
 		 * @brief	Sets an int
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	name 	The name.
@@ -353,7 +353,7 @@ namespace tnah {
 		 *
 		 * @brief	Sets a float
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	name 	The name.
@@ -367,7 +367,7 @@ namespace tnah {
 		 *
 		 * @brief	Sets vector 2
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	name 	The name.
@@ -381,7 +381,7 @@ namespace tnah {
 		 *
 		 * @brief	Sets vector 3
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	name 	The name.
@@ -395,7 +395,7 @@ namespace tnah {
 		 *
 		 * @brief	Sets vector 4
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	name 	The name.
@@ -409,7 +409,7 @@ namespace tnah {
 		 *
 		 * @brief	Sets matrix 3
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	name 	The name.
@@ -423,7 +423,7 @@ namespace tnah {
 		 *
 		 * @brief	Sets matrix 4
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	name 	The name.
@@ -437,7 +437,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets the name
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @returns	The name.
@@ -450,7 +450,7 @@ namespace tnah {
 		 *
 		 * @brief	Creates a new Shader
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	filePath	Full pathname of the file.
@@ -465,7 +465,7 @@ namespace tnah {
 		 *
 		 * @brief	Creates a new Shader
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	vertexSrc  	The vertex source.
@@ -481,7 +481,7 @@ namespace tnah {
 		 *
 		 * @brief	Queries if a given shader exists
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	filePath	Full pathname of the file.
@@ -496,7 +496,7 @@ namespace tnah {
 		 *
 		 * @brief	Queries if a given shaders exist
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	vertexSrc  	The vertex source.

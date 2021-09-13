@@ -30,11 +30,6 @@ namespace tnah{
 		return &m_GameObjectsInScene[id];
 	}
 
-	void Scene::InitPhysicsLogger()
-	{
-		
-	}
-
 	Scene::Scene(bool editor)
 	{
 		m_SceneEntity = m_Registry.create();
@@ -328,7 +323,8 @@ namespace tnah{
 #pragma region ColliderRender
 
 				{
-					if(m_IsEditorScene && Physics::IsColliderRenderingEnabled() && passes == 0)
+					//Collider rendering should only be used for debugging and in the editor to set sizes
+					if((m_IsEditorScene || Application::Get().GetDebugModeStatus()) && Physics::IsColliderRenderingEnabled() && passes == 0)
 					{
 						auto pair = Physics::GetColliderRenderObjects();
 						auto lineArr = pair.first.first;

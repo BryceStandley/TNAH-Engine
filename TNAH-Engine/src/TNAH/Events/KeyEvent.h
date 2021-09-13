@@ -11,7 +11,7 @@ namespace tnah {
 	 *
 	 * @brief	A key event class that inherits from the base class event
 	 *
-	 * @author	Plush
+	 * @author	Dylan Blereau
 	 * @date	10/09/2021
 	 */
 
@@ -24,7 +24,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets key code
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 *
 		 * @returns	The key code.
@@ -40,7 +40,7 @@ namespace tnah {
 		 *
 		 * @brief	Constructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 *
 		 * @param 	keycode	The keycode.
@@ -57,7 +57,7 @@ namespace tnah {
 	 *
 	 * @brief	A key pressed event class that inherits from KeyEvent class
 	 *
-	 * @author	Plush
+	 * @author	Dylan Blereau
 	 * @date	10/09/2021
 	 */
 
@@ -70,7 +70,7 @@ namespace tnah {
 		 *
 		 * @brief	Constructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 *
 		 * @param 	keycode	   	The keycode.
@@ -85,7 +85,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets repeat count
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 *
 		 * @returns	The repeat count.
@@ -98,7 +98,7 @@ namespace tnah {
 		 *
 		 * @brief	Convert the keycode and repeat count into a string format
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 *
 		 * @returns	A std::string that represents this object.
@@ -123,7 +123,7 @@ namespace tnah {
 	 *
 	 * @brief	A key released event that inherits from the KeyEvent class
 	 *
-	 * @author	Plush
+	 * @author	Dylan Blereau
 	 * @date	10/09/2021
 	 */
 
@@ -136,7 +136,7 @@ namespace tnah {
 		 *
 		 * @brief	Constructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 *
 		 * @param 	keycode	The keycode.
@@ -150,7 +150,7 @@ namespace tnah {
 		 *
 		 * @brief	Convert the keyCode of the KeyReleasedEvent to a string format
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 *
 		 * @returns	A std::string that represents this object.
@@ -171,7 +171,7 @@ namespace tnah {
 	 *
 	 * @brief	A key typed event that inherits from the KeyEvent class
 	 *
-	 * @author	Plush
+	 * @author	Dylan Blereau
 	 * @date	10/09/2021
 	 */
 
@@ -184,7 +184,7 @@ namespace tnah {
 		 *
 		 * @brief	Constructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 *
 		 * @param 	keycode	The keycode.
@@ -198,7 +198,7 @@ namespace tnah {
 		 *
 		 * @brief	Convert this keycode into into a string representation
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 *
 		 * @returns	A std::string that represents this object.

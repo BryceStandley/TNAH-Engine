@@ -43,7 +43,7 @@ namespace tnah {
  *
  * @brief	A macro that defines event class type
  *
- * @author	Plush
+ * @author	Dylan Blereau
  * @date	10/09/2021
  *
  * @param 	type	The type.
@@ -58,7 +58,7 @@ namespace tnah {
  *
  * @brief	A macro that defines event class category
  *
- * @author	Plush
+ * @author	Dylan Blereau
  * @date	10/09/2021
  *
  * @param 	category	The category.
@@ -71,7 +71,7 @@ namespace tnah {
 	 *
 	 * @brief	An base class for all events, handles the type of events and dispatching them to the correct layers or processors for the given event
 	 *
-	 * @author	Plush
+	 * @author	Dylan Blereau
 	 * @date	10/09/2021
 	 */
 
@@ -84,7 +84,7 @@ namespace tnah {
 		 *
 		 * @brief	Defaulted destructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 */
 
@@ -99,7 +99,7 @@ namespace tnah {
 		 *
 		 * @brief	Pure virtual function used to get the event type
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 *
 		 * @returns	The event type.
@@ -112,7 +112,7 @@ namespace tnah {
 		 *
 		 * @brief	Pure virtual function used to get the name
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 *
 		 * @returns	Null if it fails, else the name.
@@ -125,7 +125,7 @@ namespace tnah {
 		 *
 		 * @brief	Pure virtual function used to get category flags
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 *
 		 * @returns	The category flags.
@@ -138,7 +138,7 @@ namespace tnah {
 		 *
 		 * @brief	Convert this object into a string representation
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 *
 		 * @returns	A std::string that represents this object.
@@ -151,7 +151,7 @@ namespace tnah {
 		 *
 		 * @brief	Query if the given event category is in category
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 *
 		 * @param 	category	The category.
@@ -170,7 +170,7 @@ namespace tnah {
 	 *
 	 * @brief	An event dispatcher class
 	 *
-	 * @author	Plush
+	 * @author	Dylan Blereau
 	 * @date	10/09/2021
 	 */
 
@@ -183,7 +183,7 @@ namespace tnah {
 		 *
 		 * @brief	Constructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 *
 		 * @param [in,out]	event	The event.
@@ -225,7 +225,7 @@ namespace tnah {
 	 *
 	 * @brief	Stream insertion operator
 	 *
-	 * @author	Plush
+	 * @author	Dylan Blereau
 	 * @date	10/09/2021
 	 *
 	 * @param [in,out]	os	The output stream.

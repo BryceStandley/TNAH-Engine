@@ -14,7 +14,7 @@ namespace tnah {
 	 *
 	 * @brief	A key position.
 	 *
-	 * @author	Plush
+	 * @author	Dylan Blereau
 	 * @date	12/09/2021
 	 */
 
@@ -33,7 +33,7 @@ namespace tnah {
 	 *
 	 * @brief	A key rotation.
 	 *
-	 * @author	Plush
+	 * @author	Dylan Blereau
 	 * @date	12/09/2021
 	 */
 
@@ -52,7 +52,7 @@ namespace tnah {
 	 *
 	 * @brief	A key scale.
 	 *
-	 * @author	Plush
+	 * @author	Dylan Blereau
 	 * @date	12/09/2021
 	 */
 
@@ -71,7 +71,7 @@ namespace tnah {
 	 *
 	 * @brief	A bone class responsible for handling the bones used in animation 
 	 *
-	 * @author	Plush
+	 * @author	Dylan Blereau
 	 * @date	12/09/2021
 	 */
 
@@ -113,7 +113,7 @@ namespace tnah {
 		 *
 		 * @brief	Constructor that reads keyframes from aiNodeAnim.
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	name   	The name.
@@ -168,7 +168,7 @@ namespace tnah {
 		 *
 		 * @brief	Updates the given animationTime by interpolating between position, rotation, scale and combining them all together to form the localTransform
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	animationTime	The animation time.
@@ -187,7 +187,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets local transform
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @returns	The local transform.
@@ -200,7 +200,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets bone name
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @returns	The bone name.
@@ -213,7 +213,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets bone identifier
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @returns	The bone identifier.
@@ -226,7 +226,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets the index of the position to interpolate to based on the current animation time
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	animationTime	The animation time.
@@ -250,7 +250,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets the index of the rotation to interpolate to based on the current animation time
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	animationTime	The animation time.
@@ -274,7 +274,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets the index of the scale to interpolate to based on the current animation time
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	animationTime	The animation time.
@@ -300,7 +300,7 @@ namespace tnah {
 			 *
 			 * @brief	Gets scale factor
 			 *
-			 * @author	Plush
+			 * @author	Dylan Blereau
 			 * @date	12/09/2021
 			 *
 			 * @param 	lastTimeStamp	The last time stamp.
@@ -324,7 +324,7 @@ namespace tnah {
 			 *
 			 * @brief	Interpolate position
 			 *
-			 * @author	Plush
+			 * @author	Dylan Blereau
 			 * @date	12/09/2021
 			 *
 			 * @param 	animationTime	The animation time.
@@ -351,7 +351,7 @@ namespace tnah {
 			 *
 			 * @brief	Interpolate rotation
 			 *
-			 * @author	Plush
+			 * @author	Dylan Blereau
 			 * @date	12/09/2021
 			 *
 			 * @param 	animationTime	The animation time.
@@ -381,7 +381,7 @@ namespace tnah {
 			 *
 			 * @brief	Interpolate scaling
 			 *
-			 * @author	Plush
+			 * @author	Dylan Blereau
 			 * @date	12/09/2021
 			 *
 			 * @param 	animationTime	The animation time.

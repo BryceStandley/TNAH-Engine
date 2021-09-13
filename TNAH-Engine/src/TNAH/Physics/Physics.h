@@ -12,9 +12,10 @@ namespace tnah
     /**
      * @class	PhysicsManager
      *
-     * @brief	Manager for physics that inherits from the RefCounted class 
+     * @brief	Manager for physics that inherits from the RefCounted class. This class is to remain private and contain
+     * all ReactPhysics3D world objects. Any control of the PhysicsManager should be done from tnah::Physics
      *
-     * @author	Plush
+     * @author	Chris Logan
      * @date	11/09/2021
      */
 
@@ -25,9 +26,10 @@ namespace tnah
         /**
          * @fn	PhysicsManager::PhysicsManager();
          *
-         * @brief	Default constructor
+         * @brief	Default constructor.
+         * This constructor is empty as the object requires the Physics::Initialise(rp3d::EventListener* collisionEventListener) to be called 
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	12/09/2021
          */
 
@@ -36,20 +38,23 @@ namespace tnah
         /**
          * @fn	PhysicsManager::~PhysicsManager();
          *
-         * @brief	Destructor
+         * @brief	Destructor. Safeguards prevent deletion of empty pointers of
+         * PhysicsManager::m_PhysicsWorld and PhysicsManager::m_PhysicsLogger if Physics::Initialise(rp3d::EventListener* collisionEventListener)
+         * was never called or Physics::Initialise(rp3d::EventListener* collisionEventListener) was called and Physics::PhysicsLoggerInit() was not.
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	12/09/2021
          */
 
         ~PhysicsManager();
-
+    
+    private:
         /**
          * @fn	bool PhysicsManager::Initialise(rp3d::EventListener * collisionEventListener);
          *
          * @brief	Initialises this object
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	12/09/2021
          *
          * @param [in,out]	collisionEventListener	If non-null, the collision event listener.
@@ -65,20 +70,20 @@ namespace tnah
          *
          * @brief	Executes the 'fixed update' action
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	12/09/2021
          *
          * @param 	timestep	The timestep.
          */
 
-        void OnFixedUpdate(PhysicsTimestep timestep);
+        void OnFixedUpdate(PhysicsTimestep timestep) const;
 
         /**
          * @fn	void PhysicsManager::Destroy();
          *
          * @brief	Destroys this object
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	12/09/2021
          */
 
@@ -89,7 +94,7 @@ namespace tnah
          *
          * @brief	Creates rigid body
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	12/09/2021
          *
          * @param 	transform	A transform component.
@@ -97,27 +102,27 @@ namespace tnah
          * @returns	Null if it fails, else the new rigid body.
          */
 
-        rp3d::RigidBody* CreateRigidBody(const TransformComponent& transform);
+        rp3d::RigidBody* CreateRigidBody(const TransformComponent& transform) const;
 
         /**
          * @fn	void PhysicsManager::DestroyRigidBody(rp3d::RigidBody* rigidBody);
          *
          * @brief	Destroys the rigid body described by rigidBody
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	12/09/2021
          *
          * @param [in,out]	rigidBody	If non-null, the rigid body.
          */
 
-        void DestroyRigidBody(rp3d::RigidBody* rigidBody);
+        void DestroyRigidBody(rp3d::RigidBody* rigidBody) const;
 
         /**
          * @fn	rp3d::CollisionBody* PhysicsManager::CreateCollisionBody(const TransformComponent& transform);
          *
          * @brief	Creates collision body
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	12/09/2021
          *
          * @param 	transform	The transform.
@@ -125,42 +130,35 @@ namespace tnah
          * @returns	Null if it fails, else the new collision body.
          */
 
-        rp3d::CollisionBody* CreateCollisionBody(const TransformComponent& transform);
+        rp3d::CollisionBody* CreateCollisionBody(const TransformComponent& transform) const;
 
         /**
          * @fn	void PhysicsManager::DestroyCollisionBody(rp3d::CollisionBody * body);
          *
          * @brief	Destroys the collision body described by body
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	12/09/2021
          *
          * @param [in,out]	body	If non-null, the body.
          */
 
-        void DestroyCollisionBody(rp3d::CollisionBody * body);
-
-        void OnFixedUpdate(PhysicsTimestep timestep) const;
-        void Destroy();
-        rp3d::RigidBody* CreateRigidBody(const TransformComponent& transform) const;
-        void DestroyRigidBody(rp3d::RigidBody* rigidBody) const;
-        rp3d::CollisionBody* CreateCollisionBody(const TransformComponent& transform) const;
         void DestroyCollisionBody(rp3d::CollisionBody * body) const;
 
-    private:
+    
 
         /**
          * @fn	void PhysicsManager::CreateColliderRenderer();
          *
          * @brief	Creates collider renderer
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	12/09/2021
          */
 
         void CreateColliderRenderer();
         
-
+    private:
         /** @brief	The physics common */
         rp3d::PhysicsCommon m_PhysicsCommon;
 
@@ -175,25 +173,35 @@ namespace tnah
 
         /** @brief	True to collider render */
         bool m_ColliderRender = false;
-
+     
+     /** @brief	True if the collider renderer has been initialized */
+      bool m_ColliderRendererInit = false;
+     
         Ref<VertexArray> m_LinesVertexArray;
 
 
         /** @brief	Pointer to the buffer for lines vertex data */
         Ref<VertexBuffer> m_LinesVertexBuffer;
 
+        /** @brief	Pointer to array for triangle vertex data */
         Ref<VertexArray> m_TriangleVertexArray;
 
         /** @brief	Pointer to Buffer for triangle vertex data */
         Ref<VertexBuffer> m_TriangleVertexBuffer;
 
+        /** @brief	Shader used for the collider renderer */
         Ref<Shader> m_Shader;
+
+        /** @brief	Layout of the collider renderer vertex buffers */
         VertexBufferLayout m_ColliderLayout;
         
         
 
         /** @brief	True to active */
         bool m_Active = false;
+
+     /** @brief Used to tell the physics system if the logging should be enabled*/
+     bool m_Logging = false;
 
         friend class Physics;
     };
@@ -203,7 +211,7 @@ namespace tnah
      *
      * @brief	A physics class responsible for the engine physics
      *
-     * @author	Plush
+     * @author	Dylan Blereau
      * @date	12/09/2021
      */
 
@@ -216,7 +224,7 @@ namespace tnah
          *
          * @brief	Gets a pointer to the PhysicsManager
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	12/09/2021
          *
          * @returns	The manager.
@@ -229,7 +237,7 @@ namespace tnah
          *
          * @brief	Query if the physics is active
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	12/09/2021
          *
          * @returns	True if active, false if not.
@@ -242,7 +250,7 @@ namespace tnah
          *
          * @brief	Initialises the physics and its logger
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	12/09/2021
          *
          * @param [in,out]	collisionEventListener	If non-null, the collision event listener.
@@ -257,7 +265,7 @@ namespace tnah
          *
          * @brief	Executes the 'fixed update' action
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	12/09/2021
          *
          * @param 	timestep	The timestep.
@@ -270,7 +278,7 @@ namespace tnah
          *
          * @brief	Destroys this object
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	12/09/2021
          */
 
@@ -281,7 +289,7 @@ namespace tnah
          *
          * @brief	Creates collision body
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	12/09/2021
          *
          * @param 	transformValues	The transform values.
@@ -296,7 +304,7 @@ namespace tnah
          *
          * @brief	Destroys the collision body described by body
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	12/09/2021
          *
          * @param [in,out]	body	If non-null, the body.
@@ -309,7 +317,7 @@ namespace tnah
          *
          * @brief	Destroys the rigidbody described by body
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	12/09/2021
          *
          * @param [in,out]	body	If non-null, the body.
@@ -322,7 +330,7 @@ namespace tnah
          *
          * @brief	Creates a rigidbody
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	12/09/2021
          *
          * @param 	transform	The transform.
@@ -337,7 +345,7 @@ namespace tnah
          *
          * @brief	Creates a rigidbody
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	12/09/2021
          *
          * @param 	transform	The transform.
@@ -352,7 +360,7 @@ namespace tnah
          *
          * @brief	Creates a rigidbody
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	12/09/2021
          *
          * @param 	position	The position.
@@ -368,18 +376,42 @@ namespace tnah
          *
          * @brief	Toggle collider rendering
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	12/09/2021
          */
 
         static void ToggleColliderRendering();
+
+
+
+        /**
+         * @fn	static void Physics::GetColliderRendererHandle();
+         *
+         * @brief	Gets the Collider renderer handle
+         *
+         * @author	Dylan Blereau
+         * @date	12/09/2021
+         */
+        static bool& GetColliderRendererHandle();
+
+
+        /**
+         * @fn	static TransformComponent Physics::GetColliderRendererTransform();
+         *
+         * @brief	Gets the transform of the renderer
+         *
+         * @author	Dylan Blereau
+         * @date	12/09/2021
+         */
+        static TransformComponent GetColliderRendererTransform();
+        
 
         /**
          * @fn	static rp3d::BoxShape* Physics::CreateBoxShape(const float& halfX, const float& halfY, const float& halfZ);
          *
          * @brief	Creates box shape
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	12/09/2021
          *
          * @param 	halfX	The half x coordinate.
@@ -396,7 +428,7 @@ namespace tnah
          *
          * @brief	Creates box shape
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	12/09/2021
          *
          * @param 	halfExtents	Extents of the half.
@@ -411,7 +443,7 @@ namespace tnah
          *
          * @brief	Creates box shape
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	12/09/2021
          *
          * @param 	halfExtents	Extents of the half.
@@ -426,7 +458,7 @@ namespace tnah
          *
          * @brief	Creates sphere shape
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	12/09/2021
          *
          * @param 	radius	The radius.
@@ -441,7 +473,7 @@ namespace tnah
          *
          * @brief	Creates capsule shape
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	12/09/2021
          *
          * @param 	radius	The radius.
@@ -457,7 +489,7 @@ namespace tnah
          *
          * @brief	Creates height field shape
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	12/09/2021
          *
          * @param 	columns					 	The columns.
@@ -476,7 +508,7 @@ namespace tnah
          *
          * @brief	Creates polyhedron mesh
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	12/09/2021
          *
          * @param [in,out]	polygonVertexArray	If non-null, array of vertices.
@@ -491,7 +523,7 @@ namespace tnah
          *
          * @brief	Creates convex mesh shape
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	12/09/2021
          *
          * @param [in,out]	polyhedronMesh	If non-null, the polyhedron mesh.
@@ -506,7 +538,7 @@ namespace tnah
          *
          * @brief	Creates concave mesh shape
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	12/09/2021
          *
          * @param [in,out]	triangleMesh	If non-null, the triangle mesh.
@@ -521,7 +553,7 @@ namespace tnah
          *
          * @brief	Creates triangle mesh
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	12/09/2021
          *
          * @returns	Null if it fails, else the new triangle mesh.
@@ -534,7 +566,7 @@ namespace tnah
          *
          * @brief	Creates terrain collider
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	12/09/2021
          *
          * @param [in,out]	terrain	If non-null, the terrain.
@@ -544,6 +576,31 @@ namespace tnah
     
     private:
 
+
+        /**
+        * @fn	void Physics::EnableLogging();
+        *
+        * @brief	Enables logging for the physics system
+        *
+        * @author	Dylan Blereau
+        * @date	12/09/2021
+        *
+        */
+        static void EnableLogging();
+     
+
+
+        /**
+        * @fn	void Physics::IsColliderRenderingEnabled();
+        *
+        * @brief	Checks if collider rendering is enabled
+        *
+        * @author	Dylan Blereau
+        * @date	12/09/2021
+        * 
+        * @return bool If the renderer is enabled
+        *
+        */
         static bool IsColliderRenderingEnabled();
 
         /**
@@ -551,7 +608,7 @@ namespace tnah
          *
          * @brief	Gets collider render objects by using a pair to retreive the VAO and VBO data for lines and triangles
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	12/09/2021
          *
          * @returns	The collider render objects.
@@ -564,7 +621,7 @@ namespace tnah
          *
          * @brief	Gets collider shader
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	12/09/2021
          *
          * @returns	The collider shader.
@@ -577,31 +634,31 @@ namespace tnah
          *
          * @brief	Updates the collider renderer
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	12/09/2021
          */
 
-        static void UpdateCol
+        static void UpdateColliderRenderer();
 
         /**
-         * @fn	static rp3d::DebugRenderer Physics::GetColliderRenderer();
+         * @fn	static rp3d::DebugRenderer* Physics::GetColliderRenderer();
          *
          * @brief	Gets collider renderer
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	12/09/2021
          *
          * @returns	The collider renderer.
          */
 
-        static rp3d::DebugRenderer GetColliderRenderer();
+        static rp3d::DebugRenderer* GetColliderRenderer();
 
         /**
          * @fn	static void Physics::PhysicsLoggerInit();
          *
          * @brief	Initialise the physics logger
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	12/09/2021
          */
 
@@ -609,15 +666,8 @@ namespace tnah
     
     private:
 
-
-        /** @brief	Manager for physics */
-=======
-        static rp3d::DebugRenderer* GetColliderRenderer();
-        static void PhysicsLoggerInit();
-    
-    private:
+     
         /** @brief a static reference to the active physics manager */
-
         static Ref<PhysicsManager> m_PhysicsManager;
 
         /** @brief Transform used for rendering the colliders within the scene*/

@@ -133,6 +133,8 @@ namespace tnah::Utility {
      *
      * @brief	Query if the search item is contained within the given list
      *
+     *@author Bryce Standley
+     * 
      * @tparam	T	Generic type parameter.
      * @param 	list	  	The list.
      * @param 	searchItem	The search item.
@@ -144,6 +146,27 @@ namespace tnah::Utility {
     static bool Contains(const std::list<T>& list, const T& searchItem)
     {
         return (std::find(list.begin(), list.end(), searchItem) != list.end());
+    }
+
+	/**
+	* @fn	template<typename T, typename S> static bool Contains(const std::list<T>& list, const S& searchItem)
+	*
+	* @brief	Query if the search item of a given type is contained within the given list. Used for sub-searches.
+	*
+	*@author Bryce Standley
+	* 
+	* @tparam	T	Generic type parameter.
+	* @tparam	S	Generic type parameter.
+	* @param 	list	  	The list.
+	* @param 	searchItem	The search item.
+	*
+	* @returns	True if the object is in this list, false if not.
+	*/
+
+	template<typename T, typename S>
+	static bool Contains(const std::list<T>& list, const S& searchItem)
+    {
+    	return (std::find(list.begin(), list.end(), searchItem) != list.end());
     }
 
     /**

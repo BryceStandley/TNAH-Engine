@@ -32,7 +32,7 @@ namespace tnah {
          * @param [in,out]	object	The object.
          */
 
-        static void DrawComponentProperties(GameObject& object);
+        static void DrawComponentProperties(GameObject& object, const bool& addComponents);
 
     private:
 
@@ -208,6 +208,7 @@ namespace tnah {
          */
 
         static bool DrawRedButton(const std::string& label);
+        
 
         /**
          * @fn	static std::list<ComponentTypes> EditorUI::GetPossibleComponentTypes(std::vector<ComponentTypes> typesHeld);
@@ -219,12 +220,12 @@ namespace tnah {
          *
          * @param 	typesHeld	The types held.
          *
-         * @returns	ComponentType - A type of a given component as a enum
+         * @returns	ComponentVariations - A type of a given component as a enum
          * @note Not all ComponentTypes can be returned as some are internal types not intended for
          * being added at runtime.
          */
 
-        static std::list<ComponentTypes> GetPossibleComponentTypes(std::vector<ComponentTypes> typesHeld);
+        static std::list<ComponentVariations> GetPossibleComponentTypes(std::vector<ComponentVariations> typesHeld);
 
         /**
          * @fn	static bool EditorUI::DrawAddComponent(GameObject& object, const std::string& searchTerm = "");
@@ -256,7 +257,7 @@ namespace tnah {
          * @returns	The draw component list.
          */
 
-        static ComponentTypes FindAndDrawComponentSearchTerm(std::list<ComponentTypes> typesToSearch, const std::string& searchTerm);
+        static ComponentVariations FindAndDrawComponentSearchTerm(std::list<ComponentVariations> typesToSearch, const std::string& searchTerm);
 
         /**
          * @fn	static ComponentTypes EditorUI::DrawComponentList(std::list<ComponentTypes> componentsToDisplay);
@@ -271,7 +272,7 @@ namespace tnah {
          * @returns	The ComponentTypes.
          */
 
-        static ComponentTypes DrawComponentList(std::list<ComponentTypes> componentsToDisplay);
+        static ComponentVariations DrawComponentList(std::list<ComponentVariations> componentsToDisplay);
 
         /**
          * @fn	static std::list<ComponentTypes> EditorUI::FindAllComponentsContaining(std::list<ComponentTypes> componentsToSearch, const std::string& term);
@@ -287,7 +288,23 @@ namespace tnah {
          * @returns	The found components containing the term.
          */
 
-        static std::list<ComponentTypes> FindAllComponentsContaining(std::list<ComponentTypes> componentsToSearch, const std::string& term);
+        static std::list<ComponentVariations> FindAllComponentsContaining(std::list<ComponentVariations> componentsToSearch, const std::string& term);
+
+     /**
+     * @fn	static std::list<ComponentTypes> EditorUI::FindAllSubtypesFromBaseType(std::list<ComponentTypes> componentsToSearch, const ComponentCategory& category);
+     *
+     * @brief	Searches for all components containing the given
+     *
+     * @author	Dylan Blereau
+     * @date	7/09/2021
+     *
+     * @param 	componentsToSearch	The components to search.
+     * @param 	category			  	The component category to find.
+     *
+     * @returns	The found components within the category.
+     */
+
+     static std::list<ComponentVariations> FindAllSubtypesFromBaseType(std::list<ComponentVariations> componentsToSearch, const ComponentCategory& category);
 
         /**
          * @fn	static std::string EditorUI::FindStringFromComponentType(ComponentTypes type);
@@ -302,7 +319,7 @@ namespace tnah {
          * @returns	The found string from component type.
          */
 
-        static std::string FindStringFromComponentType(ComponentTypes type);
+        static std::string FindStringFromComponentType(ComponentVariations type);
 
         /**
          * @fn	static std::string EditorUI::FindComponentTypeCategory(ComponentTypes type);
@@ -317,7 +334,7 @@ namespace tnah {
          * @returns	The found component type category.
          */
 
-        static std::string FindComponentTypeCategory(ComponentTypes type);
+        static std::string FindComponentTypeCategory(ComponentVariations type);
 
         /**
          * @fn	static bool EditorUI::AddComponentFromType(GameObject& object, ComponentTypes type);
@@ -333,7 +350,7 @@ namespace tnah {
          * @returns	True if it succeeds, false if it fails.
          */
 
-        static bool AddComponentFromType(GameObject& object, ComponentTypes type);
+        static bool AddComponentFromType(GameObject& object, ComponentVariations type);
         
     };
 

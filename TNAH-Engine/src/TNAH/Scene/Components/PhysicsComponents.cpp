@@ -121,12 +121,33 @@ namespace tnah
         return nullptr;
     }
 
+    rp3d::Collider* RigidBodyComponent::AddCollider(ColliderComponents colliderComponents)
+    {
+        if(Physics::IsActive() && Body)
+        {
+            return Body->addCollider(colliderComponents.Shape, colliderComponents.TransformRelativeToCollisionBody);
+        }
+
+        return nullptr;
+    }
+
     rp3d::Collider* RigidBodyComponent::UpdateCollider(rp3d::Collider* oldCollider, rp3d::CollisionShape* collider, const rp3d::Transform& transform)
     {
         if(Physics::IsActive() && Body)
         {
             RemoveCollider(oldCollider);
             return Body->addCollider(collider, transform);
+        }
+
+        return nullptr;
+    }
+
+    rp3d::Collider* RigidBodyComponent::UpdateCollider(ColliderComponents colliderComponents)
+    {
+        if(Physics::IsActive() && Body)
+        {
+            RemoveCollider(colliderComponents.BodyCollider);
+            return Body->addCollider(colliderComponents.Shape, colliderComponents.TransformRelativeToCollisionBody);
         }
 
         return nullptr;
@@ -152,17 +173,17 @@ namespace tnah
             {
             case ForceType::FromWorld:
                 {
-                    Body->applyForceAtWorldPosition(Math::ToRp3dVec3(finalForce), Math::ToRp3dVec3(forcePoint));
+                    //Body->rp3d::RigidBody::applyLocalForceAtWorldPosition(Math::ToRp3dVec3(finalForce), Math::ToRp3dVec3(forcePoint));
                     break;
                 }
             case ForceType::FromLocal:
                 {
-                    Body->applyForceAtLocalPosition(Math::ToRp3dVec3(finalForce), Math::ToRp3dVec3(forcePoint));
+                    //Body->rp3d::RigidBody::applyLocalForceAtLocalPosition(Math::ToRp3dVec3(finalForce), Math::ToRp3dVec3(forcePoint));
                     break;
                 }
             case ForceType::FromCentre:
                 {
-                    Body->applyForceToCenterOfMass(Math::ToRp3dVec3(finalForce));
+                    //Body->rp3d::RigidBody::applyLocalForceAtCenterOfMass(Math::ToRp3dVec3(finalForce));
                     break;
                 }
             default: break;
@@ -174,7 +195,7 @@ namespace tnah
     {
         if(Physics::IsActive() && Body)
         {
-            Body->applyTorque(Math::ToRp3dVec3(torque));
+            //Body->applyLocalTorque(Math::ToRp3dVec3(torque));
         }
     }
 #pragma endregion
@@ -334,6 +355,7 @@ namespace tnah
 
     ConvexMeshColliderComponent::ConvexMeshColliderComponent(Ref<Model> model)
     {
+        /*TODO: Fix unresolved external here
         auto meshes = model->GetMeshes();
         for(auto m : meshes)
         {
@@ -349,10 +371,12 @@ namespace tnah
             Components.Shape = Physics::CreateConvexMeshShape(m_PolyhedronMesh);
           
         }
+        */
     }
 
     void ConvexMeshColliderComponent::CreateConvexPolygonArray()
     {
+        /* TODO: Fix unresolved external here
         m_PolygonFace = new rp3d::PolygonVertexArray::PolygonFace[MeshIndices.size()];
         rp3d::PolygonVertexArray::PolygonFace* face = m_PolygonFace;
         for(uint32_t i = 0; i < MeshIndices.size(); i++)
@@ -370,6 +394,7 @@ namespace tnah
                 (rp3d::uint)MeshIndices.size(), m_PolygonFace,
                 rp3d::PolygonVertexArray::VertexDataType::VERTEX_FLOAT_TYPE,
                 rp3d::PolygonVertexArray::IndexDataType::INDEX_INTEGER_TYPE);
+                */
     }
 
 #pragma endregion 
