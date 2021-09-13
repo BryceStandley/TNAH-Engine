@@ -730,14 +730,14 @@ namespace tnah {
 					// like if(object->HasComponent<MeshComponent>()
 					// Then use a set function to each part of the components property panel
 					// like DrawVec3Control()
-					if(m_State != EditorState::LoadingScene) EditorUI::DrawComponentProperties(*m_SelectedGameObject);
+					if(m_State != EditorState::LoadingScene) EditorUI::DrawComponentProperties(*m_SelectedGameObject, true);
 
 				}
 				else
 				{
 					if(m_ActiveScene != nullptr && m_State != EditorState::LoadingScene)
 					{
-						EditorUI::DrawComponentProperties(m_EditorCamera);
+						EditorUI::DrawComponentProperties(m_EditorCamera, true);
 					}
 				}
 
@@ -766,7 +766,35 @@ namespace tnah {
 
 		void EditorLayer::OnEvent(Event& event)
 		{
+			
+			auto& e = (tnah::KeyPressedEvent&)event;
+			if (e.GetEventType() == EventType::KeyPressed)
+			{
+				auto k = (KeyPressedEvent&)e;
 
+				//Toggle Wireframe on or off
+				if (k.GetKeyCode() == tnah::Key::D2)
+				{
+					m_Wireframe = !m_Wireframe;
+					RenderCommand::SetWireframe(m_Wireframe);
+				}
+
+				//Toggle Fullscreen
+				if (k.GetKeyCode() == tnah::Key::D3)
+				{
+					m_Fullscreen = !m_Fullscreen;
+					Application::Get().GetWindow().ToggleFullScreen(m_Fullscreen);
+				}
+
+				//Toggle VSync
+				if (k.GetKeyCode() == tnah::Key::D4)
+				{
+					m_VSync = !m_VSync;
+					Application::Get().GetWindow().SetVSync(m_VSync);
+				}
+			}
+			
+			
 		}
 
 		void EditorLayer::CloseScene(Ref<Scene> scene)
@@ -806,7 +834,7 @@ namespace tnah {
 			}
 		}
 	
-	float EditorLayer::GetSnapValue()
+		float EditorLayer::GetSnapValue()
 		{
 			switch (m_GizmoType)
 			{

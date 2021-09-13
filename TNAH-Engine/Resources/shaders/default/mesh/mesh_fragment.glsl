@@ -19,6 +19,7 @@ struct Global {
     int totalLights;
     vec3 cameraPosition;
 };
+
 struct Light {
 	int type;
 	vec3 direction;
@@ -59,7 +60,8 @@ void main()
 
 	vec3 finalColor = CalculateGlobalLighting(blendColor, norm, cameraDir);
 	
-	if(u_Global.totalLights > 0)
+	
+	if(u_Global.totalLights > 1)
 	{
         for(int i = 0; i < u_Global.totalLights; i++)
         {
@@ -83,7 +85,7 @@ void main()
 	}
 
     color = vec4(finalColor, blendColor.a);
-	
+	//color = texture(u_Material.texture_diffuse1, v_TexCoord);
 	//if the alpha channel is less than 0.1, discard as it should be transparent
 	if(color.a < 0.1f)
 	{

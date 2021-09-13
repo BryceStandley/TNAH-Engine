@@ -2,7 +2,6 @@
 
 #include <imgui.h>
 #include <glm/gtc/random.hpp>
-#include <TNAH/Scene/Components/SkyboxComponent.h>
 
 #include <TNAH-App.h>
 
@@ -47,7 +46,7 @@ MainLayer::MainLayer()
 		glm::vec3 p(glm::linearRand(500, 700), glm::linearRand(50, 100), glm::linearRand(500, 700));
 		meshT.Position = p;
 
-		go.AddComponent<tnah::AnimatorComponent>(mesh.Animation);
+		//go.AddComponent<tnah::AnimatorComponent>(mesh.Animation);
 		m_MeshObjects.push_back(go);
 	}
 
@@ -170,8 +169,15 @@ void MainLayer::OnImGuiRender()
 	};
 	static int selectedRes = 0;
 	ImGui::Begin("Controls");
+	
 	ImGui::Text("%.1f FPS", ImGui::GetIO().Framerate);
 	ImGui::Text("Application Options");
+	ImGui::Separator();
+	ImGui::Text("Press 0 to toggle debug mode");
+	if(ImGui::Checkbox("Debug Mode", &tnah::Application::Get().GetDebugModeStatus()))
+	{
+		tnah::Application::Get().SetDebugStatusChange();
+	}
 	ImGui::Separator();
 	ImGui::BulletText("Press 1 to toggle the cursor");
 	ImGui::BulletText("Press 2 to toggle wireframe mode");
@@ -186,11 +192,10 @@ void MainLayer::OnImGuiRender()
 	if(ImGui::CollapsingHeader("Toggles"))
 	{
 		auto& app = tnah::Application::Get();
-		ImGui::Checkbox("Team Screen", &m_CloseScreenDisplay);
-		ImGui::Checkbox("Cursor", &app.GetCursorToggleStatus());
-		ImGui::Checkbox("Wireframe", &app.GetWireframeToggleStatus());
-		ImGui::Checkbox("VSync", &app.GetVSyncToggleStatus());
-		ImGui::Checkbox("Fullscreen", &app.GetFullscreenToggleStatus());
+		ImGui::Checkbox("Cursor", &m_CursorVisible);
+		ImGui::Checkbox("Wireframe", &m_Wireframe);
+		ImGui::Checkbox("VSync", &m_VSync);
+		ImGui::Checkbox("Fullscreen", &m_Fullscreen);
 		ImGui::Checkbox("Camera Look", &m_CameraLookToggle);
 		ImGui::Checkbox("Camera Movement", &m_CameraMovementToggle);
 	}
@@ -237,16 +242,6 @@ void MainLayer::OnImGuiRender()
 		ImGui::ColorEdit3("Point Color", glm::value_ptr(pl.Light->GetColor()));
 	}
 	ImGui::End();
-
-	if(m_CloseScreenDisplay)
-	{
-		ImGui::Begin("EndScreen");
-		ImGui::SetWindowPos({0,0});
-		ImGui::SetWindowSize({(float)tnah::Application::Get().GetWindow().GetWidth(), (float)tnah::Application::Get().GetWindow().GetHeight()});
-		auto size = ImGui::GetContentRegionAvail();
-		ImGui::Image((void*)(intptr_t)m_CloseScreenTexture->GetRendererID(), size);
-		ImGui::End();
-	}
 	
 }
 
@@ -265,19 +260,52 @@ void MainLayer::OnEvent(tnah::Event& event)
 
 	if (event.GetEventType() == tnah::EventType::KeyPressed)
 	{
-		auto& e = (tnah::KeyPressedEvent&)event;
-		if (e.GetKeyCode() == tnah::Key::D5)
+		auto& k = (tnah::KeyPressedEvent&)event;
+		
+		//Toggle the Cursor on or off
+		if (k.GetKeyCode() == tnah::Key::D1)
+		{
+			m_CursorVisible = !m_CursorVisible;
+			tnah::Application::Get().GetWindow().SetCursorDisabled(m_CursorVisible);
+		}
+		//Toggle Wireframe on or off
+		if (k.GetKeyCode() == tnah::Key::D2)
+		{
+			m_Wireframe = !m_Wireframe;
+			tnah::RenderCommand::SetWireframe(m_Wireframe);
+		}
+
+		//Toggle Fullscreen
+		if (k.GetKeyCode() == tnah::Key::D3)
+		{
+			m_Fullscreen = !m_Fullscreen;
+			tnah::Application::Get().GetWindow().ToggleFullScreen(m_Fullscreen);
+		}
+
+		//Toggle VSync
+		if (k.GetKeyCode() == tnah::Key::D4)
+		{
+			m_VSync = !m_VSync;
+			tnah::Application::Get().GetWindow().SetVSync(m_VSync);
+		}
+		
+		if (k.GetKeyCode() == tnah::Key::D5)
 		{
 			m_CameraLookToggle = !m_CameraLookToggle;
 		}
-	}
-
-	if (event.GetEventType() == tnah::EventType::KeyPressed)
-	{
-		auto& e = (tnah::KeyPressedEvent&)event;
-		if (e.GetKeyCode() == tnah::Key::D6)
+		
+		if (k.GetKeyCode() == tnah::Key::D6)
 		{
 			m_CameraMovementToggle = !m_CameraMovementToggle;
 		}
+
+		if (k.GetKeyCode() == tnah::Key::D0)
+		{
+			auto& debug = tnah::Application::Get().GetDebugModeStatus();
+			debug = !debug;
+			tnah::Application::Get().SetDebugStatusChange();
+		}
 	}
+
+	tnah::Application::Get().OnEvent(event);
 }

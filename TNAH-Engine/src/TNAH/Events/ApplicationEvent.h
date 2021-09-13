@@ -10,7 +10,7 @@ namespace tnah {
 	 *
 	 * @brief	A window resize event class that inherits from the base event class
 	 *
-	 * @author	Plush
+	 * @author	Dylan Blereau
 	 * @date	10/09/2021
 	 */
 
@@ -23,7 +23,7 @@ namespace tnah {
 		 *
 		 * @brief	Constructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 *
 		 * @param 	width 	The width.
@@ -38,7 +38,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets the width
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 *
 		 * @returns	The width.
@@ -51,7 +51,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets the height
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 *
 		 * @returns	The height.
@@ -64,7 +64,7 @@ namespace tnah {
 		 *
 		 * @brief	Convert this object into a string representation
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 *
 		 * @returns	A std::string that represents this object.
@@ -95,7 +95,7 @@ namespace tnah {
 	 *
 	 * @brief	A window close event class that inherits from the base event class
 	 *
-	 * @author	Plush
+	 * @author	Dylan Blereau
 	 * @date	10/09/2021
 	 */
 
@@ -108,7 +108,7 @@ namespace tnah {
 		 *
 		 * @brief	Defaulted constructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 */
 
@@ -123,7 +123,7 @@ namespace tnah {
 	 *
 	 * @brief	An application tick event class that inherits from the base event class
 	 *
-	 * @author	Plush
+	 * @author	Dylan Blereau
 	 * @date	10/09/2021
 	 */
 
@@ -136,7 +136,7 @@ namespace tnah {
 		 *
 		 * @brief	Defaulted constructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 */
 
@@ -151,7 +151,7 @@ namespace tnah {
 	 *
 	 * @brief	An application update event class that inherits from the base event class
 	 *
-	 * @author	Plush
+	 * @author	Dylan Blereau
 	 * @date	10/09/2021
 	 */
 
@@ -164,7 +164,7 @@ namespace tnah {
 		 *
 		 * @brief	Defaulted constructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 */
 
@@ -179,7 +179,7 @@ namespace tnah {
 	 *
 	 * @brief	An application render event class that inherits from the base event class
 	 *
-	 * @author	Plush
+	 * @author	Dylan Blereau
 	 * @date	10/09/2021
 	 */
 
@@ -192,7 +192,7 @@ namespace tnah {
 		 *
 		 * @brief	Defaulted constructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 */
 
@@ -207,7 +207,7 @@ namespace tnah {
 	 *
 	 * @brief	A monitor resolution change event class that inherits from the base event class
 	 *
-	 * @author	Plush
+	 * @author	Dylan Blereau
 	 * @date	10/09/2021
 	 */
 
@@ -220,7 +220,7 @@ namespace tnah {
 		 *
 		 * @brief	Constructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 *
 		 * @param 	width 	The width.
@@ -235,7 +235,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets the width
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 *
 		 * @returns	The width.
@@ -248,7 +248,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets the height
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 *
 		 * @returns	The height.

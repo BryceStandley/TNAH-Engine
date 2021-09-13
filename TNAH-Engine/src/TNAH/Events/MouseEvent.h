@@ -10,7 +10,7 @@ namespace tnah {
 	 *
 	 * @brief	A mouse moved event class that inherits from the base event class
 	 *
-	 * @author	Plush
+	 * @author	Dylan Blereau
 	 * @date	10/09/2021
 	 */
 
@@ -23,7 +23,7 @@ namespace tnah {
 		 *
 		 * @brief	Constructor for the mouse moved event
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 *
 		 * @param 	x	The x coordinate of the mouse.
@@ -38,7 +38,7 @@ namespace tnah {
 		 *
 		 * @brief	Get x coordinate of the mouse
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 *
 		 * @returns	The x coordinate.
@@ -51,7 +51,7 @@ namespace tnah {
 		 *
 		 * @brief	Get y coordinate of the mouse
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 *
 		 * @returns	The y coordinate.
@@ -64,7 +64,7 @@ namespace tnah {
 		 *
 		 * @brief	Convert the mouse x and y coordinates into a string representation
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 *
 		 * @returns	A std::string that represents this object.
@@ -91,7 +91,7 @@ namespace tnah {
 	 *
 	 * @brief	A mouse scrolled event that inherits from the Event class 
 	 *
-	 * @author	Plush
+	 * @author	Dylan Blereau
 	 * @date	10/09/2021
 	 */
 
@@ -104,7 +104,7 @@ namespace tnah {
 		 *
 		 * @brief	Constructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 *
 		 * @param 	xOffset	The offset on the x-axis.
@@ -119,7 +119,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets x coordinate offset
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 *
 		 * @returns	The x coordinate offset.
@@ -132,7 +132,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets y coordinate offset
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 *
 		 * @returns	The y coordinate offset.
@@ -145,7 +145,7 @@ namespace tnah {
 		 *
 		 * @brief	Convert the x and y offset of the the event into a string
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 *
 		 * @returns	A std::string that represents this object.
@@ -171,7 +171,7 @@ namespace tnah {
 	 *
 	 * @brief	A mouse button event class that inherits from the base Event class
 	 *
-	 * @author	Plush
+	 * @author	Dylan Blereau
 	 * @date	10/09/2021
 	 */
 
@@ -184,7 +184,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets mouse button
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 *
 		 * @returns	The mouse button.
@@ -200,7 +200,7 @@ namespace tnah {
 		 *
 		 * @brief	Constructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 *
 		 * @param 	button	The button.
@@ -219,7 +219,7 @@ namespace tnah {
 	 *
 	 * @brief	A mouse button pressed event class that inherits from the MouseButtonEvent class
 	 *
-	 * @author	Plush
+	 * @author	Dylan Blereau
 	 * @date	10/09/2021
 	 */
 
@@ -232,7 +232,7 @@ namespace tnah {
 		 *
 		 * @brief	Constructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 *
 		 * @param 	button	The button.
@@ -246,7 +246,7 @@ namespace tnah {
 		 *
 		 * @brief	Converts the mouse button code into a string representation
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 *
 		 * @returns	A std::string that represents this object.
@@ -267,7 +267,7 @@ namespace tnah {
 	 *
 	 * @brief	A mouse button released event class that inherits from the MouseButtonEvent class
 	 *
-	 * @author	Plush
+	 * @author	Dylan Blereau
 	 * @date	10/09/2021
 	 */
 
@@ -280,7 +280,7 @@ namespace tnah {
 		 *
 		 * @brief	Constructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 *
 		 * @param 	button	The button.
@@ -294,7 +294,7 @@ namespace tnah {
 		 *
 		 * @brief	Converts the mouse button code into a string representation
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 *
 		 * @returns	A std::string that represents this object.

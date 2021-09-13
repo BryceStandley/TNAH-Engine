@@ -31,7 +31,7 @@ namespace tnah {
  *
  * @brief	A vertex.
  *
- * @author	Plush
+ * @author	Dylan Blereau
  * @date	12/09/2021
  */
 
@@ -65,7 +65,7 @@ struct Vertex
      *
      * @brief	Adds bone data
      *
-     * @author	Plush
+     * @author	Dylan Blereau
      * @date	12/09/2021
      *
      * @param 	BoneID	Identifier for the bone.
@@ -94,7 +94,7 @@ struct Vertex
      *
      * @brief	A mesh texture
      *
-     * @author	Plush
+     * @author	Dylan Blereau
      * @date	12/09/2021
      */
 
@@ -112,7 +112,7 @@ struct Vertex
          *
          * @brief	Constructor
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	12/09/2021
          *
          * @param 	texture	The texture.
@@ -129,7 +129,7 @@ struct Vertex
      *
      * @brief	A mesh shader.
      *
-     * @author	Plush
+     * @author	Dylan Blereau
      * @date	12/09/2021
      */
 
@@ -150,7 +150,7 @@ struct Vertex
          *
          * @brief	Constructor
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	12/09/2021
          *
          * @param 	shader  	The shader.
@@ -168,7 +168,7 @@ struct Vertex
      *
      * @brief	A mesh class responsible for handling the meshes of models 
      *
-     * @author	Plush
+     * @author	Dylan Blereau
      * @date	12/09/2021
      */
 
@@ -180,7 +180,7 @@ struct Vertex
          *
          * @brief	Constructor
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	12/09/2021
          *
          * @param 	vertices	The vertices.
@@ -196,7 +196,7 @@ struct Vertex
          *
          * @brief	Gets mesh vertex array
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	12/09/2021
          *
          * @returns	The mesh vertex array.
@@ -209,7 +209,7 @@ struct Vertex
          *
          * @brief	Gets mesh vertex buffer
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	12/09/2021
          *
          * @returns	The mesh vertex buffer.
@@ -222,7 +222,7 @@ struct Vertex
          *
          * @brief	Gets mesh index buffer
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	12/09/2021
          *
          * @returns	The mesh index buffer.
@@ -235,7 +235,7 @@ struct Vertex
          *
          * @brief	Gets mesh material
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	12/09/2021
          *
          * @returns	The mesh material.
@@ -248,7 +248,7 @@ struct Vertex
          *
          * @brief	Gets vertex positions
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	12/09/2021
          *
          * @returns	The vertex positions.
@@ -261,7 +261,7 @@ struct Vertex
          *
          * @brief	Gets the indices
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	12/09/2021
          *
          * @returns	The indices.
@@ -278,8 +278,7 @@ struct Vertex
 
         /** @brief	True if animated */
         bool m_Animated;
-        
-
+     
         /** @brief	The vao */
         Ref<VertexArray> m_Vao;
 
@@ -289,9 +288,14 @@ struct Vertex
         /** @brief	The ibo */
         Ref<IndexBuffer> m_Ibo;
 
+        /** @brief	The VertexBufferLayout */
+        VertexBufferLayout m_BufferLayout;
+
         /** @brief	The material */
         Ref<Material> m_Material;
+     
 
+     
         friend class EditorUI;
     };
 
@@ -300,7 +304,7 @@ struct Vertex
      *
      * @brief	A model class that inherits from the refCounted class, which allows model to use the Ref *. Responsible for the loading and handling of models
      *
-     * @author	Plush
+     * @author	Dylan Blereau
      * @date	12/09/2021
      */
 
@@ -313,7 +317,7 @@ struct Vertex
          *
          * @brief	Creates a new model
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	12/09/2021
          *
          * @param 	filePath	Full pathname of the file.
@@ -328,7 +332,7 @@ struct Vertex
          *
          * @brief	Default constructor
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	12/09/2021
          */
 
@@ -339,7 +343,7 @@ struct Vertex
          *
          * @brief	Constructor
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	12/09/2021
          *
          * @param 	filePath	Full pathname of the file.
@@ -352,7 +356,7 @@ struct Vertex
          *
          * @brief	Gets the animation
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	12/09/2021
          *
          * @returns	The animation.
@@ -365,7 +369,7 @@ struct Vertex
          *
          * @brief	Gets the meshes
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	12/09/2021
          *
          * @returns	The meshes.
@@ -378,7 +382,7 @@ struct Vertex
          *
          * @brief	Gets number of meshes
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	12/09/2021
          *
          * @returns	The number of meshes.
@@ -391,7 +395,7 @@ struct Vertex
          *
          * @brief	Gets bone information map
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	12/09/2021
          *
          * @returns	The bone information map.
@@ -404,7 +408,7 @@ struct Vertex
          *
          * @brief	Gets bone count
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	12/09/2021
          *
          * @returns	The bone count.
@@ -417,10 +421,8 @@ struct Vertex
 
         /** @brief	The meshes */
         std::vector<Mesh> m_Meshes;
-        std::string m_Directory;
 
-        /** @brief	Full pathname of the file */
-        std::string m_FilePath;
+        Resource m_Resource;
 
         /** @brief	The animation */
         Animation m_Animation;
@@ -439,7 +441,7 @@ struct Vertex
          *
          * @brief	Converts aiMatrix to glm::mat4
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	12/09/2021
          *
          * @param 	m	An aiMatrix4x4t to process.
@@ -454,7 +456,7 @@ struct Vertex
          *
          * @brief	Converts aiVector to glm::vec3
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	12/09/2021
          *
          * @param 	v	An aiVector3t to process.
@@ -469,7 +471,7 @@ struct Vertex
          *
          * @brief	Converts aiQuaterniont to glm::quat 
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	12/09/2021
          *
          * @param 	q	An aiQuaterniont to process.
@@ -484,7 +486,7 @@ struct Vertex
          *
          * @brief	Sets vertex bone data to default
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	12/09/2021
          *
          * @param [in,out]	vertex	The vertex.
@@ -497,7 +499,7 @@ struct Vertex
          *
          * @brief	Sets vertex bone data
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	12/09/2021
          *
          * @param [in,out]	vertex	The vertex.
@@ -512,7 +514,7 @@ struct Vertex
          *
          * @brief	Extracts the bone weight for vertices
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	12/09/2021
          *
          * @param [in,out]	vertices	The vertices.
@@ -527,7 +529,7 @@ struct Vertex
          *
          * @brief	Loads a model
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	12/09/2021
          *
          * @param 	filePath	Full pathname of the file.
@@ -540,7 +542,7 @@ struct Vertex
          *
          * @brief	Process the node
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	12/09/2021
          *
          * @param [in,out]	node 	If non-null, the node.
@@ -554,7 +556,7 @@ struct Vertex
          *
          * @brief	Process the mesh
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	12/09/2021
          *
          * @param [in,out]	mesh		If non-null, the mesh.
@@ -571,7 +573,7 @@ struct Vertex
          *
          * @brief	Loads material textures
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	12/09/2021
          *
          * @param 		  	scene   	The scene.

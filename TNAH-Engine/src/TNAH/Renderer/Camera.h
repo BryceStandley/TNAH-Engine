@@ -8,7 +8,7 @@ namespace tnah {
 	 *
 	 * @brief	A camera class responsible for setting up the application camera 
 	 *
-	 * @author	Plush
+	 * @author	Dylan Blereau
 	 * @date	12/09/2021
 	 */
 
@@ -21,7 +21,7 @@ namespace tnah {
 		 *
 		 * @brief	Defaulted constructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 */
 
@@ -32,7 +32,7 @@ namespace tnah {
 		 *
 		 * @brief	Constructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	projectionMatrix	The projection matrix.
@@ -45,7 +45,7 @@ namespace tnah {
 		 *
 		 * @brief	Defaulted destructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 */
 
@@ -56,7 +56,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets projection matrix
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @returns	The projection matrix.
@@ -69,7 +69,7 @@ namespace tnah {
 		 *
 		 * @brief	Sets projection matrix
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	projectionMatrix	The projection matrix.
@@ -82,7 +82,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets the exposure
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @returns	The exposure.
@@ -95,7 +95,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets the exposure
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @returns	The exposure.
@@ -108,7 +108,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets view projection matrix
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @returns	The view projection matrix.
@@ -125,7 +125,7 @@ namespace tnah {
 		 *
 		 * @brief	Sets main camera
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param [in,out]	other	The other.

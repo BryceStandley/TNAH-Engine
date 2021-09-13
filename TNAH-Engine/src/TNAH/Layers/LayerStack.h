@@ -12,7 +12,7 @@ namespace tnah {
 	 *
 	 * @brief	The LayerStack class is used to store multiple layers, while allowing for them to be added and removed 
 	 *
-	 * @author	Plush
+	 * @author	Dylan Blereau
 	 * @date	10/09/2021
 	 */
 
@@ -25,7 +25,7 @@ namespace tnah {
 		 *
 		 * @brief	Defaulted constructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 */
 
@@ -36,7 +36,7 @@ namespace tnah {
 		 *
 		 * @brief	Destructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 */
 
@@ -47,7 +47,7 @@ namespace tnah {
 		 *
 		 * @brief	Pushes a layer 
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 *
 		 * @param [in,out]	layer	If non-null, the layer.
@@ -60,7 +60,7 @@ namespace tnah {
 		 *
 		 * @brief	Pushes an overlay
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 *
 		 * @param [in,out]	overlay	If non-null, the overlay.
@@ -73,7 +73,7 @@ namespace tnah {
 		 *
 		 * @brief	Pops(Removes) the layer described by layer
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 *
 		 * @param [in,out]	layer	If non-null, the layer.
@@ -86,7 +86,7 @@ namespace tnah {
 		 *
 		 * @brief	Pops(Remove) the overlay described by overlay
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 *
 		 * @param [in,out]	overlay	If non-null, the overlay.
@@ -99,7 +99,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets the beginning of the iterator
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 *
 		 * @returns	Null if it fails, else a std::vector&lt;Layer*&gt;::iterator.
@@ -112,7 +112,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets the end of the iterator
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 *
 		 * @returns	Null if it fails, else a std::vector&lt;Layer*&gt;::iterator.
@@ -125,7 +125,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets the rbegin of the reverse iterator
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 *
 		 * @returns	Null if it fails, else a std::vector&lt;Layer*&gt;::reverse_iterator.
@@ -138,7 +138,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets the rend of the reverse iterator
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 *
 		 * @returns	Null if it fails, else a std::vector&lt;Layer*&gt;::reverse_iterator.
@@ -151,7 +151,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets the begin of the iterator
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 *
 		 * @returns	Null if it fails, else a std::vector&lt;Layer*&gt;::const_iterator.
@@ -164,7 +164,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets the end of the iterator
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 *
 		 * @returns	Null if it fails, else a std::vector&lt;Layer*&gt;::const_iterator.
@@ -177,7 +177,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets the rbegin of the reverse iterator
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 *
 		 * @returns	Null if it fails, else a std::vector&lt;Layer*&gt;::const_reverse_iterator.
@@ -190,7 +190,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets the rend of the reverse iterator
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 *
 		 * @returns	Null if it fails, else a std::vector&lt;Layer*&gt;::const_reverse_iterator.

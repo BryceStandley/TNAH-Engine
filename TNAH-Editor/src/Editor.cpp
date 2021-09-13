@@ -7,7 +7,7 @@ namespace tnah {
 		Editor::Editor()
 			:tnah::Application("TNAH Editor")
 		{
-			GetWindow().SetVSync(m_VSync);
+			GetWindow().SetVSync(false);
 			SetEditorMode(true);
 			PushLayer(new EditorLayer());
 		}
@@ -19,33 +19,7 @@ namespace tnah {
 
 		void Editor::OnEvent(tnah::Event& e)
 		{
-			//Close the application on press of Escape
-			Application::OnEvent(e);
-			if (e.GetEventType() == EventType::KeyPressed)
-			{
-				auto k = (KeyPressedEvent&)e;
-
-				//Toggle Wireframe on or off
-				if (k.GetKeyCode() == tnah::Key::D2)
-				{
-					m_WireframeEnabled = !m_WireframeEnabled;
-					RenderCommand::SetWireframe(m_WireframeEnabled);
-				}
-
-				//Toggle Fullscreen
-				if (k.GetKeyCode() == tnah::Key::D3)
-				{
-					m_Fullscreen = !m_Fullscreen;
-					GetWindow().ToggleFullScreen(m_Fullscreen);
-				}
-
-				//Toggle VSync
-				if (k.GetKeyCode() == tnah::Key::D4)
-				{
-					m_VSync = !m_VSync;
-					GetWindow().SetVSync(m_VSync);
-				}
-			}
+			tnah::Application::OnEvent(e);
 		}
 
 

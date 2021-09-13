@@ -474,7 +474,7 @@ namespace tnah {
 		 * @returns	The component list.
 		 */
 
-		std::vector<ComponentTypes> GetComponentList() const { return m_HeldTypes; }
+		std::vector<ComponentVariations> GetComponentList() const { return m_HeldTypes; }
 
 	private:
 
@@ -490,20 +490,28 @@ namespace tnah {
 
 		void FindComponentTypeFromTemplate()
 		{
-			if(std::is_same_v<T, IDComponent>) { m_HeldTypes.emplace_back(ComponentTypes::ID); }
-			if(std::is_same_v<T, TagComponent>) { m_HeldTypes.emplace_back(ComponentTypes::Tag); }
-			if(std::is_same_v<T, RelationshipComponent>) { m_HeldTypes.emplace_back(ComponentTypes::Relationship); }
-			if(std::is_same_v<T, TransformComponent>) { m_HeldTypes.emplace_back(ComponentTypes::Transform);  }
-			if(std::is_same_v<T, CameraComponent>) { m_HeldTypes.emplace_back(ComponentTypes::Camera);  }
-			if(std::is_same_v<T, EditorCameraComponent>) { m_HeldTypes.emplace_back(ComponentTypes::EditorCamera); }
-			if(std::is_same_v<T, EditorComponent>) { m_HeldTypes.emplace_back(ComponentTypes::Editor);  }
-			if(std::is_same_v<T, SkyboxComponent>) { m_HeldTypes.emplace_back(ComponentTypes::Skybox);  }
-			if(std::is_same_v<T, LightComponent>) { m_HeldTypes.emplace_back(ComponentTypes::Light);  }
-			if(std::is_same_v<T, TerrainComponent>) { m_HeldTypes.emplace_back(ComponentTypes::Terrain);  }
-			if(std::is_same_v<T, MeshComponent>) { m_HeldTypes.emplace_back(ComponentTypes::Mesh);  }
-			if(std::is_same_v<T, PlayerControllerComponent>) { m_HeldTypes.emplace_back(ComponentTypes::PlayerController); }
-			if(std::is_same_v<T, AudioListenerComponent>) { m_HeldTypes.emplace_back(ComponentTypes::AudioListener);  }
-			if(std::is_same_v<T, AudioSourceComponent>) { m_HeldTypes.emplace_back(ComponentTypes::AudioSource);  }
+			if(std::is_same_v<T, IDComponent>) { m_HeldTypes.emplace_back(ComponentVariations::ID); }
+			if(std::is_same_v<T, TagComponent>) { m_HeldTypes.emplace_back(ComponentVariations::Tag); }
+			if(std::is_same_v<T, RelationshipComponent>) { m_HeldTypes.emplace_back(ComponentVariations::Relationship); }
+			if(std::is_same_v<T, TransformComponent>) { m_HeldTypes.emplace_back(ComponentVariations::Transform);  }
+			if(std::is_same_v<T, CameraComponent>) { m_HeldTypes.emplace_back(ComponentVariations::Camera);  }
+			if(std::is_same_v<T, EditorCameraComponent>) { m_HeldTypes.emplace_back(ComponentVariations::EditorCamera); }
+			if(std::is_same_v<T, EditorComponent>) { m_HeldTypes.emplace_back(ComponentVariations::Editor);  }
+			if(std::is_same_v<T, SkyboxComponent>) { m_HeldTypes.emplace_back(ComponentVariations::Skybox);  }
+			if(std::is_same_v<T, LightComponent>) { m_HeldTypes.emplace_back(ComponentVariations::Light);  }
+			if(std::is_same_v<T, TerrainComponent>) { m_HeldTypes.emplace_back(ComponentVariations::Terrain);  }
+			if(std::is_same_v<T, MeshComponent>) { m_HeldTypes.emplace_back(ComponentVariations::Mesh);  }
+			if(std::is_same_v<T, PlayerControllerComponent>) { m_HeldTypes.emplace_back(ComponentVariations::PlayerController); }
+			if(std::is_same_v<T, AudioListenerComponent>) { m_HeldTypes.emplace_back(ComponentVariations::AudioListener);  }
+			if(std::is_same_v<T, AudioSourceComponent>) { m_HeldTypes.emplace_back(ComponentVariations::AudioSource);  }
+			if(std::is_same_v<T, RigidBodyComponent>) { m_HeldTypes.emplace_back(ComponentVariations::RigidBody);  }
+			if(std::is_same_v<T, CollisionBodyComponent>) { m_HeldTypes.emplace_back(ComponentVariations::CollisionBody);  }
+			if(std::is_same_v<T, BoxColliderComponent>) { m_HeldTypes.emplace_back(ComponentVariations::BoxCollider);  }
+			if(std::is_same_v<T, CapsuleColliderComponent>) { m_HeldTypes.emplace_back(ComponentVariations::CapsuleCollider);  }
+			if(std::is_same_v<T, SphereColliderComponent>) { m_HeldTypes.emplace_back(ComponentVariations::SphereCollider);  }
+			if(std::is_same_v<T, HeightFieldColliderComponent>) { m_HeldTypes.emplace_back(ComponentVariations::HeightFieldCollider);  }
+			if(std::is_same_v<T, ConvexMeshColliderComponent>) { m_HeldTypes.emplace_back(ComponentVariations::ConvexMeshCollider);  }
+			if(std::is_same_v<T, ConcaveMeshColliderComponent>) { m_HeldTypes.emplace_back(ComponentVariations::ConcaveMeshCollider);  }
 		}
 
 		
@@ -521,7 +529,7 @@ namespace tnah {
 		bool m_Active = true;
 
 		/** @brief	vector of the held types*/
-		std::vector<ComponentTypes> m_HeldTypes = {};
+		std::vector<ComponentVariations> m_HeldTypes = {};
 
 		/**
 		 * @class	Scene

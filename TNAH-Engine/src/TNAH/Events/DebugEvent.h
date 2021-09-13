@@ -9,7 +9,7 @@ namespace tnah {
 	 *
 	 * @brief	A debug event class that inherits from the base event class
 	 *
-	 * @author	Plush
+	 * @author	Dylan Blereau
 	 * @date	10/09/2021
 	 */
 
@@ -22,7 +22,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets the name and description details and stores them as a pair
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 *
 		 * @returns	The details.

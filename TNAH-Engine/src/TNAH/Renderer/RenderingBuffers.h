@@ -23,7 +23,7 @@ namespace tnah {
 	 *
 	 * @brief	Shader data type size
 	 *
-	 * @author	Plush
+	 * @author	Dylan Blereau
 	 * @date	12/09/2021
 	 *
 	 * @param 	type	The type.
@@ -60,7 +60,7 @@ namespace tnah {
 	 *
 	 * @brief	A buffer element.
 	 *
-	 * @author	Plush
+	 * @author	Dylan Blereau
 	 * @date	12/09/2021
 	 */
 
@@ -87,7 +87,7 @@ namespace tnah {
 		 *
 		 * @brief	Defaulted constructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 */
 
@@ -98,7 +98,7 @@ namespace tnah {
 		 *
 		 * @brief	Constructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	type	  	The type.
@@ -116,7 +116,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets component count
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @returns	The component count.
@@ -147,47 +147,36 @@ namespace tnah {
 	};
 
 	/**
-	 * @class	BufferLayout
-	 *
-	 * @brief	A buffer layout class responsible for handling the contents of a buffer
-	 *
-	 * @author	Plush
-	 * @date	12/09/2021
-	 */
-
-	class BufferLayout
-	{
-	public:
-
-		/**
-		 * @fn	BufferLayout::BufferLayout()
-		 *
-		 * @brief	Default constructor
-		 *
-		 * @author	Plush
-		 * @date	12/09/2021
-		 */
-
-		BufferLayout() {}
-
-		/**
-		 * @fn	BufferLayout::BufferLayout(std::initializer_list<BufferElement> elements)
-		 *
-		 * @brief	Constructor
-		 *
-		 * @author	Plush
-		 * @date	12/09/2021
-		 *
-		 * @param 	elements	The elements.
-		 */
-
-		BufferLayout(std::initializer_list<BufferElement> elements)
-
+	* @class	VertexBufferLayout
+	*
+	* @brief	A buffer layout class responsible for handling the contents of a buffer
+	*
+	* @author	Dylan Blereau
+	* @date	12/09/2021
+	*/
 	class VertexBufferLayout
 	{
 	public:
+		/**
+		* @fn	VertexBufferLayout::VertexBufferLayout()
+		*
+		* @brief	Default constructor
+		*
+		* @author	Dylan Blereau
+		* @date	12/09/2021
+		*/
 		VertexBufferLayout() {}
 
+		/**
+		* @fn	VertexBufferLayout::VertexBufferLayout(std::initializer_list<BufferElement> elements)
+		*
+		* @brief	Constructor
+		*
+		* @author	Dylan Blereau
+		* @date	12/09/2021
+		*
+		* @param 	elements	The elements.
+		*/
 		VertexBufferLayout(std::initializer_list<BufferElement> elements)
 
 			: m_Elements(elements)
@@ -196,11 +185,11 @@ namespace tnah {
 		}
 
 		/**
-		 * @fn	uint32_t BufferLayout::GetStride() const
+		 * @fn	uint32_t VertexBufferLayout::GetStride() const
 		 *
 		 * @brief	Gets the stride
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @returns	The stride.
@@ -209,11 +198,11 @@ namespace tnah {
 		uint32_t GetStride() const { return m_Stride; }
 
 		/**
-		 * @fn	const std::vector<BufferElement>& BufferLayout::GetElements() const
+		 * @fn	const std::vector<BufferElement>& VertexBufferLayout::GetElements() const
 		 *
 		 * @brief	Gets the elements
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @returns	The elements.
@@ -223,11 +212,11 @@ namespace tnah {
 
 
 		/**
-		 * @fn	std::vector<BufferElement>::iterator BufferLayout::begin()
+		 * @fn	std::vector<BufferElement>::iterator VertexBufferLayout::begin()
 		 *
 		 * @brief	Gets an iterator from the begin point of a vector
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @returns	A std::vector<BufferElement>::iterator.
@@ -240,11 +229,11 @@ namespace tnah {
 		std::vector<BufferElement>::iterator begin() { return m_Elements.begin(); }
 
 		/**
-		 * @fn	std::vector<BufferElement>::iterator BufferLayout::end()
+		 * @fn	std::vector<BufferElement>::iterator VertexBufferLayout::end()
 		 *
 		 * @brief	Gets an iterator from the end point of a vector
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @returns	A std::vector<BufferElement>::iterator.
@@ -253,11 +242,11 @@ namespace tnah {
 		std::vector<BufferElement>::iterator end() { return m_Elements.end(); }
 
 		/**
-		 * @fn	std::vector<BufferElement>::const_iterator BufferLayout::begin() const
+		 * @fn	std::vector<BufferElement>::const_iterator VertexBufferLayout::begin() const
 		 *
 		 * @brief	Gets a const iterator from the begin point of a vector
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @returns	A std::vector<BufferElement>::const_iterator.
@@ -266,11 +255,11 @@ namespace tnah {
 		std::vector<BufferElement>::const_iterator begin() const { return m_Elements.begin(); }
 
 		/**
-		 * @fn	std::vector<BufferElement>::const_iterator BufferLayout::end() const
+		 * @fn	std::vector<BufferElement>::const_iterator VertexBufferLayout::end() const
 		 *
 		 * @brief	Gets a const iterator from the end point of a vector
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @returns	A std::vector&lt;BufferElement&gt;::const_iterator.
@@ -280,11 +269,11 @@ namespace tnah {
 	private:
 
 		/**
-		 * @fn	static void BufferLayout::CalculateOffsetsAndStride(std::vector<BufferElement>& elements, uint32_t& stride)
+		 * @fn	static void VertexBufferLayout::CalculateOffsetsAndStride(std::vector<BufferElement>& elements, uint32_t& stride)
 		 *
 		 * @brief	Calculates the offsets and stride
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param [in,out]	elements	The elements.
@@ -337,15 +326,13 @@ namespace tnah {
 
 
 	/**
-	 * @struct	DrawMode
+	 * @struct	BufferDrawMode
 	 *
 	 * @brief	A draw mode.
 	 *
-	 * @author	Plush
+	 * @author	Dylan Blereau
 	 * @date	12/09/2021
 	 */
-
-	struct DrawMode
 
 	struct BufferDrawMode
 
@@ -359,7 +346,7 @@ namespace tnah {
 	 *
 	 * @brief	VertexBuffer class that abstracts the opengl calls required to use a vbo 
 	 *
-	 * @author	Plush
+	 * @author	Dylan Blereau
 	 * @date	12/09/2021
 	 */
 
@@ -372,7 +359,7 @@ namespace tnah {
 		 *
 		 * @brief	Defaulted destructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 */
 
@@ -383,7 +370,7 @@ namespace tnah {
 		 *
 		 * @brief	Binds this object
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 */
 
@@ -394,7 +381,7 @@ namespace tnah {
 		 *
 		 * @brief	Unbinds this object
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 */
 
@@ -405,7 +392,7 @@ namespace tnah {
 		 *
 		 * @brief	Sets data
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	size	The size.
@@ -421,7 +408,7 @@ namespace tnah {
 		 *
 		 * @brief	Creates a layout
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	location	The location.
@@ -436,7 +423,7 @@ namespace tnah {
 		 *
 		 * @brief	Disables the layout
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	location	The location.
@@ -446,56 +433,53 @@ namespace tnah {
 
 
 		/**
-		 * @fn	virtual const BufferLayout& VertexBuffer::GetLayout() const = 0;
+		 * @fn	virtual const VertexBufferLayout& VertexBuffer::GetLayout() const = 0;
 		 *
 		 * @brief	Gets the layout
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @returns	The layout.
 		 */
-
-		virtual const BufferLayout& GetLayout() const = 0;
+		virtual const VertexBufferLayout& GetLayout() const = 0;
 
 		/**
-		 * @fn	virtual void VertexBuffer::SetLayout(const BufferLayout& layout) = 0;
+		 * @fn	virtual void VertexBuffer::SetLayout(const VertexBufferLayout& layout) = 0;
 		 *
 		 * @brief	Sets a layout
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	layout	The layout.
 		 */
-
-		virtual void SetLayout(const BufferLayout& layout) = 0;
+		virtual void SetLayout(const VertexBufferLayout& layout) = 0;
 
 		/**
 		 * @fn	static Ref<VertexBuffer> VertexBuffer::Create();
 		 *
 		 * @brief	Creates a new VertexBuffer
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @returns	A VertexBuffer
 		 */
+		static Ref<VertexBuffer> Create();
+
 		
-		virtual const VertexBufferLayout& GetLayout() const = 0;
-		virtual void SetLayout(const VertexBufferLayout& layout) = 0;
+		
 
 		
 		static bool CheckIntShaderDataTypes(const BufferElement& element);
-
-		static Ref<VertexBuffer> Create();
-
+		
 		/**
 		 * @fn	static Ref<VertexBuffer> VertexBuffer::Create(float* verticies, uint32_t size);
 		 *
 		 * @brief	Creates a new VertexBuffer
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param [in,out]	verticies	If non-null, the verticies.
@@ -511,7 +495,7 @@ namespace tnah {
 		 *
 		 * @brief	Creates a new VertexBuffer
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param [in,out]	verticies	If non-null, the verticies.
@@ -528,7 +512,7 @@ namespace tnah {
 	 *
 	 * @brief	Class that allows for the creation of Index Buffers (IBO)
 	 *
-	 * @author	Plush
+	 * @author	Dylan Blereau
 	 * @date	12/09/2021
 	 */
 
@@ -549,7 +533,7 @@ namespace tnah {
 		 *
 		 * @brief	Defaulted destructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 */
 
@@ -560,7 +544,7 @@ namespace tnah {
 		 *
 		 * @brief	Binds this object
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 */
 
@@ -571,7 +555,7 @@ namespace tnah {
 		 *
 		 * @brief	Unbinds this object
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 */
 
@@ -582,23 +566,22 @@ namespace tnah {
 		 *
 		 * @brief	Gets the count
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @returns	The count.
 		 */
+		virtual uint32_t GetCount() const = 0;
 
 
 		virtual int GetDataType() const = 0;
-
-		virtual uint32_t GetCount() const = 0;
-
+		
 		/**
 		 * @fn	static Ref<IndexBuffer> IndexBuffer::Create(uint32_t* indices, uint32_t size);
 		 *
 		 * @brief	Creates a new IndexBuffer
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param [in,out]	indices	If non-null, the indices.
@@ -614,7 +597,7 @@ namespace tnah {
 		 *
 		 * @brief	Creates a new IndexBuffer
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param [in,out]	indices	If non-null, the indices.
@@ -630,7 +613,7 @@ namespace tnah {
 		 *
 		 * @brief	Creates an empty index buffer with a size.
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	size	The size.
@@ -660,7 +643,7 @@ namespace tnah {
 	 *
 	 * @brief	A renderbuffer specification.
 	 *
-	 * @author	Plush
+	 * @author	Dylan Blereau
 	 * @date	12/09/2021
 	 */
 
@@ -690,7 +673,7 @@ namespace tnah {
 		 *
 		 * @brief	Defaulted constructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 */
 
@@ -701,7 +684,7 @@ namespace tnah {
 		 *
 		 * @brief	Constructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	valid	The valid.
@@ -727,7 +710,7 @@ namespace tnah {
 	 *
 	 * @brief	A framebuffer specification.
 	 *
-	 * @author	Plush
+	 * @author	Dylan Blereau
 	 * @date	12/09/2021
 	 */
 
@@ -780,7 +763,7 @@ namespace tnah {
 	 *
 	 * @brief	A framebuffer class
 	 *
-	 * @author	Plush
+	 * @author	Dylan Blereau
 	 * @date	12/09/2021
 	 */
 
@@ -793,7 +776,7 @@ namespace tnah {
 		 *
 		 * @brief	Defaulted destructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 */
 
@@ -804,7 +787,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets the specification
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @returns	The specification.
@@ -817,7 +800,7 @@ namespace tnah {
 		 *
 		 * @brief	Draw to next
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 */
 
@@ -828,7 +811,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets color attachment
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @returns	The color attachment.
@@ -841,7 +824,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets color attachment
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	attachmentNumber	The attachment number.
@@ -856,7 +839,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets total color attachments
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @returns	The total color attachments.
@@ -869,7 +852,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets depth attachment identifier
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @returns	The depth attachment identifier.
@@ -882,7 +865,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets depth attachment identifier
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	attachmentNumber	The attachment number.
@@ -897,7 +880,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets total depth attachments
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @returns	The total depth attachments.
@@ -910,7 +893,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets render buffer identifier
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @returns	The render buffer identifier.
@@ -923,7 +906,7 @@ namespace tnah {
 		 *
 		 * @brief	Sets renderbuffer specification
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	bufferSlot	The buffer slot.
@@ -937,7 +920,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets renderer identifier
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @returns	The renderer identifier.
@@ -950,7 +933,7 @@ namespace tnah {
 		 *
 		 * @brief	Binds the given attachment slot
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	attachmentSlot	(Optional) The attachment slot.
@@ -963,7 +946,7 @@ namespace tnah {
 		 *
 		 * @brief	Unbinds this object
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 */
 
@@ -974,7 +957,7 @@ namespace tnah {
 		 *
 		 * @brief	Rebuilds the given specifier
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	spec	The specifier.
@@ -987,7 +970,7 @@ namespace tnah {
 		 *
 		 * @brief	Creates a new FrameBuffer
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	spec				The specifier.
@@ -1004,7 +987,7 @@ namespace tnah {
 		 *
 		 * @brief	Creates a new FrameBuffer
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	spec				The specifier.
@@ -1021,7 +1004,7 @@ namespace tnah {
 		 *
 		 * @brief	Creates a new FrameBuffer
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	spec	  	The specifier.
@@ -1037,7 +1020,7 @@ namespace tnah {
 		 *
 		 * @brief	Select draw to buffer
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	mode				(Optional) The mode.
@@ -1051,7 +1034,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets format from specifier
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	spec	The specifier.
@@ -1067,7 +1050,7 @@ namespace tnah {
 	 *
 	 * @brief	A renderbuffer class. Inherits from RefCounted to allow the class to use Ref pointer
 	 *
-	 * @author	Plush
+	 * @author	Dylan Blereau
 	 * @date	12/09/2021
 	 */
 
@@ -1080,7 +1063,7 @@ namespace tnah {
 		 *
 		 * @brief	Defaulted destructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 */
 
@@ -1091,7 +1074,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets renderer identifier
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @returns	The renderer identifier.
@@ -1104,7 +1087,7 @@ namespace tnah {
 		 *
 		 * @brief	Binds this object
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 */
 
@@ -1115,7 +1098,7 @@ namespace tnah {
 		 *
 		 * @brief	Unbinds this object
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 */
 
@@ -1126,7 +1109,7 @@ namespace tnah {
 		 *
 		 * @brief	Rebuilds the given specifier
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	spec	The specifier.
@@ -1139,7 +1122,7 @@ namespace tnah {
 		 *
 		 * @brief	Attach to framebuffer
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 */
 
@@ -1150,7 +1133,7 @@ namespace tnah {
 		 *
 		 * @brief	Creates a new RenderBuffer
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	spec	The specifier.
@@ -1165,7 +1148,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets format from specification
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	spec	The specifier.
@@ -1180,7 +1163,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets framebuffer format from specification
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	spec	The specifier.

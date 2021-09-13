@@ -1,7 +1,7 @@
 #pragma once
 #include "TNAH/Core/Core.h"
 #include "TNAH/Core/FileStructures.h"
-#include "ComponentBase.h"
+#include "ComponentIdentification.h"
 
 namespace tnah {
 
@@ -14,7 +14,7 @@ namespace tnah {
 	 * @date	10/09/2021
 	 **************************************************************************************************/
 
-	class AudioSourceComponent : public Component
+	class AudioSourceComponent
 	{
 	public:
 
@@ -107,12 +107,18 @@ namespace tnah {
 		/** @brief	The file */
 		Resource m_File;
 
+		
+
 	private:
 
 		/** @brief	True to start load */
 		bool m_StartLoad;
 		friend class EditorUI;
 		inline static std::string s_SearchString = "audio source component";
+		inline static ComponentTypes s_Types = {
+			{ComponentVariations::AudioSource},
+{{ComponentCategory::Audio}}
+		};
 	};
 
 	/**********************************************************************************************//**
@@ -124,7 +130,7 @@ namespace tnah {
 	 * @date	10/09/2021
 	 **************************************************************************************************/
 
-	class AudioListenerComponent : public Component
+	class AudioListenerComponent
 	{
 	public:
 
@@ -141,6 +147,8 @@ namespace tnah {
 
 		AudioListenerComponent(bool active = false) : m_ActiveListing(active) {}
 
+		
+
 
 		/** @brief	True to active listing */
 		bool m_ActiveListing;
@@ -148,6 +156,10 @@ namespace tnah {
 	private:
 		friend class EditorUI;
 		inline static std::string s_SearchString = "audio listener component";
+		inline static ComponentTypes s_Types = {
+			{ComponentVariations::AudioListener},
+{{ComponentCategory::Audio}}
+		};
 	};
 
 }

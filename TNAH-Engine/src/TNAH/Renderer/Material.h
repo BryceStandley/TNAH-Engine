@@ -13,7 +13,7 @@ namespace tnah
 	 *
 	 * @brief	A material properties struct.
 	 *
-	 * @author	Plush
+	 * @author	Dylan Blereau
 	 * @date	12/09/2021
 	 */
 
@@ -31,7 +31,7 @@ namespace tnah
 		 *
 		 * @brief	Defaulted constructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 */
 
@@ -42,7 +42,7 @@ namespace tnah
 		 *
 		 * @brief	Constructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	shine	The shine.
@@ -63,7 +63,7 @@ namespace tnah
 		 *
 		 * @brief	Creates a new material
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	shader	The shader.
@@ -78,7 +78,7 @@ namespace tnah
 		 *
 		 * @brief	Creates a new material
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	shader	  	The shader.
@@ -94,7 +94,7 @@ namespace tnah
 		 *
 		 * @brief	Creates a new material
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	vertexShaderPath  	Full pathname of the vertex shader file.
@@ -110,7 +110,7 @@ namespace tnah
 		 *
 		 * @brief	Creates a new material
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	vertexShaderPath  	Full pathname of the vertex shader file.
@@ -127,7 +127,7 @@ namespace tnah
 		 *
 		 * @brief	Creates a new material
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	vertexShaderPath  	Full pathname of the vertex shader file.
@@ -145,7 +145,7 @@ namespace tnah
 		 *
 		 * @brief	Sets the textures
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	textures	The textures.
@@ -158,7 +158,7 @@ namespace tnah
 		 *
 		 * @brief	Bind textures
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 */
 
@@ -169,7 +169,7 @@ namespace tnah
 		 *
 		 * @brief	Bind shader
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 */
 
@@ -180,7 +180,7 @@ namespace tnah
 		 *
 		 * @brief	Unbind shader
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 */
 
@@ -191,7 +191,7 @@ namespace tnah
 		 *
 		 * @brief	Gets the shader
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @returns	The shader.
@@ -204,7 +204,7 @@ namespace tnah
 		 *
 		 * @brief	Gets the textures
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @returns	The textures.
@@ -217,7 +217,7 @@ namespace tnah
 		 *
 		 * @brief	Gets the properties
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @returns	The properties.
@@ -230,7 +230,7 @@ namespace tnah
 		 *
 		 * @brief	Destructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 */
 
@@ -241,7 +241,7 @@ namespace tnah
 		 *
 		 * @brief	Default constructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 */
 
@@ -252,7 +252,7 @@ namespace tnah
 		 *
 		 * @brief	Constructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	shader	The shader.
@@ -265,7 +265,7 @@ namespace tnah
 		 *
 		 * @brief	Constructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	shader	  	The shader.
@@ -279,7 +279,7 @@ namespace tnah
 		 *
 		 * @brief	Constructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	properties	The properties.
@@ -292,7 +292,7 @@ namespace tnah
 		 *
 		 * @brief	Constructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	vertexShaderPath  	Full pathname of the vertex shader file.
@@ -306,7 +306,7 @@ namespace tnah
 		 *
 		 * @brief	Constructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	vertexShaderPath  	Full pathname of the vertex shader file.
@@ -321,7 +321,7 @@ namespace tnah
 		 *
 		 * @brief	Constructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	vertexShaderPath  	Full pathname of the vertex shader file.
@@ -354,7 +354,7 @@ namespace tnah
 	 *
 	 * @brief	A skybox material class that inherits from the material class
 	 *
-	 * @author	Plush
+	 * @author	Dylan Blereau
 	 * @date	12/09/2021
 	 */
 
@@ -367,7 +367,7 @@ namespace tnah
 		 *
 		 * @brief	Creates a new Skybox Material
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	shader	The shader.
@@ -382,7 +382,7 @@ namespace tnah
 		 *
 		 * @brief	Creates a new Skybox Material
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	shader			 	The shader.
@@ -398,7 +398,7 @@ namespace tnah
 		 *
 		 * @brief	Creates a new Skybox Material
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	shader	  	The shader.
@@ -414,7 +414,7 @@ namespace tnah
 		 *
 		 * @brief	Creates a new Skybox Material
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	shader			 	The shader.
@@ -431,7 +431,7 @@ namespace tnah
 		 *
 		 * @brief	Creates a new Skybox Material
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	vertexShaderPath  	Full pathname of the vertex shader file.
@@ -447,7 +447,7 @@ namespace tnah
 		 *
 		 * @brief	Creates a new Skybox Material
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	vertexShaderPath  	Full pathname of the vertex shader file.
@@ -464,7 +464,7 @@ namespace tnah
 		 *
 		 * @brief	Creates a new Skybox Material
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	vertexShaderPath  	Full pathname of the vertex shader file.
@@ -482,7 +482,7 @@ namespace tnah
 		 *
 		 * @brief	Creates a new Skybox Material
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	vertexShaderPath  	Full pathname of the vertex shader file.
@@ -500,7 +500,7 @@ namespace tnah
 		 *
 		 * @brief	Bind textures
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 */
 
@@ -511,7 +511,7 @@ namespace tnah
 		 *
 		 * @brief	Constructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	shader	The shader.
@@ -524,7 +524,7 @@ namespace tnah
 		 *
 		 * @brief	Constructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	shader			 	The shader.
@@ -538,7 +538,7 @@ namespace tnah
 		 *
 		 * @brief	Constructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	shader	  	The shader.
@@ -552,7 +552,7 @@ namespace tnah
 		 *
 		 * @brief	Constructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	shader			 	The shader.
@@ -567,7 +567,7 @@ namespace tnah
 		 *
 		 * @brief	Constructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	vertexShaderPath  	Full pathname of the vertex shader file.
@@ -581,7 +581,7 @@ namespace tnah
 		 *
 		 * @brief	Constructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	vertexShaderPath  	Full pathname of the vertex shader file.
@@ -596,7 +596,7 @@ namespace tnah
 		 *
 		 * @brief	Constructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	vertexShaderPath  	Full pathname of the vertex shader file.
@@ -612,7 +612,7 @@ namespace tnah
 		 *
 		 * @brief	Constructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	vertexShaderPath  	Full pathname of the vertex shader file.
@@ -628,7 +628,7 @@ namespace tnah
 		 *
 		 * @brief	Gets cubemap textures
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @returns	The cubemap textures.
@@ -641,7 +641,7 @@ namespace tnah
 		 *
 		 * @brief	Gets cubemap properties
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @returns	The cubemap properties.
@@ -654,7 +654,7 @@ namespace tnah
 		 *
 		 * @brief	Destructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 */
 

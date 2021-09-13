@@ -45,7 +45,7 @@ namespace tnah
 	 *
 	 * @brief	A base Application class.
 	 *
-	 * @author	Plush
+	 * @author	Dylan Blereau
 	 * @date	10/09/2021
 	 */
 
@@ -58,7 +58,7 @@ namespace tnah
 		 *
 		 * @brief	Constructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 *
 		 * @param 	name	(Optional) The name of the application.
@@ -71,7 +71,7 @@ namespace tnah
 		 *
 		 * @brief	Destructor
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 */
 
@@ -82,7 +82,7 @@ namespace tnah
 		 *
 		 * @brief	Runs this object
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 */
 
@@ -93,7 +93,7 @@ namespace tnah
 		 *
 		 * @brief	Executes the 'event' action
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 *
 		 * @param [in,out]	e	an Event to process.
@@ -106,7 +106,7 @@ namespace tnah
 		 *
 		 * @brief	Pushes a layer
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 *
 		 * @param [in,out]	layer	If non-null, the layer.
@@ -119,7 +119,7 @@ namespace tnah
 		 *
 		 * @brief	Pushes an overlay
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 *
 		 * @param [in,out]	overlay	If non-null, the overlay.
@@ -132,7 +132,7 @@ namespace tnah
 		 *
 		 * @brief	Closes this object
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 */
 
@@ -145,7 +145,7 @@ namespace tnah
 		 *
 		 * @brief	Gets the window
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 *
 		 * @returns	The window.
@@ -158,7 +158,7 @@ namespace tnah
 		 *
 		 * @brief	Opens file from browser
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 *
 		 * @returns	A std::pair&lt;std::string,int&gt;
@@ -171,7 +171,7 @@ namespace tnah
 		 *
 		 * @brief	Opens audio from browser
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 *
 		 * @returns	A std::pair&lt;std::string,int&gt;
@@ -184,7 +184,7 @@ namespace tnah
 		 *
 		 * @brief	Opens mesh from browser
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 *
 		 * @returns	A std::pair&lt;std::string,int&gt;
@@ -197,7 +197,7 @@ namespace tnah
 		 *
 		 * @brief	Saves a file
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 *
 		 * @param 	fileName	Filename of the file.
@@ -212,7 +212,7 @@ namespace tnah
 		 *
 		 * @brief	Determines if the editor if active
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 *
 		 * @returns	True if it succeeds, false if it fails.
@@ -225,65 +225,15 @@ namespace tnah
 		 *
 		 * @brief	Sets editor mode
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 *
 		 * @param 	isEditor	True if is editor, false if not.
 		 */
 
 		void SetEditorMode(const bool& isEditor) { m_IsEditor = isEditor; }
-
-		/**
-		 * @fn	virtual bool& Application::GetCursorToggleStatus() = 0;
-		 *
-		 * @brief	Pure virtual function that gets cursor toggle status
-		 *
-		 * @author	Plush
-		 * @date	10/09/2021
-		 *
-		 * @returns	The cursor toggle status.
-		 */
-
-		virtual bool& GetCursorToggleStatus() = 0;
-
-		/**
-		 * @fn	virtual bool& Application::GetWireframeToggleStatus() = 0;
-		 *
-		 * @brief	Pure virtual function that gets wireframe toggle status
-		 *
-		 * @author	Plush
-		 * @date	10/09/2021
-		 *
-		 * @returns	The wireframe toggle status.
-		 */
-
-		virtual bool& GetWireframeToggleStatus() = 0;
-
-		/**
-		 * @fn	virtual bool& Application::GetFullscreenToggleStatus() = 0;
-		 *
-		 * @brief	Pure virtual function that gets fullscreen toggle status
-		 *
-		 * @author	Plush
-		 * @date	10/09/2021
-		 *
-		 * @returns	The fullscreen toggle status.
-		 */
-
-		virtual bool& GetFullscreenToggleStatus() = 0;
-
-		/**
-		 * @fn	virtual bool& Application::GetVSyncToggleStatus() = 0;
-		 *
-		 * @brief	Pure virtual function that gets vsync toggle status
-		 *
-		 * @author	Plush
-		 * @date	10/09/2021
-		 *
-		 * @returns	The vsync toggle status.
-		 */
-
-		virtual bool& GetVSyncToggleStatus() = 0;
+		bool& GetDebugModeStatus() { return m_DebugModeEnabled;  }
+		void SetDebugStatusChange() { m_DebugModeToggled = true; }
 	
 	private:
 
@@ -292,7 +242,7 @@ namespace tnah
 		 *
 		 * @brief	Executes the 'window close' action
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 *
 		 * @param [in,out]	e	A WindowCloseEvent to process.
@@ -307,7 +257,7 @@ namespace tnah
 		 *
 		 * @brief	Executes the 'window resize' action
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 *
 		 * @param [in,out]	e	A WindowResizeEvent to process.
@@ -322,7 +272,7 @@ namespace tnah
 		 *
 		 * @brief	Executes the 'monitor resolution change' action
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 *
 		 * @param [in,out]	e	A MonitorResolutionChangeEvent to process.
@@ -333,8 +283,35 @@ namespace tnah
 		bool OnMonitorResolutionChange(MonitorResolutionChangeEvent& e);
 
 		
-		
-		/** @brief	The window */
+		/**
+		* @fn	void Application::CheckDebugModeStatus()
+		*
+		* @brief	Checks the status of the application and if in debug mode, set the logger to debuf
+		*
+		* @author	Bryce Standley
+		* @date	6/09/2021
+		*
+		*/
+		void CheckDebugModeStatus()
+		{
+			if(m_DebugModeEnabled && m_DebugModeToggled)
+			{
+				m_DebugModeToggled = false;
+				TNAH_CORE_INFO("Debug Mode Enabled");
+				Log::SetLoggerDebugMode();
+			}
+			else if(!m_DebugModeEnabled && m_DebugModeToggled)
+			{
+				m_DebugModeToggled = false;
+				Log::SetLoggerCoreMode();
+				TNAH_CORE_INFO("Debug Mode Disabled");
+			}
+			
+		} 
+
+	
+	private:
+        /** @brief	The window */		
 		Scope<Window> m_Window;
 
 
@@ -360,6 +337,8 @@ namespace tnah
 
 		/** @brief	True if is editor, false if not */
 		bool m_IsEditor = false;
+		bool m_DebugModeEnabled = false;
+		bool m_DebugModeToggled = false;
 
 		
 		
@@ -371,7 +350,7 @@ namespace tnah
 		 *
 		 * @brief	Main entry-point for this application
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	10/09/2021
 		 *
 		 * @param 	argc	The number of command-line arguments provided.
@@ -390,7 +369,7 @@ namespace tnah
 	 *
 	 * @brief	Creates the application
 	 *
-	 * @author	Plush
+	 * @author	Dylan Blereau
 	 * @date	10/09/2021
 	 *
 	 * @returns	Null if it fails, else the new application.

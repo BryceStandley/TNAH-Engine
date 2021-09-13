@@ -5,7 +5,7 @@
  *
  * @brief	Information about the bone.
  *
- * @author	Plush
+ * @author	Dylan Blereau
  * @date	12/09/2021
  */
 

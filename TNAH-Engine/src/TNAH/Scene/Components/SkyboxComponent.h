@@ -2,7 +2,7 @@
 #include "TNAH/Core/Core.h"
 #include <glm/glm.hpp>
 
-#include "ComponentBase.h"
+#include "ComponentIdentification.h"
 #include "TNAH/Renderer/RenderingBuffers.h"
 #include "TNAH/Renderer/Material.h"
 #include "TNAH/Renderer/VertexArray.h"
@@ -158,11 +158,13 @@ namespace tnah {
 	 * @date	10/09/2021
 	 **************************************************************************************************/
 
-	class SkyboxComponent : public Component
+	class SkyboxComponent
 	{
 	public:
 		/** @brief	The scene skybox */
 		Skybox* SceneSkybox;
+
+		
 
 		/**********************************************************************************************//**
 		 * @fn	SkyboxComponent::SkyboxComponent()
@@ -210,5 +212,9 @@ namespace tnah {
 	private:
 		friend class EditorUI;
 		inline static std::string s_SearchString = "skybox component";
+		inline static ComponentTypes s_Types = {
+			{ComponentVariations::Skybox},
+{{ComponentCategory::Core, ComponentCategory::Rendering, ComponentCategory::Environment}}
+		};
 	};
 }

@@ -8,7 +8,7 @@ namespace tnah {
 	 *
 	 * @brief	A render command class that makes use of the renderer API to perform openGL renderer actions
 	 *
-	 * @author	Plush
+	 * @author	Dylan Blereau
 	 * @date	12/09/2021
 	 */
 
@@ -21,7 +21,7 @@ namespace tnah {
 		 *
 		 * @brief	Initializes this object
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 */
 
@@ -35,7 +35,7 @@ namespace tnah {
 		 *
 		 * @brief	Sets clear color
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	color	The color.
@@ -51,7 +51,7 @@ namespace tnah {
 		 *
 		 * @brief	Clears this object to its blank/initial state
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 */
 
@@ -60,20 +60,49 @@ namespace tnah {
 			s_RendererAPI->Clear();
 		}
 
+		/**
+		 * @fn	inline static void RenderCommand::DrawArray(const Ref<VertexArray> vertexArray, const DrawMode& mode = DrawMode::Triangles)
+		 *
+		 * @brief	Draws a vertex array
+		 *
+		 * @author	Dylan Blereau
+		 * @date	12/09/2021
+		 * 
+		 * @param vertexArray The vertexArray object used to draw from.
+		 * @param mode The DrawMode used to draw the array. Default DrawMode::Triangles
+		 * 
+		 */
 
+		inline static void DrawArray(const Ref<VertexArray> vertexArray, const DrawMode& mode = DrawMode::Triangles)
 		{
 			s_RendererAPI->DrawArray(vertexArray, mode);
 		}
 
-
+		/**
+		 * @fn	inline static void RenderCommand::DrawIndexed(const Ref<VertexArray> vertexArray, const  DrawMode& mode = DrawMode::Triangles, void* indicesStart = nullptr)
+		 *
+		 * @brief	Draws a vertex array
+		 *
+		 * @author	Dylan Blereau
+		 * @date	12/09/2021
+		 *
+		 * @param vertexArray The vertexArray object used to draw from.
+		 * @param mode The DrawMode used to draw the array. Default DrawMode::Triangles
+		 * @param indicesStart The starting point in memory of the indicies.
+		 *
+		 */
+		inline static void DrawIndexed(const Ref<VertexArray> vertexArray, const  DrawMode& mode = DrawMode::Triangles, void* indicesStart = nullptr)
+		{
+			s_RendererAPI->DrawIndexed(vertexArray, mode, indicesStart);
 		}
 
+		
 		/**
 		 * @fn	inline static void RenderCommand::SetViewport(const uint32_t x, const uint32_t y, const uint32_t width, const uint32_t height)
 		 *
 		 * @brief	Sets a viewport
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	x	  	An uint32_t to process.
@@ -92,7 +121,7 @@ namespace tnah {
 		 *
 		 * @brief	Sets a wireframe
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	enable	True to enable, false to disable.
@@ -108,7 +137,7 @@ namespace tnah {
 		 *
 		 * @brief	Check full screen
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	width 	The width.
@@ -127,7 +156,7 @@ namespace tnah {
 		 *
 		 * @brief	Sets cull mode
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	mode	The mode.
@@ -143,7 +172,7 @@ namespace tnah {
 		 *
 		 * @brief	Sets depth mask
 		 *
-		 * @author	Plush
+		 * @author	Dylan Blereau
 		 * @date	12/09/2021
 		 *
 		 * @param 	enabled	True to enable, false to disable.
@@ -155,15 +184,47 @@ namespace tnah {
 		}
 
 
+		/**
+		 * @fn	inline static void RenderCommand::SetDepthFunc(const DepthFunc& func)
+		 *
+		 * @brief	Sets depth function mode
+		 *
+		 * @author	Dylan Blereau
+		 * @date	12/09/2021
+		 *
+		 * @param 	func	DepthFunc value to set.
+		 */
+		inline static void SetDepthFunc(const DepthFunc& func)
 		{
 			s_RendererAPI->SetDepthFunc(func);
 		}
-
+		
+		/**
+		 * @fn	inline static void RenderCommand::Disable(const APIEnum& value)
+		 *
+		 * @brief	Disables a given API function
+		 *
+		 * @author	Dylan Blereau
+		 * @date	12/09/2021
+		 *
+		 * @param 	value	APIEnum value to disable.
+		 */
+		inline static void Disable(const APIEnum& value)
 		{
 			s_RendererAPI->Disable(value);
 		}
 
-
+		/**
+		 * @fn	inline static void RenderCommand::Enable(const APIEnum& value)
+		 *
+		 * @brief	Enables a given API function
+		 *
+		 * @author	Dylan Blereau
+		 * @date	12/09/2021
+		 *
+		 * @param 	value	APIEnum value to enable.
+		 */
+		inline static void Enable(const APIEnum& value)
 		{
 			s_RendererAPI->Enable(value);
 		}

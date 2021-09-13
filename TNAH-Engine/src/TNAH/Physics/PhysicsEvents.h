@@ -12,7 +12,7 @@ namespace tnah
      *
      * @brief	The physics event class that inherits from the react physics 3d eventListener class
      *
-     * @author	Plush
+     * @author	Dylan Blereau
      * @date	11/09/2021
      */
 
@@ -25,7 +25,7 @@ namespace tnah
          *
          * @brief	Event callback overriding React. Naming must be the same as React.
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	11/09/2021
          *
          * @param 	callbackData	Information describing the callback.
@@ -38,7 +38,7 @@ namespace tnah
          *
          * @brief	Event callback overriding React. Naming must be the same as React.
          *
-         * @author	Plush
+         * @author	Dylan Blereau
          * @date	11/09/2021
          *
          * @param 	callbackData	Information describing the callback.
