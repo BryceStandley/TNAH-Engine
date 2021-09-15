@@ -1,43 +1,27 @@
 #include <tnahpch.h>
 #include "Model.h"
-
-
-
 #include "Renderer.h"
 
 namespace tnah {
-
-    /**
-     * @brief Assimp logger for debugging
-     */
-    struct LogStream : public Assimp::LogStream
-    {
-        static void Initialize()
-        {
-            if (Assimp::DefaultLogger::isNullLogger())
-            {
-                Assimp::DefaultLogger::create("", Assimp::Logger::VERBOSE);
-                Assimp::DefaultLogger::get()->attachStream(new LogStream, Assimp::Logger::Err | Assimp::Logger::Warn);
-            }
-        } 
-
-        void write(const char* message) override
-        {
-            TNAH_CORE_ERROR("Assimp error: {0}", message);
-        }
-    };
-
-#pragma region ImportFlags
+    
+#pragma region AssimpImportFlags
     static const uint32_t s_MeshImportFlags =
             aiProcess_CalcTangentSpace |        // Create binormals/tangents just in case
             aiProcess_Triangulate |             // Make sure we're triangles
             aiProcess_SortByPType |             // Split meshes by primitive type
-            aiProcess_GenNormals |              // Make sure we have legit normals
+            aiProcess_GenSmoothNormals |              // Make sure we have legit normals
             aiProcess_GenUVCoords |             // Convert UVs if required 
             aiProcess_OptimizeMeshes |          // Batch draws where possible
             aiProcess_JoinIdenticalVertices |          
+            aiProcess_LimitBoneWeights |          
+            aiProcess_FlipUVs |          
             aiProcess_ValidateDataStructure;  // Validation
 #pragma endregion 
+
+    Ref<Model> Model::Create()
+    {
+        return Ref<Model>::Create();
+    }
 
     Ref<Model> Model::Create(const std::string& filePath)
     {
@@ -61,46 +45,263 @@ namespace tnah {
         m_Resource = Resource(filePath);
         LoadModel(filePath);
     }
-
+    
     void Model::LoadModel(const std::string& filePath)
     {
-        LogStream::Initialize();
         m_Resource = Resource(filePath);
 
-        m_Importer = std::make_unique<Assimp::Importer>();
-        
-        m_Scene = m_Importer->ReadFile(filePath, s_MeshImportFlags);
-        if(!m_Scene || !m_Scene->HasMeshes())
+        Assimp::Importer importer;
+        const aiScene* scene = importer.ReadFile(filePath, s_MeshImportFlags);
+        if(!scene || !scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
         {
             TNAH_CORE_ERROR("Error model file: {0}", m_Resource.AbsoluteDirectory);
             return;
         }
-        m_IsAnimated = m_Scene->mAnimations != nullptr;
+        m_IsAnimated = scene->mAnimations != nullptr;
 
-        if(m_IsAnimated)
+        //TODO: Add a Renderer function to be able to ask for the Mesh Shader. Most shaders should be loaded and setup on application launch, not when something is loaded in that needs it.
+        //m_Shader = Shader::Create("Resources/shaders/default/mesh/mesh_vertex_static_pbr.glsl", "Resources/shaders/default/mesh/mesh_fragment_static_pbr.glsl");
+        
+        m_GlobalInverseTransform = glm::inverse(Mat4FromAssimpMat4(scene->mRootNode->mTransformation));
+
+       ProcessNode(scene->mRootNode, scene, Mat4FromAssimpMat4(scene->mRootNode->mTransformation));
+    }
+    
+    void Model::ProcessNode(aiNode* node, const aiScene* scene, glm::mat4 nodeTransformation)
+    {
+        for(uint32_t i = 0; i < node->mNumMeshes; i++)
         {
-            //m_Shader = Shader::Create("Resources/shaders/default/mesh/mesh_vertex_anim_pbr.glsl", "Resources/shaders/default/mesh/mesh_fragment_anim_pbr.glsl");
-            m_Shader = Shader::Create("Resources/shaders/default/mesh/mesh_anim_vertex.glsl", "Resources/shaders/default/mesh/mesh_anim_fragment.glsl");
+            aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
+            m_Submeshes.push_back(ProcessSubmesh(mesh, scene, nodeTransformation * Mat4FromAssimpMat4(node->mTransformation)));
+            if(scene->HasAnimations())
+            {
+                ProcessBones(1, mesh);
+                LoadAnimations(scene);
+                LoadAnimationNodes(scene->mRootNode, mesh);
+            }
+        }
+
+        for(uint32_t i = 0; i < node->mNumChildren; i++)
+        {
+            ProcessNode(node->mChildren[i], scene, nodeTransformation * Mat4FromAssimpMat4(node->mTransformation));
+        }
+    }
+
+    Submesh Model::ProcessSubmesh(aiMesh* mesh, const aiScene* scene, glm::mat4 nodeTransformation)
+    {
+        std::vector<Vertex> vertices;
+        std::vector<uint32_t> indices;
+        
+        for(uint32_t i = 0; i < mesh->mNumVertices; i++)
+        {
+            Vertex vertex;
+
+            vertex.Position = Vec3FromAssimpVec3(mesh->mVertices[i]);
+
+            if(mesh->HasNormals())
+            {
+                vertex.Normal = Vec3FromAssimpVec3(mesh->mNormals[i]);
+            }
+
+            if(mesh->mTextureCoords[0])
+            {
+                vertex.TextureCoordinate = Vec2FromAssimpVec3(mesh->mTextureCoords[0][i]);
+
+                if(mesh->HasTangentsAndBitangents())
+                {
+                    vertex.Tangent = Vec3FromAssimpVec3(mesh->mTangents[i]);
+                    vertex.Binormal = Vec3FromAssimpVec3(mesh->mBitangents[i]);
+                }
+            }
+            else
+            {
+                vertex.TextureCoordinate = glm::vec2(0.0f);
+            }
+
+            if(mesh->HasTangentsAndBitangents())
+            {
+                vertex.Tangent = Vec3FromAssimpVec3(mesh->mTangents[i]);
+                vertex.Binormal = Vec3FromAssimpVec3(mesh->mBitangents[i]);
+            }
+
+            vertices.push_back(vertex);
+        }
+
+        for(uint32_t i = 0; i < mesh->mNumFaces; i++)
+        {
+            aiFace face = mesh->mFaces[i];
+            for(uint32_t j = 0; j < face.mNumIndices; j++)
+            {
+                indices.push_back(face.mIndices[j]);
+            }
+        }
+
+        std::vector<Ref<Material>> materials = ProcessMaterials(scene, mesh);
+
+        return Submesh(vertices, indices, materials, nodeTransformation);
+    }
+    
+    void Model::ProcessBones(uint32_t meshIndex, const aiMesh* mesh)
+    {
+        for (uint32_t i = 0 ; i < mesh->mNumBones; ++i)
+        {
+            uint32_t boneIndex;
+            std::string boneName(mesh->mBones[i]->mName.data);
+
+            if (m_BoneMap.find(boneName) == m_BoneMap.end())
+            {
+                boneIndex = m_TotalBones;
+                ++m_TotalBones;
+                Bone bi;
+                m_Bones.push_back(bi);
+            }
+            else
+            {
+                boneIndex = m_BoneMap[boneName];
+            }
+
+            m_BoneMap[boneName] = boneIndex;
+            m_Bones[boneIndex].Offset = Mat4FromAssimpMat4(mesh->mBones[i]->mOffsetMatrix);
+
+            for (uint32_t j = 0 ; j < mesh->mBones[i]->mNumWeights; ++j)
+            {
+                unsigned vertexID = mesh->mBones[i]->mWeights[j].mVertexId;
+                float weight = mesh->mBones[i]->mWeights[j].mWeight;
+                m_Submeshes.at(meshIndex).GetVertices().at(vertexID).AddBoneData(boneIndex, weight);
+            }
+        }
+    }
+
+    std::vector<Ref<Material>> Model::ProcessMaterials(const aiScene* scene, aiMesh* mesh)
+    {
+        aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
+
+        std::vector<Ref<Material>> materials;
+        materials.resize(1);
+        auto totalTextures = TotalTexturesFromAssimpMaterial(material);
+        materials.at(0)->ResizeTextureStorage(totalTextures);
+        uint32_t texturesSet = 0;
+
+        if(AssimpMaterialIsPBR(material))
+        {
+            //TODO: Load PBR textures
+            auto diffuse = GetTextureFromAssimpMaterial(scene, material, aiTextureType_DIFFUSE);
+            if(!diffuse.empty()) materials.at(0)->InsertTextures(diffuse, 0);
+            texturesSet += (uint32_t)diffuse.size();
+
+            auto normals = GetTextureFromAssimpMaterial(scene, material, aiTextureType_NORMALS);
+            if(!normals.empty())materials.at(0)->InsertTextures(normals, texturesSet);
+            texturesSet += (uint32_t)normals.size();
+
+            auto roughness = GetTextureFromAssimpMaterial(scene, material, aiTextureType_SHININESS);
+            if(!roughness.empty()) materials.at(0)->InsertTextures(roughness, texturesSet);
+            texturesSet += (uint32_t)roughness.size();
+
+            auto metalness = GetTextureFromAssimpMaterial(scene, material, aiTextureType_METALNESS);
+            if(!metalness.empty()) materials.at(0)->InsertTextures(metalness, texturesSet);
         }
         else
         {
-            m_Shader = Shader::Create("Resources/shaders/default/mesh/mesh_vertex_static_pbr.glsl", "Resources/shaders/default/mesh/mesh_fragment_static_pbr.glsl");
+            auto diffuse = GetTextureFromAssimpMaterial(scene, material, aiTextureType_DIFFUSE);
+            if(!diffuse.empty()) materials.at(0)->AddTextures(diffuse);
+
+            auto specular = GetTextureFromAssimpMaterial(scene, material, aiTextureType_SPECULAR);
+            if(!specular.empty()) materials.at(0)->AddTextures(specular);
         }
-        
-        m_InverseTransform = glm::inverse(Mat4FromAssimpMat4(m_Scene->mRootNode->mTransformation));
 
-        m_BoundingBox.Min = {FLT_MAX, FLT_MAX, FLT_MAX};
-        m_BoundingBox.Max = { -FLT_MAX, -FLT_MAX, -FLT_MAX };
+        if(materials.at(0)->GetTextures().empty())
+        {
+            //No textures were loaded, create a texture using the base color
+            materials.at(0)->AddTexture(CreateBaseColorTexture(material));
+        }
 
-        m_Submeshes.resize(m_Scene->mNumMeshes);
-        m_Materials.resize(m_Scene->mNumMaterials);
-        
-        ProcessModelSubmeshes(m_Scene,filePath);
-        //CombineSubmeshData();
+        return materials;
     }
 
+    aiNode* Model::FindRootNode(aiNode* node, aiMesh* mesh) const
+    {
+        std::vector<aiString> boneNames;
+        boneNames.reserve(mesh->mNumBones);
+        for(unsigned int i=0; i < mesh->mNumBones; ++i)
+        {
+            boneNames.push_back(mesh->mBones[i]->mName);
+        }
+        for(auto& boneName : boneNames)
+        {
+            aiNode* parent = node->FindNode(boneName)->mParent;
+            if(!std::count(boneNames.begin(),boneNames.end(), parent->mName))
+            {
+                return parent;
+            }
+        }
+        return nullptr;
+    }
 
+    void Model::LoadAnimationNodes(aiNode* node, aiMesh* mesh)
+    {
+        auto rootNode = FindRootNode(node, mesh);
+        if(rootNode == nullptr)
+        {
+            return;
+        }
+        m_RootAnimationNode = LoadNodeHierarchy(rootNode);
+    }
 
+    Node Model::LoadNodeHierarchy(aiNode* rootNode)
+    {
+        Node node;
+        node.Name = rootNode->mName.data;
+        node.Transform = Mat4FromAssimpMat4(rootNode->mTransformation);
+        node.TotalNodeChildren = rootNode->mNumChildren;
+
+        for (unsigned int i = 0; i < node.TotalNodeChildren; ++i)
+        {
+            node.NodeChildren.push_back(LoadNodeHierarchy(rootNode->mChildren[i]));
+        }
+        
+        return node;
+    }
+
+    void Model::LoadAnimations(const aiScene* scene)
+    {
+        std::map<std::string,AnimationFrame> animationMap;
+        for(unsigned int i=0; i < scene->mNumAnimations;++i)
+        {
+            for(unsigned int j =0; j < scene->mAnimations[i]->mNumChannels; ++j)
+            {
+                AnimationFrame keyFrame = {};
+                std::string name = scene->mAnimations[i]->mChannels[j]->mNodeName.C_Str();
+                keyFrame.TotalPositions = scene->mAnimations[i]->mChannels[j]->mNumPositionKeys;
+                keyFrame.TotalRotations = scene->mAnimations[i]->mChannels[j]->mNumRotationKeys;
+                for(unsigned int k=0; k < keyFrame.TotalPositions; ++k)
+                {
+                    keyFrame.Positions.emplace_back(scene->mAnimations[i]->mChannels[j]->mPositionKeys[k].mTime, Vec3FromAssimpVec3(scene->mAnimations[i]->mChannels[j]->mPositionKeys[k].mValue));
+                }
+                for(unsigned int k=0; k < keyFrame.TotalRotations; ++k)
+                {
+                    keyFrame.Rotations.emplace_back(scene->mAnimations[i]->mChannels[j]->mRotationKeys[k].mTime, QuatFromAssimpQuat(scene->mAnimations[i]->mChannels[j]->mRotationKeys[k].mValue));
+                }
+                animationMap.emplace(name, keyFrame);
+            }
+            Animation anim = Animation(scene->mAnimations[i]->mName.C_Str(), animationMap, static_cast<float>(scene->mAnimations[i]->mDuration), static_cast<float>(scene->mAnimations[i]->mTicksPerSecond));
+            m_Animations.push_back(anim);
+        }
+    }
+
+    Animation* Model::GetAnimation(const std::string& animationName)
+    {
+        for(auto& anim : m_Animations)
+        {
+            if(anim.GetName() == animationName)
+            {
+                return &anim;
+            }
+        }
+        return nullptr;
+    }
+
+    //Old mesh processing
+#if 0
     void Model::ProcessModelSubmeshes(const aiScene* scene, const std::string& filePath)
     {
         uint32_t vertexCount = 0;
@@ -686,41 +887,176 @@ namespace tnah {
         
         }
     }
-
-    void Model::CreateRenderInformation()
+#endif
+    
+#pragma region ModelProcessingHelpers
+    
+    glm::mat4 Model::Mat4FromAssimpMat4(const aiMatrix4x4& matrix)
     {
-        if (m_IsAnimated)
+        glm::mat4 result;
+        //the a,b,c,d in assimp is the row ; the 1,2,3,4 is the column
+        result[0][0] = matrix.a1; result[1][0] = matrix.a2; result[2][0] = matrix.a3; result[3][0] = matrix.a4;
+        result[0][1] = matrix.b1; result[1][1] = matrix.b2; result[2][1] = matrix.b3; result[3][1] = matrix.b4;
+        result[0][2] = matrix.c1; result[1][2] = matrix.c2; result[2][2] = matrix.c3; result[3][2] = matrix.c4;
+        result[0][3] = matrix.d1; result[1][3] = matrix.d2; result[2][3] = matrix.d3; result[3][3] = matrix.d4;
+        return result;
+    }
+
+    glm::vec3 Model::Vec3FromAssimpVec3(const aiVector3D& vector)
+    {
+        return glm::vec3(vector.x, vector.y, vector.z);
+    }
+
+    glm::quat Model::QuatFromAssimpQuat(const aiQuaternion& quaternion)
+    {
+        return glm::quat(quaternion.x, quaternion.y, quaternion.z, quaternion.w);
+    }
+    
+    glm::vec2 Model::Vec2FromAssimpVec3(const aiVector3D& vector)
+    {
+        return glm::vec2(vector.x, vector.y);
+    }
+
+    uint32_t Model::TotalTexturesFromAssimpMaterial(const aiMaterial* material)
+    {
+        uint32_t textureTotal = 0;
+        textureTotal += material->GetTextureCount(aiTextureType_DIFFUSE);
+        textureTotal += material->GetTextureCount(aiTextureType_SPECULAR);
+        textureTotal += material->GetTextureCount(aiTextureType_AMBIENT);
+        textureTotal += material->GetTextureCount(aiTextureType_EMISSIVE);
+        textureTotal += material->GetTextureCount(aiTextureType_HEIGHT);
+        textureTotal += material->GetTextureCount(aiTextureType_NORMALS);
+        textureTotal += material->GetTextureCount(aiTextureType_SHININESS);
+        textureTotal += material->GetTextureCount(aiTextureType_OPACITY);
+        textureTotal += material->GetTextureCount(aiTextureType_DISPLACEMENT);
+        textureTotal += material->GetTextureCount(aiTextureType_LIGHTMAP);
+        textureTotal += material->GetTextureCount(aiTextureType_REFLECTION);
+        
+        //PBR
+        textureTotal += material->GetTextureCount(aiTextureType_BASE_COLOR);
+        textureTotal += material->GetTextureCount(aiTextureType_NORMAL_CAMERA);
+        textureTotal += material->GetTextureCount(aiTextureType_EMISSION_COLOR);
+        textureTotal += material->GetTextureCount(aiTextureType_METALNESS);
+        textureTotal += material->GetTextureCount(aiTextureType_DIFFUSE_ROUGHNESS);
+        textureTotal += material->GetTextureCount(aiTextureType_AMBIENT_OCCLUSION);
+
+        return textureTotal;
+    }
+
+    bool Model::AssimpMaterialIsPBR(const aiMaterial* material)
+    {
+        bool pbr = false;
+        if(material->GetTextureCount(aiTextureType_NORMAL_CAMERA) > 0) pbr = true;
+        if(material->GetTextureCount(aiTextureType_EMISSION_COLOR) > 0) pbr = true;
+        if(material->GetTextureCount(aiTextureType_METALNESS) > 0) pbr = true;
+        if(material->GetTextureCount(aiTextureType_DIFFUSE_ROUGHNESS) > 0) pbr = true;
+        if(material->GetTextureCount(aiTextureType_AMBIENT_OCCLUSION) > 0) pbr = true;
+        if(material->GetTextureCount(aiTextureType_BASE_COLOR) > 0) pbr = true;
+        return pbr;
+    }
+
+    std::vector<Ref<Texture2D>> Model::GetTextureFromAssimpMaterial(const aiScene* scene,
+                                                                    const aiMaterial* material,
+                                                                    const aiTextureType& textureType)
+    {
+        if(const uint32_t tCount = material->GetTextureCount(textureType) > 0)
         {
-            m_VertexArray = VertexArray::Create();
-            m_VertexBuffer = VertexBuffer::Create(m_AnimatedVertices.data(), (uint32_t)(m_AnimatedVertices.size() * sizeof(AnimatedVertex)));
-            m_VertexBufferLayout = {
-                { ShaderDataType::Float3, "a_Position" },
-                { ShaderDataType::Float3, "a_Normal" },
-                { ShaderDataType::Float3, "a_Tangent" },
-                { ShaderDataType::Float3, "a_Bitangent" },
-                { ShaderDataType::Float2, "a_TexCoord" },
-                { ShaderDataType::Float4, "a_BoneIDs" },
-                { ShaderDataType::Float4, "a_BoneWeights" }
-            };
-            m_VertexBuffer->SetLayout(m_VertexBufferLayout);
-            m_VertexArray->AddVertexBuffer(m_VertexBuffer);
+            std::vector<Ref<Texture2D>> textures;
+            textures.resize(tCount);
+            for(uint32_t i = 0; i < tCount; i++)
+            {
+                aiString texturePath;
+                if (material->GetTexture(textureType, i, &texturePath) == AI_SUCCESS)
+                {
+                    if(auto aTexture = scene->GetEmbeddedTexture(texturePath.C_Str()))
+                    {
+                        if(auto texture = Texture2D::Create(texturePath.C_Str(), GetTextureNameFromTextureType(textureType), true, const_cast<aiTexture*>(aTexture)))
+                        {
+                            Renderer::RegisterTexture(texture);
+                            textures.at(i) = texture;
+                            continue;
+                        }
+                        textures.at(i) = Renderer::GetMissingTexture();
+                    }
+                
+                    if(auto texture = Texture2D::Create(texturePath.C_Str(), GetTextureNameFromTextureType(textureType)))
+                    {
+                        Renderer::RegisterTexture(texture);
+                        textures.at(i) = texture;
+                    }
+                    textures.at(i) = Renderer::GetMissingTexture();
+                }
+            }
+            return textures;
         }
-        else
+        return std::vector<Ref<Texture2D>>(); // return empty vector if no textures were found
+    }
+
+    Ref<Texture2D> Model::CreateBaseColorTexture(const aiMaterial* material)
+    {
+        aiColor3D color(0.0f, 0.0f, 0.0f);
+        material->Get(AI_MATKEY_BASE_COLOR, color);
+
+        if(auto texture = Texture2D::Create(ImageFormat::RGB, 1,1, {color.r, color.g, color.b, 1.0f}))
         {
-            m_VertexArray = VertexArray::Create();
-            m_VertexBuffer = VertexBuffer::Create(m_Vertices.data(), (uint32_t)(m_Vertices.size() * sizeof(Vertex)));
-            m_VertexBufferLayout = {
-                { ShaderDataType::Float3, "a_Position" },
-                { ShaderDataType::Float3, "a_Normal" },
-                { ShaderDataType::Float3, "a_Tangent" },
-                { ShaderDataType::Float3, "a_Binormal" },
-                { ShaderDataType::Float2, "a_TexCoord" }
-            };
-            m_VertexBuffer->SetLayout(m_VertexBufferLayout);
-            m_VertexArray->AddVertexBuffer(m_VertexBuffer);
+            Renderer::RegisterTexture(texture);
+            return texture;
         }
-        m_IndexBuffer = IndexBuffer::Create(m_Indices.data(), (uint32_t)(m_Indices.size() * 3));
-        m_VertexArray->SetIndexBuffer(m_IndexBuffer);
+        return nullptr;
+    }
+    
+    std::string Model::GetTextureNameFromTextureType(const aiTextureType& textureType)
+    {
+        switch (textureType)
+        {
+        case aiTextureType_NONE:
+            return std::string("NONE");
+        case aiTextureType_DIFFUSE:
+            return std::string("Diffuse");
+        case aiTextureType_SPECULAR:
+            return std::string("Specular");
+        case aiTextureType_AMBIENT:
+            return std::string("Ambient");
+        case aiTextureType_EMISSIVE:
+            return std::string("Emissive");
+        case aiTextureType_HEIGHT:
+            return std::string("Height");
+        case aiTextureType_NORMALS:
+            return std::string("Normals");
+        case aiTextureType_SHININESS:
+            return std::string("Shininess");
+        case aiTextureType_OPACITY:
+            return std::string("Opacity");
+        case aiTextureType_DISPLACEMENT:
+            return std::string("Displacement");
+        case aiTextureType_LIGHTMAP:
+            return std::string("Lightmap");
+        case aiTextureType_REFLECTION:
+            return std::string("Reflection");
+        case aiTextureType_BASE_COLOR:
+            return std::string("Base Color");
+        case aiTextureType_NORMAL_CAMERA:
+            return std::string("Normal Camera");
+        case aiTextureType_EMISSION_COLOR:
+            return std::string("Emission Color");
+        case aiTextureType_METALNESS:
+            return std::string("Metalness");
+        case aiTextureType_DIFFUSE_ROUGHNESS:
+            return std::string("Roughness");
+        case aiTextureType_AMBIENT_OCCLUSION:
+            return std::string("Ambient Occlusion");
+        case aiTextureType_SHEEN:
+            return std::string("Sheen");
+        case aiTextureType_CLEARCOAT:
+            return std::string("Clear Coat");
+        case aiTextureType_TRANSMISSION:
+            return std::string("Transmission");
+        case aiTextureType_UNKNOWN:
+            return std::string("UNKNOWN");
+        case _aiTextureType_Force32Bit:
+            return std::string("FORCE32Bit");
+        default: return std::string("ERROR");
+        }
     }
 
     void Model::DumpMaterialProperties(const aiMaterial* material)
@@ -795,453 +1131,6 @@ namespace tnah {
 
             default: break;
             }
-        }
-    }
-
-    void Model::CombineSubmeshData()
-    {
-#if 0
-        uint32_t totalVerts = 0;
-        uint32_t totalIndices = 0;
-        for(auto& submesh : m_Submeshes)
-        {
-            if(m_IsAnimated)
-            {
-                totalVerts += (uint32_t)submesh.m_AnimatedVertices.size();
-            }
-            else
-            {
-                totalVerts += (uint32_t)submesh.m_Vertices.size();
-            }
-            totalIndices += (uint32_t)submesh.m_Indices.size();
-        }
-
-        if(m_IsAnimated) { m_AnimatedVertices.resize(totalVerts); }
-        else { m_Vertices.resize(totalVerts); }
-        m_Indices.resize(totalIndices);
-        
-        for(auto& submesh : m_Submeshes)
-        {
-            if(m_IsAnimated)
-            {
-                for(auto& v : submesh.m_AnimatedVertices)
-                {
-                    m_AnimatedVertices.push_back(v);
-                }
-                
-            }
-            else
-            {
-                for(auto& v : submesh.m_Vertices)
-                {
-                    m_Vertices.push_back(v);
-                }
-            }
-            
-            for(auto& i : submesh.m_Indices)
-            {
-                m_Indices.push_back(i);
-            }
-        }
-#endif
-        SetupRenderingObjects();
-    }
-
-    void Model::SetupRenderingObjects()
-    {
-        if (m_IsAnimated)
-        {
-            m_VertexArray = VertexArray::Create();
-            m_VertexBuffer = VertexBuffer::Create(&m_AnimatedVertices[0], (uint32_t)(m_AnimatedVertices.size() * sizeof(AnimatedVertex)));
-            m_VertexBufferLayout = {
-                { ShaderDataType::Float3, "a_Position" },
-                { ShaderDataType::Float3, "a_Normal" },
-                { ShaderDataType::Float3, "a_Tangent" },
-                { ShaderDataType::Float3, "a_Bitangent" },
-                { ShaderDataType::Float3, "a_TexCoord" },
-                { ShaderDataType::Float4, "a_BoneWeights" },
-                { ShaderDataType::Int4, "a_BoneIDs" }
-                };
-            m_VertexBuffer->SetLayout(m_VertexBufferLayout);
-            m_VertexArray->AddVertexBuffer(m_VertexBuffer);
-            m_IndexBuffer = IndexBuffer::Create(&m_Indices[0], (uint32_t)(m_Indices.size()));
-            m_VertexArray->SetIndexBuffer(m_IndexBuffer);
-        }
-        else
-        {
-            m_VertexArray = VertexArray::Create();
-            m_VertexBuffer = VertexBuffer::Create(&m_Vertices[0], (uint32_t)(m_Vertices.size() * sizeof(AnimatedVertex)));
-            m_VertexBufferLayout = {
-                { ShaderDataType::Float3, "a_Position" },
-                { ShaderDataType::Float3, "a_Normal" },
-                { ShaderDataType::Float3, "a_Tangent" },
-                { ShaderDataType::Float3, "a_Bitangent" },
-                { ShaderDataType::Float3, "a_TexCoord" }
-                };
-            m_VertexBuffer->SetLayout(m_VertexBufferLayout);
-            m_VertexArray->AddVertexBuffer(m_VertexBuffer);
-            m_IndexBuffer = IndexBuffer::Create(&m_Indices[0], (uint32_t)(m_Indices.size()));
-            m_VertexArray->SetIndexBuffer(m_IndexBuffer);
-            
-        }
-    }
-
-    void Model::OnUpdate(const Timestep& ts)
-    {
-        if (m_IsAnimated)
-        {
-            if (m_AnimationPlaying)
-            {
-                float ticksPerSecond = (float)(m_Scene->mAnimations[0]->mTicksPerSecond != 0 ? m_Scene->mAnimations[0]->mTicksPerSecond : 25.0f);
-                m_AnimationTime = ts.GetSeconds() * ticksPerSecond;
-                m_AnimationTime = fmod(m_AnimationTime, (float)m_Scene->mAnimations[0]->mDuration);
-            }
-            
-            BoneTransform(m_AnimationTime); 
-        }
-    }
-
-#pragma region ModelProcessingHelpers
-    void Model::TraverseNodes(aiNode* node, const glm::mat4& parentTransform, uint32_t level)
-    {
-        glm::mat4 transform = parentTransform * Mat4FromAssimpMat4(node->mTransformation);
-        m_NodeMap[node].resize(node->mNumMeshes);
-        for (uint32_t i = 0; i < node->mNumMeshes; i++)
-        {
-            uint32_t mesh = node->mMeshes[i];
-            auto& submesh = m_Submeshes[mesh];
-            //submesh.m_NodeName = node->mName.C_Str();
-            //submesh.Transform = transform;
-            m_NodeMap[node][i] = mesh;
-        }
-
-        for (uint32_t i = 0; i < node->mNumChildren; i++)
-            TraverseNodes(node->mChildren[i], transform, level + 1);
-    
-    }
-
-    uint32_t Model::FindPosition(float AnimationTime, const aiNodeAnim* pNodeAnim)
-	{
-		for (uint32_t i = 0; i < pNodeAnim->mNumPositionKeys - 1; i++)
-		{
-			if (AnimationTime < (float)pNodeAnim->mPositionKeys[i + 1].mTime)
-				return i;
-		}
-
-		return 0;
-	}
-
-	uint32_t Model::FindRotation(float AnimationTime, const aiNodeAnim* pNodeAnim)
-	{
-		TNAH_CORE_ASSERT(pNodeAnim->mNumRotationKeys > 0);
-
-		for (uint32_t i = 0; i < pNodeAnim->mNumRotationKeys - 1; i++)
-		{
-			if (AnimationTime < (float)pNodeAnim->mRotationKeys[i + 1].mTime)
-				return i;
-		}
-
-		return 0;
-	}
-
-	uint32_t Model::FindScaling(float AnimationTime, const aiNodeAnim* pNodeAnim)
-	{
-		TNAH_CORE_ASSERT(pNodeAnim->mNumScalingKeys > 0);
-
-		for (uint32_t i = 0; i < pNodeAnim->mNumScalingKeys - 1; i++)
-		{
-			if (AnimationTime < (float)pNodeAnim->mScalingKeys[i + 1].mTime)
-				return i;
-		}
-
-		return 0;
-	}
-
-	glm::vec3 Model::InterpolateTranslation(float animationTime, const aiNodeAnim* nodeAnim)
-	{
-		if (nodeAnim->mNumPositionKeys == 1)
-		{
-			// No interpolation necessary for single value
-			auto v = nodeAnim->mPositionKeys[0].mValue;
-			return { v.x, v.y, v.z };
-		}
-
-		uint32_t PositionIndex = FindPosition(animationTime, nodeAnim);
-		uint32_t NextPositionIndex = (PositionIndex + 1);
-		TNAH_CORE_ASSERT(NextPositionIndex < nodeAnim->mNumPositionKeys);
-		float DeltaTime = (float)(nodeAnim->mPositionKeys[NextPositionIndex].mTime - nodeAnim->mPositionKeys[PositionIndex].mTime);
-		float Factor = (animationTime - (float)nodeAnim->mPositionKeys[PositionIndex].mTime) / DeltaTime;
-		TNAH_CORE_ASSERT(Factor <= 1.0f, "Factor must be below 1.0f");
-		Factor = glm::clamp(Factor, 0.0f, 1.0f);
-		const aiVector3D& Start = nodeAnim->mPositionKeys[PositionIndex].mValue;
-		const aiVector3D& End = nodeAnim->mPositionKeys[NextPositionIndex].mValue;
-		aiVector3D Delta = End - Start;
-		auto aiVec = Start + Factor * Delta;
-		return { aiVec.x, aiVec.y, aiVec.z };
-	}
-
-	glm::quat Model::InterpolateRotation(float animationTime, const aiNodeAnim* nodeAnim)
-	{
-		if (nodeAnim->mNumRotationKeys == 1)
-		{
-			// No interpolation necessary for single value
-			auto v = nodeAnim->mRotationKeys[0].mValue;
-			return glm::quat(v.w, v.x, v.y, v.z);
-		}
-
-		uint32_t RotationIndex = FindRotation(animationTime, nodeAnim);
-		uint32_t NextRotationIndex = (RotationIndex + 1);
-		TNAH_CORE_ASSERT(NextRotationIndex < nodeAnim->mNumRotationKeys);
-		float DeltaTime = (float)(nodeAnim->mRotationKeys[NextRotationIndex].mTime - nodeAnim->mRotationKeys[RotationIndex].mTime);
-		float Factor = (animationTime - (float)nodeAnim->mRotationKeys[RotationIndex].mTime) / DeltaTime;
-		TNAH_CORE_ASSERT(Factor <= 1.0f, "Factor must be below 1.0f");
-		Factor = glm::clamp(Factor, 0.0f, 1.0f);
-		const aiQuaternion& StartRotationQ = nodeAnim->mRotationKeys[RotationIndex].mValue;
-		const aiQuaternion& EndRotationQ = nodeAnim->mRotationKeys[NextRotationIndex].mValue;
-		auto q = aiQuaternion();
-		aiQuaternion::Interpolate(q, StartRotationQ, EndRotationQ, Factor);
-		q = q.Normalize();
-		return glm::quat(q.w, q.x, q.y, q.z);
-	}
-
-	glm::vec3 Model::InterpolateScale(float animationTime, const aiNodeAnim* nodeAnim)
-	{
-		if (nodeAnim->mNumScalingKeys == 1)
-		{
-			// No interpolation necessary for single value
-			auto v = nodeAnim->mScalingKeys[0].mValue;
-			return { v.x, v.y, v.z };
-		}
-
-		uint32_t index = FindScaling(animationTime, nodeAnim);
-		uint32_t nextIndex = (index + 1);
-		TNAH_CORE_ASSERT(nextIndex < nodeAnim->mNumScalingKeys);
-		float deltaTime = (float)(nodeAnim->mScalingKeys[nextIndex].mTime - nodeAnim->mScalingKeys[index].mTime);
-		float factor = (animationTime - (float)nodeAnim->mScalingKeys[index].mTime) / deltaTime;
-		TNAH_CORE_ASSERT(factor <= 1.0f, "Factor must be below 1.0f");
-		factor = glm::clamp(factor, 0.0f, 1.0f);
-		const auto& start = nodeAnim->mScalingKeys[index].mValue;
-		const auto& end = nodeAnim->mScalingKeys[nextIndex].mValue;
-		auto delta = end - start;
-		auto aiVec = start + factor * delta;
-		return { aiVec.x, aiVec.y, aiVec.z };
-	}
-
-	void Model::ReadNodeHierarchy(float AnimationTime, const aiNode* pNode, const glm::mat4& parentTransform)
-	{
-		std::string name(pNode->mName.data);
-		const aiAnimation* animation = m_Scene->mAnimations[0];
-		glm::mat4 nodeTransform(Mat4FromAssimpMat4(pNode->mTransformation));
-		const aiNodeAnim* nodeAnim = FindNodeAnim(animation, name);
-
-		if (nodeAnim)
-		{
-			glm::vec3 translation = InterpolateTranslation(AnimationTime, nodeAnim);
-			glm::mat4 translationMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(translation.x, translation.y, translation.z));
-
-			glm::quat rotation = InterpolateRotation(AnimationTime, nodeAnim);
-			glm::mat4 rotationMatrix = glm::toMat4(rotation);
-
-			glm::vec3 scale = InterpolateScale(AnimationTime, nodeAnim);
-			glm::mat4 scaleMatrix = glm::scale(glm::mat4(1.0f), glm::vec3(scale.x, scale.y, scale.z));
-
-			nodeTransform = translationMatrix * rotationMatrix * scaleMatrix;
-		}
-
-		glm::mat4 transform = parentTransform * nodeTransform;
-
-		if (m_BoneMapping.find(name) != m_BoneMapping.end())
-		{
-			uint32_t BoneIndex = m_BoneMapping[name];
-			m_BoneInfo[BoneIndex].FinalTransform = m_InverseTransform * transform * m_BoneInfo[BoneIndex].BoneOffset;
-		}
-
-		for (uint32_t i = 0; i < pNode->mNumChildren; i++)
-			ReadNodeHierarchy(AnimationTime, pNode->mChildren[i], transform);
-	}
-
-	const aiNodeAnim* Model::FindNodeAnim(const aiAnimation* animation, const std::string& nodeName)
-	{
-		for (uint32_t i = 0; i < animation->mNumChannels; i++)
-		{
-			const aiNodeAnim* nodeAnim = animation->mChannels[i];
-			if (std::string(nodeAnim->mNodeName.data) == nodeName)
-				return nodeAnim;
-		}
-		return nullptr;
-	} 
-
-	void Model::BoneTransform(float time)
-	{
-		ReadNodeHierarchy(time, m_Scene->mRootNode, glm::mat4(1.0f));
-		m_BoneTransforms.resize(m_BoneCount);
-		for (size_t i = 0; i < m_BoneCount; i++)
-			m_BoneTransforms[i] = m_BoneInfo[i].FinalTransform;
-	}
-
-
-    // Helpers
-    glm::mat4 Model::Mat4FromAssimpMat4(const aiMatrix4x4& matrix)
-    {
-        glm::mat4 result;
-        //the a,b,c,d in assimp is the row ; the 1,2,3,4 is the column
-        result[0][0] = matrix.a1; result[1][0] = matrix.a2; result[2][0] = matrix.a3; result[3][0] = matrix.a4;
-        result[0][1] = matrix.b1; result[1][1] = matrix.b2; result[2][1] = matrix.b3; result[3][1] = matrix.b4;
-        result[0][2] = matrix.c1; result[1][2] = matrix.c2; result[2][2] = matrix.c3; result[3][2] = matrix.c4;
-        result[0][3] = matrix.d1; result[1][3] = matrix.d2; result[2][3] = matrix.d3; result[3][3] = matrix.d4;
-        return result;
-    }
-
-    glm::vec3 Model::Vec3FromAssimpVec3(const aiVector3D& vector)
-    {
-        return glm::vec3(vector.x, vector.y, vector.z);
-    }
-    
-    glm::vec2 Model::Vec2FromAssimpVec3(const aiVector3D& vector)
-    {
-        return glm::vec2(vector.x, vector.y);
-    }
-
-    uint32_t Model::TotalTexturesFromAssimpMaterial(const aiMaterial* material)
-    {
-        uint32_t textureTotal = 0;
-        textureTotal += material->GetTextureCount(aiTextureType_DIFFUSE);
-        textureTotal += material->GetTextureCount(aiTextureType_SPECULAR);
-        textureTotal += material->GetTextureCount(aiTextureType_AMBIENT);
-        textureTotal += material->GetTextureCount(aiTextureType_EMISSIVE);
-        textureTotal += material->GetTextureCount(aiTextureType_HEIGHT);
-        textureTotal += material->GetTextureCount(aiTextureType_NORMALS);
-        textureTotal += material->GetTextureCount(aiTextureType_SHININESS);
-        textureTotal += material->GetTextureCount(aiTextureType_OPACITY);
-        textureTotal += material->GetTextureCount(aiTextureType_DISPLACEMENT);
-        textureTotal += material->GetTextureCount(aiTextureType_LIGHTMAP);
-        textureTotal += material->GetTextureCount(aiTextureType_REFLECTION);
-        
-        //PBR
-        textureTotal += material->GetTextureCount(aiTextureType_BASE_COLOR);
-        textureTotal += material->GetTextureCount(aiTextureType_NORMAL_CAMERA);
-        textureTotal += material->GetTextureCount(aiTextureType_EMISSION_COLOR);
-        textureTotal += material->GetTextureCount(aiTextureType_METALNESS);
-        textureTotal += material->GetTextureCount(aiTextureType_DIFFUSE_ROUGHNESS);
-        textureTotal += material->GetTextureCount(aiTextureType_AMBIENT_OCCLUSION);
-
-        return textureTotal;
-    }
-
-    bool Model::AssimpMaterialIsPBR(const aiMaterial* material)
-    {
-        bool pbr = false;
-        if(material->GetTextureCount(aiTextureType_NORMAL_CAMERA) > 0) pbr = true;
-        if(material->GetTextureCount(aiTextureType_EMISSION_COLOR) > 0) pbr = true;
-        if(material->GetTextureCount(aiTextureType_METALNESS) > 0) pbr = true;
-        if(material->GetTextureCount(aiTextureType_DIFFUSE_ROUGHNESS) > 0) pbr = true;
-        if(material->GetTextureCount(aiTextureType_AMBIENT_OCCLUSION) > 0) pbr = true;
-        if(material->GetTextureCount(aiTextureType_BASE_COLOR) > 0) pbr = true;
-        return pbr;
-    }
-
-    std::vector<Ref<Texture2D>> Model::GetTextureFromAssimpMaterial(const aiScene* scene,
-                                                                    const aiMaterial* material,
-                                                                    const aiTextureType& textureType)
-    {
-        if(const uint32_t tCount = material->GetTextureCount(textureType) > 0)
-        {
-            std::vector<Ref<Texture2D>> textures;
-            textures.resize(tCount);
-            for(uint32_t i = 0; i < tCount; i++)
-            {
-                aiString texturePath;
-                if (material->GetTexture(textureType, i, &texturePath) == AI_SUCCESS)
-                {
-                    if(auto aTexture = scene->GetEmbeddedTexture(texturePath.C_Str()))
-                    {
-                        if(auto texture = Texture2D::Create(texturePath.C_Str(), GetTextureNameFromTextureType(textureType), true, const_cast<aiTexture*>(aTexture)))
-                        {
-                            Renderer::RegisterTexture(texture);
-                            textures[i] = texture;
-                            continue;
-                        }
-                        textures[i] = Renderer::GetMissingTexture();
-                    }
-                
-                    if(auto texture = Texture2D::Create(texturePath.C_Str(), GetTextureNameFromTextureType(textureType)))
-                    {
-                        Renderer::RegisterTexture(texture);
-                        textures[i] = texture;
-                    }
-                    textures[i] = Renderer::GetMissingTexture();
-                }
-            }
-            return textures;
-        }
-        return std::vector<Ref<Texture2D>>(); // return empty vector if no textures were found
-    }
-
-    Ref<Texture2D> Model::CreateBaseColorTexture(const aiMaterial* material)
-    {
-        aiColor3D color(0.0f, 0.0f, 0.0f);
-        material->Get(AI_MATKEY_BASE_COLOR, color);
-
-        if(auto texture = Texture2D::Create(ImageFormat::RGB, 1,1, {color.r, color.g, color.b, 1.0f}))
-        {
-            Renderer::RegisterTexture(texture);
-            return texture;
-        }
-        return nullptr;
-    }
-
-
-    std::string Model::GetTextureNameFromTextureType(const aiTextureType& textureType)
-    {
-        switch (textureType)
-        {
-        case aiTextureType_NONE:
-            return std::string("NONE");
-        case aiTextureType_DIFFUSE:
-            return std::string("Diffuse");
-        case aiTextureType_SPECULAR:
-            return std::string("Specular");
-        case aiTextureType_AMBIENT:
-            return std::string("Ambient");
-        case aiTextureType_EMISSIVE:
-            return std::string("Emissive");
-        case aiTextureType_HEIGHT:
-            return std::string("Height");
-        case aiTextureType_NORMALS:
-            return std::string("Normals");
-        case aiTextureType_SHININESS:
-            return std::string("Shininess");
-        case aiTextureType_OPACITY:
-            return std::string("Opacity");
-        case aiTextureType_DISPLACEMENT:
-            return std::string("Displacement");
-        case aiTextureType_LIGHTMAP:
-            return std::string("Lightmap");
-        case aiTextureType_REFLECTION:
-            return std::string("Reflection");
-        case aiTextureType_BASE_COLOR:
-            return std::string("Base Color");
-        case aiTextureType_NORMAL_CAMERA:
-            return std::string("Normal Camera");
-        case aiTextureType_EMISSION_COLOR:
-            return std::string("Emission Color");
-        case aiTextureType_METALNESS:
-            return std::string("Metalness");
-        case aiTextureType_DIFFUSE_ROUGHNESS:
-            return std::string("Roughness");
-        case aiTextureType_AMBIENT_OCCLUSION:
-            return std::string("Ambient Occlusion");
-        case aiTextureType_SHEEN:
-            return std::string("Sheen");
-        case aiTextureType_CLEARCOAT:
-            return std::string("Clear Coat");
-        case aiTextureType_TRANSMISSION:
-            return std::string("Transmission");
-        case aiTextureType_UNKNOWN:
-            return std::string("UNKNOWN");
-        case _aiTextureType_Force32Bit:
-            return std::string("FORCE32Bit");
-        default: return std::string("ERROR");
         }
     }
 
@@ -1419,4 +1308,5 @@ namespace tnah {
     }
 #endif
 #pragma endregion
+    
 }

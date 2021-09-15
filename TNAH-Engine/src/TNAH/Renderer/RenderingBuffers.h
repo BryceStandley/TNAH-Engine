@@ -387,9 +387,6 @@ namespace tnah {
 
 		virtual void Unbind() const = 0;
 
-//TODo: Doxy here
-        virtual const VertexBufferLayout& GetLayout() const = 0;
-
 		/**
 		 * @fn	virtual void VertexBuffer::SetData(uint32_t size, const void* data, DrawType type = DrawType::STATIC, TypeMode mode = TypeMode::DRAW) const = 0;
 		 *

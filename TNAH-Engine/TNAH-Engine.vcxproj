@@ -31,6 +31,7 @@
     <ClCompile Include="src\TNAH\Physics\PhysicsEvents.cpp" />
     <ClCompile Include="src\TNAH\Physics\PhysicsTimestep.cpp" />
     <ClCompile Include="src\TNAH\Physics\PhysicsWrapper.cpp" />
+    <ClCompile Include="src\TNAH\Renderer\Animation.cpp" />
     <ClCompile Include="src\TNAH\Renderer\Image.cpp" />
     <ClCompile Include="src\TNAH\Renderer\Light.cpp" />
     <ClCompile Include="src\TNAH\Renderer\RenderingBuffers.cpp" />
@@ -53,6 +54,7 @@
     <ClCompile Include="src\TNAH\Renderer\RenderCommand.cpp" />
     <ClCompile Include="src\TNAH\Renderer\Renderer.cpp" />
     <ClCompile Include="src\TNAH\Renderer\RendererAPI.cpp" />
+    <ClCompile Include="src\TNAH\Renderer\Submesh.cpp" />
     <ClCompile Include="src\TNAH\Renderer\Texture.cpp" />
     <ClCompile Include="src\TNAH\Scene\Components\PhysicsComponents.cpp" />
     <ClCompile Include="src\TNAH\Scene\Components\SkyboxComponent.cpp" />
@@ -96,6 +98,7 @@
     <ClInclude Include="src\TNAH\Physics\PhysicsEvents.h" />
     <ClInclude Include="src\TNAH\Physics\PhysicsTimestep.h" />
     <ClInclude Include="src\TNAH\Physics\PhysicsWrapper.h" />
+    <ClInclude Include="src\TNAH\Renderer\Animation.h" />
     <ClInclude Include="src\TNAH\Renderer\Image.h" />
     <ClInclude Include="src\TNAH\Renderer\Light.h" />
     <ClInclude Include="src\TNAH\Renderer\RenderingBuffers.h" />
@@ -103,6 +106,8 @@
     <ClInclude Include="src\TNAH\Renderer\Material.h" />
     <ClInclude Include="src\TNAH\Renderer\Model.h" />
     <ClInclude Include="src\TNAH\Renderer\stb_image.h" />
+    <ClInclude Include="src\TNAH\Renderer\Structures.h" />
+    <ClInclude Include="src\TNAH\Renderer\Submesh.h" />
     <ClInclude Include="src\TNAH\Renderer\Texture.h" />
     <ClInclude Include="src\TNAH\Scene\Components\ComponentIdentification.h" />
     <ClInclude Include="src\TNAH\Scene\Components\SkyboxComponent.h" />

@@ -313,9 +313,9 @@ namespace tnah{
 						{
 							//model.Model->OnUpdate(deltaTime);
 							//Renderer::SubmitMesh(model.Model, sceneLights, transform.GetTransform());
-							for (auto& mesh : model.Model->GetMeshes())
+							for (auto& mesh : model.Model->GetSubmeshes())
 							{
-								Renderer::SubmitMesh(mesh.GetMeshVertexArray(), mesh.GetMeshMaterial(), sceneLights, transform.GetTransform());
+								//Renderer::SubmitMesh(mesh.GetMeshVertexArray(), mesh.GetMeshMaterial(), sceneLights, transform.GetTransform());
 							}
 						}
 					}

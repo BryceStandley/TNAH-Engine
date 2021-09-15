@@ -269,11 +269,11 @@ namespace tnah {
 	void Renderer::SubmitMesh(Ref<Model> model, std::vector<Ref<Light>> sceneLights, const glm::mat4& transform)
 	{
 		RenderCommand::SetCullMode(CullMode::Back);
-		material->BindShader();
-		material->GetShader()->SetMat4("u_ViewProjection", s_SceneData->ViewProjection);
-		material->GetShader()->SetMat4("u_Transform", transform);
-		material->GetShader()->SetBool("u_Animated", isAnimated);
 
+		
+
+		
+		/*
 		for(auto material : model->GetMaterials())
 		{
 			material->BindShader();
@@ -301,7 +301,7 @@ namespace tnah {
 			{
 				model->GetMaterials()[i]->BindTextures();
 			}
-			RenderCommand::DrawElements(submesh.IndexCount, submesh.BaseIndex, submesh.BaseVertex);
+			//RenderCommand::DrawElements(submesh.IndexCount, submesh.BaseIndex, submesh.BaseVertex);
 			IncrementDrawCallsPerFrame();
 		}
 
@@ -330,14 +330,18 @@ namespace tnah {
 		}
 		model->GetVertexArray()->Bind();
 		RenderCommand::DrawIndexed(model->GetVertexArray());
-#endif
+
 		
 		material->BindTextures();
 		
 		vertexArray->Bind();
 		RenderCommand::DrawIndexed(vertexArray);
+		
+#endif
+*/
 		RenderCommand::SetCullMode(CullMode::Front);
 		IncrementDrawCallsPerFrame();
+		
 	}
 #pragma endregion
 

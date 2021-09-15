@@ -186,18 +186,19 @@ namespace tnah {
 		virtual void SetMat3(const std::string& name, const glm::mat3& mat) override;
 
 		/**
-		 * @fn	virtual void OpenGLShader::SetMat4(const std::string& name, const glm::mat4& mat) override;
-		 *
-		 * @brief	Sets a mat4 for use in the shader program
-		 *
-		 * @author	Dylan Blereau
-		 * @date	7/09/2021
-		 *
-		 * @param 	name	- represents the name of the variable.
-		 * @param 	mat 	- represents the variable value.
-		 */
+		* @fn	virtual void SetMat4(const std::string& name, const glm::mat4& value, bool transpose = false) override;
+		*
+		* @brief	Sets matrix 4
+		*
+		* @author	Dylan Blereau
+		* @date	12/09/2021
+		*
+		* @param 	name 	The name.
+		* @param 	value	The value.
+		* @param   transpose To or not to transpose the matrix (Optional)
+		*/
 
-		virtual void SetMat4(const std::string& name, const glm::mat4& mat) override;
+		virtual void SetMat4(const std::string& name, const glm::mat4& value, bool transpose = false) override;
 
 		/**
 		 * @fn	inline virtual const std::string& OpenGLShader::GetName() const override

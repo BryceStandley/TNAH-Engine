@@ -217,9 +217,6 @@ namespace tnah {
 
 		inline const uint32_t GetIndicesSize() { return m_IBOSize; }
 
-//TODO: Doxy Here
-		inline const VertexBufferLayout GetBufferLayout() { return m_BufferLayout; }
-
 		/**********************************************************************************************//**
 		 * @fn	inline const BufferLayout Terrain::GetBufferLayout()
 		 *

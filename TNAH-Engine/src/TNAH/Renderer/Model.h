@@ -7,6 +7,8 @@
 #include "TNAH/Renderer/RenderingBuffers.h"
 #include "TNAH/Renderer/Shader.h"
 #include "TNAH/Renderer/Material.h"
+#include "TNAH/Renderer/Animation.h"
+#include "TNAH/Renderer/Submesh.h"
 
 #pragma warning(push, 0)
 #include <vector>
@@ -24,102 +26,282 @@
 #include <assimp/Importer.hpp>
 #include <assimp/DefaultLogger.hpp>
 #include <assimp/LogStream.hpp>
+
+#include "TNAH/Core/AABB.h"
+#include "TNAH/Core/AABB.h"
 #pragma warning(pop)
 
 namespace tnah {
 
-    struct Index
+    struct Node
     {
-        uint32_t V1, V2, V3;
+        /** @brief Transform of the node*/
+        glm::mat4 Transform = {};
+
+        /** @brief Name of the node*/
+        std::string Name = "";
+
+        /** @brief Vector of children within the node*/
+        std::vector<Node> NodeChildren = {};
+
+        /** @brief Total children of the node*/
+        uint32_t TotalNodeChildren = 0;
     };
     
-    struct Vertex
+    struct Bone
     {
-        glm::vec3 Position = {};
-        glm::vec3 Normal = {};
-        glm::vec3 Tangent = {};
-        glm::vec3 Bitangents = {};
-        glm::vec2 Texcoord = {};
-    };
+        /** @brief Offset of the bone from the parent*/
+        glm::mat4 Offset = glm::mat4(1.0f);
 
-    struct AnimatedVertex
-    {
-        glm::vec3 Position = {};
-        glm::vec3 Normal = {};
-        glm::vec3 Tangent = {};
-        glm::vec3 Bitangents = {};
-        glm::vec2 Texcoord = {};
-
-        float IDs[4] = { 0.0f, 0.0f, 0.0f, 0.0f };
-        float Weights[4] = { 0.0f, 0.0f, 0.0f, 0.0f };
-        
-        void AddBoneData(uint32_t BoneID, float Weight)
-        {
-            for (size_t i = 0; i < 4; i++)
-            {
-                if (Weights[i] == 0.0f)
-                {
-                    IDs[i] = (float)BoneID;
-                    Weights[i] = Weight;
-                    return;
-                }
-            }
-        }
+        /** @brief Transform of the bone */
+        glm::mat4 Transform = glm::mat4(1.0f);
     };
-
-    struct BoneInfo
-    {
-        glm::mat4 BoneOffset;
-        glm::mat4 FinalTransform;
-    };
-
-    class Submesh  {
-    public:
-        uint32_t MaterialIndex;
-        uint32_t BaseVertex;
-        uint32_t BaseIndex;
-        uint32_t VertexCount;
-        uint32_t IndexCount;
-        
-        friend class EditorUI;
-        friend class Model;
-    };
+    
 
     class Model : public RefCounted
     {
     public:
-        static Ref<Model> Create(const std::string& filePath);
-        Model(const std::string& filePath);
-        void OnUpdate(const Timestep& ts);
+        
+        /**
+        * @fn static Ref<Model> Model::Create();
+        *
+        * @brief Creates and returns a empty Ref to a Model.
+        *
+        * @author Bryce Standley
+        * @date 15/09/2021
+        *
+        * @return Ref of type Model with empty data.
+        */
+        static Ref<Model> Create();
 
+        /**
+        * @fn static Ref<Model> Model::Create();
+        *
+        * @brief Creates a Model from file and returns a Ref to it.
+        *
+        * @author Bryce Standley
+        * @date 15/09/2021
+        *
+        * @param filePath The file path on disc of the model to create.
+        *
+        * @return Ref of type Model with loaded model data from disc.
+        *
+        * @note File path should be relative to the application or an absolute path to the model file.
+        */
+        static Ref<Model> Create(const std::string& filePath);
+
+        /**
+         * @fn Model::Model() = default;
+         *
+         * @brief Default constructor for empty model
+         *
+         * @author Bryce Standley
+         * @date 15/09/2021
+         */
+        Model() = default;
+
+        /**
+        * @fn Model::Model(const std::string& filePath);
+        *
+        * @brief Default constructor with a file path of the model to load.
+        *
+        * @author Bryce Standley
+        * @date 15/09/2021
+        *
+        * @param filePath The file path of the model to load. 
+        */
+        Model(const std::string& filePath);
         
-        Ref<VertexBuffer> GetVertexBuffer() const { return m_VertexBuffer; }
-        Ref<VertexArray> GetVertexArray() const { return m_VertexArray; }
-        Ref<IndexBuffer> GetIndexBuffer() const { return m_IndexBuffer; }
-        const VertexBufferLayout& GetVertexBufferLayout() const { return m_VertexBufferLayout; }
-        std::vector<Ref<Material>> GetMaterials() const { return m_Materials; }
-        
-        std::vector<Submesh>& GetSubmeshes() { return m_Submeshes; }
-        uint32_t GetNumberOfSubmeshes() const { return static_cast<uint32_t>(m_Submeshes.size()); }
-        uint32_t& GetBoneCount() { return m_BoneCount; }
-        std::vector<glm::mat4>& GetBoneTransforms() { return m_BoneTransforms; }
-        bool& IsAnimated() { return m_IsAnimated; }
-        bool& GetIsAnimationPlaying() { return m_AnimationPlaying; }
+        /**
+        * @fn Animation* Model::GetAnimation(const std::string& animationName);
+        *
+        * @brief Gets the animation by name
+        *
+        * @author Bryce Standley
+        * @date 15/09/2021
+        *
+        * @param animationName The name of the animation to get. 
+        */
+        Animation* GetAnimation(const std::string& animationName);
+
+        /**
+        * @fn uint32_t Model::GetTotalBones();
+        *
+        * @brief Gets the total bones within the model.
+        *
+        * @author Bryce Standley
+        * @date 15/09/2021
+        *
+        * @return Total Bones within the model. 
+        */
+        uint32_t GetTotalBones() const { return static_cast<uint32_t>(m_Bones.size()); }
+
+        /**
+        * @fn Node& Model::GetRootNode() { return m_RootNode; }
+        *
+        * @brief Gets the root node of the model.
+        *
+        * @author Bryce Standley
+        * @date 15/09/2021
+        *
+        * @return Root Node of the model.
+        */
+        Node& GetRootNode() { return m_RootNode; }
+
+        /**
+        * @fn std::map<std::string, uint32_t>& Model::GetBoneMap() { return m_BoneMap; }
+        *
+        * @brief Gets the bone map of name and ID's within the model.
+        *
+        * @author Bryce Standley
+        * @date 15/09/2021
+        *
+        * @return std::map reference of bone name and ID's within the model.
+        */
+        std::map<std::string, uint32_t>& GetBoneMap() { return m_BoneMap; }
+
+        /**
+        * @fn  std::vector<Bone>& Model::GetBones() { return m_Bones; }
+        *
+        * @brief Gets a vector of bones within the model.
+        *
+        * @author Bryce Standley
+        * @date 15/09/2021
+        *
+        * @return std::vector reference of bones within the model.
+        */
+        std::vector<Bone>& GetBones() { return m_Bones; }
+
+        /**
+        * @fn glm::mat4 Model::GetGlobalInverseTransform() const { return m_GlobalInverseTransform; }
+        *
+        * @brief Gets the inverse of the global transform of the model.
+        *
+        * @author Bryce Standley
+        * @date 15/09/2021
+        *
+        * @return Mat4 inverse of the global transform.
+        */
+        glm::mat4 GetGlobalInverseTransform() const { return m_GlobalInverseTransform; }
     
     private:
+//TODO: Update doxy for these private functions
+    	
+    	/**
+    	* @fn glm::mat4 Model::GetGlobalInverseTransform() const { return m_GlobalInverseTransform; }
+    	*
+    	* @brief Gets the inverse of the global transform of the model.
+    	*
+    	* @author Bryce Standley
+    	* @date 15/09/2021
+    	*
+    	* @return Mat4 inverse of the global transform.
+    	*/
         void LoadModel(const std::string& filePath);
 
-        
-        void CreateSubmesh(uint32_t meshIndex, const aiMesh* aMesh);
-        void CreateBones(uint32_t meshIndex, const aiMesh* aMesh);
-        void CreateMaterials(const aiScene* aScene, const std::string& filePath);
-        void CreateRenderInformation();
-        
-        
+    	/**
+    	* @fn glm::mat4 Model::GetGlobalInverseTransform() const { return m_GlobalInverseTransform; }
+    	*
+    	* @brief Gets the inverse of the global transform of the model.
+    	*
+    	* @author Bryce Standley
+    	* @date 15/09/2021
+    	*
+    	* @return Mat4 inverse of the global transform.
+    	*/
+		static Submesh ProcessSubmesh(aiMesh* mesh, const aiScene* scene, glm::mat4 nodeTransformation);
+    	
+    	/**
+    	* @fn glm::mat4 Model::GetGlobalInverseTransform() const { return m_GlobalInverseTransform; }
+    	*
+    	* @brief Gets the inverse of the global transform of the model.
+    	*
+    	* @author Bryce Standley
+    	* @date 15/09/2021
+    	*
+    	* @return Mat4 inverse of the global transform.
+    	*/
+    	void ProcessNode(aiNode* node, const aiScene* scene, glm::mat4 nodeTransformation);
+
+    	/**
+    	* @fn glm::mat4 Model::GetGlobalInverseTransform() const { return m_GlobalInverseTransform; }
+    	*
+    	* @brief Gets the inverse of the global transform of the model.
+    	*
+    	* @author Bryce Standley
+    	* @date 15/09/2021
+    	*
+    	* @return Mat4 inverse of the global transform.
+    	*/
+        void ProcessBones(uint32_t meshIndex, const aiMesh* mesh);
+
+    	/**
+    	* @fn glm::mat4 Model::GetGlobalInverseTransform() const { return m_GlobalInverseTransform; }
+    	*
+    	* @brief Gets the inverse of the global transform of the model.
+    	*
+    	* @author Bryce Standley
+    	* @date 15/09/2021
+    	*
+    	* @return Mat4 inverse of the global transform.
+    	*/
+		static std::vector<Ref<Material>> ProcessMaterials(const aiScene* scene, aiMesh* mesh);
+
+    	/**
+    	* @fn glm::mat4 Model::GetGlobalInverseTransform() const { return m_GlobalInverseTransform; }
+    	*
+    	* @brief Gets the inverse of the global transform of the model.
+    	*
+    	* @author Bryce Standley
+    	* @date 15/09/2021
+    	*
+    	* @return Mat4 inverse of the global transform.
+    	*/
+    	aiNode* FindRootNode(aiNode* node, aiMesh* mesh) const;
+
+    	/**
+    	* @fn glm::mat4 Model::GetGlobalInverseTransform() const { return m_GlobalInverseTransform; }
+    	*
+    	* @brief Gets the inverse of the global transform of the model.
+    	*
+    	* @author Bryce Standley
+    	* @date 15/09/2021
+    	*
+    	* @return Mat4 inverse of the global transform.
+    	*/
+    	void LoadAnimationNodes(aiNode* node, aiMesh* mesh);
+
+    	/**
+    	* @fn glm::mat4 Model::GetGlobalInverseTransform() const { return m_GlobalInverseTransform; }
+    	*
+    	* @brief Gets the inverse of the global transform of the model.
+    	*
+    	* @author Bryce Standley
+    	* @date 15/09/2021
+    	*
+    	* @return Mat4 inverse of the global transform.
+    	*/
+		static Node LoadNodeHierarchy(aiNode* rootNode);
+
+    	/**
+    	* @fn glm::mat4 Model::GetGlobalInverseTransform() const { return m_GlobalInverseTransform; }
+    	*
+    	* @brief Gets the inverse of the global transform of the model.
+    	*
+    	* @author Bryce Standley
+    	* @date 15/09/2021
+    	*
+    	* @return Mat4 inverse of the global transform.
+    	*/
+    	void LoadAnimations(const aiScene* scene);
+    	
+
+    	
+#pragma region HelperFunctions
         static glm::mat4 Mat4FromAssimpMat4(const aiMatrix4x4& matrix);
         static glm::vec3 Vec3FromAssimpVec3(const aiVector3D& vector);
         static glm::vec2 Vec2FromAssimpVec3(const aiVector3D& vector);
-
+    	static glm::quat QuatFromAssimpQuat(const aiQuaternion& quaternion);
         static uint32_t TotalTexturesFromAssimpMaterial(const aiMaterial* material);
         static bool AssimpMaterialIsPBR(const aiMaterial* material);
         static std::vector<Ref<Texture2D>> GetTextureFromAssimpMaterial(
@@ -127,71 +309,40 @@ namespace tnah {
         static Ref<Texture2D> CreateBaseColorTexture(const aiMaterial* material);
         static std::string GetTextureNameFromTextureType(const aiTextureType& textureType);
         static void DumpMaterialProperties(const aiMaterial* material);
-
-        
-        void BoneTransform(float time);
-        void ReadNodeHierarchy(float AnimationTime, const aiNode* pNode, const glm::mat4& ParentTransform);
-        void TraverseNodes(aiNode* node, const glm::mat4& parentTransform = glm::mat4(1.0f), uint32_t level = 0);
-
-        const aiNodeAnim* FindNodeAnim(const aiAnimation* animation, const std::string& nodeName);
-        uint32_t FindPosition(float AnimationTime, const aiNodeAnim* pNodeAnim);
-        uint32_t FindRotation(float AnimationTime, const aiNodeAnim* pNodeAnim);
-        uint32_t FindScaling(float AnimationTime, const aiNodeAnim* pNodeAnim);
-        glm::vec3 InterpolateTranslation(float animationTime, const aiNodeAnim* nodeAnim);
-        glm::quat InterpolateRotation(float animationTime, const aiNodeAnim* nodeAnim);
-        glm::vec3 InterpolateScale(float animationTime, const aiNodeAnim* nodeAnim);
+#pragma endregion 
     
     private:
-        
-        std::vector<Submesh> m_Submeshes;
-        Resource m_Resource;
+    	
+    	/** @brief Resource information about the model on disc*/
+    	Resource m_Resource;
 
-        std::unique_ptr<Assimp::Importer> m_Importer;
-        
-        const aiScene* m_Scene;
-        glm::mat4 m_InverseTransform;
+    	/** @brief Flag for if the model is animated or not. True if animated, false if not.*/
+    	bool m_IsAnimated = false;
+    	
+        /** @brief Inverse of the models global transform*/
+        glm::mat4 m_GlobalInverseTransform = {};
 
-        AABB m_BoundingBox;
+        /** @brief Vector of submeshes within the model*/
+        std::vector<Submesh> m_Submeshes = {};
 
-        // Used for rendering, combines all the submesh data into a single batch to render
-        Ref<VertexArray> m_VertexArray;
-        Ref<VertexBuffer> m_VertexBuffer;
-        Ref<IndexBuffer> m_IndexBuffer;
-        VertexBufferLayout m_VertexBufferLayout;
-        std::vector<Vertex> m_Vertices;
-        std::vector<AnimatedVertex> m_AnimatedVertices;
-        std::vector<Index> m_Indices;
+        /** @brief Vector of bones within the model*/
+        std::vector<Bone> m_Bones = {};
 
-        /**
-         * Materials form the model as a whole
-         */
-        std::vector<Ref<Material>> m_Materials;
-        Ref<Shader> m_Shader;
-        
-        bool m_IsAnimated = false;
-        std::vector<BoneInfo> m_BoneInfo;
-        uint32_t m_BoneCount = 0;
-        std::unordered_map<std::string, uint32_t> m_BoneMapping;
-        std::unordered_map<aiNode*, std::vector<uint32_t>> m_NodeMap;
-        std::vector<glm::mat4> m_BoneTransforms;
-        float m_AnimationTime = 0.0f;
-        float m_WorldTime = 0.0f;
-        float m_TimeMultiplier = 1.0f;
-        bool m_AnimationPlaying = false;
+        /** @brief Map of bone information within the model*/
+        std::map<std::string, uint32_t> m_BoneMap = {};
 
-        void ProcessModelSubmeshes(const aiScene* scene, const std::string& filePath);
-        void CombineSubmeshData();
-        void SetupRenderingObjects();
-        
-#if 0
-        void SetVertexBoneDataToDefault(Vertex& vertex);
-        void SetVertexBoneData(Vertex& vertex, int boneID, float weight);
-        void ExtractBoneWeightForVertices(std::vector<Vertex>& vertices, aiMesh* mesh, const aiScene* scene);
-        void LoadModel(const std::string& filePath);
-        void ProcessNode(aiNode* node, const aiScene* scene);
-        Submesh ProcessMesh(aiMesh* mesh, const aiScene* scene, bool animated);
-        std::vector<Ref<Texture2D>> LoadMaterialTextures(const aiScene* scene, aiMaterial* material, aiTextureType type, const std::string& typeName);
-#endif
+        /** @brief Root node of the model*/
+        Node m_RootNode = {};
+
+        /** @brief Vector of animations within the model*/
+        std::vector<Animation> m_Animations = {};
+
+    	/** @brief Root node of the animation structure*/
+    	Node m_RootAnimationNode = {};
+
+    	/** @brief Total bones in the model*/
+    	uint32_t m_TotalBones = 0;
+    	
         friend class EditorUI;
         friend class Serializer;
     };

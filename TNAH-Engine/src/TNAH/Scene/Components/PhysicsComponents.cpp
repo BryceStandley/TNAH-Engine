@@ -318,11 +318,11 @@ namespace tnah
 
     ConcaveMeshColliderComponent::ConcaveMeshColliderComponent(Ref<Model> model)
     {
-        auto meshes = model->GetMeshes();
+        auto meshes = model->GetSubmeshes();
         for(auto m : meshes)
         {
-            MeshVertexPositions = (m.GetVertexPositions());
-            MeshIndices = (m.GetIndices());
+            //MeshVertexPositions = (());
+           // MeshIndices = (m.GetIndices());
         }
         
         if(Physics::IsActive())

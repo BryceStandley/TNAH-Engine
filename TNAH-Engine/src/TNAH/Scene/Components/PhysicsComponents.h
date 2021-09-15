@@ -2,7 +2,7 @@
 
 #include "TNAH/Physics/Physics.h"
 
-#include "TNAH/Renderer/Mesh.h"
+#include "TNAH/Renderer/Model.h"
 #include "ComponentIdentification.h"
 
 namespace tnah{

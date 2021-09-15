@@ -1,3 +1,4 @@
+#if 0
 #pragma once
 #define MAX_BONE_INFLUENCE 4
 
@@ -7,8 +8,6 @@
 #include "TNAH/Renderer/RenderingBuffers.h"
 #include "TNAH/Renderer/Shader.h"
 #include "TNAH/Renderer/Material.h"
-#include "Animation.h"
-#include "BoneInfo.h"
 
 #pragma warning(push, 0)
 #include <Assimp/Importer.hpp>
@@ -350,19 +349,7 @@ struct Vertex
          */
 
         Model(const std::string& filePath);
-
-        /**
-         * @fn	auto& Model::GetAnimation()
-         *
-         * @brief	Gets the animation
-         *
-         * @author	Dylan Blereau
-         * @date	12/09/2021
-         *
-         * @returns	The animation.
-         */
-
-        auto& GetAnimation() { return m_Animation; }
+     
 
         /**
          * @fn	std::vector<Mesh> Model::GetMeshes() const
@@ -423,9 +410,7 @@ struct Vertex
         std::vector<Mesh> m_Meshes;
 
         Resource m_Resource;
-
-        /** @brief	The animation */
-        Animation m_Animation;
+     
 
         /** @brief	The bone information map */
         std::map<std::string, BoneInfo> m_BoneInfoMap;
@@ -591,3 +576,4 @@ struct Vertex
 
 }
 
+#endif

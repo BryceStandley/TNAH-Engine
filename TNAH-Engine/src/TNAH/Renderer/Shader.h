@@ -428,7 +428,7 @@ namespace tnah {
 		 *
 		 * @param 	name 	The name.
 		 * @param 	value	The value.
-         * @param   transpose Toor not to transpose the matrix (Optional)
+         * @param   transpose To or not to transpose the matrix (Optional)
 		 */
 
 		virtual void SetMat4(const std::string& name, const glm::mat4& value, bool transpose = false) = 0;
