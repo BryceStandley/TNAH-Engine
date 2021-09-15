@@ -6,6 +6,12 @@ namespace tnah
 
 	namespace Mouse
 	{
+		/**
+		 * @enum	
+		 *
+		 * @brief	Values that represent mouseCodes
+		 */
+
 		enum : MouseCode
 		{
 			// From glfw3.h
@@ -21,7 +27,8 @@ namespace tnah
 			ButtonLast = Button7,
 			ButtonLeft = Button0,
 			ButtonRight = Button1,
-			ButtonMiddle = Button2
+			ButtonMiddle = Button2,
+			ButtonAny = Button0 | Button1 | Button2 | Button3 | Button4 | Button5 | Button6 | Button7
 		};
 	}
 }

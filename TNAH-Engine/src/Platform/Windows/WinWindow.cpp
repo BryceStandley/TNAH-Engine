@@ -66,7 +66,8 @@ namespace tnah{
 
 		
 
-		TNAH_INFO("Creating window {0} ({1}, {2})", props.Title, props.Width, props.Height);
+		TNAH_INFO("Window: {0}", props.Title);
+		TNAH_INFO("Resolution: {0}, {1}", props.Width, props.Height);
 
 		if (!s_GLFWInitialized)
 		{
@@ -188,6 +189,7 @@ namespace tnah{
 	void WinWindow::Shutdown()
 	{
 		glfwDestroyWindow(m_Window);
+		glfwTerminate();
 	}
 
 	void WinWindow::OnUpdate()

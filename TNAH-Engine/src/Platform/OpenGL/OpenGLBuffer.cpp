@@ -6,6 +6,32 @@
 namespace tnah {
 	/***********************************************************************/
 	//Vertex Buffer
+	static GLenum ShaderDataTypeToOpenGLBaseType(ShaderDataType type)
+	{
+		switch (type)
+		{
+		case tnah::ShaderDataType::Float:    return GL_FLOAT;
+		case tnah::ShaderDataType::Float2:   return GL_FLOAT;
+		case tnah::ShaderDataType::Float3:   return GL_FLOAT;
+		case tnah::ShaderDataType::Float4:   return GL_FLOAT;
+		case tnah::ShaderDataType::Mat3:     return GL_FLOAT;
+		case tnah::ShaderDataType::Mat4:     return GL_FLOAT;
+		case tnah::ShaderDataType::Int:      return GL_INT;
+		case tnah::ShaderDataType::Int2:     return GL_INT;
+		case tnah::ShaderDataType::Int3:     return GL_INT;
+		case tnah::ShaderDataType::Int4:     return GL_INT;
+		case tnah::ShaderDataType::Bool:     return GL_BOOL;
+		}
+
+		TNAH_CORE_ASSERT(false, "Unknown ShaderDataType!");
+		return 0;
+	}
+	
+
+	OpenGLVertexBuffer::OpenGLVertexBuffer()
+	{
+		glGenBuffers(1, &m_RendererID);
+	}
 
 	OpenGLVertexBuffer::OpenGLVertexBuffer(float* vertices, uint32_t size)
 	{
@@ -38,11 +64,62 @@ namespace tnah {
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 	}
 
+	void OpenGLVertexBuffer::SetData(uint32_t size, const void* data, DrawType type, TypeMode mode) const
+	{
+		glBindBuffer(GL_ARRAY_BUFFER, m_RendererID);
+		glBufferData(GL_ARRAY_BUFFER, size, data, GetDrawMode(type, mode));
+	}
+
+	int OpenGLVertexBuffer::GetDrawMode(DrawType type, TypeMode mode)
+	{
+		if(type == DrawType::STATIC && mode == TypeMode::DRAW) return GL_STATIC_DRAW;
+		if(type == DrawType::STATIC && mode == TypeMode::COPY) return GL_STATIC_COPY;
+		if(type == DrawType::STATIC && mode == TypeMode::READ) return GL_STATIC_READ;
+
+		if(type == DrawType::DYNAMIC && mode == TypeMode::DRAW) return GL_DYNAMIC_DRAW;
+		if(type == DrawType::DYNAMIC && mode == TypeMode::COPY) return GL_DYNAMIC_COPY;
+		if(type == DrawType::DYNAMIC && mode == TypeMode::READ) return GL_DYNAMIC_READ;
+
+		if(type == DrawType::STREAM && mode == TypeMode::DRAW) return GL_STREAM_DRAW;
+		if(type == DrawType::STREAM && mode == TypeMode::COPY) return GL_STREAM_COPY;
+		if(type == DrawType::STREAM && mode == TypeMode::READ) return GL_STREAM_READ;
+
+		return 0;
+	}
+
+	void OpenGLVertexBuffer::CreateLayout(uint32_t location, BufferElement element, uint32_t stride)
+	{
+		glEnableVertexAttribArray(location);
+		if(element.Type == ShaderDataType::Int || element.Type == ShaderDataType::Int2 || element.Type == ShaderDataType::Int3 || element.Type == ShaderDataType::Int4)
+		{
+			glVertexAttribIPointer(location,
+				element.GetComponentCount(),
+				ShaderDataTypeToOpenGLBaseType(element.Type),
+				stride,
+				(const void*)element.Offset);
+		}
+		else
+		{
+			glVertexAttribPointer(location,
+				element.GetComponentCount(),
+				ShaderDataTypeToOpenGLBaseType(element.Type),
+				element.Normalized ? GL_TRUE : GL_FALSE,
+				stride,
+				(const void*)element.Offset);
+		}
+	}
+
+	void OpenGLVertexBuffer::DisableLayout(uint32_t location)
+	{
+		glDisableVertexAttribArray(location);
+	}
+
+
 	/***********************************************************************/
 	//Index Buffer
 
 	OpenGLIndexBuffer::OpenGLIndexBuffer(uint32_t* indices, uint32_t count)
-		: m_Count(count)
+		: m_Count(count), m_DataType(IndexBufferDataType::Int)
 	{
 		glGenBuffers(1, &m_RendererID);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_RendererID);
@@ -50,12 +127,12 @@ namespace tnah {
 	}
 	
 	OpenGLIndexBuffer::OpenGLIndexBuffer(uint32_t count)
-		: m_Count(count), m_RendererID(0)
+		: m_Count(count), m_RendererID(0), m_DataType(IndexBufferDataType::Int)
 	{
 	}
 
 	OpenGLIndexBuffer::OpenGLIndexBuffer(void* indices, uint32_t count)
-		: m_Count(count)
+		: m_Count(count), m_DataType(IndexBufferDataType::Int)
 	{
 		auto i = static_cast<uint32_t*>(indices);
 		glGenBuffers(1, &m_RendererID);
@@ -76,6 +153,20 @@ namespace tnah {
 	void OpenGLIndexBuffer::Unbind() const
 	{
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	}
+
+	int OpenGLIndexBuffer::GetDataType() const
+	{
+		switch(m_DataType)
+		{
+		case IndexBufferDataType::Byte:
+			return GL_UNSIGNED_BYTE;
+		case IndexBufferDataType::Short:
+			return GL_UNSIGNED_SHORT;
+		case IndexBufferDataType::Int:
+			return GL_UNSIGNED_INT;
+		default: return GL_UNSIGNED_INT;
+		}
 	}
 
 	/***********************************************************************/

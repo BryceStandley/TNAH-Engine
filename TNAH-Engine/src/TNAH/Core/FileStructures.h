@@ -4,51 +4,194 @@
 #include <filesystem>
 
 namespace tnah {
-	//Structure of a file, contains a name and a extension
+
+	/**
+	 * @struct	File
+	 *
+	 * @brief	Structure of a file, contains a name and a extension.
+	 *
+	 * @author	Dylan Blereau
+	 * @date	7/09/2021
+	 */
+	
 	struct File
 	{
 		std::string FileName;
 		std::string Extension;
 		std::string FullFile;
 
+		/**
+		 * @fn	File() = default;
+		 *
+		 * @brief	Defaulted constructor
+		 *
+		 * @author	Dylan Blereau
+		 * @date	7/09/2021
+		 */
+
 		File() = default;
+
+		/**
+		 * @fn	File(const std::string& name, const std::string& extension)
+		 *
+		 * @brief	Constructor
+		 *
+		 * @author	Dylan Blereau
+		 * @date	7/09/2021
+		 *
+		 * @param 	name	 	The file name.
+		 * @param 	extension	The file extension.
+		 */
+
 		File(const std::string& name, const std::string& extension)
 			:FileName(name), Extension(extension) { FullFile = FileName + Extension; }
+
+		/**
+		 * @fn	operator std::string&()
+		 *
+		 * @brief	Cast that converts the given  to a string&amp;
+		 *
+		 * @author	Dylan Blereau
+		 * @date	7/09/2021
+		 *
+		 * @returns	The result of the operation.
+		 */
+
 		operator std::string&() { return FullFile; }
 	};
 
-	//Structure of a directory, contains a path
+	/**
+	 * @typedef	std::string Directory
+	 *
+	 * @brief	Structure of a directory, contains a path.
+	 */
+	
 	typedef std::string Directory;
 
-	//Structure of a Folder, contains a vector of files inside a root folder path
+	/**
+	 * @struct	Folder
+	 *
+	 * @brief	Structure of a Folder, contains a vector of files inside a root folder path
+	 *
+	 * @author	Dylan Blereau
+	 * @date	7/09/2021
+	 */
+	
 	struct Folder
 	{
+
+		/** @brief	Pathname of the files in folder */
 		std::vector<File> FilesInFolder;
+
+		/** @brief	The folder root */
 		Directory FolderRoot;
+
+		/**
+		 * @fn	Folder() = default;
+		 *
+		 * @brief	Defaulted constructor
+		 *
+		 * @author	Dylan Blereau
+		 * @date	7/09/2021
+		 */
 
 		Folder() = default;
 	};
 
-	//Structure of a Project, contains a root directory and vector of sub directories
+	/**
+	 * @struct	Project
+	 *
+	 * @brief	Structure of a Project, contains a root directory and vector of sub directories.
+	 *
+	 * @author	Dylan Blereau
+	 * @date	7/09/2021
+	 */
+	
 	struct Project
 	{
+
+		/** @brief	The name */
 		std::string Name;
+
+		/** @brief	Pathname of the root directory */
 		Directory RootDirectory;
+
+		/** @brief	The sub directories */
 		std::vector<Directory> SubDirectories;
+
+		/** @brief	The project files */
 		std::unordered_map<Directory, Folder> ProjectFiles;
+
+		/**
+		 * @fn	Project(const Directory& root)
+		 *
+		 * @brief	Constructor
+		 *
+		 * @author	Dylan Blereau
+		 * @date	7/09/2021
+		 *
+		 * @param 	root	The root.
+		 */
 
 		Project(const Directory& root)
 			:RootDirectory(root) {}
 
+		/**
+		 * @fn	operator std::string&()
+		 *
+		 * @brief	Cast that converts the given  to a string&amp;
+		 *
+		 * @author	Dylan Blereau
+		 * @date	7/09/2021
+		 *
+		 * @returns	The result of the operation.
+		 */
+
 		operator std::string&() { return RootDirectory; }
+
+		/**
+		 * @fn	operator std::vector<Directory>&()
+		 *
+		 * @brief	Cast that converts the given  to a vector
+		 *
+		 * @author	Dylan Blereau
+		 * @date	7/09/2021
+		 *
+		 * @returns	The result of the operation.
+		 */
+
 		operator std::vector<Directory>&() { return SubDirectories; }
+
+		/**
+		 * @fn	operator std::unordered_map<Directory, Folder>&()
+		 *
+		 * @brief	Gets the folder>&amp;
+		 *
+		 * @author	Dylan Blereau
+		 * @date	7/09/2021
+		 *
+		 * @returns	A std::unordered_map&lt;Directory.
+		 */
+
 		operator std::unordered_map<Directory, Folder>&() { return ProjectFiles; }
 	};
+
+	/**
+	 * @enum	RType
+	 *
+	 * @brief	Values that represent types
+	 */
 
 	enum class RType
 	{
 		EMPTY, Unknown, Model, Image, Texture, Shader, Audio, Material, TNAH
 	};
+
+	/**
+	 * @enum	RSubType
+	 *
+	 * @brief	Values that represent sub types
+	 */
 
 	enum class RSubType
 	{
@@ -60,12 +203,47 @@ namespace tnah {
 		TNAH_Scene, TNAH_Project, TNAH_Resource, TNAH_Prefab
 	};
 
+	/**
+	 * @struct	ResourceType
+	 *
+	 * @brief	A resource type.
+	 *
+	 * @author	Dylan Blereau
+	 * @date	7/09/2021
+	 */
+
 	struct ResourceType
 	{
+
+		/** @brief	The type */
 		RType Type = RType::EMPTY;
+
+		/** @brief	The sub type */
 		RSubType SubType = RSubType::EMPTY;
 
+		/**
+		 * @fn	ResourceType() = default;
+		 *
+		 * @brief	Defaulted constructor
+		 *
+		 * @author	Dylan Blereau
+		 * @date	7/09/2021
+		 */
+
 		ResourceType() = default;
+
+		/**
+		 * @fn	ResourceType(const RType& type, const RSubType& subType)
+		 *
+		 * @brief	Constructor
+		 *
+		 * @author	Dylan Blereau
+		 * @date	7/09/2021
+		 *
+		 * @param 	type   	The type.
+		 * @param 	subType	The subtype.
+		 */
+
 		ResourceType(const RType& type, const RSubType& subType)
 			:Type(type)
 		{
@@ -119,6 +297,19 @@ namespace tnah {
 				}
 			}
 		}
+
+		/**
+		 * @fn	static RType GuessType(const std::string& fileExtension)
+		 *
+		 * @brief	Guess type of the file from its extension
+		 *
+		 * @author	Dylan Blereau
+		 * @date	7/09/2021
+		 *
+		 * @param 	fileExtension	The file extension.
+		 *
+		 * @returns	A RType.
+		 */
 
 		static RType GuessType(const std::string& fileExtension)
 		{
@@ -188,21 +379,78 @@ namespace tnah {
 		}
 	};
 
+	/**
+	 * @struct	Resource
+	 *
+	 * @brief	A resource.
+	 *
+	 * @author	Dylan Blereau
+	 * @date	7/09/2021
+	 */
+
 	struct Resource
 	{
+
+		/** @brief	CustomName of the resource */
 		std::string CustomName = "";
+
+		/** @brief	Pathname of the relative directory */
 		Directory RelativeDirectory = Directory("");
+
+		/** @brief	Pathname of the root directory */
 		Directory RootDirectory = Directory("");
+
+		/** @brief	Pathname of the absolute directory */
 		Directory AbsoluteDirectory = Directory("");
+
+		/** @brief	Filename of the file */
 		File FileName = File("", "");
+
+		/** @brief	The type */
 		ResourceType Type = ResourceType(RType::EMPTY, RSubType::EMPTY);
 
+		/**
+		 * @fn	Resource() = default;
+		 *
+		 * @brief	Defaulted constructor
+		 *
+		 * @author	Dylan Blereau
+		 * @date	7/09/2021
+		 */
+
 		Resource() = default;
+
+		/**
+		 * @fn	Resource(const Directory& fileDirectory, const File& fileName, const ResourceType& resourceType)
+		 *
+		 * @brief	Constructor
+		 *
+		 * @author	Dylan Blereau
+		 * @date	7/09/2021
+		 *
+		 * @param 	fileDirectory	Pathname of the file directory.
+		 * @param 	fileName	 	Filename of the file.
+		 * @param 	resourceType 	Type of the resource.
+		 */
+
 		Resource(const Directory& fileDirectory, const File& fileName, const ResourceType& resourceType)
 			:RootDirectory(fileDirectory), FileName(fileName), Type(resourceType)
 		{
 			AbsoluteDirectory = RootDirectory + "/" + FileName.FullFile;
 		}
+
+		/**
+		 * @fn	Resource(const std::string& fileDirectory, const std::string& fileName, const ResourceType& resourceType)
+		 *
+		 * @brief	Constructor
+		 *
+		 * @author	Dylan Blereau
+		 * @date	7/09/2021
+		 *
+		 * @param 	fileDirectory	Pathname of the file directory.
+		 * @param 	fileName	 	Filename of the file.
+		 * @param 	resourceType 	Type of the resource.
+		 */
 
 		Resource(const std::string& fileDirectory, const std::string& fileName, const ResourceType& resourceType)
 			:RootDirectory(fileDirectory), Type(resourceType)
@@ -213,6 +461,17 @@ namespace tnah {
 			FileName.FullFile = fileName;
 			AbsoluteDirectory = RootDirectory + "/" + fileName;
 		}
+
+		/**
+		 * @fn	Resource(const std::string& relativeFilePath)
+		 *
+		 * @brief	Constructor
+		 *
+		 * @author	Dylan Blereau
+		 * @date	7/09/2021
+		 *
+		 * @param 	relativeFilePath	Full pathname of the relative file.
+		 */
 
 		Resource(const std::string& relativeFilePath)
 		{

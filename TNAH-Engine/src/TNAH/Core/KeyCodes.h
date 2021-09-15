@@ -2,10 +2,19 @@
 #include <tnahpch.h>
 namespace tnah
 {
+
+	/** @brief	The key code */
 	using KeyCode = uint16_t;
+
 
 	namespace Key
 	{
+		/**
+		 * @enum	
+		 *
+		 * @brief	Values that represent a keycode
+		 */
+
 		enum : KeyCode
 		{
 			// From glfw3.h

@@ -15,6 +15,7 @@ namespace tnah {
 		case tnah::ShaderDataType::Float4:   return GL_FLOAT;
 		case tnah::ShaderDataType::Mat3:     return GL_FLOAT;
 		case tnah::ShaderDataType::Mat4:     return GL_FLOAT;
+		case ShaderDataType::UInt:		return GL_UNSIGNED_INT;
 		case tnah::ShaderDataType::Int:      return GL_INT;
 		case tnah::ShaderDataType::Int2:     return GL_INT;
 		case tnah::ShaderDataType::Int3:     return GL_INT;
@@ -88,6 +89,38 @@ namespace tnah {
 		indexBuffer->Bind();
 
 		m_IndexBuffer = indexBuffer;
+	}
+
+	void OpenGLVertexArray::UpdateVertexBuffer()
+	{
+		glBindVertexArray(m_RendererID);
+		m_VertexBuffers.at(0)->Bind();
+
+		uint32_t index = 0;
+		const auto& layout = m_VertexBuffers.at(0)->GetLayout();
+		for (const auto& element : layout)
+		{
+			glEnableVertexAttribArray(index);
+			if(VertexBuffer::CheckIntShaderDataTypes(element))
+			{
+				glVertexAttribIPointer(index,
+					element.GetComponentCount(),
+					ShaderDataTypeToOpenGLBaseType(element.Type),
+					layout.GetStride(),
+					(const void*)element.Offset);
+			}
+			else
+			{
+				glVertexAttribPointer(index,
+					element.GetComponentCount(),
+					ShaderDataTypeToOpenGLBaseType(element.Type),
+					element.Normalized ? GL_TRUE : GL_FALSE,
+					layout.GetStride(),
+					(const void*)element.Offset);
+			}
+			
+			index++;
+		}
 	}
 
 }

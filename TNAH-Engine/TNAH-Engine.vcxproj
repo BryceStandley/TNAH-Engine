@@ -30,6 +30,7 @@
     <ClCompile Include="src\TNAH\Physics\Physics.cpp" />
     <ClCompile Include="src\TNAH\Physics\PhysicsEvents.cpp" />
     <ClCompile Include="src\TNAH\Physics\PhysicsTimestep.cpp" />
+    <ClCompile Include="src\TNAH\Physics\PhysicsWrapper.cpp" />
     <ClCompile Include="src\TNAH\Renderer\Image.cpp" />
     <ClCompile Include="src\TNAH\Renderer\Light.cpp" />
     <ClCompile Include="src\TNAH\Renderer\RenderingBuffers.cpp" />
@@ -53,6 +54,7 @@
     <ClCompile Include="src\TNAH\Renderer\Renderer.cpp" />
     <ClCompile Include="src\TNAH\Renderer\RendererAPI.cpp" />
     <ClCompile Include="src\TNAH\Renderer\Texture.cpp" />
+    <ClCompile Include="src\TNAH\Scene\Components\PhysicsComponents.cpp" />
     <ClCompile Include="src\TNAH\Scene\Components\SkyboxComponent.cpp" />
     <ClCompile Include="src\TNAH\Scene\Components\TerrainComponent.cpp" />
     <ClCompile Include="src\TNAH\Scene\Light\DirectionalLight.cpp" />
@@ -93,6 +95,7 @@
     <ClInclude Include="src\TNAH\Physics\Physics.h" />
     <ClInclude Include="src\TNAH\Physics\PhysicsEvents.h" />
     <ClInclude Include="src\TNAH\Physics\PhysicsTimestep.h" />
+    <ClInclude Include="src\TNAH\Physics\PhysicsWrapper.h" />
     <ClInclude Include="src\TNAH\Renderer\Image.h" />
     <ClInclude Include="src\TNAH\Renderer\Light.h" />
     <ClInclude Include="src\TNAH\Renderer\RenderingBuffers.h" />
@@ -101,7 +104,7 @@
     <ClInclude Include="src\TNAH\Renderer\Model.h" />
     <ClInclude Include="src\TNAH\Renderer\stb_image.h" />
     <ClInclude Include="src\TNAH\Renderer\Texture.h" />
-    <ClInclude Include="src\TNAH\Scene\Components\ComponentBase.h" />
+    <ClInclude Include="src\TNAH\Scene\Components\ComponentIdentification.h" />
     <ClInclude Include="src\TNAH\Scene\Components\SkyboxComponent.h" />
     <ClInclude Include="src\TNAH\Scene\Light\DirectionalLight.h" />
     <ClInclude Include="src\TNAH\Scene\Light\PointLight.h" />
@@ -152,12 +155,20 @@
     <Content Include="Resources\fonts\opensans\OpenSans-Regular.ttf" />
     <Content Include="Resources\fonts\opensans\OpenSans-SemiBold.ttf" />
     <Content Include="Resources\fonts\opensans\OpenSans-SemiBoldItalic.ttf" />
+    <Content Include="Resources\images\team\bryce.jpg" />
+    <Content Include="Resources\images\team\chris.jpg" />
+    <Content Include="Resources\images\team\dylan.jpg" />
+    <Content Include="Resources\images\team\team.png" />
+    <Content Include="Resources\images\team\team.xcf" />
+    <Content Include="Resources\images\team\TNAH-2.png" />
     <Content Include="Resources\shaders\default\mesh\mesh_anim_fragment.glsl" />
     <Content Include="Resources\shaders\default\mesh\mesh_anim_vertex.glsl" />
     <Content Include="Resources\shaders\default\mesh\mesh_fragment.glsl" />
     <Content Include="Resources\shaders\default\mesh\mesh_fragment_anim_pbr.glsl" />
     <Content Include="Resources\shaders\default\mesh\mesh_fragment_static_pbr.glsl" />
     <Content Include="Resources\shaders\default\mesh\mesh_vertex.glsl" />
+    <Content Include="Resources\shaders\default\physics\physics_fragment.glsl" />
+    <Content Include="Resources\shaders\default\physics\physics_vertex.glsl" />
     <Content Include="Resources\shaders\default\mesh\mesh_vertex_anim_pbr.glsl" />
     <Content Include="Resources\shaders\default\mesh\mesh_vertex_static_pbr.glsl" />
     <Content Include="Resources\shaders\default\skybox\skybox_fragment.glsl" />
@@ -229,6 +240,9 @@
     <OutDir>$(SolutionDir)bin\$(Configuration)-$(Platform)\$(ProjectName)\</OutDir>
     <IntDir>$(SolutionDir)bin-int\$(Configuration)-$(Platform)\$(ProjectName)\</IntDir>
   </PropertyGroup>
+  <PropertyGroup>
+    <LocalDebuggerWorkingDirectory>$(OutDir)</LocalDebuggerWorkingDirectory>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -243,6 +257,7 @@
       <AdditionalOptions> %(AdditionalOptions)</AdditionalOptions>
       <MultiProcessorCompilation>false</MultiProcessorCompilation>
       <MinimalRebuild>false</MinimalRebuild>
+      <DisableSpecificWarnings></DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

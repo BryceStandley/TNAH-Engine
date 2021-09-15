@@ -680,9 +680,9 @@ bool tnah::UI::EntryDrag(const char* label, int& value, bool readOnly, float spe
     return modified;
 }
 
-bool tnah::UI::EntryDrag(const std::string& label, int& value, bool readOnly, int speed, int min, int max, int resetValue)
+bool tnah::UI::EntryDrag(const std::string& label, int& value, bool readOnly, float speed, int min, int max, int resetValue)
 {
-    return false;//EntryDrag(label.data(), value, readOnly, speed, min, max, resetValue);
+    return EntryDrag(label.c_str(), value, readOnly, speed, min, max, resetValue);
 }
 
 bool tnah::UI::EntryDrag(const char* label, float& value, bool readOnly, float speed, float min, float max, float resetValue)
