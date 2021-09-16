@@ -298,6 +298,7 @@ namespace tnah {
 
     	
 #pragma region HelperFunctions
+    	//TODO: Add Doxy for the helper functions
         static glm::mat4 Mat4FromAssimpMat4(const aiMatrix4x4& matrix);
         static glm::vec3 Vec3FromAssimpVec3(const aiVector3D& vector);
         static glm::vec2 Vec2FromAssimpVec3(const aiVector3D& vector);

@@ -54,6 +54,7 @@
     <ClCompile Include="src\TNAH\Renderer\RenderCommand.cpp" />
     <ClCompile Include="src\TNAH\Renderer\Renderer.cpp" />
     <ClCompile Include="src\TNAH\Renderer\RendererAPI.cpp" />
+    <ClCompile Include="src\TNAH\Renderer\RenderLibrary.cpp" />
     <ClCompile Include="src\TNAH\Renderer\Submesh.cpp" />
     <ClCompile Include="src\TNAH\Renderer\Texture.cpp" />
     <ClCompile Include="src\TNAH\Scene\Components\PhysicsComponents.cpp" />
@@ -105,6 +106,7 @@
     <ClInclude Include="src\TNAH\Renderer\Camera.h" />
     <ClInclude Include="src\TNAH\Renderer\Material.h" />
     <ClInclude Include="src\TNAH\Renderer\Model.h" />
+    <ClInclude Include="src\TNAH\Renderer\RenderLibrary.h" />
     <ClInclude Include="src\TNAH\Renderer\stb_image.h" />
     <ClInclude Include="src\TNAH\Renderer\Structures.h" />
     <ClInclude Include="src\TNAH\Renderer\Submesh.h" />
@@ -172,14 +174,18 @@
     <Content Include="Resources\shaders\default\mesh\mesh_fragment_anim_pbr.glsl" />
     <Content Include="Resources\shaders\default\mesh\mesh_fragment_static_pbr.glsl" />
     <Content Include="Resources\shaders\default\mesh\mesh_vertex.glsl" />
+    <Content Include="Resources\shaders\default\mesh\TNAH_mesh_PBR.glsl" />
     <Content Include="Resources\shaders\default\physics\physics_fragment.glsl" />
     <Content Include="Resources\shaders\default\physics\physics_vertex.glsl" />
     <Content Include="Resources\shaders\default\mesh\mesh_vertex_anim_pbr.glsl" />
     <Content Include="Resources\shaders\default\mesh\mesh_vertex_static_pbr.glsl" />
+    <Content Include="Resources\shaders\default\physics\TNAH_physics.glsl" />
     <Content Include="Resources\shaders\default\skybox\skybox_fragment.glsl" />
     <Content Include="Resources\shaders\default\skybox\skybox_vertex.glsl" />
+    <Content Include="Resources\shaders\default\skybox\TNAH_skybox_PBR.glsl" />
     <Content Include="Resources\shaders\default\terrain\terrain_fragment.glsl" />
     <Content Include="Resources\shaders\default\terrain\terrain_vertex.glsl" />
+    <Content Include="Resources\shaders\default\terrain\TNAH_terrain_PBR.glsl" />
     <Content Include="Resources\textures\default\default_black.jpg" />
     <Content Include="Resources\textures\default\default_missing.jpg" />
     <Content Include="Resources\textures\default\default_white.jpg" />

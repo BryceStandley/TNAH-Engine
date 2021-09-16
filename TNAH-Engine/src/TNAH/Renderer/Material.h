@@ -165,6 +165,7 @@ namespace tnah
 		void AddTexture(Ref<Texture2D> texture, const uint32_t& index = 0);
 		void AddTextures(std::vector<Ref<Texture2D>> textures);
 		void ResizeTextureStorage(const uint32_t& size) { m_Textures.resize(size); }
+		void SetShader(const Ref<Shader> shader) { m_Shader = shader; }
         
 
 		/**

@@ -5,6 +5,7 @@
 #include "TNAH/Scene/SceneCamera.h"
 #include "TNAH/Scene/Components/Components.h"
 #include "TNAH/Renderer/Material.h"
+#include "TNAH/Renderer/RenderLibrary.h"
 #include "Light.h"
 #include "Model.h"
 #include "Model.h"
@@ -348,6 +349,18 @@ namespace tnah {
 		static void RegisterShader(Ref<Shader> shader);
 
 		/**
+		* @fn	static void Renderer::RegisterLibraryShaders();
+		*
+		* @brief	Registers the RenderLibrary shaders for tracking.
+		*
+		* @author	Bryce Standley
+		* @date	16/09/2021
+		*
+		*/
+
+		static void RegisterLibraryShaders();
+
+		/**
 		 * @fn	static std::vector<Ref<Model>> Renderer::GetLoadedModels();
 		 *
 		 * @brief	Gets loaded models
@@ -431,6 +444,16 @@ namespace tnah {
 		static int HasLoadedTexture(const std::string& texturePath);
 	
 	private:
+
+		/**
+		* @fn	static void Renderer::LoadRenderLibrary();
+		*
+		* @brief	Loads predefined render library data into the engine. Typically default shaders and default textures. 
+		*
+		* @author	Bryce Standley
+		* @date	16/09/2021
+		*/
+		static void LoadRenderLibrary();
 
 		/**
 		 * @fn	static void Renderer::IncrementDrawCallsPerFrame();

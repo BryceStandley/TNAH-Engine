@@ -11,6 +11,7 @@ namespace tnah {
 #pragma region RenderDataHolders
 	struct RendererData
 	{
+		//TODO: Move the default textures into the RenderLibrary
 		Ref<Texture2D> WhiteTexture;
 		Ref<Texture2D> BlackTexture;
 		Ref<Texture2D> MissingTexture;
@@ -83,6 +84,10 @@ namespace tnah {
 	{
 		s_Data = new RendererData();
 		RenderCommand::Init();
+		if(RenderLibrary::InitializeLibrary()) // Init the render library with the default shaders
+		{
+			RegisterLibraryShaders();
+		}
 
 		s_Data->WhiteTexture = (Texture2D::Create("Resources/textures/default/default_white.jpg"));
 		s_Data->BlackTexture = (Texture2D::Create("Resources/textures/default/default_black.jpg"));
@@ -96,6 +101,7 @@ namespace tnah {
 
 	void Renderer::Shutdown()
 	{
+		
 		//Resetting all the loaded objects to shutdown
 		for (auto t : s_Data->LoadedTextures)
 		{
@@ -113,7 +119,10 @@ namespace tnah {
 		}
 
 		delete[] s_Data;
+
+		RenderLibrary::ClearLibrary();
 	}
+
 #pragma endregion
 
 #pragma region Rendering
@@ -419,6 +428,16 @@ namespace tnah {
 	{
 		s_Data->LoadedShaders.push_back(shader);
 		IncrementTotalLoadedShaders();
+	}
+
+	void Renderer::RegisterLibraryShaders()
+	{
+		auto library = RenderLibrary::GetAllShaders();
+		for(auto shader : library)
+		{
+			s_Data->LoadedShaders.push_back(shader.second);
+			IncrementTotalLoadedShaders();
+		}
 	}
 
 	std::vector<Ref<Model>> Renderer::GetLoadedModels()

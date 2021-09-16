@@ -58,9 +58,6 @@ namespace tnah {
             return;
         }
         m_IsAnimated = scene->mAnimations != nullptr;
-
-        //TODO: Add a Renderer function to be able to ask for the Mesh Shader. Most shaders should be loaded and setup on application launch, not when something is loaded in that needs it.
-        //m_Shader = Shader::Create("Resources/shaders/default/mesh/mesh_vertex_static_pbr.glsl", "Resources/shaders/default/mesh/mesh_fragment_static_pbr.glsl");
         
         m_GlobalInverseTransform = glm::inverse(Mat4FromAssimpMat4(scene->mRootNode->mTransformation));
 
@@ -180,6 +177,8 @@ namespace tnah {
         materials.resize(1);
         auto totalTextures = TotalTexturesFromAssimpMaterial(material);
         materials.at(0)->ResizeTextureStorage(totalTextures);
+        materials.at(0)->SetShader(RenderLibrary::GetShader(RenderLibrary::LibraryShader::Mesh));
+        
         uint32_t texturesSet = 0;
 
         if(AssimpMaterialIsPBR(material))
