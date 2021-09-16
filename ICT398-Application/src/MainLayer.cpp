@@ -16,11 +16,11 @@ MainLayer::MainLayer()
 	auto& ct = m_Camera.Transform();
 	auto& cc = m_Camera.GetComponent<tnah::CameraComponent>();
 	cc.Camera.SetViewportSize(1280, 720);
-	ct.Position = glm::vec3(0, 0, 1);
+	ct.Position = glm::vec3(0, 5, -10);
 	cc.ClearMode = tnah::CameraClearMode::Skybox;
 	auto& m_Skybox = m_Camera.AddComponent<tnah::SkyboxComponent>();
 	
-	{
+	/*{
 		auto& rb = m_Camera.AddComponent<tnah::RigidBodyComponent>(ct);
 		auto& box = m_Camera.AddComponent<tnah::BoxColliderComponent>(glm::vec3(0.2f, 0.8f, 0.2f));
 		box.Components.TransformRelativeToCollisionBody.setPosition({0, -0.7f, 0});
@@ -29,8 +29,42 @@ MainLayer::MainLayer()
 		rb.Body->setAngularLockAxisFactor({0,1,0}); // Lock the rigidbody from falling over
 		rb.SetBodyType(rp3d::BodyType::DYNAMIC);
 		
-	}
+	}*/
 	
+	{
+		std::string name = "Test Cube";
+		
+		auto&go = m_ActiveScene->CreateGameObject(name);
+		auto&tt = go.Transform();
+		auto& mesh = go.AddComponent<tnah::MeshComponent>();
+		mesh.Model = tnah::Model::Create("assets/meshes/cube.fbx");
+		
+		tt.Position = glm::vec3(50, 1, 0);
+		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
+		auto& box = go.AddComponent<tnah::BoxColliderComponent>(glm::vec3(2.1, 2.1, 2.1));
+		
+		box.Components.BodyCollider = rb.AddCollider(box.Components.Shape, rp3d::Transform::identity());
+		
+		rb.SetBodyType(rp3d::BodyType::DYNAMIC);	
+	}
+
+	{
+		std::string name = "Floor";
+		
+		auto&go = m_ActiveScene->CreateGameObject(name);
+		auto&tt = go.Transform();
+		auto& mesh = go.AddComponent<tnah::MeshComponent>();
+		mesh.Model = tnah::Model::Create("assets/meshes/cube.fbx");
+		
+		tt.Position = glm::vec3(20, -5, 10);
+		tt.Scale = glm::vec3(100, 1, 100);
+		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
+		auto& box = go.AddComponent<tnah::BoxColliderComponent>(glm::vec3(201, 2.1, 201));
+		
+		box.Components.BodyCollider = rb.AddCollider(box.Components.Shape, rp3d::Transform::identity());
+		
+		rb.SetBodyType(rp3d::BodyType::KINEMATIC);	
+	}
 	
 	m_SceneLight = m_ActiveScene->GetSceneLight();
 
@@ -43,7 +77,7 @@ MainLayer::MainLayer()
 	
 	
 #pragma region SceneCreation
-	// Note this is a temp solution to building our scene.
+	/*// Note this is a temp solution to building our scene.
 	//
 	// 
 	// Scene Serialization is currently undergoing testing and bug fixes
@@ -417,7 +451,7 @@ MainLayer::MainLayer()
 		box.Components.BodyCollider = rb.AddCollider(box.Components.Shape, rp3d::Transform::identity());
 		
 		rb.SetBodyType(rp3d::BodyType::KINEMATIC);	
-	}
+	}*/
 #pragma endregion SceneCreation
 	
 }
@@ -472,7 +506,7 @@ void MainLayer::OnUpdate(tnah::Timestep deltaTime)
 		*/
 		if(m_CameraMovementToggle)
 		{
-			if(tnah::Input::IsKeyPressed(tnah::Key::W))
+			/*if(tnah::Input::IsKeyPressed(tnah::Key::W))
 			{
 				ct.Position += ct.Forward * m_CameraMovementSpeed * deltaTime.GetSeconds();
 				rp3d::Transform rt = rb.Body->getTransform();
@@ -503,7 +537,7 @@ void MainLayer::OnUpdate(tnah::Timestep deltaTime)
 				rt.setPosition(tnah::Math::ToRp3dVec3(ct.Position));
 				rb.Body->setTransform(rt);
 				//rb.ApplyForce(tnah::RigidBodyComponent::ForceType::FromCentre, ct.Right, glm::vec3(5), glm::vec3(0));
-			}
+			}*/
 		}
 	}
 

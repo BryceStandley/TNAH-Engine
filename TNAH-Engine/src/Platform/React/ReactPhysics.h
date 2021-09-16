@@ -22,6 +22,16 @@ namespace tnah
 
         void CreateCapsuleShape(const float& radius, const float& height, Ref<RigidBody> rb) override;
 
+        void CreateTerrainCollider(tnah::Terrain* terrain) override;
+
+        virtual std::pair<std::pair<Ref<VertexArray>, Ref<VertexBuffer>>, std::pair<Ref<VertexArray>, Ref<VertexBuffer>>> GetColliderRenderObjects() override;
+
+        virtual bool IsColliderRenderingEnabled() override;
+
+        virtual void EnableLogging() override;
+
+        virtual Ref<Shader> GetColliderShader() override;
+
         //static void CreateHeightFieldShape(const int& columns, const int& rows, const float& minHeight, const float& maxHeight, const float* terrainColliderHeightData);
 
         //static void CreatePolyhedronMesh(rp3d::PolygonVertexArray* polygonVertexArray);
@@ -32,7 +42,7 @@ namespace tnah
 
         //static void CreateTriangleMesh();
 
-        void CreateTerrainCollider(tnah::Terrain* terrain) override;
+
     private:
         
         struct ReactRigidBody

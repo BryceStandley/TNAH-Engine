@@ -324,7 +324,7 @@ namespace tnah{
 
 				{
 					//Collider rendering should only be used for debugging and in the editor to set sizes
-					if((m_IsEditorScene || Application::Get().GetDebugModeStatus()) && Physics::IsColliderRenderingEnabled() && passes == 0)
+					if((/*/*m_IsEditorScene ||#1# Application::Get().GetDebugModeStatus()) && */Physics::IsColliderRenderingEnabled() && passes == 0))
 					{
 						auto pair = Physics::GetColliderRenderObjects();
 						auto lineArr = pair.first.first;

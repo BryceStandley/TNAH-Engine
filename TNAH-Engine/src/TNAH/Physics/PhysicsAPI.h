@@ -17,16 +17,12 @@ namespace tnah
         };
         
         virtual ~PhysicsAPI() = default;
-        //Creates the physics API
+
         static Scope<PhysicsAPI> Create();
-        //Updates the rigidbodies, applying all the new values
+
         virtual void OnFixedUpdate() = 0;
-
-        //Creates a new rigidbody
+        
         virtual Ref<RigidBody> CreateRigidBody(const TransformComponent& transform) = 0;
-
-        //Creates a collider of type collider
-        virtual void CreateCollider(PhysicsAPI::Collider collider, Ref<RigidBody> rb) = 0;
         
         virtual void CreateBoxShape(const glm::vec3& halfValues, Ref<RigidBody> rb) = 0;
 
@@ -35,6 +31,14 @@ namespace tnah
         virtual void CreateCapsuleShape(const float& radius, const float& height, Ref<RigidBody> rb) = 0;
 
         virtual void CreateTerrainCollider(tnah::Terrain* terrain) = 0;
+
+        virtual std::pair<std::pair<Ref<VertexArray>, Ref<VertexBuffer>>, std::pair<Ref<VertexArray>, Ref<VertexBuffer>>> GetColliderRenderObjects() = 0;
+
+        virtual bool IsColliderRenderingEnabled() = 0;
+
+        virtual void EnableLogging() = 0;
+
+        virtual Ref<Shader> GetColliderShader() = 0;
         
     private:
         static API p_Api;
