@@ -1,6 +1,7 @@
 #pragma once
 
 #include "TNAH/Physics/Physics.h"
+#include "TNAH/Physics/RigidBody.h"
 
 #include "TNAH/Renderer/Mesh.h"
 #include "ComponentIdentification.h"

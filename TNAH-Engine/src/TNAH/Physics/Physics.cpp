@@ -1,183 +1,63 @@
 ﻿#include "tnahpch.h"
 #include "Physics.h"
 
+#include "PhysicsCommand.h"
+
 namespace tnah
 {
     
-#pragma region Physics
-    Ref<PhysicsManager> Physics::m_PhysicsManager = Ref<PhysicsManager>::Create();
-    TransformComponent Physics::m_ColliderTransform = TransformComponent();
-
 #pragma region InitAndHelpers
-    Ref<PhysicsManager> Physics::GetManager()
-    {
-        return m_PhysicsManager;
-    }
 
-    bool Physics::IsActive()
+    void Physics::Initialise()
     {
-        return m_PhysicsManager->m_Active;
-    }
-
-    bool Physics::Initialise(rp3d::EventListener* collisionEventListener)
-    {
-        const bool result = m_PhysicsManager->Initialise(collisionEventListener);
-        ToggleColliderRendering();
-        return result;
-    }
-
-    void Physics::ToggleColliderRendering()
-    {
-        if(m_PhysicsManager->m_Active)
-        {
-            m_PhysicsManager->m_ColliderRender = !m_PhysicsManager->m_ColliderRender;
-            if(m_PhysicsManager->m_ColliderRendererInit)
-            {
-                m_PhysicsManager->m_PhysicsWorld->setIsDebugRenderingEnabled(m_PhysicsManager->m_ColliderRender);
-            }
-            else
-            {
-                m_ColliderTransform.Scale = glm::vec3(1.0f);
-                m_PhysicsManager->CreateColliderRenderer();
-                m_PhysicsManager->m_PhysicsWorld->setIsDebugRenderingEnabled(m_PhysicsManager->m_ColliderRender);
-            }
-        }
-    }
-
-    void Physics::PhysicsLoggerInit()
-    {
-        m_PhysicsManager->m_PhysicsLogger = m_PhysicsManager->m_PhysicsCommon.createDefaultLogger();
-        const rp3d::uint logLevel = static_cast<rp3d::uint>(rp3d::Logger::Level::Warning) | static_cast<rp3d::uint>(rp3d::Logger::Level::Error) | static_cast<rp3d::uint>(rp3d::Logger::Level::Information);
-        m_PhysicsManager->m_PhysicsLogger->addFileDestination("rp3d_log.html", logLevel, rp3d::DefaultLogger::Format::HTML);
-        m_PhysicsManager->m_PhysicsCommon.setLogger(m_PhysicsManager->m_PhysicsLogger);
+        PhysicsCommand::Init();
     }
 
     void Physics::OnFixedUpdate(PhysicsTimestep timestep)
     {
-        if(IsActive())
-        {
-            m_PhysicsManager->OnFixedUpdate(timestep);
-            UpdateColliderRenderer();
-        }
+        PhysicsCommand::OnFixedUpdate(timestep);
     }
 
     void Physics::Destroy()
     {
-        m_PhysicsManager->Destroy();
+        PhysicsCommand::Destroy();
     }
 #pragma endregion 
 
 #pragma region ColliderRenderer
     bool& Physics::GetColliderRendererHandle()
     {
-        return m_PhysicsManager->m_ColliderRender;
+        return  PhysicsCommand::GetColliderRendererHandler();
     }
 
     TransformComponent Physics::GetColliderRendererTransform()
     {
-        if(m_PhysicsManager->m_Active)
-        {
-            return m_ColliderTransform;
-        }
-        
-        return TransformComponent();
-
-    }
-
-    rp3d::DebugRenderer* Physics::GetColliderRenderer()
-    {
-        if(m_PhysicsManager->m_Active)
-        {
-            return &m_PhysicsManager->m_PhysicsWorld->getDebugRenderer();
-        }
-        return nullptr;
+       return PhysicsCommand::GetColliderRendererTransform();
     }
 
     void Physics::EnableLogging()
     {
-        if(IsActive())
-        {
-            m_PhysicsManager->m_Logging = true;
-            PhysicsLoggerInit();
-        }
+        PhysicsCommand::EnableLogging();
     }
 
     bool Physics::IsColliderRenderingEnabled()
     {
-        return m_PhysicsManager->m_ColliderRender;
+        return  PhysicsCommand::IsColliderRenderingEnabled();
     }
 
     std::pair<std::pair<Ref<VertexArray>, Ref<VertexBuffer>>, std::pair<Ref<VertexArray>, Ref<VertexBuffer>>> Physics::
     GetColliderRenderObjects()
     {
-        std::pair<Ref<VertexArray>, Ref<VertexBuffer>> lines;
-        lines.first = m_PhysicsManager->m_LinesVertexArray;
-        lines.second = m_PhysicsManager->m_LinesVertexBuffer;
-
-        std::pair<Ref<VertexArray>, Ref<VertexBuffer>> triangles;
-        triangles.first = m_PhysicsManager->m_TriangleVertexArray;
-        triangles.second = m_PhysicsManager->m_TriangleVertexBuffer;
-
-        return {lines, triangles};
+        return PhysicsCommand::GetColliderRenderObjects();
     }
 
     Ref<Shader> Physics::GetColliderShader()
     {
-        return m_PhysicsManager->m_Shader;
-    }
-
-    void Physics::UpdateColliderRenderer()
-    {
-        if(m_PhysicsManager->m_Active)
-        {
-            //Check and return if the collider rendering objects haven't been created yet
-            // Only check one object, if one is null then they all are
-            if(m_PhysicsManager->m_LinesVertexArray == nullptr) return;
-            if(!m_PhysicsManager->m_ColliderRendererInit) return;
-
-            //Check and only update if we really want to render the colliders
-            if(m_PhysicsManager->m_ColliderRender)
-            {
-                auto renderer = GetColliderRenderer();
-                const rp3d::uint nbLines = renderer->getNbLines();
-                if(nbLines > 0)
-                {
-                    const uint32_t size = nbLines * sizeof(rp3d::DebugRenderer::DebugLine);
-                    m_PhysicsManager->m_LinesVertexArray->Bind();
-                    m_PhysicsManager->m_LinesVertexBuffer->SetData(size, renderer->getLinesArray(), DrawType::STREAM, TypeMode::DRAW);
-                    m_PhysicsManager->m_LinesVertexArray->SetIndexSize(nbLines * 2);
-
-                    VertexBufferLayout layout = m_PhysicsManager->m_LinesVertexBuffer->GetLayout();
-                    layout.SetStride(sizeof(rp3d::Vector3) + sizeof(rp3d::uint32));
-                    auto& elements = layout.GetElements();
-                    elements.at(1).Offset = sizeof(rp3d::Vector3);
-                    m_PhysicsManager->m_LinesVertexBuffer->SetLayout(layout);
-                    m_PhysicsManager->m_LinesVertexBuffer->Unbind();
-                    m_PhysicsManager->m_LinesVertexArray->Unbind();
-                }
-
-                // Triangles
-                const rp3d::uint nbTriangles = renderer->getNbTriangles();
-                if(nbTriangles > 0)
-                {
-                    const uint32_t size = nbTriangles * sizeof(rp3d::DebugRenderer::DebugTriangle);
-                    m_PhysicsManager->m_TriangleVertexArray->Bind();
-                    m_PhysicsManager->m_TriangleVertexBuffer->SetData(size, renderer->getTrianglesArray(), DrawType::STREAM, TypeMode::DRAW);
-                    m_PhysicsManager->m_TriangleVertexArray->SetIndexSize(nbTriangles * 3);
-
-                    VertexBufferLayout layout = m_PhysicsManager->m_TriangleVertexBuffer->GetLayout();
-                    layout.SetStride(sizeof(rp3d::Vector3) + sizeof(rp3d::uint32));
-                    auto& elements = layout.GetElements();
-                    elements.at(1).Offset = sizeof(rp3d::Vector3);
-                    m_PhysicsManager->m_TriangleVertexBuffer->SetLayout(layout);
-                    m_PhysicsManager->m_TriangleVertexBuffer->Unbind();
-                    m_PhysicsManager->m_TriangleVertexArray->Unbind();
-                }
-            }
-        }
+        return  PhysicsCommand::GetColliderShader();
     }
 #pragma endregion 
 
+/*
 #pragma region RigidbodyAndCollider
     rp3d::CollisionBody* Physics::CreateCollisionBody(const TransformComponent& transformValues)
     {
@@ -305,7 +185,7 @@ namespace tnah
 #pragma endregion
 
     
- /***************************************/
+ /**************************************#1#
 
     
 #pragma region PhysicsManager
@@ -408,6 +288,7 @@ namespace tnah
         
     }
 #pragma endregion 
+*/
 
 
 

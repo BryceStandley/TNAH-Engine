@@ -30,7 +30,9 @@
     <ClCompile Include="src\TNAH\Layers\UI.cpp" />
     <ClCompile Include="src\TNAH\Physics\Physics.cpp" />
     <ClCompile Include="src\TNAH\Physics\PhysicsAPI.cpp" />
+    <ClCompile Include="src\TNAH\Physics\PhysicsCommand.cpp" />
     <ClCompile Include="src\TNAH\Physics\PhysicsEvents.cpp" />
+    <ClCompile Include="src\TNAH\Physics\PhysicsMath.cpp" />
     <ClCompile Include="src\TNAH\Physics\PhysicsTimestep.cpp" />
     <ClCompile Include="src\TNAH\Physics\PhysicsWrapper.cpp" />
     <ClCompile Include="src\TNAH\Physics\RigidBody.cpp" />
@@ -99,7 +101,9 @@
     <ClInclude Include="src\TNAH\Layers\UI.h" />
     <ClInclude Include="src\TNAH\Physics\Physics.h" />
     <ClInclude Include="src\TNAH\Physics\PhysicsAPI.h" />
+    <ClInclude Include="src\TNAH\Physics\PhysicsCommand.h" />
     <ClInclude Include="src\TNAH\Physics\PhysicsEvents.h" />
+    <ClInclude Include="src\TNAH\Physics\PhysicsMath.h" />
     <ClInclude Include="src\TNAH\Physics\PhysicsTimestep.h" />
     <ClInclude Include="src\TNAH\Physics\PhysicsWrapper.h" />
     <ClInclude Include="src\TNAH\Physics\RigidBody.h" />

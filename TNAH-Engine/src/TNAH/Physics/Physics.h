@@ -5,6 +5,7 @@
 #pragma warning(pop)
 
 #include "TNAH/Physics/PhysicsTimestep.h"
+#include "TNAH/Renderer/RenderCommand.h"
 #include "TNAH/Scene/Components/Components.h"
 
 namespace tnah
@@ -19,7 +20,7 @@ namespace tnah
      * @date	11/09/2021
      */
 
-    class PhysicsManager : public RefCounted
+    /*class PhysicsManager : public RefCounted
     {
     public:
 
@@ -31,7 +32,7 @@ namespace tnah
          *
          * @author	Dylan Blereau
          * @date	12/09/2021
-         */
+         #1#
 
         PhysicsManager();
 
@@ -44,7 +45,7 @@ namespace tnah
          *
          * @author	Dylan Blereau
          * @date	12/09/2021
-         */
+         #1#
 
         ~PhysicsManager();
     
@@ -60,7 +61,7 @@ namespace tnah
          * @param [in,out]	collisionEventListener	If non-null, the collision event listener.
          *
          * @returns	True if it succeeds, false if it fails.
-         */
+         #1#
 
         bool Initialise(rp3d::EventListener * collisionEventListener);
 
@@ -74,7 +75,7 @@ namespace tnah
          * @date	12/09/2021
          *
          * @param 	timestep	The timestep.
-         */
+         #1#
 
         void OnFixedUpdate(PhysicsTimestep timestep) const;
 
@@ -85,7 +86,7 @@ namespace tnah
          *
          * @author	Dylan Blereau
          * @date	12/09/2021
-         */
+         #1#
 
         void Destroy();
 
@@ -100,7 +101,7 @@ namespace tnah
          * @param 	transform	A transform component.
          *
          * @returns	Null if it fails, else the new rigid body.
-         */
+         #1#
 
         rp3d::RigidBody* CreateRigidBody(const TransformComponent& transform) const;
 
@@ -113,7 +114,7 @@ namespace tnah
          * @date	12/09/2021
          *
          * @param [in,out]	rigidBody	If non-null, the rigid body.
-         */
+         #1#
 
         void DestroyRigidBody(rp3d::RigidBody* rigidBody) const;
 
@@ -128,7 +129,7 @@ namespace tnah
          * @param 	transform	The transform.
          *
          * @returns	Null if it fails, else the new collision body.
-         */
+         #1#
 
         rp3d::CollisionBody* CreateCollisionBody(const TransformComponent& transform) const;
 
@@ -141,7 +142,7 @@ namespace tnah
          * @date	12/09/2021
          *
          * @param [in,out]	body	If non-null, the body.
-         */
+         #1#
 
         void DestroyCollisionBody(rp3d::CollisionBody * body) const;
 
@@ -154,57 +155,57 @@ namespace tnah
          *
          * @author	Dylan Blereau
          * @date	12/09/2021
-         */
+         #1#
 
         void CreateColliderRenderer();
         
     private:
-        /** @brief	The physics common */
+        /** @brief	The physics common #1#
         rp3d::PhysicsCommon m_PhysicsCommon;
 
 
-        /** @brief	Pointer to The physics world */
+        /** @brief	Pointer to The physics world #1#
         rp3d::PhysicsWorld* m_PhysicsWorld = nullptr;
 
 
-        /** @brief	Pointer to physics logger */
+        /** @brief	Pointer to physics logger #1#
         rp3d::DefaultLogger* m_PhysicsLogger = nullptr;
 
 
-        /** @brief	True to collider render */
+        /** @brief	True to collider render #1#
         bool m_ColliderRender = false;
      
-     /** @brief	True if the collider renderer has been initialized */
+     /** @brief	True if the collider renderer has been initialized #1#
       bool m_ColliderRendererInit = false;
      
         Ref<VertexArray> m_LinesVertexArray;
 
 
-        /** @brief	Pointer to the buffer for lines vertex data */
+        /** @brief	Pointer to the buffer for lines vertex data #1#
         Ref<VertexBuffer> m_LinesVertexBuffer;
 
-        /** @brief	Pointer to array for triangle vertex data */
+        /** @brief	Pointer to array for triangle vertex data #1#
         Ref<VertexArray> m_TriangleVertexArray;
 
-        /** @brief	Pointer to Buffer for triangle vertex data */
+        /** @brief	Pointer to Buffer for triangle vertex data #1#
         Ref<VertexBuffer> m_TriangleVertexBuffer;
 
-        /** @brief	Shader used for the collider renderer */
+        /** @brief	Shader used for the collider renderer #1#
         Ref<Shader> m_Shader;
 
-        /** @brief	Layout of the collider renderer vertex buffers */
+        /** @brief	Layout of the collider renderer vertex buffers #1#
         VertexBufferLayout m_ColliderLayout;
         
         
 
-        /** @brief	True to active */
+        /** @brief	True to active #1#
         bool m_Active = false;
 
-     /** @brief Used to tell the physics system if the logging should be enabled*/
+     /** @brief Used to tell the physics system if the logging should be enabled#1#
      bool m_Logging = false;
 
         friend class Physics;
-    };
+    };*/
 
     /**
      * @class	Physics
@@ -218,33 +219,7 @@ namespace tnah
     class Physics
     {
     public:
-
-        /**
-         * @fn	static Ref<PhysicsManager> Physics::GetManager();
-         *
-         * @brief	Gets a pointer to the PhysicsManager
-         *
-         * @author	Dylan Blereau
-         * @date	12/09/2021
-         *
-         * @returns	The manager.
-         */
-
-        static Ref<PhysicsManager> GetManager();
-
-        /**
-         * @fn	static bool Physics::IsActive();
-         *
-         * @brief	Query if the physics is active
-         *
-         * @author	Dylan Blereau
-         * @date	12/09/2021
-         *
-         * @returns	True if active, false if not.
-         */
-
-        static bool IsActive();
-
+     
         /**
          * @fn	static bool Physics::Initialise(rp3d::EventListener * collisionEventListener);
          *
@@ -258,7 +233,7 @@ namespace tnah
          * @returns	True if it succeeds, false if it fails.
          */
 
-        static bool Initialise(rp3d::EventListener * collisionEventListener);
+        static void Initialise();
 
         /**
          * @fn	static void Physics::OnFixedUpdate(PhysicsTimestep timestep);
@@ -297,7 +272,7 @@ namespace tnah
          * @returns	Null if it fails, else the new collision body.
          */
 
-        static rp3d::CollisionBody* CreateCollisionBody(const TransformComponent& transformValues);
+        //static rp3d::CollisionBody* CreateCollisionBody(const TransformComponent& transformValues);
 
         /**
          * @fn	static void Physics::DestroyCollisionBody(rp3d::CollisionBody * body);
@@ -310,7 +285,7 @@ namespace tnah
          * @param [in,out]	body	If non-null, the body.
          */
 
-        static void DestroyCollisionBody(rp3d::CollisionBody * body);
+        //static void DestroyCollisionBody(rp3d::CollisionBody * body);
 
         /**
          * @fn	static void Physics::DestroyRigidbody(rp3d::RigidBody* body);
@@ -323,7 +298,7 @@ namespace tnah
          * @param [in,out]	body	If non-null, the body.
          */
 
-        static void DestroyRigidbody(rp3d::RigidBody* body);
+        //static void DestroyRigidbody(rp3d::RigidBody* body);
 
         /**
          * @fn	static rp3d::RigidBody* Physics::CreateRigidbody(const TransformComponent& transform);
@@ -338,7 +313,7 @@ namespace tnah
          * @returns	Null if it fails, else the new rigidbody.
          */
 
-        static rp3d::RigidBody* CreateRigidbody(const TransformComponent& transform);
+        //static rp3d::RigidBody* CreateRigidbody(const TransformComponent& transform);
 
         /**
          * @fn	static rp3d::RigidBody* Physics::CreateRigidbody(const rp3d::Transform transform);
@@ -353,7 +328,7 @@ namespace tnah
          * @returns	Null if it fails, else the new rigidbody.
          */
 
-        static rp3d::RigidBody* CreateRigidbody(const rp3d::Transform transform);
+        //static rp3d::RigidBody* CreateRigidbody(const rp3d::Transform transform);
 
         /**
          * @fn	static rp3d::RigidBody* Physics::CreateRigidbody(const glm::vec3& position, const glm::vec3& rotation);
@@ -369,18 +344,8 @@ namespace tnah
          * @returns	Null if it fails, else the new rigidbody.
          */
 
-        static rp3d::RigidBody* CreateRigidbody(const glm::vec3& position, const glm::vec3& rotation);
-
-        /**
-         * @fn	static void Physics::ToggleColliderRendering();
-         *
-         * @brief	Toggle collider rendering
-         *
-         * @author	Dylan Blereau
-         * @date	12/09/2021
-         */
-
-        static void ToggleColliderRendering();
+        //static rp3d::RigidBody* CreateRigidbody(const glm::vec3& position, const glm::vec3& rotation);
+     
 
 
 
@@ -421,7 +386,7 @@ namespace tnah
          * @returns	Null if it fails, else the new box shape.
          */
 
-        static rp3d::BoxShape* CreateBoxShape(const float& halfX, const float& halfY, const float& halfZ);
+        //static rp3d::BoxShape* CreateBoxShape(const float& halfX, const float& halfY, const float& halfZ);
 
         /**
          * @fn	static rp3d::BoxShape* Physics::CreateBoxShape(const glm::vec3& halfExtents);
@@ -436,7 +401,7 @@ namespace tnah
          * @returns	Null if it fails, else the new box shape.
          */
 
-        static rp3d::BoxShape* CreateBoxShape(const glm::vec3& halfExtents);
+        //static rp3d::BoxShape* CreateBoxShape(const glm::vec3& halfExtents);
 
         /**
          * @fn	static rp3d::BoxShape* Physics::CreateBoxShape(const rp3d::Vector3& halfExtents);
@@ -451,7 +416,7 @@ namespace tnah
          * @returns	Null if it fails, else the new box shape.
          */
 
-        static rp3d::BoxShape* CreateBoxShape(const rp3d::Vector3& halfExtents);
+        //static rp3d::BoxShape* CreateBoxShape(const rp3d::Vector3& halfExtents);
 
         /**
          * @fn	static rp3d::SphereShape* Physics::CreateSphereShape(const float& radius);
@@ -466,7 +431,7 @@ namespace tnah
          * @returns	Null if it fails, else the new sphere shape.
          */
 
-        static rp3d::SphereShape* CreateSphereShape(const float& radius);
+        //static rp3d::SphereShape* CreateSphereShape(const float& radius);
 
         /**
          * @fn	static rp3d::CapsuleShape* Physics::CreateCapsuleShape(const float& radius, const float& height);
@@ -482,7 +447,7 @@ namespace tnah
          * @returns	Null if it fails, else the new capsule shape.
          */
 
-        static rp3d::CapsuleShape* CreateCapsuleShape(const float& radius, const float& height);
+        //static rp3d::CapsuleShape* CreateCapsuleShape(const float& radius, const float& height);
 
         /**
          * @fn	static rp3d::HeightFieldShape* Physics::CreateHeightFieldShape(const int& columns, const int& rows, const float& minHeight, const float& maxHeight, const float* terrainColliderHeightData);
@@ -501,7 +466,7 @@ namespace tnah
          * @returns	Null if it fails, else the new height field shape.
          */
 
-        static rp3d::HeightFieldShape* CreateHeightFieldShape(const int& columns, const int& rows, const float& minHeight, const float& maxHeight, const float* terrainColliderHeightData);
+        //static rp3d::HeightFieldShape* CreateHeightFieldShape(const int& columns, const int& rows, const float& minHeight, const float& maxHeight, const float* terrainColliderHeightData);
 
         /**
          * @fn	static rp3d::PolyhedronMesh* Physics::CreatePolyhedronMesh(rp3d::PolygonVertexArray* polygonVertexArray);
@@ -516,7 +481,7 @@ namespace tnah
          * @returns	Null if it fails, else the new polyhedron mesh.
          */
 
-        static rp3d::PolyhedronMesh* CreatePolyhedronMesh(rp3d::PolygonVertexArray* polygonVertexArray);
+        //static rp3d::PolyhedronMesh* CreatePolyhedronMesh(rp3d::PolygonVertexArray* polygonVertexArray);
 
         /**
          * @fn	static rp3d::ConvexMeshShape* Physics::CreateConvexMeshShape(rp3d::PolyhedronMesh* polyhedronMesh);
@@ -531,7 +496,7 @@ namespace tnah
          * @returns	Null if it fails, else the new convex mesh shape.
          */
 
-        static rp3d::ConvexMeshShape* CreateConvexMeshShape(rp3d::PolyhedronMesh* polyhedronMesh);
+        //static rp3d::ConvexMeshShape* CreateConvexMeshShape(rp3d::PolyhedronMesh* polyhedronMesh);
 
         /**
          * @fn	static rp3d::ConcaveMeshShape* Physics::CreateConcaveMeshShape(rp3d::TriangleMesh* triangleMesh);
@@ -546,7 +511,7 @@ namespace tnah
          * @returns	Null if it fails, else the new concave mesh shape.
          */
 
-        static rp3d::ConcaveMeshShape* CreateConcaveMeshShape(rp3d::TriangleMesh* triangleMesh);
+        //static rp3d::ConcaveMeshShape* CreateConcaveMeshShape(rp3d::TriangleMesh* triangleMesh);
 
         /**
          * @fn	static rp3d::TriangleMesh* Physics::CreateTriangleMesh();
@@ -559,7 +524,7 @@ namespace tnah
          * @returns	Null if it fails, else the new triangle mesh.
          */
 
-        static rp3d::TriangleMesh* CreateTriangleMesh();
+        //static rp3d::TriangleMesh* CreateTriangleMesh();
 
         /**
          * @fn	void Physics::CreateTerrainCollider(tnah::Terrain* terrain);
@@ -572,9 +537,7 @@ namespace tnah
          * @param [in,out]	terrain	If non-null, the terrain.
          */
 
-        void CreateTerrainCollider(tnah::Terrain* terrain);
-    
-    private:
+        //void CreateTerrainCollider(tnah::Terrain* terrain);
 
 
         /**
@@ -630,30 +593,6 @@ namespace tnah
         static Ref<Shader> GetColliderShader();
 
         /**
-         * @fn	static void Physics::UpdateColliderRenderer();
-         *
-         * @brief	Updates the collider renderer
-         *
-         * @author	Dylan Blereau
-         * @date	12/09/2021
-         */
-
-        static void UpdateColliderRenderer();
-
-        /**
-         * @fn	static rp3d::DebugRenderer* Physics::GetColliderRenderer();
-         *
-         * @brief	Gets collider renderer
-         *
-         * @author	Dylan Blereau
-         * @date	12/09/2021
-         *
-         * @returns	The collider renderer.
-         */
-
-        static rp3d::DebugRenderer* GetColliderRenderer();
-
-        /**
          * @fn	static void Physics::PhysicsLoggerInit();
          *
          * @brief	Initialise the physics logger
@@ -662,18 +601,9 @@ namespace tnah
          * @date	12/09/2021
          */
 
+        static int GetLines() {return RenderCommand::GetLines();}
+        static int GetTriangles() {return RenderCommand::GetLTriangles();}
         static void PhysicsLoggerInit();
-    
-    private:
-
-     
-        /** @brief a static reference to the active physics manager */
-        static Ref<PhysicsManager> m_PhysicsManager;
-
-        /** @brief Transform used for rendering the colliders within the scene*/
-        static TransformComponent m_ColliderTransform;
-        friend class Scene;
-        friend class Renderer;
     };
 
     

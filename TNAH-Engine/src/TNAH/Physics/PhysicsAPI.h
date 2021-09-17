@@ -15,12 +15,18 @@ namespace tnah
         {
             box = 0, sphere = 1, capsule = 2, heightmap = 3, concaveMesh = 4, convexMesh = 5
         };
-        
+        virtual void Init() = 0;
         virtual ~PhysicsAPI() = default;
+
+        virtual void Destroy() = 0;
+
+        virtual bool& GetColliderRendererHandle() = 0;
+
+        virtual TransformComponent GetColliderRendererTransform() = 0;
 
         static Scope<PhysicsAPI> Create();
 
-        virtual void OnFixedUpdate() = 0;
+        virtual void OnFixedUpdate(PhysicsTimestep timestep) = 0;
         
         virtual Ref<RigidBody> CreateRigidBody(const TransformComponent& transform) = 0;
         
@@ -39,6 +45,12 @@ namespace tnah
         virtual void EnableLogging() = 0;
 
         virtual Ref<Shader> GetColliderShader() = 0;
+
+        virtual void CreateColliderRenderer() = 0;
+
+        virtual int GetLines() = 0;
+        
+        virtual int GetTriangles() = 0;
         
     private:
         static API p_Api;

@@ -10,9 +10,16 @@ namespace tnah
     class ReactPhysics : public PhysicsAPI
     {
     public:
+        ReactPhysics();
         ~ReactPhysics() override;
+        void Init() override;
+        void Destroy() override;
+
+        bool& GetColliderRendererHandle() override;
+
+        inline TransformComponent GetColliderRendererTransform() override {return m_ColliderTransform;}
         
-        void OnFixedUpdate() override;
+        void OnFixedUpdate(PhysicsTimestep timestep) override;
         
         Ref<RigidBody> CreateRigidBody(const TransformComponent& transform) override;
         
@@ -24,14 +31,15 @@ namespace tnah
 
         void CreateTerrainCollider(tnah::Terrain* terrain) override;
 
-        virtual std::pair<std::pair<Ref<VertexArray>, Ref<VertexBuffer>>, std::pair<Ref<VertexArray>, Ref<VertexBuffer>>> GetColliderRenderObjects() override;
+        std::pair<std::pair<Ref<VertexArray>, Ref<VertexBuffer>>, std::pair<Ref<VertexArray>, Ref<VertexBuffer>>> GetColliderRenderObjects() override;
 
-        virtual bool IsColliderRenderingEnabled() override;
+        bool IsColliderRenderingEnabled() override;
 
-        virtual void EnableLogging() override;
+        void EnableLogging() override;
 
-        virtual Ref<Shader> GetColliderShader() override;
+        Ref<Shader> GetColliderShader() override;
 
+        void CreateColliderRenderer() override;
         //static void CreateHeightFieldShape(const int& columns, const int& rows, const float& minHeight, const float& maxHeight, const float* terrainColliderHeightData);
 
         //static void CreatePolyhedronMesh(rp3d::PolygonVertexArray* polygonVertexArray);
@@ -42,6 +50,16 @@ namespace tnah
 
         //static void CreateTriangleMesh();
 
+        inline int GetLines() override
+        {
+            return m_PhysicsWorld->getDebugRenderer().getNbLines();
+        }
+        
+        inline  int GetTriangles() override
+        {
+            return m_PhysicsWorld->getDebugRenderer().getNbTriangles();
+        }
+        
 
     private:
         
@@ -60,14 +78,30 @@ namespace tnah
             
             tnah::Ref<tnah::RigidBody> m_RigidBody;
             rp3d::RigidBody * m_Body;
-            std::vector<rp3d::CollisionBody*> m_CollisionBodies;
+            std::unordered_map<unsigned int, rp3d::CollisionBody*> m_CollisionBodies;
+        private:
+            unsigned int colliderIds = 0;
         };
         
         void UpdateRigidBodies();
+        void TollgeColliderRendering();
+        void UpdateColliderRenderer();
+        void PhysicsLoggerInit();
         
         std::unordered_map<unsigned int, ReactRigidBody> m_RigidBody;
         unsigned int uniqueIds = 1;
         rp3d::PhysicsCommon m_PhysicsCommon;
         rp3d::PhysicsWorld* m_PhysicsWorld = nullptr;
+        rp3d::DefaultLogger* m_PhysicsLogger = nullptr;
+        bool m_ColliderRender = false;
+        bool m_ColliderRendererInit = false;
+        Ref<VertexArray> m_LinesVertexArray;
+        Ref<VertexBuffer> m_LinesVertexBuffer;
+        Ref<VertexArray> m_TriangleVertexArray;
+        Ref<VertexBuffer> m_TriangleVertexBuffer;
+        Ref<Shader> m_Shader;
+        VertexBufferLayout m_ColliderLayout;
+        TransformComponent m_ColliderTransform;
+        bool m_Logging = false;
     };
 }

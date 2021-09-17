@@ -281,15 +281,16 @@ namespace tnah {
 		shader->SetVec4("u_GlobalVertexColor", glm::vec4(1.0f)); // Disable global color
 		
 		
-		const auto renderer = Physics::GetColliderRenderer();
+		const auto lines = Physics::GetLines();
+		const auto triangles = Physics::GetTriangles();
 		
-		if(renderer->getNbLines() > 0)
+		if(lines > 0)
 		{
 			lineVertexArray->UpdateVertexBuffer();
 			RenderCommand::DrawArray(lineVertexArray, DrawMode::Lines);
 		}
 		
-		if(renderer->getNbTriangles() > 0)
+		if(triangles > 0)
 		{
 			triangleVertexArray->UpdateVertexBuffer();
 			RenderCommand::DrawArray(triangleVertexArray, DrawMode::Triangles);

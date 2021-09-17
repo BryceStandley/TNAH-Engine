@@ -56,10 +56,8 @@ namespace tnah{
 		auto& light = l.AddComponent<LightComponent>();
 		light.Light = Light::CreateDirectional();
 		light.Light->m_IsSceneLight = true;
-
-		//Physics
-		listener = new PhysicsEvents();
-		Physics::Initialise(listener);
+		
+		Physics::Initialise();
 		
 		s_ActiveScene.Scene.Reset(this);
 	}
