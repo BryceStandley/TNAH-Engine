@@ -405,7 +405,6 @@ namespace tnah
         m_PhysicsWorld->getDebugRenderer().setIsDebugItemDisplayed(rp3d::DebugRenderer::DebugItem::COLLIDER_AABB, true);
         
         m_PhysicsWorld->update(timestep.GetSimulationSpeed());
-        
     }
 #pragma endregion 
 
