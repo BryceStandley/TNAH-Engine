@@ -54,6 +54,11 @@
     <ClCompile Include="src\TNAH\Renderer\Renderer.cpp" />
     <ClCompile Include="src\TNAH\Renderer\RendererAPI.cpp" />
     <ClCompile Include="src\TNAH\Renderer\Texture.cpp" />
+    <ClCompile Include="src\TNAH\Scene\Components\AI\AIBehaviour.cpp" />
+    <ClCompile Include="src\TNAH\Scene\Components\AI\AIComponent.cpp" />
+    <ClCompile Include="src\TNAH\Scene\Components\AI\AITrait.cpp" />
+    <ClCompile Include="src\TNAH\Scene\Components\AI\EmotionComponent.cpp" />
+    <ClCompile Include="src\TNAH\Scene\Components\AI\InteractableObjectComponent.cpp" />
     <ClCompile Include="src\TNAH\Scene\Components\AnimatorComponent.cpp" />
     <ClCompile Include="src\TNAH\Scene\Components\PhysicsComponents.cpp" />
     <ClCompile Include="src\TNAH\Scene\Components\SkyboxComponent.cpp" />
@@ -109,6 +114,12 @@
     <ClInclude Include="src\TNAH\Renderer\Mesh.h" />
     <ClInclude Include="src\TNAH\Renderer\stb_image.h" />
     <ClInclude Include="src\TNAH\Renderer\Texture.h" />
+    <ClInclude Include="src\TNAH\Scene\Components\AI\AIBehaviour.h" />
+    <ClInclude Include="src\TNAH\Scene\Components\AI\AIComponent.h" />
+    <ClInclude Include="src\TNAH\Scene\Components\AI\AITrait.h" />
+    <ClInclude Include="src\TNAH\Scene\Components\AI\EmotionComponent.h" />
+    <ClInclude Include="src\TNAH\Scene\Components\AI\Emotions.h" />
+    <ClInclude Include="src\TNAH\Scene\Components\AI\InteractableObjectComponent.h" />
     <ClInclude Include="src\TNAH\Scene\Components\AnimatorComponent.h" />
     <ClInclude Include="src\TNAH\Scene\Components\ComponentIdentification.h" />
     <ClInclude Include="src\TNAH\Scene\Components\SkyboxComponent.h" />
