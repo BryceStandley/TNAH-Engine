@@ -86,5 +86,119 @@ namespace tnah
 			value.Z = other.z;
 			return value;
 		}
+
+		glm::vec2 ToGLM(const rp3d::Vector2& vector)
+		{
+			return glm::vec2(vector.x, vector.y);
+		}
+
+		glm::vec2 ToGLM(const aiVector2D& vector)
+		{
+			return glm::vec2(vector.x, vector.y);
+		}
+
+		glm::vec3 ToGLM(const rp3d::Vector3& vector)
+		{
+			return glm::vec3(vector.x, vector.y, vector.z);
+		}
+
+		glm::vec3 ToGLM(const aiVector3D& vector)
+		{
+			return glm::vec3(vector.x, vector.y, vector.z);
+		}
+
+		glm::vec3 ToGLM(const irrklang::vec3df& vector)
+		{
+			return glm::vec3(vector.X, vector.Y, vector.Z);
+		}
+
+		glm::ivec3 ToGLM(const irrklang::vec3di& vector)
+		{
+			return glm::ivec3(vector.X, vector.Y, vector.Z);
+		}
+
+		glm::mat4 ToGLM(const aiMatrix4x4& matrix)
+		{
+			glm::mat4 result;
+			//the a,b,c,d in assimp is the row ; the 1,2,3,4 is the column
+			result[0][0] = matrix.a1; result[1][0] = matrix.a2; result[2][0] = matrix.a3; result[3][0] = matrix.a4;
+			result[0][1] = matrix.b1; result[1][1] = matrix.b2; result[2][1] = matrix.b3; result[3][1] = matrix.b4;
+			result[0][2] = matrix.c1; result[1][2] = matrix.c2; result[2][2] = matrix.c3; result[3][2] = matrix.c4;
+			result[0][3] = matrix.d1; result[1][3] = matrix.d2; result[2][3] = matrix.d3; result[3][3] = matrix.d4;
+			return result;
+		}
+
+		glm::mat3 ToGLM(const aiMatrix3x3& matrix)
+		{
+			glm::mat3 result;
+			//the a,b,c,d in assimp is the row ; the 1,2,3,4 is the column
+			result[0][0] = matrix.a1; result[1][0] = matrix.a2; result[2][0] = matrix.a3;
+			result[0][1] = matrix.b1; result[1][1] = matrix.b2; result[2][1] = matrix.b3;
+			result[0][2] = matrix.c1; result[1][2] = matrix.c2; result[2][2] = matrix.c3;
+			return result;
+		}
+
+		glm::quat ToGLM(const aiQuaternion& quaternion)
+		{
+			return glm::quat(quaternion.w, quaternion.x, quaternion.y, quaternion.z);
+		}
+
+		rp3d::Vector2 ReactFromGLM(const glm::vec2& vector)
+		{
+			return rp3d::Vector2(vector.x, vector.y);
+		}
+
+		rp3d::Vector3 ReactFromGLM(const glm::vec3& vector)
+		{
+			return rp3d::Vector3(vector.x, vector.y, vector.z);
+		}
+
+		rp3d::Quaternion ReactFromGLM(const glm::quat& quaternion)
+		{
+			return rp3d::Quaternion(quaternion.x, quaternion.y, quaternion.z, quaternion.w); 
+		}
+
+		aiVector2D AssimpFromGLM(const glm::vec2& vector)
+		{
+			return aiVector2D(vector.x, vector.y);
+		}
+
+		aiVector3D AssimpFromGLM(const glm::vec3& vector)
+		{
+			return aiVector3D(vector.x, vector.y, vector.z);
+		}
+
+		aiMatrix4x4 AssimpFromGLM(const glm::mat4& matrix)
+		{
+			aiMatrix4x4 mat;
+			mat.a1 = matrix[0][0]; mat.a2 =  matrix[1][0]; mat.a3 = matrix[2][0]; mat.a4 = matrix[3][0];
+			mat.b1 = matrix[0][1]; mat.b2 = matrix[1][1]; mat.b3 = matrix[2][1]; mat.b4 = matrix[3][1];
+			mat.c1 = matrix[0][2]; mat.c2 = matrix[1][2]; mat.c3 = matrix[2][2]; mat.c4 = matrix[3][2];
+			mat.d1 = matrix[0][3]; mat.d2 = matrix[1][3]; mat.d3 = matrix[2][3]; mat.d4 = matrix[3][3];
+			return mat;
+		}
+
+		aiMatrix3x3 AssimpFromGLM(const glm::mat3& matrix)
+		{
+			aiMatrix3x3 mat;
+			mat.a1 = matrix[0][0]; mat.a2 =  matrix[1][0]; mat.a3 = matrix[2][0];
+			mat.b1 = matrix[0][1]; mat.b2 = matrix[1][1]; mat.b3 = matrix[2][1];
+			mat.c1 = matrix[0][2]; mat.c2 = matrix[1][2]; mat.c3 = matrix[2][2];
+			return mat;
+		}
+
+		aiQuaternion AssimpFromGLM(const glm::quat& quaternion)
+		{
+			return aiQuaternion(quaternion.w, quaternion.x, quaternion.y, quaternion.z);
+		}
+
+		irrklang::vec3df IrrKlangFromGLM(const glm::vec3& vector)
+		{
+			return irrklang::vec3df(vector.x, vector.y,)
+		}
+
+		irrklang::vec3di IrrKlangFromGLM(const glm::ivec3& vector)
+		{
+		}
 	}
 }

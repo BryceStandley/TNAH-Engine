@@ -90,6 +90,11 @@ namespace tnah {
 		*/
 		glm::mat4& GetTransformation() { return m_Transformation; }
 
+		uint32_t VerticesIndex() const;
+		void SetVerticesIndex(uint32_t verticesIndex);
+		uint32_t IndicesIndex() const;
+		void SetIndicesIndex(uint32_t indicesIndex);
+
 	private:
 		/** @brief Vector of vertices within the submesh*/
 		std::vector<Vertex> m_Vertices;
@@ -102,5 +107,8 @@ namespace tnah {
 
 		/** @brief Transform of the submesh compared to the parent*/
 		glm::mat4 m_Transformation = {};
+
+		uint32_t m_VerticesIndex = 0;
+		uint32_t m_IndicesIndex = 0;
 	};
 }

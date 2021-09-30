@@ -11,6 +11,7 @@
 #include "TNAH/Renderer/Submesh.h"
 
 #pragma warning(push, 0)
+#pragma warning(push, 0) // Stopping any warnings or errors from being included on build from 3rd parties
 #include <vector>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -189,127 +190,250 @@ namespace tnah {
     	
     	/**
     	* @fn glm::mat4 Model::GetGlobalInverseTransform() const { return m_GlobalInverseTransform; }
+    	* @fn void Model::LoadModel(const std::string& filePath);
     	*
     	* @brief Gets the inverse of the global transform of the model.
+    	* @brief Loads a model from a file path
     	*
     	* @author Bryce Standley
     	* @date 15/09/2021
     	*
     	* @return Mat4 inverse of the global transform.
+    	* @param filePath The relative or absolute file path of a 3D model.
     	*/
         void LoadModel(const std::string& filePath);
 
     	/**
     	* @fn glm::mat4 Model::GetGlobalInverseTransform() const { return m_GlobalInverseTransform; }
+    	* @fn void Model::ProcessSubmesh(aiMesh* mesh, const aiScene* scene, glm::mat4 nodeTransformation);
     	*
     	* @brief Gets the inverse of the global transform of the model.
+    	* @brief Processes a submesh of a 3D model.
     	*
     	* @author Bryce Standley
     	* @date 15/09/2021
     	*
     	* @return Mat4 inverse of the global transform.
+    	* @param mesh A Assimp mesh that holds the submesh data
+    	* @param scene A Assimp scene that holds the overall 3D model and its scene
+    	* @param nodeTransformation The transformation of the submesh and its nodes from the root transform
     	*/
 		static Submesh ProcessSubmesh(aiMesh* mesh, const aiScene* scene, glm::mat4 nodeTransformation);
     	
     	/**
     	* @fn glm::mat4 Model::GetGlobalInverseTransform() const { return m_GlobalInverseTransform; }
+    	* @fn voil Model::ProcessNode(aiNode* node, const aiScene* scene, glm::mat4 nodeTransformation);
     	*
     	* @brief Gets the inverse of the global transform of the model.
+    	* @brief Processes a node of the 3D model
     	*
     	* @author Bryce Standley
     	* @date 15/09/2021
     	*
     	* @return Mat4 inverse of the global transform.
+    	* @param node A Assimp node within the imported scene
+    	* @param scene A Assimp scene that holds the overall 3D model and its scene
+    	* @param nodeTransformation Transform of the parent node to this node
+    	* 
     	*/
     	void ProcessNode(aiNode* node, const aiScene* scene, glm::mat4 nodeTransformation);
 
     	/**
-    	* @fn glm::mat4 Model::GetGlobalInverseTransform() const { return m_GlobalInverseTransform; }
+    	* @fn boid Model::ProcessBones(uint32_t meshIndex, const aiMesh* mesh);
     	*
-    	* @brief Gets the inverse of the global transform of the model.
+    	* @brief Processes bones of a 3D model if the model has animations.
     	*
     	* @author Bryce Standley
     	* @date 15/09/2021
     	*
     	* @return Mat4 inverse of the global transform.
+    	* @param meshIndex A index of which mesh within the models scene to process
+    	* @param mesh A Assimp submesh of the model
+    	* 
     	*/
         void ProcessBones(uint32_t meshIndex, const aiMesh* mesh);
 
     	/**
     	* @fn glm::mat4 Model::GetGlobalInverseTransform() const { return m_GlobalInverseTransform; }
+    	* @fn std::vector<Ref<Material>> Model::ProcessMaterials(const aiScene* scene, aiMesh* mesh);
     	*
-    	* @brief Gets the inverse of the global transform of the model.
+    	* @brief Processes the materials of the 3D model
     	*
     	* @author Bryce Standley
     	* @date 15/09/2021
     	*
     	* @return Mat4 inverse of the global transform.
+    	* @param scene A Assimp scene that holds the overall 3D model and its scene
+    	* @param mesh A Assimp mesh to process.
+    	* 
     	*/
 		static std::vector<Ref<Material>> ProcessMaterials(const aiScene* scene, aiMesh* mesh);
 
     	/**
     	* @fn glm::mat4 Model::GetGlobalInverseTransform() const { return m_GlobalInverseTransform; }
+    	* @fn void Model::FindRootNode(aiNode* node, aiMesh* mesh) const;
     	*
-    	* @brief Gets the inverse of the global transform of the model.
+    	* @brief Finds the root node of a mesh.
     	*
     	* @author Bryce Standley
     	* @date 15/09/2021
     	*
     	* @return Mat4 inverse of the global transform.
+    	* @param node A Assimp node.
+    	* @param mesh A Assimp mesh.
+    	* 
     	*/
     	aiNode* FindRootNode(aiNode* node, aiMesh* mesh) const;
 
     	/**
     	* @fn glm::mat4 Model::GetGlobalInverseTransform() const { return m_GlobalInverseTransform; }
+    	* @fn void Model::LoadAnimationNodes(aiNode* node, aiMesh* mesh);
     	*
     	* @brief Gets the inverse of the global transform of the model.
+    	* @brief Loads the animation nodes of the submesh.
     	*
     	* @author Bryce Standley
     	* @date 15/09/2021
     	*
     	* @return Mat4 inverse of the global transform.
+    	* @param node A Assimp node.
+    	* @param mesh A Assimp mesh.
+    	* 
     	*/
     	void LoadAnimationNodes(aiNode* node, aiMesh* mesh);
 
     	/**
     	* @fn glm::mat4 Model::GetGlobalInverseTransform() const { return m_GlobalInverseTransform; }
+    	* @fn Node Model::LoadNodeHierarchy(aiNode* rootNode);
     	*
     	* @brief Gets the inverse of the global transform of the model.
+    	* @brief Loads the Assimp node hierarchy from the root node into a TNAH Node structure.
     	*
     	* @author Bryce Standley
     	* @date 15/09/2021
     	*
     	* @return Mat4 inverse of the global transform.
+    	* @returns A Node containing the hierarchical data of all Assimp nodes within the scene.
+    	* 
     	*/
 		static Node LoadNodeHierarchy(aiNode* rootNode);
 
     	/**
     	* @fn glm::mat4 Model::GetGlobalInverseTransform() const { return m_GlobalInverseTransform; }
+    	* @fn void Model:: LoadAnimations(const aiScene* scene);
     	*
-    	* @brief Gets the inverse of the global transform of the model.
+    	* @brief Loads animations from the Assimp model scene.
     	*
     	* @author Bryce Standley
     	* @date 15/09/2021
     	*
     	* @return Mat4 inverse of the global transform.
+    	* @param scene A Assimp scene.
+    	* 
     	*/
     	void LoadAnimations(const aiScene* scene);
     	
 
+    	/**
+    	 * @brief This function is temporary to test and make sure data is being processed correctly before moving to batch rendering.
+    	 */
+    	void ProcessSubmeshesForRendering();
     	
 #pragma region HelperFunctions
-    	//TODO: Add Doxy for the helper functions
-        static glm::mat4 Mat4FromAssimpMat4(const aiMatrix4x4& matrix);
-        static glm::vec3 Vec3FromAssimpVec3(const aiVector3D& vector);
-        static glm::vec2 Vec2FromAssimpVec3(const aiVector3D& vector);
-    	static glm::quat QuatFromAssimpQuat(const aiQuaternion& quaternion);
+		/**
+         * \fn uint32_t tnah::Model::TotalTexturesFromAssimpMaterial(const aiMaterial* material)
+         * 
+         * \brief Gets the total textures within a Assimp material.
+         *
+         * \author Bryce Standley
+         * \date Friday, 17 September 2021
+         * 
+         * \param material A Assimp material to use
+         *
+         * \return  a unsigned int of the total textures used.
+         *
+         */
         static uint32_t TotalTexturesFromAssimpMaterial(const aiMaterial* material);
+
+    	
+		/**
+         * \fn bool ::tnah::Model::AssimpMaterialIsPBR(const aiMaterial* material)
+         * 
+         * \brief Checks if a Assimp material is a PBR material or standard material.
+         *
+         * \author Bryce Standley
+         * \date Friday, 17 September 2021
+         * 
+         * \param material A Assimp material to test.
+         *
+         * \return  true if material is PBR else false
+         *
+         */
         static bool AssimpMaterialIsPBR(const aiMaterial* material);
+
+    	
+		/**
+         * \fn std::vector<tnah::Ref<tnah::Texture2D>> ::tnah::Model::GetTextureFromAssimpMaterial(const aiScene* scene, const aiMaterial* material, const aiTextureType& textureType)
+         * 
+         * \brief Gets textures from a Assimp material, loads them and returns them.
+         *
+         * \author Bryce Standley
+         * \date Friday, 17 September 2021
+         * 
+         * \param scene A Assimp Scene
+         * \param material A Assimp Material
+         * \param textureType a Assimp texture type
+         *
+         * \return  a vector of Texture2D references
+         *
+         */
         static std::vector<Ref<Texture2D>> GetTextureFromAssimpMaterial(
             const aiScene* scene, const aiMaterial* material, const aiTextureType& textureType);
+
+    	
+		/**
+         * \fn tnah::Ref<tnah::Texture2D> ::tnah::Model::CreateBaseColorTexture(const aiMaterial* material)
+         * 
+         * \brief Creates a default texture using a Assimp materials base color.
+         *
+         * \author Bryce Standley
+         * \date Friday, 17 September 2021
+         * 
+         * \param material a Assimp material
+         *
+         * \return  a reference to a Texture2D
+         *
+         */
         static Ref<Texture2D> CreateBaseColorTexture(const aiMaterial* material);
+    	
+		/**
+         * \fn std::string ::tnah::Model::GetTextureNameFromTextureType(const aiTextureType& textureType)
+         * 
+         * \brief Gets the a texture name from a Assimp texture type
+         *
+         * \author Bryce Standley
+         * \date Friday, 17 September 2021
+         * 
+         * \param textureType a Assimp texture type
+         *
+         * \return  a string of the name
+         *
+         */
         static std::string GetTextureNameFromTextureType(const aiTextureType& textureType);
+    	
+		/**
+         * \fn void ::tnah::Model::DumpMaterialProperties(const aiMaterial* material)
+         * 
+         * \brief Dumps the properties of a Assimp material to the console. Useful for debugging models and loading issues.
+         *
+         * \author Bryce Standley
+         * \date Friday, 17 September 2021
+         * 
+         * \param material a Assimp material
+         *
+         */
         static void DumpMaterialProperties(const aiMaterial* material);
+    	
 #pragma endregion 
     
     private:
@@ -343,13 +467,18 @@ namespace tnah {
 
     	/** @brief Total bones in the model*/
     	uint32_t m_TotalBones = 0;
+
+    	//Temp variables
+    	std::vector<Vertex> m_Vertices;
+    	std::vector<uint32_t> m_Indices;
+    	Ref<VertexArray> m_VertexArray;
+    	Ref<VertexBuffer> m_VertexBuffer;
+    	Ref<IndexBuffer> m_IndexBuffer;
+    	VertexBufferLayout m_VertexBufferLayout;
     	
         friend class EditorUI;
         friend class Serializer;
     };
-
-    
-
 
 }
 

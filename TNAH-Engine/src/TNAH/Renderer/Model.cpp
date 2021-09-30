@@ -59,9 +59,9 @@ namespace tnah {
         }
         m_IsAnimated = scene->mAnimations != nullptr;
         
-        m_GlobalInverseTransform = glm::inverse(Mat4FromAssimpMat4(scene->mRootNode->mTransformation));
+        m_GlobalInverseTransform = glm::inverse(Math::ToGLM(scene->mRootNode->mTransformation));
 
-       ProcessNode(scene->mRootNode, scene, Mat4FromAssimpMat4(scene->mRootNode->mTransformation));
+       ProcessNode(scene->mRootNode, scene, Math::ToGLM(scene->mRootNode->mTransformation));
     }
     
     void Model::ProcessNode(aiNode* node, const aiScene* scene, glm::mat4 nodeTransformation)
@@ -69,7 +69,7 @@ namespace tnah {
         for(uint32_t i = 0; i < node->mNumMeshes; i++)
         {
             aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
-            m_Submeshes.push_back(ProcessSubmesh(mesh, scene, nodeTransformation * Mat4FromAssimpMat4(node->mTransformation)));
+            m_Submeshes.push_back(ProcessSubmesh(mesh, scene, nodeTransformation * Math::ToGLM(node->mTransformation)));
             if(scene->HasAnimations())
             {
                 ProcessBones(1, mesh);
@@ -80,7 +80,7 @@ namespace tnah {
 
         for(uint32_t i = 0; i < node->mNumChildren; i++)
         {
-            ProcessNode(node->mChildren[i], scene, nodeTransformation * Mat4FromAssimpMat4(node->mTransformation));
+            ProcessNode(node->mChildren[i], scene, nodeTransformation * Math::ToGLM(node->mTransformation));
         }
     }
 
@@ -93,21 +93,21 @@ namespace tnah {
         {
             Vertex vertex;
 
-            vertex.Position = Vec3FromAssimpVec3(mesh->mVertices[i]);
+            vertex.Position = Math::ToGLM(mesh->mVertices[i]);
 
             if(mesh->HasNormals())
             {
-                vertex.Normal = Vec3FromAssimpVec3(mesh->mNormals[i]);
+                vertex.Normal =  Math::ToGLM(mesh->mNormals[i]);
             }
 
             if(mesh->mTextureCoords[0])
             {
-                vertex.TextureCoordinate = Vec2FromAssimpVec3(mesh->mTextureCoords[0][i]);
+                vertex.TextureCoordinate =  Math::ToGLM(mesh->mTextureCoords[0][i]);
 
                 if(mesh->HasTangentsAndBitangents())
                 {
-                    vertex.Tangent = Vec3FromAssimpVec3(mesh->mTangents[i]);
-                    vertex.Binormal = Vec3FromAssimpVec3(mesh->mBitangents[i]);
+                    vertex.Tangent =  Math::ToGLM(mesh->mTangents[i]);
+                    vertex.Binormal =  Math::ToGLM((mesh->mBitangents[i]);
                 }
             }
             else
@@ -117,8 +117,8 @@ namespace tnah {
 
             if(mesh->HasTangentsAndBitangents())
             {
-                vertex.Tangent = Vec3FromAssimpVec3(mesh->mTangents[i]);
-                vertex.Binormal = Vec3FromAssimpVec3(mesh->mBitangents[i]);
+                vertex.Tangent = Math::ToGLM(mesh->mTangents[i]);
+                vertex.Binormal = Math::ToGLM(mesh->mBitangents[i]);
             }
 
             vertices.push_back(vertex);
@@ -158,7 +158,7 @@ namespace tnah {
             }
 
             m_BoneMap[boneName] = boneIndex;
-            m_Bones[boneIndex].Offset = Mat4FromAssimpMat4(mesh->mBones[i]->mOffsetMatrix);
+            m_Bones[boneIndex].Offset = Math::ToGLM(mesh->mBones[i]->mOffsetMatrix);
 
             for (uint32_t j = 0 ; j < mesh->mBones[i]->mNumWeights; ++j)
             {
@@ -250,7 +250,7 @@ namespace tnah {
     {
         Node node;
         node.Name = rootNode->mName.data;
-        node.Transform = Mat4FromAssimpMat4(rootNode->mTransformation);
+        node.Transform = Math::ToGLM(rootNode->mTransformation);
         node.TotalNodeChildren = rootNode->mNumChildren;
 
         for (unsigned int i = 0; i < node.TotalNodeChildren; ++i)
@@ -274,17 +274,59 @@ namespace tnah {
                 keyFrame.TotalRotations = scene->mAnimations[i]->mChannels[j]->mNumRotationKeys;
                 for(unsigned int k=0; k < keyFrame.TotalPositions; ++k)
                 {
-                    keyFrame.Positions.emplace_back(scene->mAnimations[i]->mChannels[j]->mPositionKeys[k].mTime, Vec3FromAssimpVec3(scene->mAnimations[i]->mChannels[j]->mPositionKeys[k].mValue));
+                    keyFrame.Positions.emplace_back(scene->mAnimations[i]->mChannels[j]->mPositionKeys[k].mTime, Math::ToGLM(scene->mAnimations[i]->mChannels[j]->mPositionKeys[k].mValue));
                 }
                 for(unsigned int k=0; k < keyFrame.TotalRotations; ++k)
                 {
-                    keyFrame.Rotations.emplace_back(scene->mAnimations[i]->mChannels[j]->mRotationKeys[k].mTime, QuatFromAssimpQuat(scene->mAnimations[i]->mChannels[j]->mRotationKeys[k].mValue));
+                    keyFrame.Rotations.emplace_back(scene->mAnimations[i]->mChannels[j]->mRotationKeys[k].mTime, Math::ToGLM(scene->mAnimations[i]->mChannels[j]->mRotationKeys[k].mValue));
                 }
                 animationMap.emplace(name, keyFrame);
             }
             Animation anim = Animation(scene->mAnimations[i]->mName.C_Str(), animationMap, static_cast<float>(scene->mAnimations[i]->mDuration), static_cast<float>(scene->mAnimations[i]->mTicksPerSecond));
             m_Animations.push_back(anim);
         }
+    }
+
+    void Model::ProcessSubmeshesForRendering()
+    {
+        uint32_t currentTotalVertices = 0;
+        uint32_t currentTotalIndices = 0;
+        
+
+        for(auto& submesh : m_Submeshes)
+        {
+            
+            auto verts = submesh.GetVertices();
+            uint32_t indexPosition = m_Vertices.size() + verts.size();
+            m_Vertices.resize(indexPosition);
+            m_Vertices.insert(m_Vertices.begin() + currentTotalVertices, verts.begin(), verts.end());
+            submesh.SetVerticesIndex(indexPosition);
+            currentTotalVertices += verts.size();
+
+            auto ind = submesh.GetIndices();
+            indexPosition = m_Indices.size() + ind.size();
+            m_Indices.resize(indexPosition);
+            m_Indices.insert(m_Indices.begin() + currentTotalIndices, ind.begin(), ind.end());
+            submesh.SetIndicesIndex(indexPosition);
+            currentTotalVertices += verts.size();
+        }
+
+        m_VertexBufferLayout = {
+        {ShaderDataType::Float3, "a_Position"},
+        {ShaderDataType::Float3, "a_Normal"},
+        {ShaderDataType::Float3, "a_Tangent"},
+        {ShaderDataType::Float3, "a_Binormal"},
+        {ShaderDataType::Float2, "a_TextureCoord"},
+        {ShaderDataType::Int4, "a_BoneIDs"},
+        {ShaderDataType::Float4, "a_BoneWeights"}
+        };
+
+        m_VertexArray = VertexArray::Create();
+        m_VertexBuffer = VertexBuffer::Create(m_Vertices.data(), m_Vertices.size() * sizeof(Vertex));
+        m_VertexBuffer->SetLayout(m_VertexBufferLayout);
+        m_VertexArray->AddVertexBuffer(m_VertexBuffer);
+        m_IndexBuffer = IndexBuffer::Create(m_Indices.data(), m_Indices.size() * sizeof(uint32_t));
+        m_VertexArray->SetIndexBuffer(m_IndexBuffer);
     }
 
     Animation* Model::GetAnimation(const std::string& animationName)
@@ -890,32 +932,6 @@ namespace tnah {
     
 #pragma region ModelProcessingHelpers
     
-    glm::mat4 Model::Mat4FromAssimpMat4(const aiMatrix4x4& matrix)
-    {
-        glm::mat4 result;
-        //the a,b,c,d in assimp is the row ; the 1,2,3,4 is the column
-        result[0][0] = matrix.a1; result[1][0] = matrix.a2; result[2][0] = matrix.a3; result[3][0] = matrix.a4;
-        result[0][1] = matrix.b1; result[1][1] = matrix.b2; result[2][1] = matrix.b3; result[3][1] = matrix.b4;
-        result[0][2] = matrix.c1; result[1][2] = matrix.c2; result[2][2] = matrix.c3; result[3][2] = matrix.c4;
-        result[0][3] = matrix.d1; result[1][3] = matrix.d2; result[2][3] = matrix.d3; result[3][3] = matrix.d4;
-        return result;
-    }
-
-    glm::vec3 Model::Vec3FromAssimpVec3(const aiVector3D& vector)
-    {
-        return glm::vec3(vector.x, vector.y, vector.z);
-    }
-
-    glm::quat Model::QuatFromAssimpQuat(const aiQuaternion& quaternion)
-    {
-        return glm::quat(quaternion.x, quaternion.y, quaternion.z, quaternion.w);
-    }
-    
-    glm::vec2 Model::Vec2FromAssimpVec3(const aiVector3D& vector)
-    {
-        return glm::vec2(vector.x, vector.y);
-    }
-
     uint32_t Model::TotalTexturesFromAssimpMaterial(const aiMaterial* material)
     {
         uint32_t textureTotal = 0;
