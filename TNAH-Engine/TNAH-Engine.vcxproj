@@ -32,6 +32,7 @@
     <ClCompile Include="src\TNAH\Physics\PhysicsAPI.cpp" />
     <ClCompile Include="src\TNAH\Physics\PhysicsEvents.cpp" />
     <ClCompile Include="src\TNAH\Physics\PhysicsTimestep.cpp" />
+    <ClCompile Include="src\TNAH\Physics\PhysicsValues.cpp" />
     <ClCompile Include="src\TNAH\Physics\PhysicsWrapper.cpp" />
     <ClCompile Include="src\TNAH\Physics\RigidBody.cpp" />
     <ClCompile Include="src\TNAH\Renderer\Image.cpp" />
@@ -61,6 +62,7 @@
     <ClCompile Include="src\TNAH\Scene\Components\PhysicsComponents.cpp" />
     <ClCompile Include="src\TNAH\Scene\Components\SkyboxComponent.cpp" />
     <ClCompile Include="src\TNAH\Scene\Components\TerrainComponent.cpp" />
+    <ClCompile Include="src\TNAH\Scene\Components\TnahRigidBody.cpp" />
     <ClCompile Include="src\TNAH\Scene\Light\DirectionalLight.cpp" />
     <ClCompile Include="src\TNAH\Scene\Light\PointLight.cpp" />
     <ClCompile Include="src\TNAH\Scene\Light\SpotLight.cpp" />
@@ -101,6 +103,7 @@
     <ClInclude Include="src\TNAH\Physics\PhysicsAPI.h" />
     <ClInclude Include="src\TNAH\Physics\PhysicsEvents.h" />
     <ClInclude Include="src\TNAH\Physics\PhysicsTimestep.h" />
+    <ClInclude Include="src\TNAH\Physics\PhysicsValues.h" />
     <ClInclude Include="src\TNAH\Physics\PhysicsWrapper.h" />
     <ClInclude Include="src\TNAH\Physics\RigidBody.h" />
     <ClInclude Include="src\TNAH\Renderer\Animation.h" />
@@ -118,6 +121,7 @@
     <ClInclude Include="src\TNAH\Scene\Components\AnimatorComponent.h" />
     <ClInclude Include="src\TNAH\Scene\Components\ComponentIdentification.h" />
     <ClInclude Include="src\TNAH\Scene\Components\SkyboxComponent.h" />
+    <ClInclude Include="src\TNAH\Scene\Components\TnahRigidBody.h" />
     <ClInclude Include="src\TNAH\Scene\Light\DirectionalLight.h" />
     <ClInclude Include="src\TNAH\Scene\Light\PointLight.h" />
     <ClInclude Include="src\TNAH\Scene\Light\SpotLight.h" />

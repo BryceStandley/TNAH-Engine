@@ -563,6 +563,8 @@ namespace tnah {
 		 */
 
 		friend class ScriptEngine;
+
+		friend class PhysicsEvents;
 	};
 }
 

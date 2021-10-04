@@ -1,6 +1,8 @@
 ﻿#include "tnahpch.h"
 #include "Physics.h"
 
+#include "TNAH/Scene/Components/TnahRigidBody.h"
+
 namespace tnah
 {
     
@@ -52,10 +54,45 @@ namespace tnah
         m_PhysicsManager->m_PhysicsCommon.setLogger(m_PhysicsManager->m_PhysicsLogger);
     }
 
-    void Physics::OnFixedUpdate(PhysicsTimestep timestep)
+    void Physics::OnFixedUpdate(PhysicsTimestep timestep, entt::basic_view<entt::entity, entt::exclude_t<>, TransformComponent, TnahRigidBodyComponent> view)
     {
+                
         if(IsActive())
         {
+            for(auto entity : view)
+            {
+                auto &rb = view.get<TnahRigidBodyComponent>(entity);
+                auto& transformComponent = view.get<TransformComponent>(entity);
+                
+                if(rb.type == BodyType::Dynamic)
+                {
+                    auto transform = rb.Body->getTransform();
+                    
+                    //Add math function for this
+                    auto bodyRotation = glm::eulerAngles(glm::quat(rb.Body->getTransform().getOrientation().w, rb.Body->getTransform().getOrientation().x, rb.Body->getTransform().getOrientation().y, rb.Body->getTransform().getOrientation().z));
+                    auto bodyPosition = Math::FromRp3dVec3(transform.getPosition());
+
+                    //Change the rotation and positions
+
+                    //Positions
+                    bodyPosition.x = bodyPosition.x;
+                    bodyPosition.y = bodyPosition.y - (2 * timestep.GetSimulationSpeed());
+                    bodyPosition.z = bodyPosition.z;
+
+                    //Rotations
+                    bodyRotation.x = bodyRotation.x + (5 * timestep.GetSimulationSpeed());
+                    bodyRotation.y = bodyRotation.y;
+                    bodyRotation.z = bodyRotation.z;
+
+                    //Pass the values into it
+                    transform.setPosition(Math::ToRp3dVec3(bodyPosition));
+                    transform.setOrientation(Math::ToRp3dQuat(glm::quat(bodyRotation)));
+                    rb.Body->setTransform(transform);
+                    
+                    transformComponent.Position = glm::vec3(rb.Body->getTransform().getPosition().x, rb.Body->getTransform().getPosition().y, rb.Body->getTransform().getPosition().z);
+                    transformComponent.Rotation = bodyRotation;
+                }
+            }
             m_PhysicsManager->OnFixedUpdate(timestep);
             UpdateColliderRenderer();
         }

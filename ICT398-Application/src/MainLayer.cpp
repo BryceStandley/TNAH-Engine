@@ -7,6 +7,7 @@
 #include <TNAH-App.h>
 
 #include "TNAH/Editor/EditorUI.h"
+#include "TNAH/Scene/Components/TnahRigidBody.h"
 
 MainLayer::MainLayer()
 	:Layer("Main Layer")
@@ -30,7 +31,7 @@ MainLayer::MainLayer()
 		rb.SetBodyType(rp3d::BodyType::DYNAMIC);
 		
 	}*/
-	
+
 	{
 		std::string name = "Test Cube";
 		
@@ -39,13 +40,13 @@ MainLayer::MainLayer()
 		auto& mesh = go.AddComponent<tnah::MeshComponent>();
 		mesh.Model = tnah::Model::Create("assets/meshes/cube.fbx");
 		
-		tt.Position = glm::vec3(50, 1, 0);
-		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
+		tt.Position = glm::vec3(50, 10, 0);
+		auto& rb = go.AddComponent<tnah::TnahRigidBodyComponent>(tt);
 		auto& box = go.AddComponent<tnah::BoxColliderComponent>(glm::vec3(2.1, 2.1, 2.1));
-		
+		int sent = 1;
+		rb.Body->setUserData(&go);
 		box.Components.BodyCollider = rb.AddCollider(box.Components.Shape, rp3d::Transform::identity());
-		
-		rb.SetBodyType(rp3d::BodyType::DYNAMIC);	
+		//rb.SetBodyType(rp3d::BodyType::DYNAMIC);	
 	}
 
 	{
@@ -56,14 +57,15 @@ MainLayer::MainLayer()
 		auto& mesh = go.AddComponent<tnah::MeshComponent>();
 		mesh.Model = tnah::Model::Create("assets/meshes/cube.fbx");
 		
-		tt.Position = glm::vec3(20, -5, 10);
+		tt.Position = glm::vec3(20, -10, 10);
 		tt.Scale = glm::vec3(100, 1, 100);
-		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
+		auto& rb = go.AddComponent<tnah::TnahRigidBodyComponent>(tt);
 		auto& box = go.AddComponent<tnah::BoxColliderComponent>(glm::vec3(201, 2.1, 201));
-		
+		int sent = 5;
+		rb.Body->setUserData(&go);
 		box.Components.BodyCollider = rb.AddCollider(box.Components.Shape, rp3d::Transform::identity());
-		
-		rb.SetBodyType(rp3d::BodyType::KINEMATIC);	
+		rb.type = tnah::Static;
+		//rb.SetBodyType(rp3d::BodyType::KINEMATIC);	
 	}
 	
 	m_SceneLight = m_ActiveScene->GetSceneLight();

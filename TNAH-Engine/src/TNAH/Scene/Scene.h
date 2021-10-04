@@ -286,6 +286,7 @@ namespace tnah {
 
 		std::map<UUID, GameObject>& GetGameObjectsInScene();
 
+		PhysicsTimestep m_PhysicsTime;
 	private:
 
 		/**********************************************************************************************//**
@@ -394,7 +395,7 @@ namespace tnah {
 
 		GameObject* GetRefGameObject(const UUID& id);
 
-
+		
 	private:
 
 		/** @brief	A active scene reference */

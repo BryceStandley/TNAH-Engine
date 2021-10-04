@@ -349,14 +349,15 @@ namespace tnah{
 
 	struct CollisionBodyComponent
 	{
+		CollisionBodyComponent();
+		CollisionBodyComponent(const TransformComponent& transform);
 		/** @brief	Position of the body */
 		glm::vec3 Position = {0,0,0};
 		/** @brief	Rotation of the body */
 		glm::vec3 Rotation = {0,0,0};
 		/** @brief	Pointer to the body */
 		rp3d::CollisionBody* Body = nullptr;
-
-
+		rp3d::Collider* AddCollider(rp3d::CollisionShape* collider, const rp3d::Transform &transform);
 	
 	private:
 		/** @brief	Reactphysics transform of the body */

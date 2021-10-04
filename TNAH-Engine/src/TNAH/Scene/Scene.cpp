@@ -9,6 +9,8 @@
 #include "TNAH/Physics/PhysicsEvents.h"
 #include <glm/gtx/string_cast.hpp>
 
+#include "Components/TnahRigidBody.h"
+
 namespace tnah{
 
 #pragma region SceneSetups
@@ -402,7 +404,11 @@ namespace tnah{
 	void Scene::OnFixedUpdate(PhysicsTimestep time)
 	{
 #pragma region PhysicsStep
-		Physics::OnFixedUpdate(time);
+		{
+			auto view = m_Registry.view<TransformComponent, TnahRigidBodyComponent>();
+			Physics::OnFixedUpdate(time, view);
+		}
+		
 		{
 			auto view = m_Registry.view<TransformComponent, RigidBodyComponent>();
 			{
@@ -414,6 +420,8 @@ namespace tnah{
 					if(!rb.Edit)
 					{
 						transform.Position = glm::vec3(rb.Body->getTransform().getPosition().x, rb.Body->getTransform().getPosition().y, rb.Body->getTransform().getPosition().z);
+						auto quat = glm::quat(rb.Body->getTransform().getOrientation().w, rb.Body->getTransform().getOrientation().x, rb.Body->getTransform().getOrientation().y, rb.Body->getTransform().getOrientation().z);
+						transform.Rotation = glm::eulerAngles(quat);
 						if(rb.UseEdit)
 						{
 							if(tnah::Input::IsKeyPressed(tnah::Key::W))

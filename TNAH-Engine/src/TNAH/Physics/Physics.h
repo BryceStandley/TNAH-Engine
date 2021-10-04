@@ -4,12 +4,17 @@
 
 #pragma warning(pop)
 
+#include <entt.hpp>
+
 #include "TNAH/Physics/PhysicsTimestep.h"
 #include "TNAH/Scene/Components/Components.h"
+#include "TNAH/Scene/Components/PhysicsComponents.h"
 
 namespace tnah
 {
-    /**
+ struct TnahRigidBodyComponent;
+ struct CollisionBodyComponent;
+ /**
      * @class	PhysicsManager
      *
      * @brief	Manager for physics that inherits from the RefCounted class. This class is to remain private and contain
@@ -271,7 +276,7 @@ namespace tnah
          * @param 	timestep	The timestep.
          */
 
-        static void OnFixedUpdate(PhysicsTimestep timestep);
+        static void OnFixedUpdate(PhysicsTimestep timestep, entt::basic_view<entt::entity, entt::exclude_t<>, TransformComponent, TnahRigidBodyComponent> view);
 
         /**
          * @fn	static void Physics::Destroy();

@@ -14,7 +14,7 @@ namespace tnah
     class PhysicsTimestep
     {
     public:
-
+        PhysicsTimestep() = default;
         /**
          * @fn	PhysicsTimestep::PhysicsTimestep(float framerate)
          *

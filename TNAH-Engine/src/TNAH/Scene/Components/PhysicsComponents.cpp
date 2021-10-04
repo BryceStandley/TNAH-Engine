@@ -40,6 +40,15 @@ namespace tnah
         }
     }
 
+    CollisionBodyComponent::CollisionBodyComponent(const TransformComponent& transform)
+    :Position(transform.Position), Rotation(transform.Rotation)
+    {
+        if(Physics::IsActive())
+        {
+            Body = Physics::CreateCollisionBody(transform);
+        }
+    }
+
     RigidBodyComponent::RigidBodyComponent(const rp3d::Transform& transform)
     {
         auto p = transform.getPosition();
@@ -112,6 +121,16 @@ namespace tnah
     }
 
     rp3d::Collider* RigidBodyComponent::AddCollider(rp3d::CollisionShape* collider, const rp3d::Transform &transform)
+    {
+        if(Physics::IsActive() && Body)
+        {
+            return Body->addCollider(collider, transform);
+        }
+
+        return nullptr;
+    }
+
+    rp3d::Collider* CollisionBodyComponent::AddCollider(rp3d::CollisionShape* collider, const rp3d::Transform &transform)
     {
         if(Physics::IsActive() && Body)
         {
@@ -200,6 +219,15 @@ namespace tnah
     }
 #pragma endregion
 
+    CollisionBodyComponent::CollisionBodyComponent()
+    {
+        if(Physics::IsActive())
+        {
+            TransformComponent tt;
+            Body = Physics::CreateCollisionBody(tt);
+        }
+    }
+    
 #pragma region BoxCollider
     BoxColliderComponent::BoxColliderComponent()
     {
