@@ -19,10 +19,6 @@ namespace tnah
         std::list<rp3d::CollisionShape*> m_ColliderList;
         inline static std::string s_SearchString = "tnah Rigid Body component";
 
-        /*inline static ComponentTypes s_Types = {
-            {ComponentVariations::CollisionBody},
-    {{ComponentCategory::Physics}}
-        };
-        friend class EditorUI;*/
+        
     };
 }

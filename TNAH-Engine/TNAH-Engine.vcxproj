@@ -33,7 +33,6 @@
     <ClCompile Include="src\TNAH\Physics\PhysicsEvents.cpp" />
     <ClCompile Include="src\TNAH\Physics\PhysicsTimestep.cpp" />
     <ClCompile Include="src\TNAH\Physics\PhysicsValues.cpp" />
-    <ClCompile Include="src\TNAH\Physics\PhysicsWrapper.cpp" />
     <ClCompile Include="src\TNAH\Physics\RigidBody.cpp" />
     <ClCompile Include="src\TNAH\Renderer\Image.cpp" />
     <ClCompile Include="src\TNAH\Renderer\Light.cpp" />
@@ -102,9 +101,9 @@
     <ClInclude Include="src\TNAH\Physics\Physics.h" />
     <ClInclude Include="src\TNAH\Physics\PhysicsAPI.h" />
     <ClInclude Include="src\TNAH\Physics\PhysicsEvents.h" />
+    <ClInclude Include="src\TNAH\Physics\PhysicsStructures.h" />
     <ClInclude Include="src\TNAH\Physics\PhysicsTimestep.h" />
     <ClInclude Include="src\TNAH\Physics\PhysicsValues.h" />
-    <ClInclude Include="src\TNAH\Physics\PhysicsWrapper.h" />
     <ClInclude Include="src\TNAH\Physics\RigidBody.h" />
     <ClInclude Include="src\TNAH\Renderer\Animation.h" />
     <ClInclude Include="src\TNAH\Renderer\AssimpGLMHelpers.h" />
