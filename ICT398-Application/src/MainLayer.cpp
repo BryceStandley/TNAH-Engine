@@ -7,7 +7,7 @@
 #include <TNAH-App.h>
 
 #include "TNAH/Editor/EditorUI.h"
-#include "TNAH/Scene/Components/TnahRigidBody.h"
+#include "TNAH/Physics/Rigidbody.h"
 
 MainLayer::MainLayer()
 	:Layer("Main Layer")
@@ -616,9 +616,9 @@ void MainLayer::OnUpdate(tnah::Timestep deltaTime)
 	m_ActiveScene->OnUpdate(deltaTime);
 }
 
-void MainLayer::OnFixedUpdate(tnah::PhysicsTimestep ps)
+void MainLayer::OnFixedUpdate(tnah::Timestep ts,tnah::PhysicsTimestep ps)
 {
-	m_ActiveScene->OnFixedUpdate(ps);
+	m_ActiveScene->OnFixedUpdate(ts, ps);
 }
 
 void MainLayer::OnImGuiRender()

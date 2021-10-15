@@ -34,8 +34,6 @@ namespace tnah {
 
         static void DrawComponentProperties(GameObject& object, const bool& addComponents);
 
-    private:
-
         /**
          * @fn	static bool EditorUI::DrawFloatControl(const std::string& label, float& value, float min = 0.0f, float max = 0.0f, bool readOnly = false);
          *
@@ -208,7 +206,8 @@ namespace tnah {
          */
 
         static bool DrawRedButton(const std::string& label);
-        
+
+    private:
 
         /**
          * @fn	static std::list<ComponentTypes> EditorUI::GetPossibleComponentTypes(std::vector<ComponentTypes> typesHeld);

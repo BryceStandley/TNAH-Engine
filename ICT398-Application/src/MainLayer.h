@@ -8,7 +8,7 @@ public:
 	MainLayer();
 
 	void OnUpdate(tnah::Timestep deltaTime) override;
-	void OnFixedUpdate(tnah::PhysicsTimestep ps) override;
+	void OnFixedUpdate(tnah::Timestep ts,tnah::PhysicsTimestep ps) override;
 	void OnImGuiRender() override;
 	void OnEvent(tnah::Event& event) override;
 	void OnAttach() override;

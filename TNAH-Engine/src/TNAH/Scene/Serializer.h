@@ -225,24 +225,7 @@ namespace tnah
          * 
          */
         static std::string GenerateRigidBody(const RigidBodyComponent& rb, const uint32_t& totalTabs = 0);
-
-        /**
-         * 
-         * \fn std::string GenerateBoxCollider
-         * 
-         * \brief Generates box collider settings to serialize
-         * 
-         * \author Bryce Standley
-         * \date 13/9/2021
-         * 
-         * \param box
-         * \param totalTabs
-         * 
-         * \return 
-         * 
-         */
-        static std::string GenerateBoxCollider(const BoxColliderComponent& box, const uint32_t& totalTabs = 0);
-        
+     
         //Tag creators
         /**
          * 
@@ -720,24 +703,6 @@ namespace tnah
          */
         static RigidBodyComponent GetRigidBodyFromFile(const std::string& fileContents, std::pair<size_t, size_t> componentTagPositions, const TransformComponent& transform);
 
-        /**
-         * 
-         * \fn BoxColliderComponent GetBoxColliderFromFile
-         * 
-         * \brief Finds the all data for the scene within <boxCollider> </boxCollider> tags
-         * 
-         * \author Bryce Standley
-         * \date 13/9/2021
-         * 
-         * \param fileContents
-         * \param componentTagPositions
-         * \param rb
-         * 
-         * \return 
-         * 
-         */
-        static BoxColliderComponent GetBoxColliderFromFile(const std::string& fileContents, std::pair<size_t, size_t> componentTagPositions, RigidBodyComponent& rb);
-        
         /**
          * 
          * \fn PlayerControllerComponent GetPlayerControllerFromFile

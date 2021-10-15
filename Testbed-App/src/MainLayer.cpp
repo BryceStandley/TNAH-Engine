@@ -137,9 +137,9 @@ void MainLayer::OnUpdate(tnah::Timestep deltaTime)
 	m_ActiveScene->OnUpdate(deltaTime);
 }
 
-void MainLayer::OnFixedUpdate(tnah::PhysicsTimestep ps)
+void MainLayer::OnFixedUpdate(tnah::Timestep ts, tnah::PhysicsTimestep ps)
 {
-	m_ActiveScene->OnFixedUpdate(ps);
+	m_ActiveScene->OnFixedUpdate(ts, ps);
 }
 
 void MainLayer::OnImGuiRender()

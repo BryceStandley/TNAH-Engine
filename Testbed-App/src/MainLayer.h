@@ -49,7 +49,7 @@ public:
 		 * @param 	ps	The ps.
 		 */
 
-	void OnFixedUpdate(tnah::PhysicsTimestep ps) override;
+	void OnFixedUpdate(tnah::Timestep ts, tnah::PhysicsTimestep ps) override;
 
 		/**
 		 * @fn	void MainLayer::OnImGuiRender() override;

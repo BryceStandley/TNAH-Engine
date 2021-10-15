@@ -9,8 +9,6 @@
 #include "TNAH/Physics/PhysicsEvents.h"
 #include <glm/gtx/string_cast.hpp>
 
-#include "Components/TnahRigidBody.h"
-
 namespace tnah{
 
 #pragma region SceneSetups
@@ -61,7 +59,7 @@ namespace tnah{
 
 		//Physics
 		listener = new PhysicsEvents();
-		Physics::Initialise(listener);
+		Physics::PhysicsEngine::Initialise(listener);
 		
 		s_ActiveScene.Scene.Reset(this);
 	}
@@ -96,11 +94,19 @@ namespace tnah{
 		return Ref<Scene>::Create();
 	}
 
-#pragma endregion 
+#pragma endregion SceneSetups
 
 #pragma region SceneUpdate
+	
 	void Scene::OnUpdate(Timestep deltaTime)
 	{
+		
+#pragma region OnUpdates
+		
+		Physics::PhysicsEngine::OnUpdate(deltaTime);
+
+#pragma endregion OnUpdates
+		
 #pragma region PlayerControllerUpdate
 		//TODO: Actually test the player controller component
 		// Process any PlayerControllers before updating anything else in the scene
@@ -325,10 +331,11 @@ namespace tnah{
 #pragma region ColliderRender
 
 				{
+					
 					//Collider rendering should only be used for debugging and in the editor to set sizes
-					if((/*/*m_IsEditorScene ||#1# Application::Get().GetDebugModeStatus()) && */Physics::IsColliderRenderingEnabled() && passes == 0))
+					if((m_IsEditorScene || Application::Get().GetDebugModeStatus()) && Physics::PhysicsEngine::IsColliderRenderingEnabled() && passes == 0)
 					{
-						auto pair = Physics::GetColliderRenderObjects();
+						auto pair = Physics::PhysicsEngine::GetColliderRenderObjects();
 						auto lineArr = pair.first.first;
 						auto lineBuf = pair.first.second;
 				
@@ -387,7 +394,7 @@ namespace tnah{
 
 				Renderer::EndScene();
 			}
-#pragma endregion 
+#pragma endregion
 
 #pragma region FramebufferEndings
 			passes++;
@@ -398,50 +405,16 @@ namespace tnah{
 #pragma endregion
 		
 	}
-#pragma endregion 
+#pragma endregion SceneUpdate
 
 #pragma  region ScenePhyscisUpdate
-	void Scene::OnFixedUpdate(PhysicsTimestep time)
+	
+	void Scene::OnFixedUpdate(Timestep deltaTime, PhysicsTimestep physicsDeltaTime)
 	{
-#pragma region PhysicsStep
-		{
-			auto view = m_Registry.view<TransformComponent, TnahRigidBodyComponent>();
-			Physics::OnFixedUpdate(time, view);
-		}
-		
-		{
-			auto view = m_Registry.view<TransformComponent, RigidBodyComponent>();
-			{
-				for(auto entity : view)
-				{
-					auto & rb = view.get<RigidBodyComponent>(entity);
-					auto& transform = view.get<TransformComponent>(entity);
-					auto& go = FindGameObjectByID(entity);
-					if(!rb.Edit)
-					{
-						transform.Position = glm::vec3(rb.Body->getTransform().getPosition().x, rb.Body->getTransform().getPosition().y, rb.Body->getTransform().getPosition().z);
-						auto quat = glm::quat(rb.Body->getTransform().getOrientation().w, rb.Body->getTransform().getOrientation().x, rb.Body->getTransform().getOrientation().y, rb.Body->getTransform().getOrientation().z);
-						transform.Rotation = glm::eulerAngles(quat);
-						if(rb.UseEdit)
-						{
-							if(tnah::Input::IsKeyPressed(tnah::Key::W))
-								rb.ApplyForce(tnah::RigidBodyComponent::ForceType::FromCentre, transform.Forward, glm::vec3(5), glm::vec3(0));
-							if(tnah::Input::IsKeyPressed(tnah::Key::S))
-								rb.ApplyForce(tnah::RigidBodyComponent::ForceType::FromCentre, -transform.Forward, glm::vec3(5), glm::vec3(0));
-							if(tnah::Input::IsKeyPressed(tnah::Key::A))
-								rb.ApplyForce(tnah::RigidBodyComponent::ForceType::FromCentre, -transform.Right, glm::vec3(5), glm::vec3(0));
-							if(tnah::Input::IsKeyPressed(tnah::Key::D))
-								rb.ApplyForce(tnah::RigidBodyComponent::ForceType::FromCentre, transform.Right, glm::vec3(5), glm::vec3(0));
-						}
-					}
-					else
-						rb.Body->setTransform(Math::ToRp3dTransform(transform.Position));
-				}
-			}
-		}
-#pragma endregion 
+		Physics::PhysicsEngine::OnFixedUpdate(deltaTime, physicsDeltaTime, m_Registry);
 	}
-#pragma endregion 
+	
+#pragma endregion ScenePhyscisUpdate
 
 #pragma region SceneHelpers
 	glm::mat4 Scene::GetTransformRelativeToParent(GameObject gameObject)

@@ -58,7 +58,7 @@ namespace tnah
 				{
 					while (physicsTimestep.FixedUpdateCheck())
 					{
-						layer->OnFixedUpdate(physicsTimestep);
+						layer->OnFixedUpdate(timestep, physicsTimestep);
 						physicsTimestep.Update();
 					}
 

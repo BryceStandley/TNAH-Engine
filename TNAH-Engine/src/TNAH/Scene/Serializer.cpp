@@ -109,8 +109,6 @@ namespace tnah {
                 ss << GenerateAudioSource(g.GetComponent<AudioSourceComponent>(), 3);
             if(g.HasComponent<RigidBodyComponent>())
                 ss << GenerateRigidBody(g.GetComponent<RigidBodyComponent>(), 3);
-            if(g.HasComponent<BoxColliderComponent>())
-                ss << GenerateBoxCollider(g.GetComponent<BoxColliderComponent>(), 3);
             
             ss << GenerateTagClose("gameObject", 2);
         }
@@ -279,23 +277,15 @@ namespace tnah {
         std::stringstream ss;
         ss << GenerateTagOpen("rigidbody", totalTabs);
         
-        if(rb.GetType() == rp3d::BodyType::DYNAMIC)
+        if(rb.Body->GetType() == tnah::Physics::BodyType::Dynamic)
             ss << GenerateValueEntry("type", "dynamic", totalTabs+1);
         else    
-            ss << GenerateValueEntry("type", "kinematic", totalTabs+1);
+            ss << GenerateValueEntry("type", "static", totalTabs+1);
         
         ss << GenerateTagClose("rigidbody", totalTabs);
         return ss.str();
     }
-
-    std::string Serializer::GenerateBoxCollider(const BoxColliderComponent& box, const uint32_t& totalTabs)
-    {
-        std::stringstream ss;
-        ss << GenerateTagOpen("boxcollider", totalTabs);
-        ss << GenerateVec3Entry("size", box.Size, totalTabs+1);
-        ss << GenerateTagClose("boxcollider", totalTabs);
-        return ss.str();
-    }
+    
 
 
     std::string tnah::Serializer::GenerateVec3(const glm::vec3& value, const uint32_t& totalTabs)
@@ -656,14 +646,8 @@ namespace tnah {
         if(CheckTags(rigidPos))
         {
             TNAH_CORE_INFO("Rigid: {0} {1}", rigidPos.first, rigidPos.second);
-            gameObject.AddComponent<RigidBodyComponent>(GetRigidBodyFromFile(fileContents, rigidPos, gameObject.Transform()));
-            added++;
-        }
-
-        auto boxPos = FindTags("boxcollider", fileContents, gameObjectTagPositions.first, gameObjectTagPositions.second);
-        if(CheckTags(boxPos))
-        {
-            gameObject.AddComponent<BoxColliderComponent>(GetBoxColliderFromFile(fileContents, boxPos, gameObject.GetComponent<RigidBodyComponent>()));
+            auto rb = GetRigidBodyFromFile(fileContents, rigidPos, gameObject.Transform());
+            gameObject.AddComponent<RigidBodyComponent>(gameObject, rb.Body->GetType());
             added++;
         }
         
@@ -747,19 +731,15 @@ namespace tnah {
     {
         auto type = GetStringValueFromFile("type", fileContents, componentTagPositions);
         if(type == "dynamic")
-            return RigidBodyComponent(transform, rp3d::BodyType::DYNAMIC);
+            return RigidBodyComponent();
         else
-            return RigidBodyComponent(transform, rp3d::BodyType::KINEMATIC);
+        {
+            auto rb =  RigidBodyComponent();
+            rb.Body->SetType(tnah::Physics::BodyType::Static);
+            return rb;
+        }
     }
-
-    BoxColliderComponent Serializer::GetBoxColliderFromFile(const std::string& fileContents, std::pair<size_t, size_t> componentTagPositions, RigidBodyComponent& rb)
-    {
-        auto size = GetVec3FromFile("size", fileContents, componentTagPositions);
-        BoxColliderComponent box(size);
-        box.Components.BodyCollider = rb.AddCollider(box.Components.Shape, rp3d::Transform::identity());
-        return box;
-    }
-
+    
     
     PlayerControllerComponent Serializer::GetPlayerControllerFromFile(const std::string& fileContents,
         std::pair<size_t, size_t> componentTagPositions)

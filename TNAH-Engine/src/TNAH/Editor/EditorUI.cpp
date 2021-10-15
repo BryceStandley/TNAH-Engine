@@ -1,5 +1,7 @@
 ﻿#include "tnahpch.h"
 #include "EditorUI.h"
+
+#include "TNAH/Core/Application.h"
 #include "TNAH/Scene/Components/Components.h"
 
 
@@ -27,30 +29,15 @@ namespace tnah {
 			auto& t = object.GetComponent<TransformComponent>();
 			if(DrawVec3Control("Position", t.Position))
 			{
-				if(object.HasComponent<RigidBodyComponent>())
-				{
-					auto& rb = object.GetComponent<RigidBodyComponent>();
-					rb.UpdateTransform(t);
-				}
 			}
 			glm::vec3 rotation = glm::degrees(t.Rotation);
 			if(DrawVec3Control("Rotation", rotation))
 			{
 				t.Rotation = glm::radians(rotation);
-				if(object.HasComponent<RigidBodyComponent>())
-				{
-					auto& rb = object.GetComponent<RigidBodyComponent>();
-					rb.UpdateTransform(t);
-				}
 			}
 			
 			if(DrawVec3Control("Scale", t.Scale, false, 1))
 			{
-				if(object.HasComponent<RigidBodyComponent>())
-				{
-					auto& rb = object.GetComponent<RigidBodyComponent>();
-					rb.UpdateTransform(t);
-				}
 			}
 			ImGui::Separator();
 		}
@@ -458,168 +445,123 @@ namespace tnah {
 		{
 			auto & rb = object.GetComponent<RigidBodyComponent>();
 
-			if(rb.m_BodyType == rp3d::BodyType::KINEMATIC)
+			if(rb.Body->GetType() == Physics::BodyType::Static)
 			{
-				ImGui::Text("Object Type: Kinematic");
-				if(ImGui::Button("Change to Dynamic"))
+				ImGui::Text("Body Type: Static");
+				if(ImGui::Button("Make Dynamic"))
 				{
-					rb.SetBodyType(rp3d::BodyType::DYNAMIC);
+					rb.Body->SetType(Physics::BodyType::Dynamic);
 				}
 			}
 			else
 			{
-				ImGui::Text("Object Type: Dynamic");
-				if(ImGui::Button("Change to Kinematic"))
+				ImGui::Text("Body Type: Dynamic");
+				if(ImGui::Button("Make Static"))
 				{
-					rb.SetBodyType(rp3d::BodyType::STATIC);
-					rb.SetBodyType(rp3d::BodyType::KINEMATIC);
+					rb.Body->SetType(Physics::BodyType::Static);
 				}
 			}
-			ImGui::Checkbox("Edit mode", &rb.Edit);
-			ImGui::Checkbox("Keyboard Controls", &rb.UseEdit);
+			if(Application::Get().GetDebugModeStatus())
+			{
+				ImGui::BulletText("Rigidbody ID: %d", rb.Body->m_ID);
+				
+				//Render all aspects of the RB
+				if(ImGui::CollapsingHeader("Mass"))
+				{
+					std::string m = "MAX";
+					m = rb.Body->GetType() == Physics::BodyType::Dynamic ?std::to_string(rb.Body->m_BodyMass.Mass) : "MAX";
+					ImGui::BulletText("Mass: %s kg", m); 
+					ImGui::BulletText("Inverse Mass: %f", rb.Body->m_BodyMass.InverseMass);
+					const auto com = rb.Body->m_BodyMass.CentreOfMass;
+					ImGui::BulletText("Center of Mass: X: %.2f -- Y: %.2f -- Z: %.2f", com.x, com.y, com.z);
+				}
+				if(ImGui::CollapsingHeader("Velocity"))
+				{
+					const auto lv = rb.Body->m_LinearVelocity.Velocity;
+					const auto av = rb.Body->m_AngularVelocity.Velocity;
+					ImGui::BulletText("Linear: X: %.2f -- Y: %.2f -- Z: %.2f", lv.x, lv.y, lv.z);
+					ImGui::BulletText("Angular: X: %.2f -- Y: %.2f -- Z: %.2f", av.x, av.y, av.z);
+				}
+				if(ImGui::CollapsingHeader("React Transform"))
+				{
+					const auto pos = Math::FromRp3dVec3(rb.Body->m_CollisionBody->getTransform().getPosition());
+					const auto rot = glm::eulerAngles(Math::FromRp3dQuat(rb.Body->m_CollisionBody->getTransform().getOrientation()));
+					ImGui::BulletText("Position: X: %.2f -- Y: %.2f -- Z: %.2f", pos.x, pos.y, pos.z);
+					ImGui::BulletText("Rotation: X: %.2f -- Y: %.2f -- Z: %.2f", rot.x, rot.y, rot.z);
+				}
+			}
 			ImGui::Separator();
-			ImGui::Text("Colliders");
-			bool hasCollider = false;
-		
-			if(object.HasComponent<BoxColliderComponent>())
+			if(ImGui::CollapsingHeader("Colliders"))
 			{
-				auto & box = object.GetComponent<BoxColliderComponent>();
-				ImGui::Text("Box Collider");
-				ImGui::Separator();
-				if(ImGui::CollapsingHeader("Help"))
+				bool hasCollider = rb.Body->m_Colliders.size() == 0 ? false : true;
+				if(!hasCollider)
 				{
-					ImGui::Text("Box colliders use a half extent to be created");
-					ImGui::Text("When editing a box collider, use the final size of each axis as the component will handle the rest!");
-					ImGui::Text("Colliders have a transform just like an object but its relative to the holding objects transform.");
-					ImGui::Text("The position of the collider is usually at the origin of the object (0,0,0) also known as Identity");
-					ImGui::Text("Changing the transform doesn't alter the object it self");
+					ImGui::Text("No colliders attached");
 				}
-				if(DrawVec3Control("Size", box.Size))
+				else
 				{
-					static_cast<rp3d::BoxShape*>(box.Components.Shape)->setHalfExtents(Math::ToRp3dVec3(box.Size / 2.0f));
-					box.Components.BodyCollider = rb.UpdateCollider(box.Components);
-				}
-				auto transformPosition = Math::FromRp3dVec3(box.Components.TransformRelativeToCollisionBody.getPosition());
-				if(DrawVec3Control("Position", transformPosition))
-				{
-					auto transform = box.Components.TransformRelativeToCollisionBody;
-					transform.setPosition(Math::ToRp3dVec3(transformPosition));
-					box.Components.BodyCollider = rb.UpdateCollider(box.Components);
-				}
-				hasCollider = true;
-
-				if(addComponents)
-				{
-					if(DrawRemoveComponentButton("Box Collider"))
+					int count = 0;
+					for(auto& col : rb.Body->m_Colliders)
 					{
-						object.RemoveComponent<BoxColliderComponent>();
+						
+						if(ImGui::CollapsingHeader(std::string("Attachment: " + std::to_string(count)).c_str(), ImGuiTreeNodeFlags_Bullet))
+						{
+							
+							switch(col->m_Type)
+							{
+								case Physics::Collider::Type::Box:
+									{
+										ImGui::Text("Type: Box");
+										if(Application::Get().GetDebugModeStatus())
+										{
+											auto box = static_cast<rp3d::BoxShape*>(col->m_Collider);
+											auto s = (Math::FromRp3dVec3(box->getHalfExtents())) * 2.0f;
+											ImGui::Text("Size: X: %.2f -- Y: %.2f -- Z: %.2f", s.x, s.y, s.z);
+										}
+										break;
+									}
+								
+								case Physics::Collider::Type::Sphere:
+									{
+										ImGui::Text("Type: Sphere");
+										if(Application::Get().GetDebugModeStatus())
+										{
+											auto sphere = static_cast<rp3d::SphereShape*>(col->m_Collider);
+											ImGui::Text("Radius: %f", sphere->getRadius());
+										}
+										break;
+									}
+								case Physics::Collider::Type::Capsule:
+									{
+										ImGui::Text("Type: Capsule");
+										if(Application::Get().GetDebugModeStatus())
+										{
+											auto capsule = static_cast<rp3d::CapsuleShape*>(col->m_Collider);
+											ImGui::Text("Radius: %f", capsule->getRadius());
+											ImGui::Text("Height: %f", capsule->getHeight());
+										}
+										break;
+									}
+							default: break;
+							}
+							if(Application::Get().GetDebugModeStatus())
+							{
+								if(ImGui::CollapsingHeader("Mass"))
+								{
+									ImGui::Text("Mass: %f", col->m_Mass.Mass);
+									ImGui::Text("Inverse Mass: %f", col->m_Mass.InverseMass);
+									const auto com = col->m_Mass.CentreOfMass;
+									ImGui::Text("Center of Mass: X: %.2f -- Y: %.2f -- Z: %.2f", com.x, com.y, com.z);
+								}
+							}
+						}
+						count++;
 					}
 				}
 			}
-
-			if(object.HasComponent<CapsuleColliderComponent>())
-			{
-				auto & capsule = object.GetComponent<CapsuleColliderComponent>();
-				ImGui::Text("Capsule Collider");
-				ImGui::Separator();
-				if(DrawFloatControl("Radius", capsule.Radius))
-				{
-					static_cast<rp3d::CapsuleShape*>(capsule.Components.Shape)->setRadius(capsule.Radius);
-					capsule.Components.BodyCollider = rb.UpdateCollider(capsule.Components);
-				}
-
-				if(DrawFloatControl("Height", capsule.Height))
-				{
-					static_cast<rp3d::CapsuleShape*>(capsule.Components.Shape)->setHeight(capsule.Height);
-					capsule.Components.BodyCollider = rb.UpdateCollider(capsule.Components);
-				}
-				
-				hasCollider = true;
-
-				if(addComponents)
-				{
-					if(DrawRemoveComponentButton("Capsule Collider"))
-					{
-						object.RemoveComponent<CapsuleColliderComponent>();
-					}
-				}
-			}
-
-			if(object.HasComponent<SphereColliderComponent>())
-			{
-				auto & sphere = object.GetComponent<SphereColliderComponent>();
-				ImGui::Text("Sphere Collider");
-				ImGui::Separator();
-				if(DrawFloatControl("Radius", sphere.Radius))
-				{
-					static_cast<rp3d::SphereShape*>(sphere.Components.Shape)->setRadius(sphere.Radius);
-					sphere.Components.BodyCollider = rb.UpdateCollider(sphere.Components);
-				}
-				
-				hasCollider = true;
-
-				if(addComponents)
-				{
-					if(DrawRemoveComponentButton("Sphere Collider"))
-					{
-						object.RemoveComponent<SphereColliderComponent>();
-					}
-				}
-			}
-
-			if(object.HasComponent<ConcaveMeshColliderComponent>())
-			{
-				auto & mesh = object.GetComponent<ConcaveMeshColliderComponent>();
-				ImGui::Text("Concave Mesh Collider");
-				ImGui::Separator();
-				//Todo: Add collider update if its animated
-				
-				/*
-				if(DrawFloatControl("Radius", sphere.Radius))
-				{
-					static_cast<rp3d::SphereShape*>(sphere.Components.Shape)->setRadius(sphere.Radius);
-					sphere.Components.BodyCollider = rb.UpdateCollider(sphere.Components.BodyCollider, sphere.Components.Shape, rp3d::Transform::identity());
-				}*/
-				
-				hasCollider = true;
-
-				if(addComponents)
-				{
-					if(DrawRemoveComponentButton("Concave Mesh Collider"))
-					{
-						object.RemoveComponent<ConcaveMeshColliderComponent>();
-					}
-				}
-			}
-
-			if(object.HasComponent<ConvexMeshColliderComponent>())
-			{
-				auto & mesh = object.GetComponent<ConvexMeshColliderComponent>();
-				ImGui::Text("Convex Mesh Collider");
-				ImGui::Separator();
-				//Todo: Add collider update if its animated
-				
-				/*
-				if(DrawFloatControl("Radius", sphere.Radius))
-				{
-				static_cast<rp3d::SphereShape*>(sphere.Components.Shape)->setRadius(sphere.Radius);
-				sphere.Components.BodyCollider = rb.UpdateCollider(sphere.Components.BodyCollider, sphere.Components.Shape, rp3d::Transform::identity());
-				}*/
-				
-				hasCollider = true;
-
-				if(addComponents)
-				{
-					if(DrawRemoveComponentButton("Convex Mesh Collider"))
-					{
-						object.RemoveComponent<ConvexMeshColliderComponent>();
-					}
-				}
-			}
-
-			if(!hasCollider)
-				ImGui::Text("No colliders added");
-
+			
+			
+			ImGui::Separator();
 			if(addComponents)
 			{
 				if(DrawRemoveComponentButton("RigidBody"))
@@ -1243,24 +1185,6 @@ namespace tnah {
 
 			if(v == ComponentVariations::RigidBody && Utility::Contains<ComponentCategory>(RigidBodyComponent::s_Types.Categories, category))
 				foundComponents.emplace_back(ComponentVariations::RigidBody);
-
-			if(v == ComponentVariations::BoxCollider && Utility::Contains<ComponentCategory>(BoxColliderComponent::s_Types.Categories, category))
-				foundComponents.emplace_back(ComponentVariations::BoxCollider);
-
-			if(v == ComponentVariations::HeightFieldCollider && Utility::Contains<ComponentCategory>(HeightFieldColliderComponent::s_Types.Categories, category))
-				foundComponents.emplace_back(ComponentVariations::HeightFieldCollider);
-		
-			if(v == ComponentVariations::CapsuleCollider && Utility::Contains<ComponentCategory>(CapsuleColliderComponent::s_Types.Categories, category))
-				foundComponents.emplace_back(ComponentVariations::CapsuleCollider);
-
-			if(v == ComponentVariations::SphereCollider && Utility::Contains<ComponentCategory>(SphereColliderComponent::s_Types.Categories, category))
-				foundComponents.emplace_back(ComponentVariations::SphereCollider);
-
-			if(v == ComponentVariations::ConvexMeshCollider && Utility::Contains<ComponentCategory>(ConvexMeshColliderComponent::s_Types.Categories, category))
-				foundComponents.emplace_back(ComponentVariations::ConvexMeshCollider);
-
-			if(v == ComponentVariations::ConcaveMeshCollider && Utility::Contains<ComponentCategory>(ConcaveMeshColliderComponent::s_Types.Categories, category))
-				foundComponents.emplace_back(ComponentVariations::ConcaveMeshCollider);
 		}
 		return foundComponents;
 	}
@@ -1313,25 +1237,6 @@ namespace tnah {
 
 		if(RigidBodyComponent::s_SearchString.find(term) != std::string::npos && Utility::Contains<ComponentVariations>(componentsToSearch, ComponentVariations::RigidBody))
 			foundComponents.emplace_back(ComponentVariations::RigidBody);
-
-		if(BoxColliderComponent::s_SearchString.find(term) != std::string::npos && Utility::Contains<ComponentVariations>(componentsToSearch, ComponentVariations::BoxCollider))
-			foundComponents.emplace_back(ComponentVariations::BoxCollider);
-
-		if(HeightFieldColliderComponent::s_SearchString.find(term) != std::string::npos && Utility::Contains<ComponentVariations>(componentsToSearch, ComponentVariations::HeightFieldCollider))
-			foundComponents.emplace_back(ComponentVariations::HeightFieldCollider);
-		
-		if(CapsuleColliderComponent::s_SearchString.find(term) != std::string::npos && Utility::Contains<ComponentVariations>(componentsToSearch, ComponentVariations::CapsuleCollider))
-			foundComponents.emplace_back(ComponentVariations::CapsuleCollider);
-
-		if(SphereColliderComponent::s_SearchString.find(term) != std::string::npos && Utility::Contains<ComponentVariations>(componentsToSearch, ComponentVariations::SphereCollider))
-			foundComponents.emplace_back(ComponentVariations::SphereCollider);
-
-		if(ConvexMeshColliderComponent::s_SearchString.find(term) != std::string::npos && Utility::Contains<ComponentVariations>(componentsToSearch, ComponentVariations::ConvexMeshCollider))
-			foundComponents.emplace_back(ComponentVariations::ConvexMeshCollider);
-
-		if(ConcaveMeshColliderComponent::s_SearchString.find(term) != std::string::npos && Utility::Contains<ComponentVariations>(componentsToSearch, ComponentVariations::ConcaveMeshCollider))
-			foundComponents.emplace_back(ComponentVariations::ConcaveMeshCollider);
-
 		
 		
 		return foundComponents;
@@ -1486,98 +1391,9 @@ namespace tnah {
             object.AddComponent<AudioListenerComponent>();
             return true;
         case ComponentVariations::RigidBody:
-        	object.AddComponent<RigidBodyComponent>(object.Transform());
+        	object.AddComponent<RigidBodyComponent>(object);
         	return true;
-        case ComponentVariations::BoxCollider:
-        	if(object.HasComponent<RigidBodyComponent>())
-        	{
-        		auto& rb = object.GetComponent<RigidBodyComponent>();
-        		auto& b = object.AddComponent<BoxColliderComponent>();
-        		b.Components.BodyCollider = rb.AddCollider(b.Components.Shape, rp3d::Transform::identity());
-        		return true;
-        	}
-        	else
-        	{
-        		auto& rb = object.AddComponent<RigidBodyComponent>(object.Transform());
-        		auto& b = object.AddComponent<BoxColliderComponent>();
-        		b.Components.BodyCollider = rb.AddCollider(b.Components.Shape, rp3d::Transform::identity());
-        		return true;
-        	}
-        case ComponentVariations::SphereCollider:
-        	if(object.HasComponent<RigidBodyComponent>())
-        	{
-        		auto& rb = object.GetComponent<RigidBodyComponent>();
-        		auto& b = object.AddComponent<SphereColliderComponent>();
-        		b.Components.BodyCollider = rb.AddCollider(b.Components.Shape, rp3d::Transform::identity());
-        		return true;
-        	}
-        	else
-        	{
-        		auto& rb = object.AddComponent<RigidBodyComponent>(object.Transform());
-        		auto& b = object.AddComponent<SphereColliderComponent>();
-        		b.Components.BodyCollider = rb.AddCollider(b.Components.Shape, rp3d::Transform::identity());
-        		return true;
-        	}
-        case ComponentVariations::CapsuleCollider:
-        	if(object.HasComponent<RigidBodyComponent>())
-        	{
-        		auto& rb = object.GetComponent<RigidBodyComponent>();
-        		auto& b = object.AddComponent<CapsuleColliderComponent>();
-        		b.Components.BodyCollider = rb.AddCollider(b.Components.Shape, rp3d::Transform::identity());
-        		return true;
-        	}
-        	else
-        	{
-        		auto& rb = object.AddComponent<RigidBodyComponent>(object.Transform());
-        		auto& b = object.AddComponent<CapsuleColliderComponent>();
-        		b.Components.BodyCollider = rb.AddCollider(b.Components.Shape, rp3d::Transform::identity());
-        		return true;
-        	}
-        case ComponentVariations::HeightFieldCollider:
-        	if(object.HasComponent<RigidBodyComponent>())
-        	{
-        		auto& rb = object.GetComponent<RigidBodyComponent>();
-        		auto& b = object.AddComponent<HeightFieldColliderComponent>();
-        		b.Components.BodyCollider = rb.AddCollider(b.Components.Shape, rp3d::Transform::identity());
-        		return true;
-        	}
-        	else
-        	{
-        		auto& rb = object.AddComponent<RigidBodyComponent>(object.Transform());
-        		auto& b = object.AddComponent<HeightFieldColliderComponent>();
-        		b.Components.BodyCollider = rb.AddCollider(b.Components.Shape, rp3d::Transform::identity());
-        		return true;
-        	}
-        case ComponentVariations::ConvexMeshCollider:
-        	if(object.HasComponent<RigidBodyComponent>())
-        	{
-        		auto& rb = object.GetComponent<RigidBodyComponent>();
-        		auto& b = object.AddComponent<ConvexMeshColliderComponent>();
-        		b.Components.BodyCollider = rb.AddCollider(b.Components.Shape, rp3d::Transform::identity());
-        		return true;
-        	}
-        	else
-        	{
-        		auto& rb = object.AddComponent<RigidBodyComponent>(object.Transform());
-        		auto& b = object.AddComponent<ConvexMeshColliderComponent>();
-        		b.Components.BodyCollider = rb.AddCollider(b.Components.Shape, rp3d::Transform::identity());
-        		return true;
-        	}
-        case ComponentVariations::ConcaveMeshCollider:
-        	if(object.HasComponent<RigidBodyComponent>())
-        	{
-        		auto& rb = object.GetComponent<RigidBodyComponent>();
-        		auto& b = object.AddComponent<ConcaveMeshColliderComponent>();
-        		b.Components.BodyCollider = rb.AddCollider(b.Components.Shape, rp3d::Transform::identity());
-        		return true;
-        	}
-        	else
-        	{
-        		auto& rb = object.AddComponent<RigidBodyComponent>(object.Transform());
-        		auto& b = object.AddComponent<ConcaveMeshColliderComponent>();
-        		b.Components.BodyCollider = rb.AddCollider(b.Components.Shape, rp3d::Transform::identity());
-        		return true;
-        	}
+        	
         default: return false;
         }
     }

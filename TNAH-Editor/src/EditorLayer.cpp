@@ -517,7 +517,7 @@ namespace tnah {
 				ImGui::Text("Debug");
 				if(ImGui::Button("Toggle Collider Render"))
 				{
-					Physics::ToggleColliderRendering();
+					PhysicsSystem::ToggleColliderRendering();
 				}
 				ImGui::End();
 			}

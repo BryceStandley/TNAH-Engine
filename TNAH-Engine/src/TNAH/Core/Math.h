@@ -196,6 +196,25 @@ namespace tnah {
 		}
 
 		/**
+		* @fn	static glm::quat FromRp3dQuat(const rp3d::Quaternion& values)
+		*
+		* @brief	Converts the Rp3d quaternion values to a glm quaternion
+		*
+		* @author	Dylan Blereau
+		* @date	7/09/2021
+		*
+		* @param 	values	The values.
+		*
+		* @returns	Values as a glm::quat
+		*/
+
+		static glm::quat FromRp3dQuat(const rp3d::Quaternion& values)
+		{
+			return glm::quat(values.w, values.x, values.y, values.z);
+		}
+
+
+		/**
 		 * @fn	static rp3d::Transform ToRp3dTransform(const TransformComponent& transform)
 		 *
 		 * @brief	Converts a TranformComponent transform to a rp3d transform
