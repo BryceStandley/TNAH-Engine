@@ -9,6 +9,9 @@
 #include "TNAH/Physics/PhysicsEvents.h"
 #include <glm/gtx/string_cast.hpp>
 
+#include "Components/AI/Affordance.h"
+#include "Components/AI/AIComponent.h"
+
 namespace tnah{
 
 #pragma region SceneSetups
@@ -379,6 +382,33 @@ namespace tnah{
 						{
 							sound.m_Loaded = Audio::AddAudioSource(sound);
 						}
+					}
+				}
+
+
+				{
+					auto objects = m_Registry.view<Affordance, TransformComponent>();
+					auto view = m_Registry.view<AIComponent, CharacterComponent, TransformComponent>();
+					
+					for(auto entity : view)
+					{
+						auto &t = view.get<TransformComponent>(entity);
+						auto &ai = view.get<AIComponent>(entity);
+						auto &c = view.get<CharacterComponent>(entity);
+
+						for(auto obj : objects)
+						{
+							auto & objTrasnform = objects.get<TransformComponent>(obj);
+							auto & affordance = objects.get<Affordance>(obj);
+
+							if(glm::distance(objTrasnform.Position, t.Position) < c.aiCharacter->GetDistance())
+							{
+								float affordanceValue = affordance.GetActionValue(c.aiCharacter->GetDesiredAction());
+							}
+						}
+
+						c.aiCharacter->OnUpdate(deltaTime);
+						ai.OnUpdate(deltaTime);
 					}
 				}
 #pragma endregion 

@@ -7,6 +7,8 @@
 #include <TNAH-App.h>
 
 #include "TNAH/Editor/EditorUI.h"
+#include "TNAH/Scene/Components/AI/Affordance.h"
+#include "TNAH/Scene/Components/AI/AIComponent.h"
 
 MainLayer::MainLayer()
 	:Layer("Main Layer")
@@ -28,7 +30,6 @@ MainLayer::MainLayer()
 		box.Components.BodyCollider = rb.AddCollider(box.Components);
 		rb.Body->setAngularLockAxisFactor({0,1,0}); // Lock the rigidbody from falling over
 		rb.SetBodyType(rp3d::BodyType::DYNAMIC);
-		
 	}
 	
 	
@@ -281,7 +282,9 @@ MainLayer::MainLayer()
 		
 		box.Components.BodyCollider = rb.AddCollider(box.Components.Shape, rp3d::Transform::identity());
 		
-		rb.SetBodyType(rp3d::BodyType::KINEMATIC);	
+		rb.SetBodyType(rp3d::BodyType::KINEMATIC);
+		go.AddComponent<tnah::AIComponent>();
+		go.AddComponent<tnah::CharacterComponent>();
 	}
 
 	{
@@ -300,7 +303,10 @@ MainLayer::MainLayer()
 		
 		box.Components.BodyCollider = rb.AddCollider(box.Components.Shape, rp3d::Transform::identity());
 		
-		rb.SetBodyType(rp3d::BodyType::KINEMATIC);	
+		rb.SetBodyType(rp3d::BodyType::KINEMATIC);
+		go.AddComponent<tnah::Affordance>();
+		auto & a = go.GetComponent<tnah::Affordance>();
+		a.SetActionValues(tnah::kick, 1);
 	}
 
 	glm::vec3 tableScale(0.01, 0.02, 0.01), tableRotation(0, 0, 0), tableSize(1);
@@ -339,7 +345,8 @@ MainLayer::MainLayer()
 
 		box.Components.BodyCollider = rb.AddCollider(box.Components.Shape, rp3d::Transform::identity());
 		
-		rb.SetBodyType(rp3d::BodyType::KINEMATIC);	
+		rb.SetBodyType(rp3d::BodyType::KINEMATIC);
+		go.AddComponent<tnah::Affordance>();
 	}
 	glm::vec3 chairScale(0.1, 0.1, 0.1);
 	{
@@ -358,7 +365,8 @@ MainLayer::MainLayer()
 
 		box.Components.BodyCollider = rb.AddCollider(box.Components.Shape, rp3d::Transform::identity());
 		
-		rb.SetBodyType(rp3d::BodyType::KINEMATIC);	
+		rb.SetBodyType(rp3d::BodyType::KINEMATIC);
+		go.AddComponent<tnah::Affordance>();
 	}
 
 	{
