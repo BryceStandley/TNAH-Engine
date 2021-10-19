@@ -28,8 +28,7 @@ namespace tnah
 
         PhysicsTimestep(float framerate)
             : m_TotalTime(0), m_SimSpeed(1.0f/framerate), m_Accumulator(0)
-        {
-        }
+        {}
 
         /**
          * @fn	inline void PhysicsTimestep::AddFrameTime(const float frameTime)
@@ -76,7 +75,7 @@ namespace tnah
          * @author	Dylan Blereau
          * @date	11/09/2021
          *
-         * @returns	The aplha.
+        * @returns	The aplha.
          */
 
         float GetAplha() const { return m_Accumulator / m_SimSpeed; }

@@ -65,7 +65,7 @@ namespace tnah::Physics
 
         ~PhysicsManager();
 
-     glm::vec3 GetGravity() const { return m_Gravity; }
+     glm::vec3& GetGravity() { return m_Gravity; }
      void SetGravity(const glm::vec3& gravity) { m_Gravity = gravity; }
      void SetGravityState(const bool& state) { m_GravityEnabled = state; }
      bool& GetGravityState() { return m_GravityEnabled; }
@@ -206,7 +206,7 @@ namespace tnah::Physics
 
    bool m_GravityEnabled = false;
 
-   glm::vec3 m_Gravity = {0.0f, -0.98f, 0.0f};
+   glm::vec3 m_Gravity = {0.0f, -9.8f, 0.0f};
 
    /** @brief	True to active */
    bool m_Active = false;

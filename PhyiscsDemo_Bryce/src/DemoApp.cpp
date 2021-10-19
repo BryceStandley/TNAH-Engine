@@ -14,7 +14,7 @@
 	{
 	}
 	
-void DemoApp::OnEvent(tnah::Event& e)
+	void DemoApp::OnEvent(tnah::Event& e)
 	{
 		//Close the application on press of Escape
 		if (e.GetEventType() == tnah::EventType::KeyPressed)

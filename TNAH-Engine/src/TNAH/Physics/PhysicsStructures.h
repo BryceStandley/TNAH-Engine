@@ -15,16 +15,69 @@ namespace tnah {
 
             operator glm::vec3 () { return Velocity; }
             operator glm::vec3 () const { return Velocity; }
+
+            glm::vec3 operator = (const glm::vec3& value)
+            {
+                Velocity = value;
+                return Velocity;
+            }
+
+            glm::vec3 operator * (const float& value)
+            {
+                Velocity *= value;
+                return Velocity;
+            }
+
+            glm::vec3 operator *= (const float& value)
+            {
+                Velocity *= value;
+                return Velocity;
+            }
+            
+            glm::vec3 operator / (const float& value)
+            {
+                Velocity /= value;
+                return Velocity;
+            }
+
+            glm::vec3 operator + (const glm::vec3& value)
+            {
+                Velocity += value;
+                return Velocity;
+            }
+
+            glm::vec3 operator - (const glm::vec3& value)
+            {
+                Velocity -= value;
+                return Velocity;
+            }
         };
 
         struct Force
         {
             glm::vec3 Forces = {};
+
+            glm::vec3 operator = (const glm::vec3& value)
+            {
+                Forces = value;
+                return Forces;
+            }
         };
 
         struct LinearDampening
         {
             float Dampening = 1.0f;
+
+            float operator = (const float& value)
+            {
+                Dampening = value;
+                return Dampening;
+            }
+
+            operator float () const
+            {
+                return Dampening;
+            }
         };
 
         struct BodyMass
@@ -54,16 +107,69 @@ namespace tnah {
 
             operator glm::vec3 () { return Velocity; }
             operator glm::vec3 () const { return Velocity; }
+
+            glm::vec3 operator = (const glm::vec3& value)
+            {
+                Velocity = value;
+                return Velocity;
+            }
+
+            glm::vec3 operator * (const float& value)
+            {
+                Velocity *= value;
+                return Velocity;
+            }
+
+            glm::vec3 operator *= (const float& value)
+            {
+                Velocity *= value;
+                return Velocity;
+            }
+            
+            glm::vec3 operator / (const float& value)
+            {
+                Velocity /= value;
+                return Velocity;
+            }
+
+            glm::vec3 operator + (const glm::vec3& value)
+            {
+                Velocity += value;
+                return Velocity;
+            }
+
+            glm::vec3 operator - (const glm::vec3& value)
+            {
+                Velocity -= value;
+                return Velocity;
+            }
         };
 
         struct AngularDampening
         {
             float Dampening = 1.0f;
+
+            float operator = (const float& value)
+            {
+                Dampening = value;
+                return Dampening;
+            }
+
+            operator float () const
+            {
+                return Dampening;
+            }
         };
 
         struct Torque
         {
             glm::vec3 Torques = {};
+
+            glm::vec3 operator = (const glm::vec3& value)
+            {
+                Torques = value;
+                return Torques;
+            }
         };
 
         struct InertiaTensor

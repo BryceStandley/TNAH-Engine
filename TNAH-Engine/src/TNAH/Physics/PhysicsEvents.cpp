@@ -7,7 +7,7 @@ namespace tnah
 {
 	void PhysicsEvents::onContact(const CollisionCallback::CallbackData &callbackData)
 	{
-		for(unsigned int i = 0; i < callbackData.getNbContactPairs(); i++)
+		for(unsigned int i = 0; i < callbackData.getNbContactPairs(); ++i)
 		{
 			auto pair = callbackData.getContactPair(i);
 			for(unsigned int j = 0; j < pair.getNbContactPoints(); j++)
@@ -23,8 +23,9 @@ namespace tnah
 				auto& rb1 = gameObject1.GetComponent<RigidBodyComponent>();
 				auto& rb2 = gameObject2.GetComponent<RigidBodyComponent>();
 				auto penetration = point.getPenetrationDepth();
-				if(rb1.Body->GetType() == Physics::BodyType::Static || rb2.Body->GetType() == Physics::BodyType::Static)
+				if((rb1.Body->GetType() == Physics::BodyType::Static || rb1.Body->IsSleeping()) && (rb2.Body->GetType() == Physics::BodyType::Static || rb2.Body->IsSleeping()))
 					continue;
+				
 				if(scene != nullptr)
 				{
 					//This is where physics collision resolution is applied
@@ -48,13 +49,13 @@ namespace tnah
 					glm::vec3 r1 = cp1 - (t1.Position + rb1.Body->GetBodyMass().CentreOfMass);
 					glm::vec3 r2 = cp2 - (t2.Position + rb2.Body->GetBodyMass().CentreOfMass);
 
-					if(rb1.Body->GetType() != Physics::BodyType::Static)
+					if(rb1.Body->GetType() != Physics::BodyType::Static && !rb1.Body->IsSleeping())
 					{
 						t1.Position += cn * ((penetration / 2) * -1);
 					}
-					if(rb2.Body->GetType() != Physics::BodyType::Static)
+					if(rb2.Body->GetType() != Physics::BodyType::Static && !rb2.Body->IsSleeping())
 					{
-						t2.Position += cn * ((penetration / 2) * -1);
+						t2.Position -= cn * ((penetration / 2) * -1);
 					}
 					
 					//Transfer of momentum
@@ -95,18 +96,19 @@ namespace tnah
 			        auto linear_impulse = lambda * cn;
 
 			        if (lambda < 0)
-			        	{
+			        {
 			            // v⁺₁ = v⁻₁
+			            //lv1 += linear_impulse * rb1.Body->GetBodyMass().InverseMass;
 			            lv1 += linear_impulse * rb1.Body->GetBodyMass().InverseMass;
 			            // v⁺₂ = v⁻₂
 			            lv2 -= linear_impulse * rb2.Body->GetBodyMass().InverseMass;
 
-			            lv1 = lv1 + (lambda * rb1.Body->GetInertiaTensor().InverseTensor) * r1xn;
-			            lv2 = lv2 + (lambda * rb2.Body->GetInertiaTensor().InverseTensor) * r2xn;
-						}
+			            av1 = av1 + (lambda * rb1.Body->GetInertiaTensor().InverseTensor) * r1xn;
+			            av2 = av2 - (lambda * rb2.Body->GetInertiaTensor().InverseTensor) * r2xn;
+					}
 
-					rb1.Body->ApplyCollisionImpulse(lv1, av1);
-					rb2.Body->ApplyCollisionImpulse(lv2, av2);
+					if(rb1.Body->GetType() != Physics::BodyType::Static || !rb1.Body->IsSleeping()) rb1.Body->ApplyCollisionImpulse(lv1, av1);
+					if(rb2.Body->GetType() != Physics::BodyType::Static || !rb2.Body->IsSleeping()) rb2.Body->ApplyCollisionImpulse(lv2, av2);
 					
 					//TODO: Add some sort of player/camera check to make sure were not applying velocity forces to a player controller
 

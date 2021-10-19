@@ -29,6 +29,8 @@ namespace tnah::Physics {
 			Type GetType() const { return m_Type; }
 			std::pair<Type, rp3d::CollisionShape*> GetCollisionShapePair() { return { m_Type, m_Collider }; }
 
+			InertiaTensor GetLocalColliderInertiaTensor();
+
 		private:
 
 			/**
@@ -54,6 +56,8 @@ namespace tnah::Physics {
 			* @author  Bryce Standley
 			*/
 			void InitializeCapsuleMass();
+
+			
 
 		private:
 			/**
@@ -92,6 +96,8 @@ namespace tnah::Physics {
 			* @brief The local BodyMass information for this Collider.
 			*/
 			BodyMass m_Mass;
+
+			InertiaTensor m_LocalColliderInertiaTensor;
 
 			friend class EditorUI;
 		};

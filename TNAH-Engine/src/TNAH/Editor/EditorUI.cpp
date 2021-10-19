@@ -25,490 +25,523 @@ namespace tnah {
 	   
 		if(object.HasComponent<TransformComponent>())
 		{
-			ImGui::Text("Transform");
-			auto& t = object.GetComponent<TransformComponent>();
-			if(DrawVec3Control("Position", t.Position))
+			if(ImGui::TreeNode("Transform"))
 			{
+				auto& t = object.GetComponent<TransformComponent>();
+				if(DrawVec3Control("Position", t.Position))
+				{
+				}
+				glm::vec3 rotation = glm::degrees(t.Rotation);
+				if(DrawVec3Control("Rotation", rotation))
+				{
+					t.Rotation = glm::radians(rotation);
+				}
+				
+				if(DrawVec3Control("Scale", t.Scale, false, 1))
+				{
+				}
+				ImGui::TreePop();
+				ImGui::Separator();
+				
 			}
-			glm::vec3 rotation = glm::degrees(t.Rotation);
-			if(DrawVec3Control("Rotation", rotation))
-			{
-				t.Rotation = glm::radians(rotation);
-			}
-			
-			if(DrawVec3Control("Scale", t.Scale, false, 1))
-			{
-			}
-			ImGui::Separator();
 		}
 
 		if(object.HasComponent<CameraComponent>())
 		{
-			ImGui::Text("Camera");
-			auto& c = object.GetComponent<CameraComponent>();
-			static int selectedType = 1;
-			static const char* CameraTypes[]
+			if(ImGui::TreeNode("Camera"))
 			{
-				"Orthographic", "Perspective"	
-			};
+				auto& c = object.GetComponent<CameraComponent>();
+				static int selectedType = 1;
+				static const char* CameraTypes[]
+				{
+					"Orthographic", "Perspective"	
+				};
 
-			static int selectedClear = 1;
-			static const char* CameraClear[] {"Skybox", "Color"};
-			bool modified = false;
-			ImGui::Combo("##T", &selectedType, CameraTypes, IM_ARRAYSIZE(CameraTypes));
-			ImGui::Combo("##C", &selectedClear, CameraClear, IM_ARRAYSIZE(CameraClear));
-			if(selectedClear == 0)
-			{
-				ImGui::Text("Display some text here for setting a skybox or use default");
+				static int selectedClear = 1;
+				static const char* CameraClear[] {"Skybox", "Color"};
+				bool modified = false;
+				ImGui::Combo("##T", &selectedType, CameraTypes, IM_ARRAYSIZE(CameraTypes));
+				ImGui::Combo("##C", &selectedClear, CameraClear, IM_ARRAYSIZE(CameraClear));
+				if(selectedClear == 0)
+				{
+					ImGui::Text("Display some text here for setting a skybox or use default");
 				
-			}
-			else if(selectedClear == 1 && c.ClearMode == CameraClearMode::Color)
-			{
-				Draw4ColorControl("Clear Color", c.ClearColor);
-			}
-
-			if(c.ClearMode == CameraClearMode::Skybox && selectedClear == 1)
-			{
-				if(ImGui::Button("Save"))
-				{
-					c.SetClearMode(CameraClearMode::Color);
 				}
-			}
-
-			if(c.ClearMode == CameraClearMode::Color && selectedClear == 0)
-			{
-				if(ImGui::Button("Save"))
+				else if(selectedClear == 1 && c.ClearMode == CameraClearMode::Color)
 				{
-					c.SetClearMode(CameraClearMode::Skybox);
+					Draw4ColorControl("Clear Color", c.ClearColor);
 				}
-			}
 
-			if(c.ClearMode == CameraClearMode::None)
-			{
-				if(ImGui::Button("Reset"))
+				if(c.ClearMode == CameraClearMode::Skybox && selectedClear == 1)
 				{
-					c.SetClearMode(CameraClearMode::Skybox);
+					if(ImGui::Button("Save"))
+					{
+						c.SetClearMode(CameraClearMode::Color);
+					}
 				}
-			}
+
+				if(c.ClearMode == CameraClearMode::Color && selectedClear == 0)
+				{
+					if(ImGui::Button("Save"))
+					{
+						c.SetClearMode(CameraClearMode::Skybox);
+					}
+				}
+
+				if(c.ClearMode == CameraClearMode::None)
+				{
+					if(ImGui::Button("Reset"))
+					{
+						c.SetClearMode(CameraClearMode::Skybox);
+					}
+				}
 
 			
-			if(selectedType == 0)
-			{
-				//Ortho
-				if(c.Camera.GetProjectionType() == SceneCamera::ProjectionType::Perspective)
+				if(selectedType == 0)
 				{
-					c.Camera.SetOrthographic(10);
-				}
-				auto s = c.Camera.m_OrthographicSize;
-				auto n = c.Camera.m_OrthographicNear;
-				auto f = c.Camera.m_OrthographicFar;
-				ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.9f, 0.2f, 0.2f, 1.0f));
-				ImGui::Text("Orthographic Cameras currently not supported");
-				ImGui::PopStyleColor();
-				modified |= DrawFloatControl("Size", s, 0, 50);
-				modified |= DrawFloatControl("Near Plane", n, -10, 10);
-				modified |= DrawFloatControl("Far Plane", f, -10, 10);
+					//Ortho
+					if(c.Camera.GetProjectionType() == SceneCamera::ProjectionType::Perspective)
+					{
+						c.Camera.SetOrthographic(10);
+					}
+					auto s = c.Camera.m_OrthographicSize;
+					auto n = c.Camera.m_OrthographicNear;
+					auto f = c.Camera.m_OrthographicFar;
+					ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.9f, 0.2f, 0.2f, 1.0f));
+					ImGui::Text("Orthographic Cameras currently not supported");
+					ImGui::PopStyleColor();
+					modified |= DrawFloatControl("Size", s, 0, 50);
+					modified |= DrawFloatControl("Near Plane", n, -10, 10);
+					modified |= DrawFloatControl("Far Plane", f, -10, 10);
 
-				if(modified)
-				{
-					c.Camera.SetOrthographicSize(s);
-					c.Camera.SetOrthographicNearClip(n);
-					c.Camera.SetOrthographicNearClip(f);
+					if(modified)
+					{
+						c.Camera.SetOrthographicSize(s);
+						c.Camera.SetOrthographicNearClip(n);
+						c.Camera.SetOrthographicNearClip(f);
+					}
 				}
-			}
-			else
-			{
-				if(c.Camera.GetProjectionType() == SceneCamera::ProjectionType::Orthographic)
+				else
 				{
-					c.Camera.SetPerspective(60);
-				}
-				auto fov = c.Camera.GetPerspectiveVerticalFOV();
-				auto nearc = c.Camera.m_PerspectiveNear;
-				auto farc = c.Camera.m_PerspectiveFar;
+					if(c.Camera.GetProjectionType() == SceneCamera::ProjectionType::Orthographic)
+					{
+						c.Camera.SetPerspective(60);
+					}
+					auto fov = c.Camera.GetPerspectiveVerticalFOV();
+					auto nearc = c.Camera.m_PerspectiveNear;
+					auto farc = c.Camera.m_PerspectiveFar;
 				
-				modified |= DrawFloatControl("Field of View", fov, 60, 120);
-				modified |=DrawFloatControl("Near Plane", nearc,  0.01f, 1.0f);
-				modified |=DrawFloatControl("Far Plane", farc,  100.0f, 10000.0f);
+					modified |= DrawFloatControl("Field of View", fov, 60, 120);
+					modified |=DrawFloatControl("Near Plane", nearc,  0.01f, 1.0f);
+					modified |=DrawFloatControl("Far Plane", farc,  100.0f, 10000.0f);
 				
-				if(modified)
-				{
-					c.Camera.SetPerspectiveVerticalFOV(fov);
-					c.Camera.SetPerspectiveNearClip(nearc);
-					c.Camera.SetPerspectiveFarClip(farc);
+					if(modified)
+					{
+						c.Camera.SetPerspectiveVerticalFOV(fov);
+						c.Camera.SetPerspectiveNearClip(nearc);
+						c.Camera.SetPerspectiveFarClip(farc);
+					}
 				}
-			}
 
-			if(Camera::Main != &c.Camera && addComponents) // only allow the camera to be removed if its not the main camera
-			{
-				if(DrawRemoveComponentButton("camera"))
-				{
-					object.RemoveComponent<CameraComponent>();
-				}
+				if(Camera::Main != &c.Camera && addComponents) // only allow the camera to be removed if its not the main camera
+					{
+					if(DrawRemoveComponentButton("camera"))
+					{
+						object.RemoveComponent<CameraComponent>();
+					}
+					}
+				ImGui::TreePop();
+				ImGui::Separator();
+				
 			}
-			
-			ImGui::Separator();
 		}
 		
 
 		if(object.HasComponent<EditorCameraComponent>())
 		{
-			ImGui::Text("Editor Camera");
-			auto& c = object.GetComponent<EditorCameraComponent>();
-			auto fov = glm::degrees(c.EditorCamera.m_PerspectiveFOV);
-			auto nearc = c.EditorCamera.m_PerspectiveNear;
-			auto farc = c.EditorCamera.m_PerspectiveFar;
-			float w = static_cast<float>(c.EditorCamera.m_ViewportWidth);
-			float h = static_cast<float>(c.EditorCamera.m_ViewportHeight);
-			bool modified = false;
-			static int selectedClear = 1;
-			static const char* CameraClear[] {"Skybox", "Color"};
-			ImGui::Combo("##C", &selectedClear, CameraClear, IM_ARRAYSIZE(CameraClear));
-			if(selectedClear == 0)
+			if(ImGui::TreeNode("Editor Camera"))
 			{
-				ImGui::Text("Display some text here for setting a skybox or use default");
 				
-			}
-			else if(selectedClear == 1 && c.ClearMode == CameraClearMode::Color)
-			{
-				Draw4ColorControl("Clear Color", c.ClearColor);
-			}
-
-			if(c.ClearMode == CameraClearMode::Skybox && selectedClear == 1)
-			{
-				if(ImGui::Button("Save"))
+				auto& c = object.GetComponent<EditorCameraComponent>();
+				auto fov = glm::degrees(c.EditorCamera.m_PerspectiveFOV);
+				auto nearc = c.EditorCamera.m_PerspectiveNear;
+				auto farc = c.EditorCamera.m_PerspectiveFar;
+				float w = static_cast<float>(c.EditorCamera.m_ViewportWidth);
+				float h = static_cast<float>(c.EditorCamera.m_ViewportHeight);
+				bool modified = false;
+				static int selectedClear = 1;
+				static const char* CameraClear[] {"Skybox", "Color"};
+				ImGui::Combo("##C", &selectedClear, CameraClear, IM_ARRAYSIZE(CameraClear));
+				if(selectedClear == 0)
 				{
-					c.SetClearMode(CameraClearMode::Color);
+					ImGui::Text("Display some text here for setting a skybox or use default");
+					
 				}
-			}
-
-			if(c.ClearMode == CameraClearMode::Color && selectedClear == 0)
-			{
-				if(ImGui::Button("Save"))
+				else if(selectedClear == 1 && c.ClearMode == CameraClearMode::Color)
 				{
-					c.SetClearMode(CameraClearMode::Skybox);
+					Draw4ColorControl("Clear Color", c.ClearColor);
 				}
-			}
 
-			if(c.ClearMode == CameraClearMode::None)
-			{
-				if(ImGui::Button("Reset"))
+				if(c.ClearMode == CameraClearMode::Skybox && selectedClear == 1)
 				{
-					c.SetClearMode(CameraClearMode::Skybox);
+					if(ImGui::Button("Save"))
+					{
+						c.SetClearMode(CameraClearMode::Color);
+					}
 				}
-			}
 
-			DrawFloatControl("Viewport Width", w, 0,0, true);
-			DrawFloatControl("Viewport Height", h, 0,0, true);
-			modified |= DrawFloatControl("Field of View", fov, 60, 120);
-			modified |=DrawFloatControl("Near Plane", nearc,  0.01f, 1.0f);
-			modified |=DrawFloatControl("Far Plane", farc,  100.0f, 10000.0f);
-			if(modified)
-			{
-				c.EditorCamera.SetPerspectiveVerticalFOV(fov);
-				c.EditorCamera.SetPerspectiveNearClip(nearc);
-				c.EditorCamera.SetPerspectiveFarClip(farc);
+				if(c.ClearMode == CameraClearMode::Color && selectedClear == 0)
+				{
+					if(ImGui::Button("Save"))
+					{
+						c.SetClearMode(CameraClearMode::Skybox);
+					}
+				}
+
+				if(c.ClearMode == CameraClearMode::None)
+				{
+					if(ImGui::Button("Reset"))
+					{
+						c.SetClearMode(CameraClearMode::Skybox);
+					}
+				}
+
+				DrawFloatControl("Viewport Width", w, 0,0, true);
+				DrawFloatControl("Viewport Height", h, 0,0, true);
+				modified |= DrawFloatControl("Field of View", fov, 60, 120);
+				modified |=DrawFloatControl("Near Plane", nearc,  0.01f, 1.0f);
+				modified |=DrawFloatControl("Far Plane", farc,  100.0f, 10000.0f);
+				if(modified)
+				{
+					c.EditorCamera.SetPerspectiveVerticalFOV(fov);
+					c.EditorCamera.SetPerspectiveNearClip(nearc);
+					c.EditorCamera.SetPerspectiveFarClip(farc);
+				}
+				
+				ImGui::TreePop();
+				ImGui::Separator();
 			}
-			
-			ImGui::Separator();
 		}
 		
 		if(object.HasComponent<TerrainComponent>())
 		{
-			auto& t = object.GetComponent<TerrainComponent>().SceneTerrain;
-			ImGui::Text("Terrain");
-			DrawVec2Control("Size", t->m_Size, true);
-			ImGui::BulletText("Maybe have more options here to set the terrain textures?");
-
-			if(addComponents)
-			{
-				if(DrawRemoveComponentButton("terrain"))
-				{
-					object.RemoveComponent<TerrainComponent>();
-				}
-			}
 			
-			ImGui::Separator();
+			if(ImGui::TreeNode("Terrain"))
+			{
+				auto& t = object.GetComponent<TerrainComponent>().SceneTerrain;
+				DrawVec2Control("Size", t->m_Size, true);
+				ImGui::BulletText("Maybe have more options here to set the terrain textures?");
+
+				if(addComponents)
+				{
+					if(DrawRemoveComponentButton("terrain"))
+					{
+						object.RemoveComponent<TerrainComponent>();
+					}
+				}
+				ImGui::TreePop();
+				ImGui::Separator();
+				
+			}
 		}
 		
 		if(object.HasComponent<MeshComponent>())
 		{
-			auto m = object.GetComponent<MeshComponent>().Model;
-			ImGui::Text("Mesh");
-			if(m)
-			{
-				DrawTextControl("Model File", m->m_Resource.FileName.FullFile, false, true);
-				if(ImGui::Button("Change Mesh"))
-				{
-					if (FileManager::OpenMesh())
-					{
-						auto file = FileManager::GetActiveFile();
-						if (file->FileOpenError == FileError::PathInvalid)
-						{
-							TNAH_WARN("The path or file was invalid!");
-						}
-						else
-						{
-							object.GetComponent<MeshComponent>().LoadMesh(file->FilePath);
-						}
-					}
-				}
-				ImGui::Separator();
-				ImGui::Text("Sub Meshes");
-				int count = 0;
-				for(auto& mesh : m->m_Meshes)
-				{
-					std::string label = "SubMesh " + std::to_string(count);
-					if(ImGui::CollapsingHeader(label.c_str()))
-					{
-						DrawMaterialProperties(false, mesh.m_Material);
-					}
-					count++;
-				}
-			}
-			else
-			{
-				std::string error = "Empty";
-				DrawTextControl("Model File", error, true);
-				if(ImGui::Button("Add Mesh"))
-				{
-					if (FileManager::OpenMesh())
-					{
-						auto file = FileManager::GetActiveFile();
-						if (file->FileOpenError == FileError::PathInvalid)
-						{
-							TNAH_WARN("The path or file was invalid!");
-						}
-						else
-						{
-							object.GetComponent<MeshComponent>().LoadMesh(file->FilePath);
-						}
-					}
-				}
-				ImGui::Separator();
-				ImGui::Text("Sub Meshes");
-				if(ImGui::CollapsingHeader("Empty"))
-				{
-					DrawMaterialProperties(true);
-				}
-			}
-
-			if(addComponents)
-			{
-				if(DrawRemoveComponentButton("Mesh"))
-				{
-					object.RemoveComponent<MeshComponent>();
-				}
-			}
 			
-			ImGui::Separator();
+			if(ImGui::TreeNode("Mesh"))
+			{
+				auto m = object.GetComponent<MeshComponent>().Model;
+				if(m)
+				{
+					
+					DrawTextControl("Model File", m->m_Resource.FileName.FullFile, false, true);
+					if(ImGui::Button("Change Mesh"))
+					{
+						if (FileManager::OpenMesh())
+						{
+							auto file = FileManager::GetActiveFile();
+							if (file->FileOpenError == FileError::PathInvalid)
+							{
+								TNAH_WARN("The path or file was invalid!");
+							}
+							else
+							{
+								object.GetComponent<MeshComponent>().LoadMesh(file->FilePath);
+							}
+						}
+					}
+					ImGui::Separator();
+					ImGui::Text("Sub Meshes");
+					int count = 0;
+					for(auto& mesh : m->m_Meshes)
+					{
+						std::string label = "SubMesh " + std::to_string(count);
+						if(ImGui::CollapsingHeader(label.c_str()))
+						{
+							DrawMaterialProperties(false, mesh.m_Material);
+						}
+						count++;
+					}
+				}
+				else
+				{
+					std::string error = "Empty";
+					DrawTextControl("Model File", error, true);
+					if(ImGui::Button("Add Mesh"))
+					{
+						if (FileManager::OpenMesh())
+						{
+							auto file = FileManager::GetActiveFile();
+							if (file->FileOpenError == FileError::PathInvalid)
+							{
+								TNAH_WARN("The path or file was invalid!");
+							}
+							else
+							{
+								object.GetComponent<MeshComponent>().LoadMesh(file->FilePath);
+							}
+						}
+					}
+					ImGui::Separator();
+					ImGui::Text("Sub Meshes");
+					if(ImGui::CollapsingHeader("Empty"))
+					{
+						DrawMaterialProperties(true);
+					}
+				}
+
+				if(addComponents)
+				{
+					if(DrawRemoveComponentButton("Mesh"))
+					{
+						object.RemoveComponent<MeshComponent>();
+					}
+				}
+			
+				ImGui::Separator();
+				ImGui::TreePop();
+			}
 		}
 
 		if(object.HasComponent<LightComponent>())
 		{
 			auto& l = object.GetComponent<LightComponent>().Light;
 			auto name = l->GetTypeAsString() + " Light";
-			ImGui::Text(name.c_str());
-			if(l->GetType() == Light::LightType::Directional)
+			if(ImGui::TreeNode(name.c_str()))
 			{
-				DrawVec3Control("Direction", l->GetDirection());
-				DrawFloatControl("Intensity", l->GetIntensity(), 0, 10);
-				Draw4ColorControl("Color", l->GetColor());
-				DrawVec3Control("Ambient", l->GetAmbient());
-				DrawVec3Control("Diffuse", l->GetDiffuse());
-				DrawVec3Control("Specular", l->GetSpecular());
-			}
-			else if(l->GetType() == Light::LightType::Point)
-			{
-				DrawFloatControl("Intensity", l->GetIntensity(), 0, 10);
-				Draw4ColorControl("Color", l->GetColor());
-				DrawVec3Control("Ambient", l->GetAmbient());
-				DrawVec3Control("Diffuse", l->GetDiffuse());
-				DrawVec3Control("Specular", l->GetSpecular());
-			}
-			else if(l->GetType() == Light::LightType::Spot)
-			{
-				DrawFloatControl("Intensity", l->GetIntensity(), 0, 10);
-				Draw4ColorControl("Color", l->GetColor());
-				DrawVec3Control("Ambient", l->GetAmbient());
-				DrawVec3Control("Diffuse", l->GetDiffuse());
-				DrawVec3Control("Specular", l->GetSpecular());
-			}
-			else
-			{
-				ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.9f, 0.2f, 0.2f, 1.0f));
-				ImGui::Text("ERROR: Unknown light type");
-				ImGui::PopStyleColor();
-			}
-			if(!l->m_IsSceneLight && addComponents)
-			{
-				if(DrawRemoveComponentButton("Light"))
+				if(l->GetType() == Light::LightType::Directional)
 				{
-					object.RemoveComponent<LightComponent>();
+					DrawVec3Control("Direction", l->GetDirection());
+					DrawFloatControl("Intensity", l->GetIntensity(), 0, 10);
+					Draw4ColorControl("Color", l->GetColor());
+					DrawVec3Control("Ambient", l->GetAmbient());
+					DrawVec3Control("Diffuse", l->GetDiffuse());
+					DrawVec3Control("Specular", l->GetSpecular());
 				}
+				else if(l->GetType() == Light::LightType::Point)
+				{
+					DrawFloatControl("Intensity", l->GetIntensity(), 0, 10);
+					Draw4ColorControl("Color", l->GetColor());
+					DrawVec3Control("Ambient", l->GetAmbient());
+					DrawVec3Control("Diffuse", l->GetDiffuse());
+					DrawVec3Control("Specular", l->GetSpecular());
+				}
+				else if(l->GetType() == Light::LightType::Spot)
+				{
+					DrawFloatControl("Intensity", l->GetIntensity(), 0, 10);
+					Draw4ColorControl("Color", l->GetColor());
+					DrawVec3Control("Ambient", l->GetAmbient());
+					DrawVec3Control("Diffuse", l->GetDiffuse());
+					DrawVec3Control("Specular", l->GetSpecular());
+				}
+				else
+				{
+					ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.9f, 0.2f, 0.2f, 1.0f));
+					ImGui::Text("ERROR: Unknown light type");
+					ImGui::PopStyleColor();
+				}
+				if(!l->m_IsSceneLight && addComponents)
+				{
+					if(DrawRemoveComponentButton("Light"))
+					{
+						object.RemoveComponent<LightComponent>();
+					}
+				}
+				ImGui::TreePop();
 			}
 		}
 
 		if(object.HasComponent<AudioListenerComponent>())
 		{
-			auto& listener = object.GetComponent<AudioListenerComponent>();
-			ImGui::Text("Audio Listener");
 			
-			//ImGui::RadioButton("Active Listening: ", listener.m_ActiveListing);
-			
-			ImGui::Checkbox("Active listener", &listener.m_ActiveListing);
-
-			if(addComponents)
+			if(ImGui::TreeNode("Audio Listener"))
 			{
-				if(DrawRemoveComponentButton("AudioListener"))
+				auto& listener = object.GetComponent<AudioListenerComponent>();
+				ImGui::Checkbox("Active listener", &listener.m_ActiveListing);
+
+				if(addComponents)
 				{
-					object.RemoveComponent<AudioListenerComponent>();
+					if(DrawRemoveComponentButton("AudioListener"))
+					{
+						object.RemoveComponent<AudioListenerComponent>();
+					}
 				}
+				ImGui::TreePop();
+				ImGui::Separator();
+				
 			}
-			
-			ImGui::Separator();
 		}
 
 		if(object.HasComponent<AudioSourceComponent>())
 		{
-			auto& source = object.GetComponent<AudioSourceComponent>();
-			ImGui::Text("Audio Source");
-
-			if(source.GetStartLoad())
+			
+			if(ImGui::TreeNode("Audio Source"))
 			{
-				DrawTextControl("Source File", source.m_File.RelativeDirectory);
-				if(ImGui::Button("Change audio file"))
+				auto& source = object.GetComponent<AudioSourceComponent>();
+				if(source.GetStartLoad())
 				{
-					if (FileManager::OpenAudio())
+					DrawTextControl("Source File", source.m_File.RelativeDirectory);
+					if(ImGui::Button("Change audio file"))
 					{
-						auto soundFile = FileManager::GetActiveFile();
-						if (soundFile->FileOpenError == FileError::PathInvalid)
+						if (FileManager::OpenAudio())
 						{
-							TNAH_WARN("The path or file was invalid!");
-						}
-						else if(soundFile->FileOpenError != FileError::UserClosed)
-						{
-							Resource file = {soundFile->FilePath};
-							source.m_File = file;
-							source.m_Loaded = false;
-							source.SetStartLoad(true);
+							auto soundFile = FileManager::GetActiveFile();
+							if (soundFile->FileOpenError == FileError::PathInvalid)
+							{
+								TNAH_WARN("The path or file was invalid!");
+							}
+							else if(soundFile->FileOpenError != FileError::UserClosed)
+							{
+								Resource file = {soundFile->FilePath};
+								source.m_File = file;
+								source.m_Loaded = false;
+								source.SetStartLoad(true);
+							}
 						}
 					}
-				}
-				ImGui::Checkbox("3D Audio", &source.m_3D);
-				ImGui::Checkbox("Loop", &source.m_Loop);
+					ImGui::Checkbox("3D Audio", &source.m_3D);
+					ImGui::Checkbox("Loop", &source.m_Loop);
 
-				DrawFloatControl("Volume", source.m_Volume, 0, 1);
+					DrawFloatControl("Volume", source.m_Volume, 0, 1);
 			
-				if(source.m_3D)
-				{
-					DrawFloatControl("Minimum Reach Distance", source.m_MinDistance, 0, 100);	
-				}
-			
-				ImGui::Text("Testing Options");
-				ImGui::Checkbox("Shoot", &source.m_Shoot);
-				ImGui::Checkbox("Pause", &source.m_Paused);
-				if(addComponents)
-				{
-					if(DrawRemoveComponentButton("AudioSource"))
+					if(source.m_3D)
 					{
-						object.RemoveComponent<AudioSourceComponent>();
+						DrawFloatControl("Minimum Reach Distance", source.m_MinDistance, 0, 100);	
 					}
-				}
-			}
-			else
-			{
-				if(ImGui::Button("Add audio file"))
-				{
-					if (FileManager::OpenAudio())
+			
+					ImGui::Text("Testing Options");
+					ImGui::Checkbox("Shoot", &source.m_Shoot);
+					ImGui::Checkbox("Pause", &source.m_Paused);
+					if(addComponents)
 					{
-						auto soundFile = FileManager::GetActiveFile();
-						if (soundFile->FileOpenError == FileError::PathInvalid)
+						if(DrawRemoveComponentButton("AudioSource"))
 						{
-							TNAH_WARN("The path or file was invalid!");
-						}
-						else
-						{
-							Resource file = {soundFile->FilePath};
-							source.m_File = file;
-							source.m_Loaded = false;
-							source.SetStartLoad(true);
+							object.RemoveComponent<AudioSourceComponent>();
 						}
 					}
 				}
+				else
+				{
+					if(ImGui::Button("Add audio file"))
+					{
+						if (FileManager::OpenAudio())
+						{
+							auto soundFile = FileManager::GetActiveFile();
+							if (soundFile->FileOpenError == FileError::PathInvalid)
+							{
+								TNAH_WARN("The path or file was invalid!");
+							}
+							else
+							{
+								Resource file = {soundFile->FilePath};
+								source.m_File = file;
+								source.m_Loaded = false;
+								source.SetStartLoad(true);
+							}
+						}
+					}
+				}
+				ImGui::TreePop();
+				ImGui::Separator();
 			}
-			
-			
-			ImGui::Separator();
 		}
 
 		if(object.HasComponent<RigidBodyComponent>())
 		{
-			auto & rb = object.GetComponent<RigidBodyComponent>();
-
-			if(rb.Body->GetType() == Physics::BodyType::Static)
+			if(ImGui::TreeNode("Rigidbody"))
 			{
-				ImGui::Text("Body Type: Static");
-				if(ImGui::Button("Make Dynamic"))
+				auto & rb = object.GetComponent<RigidBodyComponent>();
+				if(rb.Body->GetType() == Physics::BodyType::Static)
 				{
-					rb.Body->SetType(Physics::BodyType::Dynamic);
-				}
-			}
-			else
-			{
-				ImGui::Text("Body Type: Dynamic");
-				if(ImGui::Button("Make Static"))
-				{
-					rb.Body->SetType(Physics::BodyType::Static);
-				}
-			}
-			if(Application::Get().GetDebugModeStatus())
-			{
-				ImGui::BulletText("Rigidbody ID: %d", rb.Body->m_ID);
-				
-				//Render all aspects of the RB
-				if(ImGui::CollapsingHeader("Mass"))
-				{
-					std::string m = "MAX";
-					m = rb.Body->GetType() == Physics::BodyType::Dynamic ?std::to_string(rb.Body->m_BodyMass.Mass) : "MAX";
-					ImGui::BulletText("Mass: %s kg", m); 
-					ImGui::BulletText("Inverse Mass: %f", rb.Body->m_BodyMass.InverseMass);
-					const auto com = rb.Body->m_BodyMass.CentreOfMass;
-					ImGui::BulletText("Center of Mass: X: %.2f -- Y: %.2f -- Z: %.2f", com.x, com.y, com.z);
-				}
-				if(ImGui::CollapsingHeader("Velocity"))
-				{
-					const auto lv = rb.Body->m_LinearVelocity.Velocity;
-					const auto av = rb.Body->m_AngularVelocity.Velocity;
-					ImGui::BulletText("Linear: X: %.2f -- Y: %.2f -- Z: %.2f", lv.x, lv.y, lv.z);
-					ImGui::BulletText("Angular: X: %.2f -- Y: %.2f -- Z: %.2f", av.x, av.y, av.z);
-				}
-				if(ImGui::CollapsingHeader("React Transform"))
-				{
-					const auto pos = Math::FromRp3dVec3(rb.Body->m_CollisionBody->getTransform().getPosition());
-					const auto rot = glm::eulerAngles(Math::FromRp3dQuat(rb.Body->m_CollisionBody->getTransform().getOrientation()));
-					ImGui::BulletText("Position: X: %.2f -- Y: %.2f -- Z: %.2f", pos.x, pos.y, pos.z);
-					ImGui::BulletText("Rotation: X: %.2f -- Y: %.2f -- Z: %.2f", rot.x, rot.y, rot.z);
-				}
-			}
-			ImGui::Separator();
-			if(ImGui::CollapsingHeader("Colliders"))
-			{
-				bool hasCollider = rb.Body->m_Colliders.size() == 0 ? false : true;
-				if(!hasCollider)
-				{
-					ImGui::Text("No colliders attached");
+					ImGui::Text("Body Type: Static");
+					if(ImGui::Button("Make Dynamic"))
+					{
+						rb.Body->SetType(Physics::BodyType::Dynamic);
+					}
 				}
 				else
 				{
-					int count = 0;
-					for(auto& col : rb.Body->m_Colliders)
+					ImGui::Text("Body Type: Dynamic");
+					if(ImGui::Button("Make Static"))
 					{
+						rb.Body->SetType(Physics::BodyType::Static);
+					}
+				}
+				if(Application::Get().GetDebugModeStatus())
+				{
+					ImGui::BulletText("ID: %d", rb.Body->m_ID);
+					ImGui::Checkbox("Force Sleep", &rb.Body->m_IsSleeping);
+				
+					//Render all aspects of the RB
+					if(ImGui::TreeNode("Mass##RB"))
+					{
+						if (rb.Body->GetType() == Physics::BodyType::Dynamic)
+							ImGui::BulletText("Mass: %2.f kg", rb.Body->m_BodyMass.Mass);
+						else
+							ImGui::BulletText("Mass: MAX kg");
 						
-						if(ImGui::CollapsingHeader(std::string("Attachment: " + std::to_string(count)).c_str(), ImGuiTreeNodeFlags_Bullet))
+						ImGui::BulletText("Inverse Mass: %f", rb.Body->m_BodyMass.InverseMass);
+						const auto com = rb.Body->m_BodyMass.CentreOfMass;
+						ImGui::BulletText("Center of Mass: X: %.2f -- Y: %.2f -- Z: %.2f", com.x, com.y, com.z);
+						ImGui::TreePop();
+					}
+					if(ImGui::TreeNode("Velocity"))
+					{
+						const auto lv = rb.Body->m_LinearVelocity.Velocity;
+						const auto av = rb.Body->m_AngularVelocity.Velocity;
+						ImGui::BulletText("Linear: X: %.2f -- Y: %.2f -- Z: %.2f", lv.x, lv.y, lv.z);
+						ImGui::BulletText("Angular: X: %.2f -- Y: %.2f -- Z: %.2f", av.x, av.y, av.z);
+						DrawFloatControl("Linear Dampening", rb.Body->m_LinearDampening.Dampening, 0, 1);
+						DrawFloatControl("Angular Dampening", rb.Body->m_AngularDampening.Dampening, 0, 1);
+						ImGui::TreePop();
+					}
+					if(ImGui::TreeNode("React Transform"))
+					{
+						const auto pos = Math::FromRp3dVec3(rb.Body->m_CollisionBody->getTransform().getPosition());
+						const auto rot = glm::eulerAngles(Math::FromRp3dQuat(rb.Body->m_CollisionBody->getTransform().getOrientation()));
+						ImGui::BulletText("Position: X: %.2f -- Y: %.2f -- Z: %.2f", pos.x, pos.y, pos.z);
+						ImGui::BulletText("Rotation: X: %.2f -- Y: %.2f -- Z: %.2f", rot.x, rot.y, rot.z);
+						ImGui::TreePop();
+					}
+				}
+				if(ImGui::TreeNode("Colliders"))
+				{
+					bool hasCollider = rb.Body->m_Colliders.size() == 0 ? false : true;
+					if(!hasCollider)
+					{
+						ImGui::Text("No colliders attached");
+					}
+					else
+					{
+						int count = 0;
+						for(auto& col : rb.Body->m_Colliders)
 						{
-							
-							switch(col->m_Type)
+						
+							if(ImGui::CollapsingHeader(std::string("Attachment: " + std::to_string(count)).c_str(), ImGuiTreeNodeFlags_Bullet))
 							{
+							
+								switch(col->m_Type)
+								{
 								case Physics::Collider::Type::Box:
 									{
 										ImGui::Text("Type: Box");
@@ -542,31 +575,35 @@ namespace tnah {
 										}
 										break;
 									}
-							default: break;
-							}
-							if(Application::Get().GetDebugModeStatus())
-							{
-								if(ImGui::CollapsingHeader("Mass"))
+								default: break;
+								}
+								if(Application::Get().GetDebugModeStatus())
 								{
-									ImGui::Text("Mass: %f", col->m_Mass.Mass);
-									ImGui::Text("Inverse Mass: %f", col->m_Mass.InverseMass);
-									const auto com = col->m_Mass.CentreOfMass;
-									ImGui::Text("Center of Mass: X: %.2f -- Y: %.2f -- Z: %.2f", com.x, com.y, com.z);
+									if(ImGui::TreeNode("Mass##Col"))
+									{
+										ImGui::Text("Mass: %f", col->m_Mass.Mass);
+										ImGui::Text("Inverse Mass: %f", col->m_Mass.InverseMass);
+										const auto com = col->m_Mass.CentreOfMass;
+										ImGui::Text("Center of Mass: X: %.2f -- Y: %.2f -- Z: %.2f", com.x, com.y, com.z);
+										ImGui::TreePop();
+									}
 								}
 							}
+							count++;
 						}
-						count++;
 					}
+					ImGui::TreePop();
 				}
-			}
 			
-			
-			ImGui::Separator();
-			if(addComponents)
-			{
-				if(DrawRemoveComponentButton("RigidBody"))
+				ImGui::TreePop();
+
+				if(addComponents)
 				{
-					object.RemoveComponent<RigidBodyComponent>();
+					ImGui::Separator();
+					if(DrawRemoveComponentButton("RigidBody"))
+					{
+						object.RemoveComponent<RigidBodyComponent>();
+					}
 				}
 			}
 		}
@@ -576,7 +613,6 @@ namespace tnah {
 		//Only add components to scene objects, the editor camera cant have components added to it
 		if(!object.HasComponent<EditorCameraComponent>() && addComponents)
 		{
-			ImGui::Separator();
 			ImGui::NewLine();
 			auto width = ImGui::GetWindowWidth();
 			static bool addComponentPressed = false;

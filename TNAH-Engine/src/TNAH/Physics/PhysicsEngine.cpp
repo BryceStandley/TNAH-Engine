@@ -8,6 +8,7 @@ namespace tnah::Physics
 {
     
 #pragma region Physics
+    
     Ref<PhysicsManager>  PhysicsEngine::m_PhysicsManager = Ref<PhysicsManager>::Create();
     TransformComponent  PhysicsEngine::m_ColliderTransform = TransformComponent();
 
@@ -44,6 +45,23 @@ namespace tnah::Physics
                 m_PhysicsManager->CreateColliderRenderer();
                 m_PhysicsManager->m_PhysicsWorld->setIsDebugRenderingEnabled(m_PhysicsManager->m_ColliderRender);
             }
+            if(m_PhysicsManager->m_ColliderRender)
+            {
+                m_PhysicsManager->m_PhysicsWorld->getDebugRenderer().setIsDebugItemDisplayed(rp3d::DebugRenderer::DebugItem::COLLISION_SHAPE, true);
+                m_PhysicsManager->m_PhysicsWorld->getDebugRenderer().setIsDebugItemDisplayed(rp3d::DebugRenderer::DebugItem::COLLIDER_AABB, true);
+                m_PhysicsManager->m_PhysicsWorld->getDebugRenderer().setIsDebugItemDisplayed(rp3d::DebugRenderer::DebugItem::CONTACT_POINT, true);
+                m_PhysicsManager->m_PhysicsWorld->getDebugRenderer().setIsDebugItemDisplayed(rp3d::DebugRenderer::DebugItem::CONTACT_NORMAL, true);
+                m_PhysicsManager->m_PhysicsWorld->getDebugRenderer().setIsDebugItemDisplayed(rp3d::DebugRenderer::DebugItem::COLLIDER_BROADPHASE_AABB, true);
+            }
+            else
+            {
+                m_PhysicsManager->m_PhysicsWorld->getDebugRenderer().setIsDebugItemDisplayed(rp3d::DebugRenderer::DebugItem::COLLISION_SHAPE, false);
+                m_PhysicsManager->m_PhysicsWorld->getDebugRenderer().setIsDebugItemDisplayed(rp3d::DebugRenderer::DebugItem::COLLIDER_AABB, false);
+                m_PhysicsManager->m_PhysicsWorld->getDebugRenderer().setIsDebugItemDisplayed(rp3d::DebugRenderer::DebugItem::CONTACT_POINT, false);
+                m_PhysicsManager->m_PhysicsWorld->getDebugRenderer().setIsDebugItemDisplayed(rp3d::DebugRenderer::DebugItem::CONTACT_NORMAL, false);
+                m_PhysicsManager->m_PhysicsWorld->getDebugRenderer().setIsDebugItemDisplayed(rp3d::DebugRenderer::DebugItem::COLLIDER_BROADPHASE_AABB, false);
+            }
+            
         }
     }
 
@@ -57,18 +75,23 @@ namespace tnah::Physics
 
     void PhysicsEngine::ProcessRigidbodyVelocities(const Timestep& deltaTime, TransformComponent& transform, Ref<RigidBody> rigidbody)
     {
-        constexpr float angular_damping = 0.1f;
-        const float damping_factor = std::pow(1.0 - angular_damping, deltaTime.GetSeconds());
+        if(m_PhysicsManager->GetGravityState() && rigidbody->GetType() != BodyType::Static && !rigidbody->IsSleeping())
+        {
+            rigidbody->m_LinearVelocity.Velocity += deltaTime.GetSeconds() * (rigidbody->GetBodyMass().InverseMass * rigidbody->GetBodyMass().Mass * m_PhysicsManager->GetGravity());
+        }
 
         if(rigidbody->GetType() == BodyType::Dynamic)
         {
-            rigidbody->m_LinearVelocity.Velocity += deltaTime.GetSeconds() * (rigidbody->GetBodyMass().InverseMass * rigidbody->m_Force.Forces);
-            rigidbody->m_AngularVelocity.Velocity += deltaTime.GetSeconds() * (rigidbody->GetInertiaTensor().InverseTensor * rigidbody->m_Torque.Torques);
-        }
+            rigidbody->m_LinearVelocity.Velocity += deltaTime.GetSeconds() * rigidbody->GetBodyMass().InverseMass * rigidbody->m_Force.Forces;
+            rigidbody->m_AngularVelocity.Velocity += deltaTime.GetSeconds() *  rigidbody->GetInertiaTensor().InverseTensor * rigidbody->m_Torque.Torques;
+            
 
-        if(m_PhysicsManager->GetGravityState() && rigidbody->GetType() != BodyType::Static)
-        {
-            rigidbody->m_LinearVelocity.Velocity += deltaTime.GetSeconds() * (rigidbody->GetBodyMass().InverseMass * rigidbody->GetBodyMass().Mass * m_PhysicsManager->GetGravity());
+            //rigidbody->m_LinearDampening = std::clamp(glm::pow<float>(1.0f - rigidbody->m_LinearDampening, deltaTime.GetSeconds()), 0.0f, 1.0f);
+            //rigidbody->m_LinearVelocity *= rigidbody->m_LinearDampening.Dampening;
+
+            //rigidbody->m_AngularDampening = std::clamp(glm::pow<float>(1.0f - rigidbody->m_AngularDampening, deltaTime.GetSeconds()), 0.0f, 1.0f);
+            //rigidbody->m_AngularVelocity *= rigidbody->m_AngularDampening;
+
         }
     }
 
@@ -77,11 +100,9 @@ namespace tnah::Physics
         if(rigidbody->GetType() == BodyType::Dynamic)
         {
             transform.Position += rigidbody->m_LinearVelocity.Velocity * deltaTime.GetSeconds();
-            glm::quat rot = glm::quat(transform.Rotation);
-            transform.Rotation = glm::eulerAngles(glm::normalize(rot +
-                glm::quat(0.0f, rigidbody->m_AngularVelocity.Velocity) *
-                rot * 0.5f * deltaTime.GetSeconds()));
             
+            //transform.Rotation += glm::eulerAngles(glm::quat(0.0f, rigidbody->m_AngularVelocity) * glm::quat(transform.Rotation) * 0.5f * deltaTime.GetSeconds());
+            transform.Rotation = transform.Rotation + rigidbody->m_AngularVelocity.Velocity * transform.Rotation * 0.5f * deltaTime.GetSeconds();
             rigidbody->m_CollisionBody->setTransform(Math::ToRp3dTransform(transform));
         }
     }
@@ -103,11 +124,23 @@ namespace tnah::Physics
                 auto& rb = view.get<RigidBodyComponent>(entity);
                 auto& transform = view.get<TransformComponent>(entity);
 
+                rb.OnUpdate(transform);
+                
                 ProcessRigidbodyVelocities(deltaTime, transform, rb.Body);
                 ProcessRigidbodyPositions(deltaTime, transform, rb.Body);
 
-                rb.OnUpdate(transform);
+                
                 ResetRigidbodyForcesAndTorques(rb.Body);
+                
+                if(!m_PhysicsManager->m_GravityEnabled)
+                {
+                    rb.Body->m_Force = {0.0f, 0.0f, 0.0f};
+                    rb.Body->m_Torque = {0.0f, 0.0f, 0.0f};
+                    
+                    rb.Body->m_LinearVelocity = {0.0f, 0.0f, 0.0f};
+                    rb.Body->m_AngularVelocity = {0.0f, 0.0f, 0.0f};
+                    
+                }
             }
         }
     }
@@ -272,8 +305,8 @@ namespace tnah::Physics
         if(m_PhysicsManager->m_Active)
         {
             //Treat 1 unit as 1m.
-            //Treat all objects as Water ie 1000kg/m3
-            // IE a cube of 1x1x1 or 1m3 has a mass of 1000kg
+            //Treat all objects with a density of 1kg/m3
+            // IE a cube of 1x1x1 or 1m3 has a mass of 1kg
             constexpr float density = 1000.0f;
             const auto fullExtents = halfExtents * 2.0f;
 
@@ -295,8 +328,8 @@ namespace tnah::Physics
         if(m_PhysicsManager->m_Active)
         {
             //Treat 1 unit as 1m.
-            //Treat all objects as Water ie 1000kg/m3
-            // IE a cube of 1x1x1 or 1m3 has a mass of 1000kg
+            //Treat all objects with a density of 1kg/m3
+            // IE a cube of 1x1x1 or 1m3 has a mass of 1kg
             constexpr float density = 1000.0f;
 
             //Volume of a Sphere: V = (4/3)πr3
@@ -319,8 +352,8 @@ namespace tnah::Physics
         if(m_PhysicsManager->m_Active)
         {
             //Treat 1 unit as 1m.
-            //Treat all objects as Water ie 1000kg/m3
-            // IE a cube of 1x1x1 or 1m3 has a mass of 1000kg
+            //Treat all objects with a density of 1kg/m3
+            // IE a cube of 1x1x1 or 1m3 has a mass of 1kg
             constexpr float density = 1000.0f;
             
             // Volume of a Capsule: V = πr2((4/3)r + a)
@@ -439,9 +472,6 @@ namespace tnah::Physics
 
     void PhysicsManager::OnFixedUpdate(PhysicsTimestep timestep) const
     {
-        m_PhysicsWorld->getDebugRenderer().setIsDebugItemDisplayed(rp3d::DebugRenderer::DebugItem::COLLISION_SHAPE, true);
-        m_PhysicsWorld->getDebugRenderer().setIsDebugItemDisplayed(rp3d::DebugRenderer::DebugItem::COLLIDER_AABB, true);
-        
         m_PhysicsWorld->update(timestep.GetSimulationSpeed());
     }
 #pragma endregion 

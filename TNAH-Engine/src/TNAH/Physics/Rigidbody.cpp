@@ -23,6 +23,7 @@ namespace tnah::Physics {
 	void RigidBody::OnUpdate(TransformComponent& transform)
 	{
 		m_CollisionBody->setTransform(Math::ToRp3dTransform(transform));
+		UpdateInertiaTensor(transform);
 	}
 
 	void RigidBody::AddCollider(Ref<Collider> collider)
@@ -37,18 +38,16 @@ namespace tnah::Physics {
 		m_AngularVelocity.Velocity = angularVelocity;
 	}
 
+	void RigidBody::ResetValues()
+	{
+		m_Force = {0.0f, 0.0f, 0.0f};
+		m_Torque = {0.0f, 0.0f, 0.0f};
+		m_LinearVelocity = {0.0f, 0.0f, 0.0f};
+		m_AngularVelocity = {0.0f, 0.0f, 0.0f};
+	}
+
 	void RigidBody::Setup()
 	{
-		for(auto collider : m_Colliders)
-		{
-			m_BodyMass.Mass += collider->GetColliderMass().Mass;
-		}
-
-		for(auto collider : m_Colliders)
-		{
-			m_BodyMass.CentreOfMass = (collider->GetColliderPosition() * collider->GetColliderMass().Mass ) / m_BodyMass.Mass;
-		}
-
 		if(m_BodyType == BodyType::Static)
 		{
 			m_BodyMass.Mass = std::numeric_limits<float>::max();
@@ -56,29 +55,30 @@ namespace tnah::Physics {
 		}
 		else
 		{
-			m_BodyMass.InverseMass = 1.0f /  m_BodyMass.Mass;
+			if(!m_Colliders.empty())
+			{
+				for(auto collider : m_Colliders)
+				{
+					m_BodyMass.Mass += collider->GetColliderMass().Mass;
+				}
+
+				for(auto collider : m_Colliders)
+				{
+					m_BodyMass.CentreOfMass = (collider->GetColliderPosition() * collider->GetColliderMass().Mass ) / m_BodyMass.Mass;
+				}
+			
+				m_BodyMass.InverseMass = 1.0f /  m_BodyMass.Mass;
+			
+				m_InertiaTensor.Tensor = CalculateInertiaTensor(m_Colliders.at(0), m_BodyMass);
+				m_InertiaTensor.InverseTensor = glm::inverse(m_InertiaTensor.Tensor);
+			}
 		}
 
-		if(!m_Colliders.empty())
-		{
-			m_InertiaTensor.Tensor = CalculateInertiaTensor(m_Colliders.at(0), m_BodyMass);
-			m_InertiaTensor.InverseTensor = glm::inverse(m_InertiaTensor.Tensor);
-		}
+
 	}
 
 	void RigidBody::UpdatePhysicsInformation()
 	{
-		//Update the mass and tensor etc now we have a new collider on the body
-		for(auto collider : m_Colliders)
-		{
-			m_BodyMass.Mass += collider->GetColliderMass().Mass;
-		}
-
-		for(auto collider : m_Colliders)
-		{
-			m_BodyMass.CentreOfMass = (collider->GetColliderPosition() * collider->GetColliderMass().Mass ) / m_BodyMass.Mass;
-		}
-
 		if(m_BodyType == BodyType::Static)
 		{
 			m_BodyMass.Mass = std::numeric_limits<float>::max();
@@ -86,13 +86,23 @@ namespace tnah::Physics {
 		}
 		else
 		{
-			m_BodyMass.InverseMass = 1.0f /  m_BodyMass.Mass;
-		}
+			if(!m_Colliders.empty())
+			{
+				for(auto collider : m_Colliders)
+				{
+					m_BodyMass.Mass += collider->GetColliderMass().Mass;
+				}
 
-		if(!m_Colliders.empty())
-		{
-			m_InertiaTensor.Tensor = CalculateInertiaTensor(m_Colliders.at(0), m_BodyMass);
-			m_InertiaTensor.InverseTensor = glm::inverse(m_InertiaTensor.Tensor);
+				for(auto collider : m_Colliders)
+				{
+					m_BodyMass.CentreOfMass = (collider->GetColliderPosition() * collider->GetColliderMass().Mass ) / m_BodyMass.Mass;
+				}
+			
+				m_BodyMass.InverseMass = 1.0f /  m_BodyMass.Mass;
+			
+				m_InertiaTensor.Tensor = CalculateInertiaTensor(m_Colliders.at(0), m_BodyMass);
+				m_InertiaTensor.InverseTensor = glm::inverse(m_InertiaTensor.Tensor);
+			}
 		}
 	}
 
@@ -103,20 +113,30 @@ namespace tnah::Physics {
 		if(pair.first == Collider::Type::Box)
 		{
 			const auto box = static_cast<rp3d::BoxShape*>(pair.second);
-			constexpr float calc = 1.f / 12.f;
+			const float calc = 1.0f / 12.0f;
 			
-			tensor[0][0] = calc * colliderMass.Mass * (box->getHalfExtents().y * box->getHalfExtents().y + box->getHalfExtents().x * box->getHalfExtents().x);
-			tensor[1][1] = calc * colliderMass.Mass * (box->getHalfExtents().z * box->getHalfExtents().z + box->getHalfExtents().x * box->getHalfExtents().x);
-			tensor[2][2] = calc * colliderMass.Mass * (box->getHalfExtents().z * box->getHalfExtents().z + box->getHalfExtents().y * box->getHalfExtents().y);
+			tensor[0][0] = calc * colliderMass.Mass *  (box->getHalfExtents().y * box->getHalfExtents().y + box->getHalfExtents().x * box->getHalfExtents().x);
+			tensor[1][1] = calc * colliderMass.Mass *  (box->getHalfExtents().z * box->getHalfExtents().z + box->getHalfExtents().x * box->getHalfExtents().x);
+			tensor[2][2] = calc * colliderMass.Mass *  (box->getHalfExtents().z * box->getHalfExtents().z + box->getHalfExtents().y * box->getHalfExtents().y);
+			
 			
 			return tensor;
 		}
 
-		if(pair.first == Collider::Type::Sphere)
+		if(pair.first == Collider::Type::Sphere || pair.first == Collider::Type::Capsule)
 		{
-			const auto sphere = static_cast<rp3d::SphereShape*>(pair.second);
-			constexpr float calc = 2.f / 5.f;
-			const float calculation = calc * colliderMass.Mass * sphere->getRadius() * sphere->getRadius();
+			constexpr float calc = 2.0f / 5.0f;
+			float calculation = 0.0f;
+			if(pair.first == Collider::Type::Sphere)
+			{
+				const auto shape = static_cast<rp3d::SphereShape*>(pair.second);
+				calculation = calc * colliderMass.Mass * glm::pow<float>(shape->getRadius(), 2);
+			}
+			else
+			{
+				const auto shape = static_cast<rp3d::CapsuleShape*>(pair.second);
+				calculation = calc * colliderMass.Mass * glm::pow<float>(shape->getRadius(), 2);
+			}
 			tensor[0][0] = calculation;
 			tensor[1][1] = calculation;
 			tensor[2][2] = calculation;
@@ -124,5 +144,61 @@ namespace tnah::Physics {
 		}
 
 		return glm::mat3(0.0f);
+	}
+
+	glm::mat3 RigidBody::CalculateInertiaTensor(rp3d::CollisionShape* collider, BodyMass colliderMass, Collider::Type type)
+	{
+		glm::mat3x3 tensor{};
+		if(type == Collider::Type::Box)
+		{
+			const auto box = static_cast<rp3d::BoxShape*>(collider);
+			const float mass_over_12 = colliderMass.Mass / 12.f;
+
+			const float x = box->getHalfExtents().x * 2.0f;
+			const float y = box->getHalfExtents().y * 2.0f;
+			const float z = box->getHalfExtents().z * 2.0f;
+			
+			//tensor[0][0] = mass_over_12 * (box->getHalfExtents().y * box->getHalfExtents().y + box->getHalfExtents().x * box->getHalfExtents().x);
+			//tensor[1][1] = mass_over_12 * (box->getHalfExtents().z * box->getHalfExtents().z + box->getHalfExtents().x * box->getHalfExtents().x);
+			//tensor[2][2] = mass_over_12 * (box->getHalfExtents().z * box->getHalfExtents().z + box->getHalfExtents().y * box->getHalfExtents().y);
+			
+			tensor[0][0] = mass_over_12 * (glm::pow<float>(y, 2) + glm::pow<float>(z, 2));
+			tensor[1][1] = mass_over_12 * (glm::pow<float>(x, 2) + glm::pow<float>(z, 2));
+			tensor[2][2] = mass_over_12 * (glm::pow<float>(y, 2) + glm::pow<float>(y, 2));
+			
+			
+			return tensor;
+		}
+
+		if(type == Collider::Type::Sphere || type == Collider::Type::Capsule)
+		{
+			constexpr float calc = 0.4f;
+			float calculation = 0.0f;
+			if(type == Collider::Type::Sphere)
+			{
+				const auto shape = static_cast<rp3d::SphereShape*>(collider);
+				calculation = calc * colliderMass.Mass * glm::pow<float>(shape->getRadius(), 2);
+			}
+			else
+			{
+				const auto shape = static_cast<rp3d::CapsuleShape*>(collider);
+				calculation = calc * colliderMass.Mass * glm::pow<float>(shape->getRadius(), 2);
+			}
+			tensor[0][0] = calculation;
+			tensor[1][1] = calculation;
+			tensor[2][2] = calculation;
+			return tensor;
+		}
+
+		return glm::mat3(0.0f);
+	}
+	
+	void RigidBody::UpdateInertiaTensor(TransformComponent& transform)
+	{
+		//Get the InertiaTensor based on the transform rotation and then calculate the inverse based on the local inverse
+		m_InertiaTensor.Tensor = glm::mat3_cast(glm::quat(transform.Rotation));
+		m_InertiaTensor.InverseTensor[0][0] = m_InertiaTensor.Tensor[0][0] * m_LocalInertiaTensor.InverseTensor[0][0];
+		m_InertiaTensor.InverseTensor[1][1] = m_InertiaTensor.Tensor[1][1] * m_LocalInertiaTensor.InverseTensor[1][1];
+		m_InertiaTensor.InverseTensor[2][2] = m_InertiaTensor.Tensor[2][2] * m_LocalInertiaTensor.InverseTensor[2][2];
 	}
 }

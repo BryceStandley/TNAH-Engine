@@ -167,10 +167,41 @@ void MainLayer::OnImGuiRender()
 		ImGui::Checkbox("Camera Movement", &m_CameraMovementToggle);
 	}
 
+	if(tnah::Application::Get().GetDebugModeStatus())
+	{
+		if(ImGui::CollapsingHeader("Debug"))
+		{
+			if(ImGui::Button("Reset Scene"))
+			{
+				tnah::Physics::PhysicsEngine::GetManager()->SetGravityState(false);
+				tnah::Physics::PhysicsEngine::GetManager()->SetGravity({0.0f, -9.8f, 0.0f});
+				auto& rb1 = m_Box1.GetComponent<tnah::RigidBodyComponent>();
+				auto& rb2 = m_Box2.GetComponent<tnah::RigidBodyComponent>();
+				rb1.Body->ResetValues();
+				rb2.Body->ResetValues();
+
+				auto& m1t = m_Box1.Transform();
+				m1t.Position = {0.0f, 10.0f, 0.0f};
+				m1t.Rotation = {0.0f, 0.0f, 0.0f};
+				m1t.Scale =  {4.0f, 4.0f, 0.5f};
+				
+				auto& m2t = m_Box2.Transform();
+				m2t.Position = {0.0f, 8.0f, 2.0f};
+				m2t.Rotation = {0.0f, 0.0f, 0.0f};
+				m2t.Scale = {4.0f, 4.0f, 0.5f};
+				
+			}
+		}
+	}
+
 	ImGui::Separator();
 	if(ImGui::CollapsingHeader("Physics"))
 	{
 		ImGui::Checkbox("Gravity", &tnah::Physics::PhysicsEngine::GetManager()->GetGravityState());
+		if(tnah::Physics::PhysicsEngine::GetManager()->GetGravityState())
+		{
+			tnah::EditorUI::DrawVec3Control("Gravity Values", tnah::Physics::PhysicsEngine::GetManager()->GetGravity());
+		}
 		ImGui::Checkbox("Collider Rendering", &tnah::Physics::PhysicsEngine::GetColliderRendererHandle());
 	}
 	

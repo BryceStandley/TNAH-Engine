@@ -39,13 +39,24 @@ namespace tnah::Physics {
 
         void ApplyCollisionImpulse(const glm::vec3& linearVelocity, const glm::vec3& angularVelocity);
 
+        void ResetValues();
+
+        bool IsSleeping() const { return m_IsSleeping; }
+        void Awake() { m_IsSleeping = false; }
+        void Sleep() { m_IsSleeping = true; }
+
+        static glm::mat3 CalculateInertiaTensor(Ref<Collider> collider, BodyMass colliderMass);
+        static glm::mat3 CalculateInertiaTensor(rp3d::CollisionShape* collider, BodyMass colliderMass, Collider::Type type);
+
     private:
 
         void Setup();
 
         void UpdatePhysicsInformation();
 
-        static glm::mat3 CalculateInertiaTensor(Ref<Collider> collider, BodyMass colliderMass);
+        
+
+        void UpdateInertiaTensor(TransformComponent& transform);
 
         void SetID(const uint32_t id) { m_ID = id; }
         
@@ -116,6 +127,13 @@ namespace tnah::Physics {
         InertiaTensor m_InertiaTensor;
 
         /**
+        * @var m_LocalInertiaTensor
+        *
+        * @brief The Local InertiaTensor of the Rigidbody.
+        */
+        InertiaTensor m_LocalInertiaTensor;
+        
+        /**
         * @var m_Colliders
         *
         * @brief A vector of all colliders on the Rigidbody
@@ -130,6 +148,8 @@ namespace tnah::Physics {
         rp3d::CollisionBody* m_CollisionBody = nullptr;
 
         uint32_t m_ID = 0;
+
+        bool m_IsSleeping = false;
 
         friend class PhysicsEngine;
         friend class EditorUI;
