@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include "Actions.h"
+#include "EmotionComponent.h"
 #include "StateMachine.h"
 #include "TNAH/Core/TNAHEnableFromThis.h"
 
@@ -22,6 +23,8 @@ namespace tnah
         void SetDistance(const float d) {affordanceDistance = d;}
         float GetDistance() const {return affordanceDistance;}
         virtual void CheckAction(float affordanceValue, float distance) = 0;
+        void LogAction(std::string text, glm::vec4 colour);
+        std::string name;
     private:
         float mDt;
         Actions mDesiredAction;
@@ -36,17 +39,22 @@ namespace tnah
         //GetEmotionComponent
         ~Bin() override
         {
-            SetDesiredAction(kick);
-            SetDistance(10);
-        }
 
+        }
+        bool canOutput = true;
+        EmotionComponent GetEmotions() {return emotions;}
         void CheckAction(float affordanceValue, float distance) override;
+        Emotion mCharacterState;
+        glm::vec4 mColour;
+        void SetAffordanceLevel(float a) {currentAffordanceLevel = a;}
+        void SetActionDistance(float d) {actionDistance = d;}
     private:
         glm::vec3 targetPos;
         std::shared_ptr<StateMachine<Bin>> mFsm;
         float currentAffordanceLevel;
         float BalanceRange(float min, float max, float balanceValue);
         float actionDistance;
+        EmotionComponent emotions;
         //Emotion Component
     };
 

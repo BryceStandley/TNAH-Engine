@@ -30,6 +30,8 @@ MainLayer::MainLayer()
 		box.Components.BodyCollider = rb.AddCollider(box.Components);
 		rb.Body->setAngularLockAxisFactor({0,1,0}); // Lock the rigidbody from falling over
 		rb.SetBodyType(rp3d::BodyType::DYNAMIC);
+		m_Camera.AddComponent<tnah::AIComponent>();
+		m_Camera.AddComponent<tnah::CharacterComponent>();
 	}
 	
 	
@@ -57,7 +59,7 @@ MainLayer::MainLayer()
 		go.Transform().Position = {-1.1f, -4.3f, 0.6f};
 		go.Transform().Rotation = {glm::radians(-90.0f), 0, 0};
 		
-
+	
 	}
 
 	//Colliders Only
@@ -283,8 +285,6 @@ MainLayer::MainLayer()
 		box.Components.BodyCollider = rb.AddCollider(box.Components.Shape, rp3d::Transform::identity());
 		
 		rb.SetBodyType(rp3d::BodyType::KINEMATIC);
-		go.AddComponent<tnah::AIComponent>();
-		go.AddComponent<tnah::CharacterComponent>();
 	}
 
 	{
@@ -367,6 +367,8 @@ MainLayer::MainLayer()
 		
 		rb.SetBodyType(rp3d::BodyType::KINEMATIC);
 		go.AddComponent<tnah::Affordance>();
+		auto & a = go.GetComponent<tnah::Affordance>();
+		a.SetActionValues(tnah::sit, 1);
 	}
 
 	{
@@ -605,6 +607,7 @@ void MainLayer::OnImGuiRender()
 	ImGui::Text("%.1f FPS | %.1f ms", ImGui::GetIO().Framerate, 1000.0f / ImGui::GetIO().Framerate);
 	ImGui::Text("This Window can be dragged around and even pulled off the window!");
 	ImGui::BulletText("Press ESC to display the team!");
+	
 	if(ImGui::Button("Team Screen"))
 	{
 		m_CloseScreen = !m_CloseScreen;
@@ -736,6 +739,23 @@ void MainLayer::OnImGuiRender()
 	
 	ImGui::End();
 
+	auto io = ImGui::GetIO();
+	auto display = ImGui::GetIO().DisplaySize;
+	auto pos  = ImGui::GetWindowViewport()->Pos;
+	//ImGui::SetNextWindowSize({size.x, size.y});
+	ImGui::SetNextWindowSize({500, display.y});
+	ImGui::SetNextWindowPos({pos.x, pos.y}, true);
+	//ImGui::SetNextWindowPos({io.DisplaySize.x * 0.5f, io.DisplaySize.y * 0.5f}, ImGuiCond_Always, {0.5f, 0.5f});
+	ImGui::Begin("Agents Values", 0, ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoBackground);
+		auto queue = tnah::Application::GetLogQueue();
+		for(int i = 0; i < queue.size(); i++)
+		{
+			ImVec4 colour = ImVec4(queue[i].colour.x, queue[i].colour.y, queue[i].colour.z, 1);
+			//ImVec4 colour = ImVec4(1, 1, 0.5, 1);
+			ImGui::TextColored(colour, queue[i].text.c_str());
+		}
+	ImGui::End();
+	
 	if(m_CloseScreen)
 	{
 		auto io = ImGui::GetIO();

@@ -404,6 +404,7 @@ namespace tnah{
 							if(glm::distance(objTrasnform.Position, t.Position) < c.aiCharacter->GetDistance())
 							{
 								float affordanceValue = affordance.GetActionValue(c.aiCharacter->GetDesiredAction());
+								c.aiCharacter->CheckAction(affordanceValue, glm::distance(objTrasnform.Position, t.Position));
 							}
 						}
 

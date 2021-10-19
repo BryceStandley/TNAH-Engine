@@ -2,6 +2,7 @@
 #include "Character.h"
 
 #include "Characters/BinStates.h"
+#include "TNAH/Core/Application.h"
 
 namespace tnah
 {
@@ -10,6 +11,17 @@ namespace tnah
 
         mFsm.reset(new StateMachine<Bin>(this));
         mFsm->setGlobalState(&global_bin::getInstance());
+        SetDesiredAction(sit);
+        SetDistance(10);
+        actionDistance = 1.5;
+        mColour = glm::vec4(1, 1, 0, 1);
+        currentAffordanceLevel = 1.0f;
+        //Temporary stuff
+        emotions.AddTrait(Trait::Happy);
+        emotions.AddTrait(Trait::Carefree);
+        emotions.SetMood(Mood::Happy);
+        mCharacterState = emotions.GetEmotion();
+        Character::name = "bin";
         //mFsm->setCurrentState
     }
 
@@ -17,6 +29,7 @@ namespace tnah
     {
         SetDeltaTime(deltaTime.GetSeconds());
         currentAffordanceLevel = BalanceRange(0, 1, currentAffordanceLevel);
+        emotions.Update();
         mFsm->update();
 
         return targetPos;
@@ -26,12 +39,35 @@ namespace tnah
     {
         if(currentAffordanceLevel <= affordanceValue)
         {
-            if(actionDistance <= distance)
+            if(distance <= actionDistance)
             {
-                //execute
+                switch (Character::GetDesiredAction())
+                {
+                case kick:
+                    if(canOutput)
+                    {
+                        LogAction("Kicked something" + std::to_string(distance), mColour);
+                        canOutput = false;
+                    }
+                    emotions.IncreaseArousal(0.1 * GetDeltaTime());
+                    break;
+                case punch:
+                case sit:
+                    if(canOutput)
+                    {
+                        LogAction("Sat on something", mColour);
+                        canOutput = false;
+                    }
+                    emotions.DecreaseArousal(0.1 * GetDeltaTime());
+                    emotions.IncreaseValence(0.1 * GetDeltaTime());
+                    break;
+                case none:
+                default:
+                    break;
+                }
             }
-            //else
-                //move towards
+            else
+                canOutput = true;
         }
     }
 
@@ -42,6 +78,12 @@ namespace tnah
         else if(balanceValue > max)
             return max;
     }
+
+    void Character::LogAction(std::string text, glm::vec4 colour)
+    {
+        Application::LogPush(LogText(name + ": " + text, colour));
+    }
+
 
 
 }
