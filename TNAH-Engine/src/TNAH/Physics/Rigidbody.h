@@ -18,8 +18,8 @@ namespace tnah::Physics {
 
         BodyMass GetBodyMass() const { return m_BodyMass; }
 
-        void AddForce(const glm::vec3& force) { m_Force.Forces += force; }
-        void AddTorque(const glm::vec3& torque) { m_Torque.Torques += torque; }
+        void AddForce(const glm::vec3& force);
+        void AddTorque(const glm::vec3& torque);
 
         void SetCollisionBody(rp3d::CollisionBody* collisionBody) { m_CollisionBody = collisionBody; }
         rp3d::CollisionBody* GetCollisionBody() const { return m_CollisionBody; }
@@ -41,6 +41,7 @@ namespace tnah::Physics {
 
         void ResetValues();
 
+        bool& IgnoreGravity() { return m_IgnoreGravity; }
         bool IsSleeping() const { return m_IsSleeping; }
         void Awake() { m_IsSleeping = false; }
         void Sleep() { m_IsSleeping = true; }
@@ -150,6 +151,8 @@ namespace tnah::Physics {
         uint32_t m_ID = 0;
 
         bool m_IsSleeping = false;
+
+        bool m_IgnoreGravity = false;
 
         friend class PhysicsEngine;
         friend class EditorUI;

@@ -489,9 +489,6 @@ namespace tnah {
 		/** @brief	The model */
 		Ref<Model> Model = nullptr;
 
-		/** @brief	The animation */
-		Animation Animation;
-
 		
 
 		/**********************************************************************************************//**
@@ -519,7 +516,6 @@ namespace tnah {
 		MeshComponent(const std::string& modelPath)
 		{
 			Model = Model::Create(modelPath);
-			Animation = Model->GetAnimation();
 		}
 
 		/**********************************************************************************************//**
@@ -549,7 +545,6 @@ namespace tnah {
 		MeshComponent(Ref<tnah::Model> model)
 			: Model(model)
 		{
-			Animation = Model->GetAnimation();
 		}
 
 		/**********************************************************************************************//**
@@ -566,7 +561,6 @@ namespace tnah {
 		void LoadMesh(const std::string& modelPath)
 		{
 			Model = Model::Create(modelPath);
-			Animation = Model->GetAnimation();
 		};
 
 		/**********************************************************************************************//**

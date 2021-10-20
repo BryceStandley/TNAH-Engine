@@ -75,24 +75,22 @@ namespace tnah::Physics
 
     void PhysicsEngine::ProcessRigidbodyVelocities(const Timestep& deltaTime, TransformComponent& transform, Ref<RigidBody> rigidbody)
     {
-        if(m_PhysicsManager->GetGravityState() && rigidbody->GetType() != BodyType::Static && !rigidbody->IsSleeping())
+        if(rigidbody->GetType() == BodyType::Dynamic && !rigidbody->IsSleeping())
         {
-            rigidbody->m_LinearVelocity.Velocity += deltaTime.GetSeconds() * (rigidbody->GetBodyMass().InverseMass * rigidbody->GetBodyMass().Mass * m_PhysicsManager->GetGravity());
+            rigidbody->m_LinearVelocity.Velocity += deltaTime.GetSeconds() * (rigidbody->GetBodyMass().InverseMass * rigidbody->m_Force.Forces);
+            rigidbody->m_AngularVelocity.Velocity += deltaTime.GetSeconds() *  (rigidbody->GetInertiaTensor().InverseTensor * rigidbody->m_Torque.Torques);
         }
 
-        if(rigidbody->GetType() == BodyType::Dynamic)
+        if(m_PhysicsManager->GetGravityState() && rigidbody->GetType() != BodyType::Static && !rigidbody->IsSleeping() && !rigidbody->IgnoreGravity())
         {
-            rigidbody->m_LinearVelocity.Velocity += deltaTime.GetSeconds() * rigidbody->GetBodyMass().InverseMass * rigidbody->m_Force.Forces;
-            rigidbody->m_AngularVelocity.Velocity += deltaTime.GetSeconds() *  rigidbody->GetInertiaTensor().InverseTensor * rigidbody->m_Torque.Torques;
-            
-
-            //rigidbody->m_LinearDampening = std::clamp(glm::pow<float>(1.0f - rigidbody->m_LinearDampening, deltaTime.GetSeconds()), 0.0f, 1.0f);
-            //rigidbody->m_LinearVelocity *= rigidbody->m_LinearDampening.Dampening;
-
-            //rigidbody->m_AngularDampening = std::clamp(glm::pow<float>(1.0f - rigidbody->m_AngularDampening, deltaTime.GetSeconds()), 0.0f, 1.0f);
-            //rigidbody->m_AngularVelocity *= rigidbody->m_AngularDampening;
-
+            rigidbody->m_LinearVelocity.Velocity += deltaTime.GetSeconds() * rigidbody->GetBodyMass().InverseMass * rigidbody->GetBodyMass().Mass * m_PhysicsManager->GetGravity();
         }
+
+        auto lDamp = glm::pow(1.0f - rigidbody->m_LinearDampening.Dampening, deltaTime.GetSeconds());
+        auto aDamp = glm::pow(1.0f - rigidbody->m_AngularDampening.Dampening, deltaTime.GetSeconds());
+        rigidbody->m_LinearVelocity.Velocity *= lDamp;
+        rigidbody->m_AngularVelocity.Velocity *= aDamp;
+        
     }
 
     void PhysicsEngine::ProcessRigidbodyPositions(const Timestep& deltaTime,TransformComponent& transform, Ref<RigidBody> rigidbody)
@@ -101,8 +99,8 @@ namespace tnah::Physics
         {
             transform.Position += rigidbody->m_LinearVelocity.Velocity * deltaTime.GetSeconds();
             
-            //transform.Rotation += glm::eulerAngles(glm::quat(0.0f, rigidbody->m_AngularVelocity) * glm::quat(transform.Rotation) * 0.5f * deltaTime.GetSeconds());
             transform.Rotation = transform.Rotation + rigidbody->m_AngularVelocity.Velocity * transform.Rotation * 0.5f * deltaTime.GetSeconds();
+            
             rigidbody->m_CollisionBody->setTransform(Math::ToRp3dTransform(transform));
         }
     }
@@ -128,19 +126,10 @@ namespace tnah::Physics
                 
                 ProcessRigidbodyVelocities(deltaTime, transform, rb.Body);
                 ProcessRigidbodyPositions(deltaTime, transform, rb.Body);
-
                 
                 ResetRigidbodyForcesAndTorques(rb.Body);
+
                 
-                if(!m_PhysicsManager->m_GravityEnabled)
-                {
-                    rb.Body->m_Force = {0.0f, 0.0f, 0.0f};
-                    rb.Body->m_Torque = {0.0f, 0.0f, 0.0f};
-                    
-                    rb.Body->m_LinearVelocity = {0.0f, 0.0f, 0.0f};
-                    rb.Body->m_AngularVelocity = {0.0f, 0.0f, 0.0f};
-                    
-                }
             }
         }
     }

@@ -141,6 +141,9 @@ private:
 	tnah::GameObject m_Box2;
 	tnah::GameObject m_Ball;
 	tnah::GameObject m_Ground;
+	bool m_StartPhysicsSim = false;
+	glm::vec3 m_PhysicsSimStartPosition = {0,0,0};
+	
 
 	
 	

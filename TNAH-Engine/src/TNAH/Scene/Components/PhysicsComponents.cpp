@@ -32,19 +32,19 @@ namespace tnah
     }
     
 
-    void RigidBodyComponent::ApplyForce(const glm::vec3& direction, const glm::vec3& force) const
+    void RigidBodyComponent::ApplyForce(const glm::vec3& direction, const glm::vec3& force)
     {
         if(Physics::PhysicsEngine::IsActive() && Body)
         {
-            //TODO Apply force to the rigidbody force vector
+            Body->AddForce(direction * force);
         }
     }
 
-    void RigidBodyComponent::ApplyTorque(const glm::vec3& torque) const
+    void RigidBodyComponent::ApplyTorque(const glm::vec3& direction,const glm::vec3& torque)
     {
         if(Physics::PhysicsEngine::IsActive() && Body)
         {
-            //TODO Apply torque to the rigidbody torque vector
+            Body->AddForce(direction * torque);
         }
     }
 

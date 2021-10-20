@@ -14,49 +14,47 @@ MainLayer::MainLayer()
 	auto& ct = m_Camera.Transform();
 	auto& cc = m_Camera.GetComponent<tnah::CameraComponent>();
 	cc.Camera.SetViewportSize(1280, 720);
-	ct.Position = glm::vec3(-50, 30, 50);
-	ct.Rotation = glm::vec3(-45, -25, 0);
+	ct.Position = glm::vec3(-20, 10, -10);
+	ct.Rotation = glm::vec3(0, -10, 0);
 	cc.ClearMode = tnah::CameraClearMode::Skybox;
-	
-
 	auto& m_Skybox = m_ActiveScene->GetSceneCamera().AddComponent<tnah::SkyboxComponent>();
 
+	
 	m_Box1 = m_ActiveScene->CreateGameObject("Box1");
-	auto& m1 = m_Box1.AddComponent<tnah::MeshComponent>();
-	m1.Model = tnah::Model::Create("assets/meshes/cube_texture.fbx");
-	auto& m1t = m_Box1.Transform();
-	m1t.Position = {0.0f, 10.0f, 0.0f};
-	m1t.Scale =  {4.0f, 4.0f, 0.5f};
-	m_Box1.AddComponent<tnah::RigidBodyComponent>(m_Box1);
-	m_Box1.GetComponent<tnah::RigidBodyComponent>().AddCollider({4.0f, 4.0f, 0.5f});
+	m_Box1.AddComponent<tnah::MeshComponent>("assets/meshes/cube_texture.fbx");
+	m_Box1.Transform().Position = {0.0f, 10.0f, 0.0f};
+	m_Box1.Transform().Scale =  {4.0f, 4.0f, 0.5f};
+	auto& rb1 = m_Box1.AddComponent<tnah::RigidBodyComponent>(m_Box1);
+	rb1.AddCollider({4.0f, 4.0f, 0.5f});
 
 
 	m_Box2 = m_ActiveScene->CreateGameObject("Box2");
-	auto& m2 = m_Box2.AddComponent<tnah::MeshComponent>();
-	m2.Model = tnah::Model::Create("assets/meshes/cube_texture.fbx");
-	auto& m2t = m_Box2.Transform();
-	m2t.Position = {0.0f, 8.0f, 2.0f};
-	m2t.Scale = {4.0f, 4.0f, 0.5f};
-	m_Box2.AddComponent<tnah::RigidBodyComponent>(m_Box2);
-	m_Box2.GetComponent<tnah::RigidBodyComponent>().AddCollider({4.0f, 4.0f, 0.5f});
+	m_Box2.AddComponent<tnah::MeshComponent>("assets/meshes/cube_texture.fbx");
+	m_Box2.Transform().Position = {0.0f, 6.0f, 2.0f};
+	m_Box2.Transform().Scale = {4.0f, 4.0f, 0.5f};
+	auto& rb2 = m_Box2.AddComponent<tnah::RigidBodyComponent>(m_Box2);
+	rb2.AddCollider({4.0f, 4.0f, 0.5f});
 
-	m_Ground = m_ActiveScene->CreateGameObject("TempGround");
-	auto& m = m_Ground.AddComponent<tnah::MeshComponent>();
-	m.Model = tnah::Model::Create("assets/meshes/cube_texture.fbx");
-	auto& mt = m_Ground.Transform();
-	mt.Position = {0.0f, 0.0f, 0.0f};
-	mt.Scale = {20.0f, 1.0f, 20.0f};
-	m_Ground.AddComponent<tnah::RigidBodyComponent>(m_Ground, tnah::Physics::BodyType::Static);
-	m_Ground.GetComponent<tnah::RigidBodyComponent>().AddCollider({20.0f, 1.0f, 20.0f});
-	
+	m_Ball = m_ActiveScene->CreateGameObject("Ball");
+	m_Ball.AddComponent<tnah::MeshComponent>("assets/meshes/sphere.fbx");
+	m_Ball.Transform().Position = {3.5f, 8.0f, -10.0f};
+	m_PhysicsSimStartPosition =  m_Ball.Transform().Position;
+	auto& rb3 = m_Ball.AddComponent<tnah::RigidBodyComponent>(m_Ball);
+	rb3.AddCollider({1.0f});
 
+	m_Ground = m_ActiveScene->CreateGameObject("Ground");
+	m_Ground.AddComponent<tnah::MeshComponent>("assets/meshes/cube_texture.fbx");
+	m_Ground.Transform().Position = {0.0f, 0.0f, 0.0f};
+	m_Ground.Transform().Scale = {40.0f, 1.0f, 40.0f};
+	auto& rb4 = m_Ground.AddComponent<tnah::RigidBodyComponent>(m_Ground, tnah::Physics::BodyType::Static);
+	rb4.AddCollider({40.0f, 1.0f, 40.0f});
+
+	//Set the debug mode to true on launch for physics collider rendering
+	tnah::Application::Get().GetDebugModeStatus() = true;
 }
 
 void MainLayer::OnUpdate(tnah::Timestep deltaTime)
 {
-	//Camera Movement in a first person way.
-		//This can be changed to also look like a 3rd person camera. Similar to a FPS camera in Unity and C#
-		//Only move the camera if its enabled
 	if (m_CameraMovementToggle)
 	{
 		auto& ct = m_Camera.Transform();
@@ -123,6 +121,17 @@ void MainLayer::OnUpdate(tnah::Timestep deltaTime)
 			ct.Rotation.y = -89.0f;
 		}
 	}
+
+	if(m_StartPhysicsSim)
+	{
+		TNAH_INFO("Simulation Started");
+		m_Ball.Transform().Position = m_PhysicsSimStartPosition;
+		auto& rb = m_Ball.GetComponent<tnah::RigidBodyComponent>().Body;
+		auto force = glm::vec3(0.0f,0.0f,1.0f) * glm::vec3(0.0f, 0.0f, 500.0f);
+		rb->AddForce(force);
+		m_StartPhysicsSim = false;
+	}
+	
 	//Rendering is managed by the scene!
 	m_ActiveScene->OnUpdate(deltaTime);
 }
@@ -134,31 +143,36 @@ void MainLayer::OnFixedUpdate(tnah::Timestep ts, tnah::PhysicsTimestep ps)
 
 void MainLayer::OnImGuiRender()
 {
-	auto& ct = m_Camera.Transform();
-	
-	ImGui::Begin("Controls");
+	auto windowSize = ImGui::GetMainViewport()->Size;
+	const auto windowPos = ImGui::GetMainViewport()->Pos;
+	ImGui::SetNextWindowPos(windowPos);
+	auto x = windowSize.x / 5.0f;
+	if(x < 400) { x = 400; }
+	ImGui::SetNextWindowSize({x, windowSize.y});
+	static bool m_ApplicationPanel = true;
+	ImGui::Begin("Application", &m_ApplicationPanel);
 	
 	ImGui::Text("%.1f FPS", ImGui::GetIO().Framerate);
-	ImGui::Text("Application Options");
-	ImGui::Separator();
-	ImGui::Text("Press 0 to toggle debug mode");
+	ImGui::Text("Options");
 	if(ImGui::Checkbox("Debug Mode", &tnah::Application::Get().GetDebugModeStatus()))
 	{
 		tnah::Application::Get().SetDebugStatusChange();
 	}
-	ImGui::NewLine();
 	if(ImGui::CollapsingHeader("Controls & Toggles"))
 	{
-		ImGui::BulletText("Press 1 to toggle the cursor");
-		ImGui::BulletText("Press 2 to toggle wireframe mode");
-		ImGui::BulletText("Press 3 to toggle borderless fullscreen");
-		ImGui::BulletText("Press 4 to toggle VSync");
-		ImGui::BulletText("Press 5 to toggle camera look");
-		ImGui::BulletText("Press 6 to toggle camera movement");
-		ImGui::BulletText("Hold left or right Shift to increase camera movement speed");
-		ImGui::BulletText("Press ESC to close the application");
-		ImGui::Separator();
+		ImGui::Text("Key Controls");
+		ImGui::BulletText("0 - Debug");
+		ImGui::BulletText("1 - Cursor");
+		ImGui::BulletText("2 - Wireframe mode");
+		ImGui::BulletText("3 - Borderless fullscreen");
+		ImGui::BulletText("4 - VSync");
+		ImGui::BulletText("5 - Camera look");
+		ImGui::BulletText("6 - Camera move");
+		ImGui::BulletText("L/R Shift - Camera speed override");
+		ImGui::BulletText("ESC - Quit");
+		ImGui::NewLine();
 		auto& app = tnah::Application::Get();
+		ImGui::Text("Toggles");
 		ImGui::Checkbox("Cursor", &m_CursorVisible);
 		ImGui::Checkbox("Wireframe", &m_Wireframe);
 		ImGui::Checkbox("VSync", &m_VSync);
@@ -166,47 +180,16 @@ void MainLayer::OnImGuiRender()
 		ImGui::Checkbox("Camera Look", &m_CameraLookToggle);
 		ImGui::Checkbox("Camera Movement", &m_CameraMovementToggle);
 	}
-
 	if(tnah::Application::Get().GetDebugModeStatus())
 	{
 		if(ImGui::CollapsingHeader("Debug"))
 		{
-			if(ImGui::Button("Reset Scene"))
-			{
-				tnah::Physics::PhysicsEngine::GetManager()->SetGravityState(false);
-				tnah::Physics::PhysicsEngine::GetManager()->SetGravity({0.0f, -9.8f, 0.0f});
-				auto& rb1 = m_Box1.GetComponent<tnah::RigidBodyComponent>();
-				auto& rb2 = m_Box2.GetComponent<tnah::RigidBodyComponent>();
-				rb1.Body->ResetValues();
-				rb2.Body->ResetValues();
-
-				auto& m1t = m_Box1.Transform();
-				m1t.Position = {0.0f, 10.0f, 0.0f};
-				m1t.Rotation = {0.0f, 0.0f, 0.0f};
-				m1t.Scale =  {4.0f, 4.0f, 0.5f};
-				
-				auto& m2t = m_Box2.Transform();
-				m2t.Position = {0.0f, 8.0f, 2.0f};
-				m2t.Rotation = {0.0f, 0.0f, 0.0f};
-				m2t.Scale = {4.0f, 4.0f, 0.5f};
-				
-			}
+			ImGui::BulletText("Any application debug controls can go here");
 		}
 	}
-
-	ImGui::Separator();
-	if(ImGui::CollapsingHeader("Physics"))
-	{
-		ImGui::Checkbox("Gravity", &tnah::Physics::PhysicsEngine::GetManager()->GetGravityState());
-		if(tnah::Physics::PhysicsEngine::GetManager()->GetGravityState())
-		{
-			tnah::EditorUI::DrawVec3Control("Gravity Values", tnah::Physics::PhysicsEngine::GetManager()->GetGravity());
-		}
-		ImGui::Checkbox("Collider Rendering", &tnah::Physics::PhysicsEngine::GetColliderRendererHandle());
-	}
-	
 	if (ImGui::CollapsingHeader("Camera"))
 	{
+		auto& ct = m_Camera.Transform();
 		tnah::EditorUI::DrawVec3Control("Position", ct.Position);
 		tnah::EditorUI::DrawVec3Control("Rotation", ct.Rotation);
 		ImGui::Separator();
@@ -220,11 +203,14 @@ void MainLayer::OnImGuiRender()
 			tnah::EditorUI::DrawFloatControl("Speed", m_CameraMovementSpeed, 1, 100, true);
 		}
 	}
-	ImGui::NewLine();
+	
+	
+	
+	
 	ImGui::Separator();
 	
-	
-	if(ImGui::CollapsingHeader("Scene Objects"))
+	ImGui::Text("Scene Hierarchy");
+	if(ImGui::CollapsingHeader("GameObjects"))
 	{
 		
 		for(auto& go : m_ActiveScene->GetGameObjectsInScene())
@@ -240,6 +226,53 @@ void MainLayer::OnImGuiRender()
 				}
 			}
 		}
+	}
+	
+	ImGui::Separator();
+	
+	ImGui::Text("Simulation Controls");
+	
+	ImGui::Text("Physics");
+	{
+		ImGui::Checkbox("Use Gravity", &tnah::Physics::PhysicsEngine::GetManager()->GetGravityState());
+		if(tnah::Physics::PhysicsEngine::GetManager()->GetGravityState())
+		{
+			tnah::EditorUI::DrawVec3Control("Gravity", tnah::Physics::PhysicsEngine::GetManager()->GetGravity());
+		}
+		ImGui::Checkbox("Collider Rendering", &tnah::Physics::PhysicsEngine::GetColliderRendererHandle());
+	}
+	
+	auto size = ImGui::GetContentRegionAvail();
+	if(ImGui::Button("Play", {size.x, 30}))
+	{
+		m_StartPhysicsSim = true;
+	}
+	if(ImGui::Button("Reset", {size.x, 30}))
+	{
+		tnah::Physics::PhysicsEngine::GetManager()->SetGravityState(false);
+		tnah::Physics::PhysicsEngine::GetManager()->SetGravity({0.0f, -9.8f, 0.0f});
+		auto& rb1 = m_Box1.GetComponent<tnah::RigidBodyComponent>();
+		auto& rb2 = m_Box2.GetComponent<tnah::RigidBodyComponent>();
+		auto& rb3 = m_Ball.GetComponent<tnah::RigidBodyComponent>();
+		rb1.Body->ResetValues();
+		rb2.Body->ResetValues();
+		rb3.Body->ResetValues();
+
+		auto& m1t = m_Box1.Transform();
+		m1t.Position = {0.0f, 10.0f, 0.0f};
+		m1t.Rotation = {0.0f, 0.0f, 0.0f};
+		m1t.Scale =  {4.0f, 4.0f, 0.5f};
+				
+		auto& m2t = m_Box2.Transform();
+		m2t.Position = {0.0f, 8.0f, 2.0f};
+		m2t.Rotation = {0.0f, 0.0f, 0.0f};
+		m2t.Scale = {4.0f, 4.0f, 0.5f};
+
+		
+		auto& m3t = m_Ball.Transform();
+		m3t.Position = m_PhysicsSimStartPosition;
+		m3t.Rotation = {0,0,0};
+		m_StartPhysicsSim = false;
 	}
 	
 	ImGui::End();

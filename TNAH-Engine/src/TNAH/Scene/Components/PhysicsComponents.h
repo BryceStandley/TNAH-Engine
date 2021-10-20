@@ -94,7 +94,7 @@ class GameObject;
 		 * @param 	forcePoint	The force point.
 		 **************************************************************************************************/
 
-		void ApplyForce(const glm::vec3& direction, const glm::vec3& force) const;
+		void ApplyForce(const glm::vec3& direction, const glm::vec3& force);
 
 		/**********************************************************************************************//**
 		 * @fn	void RigidBodyComponent::ApplyTorque(const glm::vec3& torque) const;
@@ -107,7 +107,7 @@ class GameObject;
 		 * @param 	torque	The torque.
 		 **************************************************************************************************/
 
-		void ApplyTorque(const glm::vec3& torque) const;
+		void ApplyTorque(const glm::vec3& direction, const glm::vec3& torque);
 
 		
 		/**

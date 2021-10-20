@@ -25,12 +25,13 @@ namespace tnah
 				auto penetration = point.getPenetrationDepth();
 				if((rb1.Body->GetType() == Physics::BodyType::Static || rb1.Body->IsSleeping()) && (rb2.Body->GetType() == Physics::BodyType::Static || rb2.Body->IsSleeping()))
 					continue;
+
+				 
 				
 				if(scene != nullptr)
 				{
 					//This is where physics collision resolution is applied
 					constexpr float restitution = 0.6f;
-					
 					
 					auto& t1 = gameObject1.Transform();
 					glm::vec3 lv1 = rb1.Body->GetLinearVelocity();
@@ -103,17 +104,13 @@ namespace tnah
 			            // v⁺₂ = v⁻₂
 			            lv2 -= linear_impulse * rb2.Body->GetBodyMass().InverseMass;
 
-			            av1 = av1 + (lambda * rb1.Body->GetInertiaTensor().InverseTensor) * r1xn;
-			            av2 = av2 - (lambda * rb2.Body->GetInertiaTensor().InverseTensor) * r2xn;
+			            av1 += (lambda * rb1.Body->GetInertiaTensor().InverseTensor) * r1xn;
+			            av2 -= (lambda * rb2.Body->GetInertiaTensor().InverseTensor) * r2xn;
 					}
-
+					
+					
 					if(rb1.Body->GetType() != Physics::BodyType::Static || !rb1.Body->IsSleeping()) rb1.Body->ApplyCollisionImpulse(lv1, av1);
 					if(rb2.Body->GetType() != Physics::BodyType::Static || !rb2.Body->IsSleeping()) rb2.Body->ApplyCollisionImpulse(lv2, av2);
-					
-					//TODO: Add some sort of player/camera check to make sure were not applying velocity forces to a player controller
-
-
-					
 				}
 			}
 		}

@@ -66,7 +66,7 @@ namespace tnah {
 
         struct LinearDampening
         {
-            float Dampening = 1.0f;
+            float Dampening = 0.0f;
 
             float operator = (const float& value)
             {
@@ -147,7 +147,7 @@ namespace tnah {
 
         struct AngularDampening
         {
-            float Dampening = 1.0f;
+            float Dampening = 0.0f;
 
             float operator = (const float& value)
             {

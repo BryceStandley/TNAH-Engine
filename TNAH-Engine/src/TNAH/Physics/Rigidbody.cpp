@@ -26,6 +26,16 @@ namespace tnah::Physics {
 		UpdateInertiaTensor(transform);
 	}
 
+	void RigidBody::AddForce(const glm::vec3& force)
+	{
+		m_Force.Forces += (force * 1000.0f);
+	}
+
+	void RigidBody::AddTorque(const glm::vec3& torque)
+	{
+		m_Torque.Torques += torque;
+	}
+
 	void RigidBody::AddCollider(Ref<Collider> collider)
 	{
 		m_Colliders.push_back(collider);

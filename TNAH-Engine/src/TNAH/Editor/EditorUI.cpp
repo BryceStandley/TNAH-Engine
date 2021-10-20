@@ -505,6 +505,18 @@ namespace tnah {
 						ImGui::BulletText("Center of Mass: X: %.2f -- Y: %.2f -- Z: %.2f", com.x, com.y, com.z);
 						ImGui::TreePop();
 					}
+					
+					if(ImGui::TreeNode("React Transform"))
+					{
+						const auto pos = Math::FromRp3dVec3(rb.Body->m_CollisionBody->getTransform().getPosition());
+						const auto rot = glm::degrees(glm::eulerAngles(Math::FromRp3dQuat(rb.Body->m_CollisionBody->getTransform().getOrientation())));
+						ImGui::BulletText("Position: X: %.2f -- Y: %.2f -- Z: %.2f", pos.x, pos.y, pos.z);
+						ImGui::BulletText("Rotation: X: %.2f -- Y: %.2f -- Z: %.2f", rot.x, rot.y, rot.z);
+						ImGui::TreePop();
+					}
+
+					ImGui::Checkbox("Ignore Gravity##RB", &rb.Body->IgnoreGravity());
+					
 					if(ImGui::TreeNode("Velocity"))
 					{
 						const auto lv = rb.Body->m_LinearVelocity.Velocity;
@@ -513,14 +525,6 @@ namespace tnah {
 						ImGui::BulletText("Angular: X: %.2f -- Y: %.2f -- Z: %.2f", av.x, av.y, av.z);
 						DrawFloatControl("Linear Dampening", rb.Body->m_LinearDampening.Dampening, 0, 1);
 						DrawFloatControl("Angular Dampening", rb.Body->m_AngularDampening.Dampening, 0, 1);
-						ImGui::TreePop();
-					}
-					if(ImGui::TreeNode("React Transform"))
-					{
-						const auto pos = Math::FromRp3dVec3(rb.Body->m_CollisionBody->getTransform().getPosition());
-						const auto rot = glm::eulerAngles(Math::FromRp3dQuat(rb.Body->m_CollisionBody->getTransform().getOrientation()));
-						ImGui::BulletText("Position: X: %.2f -- Y: %.2f -- Z: %.2f", pos.x, pos.y, pos.z);
-						ImGui::BulletText("Rotation: X: %.2f -- Y: %.2f -- Z: %.2f", rot.x, rot.y, rot.z);
 						ImGui::TreePop();
 					}
 				}
@@ -639,6 +643,8 @@ namespace tnah {
 		ImGui::Separator();
 	}
 
+#pragma region DrawFunctions
+	
 	bool EditorUI::Draw4ColorControl(const std::string& label, glm::vec4& value, bool readOnly, const glm::vec4& resetValue)
 	{
 		bool modified = false;
@@ -1433,5 +1439,6 @@ namespace tnah {
         default: return false;
         }
     }
+#pragma endregion DrawFunctions
 
 }
