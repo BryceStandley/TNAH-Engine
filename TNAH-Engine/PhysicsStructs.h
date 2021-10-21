@@ -4,7 +4,7 @@
 
 namespace tnah
 {
-	enum Body {Dynamic, Static};
+	enum BodyType {Dynamic, Static};
 
 	struct BodyMass 
 	{

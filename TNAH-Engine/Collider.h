@@ -14,7 +14,7 @@ namespace tnah
 		Collider();
 		Collider(rp3d::CollisionShape* collider, ColliderType c, float mass = 1.0f);
 
-		static Ref<Collider> Create(rp3d::CollisionShape* collier, ColliderType c, float mass = 1.0f);
+		static Ref<Collider> Create(rp3d::CollisionShape* collider, ColliderType c, float mass = 1.0f);
 
 		void SetPosition(const glm::vec3& pos) { m_Position = pos; }
 		void SetOrientation(const glm::quat& orientation) { m_Orientation = orientation; }
@@ -23,7 +23,8 @@ namespace tnah
 		glm::quat GetColliderOrientation() const { return m_Orientation; }
 
 		BodyMass GetColliderMass() const { return m_Mass; }
-		ColliderType GetType() const { return m_Type; }
+		ColliderType GetColliderType() const { return m_Type; }
+		void SetColliderType(ColliderType c) { m_Type = c; }
 		std::pair<ColliderType, rp3d::CollisionShape*> GetCollisionShapePair() { return { m_Type, m_Collider }; }
 
 		InertiaTensor GetLocalColliderInertiaTensor();
