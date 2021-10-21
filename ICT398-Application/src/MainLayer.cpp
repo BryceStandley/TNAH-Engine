@@ -30,8 +30,8 @@ MainLayer::MainLayer()
 		box.Components.BodyCollider = rb.AddCollider(box.Components);
 		rb.Body->setAngularLockAxisFactor({0,1,0}); // Lock the rigidbody from falling over
 		rb.SetBodyType(rp3d::BodyType::DYNAMIC);
-		m_Camera.AddComponent<tnah::AIComponent>();
-		m_Camera.AddComponent<tnah::CharacterComponent>();
+		//m_Camera.AddComponent<tnah::AIComponent>();
+		//m_Camera.AddComponent<tnah::CharacterComponent>();
 	}
 	
 	
@@ -284,7 +284,8 @@ MainLayer::MainLayer()
 		
 		box.Components.BodyCollider = rb.AddCollider(box.Components.Shape, rp3d::Transform::identity());
 		
-		rb.SetBodyType(rp3d::BodyType::KINEMATIC);
+		go.AddComponent<tnah::AIComponent>();
+		go.AddComponent<tnah::CharacterComponent>(tnah::CharacterNames::Rubbish);
 	}
 
 	{

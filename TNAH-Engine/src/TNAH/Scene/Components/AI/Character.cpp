@@ -6,6 +6,7 @@
 
 namespace tnah
 {
+    //Bin
     Bin::Bin()
     {
 
@@ -84,6 +85,52 @@ namespace tnah
         Application::LogPush(LogText(name + ": " + text, colour));
     }
 
+    PlayerCharacter::PlayerCharacter()
+    {
+        mFsm.reset(new StateMachine<PlayerCharacter>(this));
+        SetDesiredAction(sit);
+        SetDistance(10);
+        actionDistance = 1.5;
+        mColour = glm::vec4(1, 1, 0, 1);
+        currentAffordanceLevel = 1.0f;
+        //Temporary stuff
+        Character::name = "player";
+        //mFsm->setCurrentState
+    }
+
+    glm::vec3 PlayerCharacter::OnUpdate(Timestep deltaTime)
+    {
+        SetDeltaTime(deltaTime.GetSeconds());
+        currentAffordanceLevel = BalanceRange(0, 1, currentAffordanceLevel);
+        mFsm->update();
+
+        return targetPos;
+    }
+
+    void PlayerCharacter::CheckAction(float affordanceValue, float distance)
+    {
+        if(currentAffordanceLevel <= affordanceValue)
+        {
+            if(distance <= actionDistance)
+            {
+                switch (Character::GetDesiredAction())
+                {
+                default:
+                    break;
+                }
+            }
+            else
+                canOutput = true;
+        }
+    }
+
+    float PlayerCharacter::BalanceRange(float min, float max, float balanceValue)
+    {
+        if(balanceValue < min)
+            return min;
+        else if(balanceValue > max)
+            return max;
+    }
 
 
 }

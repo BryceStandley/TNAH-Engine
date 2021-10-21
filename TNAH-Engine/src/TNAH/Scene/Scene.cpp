@@ -108,7 +108,7 @@ namespace tnah{
 		{
 			auto e = EditorComponent();
 
-			Audio::OnUpdate();
+			//Audio::OnUpdate();
 			
 			auto view = m_Registry.view<PlayerControllerComponent, TransformComponent>();
 			for(auto obj : view)
@@ -327,7 +327,7 @@ namespace tnah{
 
 				{
 					//Collider rendering should only be used for debugging and in the editor to set sizes
-					if((m_IsEditorScene || Application::Get().GetDebugModeStatus()) && Physics::IsColliderRenderingEnabled() && passes == 0)
+					if((/*m_IsEditorScene ||Application::Get().GetDebugModeStatus()) && */Physics::IsColliderRenderingEnabled() && passes == 0))
 					{
 						auto pair = Physics::GetColliderRenderObjects();
 						auto lineArr = pair.first.first;
@@ -388,14 +388,14 @@ namespace tnah{
 
 				{
 					auto objects = m_Registry.view<Affordance, TransformComponent>();
-					auto view = m_Registry.view<AIComponent, CharacterComponent, TransformComponent>();
+					auto view = m_Registry.view<AIComponent, CharacterComponent, TransformComponent, RigidBodyComponent>();
 					
 					for(auto entity : view)
 					{
 						auto &t = view.get<TransformComponent>(entity);
 						auto &ai = view.get<AIComponent>(entity);
 						auto &c = view.get<CharacterComponent>(entity);
-
+						auto &rb = view.get<RigidBodyComponent>(entity);
 						for(auto obj : objects)
 						{
 							auto & objTrasnform = objects.get<TransformComponent>(obj);
@@ -408,8 +408,9 @@ namespace tnah{
 							}
 						}
 
-						c.aiCharacter->OnUpdate(deltaTime);
-						ai.OnUpdate(deltaTime);
+						ai.SetTargetPosition(c.aiCharacter->OnUpdate(deltaTime));
+						ai.OnUpdate(deltaTime, t.Position);
+						rb.Body->setTransform(Math::ToRp3dTransform(t.Position));
 					}
 				}
 #pragma endregion 
@@ -459,6 +460,8 @@ namespace tnah{
 					}
 					else
 						rb.Body->setTransform(Math::ToRp3dTransform(transform.Position));
+
+					//TNAH_CORE_INFO("P x {0} z{1} y{2}", transform.Position.x, transform.Position.y, transform.Position.z);
 				}
 			}
 		}

@@ -8,7 +8,7 @@ namespace tnah
 {
     enum CharacterNames
     {
-        BinName, Sweeper, Coffee
+        Player, Rubbish
     };
     
     class Character
@@ -58,11 +58,47 @@ namespace tnah
         //Emotion Component
     };
 
+    class PlayerCharacter : public Character
+    {
+    public:
+        PlayerCharacter();
+        glm::vec3 OnUpdate(Timestep deltaTime) override;
+        //GetEmotionComponent
+        
+        ~PlayerCharacter() override
+        {
+
+        }
+        
+        bool canOutput = true;
+        void CheckAction(float affordanceValue, float distance) override;
+        Emotion mCharacterState;
+        glm::vec4 mColour;
+        void SetAffordanceLevel(float a) {currentAffordanceLevel = a;}
+        void SetActionDistance(float d) {actionDistance = d;}
+    private:
+        glm::vec3 targetPos;
+        std::shared_ptr<StateMachine<PlayerCharacter>> mFsm;
+        float currentAffordanceLevel;
+        float BalanceRange(float min, float max, float balanceValue);
+        float actionDistance;
+    };
+
     struct CharacterComponent
     {
-        CharacterComponent()
+        CharacterComponent() = default;
+        CharacterComponent(CharacterNames characterType)
         {
-            aiCharacter.reset(new Bin());
+            switch (characterType)
+            {
+                case Player:
+                    aiCharacter.reset(new PlayerCharacter());
+                    break;
+                case Rubbish:
+                default:
+                    aiCharacter.reset(new Bin());
+                    break;
+            }
         }
         
         std::shared_ptr<Character> aiCharacter;
