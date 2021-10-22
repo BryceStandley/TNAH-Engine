@@ -58,6 +58,7 @@
     <ClCompile Include="src\TNAH\Scene\Components\AI\Actions.cpp" />
     <ClCompile Include="src\TNAH\Scene\Components\AI\Affordance.cpp" />
     <ClCompile Include="src\TNAH\Scene\Components\AI\AIComponent.cpp" />
+    <ClCompile Include="src\TNAH\Scene\Components\AI\AStar.cpp" />
     <ClCompile Include="src\TNAH\Scene\Components\AI\Character.cpp" />
     <ClCompile Include="src\TNAH\Scene\Components\AI\Characters\BinStates.cpp" />
     <ClCompile Include="src\TNAH\Scene\Components\AI\Emotion.cpp" />
@@ -123,6 +124,7 @@
     <ClInclude Include="src\TNAH\Scene\Components\AI\Actions.h" />
     <ClInclude Include="src\TNAH\Scene\Components\AI\Affordance.h" />
     <ClInclude Include="src\TNAH\Scene\Components\AI\AIComponent.h" />
+    <ClInclude Include="src\TNAH\Scene\Components\AI\AStar.h" />
     <ClInclude Include="src\TNAH\Scene\Components\AI\Character.h" />
     <ClInclude Include="src\TNAH\Scene\Components\AI\Characters\BinStates.h" />
     <ClInclude Include="src\TNAH\Scene\Components\AI\Emotion.h" />
