@@ -2,7 +2,7 @@
 #include <reactphysics3d/reactphysics3d.h>
 #include <glm/ext/matrix_float3x3.hpp>
 
-namespace tnah
+namespace tnah::Physics
 {
 	enum BodyType {Dynamic, Static};
 

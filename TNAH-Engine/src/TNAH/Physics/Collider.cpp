@@ -2,7 +2,7 @@
 #include "Collider.h"
 #include "Rigidbody.h"
 
-namespace tnah 
+namespace tnah::Physics 
 {
 	Collider::Collider() {}
 
@@ -44,7 +44,8 @@ namespace tnah
 
 	InertiaTensor Collider::GetLocalColliderInertiaTensor() 
 	{
-		m_LocalColliderInertiaTensor = Rigidbody::
+		m_LocalColliderInertiaTensor.InertiaTensor = Rigidbody::CalculateInertiaTensor(this->m_Collider, this->m_Mass, this->m_Type);
+
 	}
 
 

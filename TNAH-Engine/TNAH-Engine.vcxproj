@@ -12,6 +12,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Collider.cpp" />
+    <ClCompile Include="PhysicsEngine.cpp" />
     <ClCompile Include="Rigidbody.cpp" />
     <ClCompile Include="src\Platform\IrrKlang\Klang.cpp" />
     <ClCompile Include="src\Platform\React\ReactPhysics.cpp" />
@@ -74,9 +75,7 @@
     <ClCompile Include="src\TNAH\Scene\Serializer.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Collider.h" />
     <ClInclude Include="PhysicsStructs.h" />
-    <ClInclude Include="Rigidbody.h" />
     <ClInclude Include="src\Platform\IrrKlang\Klang.h" />
     <ClInclude Include="src\Platform\React\ReactPhysics.h" />
     <ClInclude Include="src\TNAH\Audio\Audio.h" />
@@ -102,12 +101,13 @@
     <ClInclude Include="src\TNAH\Editor\EditorUI.h" />
     <ClInclude Include="src\TNAH\Layers\ImGuizmo.h" />
     <ClInclude Include="src\TNAH\Layers\UI.h" />
+    <ClInclude Include="src\TNAH\Physics\Collider.h" />
     <ClInclude Include="src\TNAH\Physics\Physics.h" />
     <ClInclude Include="src\TNAH\Physics\PhysicsAPI.h" />
+    <ClInclude Include="src\TNAH\Physics\PhysicsEngine.h" />
     <ClInclude Include="src\TNAH\Physics\PhysicsEvents.h" />
+    <ClInclude Include="src\TNAH\Physics\PhysicsStructs.h" />
     <ClInclude Include="src\TNAH\Physics\PhysicsTimestep.h" />
-    <ClInclude Include="src\TNAH\Physics\PhysicsValues.h" />
-    <ClInclude Include="src\TNAH\Physics\PhysicsWrapper.h" />
     <ClInclude Include="src\TNAH\Renderer\Animation.h" />
     <ClInclude Include="src\TNAH\Renderer\AssimpGLMHelpers.h" />
     <ClInclude Include="src\TNAH\Renderer\Bone.h" />

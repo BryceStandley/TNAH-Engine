@@ -505,13 +505,6 @@ namespace tnah {
 			if(std::is_same_v<T, AudioListenerComponent>) { m_HeldTypes.emplace_back(ComponentVariations::AudioListener);  }
 			if(std::is_same_v<T, AudioSourceComponent>) { m_HeldTypes.emplace_back(ComponentVariations::AudioSource);  }
 			if(std::is_same_v<T, RigidBodyComponent>) { m_HeldTypes.emplace_back(ComponentVariations::RigidBody);  }
-			if(std::is_same_v<T, CollisionBodyComponent>) { m_HeldTypes.emplace_back(ComponentVariations::CollisionBody);  }
-			if(std::is_same_v<T, BoxColliderComponent>) { m_HeldTypes.emplace_back(ComponentVariations::BoxCollider);  }
-			if(std::is_same_v<T, CapsuleColliderComponent>) { m_HeldTypes.emplace_back(ComponentVariations::CapsuleCollider);  }
-			if(std::is_same_v<T, SphereColliderComponent>) { m_HeldTypes.emplace_back(ComponentVariations::SphereCollider);  }
-			if(std::is_same_v<T, HeightFieldColliderComponent>) { m_HeldTypes.emplace_back(ComponentVariations::HeightFieldCollider);  }
-			if(std::is_same_v<T, ConvexMeshColliderComponent>) { m_HeldTypes.emplace_back(ComponentVariations::ConvexMeshCollider);  }
-			if(std::is_same_v<T, ConcaveMeshColliderComponent>) { m_HeldTypes.emplace_back(ComponentVariations::ConcaveMeshCollider);  }
 		}
 
 		

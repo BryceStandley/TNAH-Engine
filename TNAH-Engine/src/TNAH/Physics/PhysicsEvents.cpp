@@ -20,6 +20,13 @@ namespace tnah
 				auto gameObject2 = (*static_cast<GameObject*>(pair.getBody2()->getUserData()));
 				auto&scene = gameObject1.m_Scene;
 				auto time = scene->m_PhysicsTime;
+				auto& rb1 = gameObject1.GetComponent<RigidBodyComponent>();
+				auto& rb2 = gameObject2.GetComponent<RigidBodyComponent>();
+				auto penetration = point.getPenetrationDepth();
+
+				if(rb1.Body->getType() == tnah::Physics::BodyType)
+
+
 				if(scene != nullptr)
 				{
 					//auto &tt = scene->FindEntityByUUID(gameObject1.GetUUID()).GetComponent<TransformComponent>();

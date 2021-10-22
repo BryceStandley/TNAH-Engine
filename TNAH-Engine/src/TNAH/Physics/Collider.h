@@ -4,7 +4,7 @@
 #include "TNAH/Core/Math.h"
 #include <reactphysics3d/reactphysics3d.h>
 
-namespace tnah 
+namespace tnah::Physics 
 {
 	class Collider : public RefCounted
 	{
