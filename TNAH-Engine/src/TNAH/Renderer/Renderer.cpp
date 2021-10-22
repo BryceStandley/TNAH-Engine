@@ -273,15 +273,15 @@ namespace tnah {
 		Ref<VertexArray> triangleVertexArray, Ref<VertexBuffer> triangleVertexBuffer)
 	{
 		RenderCommand::SetWireframe(true);
-		auto shader = Physics::GetColliderShader();
+		auto shader = Physics::PhysicsEngine::GetColliderShader();
 		shader->Bind();
 		shader->SetMat4("u_ViewProjectionMatrix", s_SceneData->ViewProjection);
-		shader->SetMat4("u_Transform",  Physics::GetColliderRendererTransform().GetTransform());
+		shader->SetMat4("u_Transform",  Physics::PhysicsEngine::GetColliderRendererTransform().GetTransform());
 		shader->SetInt("u_isGlobalVertexColorEnabled", 0); // use global color
 		shader->SetVec4("u_GlobalVertexColor", glm::vec4(1.0f)); // Disable global color
 		
 		
-		const auto renderer = Physics::GetColliderRenderer();
+		const auto renderer = Physics::PhysicsEngine::GetColliderRenderer();
 		
 		if(renderer->getNbLines() > 0)
 		{

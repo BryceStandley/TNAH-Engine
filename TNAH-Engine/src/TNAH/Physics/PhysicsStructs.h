@@ -68,10 +68,10 @@ namespace tnah::Physics
 
 	struct AngularVelocity 
 	{
-		glm::vec3 AngularVelocity = {};
+		glm::vec3 Velocity = {};
 
-		operator glm::vec3() { return AngularVelocity; }
-		operator glm::vec3() const { return AngularVelocity; }
+		operator glm::vec3() { return Velocity; }
+		operator glm::vec3() const { return Velocity; }
 	};
 
 
@@ -79,23 +79,23 @@ namespace tnah::Physics
 
 	struct Force
 	{
-		glm::vec3 Force = {};
+		glm::vec3 Forces = {};
 
 		glm::vec3 operator = (const glm::vec3& value) 
 		{
-			Force = value;
-			return Force;
+			Forces = value;
+			return Forces;
 		}
 	};
 
 	struct Torque
 	{
-		glm::vec3 Torque = {};
+		glm::vec3 Torques = {};
 
 		glm::vec3 operator = (const glm::vec3& value) 
 		{
-			Torque = value;
-			return Torque;
+			Torques = value;
+			return Torques;
 		}
 	};
 
@@ -103,7 +103,7 @@ namespace tnah::Physics
 
 	struct InertiaTensor 
 	{
-		glm::mat3 InertiaTensor = glm::mat3(1.0f);
-		glm::mat3 InvesrseInertiaTensor = glm::inverse(InertiaTensor);
+		glm::mat3 Tensor = glm::mat3(1.0f);
+		glm::mat3 InvesrseTensor = glm::inverse(Tensor);
 	};
 }

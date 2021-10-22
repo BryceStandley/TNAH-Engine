@@ -208,6 +208,11 @@ namespace tnah {
 		 * @returns	Transform as a rp3d::Transform.
 		 */
 
+		static glm::quat FromRp3dQuat(const rp3d::Quaternion& values) 
+		{
+			return glm::quat(values.w, values.x, values.y, values.z);
+		}
+
 		static rp3d::Transform ToRp3dTransform(const TransformComponent& transform)
 		{
 			return rp3d::Transform(ToRp3dVec3(transform.Position), ToRp3dQuat(glm::quat(transform.Rotation)));

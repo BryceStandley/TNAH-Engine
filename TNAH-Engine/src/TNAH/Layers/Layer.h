@@ -89,7 +89,7 @@ namespace tnah {
 		 * @param 	ps	The physicsTimestep.
 		 */
 
-		virtual void OnFixedUpdate(PhysicsTimestep ps) {}
+		virtual void OnFixedUpdate(Timestep ts, PhysicsTimestep ps) {}
 
 		/**
 		 * @fn	virtual void Layer::OnImGuiRender()

@@ -11,11 +11,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Collider.cpp" />
     <ClCompile Include="PhysicsEngine.cpp" />
-    <ClCompile Include="Rigidbody.cpp" />
     <ClCompile Include="src\Platform\IrrKlang\Klang.cpp" />
-    <ClCompile Include="src\Platform\React\ReactPhysics.cpp" />
     <ClCompile Include="src\TNAH\Audio\Audio.cpp" />
     <ClCompile Include="src\TNAH\Audio\AudioAPI.cpp" />
     <ClCompile Include="src\TNAH\Core\Application.cpp" />
@@ -31,12 +28,8 @@
     <ClCompile Include="src\TNAH\Editor\EditorUI.cpp" />
     <ClCompile Include="src\TNAH\Layers\ImGuizmo.cpp" />
     <ClCompile Include="src\TNAH\Layers\UI.cpp" />
-    <ClCompile Include="src\TNAH\Physics\Physics.cpp" />
-    <ClCompile Include="src\TNAH\Physics\PhysicsAPI.cpp" />
     <ClCompile Include="src\TNAH\Physics\PhysicsEvents.cpp" />
     <ClCompile Include="src\TNAH\Physics\PhysicsTimestep.cpp" />
-    <ClCompile Include="src\TNAH\Physics\PhysicsValues.cpp" />
-    <ClCompile Include="src\TNAH\Physics\PhysicsWrapper.cpp" />
     <ClCompile Include="src\TNAH\Renderer\Image.cpp" />
     <ClCompile Include="src\TNAH\Renderer\Light.cpp" />
     <ClCompile Include="src\TNAH\Renderer\RenderingBuffers.cpp" />
@@ -77,7 +70,6 @@
   <ItemGroup>
     <ClInclude Include="PhysicsStructs.h" />
     <ClInclude Include="src\Platform\IrrKlang\Klang.h" />
-    <ClInclude Include="src\Platform\React\ReactPhysics.h" />
     <ClInclude Include="src\TNAH\Audio\Audio.h" />
     <ClInclude Include="src\TNAH\Audio\AudioAPI.h" />
     <ClInclude Include="src\TNAH\Core\Application.h" />

@@ -85,7 +85,7 @@ namespace tnah {
 
 		void EditorLayer::OnFixedUpdate(PhysicsTimestep ps)
 		{
-			if(m_ActiveScene != nullptr) m_ActiveScene->OnFixedUpdate(ps);
+			//if(m_ActiveScene != nullptr) m_ActiveScene->OnFixedUpdate(ps);
 		}
 
 		void EditorLayer::OnImGuiRender()
@@ -517,7 +517,7 @@ namespace tnah {
 				ImGui::Text("Debug");
 				if(ImGui::Button("Toggle Collider Render"))
 				{
-					Physics::ToggleColliderRendering();
+					Physics::PhysicsEngine::ToggleColliderRendering();
 				}
 				ImGui::End();
 			}

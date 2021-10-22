@@ -1,32 +1,52 @@
 ﻿#pragma once
-#pragma warning(push,0)
-#include <reactphysics3d/reactphysics3d.h>
 
+#pragma warning(push, 0)
+#include <reactphysics3d/reactphysics3d.h>
+#include <entt.hpp>
 #pragma warning(pop)
 
-#include <entt.hpp>
-#include "PhysicsStructs.h"
-#include "Rigidbody.h"
-#include "TNAH/Physics/PhysicsTimestep.h"
-#include "TNAH/Scene/Components/Components.h"
-#include "TNAH/Scene/Components/PhysicsComponents.h"
-#include "Rigidbody.h"
-#include "TNAH/Core/Timestep.h"
-
-namespace tnah 
+namespace tnah
 {
-	class Renderer;
-	class GameObject;
-}
+    /**
+     * @class	PhysicsEvents
+     *
+     * @brief	The physics event class that inherits from the react physics 3d eventListener class
+     *
+     * @author	Dylan Blereau
+     * @date	11/09/2021
+     */
 
-namespace tnah::Physics 
-{
-	class PhysicsManager : public RefCounted
-	{
-	public:
+    class PhysicsEvents : public rp3d::EventListener
+    {
+    public:
 
+        /**
+         * @fn	void PhysicsEvents::onContact(const CallbackData& callbackData) override;
+         *
+         * @brief	Event callback overriding React. Naming must be the same as React.
+         *
+         * @author	Dylan Blereau
+         * @date	11/09/2021
+         *
+         * @param 	callbackData	Information describing the callback.
+         */
 
-	};
+        void onContact(const CallbackData& callbackData) override;
 
+        /**
+         * @fn	void PhysicsEvents::onTrigger(const rp3d::OverlapCallback::CallbackData& callbackData) override;
+         *
+         * @brief	Event callback overriding React. Naming must be the same as React.
+         *
+         * @author	Dylan Blereau
+         * @date	11/09/2021
+         *
+         * @param 	callbackData	Information describing the callback.
+         */
+
+        void onTrigger(const rp3d::OverlapCallback::CallbackData& callbackData) override;
+    private:
+        //Maybe Reference to scene pointer
+    };
 }
 

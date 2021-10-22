@@ -144,7 +144,7 @@ namespace tnah {
 		 * @param 	deltaTime	The delta time.
 		 **************************************************************************************************/
 
-		void OnFixedUpdate(PhysicsTimestep deltaTime);
+		void OnFixedUpdate(Timestep deltaTime, PhysicsTimestep physicsDeltaTime);
 
 		/**********************************************************************************************//**
 		 * @fn	glm::mat4 Scene::GetTransformRelativeToParent(GameObject gameObject);

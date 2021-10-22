@@ -41,7 +41,7 @@ namespace tnah::Physics
 
 		void ResetValues();
 
-		bool& HasGravity() { return m_Gravity; }
+		bool& IgnoreGravity() { return m_Gravity; }
 		bool Sleeping() { return m_Sleep; }
 		void Awake() { m_Sleep = false; }
 		void Sleep() { m_Sleep = true; }
@@ -88,7 +88,7 @@ namespace tnah::Physics
 
 		bool m_Sleep = false;
 
-		bool m_Gravity = true;
+		bool m_Gravity = false;
 
 		friend class PhysicsEngine;
 		friend class EditorUI;
