@@ -67,7 +67,7 @@ namespace tnah
 
             //calc new velocity and new character position
             curVelocity = target * glm::length(curVelocity);
-            glm::vec3 displacement = curVelocity * time;
+            glm::vec3 displacement = curVelocity * time * m_MovementSpeed;
             glm::vec3 vec = curPos + displacement;
 
             SetVelocity(curVelocity);
@@ -81,10 +81,6 @@ namespace tnah
 
             if (toRealTarget.x == 0 && toRealTarget.y == 0 && toRealTarget.z == 0)
             {
-                if (realTargetPos.y < 25.0f)
-                {
-                    curPos = realTargetPos;
-                }
                 curPos = realTargetPos;
                 //SetPos(curPos);
                 m_TargetPosition = curPos;
@@ -92,20 +88,15 @@ namespace tnah
             }
 
             //check to see whether vec has gone pass the realTargetPos
-            float dp = glm::dot(toRealTarget, target);
-            TNAH_CORE_INFO("Distance {0}", dp);
+            float dp = glm::distance(toRealTarget, target);
+
             if (dp < 0.0)
             {
-                if (realTargetPos.y < 25.0f)
-                {
-                    curPos = realTargetPos;
-                }
-
-                //SetPos(curPos);
                 m_TargetPosition = curPos;
+                TNAH_CORE_INFO("Target pos {0} {1} {2}", toRealTarget.x, toRealTarget.y, toRealTarget.z);
                 return true;
             }
-            //std::cout << curPos.x << " " << curPos.y << " " << curPos.z << " | " << vec.x << " " << vec.y << " " << vec.z << std::endl;
+
             curPos = vec;
 
             //SetPos(curPos);

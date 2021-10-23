@@ -6,26 +6,19 @@ namespace tnah {
 
     void AIComponent::OnUpdate(Timestep deltaTime, glm::vec3 &pos)
     {
-        currentPosition.position = {pos.x, pos.y};
+        currentPosition.position = {static_cast<int>(round(pos.x)), static_cast<int>(round(pos.z))};
         if(currentlyWandering)
         {
             if(!currentPath.empty())
             {
-                TNAH_CORE_INFO("Not empty");
                 auto path = currentPath.back();
 
                 if(AStar::Reached(currentPosition.position, path))
                 {
                     currentPath.pop_back();
-                    if(!currentPath.empty())
-                    {
-                        moveTo(pos, glm::vec3(path.position.x, pos.y, path.position.y), m_Velocity, deltaTime.GetSeconds());
-                    }
                 }
                 else
-                {
                     moveTo(pos, glm::vec3(path.position.x, pos.y, path.position.y), m_Velocity, deltaTime.GetSeconds());
-                }
             }
             else
             {
@@ -38,7 +31,7 @@ namespace tnah {
             TNAH_CORE_INFO("Posiitons {0} {1}", n.position.x, n.position.y);
         }
 
-        currentPosition.position = {pos.x, pos.y};
+        currentPosition.position = {static_cast<int>(round(pos.x)), static_cast<int>(round(pos.z))};
         //if(wander(pos, deltaTime.GetSeconds()))
             //setWander(mWanderRadius, mWanderDistance, mWanderJitter);
         
