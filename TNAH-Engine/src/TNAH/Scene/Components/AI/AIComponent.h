@@ -22,7 +22,7 @@ namespace tnah
         AIComponent()
         {
             m_Velocity = glm::vec3(1, 0 , 1);
-            currentlyWandering = false;
+            currentlyWandering = true;
         }
 
         ~AIComponent()
@@ -56,7 +56,7 @@ namespace tnah
         */
         void OnUpdate(Timestep deltaTime, glm::vec3 &pos);
     private:
-        bool moveTo(glm::vec3& curPos, const glm::vec3& targetPos, glm::vec3& curVelocity, float time, float offset)
+        bool moveTo(glm::vec3& curPos, const glm::vec3& targetPos, glm::vec3& curVelocity, float time)
         {
             //calc heading from character position to target
             glm::vec3 target = targetPos - curPos;
@@ -73,7 +73,7 @@ namespace tnah
             SetVelocity(curVelocity);
 
             // calculate real target position
-            glm::vec3 realTargetPos = targetPos - target * offset;
+            glm::vec3 realTargetPos = targetPos - target;
 
             // calculate the direction from vec to realTargetPos
             glm::vec3 toRealTarget = realTargetPos - vec;
@@ -119,7 +119,7 @@ namespace tnah
         float m_MovementSpeed = 1.0f;
         bool m_MovementAllowed = true;
         glm::vec3 m_Velocity = {};
-        bool currentlyWandering = false;
+        bool currentlyWandering;
         //AStar stuff
         Node currentPosition;
         std::vector<Node> currentPath = {};

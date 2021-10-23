@@ -56,6 +56,8 @@ namespace tnah
             {
                 return true;
             }
+            
+            return false;
         }
 
         static double calculateH(glm::vec2 point, Node destination) {
@@ -68,23 +70,25 @@ namespace tnah
         {
             if(Reached(point.position, destination))
             {
+                TNAH_CORE_INFO("Empty");
                 return {};
             }
-            
+
             bool closedList[(X_MAX / X_STEP)][(Y_MAX / Y_STEP)];
             std::array<std::array<Node, (Y_MAX / Y_STEP)>,(X_MAX / X_STEP)> allMap;
+            TNAH_CORE_INFO("Size x{0} size {1} size step x {2} size step y {3} ", allMap.size(), allMap[0].size(), (X_MAX / X_STEP),(Y_MAX / Y_STEP));
             for (int x = 0; x < (X_MAX / X_STEP); x++) {
+                TNAH_CORE_INFO("X {0}", x);
                 for (int y = 0; y < (Y_MAX / Y_STEP); y++) {
                     allMap[x][y].f= FLT_MAX;
                     allMap[x][y].g = FLT_MAX;
                     allMap[x][y].h = FLT_MAX;
                     allMap[x][y].parent =  {-1, -1};
                     allMap[x][y].position = {x, y};
-
                     closedList[x][y] = false;
+                    TNAH_CORE_INFO("Y {0}",y);
                 }
             }
-
             glm::vec2 position = point.position;
             allMap[position.x][position.y].f = 0.0;
             allMap[position.x][position.y].g = 0.0;
@@ -147,6 +151,7 @@ namespace tnah
                 }
                 if (destinationFound == false)
                 {
+                    TNAH_CORE_INFO("Empty");
                     return {};
                 }
         }
@@ -184,7 +189,13 @@ namespace tnah
 
     static Node GenerateRandomPosition(glm::vec2 currentPosition)
         {
-            
+            while(1)
+            {
+                glm::vec2 newPos(rand() % X_MAX, rand() % Y_MAX);
+
+                if(newPos != currentPosition)
+                    return newPos;
+            }
         }
     private:
         int rowSize;
