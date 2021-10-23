@@ -4,6 +4,6 @@ namespace tnah
 {
     enum Actions
     {
-        sit, kick, punch, none, complement, pickup
+        sit, kick, punch, none, greeting, pickup, abuse, sleep
     };
 }

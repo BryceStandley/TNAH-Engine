@@ -25,10 +25,16 @@ namespace tnah
         virtual void CheckAction(float affordanceValue, float distance) = 0;
         void LogAction(std::string text, glm::vec4 colour);
         std::string name;
+        bool GetWander() {return wander;}
+        void SetWander(bool w) {wander = w;}
+        void SetSpeed(float s) {speed = s;}
+        float GetSpeed() {return speed;}
     private:
         float mDt;
         Actions mDesiredAction;
         float affordanceDistance;
+        bool wander = false;
+        float speed = 1.0f;
     };
 
     class Bin : public Character
@@ -48,6 +54,7 @@ namespace tnah
         glm::vec4 mColour;
         void SetAffordanceLevel(float a) {currentAffordanceLevel = a;}
         void SetActionDistance(float d) {actionDistance = d;}
+        std::shared_ptr<StateMachine<Bin>> GetFsm() {return mFsm;}
     private:
         glm::vec3 targetPos;
         std::shared_ptr<StateMachine<Bin>> mFsm;
@@ -76,6 +83,7 @@ namespace tnah
         glm::vec4 mColour;
         void SetAffordanceLevel(float a) {currentAffordanceLevel = a;}
         void SetActionDistance(float d) {actionDistance = d;}
+        std::shared_ptr<StateMachine<PlayerCharacter>> GetFsm() {return mFsm;}
     private:
         glm::vec3 targetPos;
         std::shared_ptr<StateMachine<PlayerCharacter>> mFsm;
