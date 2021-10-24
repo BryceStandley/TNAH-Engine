@@ -62,6 +62,20 @@ MainLayer::MainLayer()
 	
 	}
 
+	//Astar testing
+	{
+		std::string name = "AStar";
+		auto go = m_ActiveScene->CreateGameObject(name);
+
+		auto& mesh = go.AddComponent<tnah::MeshComponent>();
+		mesh.Model = tnah::Model::Create("assets/meshes/cube_texture.fbx");
+		go.Transform().Position = {-1.1f, -5000.0f, 0.6f};
+		go.Transform().Rotation = {0, 0, 0};
+		go.Transform().Scale = {0.1, 0.1, 0.1};
+
+		auto & a = go.AddComponent<tnah::AStarComponent>();
+	}
+
 	//Colliders Only
 	{
 		std::string name = "Front";
@@ -279,10 +293,10 @@ MainLayer::MainLayer()
 		tt.Position = {5.3, -3.7, 3.9};
 		tt.Rotation = binRotation;
 		tt.Scale = binScale;
-		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
-		auto& box = go.AddComponent<tnah::BoxColliderComponent>(glm::vec3(binSize));
+		//auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
+		//auto& box = go.AddComponent<tnah::BoxColliderComponent>(glm::vec3(binSize));
 		
-		box.Components.BodyCollider = rb.AddCollider(box.Components.Shape, rp3d::Transform::identity());
+		//box.Components.BodyCollider = rb.AddCollider(box.Components.Shape, rp3d::Transform::identity());
 		
 		go.AddComponent<tnah::AIComponent>();
 		go.AddComponent<tnah::CharacterComponent>(tnah::CharacterNames::Rubbish);

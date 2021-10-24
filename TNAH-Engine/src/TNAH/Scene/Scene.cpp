@@ -338,6 +338,37 @@ namespace tnah{
 						Renderer::SubmitCollider(lineArr, lineBuf,triArr,triBuf);
 					}
 				}
+
+				{
+					auto view = m_Registry.view<AStarComponent, MeshComponent, TransformComponent>();
+					{
+						for(auto entity : view)
+						{
+							auto& model = view.get<MeshComponent>(entity);
+							auto& transform = view.get<TransformComponent>(entity);
+							
+							auto array = AStar::GetMapPoints();
+
+							for(int x = 0; x < (X_MAX / X_STEP); x++)
+							{
+								for(int y = 0; y < (Y_MAX / Y_STEP); y++)
+								{
+									auto tempTransform = transform;
+									transform.Position.x = array[x][y].position.x;
+									tempTransform.Position.z = array[x][y].position.y;
+									tempTransform.Position.y = -3.7;
+									if(model.Model)
+									{
+										for (auto& mesh : model.Model->GetMeshes())
+										{
+											Renderer::SubmitMesh(mesh.GetMeshVertexArray(), mesh.GetMeshMaterial(), sceneLights, tempTransform.GetTransform());
+										}
+									}
+								}
+							}
+						}
+					}
+				}
 #pragma endregion
 
 #pragma region AudioListeners
@@ -388,14 +419,13 @@ namespace tnah{
 
 				{
 					auto objects = m_Registry.view<Affordance, TransformComponent>();
-					auto view = m_Registry.view<AIComponent, CharacterComponent, TransformComponent, RigidBodyComponent>();
+					auto view = m_Registry.view<AIComponent, CharacterComponent, TransformComponent>();
 					
 					for(auto entity : view)
 					{
 						auto &t = view.get<TransformComponent>(entity);
 						auto &ai = view.get<AIComponent>(entity);
 						auto &c = view.get<CharacterComponent>(entity);
-						auto &rb = view.get<RigidBodyComponent>(entity);
 						for(auto obj : objects)
 						{
 							auto & objTrasnform = objects.get<TransformComponent>(obj);
@@ -410,7 +440,6 @@ namespace tnah{
 
 						ai.SetTargetPosition(c.aiCharacter->OnUpdate(deltaTime));
 						ai.OnUpdate(deltaTime, t.Position);
-						rb.Body->setTransform(Math::ToRp3dTransform(t.Position));
 					}
 				}
 #pragma endregion 
