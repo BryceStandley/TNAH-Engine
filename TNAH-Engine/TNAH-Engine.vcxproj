@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BirdStates.cpp" />
     <ClCompile Include="src\Platform\IrrKlang\Klang.cpp" />
     <ClCompile Include="src\TNAH\Audio\Audio.cpp" />
     <ClCompile Include="src\TNAH\Audio\AudioAPI.cpp" />
@@ -78,8 +79,10 @@
     <ClCompile Include="src\TNAH\Scene\GameObject.cpp" />
     <ClCompile Include="src\TNAH\Scene\Scene.cpp" />
     <ClCompile Include="src\TNAH\Scene\Serializer.cpp" />
+    <ClCompile Include="StudentStates.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BirdStates.h" />
     <ClInclude Include="src\Platform\IrrKlang\Klang.h" />
     <ClInclude Include="src\TNAH\Audio\Audio.h" />
     <ClInclude Include="src\TNAH\Audio\AudioAPI.h" />
@@ -171,6 +174,7 @@
     <ClInclude Include="src\TNAH\Scene\Components\TerrainComponent.h" />
     <ClInclude Include="src\TNAH\Scene\Scene.h" />
     <ClInclude Include="src\TNAH\Scene\Serializer.h" />
+    <ClInclude Include="StudentStates.h" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\fonts\opensans\LICENSE.txt" />
@@ -282,7 +286,8 @@
       <AdditionalOptions> %(AdditionalOptions)</AdditionalOptions>
       <MultiProcessorCompilation>false</MultiProcessorCompilation>
       <MinimalRebuild>false</MinimalRebuild>
-      <DisableSpecificWarnings></DisableSpecificWarnings>
+      <DisableSpecificWarnings>
+      </DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
