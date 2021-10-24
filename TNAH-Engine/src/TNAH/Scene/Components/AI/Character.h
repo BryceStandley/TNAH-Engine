@@ -8,13 +8,13 @@ namespace tnah
 {
     enum CharacterNames
     {
-        Player, Rubbish
+        Rubbish, StudentAi, BirdAi
     };
     
     class Character
     {
     public:
-        virtual glm::vec3 OnUpdate(Timestep deltaTime) = 0;
+        virtual glm::vec3 OnUpdate(Timestep deltaTime,TransformComponent &transform) = 0;
         virtual ~Character() = default;
         float GetDeltaTime() const {return mDt;}
         void SetDeltaTime(const float t) {mDt = t;}
@@ -22,13 +22,14 @@ namespace tnah
         Actions GetDesiredAction() const {return mDesiredAction;}
         void SetDistance(const float d) {affordanceDistance = d;}
         float GetDistance() const {return affordanceDistance;}
-        virtual void CheckAction(float affordanceValue, float distance) = 0;
+        virtual bool CheckAction(float affordanceValue, float distance, std::string tag) = 0;
         void LogAction(std::string text, glm::vec4 colour);
         std::string name;
         bool GetWander() {return wander;}
         void SetWander(bool w) {wander = w;}
         void SetSpeed(float s) {speed = s;}
         float GetSpeed() {return speed;}
+        virtual void ApplyPlayerAction(PlayerActions givenAction) = 0;
     private:
         float mDt;
         Actions mDesiredAction;
@@ -41,20 +42,22 @@ namespace tnah
     {
     public:
         Bin();
-        glm::vec3 OnUpdate(Timestep deltaTime) override;
+        glm::vec3 OnUpdate(Timestep deltaTime,TransformComponent &transform) override;
         //GetEmotionComponent
         ~Bin() override
         {
 
         }
+        bool spin = false;
         bool canOutput = true;
         EmotionComponent GetEmotions() {return emotions;}
-        void CheckAction(float affordanceValue, float distance) override;
+        bool CheckAction(float affordanceValue, float distance, std::string tag) override;
         Emotion mCharacterState;
         glm::vec4 mColour;
         void SetAffordanceLevel(float a) {currentAffordanceLevel = a;}
         void SetActionDistance(float d) {actionDistance = d;}
         std::shared_ptr<StateMachine<Bin>> GetFsm() {return mFsm;}
+        void ApplyPlayerAction(PlayerActions givenAction) override;
     private:
         glm::vec3 targetPos;
         std::shared_ptr<StateMachine<Bin>> mFsm;
@@ -65,7 +68,36 @@ namespace tnah
         //Emotion Component
     };
 
-    class PlayerCharacter : public Character
+    class Student : public Character
+    {
+    public:
+        Student();
+        glm::vec3 OnUpdate(Timestep deltaTime,TransformComponent &transform) override;
+        //GetEmotionComponent
+        ~Student() override
+        {
+
+        }
+
+        bool canOutput = true;
+        EmotionComponent GetEmotions() {return emotions;}
+        bool CheckAction(float affordanceValue, float distance, std::string tag) override;
+        Emotion mCharacterState;
+        glm::vec4 mColour;
+        void SetAffordanceLevel(float a) {currentAffordanceLevel = a;}
+        void SetActionDistance(float d) {actionDistance = d;}
+        std::shared_ptr<StateMachine<Student>> GetFsm() {return mFsm;}
+        void ApplyPlayerAction(PlayerActions givenAction) override;
+    private:
+        glm::vec3 targetPos;
+        std::shared_ptr<StateMachine<Student>> mFsm;
+        float currentAffordanceLevel;
+        float BalanceRange(float min, float max, float balanceValue);
+        float actionDistance;
+        EmotionComponent emotions;
+    };
+
+    /*class PlayerCharacter : public Character
     {
     public:
         PlayerCharacter();
@@ -78,7 +110,7 @@ namespace tnah
         }
         
         bool canOutput = true;
-        void CheckAction(float affordanceValue, float distance) override;
+        bool CheckAction(float affordanceValue, float distance, std::string tag) override;
         Emotion mCharacterState;
         glm::vec4 mColour;
         void SetAffordanceLevel(float a) {currentAffordanceLevel = a;}
@@ -90,18 +122,28 @@ namespace tnah
         float currentAffordanceLevel;
         float BalanceRange(float min, float max, float balanceValue);
         float actionDistance;
-    };
+    };*/
 
     struct CharacterComponent
     {
-        CharacterComponent() = default;
+        CharacterComponent()
+        {
+            aiCharacter.reset(new Bin());
+        }
+        
         CharacterComponent(CharacterNames characterType)
         {
             switch (characterType)
             {
-                case Player:
+                /*case Player:
                     aiCharacter.reset(new PlayerCharacter());
+                    break;*/
+                case StudentAi:
+                    aiCharacter.reset(new Student());
                     break;
+                /*case BirdAi:
+                    aiCharacter.reset((new Bird));
+                    break;*/
                 case Rubbish:
                 default:
                     aiCharacter.reset(new Bin());

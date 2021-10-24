@@ -9,6 +9,7 @@
 #include "TNAH/Editor/EditorUI.h"
 #include "TNAH/Scene/Components/AI/Affordance.h"
 #include "TNAH/Scene/Components/AI/AIComponent.h"
+#include "TNAH/Scene/Components/AI/PlayerInteractions.h"
 
 MainLayer::MainLayer()
 	:Layer("Main Layer")
@@ -30,6 +31,10 @@ MainLayer::MainLayer()
 		box.Components.BodyCollider = rb.AddCollider(box.Components);
 		rb.Body->setAngularLockAxisFactor({0,1,0}); // Lock the rigidbody from falling over
 		rb.SetBodyType(rp3d::BodyType::DYNAMIC);
+		auto & aff = m_Camera.AddComponent<tnah::Affordance>();
+		m_Camera.AddComponent<tnah::PlayerInteractions>();
+		aff.SetActionValues(tnah::Actions::abuse, 1.0f);
+		aff.SetActionValues(tnah::Actions::greeting, 1.0f);
 		//m_Camera.AddComponent<tnah::AIComponent>();
 		//m_Camera.AddComponent<tnah::CharacterComponent>();
 	}
@@ -73,7 +78,7 @@ MainLayer::MainLayer()
 		go.Transform().Rotation = {0, 0, 0};
 		go.Transform().Scale = {0.1, 0.1, 0.1};
 
-		auto & a = go.AddComponent<tnah::AStarComponent>();
+		//auto & a = go.AddComponent<tnah::AStarComponent>();
 	}
 
 	//Colliders Only
@@ -770,12 +775,23 @@ void MainLayer::OnImGuiRender()
 			ImGui::TextColored(colour, queue[i].text.c_str());
 		}
 	ImGui::End();
+
+	ImGui::SetNextWindowSize({400, 500});
+	ImGui::SetNextWindowPos({display.x - 400, pos.y}, true);
+								
+	ImGui::Begin("Can Interact", 0, ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoBackground);
 	
+	if(m_ActiveScene->GetPlayerInteraction())
+	{
+		ImGui::Text("U to pump them up (increase arousal)");
+		ImGui::Text("I to calm them down (decrease arousal)");
+		ImGui::Text("P to compliment them (increase valence)");
+		ImGui::Text("O to insult them (decrease valence)");
+	}
+	
+	ImGui::End();	
 	if(m_CloseScreen)
 	{
-		auto io = ImGui::GetIO();
-		auto display = ImGui::GetIO().DisplaySize;
-		auto pos  = ImGui::GetWindowViewport()->Pos;
 		//ImGui::SetNextWindowSize({size.x, size.y});
 		ImGui::SetNextWindowSize({display.x + 10, display.y + 10});
 		ImGui::SetNextWindowPos({pos.x - 10, pos.y - 10}, true);

@@ -49,4 +49,5 @@ namespace tnah
     typedef  singleton<ChillBin> ChillStateBin;
     typedef  singleton<PissedOffBin> PissedOffStateBin;
     typedef  singleton<HappyBin> HappyStateBin;
+    typedef  singleton<GlobalBin> GlobalStateBin;
 }

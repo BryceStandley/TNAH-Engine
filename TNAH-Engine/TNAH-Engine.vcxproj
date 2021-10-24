@@ -63,6 +63,7 @@
     <ClCompile Include="src\TNAH\Scene\Components\AI\Characters\BinStates.cpp" />
     <ClCompile Include="src\TNAH\Scene\Components\AI\Emotion.cpp" />
     <ClCompile Include="src\TNAH\Scene\Components\AI\EmotionComponent.cpp" />
+    <ClCompile Include="src\TNAH\Scene\Components\AI\PlayerInteractions.cpp" />
     <ClCompile Include="src\TNAH\Scene\Components\AI\StateMachine.cpp" />
     <ClCompile Include="src\TNAH\Scene\Components\AnimatorComponent.cpp" />
     <ClCompile Include="src\TNAH\Scene\Components\PhysicsComponents.cpp" />
@@ -129,6 +130,7 @@
     <ClInclude Include="src\TNAH\Scene\Components\AI\Characters\BinStates.h" />
     <ClInclude Include="src\TNAH\Scene\Components\AI\Emotion.h" />
     <ClInclude Include="src\TNAH\Scene\Components\AI\EmotionComponent.h" />
+    <ClInclude Include="src\TNAH\Scene\Components\AI\PlayerInteractions.h" />
     <ClInclude Include="src\TNAH\Scene\Components\AI\StateMachine.h" />
     <ClInclude Include="src\TNAH\Scene\Components\AnimatorComponent.h" />
     <ClInclude Include="src\TNAH\Scene\Components\ComponentIdentification.h" />

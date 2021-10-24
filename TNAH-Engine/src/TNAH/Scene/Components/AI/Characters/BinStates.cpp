@@ -107,20 +107,22 @@ namespace tnah
         switch (emotion)
         {
             case Emotion::Happy:
-                owner->SetDesiredAction(Actions::none);
-                owner->SetActionDistance(10.0f);
-                owner->SetAffordanceLevel(0.0f);
+                owner->SetDesiredAction(Actions::greeting);
+                owner->SetActionDistance(7.0f);
+                owner->SetAffordanceLevel(0.1f);
+                owner->spin = false;
                 break;
             case Emotion::Delighted:
                 owner->SetDesiredAction(Actions::greeting);
                 owner->SetActionDistance(5.0f);
                 owner->SetAffordanceLevel(1.0f);
+                owner->spin = false;
                 break;
             case Emotion::Excited:
                 owner->SetDesiredAction(Actions::greeting);
-                owner->SetActionDistance(10.0f);
+                owner->SetActionDistance(9.0f);
                 owner->SetAffordanceLevel(0.5f);
-                //Something that tells them to dance or spins their transform
+                owner->spin = true;
                 break;
             default:
                 break;
@@ -129,12 +131,14 @@ namespace tnah
 
     void HappyBin::Exit(Bin* owner)
     {
+        owner->spin = false;
         owner->SetWander(false);
+        owner->canOutput = true;
     }
 
     void ChillBin::Enter(Bin* owner)
     {
-        
+
     }
 
     void ChillBin::Execute(Bin* owner)
@@ -144,13 +148,14 @@ namespace tnah
 
     void ChillBin::Exit(Bin* owner)
     {
-        
+
     }
 
     void PissedOffBin::Enter(Bin* owner)
     {
         owner->SetWander(true);
         owner->SetSpeed(1.5f);
+        owner->canOutput = true;
     }
 
     void PissedOffBin::Execute(Bin* owner)
@@ -186,6 +191,7 @@ namespace tnah
     {
         owner->SetWander(false);
         owner->SetSpeed(1.0f);
+        owner->canOutput = true;
     }
 
     void SadBin::Enter(Bin* owner)
@@ -227,5 +233,6 @@ namespace tnah
     {
         owner->SetWander(false);
         owner->SetSpeed(1.0f);
+        owner->canOutput = true;
     }
 }

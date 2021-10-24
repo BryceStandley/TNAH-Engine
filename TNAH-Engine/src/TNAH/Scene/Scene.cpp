@@ -11,6 +11,7 @@
 
 #include "Components/AI/Affordance.h"
 #include "Components/AI/AIComponent.h"
+#include "Components/AI/PlayerInteractions.h"
 
 namespace tnah{
 
@@ -420,7 +421,7 @@ namespace tnah{
 				{
 					auto objects = m_Registry.view<Affordance, TransformComponent>();
 					auto view = m_Registry.view<AIComponent, CharacterComponent, TransformComponent>();
-					
+					auto player = m_Registry.view<PlayerInteractions, TransformComponent>();
 					for(auto entity : view)
 					{
 						auto &t = view.get<TransformComponent>(entity);
@@ -434,11 +435,44 @@ namespace tnah{
 							if(glm::distance(objTrasnform.Position, t.Position) < c.aiCharacter->GetDistance())
 							{
 								float affordanceValue = affordance.GetActionValue(c.aiCharacter->GetDesiredAction());
-								c.aiCharacter->CheckAction(affordanceValue, glm::distance(objTrasnform.Position, t.Position));
+								bool event = c.aiCharacter->CheckAction(affordanceValue, glm::distance(objTrasnform.Position, t.Position), "");
 							}
 						}
 
-						ai.SetTargetPosition(c.aiCharacter->OnUpdate(deltaTime));
+						for(auto p : player)
+						{
+							auto & playerTransform = player.get<TransformComponent>(p);
+							auto & interactions = player.get<PlayerInteractions>(p);
+
+							if(glm::distance(playerTransform.Position, t.Position) < interactions.distance)
+							{
+								mPlayerInteractions = true;
+								if(Input::IsKeyPressed(Key::U))
+								{
+									c.aiCharacter->ApplyPlayerAction(PlayerActions::insult);
+								}
+								else if(Input::IsKeyPressed(Key::I))
+								{
+									c.aiCharacter->ApplyPlayerAction(PlayerActions::calm);
+								}
+								else if(Input::IsKeyPressed(Key::P))
+								{
+									c.aiCharacter->ApplyPlayerAction(PlayerActions::compliment);
+								}
+								else if(Input::IsKeyPressed(Key::O))
+								{
+									c.aiCharacter->ApplyPlayerAction(PlayerActions::insult);
+								}
+							}
+							else
+							{
+								mPlayerInteractions = false;
+							}
+						}
+
+						ai.SetTargetPosition(c.aiCharacter->OnUpdate(deltaTime, t));
+						ai.SetWander(c.aiCharacter->GetWander());
+						ai.SetMovementSpeed(c.aiCharacter->GetSpeed());
 						ai.OnUpdate(deltaTime, t.Position);
 					}
 				}

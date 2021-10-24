@@ -286,6 +286,7 @@ namespace tnah {
 
 		std::map<UUID, GameObject>& GetGameObjectsInScene();
 
+		bool GetPlayerInteraction() {return mPlayerInteractions;}
 	private:
 
 		/**********************************************************************************************//**
@@ -430,6 +431,8 @@ namespace tnah {
 
 		/** @brief	The listener */
 		rp3d::EventListener * listener;
+
+		bool mPlayerInteractions;
 		
 		friend class EditorLayer;
 		friend class Editor;

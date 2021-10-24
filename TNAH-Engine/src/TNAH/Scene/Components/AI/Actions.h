@@ -6,4 +6,9 @@ namespace tnah
     {
         sit, kick, punch, none, greeting, pickup, abuse, sleep
     };
+
+    enum PlayerActions
+    {
+        pumpUp, calm, compliment, insult
+    };
 }

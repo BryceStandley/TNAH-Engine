@@ -69,10 +69,10 @@ namespace tnah
         {
             if (point.CheckSame(destination.position))
             {
-                TNAH_CORE_INFO("This returned true");
+                //TNAH_CORE_INFO("This returned true");
                 return true;
             }
-            TNAH_CORE_INFO("This returned false");
+            //TNAH_CORE_INFO("This returned false");
             return false;
         }
 
@@ -173,7 +173,7 @@ namespace tnah
                 }
                 if (destinationFound == false)
                 {
-                    TNAH_CORE_INFO("D Empty");
+                    //TNAH_CORE_INFO("D Empty");
                     return {};
                 }
         }
@@ -214,7 +214,7 @@ namespace tnah
             while(1)
             {
                 Int2 newPos(rand() % (X_MAX / X_STEP), rand() % (Y_MAX / Y_STEP));
-                TNAH_CORE_INFO("New pos X{0} Y{1}", newPos.x, newPos.y);
+                //TNAH_CORE_INFO("New pos X{0} Y{1}", newPos.x, newPos.y);
                 if(!newPos.CheckSame(currentPosition))
                     return newPos;
             }

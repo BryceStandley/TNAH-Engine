@@ -115,14 +115,17 @@ public:
 		*/
 	void changeState(State<entity>*newState)
 	{
-			///the current state becomes the previous state
-		previousState = currentState;
+		if(currentState != nullptr)
+		{
+			previousState = currentState;
 			///exit state
-		currentState->Exit(owner);
+			currentState->Exit(owner);
 			///change current state to new state
+		}
+		
 		currentState = newState;
-			///enter the new current state
-		currentState->Enter(owner);
+		///enter the new current state
+		currentState->Enter(owner);	
 	}
 
 		/*

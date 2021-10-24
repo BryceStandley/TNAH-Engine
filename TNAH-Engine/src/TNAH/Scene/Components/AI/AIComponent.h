@@ -41,8 +41,8 @@ namespace tnah
         bool MovementAllowed() const;
         void SetMovementAllowed(bool movementAllowed);
         void SetVelocity(const glm::vec3 vel) { m_Velocity = vel; }
-        void StartWander() {currentlyWandering = true;}
-        void StopWander() {currentlyWandering = false;}
+        void SetWander(bool w) {currentlyWandering = w;}
+        bool GetWander() const {return currentlyWandering;}
         /**
         * @fn void OnUpdate(Timestep deltaTime) 
         * 
@@ -93,7 +93,6 @@ namespace tnah
             if (dp < 0.0)
             {
                 m_TargetPosition = curPos;
-                TNAH_CORE_INFO("Target pos {0} {1} {2}", toRealTarget.x, toRealTarget.y, toRealTarget.z);
                 return true;
             }
 
