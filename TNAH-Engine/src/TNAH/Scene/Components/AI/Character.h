@@ -164,15 +164,12 @@ namespace tnah
         {
             switch (characterType)
             {
-                /*case Player:
-                    aiCharacter.reset(new PlayerCharacter());
-                    break;*/
-                case StudentAi:
+                /*case StudentAi:
                     aiCharacter.reset(new Student());
                     break;
                 case BirdAi:
                     aiCharacter.reset((new Bird()));
-                    break;
+                    break;*/
                 case Rubbish:
                 default:
                     aiCharacter.reset(new Bin());

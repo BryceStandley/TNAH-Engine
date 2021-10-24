@@ -471,8 +471,22 @@ namespace tnah{
 
 							if(glm::distance(objTrasnform.Position, t.Position) < c.aiCharacter->GetDistance())
 							{
-								float affordanceValue = affordance.GetActionValue(c.aiCharacter->GetDesiredAction());
-								bool event = c.aiCharacter->CheckAction(affordanceValue, glm::distance(objTrasnform.Position, t.Position), "");
+									float affordanceValue = affordance.GetActionValue(c.aiCharacter->GetDesiredAction());
+									bool event = c.aiCharacter->CheckAction(affordanceValue, glm::distance(objTrasnform.Position, t.Position), "");
+
+									if(event)
+									{
+										Int2 new_pos = AStar::GenerateRandomPosition(Int2(objTrasnform.Position.x, objTrasnform.Position.z)).position;
+										switch (c.aiCharacter->GetDesiredAction())
+										{
+										case Actions::pickup:
+											objTrasnform.Position.x = new_pos.x;
+											objTrasnform.Position.z = new_pos.y;
+											break;
+										default:
+											break;
+										}
+									}	
 							}
 						}
 

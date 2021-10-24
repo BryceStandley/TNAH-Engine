@@ -240,6 +240,7 @@ MainLayer::MainLayer()
 		auto& mesh = go.AddComponent<tnah::MeshComponent>();
 		mesh.Model = tnah::Model::Create("assets/meshes/newBush.fbx");
 	}
+	
 	{
 		std::string name = "Bush (2)";
 		
@@ -285,6 +286,66 @@ MainLayer::MainLayer()
 		//tt.Scale = bushScale - glm::vec3(0.76);
 		auto& mesh = go.AddComponent<tnah::MeshComponent>();
 		mesh.Model = tnah::Model::Create("assets/meshes/newBush.fbx");
+	}
+
+	{
+		std::string name = "coffee cup 1";
+		glm::vec3 size(0.25, 0.5, 0.25);
+		auto&go = m_ActiveScene->CreateGameObject(name);
+		auto&tt = go.Transform();
+		auto& mesh = go.AddComponent<tnah::MeshComponent>();
+		mesh.Model = tnah::Model::Create("assets/meshes/bin.fbx");
+		
+		tt.Position = {1, -3.7, 3};
+		tt.Scale = size;
+		/*auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
+		auto& box = go.AddComponent<tnah::BoxColliderComponent>(glm::vec3(size));
+		
+		box.Components.BodyCollider = rb.AddCollider(box.Components.Shape, rp3d::Transform::identity());
+		rb.SetBodyType(rp3d::BodyType::STATIC);*/
+		
+		auto& affordance = go.AddComponent<tnah::Affordance>();
+		affordance.SetActionValues(tnah::Actions::pickup, 1.0f);
+	}
+
+	{
+		std::string name = "coffee cup 2";
+		glm::vec3 size(0.25, 0.5, 0.25);
+		auto&go = m_ActiveScene->CreateGameObject(name);
+		auto&tt = go.Transform();
+		auto& mesh = go.AddComponent<tnah::MeshComponent>();
+		mesh.Model = tnah::Model::Create("assets/meshes/cube_texture.fbx");
+		
+		tt.Position = {8, -3.7, 7};
+		tt.Scale = size;
+		/*auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
+		auto& box = go.AddComponent<tnah::BoxColliderComponent>(glm::vec3(size));
+		
+		box.Components.BodyCollider = rb.AddCollider(box.Components.Shape, rp3d::Transform::identity());
+		rb.SetBodyType(rp3d::BodyType::STATIC);*/
+		
+		auto& affordance = go.AddComponent<tnah::Affordance>();
+		affordance.SetActionValues(tnah::Actions::pickup, 1.0f);
+	}
+
+	{
+		std::string name = "rest mat";
+		glm::vec3 size(0.25, 0.5, 0.25);
+		auto&go = m_ActiveScene->CreateGameObject(name);
+		auto&tt = go.Transform();
+		auto& mesh = go.AddComponent<tnah::MeshComponent>();
+		mesh.Model = tnah::Model::Create("assets/meshes/cube_textured.fbx");
+		
+		tt.Position = {8, -3.7, 7};
+		tt.Scale = size;
+		/*auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
+		auto& box = go.AddComponent<tnah::BoxColliderComponent>(glm::vec3(size));
+		
+		box.Components.BodyCollider = rb.AddCollider(box.Components.Shape, rp3d::Transform::identity());
+		rb.SetBodyType(rp3d::BodyType::STATIC);*/
+		
+		auto& affordance = go.AddComponent<tnah::Affordance>();
+		affordance.SetActionValues(tnah::Actions::sleep, 1.0f);
 	}
 	
 	glm::vec3 binSize(1, 1, 1), binScale(0.3, 0.3, 0.3), binRotation(-1.55, 0, 0);

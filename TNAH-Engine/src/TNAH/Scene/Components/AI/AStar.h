@@ -7,9 +7,8 @@ namespace tnah
     {
         int x;
         int y;
-
-        Int2(int o, int t) : x(o), y(t) {}
-
+        
+        Int2(int o = 0, int t = 0) : x(o), y(t) {}
         bool CheckSame(Int2 other)
         {
             if(x == other.x && y == other.y)

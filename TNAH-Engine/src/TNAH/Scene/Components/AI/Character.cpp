@@ -18,8 +18,8 @@ namespace tnah
         mColour = glm::vec4(1, 1, 0, 1);
         currentAffordanceLevel = 1.0f;
         //Temporary stuff
-        emotions.AddTrait(Trait::Happy);
-        emotions.AddTrait(Trait::Carefree);
+        emotions.AddTrait(Trait::Aggressive);
+        emotions.AddTrait(Trait::Impatient);
         emotions.SetMood(Mood::Happy);
         mCharacterState = emotions.GetEmotion();
         Character::name = "bin";
