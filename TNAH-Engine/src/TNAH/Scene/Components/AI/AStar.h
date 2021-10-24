@@ -84,11 +84,11 @@ namespace tnah
         
         static std::vector<Node> Algorithm(Node point, Node destination)
         {
-            /*if(!IsValid(destination.position))
+            if(!IsValid(destination.position))
             {
                 TNAH_CORE_INFO("Empty");
                 return {};
-            }*/
+            }
             if(!IsValid(point.position))
             {
                 TNAH_CORE_INFO("Starting Empty");
@@ -178,7 +178,7 @@ namespace tnah
                 }
         }
 
-        static std::vector<Node> makePath(std::array<std::array<Node, (Y_MAX / Y_STEP)>, (X_MAX / X_STEP)> map, Node destination) {
+        static std::vector<Node> makePath(std::unordered_map<int, std::unordered_map<int, Node>> map, Node destination) {
             try {
                 int x = destination.position.x;
                 int y = destination.position.y;
@@ -219,7 +219,7 @@ namespace tnah
                     return newPos;
             }
         }
-    static std::array<std::array<Node, (Y_MAX / Y_STEP)>,(X_MAX / X_STEP)> GetMapPoints()
+    static std::unordered_map<int, std::unordered_map<int, Node>> GetMapPoints()
         {
             if(!generated)
             {
@@ -238,7 +238,8 @@ namespace tnah
         int rowSize;
         int colSize;
         inline static bool generated = false;
-        static std::array<std::array<Node, (Y_MAX / Y_STEP)>,(X_MAX / X_STEP)> allMap;
+        //static std::array<std::array<Node, (Y_MAX / Y_STEP)>,(X_MAX / X_STEP)> allMap;
+        static std::unordered_map<int, std::unordered_map<int, Node>> allMap;
     };
 
     struct AStarComponent
