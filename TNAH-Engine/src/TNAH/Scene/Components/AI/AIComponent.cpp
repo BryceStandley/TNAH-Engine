@@ -12,7 +12,6 @@ namespace tnah {
             if(!currentPath.empty())
             {
                 const auto path = currentPath.front();
-                TNAH_CORE_INFO("Path point {0} {1} Size{2}", path.position.x, path.position.y, currentPath.size());
                 if(!AStar::IsValid(path.position))
                 {
                     currentPath = {};
@@ -28,8 +27,6 @@ namespace tnah {
                 currentPath = AStar::Algorithm(currentPosition, destination);
             }
         }
-
-        TNAH_CORE_INFO("Dest {0} {1}", destination.position.x, destination.position.y);
 
         currentPosition.position = {static_cast<int>(round(pos.x)), static_cast<int>(round(pos.z))};
     }

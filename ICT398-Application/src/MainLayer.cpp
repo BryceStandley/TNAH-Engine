@@ -623,7 +623,7 @@ void MainLayer::OnFixedUpdate(tnah::PhysicsTimestep ps)
 
 void MainLayer::OnImGuiRender()
 {
-	auto& terr = m_Terrain.Transform();
+	/*auto& terr = m_Terrain.Transform();
 	auto& ct = m_Camera.Transform();
 	auto& l = m_SceneLight.GetComponent<tnah::LightComponent>();
 	auto& lt = m_SceneLight.Transform();
@@ -764,6 +764,7 @@ void MainLayer::OnImGuiRender()
 	}
 	
 	ImGui::End();
+	*/
 
 	auto io = ImGui::GetIO();
 	auto display = ImGui::GetIO().DisplaySize;
