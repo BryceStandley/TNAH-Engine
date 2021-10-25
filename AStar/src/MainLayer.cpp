@@ -9,12 +9,13 @@
 #include "TNAH/Editor/EditorUI.h"
 #include "TNAH/Scene/Components/AI/Affordance.h"
 #include "TNAH/Scene/Components/AI/AIComponent.h"
+#include "TNAH/Scene/Components/AI/CharacterComponent.h"
 #include "TNAH/Scene/Components/AI/PlayerInteractions.h"
 
 MainLayer::MainLayer()
 	:Layer("Main Layer")
 {
-	tnah::AStar::Init(tnah::Int2(-9,1), tnah::Int2(22, 9));
+	tnah::AStar::Init(tnah::Int2(-18,-10), tnah::Int2(40, 30));
 	m_ActiveScene = tnah::Scene::CreateEmptyScene();
 	m_Camera = m_ActiveScene->GetSceneCamera();
 	auto& ct = m_Camera.Transform();
@@ -24,9 +25,7 @@ MainLayer::MainLayer()
 	ct.Rotation = glm::vec3(glm::radians(90.0f), 0, 0);
 	cc.ClearMode = tnah::CameraClearMode::Skybox;
 	auto& m_Skybox = m_Camera.AddComponent<tnah::SkyboxComponent>();
-
-	
-	
+		
 	m_SceneLight = m_ActiveScene->GetSceneLight();
 
 	m_Terrain = m_ActiveScene->CreateGameObject("Terrain");
@@ -61,7 +60,7 @@ MainLayer::MainLayer()
 		auto go = m_ActiveScene->CreateGameObject(name);
 
 		auto& mesh = go.AddComponent<tnah::MeshComponent>();
-		mesh.Model = tnah::Model::Create("assets/meshes/sphere.fbx");
+		mesh.Model = tnah::Model::Create("assets/meshes/a.fbx");
 		go.Transform().Position = {-5000.0f, -5000.0f, -5000.0f};
 		go.Transform().Rotation = {0, 0, 0};
 		go.Transform().Scale = {0.1, 0.1, 0.1};
@@ -104,6 +103,14 @@ MainLayer::MainLayer()
 		auto&go = m_ActiveScene->CreateGameObject(name);
 		auto&tt = go.Transform();
 		tt.Position = {-5, -4, 1};
+		tt.astar = true;
+	}
+
+	{
+		std::string name = "Object 2";
+		auto&go = m_ActiveScene->CreateGameObject(name);
+		auto&tt = go.Transform();
+		tt.Position = {-10, -4, 5};
 		tt.astar = true;
 	}
 	

@@ -54,10 +54,10 @@ namespace tnah
         *
         *
         */
-        void OnUpdate(Timestep deltaTime, glm::vec3 &pos);
+        void OnUpdate(Timestep deltaTime, TransformComponent &trans);
         std::deque<Node> GetPositions() {return currentPath;}
     private:
-        bool moveTo(glm::vec3& curPos, const glm::vec3& targetPos, glm::vec3& curVelocity, float time)
+        bool moveTo(glm::vec3& curPos, const glm::vec3& targetPos, glm::vec3& curVelocity, float time, glm::vec3 &rot)
         {
             //calc heading from character position to target
             glm::vec3 target = targetPos - curPos;
@@ -78,8 +78,8 @@ namespace tnah
 
             // calculate the direction from vec to realTargetPos
             glm::vec3 toRealTarget = realTargetPos - vec;
+            //rot = toRealTarget;
             toRealTarget = glm::normalize(toRealTarget);
-
             if (toRealTarget.x == 0 && toRealTarget.y == 0 && toRealTarget.z == 0)
             {
                 curPos = realTargetPos;

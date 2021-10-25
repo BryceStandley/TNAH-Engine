@@ -4,9 +4,9 @@
 namespace tnah {
 
 
-    void AIComponent::OnUpdate(Timestep deltaTime, glm::vec3 &pos)
+    void AIComponent::OnUpdate(Timestep deltaTime, TransformComponent &trans)
     {
-        currentPosition.position = {static_cast<int>(round(pos.x)), static_cast<int>(round(pos.z))};
+        currentPosition.position = {static_cast<int>(round(trans.Position.x)), static_cast<int>(round(trans.Position.z))};
         if(currentlyWandering)
         {
             if(!currentPath.empty())
@@ -16,7 +16,7 @@ namespace tnah {
                 {
                     currentPath = {};
                 }
-                else if(AStar::Reached(currentPosition.position, path) || moveTo(pos, glm::vec3(path.position.x, pos.y, path.position.y), m_Velocity, deltaTime.GetSeconds()))
+                else if(AStar::Reached(currentPosition.position, path) || moveTo(trans.Position, glm::vec3(path.position.x, trans.Position.y, path.position.y), m_Velocity, deltaTime.GetSeconds(), trans.Rotation))
                 {
                     currentPath.pop_front();
                 }
@@ -28,7 +28,7 @@ namespace tnah {
             }
         }
 
-        currentPosition.position = {static_cast<int>(round(pos.x)), static_cast<int>(round(pos.z))};
+        currentPosition.position = {static_cast<int>(round(trans.Position.x)), static_cast<int>(round(trans.Position.z))};
     }
 
 }

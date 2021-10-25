@@ -525,7 +525,7 @@ namespace tnah{
 						ai.SetTargetPosition(c.aiCharacter->OnUpdate(deltaTime, t));
 						ai.SetWander(c.aiCharacter->GetWander());
 						ai.SetMovementSpeed(c.aiCharacter->GetSpeed());
-						ai.OnUpdate(deltaTime, t.Position);
+						ai.OnUpdate(deltaTime, t);
 						if(Application::Get().GetDebugModeStatus())
 						{
 							for(auto entity : view2)
@@ -556,6 +556,8 @@ namespace tnah{
 						rb.Body->setTransform(Math::ToRp3dTransform(t));
 				}
 					}
+
+				AStar::Update();
 				
 #pragma endregion 
 

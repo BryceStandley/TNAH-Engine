@@ -56,9 +56,12 @@ namespace tnah
                 return true;
         }
 
-        bool NotBlocked()
+        static void Update()
         {
-                
+            for(Int2 values : usedPositionsHolder)
+            {
+                usedPositions[values.x][values.y] = false;
+            }
         }
         
         static bool Reached(Int2 point, Node destination)
@@ -258,6 +261,7 @@ namespace tnah
         static void AddUsedPosition(Int2 position)
         {
             usedPositions[position.x][position.y] = true;
+            usedPositionsHolder.push_back(position);
             /*usedPositions[position.x-1][position.y] = true;
             usedPositions[position.x+1][position.y] = true;
             usedPositions[position.x][position.y-1] = true;
@@ -282,6 +286,7 @@ namespace tnah
         inline static std::unordered_map<int, std::unordered_map<int, bool>> usedPositions = std::unordered_map<int, std::unordered_map<int, bool>>();
         //static std::array<std::array<Node, (Y_MAX / Y_STEP)>,(X_MAX / X_STEP)> allMap;
         static std::unordered_map<int, std::unordered_map<int, Node>> allMap;
+        inline static std::vector<Int2> usedPositionsHolder = std::vector<Int2>();
     };
 
     struct AStarComponent

@@ -9,6 +9,7 @@
 #include "TNAH/Editor/EditorUI.h"
 #include "TNAH/Scene/Components/AI/Affordance.h"
 #include "TNAH/Scene/Components/AI/AIComponent.h"
+#include "TNAH/Scene/Components/AI/CharacterComponent.h"
 #include "TNAH/Scene/Components/AI/PlayerInteractions.h"
 
 MainLayer::MainLayer()
@@ -18,6 +19,7 @@ MainLayer::MainLayer()
 	m_ActiveScene = tnah::Scene::CreateEmptyScene();
 	m_Camera = m_ActiveScene->GetSceneCamera();
 	auto& ct = m_Camera.Transform();
+	ct.astar = true;
 	auto& cc = m_Camera.GetComponent<tnah::CameraComponent>();
 	cc.Camera.SetViewportSize(1280, 720);
 	ct.Position = glm::vec3(0, 0, 1);
@@ -334,7 +336,7 @@ MainLayer::MainLayer()
 		auto&go = m_ActiveScene->CreateGameObject(name);
 		auto&tt = go.Transform();
 		auto& mesh = go.AddComponent<tnah::MeshComponent>();
-		mesh.Model = tnah::Model::Create("assets/meshes/cube_textured.fbx");
+		mesh.Model = tnah::Model::Create("assets/meshes/cube_texture.fbx");
 		
 		tt.Position = {8, -3.7, 7};
 		tt.Scale = size;
@@ -359,15 +361,36 @@ MainLayer::MainLayer()
 		
 		tt.Position = {5.3, -3.7, 3.9};
 		tt.Rotation = binRotation;
-		tt.Scale = binScale;
+		tt.Scale = binScale / glm::vec3(2);
 		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
-		auto& box = go.AddComponent<tnah::BoxColliderComponent>(glm::vec3(binSize));
+		auto& box = go.AddComponent<tnah::BoxColliderComponent>(glm::vec3(binSize/ glm::vec3(2)));
 		
 		box.Components.BodyCollider = rb.AddCollider(box.Components.Shape, rp3d::Transform::identity());
 		rb.SetBodyType(rp3d::BodyType::STATIC);
 		
 		go.AddComponent<tnah::AIComponent>();
 		go.AddComponent<tnah::CharacterComponent>(tnah::CharacterNames::Rubbish);
+	}
+	
+	{
+		std::string name = "Student";
+		glm::vec3 studentCollider = {0.3, 0.4, 0.7};
+		auto&go = m_ActiveScene->CreateGameObject(name);
+		auto&tt = go.Transform();
+		auto& mesh = go.AddComponent<tnah::MeshComponent>();
+		mesh.Model = tnah::Model::Create("assets/meshes/Puppy3.fbx");
+		
+		tt.Position = {8, -3.9, 4};
+		tt.Rotation = glm::vec3(0, glm::radians(90.0f), 0);
+		tt.Scale = glm::vec3(0.015);
+		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
+		auto& box = go.AddComponent<tnah::BoxColliderComponent>(glm::vec3(studentCollider));
+		
+		box.Components.BodyCollider = rb.AddCollider(box.Components.Shape, rp3d::Transform::identity());
+		rb.SetBodyType(rp3d::BodyType::STATIC);
+		
+		go.AddComponent<tnah::AIComponent>();
+		go.AddComponent<tnah::CharacterComponent>(tnah::CharacterNames::StudentAi);
 	}
 
 	{
