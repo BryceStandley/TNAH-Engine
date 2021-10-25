@@ -13,14 +13,20 @@ namespace tnah
         SetDesiredAction(sit);
         SetDistance(10);
         actionDistance = 1.5;
-        mColour = glm::vec4(1, 1, 0, 1);
+        mColour = glm::vec4(0, 1, 0, 0);
         currentAffordanceLevel = 1.0f;
-        //Temporary stuff
+        
+        emotions.SetArousal(-0.33f);
+        emotions.SetValence(0.5f);
+        
         emotions.AddTrait(Trait::Happy);
         emotions.AddTrait(Trait::Carefree);
+        emotions.AddTrait(Trait::Impatient);
+        
         emotions.SetMood(Mood::Happy);
+
         mCharacterState = emotions.GetEmotion();
-        Character::name = "student";
+        Character::name = "Student";
         //mFsm->setCurrentState
     }
 

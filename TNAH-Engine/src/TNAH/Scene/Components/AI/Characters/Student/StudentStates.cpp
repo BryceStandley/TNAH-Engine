@@ -207,13 +207,13 @@ namespace tnah
         switch (emotion)
         {
         case Emotion::Depressed:
-            owner->SetDesiredAction(Actions::pickup);
+            owner->SetDesiredAction(Actions::none);
             owner->SetActionDistance(3.0f);
             owner->SetAffordanceLevel(0.5f);
             owner->SetSpeed(0.75f);
             break;
         case Emotion::Bored:
-            owner->SetDesiredAction(Actions::pickup);
+            owner->SetDesiredAction(Actions::none);
             owner->SetActionDistance(5.0f);
             owner->SetAffordanceLevel(0.1f);
             owner->SetSpeed(0.6f);

@@ -332,19 +332,14 @@ MainLayer::MainLayer()
 
 	{
 		std::string name = "rest mat";
-		glm::vec3 size(0.25, 0.5, 0.25);
+		glm::vec3 size(0.25, 0.1, 0.25);
 		auto&go = m_ActiveScene->CreateGameObject(name);
 		auto&tt = go.Transform();
 		auto& mesh = go.AddComponent<tnah::MeshComponent>();
 		mesh.Model = tnah::Model::Create("assets/meshes/cube_texture.fbx");
 		
-		tt.Position = {8, -3.7, 7};
+		tt.Position = {12, -4.1, 8};
 		tt.Scale = size;
-		/*auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
-		auto& box = go.AddComponent<tnah::BoxColliderComponent>(glm::vec3(size));
-		
-		box.Components.BodyCollider = rb.AddCollider(box.Components.Shape, rp3d::Transform::identity());
-		rb.SetBodyType(rp3d::BodyType::STATIC);*/
 		
 		auto& affordance = go.AddComponent<tnah::Affordance>();
 		affordance.SetActionValues(tnah::Actions::sleep, 1.0f);
@@ -373,22 +368,43 @@ MainLayer::MainLayer()
 	}
 	
 	{
-		std::string name = "Student";
-		glm::vec3 studentCollider = {0.3, 0.4, 0.7};
+		std::string name = "Dog";
+		glm::vec3 DogCollider = {0.3, 0.4, 0.7};
 		auto&go = m_ActiveScene->CreateGameObject(name);
 		auto&tt = go.Transform();
 		auto& mesh = go.AddComponent<tnah::MeshComponent>();
 		mesh.Model = tnah::Model::Create("assets/meshes/Puppy3.fbx");
 		
-		tt.Position = {8, -3.9, 4};
-		tt.Rotation = glm::vec3(0, glm::radians(90.0f), 0);
+		tt.Position = {12, -3.7, 8};
+		tt.Rotation = glm::vec3(0, glm::radians(-90.0f), 0);
 		tt.Scale = glm::vec3(0.015);
 		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
-		auto& box = go.AddComponent<tnah::BoxColliderComponent>(glm::vec3(studentCollider));
+		auto& box = go.AddComponent<tnah::BoxColliderComponent>(glm::vec3(DogCollider));
 		
 		box.Components.BodyCollider = rb.AddCollider(box.Components.Shape, rp3d::Transform::identity());
 		rb.SetBodyType(rp3d::BodyType::STATIC);
 		
+		go.AddComponent<tnah::AIComponent>();
+		go.AddComponent<tnah::CharacterComponent>(tnah::CharacterNames::DogAi);
+	}
+
+	{
+		std::string name = "Student";
+		glm::vec3 StudentCollider = { 0.3, 0.6, 0.7 };
+		auto& go = m_ActiveScene->CreateGameObject(name);
+		auto& tt = go.Transform();
+		auto& mesh = go.AddComponent<tnah::MeshComponent>();
+		mesh.Model = tnah::Model::Create("assets/meshes/ninja2.fbx");
+
+		tt.Position = {2.0, -3.8, 4.0 };
+		tt.Rotation = glm::vec3(0, glm::radians(90.0f), 0);
+		tt.Scale = glm::vec3(0.03);
+		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
+		auto& box = go.AddComponent<tnah::BoxColliderComponent>(glm::vec3(StudentCollider));
+
+		box.Components.BodyCollider = rb.AddCollider(box.Components.Shape, rp3d::Transform::identity());
+		rb.SetBodyType(rp3d::BodyType::STATIC);
+
 		go.AddComponent<tnah::AIComponent>();
 		go.AddComponent<tnah::CharacterComponent>(tnah::CharacterNames::StudentAi);
 	}
@@ -479,6 +495,7 @@ MainLayer::MainLayer()
 		go.AddComponent<tnah::Affordance>();
 		auto & a = go.GetComponent<tnah::Affordance>();
 		a.SetActionValues(tnah::sit, 1);
+		//a.SetActionValues
 	}
 
 	{
@@ -559,6 +576,8 @@ void MainLayer::OnUpdate(tnah::Timestep deltaTime)
 	{
 		auto& rb = m_Camera.GetComponent<tnah::RigidBodyComponent>();
 		auto& ct = m_Camera.Transform();
+		std::cout << ct.Position.x << " " << ct.Position.y << " " << ct.Position.z << std::endl;
+		std::cout << ct.Rotation.x << " " << ct.Rotation.y << " " << ct.Rotation.z << std::endl;
 		/*
 		auto vel = rb.Body->getLinearVelocity();
 		if(vel.x > m_Velocity.x)

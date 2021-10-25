@@ -15,12 +15,13 @@ namespace tnah
         actionDistance = 1.5;
         mColour = glm::vec4(1, 1, 0, 1);
         currentAffordanceLevel = 1.0f;
-        //Temporary stuff
+        
+        
         emotions.AddTrait(Trait::Happy);
         emotions.AddTrait(Trait::Carefree);
         emotions.SetMood(Mood::Happy);
         mCharacterState = emotions.GetEmotion();
-        Character::name = "bin";
+        Character::name = "Bin";
         //mFsm->setCurrentState
     }
 
