@@ -482,7 +482,7 @@ namespace tnah{
 							{
 									float affordanceValue = affordance.GetActionValue(c.aiCharacter->GetDesiredAction());
 									auto event = c.aiCharacter->CheckAction(affordanceValue, glm::distance(objTrasnform.Position, t.Position), affordance.GetTag());
-
+								
 									if(event.second)
 									{
 										Int2 new_pos = AStar::GenerateRandomPosition(Int2(objTrasnform.Position.x, objTrasnform.Position.z)).position;
@@ -495,7 +495,9 @@ namespace tnah{
 										default:
 											break;
 										}
-									}	
+									}
+								if(event.first)
+									break;
 							}
 						}
 

@@ -384,7 +384,7 @@ MainLayer::MainLayer()
     	}
 	
 	glm::vec3 binSize(1, 1, 1), binScale(0.3, 0.3, 0.3), binRotation(-1.55, 0, 0);
-	{
+	/*{
 		std::string name = "Bin (1)";
 		
 		auto&go = m_ActiveScene->CreateGameObject(name);
@@ -424,7 +424,7 @@ MainLayer::MainLayer()
 		
 		go.AddComponent<tnah::AIComponent>();
 		go.AddComponent<tnah::CharacterComponent>(tnah::CharacterNames::DogAi);
-	}
+	}*/
 
 	{
 		std::string name = "Student";
@@ -775,7 +775,7 @@ void MainLayer::OnFixedUpdate(tnah::PhysicsTimestep ps)
 
 void MainLayer::OnImGuiRender()
 {
-	/*auto& terr = m_Terrain.Transform();
+	auto& terr = m_Terrain.Transform();
 	auto& ct = m_Camera.Transform();
 	auto& l = m_SceneLight.GetComponent<tnah::LightComponent>();
 	auto& lt = m_SceneLight.Transform();
@@ -916,7 +916,7 @@ void MainLayer::OnImGuiRender()
 	}
 	
 	ImGui::End();
-	*/
+	
 
 	auto io = ImGui::GetIO();
 	auto display = ImGui::GetIO().DisplaySize;
@@ -973,7 +973,7 @@ void MainLayer::OnImGuiRender()
 			tnah::WindowCloseEvent c = tnah::WindowCloseEvent();
 			tnah::Application::Get().OnEvent(c);
 		}
-	*/
+	#1#
 		
 		ImGui::End();
 
@@ -983,6 +983,7 @@ void MainLayer::OnImGuiRender()
 			tnah::Application::Get().OnEvent(c);
 		}
 	}
+	
 }
 
 void MainLayer::OnEvent(tnah::Event& event)

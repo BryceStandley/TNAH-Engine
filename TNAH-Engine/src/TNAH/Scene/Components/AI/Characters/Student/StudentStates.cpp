@@ -155,13 +155,13 @@ namespace tnah
         {
         case Emotion::Content:
             owner->SetDesiredAction(Actions::sit);
-            owner->SetActionDistance(2.0f);
+            owner->SetActionDistance(1.0f);
             owner->SetAffordanceLevel(1.0f);
             // owner->spin = false;
             break;
         case Emotion::Relaxed:
             owner->SetDesiredAction(Actions::sit);
-            owner->SetActionDistance(2.0f);
+            owner->SetActionDistance(1.0f);
             owner->SetAffordanceLevel(1.0f);
             //owner->spin = false;
             break;
