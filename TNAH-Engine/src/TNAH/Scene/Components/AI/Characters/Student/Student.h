@@ -23,6 +23,7 @@ namespace tnah {
         std::shared_ptr<StateMachine<Student>> GetFsm() { return mFsm; }
         void ApplyPlayerAction(PlayerActions givenAction) override;
         std::string CharacterString() override;
+        Actions previousState;
     private:
         glm::vec3 targetPos;
         std::shared_ptr<StateMachine<Student>> mFsm;

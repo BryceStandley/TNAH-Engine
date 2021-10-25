@@ -58,10 +58,10 @@ namespace tnah
 
         static void Update()
         {
-            for(Int2 values : usedPositionsHolder)
+            /*for(Int2 values : usedPositionsHolder)
             {
                 usedPositions[values.x][values.y] = false;
-            }
+            }*/
         }
         
         static bool Reached(Int2 point, Node destination)

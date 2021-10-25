@@ -65,6 +65,7 @@ namespace tnah
                         }
                         emotions.DecreaseArousal(0.05 * GetDeltaTime());
                         emotions.IncreaseValence(0.1 * GetDeltaTime());
+                        previousState = GetDesiredAction();
                         break;
                 case greeting:
                     if (canOutput)
@@ -85,6 +86,7 @@ namespace tnah
 
                         emotions.IncreaseArousal(0.2);
                         emotions.IncreaseValence(0.2);
+                        previousState = GetDesiredAction();
                     }
                     break;
                 case sleep:
@@ -96,6 +98,7 @@ namespace tnah
                     }
                     emotions.DecreaseArousal(0.1 * GetDeltaTime());
                     emotions.IncreaseValence(0.2 * GetDeltaTime());
+                    previousState = GetDesiredAction();
                     break;
                 case play:
                     if (canOutput)
@@ -106,6 +109,7 @@ namespace tnah
                     }
                     emotions.IncreaseArousal(0.1 * GetDeltaTime());
                     emotions.IncreaseValence(0.1 * GetDeltaTime());
+                    previousState = GetDesiredAction();
                     break;
                 case drink:
                     check.second = true;
@@ -120,6 +124,7 @@ namespace tnah
                             SetWander(false);
                             emotions.IncreaseArousal(0.2);
                             emotions.DecreaseValence(0.2);
+                            previousState = GetDesiredAction();
                         }
                         break;
                 case none:
@@ -127,7 +132,7 @@ namespace tnah
                     break;
                 }
             }
-            else
+            else if(previousState != GetDesiredAction())
                 canOutput = true;
         }
 
