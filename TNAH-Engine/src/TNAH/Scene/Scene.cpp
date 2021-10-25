@@ -11,6 +11,7 @@
 
 #include "Components/AI/Affordance.h"
 #include "Components/AI/AIComponent.h"
+#include "Components/AI/CharacterComponent.h"
 #include "Components/AI/PlayerInteractions.h"
 
 namespace tnah{

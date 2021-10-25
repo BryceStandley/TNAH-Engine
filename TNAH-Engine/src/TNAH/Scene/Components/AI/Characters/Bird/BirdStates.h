@@ -1,5 +1,6 @@
 #pragma once
-#include "TNAH/Scene/Components/AI/Character.h"
+#include "Bird.h"
+#include "TNAH/Scene/Components/AI/StateMachine.h"
 #include "TNAH/Core/Singleton.h"
 
 namespace tnah

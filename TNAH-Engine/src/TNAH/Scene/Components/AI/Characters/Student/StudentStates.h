@@ -1,5 +1,5 @@
 #pragma once
-#include "TNAH/Scene/Components/AI/Character.h"
+#include "Student.h"
 #include "TNAH/Core/Singleton.h"
 
 namespace tnah

@@ -11,7 +11,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="BirdStates.cpp" />
     <ClCompile Include="src\Platform\IrrKlang\Klang.cpp" />
     <ClCompile Include="src\TNAH\Audio\Audio.cpp" />
     <ClCompile Include="src\TNAH\Audio\AudioAPI.cpp" />
@@ -61,7 +60,12 @@
     <ClCompile Include="src\TNAH\Scene\Components\AI\AIComponent.cpp" />
     <ClCompile Include="src\TNAH\Scene\Components\AI\AStar.cpp" />
     <ClCompile Include="src\TNAH\Scene\Components\AI\Character.cpp" />
-    <ClCompile Include="src\TNAH\Scene\Components\AI\Characters\BinStates.cpp" />
+    <ClCompile Include="src\TNAH\Scene\Components\AI\Characters\Bin\Bin.cpp" />
+    <ClCompile Include="src\TNAH\Scene\Components\AI\Characters\Bin\BinStates.cpp" />
+    <ClCompile Include="src\TNAH\Scene\Components\AI\Characters\Bird\Bird.cpp" />
+    <ClCompile Include="src\TNAH\Scene\Components\AI\Characters\Bird\BirdStates.cpp" />
+    <ClCompile Include="src\TNAH\Scene\Components\AI\Characters\Student\Student.cpp" />
+    <ClCompile Include="src\TNAH\Scene\Components\AI\Characters\Student\StudentStates.cpp" />
     <ClCompile Include="src\TNAH\Scene\Components\AI\Emotion.cpp" />
     <ClCompile Include="src\TNAH\Scene\Components\AI\EmotionComponent.cpp" />
     <ClCompile Include="src\TNAH\Scene\Components\AI\PlayerInteractions.cpp" />
@@ -79,10 +83,8 @@
     <ClCompile Include="src\TNAH\Scene\GameObject.cpp" />
     <ClCompile Include="src\TNAH\Scene\Scene.cpp" />
     <ClCompile Include="src\TNAH\Scene\Serializer.cpp" />
-    <ClCompile Include="StudentStates.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BirdStates.h" />
     <ClInclude Include="src\Platform\IrrKlang\Klang.h" />
     <ClInclude Include="src\TNAH\Audio\Audio.h" />
     <ClInclude Include="src\TNAH\Audio\AudioAPI.h" />
@@ -130,7 +132,13 @@
     <ClInclude Include="src\TNAH\Scene\Components\AI\AIComponent.h" />
     <ClInclude Include="src\TNAH\Scene\Components\AI\AStar.h" />
     <ClInclude Include="src\TNAH\Scene\Components\AI\Character.h" />
-    <ClInclude Include="src\TNAH\Scene\Components\AI\Characters\BinStates.h" />
+    <ClInclude Include="src\TNAH\Scene\Components\AI\CharacterComponent.h" />
+    <ClInclude Include="src\TNAH\Scene\Components\AI\Characters\Bin\Bin.h" />
+    <ClInclude Include="src\TNAH\Scene\Components\AI\Characters\Bin\BinStates.h" />
+    <ClInclude Include="src\TNAH\Scene\Components\AI\Characters\Bird\Bird.h" />
+    <ClInclude Include="src\TNAH\Scene\Components\AI\Characters\Bird\BirdStates.h" />
+    <ClInclude Include="src\TNAH\Scene\Components\AI\Characters\Student\Student.h" />
+    <ClInclude Include="src\TNAH\Scene\Components\AI\Characters\Student\StudentStates.h" />
     <ClInclude Include="src\TNAH\Scene\Components\AI\Emotion.h" />
     <ClInclude Include="src\TNAH\Scene\Components\AI\EmotionComponent.h" />
     <ClInclude Include="src\TNAH\Scene\Components\AI\PlayerInteractions.h" />
@@ -174,7 +182,6 @@
     <ClInclude Include="src\TNAH\Scene\Components\TerrainComponent.h" />
     <ClInclude Include="src\TNAH\Scene\Scene.h" />
     <ClInclude Include="src\TNAH\Scene\Serializer.h" />
-    <ClInclude Include="StudentStates.h" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\fonts\opensans\LICENSE.txt" />
