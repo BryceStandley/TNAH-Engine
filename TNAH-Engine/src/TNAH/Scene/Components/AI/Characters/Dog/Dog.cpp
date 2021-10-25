@@ -20,7 +20,7 @@ namespace tnah
         emotions.AddTrait(Trait::Sad);
         emotions.SetMood(Mood::Relaxed);
         mCharacterState = emotions.GetEmotion();
-        Character::name = "dog";
+        Character::name = "Dog";
         //mFsm->setCurrentState
     }
 

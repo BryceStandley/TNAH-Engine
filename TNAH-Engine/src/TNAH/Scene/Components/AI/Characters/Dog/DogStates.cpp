@@ -110,19 +110,19 @@ namespace tnah
             owner->SetDesiredAction(Actions::greeting);
             owner->SetActionDistance(7.0f);
             owner->SetAffordanceLevel(0.1f);
-           // owner->spin = false;
+            owner->spin = false;
             break;
         case Emotion::Delighted:
             owner->SetDesiredAction(Actions::greeting);
             owner->SetActionDistance(5.0f);
             owner->SetAffordanceLevel(1.0f);
-            //owner->spin = false;
+            owner->spin = false;
             break;
         case Emotion::Excited:
             owner->SetDesiredAction(Actions::greeting);
             owner->SetActionDistance(9.0f);
             owner->SetAffordanceLevel(0.5f);
-            //owner->spin = true;
+            owner->spin = true;
             break;
         default:
             break;
@@ -131,8 +131,7 @@ namespace tnah
 
     void HappyDog::Exit(Dog* owner)
     {
-        //owner->spin = false;
-        
+        owner->spin = false;
         owner->canOutput = true;
     }
 
@@ -143,7 +142,17 @@ namespace tnah
 
     void ChillDog::Execute(Dog* owner)
     {
-        //Heads home to idle
+        auto emotion = owner->GetEmotions().GetEmotion();
+
+        switch (emotion)
+        {
+        case Emotion::Content:
+            break;
+        case Emotion::Angry:
+            break;
+        case Emotion::Calm:
+            break;
+        }
     }
 
     void ChillDog::Exit(Dog* owner)
@@ -163,12 +172,12 @@ namespace tnah
         switch (emotion)
         {
         case Emotion::Frustrated:
-            owner->SetDesiredAction(Actions::pickup);
+            owner->SetDesiredAction(Actions::kick);
             owner->SetActionDistance(3.0f);
             owner->SetAffordanceLevel(1.0f);
             break;
         case Emotion::Angry:
-            owner->SetDesiredAction(Actions::pickup);
+            owner->SetDesiredAction(Actions::kick);
             owner->SetActionDistance(5.0f);
             owner->SetAffordanceLevel(0.5f);
             break;
@@ -196,21 +205,18 @@ namespace tnah
         switch (emotion)
         {
         case Emotion::Depressed:
-            //owner->SetDesiredAction(Actions::pickup);
             owner->SetActionDistance(3.0f);
-            owner->SetAffordanceLevel(0.5f);
+            owner->SetAffordanceLevel(0);
             break;
         case Emotion::Bored:
-            //owner->SetDesiredAction(Actions::pickup);
+            owner->SetDesiredAction(Actions::sleep);
             owner->SetActionDistance(5.0f);
-            owner->SetAffordanceLevel(0.1f);
-            owner->SetSpeed(0.6f);
+            owner->SetAffordanceLevel(1.0f);
             break;
         case Emotion::Tired:
             owner->SetDesiredAction(Actions::sleep);
-            owner->SetActionDistance(3.0f);
+            owner->SetActionDistance(1.0f);
             owner->SetAffordanceLevel(1.0f);
-            owner->SetSpeed(0.5f);
             break;
         default:
             break;

@@ -13,14 +13,20 @@ namespace tnah
         SetDesiredAction(sit);
         SetDistance(10);
         actionDistance = 1.5;
-        mColour = glm::vec4(1, 1, 0, 1);
+        mColour = glm::vec4(0, 1, 0, 0);
         currentAffordanceLevel = 1.0f;
-        //Temporary stuff
+        
+        emotions.SetArousal(-0.33f);
+        emotions.SetValence(0.5f);
+        
         emotions.AddTrait(Trait::Happy);
         emotions.AddTrait(Trait::Carefree);
+        emotions.AddTrait(Trait::Impatient);
+        
         emotions.SetMood(Mood::Happy);
+
         mCharacterState = emotions.GetEmotion();
-        Character::name = "student";
+        Character::name = "Student";
         //mFsm->setCurrentState
     }
 
@@ -48,39 +54,21 @@ namespace tnah
             {
                 switch (Character::GetDesiredAction())
                 {
-                case abuse:
-                    if (canOutput)
-                    {
-                        switch (rand() % 3)
-                        {
-                        case 1:
-                            LogAction("I hate you add name here!", mColour);
-                            break;
-                        case 2:
-                            LogAction("You suck add name here!", mColour);
-                            break;
-                        default:
-                            LogAction("You're the worst add name here!", mColour);
-                            break;
-                        }
-                        canOutput = false;
-
-                        emotions.IncreaseArousal(0.25);
-                    }
-                    break;
+                    case sit:
+                        break;
                 case greeting:
                     if (canOutput)
                     {
                         switch (rand() % 3)
                         {
                         case 1:
-                            LogAction("Your such a good person name here!", mColour);
+                            LogAction("Ayee name here!", mColour);
                             break;
                         case 2:
-                            LogAction("Hey good to see you name here!", mColour);
+                            LogAction("Sup name here!", mColour);
                             break;
                         default:
-                            LogAction("Wonderful day ain't it add name here!", mColour);
+                            LogAction("Legend add name here!", mColour);
                             break;
                         }
                         canOutput = false;
@@ -88,12 +76,6 @@ namespace tnah
                         emotions.IncreaseArousal(0.2);
                         emotions.IncreaseValence(0.2);
                     }
-                    break;
-                case pickup:
-                    r = true;
-                    LogAction("Who left rubbish here!", mColour);
-                    emotions.IncreaseArousal(0.3);
-                    emotions.DecreaseValence(0.4);
                     break;
                 case sleep:
                     if (canOutput)
@@ -104,6 +86,14 @@ namespace tnah
                     emotions.DecreaseArousal(0.1 * GetDeltaTime());
                     emotions.IncreaseValence(0.2 * GetDeltaTime());
                     break;
+                case play:
+                    
+                    break;
+                case drink:
+                    
+                    break;
+                    case kick:
+                        break;
                 case none:
                 default:
                     break;
