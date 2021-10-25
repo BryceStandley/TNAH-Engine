@@ -163,6 +163,11 @@ namespace tnah{
 				transform.Forward = forward;
 				transform.Right = right;
 				transform.Up = up;
+
+				if(transform.astar)
+				{
+					AStar::AddUsedPosition(Int2(static_cast<int>(round(transform.Position.x)), static_cast<int>(round(transform.Position.z))));
+				}
 			}
 		}
 #pragma endregion	
@@ -329,7 +334,7 @@ namespace tnah{
 
 				{
 					//Collider rendering should only be used for debugging and in the editor to set sizes
-					if((/*m_IsEditorScene ||Application::Get().GetDebugModeStatus()) && */Physics::IsColliderRenderingEnabled() && passes == 0))
+					if((m_IsEditorScene || Application::Get().GetDebugModeStatus()) && Physics::IsColliderRenderingEnabled() && passes == 0)
 					{
 						auto pair = Physics::GetColliderRenderObjects();
 						auto lineArr = pair.first.first;
@@ -342,33 +347,61 @@ namespace tnah{
 				}
 
 				{
-					auto view = m_Registry.view<AStarComponent, MeshComponent, TransformComponent>();
+					if(Application::Get().GetDebugModeStatus())
 					{
-						for(auto entity : view)
+						auto view = m_Registry.view<AStarComponent, MeshComponent, TransformComponent>();
 						{
-							auto& model = view.get<MeshComponent>(entity);
-							auto& transform = view.get<TransformComponent>(entity);
-							
-							auto array = AStar::GetMapPoints();
-
-							for(int x = 0; x < (X_MAX / X_STEP); x++)
+							for(auto entity : view)
 							{
-								for(int y = 0; y < (Y_MAX / Y_STEP); y++)
+								auto& model = view.get<MeshComponent>(entity);
+								auto& transform = view.get<TransformComponent>(entity);
+							
+								auto map = AStar::GetUsedPoints();
+								auto array = AStar::GetMapPoints();
+								auto pos = AStar::GetStartingPos();
+								auto end = AStar::GetEndPosition();
+								for(int x = pos.x; x < end.x; x++)
 								{
-									auto tempTransform = transform;
-									transform.Position.x = array[x][y].position.x;
-									tempTransform.Position.z = array[x][y].position.y;
-									tempTransform.Position.y = -3.7;
-									if(model.Model)
+									for(int y = pos.y; y < end.y; y++)
 									{
-										for (auto& mesh : model.Model->GetMeshes())
+										if(map[x][y])
 										{
-											Renderer::SubmitMesh(mesh.GetMeshVertexArray(), mesh.GetMeshMaterial(), sceneLights, tempTransform.GetTransform());
+											auto tempTransform = transform;
+											tempTransform.Position.x = x;
+											tempTransform.Position.z = y;
+											tempTransform.Position.y = -4;
+											tempTransform.Scale = {0.5, 0.5, 0.5};
+											if(model.Model)
+											{
+												for (auto& mesh : model.Model->GetMeshes())
+												{
+													Renderer::SubmitMesh(mesh.GetMeshVertexArray(), mesh.GetMeshMaterial(), sceneLights, tempTransform.GetTransform());
+												}
+											}
+										}
+									}
+								}
+
+								for(int x = pos.x; x < end.x; x++)
+								{
+									for(int y = pos.y; y < end.y; y++)
+									{
+										auto tempTransform = transform;
+										tempTransform.Position.x = array[x][y].position.x;
+										tempTransform.Position.z = array[x][y].position.y;
+										tempTransform.Position.y = -4;
+										tempTransform.Scale = {0.1, 0.1, 0.1};
+										if(model.Model)
+										{
+											for (auto& mesh : model.Model->GetMeshes())
+											{
+												Renderer::SubmitMesh(mesh.GetMeshVertexArray(), mesh.GetMeshMaterial(), sceneLights, tempTransform.GetTransform());
+											}
 										}
 									}
 								}
 							}
-						}
+						}	
 					}
 				}
 #pragma endregion
@@ -421,13 +454,17 @@ namespace tnah{
 
 				{
 					auto objects = m_Registry.view<Affordance, TransformComponent>();
-					auto view = m_Registry.view<AIComponent, CharacterComponent, TransformComponent>();
+					auto view = m_Registry.view<AIComponent, CharacterComponent, TransformComponent, RigidBodyComponent>();
 					auto player = m_Registry.view<PlayerInteractions, TransformComponent>();
+					auto view2 = m_Registry.view<AStarComponent, MeshComponent, TransformComponent>();
+
+				
 					for(auto entity : view)
 					{
 						auto &t = view.get<TransformComponent>(entity);
 						auto &ai = view.get<AIComponent>(entity);
 						auto &c = view.get<CharacterComponent>(entity);
+						auto &rb = view.get<RigidBodyComponent>(entity);
 						for(auto obj : objects)
 						{
 							auto & objTrasnform = objects.get<TransformComponent>(obj);
@@ -435,8 +472,22 @@ namespace tnah{
 
 							if(glm::distance(objTrasnform.Position, t.Position) < c.aiCharacter->GetDistance())
 							{
-								float affordanceValue = affordance.GetActionValue(c.aiCharacter->GetDesiredAction());
-								bool event = c.aiCharacter->CheckAction(affordanceValue, glm::distance(objTrasnform.Position, t.Position), "");
+									float affordanceValue = affordance.GetActionValue(c.aiCharacter->GetDesiredAction());
+									bool event = c.aiCharacter->CheckAction(affordanceValue, glm::distance(objTrasnform.Position, t.Position), "");
+
+									if(event)
+									{
+										Int2 new_pos = AStar::GenerateRandomPosition(Int2(objTrasnform.Position.x, objTrasnform.Position.z)).position;
+										switch (c.aiCharacter->GetDesiredAction())
+										{
+										case Actions::pickup:
+											objTrasnform.Position.x = new_pos.x;
+											objTrasnform.Position.z = new_pos.y;
+											break;
+										default:
+											break;
+										}
+									}	
 							}
 						}
 
@@ -475,8 +526,37 @@ namespace tnah{
 						ai.SetWander(c.aiCharacter->GetWander());
 						ai.SetMovementSpeed(c.aiCharacter->GetSpeed());
 						ai.OnUpdate(deltaTime, t.Position);
+						if(Application::Get().GetDebugModeStatus())
+						{
+							for(auto entity : view2)
+							{
+								auto& model = view2.get<MeshComponent>(entity);
+								auto& transform = view2.get<TransformComponent>(entity);
+							
+								auto queue = ai.GetPositions();
+								for(Node nodes : queue)
+								{
+									auto tempTransform = transform;
+									tempTransform.Position.x = nodes.position.x;
+									tempTransform.Position.z = nodes.position.y;
+									tempTransform.Position.y = -4;
+									tempTransform.Scale = {0.25, 0.25, 0.25};
+									tempTransform.Rotation = {0, 0, 0};
+									if(model.Model)
+									{
+										for (auto& mesh : model.Model->GetMeshes())
+										{
+											Renderer::SubmitMesh(mesh.GetMeshVertexArray(), mesh.GetMeshMaterial(), sceneLights, tempTransform.GetTransform());
+										}
+									}
+								}	
+						}
+							
 					}
+						rb.Body->setTransform(Math::ToRp3dTransform(t));
 				}
+					}
+				
 #pragma endregion 
 
 				Renderer::EndScene();

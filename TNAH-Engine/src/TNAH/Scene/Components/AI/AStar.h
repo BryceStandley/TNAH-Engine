@@ -1,21 +1,14 @@
 ﻿#pragma once
-#define X_MAX 100
-#define X_STEP 10
-#define Y_MAX 100
-#define Y_STEP 10
 #include <stack>
 
 namespace tnah
 {
-    //typedef std::pair<int, int> IntPair;
-    typedef std::tuple<float, int, int> Tuple;
     struct Int2
     {
         int x;
         int y;
-
-        Int2(int o, int t) : x(o), y(t) {}
-
+        
+        Int2(int o = 0, int t = 0) : x(o), y(t) {}
         bool CheckSame(Int2 other)
         {
             if(x == other.x && y == other.y)
@@ -24,6 +17,7 @@ namespace tnah
             return false;
         }
     };
+    
     struct Node
     {
         Int2 position;
@@ -45,14 +39,16 @@ namespace tnah
     class AStar
     {
     public:
-        AStar() : rowSize(0), colSize(0) {}
+        AStar() {}
         ~AStar() = default;
 
         //Just checking it is in bounds atm not for any obstacles
         static bool IsValid(Int2 point)
         {
-            int id = point.x + point.y * (X_MAX / X_STEP);
-            if (point.x < 0 || point.y < 0 || point.x >= (X_MAX / X_STEP) || point.y >= (Y_MAX / Y_STEP))
+            if(usedPositions[point.x][point.y])
+                return false;
+            
+            if (point.x < startingPos.x || point.y < startingPos.y || point.x > startingPos.x + size.x || point.y > startingPos.y + size.y)
             {
                 return false;
             }
@@ -69,10 +65,10 @@ namespace tnah
         {
             if (point.CheckSame(destination.position))
             {
-                //TNAH_CORE_INFO("This returned true");
+
                 return true;
             }
-            //TNAH_CORE_INFO("This returned false");
+
             return false;
         }
 
@@ -82,13 +78,26 @@ namespace tnah
             return H;
         }
         
-        static std::vector<Node> Algorithm(Node point, Node destination)
+        static void Init(Int2 startingPosition, Int2 xySize)
         {
-            /*if(!IsValid(destination.position))
+            startingPos = startingPosition;
+            size = xySize;
+            initilised = true;
+        }
+        
+        static std::deque<Node> Algorithm(Node point, Node destination)
+        {
+            if(!initilised)
             {
-                TNAH_CORE_INFO("Empty");
+                TNAH_CORE_WARN("AStar not inisilised");
+                return {};    
+            }
+            
+            if(!IsValid(destination.position))
+            {
+                TNAH_CORE_INFO("V Empty");
                 return {};
-            }*/
+            }
             if(!IsValid(point.position))
             {
                 TNAH_CORE_INFO("Starting Empty");
@@ -96,13 +105,12 @@ namespace tnah
             }
             if(Reached(point.position, destination))
             {
-                TNAH_CORE_INFO("Empty");
+                TNAH_CORE_INFO("R Empty");
                 return {};
             }
 
-            bool closedList[(X_MAX / X_STEP)][(Y_MAX / Y_STEP)];
-            for (int x = 0; x < (X_MAX / X_STEP); x++) {
-                for (int y = 0; y < (Y_MAX / Y_STEP); y++) {
+            for (int x = startingPos.x; x < startingPos.x + size.x; x++) {
+                for (int y = startingPos.y + 1; y < startingPos.y + size.y; y++) {
                     allMap[x][y].f= FLT_MAX;
                     allMap[x][y].g = FLT_MAX;
                     allMap[x][y].h = FLT_MAX;
@@ -111,6 +119,7 @@ namespace tnah
                     closedList[x][y] = false;
                 }
             }
+            
             Int2 position = point.position;
             allMap[position.x][position.y].f = 0.0;
             allMap[position.x][position.y].g = 0.0;
@@ -121,7 +130,7 @@ namespace tnah
             openList.emplace_back(allMap[position.x][position.y]);
             bool destinationFound = false;
 
-            while (!openList.empty()&&openList.size()<(X_MAX / X_STEP)*(Y_MAX / Y_STEP)) {
+            while (!openList.empty()) {
                 Node node;
                 do {
                     float temp = FLT_MAX;
@@ -133,14 +142,14 @@ namespace tnah
                             temp = n.f;
                             itNode = it;
                         }
-                    }
+                        }
                     node = *itNode;
                     openList.erase(itNode);
                 } while (IsValid(node.position) == false);
 
                 position = node.position;
                 
-                closedList[(int)position.x][(int)position.y] = true;
+                closedList[position.x][position.y] = true;
                 
                 for (int newX = -1; newX <= 1; newX++) {
                     for (int newY = -1; newY <= 1; newY++) {
@@ -149,10 +158,9 @@ namespace tnah
                             if (Reached(Int2(position.x + newX, position.y + newY), destination))
                             {
                                 allMap[position.x + newX][position.y + newY].parent = {position.x, position.y};
-                                destinationFound = true;
                                 return makePath(allMap, destination);
                             }
-                            else if (closedList[(int)position.x + newX][(int)position.y + newY] == false)
+                            else if (closedList[position.x + newX][position.y + newY] == false)
                             {
                                 gNew = node.g + 1.0;
                                 hNew = calculateH(Int2(position.x + newX, position.y + newY), destination);
@@ -170,24 +178,27 @@ namespace tnah
                         }
                     }
                 }
-                }
-                if (destinationFound == false)
-                {
-                    //TNAH_CORE_INFO("D Empty");
-                    return {};
-                }
+            }
+            if (destinationFound == false)
+            {
+                return {};
+            }
         }
 
-        static std::vector<Node> makePath(std::array<std::array<Node, (Y_MAX / Y_STEP)>, (X_MAX / X_STEP)> map, Node destination) {
+        static std::deque<Node> makePath(std::unordered_map<int, std::unordered_map<int, Node>> map, Node destination) {
             try {
                 int x = destination.position.x;
                 int y = destination.position.y;
                 std::stack<Node> path;
-                std::vector<Node> usablePath;
+                std::deque<Node> usablePath;
 
-                while (!(map[x][y].parent.x == x && map[x][y].parent.y == y)
-                    && map[x][y].position.x != -1 && map[x][y].position.y != -1) 
+                while (!(map[x][y].parent.x == x && map[x][y].parent.y == y))
                 {
+                    if(x == 0 && y == 0)
+                    {
+                        TNAH_CORE_INFO("Error");
+                        return {};
+                    }
                     path.push(map[x][y]);
                     int tempX = map[x][y].parent.x;
                     int tempY = map[x][y].parent.y;
@@ -200,7 +211,7 @@ namespace tnah
                 while (!path.empty()) {
                     Node top = path.top();
                     path.pop();
-                    usablePath.emplace_back(top);
+                    usablePath.push_back(top);
                 }
                 return usablePath;
             }
@@ -209,22 +220,26 @@ namespace tnah
             }
         }
 
-    static Node GenerateRandomPosition(Int2 currentPosition)
+        static Node GenerateRandomPosition(Int2 currentPosition)
         {
             while(1)
             {
-                Int2 newPos(rand() % (X_MAX / X_STEP), rand() % (Y_MAX / Y_STEP));
-                //TNAH_CORE_INFO("New pos X{0} Y{1}", newPos.x, newPos.y);
-                if(!newPos.CheckSame(currentPosition))
+                std::random_device d;
+                std::mt19937 gen(d());
+                std::uniform_int_distribution<int> xRand(startingPos.x,  startingPos.x + size.x-1);
+                std::uniform_int_distribution<int> yRand(startingPos.y,  startingPos.y + size.y-1);
+                Int2 newPos(xRand(gen), yRand(gen));
+                
+                if(!newPos.CheckSame(currentPosition) && IsValid(newPos))
                     return newPos;
             }
         }
-    static std::array<std::array<Node, (Y_MAX / Y_STEP)>,(X_MAX / X_STEP)> GetMapPoints()
+        static std::unordered_map<int, std::unordered_map<int, Node>> GetMapPoints()
         {
             if(!generated)
             {
-                for (int x = 0; x < (X_MAX / X_STEP); x++) {
-                    for (int y = 0; y < (Y_MAX / Y_STEP); y++) {
+                for (int x = startingPos.x; x < startingPos.x + size.x; x++) {
+                    for (int y = startingPos.y; y < startingPos.y + size.y; y++) {
                         allMap[x][y].parent =  {-1, -1};
                         allMap[x][y].position = {x, y};
                     }
@@ -234,11 +249,39 @@ namespace tnah
 
             return allMap;
         }
+
+        static std::unordered_map<int, std::unordered_map<int, bool>> GetUsedPoints()
+        {
+            return usedPositions;
+        }
+
+        static void AddUsedPosition(Int2 position)
+        {
+            usedPositions[position.x][position.y] = true;
+            /*usedPositions[position.x-1][position.y] = true;
+            usedPositions[position.x+1][position.y] = true;
+            usedPositions[position.x][position.y-1] = true;
+            usedPositions[position.x][position.y+1] = true;*/
+        }
+        
+    static Int2 GetStartingPos()
+        {
+            return startingPos;
+        }
+
+    static Int2 GetEndPosition()
+        {
+            return Int2(startingPos.x + size.x, startingPos.y + size.y);
+        }
     private:
-        int rowSize;
-        int colSize;
+        static Int2 startingPos;
+        static Int2 size;
+        static bool initilised;
         inline static bool generated = false;
-        static std::array<std::array<Node, (Y_MAX / Y_STEP)>,(X_MAX / X_STEP)> allMap;
+        inline static std::unordered_map<int, std::unordered_map<int, bool>> closedList = std::unordered_map<int, std::unordered_map<int, bool>>();
+        inline static std::unordered_map<int, std::unordered_map<int, bool>> usedPositions = std::unordered_map<int, std::unordered_map<int, bool>>();
+        //static std::array<std::array<Node, (Y_MAX / Y_STEP)>,(X_MAX / X_STEP)> allMap;
+        static std::unordered_map<int, std::unordered_map<int, Node>> allMap;
     };
 
     struct AStarComponent

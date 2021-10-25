@@ -55,6 +55,7 @@ namespace tnah
         *
         */
         void OnUpdate(Timestep deltaTime, glm::vec3 &pos);
+        std::deque<Node> GetPositions() {return currentPath;}
     private:
         bool moveTo(glm::vec3& curPos, const glm::vec3& targetPos, glm::vec3& curVelocity, float time)
         {
@@ -112,7 +113,8 @@ namespace tnah
         bool currentlyWandering;
         //AStar stuff
         Node currentPosition;
-        std::vector<Node> currentPath = {};
+        Node destination;
+        std::deque<Node> currentPath = {};
     };
 
     inline const glm::vec3& AIComponent::GetTargetPosition() const

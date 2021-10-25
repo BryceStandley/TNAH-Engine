@@ -11,18 +11,20 @@ namespace tnah {
         {
             if(!currentPath.empty())
             {
-                auto path = currentPath.back();
-
-                if(AStar::Reached(currentPosition.position, path))
+                const auto path = currentPath.front();
+                if(!AStar::IsValid(path.position))
                 {
-                    currentPath.pop_back();
+                    currentPath = {};
                 }
-                else
-                    moveTo(pos, glm::vec3(path.position.x, pos.y, path.position.y), m_Velocity, deltaTime.GetSeconds());
+                else if(AStar::Reached(currentPosition.position, path) || moveTo(pos, glm::vec3(path.position.x, pos.y, path.position.y), m_Velocity, deltaTime.GetSeconds()))
+                {
+                    currentPath.pop_front();
+                }
             }
             else
             {
-                currentPath = AStar::Algorithm(currentPosition, AStar::GenerateRandomPosition(currentPosition.position));
+                destination = AStar::GenerateRandomPosition(currentPosition.position);
+                currentPath = AStar::Algorithm(currentPosition, destination);
             }
         }
 

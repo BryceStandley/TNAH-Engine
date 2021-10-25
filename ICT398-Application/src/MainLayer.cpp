@@ -14,6 +14,7 @@
 MainLayer::MainLayer()
 	:Layer("Main Layer")
 {
+	tnah::AStar::Init(tnah::Int2(-9,1), tnah::Int2(22, 9));
 	m_ActiveScene = tnah::Scene::CreateEmptyScene();
 	m_Camera = m_ActiveScene->GetSceneCamera();
 	auto& ct = m_Camera.Transform();
@@ -31,12 +32,12 @@ MainLayer::MainLayer()
 		box.Components.BodyCollider = rb.AddCollider(box.Components);
 		rb.Body->setAngularLockAxisFactor({0,1,0}); // Lock the rigidbody from falling over
 		rb.SetBodyType(rp3d::BodyType::DYNAMIC);
+		//m_Camera.AddComponent<tnah::AIComponent>();
+		//m_Camera.AddComponent<tnah::CharacterComponent>();
 		auto & aff = m_Camera.AddComponent<tnah::Affordance>();
 		m_Camera.AddComponent<tnah::PlayerInteractions>();
 		aff.SetActionValues(tnah::Actions::abuse, 1.0f);
 		aff.SetActionValues(tnah::Actions::greeting, 1.0f);
-		//m_Camera.AddComponent<tnah::AIComponent>();
-		//m_Camera.AddComponent<tnah::CharacterComponent>();
 	}
 	
 	
@@ -73,12 +74,12 @@ MainLayer::MainLayer()
 		auto go = m_ActiveScene->CreateGameObject(name);
 
 		auto& mesh = go.AddComponent<tnah::MeshComponent>();
-		mesh.Model = tnah::Model::Create("assets/meshes/cube_texture.fbx");
-		go.Transform().Position = {-1.1f, -5000.0f, 0.6f};
+		mesh.Model = tnah::Model::Create("assets/meshes/sphere.fbx");
+		go.Transform().Position = {-5000.0f, -5000.0f, -5000.0f};
 		go.Transform().Rotation = {0, 0, 0};
 		go.Transform().Scale = {0.1, 0.1, 0.1};
 
-		//auto & a = go.AddComponent<tnah::AStarComponent>();
+		auto & a = go.AddComponent<tnah::AStarComponent>();
 	}
 
 	//Colliders Only
@@ -168,7 +169,7 @@ MainLayer::MainLayer()
 		
 		auto&go = m_ActiveScene->CreateGameObject(name);
 		auto&tt = go.Transform();
-		
+		tt.astar = true;
 		tt.Position = {5.3, 0, 9.0};
 		
 		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
@@ -184,7 +185,7 @@ MainLayer::MainLayer()
 		
 		auto&go = m_ActiveScene->CreateGameObject(name);
 		auto&tt = go.Transform();
-		
+		tt.astar = true;
 		tt.Position = {5.3, 0, 4.6};
 		
 		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
@@ -200,7 +201,7 @@ MainLayer::MainLayer()
 		
 		auto&go = m_ActiveScene->CreateGameObject(name);
 		auto&tt = go.Transform();
-		
+		tt.astar = true;
 		tt.Position = {-1.8, 0, 4.6};
 		
 		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
@@ -216,7 +217,7 @@ MainLayer::MainLayer()
 		
 		auto&go = m_ActiveScene->CreateGameObject(name);
 		auto&tt = go.Transform();
-		
+		tt.astar = true;
 		tt.Position = {-1.8, 0, 9.0};
 		
 		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
@@ -239,6 +240,7 @@ MainLayer::MainLayer()
 		auto& mesh = go.AddComponent<tnah::MeshComponent>();
 		mesh.Model = tnah::Model::Create("assets/meshes/newBush.fbx");
 	}
+	
 	{
 		std::string name = "Bush (2)";
 		
@@ -285,6 +287,66 @@ MainLayer::MainLayer()
 		auto& mesh = go.AddComponent<tnah::MeshComponent>();
 		mesh.Model = tnah::Model::Create("assets/meshes/newBush.fbx");
 	}
+
+	{
+		std::string name = "coffee cup 1";
+		glm::vec3 size(0.25, 0.5, 0.25);
+		auto&go = m_ActiveScene->CreateGameObject(name);
+		auto&tt = go.Transform();
+		auto& mesh = go.AddComponent<tnah::MeshComponent>();
+		mesh.Model = tnah::Model::Create("assets/meshes/bin.fbx");
+		
+		tt.Position = {1, -3.7, 3};
+		tt.Scale = size;
+		/*auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
+		auto& box = go.AddComponent<tnah::BoxColliderComponent>(glm::vec3(size));
+		
+		box.Components.BodyCollider = rb.AddCollider(box.Components.Shape, rp3d::Transform::identity());
+		rb.SetBodyType(rp3d::BodyType::STATIC);*/
+		
+		auto& affordance = go.AddComponent<tnah::Affordance>();
+		affordance.SetActionValues(tnah::Actions::pickup, 1.0f);
+	}
+
+	{
+		std::string name = "coffee cup 2";
+		glm::vec3 size(0.25, 0.5, 0.25);
+		auto&go = m_ActiveScene->CreateGameObject(name);
+		auto&tt = go.Transform();
+		auto& mesh = go.AddComponent<tnah::MeshComponent>();
+		mesh.Model = tnah::Model::Create("assets/meshes/cube_texture.fbx");
+		
+		tt.Position = {8, -3.7, 7};
+		tt.Scale = size;
+		/*auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
+		auto& box = go.AddComponent<tnah::BoxColliderComponent>(glm::vec3(size));
+		
+		box.Components.BodyCollider = rb.AddCollider(box.Components.Shape, rp3d::Transform::identity());
+		rb.SetBodyType(rp3d::BodyType::STATIC);*/
+		
+		auto& affordance = go.AddComponent<tnah::Affordance>();
+		affordance.SetActionValues(tnah::Actions::pickup, 1.0f);
+	}
+
+	{
+		std::string name = "rest mat";
+		glm::vec3 size(0.25, 0.5, 0.25);
+		auto&go = m_ActiveScene->CreateGameObject(name);
+		auto&tt = go.Transform();
+		auto& mesh = go.AddComponent<tnah::MeshComponent>();
+		mesh.Model = tnah::Model::Create("assets/meshes/cube_textured.fbx");
+		
+		tt.Position = {8, -3.7, 7};
+		tt.Scale = size;
+		/*auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
+		auto& box = go.AddComponent<tnah::BoxColliderComponent>(glm::vec3(size));
+		
+		box.Components.BodyCollider = rb.AddCollider(box.Components.Shape, rp3d::Transform::identity());
+		rb.SetBodyType(rp3d::BodyType::STATIC);*/
+		
+		auto& affordance = go.AddComponent<tnah::Affordance>();
+		affordance.SetActionValues(tnah::Actions::sleep, 1.0f);
+	}
 	
 	glm::vec3 binSize(1, 1, 1), binScale(0.3, 0.3, 0.3), binRotation(-1.55, 0, 0);
 	{
@@ -298,10 +360,11 @@ MainLayer::MainLayer()
 		tt.Position = {5.3, -3.7, 3.9};
 		tt.Rotation = binRotation;
 		tt.Scale = binScale;
-		//auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
-		//auto& box = go.AddComponent<tnah::BoxColliderComponent>(glm::vec3(binSize));
+		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
+		auto& box = go.AddComponent<tnah::BoxColliderComponent>(glm::vec3(binSize));
 		
-		//box.Components.BodyCollider = rb.AddCollider(box.Components.Shape, rp3d::Transform::identity());
+		box.Components.BodyCollider = rb.AddCollider(box.Components.Shape, rp3d::Transform::identity());
+		rb.SetBodyType(rp3d::BodyType::STATIC);
 		
 		go.AddComponent<tnah::AIComponent>();
 		go.AddComponent<tnah::CharacterComponent>(tnah::CharacterNames::Rubbish);
@@ -315,9 +378,10 @@ MainLayer::MainLayer()
 		auto& mesh = go.AddComponent<tnah::MeshComponent>();
 		mesh.Model = tnah::Model::Create("assets/meshes/bin.fbx");
 		
-		tt.Position = {-1.9, -3.7, 3.9};
+		tt.Position = {-2, -3.7, 4};
 		tt.Rotation = binRotation;
 		tt.Scale = binScale;
+		tt.astar = true;
 		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
 		auto& box = go.AddComponent<tnah::BoxColliderComponent>(glm::vec3(binSize));
 		
@@ -338,9 +402,10 @@ MainLayer::MainLayer()
 		auto& mesh = go.AddComponent<tnah::MeshComponent>();
 		mesh.Model = tnah::Model::Create("assets/meshes/table.fbx");
 		
-		tt.Position = {-2.6, -3.6, 6};
+		tt.Position = {-3, -3.6, 6};
 		tt.Rotation = tableRotation;
 		tt.Scale = tableScale;
+		tt.astar = true;
 		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
 		auto& box = go.AddComponent<tnah::BoxColliderComponent>(tableSize);
 
@@ -360,6 +425,7 @@ MainLayer::MainLayer()
 		tt.Position = {-7, -3.6, 7};
 		tt.Rotation = tableRotation;
 		tt.Scale = tableScale;
+		tt.astar = true;
 		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
 		auto& box = go.AddComponent<tnah::BoxColliderComponent>(tableSize);
 
@@ -377,9 +443,10 @@ MainLayer::MainLayer()
 		auto& mesh = go.AddComponent<tnah::MeshComponent>();
 		mesh.Model = tnah::Model::Create("assets/meshes/chair.fbx");
 		
-		tt.Position = {-3.5, -3.8, 6};
+		tt.Position = {-4, -3.8, 6};
 		//tt.Rotation = glm::vec3(glm::radians(180.0f), 0, 0);
 		tt.Scale = chairScale;
+		tt.astar = true;
 		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
 		auto& box = go.AddComponent<tnah::BoxColliderComponent>(glm::vec3(1, 1, 1));
 
@@ -399,10 +466,10 @@ MainLayer::MainLayer()
 		auto& mesh = go.AddComponent<tnah::MeshComponent>();
 		mesh.Model = tnah::Model::Create("assets/meshes/chair.fbx");
 		
-		tt.Position = {-1.9, -3.8, 6};
+		tt.Position = {-2, -3.8, 6};
 		tt.Rotation = glm::vec3(0, glm::radians(180.0f), 0);
 		tt.Scale = chairScale;
-		
+		tt.astar = true;
 		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
 		auto& box = go.AddComponent<tnah::BoxColliderComponent>(glm::vec3(1, 1, 1));
 
@@ -419,14 +486,14 @@ MainLayer::MainLayer()
 		auto& mesh = go.AddComponent<tnah::MeshComponent>();
 		mesh.Model = tnah::Model::Create("assets/meshes/chair.fbx");
 		
-		tt.Position = {-7.9, -3.8, 7};
+		tt.Position = {-8, -3.8, 7};
 		tt.Rotation = glm::vec3(0, 0, 0);
 		tt.Scale = chairScale;
 		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
 		auto& box = go.AddComponent<tnah::BoxColliderComponent>(glm::vec3(1, 1, 1));
 
 		box.Components.BodyCollider = rb.AddCollider(box.Components.Shape, rp3d::Transform::identity());
-		
+		tt.astar = true;
 		rb.SetBodyType(rp3d::BodyType::KINEMATIC);	
 	}
 
@@ -438,14 +505,14 @@ MainLayer::MainLayer()
 		auto& mesh = go.AddComponent<tnah::MeshComponent>();
 		mesh.Model = tnah::Model::Create("assets/meshes/chair.fbx");
 		
-		tt.Position = {-6.1, -3.8, 7};
+		tt.Position = {-6, -3.8, 7};
 		tt.Rotation = glm::vec3(0, glm::radians(180.0f), 0);
 		tt.Scale = chairScale;
 		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
 		auto& box = go.AddComponent<tnah::BoxColliderComponent>(glm::vec3(1, 1, 1));
 		
 		box.Components.BodyCollider = rb.AddCollider(box.Components.Shape, rp3d::Transform::identity());
-		
+		tt.astar = true;
 		rb.SetBodyType(rp3d::BodyType::KINEMATIC);	
 	}
 #pragma endregion SceneCreation
@@ -617,7 +684,7 @@ void MainLayer::OnFixedUpdate(tnah::PhysicsTimestep ps)
 
 void MainLayer::OnImGuiRender()
 {
-	auto& terr = m_Terrain.Transform();
+	/*auto& terr = m_Terrain.Transform();
 	auto& ct = m_Camera.Transform();
 	auto& l = m_SceneLight.GetComponent<tnah::LightComponent>();
 	auto& lt = m_SceneLight.Transform();
@@ -758,6 +825,7 @@ void MainLayer::OnImGuiRender()
 	}
 	
 	ImGui::End();
+	*/
 
 	auto io = ImGui::GetIO();
 	auto display = ImGui::GetIO().DisplaySize;
@@ -790,8 +858,12 @@ void MainLayer::OnImGuiRender()
 	}
 	
 	ImGui::End();	
+	
 	if(m_CloseScreen)
 	{
+		auto io = ImGui::GetIO();
+		auto display = ImGui::GetIO().DisplaySize;
+		auto pos  = ImGui::GetWindowViewport()->Pos;
 		//ImGui::SetNextWindowSize({size.x, size.y});
 		ImGui::SetNextWindowSize({display.x + 10, display.y + 10});
 		ImGui::SetNextWindowPos({pos.x - 10, pos.y - 10}, true);
