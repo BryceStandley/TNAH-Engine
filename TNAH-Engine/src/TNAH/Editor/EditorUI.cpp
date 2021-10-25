@@ -5,6 +5,7 @@
 
 
 #include "TNAH/Core/FileManager.h"
+#include "TNAH/Scene/Components/AI/Affordance.h"
 #include "TNAH/Scene/Components/AI/AIComponent.h"
 #include "TNAH/Scene/Components/AI/AStar.h"
 #include "TNAH/Scene/Components/AI/CharacterComponent.h"
@@ -390,6 +391,74 @@ namespace tnah {
 				astar.reset = true;
 			}
 			
+			ImGui::Separator();
+		}
+
+		if(object.HasComponent<Affordance>())
+		{
+			auto& aff = object.GetComponent<Affordance>();
+			ImGui::Text("Affordance");
+			
+			ImGui::Text("Affordance Value");
+			DrawFloatControl("Pos X", aff.editorValue, 0, 1);
+
+			//sit, kick, punch, none, greeting, pickup, abuse, sleep, drink, play
+
+			if(ImGui::Button("Sit"))
+			{
+				aff.SetActionValues(sit, aff.editorValue);
+				aff.recent += "sit " + std::to_string(aff.editorValue) + "\n";
+			}
+
+			if(ImGui::Button("Kick"))
+			{
+				aff.SetActionValues(kick, aff.editorValue);
+				aff.recent += "kick " + std::to_string(aff.editorValue) + "\n";
+			}
+
+			if(ImGui::Button("Punch"))
+			{
+				aff.SetActionValues(punch, aff.editorValue);
+				aff.recent += "punch " + std::to_string(aff.editorValue) + "\n";
+			}
+
+			if(ImGui::Button("Greeting"))
+			{
+				aff.SetActionValues(greeting, aff.editorValue);
+				aff.recent += "greeting " + std::to_string(aff.editorValue) + "\n";
+			}
+
+			if(ImGui::Button("Pickup"))
+			{
+				aff.SetActionValues(pickup, aff.editorValue);
+				aff.recent += "pickup " + std::to_string(aff.editorValue) + "\n";
+			}
+
+			if(ImGui::Button("Abuse"))
+			{
+				aff.SetActionValues(abuse, aff.editorValue);
+				aff.recent += "abuse " + std::to_string(aff.editorValue) + "\n";
+			}
+			
+			if(ImGui::Button("Sleep"))
+			{
+				aff.SetActionValues(sleep, aff.editorValue);
+				aff.recent += "sleep " + std::to_string(aff.editorValue) + "\n";
+			}
+			
+			if(ImGui::Button("Drink"))
+			{
+				aff.SetActionValues(drink, aff.editorValue);
+				aff.recent += "drink " + std::to_string(aff.editorValue) + "\n";
+			}
+			
+			if(ImGui::Button("Play"))
+			{
+				aff.SetActionValues(play, aff.editorValue);
+				aff.recent += "play " + std::to_string(aff.editorValue) + "\n";
+			}
+			ImGui::Separator();
+			ImGui::Text(aff.recent.c_str());
 			ImGui::Separator();
 		}
 
@@ -1182,7 +1251,7 @@ namespace tnah {
 				ComponentVariations::Light, ComponentVariations::Terrain, ComponentVariations::Mesh, ComponentVariations::PlayerController,
 				ComponentVariations::AudioListener, ComponentVariations::AudioSource, ComponentVariations::RigidBody, ComponentVariations::BoxCollider,
 				ComponentVariations::CapsuleCollider, ComponentVariations::SphereCollider, ComponentVariations::ConcaveMeshCollider,
-			ComponentVariations::ConvexMeshCollider, ComponentVariations::AStar, ComponentVariations::AiCharacter
+			ComponentVariations::ConvexMeshCollider, ComponentVariations::AStar, ComponentVariations::AiCharacter, ComponentVariations::Affordance
 				
 			};
 
@@ -1347,6 +1416,9 @@ namespace tnah {
 
 			if(v == ComponentVariations::AiCharacter && Utility::Contains<ComponentCategory>(AIComponent::s_Types.Categories, category))
 				foundComponents.emplace_back(ComponentVariations::AiCharacter);
+
+			if(v == ComponentVariations::Affordance && Utility::Contains<ComponentCategory>(Affordance::s_Types.Categories, category))
+				foundComponents.emplace_back(ComponentVariations::Affordance);
 		}
 		return foundComponents;
 	}
@@ -1419,10 +1491,13 @@ namespace tnah {
 			foundComponents.emplace_back(ComponentVariations::ConcaveMeshCollider);
 
 		if(AStarComponent::s_SearchString.find(term) != std::string::npos && Utility::Contains<ComponentVariations>(componentsToSearch, ComponentVariations::AStar))
-			foundComponents.emplace_back(ComponentVariations::ID);
+			foundComponents.emplace_back(ComponentVariations::AStar);
 
 		if(AIComponent::s_SearchString.find(term) != std::string::npos && Utility::Contains<ComponentVariations>(componentsToSearch, ComponentVariations::AiCharacter))
-			foundComponents.emplace_back(ComponentVariations::ID);
+			foundComponents.emplace_back(ComponentVariations::AiCharacter);
+
+		if(Affordance::s_SearchString.find(term) != std::string::npos && Utility::Contains<ComponentVariations>(componentsToSearch, ComponentVariations::Affordance))
+			foundComponents.emplace_back(ComponentVariations::Affordance);
 		
 		return foundComponents;
 	}
@@ -1479,6 +1554,8 @@ namespace tnah {
         	return "Convex Mesh Collider";
         case ComponentVariations::ConcaveMeshCollider:
         	return "Concave Mesh Collider";
+        case ComponentVariations::Affordance:
+        	return "Affordance";
         default: return "";
         }
     }
@@ -1535,6 +1612,8 @@ namespace tnah {
 			return "Physics";
 		case ComponentVariations::ConcaveMeshCollider:
 			return "Physics";
+		case ComponentVariations::Affordance:
+			return "Affordance";
 		default: return "";
 		}
 		return "";
@@ -1684,6 +1763,9 @@ namespace tnah {
         		b.Components.BodyCollider = rb.AddCollider(b.Components.Shape, rp3d::Transform::identity());
         		return true;
         	}
+        case ComponentVariations::Affordance:
+        	object.AddComponent<Affordance>();
+        	return true;
         default: return false;
         }
     }

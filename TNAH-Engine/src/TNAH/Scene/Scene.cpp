@@ -465,7 +465,9 @@ namespace tnah{
 					auto view = m_Registry.view<AIComponent, CharacterComponent, TransformComponent, RigidBodyComponent>();
 					auto player = m_Registry.view<PlayerInteractions, TransformComponent>();
 					auto view2 = m_Registry.view<AStarComponent, MeshComponent, TransformComponent>();
-
+					bool playerClose = false;
+					mPlayerInteractions = false;
+					mTargetString = "";
 				
 					for(auto entity : view)
 					{
@@ -500,39 +502,37 @@ namespace tnah{
 									break;
 							}
 						}
-
-						for(auto p : player)
+						
+						if(!playerClose)
 						{
-							auto & playerTransform = player.get<TransformComponent>(p);
-							auto & interactions = player.get<PlayerInteractions>(p);
+							for(auto p : player)
+							{
+								auto & playerTransform = player.get<TransformComponent>(p);
+								auto & interactions = player.get<PlayerInteractions>(p);
 
-							if(glm::distance(playerTransform.Position, t.Position) < interactions.distance)
-							{
-								mPlayerInteractions = true;
-								if(Input::IsKeyPressed(Key::U))
+								if(glm::distance(playerTransform.Position, t.Position) < interactions.distance)
 								{
-									c.aiCharacter->ApplyPlayerAction(PlayerActions::insult);
+									mPlayerInteractions = true;
+									if(Input::IsKeyPressed(Key::U))
+									{
+										c.aiCharacter->ApplyPlayerAction(PlayerActions::pumpUp);
+									}
+									else if(Input::IsKeyPressed(Key::I))
+									{
+										c.aiCharacter->ApplyPlayerAction(PlayerActions::calm);
+									}
+									else if(Input::IsKeyPressed(Key::P))
+									{
+										c.aiCharacter->ApplyPlayerAction(PlayerActions::compliment);
+									}
+									else if(Input::IsKeyPressed(Key::O))
+									{
+										c.aiCharacter->ApplyPlayerAction(PlayerActions::insult);
+									}
+									mTargetString = c.aiCharacter->CharacterString();
+									playerClose = true;
 								}
-								else if(Input::IsKeyPressed(Key::I))
-								{
-									c.aiCharacter->ApplyPlayerAction(PlayerActions::calm);
-								}
-								else if(Input::IsKeyPressed(Key::P))
-								{
-									c.aiCharacter->ApplyPlayerAction(PlayerActions::compliment);
-								}
-								else if(Input::IsKeyPressed(Key::O))
-								{
-									c.aiCharacter->ApplyPlayerAction(PlayerActions::insult);
-								}
-								mTargetString = c.aiCharacter->CharacterString();
-								break;
-							}
-							else
-							{
-								mPlayerInteractions = false;
-								mTargetString = "";
-							}
+							}	
 						}
 
 						ai.SetTargetPosition(c.aiCharacter->OnUpdate(deltaTime, t));

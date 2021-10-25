@@ -69,6 +69,7 @@ namespace tnah
                         canOutput = false;
 
                         emotions.IncreaseArousal(0.25);
+                        previousState = GetDesiredAction();
                     }
                     break;
                 case greeting:
@@ -90,6 +91,7 @@ namespace tnah
 
                         emotions.IncreaseArousal(0.2);
                         emotions.IncreaseValence(0.2);
+                        previousState = GetDesiredAction();
                     }
                     break;
                 case pickup:
@@ -97,22 +99,24 @@ namespace tnah
                         LogAction("Who left rubbish here!", mColour);
                         emotions.IncreaseArousal(0.3);
                         emotions.DecreaseValence(0.4);
+                        previousState = GetDesiredAction();
                     break;
                 case sleep:
                     if(canOutput)
                     {
                         LogAction("This looks like a good spot to snooze!", mColour);
                         canOutput = false;
+                        emotions.DecreaseArousal(0.5);
+                        emotions.IncreaseValence(0.5);
+                        previousState = GetDesiredAction();
                     }
-                    emotions.DecreaseArousal(0.1 * GetDeltaTime());
-                    emotions.IncreaseValence(0.2 * GetDeltaTime());
                     break;
                 case none:
                 default:
                     break;
                 }
             }
-            else
+            else if(previousState != GetDesiredAction())
                 canOutput = true;
         }
 
@@ -135,16 +139,16 @@ namespace tnah
             emotions.DecreaseValence(0.5 * GetDeltaTime());
             break;
         case PlayerActions::compliment:
-            emotions.IncreaseValence(0.2 * GetDeltaTime());
+            emotions.IncreaseValence(0.5 * GetDeltaTime());
             break;
         case PlayerActions::calm:
-            emotions.DecreaseArousal(0.2 * GetDeltaTime());
+            emotions.DecreaseArousal(0.5 * GetDeltaTime());
             break;
         case PlayerActions::pumpUp:
-            emotions.IncreaseArousal(0.2 * GetDeltaTime());
+            emotions.IncreaseArousal(0.5 * GetDeltaTime());
             break;
-            default:
-                break;
+        default:
+            break;
         }
     }
 

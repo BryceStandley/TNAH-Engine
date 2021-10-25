@@ -4,7 +4,7 @@ namespace tnah
 {
     struct PlayerInteractions
     {
-        PlayerInteractions() : distance(7.5f) {}
+        PlayerInteractions() : distance(3.0f) {}
 
         float distance;
     };

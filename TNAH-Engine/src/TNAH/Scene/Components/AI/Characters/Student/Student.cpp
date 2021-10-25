@@ -155,13 +155,13 @@ namespace tnah
             emotions.DecreaseValence(0.5 * GetDeltaTime());
             break;
         case PlayerActions::compliment:
-            emotions.IncreaseValence(0.2 * GetDeltaTime());
+            emotions.IncreaseValence(0.5 * GetDeltaTime());
             break;
         case PlayerActions::calm:
-            emotions.DecreaseArousal(0.2 * GetDeltaTime());
+            emotions.DecreaseArousal(0.5 * GetDeltaTime());
             break;
         case PlayerActions::pumpUp:
-            emotions.IncreaseArousal(0.2 * GetDeltaTime());
+            emotions.IncreaseArousal(0.5 * GetDeltaTime());
             break;
         default:
             break;

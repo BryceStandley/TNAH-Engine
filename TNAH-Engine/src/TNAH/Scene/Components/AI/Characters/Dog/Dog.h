@@ -31,5 +31,6 @@ namespace tnah {
         float BalanceRange(float min, float max, float balanceValue);
         float actionDistance;
         EmotionComponent emotions;
+        Actions previousState;
     };
 }

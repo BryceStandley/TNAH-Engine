@@ -15,7 +15,7 @@ namespace tnah {
 		Camera, EditorCamera, Editor, Skybox, Light,
 		Terrain, Mesh, PlayerController, AudioSource, AudioListener,
 		RigidBody, CollisionBody, BoxCollider, SphereCollider, CapsuleCollider, HeightFieldCollider,
-		ConvexMeshCollider, ConcaveMeshCollider, AiCharacter, AStar
+		ConvexMeshCollider, ConcaveMeshCollider, AiCharacter, AStar, Affordance
 	};
 
 	/**********************************************************************************************//**
