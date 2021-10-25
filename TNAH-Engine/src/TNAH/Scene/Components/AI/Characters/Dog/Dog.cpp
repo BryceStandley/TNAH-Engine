@@ -15,13 +15,16 @@ namespace tnah
         actionDistance = 1.5;
         mColour = glm::vec4(1, 0, 0, 0);
         currentAffordanceLevel = 1.0f;
-        //Temporary stuff
+        
+
         emotions.AddTrait(Trait::Aggressive);
+        
         emotions.AddTrait(Trait::Sad);
+
         emotions.SetMood(Mood::Relaxed);
         mCharacterState = emotions.GetEmotion();
         Character::name = "Dog";
-        //mFsm->setCurrentState
+        
     }
 
     glm::vec3 Dog::OnUpdate(Timestep deltaTime, TransformComponent& transform)
