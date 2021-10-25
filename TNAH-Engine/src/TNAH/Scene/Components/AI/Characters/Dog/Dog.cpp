@@ -39,9 +39,11 @@ namespace tnah
         return targetPos;
     }
 
-    bool Dog::CheckAction(float affordanceValue, float distance, std::string tag)
+    std::pair<bool, bool> Dog::CheckAction(float affordanceValue, float distance, std::string tag)
     {
-        bool r = false;
+        std::pair<bool, bool> check;
+        check.second = false;
+        check.first = false;
         if (currentAffordanceLevel <= affordanceValue)
         {
             if (distance <= actionDistance)
@@ -107,7 +109,7 @@ namespace tnah
                 canOutput = true;
         }
 
-        return r;
+        return check;
     }
 
     float Dog::BalanceRange(float min, float max, float balanceValue)
@@ -138,4 +140,14 @@ namespace tnah
             break;
         }
     }
+
+    std::string Dog::CharacterString()
+    {
+        std::string str;
+        str += "Name: Dog\nEmotion: " + emotions.GetCurrentEmotionAsString() +
+            "\nArousal: " + std::to_string(emotions.GetArousal()) + "\nValence: " +
+                std::to_string(emotions.GetValence()) + "\nDesired action (will add tuesday)";
+        return str;
+    }
+
 }

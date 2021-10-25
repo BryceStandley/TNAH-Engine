@@ -15,7 +15,6 @@
 MainLayer::MainLayer()
 	:Layer("Main Layer")
 {
-	tnah::AStar::Init(tnah::Int2(-18,-10), tnah::Int2(40, 30));
 	m_ActiveScene = tnah::Scene::CreateEmptyScene();
 	m_Camera = m_ActiveScene->GetSceneCamera();
 	auto& ct = m_Camera.Transform();
@@ -65,7 +64,7 @@ MainLayer::MainLayer()
 		go.Transform().Rotation = {0, 0, 0};
 		go.Transform().Scale = {0.1, 0.1, 0.1};
 
-		auto & a = go.AddComponent<tnah::AStarComponent>();
+		auto & a = go.AddComponent<tnah::AStarComponent>(tnah::Int2(-10,-10), tnah::Int2(20, 20));
 	}
 
 	glm::vec3 binSize(1, 1, 1), binScale(0.3, 0.3, 0.3), binRotation(-1.55, 0, 0);
@@ -113,7 +112,86 @@ MainLayer::MainLayer()
 		tt.Position = {-10, -4, 5};
 		tt.astar = true;
 	}
-	
+
+	{
+		std::string name = "Object";
+		auto&go = m_ActiveScene->CreateGameObject(name);
+		auto&tt = go.Transform();
+		tt.Position = {-8, -4, -9};
+		tt.astar = true;
+	}
+
+	{
+		std::string name = "Object";
+		auto&go = m_ActiveScene->CreateGameObject(name);
+		auto&tt = go.Transform();
+		tt.Position = {-7, -4, -9};
+		tt.astar = true;
+	}
+
+	{
+		std::string name = "Object";
+		auto&go = m_ActiveScene->CreateGameObject(name);
+		auto&tt = go.Transform();
+		tt.Position = {-6, -4, -9};
+		tt.astar = true;
+	}
+
+	{
+		std::string name = "Object";
+		auto&go = m_ActiveScene->CreateGameObject(name);
+		auto&tt = go.Transform();
+		tt.Position = {-5, -4, -9};
+		tt.astar = true;
+	}
+
+	{
+		std::string name = "Object";
+		auto&go = m_ActiveScene->CreateGameObject(name);
+		auto&tt = go.Transform();
+		tt.Position = {-5, -4, -8};
+		tt.astar = true;
+	}
+
+	{
+		std::string name = "Object";
+		auto&go = m_ActiveScene->CreateGameObject(name);
+		auto&tt = go.Transform();
+		tt.Position = {-5, -4, -7};
+		tt.astar = true;
+	}
+
+	{
+		std::string name = "Object";
+		auto&go = m_ActiveScene->CreateGameObject(name);
+		auto&tt = go.Transform();
+		tt.Position = {-5, -4, -6};
+		tt.astar = true;
+	}
+
+	{
+		std::string name = "Object";
+		auto&go = m_ActiveScene->CreateGameObject(name);
+		auto&tt = go.Transform();
+		tt.Position = {-9, -4, -3};
+		tt.astar = true;
+	}
+
+	{
+		std::string name = "Object";
+		auto&go = m_ActiveScene->CreateGameObject(name);
+		auto&tt = go.Transform();
+		tt.Position = {-9, -4, -4};
+		tt.astar = true;
+	}
+
+	{
+		std::string name = "Object";
+		auto&go = m_ActiveScene->CreateGameObject(name);
+		auto&tt = go.Transform();
+		tt.Position = {-9, -4, -5};
+		tt.astar = true;
+	}
 #pragma endregion SceneCreation
 	
 }

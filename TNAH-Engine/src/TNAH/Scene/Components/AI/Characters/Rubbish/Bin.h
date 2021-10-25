@@ -16,13 +16,14 @@ namespace tnah
         bool spin = false;
         bool canOutput = true;
         EmotionComponent GetEmotions() {return emotions;}
-        bool CheckAction(float affordanceValue, float distance, std::string tag) override;
+        std::pair<bool, bool> CheckAction(float affordanceValue, float distance, std::string tag) override;
         Emotion mCharacterState;
         glm::vec4 mColour;
         void SetAffordanceLevel(float a) {currentAffordanceLevel = a;}
         void SetActionDistance(float d) {actionDistance = d;}
         std::shared_ptr<StateMachine<Bin>> GetFsm() {return mFsm;}
         void ApplyPlayerAction(PlayerActions givenAction) override;
+        std::string CharacterString() override;
     private:
         glm::vec3 targetPos;
         std::shared_ptr<StateMachine<Bin>> mFsm;

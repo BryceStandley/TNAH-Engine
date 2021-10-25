@@ -481,9 +481,9 @@ namespace tnah{
 							if(glm::distance(objTrasnform.Position, t.Position) < c.aiCharacter->GetDistance())
 							{
 									float affordanceValue = affordance.GetActionValue(c.aiCharacter->GetDesiredAction());
-									bool event = c.aiCharacter->CheckAction(affordanceValue, glm::distance(objTrasnform.Position, t.Position), "");
+									auto event = c.aiCharacter->CheckAction(affordanceValue, glm::distance(objTrasnform.Position, t.Position), affordance.GetTag());
 
-									if(event)
+									if(event.second)
 									{
 										Int2 new_pos = AStar::GenerateRandomPosition(Int2(objTrasnform.Position.x, objTrasnform.Position.z)).position;
 										switch (c.aiCharacter->GetDesiredAction())
@@ -523,10 +523,13 @@ namespace tnah{
 								{
 									c.aiCharacter->ApplyPlayerAction(PlayerActions::insult);
 								}
+								mTargetString = c.aiCharacter->CharacterString();
+								break;
 							}
 							else
 							{
 								mPlayerInteractions = false;
+								mTargetString = "";
 							}
 						}
 

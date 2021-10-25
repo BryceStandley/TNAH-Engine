@@ -6,12 +6,14 @@ namespace tnah
     class Affordance
     {
     public:
-        Affordance();
+        Affordance(std::string t = "");
         ~Affordance();
 
         float GetActionValue(Actions action);
         void SetActionValues(Actions action, float value);
+        std::string GetTag() const {return tag;}
     private:
+        std::string tag;
         std::unordered_map<Actions, float> objectsActions;
     };
 }

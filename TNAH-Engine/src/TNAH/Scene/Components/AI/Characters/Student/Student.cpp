@@ -45,9 +45,11 @@ namespace tnah
         return targetPos;
     }
 
-    bool Student::CheckAction(float affordanceValue, float distance, std::string tag)
+    std::pair<bool, bool> Student::CheckAction(float affordanceValue, float distance, std::string tag)
     {
-        bool r = false;
+        std::pair<bool, bool> check;
+        check.second = false;
+        check.first = false;
         if (currentAffordanceLevel <= affordanceValue)
         {
             if (distance <= actionDistance)
@@ -55,6 +57,14 @@ namespace tnah
                 switch (Character::GetDesiredAction())
                 {
                     case sit:
+                        if (canOutput)
+                        {
+                            LogAction("(Sits) This looks like a nice spot to sit!", mColour);
+                            canOutput = false;
+                            SetWander(false);
+                        }
+                        emotions.DecreaseArousal(0.05 * GetDeltaTime());
+                        emotions.IncreaseValence(0.1 * GetDeltaTime());
                         break;
                 case greeting:
                     if (canOutput)
@@ -62,13 +72,13 @@ namespace tnah
                         switch (rand() % 3)
                         {
                         case 1:
-                            LogAction("Ayee name here!", mColour);
+                            LogAction("(Greet) Aye " + tag, mColour);
                             break;
                         case 2:
-                            LogAction("Sup name here!", mColour);
+                            LogAction("(Greet) Sup " + tag, mColour);
                             break;
                         default:
-                            LogAction("Legend add name here!", mColour);
+                            LogAction("(Greet) Legend " + tag, mColour);
                             break;
                         }
                         canOutput = false;
@@ -80,19 +90,37 @@ namespace tnah
                 case sleep:
                     if (canOutput)
                     {
-                        LogAction("This looks like a good spot to snooze!", mColour);
+                        LogAction("(Sleeps) This looks like a good spot to snooze!", mColour);
                         canOutput = false;
+                        SetWander(false);
                     }
                     emotions.DecreaseArousal(0.1 * GetDeltaTime());
                     emotions.IncreaseValence(0.2 * GetDeltaTime());
                     break;
                 case play:
-                    
+                    if (canOutput)
+                    {
+                        LogAction("(Plays" + tag + " here) This looks fun to play!", mColour);
+                        canOutput = false;
+                        SetWander(false);
+                    }
+                    emotions.IncreaseArousal(0.1 * GetDeltaTime());
+                    emotions.IncreaseValence(0.1 * GetDeltaTime());
                     break;
                 case drink:
-                    
+                    check.second = true;
+                    LogAction("(Drinks " + tag + ") Yum! Delicious drink!", mColour);
+                    emotions.IncreaseArousal(0.25);
                     break;
                     case kick:
+                        if (canOutput)
+                        {
+                            LogAction("(Kicks "+ tag + ")", mColour);
+                            canOutput = false;
+                            SetWander(false);
+                            emotions.IncreaseArousal(0.2);
+                            emotions.DecreaseValence(0.2);
+                        }
                         break;
                 case none:
                 default:
@@ -103,7 +131,7 @@ namespace tnah
                 canOutput = true;
         }
 
-        return r;
+        return check;
     }
 
     float Student::BalanceRange(float min, float max, float balanceValue)
@@ -133,5 +161,14 @@ namespace tnah
         default:
             break;
         }
+    }
+
+    std::string Student::CharacterString()
+    {
+        std::string str;
+        str += "Name: Student\nEmotion: " + emotions.GetCurrentEmotionAsString() +
+            "\nArousal: " + std::to_string(emotions.GetArousal()) + "\nValence: " +
+                std::to_string(emotions.GetValence()) + "\nAction: " + GetActionString(GetDesiredAction());
+        return str;
     }
 }

@@ -15,7 +15,6 @@
 MainLayer::MainLayer()
 	:Layer("Main Layer")
 {
-	tnah::AStar::Init(tnah::Int2(-9,1), tnah::Int2(22, 9));
 	m_ActiveScene = tnah::Scene::CreateEmptyScene();
 	m_Camera = m_ActiveScene->GetSceneCamera();
 	auto& ct = m_Camera.Transform();
@@ -36,7 +35,7 @@ MainLayer::MainLayer()
 		rb.SetBodyType(rp3d::BodyType::DYNAMIC);
 		//m_Camera.AddComponent<tnah::AIComponent>();
 		//m_Camera.AddComponent<tnah::CharacterComponent>();
-		auto & aff = m_Camera.AddComponent<tnah::Affordance>();
+		auto & aff = m_Camera.AddComponent<tnah::Affordance>("User");
 		m_Camera.AddComponent<tnah::PlayerInteractions>();
 		aff.SetActionValues(tnah::Actions::abuse, 1.0f);
 		aff.SetActionValues(tnah::Actions::greeting, 1.0f);
@@ -81,7 +80,7 @@ MainLayer::MainLayer()
 		go.Transform().Rotation = {0, 0, 0};
 		go.Transform().Scale = {0.1, 0.1, 0.1};
 
-		auto & a = go.AddComponent<tnah::AStarComponent>();
+		auto & a = go.AddComponent<tnah::AStarComponent>(tnah::Int2(-9,1), tnah::Int2(22, 9));
 	}
 
 	//Colliders Only
@@ -306,8 +305,10 @@ MainLayer::MainLayer()
 		box.Components.BodyCollider = rb.AddCollider(box.Components.Shape, rp3d::Transform::identity());
 		rb.SetBodyType(rp3d::BodyType::STATIC);*/
 		
-		auto& affordance = go.AddComponent<tnah::Affordance>();
+		auto& affordance = go.AddComponent<tnah::Affordance>("Coffee");
 		affordance.SetActionValues(tnah::Actions::pickup, 1.0f);
+		affordance.SetActionValues(tnah::Actions::drink, 1.0f);
+		affordance.SetActionValues(tnah::Actions::sit, 0.1f);
 	}
 
 	{
@@ -326,8 +327,10 @@ MainLayer::MainLayer()
 		box.Components.BodyCollider = rb.AddCollider(box.Components.Shape, rp3d::Transform::identity());
 		rb.SetBodyType(rp3d::BodyType::STATIC);*/
 		
-		auto& affordance = go.AddComponent<tnah::Affordance>();
+		auto& affordance = go.AddComponent<tnah::Affordance>("Coffee");
 		affordance.SetActionValues(tnah::Actions::pickup, 1.0f);
+		affordance.SetActionValues(tnah::Actions::drink, 1.0f);
+		affordance.SetActionValues(tnah::Actions::sit, 0.1f);
 	}
 
 	{
@@ -341,9 +344,44 @@ MainLayer::MainLayer()
 		tt.Position = {12, -4.1, 8};
 		tt.Scale = size;
 		
-		auto& affordance = go.AddComponent<tnah::Affordance>();
+		auto& affordance = go.AddComponent<tnah::Affordance>("Mat");
 		affordance.SetActionValues(tnah::Actions::sleep, 1.0f);
+		affordance.SetActionValues(tnah::Actions::sit, 0.5f);
+		affordance.SetActionValues(tnah::Actions::pickup, 0.1f);
 	}
+
+	{
+		std::string name = "rest mat 2";
+		glm::vec3 size(0.25, 0.1, 0.25);
+		auto&go = m_ActiveScene->CreateGameObject(name);
+		auto&tt = go.Transform();
+		auto& mesh = go.AddComponent<tnah::MeshComponent>();
+		mesh.Model = tnah::Model::Create("assets/meshes/cube_texture.fbx");
+		
+		tt.Position = {5, -4.1, 4};
+		tt.Scale = size;
+		
+		auto& affordance = go.AddComponent<tnah::Affordance>("Mat");
+		affordance.SetActionValues(tnah::Actions::sleep, 1.0f);
+		affordance.SetActionValues(tnah::Actions::sit, 0.5f);
+		affordance.SetActionValues(tnah::Actions::pickup, 0.1f);
+	}
+
+		{
+    		std::string name = "Game Console";
+    		glm::vec3 size(0.25, 0.1, 0.25);
+    		auto&go = m_ActiveScene->CreateGameObject(name);
+    		auto&tt = go.Transform();
+    		auto& mesh = go.AddComponent<tnah::MeshComponent>();
+    		mesh.Model = tnah::Model::Create("assets/meshes/cube_texture.fbx");
+    		
+    		tt.Position = {7, -4.1, 5};
+    		tt.Scale = size;
+    		
+    		auto& affordance = go.AddComponent<tnah::Affordance>("Game Console");
+    		affordance.SetActionValues(tnah::play, 1.0f);
+    		affordance.SetActionValues(tnah::Actions::pickup, 0.1f);
+    	}
 	
 	glm::vec3 binSize(1, 1, 1), binScale(0.3, 0.3, 0.3), binRotation(-1.55, 0, 0);
 	{
@@ -427,8 +465,7 @@ MainLayer::MainLayer()
 		box.Components.BodyCollider = rb.AddCollider(box.Components.Shape, rp3d::Transform::identity());
 		
 		rb.SetBodyType(rp3d::BodyType::KINEMATIC);
-		go.AddComponent<tnah::Affordance>();
-		auto & a = go.GetComponent<tnah::Affordance>();
+		auto & a = go.AddComponent<tnah::Affordance>("Bin (not alive)");
 		a.SetActionValues(tnah::kick, 1);
 	}
 
@@ -450,7 +487,9 @@ MainLayer::MainLayer()
 
 		box.Components.BodyCollider = rb.AddCollider(box.Components.Shape, rp3d::Transform::identity());
 		
-		rb.SetBodyType(rp3d::BodyType::KINEMATIC);	
+		rb.SetBodyType(rp3d::BodyType::KINEMATIC);
+		auto & a = go.AddComponent<tnah::Affordance>("Table");
+		a.SetActionValues(tnah::kick, 1);
 	}
 	
 	{
@@ -472,6 +511,8 @@ MainLayer::MainLayer()
 		
 		rb.SetBodyType(rp3d::BodyType::KINEMATIC);
 		go.AddComponent<tnah::Affordance>();
+		auto & a = go.AddComponent<tnah::Affordance>("Table");
+		a.SetActionValues(tnah::kick, 1);
 	}
 	glm::vec3 chairScale(0.1, 0.1, 0.1);
 	{
@@ -493,7 +534,8 @@ MainLayer::MainLayer()
 		
 		rb.SetBodyType(rp3d::BodyType::KINEMATIC);
 		go.AddComponent<tnah::Affordance>();
-		auto & a = go.GetComponent<tnah::Affordance>();
+		auto & a = go.AddComponent<tnah::Affordance>("Chair");
+		a.SetActionValues(tnah::kick, 0.5);
 		a.SetActionValues(tnah::sit, 1);
 		//a.SetActionValues
 	}
@@ -515,7 +557,10 @@ MainLayer::MainLayer()
 
 		box.Components.BodyCollider = rb.AddCollider(box.Components.Shape, rp3d::Transform::identity());
 		
-		rb.SetBodyType(rp3d::BodyType::KINEMATIC);	
+		rb.SetBodyType(rp3d::BodyType::KINEMATIC);
+		auto & a = go.AddComponent<tnah::Affordance>("Chair");
+		a.SetActionValues(tnah::kick, 0.5);
+		a.SetActionValues(tnah::sit, 1);
 	}
 	
 	{
@@ -534,7 +579,10 @@ MainLayer::MainLayer()
 
 		box.Components.BodyCollider = rb.AddCollider(box.Components.Shape, rp3d::Transform::identity());
 		tt.astar = true;
-		rb.SetBodyType(rp3d::BodyType::KINEMATIC);	
+		rb.SetBodyType(rp3d::BodyType::KINEMATIC);
+		auto & a = go.AddComponent<tnah::Affordance>("Chair");
+		a.SetActionValues(tnah::kick, 0.5);
+		a.SetActionValues(tnah::sit, 1);
 	}
 
 	{
@@ -553,7 +601,10 @@ MainLayer::MainLayer()
 		
 		box.Components.BodyCollider = rb.AddCollider(box.Components.Shape, rp3d::Transform::identity());
 		tt.astar = true;
-		rb.SetBodyType(rp3d::BodyType::KINEMATIC);	
+		rb.SetBodyType(rp3d::BodyType::KINEMATIC);
+		auto & a = go.AddComponent<tnah::Affordance>("Chair");
+		a.SetActionValues(tnah::kick, 0.5);
+		a.SetActionValues(tnah::sit, 1);
 	}
 #pragma endregion SceneCreation
 	
@@ -576,8 +627,6 @@ void MainLayer::OnUpdate(tnah::Timestep deltaTime)
 	{
 		auto& rb = m_Camera.GetComponent<tnah::RigidBodyComponent>();
 		auto& ct = m_Camera.Transform();
-		std::cout << ct.Position.x << " " << ct.Position.y << " " << ct.Position.z << std::endl;
-		std::cout << ct.Rotation.x << " " << ct.Rotation.y << " " << ct.Rotation.z << std::endl;
 		/*
 		auto vel = rb.Body->getLinearVelocity();
 		if(vel.x > m_Velocity.x)
@@ -893,10 +942,9 @@ void MainLayer::OnImGuiRender()
 	
 	if(m_ActiveScene->GetPlayerInteraction())
 	{
-		ImGui::Text("U to pump them up (increase arousal)");
-		ImGui::Text("I to calm them down (decrease arousal)");
-		ImGui::Text("P to compliment them (increase valence)");
-		ImGui::Text("O to insult them (decrease valence)");
+		ImGui::Text("Hold U increase arousal or I decrease arousal");
+		ImGui::Text("Hold P increase valence or O decrease valence");
+		ImGui::Text(m_ActiveScene->GetTargetString().c_str());
 	}
 	
 	ImGui::End();	

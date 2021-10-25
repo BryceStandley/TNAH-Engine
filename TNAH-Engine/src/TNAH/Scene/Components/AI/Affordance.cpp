@@ -3,7 +3,7 @@
 
 namespace tnah
 {
-    Affordance::Affordance()
+    Affordance::Affordance(std::string t) : tag(t)
     {
         objectsActions[none] = 1;
     }

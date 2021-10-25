@@ -327,4 +327,38 @@ namespace tnah
 		//std::cout << "Positive Arousal: " << m_MultiplierPositiveArousal << " Negative Arousal: " << m_MultiplierNegativeArousal << std::endl;
 		//std::cout << "Positive Valence: " << m_MultiplierPositiveValence << " Negative Valence: " << m_MultiplierNegativeValence << std::endl;
 	}
+
+	std::string EmotionComponent::GetCurrentEmotionAsString()
+	{
+		switch (GetEmotion())
+		{
+			case Emotion::Happy:
+				return "Happy";
+		case Emotion::Angry:
+			return "Angry";
+			case Emotion::Bored:
+				return "Bored";
+		case Emotion::Calm:
+			return "Calm";
+		case Emotion::Content:
+			return "Content";
+			case Emotion::Delighted:
+				return "Delighted";
+			case Emotion::Depressed:
+				return "Depressed";
+			case Emotion::Excited:
+				return "Exited";
+			case Emotion::Frustrated:
+				return "Frustrated";
+			case Emotion::Relaxed:
+				return "Relaxed";
+			case Emotion::Tense:
+				return  "Tense";
+			case Emotion::Tired:
+				return "Tired";
+			default:
+				return "Error";
+		}
+	}
+
 }

@@ -62,6 +62,8 @@ public:
 	
 	void SetMood(Mood m);
 
+	std::string GetCurrentEmotionAsString();
+
 private:
 
 	//initalises the map with all the emotions used

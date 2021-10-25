@@ -148,7 +148,9 @@ namespace tnah
     void ChillStudent::Execute(Student* owner)
     {
         auto emotion = owner->GetEmotions().GetEmotion();
-
+        if(owner->canOutput)
+            owner->SetWander(true);
+        
         switch (emotion)
         {
         case Emotion::Content:
@@ -232,6 +234,9 @@ namespace tnah
     {
         auto emotion = owner->GetEmotions().GetEmotion();
 
+        if(owner->canOutput)
+            owner->SetWander(true);
+        
         switch (emotion)
         {
         case Emotion::Depressed:
@@ -242,7 +247,7 @@ namespace tnah
             break;
         case Emotion::Bored:
             owner->SetDesiredAction(Actions::play);
-            owner->SetActionDistance(3.0f);
+            owner->SetActionDistance(2.0f);
             owner->SetAffordanceLevel(0.5f);
             owner->SetSpeed(0.75f);
             break;

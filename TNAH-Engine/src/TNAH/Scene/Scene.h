@@ -287,6 +287,7 @@ namespace tnah {
 		std::map<UUID, GameObject>& GetGameObjectsInScene();
 
 		bool GetPlayerInteraction() {return mPlayerInteractions;}
+		std::string GetTargetString() const {return mTargetString;}
 	private:
 
 		/**********************************************************************************************//**
@@ -394,8 +395,7 @@ namespace tnah {
 		 **************************************************************************************************/
 
 		GameObject* GetRefGameObject(const UUID& id);
-
-
+	
 	private:
 
 		/** @brief	A active scene reference */
@@ -433,6 +433,7 @@ namespace tnah {
 		rp3d::EventListener * listener;
 
 		bool mPlayerInteractions;
+		std::string mTargetString = "";
 		
 		friend class EditorLayer;
 		friend class Editor;

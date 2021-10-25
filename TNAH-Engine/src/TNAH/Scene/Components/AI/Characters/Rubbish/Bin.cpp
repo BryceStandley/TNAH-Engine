@@ -40,9 +40,11 @@ namespace tnah
         return targetPos;
     }
 
-    bool Bin::CheckAction(float affordanceValue, float distance, std::string tag)
+    std::pair<bool, bool> Bin::CheckAction(float affordanceValue, float distance, std::string tag)
     {
-        bool r = false;
+        std::pair<bool, bool> check;
+        check.second = false;
+        check.first = false;
         if(currentAffordanceLevel <= affordanceValue)
         {
             if(distance <= actionDistance)
@@ -91,7 +93,7 @@ namespace tnah
                     }
                     break;
                 case pickup:
-                        r = true;
+                        check.second = true;
                         LogAction("Who left rubbish here!", mColour);
                         emotions.IncreaseArousal(0.3);
                         emotions.DecreaseValence(0.4);
@@ -114,7 +116,7 @@ namespace tnah
                 canOutput = true;
         }
 
-        return r;
+        return check;
     }
 
     float Bin::BalanceRange(float min, float max, float balanceValue)
@@ -145,4 +147,14 @@ namespace tnah
                 break;
         }
     }
+
+    std::string Bin::CharacterString()
+    {
+        std::string str;
+        str += "Name: Bin\nEmotion: " + emotions.GetCurrentEmotionAsString() +
+            "\nArousal: " + std::to_string(emotions.GetArousal()) + "\nValence: " +
+                std::to_string(emotions.GetValence()) + "\nDesired action (will add tuesday)";
+        return str;
+    }
+
 }
