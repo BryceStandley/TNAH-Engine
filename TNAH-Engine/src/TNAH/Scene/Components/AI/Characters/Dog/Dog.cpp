@@ -1,37 +1,37 @@
 #include "tnahpch.h"
-#include "Bird.h"
-#include "BirdStates.h"
+#include "Dog.h"
+#include "DogStates.h"
 
 namespace tnah
 {
-    //Bird
-    Bird::Bird()
+    // Taco the Dog - he's cute but he ain't nice mate
+    Dog::Dog()
     {
 
-        mFsm.reset(new StateMachine<Bird>(this));
-        mFsm->setGlobalState(&GlobalStateBird::getInstance());
+        mFsm.reset(new StateMachine<Dog>(this));
+        mFsm->setGlobalState(&GlobalStateDog::getInstance());
         SetDesiredAction(sit);
         SetDistance(10);
         actionDistance = 1.5;
-        mColour = glm::vec4(1, 1, 0, 1);
+        mColour = glm::vec4(1, 0, 0, 0);
         currentAffordanceLevel = 1.0f;
         //Temporary stuff
-        emotions.AddTrait(Trait::Happy);
-        emotions.AddTrait(Trait::Carefree);
-        emotions.SetMood(Mood::Happy);
+        emotions.AddTrait(Trait::Aggressive);
+        emotions.AddTrait(Trait::Sad);
+        emotions.SetMood(Mood::Relaxed);
         mCharacterState = emotions.GetEmotion();
-        Character::name = "bird";
+        Character::name = "dog";
         //mFsm->setCurrentState
     }
 
-    glm::vec3 Bird::OnUpdate(Timestep deltaTime, TransformComponent& transform)
+    glm::vec3 Dog::OnUpdate(Timestep deltaTime, TransformComponent& transform)
     {
         SetDeltaTime(deltaTime.GetSeconds());
         currentAffordanceLevel = BalanceRange(0, 1, currentAffordanceLevel);
         emotions.Update();
         mFsm->update();
 
-        //if (spin)
+        if (spin)
         {
             transform.Rotation.y += 10 * GetDeltaTime();
         }
@@ -39,7 +39,7 @@ namespace tnah
         return targetPos;
     }
 
-    bool Bird::CheckAction(float affordanceValue, float distance, std::string tag)
+    bool Dog::CheckAction(float affordanceValue, float distance, std::string tag)
     {
         bool r = false;
         if (currentAffordanceLevel <= affordanceValue)
@@ -54,13 +54,13 @@ namespace tnah
                         switch (rand() % 3)
                         {
                         case 1:
-                            LogAction("I hate you add name here!", mColour);
+                            LogAction("*Bark* I hate you! *Bark*", mColour);
                             break;
                         case 2:
-                            LogAction("You suck add name here!", mColour);
+                            LogAction("*Bark* Go away! *Bark*", mColour);
                             break;
                         default:
-                            LogAction("You're the worst add name here!", mColour);
+                            LogAction("*Bark* You stink! *Bark*", mColour);
                             break;
                         }
                         canOutput = false;
@@ -74,13 +74,13 @@ namespace tnah
                         switch (rand() % 3)
                         {
                         case 1:
-                            LogAction("Your such a good person name here!", mColour);
+                            LogAction("*Bark* Hey! Come pet me! *Bark*", mColour);
                             break;
                         case 2:
-                            LogAction("Hey good to see you name here!", mColour);
+                            LogAction("*Bark* Scratch my belly! *Bark*  ", mColour);
                             break;
                         default:
-                            LogAction("Wonderful day ain't it add name here!", mColour);
+                            LogAction("*Bark* Good day for walkies ain't it! *Bark*", mColour);
                             break;
                         }
                         canOutput = false;
@@ -89,16 +89,10 @@ namespace tnah
                         emotions.IncreaseValence(0.2);
                     }
                     break;
-                case pickup:
-                    r = true;
-                    LogAction("Who left rubbish here!", mColour);
-                    emotions.IncreaseArousal(0.3);
-                    emotions.DecreaseValence(0.4);
-                    break;
                 case sleep:
                     if (canOutput)
                     {
-                        LogAction("This looks like a good spot to snooze!", mColour);
+                        LogAction("*Bark* Nap Time! *Bark*", mColour);
                         canOutput = false;
                     }
                     emotions.DecreaseArousal(0.1 * GetDeltaTime());
@@ -116,7 +110,7 @@ namespace tnah
         return r;
     }
 
-    float Bird::BalanceRange(float min, float max, float balanceValue)
+    float Dog::BalanceRange(float min, float max, float balanceValue)
     {
         if (balanceValue < min)
             return min;
@@ -124,7 +118,7 @@ namespace tnah
             return max;
     }
 
-    void Bird::ApplyPlayerAction(PlayerActions givenAction)
+    void Dog::ApplyPlayerAction(PlayerActions givenAction)
     {
         switch (givenAction)
         {

@@ -1,12 +1,14 @@
 #pragma once
 
-#include "TNAH/Scene/Components/AI/Characters/Bin/Bin.h"
+#include "TNAH/Scene/Components/AI/Characters/Rubbish/Bin.h"
+#include "TNAH/Scene/Components/AI/Characters/Dog/Dog.h"
+#include "TNAH/Scene/Components/AI/Characters/Student/Student.h"
+
 namespace tnah {
     enum CharacterNames
     {
-        Rubbish, StudentAi, BirdAi
+        Rubbish, StudentAi, DogAi
     };
-
 
     struct CharacterComponent
     {
@@ -24,13 +26,15 @@ namespace tnah {
         {
             switch (characterType)
             {
-                /*case StudentAi:
-                aiCharacter.reset(new Student());
-                break;
-                case BirdAi:
-                aiCharacter.reset((new Bird()));
-                break;*/
+                case StudentAi:
+                    aiCharacter.reset(new Student());
+                    break;
+                case DogAi:
+                    aiCharacter.reset((new Dog()));
+                    break;
                 case Rubbish:
+                    aiCharacter.reset((new Bin()));
+                    break;
             default:
                 aiCharacter.reset(new Bin());
                 break;

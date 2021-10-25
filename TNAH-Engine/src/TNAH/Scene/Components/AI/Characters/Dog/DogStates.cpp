@@ -1,15 +1,15 @@
 #include "tnahpch.h"
-#include "BirdStates.h"
+#include "DogStates.h"
 
 namespace tnah
 {
     //Bird global
-    void GlobalBird::Enter(Bird* owner)
+    void GlobalDog::Enter(Dog* owner)
     {
         //TNAH_CORE_INFO("Enter called");
     }
 
-    void GlobalBird::Execute(Bird* owner)
+    void GlobalDog::Execute(Dog* owner)
     {
         auto emotion = owner->GetEmotions().GetEmotion();
         if (owner->mCharacterState != emotion)
@@ -18,63 +18,63 @@ namespace tnah
             {
             case Emotion::Tense:
                 owner->LogAction("Feeling Tense", owner->mColour);
-                if (owner->mCharacterState != Emotion::Angry || owner->mCharacterState != Emotion::Frustrated)
-                    owner->GetFsm()->changeState(&PissedOffStateBird::getInstance());
+                if (owner->mCharacterState != Emotion::Angry && owner->mCharacterState != Emotion::Frustrated)
+                    owner->GetFsm()->changeState(&PissedOffStateDog::getInstance());
                 break;
             case Emotion::Angry:
                 owner->LogAction("Feeling Angry", owner->mColour);
-                if (owner->mCharacterState != Emotion::Tense || owner->mCharacterState != Emotion::Frustrated)
-                    owner->GetFsm()->changeState(&PissedOffStateBird::getInstance());
+                if (owner->mCharacterState != Emotion::Tense && owner->mCharacterState != Emotion::Frustrated)
+                    owner->GetFsm()->changeState(&PissedOffStateDog::getInstance());
                 break;
             case Emotion::Frustrated:
                 owner->LogAction("Feeling Frustrated", owner->mColour);
-                if (owner->mCharacterState != Emotion::Tense || owner->mCharacterState != Emotion::Angry)
-                    owner->GetFsm()->changeState(&PissedOffStateBird::getInstance());
+                if (owner->mCharacterState != Emotion::Tense && owner->mCharacterState != Emotion::Angry)
+                    owner->GetFsm()->changeState(&PissedOffStateDog::getInstance());
                 break;
             case Emotion::Calm:
                 owner->LogAction("Feeling Calm", owner->mColour);
-                if (owner->mCharacterState != Emotion::Relaxed || owner->mCharacterState != Emotion::Content)
-                    owner->GetFsm()->changeState(&ChillStateBird::getInstance());
+                if (owner->mCharacterState != Emotion::Relaxed && owner->mCharacterState != Emotion::Content)
+                    owner->GetFsm()->changeState(&ChillStateDog::getInstance());
                 break;
             case Emotion::Content:
                 owner->LogAction("Feeling Content", owner->mColour);
-                if (owner->mCharacterState != Emotion::Calm || owner->mCharacterState != Emotion::Relaxed)
-                    owner->GetFsm()->changeState(&ChillStateBird::getInstance());
+                if (owner->mCharacterState != Emotion::Calm && owner->mCharacterState != Emotion::Relaxed)
+                    owner->GetFsm()->changeState(&ChillStateDog::getInstance());
                 break;
             case Emotion::Relaxed:
                 owner->LogAction("Feeling Relaxed", owner->mColour);
-                if (owner->mCharacterState != Emotion::Calm || owner->mCharacterState != Emotion::Content)
-                    owner->GetFsm()->changeState(&ChillStateBird::getInstance());
+                if (owner->mCharacterState != Emotion::Calm && owner->mCharacterState != Emotion::Content)
+                    owner->GetFsm()->changeState(&ChillStateDog::getInstance());
                 break;
             case Emotion::Delighted:
                 owner->LogAction("Feeling Delighted", owner->mColour);
-                if (owner->mCharacterState != Emotion::Happy || owner->mCharacterState != Emotion::Excited)
-                    owner->GetFsm()->changeState(&HappyStateBird::getInstance());
+                if (owner->mCharacterState != Emotion::Happy && owner->mCharacterState != Emotion::Excited)
+                    owner->GetFsm()->changeState(&HappyStateDog::getInstance());
                 break;
             case Emotion::Excited:
                 owner->LogAction("Feeling Exited", owner->mColour);
-                if (owner->mCharacterState != Emotion::Happy || owner->mCharacterState != Emotion::Delighted)
-                    owner->GetFsm()->changeState(&HappyStateBird::getInstance());
+                if (owner->mCharacterState != Emotion::Happy && owner->mCharacterState != Emotion::Delighted)
+                    owner->GetFsm()->changeState(&HappyStateDog::getInstance());
                 break;
             case Emotion::Happy:
                 owner->LogAction("Feeling Happy", owner->mColour);
-                if (owner->mCharacterState != Emotion::Excited || owner->mCharacterState != Emotion::Delighted)
-                    owner->GetFsm()->changeState(&HappyStateBird::getInstance());
+                if (owner->mCharacterState != Emotion::Excited && owner->mCharacterState != Emotion::Delighted)
+                    owner->GetFsm()->changeState(&HappyStateDog::getInstance());
                 break;
             case Emotion::Tired:
                 owner->LogAction("Feeling tired", owner->mColour);
-                if (owner->mCharacterState != Emotion::Bored || owner->mCharacterState != Emotion::Depressed)
-                    owner->GetFsm()->changeState(&SadStateBird::getInstance());
+                if (owner->mCharacterState != Emotion::Bored && owner->mCharacterState != Emotion::Depressed)
+                    owner->GetFsm()->changeState(&SadStateDog::getInstance());
                 break;
             case Emotion::Bored:
                 owner->LogAction("Feeling Bored", owner->mColour);
-                if (owner->mCharacterState != Emotion::Tired || owner->mCharacterState != Emotion::Depressed)
-                    owner->GetFsm()->changeState(&SadStateBird::getInstance());
+                if (owner->mCharacterState != Emotion::Tired && owner->mCharacterState != Emotion::Depressed)
+                    owner->GetFsm()->changeState(&SadStateDog::getInstance());
                 break;
             case Emotion::Depressed:
                 owner->LogAction("Feeling Depressed", owner->mColour);
-                if (owner->mCharacterState != Emotion::Tired || owner->mCharacterState != Emotion::Bored)
-                    owner->GetFsm()->changeState(&SadStateBird::getInstance());
+                if (owner->mCharacterState != Emotion::Tired && owner->mCharacterState != Emotion::Bored)
+                    owner->GetFsm()->changeState(&SadStateDog::getInstance());
                 break;
             default:
                 owner->SetDesiredAction(sit);
@@ -90,17 +90,17 @@ namespace tnah
 
     }
 
-    void GlobalBird::Exit(Bird* owner)
+    void GlobalDog::Exit(Dog* owner)
     {
 
     }
 
-    void HappyBird::Enter(Bird* owner)
+    void HappyDog::Enter(Dog* owner)
     {
-        owner->SetWander(true);
+       // 
     }
 
-    void HappyBird::Execute(Bird* owner)
+    void HappyDog::Execute(Dog* owner)
     {
         auto emotion = owner->GetEmotions().GetEmotion();
 
@@ -129,36 +129,34 @@ namespace tnah
         }
     }
 
-    void HappyBird::Exit(Bird* owner)
+    void HappyDog::Exit(Dog* owner)
     {
         //owner->spin = false;
-        owner->SetWander(false);
+        
         owner->canOutput = true;
     }
 
-    void ChillBird::Enter(Bird* owner)
+    void ChillDog::Enter(Dog* owner)
     {
 
     }
 
-    void ChillBird::Execute(Bird* owner)
+    void ChillDog::Execute(Dog* owner)
     {
         //Heads home to idle
     }
 
-    void ChillBird::Exit(Bird* owner)
+    void ChillDog::Exit(Dog* owner)
     {
 
     }
 
-    void PissedOffBird::Enter(Bird* owner)
+    void PissedOffDog::Enter(Dog* owner)
     {
-        owner->SetWander(true);
-        owner->SetSpeed(1.5f);
         owner->canOutput = true;
     }
 
-    void PissedOffBird::Execute(Bird* owner)
+    void PissedOffDog::Execute(Dog* owner)
     {
         auto emotion = owner->GetEmotions().GetEmotion();
 
@@ -168,52 +166,42 @@ namespace tnah
             owner->SetDesiredAction(Actions::pickup);
             owner->SetActionDistance(3.0f);
             owner->SetAffordanceLevel(1.0f);
-            owner->SetSpeed(1.5f);
             break;
         case Emotion::Angry:
             owner->SetDesiredAction(Actions::pickup);
             owner->SetActionDistance(5.0f);
             owner->SetAffordanceLevel(0.5f);
-            owner->SetSpeed(2.0f);
             break;
         case Emotion::Tense:
             owner->SetDesiredAction(Actions::abuse);
             owner->SetActionDistance(7.0f);
             owner->SetAffordanceLevel(0.1f);
-            owner->SetSpeed(2.5f);
             break;
         default:
             break;
         }
     }
 
-    void PissedOffBird::Exit(Bird* owner)
+    void PissedOffDog::Exit(Dog* owner)
     {
-        owner->SetWander(false);
-        owner->SetSpeed(1.0f);
         owner->canOutput = true;
     }
 
-    void SadBird::Enter(Bird* owner)
-    {
-        owner->SetWander(true);
-        owner->SetSpeed(0.75f);
-    }
+    void SadDog::Enter(Dog* owner){}
 
-    void SadBird::Execute(Bird* owner)
+    void SadDog::Execute(Dog* owner)
     {
         auto emotion = owner->GetEmotions().GetEmotion();
 
         switch (emotion)
         {
         case Emotion::Depressed:
-            owner->SetDesiredAction(Actions::pickup);
+            //owner->SetDesiredAction(Actions::pickup);
             owner->SetActionDistance(3.0f);
             owner->SetAffordanceLevel(0.5f);
-            owner->SetSpeed(0.75f);
             break;
         case Emotion::Bored:
-            owner->SetDesiredAction(Actions::pickup);
+            //owner->SetDesiredAction(Actions::pickup);
             owner->SetActionDistance(5.0f);
             owner->SetAffordanceLevel(0.1f);
             owner->SetSpeed(0.6f);
@@ -229,10 +217,8 @@ namespace tnah
         }
     }
 
-    void SadBird::Exit(Bird* owner)
+    void SadDog::Exit(Dog* owner)
     {
-        owner->SetWander(false);
-        owner->SetSpeed(1.0f);
         owner->canOutput = true;
     }
 }

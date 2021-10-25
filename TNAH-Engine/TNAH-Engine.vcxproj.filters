@@ -204,22 +204,22 @@
     <ClCompile Include="src\TNAH\Scene\Components\AI\StateMachine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\TNAH\Scene\Components\AI\Characters\Bin\Bin.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\TNAH\Scene\Components\AI\Characters\Bin\BinStates.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\TNAH\Scene\Components\AI\Characters\Bird\BirdStates.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\TNAH\Scene\Components\AI\Characters\Student\Student.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\TNAH\Scene\Components\AI\Characters\Student\StudentStates.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\TNAH\Scene\Components\AI\Characters\Bird\Bird.cpp">
+    <ClCompile Include="src\TNAH\Scene\Components\AI\Characters\Rubbish\Bin.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TNAH\Scene\Components\AI\Characters\Rubbish\BinStates.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TNAH\Scene\Components\AI\Characters\Dog\Dog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TNAH\Scene\Components\AI\Characters\Dog\DogStates.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -497,18 +497,6 @@
     <ClInclude Include="src\TNAH\Scene\Components\AI\StateMachine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\TNAH\Scene\Components\AI\Characters\Bin\Bin.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\TNAH\Scene\Components\AI\Characters\Bin\BinStates.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\TNAH\Scene\Components\AI\Characters\Bird\Bird.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\TNAH\Scene\Components\AI\Characters\Bird\BirdStates.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\TNAH\Scene\Components\AI\Characters\Student\Student.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -516,6 +504,18 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\TNAH\Scene\Components\AI\CharacterComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\TNAH\Scene\Components\AI\Characters\Rubbish\Bin.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\TNAH\Scene\Components\AI\Characters\Rubbish\BinStates.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\TNAH\Scene\Components\AI\Characters\Dog\Dog.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\TNAH\Scene\Components\AI\Characters\Dog\DogStates.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -18,62 +18,62 @@ namespace tnah
             {
             case Emotion::Tense:
                 owner->LogAction("Feeling Tense", owner->mColour);
-                if(owner->mCharacterState != Emotion::Angry || owner-> mCharacterState != Emotion::Frustrated)
+                if(owner->mCharacterState != Emotion::Angry && owner-> mCharacterState != Emotion::Frustrated)
                     owner->GetFsm()->changeState(&PissedOffStateBin::getInstance());
                 break;
             case Emotion::Angry:
                 owner->LogAction("Feeling Angry", owner->mColour);
-                if(owner->mCharacterState != Emotion::Tense || owner-> mCharacterState != Emotion::Frustrated)
+                if(owner->mCharacterState != Emotion::Tense && owner-> mCharacterState != Emotion::Frustrated)
                     owner->GetFsm()->changeState(&PissedOffStateBin::getInstance());
                 break;
             case Emotion::Frustrated:
                 owner->LogAction("Feeling Frustrated", owner->mColour);
-                if(owner->mCharacterState != Emotion::Tense || owner-> mCharacterState != Emotion::Angry)
+                if(owner->mCharacterState != Emotion::Tense && owner-> mCharacterState != Emotion::Angry)
                     owner->GetFsm()->changeState(&PissedOffStateBin::getInstance());
                 break;
             case Emotion::Calm:
                 owner->LogAction("Feeling Calm", owner->mColour);
-                if(owner->mCharacterState != Emotion::Relaxed || owner-> mCharacterState != Emotion::Content)
+                if(owner->mCharacterState != Emotion::Relaxed && owner-> mCharacterState != Emotion::Content)
                     owner->GetFsm()->changeState(&ChillStateBin::getInstance());
                 break;
             case Emotion::Content:
                 owner->LogAction("Feeling Content", owner->mColour);
-                if(owner->mCharacterState != Emotion::Calm || owner-> mCharacterState != Emotion::Relaxed)
+                if(owner->mCharacterState != Emotion::Calm && owner-> mCharacterState != Emotion::Relaxed)
                     owner->GetFsm()->changeState(&ChillStateBin::getInstance());
                 break;
             case Emotion::Relaxed:
                 owner->LogAction("Feeling Relaxed", owner->mColour);
-                if(owner->mCharacterState != Emotion::Calm || owner-> mCharacterState != Emotion::Content)
+                if(owner->mCharacterState != Emotion::Calm && owner-> mCharacterState != Emotion::Content)
                     owner->GetFsm()->changeState(&ChillStateBin::getInstance());
                 break;
             case Emotion::Delighted:
                 owner->LogAction("Feeling Delighted", owner->mColour);
-                if(owner->mCharacterState != Emotion::Happy || owner-> mCharacterState != Emotion::Excited)
+                if(owner->mCharacterState != Emotion::Happy && owner-> mCharacterState != Emotion::Excited)
                     owner->GetFsm()->changeState(&HappyStateBin::getInstance());
                 break;
             case Emotion::Excited:
                 owner->LogAction("Feeling Exited", owner->mColour);
-                if(owner->mCharacterState != Emotion::Happy || owner-> mCharacterState != Emotion::Delighted)
+                if(owner->mCharacterState != Emotion::Happy && owner-> mCharacterState != Emotion::Delighted)
                     owner->GetFsm()->changeState(&HappyStateBin::getInstance());
                 break;
             case Emotion::Happy:
                 owner->LogAction("Feeling Happy", owner->mColour);
-                if(owner->mCharacterState != Emotion::Excited || owner-> mCharacterState != Emotion::Delighted)
+                if(owner->mCharacterState != Emotion::Excited && owner-> mCharacterState != Emotion::Delighted)
                     owner->GetFsm()->changeState(&HappyStateBin::getInstance());
                 break;
             case Emotion::Tired:
                 owner->LogAction("Feeling tired", owner->mColour);
-                if(owner->mCharacterState != Emotion::Bored || owner-> mCharacterState != Emotion::Depressed)
+                if(owner->mCharacterState != Emotion::Bored && owner-> mCharacterState != Emotion::Depressed)
                     owner->GetFsm()->changeState(&SadStateBin::getInstance());
                 break;
             case Emotion::Bored:
                 owner->LogAction("Feeling Bored", owner->mColour);
-                if(owner->mCharacterState != Emotion::Tired || owner-> mCharacterState != Emotion::Depressed)
+                if(owner->mCharacterState != Emotion::Tired && owner-> mCharacterState != Emotion::Depressed)
                     owner->GetFsm()->changeState(&SadStateBin::getInstance());
                 break;
             case Emotion::Depressed:
                 owner->LogAction("Feeling Depressed", owner->mColour);
-                if(owner->mCharacterState != Emotion::Tired || owner-> mCharacterState != Emotion::Bored)
+                if(owner->mCharacterState != Emotion::Tired && owner-> mCharacterState != Emotion::Bored)
                     owner->GetFsm()->changeState(&SadStateBin::getInstance());
                 break;
             default:
