@@ -791,7 +791,8 @@ namespace tnah
          * 
          */
         static LightComponent GetLightFromFile(const std::string& fileContents, std::pair<size_t, size_t> componentTagPositions);
-        static CharacterComponent GetAiFromFile(const std::string& fileContents, std::pair<size_t, size_t> componentTagPositions);
+        static CharacterNames GetAiFromFile(const std::string& fileContents, std::pair<size_t, size_t> componentTagPositions);
+        static AStarComponent GetAstarFromFile(const std::string& fileContents, std::pair<size_t, size_t> componentTagPositions);
         /**
          * 
          * \fn glm::vec3 GetVec3FromFile

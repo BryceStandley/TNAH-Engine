@@ -86,6 +86,15 @@ namespace tnah
             startingPos = startingPosition;
             size = xySize;
             initilised = true;
+            for (int x = startingPos.x; x < startingPos.x + size.x; x++) {
+                for (int y = startingPos.y; y < startingPos.y + size.y; y++) {
+                    allMap[x][y].f= FLT_MAX;
+                    allMap[x][y].g = FLT_MAX;
+                    allMap[x][y].h = FLT_MAX;
+                    allMap[x][y].parent =  {-1, -1};
+                    allMap[x][y].position = {x, y};
+                }
+            }
         }
         
         static std::deque<Node> Algorithm(Node point, Node destination)
@@ -113,7 +122,7 @@ namespace tnah
             }
 
             for (int x = startingPos.x; x < startingPos.x + size.x; x++) {
-                for (int y = startingPos.y + 1; y < startingPos.y + size.y; y++) {
+                for (int y = startingPos.y; y < startingPos.y + size.y; y++) {
                     allMap[x][y].f= FLT_MAX;
                     allMap[x][y].g = FLT_MAX;
                     allMap[x][y].h = FLT_MAX;
@@ -291,6 +300,14 @@ namespace tnah
 
     struct AStarComponent
     {
+        AStarComponent() = default;
+        AStarComponent(Int2 pos, Int2 s) : StartingPos(pos), Size(s) {}
+        AStarComponent(const AStarComponent &copy)
+        {
+            StartingPos = copy.StartingPos;
+            Size = copy.Size;
+        }
+        
         Int2 StartingPos = {0, 0};
         Int2 Size = {5, 5};
         bool DisplayMap = false;

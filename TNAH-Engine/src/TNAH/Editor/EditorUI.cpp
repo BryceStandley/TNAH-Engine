@@ -55,6 +55,8 @@ namespace tnah {
 					rb.UpdateTransform(t);
 				}
 			}
+
+			ImGui::Checkbox("Astar", &t.astar);
 			ImGui::Separator();
 		}
 
@@ -368,17 +370,19 @@ namespace tnah {
 		{
 			auto& astar = object.GetComponent<AStarComponent>();
 			ImGui::Text("AStar");
-			
-			//ImGui::RadioButton("Active Listening: ", listener.m_ActiveListing);
 
 			glm::vec2 tempStart(astar.StartingPos.x, astar.StartingPos.y);
-			DrawVec2Control("Starting Position", tempStart);
-			astar.StartingPos = Int2(static_cast<int>(round(tempStart.x)), static_cast<int>(round(tempStart.y)));
-
+			ImGui::Text("Starting position");
+			DrawFloatControl("Pos X", tempStart.x, -100, 100);
+			DrawFloatControl("Pos Z", tempStart.y, -100, 100);
+			astar.StartingPos.x = (int)round(tempStart.x);
+			astar.StartingPos.y = (int)round(tempStart.y);
+			ImGui::Text("Size");
 			glm::vec2 tempSize(astar.Size.x, astar.Size.y);
-			DrawVec2Control("Starting Position", tempSize);
-			astar.Size = Int2(static_cast<int>(round(tempSize.x)), static_cast<int>(round(tempSize.y)));
-			
+			DrawFloatControl("Size X", tempSize.x, 0, 100);
+			DrawFloatControl("Size Z", tempSize.y, 0, 100);
+			astar.Size.x = (int)round(tempSize.x);
+			astar.Size.y = (int)round(tempSize.y);
 			ImGui::Checkbox("Display Map", &astar.DisplayMap);
 
 			if(ImGui::Button("Reset Map"))
@@ -394,19 +398,43 @@ namespace tnah {
 			auto& c = object.GetComponent<CharacterComponent>();
 			ImGui::Text("AI & Character");
 
-			if(ImGui::Button("Set Bin"))
+			switch (c.currentCharacter)
 			{
-				c.SetCharacter(CharacterNames::Rubbish);
-			}
+				case CharacterNames::Rubbish:
+					ImGui::Text("Current character is Bin");
+					if(ImGui::Button("Set Dog"))
+					{
+						c.SetCharacter(CharacterNames::DogAi);
+					}
 
-			if(ImGui::Button("Set Dog"))
-			{
-				c.SetCharacter(CharacterNames::DogAi);
-			}
-
-			if(ImGui::Button("Set Student"))
-			{
-				c.SetCharacter(CharacterNames::StudentAi);
+					if(ImGui::Button("Set Student"))
+					{
+						c.SetCharacter(CharacterNames::StudentAi);
+					}
+					break;
+				case CharacterNames::DogAi:
+					ImGui::Text("Current character is Dog");
+					if(ImGui::Button("Set Bin"))
+					{
+						c.SetCharacter(CharacterNames::Rubbish);
+					}
+				
+					if(ImGui::Button("Set Student"))
+					{
+						c.SetCharacter(CharacterNames::StudentAi);
+					}
+					break;
+				case CharacterNames::StudentAi:
+					ImGui::Text("Current character is Student");
+					if(ImGui::Button("Set Bin"))
+					{
+						c.SetCharacter(CharacterNames::Rubbish);
+					}
+					if(ImGui::Button("Set Dog"))
+					{
+						c.SetCharacter(CharacterNames::DogAi);
+					}
+					break;
 			}
 			
 			ImGui::Separator();

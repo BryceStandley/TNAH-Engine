@@ -317,7 +317,7 @@ namespace tnah {
     {
         std::stringstream ss;
         ss << GenerateTagOpen("ai", totalTabs);
-        ss << GenerateValueEntry("type", (int)c.currentCharacter);
+        ss << GenerateValueEntry("type", (int)c.currentCharacter, totalTabs + 1);
         ss << GenerateTagClose("ai", totalTabs);
         return ss.str();
     }
@@ -694,25 +694,35 @@ namespace tnah {
         auto ai = FindTags("ai", fileContents, gameObjectTagPositions.first, gameObjectTagPositions.second);
         if(CheckTags(ai))
         {
-            gameObject.AddComponent<BoxColliderComponent>(GetAiFromFile(fileContents, ai));
+            gameObject.AddComponent<CharacterComponent>(GetAiFromFile(fileContents, ai));
+            gameObject.AddComponent<AIComponent>();
             added++;
         }
 
-        auto boxPos = FindTags("boxcollider", fileContents, gameObjectTagPositions.first, gameObjectTagPositions.second);
-        if(CheckTags(boxPos))
+        auto astar = FindTags("astar", fileContents, gameObjectTagPositions.first, gameObjectTagPositions.second);
+        if(CheckTags(astar))
         {
-            gameObject.AddComponent<BoxColliderComponent>(GetBoxColliderFromFile(fileContents, boxPos, gameObject.GetComponent<RigidBodyComponent>()));
+            gameObject.AddComponent<AStarComponent>(GetAstarFromFile(fileContents, astar));
             added++;
         }
         
         return added;
     }
 
-    CharacterComponent Serializer::GetAiFromFile(const std::string& fileContents, std::pair<size_t, size_t> componentTagPositions)
+    CharacterNames Serializer::GetAiFromFile(const std::string& fileContents, std::pair<size_t, size_t> componentTagPositions)
     {
-        CharacterNames type = (CharacterNames)GetIntValueFromFile("type", fileContents, componentTagPositions);
+        return (CharacterNames)GetIntValueFromFile("type", fileContents, componentTagPositions);
         
     }
+
+    AStarComponent Serializer::GetAstarFromFile(const std::string& fileContents, std::pair<size_t, size_t> componentTagPositions)
+    {
+        glm::vec3 pos = GetVec3FromFile("position", fileContents, componentTagPositions);
+        glm::vec3 size = GetVec3FromFile("size", fileContents, componentTagPositions);
+        AStarComponent temp(Int2(pos.x, pos.z), Int2(size.x, size.z));
+        return temp;
+    }
+
 
     TagComponent Serializer::GetTagFromFile(const std::string& fileContents,
         std::pair<size_t, size_t> componentTagPositions)
