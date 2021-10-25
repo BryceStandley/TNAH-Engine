@@ -60,10 +60,10 @@
     <ClCompile Include="src\TNAH\Scene\Components\AI\AIComponent.cpp" />
     <ClCompile Include="src\TNAH\Scene\Components\AI\AStar.cpp" />
     <ClCompile Include="src\TNAH\Scene\Components\AI\Character.cpp" />
-    <ClCompile Include="src\TNAH\Scene\Components\AI\Characters\Bin\Bin.cpp" />
-    <ClCompile Include="src\TNAH\Scene\Components\AI\Characters\Bin\BinStates.cpp" />
     <ClCompile Include="src\TNAH\Scene\Components\AI\Characters\Bird\Bird.cpp" />
     <ClCompile Include="src\TNAH\Scene\Components\AI\Characters\Bird\BirdStates.cpp" />
+    <ClCompile Include="src\TNAH\Scene\Components\AI\Characters\Rubbish\Bin.cpp" />
+    <ClCompile Include="src\TNAH\Scene\Components\AI\Characters\Rubbish\BinStates.cpp" />
     <ClCompile Include="src\TNAH\Scene\Components\AI\Characters\Student\Student.cpp" />
     <ClCompile Include="src\TNAH\Scene\Components\AI\Characters\Student\StudentStates.cpp" />
     <ClCompile Include="src\TNAH\Scene\Components\AI\Emotion.cpp" />
@@ -133,10 +133,10 @@
     <ClInclude Include="src\TNAH\Scene\Components\AI\AStar.h" />
     <ClInclude Include="src\TNAH\Scene\Components\AI\Character.h" />
     <ClInclude Include="src\TNAH\Scene\Components\AI\CharacterComponent.h" />
-    <ClInclude Include="src\TNAH\Scene\Components\AI\Characters\Bin\Bin.h" />
-    <ClInclude Include="src\TNAH\Scene\Components\AI\Characters\Bin\BinStates.h" />
     <ClInclude Include="src\TNAH\Scene\Components\AI\Characters\Bird\Bird.h" />
     <ClInclude Include="src\TNAH\Scene\Components\AI\Characters\Bird\BirdStates.h" />
+    <ClInclude Include="src\TNAH\Scene\Components\AI\Characters\Rubbish\Bin.h" />
+    <ClInclude Include="src\TNAH\Scene\Components\AI\Characters\Rubbish\BinStates.h" />
     <ClInclude Include="src\TNAH\Scene\Components\AI\Characters\Student\Student.h" />
     <ClInclude Include="src\TNAH\Scene\Components\AI\Characters\Student\StudentStates.h" />
     <ClInclude Include="src\TNAH\Scene\Components\AI\Emotion.h" />
