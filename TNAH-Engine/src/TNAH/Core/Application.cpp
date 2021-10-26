@@ -40,7 +40,7 @@ namespace tnah
 
 	void Application::Run()
 	{
-		PhysicsTimestep physicsTimestep(120.0f);
+		PhysicsTimestep physicsTimestep((60.0f * 4));
 
 		while (m_Running)
 		{

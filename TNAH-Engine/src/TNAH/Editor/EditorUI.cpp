@@ -493,16 +493,21 @@ namespace tnah {
 					ImGui::Checkbox("Force Sleep", &rb.Body->m_IsSleeping);
 				
 					//Render all aspects of the RB
-					if(ImGui::TreeNode("Mass##RB"))
+					std::string name = "Mass##RB";
+					name += rb.Body->GetID();
+					if(ImGui::TreeNode(name.c_str()))
 					{
 						if (rb.Body->GetType() == Physics::BodyType::Dynamic)
 							ImGui::BulletText("Mass: %2.f kg", rb.Body->m_BodyMass.Mass);
 						else
 							ImGui::BulletText("Mass: MAX kg");
 						
-						ImGui::BulletText("Inverse Mass: %f", rb.Body->m_BodyMass.InverseMass);
-						const auto com = rb.Body->m_BodyMass.CentreOfMass;
-						ImGui::BulletText("Center of Mass: X: %.2f -- Y: %.2f -- Z: %.2f", com.x, com.y, com.z);
+						ImGui::BulletText("Inverse Mass: %2.f", rb.Body->m_BodyMass.InverseMass);
+						auto com = rb.Body->m_BodyMass.WorldCentreOfMass;
+						ImGui::BulletText("World Center of Mass: X: %.2f -- Y: %.2f -- Z: %.2f", com.x, com.y, com.z);
+
+						com = rb.Body->m_BodyMass.LocalCentreOfMass;
+						ImGui::BulletText("Local Center of Mass: X: %.2f -- Y: %.2f -- Z: %.2f", com.x, com.y, com.z);
 						ImGui::TreePop();
 					}
 					
@@ -514,15 +519,20 @@ namespace tnah {
 						ImGui::BulletText("Rotation: X: %.2f -- Y: %.2f -- Z: %.2f", rot.x, rot.y, rot.z);
 						ImGui::TreePop();
 					}
-
-					ImGui::Checkbox("Ignore Gravity##RB", &rb.Body->IgnoreGravity());
+					std::string gravity = "Ignore Gravity##RB";
+					gravity += rb.Body->GetID();
+					ImGui::Checkbox(gravity.c_str(), &rb.Body->IgnoreGravity());
 					
 					if(ImGui::TreeNode("Velocity"))
 					{
 						const auto lv = rb.Body->m_LinearVelocity.Velocity;
+						const auto clv = rb.Body->m_ConstrainedLinearVelocity.Velocity;
 						const auto av = rb.Body->m_AngularVelocity.Velocity;
+						const auto cav = rb.Body->m_ConstrainedAngularVelocity.Velocity;
 						ImGui::BulletText("Linear: X: %.2f -- Y: %.2f -- Z: %.2f", lv.x, lv.y, lv.z);
+						ImGui::BulletText("Constrained Linear: X: %.2f -- Y: %.2f -- Z: %.2f", clv.x, clv.y, clv.z);
 						ImGui::BulletText("Angular: X: %.2f -- Y: %.2f -- Z: %.2f", av.x, av.y, av.z);
+						ImGui::BulletText("Constrained Angular: X: %.2f -- Y: %.2f -- Z: %.2f", cav.x, cav.y, cav.z);
 						DrawFloatControl("Linear Dampening", rb.Body->m_LinearDampening.Dampening, 0, 1);
 						DrawFloatControl("Angular Dampening", rb.Body->m_AngularDampening.Dampening, 0, 1);
 						ImGui::TreePop();
@@ -538,9 +548,10 @@ namespace tnah {
 					else
 					{
 						int count = 0;
-						for(auto& col : rb.Body->m_Colliders)
+						for(auto& collider : rb.Body->m_Colliders)
 						{
-						
+							auto col = collider.second;
+							
 							if(ImGui::CollapsingHeader(std::string("Attachment: " + std::to_string(count)).c_str(), ImGuiTreeNodeFlags_Bullet))
 							{
 							
@@ -564,7 +575,7 @@ namespace tnah {
 										if(Application::Get().GetDebugModeStatus())
 										{
 											auto sphere = static_cast<rp3d::SphereShape*>(col->m_Collider);
-											ImGui::Text("Radius: %f", sphere->getRadius());
+											ImGui::Text("Radius: %2.f", sphere->getRadius());
 										}
 										break;
 									}
@@ -574,8 +585,8 @@ namespace tnah {
 										if(Application::Get().GetDebugModeStatus())
 										{
 											auto capsule = static_cast<rp3d::CapsuleShape*>(col->m_Collider);
-											ImGui::Text("Radius: %f", capsule->getRadius());
-											ImGui::Text("Height: %f", capsule->getHeight());
+											ImGui::Text("Radius: %2.f", capsule->getRadius());
+											ImGui::Text("Height: %2.f", capsule->getHeight());
 										}
 										break;
 									}
@@ -585,10 +596,12 @@ namespace tnah {
 								{
 									if(ImGui::TreeNode("Mass##Col"))
 									{
-										ImGui::Text("Mass: %f", col->m_Mass.Mass);
-										ImGui::Text("Inverse Mass: %f", col->m_Mass.InverseMass);
-										const auto com = col->m_Mass.CentreOfMass;
-										ImGui::Text("Center of Mass: X: %.2f -- Y: %.2f -- Z: %.2f", com.x, com.y, com.z);
+										ImGui::Text("Mass: %2.fkg", col->m_Mass.Mass);
+										ImGui::Text("Inverse Mass: %2.f", col->m_Mass.InverseMass);
+										auto com = col->m_Mass.WorldCentreOfMass;
+										ImGui::Text("World Center of Mass: X: %.2f -- Y: %.2f -- Z: %.2f", com.x, com.y, com.z);
+										com = col->m_Mass.LocalCentreOfMass;
+										ImGui::Text("Local Center of Mass: X: %.2f -- Y: %.2f -- Z: %.2f", com.x, com.y, com.z);
 										ImGui::TreePop();
 									}
 								}

@@ -58,7 +58,7 @@ namespace tnah{
 		light.Light->m_IsSceneLight = true;
 
 		//Physics
-		listener = new PhysicsEvents();
+		listener = new Physics::PhysicsEvents();
 		Physics::PhysicsEngine::Initialise(listener);
 		
 		s_ActiveScene.Scene.Reset(this);

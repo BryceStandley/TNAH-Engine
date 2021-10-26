@@ -6,6 +6,7 @@
 
 #include <entt.hpp>
 
+#include "CollisionDetectionEngine.h"
 #include "PhysicsStructures.h"
 #include "Rigidbody.h"
 #include "TNAH/Physics/PhysicsTimestep.h"
@@ -69,6 +70,8 @@ namespace tnah::Physics
      void SetGravity(const glm::vec3& gravity) { m_Gravity = gravity; }
      void SetGravityState(const bool& state) { m_GravityEnabled = state; }
      bool& GetGravityState() { return m_GravityEnabled; }
+
+     Ref<CollisionDetectionEngine>& GetCollisionDetectionEngine() { return m_CollisionDetectionEngine; }
     
     private:
         /**
@@ -217,6 +220,13 @@ namespace tnah::Physics
      std::unordered_map<uint32_t, Ref<RigidBody>> m_Rigidbodies;
 
      uint32_t m_TotalRigidbodies = 0;
+
+     std::unordered_map<uint32_t, Ref<Collider>> m_Colliders;
+
+     uint32_t m_TotalColliders = 0;
+
+     /** @brief a static reference to the active Collision Detection Engine */
+     static Ref<CollisionDetectionEngine> m_CollisionDetectionEngine;
 
         friend class PhysicsEngine;
 };
@@ -491,14 +501,19 @@ namespace tnah::Physics
          */
         static void PhysicsLoggerInit();
 
+     static void ProcessCollisions();
      static void ProcessRigidbodyVelocities(const Timestep& deltaTime, TransformComponent& transform, Ref<RigidBody> rigidbody);
      static void ProcessRigidbodyPositions(const Timestep& deltaTime, TransformComponent& transform, Ref<RigidBody> rigidbody);
      static void ResetRigidbodyForcesAndTorques(Ref<RigidBody> rigidbody);
+     static void UpdateInertiaTensor();
+     static void UpdateBodies();
     
     private:
      
         /** @brief a static reference to the active physics manager */
         static Ref<PhysicsManager> m_PhysicsManager;
+
+     
 
         /** @brief Transform used for rendering the colliders within the scene*/
         static TransformComponent m_ColliderTransform;

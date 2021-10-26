@@ -28,6 +28,8 @@
     <ClCompile Include="src\TNAH\Layers\ImGuizmo.cpp" />
     <ClCompile Include="src\TNAH\Layers\UI.cpp" />
     <ClCompile Include="src\TNAH\Physics\Collider.cpp" />
+    <ClCompile Include="src\TNAH\Physics\CollisionDetectionEngine.cpp" />
+    <ClCompile Include="src\TNAH\Physics\PhysicsCollision.cpp" />
     <ClCompile Include="src\TNAH\Physics\PhysicsStructures.cpp" />
     <ClCompile Include="src\TNAH\Physics\PhysicsEngine.cpp" />
     <ClCompile Include="src\TNAH\Physics\PhysicsEvents.cpp" />
@@ -96,6 +98,8 @@
     <ClInclude Include="src\TNAH\Layers\ImGuizmo.h" />
     <ClInclude Include="src\TNAH\Layers\UI.h" />
     <ClInclude Include="src\TNAH\Physics\Collider.h" />
+    <ClInclude Include="src\TNAH\Physics\CollisionDetectionEngine.h" />
+    <ClInclude Include="src\TNAH\Physics\PhysicsCollision.h" />
     <ClInclude Include="src\TNAH\Physics\PhysicsEngine.h" />
     <ClInclude Include="src\TNAH\Physics\PhysicsEvents.h" />
     <ClInclude Include="src\TNAH\Physics\PhysicsStructures.h" />

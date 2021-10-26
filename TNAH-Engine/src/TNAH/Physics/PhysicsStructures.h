@@ -62,11 +62,17 @@ namespace tnah {
                 Forces = value;
                 return Forces;
             }
+
+            glm::vec3 operator += (const glm::vec3 value)
+            {
+                Forces += value;
+                return value;
+            }
         };
 
         struct LinearDampening
         {
-            float Dampening = 0.0f;
+            float Dampening = 0.999f;
 
             float operator = (const float& value)
             {
@@ -93,10 +99,11 @@ namespace tnah {
             void SetMass(float mass = 1.0f)
             {
                 Mass = mass;
-                InverseMass = 1.0f / Mass;
+                InverseMass = 1.0f / (Mass > 0.0f ? Mass : 1.0f); // cant invert mass if its 0
             }
             
-            glm::vec3 CentreOfMass = {};
+            glm::vec3 LocalCentreOfMass = {0,0,0};
+            glm::vec3 WorldCentreOfMass = {0,0,0};
             float Mass = 1.0f;
             float InverseMass = 1.0f;
         };
@@ -147,7 +154,7 @@ namespace tnah {
 
         struct AngularDampening
         {
-            float Dampening = 0.0f;
+            float Dampening = 0.999f;
 
             float operator = (const float& value)
             {
@@ -170,12 +177,37 @@ namespace tnah {
                 Torques = value;
                 return Torques;
             }
+
+            glm::vec3 operator += (const glm::vec3 value)
+            {
+                Torques += value;
+                return value;
+            }
         };
 
         struct InertiaTensor
         {
-            glm::mat3 Tensor = glm::mat3(1.0f);
-            glm::mat3 InverseTensor = glm::inverse(glm::mat3(1.0f));
+            glm::mat3 WorldInertiaTensor = glm::mat3(1.0f);
+            glm::mat3 WorldInverseInertiaTensor = glm::inverse(glm::mat3(1.0f));
+            glm::vec3 LocalInertiaTensor = {1,1,1};
+            glm::vec3 LocalInverseInertiaTensor = {1,1,1};
+
+            glm::vec3 SetLocalInertiaTensor(const glm::vec3 localTensor)
+            {
+                LocalInertiaTensor = localTensor;
+                LocalInverseInertiaTensor = glm::vec3(localTensor.x != 0.0f ? 1.0f / localTensor.x : 0.0f,
+                                                        localTensor.y != 0.0f ? 1.0f / localTensor.y : 0.0f,
+                                                        localTensor.z != 0.0f ? 1.0f / localTensor.z : 0.0f);
+                return LocalInertiaTensor;
+            }
+
+            glm::mat3 SetWorldInertiaTensor(const glm::mat3& worldTensor)
+            {
+                WorldInertiaTensor = worldTensor;
+                WorldInverseInertiaTensor = glm::inverse(worldTensor);
+                return WorldInertiaTensor;
+            }
         };
+        
     }
 }

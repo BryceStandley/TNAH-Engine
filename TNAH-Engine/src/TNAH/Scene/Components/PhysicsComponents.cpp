@@ -9,12 +9,7 @@ namespace tnah
 
 
     RigidBodyComponent::RigidBodyComponent()
-    {
-        if(Physics::PhysicsEngine::IsActive())
-        {
-            Body = Physics::RigidBody::Create({});
-        }
-    }
+    {}
 
     RigidBodyComponent::RigidBodyComponent(GameObject& gameObject, const Physics::BodyType& type)
     {
@@ -52,7 +47,7 @@ namespace tnah
     {
         if(Physics::PhysicsEngine::IsActive() && Body)
         {
-            return Physics::PhysicsEngine::CreateBoxCollider(Body, boxSize * 0.5f);
+            return Physics::PhysicsEngine::CreateBoxCollider(Body, boxSize);
         }
         return nullptr;
     }

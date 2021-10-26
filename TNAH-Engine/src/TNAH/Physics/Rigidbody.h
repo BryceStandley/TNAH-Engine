@@ -3,6 +3,8 @@
 #include "PhysicsStructures.h"
 #include <reactphysics3d/reactphysics3d.h>
 #include "Collider.h"
+#include "TNAH/Core/AABB.h"
+#include "TNAH/Core/AABB.h"
 
 namespace tnah::Physics {
     
@@ -10,9 +12,9 @@ namespace tnah::Physics {
     {
     public:
         RigidBody();
-        RigidBody(BodyMass mass, BodyType type = BodyType::Dynamic);
+        RigidBody(TransformComponent* transform, BodyMass mass, BodyType type = BodyType::Dynamic);
 
-        static Ref<RigidBody> Create(BodyMass mass, BodyType type = BodyType::Dynamic);
+        static Ref<RigidBody> Create(TransformComponent* transform, BodyMass mass, BodyType type = BodyType::Dynamic);
 
         void OnUpdate(TransformComponent& transform);
 
@@ -25,6 +27,21 @@ namespace tnah::Physics {
         rp3d::CollisionBody* GetCollisionBody() const { return m_CollisionBody; }
 
         void AddCollider(Ref<Collider> collider);
+    	std::unordered_map<uint32_t, Ref<Collider>> GetColliders() { return m_Colliders; }
+
+        
+        /**
+         * @fn tnah::Physics::RigidBody::UpdateBodyProperties()
+         * 
+         * @brief Updates and recalculates the Local properties of the RigidBody based on its colliders attached.
+         *	This overrides any values set. To modify the properties of the body,
+         *	address the tnah::Physics::Collider objects directly with RigidBody::GetColliders()
+         *
+         * @author Bryce Standley
+         * @date Monday, 25 October 2021
+         * 
+         */
+        void UpdateBodyProperties(const TransformComponent& transform);
 
         uint32_t GetID() const { return m_ID; }
 
@@ -32,10 +49,17 @@ namespace tnah::Physics {
         BodyType GetType() const { return m_BodyType; }
 
         InertiaTensor GetInertiaTensor() const { return m_InertiaTensor; }
-
+        void RecalculateWorldInertiaTensor(const TransformComponent& transform);
+    	
         LinearVelocity GetLinearVelocity() const { return m_LinearVelocity; }
         AngularVelocity GetAngularVelocity() const { return m_AngularVelocity; }
         std::pair<LinearVelocity, AngularVelocity> GetVelocities() { return {m_LinearVelocity, m_AngularVelocity}; }
+
+        void SetLinearRotationalLockFactor(const glm::ivec3& lock) { m_LinearRotationLock = lock; }
+        void SetAngularRotationalLockFactor(const glm::ivec3& lock) { m_AngularRotationLock = lock; }
+
+        glm::vec3& GetLinearRotationalLockFactor() { return m_LinearRotationLock; }
+        glm::vec3& GetAngularRotationalLockFactor() { return m_AngularRotationLock; }
 
         void ApplyCollisionImpulse(const glm::vec3& linearVelocity, const glm::vec3& angularVelocity);
 
@@ -46,18 +70,11 @@ namespace tnah::Physics {
         void Awake() { m_IsSleeping = false; }
         void Sleep() { m_IsSleeping = true; }
 
-        static glm::mat3 CalculateInertiaTensor(Ref<Collider> collider, BodyMass colliderMass);
-        static glm::mat3 CalculateInertiaTensor(rp3d::CollisionShape* collider, BodyMass colliderMass, Collider::Type type);
+        glm::vec3 CalculateLocalInertiaTensor(const TransformComponent& transform);
 
     private:
 
-        void Setup();
-
-        void UpdatePhysicsInformation();
-
-        
-
-        void UpdateInertiaTensor(TransformComponent& transform);
+    	glm::vec3 CalculateCentreOfMass();
 
         void SetID(const uint32_t id) { m_ID = id; }
         
@@ -93,6 +110,20 @@ namespace tnah::Physics {
         AngularVelocity m_AngularVelocity;
 
         /**
+        * @var m_ConstrainedLinearVelocity
+        *
+        * @brief The current Constrained LinearVelocity of the Rigidbody.
+        */
+        LinearVelocity m_ConstrainedLinearVelocity;
+
+        /**
+        * @var m_ConstrainedAngularVelocity
+        *
+        * @brief The current Constrained AngularVelocity of the Rigidbody.
+        */
+        AngularVelocity m_ConstrainedAngularVelocity;
+
+        /**
         * @var m_Force
         *
         * @brief Current forces applied to the Rigidbody. These are used and zeroed out every PhysicsSystem::OnUpdate().
@@ -123,23 +154,18 @@ namespace tnah::Physics {
         /**
         * @var m_InertiaTensor
         *
-        * @brief The InertiaTensor of the Rigidbody.
+        * @brief The InertiaTensor of the Rigidbody with both world and local space data.
         */
         InertiaTensor m_InertiaTensor;
-
-        /**
-        * @var m_LocalInertiaTensor
-        *
-        * @brief The Local InertiaTensor of the Rigidbody.
-        */
-        InertiaTensor m_LocalInertiaTensor;
         
         /**
         * @var m_Colliders
         *
         * @brief A vector of all colliders on the Rigidbody
         */
-        std::vector<Ref<Collider>> m_Colliders;
+        std::unordered_map<uint32_t, Ref<Collider>> m_Colliders;
+
+    	uint32_t m_TotalColliders = 0;
 
         /**
         * @var m_CollisionBody
@@ -148,10 +174,41 @@ namespace tnah::Physics {
         */
         rp3d::CollisionBody* m_CollisionBody = nullptr;
 
+    	/**
+    	 * @var m_ID
+    	 * 
+    	 * @brief The global ID of the RigidBody.
+    	 */
         uint32_t m_ID = 0;
 
+        /**
+         * @var m_LinearRotationLock
+         *
+         * @brief Rotational lock factor for linear velocities. 1 is enabled, 0 is disabled per axis.
+         */
+        glm::vec3 m_LinearRotationLock = {1,1,1};
+
+        /**
+        * @var m_AngularRotationLock
+        *
+        * @brief Rotational lock factor for angular velocities. 1 is enabled, 0 is disabled per axis.
+        */
+        glm::vec3 m_AngularRotationLock = {1,1,1};
+
+    	TransformComponent* m_Transform = nullptr;
+
+    	/**
+    	 * @var m_IsSleeping
+    	 *
+    	 * @brief A flag to note if the RigidBody is currently sleeping thus not being simulated.
+    	 */
         bool m_IsSleeping = false;
 
+    	/**
+    	* @var m_IgnoreGravity
+    	*
+    	* @brief A flag to note if the RigidBody should ignore gravity within the world.
+    	*/
         bool m_IgnoreGravity = false;
 
         friend class PhysicsEngine;
