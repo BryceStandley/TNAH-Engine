@@ -147,10 +147,13 @@ namespace tnah
         switch (emotion)
         {
         case Emotion::Content:
+            owner->SetDesiredAction(Actions::none);
             break;
-        case Emotion::Angry:
+        case Emotion::Relaxed:
+            owner->SetDesiredAction(Actions::none);
             break;
         case Emotion::Calm:
+            owner->SetDesiredAction(Actions::none);
             break;
         }
     }
@@ -209,7 +212,7 @@ namespace tnah
             owner->SetAffordanceLevel(0);
             break;
         case Emotion::Bored:
-            owner->SetDesiredAction(Actions::sleep);
+            //owner->SetDesiredAction(Actions::sleep);
             owner->SetActionDistance(5.0f);
             owner->SetAffordanceLevel(1.0f);
             break;

@@ -102,7 +102,7 @@ namespace tnah
 		// High Arousal - Negative Valence
 		EmotionMap.insert({ (std::make_pair(1.0f, -0.5f)), Emotion::Tense });
 		EmotionMap.insert({ (std::make_pair(0.66f, -0.5f)), Emotion::Angry });
-		EmotionMap.insert({ (std::make_pair(0.33f, -0.5f)), Emotion::Relaxed });
+		EmotionMap.insert({ (std::make_pair(0.33f, -0.5f)), Emotion::Frustrated });
 
 		// Low Arousal - Negative Valence
 		EmotionMap.insert({ (std::make_pair(-0.33f, -0.5f)), Emotion::Depressed });
@@ -193,48 +193,40 @@ namespace tnah
 			switch (t)
 			{
 			case Trait::Happy:
-				m_MultiplierPositiveArousal += 0.1f; //more likely to feel positive
-				m_MultiplierPositiveValence += 0.1f;
+				m_MultiplierPositiveArousal += 0.05f; //more likely to feel positive
+				m_MultiplierPositiveValence += 0.05f;
 				
-				m_MultiplierNegativeArousal -= 0.1f; //less likely to feel negative
-				m_MultiplierNegativeValence -= 0.1f;
+				m_MultiplierNegativeArousal -= 0.05f; //less likely to feel negative
+				m_MultiplierNegativeValence -= 0.05;
 				break;
 
 			case Trait::Delighted:
 
-				m_MultiplierPositiveArousal += 0.2f; //more likely to feel positive
-				m_MultiplierPositiveValence += 0.2f;
+				m_MultiplierPositiveArousal += 0.1f; //more likely to feel positive
+				m_MultiplierPositiveValence += 0.1f;
 
-				m_MultiplierNegativeArousal -= 0.2f; //less likely to feel negative
-				m_MultiplierNegativeValence -= 0.2f;
+				m_MultiplierNegativeArousal -= 0.1f; //less likely to feel negative
+				m_MultiplierNegativeValence -= 0.1f;
 				break;
 
 
 			case Trait::Cheerful:
-				m_MultiplierPositiveArousal += 0.3f; //more likely to feel positive
-				m_MultiplierPositiveValence += 0.3f;
+				m_MultiplierPositiveArousal += 0.15f; //more likely to feel positive
+				m_MultiplierPositiveValence += 0.15f;
 
-				m_MultiplierNegativeArousal -= 0.3f; //less likely to feel negative
-				m_MultiplierNegativeValence -= 0.3f;
+				m_MultiplierNegativeArousal -= 0.15f; //less likely to feel negative
+				m_MultiplierNegativeValence -= 0.15f;
 				break;
 
 			case Trait::Sad:
-				m_MultiplierPositiveArousal -= 0.3f; //arousal more likely to decrease
-				m_MultiplierPositiveValence -= 0.3f; //less likely to feel positive
+				m_MultiplierPositiveArousal -= 0.15f; //arousal more likely to decrease
+				m_MultiplierPositiveValence -= 0.15f; //less likely to feel positive
 
-				m_MultiplierNegativeArousal += 0.3f; // negative arousal more likely to increase
-				m_MultiplierNegativeValence += 0.3f; //more likely to feel negative
+				m_MultiplierNegativeArousal += 0.15f; // negative arousal more likely to increase
+				m_MultiplierNegativeValence += 0.15f; //more likely to feel negative
 				break;
 
 			case Trait::Bland:
-				m_MultiplierPositiveArousal -= 0.2f; //arousal more likely to decrease
-				m_MultiplierPositiveValence -= 0.2f; //less likely to feel positive
-
-				m_MultiplierNegativeArousal += 0.2f; // negative arousal more likely to increase
-				m_MultiplierNegativeValence += 0.2f; //more likely to feel negative
-				break;
-
-			case Trait::Depressed:
 				m_MultiplierPositiveArousal -= 0.1f; //arousal more likely to decrease
 				m_MultiplierPositiveValence -= 0.1f; //less likely to feel positive
 
@@ -242,50 +234,49 @@ namespace tnah
 				m_MultiplierNegativeValence += 0.1f; //more likely to feel negative
 				break;
 
+			case Trait::Depressed:
+				m_MultiplierPositiveArousal -= 0.05f; //arousal more likely to decrease
+				m_MultiplierPositiveValence -= 0.05f; //less likely to feel positive
+
+				m_MultiplierNegativeArousal += 0.05f; // negative arousal more likely to increase
+				m_MultiplierNegativeValence += 0.05f; //more likely to feel negative
+				break;
+
 			case Trait::Patient:
-				m_MultiplierNegativeArousal -= 0.1f; //arousal more likely to decrease
+				m_MultiplierNegativeArousal -= 0.05f; //arousal more likely to decrease
 				break;
 
 			case Trait::Peaceful:
-				m_MultiplierNegativeArousal -= 0.2f; //arousal more likely to decrease
-				m_MultiplierPositiveValence -= 0.2f; // more likely to feel positive
+				m_MultiplierNegativeArousal -= 0.1f; //arousal more likely to decrease
+				m_MultiplierPositiveValence += 0.1f; // more likely to feel positive
 				break;
 
 			case Trait::Carefree:
-				m_MultiplierNegativeArousal -= 0.3f; //arousal more likely to decrease
-				m_MultiplierPositiveValence -= 0.3f; // more likely to feel positive
+				m_MultiplierNegativeArousal -= 0.15f; //arousal more likely to decrease
+				m_MultiplierPositiveValence += 0.15f; // more likely to feel positive
 				break;
 
 			case Trait::Impatient:
-				m_MultiplierPositiveArousal += 0.1f; //arousal more likely to increase
+				m_MultiplierPositiveArousal += 0.05f; //arousal more likely to increase
 				break;
 
 			case Trait::Aggressive:
-				m_MultiplierPositiveArousal += 0.2f; //arousal more likely to increase
-				m_MultiplierNegativeValence += 0.2f; //more likely to feel negative
+				m_MultiplierPositiveArousal += 0.1f; //arousal more likely to increase
+				m_MultiplierNegativeValence += 0.1f; //more likely to feel negative
 				break;
 
 			case Trait::Paranoid:
-				m_MultiplierPositiveArousal += 0.3f; //arousal more likely to decrease
-				m_MultiplierNegativeValence += 0.3f; //more likely to feel negative
+				m_MultiplierPositiveArousal += 0.15f; //arousal more likely to increase
+				m_MultiplierNegativeValence += 0.15f; //more likely to feel negative
 				break;
 			}
-			//std::cout << "Trait added!" << std::endl;
-			//std::cout << "Positive Arousal: " << m_MultiplierPositiveArousal << " Negative Arousal: " << m_MultiplierNegativeArousal << std::endl;
-			//std::cout << "Positive Valence: " << m_MultiplierPositiveValence << " Negative Valence: " << m_MultiplierNegativeValence << std::endl;
 		}
 	}
 
 	void EmotionComponent::Update()
 	{
-		//std::cout << "Positive Arousal: " << m_MultiplierPositiveArousal << " Negative Arousal: " << m_MultiplierNegativeArousal << std::endl;
-		//std::cout << "Positive Valence: " << m_MultiplierPositiveValence << " Negative Valence: " << m_MultiplierNegativeValence << std::endl;
-
 		Emotion em = ReturnEmotion(GetScaledArousal(GetArousal()), GetScaledValence(GetValence()));
 		m_State = em;
-    		
-		//std::cout << "Arousal: " << GetArousal() << " Valence: " << GetValence() << std::endl;
-		//std::cout << em << std::endl;
 	}
 
 	void EmotionComponent::SetMood(Mood m)
@@ -293,39 +284,46 @@ namespace tnah
 		switch (m)
 		{
 		case Mood::Happy:
-			m_MultiplierPositiveArousal += 0.25f; //more likely to feel positive
-			m_MultiplierPositiveValence += 0.5f;
+			m_MultiplierPositiveArousal += 0.25f; //arousal more likely to be positive
+			m_MultiplierPositiveValence += 0.25; // easier to feel positive
 
-			m_MultiplierNegativeArousal -= 0.25f; //less likely to feel negative
-			m_MultiplierNegativeValence -= 0.25f;
+			m_MultiplierNegativeArousal -= 0.25f; //less likely to have negative arousal
+			m_MultiplierNegativeValence -= 0.25f; //less likely to feel negative
+
+			m_Mood = m;
 			break;
 		case Mood::Angry:
-			m_MultiplierPositiveArousal += 0.25f; //less likely to feel positive
-			m_MultiplierPositiveValence -= 0.25f;
+			m_MultiplierPositiveArousal += 0.25f; //arousal more likely to be positive
+			m_MultiplierPositiveValence -= 0.25f; // harder to feel positive
 
-			m_MultiplierNegativeArousal -= 0.25f; //more likely to feel negative
-			m_MultiplierNegativeValence += 0.25f;
+			m_MultiplierNegativeArousal -= 0.25f; // less likely to have negative arousal
+			m_MultiplierNegativeValence += 0.25f; // easier to feel negative
+
+			m_Mood = m;
 			break;
 		case Mood::Sad:
-			m_MultiplierPositiveArousal -= 0.25f; //more likely to feel positive
-			m_MultiplierPositiveValence -= 0.25f;
+			m_MultiplierPositiveArousal -= 0.25f; //arousal more likely to be negative
+			m_MultiplierPositiveValence -= 0.25f; // harder to feel positive 
 
-			m_MultiplierNegativeArousal += 0.25f; //less likely to feel negative
-			m_MultiplierNegativeValence += 0.25f;
+			m_MultiplierNegativeArousal += 0.25f; // more likely to feel negative arousal
+			m_MultiplierNegativeValence += 0.25f; // easier to feel negative
+
+			m_Mood = m;
 			break;
 		case Mood::Relaxed:
-			m_MultiplierPositiveArousal -= 0.25f; //more likely to feel positive
-			m_MultiplierPositiveValence += 0.25f;
+			m_MultiplierPositiveArousal -= 0.25f; //arousal more likely to be negative
+			m_MultiplierPositiveValence += 0.25f; //easier to feel positive
 
-			m_MultiplierNegativeArousal += 0.25f; //less likely to feel negative
-			m_MultiplierNegativeValence -= 0.25f;
+			m_MultiplierNegativeArousal += 0.25f; //more likely to feel negative arousal
+			m_MultiplierNegativeValence -= 0.25f; //harder to feel negative
+			
+			m_Mood = m;
 			break;
 
 		default:
 			break;
 		}
-		//std::cout << "Positive Arousal: " << m_MultiplierPositiveArousal << " Negative Arousal: " << m_MultiplierNegativeArousal << std::endl;
-		//std::cout << "Positive Valence: " << m_MultiplierPositiveValence << " Negative Valence: " << m_MultiplierNegativeValence << std::endl;
+
 	}
 
 	std::string EmotionComponent::GetCurrentEmotionAsString()
@@ -359,6 +357,74 @@ namespace tnah
 			default:
 				return "Error";
 		}
+	}
+
+	std::string EmotionComponent::GetCurrentMoodAsString()
+	{
+		switch (GetMood())
+		{
+		case Mood::Happy:
+			return "Happy";
+		case Mood::Relaxed:
+			return "Relaxed";
+		case Mood::Angry:
+			return "Angry";
+		case Mood::Sad:
+			return "Sad";
+		default:
+			return "Error";
+		}
+	}
+
+	std::string EmotionComponent::GetTraitAsString(int pos)
+	{
+		std::string trait = "Trait: ";
+			switch (m_Traits[pos])
+			{
+			case Trait::Happy:
+				return "Happy";
+			case Trait::Delighted:
+				return "Delighted";
+			case Trait::Cheerful:
+				return "Cheerful";
+			case Trait::Sad:
+				return "Sad";
+			case Trait::Bland:
+				return "Bland";
+			case Trait::Depressed:
+				return "Depressed";
+			case Trait::Patient:
+				return "Patient";
+			case Trait::Peaceful:
+				return "Peaceful";
+			case Trait::Carefree:
+				return "Carefree";
+			case Trait::Impatient:
+				return "Impatient";
+			case Trait::Aggressive:
+				return "Aggressive";
+			case Trait::Paranoid:
+				return "Paranoid";
+			default:
+				return "Error";
+			}
+	}
+
+	std::string EmotionComponent::GetTraitsAsString()
+	{
+		int i = 0;
+		std::string comma = ", ";
+		std::string traitList = "Traits: ";
+
+		for (itr = m_Traits.begin(); itr < m_Traits.end(); itr++)
+		{
+			std::string trait = GetTraitAsString(i);
+			traitList = traitList + trait + comma;
+			i++;
+
+		}
+		traitList.resize(traitList.size() - 2);
+		return traitList;
 	}
 
 }

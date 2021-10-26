@@ -25,9 +25,8 @@ namespace tnah
         
         emotions.SetMood(Mood::Happy);
 
-        mCharacterState = emotions.GetEmotion();
         Character::name = "Student";
-        //mFsm->setCurrentState
+ 
     }
 
     glm::vec3 Student::OnUpdate(Timestep deltaTime, TransformComponent& transform)
@@ -36,11 +35,6 @@ namespace tnah
         currentAffordanceLevel = BalanceRange(0, 1, currentAffordanceLevel);
         emotions.Update();
         mFsm->update();
-
-        //if (spin)
-        {
-            transform.Rotation.y += 10 * GetDeltaTime();
-        }
 
         return targetPos;
     }
@@ -171,9 +165,12 @@ namespace tnah
     std::string Student::CharacterString()
     {
         std::string str;
-        str += "Name: Student\nEmotion: " + emotions.GetCurrentEmotionAsString() +
-            "\nArousal: " + std::to_string(emotions.GetArousal()) + "\nValence: " +
-                std::to_string(emotions.GetValence()) + "\nAction: " + GetActionString(GetDesiredAction());
+        str += "Name: Student\nEmotion: " + emotions.GetCurrentEmotionAsString() + "\nMood: " + emotions.GetCurrentMoodAsString() +
+            "\n" + emotions.GetTraitsAsString() +
+            "\nArousal: " + std::to_string(emotions.GetArousal()) + "\nPositiveArousalMultiplier" + std::to_string(emotions.GetPositiveArosualMultiplier()) +
+            "\nNegativeArousalMultiplier" + std::to_string(emotions.GetNegativeArousalMultiplier()) + "\nValence: " + std::to_string(emotions.GetValence()) +
+            "\nPositiveValenceMultiplier" + std::to_string(emotions.GetPositiveArosualMultiplier()) + "\nNegativeValenceMultiplier"
+            + std::to_string(emotions.GetNegativeValenceMultiplier()) + "\nAction: " + GetActionString(GetDesiredAction());
         return str;
     }
 }

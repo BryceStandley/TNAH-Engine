@@ -383,7 +383,7 @@ MainLayer::MainLayer()
     	}
 	
 	glm::vec3 binSize(1, 1, 1), binScale(0.3, 0.3, 0.3), binRotation(-1.55, 0, 0);
-	/*{
+	{
 		std::string name = "Bin (1)";
 		
 		auto&go = m_ActiveScene->CreateGameObject(name);
@@ -423,7 +423,7 @@ MainLayer::MainLayer()
 		
 		go.AddComponent<tnah::AIComponent>();
 		go.AddComponent<tnah::CharacterComponent>(tnah::CharacterNames::DogAi);
-	}*/
+	}
 
 	{
 		std::string name = "Student";

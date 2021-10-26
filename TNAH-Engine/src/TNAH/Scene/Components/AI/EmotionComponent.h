@@ -59,10 +59,20 @@ public:
 	float GetScaledArousal(float value);
 
 	float GetScaledValence(float value);
+
+	float GetPositiveValenceMultiplier() { return m_MultiplierPositiveValence; }
+	float GetNegativeValenceMultiplier() { return m_MultiplierNegativeValence; }
+
+	float GetPositiveArosualMultiplier() { return m_MultiplierPositiveArousal; }
+	float GetNegativeArousalMultiplier() { return m_MultiplierNegativeArousal; }
 	
 	void SetMood(Mood m);
 
 	std::string GetCurrentEmotionAsString();
+	std::string GetCurrentMoodAsString();
+	std::string GetTraitAsString(int pos);
+	std::string GetTraitsAsString();
+	
 
 private:
 
@@ -89,6 +99,7 @@ private:
 
 	// Vector of all traits of the AI - AKA its Personality
 	std::vector<Trait> m_Traits;
+	std::vector<Trait>::iterator itr;
 
 };
 }

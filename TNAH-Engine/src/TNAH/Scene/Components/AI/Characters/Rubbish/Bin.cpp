@@ -16,13 +16,15 @@ namespace tnah
         mColour = glm::vec4(1, 1, 0, 1);
         currentAffordanceLevel = 1.0f;
         
+        emotions.SetArousal(0.33f);
+        emotions.SetValence(0.5f);
         
         emotions.AddTrait(Trait::Happy);
         emotions.AddTrait(Trait::Carefree);
+
         emotions.SetMood(Mood::Happy);
-        mCharacterState = emotions.GetEmotion();
+  
         Character::name = "Bin";
-        //mFsm->setCurrentState
     }
 
     glm::vec3 Bin::OnUpdate(Timestep deltaTime, TransformComponent &transform)
@@ -155,9 +157,12 @@ namespace tnah
     std::string Bin::CharacterString()
     {
         std::string str;
-        str += "Name: Bin\nEmotion: " + emotions.GetCurrentEmotionAsString() +
-            "\nArousal: " + std::to_string(emotions.GetArousal()) + "\nValence: " +
-                std::to_string(emotions.GetValence()) + "\nDesired action (will add tuesday)";
+        str += "Name: Bin\nEmotion: " + emotions.GetCurrentEmotionAsString() + "\nMood: " + emotions.GetCurrentMoodAsString() +
+            "\n" + emotions.GetTraitsAsString() +
+            "\nArousal: " + std::to_string(emotions.GetArousal()) + "\nPositiveArousalMultiplier" + std::to_string(emotions.GetPositiveArosualMultiplier()) +
+            "\nNegativeArousalMultiplier" + std::to_string(emotions.GetNegativeArousalMultiplier()) + "\nValence: " + std::to_string(emotions.GetValence()) +
+            "\nPositiveValenceMultiplier" + std::to_string(emotions.GetPositiveArosualMultiplier()) + "\nNegativeValenceMultiplier"
+            + std::to_string(emotions.GetNegativeValenceMultiplier()) + "\nAction: " + GetActionString(GetDesiredAction());
         return str;
     }
 

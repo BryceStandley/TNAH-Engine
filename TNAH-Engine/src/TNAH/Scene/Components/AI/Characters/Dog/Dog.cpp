@@ -16,9 +16,10 @@ namespace tnah
         mColour = glm::vec4(1, 0, 0, 0);
         currentAffordanceLevel = 1.0f;
         
+        emotions.SetArousal(-0.66f);
+        emotions.SetValence(-0.5f);
 
-        emotions.AddTrait(Trait::Aggressive);
-        
+        emotions.AddTrait(Trait::Aggressive);       
         emotions.AddTrait(Trait::Sad);
 
         emotions.SetMood(Mood::Relaxed);
@@ -147,9 +148,12 @@ namespace tnah
     std::string Dog::CharacterString()
     {
         std::string str;
-        str += "Name: Dog\nEmotion: " + emotions.GetCurrentEmotionAsString() +
-            "\nArousal: " + std::to_string(emotions.GetArousal()) + "\nValence: " +
-                std::to_string(emotions.GetValence()) + "\nDesired action (will add tuesday)";
+        str += "Name: Dog\nEmotion: " + emotions.GetCurrentEmotionAsString() + "\nMood: " + emotions.GetCurrentMoodAsString() +
+            "\n" + emotions.GetTraitsAsString() +
+            "\nArousal: " + std::to_string(emotions.GetArousal()) + "\nPositiveArousalMultiplier" + std::to_string(emotions.GetPositiveArosualMultiplier()) +
+            "\nNegativeArousalMultiplier" + std::to_string(emotions.GetNegativeArousalMultiplier()) + "\nValence: " + std::to_string(emotions.GetValence()) +
+            "\nPositiveValenceMultiplier" + std::to_string(emotions.GetPositiveArosualMultiplier()) + "\nNegativeValenceMultiplier"
+            + std::to_string(emotions.GetNegativeValenceMultiplier()) + "\nAction: " + GetActionString(GetDesiredAction());
         return str;
     }
 

@@ -138,17 +138,36 @@ namespace tnah
 
     void ChillBin::Enter(Bin* owner)
     {
-
+        owner->SetWander(true);
     }
 
     void ChillBin::Execute(Bin* owner)
     {
-        //Heads home to idle
+        auto emotion = owner->GetEmotions().GetEmotion();
+
+        switch (emotion)
+        {
+        case Emotion::Content:
+            owner->SetDesiredAction(Actions::none);
+            owner->SetSpeed(0.75);
+            break;
+        case Emotion::Relaxed:
+            owner->SetDesiredAction(Actions::none);
+            owner->SetSpeed(0.5);
+            break;
+        case Emotion::Calm:
+            owner->SetDesiredAction(Actions::none);
+            owner->SetSpeed(0.1);
+            break;
+        default:
+            break;
+        }
     }
 
     void ChillBin::Exit(Bin* owner)
     {
-
+        owner->SetWander(false);
+        owner->SetSpeed(1.0f);
     }
 
     void PissedOffBin::Enter(Bin* owner)
