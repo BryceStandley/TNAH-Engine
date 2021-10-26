@@ -344,13 +344,65 @@
 					</z>
 				</scale>
 			</transform>
-			<ai>
-				<type>
-					<value>
-						2
-					</value>
-				</type>
-			</ai>
+	<astarobstacle>
+	<dynamic>
+		<value>
+			false
+		</value>
+	</dynamic>
+	</astarobstacle>
+	<affordance>
+<tag>
+	<value>
+		
+	</value>
+</tag>
+	<Sit>
+		<value>
+			0.000000
+		</value>
+	</Sit>
+	<Kick>
+		<value>
+			0.000000
+		</value>
+	</Kick>
+	<Punch>
+		<value>
+			0.000000
+		</value>
+	</Punch>
+	<Greeting>
+		<value>
+			0.000000
+		</value>
+	</Greeting>
+	<Pickup>
+		<value>
+			0.000000
+		</value>
+	</Pickup>
+	<Abuse>
+		<value>
+			0.000000
+		</value>
+	</Abuse>
+	<Sleep>
+		<value>
+			0.000000
+		</value>
+	</Sleep>
+	<None>
+		<value>
+			0.000000
+		</value>
+	</None>
+	<Drink>
+		<value>
+			0.000000
+		</value>
+	</Drink>
+	</affordance>
 		</gameObject>
 	</hierarchy>
 </scene>

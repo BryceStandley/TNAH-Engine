@@ -347,7 +347,7 @@ namespace tnah
 			case Emotion::Depressed:
 				return "Depressed";
 			case Emotion::Excited:
-				return "Exited";
+				return "Excited";
 			case Emotion::Frustrated:
 				return "Frustrated";
 			case Emotion::Relaxed:

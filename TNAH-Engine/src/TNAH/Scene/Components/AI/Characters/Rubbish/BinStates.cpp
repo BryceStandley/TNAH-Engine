@@ -143,7 +143,7 @@ namespace tnah
 
     void ChillBin::Execute(Bin* owner)
     {
-        //Heads home to idle
+        
     }
 
     void ChillBin::Exit(Bin* owner)

@@ -26,7 +26,7 @@ namespace tnah
         float GetSpeed() {return speed;}
         virtual void ApplyPlayerAction(PlayerActions givenAction) = 0;
         virtual std::string CharacterString() = 0;
-        std::string GetActionString(Actions action);
+        static std::string GetActionString(Actions action);
     private:
         float mDt;
         Actions mDesiredAction;

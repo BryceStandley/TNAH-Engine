@@ -20,6 +20,8 @@ namespace tnah
 
     struct AStarObstacleComponent
     {
+        AStarObstacleComponent() = default;
+        AStarObstacleComponent(bool b) : dynamic(b) {}
         bool dynamic = false;
     private:
         inline static std::string s_SearchString = "AStar Obstacle Component";
@@ -86,9 +88,11 @@ namespace tnah
         inline static Int2 startingPos = {0, 0};
         inline static Int2 size = {10, 10};
         inline static bool generated = false;
+        
         inline static std::unordered_map<int, std::unordered_map<int, bool>> closedList = std::unordered_map<int, std::unordered_map<int, bool>>();
         inline static std::unordered_map<int, std::unordered_map<int, bool>> usedPositions = std::unordered_map<int, std::unordered_map<int, bool>>();
         inline static std::unordered_map<int, std::unordered_map<int, Node>> allMap = std::unordered_map<int, std::unordered_map<int, Node>>();
+        
         inline static std::vector<Int2> usedPositionsHolder = std::vector<Int2>();
     };
 

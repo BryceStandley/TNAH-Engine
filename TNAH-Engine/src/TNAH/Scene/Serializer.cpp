@@ -117,6 +117,10 @@ namespace tnah {
                 ss << GenerateAi(g.GetComponent<AIComponent>(), g.GetComponent<CharacterComponent>(), 3);
             if(g.HasComponent<AStarComponent>())
                 ss << GenerateAStar(g.GetComponent<AStarComponent>(), 3);
+            if(g.HasComponent<AStarObstacleComponent>())
+                ss << GenerateAStarObstacle(g.GetComponent<AStarObstacleComponent>());
+            if(g.HasComponent<Affordance>())
+                ss << GenerateAffordance(g.GetComponent<Affordance>());
             
             ss << GenerateTagClose("gameObject", 2);
         }
@@ -277,6 +281,29 @@ namespace tnah {
         ss << GenerateValueEntry("shoot", sound.m_Shoot, totalTabs+1);
         ss << GenerateValueEntry("loop", sound.m_Loop, totalTabs+1);
         ss << GenerateTagClose("audiosource", totalTabs);
+        return ss.str();
+    }
+
+    std::string Serializer::GenerateAffordance(Affordance& astar, const uint32_t& totalTabs)
+    {
+        std::stringstream ss;
+        ss << GenerateTagOpen("affordance", totalTabs + 1);
+        ss << GenerateValueEntry("tag", astar.GetTag());
+        for(int i = 1; i < 10; i++)
+        {
+            std::cout << i << std::endl;
+            ss << GenerateValueEntry(Affordance::GetActionString((Actions)i), astar.GetActionValue((Actions)i), totalTabs+1);
+        }
+        ss << GenerateTagClose("affordance", totalTabs + 1);
+        return ss.str();
+    }
+
+    std::string Serializer::GenerateAStarObstacle(const AStarObstacleComponent& astar, const uint32_t& totalTabs)
+    {
+        std::stringstream ss;
+        ss << GenerateTagOpen("astarobstacle", totalTabs + 1);
+        ss << GenerateValueEntry("dynamic", astar.dynamic,  totalTabs+1);
+        ss << GenerateTagClose("astarobstacle", totalTabs + 1);
         return ss.str();
     }
 
@@ -705,8 +732,40 @@ namespace tnah {
             gameObject.AddComponent<AStarComponent>(GetAstarFromFile(fileContents, astar));
             added++;
         }
+
+        auto aff = FindTags("affordance", fileContents, gameObjectTagPositions.first, gameObjectTagPositions.second);
+        if(CheckTags(aff))
+        {
+            gameObject.AddComponent<Affordance>(GetAffordancesFromFile(fileContents, aff));
+            added++;
+        }
+
+        auto obstacle = FindTags("astarobstacle", fileContents, gameObjectTagPositions.first, gameObjectTagPositions.second);
+        if(CheckTags(obstacle))
+        {
+            gameObject.AddComponent<AStarObstacleComponent>(GetAstarObstacleFromFile(fileContents, obstacle));
+            added++;
+        }
         
         return added;
+    }
+
+    Affordance Serializer::GetAffordancesFromFile(const std::string& fileContents, std::pair<size_t, size_t> componentTagPositions)
+    {
+        std::string t = GetStringValueFromFile("tag", fileContents, componentTagPositions);
+        Affordance temp(t);
+        for(int i = 1; i < 10; i++)
+        {
+            float value = GetFloatValueFromFile(Affordance::GetActionString((Actions)i), fileContents, componentTagPositions);
+            temp.SetActionValues((Actions)i, value);
+        }
+
+        return temp;
+    }
+
+    bool Serializer::GetAstarObstacleFromFile(const std::string& fileContents, std::pair<size_t, size_t> componentTagPositions)
+    {
+        return GetBoolValueFromFile("dynamic", fileContents, componentTagPositions); 
     }
 
     CharacterNames Serializer::GetAiFromFile(const std::string& fileContents, std::pair<size_t, size_t> componentTagPositions)

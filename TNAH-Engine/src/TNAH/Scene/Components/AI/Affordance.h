@@ -7,6 +7,13 @@ namespace tnah
     {
     public:
         Affordance(std::string t = "");
+        
+        Affordance(const Affordance &copy)
+        {
+            tag = copy.GetTag();
+            objectsActions = GetActions();
+        }
+        
         ~Affordance();
         
         float editorValue = 0;
@@ -14,6 +21,8 @@ namespace tnah
         float GetActionValue(Actions action);
         void SetActionValues(Actions action, float value);
         std::string GetTag() const {return tag;}
+        static std::string GetActionString(Actions action);
+        std::unordered_map<Actions, float> GetActions() {return objectsActions;};
     private:
         std::string tag;
         std::unordered_map<Actions, float> objectsActions;
