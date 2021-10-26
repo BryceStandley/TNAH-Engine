@@ -3,8 +3,7 @@
 #include "PhysicsStructures.h"
 #include <reactphysics3d/reactphysics3d.h>
 #include "Collider.h"
-#include "TNAH/Core/AABB.h"
-#include "TNAH/Core/AABB.h"
+#include "TNAH/Scene/Components/Components.h"
 
 namespace tnah::Physics {
     
@@ -12,9 +11,9 @@ namespace tnah::Physics {
     {
     public:
         RigidBody();
-        RigidBody(TransformComponent* transform, BodyMass mass, BodyType type = BodyType::Dynamic);
+        RigidBody(TransformComponent& transform, BodyMass mass, BodyType type = BodyType::Dynamic);
 
-        static Ref<RigidBody> Create(TransformComponent* transform, BodyMass mass, BodyType type = BodyType::Dynamic);
+        static Ref<RigidBody> Create(TransformComponent& transform, BodyMass mass, BodyType type = BodyType::Dynamic);
 
         void OnUpdate(TransformComponent& transform);
 
@@ -41,7 +40,7 @@ namespace tnah::Physics {
          * @date Monday, 25 October 2021
          * 
          */
-        void UpdateBodyProperties(const TransformComponent& transform);
+        void UpdateBodyProperties();
 
         uint32_t GetID() const { return m_ID; }
 
@@ -49,7 +48,7 @@ namespace tnah::Physics {
         BodyType GetType() const { return m_BodyType; }
 
         InertiaTensor GetInertiaTensor() const { return m_InertiaTensor; }
-        void RecalculateWorldInertiaTensor(const TransformComponent& transform);
+        void RecalculateWorldInertiaTensor();
     	
         LinearVelocity GetLinearVelocity() const { return m_LinearVelocity; }
         AngularVelocity GetAngularVelocity() const { return m_AngularVelocity; }
@@ -68,9 +67,9 @@ namespace tnah::Physics {
         bool& IgnoreGravity() { return m_IgnoreGravity; }
         bool IsSleeping() const { return m_IsSleeping; }
         void Awake() { m_IsSleeping = false; }
-        void Sleep() { m_IsSleeping = true; }
+        void Sleep();
 
-        glm::vec3 CalculateLocalInertiaTensor(const TransformComponent& transform);
+        glm::vec3 CalculateLocalInertiaTensor();
 
     private:
 
@@ -195,7 +194,8 @@ namespace tnah::Physics {
         */
         glm::vec3 m_AngularRotationLock = {1,1,1};
 
-    	TransformComponent* m_Transform = nullptr;
+    	glm::vec3 m_Position = {0,0,0};
+    	glm::quat m_Orientation = {0,0,0,0};
 
     	/**
     	 * @var m_IsSleeping
@@ -203,6 +203,12 @@ namespace tnah::Physics {
     	 * @brief A flag to note if the RigidBody is currently sleeping thus not being simulated.
     	 */
         bool m_IsSleeping = false;
+
+    	float m_SleepVelocityThreshold = 0.2f;
+
+    	float m_SleepTimeThreshold = 1.0f;
+
+    	float m_SleepTimeAccumulator = 0.0f;
 
     	/**
     	* @var m_IgnoreGravity

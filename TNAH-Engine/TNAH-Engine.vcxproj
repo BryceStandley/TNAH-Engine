@@ -94,6 +94,7 @@
     <ClInclude Include="src\TNAH\Core\Timestep.h" />
     <ClInclude Include="src\TNAH\Core\Utility.h" />
     <ClInclude Include="src\TNAH\Core\UUID.h" />
+    <ClInclude Include="src\TNAH\Debug\Debug.h" />
     <ClInclude Include="src\TNAH\Editor\EditorUI.h" />
     <ClInclude Include="src\TNAH\Layers\ImGuizmo.h" />
     <ClInclude Include="src\TNAH\Layers\UI.h" />

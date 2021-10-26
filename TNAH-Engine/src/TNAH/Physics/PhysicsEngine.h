@@ -70,6 +70,7 @@ namespace tnah::Physics
      void SetGravity(const glm::vec3& gravity) { m_Gravity = gravity; }
      void SetGravityState(const bool& state) { m_GravityEnabled = state; }
      bool& GetGravityState() { return m_GravityEnabled; }
+     bool& GetSleepState() { return m_SleepAllowed; }
 
      Ref<CollisionDetectionEngine>& GetCollisionDetectionEngine() { return m_CollisionDetectionEngine; }
     
@@ -227,6 +228,8 @@ namespace tnah::Physics
 
      /** @brief a static reference to the active Collision Detection Engine */
      static Ref<CollisionDetectionEngine> m_CollisionDetectionEngine;
+
+     bool m_SleepAllowed = false;
 
         friend class PhysicsEngine;
 };
@@ -502,11 +505,12 @@ namespace tnah::Physics
         static void PhysicsLoggerInit();
 
      static void ProcessCollisions();
-     static void ProcessRigidbodyVelocities(const Timestep& deltaTime, TransformComponent& transform, Ref<RigidBody> rigidbody);
-     static void ProcessRigidbodyPositions(const Timestep& deltaTime, TransformComponent& transform, Ref<RigidBody> rigidbody);
-     static void ResetRigidbodyForcesAndTorques(Ref<RigidBody> rigidbody);
-     static void UpdateInertiaTensor();
-     static void UpdateBodies();
+     static void ProcessRigidbodyVelocities(const Timestep& deltaTime, TransformComponent& transform, Ref<RigidBody> rigidbody, entt::registry& componentRegistry, bool loop = false);
+     static void ProcessRigidbodyPositions(const Timestep& deltaTime, TransformComponent& transform, Ref<RigidBody> rigidbody,entt::registry& componentRegistry, bool loop = false);
+     static void ResetRigidbodyForcesAndTorques(Ref<RigidBody> rigidbody,entt::registry& componentRegistry, bool loop = false);
+     static void UpdateInertiaTensor(Ref<RigidBody> rigidbody, entt::registry& componentRegistry, bool loop = false);
+     static void UpdateBodies(Ref<RigidBody> rigidbody, entt::registry& componentRegistry, bool loop = false);
+     static void UpdateSleepState(entt::registry& componentRegistry, Timestep deltaTime);
     
     private:
      

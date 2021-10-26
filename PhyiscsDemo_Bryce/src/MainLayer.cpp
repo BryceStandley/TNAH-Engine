@@ -40,7 +40,9 @@ MainLayer::MainLayer()
 	m_Ball.Transform().Position = {3.5f, 8.0f, -10.0f};
 	m_PhysicsSimStartPosition =  m_Ball.Transform().Position;
 	auto& rb3 = m_Ball.AddComponent<tnah::RigidBodyComponent>(m_Ball);
-	rb3.AddCollider({1.0f});
+	auto col = rb3.AddCollider({1.0f});
+	//col->GetColliderMass().SetMass(100.0f);
+	//rb3.Body->UpdateBodyProperties();
 
 	m_Ground = m_ActiveScene->CreateGameObject("Ground");
 	m_Ground.AddComponent<tnah::MeshComponent>("assets/meshes/cube_texture.fbx");
@@ -127,7 +129,7 @@ void MainLayer::OnUpdate(tnah::Timestep deltaTime)
 		TNAH_INFO("Simulation Started");
 		m_Ball.Transform().Position = m_PhysicsSimStartPosition;
 		auto& rb = m_Ball.GetComponent<tnah::RigidBodyComponent>().Body;
-		auto force = glm::vec3(0.0f,0.0f,1.0f) * glm::vec3(0.0f, 0.0f, 500.0f);
+		auto force = glm::vec3(0.0f,0.0f,1.0f) * glm::vec3(0.0f, 0.0f, 5.0f);
 		rb->AddForce(force);
 		m_StartPhysicsSim = false;
 	}
@@ -239,6 +241,7 @@ void MainLayer::OnImGuiRender()
 		{
 			tnah::EditorUI::DrawVec3Control("Gravity", tnah::Physics::PhysicsEngine::GetManager()->GetGravity());
 		}
+		ImGui::Checkbox("Allow Sleeping", &tnah::Physics::PhysicsEngine::GetManager()->GetSleepState());
 		ImGui::Checkbox("Collider Rendering", &tnah::Physics::PhysicsEngine::GetColliderRendererHandle());
 	}
 	

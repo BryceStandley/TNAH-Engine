@@ -28,7 +28,7 @@ namespace tnah::Physics {
 			glm::vec3 GetColliderPosition() const { return m_LocalPosition; }
 			glm::quat GetColliderOrientation() const { return m_LocalOrientation; }
 			
-			BodyMass GetColliderMass() const { return m_Mass; }
+			BodyMass& GetColliderMass() { return m_Mass; }
 			Type GetType() const { return m_Type; }
 			std::pair<Type, rp3d::CollisionShape*> GetCollisionShapePair() { return { m_Type, m_Collider }; }
 

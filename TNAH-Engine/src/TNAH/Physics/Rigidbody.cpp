@@ -8,35 +8,39 @@ namespace tnah::Physics {
 		m_BodyType = BodyType::Dynamic;
 	}
 
-	RigidBody::RigidBody(TransformComponent* transform, BodyMass mass, BodyType type)
-		:m_BodyType(type), m_BodyMass(mass), m_Transform(transform)
+	RigidBody::RigidBody(TransformComponent& transform, BodyMass mass, BodyType type)
+		:m_BodyType(type), m_BodyMass(mass)
 	{
+		m_Position = transform.Position;
+		m_Orientation = glm::quat(transform.Rotation);
 	}
 
-	Ref<RigidBody> RigidBody::Create(TransformComponent* transform, BodyMass mass, BodyType type)
+	Ref<RigidBody> RigidBody::Create(TransformComponent& transform, BodyMass mass, BodyType type)
 	{
 		return Ref<RigidBody>::Create(transform, mass, type);
 	}
 
 	void RigidBody::OnUpdate(TransformComponent& transform)
 	{
-		m_LinearVelocity.Velocity = m_ConstrainedLinearVelocity.Velocity;
-		m_AngularVelocity.Velocity = m_ConstrainedAngularVelocity.Velocity;
+		//m_LinearVelocity.Velocity = m_ConstrainedLinearVelocity.Velocity;
+		//m_AngularVelocity.Velocity = m_ConstrainedAngularVelocity.Velocity;
 
 		//m_CollisionBody->setTransform(Math::ToRp3dTransform(transform));
 		
-		auto position = transform.Position;
+		//auto position = transform.Position;
 
-		for(auto& col : m_Colliders)
-		{
-			col.second->SetPosition(position * col.second->GetColliderPosition());
-			col.second->SetOrientation(glm::quat(transform.Rotation) * col.second->GetColliderOrientation());
-		}
+		//for(auto& col : m_Colliders)
+		//{
+		//	col.second->SetPosition(position * col.second->GetColliderPosition());
+		//	col.second->SetOrientation(glm::quat(transform.Rotation) * col.second->GetColliderOrientation());
+		//}
+		m_Position = transform.Position;
+		m_Orientation = glm::normalize(m_Orientation + glm::quat(transform.Rotation));
 	}
 
 	void RigidBody::AddForce(const glm::vec3& force)
 	{
-		m_Force += force;
+		m_Force += force * 1000.0f;
 	}
 
 	void RigidBody::AddTorque(const glm::vec3& torque)
@@ -48,9 +52,9 @@ namespace tnah::Physics {
 	{
 		m_Colliders[m_TotalColliders] = collider;
 		m_TotalColliders++;
-		if(m_Transform != nullptr && m_BodyType == BodyType::Dynamic)
+		if(m_BodyType == BodyType::Dynamic)
 		{
-			UpdateBodyProperties(*m_Transform);
+			UpdateBodyProperties();
 		}
 		else
 		{
@@ -59,12 +63,12 @@ namespace tnah::Physics {
 	
 	}
 
-	void RigidBody::UpdateBodyProperties(const TransformComponent& transform)
+	void RigidBody::UpdateBodyProperties()
 	{
 		//Get and update the Centre of Mass for the body. Both local and world
 		const auto oldWorldCOM = m_BodyMass.WorldCentreOfMass;
 		const auto localCOM = CalculateCentreOfMass();
-		const glm::vec3 worldCOM = (glm::quat(transform.Rotation) * localCOM) + transform.Position;
+		const glm::vec3 worldCOM = (m_Orientation * localCOM) + m_Position;
 		m_BodyMass.WorldCentreOfMass = worldCOM;
 
 		if(m_BodyType == BodyType::Dynamic)
@@ -72,12 +76,12 @@ namespace tnah::Physics {
 			m_LinearVelocity.Velocity += glm::cross(m_AngularVelocity.Velocity, worldCOM - oldWorldCOM);
 		}
 		
-		CalculateLocalInertiaTensor(transform);
+		CalculateLocalInertiaTensor();
 	}
 
-	void RigidBody::RecalculateWorldInertiaTensor(const TransformComponent& transform)
+	void RigidBody::RecalculateWorldInertiaTensor()
 	{
-		glm::mat3 rot = glm::mat3_cast(glm::quat(transform.Rotation));
+		glm::mat3 rot = glm::mat3_cast(m_Orientation);
 		m_InertiaTensor.WorldInverseInertiaTensor[0][0] = rot[0][0] * m_InertiaTensor.LocalInverseInertiaTensor.x;
 		m_InertiaTensor.WorldInverseInertiaTensor[0][1] = rot[1][0] * m_InertiaTensor.LocalInverseInertiaTensor.x;
 		m_InertiaTensor.WorldInverseInertiaTensor[0][2] = rot[2][0] * m_InertiaTensor.LocalInverseInertiaTensor.x;
@@ -105,9 +109,25 @@ namespace tnah::Physics {
 		m_Torque = {0.0f, 0.0f, 0.0f};
 		m_LinearVelocity = {0.0f, 0.0f, 0.0f};
 		m_AngularVelocity = {0.0f, 0.0f, 0.0f};
+		m_Position = {0,0,0};
+		m_Orientation = {0,0,0,0};
 	}
 
-	glm::vec3 RigidBody::CalculateLocalInertiaTensor(const TransformComponent& transform)
+	void RigidBody::Sleep()
+	{
+		m_IsSleeping = true;
+
+		m_Force = {0.0f, 0.0f, 0.0f};
+		m_Torque = {0.0f, 0.0f, 0.0f};
+		m_LinearVelocity.Velocity = {0,0,0};
+		m_AngularVelocity.Velocity = {0,0,0};
+		m_ConstrainedLinearVelocity.Velocity = {0,0,0};
+		m_ConstrainedAngularVelocity.Velocity = {0,0,0};
+
+		m_SleepTimeAccumulator = 0.0f;
+	}
+
+	glm::vec3 RigidBody::CalculateLocalInertiaTensor()
 	{
 		auto localCOM = m_BodyMass.LocalCentreOfMass;
 		glm::mat3 tempLocalInertiaTensor = glm::mat3(1.0f);
