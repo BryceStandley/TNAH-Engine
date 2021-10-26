@@ -107,21 +107,24 @@ namespace tnah
         switch (emotion)
         {
         case Emotion::Happy:
-            owner->SetDesiredAction(Actions::greeting);
-            owner->SetActionDistance(7.0f);
-            owner->SetAffordanceLevel(0.1f);
+            owner->SetDesiredAction(Actions::drink);
+            owner->SetActionDistance(1.0f);
+            owner->SetAffordanceLevel(1.0f);
+            owner->SetSpeed(1.0f);
             // owner->spin = false;
             break;
         case Emotion::Delighted:
             owner->SetDesiredAction(Actions::greeting);
             owner->SetActionDistance(5.0f);
             owner->SetAffordanceLevel(1.0f);
+            owner->SetSpeed(1.5f);
             //owner->spin = false;
             break;
         case Emotion::Excited:
-            owner->SetDesiredAction(Actions::greeting);
-            owner->SetActionDistance(9.0f);
-            owner->SetAffordanceLevel(0.5f);
+            owner->SetDesiredAction(Actions::drink);
+            owner->SetActionDistance(1.0f);
+            owner->SetAffordanceLevel(1.0f);
+            owner->SetSpeed(2.0f);
             //owner->spin = true;
             break;
         default:
@@ -134,21 +137,46 @@ namespace tnah
         //owner->spin = false;
         owner->SetWander(false);
         owner->canOutput = true;
+        owner->SetSpeed(1.0f);
     }
 
     void ChillStudent::Enter(Student* owner)
     {
-
+        owner->SetWander(true);
     }
 
     void ChillStudent::Execute(Student* owner)
     {
-        //Heads home to idle
+        auto emotion = owner->GetEmotions().GetEmotion();
+
+        switch (emotion)
+        {
+        case Emotion::Content:
+            owner->SetDesiredAction(Actions::sit);
+            owner->SetActionDistance(2.0f);
+            owner->SetAffordanceLevel(1.0f);
+            // owner->spin = false;
+            break;
+        case Emotion::Relaxed:
+            owner->SetDesiredAction(Actions::sit);
+            owner->SetActionDistance(2.0f);
+            owner->SetAffordanceLevel(1.0f);
+            //owner->spin = false;
+            break;
+        case Emotion::Calm:
+            owner->SetDesiredAction(Actions::none);
+            owner->SetActionDistance(1.0f);
+            owner->SetAffordanceLevel(0.1f);
+            //owner->spin = true;
+            break;
+        default:
+            break;
+        }
     }
 
     void ChillStudent::Exit(Student* owner)
     {
-
+        owner->SetWander(false);
     }
 
     void PissedOffStudent::Enter(Student* owner)
@@ -165,22 +193,22 @@ namespace tnah
         switch (emotion)
         {
         case Emotion::Frustrated:
-            owner->SetDesiredAction(Actions::pickup);
-            owner->SetActionDistance(3.0f);
+            owner->SetDesiredAction(Actions::kick);
+            owner->SetActionDistance(1.0f);
             owner->SetAffordanceLevel(1.0f);
             owner->SetSpeed(1.5f);
             break;
         case Emotion::Angry:
-            owner->SetDesiredAction(Actions::pickup);
-            owner->SetActionDistance(5.0f);
+            owner->SetDesiredAction(Actions::kick);
+            owner->SetActionDistance(2.0f);
             owner->SetAffordanceLevel(0.5f);
             owner->SetSpeed(2.0f);
             break;
         case Emotion::Tense:
-            owner->SetDesiredAction(Actions::abuse);
-            owner->SetActionDistance(7.0f);
+            owner->SetDesiredAction(Actions::kick);
+            owner->SetActionDistance(3.0f);
             owner->SetAffordanceLevel(0.1f);
-            owner->SetSpeed(2.5f);
+            owner->SetSpeed(3.0f);
             break;
         default:
             break;
@@ -208,20 +236,20 @@ namespace tnah
         {
         case Emotion::Depressed:
             owner->SetDesiredAction(Actions::none);
+            owner->SetActionDistance(5.0f);
+            owner->SetAffordanceLevel(0.0f);
+            owner->SetSpeed(0.25f);
+            break;
+        case Emotion::Bored:
+            owner->SetDesiredAction(Actions::play);
             owner->SetActionDistance(3.0f);
             owner->SetAffordanceLevel(0.5f);
             owner->SetSpeed(0.75f);
             break;
-        case Emotion::Bored:
-            owner->SetDesiredAction(Actions::none);
-            owner->SetActionDistance(5.0f);
-            owner->SetAffordanceLevel(0.1f);
-            owner->SetSpeed(0.6f);
-            break;
         case Emotion::Tired:
             owner->SetDesiredAction(Actions::sleep);
             owner->SetActionDistance(3.0f);
-            owner->SetAffordanceLevel(1.0f);
+            owner->SetAffordanceLevel(0.1f);
             owner->SetSpeed(0.5f);
             break;
         default:
