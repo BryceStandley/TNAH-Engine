@@ -498,6 +498,7 @@ namespace tnah{
 										Int2 new_pos = AStar::GenerateRandomPosition(Int2(objTrasnform.Position.x, objTrasnform.Position.z)).position;
 										switch (c.aiCharacter->GetDesiredAction())
 										{
+										case Actions::drink:
 										case Actions::pickup:
 											objTrasnform.Position.x = new_pos.x;
 											objTrasnform.Position.z = new_pos.y;

@@ -23,6 +23,8 @@ MainLayer::MainLayer()
 	ct.Position = glm::vec3(0, 0, 1);
 	cc.ClearMode = tnah::CameraClearMode::Skybox;
 	auto& m_Skybox = m_Camera.AddComponent<tnah::SkyboxComponent>();
+	auto& as = m_Camera.AddComponent<tnah::AStarObstacleComponent>();
+	as.dynamic = true;
 	
 	{
 		auto& rb = m_Camera.AddComponent<tnah::RigidBodyComponent>(ct);
@@ -427,6 +429,7 @@ MainLayer::MainLayer()
 
 	{
 		std::string name = "Student";
+		
 		glm::vec3 StudentCollider = { 0.3, 0.6, 0.7 };
 		auto& go = m_ActiveScene->CreateGameObject(name);
 		auto& tt = go.Transform();

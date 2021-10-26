@@ -109,6 +109,7 @@ namespace tnah
                     check.second = true;
                     LogAction("(Drinks " + tag + ") Yum! Delicious drink!", mColour);
                     emotions.IncreaseArousal(0.25);
+                    previousState = GetDesiredAction();
                     break;
                     case kick:
                         if (canOutput)

@@ -19,10 +19,12 @@ namespace tnah
 
          void AStar::Update()
         {
-            /*for(Int2 values : usedPositionsHolder)
+            for(Int2 values : usedPositionsHolder)
             {
                 usedPositions[values.x][values.y] = false;
-            }*/
+            }
+
+             usedPositionsHolder.clear();
         }
         
          bool AStar::Reached(Int2 point, Node destination)

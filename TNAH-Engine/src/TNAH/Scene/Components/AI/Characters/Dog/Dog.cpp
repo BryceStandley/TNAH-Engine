@@ -71,7 +71,7 @@ namespace tnah
                         }
                         canOutput = false;
 
-                        emotions.IncreaseArousal(0.25);
+                        emotions.IncreaseArousal(0.5);
                     }
                     break;
                 case greeting:
@@ -91,18 +91,17 @@ namespace tnah
                         }
                         canOutput = false;
 
-                        emotions.IncreaseArousal(0.2);
-                        emotions.IncreaseValence(0.2);
+                        emotions.IncreaseArousal(0.5);
                     }
                     break;
                 case sleep:
                     if (canOutput)
                     {
                         LogAction("*Bark* Nap Time! *Bark*", mColour);
+                        emotions.DecreaseArousal(0.5);
+                        emotions.IncreaseValence(0.5);
                         canOutput = false;
                     }
-                    emotions.DecreaseArousal(0.1 * GetDeltaTime());
-                    emotions.IncreaseValence(0.2 * GetDeltaTime());
                     break;
                 case none:
                 default:
