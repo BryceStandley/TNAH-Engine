@@ -221,8 +221,9 @@ namespace tnah::Physics
         
     }
 
-    void PhysicsEngine::ProcessRigidbodyPositions(const Timestep& deltaTime,TransformComponent& trans, Ref<RigidBody> rb)
+    void PhysicsEngine::ProcessRigidbodyPositions(const Timestep& deltaTime,TransformComponent& transform, Ref<RigidBody> rigidbody)
     {
+#if 0
         for(auto r : m_PhysicsManager->m_Rigidbodies)
         {
             auto rigidbody = r.second;
@@ -243,16 +244,32 @@ namespace tnah::Physics
                 rigidbody->m_CollisionBody->setTransform(t);
             }
         }
+#endif
+
+        transform.Position += rigidbody->m_ConstrainedLinearVelocity.Velocity * deltaTime.GetSeconds();
+
+        glm::quat rot = glm::quat(transform.Rotation);
+                
+        rot += glm::quat(rigidbody->m_ConstrainedAngularVelocity.Velocity) * rot * 0.5f * deltaTime.GetSeconds();
+
+        rp3d::Transform t;
+        t.setPosition(Math::ToRp3dVec3(transform.Position));
+        t.setOrientation(Math::ToRp3dQuat(rot));
+
+        transform.Rotation = glm::eulerAngles(rot);
+        rigidbody->m_CollisionBody->setTransform(t);
+        
     }
 
     void PhysicsEngine::ResetRigidbodyForcesAndTorques(Ref<RigidBody> rb)
     {
         for(auto r : m_PhysicsManager->m_Rigidbodies)
         {
-            auto rigidbody = r.second;
-            rigidbody->m_Force.Forces = {0.0f, 0.0f, 0.0f};
-            rigidbody->m_Torque.Torques = {0.0f, 0.0f, 0.0f};
+            
         }
+        auto rigidbody = rb;
+        rigidbody->m_Force.Forces = {0.0f, 0.0f, 0.0f};
+        rigidbody->m_Torque.Torques = {0.0f, 0.0f, 0.0f};
     }
 
     void PhysicsEngine::UpdateInertiaTensor()
@@ -309,8 +326,8 @@ namespace tnah::Physics
                 auto& rb = view.get<RigidBodyComponent>(entity);
                 auto& transform = view.get<TransformComponent>(entity);
 
-                //rb.Body->RecalculateWorldInertiaTensor(transform);
-                UpdateInertiaTensor();
+                rb.Body->RecalculateWorldInertiaTensor(transform);
+                //UpdateInertiaTensor();
                 
                 ProcessRigidbodyVelocities(deltaTime, transform, rb.Body);
 
@@ -318,8 +335,8 @@ namespace tnah::Physics
                 
                 ProcessRigidbodyPositions(deltaTime, transform, rb.Body);
                 
-                //rb.OnUpdate(transform);
-                UpdateBodies();
+                rb.OnUpdate(transform);
+                //UpdateBodies();
                 
                 //TODO Add a update to make bodies sleep here
                 
