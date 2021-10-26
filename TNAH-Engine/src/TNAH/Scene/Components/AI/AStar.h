@@ -291,6 +291,17 @@ namespace tnah
 
     struct AStarComponent
     {
-        int a;
+        Int2 StartingPos = {0, 0};
+        Int2 Size = {5, 5};
+        bool DisplayMap = false;
+        bool reset = true;
+    private:
+        inline static std::string s_SearchString = "AStar Component";
+        /** @brief	Type identifiers for the component */
+        inline static ComponentTypes s_Types = {
+            {ComponentVariations::ConcaveMeshCollider},
+{{ComponentCategory::Physics}}
+        };
+        friend class EditorUI;
     };
 }

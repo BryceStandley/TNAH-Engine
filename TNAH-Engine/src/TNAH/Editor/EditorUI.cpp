@@ -5,6 +5,9 @@
 
 
 #include "TNAH/Core/FileManager.h"
+#include "TNAH/Scene/Components/AI/AIComponent.h"
+#include "TNAH/Scene/Components/AI/AStar.h"
+#include "TNAH/Scene/Components/AI/CharacterComponent.h"
 
 namespace tnah {
 
@@ -361,6 +364,54 @@ namespace tnah {
 			}
 		}
 
+		if(object.HasComponent<AStarComponent>())
+		{
+			auto& astar = object.GetComponent<AStarComponent>();
+			ImGui::Text("AStar");
+			
+			//ImGui::RadioButton("Active Listening: ", listener.m_ActiveListing);
+
+			glm::vec2 tempStart(astar.StartingPos.x, astar.StartingPos.y);
+			DrawVec2Control("Starting Position", tempStart);
+			astar.StartingPos = Int2(static_cast<int>(round(tempStart.x)), static_cast<int>(round(tempStart.y)));
+
+			glm::vec2 tempSize(astar.Size.x, astar.Size.y);
+			DrawVec2Control("Starting Position", tempSize);
+			astar.Size = Int2(static_cast<int>(round(tempSize.x)), static_cast<int>(round(tempSize.y)));
+			
+			ImGui::Checkbox("Display Map", &astar.DisplayMap);
+
+			if(ImGui::Button("Reset Map"))
+			{
+				astar.reset = true;
+			}
+			
+			ImGui::Separator();
+		}
+
+		if(object.HasComponent<CharacterComponent>() && object.HasComponent<AIComponent>())
+		{
+			auto& c = object.GetComponent<CharacterComponent>();
+			ImGui::Text("AI & Character");
+
+			if(ImGui::Button("Set Bin"))
+			{
+				c.SetCharacter(CharacterNames::Rubbish);
+			}
+
+			if(ImGui::Button("Set Dog"))
+			{
+				c.SetCharacter(CharacterNames::DogAi);
+			}
+
+			if(ImGui::Button("Set Student"))
+			{
+				c.SetCharacter(CharacterNames::StudentAi);
+			}
+			
+			ImGui::Separator();
+		}
+		
 		if(object.HasComponent<AudioListenerComponent>())
 		{
 			auto& listener = object.GetComponent<AudioListenerComponent>();
@@ -1102,7 +1153,8 @@ namespace tnah {
 				ComponentVariations::Camera, ComponentVariations::EditorCamera, ComponentVariations::Editor, ComponentVariations::Skybox,
 				ComponentVariations::Light, ComponentVariations::Terrain, ComponentVariations::Mesh, ComponentVariations::PlayerController,
 				ComponentVariations::AudioListener, ComponentVariations::AudioSource, ComponentVariations::RigidBody, ComponentVariations::BoxCollider,
-				ComponentVariations::CapsuleCollider, ComponentVariations::SphereCollider, ComponentVariations::ConcaveMeshCollider, ComponentVariations::ConvexMeshCollider
+				ComponentVariations::CapsuleCollider, ComponentVariations::SphereCollider, ComponentVariations::ConcaveMeshCollider,
+			ComponentVariations::ConvexMeshCollider, ComponentVariations::AStar, ComponentVariations::AiCharacter
 				
 			};
 
@@ -1261,6 +1313,12 @@ namespace tnah {
 
 			if(v == ComponentVariations::ConcaveMeshCollider && Utility::Contains<ComponentCategory>(ConcaveMeshColliderComponent::s_Types.Categories, category))
 				foundComponents.emplace_back(ComponentVariations::ConcaveMeshCollider);
+
+			if(v == ComponentVariations::AStar && Utility::Contains<ComponentCategory>(AStarComponent::s_Types.Categories, category))
+				foundComponents.emplace_back(ComponentVariations::AStar);
+
+			if(v == ComponentVariations::AiCharacter && Utility::Contains<ComponentCategory>(AIComponent::s_Types.Categories, category))
+				foundComponents.emplace_back(ComponentVariations::AiCharacter);
 		}
 		return foundComponents;
 	}
@@ -1332,7 +1390,11 @@ namespace tnah {
 		if(ConcaveMeshColliderComponent::s_SearchString.find(term) != std::string::npos && Utility::Contains<ComponentVariations>(componentsToSearch, ComponentVariations::ConcaveMeshCollider))
 			foundComponents.emplace_back(ComponentVariations::ConcaveMeshCollider);
 
-		
+		if(AStarComponent::s_SearchString.find(term) != std::string::npos && Utility::Contains<ComponentVariations>(componentsToSearch, ComponentVariations::AStar))
+			foundComponents.emplace_back(ComponentVariations::ID);
+
+		if(AIComponent::s_SearchString.find(term) != std::string::npos && Utility::Contains<ComponentVariations>(componentsToSearch, ComponentVariations::AiCharacter))
+			foundComponents.emplace_back(ComponentVariations::ID);
 		
 		return foundComponents;
 	}
@@ -1371,6 +1433,10 @@ namespace tnah {
             return "Audio Source";
         case ComponentVariations::AudioListener:
             return "Audio Listener";
+        case ComponentVariations::AStar:
+        	return "AStar Component";
+        case ComponentVariations::AiCharacter:
+        	return "AiCharacter Component";
         case ComponentVariations::RigidBody:
 			return "Rigid Body";
         case ComponentVariations::BoxCollider:
@@ -1417,6 +1483,10 @@ namespace tnah {
 			return "Mesh";
 		case ComponentVariations::Mesh:
 			return "Mesh";
+		case ComponentVariations::AStar:
+			return "AStar";
+		case ComponentVariations::AiCharacter:
+			return "AiCharacter";
 		case ComponentVariations::PlayerController:
 			return "Control";
 		case ComponentVariations::AudioSource:
@@ -1487,6 +1557,14 @@ namespace tnah {
             return true;
         case ComponentVariations::RigidBody:
         	object.AddComponent<RigidBodyComponent>(object.Transform());
+        	return true;
+        case ComponentVariations::AStar:
+        	object.AddComponent<AStarComponent>();
+        	object.AddComponent<MeshComponent>("assets/Editor/meshes/sphere.fbx");
+        	return true;
+        case ComponentVariations::AiCharacter:
+        	object.AddComponent<AIComponent>();
+        	object.AddComponent<CharacterComponent>();
         	return true;
         case ComponentVariations::BoxCollider:
         	if(object.HasComponent<RigidBodyComponent>())

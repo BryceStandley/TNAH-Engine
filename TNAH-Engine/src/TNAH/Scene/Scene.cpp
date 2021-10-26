@@ -347,12 +347,20 @@ namespace tnah{
 				}
 
 				{
-					if(Application::Get().GetDebugModeStatus())
-					{
+
 						auto view = m_Registry.view<AStarComponent, MeshComponent, TransformComponent>();
 						{
 							for(auto entity : view)
 							{
+								auto &astar = view.get<AStarComponent>(entity);
+								if(astar.reset)
+								{
+									AStar::Init(astar.StartingPos, astar.Size);
+									astar.reset = false;
+								}
+								
+								if(Application::Get().GetDebugModeStatus() || astar.DisplayMap)
+								{
 								auto& model = view.get<MeshComponent>(entity);
 								auto& transform = view.get<TransformComponent>(entity);
 							

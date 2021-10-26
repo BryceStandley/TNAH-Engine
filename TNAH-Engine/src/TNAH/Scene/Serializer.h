@@ -1,5 +1,7 @@
 ﻿#pragma once
 #include "Scene.h"
+#include "Components/AI/AIComponent.h"
+#include "Components/AI/CharacterComponent.h"
 
 namespace tnah
 {
@@ -242,7 +244,8 @@ namespace tnah
          * 
          */
         static std::string GenerateBoxCollider(const BoxColliderComponent& box, const uint32_t& totalTabs = 0);
-        
+        static std::string GenerateAi(const AIComponent& ai, const CharacterComponent &c,const uint32_t& totalTabs = 0);
+        static std::string GenerateAStar(const AStarComponent& astar, const uint32_t& totalTabs = 0);
         //Tag creators
         /**
          * 
@@ -788,7 +791,7 @@ namespace tnah
          * 
          */
         static LightComponent GetLightFromFile(const std::string& fileContents, std::pair<size_t, size_t> componentTagPositions);
-
+        static CharacterComponent GetAiFromFile(const std::string& fileContents, std::pair<size_t, size_t> componentTagPositions);
         /**
          * 
          * \fn glm::vec3 GetVec3FromFile

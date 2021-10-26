@@ -2,6 +2,8 @@
 #include "Serializer.h"
 
 #include "GameObject.h"
+#include "Components/AI/AIComponent.h"
+#include "Components/AI/CharacterComponent.h"
 #include "TNAH/Core/Application.h"
 
 #define ALPHA_SEARCH_STRING "QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm"
@@ -111,6 +113,10 @@ namespace tnah {
                 ss << GenerateRigidBody(g.GetComponent<RigidBodyComponent>(), 3);
             if(g.HasComponent<BoxColliderComponent>())
                 ss << GenerateBoxCollider(g.GetComponent<BoxColliderComponent>(), 3);
+            if(g.HasComponent<AIComponent>() && g.HasComponent<CharacterComponent>())
+                ss << GenerateAi(g.GetComponent<AIComponent>(), g.GetComponent<CharacterComponent>(), 3);
+            if(g.HasComponent<AStarComponent>())
+                ss << GenerateAStar(g.GetComponent<AStarComponent>(), 3);
             
             ss << GenerateTagClose("gameObject", 2);
         }
@@ -297,6 +303,24 @@ namespace tnah {
         return ss.str();
     }
 
+    std::string Serializer::GenerateAStar(const AStarComponent& astar, const uint32_t& totalTabs)
+    {
+        std::stringstream ss;
+        ss << GenerateTagOpen("astar", totalTabs);
+        ss << GenerateVec3Entry("position", glm::vec3(astar.StartingPos.x, 0, astar.StartingPos.y), totalTabs+1);
+        ss << GenerateVec3Entry("size", glm::vec3(astar.Size.x, 0, astar.Size.y), totalTabs+1);
+        ss << GenerateTagClose("astar", totalTabs);
+        return ss.str();
+    }
+
+    std::string Serializer::GenerateAi(const AIComponent& ai, const CharacterComponent& c, const uint32_t& totalTabs)
+    {
+        std::stringstream ss;
+        ss << GenerateTagOpen("ai", totalTabs);
+        ss << GenerateValueEntry("type", (int)c.currentCharacter);
+        ss << GenerateTagClose("ai", totalTabs);
+        return ss.str();
+    }
 
     std::string tnah::Serializer::GenerateVec3(const glm::vec3& value, const uint32_t& totalTabs)
     {
@@ -666,8 +690,28 @@ namespace tnah {
             gameObject.AddComponent<BoxColliderComponent>(GetBoxColliderFromFile(fileContents, boxPos, gameObject.GetComponent<RigidBodyComponent>()));
             added++;
         }
+
+        auto ai = FindTags("ai", fileContents, gameObjectTagPositions.first, gameObjectTagPositions.second);
+        if(CheckTags(ai))
+        {
+            gameObject.AddComponent<BoxColliderComponent>(GetAiFromFile(fileContents, ai));
+            added++;
+        }
+
+        auto boxPos = FindTags("boxcollider", fileContents, gameObjectTagPositions.first, gameObjectTagPositions.second);
+        if(CheckTags(boxPos))
+        {
+            gameObject.AddComponent<BoxColliderComponent>(GetBoxColliderFromFile(fileContents, boxPos, gameObject.GetComponent<RigidBodyComponent>()));
+            added++;
+        }
         
         return added;
+    }
+
+    CharacterComponent Serializer::GetAiFromFile(const std::string& fileContents, std::pair<size_t, size_t> componentTagPositions)
+    {
+        CharacterNames type = (CharacterNames)GetIntValueFromFile("type", fileContents, componentTagPositions);
+        
     }
 
     TagComponent Serializer::GetTagFromFile(const std::string& fileContents,

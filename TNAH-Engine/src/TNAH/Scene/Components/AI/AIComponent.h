@@ -115,6 +115,14 @@ namespace tnah
         Node currentPosition;
         Node destination;
         std::deque<Node> currentPath = {};
+
+        inline static std::string s_SearchString = "AiCharacter Component";
+        /** @brief	Type identifiers for the component */
+        inline static ComponentTypes s_Types = {
+            {ComponentVariations::ConcaveMeshCollider},
+{{ComponentCategory::Physics}}
+        };
+        friend class EditorUI;
     };
 
     inline const glm::vec3& AIComponent::GetTargetPosition() const

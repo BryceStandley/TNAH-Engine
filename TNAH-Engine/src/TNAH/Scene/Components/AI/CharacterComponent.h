@@ -7,14 +7,15 @@
 namespace tnah {
     enum CharacterNames
     {
-        Rubbish, StudentAi, DogAi
+        Rubbish = 1, StudentAi = 2, DogAi = 3
     };
 
     struct CharacterComponent
     {
         CharacterComponent()
         {
-            aiCharacter.reset(new Bin()); 
+            aiCharacter.reset(new Bin());
+            currentCharacter = CharacterNames::Rubbish;
         }
 
         CharacterComponent(CharacterNames characterType)
@@ -39,8 +40,10 @@ namespace tnah {
                 aiCharacter.reset(new Bin());
                 break;
             }
+            currentCharacter = characterType;
         }
 
         std::shared_ptr<Character> aiCharacter;
+        CharacterNames currentCharacter;
     };
 }
