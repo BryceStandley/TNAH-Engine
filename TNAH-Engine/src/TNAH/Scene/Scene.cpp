@@ -163,13 +163,21 @@ namespace tnah{
 				transform.Forward = forward;
 				transform.Right = right;
 				transform.Up = up;
+			}
+		}
 
-				if(transform.astar)
+		{
+			auto view = m_Registry.view<AStarObstacleComponent, TransformComponent>();
+			{
+				for(auto entity : view)
 				{
-					AStar::AddUsedPosition(Int2(static_cast<int>(round(transform.Position.x)), static_cast<int>(round(transform.Position.z))));
+					auto & star = view.get<AStarObstacleComponent>(entity);
+					auto& transform = view.get<TransformComponent>(entity);
+					AStar::AddUsedPosition(Int2(static_cast<int>(round(transform.Position.x)), static_cast<int>(round(transform.Position.z))), star.dynamic);
 				}
 			}
 		}
+		
 #pragma endregion	
 		
 #pragma region FramebufferBindings

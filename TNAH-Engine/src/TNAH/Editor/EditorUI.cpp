@@ -56,8 +56,15 @@ namespace tnah {
 					rb.UpdateTransform(t);
 				}
 			}
+			
+			ImGui::Separator();
+		}
 
-			ImGui::Checkbox("Astar", &t.astar);
+		if(object.HasComponent<AStarObstacleComponent>())
+		{
+			auto & astar = object.GetComponent<AStarObstacleComponent>();
+			ImGui::Text("AStar Obstacle");
+			ImGui::Checkbox("Dynamic (Hits performance hard)", &astar.dynamic);
 			ImGui::Separator();
 		}
 
@@ -1251,7 +1258,7 @@ namespace tnah {
 				ComponentVariations::Light, ComponentVariations::Terrain, ComponentVariations::Mesh, ComponentVariations::PlayerController,
 				ComponentVariations::AudioListener, ComponentVariations::AudioSource, ComponentVariations::RigidBody, ComponentVariations::BoxCollider,
 				ComponentVariations::CapsuleCollider, ComponentVariations::SphereCollider, ComponentVariations::ConcaveMeshCollider,
-			ComponentVariations::ConvexMeshCollider, ComponentVariations::AStar, ComponentVariations::AiCharacter, ComponentVariations::Affordance
+			ComponentVariations::ConvexMeshCollider, ComponentVariations::AStar, ComponentVariations::AiCharacter, ComponentVariations::Affordance, ComponentVariations::AStarObstacle
 				
 			};
 
@@ -1419,6 +1426,9 @@ namespace tnah {
 
 			if(v == ComponentVariations::Affordance && Utility::Contains<ComponentCategory>(Affordance::s_Types.Categories, category))
 				foundComponents.emplace_back(ComponentVariations::Affordance);
+
+			if(v == ComponentVariations::AStarObstacle && Utility::Contains<ComponentCategory>(AStarObstacleComponent::s_Types.Categories, category))
+				foundComponents.emplace_back(ComponentVariations::AStarObstacle);
 		}
 		return foundComponents;
 	}
@@ -1498,6 +1508,9 @@ namespace tnah {
 
 		if(Affordance::s_SearchString.find(term) != std::string::npos && Utility::Contains<ComponentVariations>(componentsToSearch, ComponentVariations::Affordance))
 			foundComponents.emplace_back(ComponentVariations::Affordance);
+
+		if(AStarObstacleComponent::s_SearchString.find(term) != std::string::npos && Utility::Contains<ComponentVariations>(componentsToSearch, ComponentVariations::AStarObstacle))
+			foundComponents.emplace_back(ComponentVariations::AStarObstacle);
 		
 		return foundComponents;
 	}
@@ -1556,6 +1569,8 @@ namespace tnah {
         	return "Concave Mesh Collider";
         case ComponentVariations::Affordance:
         	return "Affordance";
+        case ComponentVariations::AStarObstacle:
+        	return "AStar Obstacle Component";
         default: return "";
         }
     }
@@ -1765,6 +1780,9 @@ namespace tnah {
         	}
         case ComponentVariations::Affordance:
         	object.AddComponent<Affordance>();
+        	return true;
+        case ComponentVariations::AStarObstacle:
+        	object.AddComponent<AStarObstacleComponent>();
         	return true;
         default: return false;
         }

@@ -119,7 +119,7 @@ namespace tnah
         inline static std::string s_SearchString = "AiCharacter Component";
         /** @brief	Type identifiers for the component */
         inline static ComponentTypes s_Types = {
-            {ComponentVariations::ConcaveMeshCollider},
+            {ComponentVariations::AiCharacter},
 {{ComponentCategory::Physics}}
         };
         friend class EditorUI;
