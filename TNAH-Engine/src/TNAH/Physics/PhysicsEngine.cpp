@@ -50,10 +50,10 @@ namespace tnah::Physics
             if(m_PhysicsManager->m_ColliderRender)
             {
                 m_PhysicsManager->m_PhysicsWorld->getDebugRenderer().setIsDebugItemDisplayed(rp3d::DebugRenderer::DebugItem::COLLISION_SHAPE, true);
-                m_PhysicsManager->m_PhysicsWorld->getDebugRenderer().setIsDebugItemDisplayed(rp3d::DebugRenderer::DebugItem::COLLIDER_AABB, true);
-                m_PhysicsManager->m_PhysicsWorld->getDebugRenderer().setIsDebugItemDisplayed(rp3d::DebugRenderer::DebugItem::CONTACT_POINT, true);
-                m_PhysicsManager->m_PhysicsWorld->getDebugRenderer().setIsDebugItemDisplayed(rp3d::DebugRenderer::DebugItem::CONTACT_NORMAL, true);
-                m_PhysicsManager->m_PhysicsWorld->getDebugRenderer().setIsDebugItemDisplayed(rp3d::DebugRenderer::DebugItem::COLLIDER_BROADPHASE_AABB, true);
+                m_PhysicsManager->m_PhysicsWorld->getDebugRenderer().setIsDebugItemDisplayed(rp3d::DebugRenderer::DebugItem::COLLIDER_AABB, FALSE);
+                m_PhysicsManager->m_PhysicsWorld->getDebugRenderer().setIsDebugItemDisplayed(rp3d::DebugRenderer::DebugItem::CONTACT_POINT, false);
+                m_PhysicsManager->m_PhysicsWorld->getDebugRenderer().setIsDebugItemDisplayed(rp3d::DebugRenderer::DebugItem::CONTACT_NORMAL, FALSE);
+                m_PhysicsManager->m_PhysicsWorld->getDebugRenderer().setIsDebugItemDisplayed(rp3d::DebugRenderer::DebugItem::COLLIDER_BROADPHASE_AABB, FALSE);
             }
             else
             {
@@ -205,10 +205,12 @@ namespace tnah::Physics
                                                                         rb->GetInertiaTensor().WorldInverseInertiaTensor * rb->m_Torque.Torques;
                 }
 
-                if(m_PhysicsManager->GetGravityState() && rb->GetType() == BodyType::Dynamic && !rb->IsSleeping() && !rb->IgnoreGravity())
+                if(m_PhysicsManager->GetGravityState() && rb->GetType() != BodyType::Static && !rb->IsSleeping() && !rb->IgnoreGravity())
                 {
                     rb->m_ConstrainedLinearVelocity.Velocity += deltaTime.GetSeconds() * rb->GetBodyMass().InverseMass *
                                                                         rb->m_LinearRotationLock * rb->GetBodyMass().Mass * m_PhysicsManager->GetGravity();
+                    rb->m_ConstrainedAngularVelocity.Velocity += deltaTime.GetSeconds() * rb->m_AngularRotationLock * rb->GetBodyMass().InverseMass *
+                                                                        rb->GetInertiaTensor().WorldInverseInertiaTensor * rb->GetBodyMass().Mass * m_PhysicsManager->GetGravity();
                 }
 
                 auto lDamp = glm::pow(1.0f - rb->m_LinearDampening.Dampening, deltaTime.GetSeconds());
@@ -233,10 +235,13 @@ namespace tnah::Physics
                                                                         rigidbody->GetInertiaTensor().WorldInverseInertiaTensor * rigidbody->m_Torque.Torques;
                 }
 
-                if(m_PhysicsManager->GetGravityState() && rigidbody->GetType() == BodyType::Dynamic && !rigidbody->IsSleeping() && !rigidbody->IgnoreGravity())
+                if(m_PhysicsManager->GetGravityState() && rigidbody->GetType() != BodyType::Static && !rigidbody->IsSleeping() && !rigidbody->IgnoreGravity())
                 {
                     rigidbody->m_ConstrainedLinearVelocity.Velocity += deltaTime.GetSeconds() * rigidbody->GetBodyMass().InverseMass *
                                                                         rigidbody->m_LinearRotationLock * rigidbody->GetBodyMass().Mass * m_PhysicsManager->GetGravity();
+
+                    rigidbody->m_ConstrainedAngularVelocity.Velocity += deltaTime.GetSeconds() * rigidbody->m_AngularRotationLock * rigidbody->GetBodyMass().InverseMass *
+                                                                        rigidbody->GetInertiaTensor().WorldInverseInertiaTensor * rigidbody->GetBodyMass().Mass * m_PhysicsManager->GetGravity();
                 }
 
                 auto lDamp = glm::pow(1.0f - rigidbody->m_LinearDampening.Dampening, deltaTime.GetSeconds());
@@ -266,6 +271,12 @@ namespace tnah::Physics
                     rb->m_Orientation += glm::quat(0.0, rb->m_AngularVelocity) * deltaTime.GetSeconds();
                     rb->m_Orientation = glm::normalize(rb->m_Orientation);
                     
+                }
+                else if(rb->GetType() == BodyType::Kinematic && !rb->IsSleeping())
+                {
+                    rb->m_ConstrainedLinearVelocity = glm::vec3(0, rb->m_ConstrainedLinearVelocity.Velocity.y, 0);
+                    trans.Position += rb->m_ConstrainedLinearVelocity.Velocity * deltaTime.GetSeconds();
+                    rb->m_Position = trans.Position;
                 }
             }
         }

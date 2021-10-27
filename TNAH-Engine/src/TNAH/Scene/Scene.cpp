@@ -385,7 +385,7 @@ namespace tnah{
 								auto& transform = view.get<TransformComponent>(entity);
 							
 								auto map = AStar::GetUsedPoints();
-								auto array = AStar::GetMapPoints();
+								//auto array = AStar::GetMapPoints();
 								auto pos = AStar::GetStartingPos();
 								auto end = AStar::GetEndPosition();
 								for(int x = pos.x; x < end.x; x++)
@@ -410,7 +410,7 @@ namespace tnah{
 									}
 								}
 
-								for(int x = pos.x; x < end.x; x++)
+								/*for(int x = pos.x; x < end.x; x++)
 								{
 									for(int y = pos.y; y < end.y; y++)
 									{
@@ -427,7 +427,7 @@ namespace tnah{
 											}
 										}
 									}
-								}
+								}*/
 							}
 						}	
 					}

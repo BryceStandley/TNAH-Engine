@@ -25,16 +25,19 @@ MainLayer::MainLayer()
 	auto& m_Skybox = m_Camera.AddComponent<tnah::SkyboxComponent>();
 	auto& as = m_Camera.AddComponent<tnah::AStarObstacleComponent>();
 	as.dynamic = true;
-	
+	tnah::Physics::PhysicsEngine::GetManager()->SetGravityState(true);
+	tnah::Physics::PhysicsEngine::GetManager()->SetGravity({0, -9.8, 0});
 	{
 		auto& rb = m_Camera.AddComponent<tnah::RigidBodyComponent>(m_Camera);
 		rb.AddCollider({0.2f, 0.8f, 0.2});
 		rb.Body->SetType(tnah::Physics::BodyType::Kinematic);
+		rb.Body->SetLinearDampening(0.99);
+		rb.Body->GetBodyMass().SetMass(63.0f);
 		/*auto& box = m_Camera.AddComponent<tnah::BoxColliderComponent>(glm::vec3(0.2f, 0.8f, 0.2f));
 		box.Components.TransformRelativeToCollisionBody.setPosition({0, -0.7f, 0});
 		
 		rb.AddCollider(box.Components);
-		rb.Body->setAngularLockAxisFactor({0,1,0}); // Lock the rigidbody from falling over
+		rb.Body->setAngularLockAxisFactor({0,1,0}); // Lock the rigidbody from falling over 
 		rb.SetBodyType(rp3d::BodyType::DYNAMIC);*/
 		//m_Camera.AddComponent<tnah::AIComponent>();
 		//m_Camera.AddComponent<tnah::CharacterComponent>();
@@ -107,7 +110,7 @@ MainLayer::MainLayer()
 		auto&go = m_ActiveScene->CreateGameObject(name);
 		auto&tt = go.Transform();
 		
-		tt.Position = {0, -4.5, 0};
+		tt.Position = {0, -6, 0};
 		
 
 		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(go);
@@ -402,19 +405,24 @@ MainLayer::MainLayer()
 	}
 	
 	{
-		std::string name = "Bin (1)";
+		std::string name = "Bin (3)";
 		
-		auto&go = m_ActiveScene->CreateGameObject(name);
-		auto&tt = go.Transform();
-		auto& mesh = go.AddComponent<tnah::MeshComponent>();
+		m_object = m_ActiveScene->CreateGameObject(name);
+		auto&tt = m_object.Transform();
+		auto& mesh = m_object.AddComponent<tnah::MeshComponent>();
 		mesh.Model = tnah::Model::Create("assets/meshes/bin.fbx");
 		
-		tt.Position = {0, 0, 1};
+		tt.Position = {0, -3, 1};
 		tt.Rotation = binRotation;
 		tt.Scale = binScale / glm::vec3(2);
-		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(go);
+		auto& rb = m_object.AddComponent<tnah::RigidBodyComponent>(m_object);
 		
-		rb.AddCollider({glm::vec3(binSize)});
+		rb.AddCollider({0.15, 0.15, 0.15});
+		rb.Body->SetLinearDampening(0.99);
+		auto & star = m_object.AddComponent<tnah::AStarObstacleComponent>();
+		star.dynamic = true;
+		auto & aff = m_object.AddComponent<tnah::Affordance>();
+		aff.SetActionValues(tnah::Actions::kick, 1.0f);
 		//rb.Body->SetType(tnah::Physics::BodyType::Dynamic);	
 	}
 	
@@ -441,13 +449,13 @@ MainLayer::MainLayer()
 	{
 		std::string name = "Student";
 		
-		glm::vec3 StudentCollider = { 0.3, 0.6, 0.7 };
+		glm::vec3 StudentCollider = { 0.3, 0.6, 0.3 };
 		auto& go = m_ActiveScene->CreateGameObject(name);
 		auto& tt = go.Transform();
 		auto& mesh = go.AddComponent<tnah::MeshComponent>();
 		mesh.Model = tnah::Model::Create("assets/meshes/ninja2.fbx");
 
-		tt.Position = {2.0, -3.8, 4.0 };
+		tt.Position = {2.0, -3.5, 4.0 };
 		tt.Rotation = glm::vec3(0, glm::radians(90.0f), 0);
 		tt.Scale = glm::vec3(0.03);
 		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(go);
@@ -482,7 +490,7 @@ MainLayer::MainLayer()
 		a.SetActionValues(tnah::kick, 1);
 	}
 
-	glm::vec3 tableScale(0.01, 0.02, 0.01), tableRotation(0, 0, 0), tableSize(1);
+	glm::vec3 tableScale(0.01, 0.02, 0.01), tableRotation(0, 0, 0), tableSize(0.4, 0.4, 0.6);
 	{
 		std::string name = "Table (1)";
 		
@@ -536,15 +544,16 @@ MainLayer::MainLayer()
 		auto& mesh = go.AddComponent<tnah::MeshComponent>();
 		mesh.Model = tnah::Model::Create("assets/meshes/chair.fbx");
 		
-		tt.Position = {-4, -3.8, 6};
-		//tt.Rotation = glm::vec3(glm::radians(180.0f), 0, 0);
+		tt.Position = {-4, -4, 6};
+		//tt.Rotation = glm::eulglm::vec3(glm::radians(180.0f), 0, 0);
 		tt.Scale = chairScale;
 		auto&as = go.AddComponent<tnah::AStarObstacleComponent>();
 		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(go);
 
 		
-		rb.AddCollider({1, 1, 1});
-		rb.Body->SetType(tnah::Physics::BodyType::Static);	
+		rb.AddCollider({0.25, 1, 0.25});
+		rb.Body->SetLinearDampening(0.9);
+		rb.Body->SetType(tnah::Physics::BodyType::Static);
 		go.AddComponent<tnah::Affordance>();
 		auto & a = go.AddComponent<tnah::Affordance>("Chair");
 		a.SetActionValues(tnah::kick, 0.5);
@@ -560,13 +569,13 @@ MainLayer::MainLayer()
 		auto& mesh = go.AddComponent<tnah::MeshComponent>();
 		mesh.Model = tnah::Model::Create("assets/meshes/chair.fbx");
 		
-		tt.Position = {-2, -3.8, 6};
+		tt.Position = {-2, -4, 6};
 		tt.Rotation = glm::vec3(0, glm::radians(180.0f), 0);
 		tt.Scale = chairScale;
 		auto&as = go.AddComponent<tnah::AStarObstacleComponent>();
 		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(go);
 
-		rb.AddCollider({1, 1, 1});
+		rb.AddCollider({0.25, 1, 0.25});
 		rb.Body->SetType(tnah::Physics::BodyType::Static);	
 		auto & a = go.AddComponent<tnah::Affordance>("Chair");
 		a.SetActionValues(tnah::kick, 0.5);
@@ -581,12 +590,12 @@ MainLayer::MainLayer()
 		auto& mesh = go.AddComponent<tnah::MeshComponent>();
 		mesh.Model = tnah::Model::Create("assets/meshes/chair.fbx");
 		
-		tt.Position = {-8, -3.8, 7};
+		tt.Position = {-8, -4, 7};
 		tt.Rotation = glm::vec3(0, 0, 0);
 		tt.Scale = chairScale;
 		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(go);
 
-		rb.AddCollider({1, 1, 1});
+		rb.AddCollider({0.25, 1, 0.25});
 		rb.Body->SetType(tnah::Physics::BodyType::Static);	
 		auto&as = go.AddComponent<tnah::AStarObstacleComponent>();
 		auto & a = go.AddComponent<tnah::Affordance>("Chair");
@@ -602,12 +611,12 @@ MainLayer::MainLayer()
 		auto& mesh = go.AddComponent<tnah::MeshComponent>();
 		mesh.Model = tnah::Model::Create("assets/meshes/chair.fbx");
 		
-		tt.Position = {-6, -3.8, 7};
+		tt.Position = {-6, -4, 7};
 		tt.Rotation = glm::vec3(0, glm::radians(180.0f), 0);
 		tt.Scale = chairScale;
 		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(go);
 		
-		rb.AddCollider({1, 1, 1});
+		rb.AddCollider({0.25, 1, 0.25});
 		rb.Body->SetType(tnah::Physics::BodyType::Static);	
 		auto&as = go.AddComponent<tnah::AStarObstacleComponent>();
 		auto & a = go.AddComponent<tnah::Affordance>("Chair");
@@ -667,11 +676,6 @@ void MainLayer::OnUpdate(tnah::Timestep deltaTime)
 
 		rb.Body->setLinearVelocity(vel);
 		*/
-		if(tnah::Input::IsKeyPressed(tnah::Key::G))
-		{
-			TNAH_CORE_INFO("G called");
-			tnah::Physics::PhysicsEngine::GetManager()->SetGravityState(true);
-		}
 		
 		if(m_CameraMovementToggle)
 		{
@@ -724,7 +728,23 @@ void MainLayer::OnUpdate(tnah::Timestep deltaTime)
 				ct.QuatRotation = glm::quat(ct.Rotation);
 			}
 			
-			//rb.OnUpdate(ct);
+			if(tnah::Input::IsKeyPressed(tnah::Key::Space))
+			{
+				if(!m_space)
+				{
+					auto & rbObj = m_object.GetComponent<tnah::RigidBodyComponent>();
+					rbObj.Body->ResetValues();
+					auto & transformObj = m_object.GetComponent<tnah::TransformComponent>();
+					transformObj.Position = ct.Position + (ct.Forward*glm::vec3(2));
+					transformObj.Rotation = ct.Rotation;
+					transformObj.QuatRotation = ct.QuatRotation;
+					auto force = ct.Forward * glm::vec3(0.05f, 0.0f, 0.05f);
+					rbObj.Body->AddForce(force);
+				}
+				m_space = true;
+			}
+			else
+				m_space = false;
 		}
 	}
 

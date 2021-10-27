@@ -12,7 +12,7 @@ namespace tnah::Physics {
 		:m_BodyType(type), m_BodyMass(mass)
 	{
 		m_Position = transform.Position;
-		m_Orientation = glm::quat(transform.Rotation);
+		m_Orientation = glm::quat(transform.QuatRotation);
 	}
 
 	Ref<RigidBody> RigidBody::Create(TransformComponent& transform, BodyMass mass, BodyType type)

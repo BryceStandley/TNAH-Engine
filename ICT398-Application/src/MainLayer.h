@@ -19,6 +19,7 @@ private:
 	tnah::GameObject m_Terrain;
 	tnah::GameObject m_SceneLight;
 	tnah::GameObject m_Skybox;
+	tnah::GameObject m_object;
 
 	tnah::GameObject m_PointLight;
 
@@ -54,5 +55,6 @@ private:
 	
 	rp3d::Vector3 m_Velocity = rp3d::Vector3(10, 0, 10);
 	bool m_gravity = false;
+	bool m_space = false;
 };
 

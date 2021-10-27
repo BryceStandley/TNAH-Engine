@@ -69,6 +69,9 @@ namespace tnah::Physics {
         void Awake() { m_IsSleeping = false; }
         void Sleep();
 
+    	void SetLinearDampening(float value) {m_LinearDampening.Dampening = glm::clamp(value, 0.0f, 1.0f);}
+    	void SetAngularDampening(float value) {m_AngularDampening.Dampening = glm::clamp(value, 0.0f, 1.0f);}
+
         glm::vec3 CalculateLocalInertiaTensor();
     	/**
     	* @var m_CollisionBody
