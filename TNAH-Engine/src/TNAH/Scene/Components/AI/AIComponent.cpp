@@ -14,7 +14,12 @@ namespace tnah {
                 const auto path = currentPath.front();
                 if(!AStar::IsValid(path.position))
                 {
-                    currentPath = {};
+                    if(!AStar::IsValid(destination.position))
+                    {
+                        currentPath.clear();
+                    }
+                    else
+                        currentPath = AStar::Algorithm(currentPosition, destination);
                 }
                 else if(AStar::Reached(currentPosition.position, path) || moveTo(trans.Position, glm::vec3(path.position.x, trans.Position.y, path.position.y), m_Velocity, deltaTime.GetSeconds(), trans.Rotation))
                 {

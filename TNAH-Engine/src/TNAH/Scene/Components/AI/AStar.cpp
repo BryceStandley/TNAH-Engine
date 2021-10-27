@@ -64,23 +64,19 @@ namespace tnah
         {
             if(!initilised)
             {
-                TNAH_CORE_WARN("AStar not inisilised");
                 return {};    
             }
             
             if(!IsValid(destination.position))
             {
-                TNAH_CORE_INFO("V Empty");
                 return {};
             }
             if(!IsValid(point.position))
             {
-                TNAH_CORE_INFO("Starting Empty");
                 return {};
             }
             if(Reached(point.position, destination))
             {
-                TNAH_CORE_INFO("R Empty");
                 return {};
             }
 
@@ -168,7 +164,6 @@ namespace tnah
                 {
                     if(x == 0 && y == 0)
                     {
-                        TNAH_CORE_INFO("Error");
                         return {};
                     }
                     path.push(map[x][y]);
@@ -188,14 +183,14 @@ namespace tnah
                 return usablePath;
             }
             catch(const std::exception& e){
-                TNAH_WARN("Threw exception in a star");
                 return {};
             }
         }
 
          Node AStar::GenerateRandomPosition(Int2 currentPosition)
         {
-            while(1)
+             bool notFound = false;
+            while(!notFound)
             {
                 std::random_device d;
                 std::mt19937 gen(d());
@@ -204,8 +199,12 @@ namespace tnah
                 Int2 newPos(xRand(gen), yRand(gen));
                 
                 if(!newPos.CheckSame(currentPosition) && IsValid(newPos))
+                {
                     return newPos;
+                    notFound = true;   
+                }
             }
+            return Int2(0, 0);
         }
          std::unordered_map<int, std::unordered_map<int, Node>> AStar::GetMapPoints()
         {

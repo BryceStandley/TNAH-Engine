@@ -397,7 +397,7 @@ MainLayer::MainLayer()
 		tt.Scale = binScale / glm::vec3(2);
 		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(go);
 		
-		rb.AddCollider({glm::vec3(binSize/ glm::vec3(2))});
+		rb.AddCollider({0.15, 0.15, 0.15});
 		rb.Body->SetType(tnah::Physics::BodyType::Static);	
 		
 		go.AddComponent<tnah::AIComponent>();
@@ -419,10 +419,32 @@ MainLayer::MainLayer()
 		
 		rb.AddCollider({0.15, 0.15, 0.15});
 		rb.Body->SetLinearDampening(0.99);
+		rb.Body->GetBodyMass().SetMass(100.0f);
 		auto & star = m_object.AddComponent<tnah::AStarObstacleComponent>();
 		star.dynamic = true;
 		auto & aff = m_object.AddComponent<tnah::Affordance>();
 		aff.SetActionValues(tnah::Actions::kick, 1.0f);
+		//rb.Body->SetType(tnah::Physics::BodyType::Dynamic);	
+	}
+
+	{
+		std::string name = "Other object";
+		
+		auto & go = m_ActiveScene->CreateGameObject(name);
+		auto&tt = go.Transform();
+		auto& mesh = go.AddComponent<tnah::MeshComponent>();
+		mesh.Model = tnah::Model::Create("assets/meshes/cube_texture.fbx");
+		
+		tt.Position = {10, 0, 1};
+		tt.Scale = {1, 1, 0.1};
+		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(go);
+		
+		rb.AddCollider(tt.Scale);
+		rb.Body->SetLinearDampening(0.99);
+		auto & star = go.AddComponent<tnah::AStarObstacleComponent>();
+		star.dynamic = true;
+		//auto & aff = m_object.AddComponent<tnah::Affordance>();
+		//aff.SetActionValues(tnah::Actions::kick, 1.0f);
 		//rb.Body->SetType(tnah::Physics::BodyType::Dynamic);	
 	}
 	
@@ -483,7 +505,7 @@ MainLayer::MainLayer()
 		
 		
 		
-		rb.AddCollider({binSize});
+		rb.AddCollider({binScale});
 		rb.Body->SetType(tnah::Physics::BodyType::Static);
 		
 		auto & a = go.AddComponent<tnah::Affordance>("Bin (not alive)");

@@ -47,7 +47,7 @@ namespace tnah
         std::pair<bool, bool> check;
         check.second = false;
         check.first = false;
-        if(currentAffordanceLevel <= affordanceValue)
+        if(currentAffordanceLevel >= affordanceValue)
         {
             if(distance <= actionDistance)
             {

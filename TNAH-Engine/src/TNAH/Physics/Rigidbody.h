@@ -27,7 +27,6 @@ namespace tnah::Physics {
 
         void AddCollider(Ref<Collider> collider);
     	std::unordered_map<uint32_t, Ref<Collider>> GetColliders() { return m_Colliders; }
-
         
         /**
          * @fn tnah::Physics::RigidBody::UpdateBodyProperties()

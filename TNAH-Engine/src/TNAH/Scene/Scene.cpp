@@ -337,7 +337,12 @@ namespace tnah{
 						glm::mat4 matrix = transform.GetTransform();
 						auto& go = FindGameObjectByID(entity);
 						if(go.HasComponent<RigidBodyComponent>())
-							matrix = transform.GetQuatTransform();
+						{
+							auto & rb = go.GetComponent<RigidBodyComponent>();
+							if(rb.Body->GetType() == Physics::BodyType::Dynamic)
+								matrix = transform.GetQuatTransform();
+						}
+						
 						if(model.Model)
 						{
 							for (auto& mesh : model.Model->GetMeshes())

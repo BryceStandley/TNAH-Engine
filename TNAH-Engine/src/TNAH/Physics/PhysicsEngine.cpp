@@ -209,8 +209,6 @@ namespace tnah::Physics
                 {
                     rb->m_ConstrainedLinearVelocity.Velocity += deltaTime.GetSeconds() * rb->GetBodyMass().InverseMass *
                                                                         rb->m_LinearRotationLock * rb->GetBodyMass().Mass * m_PhysicsManager->GetGravity();
-                    rb->m_ConstrainedAngularVelocity.Velocity += deltaTime.GetSeconds() * rb->m_AngularRotationLock * rb->GetBodyMass().InverseMass *
-                                                                        rb->GetInertiaTensor().WorldInverseInertiaTensor * rb->GetBodyMass().Mass * m_PhysicsManager->GetGravity();
                 }
 
                 auto lDamp = glm::pow(1.0f - rb->m_LinearDampening.Dampening, deltaTime.GetSeconds());
@@ -239,9 +237,6 @@ namespace tnah::Physics
                 {
                     rigidbody->m_ConstrainedLinearVelocity.Velocity += deltaTime.GetSeconds() * rigidbody->GetBodyMass().InverseMass *
                                                                         rigidbody->m_LinearRotationLock * rigidbody->GetBodyMass().Mass * m_PhysicsManager->GetGravity();
-
-                    rigidbody->m_ConstrainedAngularVelocity.Velocity += deltaTime.GetSeconds() * rigidbody->m_AngularRotationLock * rigidbody->GetBodyMass().InverseMass *
-                                                                        rigidbody->GetInertiaTensor().WorldInverseInertiaTensor * rigidbody->GetBodyMass().Mass * m_PhysicsManager->GetGravity();
                 }
 
                 auto lDamp = glm::pow(1.0f - rigidbody->m_LinearDampening.Dampening, deltaTime.GetSeconds());
