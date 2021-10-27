@@ -347,6 +347,15 @@ namespace tnah{
 						{
 							for (auto& mesh : model.Model->GetMeshes())
 							{
+								if(mesh.GetMeshMaterial()->GetTextures().size() == 1)
+								{
+									//theres no specular texture on the mesh. assign the default black to the specular.
+									auto mat = mesh.GetMeshMaterial();
+									auto t = Renderer::GetBlackTexture(); // we want to copy not directly use to be able to set a custom uniform name
+									t->m_UniformName = "texture_specular1";
+									mat->AddTexture(t);
+									
+								}
 								Renderer::SubmitMesh(mesh.GetMeshVertexArray(), mesh.GetMeshMaterial(), sceneLights, matrix);
 							}
 						}

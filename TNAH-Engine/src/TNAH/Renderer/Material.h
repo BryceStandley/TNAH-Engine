@@ -154,6 +154,19 @@ namespace tnah
 		void SetTextures(std::vector<Ref<Texture2D>> textures);
 
 		/**
+		 * @fn void Material::AddTexture(Ref<Texture2D> texture)
+		 *
+		 * @brief Adds a texture to the material.
+		 *
+		 *  @author Bryce Standley
+		 *  @date 27/10/2021
+		 *
+		 *  @param texture The texture to add.
+		 *
+		 */
+		void AddTexture(Ref<Texture2D> texture) { m_Textures.push_back(texture); }
+
+		/**
 		 * @fn	virtual void Material::BindTextures();
 		 *
 		 * @brief	Bind textures

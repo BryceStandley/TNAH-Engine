@@ -154,7 +154,7 @@ namespace tnah {
 
         struct AngularDampening
         {
-            float Dampening = 0.0f;
+            float Dampening = 0.2f;
 
             float operator = (const float& value)
             {

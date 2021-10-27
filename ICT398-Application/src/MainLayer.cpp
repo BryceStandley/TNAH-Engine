@@ -789,6 +789,9 @@ void MainLayer::OnImGuiRender()
 			{
 				tnah::EditorUI::DrawFloatControl("Speed", m_CameraMovementSpeed, 1, 100, true);
 			}
+
+			tnah::EditorUI::DrawComponentProperties(m_Camera, false);
+			
 		}
 
 		if(ImGui::CollapsingHeader("Physics"))
@@ -826,7 +829,7 @@ void MainLayer::OnImGuiRender()
 	// Agent Values Panel
 	{
 		auto size = ImGui::GetMainViewport()->Size;
-		auto pos  = ImGui::GetWindowViewport()->Pos;
+		auto pos  = ImGui::GetMainViewport()->Pos;
 		ImGui::SetNextWindowSize({500, size.y / 2});
 		ImGui::SetNextWindowPos({pos.x, (pos.y + ( size.y / 2))});
 		ImGui::Begin("Agents Values", 0, ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoBackground);
