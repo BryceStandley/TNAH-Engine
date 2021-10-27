@@ -587,10 +587,11 @@ namespace tnah{
 						}
 							
 					}
-						rb.Body->setTransform(Math::ToRp3dTransform(t));
+						rb.Body->OnUpdate(t);
 				}
 					}
 
+				Physics::PhysicsEngine::OnFixedUpdate(deltaTime, PhysicsTimestep(), m_Registry);
 				AStar::Update();
 				
 #pragma endregion 
@@ -615,9 +616,7 @@ namespace tnah{
 	void Scene::OnFixedUpdate(Timestep deltaTime, PhysicsTimestep physicsDeltaTime)
 	{
 #pragma region PhysicsStep
-		Physics::OnFixedUpdate(time);
-		{
-			Physics::PhysicsEngine::OnFixedUpdate(deltaTime, physicsDeltaTime, m_Registry);
+			
 #pragma endregion 
 	}
 	

@@ -6,7 +6,7 @@ namespace tnah {
 
         enum class BodyType
         {
-            Dynamic, Static
+            Dynamic, Static, Kinematic
         };
     
         struct LinearVelocity

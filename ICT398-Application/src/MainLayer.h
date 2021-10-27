@@ -53,5 +53,6 @@ private:
 	bool m_CloseScreen = false;
 	
 	rp3d::Vector3 m_Velocity = rp3d::Vector3(10, 0, 10);
+	bool m_gravity = false;
 };
 

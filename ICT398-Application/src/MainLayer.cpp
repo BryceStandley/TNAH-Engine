@@ -20,20 +20,22 @@ MainLayer::MainLayer()
 	auto& ct = m_Camera.Transform();
 	auto& cc = m_Camera.GetComponent<tnah::CameraComponent>();
 	cc.Camera.SetViewportSize(1280, 720);
-	ct.Position = glm::vec3(0, 0, 1);
+	ct.Position = glm::vec3(0, -4, 1);
 	cc.ClearMode = tnah::CameraClearMode::Skybox;
 	auto& m_Skybox = m_Camera.AddComponent<tnah::SkyboxComponent>();
 	auto& as = m_Camera.AddComponent<tnah::AStarObstacleComponent>();
 	as.dynamic = true;
 	
 	{
-		auto& rb = m_Camera.AddComponent<tnah::RigidBodyComponent>(ct);
-		auto& box = m_Camera.AddComponent<tnah::BoxColliderComponent>(glm::vec3(0.2f, 0.8f, 0.2f));
+		auto& rb = m_Camera.AddComponent<tnah::RigidBodyComponent>(m_Camera);
+		rb.AddCollider({0.2f, 0.8f, 0.2});
+		rb.Body->SetType(tnah::Physics::BodyType::Kinematic);
+		/*auto& box = m_Camera.AddComponent<tnah::BoxColliderComponent>(glm::vec3(0.2f, 0.8f, 0.2f));
 		box.Components.TransformRelativeToCollisionBody.setPosition({0, -0.7f, 0});
 		
-		box.Components.BodyCollider = rb.AddCollider(box.Components);
+		rb.AddCollider(box.Components);
 		rb.Body->setAngularLockAxisFactor({0,1,0}); // Lock the rigidbody from falling over
-		rb.SetBodyType(rp3d::BodyType::DYNAMIC);
+		rb.SetBodyType(rp3d::BodyType::DYNAMIC);*/
 		//m_Camera.AddComponent<tnah::AIComponent>();
 		//m_Camera.AddComponent<tnah::CharacterComponent>();
 		auto & aff = m_Camera.AddComponent<tnah::Affordance>("User");
@@ -93,12 +95,10 @@ MainLayer::MainLayer()
 		
 		tt.Position = {-10.63, 0, 0};
 		
-		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
-		auto& box = go.AddComponent<tnah::BoxColliderComponent>(glm::vec3(1, 40, 60));
+		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(go);
 		
-		box.Components.BodyCollider = rb.AddCollider(box.Components.Shape, rp3d::Transform::identity());
-		
-		rb.SetBodyType(rp3d::BodyType::KINEMATIC);	
+		rb.AddCollider({1, 40, 60});
+		rb.Body->SetType(tnah::Physics::BodyType::Static);
 	}
 
 	{
@@ -109,14 +109,14 @@ MainLayer::MainLayer()
 		
 		tt.Position = {0, -4.5, 0};
 		
-		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
-		auto& box = go.AddComponent<tnah::BoxColliderComponent>(glm::vec3(60, 2, 60));
 
-		box.Components.BodyCollider = rb.AddCollider(box.Components.Shape, rp3d::Transform::identity());
+		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(go);
 		
-		rb.SetBodyType(rp3d::BodyType::KINEMATIC);	
+		rb.AddCollider({60, 2, 60});
+		rb.Body->SetType(tnah::Physics::BodyType::Static);
 	}
 
+	
 	{
 		std::string name = "Back";
 		
@@ -125,12 +125,10 @@ MainLayer::MainLayer()
 		
 		tt.Position = {12.4, 0, 2.6};
 		
-		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
-		auto& box = go.AddComponent<tnah::BoxColliderComponent>(glm::vec3(1, 60, 60));
+		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(go);
 		
-		box.Components.BodyCollider = rb.AddCollider(box.Components.Shape, rp3d::Transform::identity());
-		
-		rb.SetBodyType(rp3d::BodyType::KINEMATIC);	
+		rb.AddCollider({1, 60, 60});
+		rb.Body->SetType(tnah::Physics::BodyType::Static);
 	}
 
 	{
@@ -141,12 +139,11 @@ MainLayer::MainLayer()
 		
 		tt.Position = {-1.4, 0, 10};
 		
-		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
-		auto& box = go.AddComponent<tnah::BoxColliderComponent>(glm::vec3(65, 50, 1));
+		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(go);
 		
-		box.Components.BodyCollider = rb.AddCollider(box.Components.Shape, rp3d::Transform::identity());
 		
-		rb.SetBodyType(rp3d::BodyType::KINEMATIC);	
+		rb.AddCollider({65, 50, 1});
+		rb.Body->SetType(tnah::Physics::BodyType::Static);
 	}
 
 	{
@@ -157,12 +154,12 @@ MainLayer::MainLayer()
 		
 		tt.Position = {0, 0, 0.2};
 		
-		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
-		auto& box = go.AddComponent<tnah::BoxColliderComponent>(glm::vec3(65, 50, 1));
+		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(go);
 		
-		box.Components.BodyCollider = rb.AddCollider(box.Components.Shape, rp3d::Transform::identity());
 		
-		rb.SetBodyType(rp3d::BodyType::KINEMATIC);	
+		
+		rb.AddCollider({65, 50, 1});
+		rb.Body->SetType(tnah::Physics::BodyType::Static);
 	}
 
 	glm::vec3 pillarSize(0.5, 12, 0.5);
@@ -174,12 +171,11 @@ MainLayer::MainLayer()
 		auto&as = go.AddComponent<tnah::AStarObstacleComponent>();
 		tt.Position = {5.3, 0, 9.0};
 		
-		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
-		auto& box = go.AddComponent<tnah::BoxColliderComponent>(glm::vec3(pillarSize));
+		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(go);
 		
-		box.Components.BodyCollider = rb.AddCollider(box.Components.Shape, rp3d::Transform::identity());
 		
-		rb.SetBodyType(rp3d::BodyType::KINEMATIC);	
+		rb.AddCollider({pillarSize});
+		rb.Body->SetType(tnah::Physics::BodyType::Static);	
 	}
 
 	{
@@ -190,12 +186,12 @@ MainLayer::MainLayer()
 		auto&as = go.AddComponent<tnah::AStarObstacleComponent>();
 		tt.Position = {5.3, 0, 4.6};
 		
-		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
-		auto& box = go.AddComponent<tnah::BoxColliderComponent>(glm::vec3(pillarSize));
+		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(go);
 		
-		box.Components.BodyCollider = rb.AddCollider(box.Components.Shape, rp3d::Transform::identity());
 		
-		rb.SetBodyType(rp3d::BodyType::KINEMATIC);	
+		
+		rb.AddCollider({pillarSize});
+		rb.Body->SetType(tnah::Physics::BodyType::Static);
 	}
 
 	{
@@ -206,12 +202,12 @@ MainLayer::MainLayer()
 		auto&as = go.AddComponent<tnah::AStarObstacleComponent>();
 		tt.Position = {-1.8, 0, 4.6};
 		
-		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
-		auto& box = go.AddComponent<tnah::BoxColliderComponent>(glm::vec3(pillarSize));
+		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(go);
 		
-		box.Components.BodyCollider = rb.AddCollider(box.Components.Shape, rp3d::Transform::identity());
 		
-		rb.SetBodyType(rp3d::BodyType::KINEMATIC);	
+		
+		rb.AddCollider({pillarSize});
+		rb.Body->SetType(tnah::Physics::BodyType::Static);	
 	}
 
 	{
@@ -222,12 +218,12 @@ MainLayer::MainLayer()
 		auto&as = go.AddComponent<tnah::AStarObstacleComponent>();
 		tt.Position = {-1.8, 0, 9.0};
 		
-		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
-		auto& box = go.AddComponent<tnah::BoxColliderComponent>(glm::vec3(pillarSize));
+		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(go);
 		
-		box.Components.BodyCollider = rb.AddCollider(box.Components.Shape, rp3d::Transform::identity());
 		
-		rb.SetBodyType(rp3d::BodyType::KINEMATIC);	
+		
+		rb.AddCollider({pillarSize});
+		rb.Body->SetType(tnah::Physics::BodyType::Static);	
 	}
 
 	glm::vec3 bushScale(1.5f), bushRotation(-1.75, 0, 0);
@@ -300,10 +296,10 @@ MainLayer::MainLayer()
 		
 		tt.Position = {1, -3.7, 3};
 		tt.Scale = size;
-		/*auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
-		auto& box = go.AddComponent<tnah::BoxColliderComponent>(glm::vec3(size));
+		/*auto& rb = go.AddComponent<tnah::RigidBodyComponent>(go);
+		(glm::vec3(size));
 		
-		box.Components.BodyCollider = rb.AddCollider(box.Components.Shape, rp3d::Transform::identity());
+		
 		rb.SetBodyType(rp3d::BodyType::STATIC);*/
 		
 		auto& affordance = go.AddComponent<tnah::Affordance>("Coffee");
@@ -322,10 +318,10 @@ MainLayer::MainLayer()
 		
 		tt.Position = {8, -3.7, 7};
 		tt.Scale = size;
-		/*auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
-		auto& box = go.AddComponent<tnah::BoxColliderComponent>(glm::vec3(size));
+		/*auto& rb = go.AddComponent<tnah::RigidBodyComponent>(go);
+		(glm::vec3(size));
 		
-		box.Components.BodyCollider = rb.AddCollider(box.Components.Shape, rp3d::Transform::identity());
+		
 		rb.SetBodyType(rp3d::BodyType::STATIC);*/
 		
 		auto& affordance = go.AddComponent<tnah::Affordance>("Coffee");
@@ -384,7 +380,7 @@ MainLayer::MainLayer()
     		affordance.SetActionValues(tnah::Actions::pickup, 0.1f);
     	}
 	
-	glm::vec3 binSize(1, 1, 1), binScale(0.3, 0.3, 0.3), binRotation(-1.55, 0, 0);
+	glm::vec3 binSize(1, 1, 1), binScale(0.3, 0.3, 0.3), binRotation(0, 0, 0);
 	{
 		std::string name = "Bin (1)";
 		
@@ -396,14 +392,30 @@ MainLayer::MainLayer()
 		tt.Position = {5.3, -3.7, 3.9};
 		tt.Rotation = binRotation;
 		tt.Scale = binScale / glm::vec3(2);
-		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
-		auto& box = go.AddComponent<tnah::BoxColliderComponent>(glm::vec3(binSize/ glm::vec3(2)));
+		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(go);
 		
-		box.Components.BodyCollider = rb.AddCollider(box.Components.Shape, rp3d::Transform::identity());
-		rb.SetBodyType(rp3d::BodyType::STATIC);
+		rb.AddCollider({glm::vec3(binSize/ glm::vec3(2))});
+		rb.Body->SetType(tnah::Physics::BodyType::Static);	
 		
 		go.AddComponent<tnah::AIComponent>();
 		go.AddComponent<tnah::CharacterComponent>(tnah::CharacterNames::Rubbish);
+	}
+	
+	{
+		std::string name = "Bin (1)";
+		
+		auto&go = m_ActiveScene->CreateGameObject(name);
+		auto&tt = go.Transform();
+		auto& mesh = go.AddComponent<tnah::MeshComponent>();
+		mesh.Model = tnah::Model::Create("assets/meshes/bin.fbx");
+		
+		tt.Position = {0, 0, 1};
+		tt.Rotation = binRotation;
+		tt.Scale = binScale / glm::vec3(2);
+		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(go);
+		
+		rb.AddCollider({glm::vec3(binSize)});
+		//rb.Body->SetType(tnah::Physics::BodyType::Dynamic);	
 	}
 	
 	{
@@ -417,11 +429,10 @@ MainLayer::MainLayer()
 		tt.Position = {12, -3.7, 8};
 		tt.Rotation = glm::vec3(0, glm::radians(-90.0f), 0);
 		tt.Scale = glm::vec3(0.015);
-		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
-		auto& box = go.AddComponent<tnah::BoxColliderComponent>(glm::vec3(DogCollider));
-		
-		box.Components.BodyCollider = rb.AddCollider(box.Components.Shape, rp3d::Transform::identity());
-		rb.SetBodyType(rp3d::BodyType::STATIC);
+		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(go);
+
+		rb.AddCollider({DogCollider});
+		rb.Body->SetType(tnah::Physics::BodyType::Static);	
 		
 		go.AddComponent<tnah::AIComponent>();
 		go.AddComponent<tnah::CharacterComponent>(tnah::CharacterNames::DogAi);
@@ -439,11 +450,10 @@ MainLayer::MainLayer()
 		tt.Position = {2.0, -3.8, 4.0 };
 		tt.Rotation = glm::vec3(0, glm::radians(90.0f), 0);
 		tt.Scale = glm::vec3(0.03);
-		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
-		auto& box = go.AddComponent<tnah::BoxColliderComponent>(glm::vec3(StudentCollider));
+		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(go);
 
-		box.Components.BodyCollider = rb.AddCollider(box.Components.Shape, rp3d::Transform::identity());
-		rb.SetBodyType(rp3d::BodyType::STATIC);
+		rb.AddCollider({StudentCollider});
+		rb.Body->SetType(tnah::Physics::BodyType::Static);	
 
 		go.AddComponent<tnah::AIComponent>();
 		go.AddComponent<tnah::CharacterComponent>(tnah::CharacterNames::StudentAi);
@@ -461,12 +471,13 @@ MainLayer::MainLayer()
 		tt.Rotation = binRotation;
 		tt.Scale = binScale;
 		auto&as = go.AddComponent<tnah::AStarObstacleComponent>();
-		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
-		auto& box = go.AddComponent<tnah::BoxColliderComponent>(glm::vec3(binSize));
+		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(go);
 		
-		box.Components.BodyCollider = rb.AddCollider(box.Components.Shape, rp3d::Transform::identity());
 		
-		rb.SetBodyType(rp3d::BodyType::KINEMATIC);
+		
+		rb.AddCollider({binSize});
+		rb.Body->SetType(tnah::Physics::BodyType::Static);
+		
 		auto & a = go.AddComponent<tnah::Affordance>("Bin (not alive)");
 		a.SetActionValues(tnah::kick, 1);
 	}
@@ -484,12 +495,13 @@ MainLayer::MainLayer()
 		tt.Rotation = tableRotation;
 		tt.Scale = tableScale;
 		auto&as = go.AddComponent<tnah::AStarObstacleComponent>();
-		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
-		auto& box = go.AddComponent<tnah::BoxColliderComponent>(tableSize);
+		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(go);
 
-		box.Components.BodyCollider = rb.AddCollider(box.Components.Shape, rp3d::Transform::identity());
 		
-		rb.SetBodyType(rp3d::BodyType::KINEMATIC);
+		
+		rb.AddCollider({tableSize});
+		rb.Body->SetType(tnah::Physics::BodyType::Static);
+		
 		auto & a = go.AddComponent<tnah::Affordance>("Table");
 		a.SetActionValues(tnah::kick, 1);
 	}
@@ -506,12 +518,11 @@ MainLayer::MainLayer()
 		tt.Rotation = tableRotation;
 		tt.Scale = tableScale;
 		auto&as = go.AddComponent<tnah::AStarObstacleComponent>();
-		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
-		auto& box = go.AddComponent<tnah::BoxColliderComponent>(tableSize);
+		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(go);
 
-		box.Components.BodyCollider = rb.AddCollider(box.Components.Shape, rp3d::Transform::identity());
 		
-		rb.SetBodyType(rp3d::BodyType::KINEMATIC);
+		rb.AddCollider({tableSize});
+		rb.Body->SetType(tnah::Physics::BodyType::Static);	
 		go.AddComponent<tnah::Affordance>();
 		auto & a = go.AddComponent<tnah::Affordance>("Table");
 		a.SetActionValues(tnah::kick, 1);
@@ -529,12 +540,11 @@ MainLayer::MainLayer()
 		//tt.Rotation = glm::vec3(glm::radians(180.0f), 0, 0);
 		tt.Scale = chairScale;
 		auto&as = go.AddComponent<tnah::AStarObstacleComponent>();
-		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
-		auto& box = go.AddComponent<tnah::BoxColliderComponent>(glm::vec3(1, 1, 1));
+		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(go);
 
-		box.Components.BodyCollider = rb.AddCollider(box.Components.Shape, rp3d::Transform::identity());
 		
-		rb.SetBodyType(rp3d::BodyType::KINEMATIC);
+		rb.AddCollider({1, 1, 1});
+		rb.Body->SetType(tnah::Physics::BodyType::Static);	
 		go.AddComponent<tnah::Affordance>();
 		auto & a = go.AddComponent<tnah::Affordance>("Chair");
 		a.SetActionValues(tnah::kick, 0.5);
@@ -554,12 +564,10 @@ MainLayer::MainLayer()
 		tt.Rotation = glm::vec3(0, glm::radians(180.0f), 0);
 		tt.Scale = chairScale;
 		auto&as = go.AddComponent<tnah::AStarObstacleComponent>();
-		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
-		auto& box = go.AddComponent<tnah::BoxColliderComponent>(glm::vec3(1, 1, 1));
+		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(go);
 
-		box.Components.BodyCollider = rb.AddCollider(box.Components.Shape, rp3d::Transform::identity());
-		
-		rb.SetBodyType(rp3d::BodyType::KINEMATIC);
+		rb.AddCollider({1, 1, 1});
+		rb.Body->SetType(tnah::Physics::BodyType::Static);	
 		auto & a = go.AddComponent<tnah::Affordance>("Chair");
 		a.SetActionValues(tnah::kick, 0.5);
 		a.SetActionValues(tnah::sit, 1);
@@ -576,12 +584,11 @@ MainLayer::MainLayer()
 		tt.Position = {-8, -3.8, 7};
 		tt.Rotation = glm::vec3(0, 0, 0);
 		tt.Scale = chairScale;
-		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
-		auto& box = go.AddComponent<tnah::BoxColliderComponent>(glm::vec3(1, 1, 1));
+		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(go);
 
-		box.Components.BodyCollider = rb.AddCollider(box.Components.Shape, rp3d::Transform::identity());
+		rb.AddCollider({1, 1, 1});
+		rb.Body->SetType(tnah::Physics::BodyType::Static);	
 		auto&as = go.AddComponent<tnah::AStarObstacleComponent>();
-		rb.SetBodyType(rp3d::BodyType::KINEMATIC);
 		auto & a = go.AddComponent<tnah::Affordance>("Chair");
 		a.SetActionValues(tnah::kick, 0.5);
 		a.SetActionValues(tnah::sit, 1);
@@ -598,12 +605,11 @@ MainLayer::MainLayer()
 		tt.Position = {-6, -3.8, 7};
 		tt.Rotation = glm::vec3(0, glm::radians(180.0f), 0);
 		tt.Scale = chairScale;
-		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(tt);
-		auto& box = go.AddComponent<tnah::BoxColliderComponent>(glm::vec3(1, 1, 1));
+		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(go);
 		
-		box.Components.BodyCollider = rb.AddCollider(box.Components.Shape, rp3d::Transform::identity());
+		rb.AddCollider({1, 1, 1});
+		rb.Body->SetType(tnah::Physics::BodyType::Static);	
 		auto&as = go.AddComponent<tnah::AStarObstacleComponent>();
-		rb.SetBodyType(rp3d::BodyType::KINEMATIC);
 		auto & a = go.AddComponent<tnah::Affordance>("Chair");
 		a.SetActionValues(tnah::kick, 0.5);
 		a.SetActionValues(tnah::sit, 1);
@@ -625,6 +631,7 @@ void MainLayer::OnUpdate(tnah::Timestep deltaTime)
 	//Camera Movement in a first person way.
 		//This can be changed to also look like a 3rd person camera. Similar to a FPS camera in Unity and C#
 		//Only move the camera if its enabled
+	
 	if(m_Camera.HasComponent<tnah::RigidBodyComponent>())
 	{
 		auto& rb = m_Camera.GetComponent<tnah::RigidBodyComponent>();
@@ -660,40 +667,64 @@ void MainLayer::OnUpdate(tnah::Timestep deltaTime)
 
 		rb.Body->setLinearVelocity(vel);
 		*/
+		if(tnah::Input::IsKeyPressed(tnah::Key::G))
+		{
+			TNAH_CORE_INFO("G called");
+			tnah::Physics::PhysicsEngine::GetManager()->SetGravityState(true);
+		}
+		
 		if(m_CameraMovementToggle)
 		{
 			if(tnah::Input::IsKeyPressed(tnah::Key::W))
 			{
 				ct.Position += ct.Forward * m_CameraMovementSpeed * deltaTime.GetSeconds();
-				rp3d::Transform rt = rb.Body->getTransform();
-				rt.setPosition(tnah::Math::ToRp3dVec3(ct.Position));
-				rb.Body->setTransform(rt);
-				//rb.ApplyForce(tnah::RigidBodyComponent::ForceType::FromCentre, ct.Forward, glm::vec3(5), glm::vec3(0));
 			}
 			if(tnah::Input::IsKeyPressed(tnah::Key::S))
 			{
 				ct.Position -= ct.Forward * m_CameraMovementSpeed * deltaTime.GetSeconds();
-				rp3d::Transform rt = rb.Body->getTransform();
-				rt.setPosition(tnah::Math::ToRp3dVec3(ct.Position));
-				rb.Body->setTransform(rt);
-				//rb.ApplyForce(tnah::RigidBodyComponent::ForceType::FromCentre, -ct.Forward, glm::vec3(5), glm::vec3(0));
 			}
 			if(tnah::Input::IsKeyPressed(tnah::Key::A))
 			{
 				ct.Position -= ct.Right * m_CameraMovementSpeed * deltaTime.GetSeconds();
-				rp3d::Transform rt = rb.Body->getTransform();
-				rt.setPosition(tnah::Math::ToRp3dVec3(ct.Position));
-				rb.Body->setTransform(rt);
-				//rb.ApplyForce(tnah::RigidBodyComponent::ForceType::FromCentre, -ct.Right, glm::vec3(5), glm::vec3(0));
 			}
 			if(tnah::Input::IsKeyPressed(tnah::Key::D))
 			{
 				ct.Position += ct.Right * m_CameraMovementSpeed * deltaTime.GetSeconds();
-				rp3d::Transform rt = rb.Body->getTransform();
-				rt.setPosition(tnah::Math::ToRp3dVec3(ct.Position));
-				rb.Body->setTransform(rt);
-				//rb.ApplyForce(tnah::RigidBodyComponent::ForceType::FromCentre, ct.Right, glm::vec3(5), glm::vec3(0));
 			}
+
+			if(m_CameraLookToggle)
+			{
+				auto& ct = m_Camera.GetComponent<tnah::TransformComponent>();
+				//Camera Mouse rotation controls
+				auto mousePos = tnah::Input::GetMousePos();
+				if (m_FirstMouseInput)
+				{
+					m_LastMouseXPos = mousePos.first;
+					m_LastMouseYPos = mousePos.second;
+					m_FirstMouseInput = false;
+				}
+
+				float offsetX = mousePos.first - m_LastMouseXPos;
+				float offsetY = m_LastMouseYPos - mousePos.second;
+				m_LastMouseXPos = mousePos.first;
+				m_LastMouseYPos = mousePos.second;
+				offsetX *= m_CameraMouseSensitivity;
+				offsetY *= m_CameraMouseSensitivity;
+				ct.Rotation.x += offsetX;
+				ct.Rotation.y += offsetY;
+				if (ct.Rotation.y > 89.0f)
+				{
+					ct.Rotation.y = 89.0f;
+				}
+				if (ct.Rotation.y < -89.0f)
+				{
+					ct.Rotation.y = -89.0f;
+				}
+
+				ct.QuatRotation = glm::quat(ct.Rotation);
+			}
+			
+			//rb.OnUpdate(ct);
 		}
 	}
 
@@ -736,43 +767,14 @@ void MainLayer::OnUpdate(tnah::Timestep deltaTime)
 	}
 	*/
 	
-	if(m_CameraLookToggle)
-	{
-		auto& ct = m_Camera.GetComponent<tnah::TransformComponent>();
-		//Camera Mouse rotation controls
-		auto mousePos = tnah::Input::GetMousePos();
-		if (m_FirstMouseInput)
-		{
-			m_LastMouseXPos = mousePos.first;
-			m_LastMouseYPos = mousePos.second;
-			m_FirstMouseInput = false;
-		}
-
-		float offsetX = mousePos.first - m_LastMouseXPos;
-		float offsetY = m_LastMouseYPos - mousePos.second;
-		m_LastMouseXPos = mousePos.first;
-		m_LastMouseYPos = mousePos.second;
-		offsetX *= m_CameraMouseSensitivity;
-		offsetY *= m_CameraMouseSensitivity;
-		ct.Rotation.x += offsetX;
-		ct.Rotation.y += offsetY;
-		if (ct.Rotation.y > 89.0f)
-		{
-			ct.Rotation.y = 89.0f;
-		}
-		if (ct.Rotation.y < -89.0f)
-		{
-			ct.Rotation.y = -89.0f;
-		}
-	}
 	
 	//Rendering is managed by the scene!
 	m_ActiveScene->OnUpdate(deltaTime);
 }
 
-void MainLayer::OnFixedUpdate(tnah::PhysicsTimestep ps)
+void MainLayer::OnFixedUpdate(tnah::Timestep ts, tnah::PhysicsTimestep ps)
 {
-	m_ActiveScene->OnFixedUpdate(ps);
+	m_ActiveScene->OnFixedUpdate(ts, ps);
 }
 
 void MainLayer::OnImGuiRender()

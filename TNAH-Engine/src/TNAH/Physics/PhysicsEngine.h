@@ -99,7 +99,7 @@ namespace tnah::Physics
          *
          * @param 	timestep	The timestep.
          */
-        void OnFixedUpdate(PhysicsTimestep timestep) const;
+        void OnFixedUpdate(Timestep deltaTime, PhysicsTimestep timestep) const;
 
         /**
          * @fn	void PhysicsManager::Destroy();

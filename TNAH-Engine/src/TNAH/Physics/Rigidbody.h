@@ -70,7 +70,12 @@ namespace tnah::Physics {
         void Sleep();
 
         glm::vec3 CalculateLocalInertiaTensor();
-
+    	/**
+    	* @var m_CollisionBody
+    	*
+    	* @brief The Reactphysics3d Collision body used by the Rigidbody to interact and move within the PhysicsWorld.
+    	*/
+    	rp3d::CollisionBody* m_CollisionBody = nullptr;
     private:
 
     	glm::vec3 CalculateCentreOfMass();
@@ -165,13 +170,6 @@ namespace tnah::Physics {
         std::unordered_map<uint32_t, Ref<Collider>> m_Colliders;
 
     	uint32_t m_TotalColliders = 0;
-
-        /**
-        * @var m_CollisionBody
-        *
-        * @brief The Reactphysics3d Collision body used by the Rigidbody to interact and move within the PhysicsWorld.
-        */
-        rp3d::CollisionBody* m_CollisionBody = nullptr;
 
     	/**
     	 * @var m_ID

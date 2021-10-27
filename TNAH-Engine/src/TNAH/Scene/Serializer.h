@@ -244,7 +244,6 @@ namespace tnah
          * \return 
          * 
          */
-        static std::string GenerateBoxCollider(const BoxColliderComponent& box, const uint32_t& totalTabs = 0);
         static std::string GenerateAi(const AIComponent& ai, const CharacterComponent &c,const uint32_t& totalTabs = 0);
         static std::string GenerateAStar(const AStarComponent& astar, const uint32_t& totalTabs = 0);
         static std::string GenerateAStarObstacle(const AStarObstacleComponent& astar, const uint32_t& totalTabs = 0);
@@ -742,7 +741,6 @@ namespace tnah
          * \return 
          * 
          */
-        static BoxColliderComponent GetBoxColliderFromFile(const std::string& fileContents, std::pair<size_t, size_t> componentTagPositions, RigidBodyComponent& rb);
         
         /**
          * 

@@ -45,7 +45,7 @@ namespace tnah {
 				{
 				}
 				ImGui::TreePop();
-				ImGui::Separator()
+				ImGui::Separator();
 			}
 
 		}
@@ -1315,8 +1315,7 @@ namespace tnah {
 	}
 
 		
-	std::list<ComponentVariations> EditorUI::FindAllSubtypesFromBaseType(
-	std::list<ComponentVariations> componentsToSearch, const ComponentCategory& category)
+	std::list<ComponentVariations> EditorUI::FindAllSubtypesFromBaseType(std::list<ComponentVariations> componentsToSearch, const ComponentCategory& category)
 	{
 		std::list<ComponentVariations> foundComponents;
 
@@ -1368,7 +1367,8 @@ namespace tnah {
 				foundComponents.emplace_back(ComponentVariations::RigidBody);
 
 			
-		return foundComponents;
+			return foundComponents;
+		}
 	}
 
 	std::list<ComponentVariations> EditorUI::FindAllComponentsContaining(std::list<ComponentVariations> componentsToSearch, const std::string& term)
@@ -1590,7 +1590,7 @@ namespace tnah {
             object.AddComponent<AudioListenerComponent>();
             return true;
         case ComponentVariations::RigidBody:
-        	object.AddComponent<RigidBodyComponent>(object.Transform());
+        	//object.AddComponent<RigidBodyComponent>(object.Transform());
         	return true;
 
         default: return false;
