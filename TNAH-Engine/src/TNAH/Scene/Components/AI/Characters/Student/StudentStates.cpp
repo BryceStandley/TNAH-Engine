@@ -97,6 +97,7 @@ namespace tnah
 
     void HappyStudent::Enter(Student* owner)
     {
+        owner->GetEmotions().UpdateTimer();
         owner->SetWander(true);
     }
 
@@ -142,6 +143,7 @@ namespace tnah
 
     void ChillStudent::Enter(Student* owner)
     {
+        owner->GetEmotions().UpdateTimer();
         owner->SetWander(true);
     }
 
@@ -183,6 +185,7 @@ namespace tnah
 
     void PissedOffStudent::Enter(Student* owner)
     {
+        owner->GetEmotions().UpdateTimer();
         owner->SetWander(true);
         owner->SetSpeed(1.5f);
         owner->canOutput = true;
@@ -226,6 +229,7 @@ namespace tnah
 
     void SadStudent::Enter(Student* owner)
     {
+        owner->GetEmotions().UpdateTimer();
         owner->SetWander(true);
         owner->SetSpeed(0.75f);
     }

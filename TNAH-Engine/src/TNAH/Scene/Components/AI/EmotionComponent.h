@@ -54,7 +54,7 @@ public:
 
 	void AddTrait(Trait t);
 
-	void Update();
+	void Update(float dt);
 
 	float GetScaledArousal(float value);
 
@@ -73,12 +73,13 @@ public:
 	std::string GetTraitAsString(int pos);
 	std::string GetTraitsAsString();
 	
-
+	void UpdateTimer() {internalTimer = 15.0f;}
 private:
 
 	//initalises the map with all the emotions used
 	void InitialiseMap();
 
+	void UpdateMood(float dt);
 	//std::pair<float, float> m_EmotionValues;
 	std::map <std::pair<float,float>, Emotion> EmotionMap;
 	std::map <std::pair<float, float>, Emotion>::iterator it = EmotionMap.begin();
@@ -100,6 +101,6 @@ private:
 	// Vector of all traits of the AI - AKA its Personality
 	std::vector<Trait> m_Traits;
 	std::vector<Trait>::iterator itr;
-
+	float internalTimer;
 };
 }

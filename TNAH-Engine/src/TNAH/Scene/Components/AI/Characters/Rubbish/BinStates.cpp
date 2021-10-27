@@ -97,6 +97,7 @@ namespace tnah
 
     void HappyBin::Enter(Bin* owner)
     {
+        owner->GetEmotions().UpdateTimer();
         owner->SetWander(true);
     }
 
@@ -138,6 +139,7 @@ namespace tnah
 
     void ChillBin::Enter(Bin* owner)
     {
+        owner->GetEmotions().UpdateTimer();
         owner->SetWander(true);
     }
 
@@ -172,6 +174,7 @@ namespace tnah
 
     void PissedOffBin::Enter(Bin* owner)
     {
+        owner->GetEmotions().UpdateTimer();
         owner->SetWander(true);
         owner->SetSpeed(1.5f);
         owner->canOutput = true;
@@ -215,6 +218,7 @@ namespace tnah
 
     void SadBin::Enter(Bin* owner)
     {
+        owner->GetEmotions().UpdateTimer();
         owner->SetWander(true);
         owner->SetSpeed(0.75f);
     }

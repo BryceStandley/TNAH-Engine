@@ -31,7 +31,7 @@ namespace tnah
     {
         SetDeltaTime(deltaTime.GetSeconds());
         currentAffordanceLevel = BalanceRange(0, 1, currentAffordanceLevel);
-        emotions.Update();
+        emotions.Update(deltaTime.GetSeconds());
         mFsm->update();
 
         if(spin)

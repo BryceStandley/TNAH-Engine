@@ -9,6 +9,7 @@ namespace tnah
 	EmotionComponent::EmotionComponent()
 	{
 		InitialiseMap();
+		UpdateTimer();
 	}
 
 	EmotionComponent::EmotionComponent(float valence, float arousal, Mood m)
@@ -17,6 +18,7 @@ namespace tnah
 		SetMood(m);
 		SetValence(valence);
 		SetArousal(arousal);
+		UpdateTimer();
 	}
 
 	void EmotionComponent::SetArousal(float arousal) 
@@ -273,10 +275,11 @@ namespace tnah
 		}
 	}
 
-	void EmotionComponent::Update()
+	void EmotionComponent::Update(float dt)
 	{
 		Emotion em = ReturnEmotion(GetScaledArousal(GetArousal()), GetScaledValence(GetValence()));
 		m_State = em;
+		UpdateMood(dt);
 	}
 
 	void EmotionComponent::SetMood(Mood m)
@@ -326,6 +329,82 @@ namespace tnah
 
 	}
 
+	void EmotionComponent::UpdateMood(float dt)
+	{
+		if(internalTimer <= 0)
+		{
+			std::cout << internalTimer << std::endl;
+			switch (m_Mood)
+			{
+			case Mood::Happy:
+				m_MultiplierPositiveArousal -= 0.25f; //arousal more likely to be positive
+				m_MultiplierPositiveValence -= 0.25; // easier to feel positive
+
+				m_MultiplierNegativeArousal += 0.25f; //less likely to have negative arousal
+				m_MultiplierNegativeValence += 0.25f; //less likely to feel negative
+				break;
+			case Mood::Angry:
+				m_MultiplierPositiveArousal -= 0.25f; //arousal more likely to be positive
+				m_MultiplierPositiveValence += 0.25f; // harder to feel positive
+
+				m_MultiplierNegativeArousal += 0.25f; // less likely to have negative arousal
+				m_MultiplierNegativeValence -= 0.25f; // easier to feel negative
+				break;
+			case Mood::Sad:
+				m_MultiplierPositiveArousal += 0.25f; //arousal more likely to be negative
+				m_MultiplierPositiveValence += 0.25f; // harder to feel positive 
+
+				m_MultiplierNegativeArousal -= 0.25f; // more likely to feel negative arousal
+				m_MultiplierNegativeValence -= 0.25f; // easier to feel negative
+				break;
+			case Mood::Relaxed:
+				m_MultiplierPositiveArousal += 0.25f; //arousal more likely to be negative
+				m_MultiplierPositiveValence -= 0.25f; //easier to feel positive
+
+				m_MultiplierNegativeArousal -= 0.25f; //more likely to feel negative arousal
+				m_MultiplierNegativeValence += 0.25f; //harder to feel negative
+				break;
+
+			default:
+				break;
+			}
+			Mood temp;
+		
+			switch (m_State)
+			{
+			case Emotion::Happy:
+			case Emotion::Excited:
+			case Emotion::Delighted:
+				temp = Mood::Happy;
+				break;
+			case Emotion::Frustrated:
+			case Emotion::Angry:
+			case Emotion::Tense:
+				temp = Mood::Angry;
+				break;
+			case Emotion::Bored:
+			case Emotion::Depressed:
+			case Emotion::Tired:
+				temp = Mood::Sad;
+				break;
+			case Emotion::Calm:
+			case Emotion::Content:
+			case Emotion::Relaxed:
+				temp = Mood::Relaxed;
+				break;
+			default:
+				break;
+			}
+		
+			SetMood(temp);
+			UpdateTimer();
+		}
+		else
+			internalTimer -= dt;
+	}
+
+
+	
 	std::string EmotionComponent::GetCurrentEmotionAsString()
 	{
 		switch (GetEmotion())
