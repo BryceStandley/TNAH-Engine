@@ -102,12 +102,10 @@ namespace tnah::Physics
                 auto& t2 = item.GetGameObjects().second->Transform();
                 glm::vec3 lv2 = rb2->GetLinearVelocity();
                 glm::vec3 av2 = rb2->GetAngularVelocity();
-               
-
+                
                 glm::vec3 cp1 = item.GetContactPositions().first;
                 glm::vec3 cp2 = item.GetContactPositions().second;
                 glm::vec3 cn = item.GetContactNormal();
-		
 
                 glm::vec3 r1 = cp1 - t1.Position;
                 glm::vec3 r2 = cp2 - t2.Position;
@@ -120,7 +118,6 @@ namespace tnah::Physics
                 {
                     t2.Position -= cn * ((item.GetPenetration() / 2.0f) * -1);
                 }
-		
 
                 auto restitution_multiplier = -(1.0f + restitution);
 
@@ -134,35 +131,12 @@ namespace tnah::Physics
 
                 auto numerator = restitution_multiplier * (glm::dot(cn, relative_velocity) + glm::dot(av1, r1xn) - glm::dot(av2, r2xn));
 
-               auto denominator = total_inverse_mass + (r1xn * rb1->GetInertiaTensor().WorldInverseInertiaTensor * r1xn) + (r2xn * rb2->GetInertiaTensor().WorldInverseInertiaTensor * r2xn);
+                auto denominator = total_inverse_mass + (r1xn * rb1->GetInertiaTensor().WorldInverseInertiaTensor * r1xn) + (r2xn * rb2->GetInertiaTensor().WorldInverseInertiaTensor * r2xn);
 
                 auto lambda = (numerator / denominator);
                 
                 auto linear_impulse = lambda * cn;
-
                 
-                
-#if 0
-                if (lambda < 0)
-                {
-
-                    //lv1 += linear_impulse * rb1.Body->GetBodyMass().InverseMass;
-                    
-                    lv1 += linear_impulse * rb1->GetBodyMass().InverseMass;
-                    
-                    lv2 -= linear_impulse * rb2->GetBodyMass().InverseMass;
-
-                    av1 = av1 + (lambda * rb1->GetInertiaTensor().WorldInverseInertiaTensor) * r1xn;
-                    av2 = av2 -  (lambda * rb2->GetInertiaTensor().WorldInverseInertiaTensor) * r2xn;
-                    std::string lv = "Linear velocity 1";
-                    std::string av = "Angular velocity 1";
-                    
-                    Debug::CoreInfo(lv1, lv);
-                    Debug::CoreInfo(av1, av);
-                }
-#endif
-		
-		
                 if(rb1->GetType() == BodyType::Dynamic && !rb1->IsSleeping()) 
                 {
                     lv1 += linear_impulse * rb1->GetBodyMass().InverseMass;
@@ -184,234 +158,137 @@ namespace tnah::Physics
         }
     }
 
-    void PhysicsEngine::ProcessRigidbodyVelocities(const Timestep& deltaTime, TransformComponent& transform, Ref<RigidBody> rigidbody, entt::registry& componentRegistry, bool loop)
+    void PhysicsEngine::ProcessRigidbodyVelocities(const Timestep& deltaTime, entt::registry& componentRegistry)
     {
-        if(loop)
+        auto view = componentRegistry.view<RigidBodyComponent>();
+        for(auto e : view)
         {
-            auto view = componentRegistry.view<RigidBodyComponent>();
-            for(auto e : view)
+            auto& rb = view.get<RigidBodyComponent>(e).Body;
+            
+            if(rb->GetType() == BodyType::Dynamic && !rb->IsSleeping() && rb->HasColliders())
             {
-                auto& rb = view.get<RigidBodyComponent>(e).Body;
-                
-                if(rb->GetType() == BodyType::Dynamic && !rb->IsSleeping())
-                {
-                    const auto linear = rb->m_LinearVelocity.Velocity;
-                    const auto angular = rb->m_AngularVelocity.Velocity;
-            
-                    rb->m_ConstrainedLinearVelocity.Velocity = linear + deltaTime.GetSeconds() * rb->GetBodyMass().InverseMass *
-                                                                        rb->m_LinearRotationLock * rb->m_Force.Forces;
-            
-                    rb->m_ConstrainedAngularVelocity.Velocity = angular + deltaTime.GetSeconds() * rb->m_AngularRotationLock *
-                                                                        rb->GetInertiaTensor().WorldInverseInertiaTensor * rb->m_Torque.Torques;
-                }
+                const auto linear = rb->m_LinearVelocity.Velocity;
+                const auto angular = rb->m_AngularVelocity.Velocity;
+        
+                rb->m_ConstrainedLinearVelocity.Velocity = linear + deltaTime.GetSeconds() * rb->GetBodyMass().InverseMass *
+                                                                    rb->m_LinearRotationLock * rb->m_Force.Forces;
+        
+                rb->m_ConstrainedAngularVelocity.Velocity = angular + deltaTime.GetSeconds() * rb->m_AngularRotationLock *
+                                                                    rb->GetInertiaTensor().WorldInverseInertiaTensor * rb->m_Torque.Torques;
+            }
 
-                if(m_PhysicsManager->GetGravityState() && rb->GetType() != BodyType::Static && !rb->IsSleeping() && !rb->IgnoreGravity())
-                {
-                    rb->m_ConstrainedLinearVelocity.Velocity += deltaTime.GetSeconds() * rb->GetBodyMass().InverseMass *
-                                                                        rb->m_LinearRotationLock * rb->GetBodyMass().Mass * m_PhysicsManager->GetGravity();
-                }
+            if(m_PhysicsManager->GetGravityState() && rb->GetType() != BodyType::Static && !rb->IsSleeping() && !rb->IgnoreGravity() && rb->HasColliders())
+            {
+                rb->m_ConstrainedLinearVelocity.Velocity += deltaTime.GetSeconds() * rb->GetBodyMass().InverseMass *
+                                                                    rb->m_LinearRotationLock * rb->GetBodyMass().Mass * m_PhysicsManager->GetGravity();
+            }
 
+            if(rb->GetType() != BodyType::Static && !rb->IsSleeping() && rb->HasColliders())
+            {
                 auto lDamp = glm::pow(1.0f - rb->m_LinearDampening.Dampening, deltaTime.GetSeconds());
                 auto aDamp = glm::pow(1.0f - rb->m_AngularDampening.Dampening, deltaTime.GetSeconds());
                 rb->m_ConstrainedLinearVelocity.Velocity *= lDamp;
                 rb->m_ConstrainedAngularVelocity.Velocity *= aDamp;
-
-                //rb->m_SleepTimeAccumulator += deltaTime.GetSeconds();
             }
         }
-        else
-        {
-                if(rigidbody->GetType() == BodyType::Dynamic && !rigidbody->IsSleeping())
-                {
-                    const auto linear = rigidbody->m_LinearVelocity.Velocity;
-                    const auto angular = rigidbody->m_AngularVelocity.Velocity;
-            
-                    rigidbody->m_ConstrainedLinearVelocity.Velocity = linear + deltaTime.GetSeconds() * rigidbody->GetBodyMass().InverseMass *
-                                                                        rigidbody->m_LinearRotationLock * rigidbody->m_Force.Forces;
-            
-                    rigidbody->m_ConstrainedAngularVelocity.Velocity = angular + deltaTime.GetSeconds() * rigidbody->m_AngularRotationLock *
-                                                                        rigidbody->GetInertiaTensor().WorldInverseInertiaTensor * rigidbody->m_Torque.Torques;
-                }
-
-                if(m_PhysicsManager->GetGravityState() && rigidbody->GetType() != BodyType::Static && !rigidbody->IsSleeping() && !rigidbody->IgnoreGravity())
-                {
-                    rigidbody->m_ConstrainedLinearVelocity.Velocity += deltaTime.GetSeconds() * rigidbody->GetBodyMass().InverseMass *
-                                                                        rigidbody->m_LinearRotationLock * rigidbody->GetBodyMass().Mass * m_PhysicsManager->GetGravity();
-                }
-
-                auto lDamp = glm::pow(1.0f - rigidbody->m_LinearDampening.Dampening, deltaTime.GetSeconds());
-                auto aDamp = glm::pow(1.0f - rigidbody->m_AngularDampening.Dampening, deltaTime.GetSeconds());
-                rigidbody->m_ConstrainedLinearVelocity.Velocity *= lDamp;
-                rigidbody->m_ConstrainedAngularVelocity.Velocity *= aDamp;
-        }
-        
     }
 
-    void PhysicsEngine::ProcessRigidbodyPositions(const Timestep& deltaTime,TransformComponent& transform, Ref<RigidBody> rigidbody, entt::registry& componentRegistry, bool loop)
+    void PhysicsEngine::ProcessRigidbodyPositions(const Timestep& deltaTime, entt::registry& componentRegistry)
     {
-        if(loop)
+        auto view = componentRegistry.view<TransformComponent, RigidBodyComponent>();
+        for(auto e : view)
         {
-            auto view = componentRegistry.view<TransformComponent, RigidBodyComponent>();
-            for(auto e : view)
+            auto& rb = view.get<RigidBodyComponent>(e).Body;
+            auto& trans = view.get<TransformComponent>(e);
+
+            if(rb->GetType() == BodyType::Dynamic && !rb->IsSleeping() && rb->HasColliders())
             {
-                auto& rb = view.get<RigidBodyComponent>(e).Body;
-                auto& trans = view.get<TransformComponent>(e);
-
-                if(rb->GetType() == BodyType::Dynamic && !rb->IsSleeping())
-                {
-                    
-                    trans.Position += rb->m_ConstrainedLinearVelocity.Velocity * deltaTime.GetSeconds();
-                    rb->m_Position = trans.Position;
-                    
-                    rb->m_Orientation += glm::quat(0.0, rb->m_AngularVelocity) * deltaTime.GetSeconds();
-                    rb->m_Orientation = glm::normalize(rb->m_Orientation);
-                    
-                }
-                else if(rb->GetType() == BodyType::Kinematic && !rb->IsSleeping())
-                {
-                    rb->m_ConstrainedLinearVelocity = glm::vec3(0, rb->m_ConstrainedLinearVelocity.Velocity.y, 0);
-                    trans.Position += rb->m_ConstrainedLinearVelocity.Velocity * deltaTime.GetSeconds();
-                    rb->m_Position = trans.Position;
-                }
-            }
-        }
-        else
-        {
-                transform.Position += rigidbody->m_ConstrainedLinearVelocity.Velocity * deltaTime.GetSeconds();
-
-                glm::quat rot = transform.QuatRotation;
                 
-                rot += glm::quat(rigidbody->m_ConstrainedAngularVelocity.Velocity) * rot * 0.5f * deltaTime.GetSeconds();
-
-                rp3d::Transform t;
-                t.setPosition(Math::ToRp3dVec3(transform.Position));
-                t.setOrientation(Math::ToRp3dQuat(rot));
-
-                transform.Rotation = glm::eulerAngles(rot);
-                transform.QuatRotation = rot;
-                rigidbody->m_CollisionBody->setTransform(t);   
+                trans.Position += rb->m_ConstrainedLinearVelocity.Velocity * deltaTime.GetSeconds();
+                rb->m_Position = trans.Position;
+                
+                rb->m_Orientation += glm::quat(0.0, rb->m_AngularVelocity) * deltaTime.GetSeconds();
+                rb->m_Orientation = glm::normalize(rb->m_Orientation);
+                
+            }
+            else if(rb->GetType() == BodyType::Kinematic && !rb->IsSleeping())
+            {
+                //rb->m_ConstrainedLinearVelocity = glm::vec3(0, rb->m_ConstrainedLinearVelocity.Velocity.y, 0);
+                trans.Position += rb->m_ConstrainedLinearVelocity.Velocity * deltaTime.GetSeconds();
+                rb->m_Position = trans.Position;
+            }
         }
     }
 
-    void PhysicsEngine::ResetRigidbodyForcesAndTorques(Ref<RigidBody> rb, entt::registry& componentRegistry, bool loop)
+    void PhysicsEngine::ResetRigidbodyForcesAndTorques(entt::registry& componentRegistry)
     {
-        if(loop)
+        auto view = componentRegistry.view<RigidBodyComponent>();
+        for(auto e : view)
         {
-            auto view = componentRegistry.view<RigidBodyComponent>();
-            for(auto e : view)
-            {
-                auto& rigidbody = view.get<RigidBodyComponent>(e).Body;
-                rigidbody->m_Force.Forces = {0.0f, 0.0f, 0.0f};
-                rigidbody->m_Torque.Torques = {0.0f, 0.0f, 0.0f};
-            }
-        }
-        else
-        {
-            auto rigidbody = rb;
+            auto& rigidbody = view.get<RigidBodyComponent>(e).Body;
             rigidbody->m_Force.Forces = {0.0f, 0.0f, 0.0f};
             rigidbody->m_Torque.Torques = {0.0f, 0.0f, 0.0f};
         }
-
     }
 
-    void PhysicsEngine::UpdateInertiaTensor(Ref<RigidBody> rigidbody, entt::registry& componentRegistry, bool loop)
+    void PhysicsEngine::UpdateInertiaTensor(entt::registry& componentRegistry)
     {
-        if(loop)
+        auto view = componentRegistry.view<TransformComponent, RigidBodyComponent>();
+        for(auto e : view)
         {
-            auto view = componentRegistry.view<TransformComponent, RigidBodyComponent>();
-            for(auto e : view)
-            {
-                auto& rb = view.get<RigidBodyComponent>(e).Body;
-                auto& trans = view.get<TransformComponent>(e);
-                glm::mat3 rot = glm::mat3_cast(rb->m_Orientation);
-                rb->m_InertiaTensor.WorldInverseInertiaTensor[0][0] = rot[0][0] * rb->m_InertiaTensor.LocalInverseInertiaTensor.x;
-                rb->m_InertiaTensor.WorldInverseInertiaTensor[0][1] = rot[1][0] * rb->m_InertiaTensor.LocalInverseInertiaTensor.x;
-                rb->m_InertiaTensor.WorldInverseInertiaTensor[0][2] = rot[2][0] * rb->m_InertiaTensor.LocalInverseInertiaTensor.x;
-		
-                rb->m_InertiaTensor.WorldInverseInertiaTensor[1][0] = rot[0][1] * rb->m_InertiaTensor.LocalInverseInertiaTensor.y;
-                rb->m_InertiaTensor.WorldInverseInertiaTensor[1][1] = rot[1][1] * rb->m_InertiaTensor.LocalInverseInertiaTensor.y;
-                rb->m_InertiaTensor.WorldInverseInertiaTensor[1][2] = rot[2][1] * rb->m_InertiaTensor.LocalInverseInertiaTensor.y;
-		
-                rb->m_InertiaTensor.WorldInverseInertiaTensor[2][0] = rot[0][2] * rb->m_InertiaTensor.LocalInverseInertiaTensor.z;
-                rb->m_InertiaTensor.WorldInverseInertiaTensor[2][1] = rot[1][2] * rb->m_InertiaTensor.LocalInverseInertiaTensor.z;
-                rb->m_InertiaTensor.WorldInverseInertiaTensor[2][2] = rot[2][2] * rb->m_InertiaTensor.LocalInverseInertiaTensor.z;
+            auto& rb = view.get<RigidBodyComponent>(e).Body;
+            auto& trans = view.get<TransformComponent>(e);
+            glm::mat3 rot = glm::mat3_cast(rb->m_Orientation);
+            rb->m_InertiaTensor.WorldInverseInertiaTensor[0][0] = rot[0][0] * rb->m_InertiaTensor.LocalInverseInertiaTensor.x;
+            rb->m_InertiaTensor.WorldInverseInertiaTensor[0][1] = rot[1][0] * rb->m_InertiaTensor.LocalInverseInertiaTensor.x;
+            rb->m_InertiaTensor.WorldInverseInertiaTensor[0][2] = rot[2][0] * rb->m_InertiaTensor.LocalInverseInertiaTensor.x;
+	
+            rb->m_InertiaTensor.WorldInverseInertiaTensor[1][0] = rot[0][1] * rb->m_InertiaTensor.LocalInverseInertiaTensor.y;
+            rb->m_InertiaTensor.WorldInverseInertiaTensor[1][1] = rot[1][1] * rb->m_InertiaTensor.LocalInverseInertiaTensor.y;
+            rb->m_InertiaTensor.WorldInverseInertiaTensor[1][2] = rot[2][1] * rb->m_InertiaTensor.LocalInverseInertiaTensor.y;
+	
+            rb->m_InertiaTensor.WorldInverseInertiaTensor[2][0] = rot[0][2] * rb->m_InertiaTensor.LocalInverseInertiaTensor.z;
+            rb->m_InertiaTensor.WorldInverseInertiaTensor[2][1] = rot[1][2] * rb->m_InertiaTensor.LocalInverseInertiaTensor.z;
+            rb->m_InertiaTensor.WorldInverseInertiaTensor[2][2] = rot[2][2] * rb->m_InertiaTensor.LocalInverseInertiaTensor.z;
 
-                rb->m_InertiaTensor.WorldInverseInertiaTensor = rot * rb->m_InertiaTensor.WorldInverseInertiaTensor;
-            }
+            rb->m_InertiaTensor.WorldInverseInertiaTensor = rot * rb->m_InertiaTensor.WorldInverseInertiaTensor;
         }
-        else
-        {
-            glm::mat3 rot = glm::mat3_cast(rigidbody->m_Orientation);
-            rigidbody->m_InertiaTensor.WorldInverseInertiaTensor[0][0] = rot[0][0] * rigidbody->m_InertiaTensor.LocalInverseInertiaTensor.x;
-            rigidbody->m_InertiaTensor.WorldInverseInertiaTensor[0][1] = rot[1][0] * rigidbody->m_InertiaTensor.LocalInverseInertiaTensor.x;
-            rigidbody->m_InertiaTensor.WorldInverseInertiaTensor[0][2] = rot[2][0] * rigidbody->m_InertiaTensor.LocalInverseInertiaTensor.x;
-		
-            rigidbody->m_InertiaTensor.WorldInverseInertiaTensor[1][0] = rot[0][1] * rigidbody->m_InertiaTensor.LocalInverseInertiaTensor.y;
-            rigidbody->m_InertiaTensor.WorldInverseInertiaTensor[1][1] = rot[1][1] * rigidbody->m_InertiaTensor.LocalInverseInertiaTensor.y;
-            rigidbody->m_InertiaTensor.WorldInverseInertiaTensor[1][2] = rot[2][1] * rigidbody->m_InertiaTensor.LocalInverseInertiaTensor.y;
-		
-            rigidbody->m_InertiaTensor.WorldInverseInertiaTensor[2][0] = rot[0][2] * rigidbody->m_InertiaTensor.LocalInverseInertiaTensor.z;
-            rigidbody->m_InertiaTensor.WorldInverseInertiaTensor[2][1] = rot[1][2] * rigidbody->m_InertiaTensor.LocalInverseInertiaTensor.z;
-            rigidbody->m_InertiaTensor.WorldInverseInertiaTensor[2][2] = rot[2][2] * rigidbody->m_InertiaTensor.LocalInverseInertiaTensor.z;
-
-            rigidbody->m_InertiaTensor.WorldInverseInertiaTensor = rot * rigidbody->m_InertiaTensor.WorldInverseInertiaTensor;
-        }
-        
     }
 
-    void PhysicsEngine::UpdateBodies(Ref<RigidBody> rigidbody, entt::registry& componentRegistry, bool loop)
+    void PhysicsEngine::UpdateBodies(entt::registry& componentRegistry)
     {
-        if(loop)
+        auto view = componentRegistry.view<TransformComponent, RigidBodyComponent>();
+        for(auto e : view)
         {
-            auto view = componentRegistry.view<TransformComponent, RigidBodyComponent>();
-            for(auto e : view)
+            auto& rb = view.get<RigidBodyComponent>(e).Body;
+            auto& transform = view.get<TransformComponent>(e);
+            
+            rb->OnUpdate(transform);
+            
+            rb->m_LinearVelocity.Velocity = rb->m_ConstrainedLinearVelocity.Velocity;
+            rb->m_AngularVelocity.Velocity = rb->m_ConstrainedAngularVelocity.Velocity;
+
+            auto t = rb->m_CollisionBody->getTransform();
+            t.setPosition(Math::ToRp3dVec3(rb->m_Position));
+            if(rb->GetType() == BodyType::Kinematic)
             {
-                auto& rb = view.get<RigidBodyComponent>(e).Body;
-                auto& transform = view.get<TransformComponent>(e);
-                
-                rb->OnUpdate(transform);
-                
-                rb->m_LinearVelocity.Velocity = rb->m_ConstrainedLinearVelocity.Velocity;
-                rb->m_AngularVelocity.Velocity = rb->m_ConstrainedAngularVelocity.Velocity;
+                rb->m_CollisionBody->setTransform(t);
+            }
+            else
+            {
+                t.setOrientation(Math::ToRp3dQuat(rb->m_Orientation));
+                rb->m_CollisionBody->setTransform(t);
+                transform.Rotation = glm::eulerAngles(rb->m_Orientation);
+                transform.QuatRotation = rb->m_Orientation;
+            }
 
-                auto t = rb->m_CollisionBody->getTransform();
-                t.setPosition(Math::ToRp3dVec3(rb->m_Position));
-                if(rb->GetType() == BodyType::Kinematic)
-                {
-                    rb->m_CollisionBody->setTransform(t);
-                }
-                else
-                {
-                    t.setOrientation(Math::ToRp3dQuat(rb->m_Orientation));
-                    rb->m_CollisionBody->setTransform(t);
-                    transform.Rotation = glm::eulerAngles(rb->m_Orientation);
-                    transform.QuatRotation = rb->m_Orientation;
-                }
-
-                for(auto& c : rb->m_Colliders)
-                {
-                    auto col = c.second;
-                    col->SetPosition(transform.Position + col->GetColliderPosition());
-                    col->SetOrientation(rb->m_Orientation + col->GetColliderOrientation());
-                }
+            for(auto& c : rb->m_Colliders)
+            {
+                auto col = c.second;
+                col->SetPosition(transform.Position + col->GetColliderPosition());
+                col->SetOrientation(rb->m_Orientation + col->GetColliderOrientation());
             }
         }
-        else
-        {
-            rigidbody->m_LinearVelocity.Velocity = rigidbody->m_ConstrainedLinearVelocity.Velocity;
-            rigidbody->m_AngularVelocity.Velocity = rigidbody->m_ConstrainedAngularVelocity.Velocity;
-
-            //m_CollisionBody->setTransform(Math::ToRp3dTransform(transform));
-		
-            auto position = rigidbody->m_Position;
-
-            for(auto& col : rigidbody->m_Colliders)
-            {
-                col.second->SetPosition(position * col.second->GetColliderPosition());
-                col.second->SetOrientation(glm::quat(rigidbody->m_Orientation) * col.second->GetColliderOrientation());
-            }
-        }
-        
     }
 
     void PhysicsEngine::UpdateSleepState(entt::registry& componentRegistry, Timestep deltaTime)
@@ -458,47 +335,20 @@ namespace tnah::Physics
             auto ts = timestep;
             ts.SetSimulationSpeed(deltaTime.GetSeconds());
             m_PhysicsManager->OnFixedUpdate(deltaTime, timestep);
-#if 0
-            auto view = componentRegistry.view<TransformComponent, RigidBodyComponent>();
-            for(auto entity : view)
-            {
-                auto rb = view.get<RigidBodyComponent>(entity).Body;
-                auto& transform = view.get<TransformComponent>(entity);
 
-                //rb->RecalculateWorldInertiaTensor(transform);
-                UpdateInertiaTensor(rb);
-                
-                ProcessRigidbodyVelocities(deltaTime, transform, rb);
-
-                ProcessCollisions();
-                
-                ProcessRigidbodyPositions(deltaTime, transform, rb);
-                
-                //rb.OnUpdate(transform);
-                UpdateBodies(rb);
-                
-                //TODO Add a update to make bodies sleep here
-                
-                ResetRigidbodyForcesAndTorques(rb);
-            }
-#endif
-
-            UpdateInertiaTensor(nullptr, componentRegistry,true);
+            UpdateInertiaTensor(componentRegistry);
             
             ProcessCollisions();
             
-            ProcessRigidbodyVelocities(deltaTime, m_ColliderTransform, nullptr,componentRegistry, true);
-            //Use collider transform for rendering just to make the compiler happy for now. isnt actually used
+            ProcessRigidbodyVelocities(deltaTime, componentRegistry);
 
-            ProcessRigidbodyPositions(deltaTime, m_ColliderTransform, nullptr, componentRegistry, true);
+            ProcessRigidbodyPositions(deltaTime, componentRegistry);
 
-            UpdateBodies(nullptr, componentRegistry,true);
+            UpdateBodies(componentRegistry);
 
             UpdateSleepState(componentRegistry, deltaTime);
 
-            ResetRigidbodyForcesAndTorques(nullptr, componentRegistry,true);
-            
-            
+            ResetRigidbodyForcesAndTorques(componentRegistry);
         }
     }
 

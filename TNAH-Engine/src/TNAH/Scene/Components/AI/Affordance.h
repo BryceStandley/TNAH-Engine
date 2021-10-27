@@ -29,8 +29,8 @@ namespace tnah
         inline static std::string s_SearchString = "Affordance";
         /** @brief	Type identifiers for the component */
         inline static ComponentTypes s_Types = {
-            {ComponentVariations::ConcaveMeshCollider},
-{{ComponentCategory::Physics}}
+            {ComponentVariations::Affordance},
+            {{ComponentCategory::AI},{ComponentCategory::Emotion}}
         };
         friend class EditorUI;
     };

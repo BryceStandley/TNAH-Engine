@@ -603,13 +603,33 @@ namespace tnah {
 					{
 						rb.Body->SetType(Physics::BodyType::Dynamic);
 					}
+					if(ImGui::Button("Make Kinematic"))
+					{
+						rb.Body->SetType(Physics::BodyType::Kinematic);
+					}
 				}
-				else
+				else if(rb.Body->GetType() == Physics::BodyType::Dynamic)
 				{
 					ImGui::Text("Body Type: Dynamic");
 					if(ImGui::Button("Make Static"))
 					{
 						rb.Body->SetType(Physics::BodyType::Static);
+					}
+					if(ImGui::Button("Make Kinematic"))
+					{
+						rb.Body->SetType(Physics::BodyType::Kinematic);
+					}
+				}
+				else
+				{
+					ImGui::Text("Body Type: Kinematic");
+					if(ImGui::Button("Make Static"))
+					{
+						rb.Body->SetType(Physics::BodyType::Static);
+					}
+					if(ImGui::Button("Make Dynamic"))
+					{
+						rb.Body->SetType(Physics::BodyType::Dynamic);
 					}
 				}
 				if(Application::Get().GetDebugModeStatus())
@@ -1223,9 +1243,8 @@ namespace tnah {
 				ComponentVariations::ID, ComponentVariations::Tag, ComponentVariations::Relationship, ComponentVariations::Transform,
 				ComponentVariations::Camera, ComponentVariations::EditorCamera, ComponentVariations::Editor, ComponentVariations::Skybox,
 				ComponentVariations::Light, ComponentVariations::Terrain, ComponentVariations::Mesh, ComponentVariations::PlayerController,
-				ComponentVariations::AudioListener, ComponentVariations::AudioSource, ComponentVariations::RigidBody, ComponentVariations::BoxCollider,
-				ComponentVariations::CapsuleCollider, ComponentVariations::SphereCollider, ComponentVariations::ConcaveMeshCollider,
-			ComponentVariations::ConvexMeshCollider, ComponentVariations::AStar, ComponentVariations::AiCharacter, ComponentVariations::Affordance, ComponentVariations::AStarObstacle
+				ComponentVariations::AudioListener, ComponentVariations::AudioSource, ComponentVariations::Rigidbody, ComponentVariations::AStar,
+			ComponentVariations::AiCharacter, ComponentVariations::Affordance, ComponentVariations::AStarObstacle
 				
 			};
 
@@ -1237,8 +1256,7 @@ namespace tnah {
 			allTypesNotHeld.remove(type);
 			if(type == ComponentVariations::Terrain)
 			{
-				// add the Heightfield collider component to the list only if theres a terrain component of the object
-				allTypesNotHeld.push_back(ComponentVariations::HeightFieldCollider);
+				//Add a heightfield collider for the terrain
 			}
 		}
 		allTypesNotHeld.remove(ComponentVariations::EditorCamera);
@@ -1363,8 +1381,8 @@ namespace tnah {
 			if(v == ComponentVariations::AudioListener && Utility::Contains<ComponentCategory>(AudioListenerComponent::s_Types.Categories, category))
 				foundComponents.emplace_back(ComponentVariations::AudioListener);
 
-			if(v == ComponentVariations::RigidBody && Utility::Contains<ComponentCategory>(RigidBodyComponent::s_Types.Categories, category))
-				foundComponents.emplace_back(ComponentVariations::RigidBody);
+			if(v == ComponentVariations::Rigidbody && Utility::Contains<ComponentCategory>(RigidBodyComponent::s_Types.Categories, category))
+				foundComponents.emplace_back(ComponentVariations::Rigidbody);
 
 			
 			return foundComponents;
@@ -1417,8 +1435,8 @@ namespace tnah {
 		if(AudioListenerComponent::s_SearchString.find(term) != std::string::npos && Utility::Contains<ComponentVariations>(componentsToSearch, ComponentVariations::AudioListener))
 			foundComponents.emplace_back(ComponentVariations::AudioListener);
 
-		if(RigidBodyComponent::s_SearchString.find(term) != std::string::npos && Utility::Contains<ComponentVariations>(componentsToSearch, ComponentVariations::RigidBody))
-			foundComponents.emplace_back(ComponentVariations::RigidBody);
+		if(RigidBodyComponent::s_SearchString.find(term) != std::string::npos && Utility::Contains<ComponentVariations>(componentsToSearch, ComponentVariations::Rigidbody))
+			foundComponents.emplace_back(ComponentVariations::Rigidbody);
 
 		
 
@@ -1465,20 +1483,8 @@ namespace tnah {
         	return "AStar Component";
         case ComponentVariations::AiCharacter:
         	return "AiCharacter Component";
-        case ComponentVariations::RigidBody:
+        case ComponentVariations::Rigidbody:
 			return "Rigid Body";
-        case ComponentVariations::BoxCollider:
-        	return "Box Collider";
-        case ComponentVariations::SphereCollider:
-        	return "Sphere Collider";
-        case ComponentVariations::CapsuleCollider:
-        	return "Capsule Collider";
-        case ComponentVariations::HeightFieldCollider:
-        	return "Height Field Collider";
-        case ComponentVariations::ConvexMeshCollider:
-        	return "Convex Mesh Collider";
-        case ComponentVariations::ConcaveMeshCollider:
-        	return "Concave Mesh Collider";
         case ComponentVariations::Affordance:
         	return "Affordance";
         case ComponentVariations::AStarObstacle:
@@ -1525,19 +1531,7 @@ namespace tnah {
 			return "Physics";
 		case ComponentVariations::AudioListener:
 			return "Physics";
-		case ComponentVariations::RigidBody:
-			return "Physics";
-		case ComponentVariations::BoxCollider:
-			return "Physics";
-		case ComponentVariations::SphereCollider:
-			return "Physics";
-		case ComponentVariations::CapsuleCollider:
-			return "Physics";
-		case ComponentVariations::HeightFieldCollider:
-			return "Physics";
-		case ComponentVariations::ConvexMeshCollider:
-			return "Physics";
-		case ComponentVariations::ConcaveMeshCollider:
+		case ComponentVariations::Rigidbody:
 			return "Physics";
 		case ComponentVariations::Affordance:
 			return "Affordance";
@@ -1589,8 +1583,8 @@ namespace tnah {
         case ComponentVariations::AudioListener:
             object.AddComponent<AudioListenerComponent>();
             return true;
-        case ComponentVariations::RigidBody:
-        	//object.AddComponent<RigidBodyComponent>(object.Transform());
+        case ComponentVariations::Rigidbody:
+        	object.AddComponent<RigidBodyComponent>(object);
         	return true;
 
         default: return false;

@@ -22,30 +22,20 @@ namespace tnah::Physics {
 
 	void RigidBody::OnUpdate(TransformComponent& transform)
 	{
-		//m_LinearVelocity.Velocity = m_ConstrainedLinearVelocity.Velocity;
-		//m_AngularVelocity.Velocity = m_ConstrainedAngularVelocity.Velocity;
-
-		//m_CollisionBody->setTransform(Math::ToRp3dTransform(transform));
-		
-		//auto position = transform.Position;
-
-		//for(auto& col : m_Colliders)
-		//{
-		//	col.second->SetPosition(position * col.second->GetColliderPosition());
-		//	col.second->SetOrientation(glm::quat(transform.Rotation) * col.second->GetColliderOrientation());
-		//}
 		m_Position = transform.Position;
-		m_Orientation = glm::normalize(m_Orientation + glm::quat(transform.QuatRotation));
+		m_Orientation = glm::normalize(m_Orientation + transform.QuatRotation);
 	}
 
 	void RigidBody::AddForce(const glm::vec3& force)
 	{
-		m_Force += force * 1000.0f;
+		if(m_BodyType != BodyType::Static || m_BodyType != BodyType::Kinematic)
+			m_Force += force;
 	}
 
 	void RigidBody::AddTorque(const glm::vec3& torque)
 	{
-		m_Torque += torque;
+		if(m_BodyType != BodyType::Static || m_BodyType != BodyType::Kinematic)
+			m_Torque += torque;
 	}
 
 	void RigidBody::AddCollider(Ref<Collider> collider)	

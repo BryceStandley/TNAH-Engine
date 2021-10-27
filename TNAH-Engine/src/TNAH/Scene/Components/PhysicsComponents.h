@@ -165,7 +165,7 @@ class GameObject;
 		inline static std::string s_SearchString = "rigidbody component";
 		/** @brief	Component search types and groupings  */
 		inline static ComponentTypes s_Types = {
-			{ComponentVariations::RigidBody},
+			{ComponentVariations::Rigidbody},
 		{{ComponentCategory::Physics}}
 		};
 		
