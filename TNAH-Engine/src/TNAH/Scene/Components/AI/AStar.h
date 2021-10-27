@@ -63,7 +63,7 @@ namespace tnah
         
         static bool Reached(Int2 point, Node destination);
 
-        static double calculateH(Int2 point, Node destination);
+        static double heuristic(Int2 point, Node destination);
         
         static void Init(Int2 startingPosition, Int2 xySize);
         
@@ -91,7 +91,7 @@ namespace tnah
         
         inline static std::unordered_map<int, std::unordered_map<int, bool>> closedList = std::unordered_map<int, std::unordered_map<int, bool>>();
         inline static std::unordered_map<int, std::unordered_map<int, bool>> usedPositions = std::unordered_map<int, std::unordered_map<int, bool>>();
-        inline static std::unordered_map<int, std::unordered_map<int, Node>> allMap = std::unordered_map<int, std::unordered_map<int, Node>>();
+        inline static std::unordered_map<int, std::unordered_map<int, Node>> astarMap = std::unordered_map<int, std::unordered_map<int, Node>>();
         
         inline static std::vector<Int2> usedPositionsHolder = std::vector<Int2>();
     };

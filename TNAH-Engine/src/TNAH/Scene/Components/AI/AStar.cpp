@@ -38,7 +38,7 @@ namespace tnah
             return false;
         }
 
-         double AStar::calculateH(Int2 point, Node destination) {
+         double AStar::heuristic(Int2 point, Node destination) {
             double H = (sqrt((point.x - destination.position.x)*(point.x - destination.position.x)
                 + (point.y - destination.position.y)*(point.y - destination.position.y)));
             return H;
@@ -51,11 +51,11 @@ namespace tnah
             initilised = true;
             for (int x = startingPos.x; x < startingPos.x + size.x; x++) {
                 for (int y = startingPos.y; y < startingPos.y + size.y; y++) {
-                    allMap[x][y].f= FLT_MAX;
-                    allMap[x][y].g = FLT_MAX;
-                    allMap[x][y].h = FLT_MAX;
-                    allMap[x][y].parent =  {-1, -1};
-                    allMap[x][y].position = {x, y};
+                    astarMap[x][y].f= FLT_MAX;
+                    astarMap[x][y].g = FLT_MAX;
+                    astarMap[x][y].h = FLT_MAX;
+                    astarMap[x][y].parent =  {-1, -1};
+                    astarMap[x][y].position = {x, y};
                 }
             }
         }
@@ -82,67 +82,73 @@ namespace tnah
 
             for (int x = startingPos.x; x < startingPos.x + size.x; x++) {
                 for (int y = startingPos.y; y < startingPos.y + size.y; y++) {
-                    allMap[x][y].f= FLT_MAX;
-                    allMap[x][y].g = FLT_MAX;
-                    allMap[x][y].h = FLT_MAX;
-                    allMap[x][y].parent =  {-1, -1};
-                    allMap[x][y].position = {x, y};
+                    astarMap[x][y].f= FLT_MAX;
+                    astarMap[x][y].g = FLT_MAX;
+                    astarMap[x][y].h = FLT_MAX;
+                    astarMap[x][y].parent =  {-1, -1};
+                    astarMap[x][y].position = {x, y};
                     closedList[x][y] = false;
                 }
             }
             
             Int2 position = point.position;
-            allMap[position.x][position.y].f = 0.0;
-            allMap[position.x][position.y].g = 0.0;
-            allMap[position.x][position.y].h = 0.0;
-            allMap[position.x][position.y].parent = position;
+            astarMap[position.x][position.y].f = 0.0;
+            astarMap[position.x][position.y].g = 0.0;
+            astarMap[position.x][position.y].h = 0.0;
+            astarMap[position.x][position.y].parent = position;
 
-            std::vector<Node> openList;  
-            openList.emplace_back(allMap[position.x][position.y]);
+            std::vector<Node> searchList;  
+            searchList.emplace_back(astarMap[position.x][position.y]);
 
-            while (!openList.empty()) {
+            while (!searchList.empty()) {
                 Node node;
                 do {
-                    float temp = FLT_MAX;
-                    std::vector<Node>::iterator itNode;
-                    for (std::vector<Node>::iterator it = openList.begin();
-                        it != openList.end(); it = next(it)) {
+                    float t = FLT_MAX;
+                    std::vector<Node>::iterator iteratorNode;
+                    for (std::vector<Node>::iterator it = searchList.begin();
+                        it != searchList.end(); it = next(it)) {
                         Node n = *it;
-                        if (n.f < temp) {
-                            temp = n.f;
-                            itNode = it;
+                        if (n.f < t) {
+                            t = n.f;
+                            iteratorNode = it;
                         }
                         }
-                    node = *itNode;
-                    openList.erase(itNode);
+                    node = *iteratorNode;
+                    searchList.erase(iteratorNode);
                 } while (IsValid(node.position) == false);
 
                 position = node.position;
                 
                 closedList[position.x][position.y] = true;
                 
-                for (int newX = -1; newX <= 1; newX++) {
-                    for (int newY = -1; newY <= 1; newY++) {
-                        double gNew, hNew, fNew;
-                        if (IsValid(Int2(position.x + newX, position.y + newY))) {
-                            if (Reached(Int2(position.x + newX, position.y + newY), destination))
+                for (int x = -1; x <= 1; x++) {
+                    for (int y = -1; y <= 1; y++) {
+                        if (IsValid(Int2(position.x + x, position.y + y))) {
+                            if (Reached(Int2(position.x + x, position.y + y), destination))
                             {
-                                allMap[position.x + newX][position.y + newY].parent = {position.x, position.y};
-                                return makePath(allMap, destination);
+                                astarMap[position.x + x][position.y + y].parent = {position.x, position.y};
+                                return makePath(astarMap, destination);
                             }
-                            else if (closedList[position.x + newX][position.y + newY] == false)
+                            else if (closedList[position.x + x][position.y + y] == false)
                             {
-                                gNew = node.g + 1.0;
-                                hNew = calculateH(Int2(position.x + newX, position.y + newY), destination);
-                                fNew = gNew + hNew;
-                                if (allMap[position.x + newX][position.y + newY].f == FLT_MAX ||
-                                    allMap[position.x + newX][position.y + newY].f > fNew)
+                                float gNew;
+
+                                if(x == y){
+                                    gNew = node.g + 1.5;
+                                }
+                                else {
+                                    gNew = node.g + 1.0;
+                                }
+
+                                const float heuristicNew = heuristic(Int2(position.x + x, position.y + y), destination);
+                                const float fNew = gNew + heuristicNew;
+                                if (astarMap[position.x + x][position.y + y].f == FLT_MAX || astarMap[position.x + x][position.y + y].f > fNew)
                                 {
-                                    allMap[position.x + newX][position.y + newY].f = fNew;
-                                    allMap[position.x + newX][position.y + newY].g = gNew;
-                                    allMap[position.x + newX][position.y + newY].h = hNew;
-                                    allMap[position.x + newX][position.y + newY].parent = {position.x, position.y};
-                                    openList.emplace_back(allMap[position.x + newX][position.y + newY]);
+                                    astarMap[position.x + x][position.y + y].f = fNew;
+                                    astarMap[position.x + x][position.y + y].g = gNew;
+                                    astarMap[position.x + x][position.y + y].h = heuristicNew;
+                                    astarMap[position.x + x][position.y + y].parent = {position.x, position.y};
+                                    searchList.emplace_back(astarMap[position.x + x][position.y + y]);
                                 }
                             }
                         }
@@ -212,14 +218,14 @@ namespace tnah
             {
                 for (int x = startingPos.x; x < startingPos.x + size.x; x++) {
                     for (int y = startingPos.y; y < startingPos.y + size.y; y++) {
-                        allMap[x][y].parent =  {-1, -1};
-                        allMap[x][y].position = {x, y};
+                        astarMap[x][y].parent =  {-1, -1};
+                        astarMap[x][y].position = {x, y};
                     }
                 }
                 generated = true;
             }
 
-            return allMap;
+            return astarMap;
         }
 
          std::unordered_map<int, std::unordered_map<int, bool>> AStar::GetUsedPoints()
