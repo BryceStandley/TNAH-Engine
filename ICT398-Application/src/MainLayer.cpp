@@ -24,7 +24,7 @@ MainLayer::MainLayer()
 		//rb.AddCollider({0.2f, 0.8f, 0.2});
 		rb.AddCollider(0.5f, 2.0f);
 		rb.Body->SetType(tnah::Physics::BodyType::Kinematic);
-		rb.Body->SetLinearDampening(0.99);
+		rb.Body->SetLinearDampening(0.999);
 		rb.Body->GetBodyMass().SetMass(63.0f);
 		
 		auto & aff = m_Camera.AddComponent<tnah::Affordance>("User");
@@ -275,13 +275,13 @@ MainLayer::MainLayer()
 
 	{
 		std::string name = "coffee cup 1";
-		glm::vec3 size(0.25, 0.5, 0.25);
+		glm::vec3 size(0.1, 0.1, 0.1);
 		auto&go = m_ActiveScene->CreateGameObject(name);
 		auto&tt = go.Transform();
 		auto& mesh = go.AddComponent<tnah::MeshComponent>();
-		mesh.Model = tnah::Model::Create("assets/meshes/bin.fbx");
+		mesh.Model = tnah::Model::Create("assets/meshes/cup2.fbx");
 		
-		tt.Position = {1, -3.7, 3};
+		tt.Position = {1, -4, 3};
 		tt.Scale = size;
 		/*auto& rb = go.AddComponent<tnah::RigidBodyComponent>(go);
 		(glm::vec3(size));
@@ -297,13 +297,13 @@ MainLayer::MainLayer()
 
 	{
 		std::string name = "coffee cup 2";
-		glm::vec3 size(0.25, 0.5, 0.25);
+		glm::vec3 size(0.1, 0.1, 0.1);
 		auto&go = m_ActiveScene->CreateGameObject(name);
 		auto&tt = go.Transform();
 		auto& mesh = go.AddComponent<tnah::MeshComponent>();
-		mesh.Model = tnah::Model::Create("assets/meshes/cube_texture.fbx");
+		mesh.Model = tnah::Model::Create("assets/meshes/cup2.fbx");
 		
-		tt.Position = {8, -3.7, 7};
+		tt.Position = {8, -4.1, 7};
 		tt.Scale = size;
 		/*auto& rb = go.AddComponent<tnah::RigidBodyComponent>(go);
 		(glm::vec3(size));
@@ -402,7 +402,7 @@ MainLayer::MainLayer()
 		auto& rb = m_object.AddComponent<tnah::RigidBodyComponent>(m_object);
 		
 		rb.AddCollider({0.15, 0.15, 0.15});
-		rb.Body->SetLinearDampening(0.99);
+		rb.Body->SetLinearDampening(0.5);
 		rb.Body->GetBodyMass().SetMass(100.0f);
 		auto & star = m_object.AddComponent<tnah::AStarObstacleComponent>();
 		star.dynamic = true;
@@ -424,7 +424,7 @@ MainLayer::MainLayer()
 		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(go);
 		
 		rb.AddCollider(tt.Scale);
-		rb.Body->SetLinearDampening(0.99);
+		rb.Body->SetLinearDampening(0.5);
 		auto & star = go.AddComponent<tnah::AStarObstacleComponent>();
 		star.dynamic = true;
 		//auto & aff = m_object.AddComponent<tnah::Affordance>();
@@ -558,7 +558,7 @@ MainLayer::MainLayer()
 
 		
 		rb.AddCollider({0.25, 1, 0.25});
-		rb.Body->SetLinearDampening(0.9);
+		rb.Body->SetLinearDampening(0.5);
 		rb.Body->SetType(tnah::Physics::BodyType::Static);
 		go.AddComponent<tnah::Affordance>();
 		auto & a = go.AddComponent<tnah::Affordance>("Chair");
@@ -707,7 +707,7 @@ void MainLayer::OnUpdate(tnah::Timestep deltaTime)
 					transformObj.Position = ct.Position + (ct.Forward * 2.0f);
 					transformObj.Rotation = ct.Rotation;
 					transformObj.QuatRotation = ct.QuatRotation;
-					const auto force = ct.Forward * 20.0f;
+					const auto force = ct.Forward * 200.0f;
 					rbObj.Body->AddForce(force);
 				}
 				m_space = true;

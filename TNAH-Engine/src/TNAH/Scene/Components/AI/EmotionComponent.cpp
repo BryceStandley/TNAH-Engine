@@ -333,7 +333,6 @@ namespace tnah
 	{
 		if(internalTimer <= 0)
 		{
-			std::cout << internalTimer << std::endl;
 			switch (m_Mood)
 			{
 			case Mood::Happy:
