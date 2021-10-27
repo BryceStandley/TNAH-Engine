@@ -2,6 +2,8 @@
 #include "Serializer.h"
 
 #include "GameObject.h"
+#include "Components/AI/AIComponent.h"
+#include "Components/AI/CharacterComponent.h"
 #include "TNAH/Core/Application.h"
 
 #define ALPHA_SEARCH_STRING "QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm"
@@ -109,6 +111,14 @@ namespace tnah {
                 ss << GenerateAudioSource(g.GetComponent<AudioSourceComponent>(), 3);
             if(g.HasComponent<RigidBodyComponent>())
                 ss << GenerateRigidBody(g.GetComponent<RigidBodyComponent>(), 3);
+            if (g.HasComponent<AIComponent>() && g.HasComponent<CharacterComponent>())
+                ss << GenerateAi(g.GetComponent<AIComponent>(), g.GetComponent<CharacterComponent>(), 3);
+            if (g.HasComponent<AStarComponent>())
+                ss << GenerateAStar(g.GetComponent<AStarComponent>(), 3);
+            if (g.HasComponent<AStarObstacleComponent>())
+                ss << GenerateAStarObstacle(g.GetComponent<AStarObstacleComponent>());
+            if (g.HasComponent<Affordance>())
+                ss << GenerateAffordance(g.GetComponent<Affordance>());
             
             ss << GenerateTagClose("gameObject", 2);
         }
@@ -272,6 +282,29 @@ namespace tnah {
         return ss.str();
     }
 
+    std::string Serializer::GenerateAffordance(Affordance& astar, const uint32_t& totalTabs)
+    {
+        std::stringstream ss;
+        ss << GenerateTagOpen("affordance", totalTabs + 1);
+        ss << GenerateValueEntry("tag", astar.GetTag());
+        for(int i = 1; i < 10; i++)
+        {
+            std::cout << i << std::endl;
+            ss << GenerateValueEntry(Affordance::GetActionString((Actions)i), astar.GetActionValue((Actions)i), totalTabs+1);
+        }
+        ss << GenerateTagClose("affordance", totalTabs + 1);
+        return ss.str();
+    }
+
+    std::string Serializer::GenerateAStarObstacle(const AStarObstacleComponent& astar, const uint32_t& totalTabs)
+    {
+        std::stringstream ss;
+        ss << GenerateTagOpen("astarobstacle", totalTabs + 1);
+        ss << GenerateValueEntry("dynamic", astar.dynamic,  totalTabs+1);
+        ss << GenerateTagClose("astarobstacle", totalTabs + 1);
+        return ss.str();
+    }
+
     std::string Serializer::GenerateRigidBody(const RigidBodyComponent& rb, const uint32_t& totalTabs)
     {
         std::stringstream ss;
@@ -287,6 +320,24 @@ namespace tnah {
     }
     
 
+    std::string Serializer::GenerateAStar(const AStarComponent& astar, const uint32_t& totalTabs)
+    {
+        std::stringstream ss;
+        ss << GenerateTagOpen("astar", totalTabs);
+        ss << GenerateVec3Entry("position", glm::vec3(astar.StartingPos.x, 0, astar.StartingPos.y), totalTabs+1);
+        ss << GenerateVec3Entry("size", glm::vec3(astar.Size.x, 0, astar.Size.y), totalTabs+1);
+        ss << GenerateTagClose("astar", totalTabs);
+        return ss.str();
+    }
+
+    std::string Serializer::GenerateAi(const AIComponent& ai, const CharacterComponent& c, const uint32_t& totalTabs)
+    {
+        std::stringstream ss;
+        ss << GenerateTagOpen("ai", totalTabs);
+        ss << GenerateValueEntry("type", (int)c.currentCharacter, totalTabs + 1);
+        ss << GenerateTagClose("ai", totalTabs);
+        return ss.str();
+    }
 
     std::string tnah::Serializer::GenerateVec3(const glm::vec3& value, const uint32_t& totalTabs)
     {
@@ -650,9 +701,71 @@ namespace tnah {
             gameObject.AddComponent<RigidBodyComponent>(gameObject, rb.Body->GetType());
             added++;
         }
+
+        auto ai = FindTags("ai", fileContents, gameObjectTagPositions.first, gameObjectTagPositions.second);
+        if(CheckTags(ai))
+        {
+            gameObject.AddComponent<CharacterComponent>(GetAiFromFile(fileContents, ai));
+            gameObject.AddComponent<AIComponent>();
+            added++;
+        }
+
+        auto astar = FindTags("astar", fileContents, gameObjectTagPositions.first, gameObjectTagPositions.second);
+        if(CheckTags(astar))
+        {
+            gameObject.AddComponent<AStarComponent>(GetAstarFromFile(fileContents, astar));
+            added++;
+        }
+
+        auto aff = FindTags("affordance", fileContents, gameObjectTagPositions.first, gameObjectTagPositions.second);
+        if(CheckTags(aff))
+        {
+            gameObject.AddComponent<Affordance>(GetAffordancesFromFile(fileContents, aff));
+            added++;
+        }
+
+        auto obstacle = FindTags("astarobstacle", fileContents, gameObjectTagPositions.first, gameObjectTagPositions.second);
+        if(CheckTags(obstacle))
+        {
+            gameObject.AddComponent<AStarObstacleComponent>(GetAstarObstacleFromFile(fileContents, obstacle));
+            added++;
+        }
         
         return added;
     }
+
+    Affordance Serializer::GetAffordancesFromFile(const std::string& fileContents, std::pair<size_t, size_t> componentTagPositions)
+    {
+        std::string t = GetStringValueFromFile("tag", fileContents, componentTagPositions);
+        Affordance temp(t);
+        for(int i = 1; i < 10; i++)
+        {
+            float value = GetFloatValueFromFile(Affordance::GetActionString((Actions)i), fileContents, componentTagPositions);
+            temp.SetActionValues((Actions)i, value);
+        }
+
+        return temp;
+    }
+
+    bool Serializer::GetAstarObstacleFromFile(const std::string& fileContents, std::pair<size_t, size_t> componentTagPositions)
+    {
+        return GetBoolValueFromFile("dynamic", fileContents, componentTagPositions); 
+    }
+
+    CharacterNames Serializer::GetAiFromFile(const std::string& fileContents, std::pair<size_t, size_t> componentTagPositions)
+    {
+        return (CharacterNames)GetIntValueFromFile("type", fileContents, componentTagPositions);
+        
+    }
+
+    AStarComponent Serializer::GetAstarFromFile(const std::string& fileContents, std::pair<size_t, size_t> componentTagPositions)
+    {
+        glm::vec3 pos = GetVec3FromFile("position", fileContents, componentTagPositions);
+        glm::vec3 size = GetVec3FromFile("size", fileContents, componentTagPositions);
+        AStarComponent temp(Int2(pos.x, pos.z), Int2(size.x, size.z));
+        return temp;
+    }
+
 
     TagComponent Serializer::GetTagFromFile(const std::string& fileContents,
         std::pair<size_t, size_t> componentTagPositions)

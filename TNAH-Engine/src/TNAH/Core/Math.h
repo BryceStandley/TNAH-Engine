@@ -18,6 +18,13 @@
 #pragma warning(pop)
 
 namespace tnah {
+	struct LogText
+	{
+		LogText(std::string s = "", glm::vec4 vec = glm::vec4(1)) : text(s), colour(vec)
+		{}
+		std::string text;
+		glm::vec4 colour;
+	};
 	namespace Math {
 
 		/**

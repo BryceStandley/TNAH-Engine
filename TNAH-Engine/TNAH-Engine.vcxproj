@@ -23,6 +23,7 @@
     <ClCompile Include="src\Platform\OpenGL\OpenGLVertexArray.cpp" />
     <ClCompile Include="src\TNAH\Core\Math.cpp" />
     <ClCompile Include="src\TNAH\Core\Ref.cpp" />
+    <ClCompile Include="src\TNAH\Core\TNAHEnableFromThis.cpp" />
     <ClCompile Include="src\TNAH\Core\UUID.cpp" />
     <ClCompile Include="src\TNAH\Editor\EditorUI.cpp" />
     <ClCompile Include="src\TNAH\Layers\ImGuizmo.cpp" />
@@ -58,6 +59,21 @@
     <ClCompile Include="src\TNAH\Renderer\Renderer.cpp" />
     <ClCompile Include="src\TNAH\Renderer\RendererAPI.cpp" />
     <ClCompile Include="src\TNAH\Renderer\Texture.cpp" />
+    <ClCompile Include="src\TNAH\Scene\Components\AI\Actions.cpp" />
+    <ClCompile Include="src\TNAH\Scene\Components\AI\Affordance.cpp" />
+    <ClCompile Include="src\TNAH\Scene\Components\AI\AIComponent.cpp" />
+    <ClCompile Include="src\TNAH\Scene\Components\AI\AStar.cpp" />
+    <ClCompile Include="src\TNAH\Scene\Components\AI\Character.cpp" />
+    <ClCompile Include="src\TNAH\Scene\Components\AI\Characters\Dog\Dog.cpp" />
+    <ClCompile Include="src\TNAH\Scene\Components\AI\Characters\Dog\DogStates.cpp" />
+    <ClCompile Include="src\TNAH\Scene\Components\AI\Characters\Rubbish\Bin.cpp" />
+    <ClCompile Include="src\TNAH\Scene\Components\AI\Characters\Rubbish\BinStates.cpp" />
+    <ClCompile Include="src\TNAH\Scene\Components\AI\Characters\Student\Student.cpp" />
+    <ClCompile Include="src\TNAH\Scene\Components\AI\Characters\Student\StudentStates.cpp" />
+    <ClCompile Include="src\TNAH\Scene\Components\AI\Emotion.cpp" />
+    <ClCompile Include="src\TNAH\Scene\Components\AI\EmotionComponent.cpp" />
+    <ClCompile Include="src\TNAH\Scene\Components\AI\PlayerInteractions.cpp" />
+    <ClCompile Include="src\TNAH\Scene\Components\AI\StateMachine.cpp" />
     <ClCompile Include="src\TNAH\Scene\Components\AnimatorComponent.cpp" />
     <ClCompile Include="src\TNAH\Scene\Components\PhysicsComponents.cpp" />
     <ClCompile Include="src\TNAH\Scene\Components\SkyboxComponent.cpp" />
@@ -90,8 +106,10 @@
     <ClInclude Include="src\TNAH\Core\AABB.h" />
     <ClInclude Include="src\TNAH\Core\Buffer.h" />
     <ClInclude Include="src\TNAH\Core\FileStructures.h" />
+    <ClInclude Include="src\TNAH\Core\Singleton.h" />
     <ClInclude Include="src\TNAH\Core\Timer.h" />
     <ClInclude Include="src\TNAH\Core\Timestep.h" />
+    <ClInclude Include="src\TNAH\Core\TNAHEnableFromThis.h" />
     <ClInclude Include="src\TNAH\Core\Utility.h" />
     <ClInclude Include="src\TNAH\Core\UUID.h" />
     <ClInclude Include="src\TNAH\Debug\Debug.h" />
@@ -118,6 +136,22 @@
     <ClInclude Include="src\TNAH\Renderer\Mesh.h" />
     <ClInclude Include="src\TNAH\Renderer\stb_image.h" />
     <ClInclude Include="src\TNAH\Renderer\Texture.h" />
+    <ClInclude Include="src\TNAH\Scene\Components\AI\Actions.h" />
+    <ClInclude Include="src\TNAH\Scene\Components\AI\Affordance.h" />
+    <ClInclude Include="src\TNAH\Scene\Components\AI\AIComponent.h" />
+    <ClInclude Include="src\TNAH\Scene\Components\AI\AStar.h" />
+    <ClInclude Include="src\TNAH\Scene\Components\AI\Character.h" />
+    <ClInclude Include="src\TNAH\Scene\Components\AI\CharacterComponent.h" />
+    <ClInclude Include="src\TNAH\Scene\Components\AI\Characters\Dog\Dog.h" />
+    <ClInclude Include="src\TNAH\Scene\Components\AI\Characters\Dog\DogStates.h" />
+    <ClInclude Include="src\TNAH\Scene\Components\AI\Characters\Rubbish\Bin.h" />
+    <ClInclude Include="src\TNAH\Scene\Components\AI\Characters\Rubbish\BinStates.h" />
+    <ClInclude Include="src\TNAH\Scene\Components\AI\Characters\Student\Student.h" />
+    <ClInclude Include="src\TNAH\Scene\Components\AI\Characters\Student\StudentStates.h" />
+    <ClInclude Include="src\TNAH\Scene\Components\AI\Emotion.h" />
+    <ClInclude Include="src\TNAH\Scene\Components\AI\EmotionComponent.h" />
+    <ClInclude Include="src\TNAH\Scene\Components\AI\PlayerInteractions.h" />
+    <ClInclude Include="src\TNAH\Scene\Components\AI\StateMachine.h" />
     <ClInclude Include="src\TNAH\Scene\Components\AnimatorComponent.h" />
     <ClInclude Include="src\TNAH\Scene\Components\ComponentIdentification.h" />
     <ClInclude Include="src\TNAH\Scene\Components\SkyboxComponent.h" />
@@ -268,7 +302,8 @@
       <AdditionalOptions> %(AdditionalOptions)</AdditionalOptions>
       <MultiProcessorCompilation>false</MultiProcessorCompilation>
       <MinimalRebuild>false</MinimalRebuild>
-      <DisableSpecificWarnings></DisableSpecificWarnings>
+      <DisableSpecificWarnings>
+      </DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

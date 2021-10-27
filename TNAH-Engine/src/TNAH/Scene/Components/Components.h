@@ -257,8 +257,6 @@ namespace tnah {
 		/** @brief	The forward */
 		glm::vec3 Forward = { 0.0f, 0.0f, -1.0f };
 
-		
-
 		/**********************************************************************************************//**
 		 * @fn	TransformComponent::TransformComponent() = default;
 		 *

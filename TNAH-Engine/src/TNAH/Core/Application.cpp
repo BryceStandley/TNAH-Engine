@@ -10,7 +10,7 @@ namespace tnah
 {
 	
 	Application* Application::s_Instance = nullptr;
-
+	std::deque<LogText> Application::logQueue = std::deque<LogText>();
 	Application::Application(const std::string& name)
 	{
 		TNAH_CORE_ASSERT(!s_Instance, "Application already exists!");
@@ -18,7 +18,7 @@ namespace tnah
 
 		m_Window = Window::Create(WindowProps(name));
 		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
-
+ 
 
 		Renderer::Init();
 		Audio::Init();
@@ -31,10 +31,26 @@ namespace tnah
 
 		//seed for any rand() functions
 		srand(static_cast<unsigned>(time(0)));
+
+		for(int i = 0; i < 30; i++)
+		{
+			logQueue.push_back(LogText(""));
+		}
 	}
 
 	Application::~Application()
 	{
+	}
+
+	void Application::LogPush(LogText log)
+	{
+		logQueue.pop_front();
+		logQueue.push_back(log);	
+	}
+
+	std::deque<LogText> Application::GetLogQueue()
+	{
+		return logQueue;
 	}
 
 

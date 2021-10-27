@@ -1,5 +1,7 @@
 #pragma once
 
+#include <queue>
+
 #include "TNAH/Core/Core.h"
 
 #include "TNAH/Core/Window.h"
@@ -207,6 +209,9 @@ namespace tnah
 
 		static std::pair<std::string, int> SaveFileAs(const char* fileName);
 
+		static void LogPush(LogText log);
+		
+		static std::deque<LogText> GetLogQueue();
 		/**
 		 * @fn	bool Application::CheckEditor() const
 		 *
@@ -340,6 +345,7 @@ namespace tnah
 		bool m_DebugModeEnabled = false;
 		bool m_DebugModeToggled = false;
 
+		static std::deque<LogText> logQueue;
 		
 		
 		/** @brief	The pointer to the instance of the application */
