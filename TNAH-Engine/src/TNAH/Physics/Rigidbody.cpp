@@ -35,7 +35,7 @@ namespace tnah::Physics {
 		//	col.second->SetOrientation(glm::quat(transform.Rotation) * col.second->GetColliderOrientation());
 		//}
 		m_Position = transform.Position;
-		m_Orientation = glm::normalize(m_Orientation + glm::quat(transform.Rotation));
+		m_Orientation = glm::normalize(m_Orientation + glm::quat(transform.QuatRotation));
 	}
 
 	void RigidBody::AddForce(const glm::vec3& force)
@@ -48,7 +48,7 @@ namespace tnah::Physics {
 		m_Torque += torque;
 	}
 
-	void RigidBody::AddCollider(Ref<Collider> collider)
+	void RigidBody::AddCollider(Ref<Collider> collider)	
 	{
 		m_Colliders[m_TotalColliders] = collider;
 		m_TotalColliders++;

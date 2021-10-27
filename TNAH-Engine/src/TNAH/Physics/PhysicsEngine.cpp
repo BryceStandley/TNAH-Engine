@@ -1,7 +1,7 @@
 ﻿#include "tnahpch.h"
 #include "PhysicsEngine.h"
 
-#include "TNAH/Debug/Debug.h"
+//#include "TNAH/Debug/Debug.h"
 #include "TNAH/Physics/Rigidbody.h"
 #include "TNAH/Scene/GameObject.h"
 
@@ -293,7 +293,7 @@ namespace tnah::Physics
             
             transform.Position += rigidbody->m_ConstrainedLinearVelocity.Velocity * deltaTime.GetSeconds();
 
-            glm::quat rot = glm::quat(transform.Rotation);
+            glm::quat rot = transform.QuatRotation;
                 
             rot += glm::quat(rigidbody->m_ConstrainedAngularVelocity.Velocity) * rot * 0.5f * deltaTime.GetSeconds();
 
@@ -302,6 +302,7 @@ namespace tnah::Physics
             t.setOrientation(Math::ToRp3dQuat(rot));
 
             transform.Rotation = glm::eulerAngles(rot);
+            transform.QuatRotation = rot;
             rigidbody->m_CollisionBody->setTransform(t);
         }
     }
@@ -391,6 +392,7 @@ namespace tnah::Physics
                 t.setOrientation(Math::ToRp3dQuat(rb->m_Orientation));
                 rb->m_CollisionBody->setTransform(t);
                 transform.Rotation = glm::eulerAngles(rb->m_Orientation);
+                transform.QuatRotation = rb->m_Orientation;
 
                 for(auto& c : rb->m_Colliders)
                 {
@@ -650,7 +652,7 @@ namespace tnah::Physics
             auto rb = RigidBody::Create(gameObject.Transform(), {});
             rp3d::Transform reactTransform;
             reactTransform.setPosition(Math::ToRp3dVec3(transform.Position));
-            reactTransform.setOrientation(Math::ToRp3dQuat(glm::quat(transform.Rotation)));
+            reactTransform.setOrientation(Math::ToRp3dQuat(transform.QuatRotation));
             rb->SetCollisionBody(m_PhysicsManager->m_PhysicsWorld->createCollisionBody(reactTransform));
             rb->SetID(m_PhysicsManager->m_TotalRigidbodies); // This returns a ID that's the index of the RB. Starting at 0
             m_PhysicsManager->m_Rigidbodies[rb->GetID()] = rb; 

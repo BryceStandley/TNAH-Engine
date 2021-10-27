@@ -240,6 +240,7 @@ namespace tnah {
 		/** @brief	The rotation */
 		glm::vec3 Rotation = { 0.0f, 0.0f, 0.0f };
 
+		glm::quat QuatRotation = {1.0f, 0.0f, 0.0f, 0.0f};
 
 		/** @brief	The scale */
 		glm::vec3 Scale = { 1.0f, 1.0f, 1.0f };
@@ -328,6 +329,13 @@ namespace tnah {
 			return glm::translate(glm::mat4(1.0f), Position)
 				* glm::toMat4(glm::quat(Rotation))
 				* glm::scale(glm::mat4(1.0f), Scale);
+		}
+
+		glm::mat4 GetQuatTransform() const
+		{
+						return glm::translate(glm::mat4(1.0f), Position)
+            				* glm::toMat4(QuatRotation)
+            				* glm::scale(glm::mat4(1.0f), Scale);
 		}
 
 	private:

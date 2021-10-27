@@ -316,12 +316,15 @@ namespace tnah{
 					{
 						auto& model = view.get<MeshComponent>(entity);
 						auto& transform = view.get<TransformComponent>(entity);
-						
+						glm::mat4 matrix = transform.GetTransform();
+						auto& go = FindGameObjectByID(entity);
+						if(go.HasComponent<RigidBodyComponent>())
+							matrix = transform.GetQuatTransform();
 						if(model.Model)
 						{
 							for (auto& mesh : model.Model->GetMeshes())
 							{
-								Renderer::SubmitMesh(mesh.GetMeshVertexArray(), mesh.GetMeshMaterial(), sceneLights, transform.GetTransform());
+								Renderer::SubmitMesh(mesh.GetMeshVertexArray(), mesh.GetMeshMaterial(), sceneLights, matrix);
 							}
 						}
 					}
