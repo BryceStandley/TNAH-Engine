@@ -31,6 +31,7 @@ MainLayer::MainLayer()
 		m_Camera.AddComponent<tnah::PlayerInteractions>();
 		aff.SetActionValues(tnah::Actions::abuse, 1.0f);
 		aff.SetActionValues(tnah::Actions::greeting, 1.0f);
+		m_Camera.AddComponent<tnah::AudioListenerComponent>(true);
 	}
 	
 	// Terrain Init

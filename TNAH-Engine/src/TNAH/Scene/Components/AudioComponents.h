@@ -35,7 +35,7 @@ namespace tnah {
 
 		AudioSourceComponent(Resource file = {"defaultsoundfile.wav"}, float minDistance = 1.0f, float volume = 1.0f, bool threeDim = true, bool loop = false)
 		: m_MinDistance(minDistance), m_Volume(volume), m_Loop(loop), m_SourceReference(0),
-		m_PlayReference(0), m_Playing(false), m_Loaded(false), m_Shoot(false), m_3D(threeDim),m_StartLoad(false), m_Paused(false) {m_File = file;}
+		m_PlayReference(0), m_Playing(false), m_Loaded(false), m_Shoot(false), m_3D(threeDim),m_StartLoad(true), m_Paused(false) {m_File = file;}
 
 		/**********************************************************************************************//**
 		 * @fn	bool AudioSourceComponent::GetStartLoad() const
@@ -145,7 +145,7 @@ namespace tnah {
 		 * @param 	active	(Optional) True to active.
 		 **************************************************************************************************/
 
-		AudioListenerComponent(bool active = false) : m_ActiveListing(active) {}
+		AudioListenerComponent(bool active = false) : m_ActiveListing(active) {TNAH_CORE_INFO("Audio listener set to {0}", active);}
 
 		
 

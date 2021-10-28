@@ -1,6 +1,7 @@
 #include "tnahpch.h"
 #include "Dog.h"
 #include "DogStates.h"
+#include "TNAH/Audio/Audio.h"
 
 namespace tnah
 {
@@ -40,6 +41,20 @@ namespace tnah
             transform.Rotation.y += 10 * GetDeltaTime();
         }
 
+
+        if(hiss.m_Loaded)
+            Audio::UpdateSound(hiss, transform);
+        else if(hiss.GetStartLoad())
+            hiss.m_Loaded = Audio::AddAudioSource(hiss);
+        
+        if(bark.m_Loaded)
+            Audio::UpdateSound(bark, transform);
+        else if(hiss.GetStartLoad())
+            bark.m_Loaded = Audio::AddAudioSource(bark);
+
+        TNAH_CORE_INFO("Are they loaded {0} {1}", hiss.m_Loaded, bark.m_Loaded);
+
+        
         return targetPos;
     }
 
