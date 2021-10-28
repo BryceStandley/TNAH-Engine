@@ -22,7 +22,7 @@ MainLayer::MainLayer()
 		as.dynamic = true;
 		auto& rb = m_Camera.AddComponent<tnah::RigidBodyComponent>(m_Camera);
 		//rb.AddCollider({0.2f, 0.8f, 0.2});
-		rb.AddCollider(0.5f, 2.0f);
+		rb.AddCollider(0.01f, 2.0f);
 		rb.Body->SetType(tnah::Physics::BodyType::Kinematic);
 		rb.Body->SetLinearDampening(0.999);
 		rb.Body->GetBodyMass().SetMass(63.0f);
