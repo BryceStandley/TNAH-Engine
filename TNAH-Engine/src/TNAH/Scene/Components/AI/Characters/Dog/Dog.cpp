@@ -26,7 +26,8 @@ namespace tnah
         emotions.SetMood(Mood::Relaxed);
         mCharacterState = emotions.GetEmotion();
         Character::name = "Dog";
-        
+        hiss.m_Loop = true;
+        bark.m_Loop = true;
     }
 
     glm::vec3 Dog::OnUpdate(Timestep deltaTime, TransformComponent& transform)
@@ -45,12 +46,16 @@ namespace tnah
         if(hiss.m_Loaded)
             Audio::UpdateSound(hiss, transform);
         else if(hiss.GetStartLoad())
+        {
             hiss.m_Loaded = Audio::AddAudioSource(hiss);
+        }
         
         if(bark.m_Loaded)
             Audio::UpdateSound(bark, transform);
-        else if(hiss.GetStartLoad())
+        else if(bark.GetStartLoad())
+        {
             bark.m_Loaded = Audio::AddAudioSource(bark);
+        }
 
         TNAH_CORE_INFO("Are they loaded {0} {1}", hiss.m_Loaded, bark.m_Loaded);
 
@@ -173,5 +178,28 @@ namespace tnah
             + std::to_string(emotions.GetNegativeValenceMultiplier()) + "\nAction: " + GetActionString(GetDesiredAction());
         return str;
     }
+
+    void Dog::ShootHiss()
+    {
+        if(firsthiss)
+        {
+            hiss.m_Shoot = true;
+            firsthiss = false;
+        }
+        else
+            hiss.m_Paused = false;
+    }
+
+    void Dog::Shootbark()
+    {
+        if(firstbark)
+        {
+            bark.m_Shoot = true;
+            firstbark = false;
+        }
+        else
+            bark.m_Paused = false;
+    }
+
 
 }
