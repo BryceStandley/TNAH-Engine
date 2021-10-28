@@ -118,7 +118,7 @@ namespace tnah{
 		{
 			auto e = EditorComponent();
 
-			//Audio::OnUpdate();
+			Audio::OnUpdate();
 			
 			auto view = m_Registry.view<PlayerControllerComponent, TransformComponent>();
 			for(auto obj : view)

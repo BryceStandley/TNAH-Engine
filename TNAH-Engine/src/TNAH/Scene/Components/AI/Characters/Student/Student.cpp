@@ -89,7 +89,7 @@ namespace tnah
                         LogAction("(Sleeps) This looks like a good spot to snooze!", mColour);
                         canOutput = false;
                         SetWander(false);
-                        emotions.DecreaseArousal(0.1 * GetDeltaTime());
+                        emotions.DecreaseArousal(0.5);
                         emotions.IncreaseValence(0.2 * GetDeltaTime());
                         previousState = GetDesiredAction();
                     }
@@ -101,9 +101,6 @@ namespace tnah
                         canOutput = false;
                         SetWander(false);
                     }
-                    emotions.IncreaseArousal(0.1 * GetDeltaTime());
-                    emotions.IncreaseValence(0.1 * GetDeltaTime());
-                    previousState = GetDesiredAction();
                     break;
                 case drink:
                     check.second = true;
