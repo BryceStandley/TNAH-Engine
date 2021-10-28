@@ -13,7 +13,7 @@ namespace tnah
         SetDesiredAction(sit);
         SetDistance(10);
         actionDistance = 1.5;
-        mColour = glm::vec4(1, 0, 0, 0);
+        mColour = glm::vec4(1, 1, 1, 1);
         currentAffordanceLevel = 1.0f;
         
         emotions.SetArousal(-0.66f);
@@ -72,6 +72,7 @@ namespace tnah
                         canOutput = false;
 
                         emotions.IncreaseArousal(0.5);
+                        previousState = GetDesiredAction();
                     }
                     break;
                 case greeting:
@@ -92,6 +93,7 @@ namespace tnah
                         canOutput = false;
 
                         emotions.IncreaseArousal(0.5);
+                        previousState = GetDesiredAction();
                     }
                     break;
                 case sleep:
@@ -101,6 +103,7 @@ namespace tnah
                         emotions.DecreaseArousal(0.5);
                         emotions.IncreaseValence(0.5);
                         canOutput = false;
+                        previousState = GetDesiredAction();
                     }
                     break;
                 case none:

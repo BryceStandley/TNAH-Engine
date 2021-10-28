@@ -13,7 +13,7 @@ namespace tnah
         SetDesiredAction(sit);
         SetDistance(10);
         actionDistance = 1.5;
-        mColour = glm::vec4(1, 1, 0, 1);
+        mColour = glm::vec4(1, 1, 1, 1);
         currentAffordanceLevel = 1.0f;
         
         emotions.SetArousal(0.33f);

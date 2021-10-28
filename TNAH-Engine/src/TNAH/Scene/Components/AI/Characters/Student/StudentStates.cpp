@@ -251,13 +251,13 @@ namespace tnah
             break;
         case Emotion::Bored:
             owner->SetDesiredAction(Actions::play);
-            owner->SetActionDistance(2.0f);
+            owner->SetActionDistance(1.0f);
             owner->SetAffordanceLevel(0.5f);
             owner->SetSpeed(0.75f);
             break;
         case Emotion::Tired:
             owner->SetDesiredAction(Actions::sleep);
-            owner->SetActionDistance(3.0f);
+            owner->SetActionDistance(1.0f);
             owner->SetAffordanceLevel(0.1f);
             owner->SetSpeed(0.5f);
             break;

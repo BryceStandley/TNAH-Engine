@@ -13,7 +13,7 @@ namespace tnah
         SetDesiredAction(sit);
         SetDistance(10);
         actionDistance = 1.5;
-        mColour = glm::vec4(0, 1, 0, 0);
+        mColour = glm::vec4(1, 1, 1, 1);
         currentAffordanceLevel = 1.0f;
         
         emotions.SetArousal(-0.33f);
@@ -89,10 +89,10 @@ namespace tnah
                         LogAction("(Sleeps) This looks like a good spot to snooze!", mColour);
                         canOutput = false;
                         SetWander(false);
+                        emotions.DecreaseArousal(0.1 * GetDeltaTime());
+                        emotions.IncreaseValence(0.2 * GetDeltaTime());
+                        previousState = GetDesiredAction();
                     }
-                    emotions.DecreaseArousal(0.1 * GetDeltaTime());
-                    emotions.IncreaseValence(0.2 * GetDeltaTime());
-                    previousState = GetDesiredAction();
                     break;
                 case play:
                     if (canOutput)
