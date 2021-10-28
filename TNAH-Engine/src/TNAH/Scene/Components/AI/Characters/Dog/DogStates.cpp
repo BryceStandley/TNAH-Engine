@@ -98,7 +98,7 @@ namespace tnah
     void HappyDog::Enter(Dog* owner)
     {
         owner->GetEmotions().UpdateTimer();
-        owner->SetBark(true);
+        owner->Shootbark();
     }
 
     void HappyDog::Execute(Dog* owner)
@@ -134,7 +134,7 @@ namespace tnah
     {
         owner->spin = false;
         owner->canOutput = true;
-        owner->SetBark(false);
+        owner->Stopbark();
     }
 
     void ChillDog::Enter(Dog* owner)
@@ -169,7 +169,7 @@ namespace tnah
     {
         owner->GetEmotions().UpdateTimer();
         owner->canOutput = true;
-        owner->SetHiss(true);
+        owner->ShootHiss();
     }
 
     void PissedOffDog::Execute(Dog* owner)
@@ -201,7 +201,7 @@ namespace tnah
     void PissedOffDog::Exit(Dog* owner)
     {
         owner->canOutput = true;
-        owner->SetHiss(false);
+        owner->StopHiss();
     }
 
     void SadDog::Enter(Dog* owner)

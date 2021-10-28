@@ -24,8 +24,10 @@ namespace tnah {
         std::shared_ptr<StateMachine<Dog>> GetFsm() { return mFsm; }
         void ApplyPlayerAction(PlayerActions givenAction) override;
         std::string CharacterString() override;
-        void SetBark(bool set) {bark.m_Playing = set;}
-        void SetHiss(bool set) {hiss.m_Playing = set;}
+        void ShootHiss();
+        void StopHiss() {hiss.m_Paused = true;}
+        void Shootbark();
+        void Stopbark() {bark.m_Paused = true;}
     private:
         glm::vec3 targetPos;
         std::shared_ptr<StateMachine<Dog>> mFsm;
@@ -36,5 +38,7 @@ namespace tnah {
         Actions previousState;
         AudioSourceComponent hiss = {{"assets/audio/notsocutebark.mp3"}};
         AudioSourceComponent bark = {{"assets/audio/cutebark.mp3"}};
+        bool firsthiss = true;
+        bool firstbark = true;
     };
 }

@@ -90,7 +90,7 @@ namespace tnah
                         canOutput = false;
                         SetWander(false);
                         emotions.DecreaseArousal(0.5);
-                        emotions.IncreaseValence(0.2 * GetDeltaTime());
+                        emotions.IncreaseValence(0.5);
                         previousState = GetDesiredAction();
                     }
                     break;
