@@ -59,13 +59,13 @@ namespace tnah
                         switch(rand() % 3)
                         {
                         case 1:
-                            LogAction("I hate you add name here!", mColour);
+                            LogAction("(Abuse)I hate you " + tag + "!", mColour);
                             break;
                         case 2:
-                            LogAction("You suck add name here!", mColour);
+                            LogAction("(Abuse)You suck " + tag + "!", mColour);
                             break;
                         default:
-                            LogAction("You're the worst add name here!", mColour);
+                            LogAction("(Abuse)You're the worst " + tag + "!", mColour);
                             break;
                         }
                         canOutput = false;
@@ -80,13 +80,13 @@ namespace tnah
                         switch(rand() % 3)
                         {
                         case 1:
-                            LogAction("Your such a good person name here!", mColour);
+                            LogAction("(Greeting)HALLLO " + tag + "!", mColour);
                             break;
                         case 2:
-                            LogAction("Hey good to see you name here!", mColour);
+                            LogAction("(Greeting)Hey good to see " + tag + "!", mColour);
                             break;
                         default:
-                            LogAction("Wonderful day ain't it add name here!", mColour);
+                            LogAction("(Greeting)Wonderful day ain't it " + tag + "!", mColour);
                             break;
                         }
                         canOutput = false;
@@ -98,7 +98,7 @@ namespace tnah
                     break;
                 case pickup:
                         check.second = true;
-                        LogAction("Who left rubbish here!", mColour);
+                        LogAction("(Pickup)Who left rubbish here!", mColour);
                         emotions.IncreaseArousal(0.3);
                         emotions.DecreaseValence(0.4);
                         previousState = GetDesiredAction();
@@ -106,7 +106,7 @@ namespace tnah
                 case sleep:
                     if(canOutput)
                     {
-                        LogAction("This looks like a good spot to snooze!", mColour);
+                        LogAction("(Sleep)This looks like a good spot to snooze!", mColour);
                         canOutput = false;
                         emotions.DecreaseArousal(0.5);
                         emotions.IncreaseValence(0.5);
