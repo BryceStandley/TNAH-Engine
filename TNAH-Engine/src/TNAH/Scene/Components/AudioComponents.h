@@ -145,7 +145,7 @@ namespace tnah {
 		 * @param 	active	(Optional) True to active.
 		 **************************************************************************************************/
 
-		AudioListenerComponent(bool active = false) : m_ActiveListing(active) {TNAH_CORE_INFO("Audio listener set to {0}", active);}
+		AudioListenerComponent(bool active = false) : m_ActiveListing(active) {}
 
 		
 

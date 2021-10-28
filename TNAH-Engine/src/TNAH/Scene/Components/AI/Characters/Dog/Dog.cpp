@@ -52,8 +52,6 @@ namespace tnah
         else if(hiss.GetStartLoad())
             bark.m_Loaded = Audio::AddAudioSource(bark);
 
-        TNAH_CORE_INFO("Are they loaded {0} {1}", hiss.m_Loaded, bark.m_Loaded);
-
         
         return targetPos;
     }
