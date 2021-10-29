@@ -7,6 +7,10 @@
 
 
 #include "TNAH/Core/FileManager.h"
+#include "TNAH/Scene/Components/AI/Affordance.h"
+#include "TNAH/Scene/Components/AI/AIComponent.h"
+#include "TNAH/Scene/Components/AI/AStar.h"
+#include "TNAH/Scene/Components/AI/CharacterComponent.h"
 
 namespace tnah {
 
@@ -42,8 +46,16 @@ namespace tnah {
 				}
 				ImGui::TreePop();
 				ImGui::Separator();
-				
 			}
+
+		}
+
+		if(object.HasComponent<AStarObstacleComponent>())
+		{
+			auto & astar = object.GetComponent<AStarObstacleComponent>();
+			ImGui::Text("AStar Obstacle");
+			ImGui::Checkbox("Dynamic (Hits performance hard)", &astar.dynamic);
+			ImGui::Separator();
 		}
 
 		if(object.HasComponent<CameraComponent>())
@@ -327,9 +339,8 @@ namespace tnah {
 		{
 			auto& l = object.GetComponent<LightComponent>().Light;
 			auto name = l->GetTypeAsString() + " Light";
-			if(ImGui::TreeNode(name.c_str()))
-			{
-				if(l->GetType() == Light::LightType::Directional)
+			ImGui::Text(name.c_str());
+				if (l->GetType() == Light::LightType::Directional)
 				{
 					DrawVec3Control("Direction", l->GetDirection());
 					DrawFloatControl("Intensity", l->GetIntensity(), 0, 10);
@@ -338,7 +349,7 @@ namespace tnah {
 					DrawVec3Control("Diffuse", l->GetDiffuse());
 					DrawVec3Control("Specular", l->GetSpecular());
 				}
-				else if(l->GetType() == Light::LightType::Point)
+				else if (l->GetType() == Light::LightType::Point)
 				{
 					DrawFloatControl("Intensity", l->GetIntensity(), 0, 10);
 					Draw4ColorControl("Color", l->GetColor());
@@ -346,7 +357,7 @@ namespace tnah {
 					DrawVec3Control("Diffuse", l->GetDiffuse());
 					DrawVec3Control("Specular", l->GetSpecular());
 				}
-				else if(l->GetType() == Light::LightType::Spot)
+				else if (l->GetType() == Light::LightType::Spot)
 				{
 					DrawFloatControl("Intensity", l->GetIntensity(), 0, 10);
 					Draw4ColorControl("Color", l->GetColor());
@@ -360,17 +371,131 @@ namespace tnah {
 					ImGui::Text("ERROR: Unknown light type");
 					ImGui::PopStyleColor();
 				}
-				if(!l->m_IsSceneLight && addComponents)
+			if (!l->m_IsSceneLight && addComponents)
+			{
+				if (DrawRemoveComponentButton("Light"))
 				{
-					if(DrawRemoveComponentButton("Light"))
-					{
-						object.RemoveComponent<LightComponent>();
-					}
+					object.RemoveComponent<LightComponent>();
 				}
-				ImGui::TreePop();
 			}
+			ImGui::TreePop();
 		}
 
+		if (object.HasComponent<Affordance>())
+		{
+			auto& aff = object.GetComponent<Affordance>();
+			ImGui::Text("Affordance");
+
+			ImGui::Text("Affordance Value");
+			DrawFloatControl("Pos X", aff.editorValue, 0, 1);
+
+			//sit, kick, punch, none, greeting, pickup, abuse, sleep, drink, play
+
+			if (ImGui::Button("Sit"))
+			{
+				aff.SetActionValues(sit, aff.editorValue);
+				aff.recent += "sit " + std::to_string(aff.editorValue) + "\n";
+			}
+
+			if (ImGui::Button("Kick"))
+			{
+				aff.SetActionValues(kick, aff.editorValue);
+				aff.recent += "kick " + std::to_string(aff.editorValue) + "\n";
+			}
+
+			if (ImGui::Button("Punch"))
+			{
+				aff.SetActionValues(punch, aff.editorValue);
+				aff.recent += "punch " + std::to_string(aff.editorValue) + "\n";
+			}
+
+			if (ImGui::Button("Greeting"))
+			{
+				aff.SetActionValues(greeting, aff.editorValue);
+				aff.recent += "greeting " + std::to_string(aff.editorValue) + "\n";
+			}
+
+			if (ImGui::Button("Pickup"))
+			{
+				aff.SetActionValues(pickup, aff.editorValue);
+				aff.recent += "pickup " + std::to_string(aff.editorValue) + "\n";
+			}
+
+			if (ImGui::Button("Abuse"))
+			{
+				aff.SetActionValues(abuse, aff.editorValue);
+				aff.recent += "abuse " + std::to_string(aff.editorValue) + "\n";
+			}
+
+			if (ImGui::Button("Sleep"))
+			{
+				aff.SetActionValues(sleep, aff.editorValue);
+				aff.recent += "sleep " + std::to_string(aff.editorValue) + "\n";
+			}
+
+			if (ImGui::Button("Drink"))
+			{
+				aff.SetActionValues(drink, aff.editorValue);
+				aff.recent += "drink " + std::to_string(aff.editorValue) + "\n";
+			}
+
+			if (ImGui::Button("Play"))
+			{
+				aff.SetActionValues(play, aff.editorValue);
+				aff.recent += "play " + std::to_string(aff.editorValue) + "\n";
+			}
+			ImGui::Separator();
+			ImGui::Text(aff.recent.c_str());
+			ImGui::Separator();
+		}
+
+		if (object.HasComponent<CharacterComponent>() && object.HasComponent<AIComponent>())
+		{
+			auto& c = object.GetComponent<CharacterComponent>();
+			ImGui::Text("AI & Character");
+
+			switch (c.currentCharacter)
+			{
+			case CharacterNames::Rubbish:
+				ImGui::Text("Current character is Bin");
+				if (ImGui::Button("Set Dog"))
+				{
+					c.SetCharacter(CharacterNames::DogAi);
+				}
+
+				if (ImGui::Button("Set Student"))
+					{
+						c.SetCharacter(CharacterNames::StudentAi);
+					}
+					break;
+				case CharacterNames::DogAi:
+					ImGui::Text("Current character is Dog");
+					if(ImGui::Button("Set Bin"))
+					{
+						c.SetCharacter(CharacterNames::Rubbish);
+					}
+				
+					if(ImGui::Button("Set Student"))
+					{
+						c.SetCharacter(CharacterNames::StudentAi);
+					}
+					break;
+				case CharacterNames::StudentAi:
+					ImGui::Text("Current character is Student");
+					if(ImGui::Button("Set Bin"))
+					{
+						c.SetCharacter(CharacterNames::Rubbish);
+					}
+					if(ImGui::Button("Set Dog"))
+					{
+						c.SetCharacter(CharacterNames::DogAi);
+					}
+					break;
+			}
+			
+			ImGui::Separator();
+		}
+		
 		if(object.HasComponent<AudioListenerComponent>())
 		{
 			
@@ -478,13 +603,33 @@ namespace tnah {
 					{
 						rb.Body->SetType(Physics::BodyType::Dynamic);
 					}
+					if(ImGui::Button("Make Kinematic"))
+					{
+						rb.Body->SetType(Physics::BodyType::Kinematic);
+					}
 				}
-				else
+				else if(rb.Body->GetType() == Physics::BodyType::Dynamic)
 				{
 					ImGui::Text("Body Type: Dynamic");
 					if(ImGui::Button("Make Static"))
 					{
 						rb.Body->SetType(Physics::BodyType::Static);
+					}
+					if(ImGui::Button("Make Kinematic"))
+					{
+						rb.Body->SetType(Physics::BodyType::Kinematic);
+					}
+				}
+				else
+				{
+					ImGui::Text("Body Type: Kinematic");
+					if(ImGui::Button("Make Static"))
+					{
+						rb.Body->SetType(Physics::BodyType::Static);
+					}
+					if(ImGui::Button("Make Dynamic"))
+					{
+						rb.Body->SetType(Physics::BodyType::Dynamic);
 					}
 				}
 				if(Application::Get().GetDebugModeStatus())
@@ -1098,8 +1243,8 @@ namespace tnah {
 				ComponentVariations::ID, ComponentVariations::Tag, ComponentVariations::Relationship, ComponentVariations::Transform,
 				ComponentVariations::Camera, ComponentVariations::EditorCamera, ComponentVariations::Editor, ComponentVariations::Skybox,
 				ComponentVariations::Light, ComponentVariations::Terrain, ComponentVariations::Mesh, ComponentVariations::PlayerController,
-				ComponentVariations::AudioListener, ComponentVariations::AudioSource, ComponentVariations::RigidBody, ComponentVariations::BoxCollider,
-				ComponentVariations::CapsuleCollider, ComponentVariations::SphereCollider, ComponentVariations::ConcaveMeshCollider, ComponentVariations::ConvexMeshCollider
+				ComponentVariations::AudioListener, ComponentVariations::AudioSource, ComponentVariations::Rigidbody, ComponentVariations::AStar,
+			ComponentVariations::AiCharacter, ComponentVariations::Affordance, ComponentVariations::AStarObstacle
 				
 			};
 
@@ -1111,8 +1256,7 @@ namespace tnah {
 			allTypesNotHeld.remove(type);
 			if(type == ComponentVariations::Terrain)
 			{
-				// add the Heightfield collider component to the list only if theres a terrain component of the object
-				allTypesNotHeld.push_back(ComponentVariations::HeightFieldCollider);
+				//Add a heightfield collider for the terrain
 			}
 		}
 		allTypesNotHeld.remove(ComponentVariations::EditorCamera);
@@ -1189,8 +1333,7 @@ namespace tnah {
 	}
 
 		
-	std::list<ComponentVariations> EditorUI::FindAllSubtypesFromBaseType(
-	std::list<ComponentVariations> componentsToSearch, const ComponentCategory& category)
+	std::list<ComponentVariations> EditorUI::FindAllSubtypesFromBaseType(std::list<ComponentVariations> componentsToSearch, const ComponentCategory& category)
 	{
 		std::list<ComponentVariations> foundComponents;
 
@@ -1238,10 +1381,12 @@ namespace tnah {
 			if(v == ComponentVariations::AudioListener && Utility::Contains<ComponentCategory>(AudioListenerComponent::s_Types.Categories, category))
 				foundComponents.emplace_back(ComponentVariations::AudioListener);
 
-			if(v == ComponentVariations::RigidBody && Utility::Contains<ComponentCategory>(RigidBodyComponent::s_Types.Categories, category))
-				foundComponents.emplace_back(ComponentVariations::RigidBody);
+			if(v == ComponentVariations::Rigidbody && Utility::Contains<ComponentCategory>(RigidBodyComponent::s_Types.Categories, category))
+				foundComponents.emplace_back(ComponentVariations::Rigidbody);
+
+			
+			return foundComponents;
 		}
-		return foundComponents;
 	}
 
 	std::list<ComponentVariations> EditorUI::FindAllComponentsContaining(std::list<ComponentVariations> componentsToSearch, const std::string& term)
@@ -1290,8 +1435,11 @@ namespace tnah {
 		if(AudioListenerComponent::s_SearchString.find(term) != std::string::npos && Utility::Contains<ComponentVariations>(componentsToSearch, ComponentVariations::AudioListener))
 			foundComponents.emplace_back(ComponentVariations::AudioListener);
 
-		if(RigidBodyComponent::s_SearchString.find(term) != std::string::npos && Utility::Contains<ComponentVariations>(componentsToSearch, ComponentVariations::RigidBody))
-			foundComponents.emplace_back(ComponentVariations::RigidBody);
+		if(RigidBodyComponent::s_SearchString.find(term) != std::string::npos && Utility::Contains<ComponentVariations>(componentsToSearch, ComponentVariations::Rigidbody))
+			foundComponents.emplace_back(ComponentVariations::Rigidbody);
+
+		
+
 		
 		
 		return foundComponents;
@@ -1331,20 +1479,16 @@ namespace tnah {
             return "Audio Source";
         case ComponentVariations::AudioListener:
             return "Audio Listener";
-        case ComponentVariations::RigidBody:
+        case ComponentVariations::AStar:
+        	return "AStar Component";
+        case ComponentVariations::AiCharacter:
+        	return "AiCharacter Component";
+        case ComponentVariations::Rigidbody:
 			return "Rigid Body";
-        case ComponentVariations::BoxCollider:
-        	return "Box Collider";
-        case ComponentVariations::SphereCollider:
-        	return "Sphere Collider";
-        case ComponentVariations::CapsuleCollider:
-        	return "Capsule Collider";
-        case ComponentVariations::HeightFieldCollider:
-        	return "Height Field Collider";
-        case ComponentVariations::ConvexMeshCollider:
-        	return "Convex Mesh Collider";
-        case ComponentVariations::ConcaveMeshCollider:
-        	return "Concave Mesh Collider";
+        case ComponentVariations::Affordance:
+        	return "Affordance";
+        case ComponentVariations::AStarObstacle:
+        	return "AStar Obstacle Component";
         default: return "";
         }
     }
@@ -1377,26 +1521,20 @@ namespace tnah {
 			return "Mesh";
 		case ComponentVariations::Mesh:
 			return "Mesh";
+		case ComponentVariations::AStar:
+			return "AStar";
+		case ComponentVariations::AiCharacter:
+			return "AiCharacter";
 		case ComponentVariations::PlayerController:
 			return "Control";
 		case ComponentVariations::AudioSource:
 			return "Physics";
 		case ComponentVariations::AudioListener:
 			return "Physics";
-		case ComponentVariations::RigidBody:
+		case ComponentVariations::Rigidbody:
 			return "Physics";
-		case ComponentVariations::BoxCollider:
-			return "Physics";
-		case ComponentVariations::SphereCollider:
-			return "Physics";
-		case ComponentVariations::CapsuleCollider:
-			return "Physics";
-		case ComponentVariations::HeightFieldCollider:
-			return "Physics";
-		case ComponentVariations::ConvexMeshCollider:
-			return "Physics";
-		case ComponentVariations::ConcaveMeshCollider:
-			return "Physics";
+		case ComponentVariations::Affordance:
+			return "Affordance";
 		default: return "";
 		}
 		return "";
@@ -1445,10 +1583,10 @@ namespace tnah {
         case ComponentVariations::AudioListener:
             object.AddComponent<AudioListenerComponent>();
             return true;
-        case ComponentVariations::RigidBody:
+        case ComponentVariations::Rigidbody:
         	object.AddComponent<RigidBodyComponent>(object);
         	return true;
-        	
+
         default: return false;
         }
     }

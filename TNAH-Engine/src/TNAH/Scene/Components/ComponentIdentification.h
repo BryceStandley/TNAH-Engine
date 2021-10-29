@@ -14,8 +14,7 @@ namespace tnah {
 		ID, Tag, Relationship, Transform, NativeScript, CSharpScript,
 		Camera, EditorCamera, Editor, Skybox, Light,
 		Terrain, Mesh, PlayerController, AudioSource, AudioListener,
-		RigidBody, CollisionBody, BoxCollider, SphereCollider, CapsuleCollider, HeightFieldCollider,
-		ConvexMeshCollider, ConcaveMeshCollider
+		Rigidbody, AiCharacter, AStar, AStarObstacle, Affordance
 	};
 
 	/**********************************************************************************************//**
@@ -26,7 +25,7 @@ namespace tnah {
 	enum class ComponentCategory
 	{
 		Core, Editor, Camera, Lighting, Controls, Audio,
-		Physics, Rendering, Environment, Objects, Script, Custom
+		Physics, Rendering, Environment, Objects, Script, AI, Emotion, Custom
 	};
 
 	/**********************************************************************************************//**

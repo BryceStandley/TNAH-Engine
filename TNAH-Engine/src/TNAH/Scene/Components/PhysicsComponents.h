@@ -159,13 +159,13 @@ class GameObject;
 		 */
 		Ref<Physics::Collider> AddCollider(const float& capsuleRadius, const float& capsuleHeight);
 	
-	
+		
 	private:
 		/** @brief	Search string for the component in the editor */
 		inline static std::string s_SearchString = "rigidbody component";
 		/** @brief	Component search types and groupings  */
 		inline static ComponentTypes s_Types = {
-			{ComponentVariations::RigidBody},
+			{ComponentVariations::Rigidbody},
 		{{ComponentCategory::Physics}}
 		};
 		

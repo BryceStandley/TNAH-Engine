@@ -99,7 +99,7 @@ namespace tnah::Physics
          *
          * @param 	timestep	The timestep.
          */
-        void OnFixedUpdate(PhysicsTimestep timestep) const;
+        void OnFixedUpdate(Timestep deltaTime, PhysicsTimestep timestep) const;
 
         /**
          * @fn	void PhysicsManager::Destroy();
@@ -208,7 +208,7 @@ namespace tnah::Physics
    /** @brief	Layout of the collider renderer vertex buffers */
    VertexBufferLayout m_ColliderLayout;
 
-   bool m_GravityEnabled = false;
+   bool m_GravityEnabled = true;
 
    glm::vec3 m_Gravity = {0.0f, -9.8f, 0.0f};
 
@@ -505,25 +505,23 @@ namespace tnah::Physics
         static void PhysicsLoggerInit();
 
      static void ProcessCollisions();
-     static void ProcessRigidbodyVelocities(const Timestep& deltaTime, TransformComponent& transform, Ref<RigidBody> rigidbody, entt::registry& componentRegistry, bool loop = false);
-     static void ProcessRigidbodyPositions(const Timestep& deltaTime, TransformComponent& transform, Ref<RigidBody> rigidbody,entt::registry& componentRegistry, bool loop = false);
-     static void ResetRigidbodyForcesAndTorques(Ref<RigidBody> rigidbody,entt::registry& componentRegistry, bool loop = false);
-     static void UpdateInertiaTensor(Ref<RigidBody> rigidbody, entt::registry& componentRegistry, bool loop = false);
-     static void UpdateBodies(Ref<RigidBody> rigidbody, entt::registry& componentRegistry, bool loop = false);
+     static void ProcessRigidbodyVelocities(const Timestep& deltaTime, entt::registry& componentRegistry);
+     static void ProcessRigidbodyPositions(const Timestep& deltaTime, entt::registry& componentRegistry);
+     static void ResetRigidbodyForcesAndTorques(entt::registry& componentRegistry);
+     static void UpdateInertiaTensor(entt::registry& componentRegistry);
+     static void UpdateBodies(entt::registry& componentRegistry);
      static void UpdateSleepState(entt::registry& componentRegistry, Timestep deltaTime);
     
     private:
      
         /** @brief a static reference to the active physics manager */
         static Ref<PhysicsManager> m_PhysicsManager;
-
      
-
         /** @brief Transform used for rendering the colliders within the scene*/
         static TransformComponent m_ColliderTransform;
-        friend class tnah::Scene;
-        friend class tnah::Renderer;
-     
+
+     friend class tnah::Scene;
+     friend class tnah::Renderer;
     };
 
 #pragma endregion PhysicsEngine

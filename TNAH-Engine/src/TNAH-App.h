@@ -40,4 +40,7 @@
 #include "TNAH/Renderer/Shader.h"
 #include "TNAH/Renderer/VertexArray.h"
 
+// Editor
+#include "TNAH/Editor/EditorUI.h"
+
 

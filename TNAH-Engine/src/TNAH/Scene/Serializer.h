@@ -1,5 +1,8 @@
 ﻿#pragma once
 #include "Scene.h"
+#include "Components/AI/Affordance.h"
+#include "Components/AI/AIComponent.h"
+#include "Components/AI/CharacterComponent.h"
 
 namespace tnah
 {
@@ -225,7 +228,26 @@ namespace tnah
          * 
          */
         static std::string GenerateRigidBody(const RigidBodyComponent& rb, const uint32_t& totalTabs = 0);
-     
+
+        /**
+         * 
+         * \fn std::string GenerateBoxCollider
+         * 
+         * \brief Generates box collider settings to serialize
+         * 
+         * \author Bryce Standley
+         * \date 13/9/2021
+         * 
+         * \param box
+         * \param totalTabs
+         * 
+         * \return 
+         * 
+         */
+        static std::string GenerateAi(const AIComponent& ai, const CharacterComponent &c,const uint32_t& totalTabs = 0);
+        static std::string GenerateAStar(const AStarComponent& astar, const uint32_t& totalTabs = 0);
+        static std::string GenerateAStarObstacle(const AStarObstacleComponent& astar, const uint32_t& totalTabs = 0);
+        static std::string GenerateAffordance(Affordance& astar, const uint32_t& totalTabs = 0);
         //Tag creators
         /**
          * 
@@ -705,6 +727,23 @@ namespace tnah
 
         /**
          * 
+         * \fn BoxColliderComponent GetBoxColliderFromFile
+         * 
+         * \brief Finds the all data for the scene within <boxCollider> </boxCollider> tags
+         * 
+         * \author Bryce Standley
+         * \date 13/9/2021
+         * 
+         * \param fileContents
+         * \param componentTagPositions
+         * \param rb
+         * 
+         * \return 
+         * 
+         */
+        
+        /**
+         * 
          * \fn PlayerControllerComponent GetPlayerControllerFromFile
          * 
          * \brief Finds the all data for the scene within <playerControl> </playerControl> tags
@@ -752,8 +791,13 @@ namespace tnah
          * \return 
          * 
          */
+     
         static LightComponent GetLightFromFile(const std::string& fileContents, std::pair<size_t, size_t> componentTagPositions);
-
+        static CharacterNames GetAiFromFile(const std::string& fileContents, std::pair<size_t, size_t> componentTagPositions);
+        static AStarComponent GetAstarFromFile(const std::string& fileContents, std::pair<size_t, size_t> componentTagPositions);
+        static bool GetAstarObstacleFromFile(const std::string& fileContents, std::pair<size_t, size_t> componentTagPositions);
+        static Affordance GetAffordancesFromFile(const std::string& fileContents, std::pair<size_t, size_t> componentTagPositions);
+     
         /**
          * 
          * \fn glm::vec3 GetVec3FromFile

@@ -55,7 +55,7 @@ namespace tnah {
 			 * @param 	ps	The PhysicsTimestep.
 			 */
 
-		void OnFixedUpdate(PhysicsTimestep ps) override;
+		void OnFixedUpdate(Timestep deltaTime, PhysicsTimestep ps) override;
 
 			/**
 			 * @fn	void EditorLayer::OnImGuiRender() override;

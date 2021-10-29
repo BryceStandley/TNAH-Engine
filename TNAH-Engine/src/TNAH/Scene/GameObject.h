@@ -504,7 +504,7 @@ namespace tnah {
 			if(std::is_same_v<T, PlayerControllerComponent>) { m_HeldTypes.emplace_back(ComponentVariations::PlayerController); }
 			if(std::is_same_v<T, AudioListenerComponent>) { m_HeldTypes.emplace_back(ComponentVariations::AudioListener);  }
 			if(std::is_same_v<T, AudioSourceComponent>) { m_HeldTypes.emplace_back(ComponentVariations::AudioSource);  }
-			if(std::is_same_v<T, RigidBodyComponent>) { m_HeldTypes.emplace_back(ComponentVariations::RigidBody);  }
+			if(std::is_same_v<T, RigidBodyComponent>) { m_HeldTypes.emplace_back(ComponentVariations::Rigidbody);  }
 		}
 
 		

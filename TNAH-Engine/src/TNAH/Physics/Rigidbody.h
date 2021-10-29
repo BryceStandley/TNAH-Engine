@@ -28,6 +28,7 @@ namespace tnah::Physics {
         void AddCollider(Ref<Collider> collider);
     	std::unordered_map<uint32_t, Ref<Collider>> GetColliders() { return m_Colliders; }
 
+    	bool HasColliders() const { return m_TotalColliders > 0 ? true : false; }
         
         /**
          * @fn tnah::Physics::RigidBody::UpdateBodyProperties()
@@ -69,8 +70,16 @@ namespace tnah::Physics {
         void Awake() { m_IsSleeping = false; }
         void Sleep();
 
-        glm::vec3 CalculateLocalInertiaTensor();
+    	void SetLinearDampening(float value) {m_LinearDampening.Dampening = glm::clamp(value, 0.0f, 1.0f);}
+    	void SetAngularDampening(float value) {m_AngularDampening.Dampening = glm::clamp(value, 0.0f, 1.0f);}
 
+        glm::vec3 CalculateLocalInertiaTensor();
+    	/**
+    	* @var m_CollisionBody
+    	*
+    	* @brief The Reactphysics3d Collision body used by the Rigidbody to interact and move within the PhysicsWorld.
+    	*/
+    	rp3d::CollisionBody* m_CollisionBody = nullptr;
     private:
 
     	glm::vec3 CalculateCentreOfMass();
@@ -165,13 +174,6 @@ namespace tnah::Physics {
         std::unordered_map<uint32_t, Ref<Collider>> m_Colliders;
 
     	uint32_t m_TotalColliders = 0;
-
-        /**
-        * @var m_CollisionBody
-        *
-        * @brief The Reactphysics3d Collision body used by the Rigidbody to interact and move within the PhysicsWorld.
-        */
-        rp3d::CollisionBody* m_CollisionBody = nullptr;
 
     	/**
     	 * @var m_ID
