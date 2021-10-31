@@ -171,6 +171,7 @@ namespace tnah{
 				transform.Forward = forward;
 				transform.Right = right;
 				transform.Up = up;
+				transform.OnUpdate();
 			}
 		}
 
@@ -334,15 +335,6 @@ namespace tnah{
 					{
 						auto& model = view.get<MeshComponent>(entity);
 						auto& transform = view.get<TransformComponent>(entity);
-						glm::mat4 matrix = transform.GetTransform();
-						auto& go = FindGameObjectByID(entity);
-						if(go.HasComponent<RigidBodyComponent>())
-						{
-							auto & rb = go.GetComponent<RigidBodyComponent>();
-							if(rb.Body->GetType() == Physics::BodyType::Dynamic)
-								matrix = transform.GetQuatTransform();
-						}
-						
 						if(model.Model)
 						{
 							for (auto& mesh : model.Model->GetMeshes())
@@ -356,7 +348,7 @@ namespace tnah{
 									mat->AddTexture(t);
 									
 								}
-								Renderer::SubmitMesh(mesh.GetMeshVertexArray(), mesh.GetMeshMaterial(), sceneLights, matrix);
+								Renderer::SubmitMesh(mesh.GetMeshVertexArray(), mesh.GetMeshMaterial(), sceneLights, transform);
 							}
 						}
 					}

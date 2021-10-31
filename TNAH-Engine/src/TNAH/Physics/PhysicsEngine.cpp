@@ -201,22 +201,16 @@ namespace tnah::Physics
             auto& rb = view.get<RigidBodyComponent>(e).Body;
             auto& trans = view.get<TransformComponent>(e);
 
-            if(rb->GetType() == BodyType::Dynamic && !rb->IsSleeping() && rb->HasColliders())
-            {
+            auto& rot = transform.GetQuaternion();
                 
-                trans.Position += rb->m_ConstrainedLinearVelocity.Velocity * deltaTime.GetSeconds();
-                rb->m_Position = trans.Position;
-                
-                rb->m_Orientation += glm::quat(0.0, rb->m_AngularVelocity) * deltaTime.GetSeconds();
-                rb->m_Orientation = glm::normalize(rb->m_Orientation);
-                
-            }
-            else if(rb->GetType() == BodyType::Kinematic && !rb->IsSleeping())
-            {
-                //rb->m_ConstrainedLinearVelocity = glm::vec3(0, rb->m_ConstrainedLinearVelocity.Velocity.y, 0);
-                trans.Position += rb->m_ConstrainedLinearVelocity.Velocity * deltaTime.GetSeconds();
-                rb->m_Position = trans.Position;
-            }
+            rot += glm::quat(rigidbody->m_ConstrainedAngularVelocity.Velocity) * rot * 0.5f * deltaTime.GetSeconds();
+
+            rp3d::Transform t;
+            t.setPosition(Math::ToRp3dVec3(transform.Position));
+            t.setOrientation(Math::ToRp3dQuat(rot));
+
+            transform.Rotation = glm::eulerAngles(rot);
+            rigidbody->m_CollisionBody->setTransform(t);
         }
     }
 
@@ -494,6 +488,10 @@ namespace tnah::Physics
         {
             auto& transform = gameObject.Transform();
             auto rb = RigidBody::Create(gameObject.Transform(), {});
+            //Convert the current rotation to a quaternion for physics.
+            // Converting from euler to quaternions are accuate but once we do, we cant convert back.
+            transform.QuaternionTransform = true;
+            transform.QuatRotation = glm::quat(transform.Rotation);
             rp3d::Transform reactTransform;
             reactTransform.setPosition(Math::ToRp3dVec3(transform.Position));
             reactTransform.setOrientation(Math::ToRp3dQuat(transform.QuatRotation));

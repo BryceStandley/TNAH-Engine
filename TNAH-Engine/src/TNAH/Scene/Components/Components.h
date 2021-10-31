@@ -243,23 +243,40 @@ namespace tnah {
 
 		/** @brief	The rotation */
 		glm::vec3 Rotation = { 0.0f, 0.0f, 0.0f };
-
-		glm::quat QuatRotation = {1.0f, 0.0f, 0.0f, 0.0f};
+		
 
 		/** @brief	The scale */
 		glm::vec3 Scale = { 1.0f, 1.0f, 1.0f };
 
 
-		/** @brief	The up */
+		/** @brief	The up vector*/
 		glm::vec3 Up = { 0.0f, 1.0f, 0.0f };
 
 
-		/** @brief	The right */
+		/** @brief	The right vector*/
 		glm::vec3 Right = { 1.0f, 0.0f, 0.0f };
 
 
-		/** @brief	The forward */
+		/** @brief	The forward vector*/
 		glm::vec3 Forward = { 0.0f, 0.0f, -1.0f };
+
+		
+		/**
+		 *
+		 * @fn glm::quat& TransformComponent::GetQuaternion();
+		 * 
+		 * @brief Gets and returns a reference to the transforms rotation as a quaternion.
+		 *
+		 * @author Bryce Standley
+		 * @date Friday, 29 October 2021
+		 * 
+		 *
+		 * @returns  quaternion of Rotation
+		 *
+		 */
+		glm::quat& GetQuaternion() { return m_Rotation; }
+
+		
 
 		/**********************************************************************************************//**
 		 * @fn	TransformComponent::TransformComponent() = default;
@@ -329,18 +346,51 @@ namespace tnah {
 		glm::mat4 GetTransform() const
 		{
 			return glm::translate(glm::mat4(1.0f), Position)
-				* glm::toMat4(glm::quat(Rotation))
-				* glm::scale(glm::mat4(1.0f), Scale);
+							* glm::toMat4(m_Rotation)
+							* glm::scale(glm::mat4(1.0f), Scale);
 		}
 
-		glm::mat4 GetQuatTransform() const
+		
+		/**
+		 *
+		 * @fn void TransformComponent::OnUpdate();
+		 * 
+		 * @brief Called once per frame to update any properties used internally. Mostly used to update Quaternion rotations
+		 * from Euler rotations
+		 *
+		 * @author Bryce Standley
+		 * @date Friday, 29 October 2021
+		 * 
+		 *
+		 *
+		 */
+		void OnUpdate()
 		{
-						return glm::translate(glm::mat4(1.0f), Position)
-            				* glm::toMat4(QuatRotation)
-            				* glm::scale(glm::mat4(1.0f), Scale);
+			m_Rotation = glm::normalize(m_Rotation + glm::quat(Rotation));
+		}
+
+		/**
+		 * @fn TransformComponent::operator glm::mat4()
+		 *
+		 * @brief Basic operator to generate and return the transform matrix without calling GetTransform() on the object.
+		 *
+		 * @author Bryce Standley
+		 * @date 29/10/2021
+		 */
+		operator glm::mat4()
+		{
+			return GetTransform();
 		}
 
 	private:
+
+		/**
+		 * @var m_Rotation
+		 *
+		 * @brief	The Rotation as a represented as a quaternion.
+		 */
+		glm::quat m_Rotation = {1.0f, 0.0f, 0.0f, 0.0f};
+		
 		friend class EditorUI;
 		inline static std::string s_SearchString = "transform component";
 		inline static ComponentTypes s_Types= {
