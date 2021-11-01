@@ -41,183 +41,78 @@ namespace tnah::Physics
     {
     public:
 
-        /**
-         * @fn	PhysicsManager::PhysicsManager();
-         *
-         * @brief	Default constructor.
-         * This constructor is empty as the object requires the Physics::Initialise(rp3d::EventListener* collisionEventListener) to be called 
-         *
-         * @author	Dylan Blereau
-         * @date	12/09/2021
-         */
-
         PhysicsManager();
-
-        /**
-         * @fn	PhysicsManager::~PhysicsManager();
-         *
-         * @brief	Destructor. Safeguards prevent deletion of empty pointers of
-         * PhysicsManager::m_PhysicsWorld and PhysicsManager::m_PhysicsLogger if Physics::Initialise(rp3d::EventListener* collisionEventListener)
-         * was never called or Physics::Initialise(rp3d::EventListener* collisionEventListener) was called and Physics::PhysicsLoggerInit() was not.
-         *
-         * @author	Dylan Blereau
-         * @date	12/09/2021
-         */
 
         ~PhysicsManager();
 
-     Ref<CollisionDetectionEngine>& GetCollisionDetectionEngine() { return m_CollisionDetectionEngine; }
+     Ref<CollisionDetectionEngine>& GetCollisionDetectionEngine() { return CollisionDetectionEngine; }
     
     private:
-        /**
-         * @fn	bool PhysicsManager::Initialise(rp3d::EventListener * collisionEventListener);
-         *
-         * @brief	Initialises this object
-         *
-         * @author	Dylan Blereau
-         * @date	12/09/2021
-         *
-         * @param [in,out]	collisionEventListener	If non-null, the collision event listener.
-         *
-         * @returns	True if it succeeds, false if it fails.
-         */
+
         bool Initialise(rp3d::EventListener * collisionEventListener);
      
-        /**
-         * @fn	void PhysicsManager::OnFixedUpdate(PhysicsTimestep timestep);
-         *
-         * @brief	Executes the 'fixed update' action
-         *
-         * @author	Dylan Blereau
-         * @date	12/09/2021
-         *
-         * @param 	timestep	The timestep.
-         */
         void OnFixedUpdate(Timestep deltaTime, PhysicsTimestep timestep) const;
 
-        /**
-         * @fn	void PhysicsManager::Destroy();
-         *
-         * @brief	Destroys this object
-         *
-         * @author	Dylan Blereau
-         * @date	12/09/2021
-         */
         void Destroy();
-
-        /**
-         * @fn	rp3d::RigidBody* PhysicsManager::CreateRigidBody(const TransformComponent& transform);
-         *
-         * @brief	Creates rigid body
-         *
-         * @author	Dylan Blereau
-         * @date	12/09/2021
-         *
-         * @param 	transform	A transform component.
-         *
-         * @returns	Null if it fails, else the new rigid body.
-         */
+     
         rp3d::RigidBody* CreateRigidBody(const TransformComponent& transform) const;
-
-        /**
-         * @fn	void PhysicsManager::DestroyRigidBody(rp3d::RigidBody* rigidBody);
-         *
-         * @brief	Destroys the rigid body described by rigidBody
-         *
-         * @author	Dylan Blereau
-         * @date	12/09/2021
-         *
-         * @param [in,out]	rigidBody	If non-null, the rigid body.
-         */
+     
         void DestroyRigidBody(rp3d::CollisionBody* rigidBody) const;
-
-        /**
-         * @fn	rp3d::CollisionBody* PhysicsManager::CreateCollisionBody(const TransformComponent& transform);
-         *
-         * @brief	Creates collision body
-         *
-         * @author	Dylan Blereau
-         * @date	12/09/2021
-         *
-         * @param 	transform	The transform.
-         *
-         * @returns	Null if it fails, else the new collision body.
-         */
+     
         rp3d::CollisionBody* CreateCollisionBody(const TransformComponent& transform) const;
-
-        /**
-         * @fn	void PhysicsManager::DestroyCollisionBody(rp3d::CollisionBody * body);
-         *
-         * @brief	Destroys the collision body described by body
-         *
-         * @author	Dylan Blereau
-         * @date	12/09/2021
-         *
-         * @param [in,out]	body	If non-null, the body.
-         */
+     
         void DestroyCollisionBody(rp3d::CollisionBody * body) const;
      
-        /**
-         * @fn	void PhysicsManager::CreateColliderRenderer();
-         *
-         * @brief	Creates collider renderer
-         *
-         * @author	Dylan Blereau
-         * @date	12/09/2021
-         */
         void CreateColliderRenderer();
 
    
     
     private:
-        /** @brief	The physics common */
-        rp3d::PhysicsCommon m_PhysicsCommon;
+        rp3d::PhysicsCommon PhysicsCommon;
      
-        /** @brief	Pointer to The physics world */
-        rp3d::PhysicsWorld* m_PhysicsWorld = nullptr;
+        rp3d::PhysicsWorld* PhysicsWorld = nullptr;
      
-        /** @brief	Pointer to physics logger */
-        rp3d::DefaultLogger* m_PhysicsLogger = nullptr;
+        rp3d::DefaultLogger* PhysicsLogger = nullptr;
      
         /** @brief	True to collider render */
-        bool m_ColliderRender = false;
+        bool ColliderRender = false;
      
      /** @brief	True if the collider renderer has been initialized */
-      bool m_ColliderRendererInit = false;
+      bool ColliderRendererInit = false;
      
-      Ref<VertexArray> m_LinesVertexArray;
+      Ref<VertexArray> LinesVertexArray;
      
    /** @brief	Pointer to the buffer for lines vertex data */
-   Ref<VertexBuffer> m_LinesVertexBuffer;
+   Ref<VertexBuffer> LinesVertexBuffer;
 
    /** @brief	Pointer to array for triangle vertex data */
-   Ref<VertexArray> m_TriangleVertexArray;
+   Ref<VertexArray> TriangleVertexArray;
 
    /** @brief	Pointer to Buffer for triangle vertex data */
-   Ref<VertexBuffer> m_TriangleVertexBuffer;
+   Ref<VertexBuffer> TriangleVertexBuffer;
 
    /** @brief	Shader used for the collider renderer */
-   Ref<Shader> m_Shader;
+   Ref<Shader> Shader;
 
    /** @brief	Layout of the collider renderer vertex buffers */
-   VertexBufferLayout m_ColliderLayout;
+   VertexBufferLayout ColliderLayout;
 
    /** @brief	True to active */
-   bool m_Active = false;
+   bool Active = false;
 
    /** @brief Used to tell the physics system if the logging should be enabled*/
-   bool m_Logging = false;
+   bool Logging = false;
 
-     std::unordered_map<uint32_t, Ref<RigidBody>> m_Rigidbodies;
+     std::unordered_map<uint32_t, Ref<RigidBody>> Rigidbodies;
 
-     uint32_t m_TotalRigidbodies = 0;
+     uint32_t TotalRigidbodies = 0;
 
-     std::unordered_map<uint32_t, Ref<Collider>> m_Colliders;
+     std::unordered_map<uint32_t, Ref<Collider>> Colliders;
 
-     uint32_t m_TotalColliders = 0;
+     uint32_t TotalColliders = 0;
 
      /** @brief a static reference to the active Collision Detection Engine */
-     static Ref<CollisionDetectionEngine> m_CollisionDetectionEngine;
+     static Ref<CollisionDetectionEngine> CollisionDetectionEngine;
 
         friend class PhysicsEngine;
 };
@@ -502,10 +397,10 @@ namespace tnah::Physics
     private:
      
         /** @brief a static reference to the active physics manager */
-        static Ref<PhysicsManager> m_PhysicsManager;
+        static Ref<PhysicsManager> physicsManager;
      
         /** @brief Transform used for rendering the colliders within the scene*/
-        static TransformComponent m_ColliderTransform;
+        static TransformComponent ColliderTransform;
 
      friend class tnah::Scene;
      friend class tnah::Renderer;

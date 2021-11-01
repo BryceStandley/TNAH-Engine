@@ -10,58 +10,58 @@ namespace tnah::Physics
     
 #pragma region Physics
     
-    Ref<PhysicsManager>  PhysicsEngine::m_PhysicsManager = Ref<PhysicsManager>::Create();
-    Ref<CollisionDetectionEngine> PhysicsManager::m_CollisionDetectionEngine = CollisionDetectionEngine::Create();
-    TransformComponent  PhysicsEngine::m_ColliderTransform = TransformComponent();
+    Ref<PhysicsManager>  PhysicsEngine::physicsManager = Ref<PhysicsManager>::Create();
+    Ref<CollisionDetectionEngine> PhysicsManager::CollisionDetectionEngine = CollisionDetectionEngine::Create();
+    TransformComponent  PhysicsEngine::ColliderTransform = TransformComponent();
 
 #pragma region InitAndHelpers
     Ref<PhysicsManager>  PhysicsEngine::GetManager()
     {
-        return m_PhysicsManager;
+        return physicsManager;
     }
 
     bool  PhysicsEngine::IsActive()
     {
-        return m_PhysicsManager->m_Active;
+        return physicsManager->Active;
     }
 
     bool  PhysicsEngine::Initialise(rp3d::EventListener* collisionEventListener)
     {
-        const bool result = m_PhysicsManager->Initialise(collisionEventListener);
+        const bool result = physicsManager->Initialise(collisionEventListener);
         ToggleColliderRendering();
         return result;
     }
 
     void  PhysicsEngine::ToggleColliderRendering()
     {
-        if(m_PhysicsManager->m_Active)
+        if(physicsManager->Active)
         {
-            m_PhysicsManager->m_ColliderRender = !m_PhysicsManager->m_ColliderRender;
-            if(m_PhysicsManager->m_ColliderRendererInit)
+            physicsManager->ColliderRender = !physicsManager->ColliderRender;
+            if(physicsManager->ColliderRendererInit)
             {
-                m_PhysicsManager->m_PhysicsWorld->setIsDebugRenderingEnabled(m_PhysicsManager->m_ColliderRender);
+                physicsManager->PhysicsWorld->setIsDebugRenderingEnabled(physicsManager->ColliderRender);
             }
             else
             {
-                m_ColliderTransform.Scale = glm::vec3(1.0f);
-                m_PhysicsManager->CreateColliderRenderer();
-                m_PhysicsManager->m_PhysicsWorld->setIsDebugRenderingEnabled(m_PhysicsManager->m_ColliderRender);
+                ColliderTransform.Scale = glm::vec3(1.0f);
+                physicsManager->CreateColliderRenderer();
+                physicsManager->PhysicsWorld->setIsDebugRenderingEnabled(physicsManager->ColliderRender);
             }
-            if(m_PhysicsManager->m_ColliderRender)
+            if(physicsManager->ColliderRender)
             {
-                m_PhysicsManager->m_PhysicsWorld->getDebugRenderer().setIsDebugItemDisplayed(rp3d::DebugRenderer::DebugItem::COLLISION_SHAPE, true);
-                m_PhysicsManager->m_PhysicsWorld->getDebugRenderer().setIsDebugItemDisplayed(rp3d::DebugRenderer::DebugItem::COLLIDER_AABB, FALSE);
-                m_PhysicsManager->m_PhysicsWorld->getDebugRenderer().setIsDebugItemDisplayed(rp3d::DebugRenderer::DebugItem::CONTACT_POINT, false);
-                m_PhysicsManager->m_PhysicsWorld->getDebugRenderer().setIsDebugItemDisplayed(rp3d::DebugRenderer::DebugItem::CONTACT_NORMAL, FALSE);
-                m_PhysicsManager->m_PhysicsWorld->getDebugRenderer().setIsDebugItemDisplayed(rp3d::DebugRenderer::DebugItem::COLLIDER_BROADPHASE_AABB, FALSE);
+                physicsManager->PhysicsWorld->getDebugRenderer().setIsDebugItemDisplayed(rp3d::DebugRenderer::DebugItem::COLLISION_SHAPE, true);
+                physicsManager->PhysicsWorld->getDebugRenderer().setIsDebugItemDisplayed(rp3d::DebugRenderer::DebugItem::COLLIDER_AABB, FALSE);
+                physicsManager->PhysicsWorld->getDebugRenderer().setIsDebugItemDisplayed(rp3d::DebugRenderer::DebugItem::CONTACT_POINT, false);
+                physicsManager->PhysicsWorld->getDebugRenderer().setIsDebugItemDisplayed(rp3d::DebugRenderer::DebugItem::CONTACT_NORMAL, FALSE);
+                physicsManager->PhysicsWorld->getDebugRenderer().setIsDebugItemDisplayed(rp3d::DebugRenderer::DebugItem::COLLIDER_BROADPHASE_AABB, FALSE);
             }
             else
             {
-                m_PhysicsManager->m_PhysicsWorld->getDebugRenderer().setIsDebugItemDisplayed(rp3d::DebugRenderer::DebugItem::COLLISION_SHAPE, false);
-                m_PhysicsManager->m_PhysicsWorld->getDebugRenderer().setIsDebugItemDisplayed(rp3d::DebugRenderer::DebugItem::COLLIDER_AABB, false);
-                m_PhysicsManager->m_PhysicsWorld->getDebugRenderer().setIsDebugItemDisplayed(rp3d::DebugRenderer::DebugItem::CONTACT_POINT, false);
-                m_PhysicsManager->m_PhysicsWorld->getDebugRenderer().setIsDebugItemDisplayed(rp3d::DebugRenderer::DebugItem::CONTACT_NORMAL, false);
-                m_PhysicsManager->m_PhysicsWorld->getDebugRenderer().setIsDebugItemDisplayed(rp3d::DebugRenderer::DebugItem::COLLIDER_BROADPHASE_AABB, false);
+                physicsManager->PhysicsWorld->getDebugRenderer().setIsDebugItemDisplayed(rp3d::DebugRenderer::DebugItem::COLLISION_SHAPE, false);
+                physicsManager->PhysicsWorld->getDebugRenderer().setIsDebugItemDisplayed(rp3d::DebugRenderer::DebugItem::COLLIDER_AABB, false);
+                physicsManager->PhysicsWorld->getDebugRenderer().setIsDebugItemDisplayed(rp3d::DebugRenderer::DebugItem::CONTACT_POINT, false);
+                physicsManager->PhysicsWorld->getDebugRenderer().setIsDebugItemDisplayed(rp3d::DebugRenderer::DebugItem::CONTACT_NORMAL, false);
+                physicsManager->PhysicsWorld->getDebugRenderer().setIsDebugItemDisplayed(rp3d::DebugRenderer::DebugItem::COLLIDER_BROADPHASE_AABB, false);
             }
             
         }
@@ -69,18 +69,18 @@ namespace tnah::Physics
 
     void  PhysicsEngine::PhysicsLoggerInit()
     {
-        m_PhysicsManager->m_PhysicsLogger = m_PhysicsManager->m_PhysicsCommon.createDefaultLogger();
+        physicsManager->PhysicsLogger = physicsManager->PhysicsCommon.createDefaultLogger();
         const rp3d::uint logLevel = static_cast<rp3d::uint>(rp3d::Logger::Level::Warning) | static_cast<rp3d::uint>(rp3d::Logger::Level::Error) | static_cast<rp3d::uint>(rp3d::Logger::Level::Information);
-        m_PhysicsManager->m_PhysicsLogger->addFileDestination("rp3d_log.html", logLevel, rp3d::DefaultLogger::Format::HTML);
-        m_PhysicsManager->m_PhysicsCommon.setLogger(m_PhysicsManager->m_PhysicsLogger);
+        physicsManager->PhysicsLogger->addFileDestination("rp3d_log.html", logLevel, rp3d::DefaultLogger::Format::HTML);
+        physicsManager->PhysicsCommon.setLogger(physicsManager->PhysicsLogger);
     }
 
     void PhysicsEngine::ProcessCollisions()
     {
-        while(!m_PhysicsManager->m_CollisionDetectionEngine->GetCurrentCollisions().empty())
+        while(!physicsManager->CollisionDetectionEngine->GetCurrentCollisions().empty())
         {
             //loop over the collisions data and process a response for the collision
-            auto& collision =  m_PhysicsManager->m_CollisionDetectionEngine->GetCurrentCollisions().front();
+            auto& collision =  physicsManager->CollisionDetectionEngine->GetCurrentCollisions().front();
             while(!collision.GetCollisionData().empty())
             {
                 auto& item = collision.GetCollisionData().front();
@@ -129,17 +129,17 @@ namespace tnah::Physics
                 
                     lv1 += linear_impulse * rb1->GetBodyMass().InverseMass;
                     av1 += (lambda * rb1->GetInertiaTensor().WorldInverseInertiaTensor * r1xn);
-                    rb1->m_LinearVelocity.Velocity = lv1;
-                    rb1->m_AngularVelocity.Velocity = av1;
+                    rb1->linearVelocity.Velocity = lv1;
+                    rb1->angularVelocity.Velocity = av1;
                 
 
                     lv2 -= linear_impulse * rb2->GetBodyMass().InverseMass;
                     av2 -=  (lambda * rb2->GetInertiaTensor().WorldInverseInertiaTensor * r2xn);
-                    rb2->m_LinearVelocity.Velocity = lv2;
-                    rb2->m_AngularVelocity.Velocity = av2;
+                    rb2->linearVelocity.Velocity = lv2;
+                    rb2->angularVelocity.Velocity = av2;
                 collision.GetCollisionData().pop();
             }
-            m_PhysicsManager->m_CollisionDetectionEngine->GetCurrentCollisions().pop();
+            physicsManager->CollisionDetectionEngine->GetCurrentCollisions().pop();
         }
     }
 
@@ -150,11 +150,11 @@ namespace tnah::Physics
         {
             auto& rb = view.get<RigidBodyComponent>(e).Body;
         
-            rb->m_LinearVelocity.Velocity += deltaTime.GetSeconds() * rb->GetBodyMass().InverseMass *
-                                                                    rb->m_LinearRotationLock * rb->m_Force.Forces;
+            rb->linearVelocity.Velocity += deltaTime.GetSeconds() * rb->GetBodyMass().InverseMass *
+                                                                     rb->Force.Forces;
         
-            rb->m_AngularVelocity.Velocity += deltaTime.GetSeconds() * rb->m_AngularRotationLock *
-                                                                    rb->GetInertiaTensor().WorldInverseInertiaTensor * rb->m_Torque.Torques;
+            rb->angularVelocity.Velocity += deltaTime.GetSeconds() *
+                                                                    rb->GetInertiaTensor().WorldInverseInertiaTensor * rb->Torque.Torques;
                 
         }
     }
@@ -167,15 +167,15 @@ namespace tnah::Physics
             auto& rb = view.get<RigidBodyComponent>(e).Body;
             auto& trans = view.get<TransformComponent>(e);
                 
-                trans.Position += rb->m_LinearVelocity.Velocity * deltaTime.GetSeconds();
-                rb->m_Position = trans.Position;
+                trans.Position += rb->linearVelocity.Velocity * deltaTime.GetSeconds();
+                rb->Position = trans.Position;
                 
-                rb->m_Orientation += glm::quat(0.0, rb->m_AngularVelocity) * deltaTime.GetSeconds();
-                rb->m_Orientation = glm::normalize(rb->m_Orientation);
+                rb->Orientation += glm::quat(0.0, rb->angularVelocity) * deltaTime.GetSeconds();
+                rb->Orientation = glm::normalize(rb->Orientation);
                 
-                //rb->m_LinearVelocity = glm::vec3(0, rb->m_LinearVelocity.Velocity.y, 0);
-                trans.Position += rb->m_LinearVelocity.Velocity * deltaTime.GetSeconds();
-                rb->m_Position = trans.Position;
+                //rb->LinearVelocity = glm::vec3(0, rb->LinearVelocity.Velocity.y, 0);
+                trans.Position += rb->linearVelocity.Velocity * deltaTime.GetSeconds();
+                rb->Position = trans.Position;
         }
     }
 
@@ -185,8 +185,8 @@ namespace tnah::Physics
         for(auto e : view)
         {
             auto& rigidbody = view.get<RigidBodyComponent>(e).Body;
-            rigidbody->m_Force.Forces = {0.0f, 0.0f, 0.0f};
-            rigidbody->m_Torque.Torques = {0.0f, 0.0f, 0.0f};
+            rigidbody->Force.Forces = {0.0f, 0.0f, 0.0f};
+            rigidbody->Torque.Torques = {0.0f, 0.0f, 0.0f};
         }
     }
 
@@ -197,20 +197,20 @@ namespace tnah::Physics
         {
             auto& rb = view.get<RigidBodyComponent>(e).Body;
             auto& trans = view.get<TransformComponent>(e);
-            glm::mat3 rot = glm::mat3_cast(rb->m_Orientation);
-            rb->m_InertiaTensor.WorldInverseInertiaTensor[0][0] = rot[0][0] * rb->m_InertiaTensor.LocalInverseInertiaTensor.x;
-            rb->m_InertiaTensor.WorldInverseInertiaTensor[0][1] = rot[1][0] * rb->m_InertiaTensor.LocalInverseInertiaTensor.x;
-            rb->m_InertiaTensor.WorldInverseInertiaTensor[0][2] = rot[2][0] * rb->m_InertiaTensor.LocalInverseInertiaTensor.x;
+            glm::mat3 rot = glm::mat3_cast(rb->Orientation);
+            rb->InertiaTensor.WorldInverseInertiaTensor[0][0] = rot[0][0] * rb->InertiaTensor.LocalInverseInertiaTensor.x;
+            rb->InertiaTensor.WorldInverseInertiaTensor[0][1] = rot[1][0] * rb->InertiaTensor.LocalInverseInertiaTensor.x;
+            rb->InertiaTensor.WorldInverseInertiaTensor[0][2] = rot[2][0] * rb->InertiaTensor.LocalInverseInertiaTensor.x;
 	
-            rb->m_InertiaTensor.WorldInverseInertiaTensor[1][0] = rot[0][1] * rb->m_InertiaTensor.LocalInverseInertiaTensor.y;
-            rb->m_InertiaTensor.WorldInverseInertiaTensor[1][1] = rot[1][1] * rb->m_InertiaTensor.LocalInverseInertiaTensor.y;
-            rb->m_InertiaTensor.WorldInverseInertiaTensor[1][2] = rot[2][1] * rb->m_InertiaTensor.LocalInverseInertiaTensor.y;
+            rb->InertiaTensor.WorldInverseInertiaTensor[1][0] = rot[0][1] * rb->InertiaTensor.LocalInverseInertiaTensor.y;
+            rb->InertiaTensor.WorldInverseInertiaTensor[1][1] = rot[1][1] * rb->InertiaTensor.LocalInverseInertiaTensor.y;
+            rb->InertiaTensor.WorldInverseInertiaTensor[1][2] = rot[2][1] * rb->InertiaTensor.LocalInverseInertiaTensor.y;
 	
-            rb->m_InertiaTensor.WorldInverseInertiaTensor[2][0] = rot[0][2] * rb->m_InertiaTensor.LocalInverseInertiaTensor.z;
-            rb->m_InertiaTensor.WorldInverseInertiaTensor[2][1] = rot[1][2] * rb->m_InertiaTensor.LocalInverseInertiaTensor.z;
-            rb->m_InertiaTensor.WorldInverseInertiaTensor[2][2] = rot[2][2] * rb->m_InertiaTensor.LocalInverseInertiaTensor.z;
+            rb->InertiaTensor.WorldInverseInertiaTensor[2][0] = rot[0][2] * rb->InertiaTensor.LocalInverseInertiaTensor.z;
+            rb->InertiaTensor.WorldInverseInertiaTensor[2][1] = rot[1][2] * rb->InertiaTensor.LocalInverseInertiaTensor.z;
+            rb->InertiaTensor.WorldInverseInertiaTensor[2][2] = rot[2][2] * rb->InertiaTensor.LocalInverseInertiaTensor.z;
 
-            rb->m_InertiaTensor.WorldInverseInertiaTensor = rot * rb->m_InertiaTensor.WorldInverseInertiaTensor;
+            rb->InertiaTensor.WorldInverseInertiaTensor = rot * rb->InertiaTensor.WorldInverseInertiaTensor;
         }
     }
 
@@ -224,21 +224,21 @@ namespace tnah::Physics
             
             rb->OnUpdate(transform);
             
-            rb->m_LinearVelocity.Velocity = rb->m_LinearVelocity.Velocity;
-            rb->m_AngularVelocity.Velocity = rb->m_AngularVelocity.Velocity;
+            rb->linearVelocity.Velocity = rb->linearVelocity.Velocity;
+            rb->angularVelocity.Velocity = rb->angularVelocity.Velocity;
 
-            auto t = rb->m_CollisionBody->getTransform();
-            t.setPosition(Math::ToRp3dVec3(rb->m_Position));
-                t.setOrientation(Math::ToRp3dQuat(rb->m_Orientation));
-                rb->m_CollisionBody->setTransform(t);
-                transform.Rotation = glm::eulerAngles(rb->m_Orientation);
-                transform.QuatRotation = rb->m_Orientation;
+            auto t = rb->CollisionBody->getTransform();
+            t.setPosition(Math::ToRp3dVec3(rb->Position));
+                t.setOrientation(Math::ToRp3dQuat(rb->Orientation));
+                rb->CollisionBody->setTransform(t);
+                transform.Rotation = glm::eulerAngles(rb->Orientation);
+                transform.QuatRotation = rb->Orientation;
 
-            for(auto& c : rb->m_Colliders)
+            for(auto& c : rb->Colliders)
             {
                 auto col = c.second;
                 col->SetPosition(transform.Position + col->GetColliderPosition());
-                col->SetOrientation(rb->m_Orientation + col->GetColliderOrientation());
+                col->SetOrientation(rb->Orientation + col->GetColliderOrientation());
             }
         }
     }
@@ -251,7 +251,7 @@ namespace tnah::Physics
         {
             auto ts = timestep;
             ts.SetSimulationSpeed(deltaTime.GetSeconds());
-            m_PhysicsManager->OnFixedUpdate(deltaTime, timestep);
+            physicsManager->OnFixedUpdate(deltaTime, timestep);
 
             UpdateInertiaTensor(componentRegistry);
             
@@ -274,7 +274,7 @@ namespace tnah::Physics
 
     void  PhysicsEngine::Destroy()
     {
-        m_PhysicsManager->Destroy();
+        physicsManager->Destroy();
     }
     
 #pragma endregion 
@@ -283,14 +283,14 @@ namespace tnah::Physics
     
     bool&  PhysicsEngine::GetColliderRendererHandle()
     {
-        return m_PhysicsManager->m_ColliderRender;
+        return physicsManager->ColliderRender;
     }
 
     TransformComponent  PhysicsEngine::GetColliderRendererTransform()
     {
-        if(m_PhysicsManager->m_Active)
+        if(physicsManager->Active)
         {
-            return m_ColliderTransform;
+            return ColliderTransform;
         }
         
         return TransformComponent();
@@ -299,9 +299,9 @@ namespace tnah::Physics
 
     rp3d::DebugRenderer*  PhysicsEngine::GetColliderRenderer()
     {
-        if(m_PhysicsManager->m_Active)
+        if(physicsManager->Active)
         {
-            return &m_PhysicsManager->m_PhysicsWorld->getDebugRenderer();
+            return &physicsManager->PhysicsWorld->getDebugRenderer();
         }
         return nullptr;
     }
@@ -310,63 +310,63 @@ namespace tnah::Physics
     {
         if(IsActive())
         {
-            m_PhysicsManager->m_Logging = true;
+            physicsManager->Logging = true;
             PhysicsLoggerInit();
         }
     }
 
     bool  PhysicsEngine::IsColliderRenderingEnabled()
     {
-        return m_PhysicsManager->m_ColliderRender;
+        return physicsManager->ColliderRender;
     }
 
     std::pair<std::pair<Ref<VertexArray>, Ref<VertexBuffer>>, std::pair<Ref<VertexArray>, Ref<VertexBuffer>>>  PhysicsEngine::
     GetColliderRenderObjects()
     {
         std::pair<Ref<VertexArray>, Ref<VertexBuffer>> lines;
-        lines.first = m_PhysicsManager->m_LinesVertexArray;
-        lines.second = m_PhysicsManager->m_LinesVertexBuffer;
+        lines.first = physicsManager->LinesVertexArray;
+        lines.second = physicsManager->LinesVertexBuffer;
 
         std::pair<Ref<VertexArray>, Ref<VertexBuffer>> triangles;
-        triangles.first = m_PhysicsManager->m_TriangleVertexArray;
-        triangles.second = m_PhysicsManager->m_TriangleVertexBuffer;
+        triangles.first = physicsManager->TriangleVertexArray;
+        triangles.second = physicsManager->TriangleVertexBuffer;
 
         return {lines, triangles};
     }
 
     Ref<Shader>  PhysicsEngine::GetColliderShader()
     {
-        return m_PhysicsManager->m_Shader;
+        return physicsManager->Shader;
     }
 
     void  PhysicsEngine::UpdateColliderRenderer()
     {
-        if(m_PhysicsManager->m_Active)
+        if(physicsManager->Active)
         {
             //Check and return if the collider rendering objects haven't been created yet
             // Only check one object, if one is null then they all are
-            if(m_PhysicsManager->m_LinesVertexArray == nullptr) return;
-            if(!m_PhysicsManager->m_ColliderRendererInit) return;
+            if(physicsManager->LinesVertexArray == nullptr) return;
+            if(!physicsManager->ColliderRendererInit) return;
 
             //Check and only update if we really want to render the colliders
-            if(m_PhysicsManager->m_ColliderRender)
+            if(physicsManager->ColliderRender)
             {
                 auto renderer = GetColliderRenderer();
                 const rp3d::uint nbLines = renderer->getNbLines();
                 if(nbLines > 0)
                 {
                     const uint32_t size = nbLines * sizeof(rp3d::DebugRenderer::DebugLine);
-                    m_PhysicsManager->m_LinesVertexArray->Bind();
-                    m_PhysicsManager->m_LinesVertexBuffer->SetData(size, renderer->getLinesArray(), DrawType::STREAM, TypeMode::DRAW);
-                    m_PhysicsManager->m_LinesVertexArray->SetIndexSize(nbLines * 2);
+                    physicsManager->LinesVertexArray->Bind();
+                    physicsManager->LinesVertexBuffer->SetData(size, renderer->getLinesArray(), DrawType::STREAM, TypeMode::DRAW);
+                    physicsManager->LinesVertexArray->SetIndexSize(nbLines * 2);
 
-                    VertexBufferLayout layout = m_PhysicsManager->m_LinesVertexBuffer->GetLayout();
+                    VertexBufferLayout layout = physicsManager->LinesVertexBuffer->GetLayout();
                     layout.SetStride(sizeof(rp3d::Vector3) + sizeof(rp3d::uint32));
                     auto& elements = layout.GetElements();
                     elements.at(1).Offset = sizeof(rp3d::Vector3);
-                    m_PhysicsManager->m_LinesVertexBuffer->SetLayout(layout);
-                    m_PhysicsManager->m_LinesVertexBuffer->Unbind();
-                    m_PhysicsManager->m_LinesVertexArray->Unbind();
+                    physicsManager->LinesVertexBuffer->SetLayout(layout);
+                    physicsManager->LinesVertexBuffer->Unbind();
+                    physicsManager->LinesVertexArray->Unbind();
                 }
 
                 // Triangles
@@ -374,17 +374,17 @@ namespace tnah::Physics
                 if(nbTriangles > 0)
                 {
                     const uint32_t size = nbTriangles * sizeof(rp3d::DebugRenderer::DebugTriangle);
-                    m_PhysicsManager->m_TriangleVertexArray->Bind();
-                    m_PhysicsManager->m_TriangleVertexBuffer->SetData(size, renderer->getTrianglesArray(), DrawType::STREAM, TypeMode::DRAW);
-                    m_PhysicsManager->m_TriangleVertexArray->SetIndexSize(nbTriangles * 3);
+                    physicsManager->TriangleVertexArray->Bind();
+                    physicsManager->TriangleVertexBuffer->SetData(size, renderer->getTrianglesArray(), DrawType::STREAM, TypeMode::DRAW);
+                    physicsManager->TriangleVertexArray->SetIndexSize(nbTriangles * 3);
 
-                    VertexBufferLayout layout = m_PhysicsManager->m_TriangleVertexBuffer->GetLayout();
+                    VertexBufferLayout layout = physicsManager->TriangleVertexBuffer->GetLayout();
                     layout.SetStride(sizeof(rp3d::Vector3) + sizeof(rp3d::uint32));
                     auto& elements = layout.GetElements();
                     elements.at(1).Offset = sizeof(rp3d::Vector3);
-                    m_PhysicsManager->m_TriangleVertexBuffer->SetLayout(layout);
-                    m_PhysicsManager->m_TriangleVertexBuffer->Unbind();
-                    m_PhysicsManager->m_TriangleVertexArray->Unbind();
+                    physicsManager->TriangleVertexBuffer->SetLayout(layout);
+                    physicsManager->TriangleVertexBuffer->Unbind();
+                    physicsManager->TriangleVertexArray->Unbind();
                 }
             }
         }
@@ -396,26 +396,26 @@ namespace tnah::Physics
 
     void PhysicsEngine::DestroyRigidbody(Ref<RigidBody> rigidbody)
     {
-        if(m_PhysicsManager->m_Active)
+        if(physicsManager->Active)
         {
-            m_PhysicsManager->DestroyRigidBody(rigidbody->GetCollisionBody());
-            m_PhysicsManager->m_Rigidbodies[rigidbody->GetID()] = nullptr;
+            physicsManager->DestroyRigidBody(rigidbody->GetCollisionBody());
+            physicsManager->Rigidbodies[rigidbody->GetID()] = nullptr;
         }
     }
 
     Ref<RigidBody>  PhysicsEngine::CreateRigidbody(GameObject& gameObject)
     {
-        if(m_PhysicsManager->m_Active)
+        if(physicsManager->Active)
         {
             auto& transform = gameObject.Transform();
             auto rb = RigidBody::Create(gameObject.Transform(), {});
             rp3d::Transform reactTransform;
             reactTransform.setPosition(Math::ToRp3dVec3(transform.Position));
             reactTransform.setOrientation(Math::ToRp3dQuat(transform.QuatRotation));
-            rb->SetCollisionBody(m_PhysicsManager->m_PhysicsWorld->createCollisionBody(reactTransform));
-            rb->SetID(m_PhysicsManager->m_TotalRigidbodies); // This returns a ID that's the index of the RB. Starting at 0
-            m_PhysicsManager->m_Rigidbodies[rb->GetID()] = rb; 
-            m_PhysicsManager->m_TotalRigidbodies++;
+            rb->SetCollisionBody(physicsManager->PhysicsWorld->createCollisionBody(reactTransform));
+            rb->SetID(physicsManager->TotalRigidbodies); // This returns a ID that's the index of the RB. Starting at 0
+            physicsManager->Rigidbodies[rb->GetID()] = rb; 
+            physicsManager->TotalRigidbodies++;
             
             return rb;
         }
@@ -424,15 +424,15 @@ namespace tnah::Physics
 
     Ref<Collider>  PhysicsEngine::CreateBoxCollider(Ref<RigidBody> rigidbody, const glm::vec3& boxExtents)
     {
-        if(m_PhysicsManager->m_Active)
+        if(physicsManager->Active)
         {
-            auto shape =  m_PhysicsManager->m_PhysicsCommon.createBoxShape(Math::ToRp3dVec3(boxExtents));
+            auto shape =  physicsManager->PhysicsCommon.createBoxShape(Math::ToRp3dVec3(boxExtents));
             auto col = Collider::Create(shape, Collider::Type::Box);
-            col->m_ID = m_PhysicsManager->m_TotalColliders;
-            m_PhysicsManager->m_Colliders[col->m_ID] = col;
-            m_PhysicsManager->m_TotalColliders++;
+            col->ID = physicsManager->TotalColliders;
+            physicsManager->Colliders[col->ID] = col;
+            physicsManager->TotalColliders++;
             rigidbody->AddCollider(col);
-            rigidbody->m_CollisionBody->addCollider(shape, rp3d::Transform::identity());
+            rigidbody->CollisionBody->addCollider(shape, rp3d::Transform::identity());
             return col;
         }
         return nullptr;
@@ -440,16 +440,16 @@ namespace tnah::Physics
 
     Ref<Collider>  PhysicsEngine::CreateSphereCollider(Ref<RigidBody> rigidbody, const float& radius)
     {
-        if(m_PhysicsManager->m_Active)
+        if(physicsManager->Active)
         {
-            auto shape = m_PhysicsManager->m_PhysicsCommon.createSphereShape(radius);
+            auto shape = physicsManager->PhysicsCommon.createSphereShape(radius);
 
             auto col = Collider::Create(shape, Collider::Type::Sphere);
             rigidbody->AddCollider(col);
-            col->m_ID = m_PhysicsManager->m_TotalColliders;
-            m_PhysicsManager->m_Colliders[col->m_ID] = col;
-            m_PhysicsManager->m_TotalColliders++;
-            rigidbody->m_CollisionBody->addCollider(shape, rp3d::Transform::identity());
+            col->ID = physicsManager->TotalColliders;
+            physicsManager->Colliders[col->ID] = col;
+            physicsManager->TotalColliders++;
+            rigidbody->CollisionBody->addCollider(shape, rp3d::Transform::identity());
             return col;
         }
         return nullptr;
@@ -457,16 +457,16 @@ namespace tnah::Physics
 
     Ref<Collider>  PhysicsEngine::CreateCapsuleCollider(Ref<RigidBody> rigidbody, const float& radius, const float& height)
     {
-        if(m_PhysicsManager->m_Active)
+        if(physicsManager->Active)
         {
-            auto shape =  m_PhysicsManager->m_PhysicsCommon.createCapsuleShape(radius, height);
+            auto shape =  physicsManager->PhysicsCommon.createCapsuleShape(radius, height);
 
             auto col = Collider::Create(shape, Collider::Type::Capsule);
             rigidbody->AddCollider(col);
-            col->m_ID = m_PhysicsManager->m_TotalColliders;
-            m_PhysicsManager->m_Colliders[col->m_ID] = col;
-            m_PhysicsManager->m_TotalColliders++;
-            rigidbody->m_CollisionBody->addCollider(shape, rp3d::Transform::identity());
+            col->ID = physicsManager->TotalColliders;
+            physicsManager->Colliders[col->ID] = col;
+            physicsManager->TotalColliders++;
+            rigidbody->CollisionBody->addCollider(shape, rp3d::Transform::identity());
             return col;
         }
 
@@ -481,7 +481,7 @@ namespace tnah::Physics
  /***************************************/
 
     
-#pragma region PhysicsManager
+#pragma region physicsManager
         
     PhysicsManager::PhysicsManager()
     {
@@ -494,16 +494,16 @@ namespace tnah::Physics
 
     void PhysicsManager::Destroy()
     {
-        if(m_PhysicsLogger) m_PhysicsCommon.destroyDefaultLogger(m_PhysicsLogger);
-        if(m_PhysicsWorld) m_PhysicsCommon.destroyPhysicsWorld(m_PhysicsWorld);
-        m_Active = false;
+        if(PhysicsLogger) PhysicsCommon.destroyDefaultLogger(PhysicsLogger);
+        if(PhysicsWorld) PhysicsCommon.destroyPhysicsWorld(PhysicsWorld);
+        Active = false;
     }
 
     rp3d::RigidBody* PhysicsManager::CreateRigidBody(const TransformComponent& transform) const
     {
-        if(m_Active)
+        if(Active)
         {
-            return m_PhysicsWorld->createRigidBody(Math::ToRp3dTransform(transform));
+            return PhysicsWorld->createRigidBody(Math::ToRp3dTransform(transform));
         }
 
         return nullptr;
@@ -511,25 +511,25 @@ namespace tnah::Physics
 
     void PhysicsManager::DestroyRigidBody(rp3d::CollisionBody* collisionBody) const
     {
-        if(m_PhysicsWorld)
+        if(PhysicsWorld)
         {
-            m_PhysicsWorld->destroyCollisionBody(collisionBody);
+            PhysicsWorld->destroyCollisionBody(collisionBody);
         }
     }
 
     void PhysicsManager::DestroyCollisionBody(rp3d::CollisionBody* body) const
     {
-        if(m_PhysicsWorld)
+        if(PhysicsWorld)
         {
-            m_PhysicsWorld->destroyCollisionBody(body);
+            PhysicsWorld->destroyCollisionBody(body);
         }
     }
     
     rp3d::CollisionBody* PhysicsManager::CreateCollisionBody(const TransformComponent& transform) const
     {
-        if(m_Active)
+        if(Active)
         {
-            return m_PhysicsWorld->createCollisionBody(Math::ToRp3dTransform(transform));
+            return PhysicsWorld->createCollisionBody(Math::ToRp3dTransform(transform));
         }
         
         return nullptr;
@@ -537,45 +537,45 @@ namespace tnah::Physics
 
     void PhysicsManager::CreateColliderRenderer()
     {
-        m_LinesVertexArray = VertexArray::Create();
-        m_LinesVertexBuffer = VertexBuffer::Create();
+        LinesVertexArray = VertexArray::Create();
+        LinesVertexBuffer = VertexBuffer::Create();
 
 
-        m_TriangleVertexArray = VertexArray::Create();
-        m_TriangleVertexBuffer = VertexBuffer::Create();
-        m_ColliderLayout = {
+        TriangleVertexArray = VertexArray::Create();
+        TriangleVertexBuffer = VertexBuffer::Create();
+        ColliderLayout = {
             {ShaderDataType::Float3, "a_Position"},
             {ShaderDataType::UInt, "a_VertexColor"}
         };
-        m_LinesVertexBuffer->SetLayout(m_ColliderLayout);
-        m_LinesVertexArray->AddVertexBuffer(m_LinesVertexBuffer);
+        LinesVertexBuffer->SetLayout(ColliderLayout);
+        LinesVertexArray->AddVertexBuffer(LinesVertexBuffer);
 
-        m_TriangleVertexBuffer->SetLayout(m_ColliderLayout);
-        m_TriangleVertexArray->AddVertexBuffer(m_TriangleVertexBuffer);
+        TriangleVertexBuffer->SetLayout(ColliderLayout);
+        TriangleVertexArray->AddVertexBuffer(TriangleVertexBuffer);
         
-        m_Shader = Shader::Create("Resources/shaders/default/physics/physics_vertex.glsl","Resources/shaders/default/physics/physics_fragment.glsl");
+        Shader = Shader::Create("Resources/shaders/default/physics/physics_vertex.glsl","Resources/shaders/default/physics/physics_fragment.glsl");
 
-        m_ColliderRendererInit = true;
+        ColliderRendererInit = true;
     }
 
     
     
     bool PhysicsManager::Initialise(rp3d::EventListener* collisionEventListener)
     {
-        m_PhysicsWorld = m_PhysicsCommon.createPhysicsWorld();
-        if(m_PhysicsWorld == nullptr || collisionEventListener == nullptr)
+        PhysicsWorld = PhysicsCommon.createPhysicsWorld();
+        if(PhysicsWorld == nullptr || collisionEventListener == nullptr)
             return false;
         
-        m_PhysicsWorld->setEventListener(collisionEventListener);
-        m_Active = true;
+        PhysicsWorld->setEventListener(collisionEventListener);
+        Active = true;
         
         return true;
     }
 
     void PhysicsManager::OnFixedUpdate(Timestep deltaTime, PhysicsTimestep timestep) const
     {
-        //m_PhysicsWorld->update(timestep.GetSimulationSpeed());
-        m_CollisionDetectionEngine->FixedUpdate(m_PhysicsWorld, deltaTime.GetSeconds());
+        //PhysicsWorld->update(timestep.GetSimulationSpeed());
+        CollisionDetectionEngine->FixedUpdate(PhysicsWorld, deltaTime.GetSeconds());
     }
 #pragma endregion 
 

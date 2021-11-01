@@ -9,10 +9,10 @@ namespace tnah::Physics {
 	}
 
 	RigidBody::RigidBody(TransformComponent& transform, BodyMass mass)
-		:m_BodyMass(mass)
+		:bodyMass(mass)
 	{
-		m_Position = transform.Position;
-		m_Orientation = glm::quat(transform.QuatRotation);
+		Position = transform.Position;
+		Orientation = glm::quat(transform.QuatRotation);
 	}
 
 	Ref<RigidBody> RigidBody::Create(TransformComponent& transform, BodyMass mass)
@@ -22,24 +22,24 @@ namespace tnah::Physics {
 
 	void RigidBody::OnUpdate(TransformComponent& transform)
 	{
-		m_Position = transform.Position;
-		m_Orientation = glm::normalize(m_Orientation + transform.QuatRotation);
+		Position = transform.Position;
+		Orientation = glm::normalize(Orientation + transform.QuatRotation);
 	}
 
 	void RigidBody::AddForce(const glm::vec3& force)
 	{
-			m_Force += force;
+			Force += force;
 	}
 
 	void RigidBody::AddTorque(const glm::vec3& torque)
 	{
-			m_Torque += torque;
+			Torque += torque;
 	}
 
 	void RigidBody::AddCollider(Ref<Collider> collider)	
 	{
-		m_Colliders[m_TotalColliders] = collider;
-		m_TotalColliders++;
+		Colliders[TotalColliders] = collider;
+		TotalColliders++;
 
 		UpdateBodyProperties();
 
@@ -49,71 +49,57 @@ namespace tnah::Physics {
 	void RigidBody::UpdateBodyProperties()
 	{
 		//Get and update the Centre of Mass for the body. Both local and world
-		const auto oldWorldCOM = m_BodyMass.WorldCentreOfMass;
+		const auto oldWorldCOM = bodyMass.WorldCentreOfMass;
 		const auto localCOM = CalculateCentreOfMass();
-		const glm::vec3 worldCOM = (m_Orientation * localCOM) + m_Position;
-		m_BodyMass.WorldCentreOfMass = worldCOM;
+		const glm::vec3 worldCOM = (Orientation * localCOM) + Position;
+		bodyMass.WorldCentreOfMass = worldCOM;
 
-			m_LinearVelocity.Velocity += glm::cross(m_AngularVelocity.Velocity, worldCOM - oldWorldCOM);
+			linearVelocity.Velocity += glm::cross(angularVelocity.Velocity, worldCOM - oldWorldCOM);
 		
 		CalculateLocalInertiaTensor();
 	}
 
 	void RigidBody::RecalculateWorldInertiaTensor()
 	{
-		glm::mat3 rot = glm::mat3_cast(m_Orientation);
-		m_InertiaTensor.WorldInverseInertiaTensor[0][0] = rot[0][0] * m_InertiaTensor.LocalInverseInertiaTensor.x;
-		m_InertiaTensor.WorldInverseInertiaTensor[0][1] = rot[1][0] * m_InertiaTensor.LocalInverseInertiaTensor.x;
-		m_InertiaTensor.WorldInverseInertiaTensor[0][2] = rot[2][0] * m_InertiaTensor.LocalInverseInertiaTensor.x;
+		glm::mat3 rot = glm::mat3_cast(Orientation);
+		InertiaTensor.WorldInverseInertiaTensor[0][0] = rot[0][0] * InertiaTensor.LocalInverseInertiaTensor.x;
+		InertiaTensor.WorldInverseInertiaTensor[0][1] = rot[1][0] * InertiaTensor.LocalInverseInertiaTensor.x;
+		InertiaTensor.WorldInverseInertiaTensor[0][2] = rot[2][0] * InertiaTensor.LocalInverseInertiaTensor.x;
 		
-		m_InertiaTensor.WorldInverseInertiaTensor[1][0] = rot[0][1] * m_InertiaTensor.LocalInverseInertiaTensor.y;
-		m_InertiaTensor.WorldInverseInertiaTensor[1][1] = rot[1][1] * m_InertiaTensor.LocalInverseInertiaTensor.y;
-		m_InertiaTensor.WorldInverseInertiaTensor[1][2] = rot[2][1] * m_InertiaTensor.LocalInverseInertiaTensor.y;
+		InertiaTensor.WorldInverseInertiaTensor[1][0] = rot[0][1] * InertiaTensor.LocalInverseInertiaTensor.y;
+		InertiaTensor.WorldInverseInertiaTensor[1][1] = rot[1][1] * InertiaTensor.LocalInverseInertiaTensor.y;
+		InertiaTensor.WorldInverseInertiaTensor[1][2] = rot[2][1] * InertiaTensor.LocalInverseInertiaTensor.y;
 		
-		m_InertiaTensor.WorldInverseInertiaTensor[2][0] = rot[0][2] * m_InertiaTensor.LocalInverseInertiaTensor.z;
-		m_InertiaTensor.WorldInverseInertiaTensor[2][1] = rot[1][2] * m_InertiaTensor.LocalInverseInertiaTensor.z;
-		m_InertiaTensor.WorldInverseInertiaTensor[2][2] = rot[2][2] * m_InertiaTensor.LocalInverseInertiaTensor.z;
+		InertiaTensor.WorldInverseInertiaTensor[2][0] = rot[0][2] * InertiaTensor.LocalInverseInertiaTensor.z;
+		InertiaTensor.WorldInverseInertiaTensor[2][1] = rot[1][2] * InertiaTensor.LocalInverseInertiaTensor.z;
+		InertiaTensor.WorldInverseInertiaTensor[2][2] = rot[2][2] * InertiaTensor.LocalInverseInertiaTensor.z;
 
-		m_InertiaTensor.WorldInverseInertiaTensor = rot * m_InertiaTensor.WorldInverseInertiaTensor;
+		InertiaTensor.WorldInverseInertiaTensor = rot * InertiaTensor.WorldInverseInertiaTensor;
 	}
 
-	void RigidBody::ApplyCollisionImpulse(const glm::vec3& linearVelocity, const glm::vec3& angularVelocity)
+	void RigidBody::ApplyCollisionImpulse(const glm::vec3& lV, const glm::vec3& aV)
 	{
-		m_LinearVelocity.Velocity = linearVelocity;
-		m_AngularVelocity.Velocity = angularVelocity;
+		linearVelocity.Velocity = lV;
+		angularVelocity.Velocity = aV;
 	}
 
 	void RigidBody::ResetValues()
 	{
-		m_Force = {0.0f, 0.0f, 0.0f};
-		m_Torque = {0.0f, 0.0f, 0.0f};
-		m_LinearVelocity = {0.0f, 0.0f, 0.0f};
-		m_AngularVelocity = {0.0f, 0.0f, 0.0f};
-		m_Position = {0,0,0};
-		m_Orientation = {0,0,0,0};
-	}
-
-	void RigidBody::Sleep()
-	{
-		m_IsSleeping = true;
-
-		m_Force = {0.0f, 0.0f, 0.0f};
-		m_Torque = {0.0f, 0.0f, 0.0f};
-		m_LinearVelocity.Velocity = {0,0,0};
-		m_AngularVelocity.Velocity = {0,0,0};
-		m_ConstrainedLinearVelocity.Velocity = {0,0,0};
-		m_ConstrainedAngularVelocity.Velocity = {0,0,0};
-
-		m_SleepTimeAccumulator = 0.0f;
+		Force = {0.0f, 0.0f, 0.0f};
+		Torque = {0.0f, 0.0f, 0.0f};
+		linearVelocity = {0.0f, 0.0f, 0.0f};
+		angularVelocity = {0.0f, 0.0f, 0.0f};
+		Position = {0,0,0};
+		Orientation = {0,0,0,0};
 	}
 
 	glm::vec3 RigidBody::CalculateLocalInertiaTensor()
 	{
-		auto localCOM = m_BodyMass.LocalCentreOfMass;
+		auto localCOM = bodyMass.LocalCentreOfMass;
 		glm::mat3 tempLocalInertiaTensor = glm::mat3(1.0f);
 
 		// calc inertia tensor using colliders
-		for(auto c : m_Colliders)
+		for(auto c : Colliders)
 		{
 			auto col = c.second;
 
@@ -144,15 +130,15 @@ namespace tnah::Physics {
 		float x = tempLocalInertiaTensor[0][0];
 		float y = tempLocalInertiaTensor[1][1];
 		float z = tempLocalInertiaTensor[2][2];
-		m_InertiaTensor.SetLocalInertiaTensor({x,y,z});
-		return m_InertiaTensor.LocalInertiaTensor;
+		InertiaTensor.SetLocalInertiaTensor({x,y,z});
+		return InertiaTensor.LocalInertiaTensor;
 	}
 
 	glm::vec3 RigidBody::CalculateCentreOfMass()
 	{
 		float totalMass = 0;
 		glm::vec3 localCOM = {0,0,0};
-		for(auto col : m_Colliders)
+		for(auto col : Colliders)
 		{
 			auto mass =  col.second->GetColliderMass().Mass;
 			totalMass += mass;
@@ -161,10 +147,10 @@ namespace tnah::Physics {
 
 		if(totalMass > 0.0f)
 		{
-			m_BodyMass.SetMass(totalMass);
+			bodyMass.SetMass(totalMass);
 		}
 
-		m_BodyMass.LocalCentreOfMass = localCOM;
+		bodyMass.LocalCentreOfMass = localCOM;
 		return localCOM;
 
 	}

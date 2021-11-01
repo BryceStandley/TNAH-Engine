@@ -17,18 +17,18 @@ namespace tnah::Physics {
 
         void OnUpdate(TransformComponent& transform);
 
-        BodyMass GetBodyMass() const { return m_BodyMass; }
+        BodyMass GetBodyMass() const { return bodyMass; }
 
         void AddForce(const glm::vec3& force);
         void AddTorque(const glm::vec3& torque);
 
-        void SetCollisionBody(rp3d::CollisionBody* collisionBody) { m_CollisionBody = collisionBody; }
-        rp3d::CollisionBody* GetCollisionBody() const { return m_CollisionBody; }
+        void SetCollisionBody(rp3d::CollisionBody* collisionBody) { CollisionBody = collisionBody; }
+        rp3d::CollisionBody* GetCollisionBody() const { return CollisionBody; }
 
         void AddCollider(Ref<Collider> collider);
-    	std::unordered_map<uint32_t, Ref<Collider>> GetColliders() { return m_Colliders; }
+    	std::unordered_map<uint32_t, Ref<Collider>> GetColliders() { return Colliders; }
 
-    	bool HasColliders() const { return m_TotalColliders > 0 ? true : false; }
+    	bool HasColliders() const { return TotalColliders > 0 ? true : false; }
         
         /**
          * @fn tnah::Physics::RigidBody::UpdateBodyProperties()
@@ -43,171 +43,78 @@ namespace tnah::Physics {
          */
         void UpdateBodyProperties();
 
-        uint32_t GetID() const { return m_ID; }
+        uint32_t GetID() const { return ID; }
 
-        InertiaTensor GetInertiaTensor() const { return m_InertiaTensor; }
+        InertiaTensor GetInertiaTensor() const { return InertiaTensor; }
         void RecalculateWorldInertiaTensor();
     	
-        LinearVelocity GetLinearVelocity() const { return m_LinearVelocity; }
-        AngularVelocity GetAngularVelocity() const { return m_AngularVelocity; }
-        std::pair<LinearVelocity, AngularVelocity> GetVelocities() { return {m_LinearVelocity, m_AngularVelocity}; }
-
-        void SetLinearRotationalLockFactor(const glm::ivec3& lock) { m_LinearRotationLock = lock; }
-        void SetAngularRotationalLockFactor(const glm::ivec3& lock) { m_AngularRotationLock = lock; }
-
-        glm::vec3& GetLinearRotationalLockFactor() { return m_LinearRotationLock; }
-        glm::vec3& GetAngularRotationalLockFactor() { return m_AngularRotationLock; }
+        LinearVelocity GetLinearVelocity() const { return linearVelocity; }
+        AngularVelocity GetAngularVelocity() const { return angularVelocity; }
+        std::pair<LinearVelocity, AngularVelocity> GetVelocities() { return {linearVelocity, angularVelocity}; }
+    	
 
         void ApplyCollisionImpulse(const glm::vec3& linearVelocity, const glm::vec3& angularVelocity);
 
         void ResetValues();
 
-        bool& IgnoreGravity() { return m_IgnoreGravity; }
-        bool IsSleeping() const { return m_IsSleeping; }
-        void Awake() { m_IsSleeping = false; }
-        void Sleep();
-
-    	void SetLinearDampening(float value) {m_LinearDampening.Dampening = glm::clamp(value, 0.0f, 1.0f);}
-    	void SetAngularDampening(float value) {m_AngularDampening.Dampening = glm::clamp(value, 0.0f, 1.0f);}
+    	void SetLinearDampening(float value) {LinearDampening.Dampening = glm::clamp(value, 0.0f, 1.0f);}
+    	void SetAngularDampening(float value) {AngularDampening.Dampening = glm::clamp(value, 0.0f, 1.0f);}
 
         glm::vec3 CalculateLocalInertiaTensor();
-    	/**
-    	* @var m_CollisionBody
-    	*
-    	* @brief The Reactphysics3d Collision body used by the Rigidbody to interact and move within the PhysicsWorld.
-    	*/
-    	rp3d::CollisionBody* m_CollisionBody = nullptr;
+
+    	rp3d::CollisionBody* CollisionBody = nullptr;
     private:
 
     	glm::vec3 CalculateCentreOfMass();
 
-        void SetID(const uint32_t id) { m_ID = id; }
+        void SetID(const uint32_t id) { ID = id; }
         
     
     private:
 
         /**
-        * @var m_BodyMass
+        * @var BodyMass
         *
         * @brief The BodyMass of the Rigidbody. This is the combined total for the whole Rigidbody with all of its Colliders.
         */
-        BodyMass m_BodyMass;
+        BodyMass bodyMass;
 
         /**
-        * @var m_LinearVelocity
+        * @var LinearVelocity
         *
         * @brief The current LinearVelocity of the Rigidbody.
         */
-        LinearVelocity m_LinearVelocity;
+        LinearVelocity linearVelocity;
+    	
+        AngularVelocity angularVelocity;
+    	
+        LinearVelocity ConstrainedLinearVelocity;
+    	
+        AngularVelocity ConstrainedAngularVelocity;
 
-        /**
-        * @var m_AngularVelocity
-        *
-        * @brief The current AngularVelocity of the Rigidbody.
-        */
-        AngularVelocity m_AngularVelocity;
+        Force Force;
+    	
+        Torque Torque;
 
-        /**
-        * @var m_ConstrainedLinearVelocity
-        *
-        * @brief The current Constrained LinearVelocity of the Rigidbody.
-        */
-        LinearVelocity m_ConstrainedLinearVelocity;
+        LinearDampening LinearDampening;
+    	
+        AngularDampening AngularDampening;
+    	
+        InertiaTensor InertiaTensor;
+    	
+        std::unordered_map<uint32_t, Ref<Collider>> Colliders;
 
-        /**
-        * @var m_ConstrainedAngularVelocity
-        *
-        * @brief The current Constrained AngularVelocity of the Rigidbody.
-        */
-        AngularVelocity m_ConstrainedAngularVelocity;
-
-        /**
-        * @var m_Force
-        *
-        * @brief Current forces applied to the Rigidbody. These are used and zeroed out every PhysicsSystem::OnUpdate().
-        */
-        Force m_Force;
-
-        /**
-        * @var m_Torque
-        *
-        * @brief Current torques applied to the Rigidbody. These are used and zeroed out every PhysicsSystem::OnUpdate().
-        */
-        Torque m_Torque;
-
-        /**
-        * @var m_LinearDampening
-        *
-        * @brief The LinearDampening of the Rigidbody. Values of 0 disable dampening and values of 1 enable full dampening.
-        */
-        LinearDampening m_LinearDampening;
-
-        /**
-        * @var m_AngularDampening
-        *
-        * @brief The AngularDampening of the Rigidbody. Values of 0 disable dampening and values of 1 enable full dampening.
-        */
-        AngularDampening m_AngularDampening;
-
-        /**
-        * @var m_InertiaTensor
-        *
-        * @brief The InertiaTensor of the Rigidbody with both world and local space data.
-        */
-        InertiaTensor m_InertiaTensor;
-        
-        /**
-        * @var m_Colliders
-        *
-        * @brief A vector of all colliders on the Rigidbody
-        */
-        std::unordered_map<uint32_t, Ref<Collider>> m_Colliders;
-
-    	uint32_t m_TotalColliders = 0;
+    	uint32_t TotalColliders = 0;
 
     	/**
-    	 * @var m_ID
+    	 * @var ID
     	 * 
     	 * @brief The global ID of the RigidBody.
     	 */
-        uint32_t m_ID = 0;
+        uint32_t ID = 0;
 
-        /**
-         * @var m_LinearRotationLock
-         *
-         * @brief Rotational lock factor for linear velocities. 1 is enabled, 0 is disabled per axis.
-         */
-        glm::vec3 m_LinearRotationLock = {1,1,1};
-
-        /**
-        * @var m_AngularRotationLock
-        *
-        * @brief Rotational lock factor for angular velocities. 1 is enabled, 0 is disabled per axis.
-        */
-        glm::vec3 m_AngularRotationLock = {1,1,1};
-
-    	glm::vec3 m_Position = {0,0,0};
-    	glm::quat m_Orientation = {0,0,0,0};
-
-    	/**
-    	 * @var m_IsSleeping
-    	 *
-    	 * @brief A flag to note if the RigidBody is currently sleeping thus not being simulated.
-    	 */
-        bool m_IsSleeping = false;
-
-    	float m_SleepVelocityThreshold = 0.2f;
-
-    	float m_SleepTimeThreshold = 1.0f;
-
-    	float m_SleepTimeAccumulator = 0.0f;
-
-    	/**
-    	* @var m_IgnoreGravity
-    	*
-    	* @brief A flag to note if the RigidBody should ignore gravity within the world.
-    	*/
-        bool m_IgnoreGravity = false;
+    	glm::vec3 Position = {0,0,0};
+    	glm::quat Orientation = {0,0,0,0};
 
         friend class PhysicsEngine;
         friend class EditorUI;

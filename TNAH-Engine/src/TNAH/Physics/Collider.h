@@ -108,7 +108,7 @@ namespace tnah::Physics {
 
 			InertiaTensor m_InertiaTensor;
 
-			uint32_t m_ID = 0;
+			uint32_t ID = 0;
 
 			/**
 			 * @var m_Volume
