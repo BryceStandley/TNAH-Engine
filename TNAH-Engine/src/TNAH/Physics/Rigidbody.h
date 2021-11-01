@@ -29,18 +29,7 @@ namespace tnah::Physics {
     	std::unordered_map<uint32_t, Ref<Collider>> GetColliders() { return Colliders; }
 
     	bool HasColliders() const { return TotalColliders > 0 ? true : false; }
-        
-        /**
-         * @fn tnah::Physics::RigidBody::UpdateBodyProperties()
-         * 
-         * @brief Updates and recalculates the Local properties of the RigidBody based on its colliders attached.
-         *	This overrides any values set. To modify the properties of the body,
-         *	address the tnah::Physics::Collider objects directly with RigidBody::GetColliders()
-         *
-         * @author Bryce Standley
-         * @date Monday, 25 October 2021
-         * 
-         */
+    	
         void UpdateBodyProperties();
 
         uint32_t GetID() const { return ID; }

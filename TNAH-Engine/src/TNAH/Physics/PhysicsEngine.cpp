@@ -50,10 +50,10 @@ namespace tnah::Physics
             if(physicsManager->ColliderRender)
             {
                 physicsManager->PhysicsWorld->getDebugRenderer().setIsDebugItemDisplayed(rp3d::DebugRenderer::DebugItem::COLLISION_SHAPE, true);
-                physicsManager->PhysicsWorld->getDebugRenderer().setIsDebugItemDisplayed(rp3d::DebugRenderer::DebugItem::COLLIDER_AABB, FALSE);
-                physicsManager->PhysicsWorld->getDebugRenderer().setIsDebugItemDisplayed(rp3d::DebugRenderer::DebugItem::CONTACT_POINT, false);
-                physicsManager->PhysicsWorld->getDebugRenderer().setIsDebugItemDisplayed(rp3d::DebugRenderer::DebugItem::CONTACT_NORMAL, FALSE);
-                physicsManager->PhysicsWorld->getDebugRenderer().setIsDebugItemDisplayed(rp3d::DebugRenderer::DebugItem::COLLIDER_BROADPHASE_AABB, FALSE);
+                physicsManager->PhysicsWorld->getDebugRenderer().setIsDebugItemDisplayed(rp3d::DebugRenderer::DebugItem::COLLIDER_AABB, true);
+                physicsManager->PhysicsWorld->getDebugRenderer().setIsDebugItemDisplayed(rp3d::DebugRenderer::DebugItem::CONTACT_POINT, true);
+                physicsManager->PhysicsWorld->getDebugRenderer().setIsDebugItemDisplayed(rp3d::DebugRenderer::DebugItem::CONTACT_NORMAL, true);
+                physicsManager->PhysicsWorld->getDebugRenderer().setIsDebugItemDisplayed(rp3d::DebugRenderer::DebugItem::COLLIDER_BROADPHASE_AABB, true);
             }
             else
             {
@@ -105,9 +105,9 @@ namespace tnah::Physics
                 glm::vec3 r1 = cp1 - t1.Position;
                 glm::vec3 r2 = cp2 - t2.Position;
                 
-                    t1.Position += cn * ((item.GetPenetration() / 2.0f) * -1);
+                t1.Position += cn * ((item.GetPenetration() / 2.0f) * -1);
 
-                    t2.Position -= cn * ((item.GetPenetration() / 2.0f) * -1);
+                t2.Position -= cn * ((item.GetPenetration() / 2.0f) * -1);
 
                 auto restitution_multiplier = -(1.0f + restitution);
 
@@ -127,16 +127,17 @@ namespace tnah::Physics
                 
                 auto linear_impulse = lambda * cn;
                 
-                    lv1 += linear_impulse * rb1->GetBodyMass().InverseMass;
-                    av1 += (lambda * rb1->GetInertiaTensor().WorldInverseInertiaTensor * r1xn);
-                    rb1->linearVelocity.Velocity = lv1;
-                    rb1->angularVelocity.Velocity = av1;
+                lv1 += linear_impulse * rb1->GetBodyMass().InverseMass;
+                av1 += (lambda * rb1->GetInertiaTensor().WorldInverseInertiaTensor * r1xn);
+                rb1->linearVelocity.Velocity = lv1;
+                rb1->angularVelocity.Velocity = av1;
                 
 
-                    lv2 -= linear_impulse * rb2->GetBodyMass().InverseMass;
-                    av2 -=  (lambda * rb2->GetInertiaTensor().WorldInverseInertiaTensor * r2xn);
-                    rb2->linearVelocity.Velocity = lv2;
-                    rb2->angularVelocity.Velocity = av2;
+                lv2 -= linear_impulse * rb2->GetBodyMass().InverseMass;
+                av2 -=  (lambda * rb2->GetInertiaTensor().WorldInverseInertiaTensor * r2xn);
+                rb2->linearVelocity.Velocity = lv2;
+                rb2->angularVelocity.Velocity = av2;
+                
                 collision.GetCollisionData().pop();
             }
             physicsManager->CollisionDetectionEngine->GetCurrentCollisions().pop();
