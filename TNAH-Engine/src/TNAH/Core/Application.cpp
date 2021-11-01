@@ -4,7 +4,6 @@
 #define GLFW_EXPOSE_NATIVE_WIN32
 #include "GLFW/glfw3.h"
 #include "GLFW/glfw3native.h"
-#include "TNAH/Audio/Audio.h"
 
 namespace tnah
 {
@@ -21,7 +20,6 @@ namespace tnah
  
 
 		Renderer::Init();
-		Audio::Init();
 
 		if (m_ImGuiLayer == nullptr)
 		{
@@ -293,7 +291,6 @@ namespace tnah
 	}
 	void Application::Close()
 	{
-		Audio::Shutdown();
 		m_Running = false;
 	}
 }

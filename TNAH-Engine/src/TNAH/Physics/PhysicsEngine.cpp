@@ -53,7 +53,7 @@ namespace tnah::Physics
                 physicsManager->PhysicsWorld->getDebugRenderer().setIsDebugItemDisplayed(rp3d::DebugRenderer::DebugItem::COLLIDER_AABB, true);
                 physicsManager->PhysicsWorld->getDebugRenderer().setIsDebugItemDisplayed(rp3d::DebugRenderer::DebugItem::CONTACT_POINT, true);
                 physicsManager->PhysicsWorld->getDebugRenderer().setIsDebugItemDisplayed(rp3d::DebugRenderer::DebugItem::CONTACT_NORMAL, true);
-                physicsManager->PhysicsWorld->getDebugRenderer().setIsDebugItemDisplayed(rp3d::DebugRenderer::DebugItem::COLLIDER_BROADPHASE_AABB, true);
+                physicsManager->PhysicsWorld->getDebugRenderer().setIsDebugItemDisplayed(rp3d::DebugRenderer::DebugItem::COLLIDER_BROADPHASE_AABB, false);
             }
             else
             {
@@ -75,68 +75,79 @@ namespace tnah::Physics
         physicsManager->PhysicsCommon.setLogger(physicsManager->PhysicsLogger);
     }
 
-    void PhysicsEngine::ProcessCollisions()
+    void PhysicsEngine::Collisions()
     {
         while(!physicsManager->CollisionDetectionEngine->GetCurrentCollisions().empty())
         {
-            //loop over the collisions data and process a response for the collision
             auto& collision =  physicsManager->CollisionDetectionEngine->GetCurrentCollisions().front();
             while(!collision.GetCollisionData().empty())
             {
-                auto& item = collision.GetCollisionData().front();
+                PhysicsCollision::CollisionData& collisionCallback = collision.GetCollisionData().front();
 
-                auto rb1 = item.GetRigidBodies().first;
-                auto rb2 = item.GetRigidBodies().second;
+                //Rigidbodies
+                Ref<RigidBody> rigidbodyOne = collisionCallback.GetRigidBodies().first;
+                Ref<RigidBody> rigidbodyTwo = collisionCallback.GetRigidBodies().second;
+
+                //Velocities One
+                glm::vec3 linearVelocityOne = rigidbodyOne->GetLinearVelocity();
+                glm::vec3 angularVelocityOne = rigidbodyOne->GetAngularVelocity();
+
+                //Velocities Two
+                glm::vec3 linearVelocityTwo = rigidbodyTwo->GetLinearVelocity();
+                glm::vec3 angularVelocityTwo = rigidbodyTwo->GetAngularVelocity();
+
+                //Contact points
+                glm::vec3 contactPointOne = collisionCallback.GetContactPositions().first;
+                glm::vec3 contactPointTwo = collisionCallback.GetContactPositions().second;
+
+                //Contact normals
+                glm::vec3 contactNormal = collisionCallback.GetContactNormal();
+
+                //Rigidbody contacts
+                glm::vec3 rigidbodyContactOne = contactPointOne - rigidbodyOne->bodyMass.WorldCentreOfMass;
+                glm::vec3 rigidbodyContactTwo = contactPointTwo - rigidbodyTwo->bodyMass.WorldCentreOfMass;
+
+                //Difference in velocity
+                glm::vec3 velocityDifference = linearVelocityOne - linearVelocityTwo;
+
+                //Normals cross rigidbody contacts
+                glm::vec rigidbodyCrossOne = glm::cross(rigidbodyContactOne, contactNormal);
+                glm::vec3 rigidbodyCrossTwo = glm::cross(rigidbodyContactTwo, contactNormal);
+
+                //Numerator (top part of the equation for frictionless collision)
+                constexpr float restitution = -1.4;
+                float velocityDifferenceContact = glm::dot(contactNormal, velocityDifference);
+                float angularCrossOne = glm::dot(angularVelocityOne, rigidbodyCrossOne);
+                float angularCrossTwo = glm::dot(angularVelocityTwo, rigidbodyCrossTwo);
+                float numerator = restitution * (velocityDifferenceContact + angularCrossOne - angularCrossTwo);
+
+                //Denominator (bottom part of equation)
+                float inverseMass = rigidbodyOne->GetBodyMass().InverseMass + rigidbodyTwo->GetBodyMass().InverseMass;
+                float inertiaDot = glm::dot((rigidbodyCrossOne * rigidbodyOne->GetInertiaTensor().WorldInverseInertiaTensor * rigidbodyCrossOne),
+                                            (rigidbodyCrossTwo * rigidbodyTwo->GetInertiaTensor().WorldInverseInertiaTensor * rigidbodyCrossTwo));
+                float denominator = inverseMass + inertiaDot;
+
+                //Big Equation Value
+                float lambda = (numerator / denominator);
+
+                //Big Equation * contact normal
+                glm::vec3 impulse = lambda * contactNormal;
                 
-                constexpr float restitution = 0.4f;
-		
-                auto& t1 = item.GetGameObjects().first->Transform();
-                glm::vec3 lv1 = rb1->GetLinearVelocity();
-                glm::vec3 av1 = rb1->GetAngularVelocity();
+                linearVelocityOne += impulse * rigidbodyOne->GetBodyMass().InverseMass;
+                angularVelocityOne += lambda * rigidbodyOne->GetInertiaTensor().WorldInverseInertiaTensor * rigidbodyCrossOne;
+                rigidbodyOne->linearVelocity.Velocity = linearVelocityOne;
+                rigidbodyOne->angularVelocity.Velocity = angularVelocityOne;
                 
-                auto& t2 = item.GetGameObjects().second->Transform();
-                glm::vec3 lv2 = rb2->GetLinearVelocity();
-                glm::vec3 av2 = rb2->GetAngularVelocity();
-                
-                glm::vec3 cp1 = item.GetContactPositions().first;
-                glm::vec3 cp2 = item.GetContactPositions().second;
-                glm::vec3 cn = item.GetContactNormal();
+                linearVelocityTwo -= impulse * rigidbodyTwo->GetBodyMass().InverseMass;
+                angularVelocityTwo -=  lambda * rigidbodyTwo->GetInertiaTensor().WorldInverseInertiaTensor * rigidbodyCrossTwo;
+                rigidbodyTwo->linearVelocity.Velocity = linearVelocityTwo;
+                rigidbodyTwo->angularVelocity.Velocity = angularVelocityTwo;
 
-                glm::vec3 r1 = cp1 - t1.Position;
-                glm::vec3 r2 = cp2 - t2.Position;
-                
-                t1.Position += cn * ((item.GetPenetration() / 2.0f) * -1);
-
-                t2.Position -= cn * ((item.GetPenetration() / 2.0f) * -1);
-
-                auto restitution_multiplier = -(1.0f + restitution);
-
-                auto relative_velocity = lv1 - lv2;
-
-                auto r1xn = glm::cross(r1, cn);
-
-                auto r2xn = glm::cross(r2, cn);
-                
-                auto total_inverse_mass = rb1->GetBodyMass().InverseMass + rb2->GetBodyMass().InverseMass;
-
-                auto numerator = restitution_multiplier * (glm::dot(cn, relative_velocity) + glm::dot(av1, r1xn) - glm::dot(av2, r2xn));
-
-                auto denominator = total_inverse_mass + (r1xn * rb1->GetInertiaTensor().WorldInverseInertiaTensor * r1xn) + (r2xn * rb2->GetInertiaTensor().WorldInverseInertiaTensor * r2xn);
-
-                auto lambda = (numerator / denominator);
-                
-                auto linear_impulse = lambda * cn;
-                
-                lv1 += linear_impulse * rb1->GetBodyMass().InverseMass;
-                av1 += (lambda * rb1->GetInertiaTensor().WorldInverseInertiaTensor * r1xn);
-                rb1->linearVelocity.Velocity = lv1;
-                rb1->angularVelocity.Velocity = av1;
-                
-
-                lv2 -= linear_impulse * rb2->GetBodyMass().InverseMass;
-                av2 -=  (lambda * rb2->GetInertiaTensor().WorldInverseInertiaTensor * r2xn);
-                rb2->linearVelocity.Velocity = lv2;
-                rb2->angularVelocity.Velocity = av2;
+                //Penetration, this is done as it sits within the other body otherwise
+                TransformComponent& transformTwo = collisionCallback.GetGameObjects().second->Transform();
+                TransformComponent& transformOne = collisionCallback.GetGameObjects().first->Transform();
+                transformOne.Position += contactNormal * ((collisionCallback.GetPenetration() / 2.0f) * -1);
+                transformTwo.Position -= contactNormal * ((collisionCallback.GetPenetration() / 2.0f) * -1);
                 
                 collision.GetCollisionData().pop();
             }
@@ -144,131 +155,100 @@ namespace tnah::Physics
         }
     }
 
-    void PhysicsEngine::ProcessRigidbodyVelocities(const Timestep& deltaTime, entt::registry& componentRegistry)
+    void PhysicsEngine::Velocities(const float& deltaTime, RigidBodyComponent& rb, TransformComponent& transform)
     {
-        auto view = componentRegistry.view<RigidBodyComponent>();
-        for(auto e : view)
-        {
-            auto& rb = view.get<RigidBodyComponent>(e).Body;
         
-            rb->linearVelocity.Velocity += deltaTime.GetSeconds() * rb->GetBodyMass().InverseMass *
-                                                                     rb->Force.Forces;
+            rb.Body->linearVelocity.Velocity += deltaTime * rb.Body->GetBodyMass().InverseMass * rb.Body->Force.Forces;
         
-            rb->angularVelocity.Velocity += deltaTime.GetSeconds() *
-                                                                    rb->GetInertiaTensor().WorldInverseInertiaTensor * rb->Torque.Torques;
-                
-        }
+            rb.Body->angularVelocity.Velocity += deltaTime * rb.Body->GetInertiaTensor().WorldInverseInertiaTensor * rb.Body->Torque.Torques;
+
     }
 
-    void PhysicsEngine::ProcessRigidbodyPositions(const Timestep& deltaTime, entt::registry& componentRegistry)
+    void PhysicsEngine::Positions(const float& deltaTime, RigidBodyComponent& rb, TransformComponent& transform)
     {
-        auto view = componentRegistry.view<TransformComponent, RigidBodyComponent>();
-        for(auto e : view)
-        {
-            auto& rb = view.get<RigidBodyComponent>(e).Body;
-            auto& trans = view.get<TransformComponent>(e);
+        transform.Position += rb.Body->linearVelocity.Velocity * deltaTime;
+        rb.Body->centralPosition = transform.Position;
                 
-                trans.Position += rb->linearVelocity.Velocity * deltaTime.GetSeconds();
-                rb->Position = trans.Position;
-                
-                rb->Orientation += glm::quat(0.0, rb->angularVelocity) * deltaTime.GetSeconds();
-                rb->Orientation = glm::normalize(rb->Orientation);
-                
-                //rb->LinearVelocity = glm::vec3(0, rb->LinearVelocity.Velocity.y, 0);
-                trans.Position += rb->linearVelocity.Velocity * deltaTime.GetSeconds();
-                rb->Position = trans.Position;
-        }
+        rb.Body->Orientation += glm::quat(0.0, rb.Body->angularVelocity) * deltaTime;
+        rb.Body->Orientation = glm::normalize(rb.Body->Orientation);
+        
+        transform.Position += rb.Body->linearVelocity.Velocity * deltaTime;
+        rb.Body->centralPosition = transform.Position;
     }
 
-    void PhysicsEngine::ResetRigidbodyForcesAndTorques(entt::registry& componentRegistry)
+    void PhysicsEngine::ForcesAndTorques(RigidBodyComponent& rb, TransformComponent& transform)
     {
-        auto view = componentRegistry.view<RigidBodyComponent>();
-        for(auto e : view)
-        {
-            auto& rigidbody = view.get<RigidBodyComponent>(e).Body;
-            rigidbody->Force.Forces = {0.0f, 0.0f, 0.0f};
-            rigidbody->Torque.Torques = {0.0f, 0.0f, 0.0f};
-        }
+            rb.Body->Force.Forces = {0.0f, 0.0f, 0.0f};
+            rb.Body->Torque.Torques = {0.0f, 0.0f, 0.0f};
     }
 
-    void PhysicsEngine::UpdateInertiaTensor(entt::registry& componentRegistry)
+    void PhysicsEngine::InertiaTensors(RigidBodyComponent& rb, TransformComponent& transform)
     {
-        auto view = componentRegistry.view<TransformComponent, RigidBodyComponent>();
-        for(auto e : view)
-        {
-            auto& rb = view.get<RigidBodyComponent>(e).Body;
-            auto& trans = view.get<TransformComponent>(e);
-            glm::mat3 rot = glm::mat3_cast(rb->Orientation);
-            rb->InertiaTensor.WorldInverseInertiaTensor[0][0] = rot[0][0] * rb->InertiaTensor.LocalInverseInertiaTensor.x;
-            rb->InertiaTensor.WorldInverseInertiaTensor[0][1] = rot[1][0] * rb->InertiaTensor.LocalInverseInertiaTensor.x;
-            rb->InertiaTensor.WorldInverseInertiaTensor[0][2] = rot[2][0] * rb->InertiaTensor.LocalInverseInertiaTensor.x;
+            glm::mat3 rot = glm::mat3_cast(rb.Body->Orientation);
+            rb.Body->InertiaTensor.WorldInverseInertiaTensor[0][0] = rot[0][0] * rb.Body->InertiaTensor.LocalInverseInertiaTensor.x;
+            rb.Body->InertiaTensor.WorldInverseInertiaTensor[0][1] = rot[1][0] * rb.Body->InertiaTensor.LocalInverseInertiaTensor.x;
+            rb.Body->InertiaTensor.WorldInverseInertiaTensor[0][2] = rot[2][0] * rb.Body->InertiaTensor.LocalInverseInertiaTensor.x;
 	
-            rb->InertiaTensor.WorldInverseInertiaTensor[1][0] = rot[0][1] * rb->InertiaTensor.LocalInverseInertiaTensor.y;
-            rb->InertiaTensor.WorldInverseInertiaTensor[1][1] = rot[1][1] * rb->InertiaTensor.LocalInverseInertiaTensor.y;
-            rb->InertiaTensor.WorldInverseInertiaTensor[1][2] = rot[2][1] * rb->InertiaTensor.LocalInverseInertiaTensor.y;
+            rb.Body->InertiaTensor.WorldInverseInertiaTensor[1][0] = rot[0][1] * rb.Body->InertiaTensor.LocalInverseInertiaTensor.y;
+            rb.Body->InertiaTensor.WorldInverseInertiaTensor[1][1] = rot[1][1] * rb.Body->InertiaTensor.LocalInverseInertiaTensor.y;
+            rb.Body->InertiaTensor.WorldInverseInertiaTensor[1][2] = rot[2][1] * rb.Body->InertiaTensor.LocalInverseInertiaTensor.y;
 	
-            rb->InertiaTensor.WorldInverseInertiaTensor[2][0] = rot[0][2] * rb->InertiaTensor.LocalInverseInertiaTensor.z;
-            rb->InertiaTensor.WorldInverseInertiaTensor[2][1] = rot[1][2] * rb->InertiaTensor.LocalInverseInertiaTensor.z;
-            rb->InertiaTensor.WorldInverseInertiaTensor[2][2] = rot[2][2] * rb->InertiaTensor.LocalInverseInertiaTensor.z;
+            rb.Body->InertiaTensor.WorldInverseInertiaTensor[2][0] = rot[0][2] * rb.Body->InertiaTensor.LocalInverseInertiaTensor.z;
+            rb.Body->InertiaTensor.WorldInverseInertiaTensor[2][1] = rot[1][2] * rb.Body->InertiaTensor.LocalInverseInertiaTensor.z;
+            rb.Body->InertiaTensor.WorldInverseInertiaTensor[2][2] = rot[2][2] * rb.Body->InertiaTensor.LocalInverseInertiaTensor.z;
 
-            rb->InertiaTensor.WorldInverseInertiaTensor = rot * rb->InertiaTensor.WorldInverseInertiaTensor;
-        }
+            rb.Body->InertiaTensor.WorldInverseInertiaTensor = rot * rb.Body->InertiaTensor.WorldInverseInertiaTensor;
     }
 
-    void PhysicsEngine::UpdateBodies(entt::registry& componentRegistry)
+    void PhysicsEngine::UpdateRbs(RigidBodyComponent& rb, TransformComponent& transform)
     {
-        auto view = componentRegistry.view<TransformComponent, RigidBodyComponent>();
-        for(auto e : view)
-        {
-            auto& rb = view.get<RigidBodyComponent>(e).Body;
-            auto& transform = view.get<TransformComponent>(e);
-            
-            rb->OnUpdate(transform);
-            
-            rb->linearVelocity.Velocity = rb->linearVelocity.Velocity;
-            rb->angularVelocity.Velocity = rb->angularVelocity.Velocity;
+            rb.Body->OnUpdate(transform);
 
-            auto t = rb->CollisionBody->getTransform();
-            t.setPosition(Math::ToRp3dVec3(rb->Position));
-                t.setOrientation(Math::ToRp3dQuat(rb->Orientation));
-                rb->CollisionBody->setTransform(t);
-                transform.Rotation = glm::eulerAngles(rb->Orientation);
-                transform.QuatRotation = rb->Orientation;
+            rp3d::Transform t = rb.Body->CollisionBody->getTransform();
+            t.setPosition(Math::ToRp3dVec3(rb.Body->centralPosition));
+                t.setOrientation(Math::ToRp3dQuat(rb.Body->Orientation));
+                rb.Body->CollisionBody->setTransform(t);
+        transform.Rotation = glm::eulerAngles(rb.Body->Orientation);
+        transform.QuatRotation = rb.Body->Orientation;
 
-            for(auto& c : rb->Colliders)
+            for(std::pair<const unsigned, Ref<Collider>>& c : rb.Body->Colliders)
             {
-                auto col = c.second;
+                Ref<Collider> col = c.second;
                 col->SetPosition(transform.Position + col->GetColliderPosition());
-                col->SetOrientation(rb->Orientation + col->GetColliderOrientation());
+                col->SetOrientation(rb.Body->Orientation + col->GetColliderOrientation());
             }
-        }
     }
 
   
 
-    void  PhysicsEngine::OnFixedUpdate(Timestep deltaTime, PhysicsTimestep timestep, entt::registry& componentRegistry)
+    void  PhysicsEngine::OnFixedUpdate(float deltaTime, entt::registry& componentRegistry)
     {
         if(IsActive())
         {
-            auto ts = timestep;
-            ts.SetSimulationSpeed(deltaTime.GetSeconds());
-            physicsManager->OnFixedUpdate(deltaTime, timestep);
-
-            UpdateInertiaTensor(componentRegistry);
+            physicsManager->OnFixedUpdate(deltaTime);
             
-            ProcessCollisions();
+            Collisions();
+
+            entt::basic_view<entt::entity, entt::exclude_t<>, TransformComponent, RigidBodyComponent> view = componentRegistry.view<TransformComponent, RigidBodyComponent>();
             
-            ProcessRigidbodyVelocities(deltaTime, componentRegistry);
+            for(entt::entity entity : view)
+            {
+                RigidBodyComponent& rb = view.get<RigidBodyComponent>(entity);
+                TransformComponent& transform = view.get<TransformComponent>(entity);
+                
+                Velocities(deltaTime, rb, transform);
 
-            ProcessRigidbodyPositions(deltaTime, componentRegistry);
+                Positions(deltaTime, rb, transform);
 
-            UpdateBodies(componentRegistry);
+                UpdateRbs(rb, transform);
 
-            ResetRigidbodyForcesAndTorques(componentRegistry);
+                ForcesAndTorques(rb, transform);
+                InertiaTensors(rb, transform);
+            }
         }
     }
 
-    void  PhysicsEngine::OnUpdate(Timestep timestep)
+    void  PhysicsEngine::OnUpdate()
     {
         UpdateColliderRenderer();
     }
@@ -573,10 +553,9 @@ namespace tnah::Physics
         return true;
     }
 
-    void PhysicsManager::OnFixedUpdate(Timestep deltaTime, PhysicsTimestep timestep) const
+    void PhysicsManager::OnFixedUpdate(float deltaTime) const
     {
-        //PhysicsWorld->update(timestep.GetSimulationSpeed());
-        CollisionDetectionEngine->FixedUpdate(PhysicsWorld, deltaTime.GetSeconds());
+        CollisionDetectionEngine->FixedUpdate(PhysicsWorld, deltaTime);
     }
 #pragma endregion 
 

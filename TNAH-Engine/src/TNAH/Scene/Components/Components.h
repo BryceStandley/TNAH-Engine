@@ -10,11 +10,6 @@
 #include "PhysicsComponents.h"
 #include "LightComponents.h"
 #include "AudioComponents.h"
-#include "AI/Affordance.h"
-#include "AI/AIComponent.h"
-#include "AI/CharacterComponent.h"
-#include "AI/PlayerInteractions.h"
-
 #include "TNAH/Renderer/Mesh.h"
 
 #define GLM_ENABLE_EXPERIMENTAL

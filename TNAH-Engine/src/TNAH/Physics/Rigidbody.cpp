@@ -11,7 +11,7 @@ namespace tnah::Physics {
 	RigidBody::RigidBody(TransformComponent& transform, BodyMass mass)
 		:bodyMass(mass)
 	{
-		Position = transform.Position;
+		centralPosition = transform.Position;
 		Orientation = glm::quat(transform.QuatRotation);
 	}
 
@@ -22,8 +22,9 @@ namespace tnah::Physics {
 
 	void RigidBody::OnUpdate(TransformComponent& transform)
 	{
-		Position = transform.Position;
 		Orientation = glm::normalize(Orientation + transform.QuatRotation);
+		bodyMass.WorldCentreOfMass = transform.Position - bodyMass.LocalCentreOfMass;
+		centralPosition = bodyMass.WorldCentreOfMass;
 	}
 
 	void RigidBody::AddForce(const glm::vec3& force)
@@ -40,10 +41,7 @@ namespace tnah::Physics {
 	{
 		Colliders[TotalColliders] = collider;
 		TotalColliders++;
-
 		UpdateBodyProperties();
-
-	
 	}
 
 	void RigidBody::UpdateBodyProperties()
@@ -51,10 +49,10 @@ namespace tnah::Physics {
 		//Get and update the Centre of Mass for the body. Both local and world
 		const auto oldWorldCOM = bodyMass.WorldCentreOfMass;
 		const auto localCOM = CalculateCentreOfMass();
-		const glm::vec3 worldCOM = (Orientation * localCOM) + Position;
+		const glm::vec3 worldCOM = (Orientation * localCOM) + centralPosition;
 		bodyMass.WorldCentreOfMass = worldCOM;
 
-			linearVelocity.Velocity += glm::cross(angularVelocity.Velocity, worldCOM - oldWorldCOM);
+		linearVelocity.Velocity += glm::cross(angularVelocity.Velocity, worldCOM - oldWorldCOM);
 		
 		CalculateLocalInertiaTensor();
 	}
@@ -89,7 +87,7 @@ namespace tnah::Physics {
 		Torque = {0.0f, 0.0f, 0.0f};
 		linearVelocity = {0.0f, 0.0f, 0.0f};
 		angularVelocity = {0.0f, 0.0f, 0.0f};
-		Position = {0,0,0};
+		centralPosition = {0,0,0};
 		Orientation = {0,0,0,0};
 	}
 

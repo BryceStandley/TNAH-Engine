@@ -5,14 +5,9 @@
 #include "TNAH/Core/Application.h"
 #include "TNAH/Core/Input.h"
 #include "TNAH/Renderer/Renderer.h"
-#include "TNAH/Audio/Audio.h"
 #include "TNAH/Physics/PhysicsEvents.h"
 #include <glm/gtx/string_cast.hpp>
 
-#include "Components/AI/Affordance.h"
-#include "Components/AI/AIComponent.h"
-#include "Components/AI/CharacterComponent.h"
-#include "Components/AI/PlayerInteractions.h"
 
 namespace tnah{
 
@@ -108,7 +103,7 @@ namespace tnah{
 		
 #pragma region OnUpdates
 		
-		Physics::PhysicsEngine::OnUpdate(deltaTime);
+		Physics::PhysicsEngine::OnUpdate();
 
 #pragma endregion OnUpdates
 		
@@ -116,9 +111,6 @@ namespace tnah{
 		//TODO: Actually test the player controller component
 		// Process any PlayerControllers before updating anything else in the scene
 		{
-			auto e = EditorComponent();
-
-			Audio::OnUpdate();
 			
 			auto view = m_Registry.view<PlayerControllerComponent, TransformComponent>();
 			for(auto obj : view)
@@ -171,18 +163,6 @@ namespace tnah{
 				transform.Forward = forward;
 				transform.Right = right;
 				transform.Up = up;
-			}
-		}
-
-		{
-			auto view = m_Registry.view<AStarObstacleComponent, TransformComponent>();
-			{
-				for(auto entity : view)
-				{
-					auto & star = view.get<AStarObstacleComponent>(entity);
-					auto& transform = view.get<TransformComponent>(entity);
-					AStar::AddUsedPosition(Int2(static_cast<int>(round(transform.Position.x)), static_cast<int>(round(transform.Position.z))), star.dynamic);
-				}
 			}
 		}
 		
@@ -332,58 +312,23 @@ namespace tnah{
 					}
 				}
 #pragma endregion
-
-#pragma region ColliderRender
 				
-#pragma endregion
-
-#pragma region AudioListeners
-
-				//Handles audio listeners
 				{
-					auto view = m_Registry.view<TransformComponent, AudioListenerComponent>();
-					for(auto entity : view)
+					
+					//Collider rendering should only be used for debugging and in the editor to set sizes
+					if((m_IsEditorScene || Application::Get().GetDebugModeStatus()) && Physics::PhysicsEngine::IsColliderRenderingEnabled() && passes == 0)
 					{
-						auto& listen = view.get<AudioListenerComponent>(entity);
-						auto& transform = view.get<TransformComponent>(entity);
-
-						if(listen.m_ActiveListing)
-							Audio::SetListener(transform);
-						
-						// auto hear = m_Registry.view<AudioSource>();
-						// for(auto sound : hear)
-						// {
-						//		if(sound.m_3D)
-						// 		//Call a OnAudioListen type function where we can check distance
-						// }
+						auto pair = Physics::PhysicsEngine::GetColliderRenderObjects();
+						auto lineArr = pair.first.first;
+						auto lineBuf = pair.first.second;
+				
+						auto triArr = pair.second.first;
+						auto triBuf = pair.second.second;
+						Renderer::SubmitCollider(lineArr, lineBuf,triArr,triBuf);
 					}
 				}
 
-#pragma endregion
-				
-#pragma region AudioSource
-				
-				//Handle audio
-				{
-					auto view = m_Registry.view<TransformComponent, AudioSourceComponent>();
-					for(auto entity : view)
-					{
-						auto& sound = view.get<AudioSourceComponent>(entity);
-						auto& transform = view.get<TransformComponent>(entity);
-
-						if(sound.m_Loaded)
-						{
-							Audio::UpdateSound(sound, transform);
-						}
-						else if(sound.GetStartLoad())
-						{
-							sound.m_Loaded = Audio::AddAudioSource(sound);
-						}
-					}
-				}
-				
-
-				Physics::PhysicsEngine::OnFixedUpdate(deltaTime, PhysicsTimestep(), m_Registry);
+				Physics::PhysicsEngine::OnFixedUpdate(deltaTime, m_Registry);
 				
 #pragma endregion 
 
@@ -477,7 +422,6 @@ namespace tnah{
 	{
 		m_EditorGameFramebuffer->~Framebuffer();
 		m_EditorSceneFramebuffer->~Framebuffer();
-		Audio::Clear();
 		//m_EditorCamera->~GameObject();
 		//m_ActiveCamera ->~GameObject();
 		//m_SceneLight->~GameObject();

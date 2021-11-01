@@ -2,7 +2,6 @@
 
 #include <imgui.h>
 #include <glm/gtc/random.hpp>
-#include "TNAH/Editor/EditorUI.h"
 
 #include <TNAH-App.h>
 
@@ -182,22 +181,6 @@ void MainLayer::OnImGuiRender()
 			ImGui::BulletText("Any application debug controls can go here");
 		}
 	}
-	if (ImGui::CollapsingHeader("Camera"))
-	{
-		auto& ct = m_Camera.Transform();
-		tnah::EditorUI::DrawVec3Control("Position", ct.Position);
-		tnah::EditorUI::DrawVec3Control("Rotation", ct.Rotation);
-		ImGui::Separator();
-		ImGui::Checkbox("Camera Speed Override", &m_CameraMovementSpeedOverride);
-		if (m_CameraMovementSpeedOverride)
-		{
-			tnah::EditorUI::DrawFloatControl("Speed", m_CameraMovementSpeed, 1, 100, false);
-		}
-		else
-		{
-			tnah::EditorUI::DrawFloatControl("Speed", m_CameraMovementSpeed, 1, 100, true);
-		}
-	}
 	
 	
 	
@@ -205,23 +188,6 @@ void MainLayer::OnImGuiRender()
 	ImGui::Separator();
 	
 	ImGui::Text("Scene Hierarchy");
-	if(ImGui::CollapsingHeader("GameObjects"))
-	{
-		
-		for(auto& go : m_ActiveScene->GetGameObjectsInScene())
-		{
-			constexpr static bool selected = false;
-			std::string name = go.second.GetComponent<tnah::TagComponent>().Tag;
-			if(name.find("Camera") == std::string::npos && name.find("Light") == std::string::npos)
-			{
-				if(ImGui::TreeNode(name.c_str()))
-				{
-					tnah::EditorUI::DrawComponentProperties(go.second, false);
-					ImGui::TreePop();
-				}
-			}
-		}
-	}
 	
 	ImGui::Separator();
 	

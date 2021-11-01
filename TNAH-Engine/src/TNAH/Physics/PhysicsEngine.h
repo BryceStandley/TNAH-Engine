@@ -14,11 +14,13 @@
 #include "TNAH/Scene/Components/PhysicsComponents.h"
 #include "Rigidbody.h"
 #include "TNAH/Core/Timestep.h"
+#include "TNAH/Scene/Components/PhysicsComponents.h"
 
 #include "TNAH/Scene/Components/PhysicsComponents.h"
 
 namespace tnah {
- class Renderer;
+    struct RigidBodyComponent;
+    class Renderer;
  class GameObject;
 }
 
@@ -49,7 +51,7 @@ namespace tnah::Physics
 
         bool Initialise(rp3d::EventListener * collisionEventListener);
      
-        void OnFixedUpdate(Timestep deltaTime, PhysicsTimestep timestep) const;
+        void OnFixedUpdate(float deltaTime) const;
 
         void Destroy();
      
@@ -125,9 +127,9 @@ namespace tnah::Physics
         
         static bool Initialise(rp3d::EventListener * collisionEventListener);
         
-        static void OnFixedUpdate(Timestep deltaTime, PhysicsTimestep timestep, entt::registry& componentRegistry);
+        static void OnFixedUpdate(float deltaTime, entt::registry& componentRegistry);
      
-     static void OnUpdate(Timestep timestep);
+        static void OnUpdate();
      
         static void Destroy();
      
@@ -163,12 +165,12 @@ namespace tnah::Physics
 
         static void PhysicsLoggerInit();
 
-     static void ProcessCollisions();
-     static void ProcessRigidbodyVelocities(const Timestep& deltaTime, entt::registry& componentRegistry);
-     static void ProcessRigidbodyPositions(const Timestep& deltaTime, entt::registry& componentRegistry);
-     static void ResetRigidbodyForcesAndTorques(entt::registry& componentRegistry);
-     static void UpdateInertiaTensor(entt::registry& componentRegistry);
-     static void UpdateBodies(entt::registry& componentRegistry);
+     static void Collisions();
+     static void Velocities(const float& deltaTime, RigidBodyComponent& rb, TransformComponent& transform);
+     static void Positions(const float& deltaTime, RigidBodyComponent& rb, TransformComponent& transform);
+     static void ForcesAndTorques(RigidBodyComponent& rb, TransformComponent& transform);
+     static void InertiaTensors(RigidBodyComponent& rb, TransformComponent& transform);
+     static void UpdateRbs(RigidBodyComponent& rb, TransformComponent& transform);
     
     private:
      

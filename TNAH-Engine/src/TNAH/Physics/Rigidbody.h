@@ -102,7 +102,7 @@ namespace tnah::Physics {
     	 */
         uint32_t ID = 0;
 
-    	glm::vec3 Position = {0,0,0};
+    	glm::vec3 centralPosition = {0,0,0};
     	glm::quat Orientation = {0,0,0,0};
 
         friend class PhysicsEngine;
