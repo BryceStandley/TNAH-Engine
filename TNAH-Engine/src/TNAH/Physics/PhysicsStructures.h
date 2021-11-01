@@ -3,11 +3,6 @@
 
 namespace tnah {
     namespace Physics{
-
-        enum class BodyType
-        {
-            Dynamic, Static, Kinematic
-        };
     
         struct LinearVelocity
         {

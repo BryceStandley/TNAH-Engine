@@ -282,18 +282,6 @@ namespace tnah{
 					}
 				}
 
-				// Skybox
-				if(usingSkybox)
-				{
-					auto view = m_Registry.view<SkyboxComponent>();
-					for(auto obj : view)
-					{
-						auto& skybox = view.get<SkyboxComponent>(obj);
-						// Bind the skybox shader
-						// Do any skybox render setup
-						Renderer::SubmitSkybox(skybox.SceneSkybox->GetVertexArray(), skybox.SceneSkybox->GetMaterial());
-					}
-				}
 #pragma endregion 
 				
 #pragma region Lighting
@@ -310,23 +298,7 @@ namespace tnah{
 						sceneLights.push_back(light.Light);
 					}
 				}
-#pragma endregion
-
-#pragma region TerrainRender
-				//Render any terrain objects
-				{
-					auto view = m_Registry.view<TransformComponent, TerrainComponent>();
-					for(auto entity : view)
-					{
-						auto& terrain = view.get<TerrainComponent>(entity);
-						auto& transform = view.get<TransformComponent>(entity);
-
-						Renderer::SubmitTerrain(terrain.SceneTerrain->GetVertexArray(), terrain.SceneTerrain->GetMaterial(), sceneLights, transform.GetTransform());
-					}
-				}
-#pragma endregion
-
-#pragma region MeshRender
+				
 				//Render all mesh components
 				{
 					auto view = m_Registry.view<TransformComponent, MeshComponent>();
@@ -338,9 +310,7 @@ namespace tnah{
 						auto& go = FindGameObjectByID(entity);
 						if(go.HasComponent<RigidBodyComponent>())
 						{
-							auto & rb = go.GetComponent<RigidBodyComponent>();
-							if(rb.Body->GetType() == Physics::BodyType::Dynamic)
-								matrix = transform.GetQuatTransform();
+							matrix = transform.GetQuatTransform();
 						}
 						
 						if(model.Model)
@@ -364,88 +334,7 @@ namespace tnah{
 #pragma endregion
 
 #pragma region ColliderRender
-
-				{
-					
-					//Collider rendering should only be used for debugging and in the editor to set sizes
-					if((m_IsEditorScene || Application::Get().GetDebugModeStatus()) && Physics::PhysicsEngine::IsColliderRenderingEnabled() && passes == 0)
-					{
-						auto pair = Physics::PhysicsEngine::GetColliderRenderObjects();
-						auto lineArr = pair.first.first;
-						auto lineBuf = pair.first.second;
 				
-						auto triArr = pair.second.first;
-						auto triBuf = pair.second.second;
-						Renderer::SubmitCollider(lineArr, lineBuf,triArr,triBuf);
-					}
-				}
-
-				{
-
-						auto view = m_Registry.view<AStarComponent, MeshComponent, TransformComponent>();
-						{
-							for(auto entity : view)
-							{
-								auto &astar = view.get<AStarComponent>(entity);
-								if(astar.reset)
-								{
-									AStar::Init(astar.StartingPos, astar.Size);
-									astar.reset = false;
-								}
-								
-								if(Application::Get().GetDebugModeStatus() || astar.DisplayMap)
-								{
-								auto& model = view.get<MeshComponent>(entity);
-								auto& transform = view.get<TransformComponent>(entity);
-							
-								auto map = AStar::GetUsedPoints();
-								//auto array = AStar::GetMapPoints();
-								auto pos = AStar::GetStartingPos();
-								auto end = AStar::GetEndPosition();
-								for(int x = pos.x; x < end.x; x++)
-								{
-									for(int y = pos.y; y < end.y; y++)
-									{
-										if(map[x][y])
-										{
-											auto tempTransform = transform;
-											tempTransform.Position.x = x;
-											tempTransform.Position.z = y;
-											tempTransform.Position.y = -4;
-											tempTransform.Scale = {0.5, 0.5, 0.5};
-											if(model.Model)
-											{
-												for (auto& mesh : model.Model->GetMeshes())
-												{
-													Renderer::SubmitMesh(mesh.GetMeshVertexArray(), mesh.GetMeshMaterial(), sceneLights, tempTransform.GetTransform());
-												}
-											}
-										}
-									}
-								}
-
-								/*for(int x = pos.x; x < end.x; x++)
-								{
-									for(int y = pos.y; y < end.y; y++)
-									{
-										auto tempTransform = transform;
-										tempTransform.Position.x = array[x][y].position.x;
-										tempTransform.Position.z = array[x][y].position.y;
-										tempTransform.Position.y = -4;
-										tempTransform.Scale = {0.1, 0.1, 0.1};
-										if(model.Model)
-										{
-											for (auto& mesh : model.Model->GetMeshes())
-											{
-												Renderer::SubmitMesh(mesh.GetMeshVertexArray(), mesh.GetMeshMaterial(), sceneLights, tempTransform.GetTransform());
-											}
-										}
-									}
-								}*/
-							}
-						}	
-					}
-				}
 #pragma endregion
 
 #pragma region AudioListeners
@@ -492,121 +381,9 @@ namespace tnah{
 						}
 					}
 				}
-
-
-				{
-					auto objects = m_Registry.view<Affordance, TransformComponent>();
-					auto view = m_Registry.view<AIComponent, CharacterComponent, TransformComponent, RigidBodyComponent>();
-					auto player = m_Registry.view<PlayerInteractions, TransformComponent>();
-					auto view2 = m_Registry.view<AStarComponent, MeshComponent, TransformComponent>();
-					bool playerClose = false;
-					mPlayerInteractions = false;
-					mTargetString = "";
 				
-					for(auto entity : view)
-					{
-						auto &t = view.get<TransformComponent>(entity);
-						auto &ai = view.get<AIComponent>(entity);
-						auto &c = view.get<CharacterComponent>(entity);
-						auto &rb = view.get<RigidBodyComponent>(entity);
-						for(auto obj : objects)
-						{
-							auto & objTrasnform = objects.get<TransformComponent>(obj);
-							auto & affordance = objects.get<Affordance>(obj);
-
-							if(glm::distance(objTrasnform.Position, t.Position) < c.aiCharacter->GetDistance())
-							{
-									float affordanceValue = affordance.GetActionValue(c.aiCharacter->GetDesiredAction());
-									auto event = c.aiCharacter->CheckAction(affordanceValue, glm::distance(objTrasnform.Position, t.Position), affordance.GetTag());
-								
-									if(event.second)
-									{
-										Int2 new_pos = AStar::GenerateRandomPosition(Int2(objTrasnform.Position.x, objTrasnform.Position.z)).position;
-										switch (c.aiCharacter->GetDesiredAction())
-										{
-										case Actions::drink:
-										case Actions::pickup:
-											objTrasnform.Position.x = new_pos.x;
-											objTrasnform.Position.z = new_pos.y;
-											break;
-										default:
-											break;
-										}
-									}
-								if(event.first)
-									break;
-							}
-						}
-						
-						if(!playerClose)
-						{
-							for(auto p : player)
-							{
-								auto & playerTransform = player.get<TransformComponent>(p);
-								auto & interactions = player.get<PlayerInteractions>(p);
-
-								if(glm::distance(playerTransform.Position, t.Position) < interactions.distance)
-								{
-									mPlayerInteractions = true;
-									if(Input::IsKeyPressed(Key::U))
-									{
-										c.aiCharacter->ApplyPlayerAction(PlayerActions::pumpUp);
-									}
-									else if(Input::IsKeyPressed(Key::I))
-									{
-										c.aiCharacter->ApplyPlayerAction(PlayerActions::calm);
-									}
-									else if(Input::IsKeyPressed(Key::P))
-									{
-										c.aiCharacter->ApplyPlayerAction(PlayerActions::compliment);
-									}
-									else if(Input::IsKeyPressed(Key::O))
-									{
-										c.aiCharacter->ApplyPlayerAction(PlayerActions::insult);
-									}
-									mTargetString = c.aiCharacter->CharacterString();
-									playerClose = true;
-								}
-							}	
-						}
-
-						ai.SetTargetPosition(c.aiCharacter->OnUpdate(deltaTime, t));
-						ai.SetWander(c.aiCharacter->GetWander());
-						ai.SetMovementSpeed(c.aiCharacter->GetSpeed());
-						ai.OnUpdate(deltaTime, t);
-						if(Application::Get().GetDebugModeStatus())
-						{
-							for(auto entity : view2)
-							{
-								auto& model = view2.get<MeshComponent>(entity);
-								auto& transform = view2.get<TransformComponent>(entity);
-							
-								auto queue = ai.GetPositions();
-								for(Node nodes : queue)
-								{
-									auto tempTransform = transform;
-									tempTransform.Position.x = nodes.position.x;
-									tempTransform.Position.z = nodes.position.y;
-									tempTransform.Position.y = -4;
-									tempTransform.Scale = {0.25, 0.25, 0.25};
-									tempTransform.Rotation = {0, 0, 0};
-									if(model.Model)
-									{
-										for (auto& mesh : model.Model->GetMeshes())
-										{
-											Renderer::SubmitMesh(mesh.GetMeshVertexArray(), mesh.GetMeshMaterial(), sceneLights, tempTransform.GetTransform());
-										}
-									}
-								}	
-						}
-							
-					}
-						rb.Body->OnUpdate(t);
-				}
-					}
 
 				Physics::PhysicsEngine::OnFixedUpdate(deltaTime, PhysicsTimestep(), m_Registry);
-				AStar::Update();
 				
 #pragma endregion 
 

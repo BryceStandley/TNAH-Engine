@@ -5,19 +5,19 @@ namespace tnah::Physics {
 	
 	RigidBody::RigidBody()
 	{
-		m_BodyType = BodyType::Dynamic;
+
 	}
 
-	RigidBody::RigidBody(TransformComponent& transform, BodyMass mass, BodyType type)
-		:m_BodyType(type), m_BodyMass(mass)
+	RigidBody::RigidBody(TransformComponent& transform, BodyMass mass)
+		:m_BodyMass(mass)
 	{
 		m_Position = transform.Position;
 		m_Orientation = glm::quat(transform.QuatRotation);
 	}
 
-	Ref<RigidBody> RigidBody::Create(TransformComponent& transform, BodyMass mass, BodyType type)
+	Ref<RigidBody> RigidBody::Create(TransformComponent& transform, BodyMass mass)
 	{
-		return Ref<RigidBody>::Create(transform, mass, type);
+		return Ref<RigidBody>::Create(transform, mass);
 	}
 
 	void RigidBody::OnUpdate(TransformComponent& transform)
@@ -28,13 +28,11 @@ namespace tnah::Physics {
 
 	void RigidBody::AddForce(const glm::vec3& force)
 	{
-		if(m_BodyType != BodyType::Static || m_BodyType != BodyType::Kinematic)
 			m_Force += force;
 	}
 
 	void RigidBody::AddTorque(const glm::vec3& torque)
 	{
-		if(m_BodyType != BodyType::Static || m_BodyType != BodyType::Kinematic)
 			m_Torque += torque;
 	}
 
@@ -42,14 +40,9 @@ namespace tnah::Physics {
 	{
 		m_Colliders[m_TotalColliders] = collider;
 		m_TotalColliders++;
-		if(m_BodyType == BodyType::Dynamic)
-		{
-			UpdateBodyProperties();
-		}
-		else
-		{
-			m_BodyMass.SetMass(std::numeric_limits<float>::max());
-		}
+
+		UpdateBodyProperties();
+
 	
 	}
 
@@ -61,10 +54,7 @@ namespace tnah::Physics {
 		const glm::vec3 worldCOM = (m_Orientation * localCOM) + m_Position;
 		m_BodyMass.WorldCentreOfMass = worldCOM;
 
-		if(m_BodyType == BodyType::Dynamic)
-		{
 			m_LinearVelocity.Velocity += glm::cross(m_AngularVelocity.Velocity, worldCOM - oldWorldCOM);
-		}
 		
 		CalculateLocalInertiaTensor();
 	}

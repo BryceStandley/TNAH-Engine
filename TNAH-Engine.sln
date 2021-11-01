@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31005.135
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TNAH-Testbed", "Testbed-App\Testbed-App.vcxproj", "{BFEF544A-2328-45DE-A093-D7E011C6715B}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TNAH-Engine Core", "TNAH-Engine\TNAH-Engine.vcxproj", "{BEBBF5CA-71BA-43DC-8A58-A2CC6DB632F5}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ImGui", "EngineDependencesProjects\ImGUI\ImGUI.vcxproj", "{11BB4BF9-7D1E-4ADA-AA26-B828E14EC6B3}"
@@ -15,13 +13,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dependences", "Dependences"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GLFW", "EngineDependencesProjects\GLFW\GLFW.vcxproj", "{6A144F8F-30A9-43B6-AA6B-968953D8A5BB}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TNAH-Editor", "TNAH-Editor\TNAH-Editor.vcxproj", "{285161FE-761F-4CBB-B34B-CF531CF62379}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ReactPhysics3D", "EngineDependencesProjects\ReactPhysics3D\ReactPhysics3D.vcxproj", "{2F2998F1-3D89-4812-8EF6-C65EBF9A18D7}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ICT398-Application", "ICT398-Application\ICT398-Application.vcxproj", "{0108FFE5-10A2-41F3-9E13-1F6AE11A38C7}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PhyiscsDemo_Bryce", "PhyiscsDemo_Bryce\PhyiscsDemo_Bryce.vcxproj", "{F74266B2-9D10-4903-BB04-9E2BCC5EA9EF}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ChrisPhysics", "ChrisPhysics\ChrisPhysics.vcxproj", "{1CF6B8BE-2AC1-4F00-AAC1-757428C635F1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,9 +23,6 @@ Global
 		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{BFEF544A-2328-45DE-A093-D7E011C6715B}.Debug|x64.ActiveCfg = Debug|x64
-		{BFEF544A-2328-45DE-A093-D7E011C6715B}.Release|x64.ActiveCfg = Release|x64
-		{BFEF544A-2328-45DE-A093-D7E011C6715B}.Release|x64.Build.0 = Release|x64
 		{BEBBF5CA-71BA-43DC-8A58-A2CC6DB632F5}.Debug|x64.ActiveCfg = Debug|x64
 		{BEBBF5CA-71BA-43DC-8A58-A2CC6DB632F5}.Debug|x64.Build.0 = Debug|x64
 		{BEBBF5CA-71BA-43DC-8A58-A2CC6DB632F5}.Release|x64.ActiveCfg = Release|x64
@@ -48,21 +39,14 @@ Global
 		{6A144F8F-30A9-43B6-AA6B-968953D8A5BB}.Debug|x64.Build.0 = Debug|x64
 		{6A144F8F-30A9-43B6-AA6B-968953D8A5BB}.Release|x64.ActiveCfg = Release|x64
 		{6A144F8F-30A9-43B6-AA6B-968953D8A5BB}.Release|x64.Build.0 = Release|x64
-		{285161FE-761F-4CBB-B34B-CF531CF62379}.Debug|x64.ActiveCfg = Debug|x64
-		{285161FE-761F-4CBB-B34B-CF531CF62379}.Release|x64.ActiveCfg = Release|x64
-		{285161FE-761F-4CBB-B34B-CF531CF62379}.Release|x64.Build.0 = Release|x64
-		{285161FE-761F-4CBB-B34B-CF531CF62379}.Debug|x64.Build.0 = Debug|x64
 		{2F2998F1-3D89-4812-8EF6-C65EBF9A18D7}.Debug|x64.ActiveCfg = Debug|x64
 		{2F2998F1-3D89-4812-8EF6-C65EBF9A18D7}.Debug|x64.Build.0 = Debug|x64
 		{2F2998F1-3D89-4812-8EF6-C65EBF9A18D7}.Release|x64.ActiveCfg = Release|x64
 		{2F2998F1-3D89-4812-8EF6-C65EBF9A18D7}.Release|x64.Build.0 = Release|x64
-		{0108FFE5-10A2-41F3-9E13-1F6AE11A38C7}.Debug|x64.ActiveCfg = Debug|x64
-		{0108FFE5-10A2-41F3-9E13-1F6AE11A38C7}.Release|x64.ActiveCfg = Release|x64
-		{0108FFE5-10A2-41F3-9E13-1F6AE11A38C7}.Release|x64.Build.0 = Release|x64
-		{0108FFE5-10A2-41F3-9E13-1F6AE11A38C7}.Debug|x64.Build.0 = Debug|x64
-		{F74266B2-9D10-4903-BB04-9E2BCC5EA9EF}.Debug|x64.ActiveCfg = Debug|x64
-		{F74266B2-9D10-4903-BB04-9E2BCC5EA9EF}.Release|x64.ActiveCfg = Release|x64
-		{F74266B2-9D10-4903-BB04-9E2BCC5EA9EF}.Release|x64.Build.0 = Release|x64
+		{1CF6B8BE-2AC1-4F00-AAC1-757428C635F1}.Debug|x64.ActiveCfg = Debug|x64
+		{1CF6B8BE-2AC1-4F00-AAC1-757428C635F1}.Debug|x64.Build.0 = Debug|x64
+		{1CF6B8BE-2AC1-4F00-AAC1-757428C635F1}.Release|x64.ActiveCfg = Release|x64
+		{1CF6B8BE-2AC1-4F00-AAC1-757428C635F1}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -11,9 +11,9 @@ namespace tnah::Physics {
     {
     public:
         RigidBody();
-        RigidBody(TransformComponent& transform, BodyMass mass, BodyType type = BodyType::Dynamic);
+        RigidBody(TransformComponent& transform, BodyMass mass);
 
-        static Ref<RigidBody> Create(TransformComponent& transform, BodyMass mass, BodyType type = BodyType::Dynamic);
+        static Ref<RigidBody> Create(TransformComponent& transform, BodyMass mass);
 
         void OnUpdate(TransformComponent& transform);
 
@@ -44,9 +44,6 @@ namespace tnah::Physics {
         void UpdateBodyProperties();
 
         uint32_t GetID() const { return m_ID; }
-
-        void SetType(const BodyType& type) { m_BodyType = type; }
-        BodyType GetType() const { return m_BodyType; }
 
         InertiaTensor GetInertiaTensor() const { return m_InertiaTensor; }
         void RecalculateWorldInertiaTensor();
@@ -88,13 +85,6 @@ namespace tnah::Physics {
         
     
     private:
-
-        /**
-         * @var m_BodyType
-         *
-         * @brief The type of the Rigidbody. Either Dynamic or static. 
-         */
-        BodyType m_BodyType;
 
         /**
         * @var m_BodyMass

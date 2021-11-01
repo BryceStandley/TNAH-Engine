@@ -11,12 +11,11 @@ namespace tnah
     RigidBodyComponent::RigidBodyComponent()
     {}
 
-    RigidBodyComponent::RigidBodyComponent(GameObject& gameObject, const Physics::BodyType& type)
+    RigidBodyComponent::RigidBodyComponent(GameObject& gameObject)
     {
         if(Physics::PhysicsEngine::IsActive())
         {
             Body = Physics::PhysicsEngine::CreateRigidbody(gameObject);
-            Body->SetType(type);
             Body->GetCollisionBody()->setUserData(&gameObject);
         }
     }

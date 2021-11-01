@@ -308,14 +308,7 @@ namespace tnah {
     std::string Serializer::GenerateRigidBody(const RigidBodyComponent& rb, const uint32_t& totalTabs)
     {
         std::stringstream ss;
-        ss << GenerateTagOpen("rigidbody", totalTabs);
-        
-        if(rb.Body->GetType() == tnah::Physics::BodyType::Dynamic)
-            ss << GenerateValueEntry("type", "dynamic", totalTabs+1);
-        else    
-            ss << GenerateValueEntry("type", "static", totalTabs+1);
-        
-        ss << GenerateTagClose("rigidbody", totalTabs);
+
         return ss.str();
     }
     
@@ -698,7 +691,6 @@ namespace tnah {
         {
             TNAH_CORE_INFO("Rigid: {0} {1}", rigidPos.first, rigidPos.second);
             auto rb = GetRigidBodyFromFile(fileContents, rigidPos, gameObject.Transform());
-            gameObject.AddComponent<RigidBodyComponent>(gameObject, rb.Body->GetType());
             added++;
         }
 
@@ -848,7 +840,6 @@ namespace tnah {
         else
         {
             auto rb =  RigidBodyComponent();
-            rb.Body->SetType(tnah::Physics::BodyType::Static);
             return rb;
         }
     }

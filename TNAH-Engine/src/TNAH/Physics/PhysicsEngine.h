@@ -66,12 +66,6 @@ namespace tnah::Physics
 
         ~PhysicsManager();
 
-     glm::vec3& GetGravity() { return m_Gravity; }
-     void SetGravity(const glm::vec3& gravity) { m_Gravity = gravity; }
-     void SetGravityState(const bool& state) { m_GravityEnabled = state; }
-     bool& GetGravityState() { return m_GravityEnabled; }
-     bool& GetSleepState() { return m_SleepAllowed; }
-
      Ref<CollisionDetectionEngine>& GetCollisionDetectionEngine() { return m_CollisionDetectionEngine; }
     
     private:
@@ -208,10 +202,6 @@ namespace tnah::Physics
    /** @brief	Layout of the collider renderer vertex buffers */
    VertexBufferLayout m_ColliderLayout;
 
-   bool m_GravityEnabled = true;
-
-   glm::vec3 m_Gravity = {0.0f, -9.8f, 0.0f};
-
    /** @brief	True to active */
    bool m_Active = false;
 
@@ -228,8 +218,6 @@ namespace tnah::Physics
 
      /** @brief a static reference to the active Collision Detection Engine */
      static Ref<CollisionDetectionEngine> m_CollisionDetectionEngine;
-
-     bool m_SleepAllowed = false;
 
         friend class PhysicsEngine;
 };
@@ -510,7 +498,6 @@ namespace tnah::Physics
      static void ResetRigidbodyForcesAndTorques(entt::registry& componentRegistry);
      static void UpdateInertiaTensor(entt::registry& componentRegistry);
      static void UpdateBodies(entt::registry& componentRegistry);
-     static void UpdateSleepState(entt::registry& componentRegistry, Timestep deltaTime);
     
     private:
      

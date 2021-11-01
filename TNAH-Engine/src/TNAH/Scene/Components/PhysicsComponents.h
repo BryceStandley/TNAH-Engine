@@ -66,7 +66,7 @@ class GameObject;
 		 * @param 	type	 	The type.
 		 **************************************************************************************************/
 
-		RigidBodyComponent(GameObject& gameObject, const Physics::BodyType& type = Physics::BodyType::Dynamic);
+		RigidBodyComponent(GameObject& gameObject);
 		
 
 		/**********************************************************************************************//**
