@@ -12,68 +12,68 @@ namespace tnah
     void GlobalBin::Execute(Bin*owner)
     {
         auto emotion = owner->GetEmotions().GetEmotion();
-        if(owner->mCharacterState != emotion)
+        if(owner->GetCharacterState() != emotion)
         {
             switch (emotion)
             {
             case Emotion::Tense:
-                owner->LogAction("Feeling Tense", owner->mColour);
-                if(owner->mCharacterState != Emotion::Angry && owner-> mCharacterState != Emotion::Frustrated)
-                    owner->GetFsm()->changeState(&PissedOffStateBin::getInstance());
+                owner->LogAction("Feeling Tense", owner->GetColour());
+                if(owner->GetCharacterState() != Emotion::Angry && owner-> GetCharacterState() != Emotion::Frustrated)
+                    owner->GetFsm()->changeState(&AngryStateBin::getInstance());
                 break;
             case Emotion::Angry:
-                owner->LogAction("Feeling Angry", owner->mColour);
-                if(owner->mCharacterState != Emotion::Tense && owner-> mCharacterState != Emotion::Frustrated)
-                    owner->GetFsm()->changeState(&PissedOffStateBin::getInstance());
+                owner->LogAction("Feeling Angry", owner->GetColour());
+                if(owner->GetCharacterState() != Emotion::Tense && owner-> GetCharacterState() != Emotion::Frustrated)
+                    owner->GetFsm()->changeState(&AngryStateBin::getInstance());
                 break;
             case Emotion::Frustrated:
-                owner->LogAction("Feeling Frustrated", owner->mColour);
-                if(owner->mCharacterState != Emotion::Tense && owner-> mCharacterState != Emotion::Angry)
-                    owner->GetFsm()->changeState(&PissedOffStateBin::getInstance());
+                owner->LogAction("Feeling Frustrated", owner->GetColour());
+                if(owner->GetCharacterState() != Emotion::Tense && owner-> GetCharacterState() != Emotion::Angry)
+                    owner->GetFsm()->changeState(&AngryStateBin::getInstance());
                 break;
             case Emotion::Calm:
-                owner->LogAction("Feeling Calm", owner->mColour);
-                if(owner->mCharacterState != Emotion::Relaxed && owner-> mCharacterState != Emotion::Content)
+                owner->LogAction("Feeling Calm", owner->GetColour());
+                if(owner->GetCharacterState() != Emotion::Relaxed && owner-> GetCharacterState() != Emotion::Content)
                     owner->GetFsm()->changeState(&ChillStateBin::getInstance());
                 break;
             case Emotion::Content:
-                owner->LogAction("Feeling Content", owner->mColour);
-                if(owner->mCharacterState != Emotion::Calm && owner-> mCharacterState != Emotion::Relaxed)
+                owner->LogAction("Feeling Content", owner->GetColour());
+                if(owner->GetCharacterState() != Emotion::Calm && owner-> GetCharacterState() != Emotion::Relaxed)
                     owner->GetFsm()->changeState(&ChillStateBin::getInstance());
                 break;
             case Emotion::Relaxed:
-                owner->LogAction("Feeling Relaxed", owner->mColour);
-                if(owner->mCharacterState != Emotion::Calm && owner-> mCharacterState != Emotion::Content)
+                owner->LogAction("Feeling Relaxed", owner->GetColour());
+                if(owner->GetCharacterState() != Emotion::Calm && owner-> GetCharacterState() != Emotion::Content)
                     owner->GetFsm()->changeState(&ChillStateBin::getInstance());
                 break;
             case Emotion::Delighted:
-                owner->LogAction("Feeling Delighted", owner->mColour);
-                if(owner->mCharacterState != Emotion::Happy && owner-> mCharacterState != Emotion::Excited)
+                owner->LogAction("Feeling Delighted", owner->GetColour());
+                if(owner->GetCharacterState() != Emotion::Happy && owner-> GetCharacterState() != Emotion::Excited)
                     owner->GetFsm()->changeState(&HappyStateBin::getInstance());
                 break;
             case Emotion::Excited:
-                owner->LogAction("Feeling Exited", owner->mColour);
-                if(owner->mCharacterState != Emotion::Happy && owner-> mCharacterState != Emotion::Delighted)
+                owner->LogAction("Feeling Exited", owner->GetColour());
+                if(owner->GetCharacterState() != Emotion::Happy && owner-> GetCharacterState() != Emotion::Delighted)
                     owner->GetFsm()->changeState(&HappyStateBin::getInstance());
                 break;
             case Emotion::Happy:
-                owner->LogAction("Feeling Happy", owner->mColour);
-                if(owner->mCharacterState != Emotion::Excited && owner-> mCharacterState != Emotion::Delighted)
+                owner->LogAction("Feeling Happy", owner->GetColour());
+                if(owner->GetCharacterState() != Emotion::Excited && owner-> GetCharacterState() != Emotion::Delighted)
                     owner->GetFsm()->changeState(&HappyStateBin::getInstance());
                 break;
             case Emotion::Tired:
-                owner->LogAction("Feeling tired", owner->mColour);
-                if(owner->mCharacterState != Emotion::Bored && owner-> mCharacterState != Emotion::Depressed)
+                owner->LogAction("Feeling tired", owner->GetColour());
+                if(owner->GetCharacterState() != Emotion::Bored && owner-> GetCharacterState() != Emotion::Depressed)
                     owner->GetFsm()->changeState(&SadStateBin::getInstance());
                 break;
             case Emotion::Bored:
-                owner->LogAction("Feeling Bored", owner->mColour);
-                if(owner->mCharacterState != Emotion::Tired && owner-> mCharacterState != Emotion::Depressed)
+                owner->LogAction("Feeling Bored", owner->GetColour());
+                if(owner->GetCharacterState() != Emotion::Tired && owner-> GetCharacterState() != Emotion::Depressed)
                     owner->GetFsm()->changeState(&SadStateBin::getInstance());
                 break;
             case Emotion::Depressed:
-                owner->LogAction("Feeling Depressed", owner->mColour);
-                if(owner->mCharacterState != Emotion::Tired && owner-> mCharacterState != Emotion::Bored)
+                owner->LogAction("Feeling Depressed", owner->GetColour());
+                if(owner->GetCharacterState() != Emotion::Tired && owner-> GetCharacterState() != Emotion::Bored)
                     owner->GetFsm()->changeState(&SadStateBin::getInstance());
                 break;
             default:
@@ -81,7 +81,7 @@ namespace tnah
                 break;
             }
             
-            owner->mCharacterState = emotion;
+            owner->SetCharacterState(emotion);
         }
         else
         {
@@ -95,13 +95,13 @@ namespace tnah
             
     }
 
-    void HappyBin::Enter(Bin* owner)
+    void PosArousalPosValenceBin::Enter(Bin* owner)
     {
         owner->GetEmotions().UpdateTimer();
         owner->SetWander(true);
     }
 
-    void HappyBin::Execute(Bin* owner)
+    void PosArousalPosValenceBin::Execute(Bin* owner)
     {
         auto emotion = owner->GetEmotions().GetEmotion();
 
@@ -111,39 +111,39 @@ namespace tnah
                 owner->SetDesiredAction(Actions::greeting);
                 owner->SetActionDistance(7.0f);
                 owner->SetAffordanceLevel(0.1f);
-                owner->spin = false;
+                owner->SetSpin(false);
                 break;
             case Emotion::Delighted:
                 owner->SetDesiredAction(Actions::greeting);
                 owner->SetActionDistance(5.0f);
                 owner->SetAffordanceLevel(1.0f);
-                owner->spin = false;
+                owner->SetSpin(false);
                 break;
             case Emotion::Excited:
                 owner->SetDesiredAction(Actions::greeting);
                 owner->SetActionDistance(9.0f);
                 owner->SetAffordanceLevel(0.5f);
-                owner->spin = true;
+                owner->SetSpin(true);
                 break;
             default:
                 break;
         }
     }
 
-    void HappyBin::Exit(Bin* owner)
+    void PosArousalPosValenceBin::Exit(Bin* owner)
     {
-        owner->spin = false;
+        owner->SetSpin(false);
         owner->SetWander(false);
-        owner->canOutput = true;
+        owner->SetCanOutput(true);
     }
 
-    void ChillBin::Enter(Bin* owner)
+    void NegArousalPosValenceBin::Enter(Bin* owner)
     {
         owner->GetEmotions().UpdateTimer();
         owner->SetWander(true);
     }
 
-    void ChillBin::Execute(Bin* owner)
+    void NegArousalPosValenceBin::Execute(Bin* owner)
     {
         auto emotion = owner->GetEmotions().GetEmotion();
 
@@ -166,21 +166,21 @@ namespace tnah
         }
     }
 
-    void ChillBin::Exit(Bin* owner)
+    void NegArousalPosValenceBin::Exit(Bin* owner)
     {
         owner->SetWander(false);
         owner->SetSpeed(1.0f);
     }
 
-    void PissedOffBin::Enter(Bin* owner)
+    void PosArousalNegValenceBin::Enter(Bin* owner)
     {
         owner->GetEmotions().UpdateTimer();
         owner->SetWander(true);
         owner->SetSpeed(1.5f);
-        owner->canOutput = true;
+        owner->SetCanOutput(true);
     }
 
-    void PissedOffBin::Execute(Bin* owner)
+    void PosArousalNegValenceBin::Execute(Bin* owner)
     {        
         auto emotion = owner->GetEmotions().GetEmotion();
 
@@ -209,21 +209,21 @@ namespace tnah
         }
     }
 
-    void PissedOffBin::Exit(Bin* owner)
+    void PosArousalNegValenceBin::Exit(Bin* owner)
     {
         owner->SetWander(false);
         owner->SetSpeed(1.0f);
-        owner->canOutput = true;
+        owner->SetCanOutput(true);
     }
 
-    void SadBin::Enter(Bin* owner)
+    void NegArousalNegValenceBin::Enter(Bin* owner)
     {
         owner->GetEmotions().UpdateTimer();
         owner->SetWander(true);
         owner->SetSpeed(0.75f);
     }
 
-    void SadBin::Execute(Bin* owner)
+    void NegArousalNegValenceBin::Execute(Bin* owner)
     {
         auto emotion = owner->GetEmotions().GetEmotion();
 
@@ -252,10 +252,10 @@ namespace tnah
         }
     }
 
-    void SadBin::Exit(Bin* owner)
+    void NegArousalNegValenceBin::Exit(Bin* owner)
     {
         owner->SetWander(false);
         owner->SetSpeed(1.0f);
-        owner->canOutput = true;
+        owner->SetCanOutput(true);
     }
 }

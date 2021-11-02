@@ -42,10 +42,7 @@ namespace tnah
 
 	void EmotionComponent::IncreaseArousal(float arousal)
 	{
-		// if emotion matches current mood
 		m_Arousal = m_Arousal + (arousal * m_MultiplierPositiveArousal);
-
-		//else m_Arusal = m_Arousal + (arousal * multiplier)
 
 		//adjusts arousal if value overflows to ensure accuracy
 		if (m_Arousal > 1)
@@ -54,10 +51,7 @@ namespace tnah
 
 	void EmotionComponent::DecreaseArousal(float arousal)
 	{
-		// if emotion matches current mood
 		m_Arousal = m_Arousal - (arousal * m_MultiplierNegativeArousal);
-
-		//else m_Arusal = m_Arousal - (arousal * multiplier)
 
 		//adjusts arousal if value overflows to ensure accuracy
 		if (m_Arousal < -1)
@@ -66,10 +60,7 @@ namespace tnah
 
 	void EmotionComponent::IncreaseValence(float valence)
 	{
-		// if emotion matches current mood
 		m_Valence = m_Valence + (valence * m_MultiplierPositiveValence);
-
-		//else m_Valence = m_Valence + (valence * multiplier)
 
 		//adjusts arousal if value overflows to ensure accuracy
 		if (m_Valence > 1)
@@ -78,10 +69,7 @@ namespace tnah
 
 	void EmotionComponent::DecreaseValence(float valence)
 	{
-		// if emotion matches current mood
 		m_Valence = m_Valence - (valence * m_MultiplierNegativeValence);
-
-		//else m_Valence = m_Valence - (valence * multiplier)
 
 		//adjusts arousal if value overflows to ensure accuracy
 		if (m_Valence < -1)

@@ -12,68 +12,68 @@ namespace tnah
     void GlobalStudent::Execute(Student* owner)
     {
         auto emotion = owner->GetEmotions().GetEmotion();
-        if (owner->mCharacterState != emotion)
+        if (owner->GetCharacterState() != emotion)
         {
             switch (emotion)
             {
             case Emotion::Tense:
-                owner->LogAction("Feeling Tense", owner->mColour);
-                if (owner->mCharacterState != Emotion::Angry && owner->mCharacterState != Emotion::Frustrated)
+                owner->LogAction("Feeling Tense", owner->GetColour());
+                if (owner->GetCharacterState() != Emotion::Angry && owner->GetCharacterState() != Emotion::Frustrated)
                     owner->GetFsm()->changeState(&PissedOffStateStudent::getInstance());
                 break;
             case Emotion::Angry:
-                owner->LogAction("Feeling Angry", owner->mColour);
-                if (owner->mCharacterState != Emotion::Tense && owner->mCharacterState != Emotion::Frustrated)
+                owner->LogAction("Feeling Angry", owner->GetColour());
+                if (owner->GetCharacterState() != Emotion::Tense && owner->GetCharacterState() != Emotion::Frustrated)
                     owner->GetFsm()->changeState(&PissedOffStateStudent::getInstance());
                 break;
             case Emotion::Frustrated:
-                owner->LogAction("Feeling Frustrated", owner->mColour);
-                if (owner->mCharacterState != Emotion::Tense && owner->mCharacterState != Emotion::Angry)
+                owner->LogAction("Feeling Frustrated", owner->GetColour());
+                if (owner->GetCharacterState() != Emotion::Tense && owner->GetCharacterState() != Emotion::Angry)
                     owner->GetFsm()->changeState(&PissedOffStateStudent::getInstance());
                 break;
             case Emotion::Calm:
-                owner->LogAction("Feeling Calm", owner->mColour);
-                if (owner->mCharacterState != Emotion::Relaxed && owner->mCharacterState != Emotion::Content)
+                owner->LogAction("Feeling Calm", owner->GetColour());
+                if (owner->GetCharacterState() != Emotion::Relaxed && owner->GetCharacterState() != Emotion::Content)
                     owner->GetFsm()->changeState(&ChillStateStudent::getInstance());
                 break;
             case Emotion::Content:
-                owner->LogAction("Feeling Content", owner->mColour);
-                if (owner->mCharacterState != Emotion::Calm && owner->mCharacterState != Emotion::Relaxed)
+                owner->LogAction("Feeling Content", owner->GetColour());
+                if (owner->GetCharacterState() != Emotion::Calm && owner->GetCharacterState() != Emotion::Relaxed)
                     owner->GetFsm()->changeState(&ChillStateStudent::getInstance());
                 break;
             case Emotion::Relaxed:
-                owner->LogAction("Feeling Relaxed", owner->mColour);
-                if (owner->mCharacterState != Emotion::Calm && owner->mCharacterState != Emotion::Content)
+                owner->LogAction("Feeling Relaxed", owner->GetColour());
+                if (owner->GetCharacterState() != Emotion::Calm && owner->GetCharacterState() != Emotion::Content)
                     owner->GetFsm()->changeState(&ChillStateStudent::getInstance());
                 break;
             case Emotion::Delighted:
-                owner->LogAction("Feeling Delighted", owner->mColour);
-                if (owner->mCharacterState != Emotion::Happy && owner->mCharacterState != Emotion::Excited)
+                owner->LogAction("Feeling Delighted", owner->GetColour());
+                if (owner->GetCharacterState() != Emotion::Happy && owner->GetCharacterState() != Emotion::Excited)
                     owner->GetFsm()->changeState(&HappyStateStudent::getInstance());
                 break;
             case Emotion::Excited:
-                owner->LogAction("Feeling Exited", owner->mColour);
-                if (owner->mCharacterState != Emotion::Happy && owner->mCharacterState != Emotion::Delighted)
+                owner->LogAction("Feeling Exited", owner->GetColour());
+                if (owner->GetCharacterState() != Emotion::Happy && owner->GetCharacterState() != Emotion::Delighted)
                     owner->GetFsm()->changeState(&HappyStateStudent::getInstance());
                 break;
             case Emotion::Happy:
-                owner->LogAction("Feeling Happy", owner->mColour);
-                if (owner->mCharacterState != Emotion::Excited && owner->mCharacterState != Emotion::Delighted)
+                owner->LogAction("Feeling Happy", owner->GetColour());
+                if (owner->GetCharacterState() != Emotion::Excited && owner->GetCharacterState() != Emotion::Delighted)
                     owner->GetFsm()->changeState(&HappyStateStudent::getInstance());
                 break;
             case Emotion::Tired:
-                owner->LogAction("Feeling tired", owner->mColour);
-                if (owner->mCharacterState != Emotion::Bored && owner->mCharacterState != Emotion::Depressed)
+                owner->LogAction("Feeling tired", owner->GetColour());
+                if (owner->GetCharacterState() != Emotion::Bored && owner->GetCharacterState() != Emotion::Depressed)
                     owner->GetFsm()->changeState(&SadStateStudent::getInstance());
                 break;
             case Emotion::Bored:
-                owner->LogAction("Feeling Bored", owner->mColour);
-                if (owner->mCharacterState != Emotion::Tired && owner->mCharacterState != Emotion::Depressed)
+                owner->LogAction("Feeling Bored", owner->GetColour());
+                if (owner->GetCharacterState() != Emotion::Tired && owner->GetCharacterState() != Emotion::Depressed)
                     owner->GetFsm()->changeState(&SadStateStudent::getInstance());
                 break;
             case Emotion::Depressed:
-                owner->LogAction("Feeling Depressed", owner->mColour);
-                if (owner->mCharacterState != Emotion::Tired && owner->mCharacterState != Emotion::Bored)
+                owner->LogAction("Feeling Depressed", owner->GetColour());
+                if (owner->GetCharacterState() != Emotion::Tired && owner->GetCharacterState() != Emotion::Bored)
                     owner->GetFsm()->changeState(&SadStateStudent::getInstance());
                 break;
             default:
@@ -81,7 +81,7 @@ namespace tnah
                 break;
             }
 
-            owner->mCharacterState = emotion;
+            owner->SetCharacterState(emotion);
         }
         else
         {
@@ -95,13 +95,13 @@ namespace tnah
 
     }
 
-    void HappyStudent::Enter(Student* owner)
+    void PosArousalPosValenceStudent::Enter(Student* owner)
     {
         owner->GetEmotions().UpdateTimer();
         owner->SetWander(true);
     }
 
-    void HappyStudent::Execute(Student* owner)
+    void PosArousalPosValenceStudent::Execute(Student* owner)
     {
         auto emotion = owner->GetEmotions().GetEmotion();
 
@@ -112,45 +112,41 @@ namespace tnah
             owner->SetActionDistance(1.0f);
             owner->SetAffordanceLevel(1.0f);
             owner->SetSpeed(1.0f);
-            // owner->spin = false;
             break;
         case Emotion::Delighted:
             owner->SetDesiredAction(Actions::greeting);
             owner->SetActionDistance(5.0f);
             owner->SetAffordanceLevel(1.0f);
             owner->SetSpeed(1.5f);
-            //owner->spin = false;
             break;
         case Emotion::Excited:
             owner->SetDesiredAction(Actions::drink);
             owner->SetActionDistance(1.0f);
             owner->SetAffordanceLevel(1.0f);
             owner->SetSpeed(2.0f);
-            //owner->spin = true;
             break;
         default:
             break;
         }
     }
 
-    void HappyStudent::Exit(Student* owner)
+    void PosArousalPosValenceStudent::Exit(Student* owner)
     {
-        //owner->spin = false;
         owner->SetWander(false);
-        owner->canOutput = true;
+        owner->SetCanOutput(true);
         owner->SetSpeed(1.0f);
     }
 
-    void ChillStudent::Enter(Student* owner)
+    void NegArousalPosValenceStudent::Enter(Student* owner)
     {
         owner->GetEmotions().UpdateTimer();
         owner->SetWander(true);
     }
 
-    void ChillStudent::Execute(Student* owner)
+    void NegArousalPosValenceStudent::Execute(Student* owner)
     {
         auto emotion = owner->GetEmotions().GetEmotion();
-        if(owner->canOutput)
+        if(owner->GetCanOutput())
             owner->SetWander(true);
         
         switch (emotion)
@@ -159,39 +155,36 @@ namespace tnah
             owner->SetDesiredAction(Actions::sit);
             owner->SetActionDistance(1.0f);
             owner->SetAffordanceLevel(1.0f);
-            // owner->spin = false;
             break;
         case Emotion::Relaxed:
             owner->SetDesiredAction(Actions::sit);
             owner->SetActionDistance(1.0f);
             owner->SetAffordanceLevel(1.0f);
-            //owner->spin = false;
             break;
         case Emotion::Calm:
             owner->SetDesiredAction(Actions::none);
             owner->SetActionDistance(1.0f);
             owner->SetAffordanceLevel(0.1f);
-            //owner->spin = true;
             break;
         default:
             break;
         }
     }
 
-    void ChillStudent::Exit(Student* owner)
+    void NegArousalPosValenceStudent::Exit(Student* owner)
     {
         owner->SetWander(false);
     }
 
-    void PissedOffStudent::Enter(Student* owner)
+    void PosArousalNegValenceStudent::Enter(Student* owner)
     {
         owner->GetEmotions().UpdateTimer();
         owner->SetWander(true);
         owner->SetSpeed(1.5f);
-        owner->canOutput = true;
+        owner->SetCanOutput(true);
     }
 
-    void PissedOffStudent::Execute(Student* owner)
+    void PosArousalNegValenceStudent::Execute(Student* owner)
     {
         auto emotion = owner->GetEmotions().GetEmotion();
 
@@ -220,25 +213,25 @@ namespace tnah
         }
     }
 
-    void PissedOffStudent::Exit(Student* owner)
+    void PosArousalNegValenceStudent::Exit(Student* owner)
     {
         owner->SetWander(false);
         owner->SetSpeed(1.0f);
-        owner->canOutput = true;
+        owner->SetCanOutput(true);
     }
 
-    void SadStudent::Enter(Student* owner)
+    void NegArousalNegValenceStudent::Enter(Student* owner)
     {
         owner->GetEmotions().UpdateTimer();
         owner->SetWander(true);
         owner->SetSpeed(0.75f);
     }
 
-    void SadStudent::Execute(Student* owner)
+    void NegArousalNegValenceStudent::Execute(Student* owner)
     {
         auto emotion = owner->GetEmotions().GetEmotion();
 
-        if(owner->canOutput)
+        if(owner->GetCanOutput())
             owner->SetWander(true);
         
         switch (emotion)
@@ -266,10 +259,10 @@ namespace tnah
         }
     }
 
-    void SadStudent::Exit(Student* owner)
+    void NegArousalNegValenceStudent::Exit(Student* owner)
     {
         owner->SetWander(false);
         owner->SetSpeed(1.0f);
-        owner->canOutput = true;
+        owner->SetCanOutput(true);
     }
 }
