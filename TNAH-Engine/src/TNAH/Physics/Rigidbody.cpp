@@ -52,33 +52,9 @@ namespace tnah::Physics {
 		const glm::vec3 worldCOM = (Orientation * localCOM) + centralPosition;
 		bodyMass.WorldCentreOfMass = worldCOM;
 
-		linearVelocity.Velocity += glm::cross(angularVelocity.Velocity, worldCOM - oldWorldCOM);
+		linearVelocity += glm::cross(angularVelocity, worldCOM - oldWorldCOM);
 		
 		CalculateLocalInertiaTensor();
-	}
-
-	void RigidBody::RecalculateWorldInertiaTensor()
-	{
-		glm::mat3 rot = glm::mat3_cast(Orientation);
-		InertiaTensor.WorldInverseInertiaTensor[0][0] = rot[0][0] * InertiaTensor.LocalInverseInertiaTensor.x;
-		InertiaTensor.WorldInverseInertiaTensor[0][1] = rot[1][0] * InertiaTensor.LocalInverseInertiaTensor.x;
-		InertiaTensor.WorldInverseInertiaTensor[0][2] = rot[2][0] * InertiaTensor.LocalInverseInertiaTensor.x;
-		
-		InertiaTensor.WorldInverseInertiaTensor[1][0] = rot[0][1] * InertiaTensor.LocalInverseInertiaTensor.y;
-		InertiaTensor.WorldInverseInertiaTensor[1][1] = rot[1][1] * InertiaTensor.LocalInverseInertiaTensor.y;
-		InertiaTensor.WorldInverseInertiaTensor[1][2] = rot[2][1] * InertiaTensor.LocalInverseInertiaTensor.y;
-		
-		InertiaTensor.WorldInverseInertiaTensor[2][0] = rot[0][2] * InertiaTensor.LocalInverseInertiaTensor.z;
-		InertiaTensor.WorldInverseInertiaTensor[2][1] = rot[1][2] * InertiaTensor.LocalInverseInertiaTensor.z;
-		InertiaTensor.WorldInverseInertiaTensor[2][2] = rot[2][2] * InertiaTensor.LocalInverseInertiaTensor.z;
-
-		InertiaTensor.WorldInverseInertiaTensor = rot * InertiaTensor.WorldInverseInertiaTensor;
-	}
-
-	void RigidBody::ApplyCollisionImpulse(const glm::vec3& lV, const glm::vec3& aV)
-	{
-		linearVelocity.Velocity = lV;
-		angularVelocity.Velocity = aV;
 	}
 
 	void RigidBody::ResetValues()
@@ -128,8 +104,8 @@ namespace tnah::Physics {
 		float x = tempLocalInertiaTensor[0][0];
 		float y = tempLocalInertiaTensor[1][1];
 		float z = tempLocalInertiaTensor[2][2];
-		InertiaTensor.SetLocalInertiaTensor({x,y,z});
-		return InertiaTensor.LocalInertiaTensor;
+		inertiaTensor.SetLocalInertiaTensor({x,y,z});
+		return inertiaTensor.LocalInertiaTensor;
 	}
 
 	glm::vec3 RigidBody::CalculateCentreOfMass()

@@ -33,79 +33,38 @@ namespace tnah::Physics {
         void UpdateBodyProperties();
 
         uint32_t GetID() const { return ID; }
-
-        InertiaTensor GetInertiaTensor() const { return InertiaTensor; }
-        void RecalculateWorldInertiaTensor();
     	
-        LinearVelocity GetLinearVelocity() const { return linearVelocity; }
-        AngularVelocity GetAngularVelocity() const { return angularVelocity; }
-        std::pair<LinearVelocity, AngularVelocity> GetVelocities() { return {linearVelocity, angularVelocity}; }
-    	
-
-        void ApplyCollisionImpulse(const glm::vec3& linearVelocity, const glm::vec3& angularVelocity);
+        std::pair<glm::vec3, glm::vec3> GetVelocities() { return {linearVelocity, angularVelocity}; }
 
         void ResetValues();
-
-    	void SetLinearDampening(float value) {LinearDampening.Dampening = glm::clamp(value, 0.0f, 1.0f);}
-    	void SetAngularDampening(float value) {AngularDampening.Dampening = glm::clamp(value, 0.0f, 1.0f);}
 
         glm::vec3 CalculateLocalInertiaTensor();
 
     	rp3d::CollisionBody* CollisionBody = nullptr;
-    private:
 
     	glm::vec3 CalculateCentreOfMass();
 
         void SetID(const uint32_t id) { ID = id; }
-        
-    
-    private:
-
-        /**
-        * @var BodyMass
-        *
-        * @brief The BodyMass of the Rigidbody. This is the combined total for the whole Rigidbody with all of its Colliders.
-        */
+    	
         BodyMass bodyMass;
+    	
+        glm::vec3 linearVelocity;
+    	
+        glm::vec3 angularVelocity;
 
-        /**
-        * @var LinearVelocity
-        *
-        * @brief The current LinearVelocity of the Rigidbody.
-        */
-        LinearVelocity linearVelocity;
+        glm::vec3 Force;
     	
-        AngularVelocity angularVelocity;
+        glm::vec3 Torque;
     	
-        LinearVelocity ConstrainedLinearVelocity;
-    	
-        AngularVelocity ConstrainedAngularVelocity;
-
-        Force Force;
-    	
-        Torque Torque;
-
-        LinearDampening LinearDampening;
-    	
-        AngularDampening AngularDampening;
-    	
-        InertiaTensor InertiaTensor;
+        InertiaTensor inertiaTensor;
     	
         std::unordered_map<uint32_t, Ref<Collider>> Colliders;
 
     	uint32_t TotalColliders = 0;
-
-    	/**
-    	 * @var ID
-    	 * 
-    	 * @brief The global ID of the RigidBody.
-    	 */
+    	
         uint32_t ID = 0;
 
     	glm::vec3 centralPosition = {0,0,0};
     	glm::quat Orientation = {0,0,0,0};
-
-        friend class PhysicsEngine;
-        friend class EditorUI;
     };
 }
