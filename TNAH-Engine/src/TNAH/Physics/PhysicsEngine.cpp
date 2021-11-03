@@ -94,7 +94,9 @@ namespace tnah::Physics
                 //Velocities Two
                 glm::vec3 linearVelocityTwo = rigidbodyTwo->linearVelocity;
                 glm::vec3 angularVelocityTwo = rigidbodyTwo->angularVelocity;
-
+                TransformComponent& transformOne = collisionCallback.body1GameObject->Transform();
+                TransformComponent& transformTwo = collisionCallback.body2GameObject->Transform();
+            
                 //Contact points
                 glm::vec3 contactPointOne = collisionCallback.body1ContactPosition;
                 glm::vec3 contactPointTwo = collisionCallback.body2ContactPosition;
@@ -110,7 +112,7 @@ namespace tnah::Physics
                 glm::vec3 velocityDifference = linearVelocityOne - linearVelocityTwo;
 
                 //Normals cross rigidbody contacts
-                glm::vec rigidbodyCrossOne = glm::cross(rigidbodyContactOne, contactNormal);
+                glm::vec3 rigidbodyCrossOne = glm::cross(rigidbodyContactOne, contactNormal);
                 glm::vec3 rigidbodyCrossTwo = glm::cross(rigidbodyContactTwo, contactNormal);
 
                 //Numerator (top part of the equation for frictionless collision)
@@ -143,10 +145,9 @@ namespace tnah::Physics
                 rigidbodyTwo->angularVelocity = angularVelocityTwo;
 
                 //Penetration, this is done as it sits within the other body otherwise
-                TransformComponent& transformOne = collisionCallback.body1GameObject->Transform();
-                TransformComponent& transformTwo = collisionCallback.body2GameObject->Transform();
-                transformOne.Position += contactNormal * ((collisionCallback.penetrationDepth / 2.0f) * -1);
-                transformTwo.Position -= contactNormal * ((collisionCallback.penetrationDepth / 2.0f) * -1);
+                //taking the distance inside the other body and taking/adding it to the position to fix it, otherwise at times the sphere gets struck within the cube
+                transformOne.Position += contactNormal * (collisionCallback.penetrationDepth * -1);
+                transformTwo.Position -= contactNormal * (collisionCallback.penetrationDepth * -1);
                 
                 collisions.pop();
             }
@@ -155,9 +156,9 @@ namespace tnah::Physics
     void PhysicsEngine::Velocities(const float& deltaTime, RigidBodyComponent& rb, TransformComponent& transform)
     {
         
-            rb.Body->linearVelocity += deltaTime * rb.Body->GetBodyMass().InverseMass * rb.Body->Force;
+            //rb.Body->linearVelocity += deltaTime * rb.Body->GetBodyMass().InverseMass * rb.Body->Force;
         
-            rb.Body->angularVelocity += deltaTime * rb.Body->inertiaTensor.WorldInverseInertiaTensor * rb.Body->Torque;
+            //rb.Body->angularVelocity += deltaTime * rb.Body->inertiaTensor.WorldInverseInertiaTensor * rb.Body->Torque;
 
     }
 
@@ -166,10 +167,9 @@ namespace tnah::Physics
         transform.Position += rb.Body->linearVelocity * deltaTime;
         rb.Body->centralPosition = transform.Position;
                 
-        rb.Body->Orientation += glm::quat(0.0, rb.Body->angularVelocity) * deltaTime;
+        rb.Body->Orientation += ((glm::quat(0.0, rb.Body->angularVelocity) * deltaTime));
         rb.Body->Orientation = glm::normalize(rb.Body->Orientation);
         
-        transform.Position += rb.Body->linearVelocity * deltaTime;
         rb.Body->centralPosition = transform.Position;
     }
 
@@ -205,15 +205,8 @@ namespace tnah::Physics
             t.setPosition(Math::ToRp3dVec3(rb.Body->centralPosition));
                 t.setOrientation(Math::ToRp3dQuat(rb.Body->Orientation));
                 rb.Body->CollisionBody->setTransform(t);
-        transform.Rotation = glm::eulerAngles(rb.Body->Orientation);
+        //transform.Rotation = glm::eulerAngles(rb.Body->Orientation);
         transform.QuatRotation = rb.Body->Orientation;
-
-            for(std::pair<const unsigned, Ref<Collider>>& c : rb.Body->Colliders)
-            {
-                Ref<Collider> col = c.second;
-                col->SetPosition(transform.Position + col->GetColliderPosition());
-                col->SetOrientation(rb.Body->Orientation + col->GetColliderOrientation());
-            }
     }
 
   
@@ -239,7 +232,7 @@ namespace tnah::Physics
 
                 UpdateRbs(rb, transform);
 
-                ForcesAndTorques(rb, transform);
+                //ForcesAndTorques(rb, transform);
                 InertiaTensors(rb, transform);
             }
         }

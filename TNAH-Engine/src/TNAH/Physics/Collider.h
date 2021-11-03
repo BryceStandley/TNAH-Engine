@@ -2,7 +2,6 @@
 
 #include "PhysicsStructures.h"
 #include "TNAH/Core/Math.h"
-#include <reactphysics3d/reactphysics3d.h>
 
 #include "TNAH/Core/AABB.h"
 #include "TNAH/Core/AABB.h"
@@ -29,6 +28,7 @@ namespace tnah::Physics {
 			glm::quat GetColliderOrientation() const { return m_LocalOrientation; }
 			
 			BodyMass& GetColliderMass() { return m_Mass; }
+			void SetColliderMass(float m);
 			Type GetType() const { return m_Type; }
 			std::pair<Type, rp3d::CollisionShape*> GetCollisionShapePair() { return { m_Type, m_Collider }; }
 
@@ -42,28 +42,13 @@ namespace tnah::Physics {
 
 		private:
 
-			/**
-			 * @fn void InitializeBox();
-			 *
-			 * @brief Sets us the local mass values of the Collider based on the BoxShape.
-			 * @author  Bryce Standley
-			 */
+			float radius;
+			glm::vec3 size;
+
 			void InitializeBox();
-
-			/**
-			* @fn void InitializeSphere();
-			*
-			* @brief Sets us the local mass values of the Collider based on the SphereShape.
-			* @author  Bryce Standley
-			*/
+			
 			void InitializeSphere();
-
-			/**
-			* @fn void InitializeCapsule();
-			*
-			* @brief Sets us the local mass values of the Collider based on the CapsuleShape.
-			* @author  Bryce Standley
-			*/
+			
 			void InitializeCapsule();
 
 			

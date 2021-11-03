@@ -5,43 +5,54 @@
 
 #include <TNAH-App.h>
 
+//#include "PhysicsLoader.h"
+
 MainLayer::MainLayer()
 	:Layer("Main Layer")
 {
+	tnah::PhysicsLoader loader("assets/physics.txt");
+
 	m_ActiveScene = tnah::Scene::CreateEmptyScene();
 	m_Camera = m_ActiveScene->GetSceneCamera();
 	auto& ct = m_Camera.Transform();
 	auto& cc = m_Camera.GetComponent<tnah::CameraComponent>();
 	cc.Camera.SetViewportSize(1280, 720);
-	ct.Position = glm::vec3(-20, 10, -10);
+	ct.Position = glm::vec3(-20, 10, -5);
 	ct.Rotation = glm::vec3(0, -10, 0);
 	cc.ClearMode = tnah::CameraClearMode::Skybox;
 	auto& m_Skybox = m_ActiveScene->GetSceneCamera().AddComponent<tnah::SkyboxComponent>();
 
-	
+	tnah::PhysicsProperties p1 = loader.GetObjectAt(0);
+	tnah::PhysicsProperties p2 = loader.GetObjectAt(1);
+	tnah::PhysicsProperties p3 = loader.GetObjectAt(2);
 	m_Box1 = m_ActiveScene->CreateGameObject("Box1");
 	m_Box1.AddComponent<tnah::MeshComponent>("assets/meshes/cube_texture.fbx");
-	m_Box1.Transform().Position = {0.0f, 10.0f, 0.0f};
-	m_Box1.Transform().Scale =  {4.0f, 4.0f, 0.5f};
+	m_Box1.Transform().Position = p1.position;
+	m_Box1.Transform().Scale =  p1.lengths;
 	auto& rb1 = m_Box1.AddComponent<tnah::RigidBodyComponent>(m_Box1);
-	rb1.AddCollider({4.0f, 4.0f, 0.5f});
+	auto col = rb1.AddCollider(p2.lengths);
+	col->SetColliderMass(p1.mass);
+	rb1.Body->UpdateBodyProperties();
 
 
 	m_Box2 = m_ActiveScene->CreateGameObject("Box2");
 	m_Box2.AddComponent<tnah::MeshComponent>("assets/meshes/cube_texture.fbx");
-	m_Box2.Transform().Position = {0.0f, 6.0f, 2.0f};
-	m_Box2.Transform().Scale = {4.0f, 4.0f, 0.5f};
+	m_Box2.Transform().Position = p2.position;
+	m_Box2.Transform().Scale = p2.lengths;
 	auto& rb2 = m_Box2.AddComponent<tnah::RigidBodyComponent>(m_Box2);
-	rb2.AddCollider({4.0f, 4.0f, 0.5f});
+	auto col2 = rb2.AddCollider(p2.lengths);
+	col2->SetColliderMass(p2.mass);
+	rb2.Body->UpdateBodyProperties();
 
 	m_Ball = m_ActiveScene->CreateGameObject("Ball");
 	m_Ball.AddComponent<tnah::MeshComponent>("assets/meshes/sphere.fbx");
-	m_Ball.Transform().Position = {3.5f, 8.0f, -10.0f};
+	m_Ball.Transform().Position = p3.position;
+	m_Ball.Transform().Scale = glm::vec3(p3.radius);
 	m_PhysicsSimStartPosition =  m_Ball.Transform().Position;
 	auto& rb3 = m_Ball.AddComponent<tnah::RigidBodyComponent>(m_Ball);
-	auto col = rb3.AddCollider({1.0f});
-	//col->GetColliderMass().SetMass(100.0f);
-	//rb3.Body->UpdateBodyProperties();
+	auto col3 = rb3.AddCollider(p3.radius);
+	col3->SetColliderMass(p3.mass);
+	rb3.Body->UpdateBodyProperties();
 
 	//Set the debug mode to true on launch for physics collider rendering
 	tnah::Application::Get().GetDebugModeStatus() = true;
@@ -119,10 +130,9 @@ void MainLayer::OnUpdate(tnah::Timestep deltaTime)
 	if(m_StartPhysicsSim)
 	{
 		TNAH_INFO("Simulation Started");
-		m_Ball.Transform().Position = m_PhysicsSimStartPosition;
 		auto& rb = m_Ball.GetComponent<tnah::RigidBodyComponent>().Body;
 		auto force = glm::vec3(0.0f,0.0f,1.0f) * glm::vec3(0.0f, 0.0f, 5000.0f);
-		rb->AddForce(force);
+		rb->linearVelocity = {0, 0 ,10};
 		m_StartPhysicsSim = false;
 	}
 	
@@ -204,7 +214,7 @@ void MainLayer::OnImGuiRender()
 	}
 	if(ImGui::Button("Reset", {size.x, 30}))
 	{
-		auto& m1t = m_Box1.Transform();
+		/*auto& m1t = m_Box1.Transform();
 		m1t.Position = {0.0f, 10.0f, 0.0f};
 		m1t.Rotation = {0.0f, 0.0f, 0.0f};
 		m1t.Scale =  {4.0f, 4.0f, 0.5f};
@@ -218,7 +228,7 @@ void MainLayer::OnImGuiRender()
 		auto& m3t = m_Ball.Transform();
 		m3t.Position = m_PhysicsSimStartPosition;
 		m3t.Rotation = {0,0,0};
-		m_StartPhysicsSim = false;
+		m_StartPhysicsSim = false;*/
 	}
 	
 	ImGui::End();

@@ -1,6 +1,6 @@
 #pragma once
 
-#include <TNAH-App.h>
+#include "PhysicsLoader.h"
 
 	/**
 	 * @class	MainLayer
@@ -140,6 +140,7 @@ private:
 	tnah::GameObject m_Box1;
 	tnah::GameObject m_Box2;
 	tnah::GameObject m_Ball;
+	std::vector<tnah::GameObject> objects;
 	bool m_StartPhysicsSim = false;
 	glm::vec3 m_PhysicsSimStartPosition = {0,0,0};
 	

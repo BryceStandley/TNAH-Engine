@@ -113,14 +113,17 @@ XCOPY "$(SolutionDir)vender\ktx\lib\*.dll" "$(OutDir)" /E /Y</Command>
   <ItemGroup>
     <ClCompile Include="src\MainLayer.cpp" />
     <ClCompile Include="src\DemoApp.cpp" />
+    <ClCompile Include="src\PhysicsLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\meshes\cube.fbx" />
     <Content Include="assets\meshes\cube_texture.fbx" />
+    <Content Include="assets\physics.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\DemoApp.h" />
     <ClInclude Include="src\MainLayer.h" />
+    <ClInclude Include="src\PhysicsLoader.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

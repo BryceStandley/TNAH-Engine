@@ -33,6 +33,25 @@ namespace tnah::Physics {
 		return Ref<Collider>::Create(collider, type);
 	}
 
+	void Collider::SetColliderMass(float m)
+	{
+		if(m_Type == Type::Box)
+		{
+			m_Mass.SetMass(m);
+			m_Type = Type::Box;
+			float factor = 1.0f / 3.0f * m_Mass.Mass;
+			auto tensor = glm::vec3(factor * (size.y + size.z), factor * (size.x + size.z), factor * (size.x + size.y));
+			m_InertiaTensor.LocalInertiaTensor = tensor;
+		}
+		else
+		{
+			m_Mass.SetMass(m);
+			float diag = 0.4f * m_Mass.Mass * glm::pow(radius,2);
+			glm::vec3 tensor = glm::vec3(diag, diag, diag);
+			m_InertiaTensor.LocalInertiaTensor = tensor;	
+		}
+	}
+	
 	void Collider::InitializeBox()
 	{
 		rp3d::BoxShape* box = static_cast<rp3d::BoxShape*>(m_Collider);
@@ -42,13 +61,14 @@ namespace tnah::Physics {
 		//Volume of a cube/box: V = length * width * height
 		m_Volume =  fullExtents.x * fullExtents.y * fullExtents.z;
 		m_Mass.SetMass(m_Density * m_Volume);
-
+		m_Type = Type::Box;
 		//Generate a inertia tensor for the shape
 		float factor = 1.0f / 3.0f * m_Mass.Mass;
 		//Todo Check if we really should be using half or full extents
 		auto x = box->getHalfExtents().x * box->getHalfExtents().x;
 		auto y = box->getHalfExtents().y * box->getHalfExtents().y;
 		auto z = box->getHalfExtents().z * box->getHalfExtents().z;
+		size = glm::vec3(x, y, z);
 		auto tensor = glm::vec3(factor * (y + z), factor * (x + z), factor * (x + y));
 		m_InertiaTensor.LocalInertiaTensor = tensor;
 		
@@ -57,7 +77,7 @@ namespace tnah::Physics {
 	void Collider::InitializeSphere()
 	{
 		rp3d::SphereShape* sphere = static_cast<rp3d::SphereShape*>(m_Collider);
-
+		m_Type = Type::Sphere;
 		//Volume of a Sphere: V = (4/3)πr3
 		m_Volume = (4/3) * glm::pi<float>() * glm::pow(sphere->getRadius(), 3);
 		m_Mass.SetMass(m_Density * m_Volume);

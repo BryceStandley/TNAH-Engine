@@ -22,7 +22,6 @@ namespace tnah::Physics {
 
 	void RigidBody::OnUpdate(TransformComponent& transform)
 	{
-		Orientation = glm::normalize(Orientation + transform.QuatRotation);
 		bodyMass.WorldCentreOfMass = transform.Position - bodyMass.LocalCentreOfMass;
 		centralPosition = bodyMass.WorldCentreOfMass;
 	}
