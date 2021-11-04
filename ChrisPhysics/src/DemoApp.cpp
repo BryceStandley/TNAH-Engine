@@ -2,7 +2,7 @@
 #include "MainLayer.h"
 
 	DemoApp::DemoApp()
-		:tnah::Application("ICT398 Physics - Bryce Standley 33046367")
+		:tnah::Application("Chris solo physics -_-")
 	{
 		GetWindow().SetCursorDisabled(false);
 		GetWindow().SetVSync(false);

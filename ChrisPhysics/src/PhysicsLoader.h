@@ -29,7 +29,8 @@ namespace tnah
     class PhysicsLoader
     {
     public:
-        PhysicsLoader(std::string file);
+        PhysicsLoader() = default;
+        void LoadFile(std::string file);
         int size() const {return physicsObjects.size();}
         PhysicsProperties GetObjectAt(int i);
     private:

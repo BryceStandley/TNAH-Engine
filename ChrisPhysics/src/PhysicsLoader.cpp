@@ -22,11 +22,12 @@ namespace tnah
             ss >> mass >> position.x >> position.y >> position.z >>  radius;
         }
     }
-    
-    PhysicsLoader::PhysicsLoader(std::string file)
+
+    void PhysicsLoader::LoadFile(std::string file)
     {
         std::ifstream physicsFile(file);
         std::string line, temp;
+        physicsObjects.clear();
         bool first = true;
         if(physicsFile.is_open())
         {
@@ -36,7 +37,7 @@ namespace tnah
                 {
                     if(line.compare("physics"))
                     {
-                       first = false; 
+                        first = false; 
                     }
                     else
                         break;
@@ -53,6 +54,7 @@ namespace tnah
         else
             loaded = false;
     }
+
 
     PhysicsProperties PhysicsLoader::GetObjectAt(int i)
     {
