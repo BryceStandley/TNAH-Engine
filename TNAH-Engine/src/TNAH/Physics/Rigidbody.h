@@ -11,13 +11,13 @@ namespace tnah::Physics {
     {
     public:
         RigidBody();
-        RigidBody(TransformComponent& transform, BodyMass mass);
+        RigidBody(TransformComponent& transform, Mass mass);
 
-        static Ref<RigidBody> Create(TransformComponent& transform, BodyMass mass);
+        static Ref<RigidBody> Create(TransformComponent& transform, Mass mass);
 
         void OnUpdate(TransformComponent& transform);
 
-        BodyMass GetBodyMass() const { return bodyMass; }
+        Mass GetBodyMass() const { return bodyMass; }
 
         void AddForce(const glm::vec3& force);
         void AddTorque(const glm::vec3& torque);
@@ -46,11 +46,11 @@ namespace tnah::Physics {
 
         void SetID(const uint32_t id) { ID = id; }
     	
-        BodyMass bodyMass;
+        Mass bodyMass;
     	
-        glm::vec3 linearVelocity;
+        glm::vec3 linearVelocity = {0, 0, 0};
     	
-        glm::vec3 angularVelocity;
+        glm::vec3 angularVelocity = {0, 0, 0};
 
         glm::vec3 Force;
     	

@@ -119,6 +119,8 @@ XCOPY "$(SolutionDir)vender\ktx\lib\*.dll" "$(OutDir)" /E /Y</Command>
     <Content Include="assets\meshes\cube.fbx" />
     <Content Include="assets\meshes\cube_texture.fbx" />
     <Content Include="assets\physics.txt" />
+    <Content Include="assets\physics2.txt" />
+    <Content Include="assets\physics3.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\DemoApp.h" />

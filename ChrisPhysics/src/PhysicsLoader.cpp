@@ -58,7 +58,6 @@ namespace tnah
 
     PhysicsProperties PhysicsLoader::GetObjectAt(int i)
     {
-        std::cout << (int)physicsObjects[i].shape << " " << glm::to_string(physicsObjects[i].lengths) << " " << physicsObjects[i].mass << std::endl;
         return physicsObjects[i];
     }
 }

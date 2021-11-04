@@ -8,20 +8,17 @@ namespace tnah::Physics {
 	Collider::Collider()
 	{}
 
-	Collider::Collider(rp3d::CollisionShape* collider, Type type)
-		:m_Collider(collider), m_Type(type)
+	Collider::Collider(rp3d::CollisionShape* c, Type t)
+		:collider(c), type(t)
 	{
 		
-		switch (m_Type)
+		switch (type)
 		{
 			case Type::Box:
 				InitializeBox();
 				break;
 			case Type::Sphere:
 				InitializeSphere();
-				break;
-			case Type::Capsule:
-				InitializeCapsule();
 				break;
 			default:
 				break;
@@ -35,89 +32,70 @@ namespace tnah::Physics {
 
 	void Collider::SetColliderMass(float m)
 	{
-		if(m_Type == Type::Box)
+		if(type == Type::Box)
 		{
-			m_Mass.SetMass(m);
-			m_Type = Type::Box;
-			float factor = 1.0f / 3.0f * m_Mass.Mass;
-			auto tensor = glm::vec3(factor * (size.y + size.z), factor * (size.x + size.z), factor * (size.x + size.y));
-			m_InertiaTensor.LocalInertiaTensor = tensor;
+			mass.SetMass(m);
+			type = Type::Box;
+			float factor = 1.0f / 12.0f * mass.mass;
+			glm::vec3 tensor = glm::vec3(factor * (size.y + size.z), factor * (size.x + size.y),
+			                             factor * (size.x + size.z));
+			inertiaTensor.LocalInertiaTensor = tensor;
 		}
 		else
 		{
-			m_Mass.SetMass(m);
-			float diag = 0.4f * m_Mass.Mass * glm::pow(radius,2);
+			mass.SetMass(m);
+			float diag = 0.5f * mass.mass * (radius * radius);
 			glm::vec3 tensor = glm::vec3(diag, diag, diag);
-			m_InertiaTensor.LocalInertiaTensor = tensor;	
+			inertiaTensor.LocalInertiaTensor = tensor;	
 		}
 	}
 	
 	void Collider::InitializeBox()
 	{
-		rp3d::BoxShape* box = static_cast<rp3d::BoxShape*>(m_Collider);
+		rp3d::BoxShape* box = static_cast<rp3d::BoxShape*>(collider);
 
 		const auto fullExtents = Math::FromRp3dVec3(box->getHalfExtents() * 2.0f);
-
-		//Volume of a cube/box: V = length * width * height
-		m_Volume =  fullExtents.x * fullExtents.y * fullExtents.z;
-		m_Mass.SetMass(m_Density * m_Volume);
-		m_Type = Type::Box;
-		//Generate a inertia tensor for the shape
-		float factor = 1.0f / 3.0f * m_Mass.Mass;
-		//Todo Check if we really should be using half or full extents
-		auto x = box->getHalfExtents().x * box->getHalfExtents().x;
-		auto y = box->getHalfExtents().y * box->getHalfExtents().y;
-		auto z = box->getHalfExtents().z * box->getHalfExtents().z;
-		size = glm::vec3(x, y, z);
-		auto tensor = glm::vec3(factor * (y + z), factor * (x + z), factor * (x + y));
-		m_InertiaTensor.LocalInertiaTensor = tensor;
 		
+		volume =  fullExtents.x * fullExtents.y * fullExtents.z;
+		mass.SetMass(density * volume);
+		type = Type::Box;
+
+		//1/12 . plwh(mass)
+		float value = 1.0f / 12.0f * mass.mass;
+
+		float x = box->getHalfExtents().x * box->getHalfExtents().x;//l
+		float y = box->getHalfExtents().y * box->getHalfExtents().y;//h
+		float z = box->getHalfExtents().z * box->getHalfExtents().z;//w
+		
+		size = glm::vec3(x, y, z);
+
+		//X = 1/12 . plwh(mass).(h^2 + w^2)
+		//Y = 1/12 . plwh(mass).(l^2 + h^2)
+		//Z = 1/12 . plwh(mass).(l^2 + w^2)
+		glm::vec3 tensor = glm::vec3(value * (y + z), value * (x + y), value * (x + z));
+		inertiaTensor.LocalInertiaTensor = tensor;
 	}
 
 	void Collider::InitializeSphere()
 	{
-		rp3d::SphereShape* sphere = static_cast<rp3d::SphereShape*>(m_Collider);
-		m_Type = Type::Sphere;
-		//Volume of a Sphere: V = (4/3)πr3
-		m_Volume = (4/3) * glm::pi<float>() * glm::pow(sphere->getRadius(), 3);
-		m_Mass.SetMass(m_Density * m_Volume);
+		rp3d::SphereShape* sphere = static_cast<rp3d::SphereShape*>(collider);
+		type = Type::Sphere;
+		volume = (4/3) * glm::pi<float>() * glm::pow(sphere->getRadius(), 3);
+		mass.SetMass(density * volume);
 
-		//Generate a inertia tensor for the shape
-		float diag = 0.4f * m_Mass.Mass * glm::pow(sphere->getRadius(),2);
-		auto tensor = glm::vec3(diag, diag, diag);
-		m_InertiaTensor.LocalInertiaTensor = tensor;
-		
-	}
+		//Restitution(need to get it to grab it from physics before i forget
+		//4pi/15pabc = mass
+		//AS all circles have to be of a full size and not oddly shaped radius ^ 2 can be used
 
-	void Collider::InitializeCapsule()
-	{
-		rp3d::CapsuleShape* capsule = static_cast<rp3d::CapsuleShape*>(m_Collider);
-            
-		// Volume of a Capsule: V = πr2((4/3)r + a)
-		m_Volume = glm::pi<float>() * glm::pow(capsule->getRadius(), 2) * ((4.0f/3.0f) * glm::pi<float>() + capsule->getHeight());
-		m_Mass.SetMass(m_Density * m_Volume);
-
-		//Generate a inertia tensor for the shape
-		// The inertia tensor formula for a capsule can be found in : Game Engine Gems, Volume 1
-		float mass = m_Mass.Mass;
-		float height = capsule->getHeight();
-		float radius = capsule->getRadius();
-		float radiusSqr = glm::pow(capsule->getRadius(), 2);
-		float heightSqr = glm::pow(height, 2);
-		float radiusDoubleSqr = radiusSqr + radiusSqr;
-		float fac1 = 2.0f * radius / (4.0f * radius + 3.0f * height);
-		float fac2 = 3.0f * height / (4.0f * radius + 3.0f * height);
-		float sum1 = 0.4f * radiusDoubleSqr;
-		float sum2 = 0.75f * height * radius + 0.5f * heightSqr;
-		float sum3 = 0.25 * radiusSqr + (1.0f / 12.0f) * heightSqr;
-		float Ixxzz = fac1 * mass * (sum1 + sum2) + fac2 * mass * sum3;
-		float Iyy = fac1 * mass * sum1 + fac2 * mass * 0.25f * radiusDoubleSqr;
-		auto tensor = glm::vec3(Ixxzz, Iyy, Ixxzz);
-		m_InertiaTensor.LocalInertiaTensor = tensor;
+		//4pi/15pabc(mass) . r^2
+		float value = mass.mass * (sphere->getRadius() * sphere->getRadius());
+		radius = sphere->getRadius();
+		glm::vec3 tensor = glm::vec3(value, value, value);
+		inertiaTensor.LocalInertiaTensor = tensor;
 	}
 
 	glm::vec3 Collider::GetLocalColliderInertiaTensor()
 	{
-		return m_InertiaTensor.LocalInertiaTensor;
+		return inertiaTensor.LocalInertiaTensor;
 	}
 }

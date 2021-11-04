@@ -17,100 +17,59 @@ namespace tnah::Physics {
 			};
 			
 			Collider();
-			Collider(rp3d::CollisionShape* collider, Type type);
+			Collider(rp3d::CollisionShape* c, Type t);
 
 			static Ref<Collider> Create(rp3d::CollisionShape* collider, Type type);
 			
-			void SetPosition(const glm::vec3& position) { m_LocalPosition = position; }
-			void SetOrientation(const glm::quat& orientation) { m_LocalOrientation = orientation; }
+			void SetPosition(const glm::vec3& position) { localPosition = position; }
+			void SetOrientation(const glm::quat& orientation) { localOrientation = orientation; }
 
-			glm::vec3 GetColliderPosition() const { return m_LocalPosition; }
-			glm::quat GetColliderOrientation() const { return m_LocalOrientation; }
+			glm::vec3 GetColliderPosition() const { return localPosition; }
+			glm::quat GetColliderOrientation() const { return localOrientation; }
 			
-			BodyMass& GetColliderMass() { return m_Mass; }
+			Mass& GetColliderMass() { return mass; }
 			void SetColliderMass(float m);
-			Type GetType() const { return m_Type; }
-			std::pair<Type, rp3d::CollisionShape*> GetCollisionShapePair() { return { m_Type, m_Collider }; }
+			Type GetType() const { return type; }
+			std::pair<Type, rp3d::CollisionShape*> GetCollisionShapePair() { return { type, collider }; }
 
 			glm::vec3 GetLocalColliderInertiaTensor();
 
-			float GetVolume() { return m_Volume; }
-			void SetVolume(const float value) { m_Volume = value; }
+			float GetVolume() { return volume; }
+			void SetVolume(const float value) { volume = value; }
 			
-			float GetDensity() { return m_Density; }
-			void SetDensity(const float value) { m_Density = value; }
+			float GetDensity() { return density; }
+			void SetDensity(const float value) { density = value; }
+
+			uint32_t GetId() const {return ID;}
+			void SetId(const uint32_t i) {ID = i;}
 
 		private:
 
 			float radius;
+			
 			glm::vec3 size;
 
 			void InitializeBox();
 			
 			void InitializeSphere();
 			
-			void InitializeCapsule();
-
+			rp3d::CollisionShape* collider = nullptr;
 			
+			Type type = Type::Box;
+			
+			glm::vec3 localPosition = {};
+			
+			glm::quat localOrientation = {};
+			
+			Mass mass;
 
-		private:
-			/**
-			* @var m_Collider
-			*
-			* @brief The Reactphysics3D CollisionShape. This needs to be reinterpreted into a BoxShape or SphereShape depending on the ColliderType.
-			*/
-			rp3d::CollisionShape* m_Collider = nullptr;
-
-			/**
-			* @var m_Type
-			*
-			* @brief The type of the Collider. Either Box or Sphere currently.
-			*/
-			Type m_Type = Type::Box;
-
-			/**
-			* @var m_LocalPosition
-			*
-			* @brief The position of the Collider locally to its parent Rigidbody.
-			* @note The position should always be at 0,0,0 ie the centre of the Rigidbody.
-			* @note However the position should be changed if the object requires multiple colliders with different positions relative to the Rigidbody.
-			*/
-			glm::vec3 m_LocalPosition = {};
-
-			/**
-			* @var m_LocalOrientation
-			*
-			* @brief The orientation of the Collider locally to its parent Rigidbody.
-			*/
-			glm::quat m_LocalOrientation = {};
-
-			/**
-			* @var m_Mass
-			*
-			* @brief The local BodyMass information for this Collider.
-			*/
-			BodyMass m_Mass;
-
-			InertiaTensor m_InertiaTensor;
+			InertiaTensor inertiaTensor;
 
 			uint32_t ID = 0;
-
-			/**
-			 * @var m_Volume
-			 *
-			 * @brief The volume of the collider in meters cubed.
-			 */
-			float m_Volume = 0.0f;
-
-			/**
-			* @var m_Density
-			*
-			* @brief The density of the colliders material in kg per meter cubed. Default 1000kg/m3 ie the density of water.
-			*/
-			float m_Density = 1.0f;
 			
-			friend class PhysicsEngine;
-			friend class EditorUI;
+			float volume = 0.0f;
+			
+			float density = 1.0f;
 		};
 	
 }

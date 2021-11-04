@@ -8,14 +8,14 @@ namespace tnah::Physics {
 
 	}
 
-	RigidBody::RigidBody(TransformComponent& transform, BodyMass mass)
+	RigidBody::RigidBody(TransformComponent& transform, Mass mass)
 		:bodyMass(mass)
 	{
 		centralPosition = transform.Position;
 		Orientation = glm::quat(transform.QuatRotation);
 	}
 
-	Ref<RigidBody> RigidBody::Create(TransformComponent& transform, BodyMass mass)
+	Ref<RigidBody> RigidBody::Create(TransformComponent& transform, Mass mass)
 	{
 		return Ref<RigidBody>::Create(transform, mass);
 	}
@@ -45,7 +45,6 @@ namespace tnah::Physics {
 
 	void RigidBody::UpdateBodyProperties()
 	{
-		//Get and update the Centre of Mass for the body. Both local and world
 		const auto oldWorldCOM = bodyMass.WorldCentreOfMass;
 		const auto localCOM = CalculateCentreOfMass();
 		const glm::vec3 worldCOM = (Orientation * localCOM) + centralPosition;
@@ -95,7 +94,7 @@ namespace tnah::Physics {
 			offsetMatrix[0] += offset * (-offset.x);
 			offsetMatrix[1] += offset * (-offset.y);
 			offsetMatrix[2] += offset * (-offset.z);
-			offsetMatrix *= col->GetColliderMass().Mass;
+			offsetMatrix *= col->GetColliderMass().mass;
 
 			tempLocalInertiaTensor += inertiaTensor + offsetMatrix;
 		}
@@ -113,7 +112,7 @@ namespace tnah::Physics {
 		glm::vec3 localCOM = {0,0,0};
 		for(auto col : Colliders)
 		{
-			auto mass =  col.second->GetColliderMass().Mass;
+			auto mass =  col.second->GetColliderMass().mass;
 			totalMass += mass;
 			localCOM += mass * col.second->GetColliderPosition();
 		}
