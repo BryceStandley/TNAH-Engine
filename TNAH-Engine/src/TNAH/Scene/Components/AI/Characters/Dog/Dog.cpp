@@ -57,7 +57,7 @@ namespace tnah
             bark.m_Loaded = Audio::AddAudioSource(bark);
         }
 
-        
+        timer -= GetDeltaTime();
         return targetPos;
     }
 
@@ -66,14 +66,14 @@ namespace tnah
         std::pair<bool, bool> check;
         check.second = false;
         check.first = false;
-        if (currentAffordanceLevel >= affordanceValue)
+        if (affordanceValue >= currentAffordanceLevel && affordanceValue > 0)
         {
             if (distance <= actionDistance)
             {
                 switch (Character::GetDesiredAction())
                 {
                 case abuse:
-                    if (canOutput)
+                    if (timer < 0)
                     {
                         switch (rand() % 3)
                         {
@@ -87,14 +87,13 @@ namespace tnah
                             LogAction("*Bark* You stink! *Bark*", mColour);
                             break;
                         }
-                        canOutput = false;
-
-                        emotions.IncreaseArousal(0.5);
-                        previousState = GetDesiredAction();
+                        ResetTimer();
                     }
+                    emotions.IncreaseArousal(0.05 * GetDeltaTime());
+                    emotions.IncreaseValence(0.01 * GetDeltaTime());
                     break;
                 case greeting:
-                    if (canOutput)
+                    if (timer < 0)
                     {
                         switch (rand() % 3)
                         {
@@ -108,29 +107,25 @@ namespace tnah
                             LogAction("*Bark* Good day for walkies ain't it! *Bark*", mColour);
                             break;
                         }
-                        canOutput = false;
-
-                        emotions.IncreaseArousal(0.5);
-                        previousState = GetDesiredAction();
+                        ResetTimer();
                     }
+                    emotions.DecreaseArousal(0.05 * GetDeltaTime());
                     break;
                 case sleep:
-                    if (canOutput)
+                    if (timer < 0)
                     {
+                        emotions.DecreaseValence(0.3);
                         LogAction("*Bark* Nap Time! *Bark*", mColour);
-                        emotions.DecreaseArousal(0.5);
-                        emotions.IncreaseValence(0.5);
-                        canOutput = false;
-                        previousState = GetDesiredAction();
+                        ResetTimer();
                     }
+                    emotions.DecreaseArousal(0.01 * GetDeltaTime());
+                    emotions.IncreaseValence(0.1 * GetDeltaTime());
                     break;
                 case none:
                 default:
                     break;
                 }
             }
-            else if(previousState != GetDesiredAction())
-                canOutput = true;
         }
 
         return check;

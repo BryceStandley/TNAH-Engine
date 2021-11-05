@@ -267,6 +267,10 @@ namespace tnah
 	{
 		Emotion em = ReturnEmotion(GetScaledArousal(GetArousal()), GetScaledValence(GetValence()));
 		m_State = em;
+		IncreaseArousal(0.0001 * dt);
+		DecreaseArousal(0.0001 * dt);
+		IncreaseValence(0.0001* dt);
+		DecreaseValence(0.0001* dt);
 		UpdateMood(dt);
 	}
 
@@ -387,7 +391,9 @@ namespace tnah
 			UpdateTimer();
 		}
 		else
+		{
 			internalTimer -= dt;
+		}
 	}
 
 

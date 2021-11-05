@@ -99,6 +99,7 @@ namespace tnah
     {
         owner->GetEmotions().UpdateTimer();
         owner->SetWander(true);
+        owner->PutTimerDown();
     }
 
     void PosArousalPosValenceStudent::Execute(Student* owner)
@@ -133,7 +134,7 @@ namespace tnah
     void PosArousalPosValenceStudent::Exit(Student* owner)
     {
         owner->SetWander(false);
-        owner->SetCanOutput(true);
+        owner->PutTimerDown();
         owner->SetSpeed(1.0f);
     }
 
@@ -141,12 +142,13 @@ namespace tnah
     {
         owner->GetEmotions().UpdateTimer();
         owner->SetWander(true);
+        owner->PutTimerDown();
     }
 
     void NegArousalPosValenceStudent::Execute(Student* owner)
     {
         auto emotion = owner->GetEmotions().GetEmotion();
-        if(owner->GetCanOutput())
+        if(owner->GetTimer() <= 0)
             owner->SetWander(true);
         
         switch (emotion)
@@ -181,7 +183,7 @@ namespace tnah
         owner->GetEmotions().UpdateTimer();
         owner->SetWander(true);
         owner->SetSpeed(1.5f);
-        owner->SetCanOutput(true);
+        owner->PutTimerDown();
     }
 
     void PosArousalNegValenceStudent::Execute(Student* owner)
@@ -217,7 +219,6 @@ namespace tnah
     {
         owner->SetWander(false);
         owner->SetSpeed(1.0f);
-        owner->SetCanOutput(true);
     }
 
     void NegArousalNegValenceStudent::Enter(Student* owner)
@@ -225,13 +226,14 @@ namespace tnah
         owner->GetEmotions().UpdateTimer();
         owner->SetWander(true);
         owner->SetSpeed(0.75f);
+        owner->PutTimerDown();
     }
 
     void NegArousalNegValenceStudent::Execute(Student* owner)
     {
         auto emotion = owner->GetEmotions().GetEmotion();
 
-        if(owner->GetCanOutput())
+        if(owner->GetTimer() <= 0)
             owner->SetWander(true);
         
         switch (emotion)
@@ -263,6 +265,5 @@ namespace tnah
     {
         owner->SetWander(false);
         owner->SetSpeed(1.0f);
-        owner->SetCanOutput(true);
     }
 }

@@ -38,7 +38,8 @@ namespace tnah
             return false;
         }
 
-         double AStar::heuristic(Int2 point, Node destination) {
+         double AStar::heuristic(Int2 point, Node destination)
+        {
             double H = (sqrt((point.x - destination.position.x)*(point.x - destination.position.x)
                 + (point.y - destination.position.y)*(point.y - destination.position.y)));
             return H;

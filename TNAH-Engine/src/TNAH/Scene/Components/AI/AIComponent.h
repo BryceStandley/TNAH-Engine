@@ -1,4 +1,11 @@
-﻿#pragma once
+﻿/*****************************************************************//**
+ * @file   AIComponent.h
+ * @brief  Holds the AI information
+ * 
+ * @author chris
+ * @date   November 2021
+ *********************************************************************/
+#pragma once
 # define PI           3.14159265358979323846
 #include "AStar.h"
 #include "Character.h"
@@ -29,91 +36,161 @@ namespace tnah
         {
             
         }
-
+        /**
+         *
+         * @fn GetTargetPosition
+         * @breif .
+         * 
+         * @return 
+         * @author chris
+         */
         const glm::vec3& GetTargetPosition() const;
+        /**
+         *
+         * @fn SetTargetPosition
+         * @breif .
+         * 
+         * @param targetPosition
+         * @author chris
+         */
         void SetTargetPosition(const glm::vec3& targetPosition);
+        /**
+         *
+         * @fn TargetCutoffDistance
+         * @breif .
+         * 
+         * @return 
+         * @author chris
+         */
         float TargetCutoffDistance() const;
+        /**
+         *
+         * @fn SetTargetCutoffDistance
+         * @breif .
+         * 
+         * @param targetCutoffDistance
+         * @author chris
+         */
         void SetTargetCutoffDistance(float targetCutoffDistance);
-        float RotationSpeed() const;
-        void SetRotationSpeed(float rotationSpeed);
+        
+        /**
+         *
+         * @fn MovementSpeed
+         * @breif .
+         * 
+         * @return 
+         * @author chris
+         */
         float MovementSpeed() const;
+        /**
+         *
+         * @fn SetMovementSpeed
+         * @breif .
+         * 
+         * @param movementSpeed
+         * @author chris
+         */
         void SetMovementSpeed(float movementSpeed);
+        /**
+         *
+         * @fn MovementAllowed
+         * @breif .
+         * 
+         * @return 
+         * @author chris
+         */
         bool MovementAllowed() const;
+        /**
+         *
+         * @fn SetMovementAllowed
+         * @breif .
+         * 
+         * @param movementAllowed
+         * @author chris
+         */
         void SetMovementAllowed(bool movementAllowed);
+        /**
+         *
+         * @fn SetVelocity
+         * @breif .
+         * 
+         * @param vel
+         * @author chris
+         */
         void SetVelocity(const glm::vec3 vel) { m_Velocity = vel; }
+        /**
+         *
+         * @fn SetWander
+         * @breif .
+         * 
+         * @param w
+         * @author chris
+         */
         void SetWander(bool w) {currentlyWandering = w;}
+        /**
+         *
+         * @fn GetWander
+         * @breif .
+         * 
+         * @return 
+         * @author chris
+         */
         bool GetWander() const {return currentlyWandering;}
         /**
-        * @fn void OnUpdate(Timestep deltaTime) 
-        * 
-        * @brief The update function for the AI component
-        *
-        * @author Bryce Standley
-        * @date Thursday, 30 September 2021
-        * 
-        *
-        *
-        */
+         *
+         * @fn OnUpdate
+         * @breif Updates the ai compoennt sorting out wanders ect
+         * 
+         * @param deltaTime
+         * @param trans
+         * @author chris
+         */
         void OnUpdate(Timestep deltaTime, TransformComponent &trans);
+
+        /**
+         *
+         * @fn GetPositions
+         * @breif .
+         * 
+         * @return 
+         * @author chris
+         */
         std::deque<Node> GetPositions() {return currentPath;}
     private:
-        bool moveTo(glm::vec3& curPos, const glm::vec3& targetPos, glm::vec3& curVelocity, float time, glm::vec3 &rot)
-        {
-            //calc heading from character position to target
-            glm::vec3 target = targetPos - curPos;
-            target = glm::normalize(target);
-
-            if (target.x == 0 && target.y == 0 && target.z == 0)
-                return true;
-
-            //calc new velocity and new character position
-            curVelocity = target * glm::length(curVelocity);
-            glm::vec3 displacement = curVelocity * time * m_MovementSpeed;
-            glm::vec3 vec = curPos + displacement;
-
-            SetVelocity(curVelocity);
-
-            // calculate real target position
-            glm::vec3 realTargetPos = targetPos - target;
-
-            // calculate the direction from vec to realTargetPos
-            glm::vec3 toRealTarget = realTargetPos - vec;
-            //rot = toRealTarget;
-            toRealTarget = glm::normalize(toRealTarget);
-            if (toRealTarget.x == 0 && toRealTarget.y == 0 && toRealTarget.z == 0)
-            {
-                curPos = realTargetPos;
-                //SetPos(curPos);
-                m_TargetPosition = curPos;
-                return true;
-            }
-
-            //check to see whether vec has gone pass the realTargetPos
-            float dp = glm::distance(toRealTarget, target);
-
-            if (dp < 0.0)
-            {
-                m_TargetPosition = curPos;
-                return true;
-            }
-
-            curPos = vec;
-
-            //SetPos(curPos);
-            m_TargetPosition = curPos;
-            return false;
-        }
+        /**
+         *
+         * @fn moveTo
+         * @breif Moves to the given location
+         * 
+         * @param curPos
+         * @param targetPos
+         * @param curVelocity
+         * @param time
+         * @param rot
+         * @return 
+         * @author chris
+         */
+        bool moveTo(glm::vec3& curPos, const glm::vec3& targetPos, glm::vec3& curVelocity, float time, glm::vec3& rot);
 
     private:
+        /** Target position of the object */
         glm::vec3 m_TargetPosition = {};
+        /** cuttoff distance */
         float m_TargetCutoffDistance = 1.0f;
+        /**  Movement speed */
         float m_MovementSpeed = 1.0f;
+        /**  if it is allowed to move */
         bool m_MovementAllowed = true;
+        /** The current velocity */
         glm::vec3 m_Velocity = {};
+        /**  if it is current wandering */
         bool currentlyWandering;
         //AStar stuff
+        /**  The current position*/
         Node currentPosition;
+        /**  The current destination*/
         Node destination;
+        /**  The current path*/
         std::deque<Node> currentPath = {};
 
         inline static std::string s_SearchString = "AiCharacter Component";

@@ -509,6 +509,7 @@ namespace tnah{
 						auto &ai = view.get<AIComponent>(entity);
 						auto &c = view.get<CharacterComponent>(entity);
 						auto &rb = view.get<RigidBodyComponent>(entity);
+						int i = 0;
 						for(auto obj : objects)
 						{
 							auto & objTrasnform = objects.get<TransformComponent>(obj);
@@ -533,8 +534,6 @@ namespace tnah{
 											break;
 										}
 									}
-								if(event.first)
-									break;
 							}
 						}
 						

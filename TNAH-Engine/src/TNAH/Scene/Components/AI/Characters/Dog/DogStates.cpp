@@ -98,6 +98,7 @@ namespace tnah
     {
         owner->GetEmotions().UpdateTimer();
         owner->Shootbark();
+        owner->PutTimerDown();
     }
 
     void PosArousalPosValenceDog::Execute(Dog* owner)
@@ -110,19 +111,19 @@ namespace tnah
             owner->SetDesiredAction(Actions::greeting);
             owner->SetActionDistance(7.0f);
             owner->SetAffordanceLevel(0.1f);
-            owner->SetSpin(false);
+            owner->SetSpin(true);
             break;
         case Emotion::Delighted:
             owner->SetDesiredAction(Actions::greeting);
             owner->SetActionDistance(5.0f);
             owner->SetAffordanceLevel(1.0f);
-            owner->SetSpin(false);
+            owner->SetSpin(true);
             break;
         case Emotion::Excited:
             owner->SetDesiredAction(Actions::greeting);
             owner->SetActionDistance(9.0f);
             owner->SetAffordanceLevel(0.5f);
-            owner->SetSpin(false);
+            owner->SetSpin(true);
             break;
         default:
             break;
@@ -132,13 +133,13 @@ namespace tnah
     void PosArousalPosValenceDog::Exit(Dog* owner)
     {
         owner->SetSpin(false);
-        owner->SetCanOutput(true);
         owner->Stopbark();
     }
 
     void NegArousalPosValenceDog::Enter(Dog* owner)
     {
         owner->GetEmotions().UpdateTimer();
+        owner->PutTimerDown();
     }
 
     void NegArousalPosValenceDog::Execute(Dog* owner)
@@ -156,6 +157,8 @@ namespace tnah
         case Emotion::Calm:
             owner->SetDesiredAction(Actions::none);
             break;
+        default:
+            break;
         }
     }
 
@@ -167,23 +170,22 @@ namespace tnah
     void PosArousalNegValenceDog::Enter(Dog* owner)
     {
         owner->GetEmotions().UpdateTimer();
-        owner->SetCanOutput(true);
         owner->ShootHiss();
+        owner->PutTimerDown();
     }
 
     void PosArousalNegValenceDog::Execute(Dog* owner)
     {
         auto emotion = owner->GetEmotions().GetEmotion();
-
         switch (emotion)
         {
         case Emotion::Frustrated:
-            owner->SetDesiredAction(Actions::kick);
+            owner->SetDesiredAction(Actions::abuse);
             owner->SetActionDistance(3.0f);
             owner->SetAffordanceLevel(1.0f);
             break;
         case Emotion::Angry:
-            owner->SetDesiredAction(Actions::kick);
+            owner->SetDesiredAction(Actions::abuse);
             owner->SetActionDistance(5.0f);
             owner->SetAffordanceLevel(0.5f);
             break;
@@ -195,17 +197,18 @@ namespace tnah
         default:
             break;
         }
+        
     }
 
     void PosArousalNegValenceDog::Exit(Dog* owner)
     {
-        owner->SetCanOutput(true);
         owner->StopHiss();
     }
 
     void NegArousalNegValenceDog::Enter(Dog* owner)
     {
         owner->GetEmotions().UpdateTimer();
+        owner->PutTimerDown();
     }
 
     void NegArousalNegValenceDog::Execute(Dog* owner)
@@ -215,11 +218,12 @@ namespace tnah
         switch (emotion)
         {
         case Emotion::Depressed:
+            owner->SetDesiredAction(Actions::sleep);
             owner->SetActionDistance(3.0f);
             owner->SetAffordanceLevel(0);
             break;
         case Emotion::Bored:
-            //owner->SetDesiredAction(Actions::sleep);
+            owner->SetDesiredAction(Actions::sleep);
             owner->SetActionDistance(5.0f);
             owner->SetAffordanceLevel(1.0f);
             break;
@@ -235,6 +239,6 @@ namespace tnah
 
     void NegArousalNegValenceDog::Exit(Dog* owner)
     {
-        owner->SetCanOutput(true);
+        
     }
 }

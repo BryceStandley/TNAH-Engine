@@ -32,6 +32,7 @@ namespace tnah
         SetDeltaTime(deltaTime.GetSeconds());
         currentAffordanceLevel = BalanceRange(0, 1, currentAffordanceLevel);
         emotions.Update(deltaTime.GetSeconds());
+        timer-= GetDeltaTime();
         mFsm->update();
 
         if(spin)
@@ -47,14 +48,14 @@ namespace tnah
         std::pair<bool, bool> check;
         check.second = false;
         check.first = false;
-        if(currentAffordanceLevel >= affordanceValue)
+        if(currentAffordanceLevel >= affordanceValue && affordanceValue > 0)
         {
             if(distance <= actionDistance)
             {
                 switch (Character::GetDesiredAction())
                 {
                 case abuse:
-                    if(canOutput)
+                    if(timer < 0)
                     {
                         switch(rand() % 3)
                         {
@@ -68,14 +69,13 @@ namespace tnah
                             LogAction("(Abuse)You're the worst " + tag + "!", mColour);
                             break;
                         }
-                        canOutput = false;
 
-                        emotions.IncreaseArousal(0.25);
-                        previousState = GetDesiredAction();
+                        ResetTimer();
                     }
+                    emotions.IncreaseArousal(0.025 * GetDeltaTime());
                     break;
                 case greeting:
-                    if(canOutput)
+                    if(timer < 0)
                     {
                         switch(rand() % 3)
                         {
@@ -89,37 +89,33 @@ namespace tnah
                             LogAction("(Greeting)Wonderful day ain't it " + tag + "!", mColour);
                             break;
                         }
-                        canOutput = false;
 
-                        emotions.IncreaseArousal(0.2);
-                        emotions.IncreaseValence(0.2);
-                        previousState = GetDesiredAction();
+                        ResetTimer();
                     }
+                    emotions.IncreaseArousal(0.02* GetDeltaTime());
+
+                    emotions.IncreaseValence(0.02* GetDeltaTime());
                     break;
                 case pickup:
                         check.second = true;
                         LogAction("(Pickup)Who left rubbish here!", mColour);
                         emotions.IncreaseArousal(0.3);
                         emotions.DecreaseValence(0.4);
-                        previousState = GetDesiredAction();
                     break;
                 case sleep:
-                    if(canOutput)
+                    if(timer < 0)
                     {
                         LogAction("(Sleep)This looks like a good spot to snooze!", mColour);
-                        canOutput = false;
-                        emotions.DecreaseArousal(0.5);
-                        emotions.IncreaseValence(0.5);
-                        previousState = GetDesiredAction();
+                        ResetTimer();
                     }
+                    emotions.DecreaseArousal(0.05* GetDeltaTime());
+                    emotions.IncreaseValence(0.01* GetDeltaTime());
                     break;
                 case none:
                 default:
                     break;
                 }
             }
-            else if(previousState != GetDesiredAction())
-                canOutput = true;
         }
 
         return check;

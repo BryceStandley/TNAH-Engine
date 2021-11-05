@@ -31,6 +31,7 @@ MainLayer::MainLayer()
 		m_Camera.AddComponent<tnah::PlayerInteractions>();
 		aff.SetActionValues(tnah::Actions::abuse, 1.0f);
 		aff.SetActionValues(tnah::Actions::greeting, 1.0f);
+		std::cout << "After setting it: " << aff.GetActionValue(tnah::Actions::abuse) << std::endl;
 		m_Camera.AddComponent<tnah::AudioListenerComponent>(true);
 	}
 	
@@ -445,9 +446,6 @@ MainLayer::MainLayer()
 		tt.Rotation = glm::vec3(0, glm::radians(-90.0f), 0);
 		tt.Scale = glm::vec3(0.015);
 		auto& rb = go.AddComponent<tnah::RigidBodyComponent>(go);
-
-		rb.AddCollider({DogCollider});
-		rb.Body->SetType(tnah::Physics::BodyType::Static);	
 		
 		go.AddComponent<tnah::AIComponent>();
 		go.AddComponent<tnah::CharacterComponent>(tnah::CharacterNames::DogAi);

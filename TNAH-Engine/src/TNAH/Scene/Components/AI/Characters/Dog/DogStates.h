@@ -10,7 +10,7 @@ namespace tnah
      *
      * @brief  A class that represents the Global state of the Dog character. Inherits from the State class
      *
-     * @author Dylan Blereau
+     * @author Christopher Logan
      * @date   2/11/2021
      */
     class GlobalDog : public State<Dog>
@@ -22,7 +22,7 @@ namespace tnah
          *
          * @brief virtual function that represents the enter point of the state
          *
-         * @author Dylan Blereau
+         * @author Christopher Logan
          * @date   2/11/2021
          *
          * @param owner - pointer to the entity class
@@ -34,7 +34,7 @@ namespace tnah
          *
          * @brief virtual function that represents the execute stage of the state
          *
-         * @author Dylan Blereau
+         * @author Christopher Logan
          * @date   2/11/2021
          *
          * @param owner - pointer to the entity class
@@ -46,7 +46,7 @@ namespace tnah
         *
         * @brief virtual function that represents the execute stage of the state
         *
-        * @author Dylan Blereau
+        * @author Christopher Logan
         * @date   2/11/2021
         *
         * @param owner - pointer to the entity class
@@ -59,7 +59,7 @@ namespace tnah
      *
      * @brief  A class that represents the PosArousalPosValenceDog state of the Dog character. Inherits from the State class
      *
-     * @author Dylan Blereau
+     * @author Christopher Logan
      * @date   2/11/2021
      */
     class PosArousalPosValenceDog : public State<Dog>
@@ -71,7 +71,7 @@ namespace tnah
          *
          * @brief virtual function that represents the enter point of the state
          *
-         * @author Dylan Blereau
+         * @author Christopher Logan
          * @date   2/11/2021
          *
          * @param owner - pointer to the entity class
@@ -83,7 +83,7 @@ namespace tnah
          *
          * @brief virtual function that represents the execute stage of the state
          *
-         * @author Dylan Blereau
+         * @author Christopher Logan
          * @date   2/11/2021
          *
          * @param owner - pointer to the entity class
@@ -95,7 +95,7 @@ namespace tnah
         *
         * @brief virtual function that represents the execute stage of the state
         *
-        * @author Dylan Blereau
+        * @author Christopher Logan
         * @date   2/11/2021
         *
         * @param owner - pointer to the entity class
@@ -108,7 +108,7 @@ namespace tnah
      *
      * @brief  A class that represents the NegArousalPosValenceDog state of the Dog character. Inherits from the State class
      *
-     * @author Dylan Blereau
+     * @author Christopher Logan
      * @date   2/11/2021
      */
     class NegArousalPosValenceDog : public State<Dog>
@@ -120,7 +120,7 @@ namespace tnah
          *
          * @brief virtual function that represents the enter point of the state
          *
-         * @author Dylan Blereau
+         * @author Christopher Logan
          * @date   2/11/2021
          *
          * @param owner - pointer to the entity class
@@ -132,7 +132,7 @@ namespace tnah
          *
          * @brief virtual function that represents the execute stage of the state
          *
-         * @author Dylan Blereau
+         * @author Christopher Logan
          * @date   2/11/2021
          *
          * @param owner - pointer to the entity class
@@ -144,7 +144,7 @@ namespace tnah
         *
         * @brief virtual function that represents the execute stage of the state
         *
-        * @author Dylan Blereau
+        * @author Christopher Logan
         * @date   2/11/2021
         *
         * @param owner - pointer to the entity class
@@ -158,7 +158,7 @@ namespace tnah
      *
      * @brief  A class that represents the NegArousalNegValenceDog state of the Dog character. Inherits from the State class
      *
-     * @author Dylan Blereau
+     * @author Christopher Logan
      * @date   2/11/2021
      */
     class NegArousalNegValenceDog : public State<Dog>
@@ -170,7 +170,7 @@ namespace tnah
          *
          * @brief virtual function that represents the enter point of the state
          *
-         * @author Dylan Blereau
+         * @author Christopher Logan
          * @date   2/11/2021
          *
          * @param owner - pointer to the entity class
@@ -182,7 +182,7 @@ namespace tnah
          *
          * @brief virtual function that represents the execute stage of the state
          *
-         * @author Dylan Blereau
+         * @author Christopher Logan
          * @date   2/11/2021
          *
          * @param owner - pointer to the entity class
@@ -194,7 +194,7 @@ namespace tnah
         *
         * @brief virtual function that represents the execute stage of the state
         *
-        * @author Dylan Blereau
+        * @author Christopher Logan
         * @date   2/11/2021
         *
         * @param owner - pointer to the entity class
@@ -207,7 +207,7 @@ namespace tnah
      *
      * @brief  A class that represents the PosArousalNegValenceDog state of the Dog character. Inherits from the State class
      *
-     * @author Dylan Blereau
+     * @author Christopher Logan
      * @date   2/11/2021
      */
     class PosArousalNegValenceDog : public State<Dog>
@@ -219,7 +219,7 @@ namespace tnah
          * 
          * @brief virtual function that represents the enter point of the state  
          * 
-         * @author Dylan Blereau
+         * @author Christopher Logan
          * @date   2/11/2021
          * 
          * @param owner - pointer to the entity class
@@ -231,7 +231,7 @@ namespace tnah
          * 
          * @brief virtual function that represents the execute stage of the state  
          * 
-         * @author Dylan Blereau
+         * @author Christopher Logan
          * @date   2/11/2021
          * 
          * @param owner - pointer to the entity class
@@ -243,7 +243,7 @@ namespace tnah
         * 
         * @brief virtual function that represents the execute stage of the state 
         * 
-        * @author Dylan Blereau
+        * @author Christopher Logan
         * @date   2/11/2021
         * 
         * @param owner - pointer to the entity class

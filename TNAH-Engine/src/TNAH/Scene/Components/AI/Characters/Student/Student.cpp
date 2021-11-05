@@ -34,6 +34,7 @@ namespace tnah
         SetDeltaTime(deltaTime.GetSeconds());
         currentAffordanceLevel = BalanceRange(0, 1, currentAffordanceLevel);
         emotions.Update(deltaTime.GetSeconds());
+        timer -= GetDeltaTime();
         mFsm->update();
 
         return targetPos;
@@ -44,26 +45,27 @@ namespace tnah
         std::pair<bool, bool> check;
         check.second = false;
         check.first = false;
-        if (currentAffordanceLevel >= affordanceValue)
+        if (affordanceValue >= currentAffordanceLevel && affordanceValue > 0)
         {
             if (distance <= actionDistance)
             {
                 switch (Character::GetDesiredAction())
                 {
                     case sit:
-                        if (canOutput)
+                        if (timer < 0)
                         {
                             LogAction("(Sits) This looks like a nice spot to sit!", mColour);
-                            canOutput = false;
                             SetWander(false);
+                            ResetTimer();
                         }
                         emotions.DecreaseArousal(0.05 * GetDeltaTime());
                         emotions.IncreaseValence(0.1 * GetDeltaTime());
                         previousState = GetDesiredAction();
                         break;
                 case greeting:
-                    if (canOutput)
+                    if (timer < 0)
                     {
+                        ResetTimer();
                         switch (rand() % 3)
                         {
                         case 1:
@@ -76,31 +78,29 @@ namespace tnah
                             LogAction("(Greet) Legend " + tag, mColour);
                             break;
                         }
-                        canOutput = false;
 
-                        emotions.IncreaseArousal(0.2);
-                        emotions.IncreaseValence(0.2);
-                        previousState = GetDesiredAction();
-                    }
+
+                    }                        emotions.IncreaseArousal(0.02* GetDeltaTime());
+                                             emotions.IncreaseValence(0.02* GetDeltaTime());
                     break;
                 case sleep:
-                    if (canOutput)
+                    if (timer < 0)
                     {
                         LogAction("(Sleeps) This looks like a good spot to snooze!", mColour);
-                        canOutput = false;
                         SetWander(false);
-                        emotions.DecreaseArousal(0.5);
-                        emotions.IncreaseValence(0.5);
-                        previousState = GetDesiredAction();
-                    }
+                        ResetTimer();
+                    }                        emotions.DecreaseArousal(0.05* GetDeltaTime());
+                                             emotions.IncreaseValence(0.05* GetDeltaTime());
                     break;
                 case play:
-                    if (canOutput)
+                    if (timer < 0)
                     {
                         LogAction("(Plays" + tag + " here) This looks fun to play!", mColour);
-                        canOutput = false;
                         SetWander(false);
+                        ResetTimer();
                     }
+                    emotions.IncreaseArousal(0.02* GetDeltaTime());
+                    emotions.IncreaseValence(0.02* GetDeltaTime());
                     break;
                 case drink:
                     check.second = true;
@@ -109,23 +109,20 @@ namespace tnah
                     previousState = GetDesiredAction();
                     break;
                     case kick:
-                        if (canOutput)
+                        if (timer < 0)
                         {
                             LogAction("(Kicks "+ tag + ")", mColour);
-                            canOutput = false;
                             SetWander(false);
-                            emotions.IncreaseArousal(0.2);
-                            emotions.DecreaseValence(0.2);
-                            previousState = GetDesiredAction();
+                            ResetTimer();
                         }
+                    emotions.IncreaseArousal(0.02* GetDeltaTime());
+                    emotions.DecreaseValence(0.02* GetDeltaTime());
                         break;
                 case none:
                 default:
                     break;
                 }
             }
-            else if(previousState != GetDesiredAction())
-                canOutput = true;
         }
 
         return check;

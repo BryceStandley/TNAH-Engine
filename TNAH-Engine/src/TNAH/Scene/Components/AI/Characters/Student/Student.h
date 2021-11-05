@@ -55,30 +55,6 @@ namespace tnah {
         }
 
         /**
-         * @fn  GetCanOutput
-         *
-         * @brief  Gets and returns the current state of the canOutput boolean flag
-         *
-         * @author Dylan Blereau
-         * @date   2/11/2021
-         *
-         * @return bool - the canOutput boolean
-         */
-        bool GetCanOutput() const { return canOutput; }
-
-        /**
-         * @fn  SetCanOutput
-         *
-         * @brief  Sets the canOutput boolean flag to the value given as a parameter
-         *
-         * @author Dylan Blereau
-         * @date   2/11/2021
-         *
-         * @param s - the bool value that canOutput will be set to
-         */
-        void SetCanOutput(bool s) { canOutput = s; }
-
-        /**
          * @fn  GetEmotions
          *
          * @brief  Returns the EmotionComponent of the Student
@@ -211,7 +187,11 @@ namespace tnah {
          *
          */
         void SetColour(glm::vec4 colour) { mColour = colour; }
+     void ResetTimer() {timer = 10.0f;}
+     void PutTimerDown() {timer = 0.0f;}
+    float GetTimer() const {return timer;}
     private:
+     float timer = 10.0f;
         /// The targetPosition of the character
         glm::vec3 targetPos;
 
@@ -244,9 +224,6 @@ namespace tnah {
 
         /// the action distance of the Student
         float actionDistance = 0;
-
-        /// flag for whether or not Student is outputting dialogue to screen
-        bool canOutput = true;
 
         /// the emotion component of the Student
         EmotionComponent emotions;

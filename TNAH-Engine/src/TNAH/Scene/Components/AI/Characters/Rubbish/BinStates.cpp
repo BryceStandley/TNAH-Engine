@@ -99,6 +99,7 @@ namespace tnah
     {
         owner->GetEmotions().UpdateTimer();
         owner->SetWander(true);
+        owner->PutTimerDown();
     }
 
     void PosArousalPosValenceBin::Execute(Bin* owner)
@@ -134,13 +135,13 @@ namespace tnah
     {
         owner->SetSpin(false);
         owner->SetWander(false);
-        owner->SetCanOutput(true);
     }
 
     void NegArousalPosValenceBin::Enter(Bin* owner)
     {
         owner->GetEmotions().UpdateTimer();
         owner->SetWander(true);
+        owner->PutTimerDown();
     }
 
     void NegArousalPosValenceBin::Execute(Bin* owner)
@@ -177,7 +178,7 @@ namespace tnah
         owner->GetEmotions().UpdateTimer();
         owner->SetWander(true);
         owner->SetSpeed(1.5f);
-        owner->SetCanOutput(true);
+        owner->PutTimerDown();
     }
 
     void PosArousalNegValenceBin::Execute(Bin* owner)
@@ -213,7 +214,6 @@ namespace tnah
     {
         owner->SetWander(false);
         owner->SetSpeed(1.0f);
-        owner->SetCanOutput(true);
     }
 
     void NegArousalNegValenceBin::Enter(Bin* owner)
@@ -221,6 +221,7 @@ namespace tnah
         owner->GetEmotions().UpdateTimer();
         owner->SetWander(true);
         owner->SetSpeed(0.75f);
+        owner->PutTimerDown();
     }
 
     void NegArousalNegValenceBin::Execute(Bin* owner)
@@ -256,6 +257,5 @@ namespace tnah
     {
         owner->SetWander(false);
         owner->SetSpeed(1.0f);
-        owner->SetCanOutput(true);
     }
 }

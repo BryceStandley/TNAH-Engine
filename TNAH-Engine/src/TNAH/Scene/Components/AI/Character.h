@@ -12,7 +12,7 @@ namespace tnah
     *
     * @brief
     *
-    * @author Dylan Blereau
+    * @author Christopher Logan
     * @date   2/11/2021
     */
     class Character
@@ -24,7 +24,7 @@ namespace tnah
          * 
          * @brief Updates the character according to deltaTime
          * 
-         * @author Dylan Blereau
+         * @author Christopher Logan
          * @date   2/11/2021
          * 
          * @param deltaTime - the timestep of the update
@@ -38,7 +38,7 @@ namespace tnah
          * 
          * @brief Virtual Destructor 
          * 
-         * @author Dylan Blereau
+         * @author Christopher Logan
          * @date   2/11/2021
          * 
          */
@@ -49,7 +49,7 @@ namespace tnah
          * 
          * @brief Gets the deltatime 
          * 
-         * @author Dylan Blereau
+         * @author Christopher Logan
          * @date   2/11/2021
          * 
          * @return float - the deltaTime
@@ -61,7 +61,7 @@ namespace tnah
          * 
          * @brief  sets the deltatime using the provided parameter
          * 
-         * @author Dylan Blereau
+         * @author Christopher Logan
          * @date   2/11/2021
          * 
          * @param t - the  deltatime value to be set
@@ -74,7 +74,7 @@ namespace tnah
          * 
          * @brief Sets the desired action that the NPC would like to perform, using the provided Action parameter
          * 
-         * @author Dylan Blereau
+         * @author Christopher Logan
          * @date   2/11/2021
          * 
          * @param a - an enum Action value
@@ -86,7 +86,7 @@ namespace tnah
          * 
          * @brief  Gets the desired action of the NPC
          * 
-         * @author Dylan Blereau
+         * @author Christopher Logan
          * @date   2/11/2021
          * 
          * @return Action - the desired action
@@ -98,7 +98,7 @@ namespace tnah
          * 
          * @brief  Sets the affordance distance of the NPC 
          * 
-         * @author Dylan Blereau
+         * @author Christopher Logan
          * @date   2/11/2021
          * 
          * @param d - the affordance distance
@@ -109,7 +109,7 @@ namespace tnah
          * 
          * @brief Gets the affordance distance  
          * 
-         * @author Dylan Blereau
+         * @author Christopher Logan
          * @date   2/11/2021
          * 
          * @return float - the affordance distance
@@ -120,7 +120,7 @@ namespace tnah
          * 
          * @brief Checks the action 
          * 
-         * @author Dylan Blereau
+         * @author Christopher Logan
          * @date   2/11/2021
          * 
          * @param affordanceValue
@@ -134,7 +134,7 @@ namespace tnah
          * 
          * @brief Logs the action of the character, which can be displayed via text on the screen.  
          * 
-         * @author Dylan Blereau
+         * @author Christopher Logan
          * @date   2/11/2021
          * 
          * @param text - the output of the character
@@ -151,7 +151,7 @@ namespace tnah
          * 
          * @brief Gets the bool that determines whether or not the character is wandering
          * 
-         * @author Dylan Blereau
+         * @author Christopher Logan
          * @date   2/11/2021
          * 
          * @return bool - the wander flag
@@ -163,7 +163,7 @@ namespace tnah
          * 
          * @brief Grants the ability to set the characters wander flag to true or false using the boolean parameter
          * 
-         * @author Dylan Blereau
+         * @author Christopher Logan
          * @date   2/11/2021
          * 
          * @param w
@@ -175,7 +175,7 @@ namespace tnah
          * 
          * @brief Sets the movement speed of the character 
          * 
-         * @author Dylan Blereau
+         * @author Christopher Logan
          * @date   2/11/2021
          * 
          * @param s - the speed value that will be assigned to speed
@@ -187,7 +187,7 @@ namespace tnah
          * 
          * @brief Gets the movement speed of the character 
          * 
-         * @author Dylan Blereau
+         * @author Christopher Logan
          * @date   2/11/2021
          * 
          * @return float - the character speed
@@ -199,7 +199,7 @@ namespace tnah
          * 
          * @brief  Can be used to apply actions of the player to the NPC
          * 
-         * @author Dylan Blereau
+         * @author Christopher Logan
          * @date   2/11/2021
          * 
          * @param givenAction - refers to the given player action, which will be applied to the NPC character
@@ -211,7 +211,7 @@ namespace tnah
          * 
          * @brief Gets the character information string that include Emotion and Action Information
          * 
-         * @author Dylan Blereau
+         * @author Christopher Logan
          * @date   2/11/2021
          * 
          * @return string - the Character information string
@@ -223,7 +223,7 @@ namespace tnah
          * 
          * @brief Gets the string containing action information  
          * 
-         * @author Dylan Blereau
+         * @author Christopher Logan
          * @date   2/11/2021
          * 
          * @param action - refers to the action that we will convert to string 

@@ -5,27 +5,26 @@ namespace tnah
 {
     Affordance::Affordance(std::string t) : tag(t)
     {
-        objectsActions[none] = 1;
+        objectsActions[none] = 0;
+        objectsActions[abuse] = 0;
+        objectsActions[drink] = 0;
+        objectsActions[greeting] = 0;
+        objectsActions[kick] = 0;
+        objectsActions[pickup] = 0;
+        objectsActions[play] = 0;
+        objectsActions[punch] = 0;
+        objectsActions[sit] = 0;
+        objectsActions[sleep] = 0;
     }
 
     Affordance::~Affordance()
     {
-        
     }
 
     float Affordance::GetActionValue(Actions action)
     {
         float value;
-        try
-        {
-            value = objectsActions[action];
-        }
-        catch (...)
-        {
-            objectsActions[action] = 0;
-            value = objectsActions[action];
-        }
-
+        value = objectsActions[action];
         //TNAH_CORE_INFO("action value {0}", objectsActions[action]);
         return value;
     }
@@ -39,6 +38,8 @@ namespace tnah
             else if(value < 0)
                 value = 0;
 
+            if(action == Actions::abuse)
+                std::cout << "Value init = " << value;
             objectsActions[action] = value;
         }
     }

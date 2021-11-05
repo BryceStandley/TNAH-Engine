@@ -1,5 +1,11 @@
-﻿#pragma once
-
+﻿/*****************************************************************//**
+ * @file   PlayerInteractions.h
+ * @brief  
+ * 
+ * @author chris
+ * @date   November 2021
+ *********************************************************************/
+#pragma once
 namespace tnah
 {
     struct PlayerInteractions
