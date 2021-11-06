@@ -33,14 +33,15 @@ MainLayer::MainLayer()
 	m_Box2.Transform().Position = {0.0f, 6.0f, 2.0f};
 	m_Box2.Transform().Scale = {4.0f, 4.0f, 0.5f};
 	auto& rb2 = m_Box2.AddComponent<tnah::RigidBodyComponent>(m_Box2);
-	rb2.AddCollider({4.0f, 4.0f, 0.5f});
+	rb2.AddCollider({4.0f, 4.0f, 0.5f}); // Box
 
 	m_Ball = m_ActiveScene->CreateGameObject("Ball");
 	m_Ball.AddComponent<tnah::MeshComponent>("assets/meshes/sphere.fbx");
 	m_Ball.Transform().Position = {3.5f, 8.0f, -10.0f};
 	m_PhysicsSimStartPosition =  m_Ball.Transform().Position;
 	auto& rb3 = m_Ball.AddComponent<tnah::RigidBodyComponent>(m_Ball);
-	auto col = rb3.AddCollider({1.0f});
+	
+	auto col = rb3.AddCollider(1.0f); // Shpere
 	//col->GetColliderMass().SetMass(100.0f);
 	//rb3.Body->UpdateBodyProperties();
 
@@ -124,14 +125,11 @@ void MainLayer::OnUpdate(tnah::Timestep deltaTime)
 		}
 	}
 
-	if(m_StartPhysicsSim)
+	if(tnah::Input::IsKeyPressed(tnah::Key::Space))
 	{
-		TNAH_INFO("Simulation Started");
-		m_Ball.Transform().Position = m_PhysicsSimStartPosition;
+		m_Ball.Transform().Position = m_Camera.Transform().Position;
 		auto& rb = m_Ball.GetComponent<tnah::RigidBodyComponent>().Body;
-		auto force = glm::vec3(0.0f,0.0f,1.0f) * glm::vec3(0.0f, 0.0f, 5.0f);
-		rb->AddForce(force);
-		m_StartPhysicsSim = false;
+		rb->AddForce(m_Camera.Transform().Forward * 500.0f);
 	}
 	
 	//Rendering is managed by the scene!
@@ -145,142 +143,168 @@ void MainLayer::OnFixedUpdate(tnah::Timestep ts, tnah::PhysicsTimestep ps)
 
 void MainLayer::OnImGuiRender()
 {
-	auto windowSize = ImGui::GetMainViewport()->Size;
-	const auto windowPos = ImGui::GetMainViewport()->Pos;
-	ImGui::SetNextWindowPos(windowPos);
-	auto x = windowSize.x / 5.0f;
-	if(x < 400) { x = 400; }
-	ImGui::SetNextWindowSize({x, windowSize.y});
-	static bool m_ApplicationPanel = true;
-	ImGui::Begin("Application", &m_ApplicationPanel);
+
 	
-	ImGui::Text("%.1f FPS", ImGui::GetIO().Framerate);
-	ImGui::Text("Options");
-	if(ImGui::Checkbox("Debug Mode", &tnah::Application::Get().GetDebugModeStatus()))
+	
+	//App Control window
 	{
-		tnah::Application::Get().SetDebugStatusChange();
-	}
-	if(ImGui::CollapsingHeader("Controls & Toggles"))
-	{
-		ImGui::Text("Key Controls");
-		ImGui::BulletText("0 - Debug");
-		ImGui::BulletText("1 - Cursor");
-		ImGui::BulletText("2 - Wireframe mode");
-		ImGui::BulletText("3 - Borderless fullscreen");
-		ImGui::BulletText("4 - VSync");
-		ImGui::BulletText("5 - Camera look");
-		ImGui::BulletText("6 - Camera move");
-		ImGui::BulletText("L/R Shift - Camera speed override");
-		ImGui::BulletText("ESC - Quit");
-		ImGui::NewLine();
-		auto& app = tnah::Application::Get();
-		ImGui::Text("Toggles");
-		ImGui::Checkbox("Cursor", &m_CursorVisible);
-		ImGui::Checkbox("Wireframe", &m_Wireframe);
-		ImGui::Checkbox("VSync", &m_VSync);
-		ImGui::Checkbox("Fullscreen", &m_Fullscreen);
-		ImGui::Checkbox("Camera Look", &m_CameraLookToggle);
-		ImGui::Checkbox("Camera Movement", &m_CameraMovementToggle);
-	}
-	if(tnah::Application::Get().GetDebugModeStatus())
-	{
-		if(ImGui::CollapsingHeader("Debug"))
+		auto windowSize = ImGui::GetMainViewport()->Size;
+		const auto windowPos = ImGui::GetMainViewport()->Pos;
+		ImGui::SetNextWindowPos(windowPos);
+		auto x = windowSize.x / 5.0f;
+		if(x < 400) { x = 400; }
+		ImGui::SetNextWindowSize({x, windowSize.y});
+		static bool m_ApplicationPanel = true;
+		ImGui::Begin("Application", &m_ApplicationPanel);
+	
+		ImGui::Text("%.1f FPS", ImGui::GetIO().Framerate);
+		ImGui::Text("Options");
+		if(ImGui::Checkbox("Debug Mode", &tnah::Application::Get().GetDebugModeStatus()))
 		{
-			ImGui::BulletText("Any application debug controls can go here");
+			tnah::Application::Get().SetDebugStatusChange();
 		}
-	}
-	if (ImGui::CollapsingHeader("Camera"))
-	{
-		auto& ct = m_Camera.Transform();
-		tnah::EditorUI::DrawVec3Control("Position", ct.Position);
-		tnah::EditorUI::DrawVec3Control("Rotation", ct.Rotation);
-		ImGui::Separator();
-		ImGui::Checkbox("Camera Speed Override", &m_CameraMovementSpeedOverride);
-		if (m_CameraMovementSpeedOverride)
+		if(ImGui::CollapsingHeader("Controls & Toggles"))
 		{
-			tnah::EditorUI::DrawFloatControl("Speed", m_CameraMovementSpeed, 1, 100, false);
+			ImGui::Text("Key Controls");
+			ImGui::BulletText("0 - Debug");
+			ImGui::BulletText("1 - Cursor");
+			ImGui::BulletText("2 - Wireframe mode");
+			ImGui::BulletText("3 - Borderless fullscreen");
+			ImGui::BulletText("4 - VSync");
+			ImGui::BulletText("5 - Camera look");
+			ImGui::BulletText("6 - Camera move");
+			ImGui::BulletText("L/R Shift - Camera speed override");
+			ImGui::BulletText("ESC - Quit");
+			ImGui::NewLine();
+			auto& app = tnah::Application::Get();
+			ImGui::Text("Toggles");
+			ImGui::Checkbox("Cursor", &m_CursorVisible);
+			ImGui::Checkbox("Wireframe", &m_Wireframe);
+			ImGui::Checkbox("VSync", &m_VSync);
+			ImGui::Checkbox("Fullscreen", &m_Fullscreen);
+			ImGui::Checkbox("Camera Look", &m_CameraLookToggle);
+			ImGui::Checkbox("Camera Movement", &m_CameraMovementToggle);
 		}
-		else
+		if(tnah::Application::Get().GetDebugModeStatus())
 		{
-			tnah::EditorUI::DrawFloatControl("Speed", m_CameraMovementSpeed, 1, 100, true);
-		}
-	}
-	
-	
-	
-	
-	ImGui::Separator();
-	
-	ImGui::Text("Scene Hierarchy");
-	if(ImGui::CollapsingHeader("GameObjects"))
-	{
-		
-		for(auto& go : m_ActiveScene->GetGameObjectsInScene())
-		{
-			constexpr static bool selected = false;
-			std::string name = go.second.GetComponent<tnah::TagComponent>().Tag;
-			if(name.find("Camera") == std::string::npos && name.find("Light") == std::string::npos)
+			if(ImGui::CollapsingHeader("Debug"))
 			{
-				if(ImGui::TreeNode(name.c_str()))
+				ImGui::BulletText("Any application debug controls can go here");
+			}
+		}
+		if (ImGui::CollapsingHeader("Camera"))
+		{
+			auto& ct = m_Camera.Transform();
+			tnah::EditorUI::DrawVec3Control("Position", ct.Position);
+			tnah::EditorUI::DrawVec3Control("Rotation", ct.Rotation);
+			ImGui::Separator();
+			ImGui::Checkbox("Camera Speed Override", &m_CameraMovementSpeedOverride);
+			if (m_CameraMovementSpeedOverride)
+			{
+				tnah::EditorUI::DrawFloatControl("Speed", m_CameraMovementSpeed, 1, 100, false);
+			}
+			else
+			{
+				tnah::EditorUI::DrawFloatControl("Speed", m_CameraMovementSpeed, 1, 100, true);
+			}
+		}
+	
+	
+	
+	
+		ImGui::Separator();
+	
+		ImGui::Text("Scene Hierarchy");
+		if(ImGui::CollapsingHeader("GameObjects"))
+		{
+		
+			for(auto& go : m_ActiveScene->GetGameObjectsInScene())
+			{
+				constexpr static bool selected = false;
+				std::string name = go.second.GetComponent<tnah::TagComponent>().Tag;
+				if(name.find("Camera") == std::string::npos && name.find("Light") == std::string::npos)
 				{
-					tnah::EditorUI::DrawComponentProperties(go.second, false);
-					ImGui::TreePop();
+					if(ImGui::TreeNode(name.c_str()))
+					{
+						tnah::EditorUI::DrawComponentProperties(go.second, false);
+						ImGui::TreePop();
+					}
 				}
 			}
 		}
-	}
 	
-	ImGui::Separator();
+		ImGui::Separator();
 	
-	ImGui::Text("Simulation Controls");
+		ImGui::Text("Simulation Controls");
 	
-	ImGui::Text("Physics");
-	{
-		ImGui::Checkbox("Use Gravity", &tnah::Physics::PhysicsEngine::GetManager()->GetGravityState());
-		if(tnah::Physics::PhysicsEngine::GetManager()->GetGravityState())
+		ImGui::Text("Physics");
 		{
-			tnah::EditorUI::DrawVec3Control("Gravity", tnah::Physics::PhysicsEngine::GetManager()->GetGravity());
+			ImGui::Checkbox("Use Gravity", &tnah::Physics::PhysicsEngine::GetManager()->GetGravityState());
+			if(tnah::Physics::PhysicsEngine::GetManager()->GetGravityState())
+			{
+				tnah::EditorUI::DrawVec3Control("Gravity", tnah::Physics::PhysicsEngine::GetManager()->GetGravity());
+			}
+			ImGui::Checkbox("Allow Sleeping", &tnah::Physics::PhysicsEngine::GetManager()->GetSleepState());
+			ImGui::Checkbox("Collider Rendering", &tnah::Physics::PhysicsEngine::GetColliderRendererHandle());
 		}
-		ImGui::Checkbox("Allow Sleeping", &tnah::Physics::PhysicsEngine::GetManager()->GetSleepState());
-		ImGui::Checkbox("Collider Rendering", &tnah::Physics::PhysicsEngine::GetColliderRendererHandle());
-	}
 	
-	auto size = ImGui::GetContentRegionAvail();
-	if(ImGui::Button("Play", {size.x, 30}))
-	{
-		m_StartPhysicsSim = true;
-	}
-	if(ImGui::Button("Reset", {size.x, 30}))
-	{
-		tnah::Physics::PhysicsEngine::GetManager()->SetGravityState(false);
-		tnah::Physics::PhysicsEngine::GetManager()->SetGravity({0.0f, -9.8f, 0.0f});
-		auto& rb1 = m_Box1.GetComponent<tnah::RigidBodyComponent>();
-		auto& rb2 = m_Box2.GetComponent<tnah::RigidBodyComponent>();
-		auto& rb3 = m_Ball.GetComponent<tnah::RigidBodyComponent>();
-		rb1.Body->ResetValues();
-		rb2.Body->ResetValues();
-		rb3.Body->ResetValues();
+		auto size = ImGui::GetContentRegionAvail();
+		if(ImGui::Button("Reset", {size.x, 30}))
+		{
+			tnah::Physics::PhysicsEngine::GetManager()->SetGravityState(false);
+			tnah::Physics::PhysicsEngine::GetManager()->SetGravity({0.0f, -9.8f, 0.0f});
+			auto& rb1 = m_Box1.GetComponent<tnah::RigidBodyComponent>();
+			auto& rb2 = m_Box2.GetComponent<tnah::RigidBodyComponent>();
+			auto& rb3 = m_Ball.GetComponent<tnah::RigidBodyComponent>();
+			rb1.Body->ResetValues();
+			rb2.Body->ResetValues();
+			rb3.Body->ResetValues();
 
-		auto& m1t = m_Box1.Transform();
-		m1t.Position = {0.0f, 10.0f, 0.0f};
-		m1t.Rotation = {0.0f, 0.0f, 0.0f};
-		m1t.Scale =  {4.0f, 4.0f, 0.5f};
+			auto& m1t = m_Box1.Transform();
+			m1t.Position = {0.0f, 10.0f, 0.0f};
+			m1t.Rotation = {0.0f, 0.0f, 0.0f};
+			m1t.Scale =  {4.0f, 4.0f, 0.5f};
 				
-		auto& m2t = m_Box2.Transform();
-		m2t.Position = {0.0f, 8.0f, 2.0f};
-		m2t.Rotation = {0.0f, 0.0f, 0.0f};
-		m2t.Scale = {4.0f, 4.0f, 0.5f};
+			auto& m2t = m_Box2.Transform();
+			m2t.Position = {0.0f, 8.0f, 2.0f};
+			m2t.Rotation = {0.0f, 0.0f, 0.0f};
+			m2t.Scale = {4.0f, 4.0f, 0.5f};
 
 		
-		auto& m3t = m_Ball.Transform();
-		m3t.Position = m_PhysicsSimStartPosition;
-		m3t.Rotation = {0,0,0};
-		m_StartPhysicsSim = false;
-	}
+			auto& m3t = m_Ball.Transform();
+			m3t.Position = m_PhysicsSimStartPosition;
+			m3t.Rotation = {0,0,0};
+		}
 	
-	ImGui::End();
+		ImGui::End();
+	}
+
+
+	//App GUI
+	{
+		auto size = ImGui::GetMainViewport()->Size;
+		auto pos = ImGui::GetMainViewport()->Pos;
+		ImGui::SetNextWindowPos({size.x / 2, size.y / 2});
+		ImGui::SetNextWindowSize({30,30});
+		ImGui::Begin("HUD", nullptr, ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoDecoration);
+
+		tnah::UI::Image(m_Crosshair, {30,30});
+		
+		ImGui::End();
+	}
+}
+
+void MainLayer::OnAttach()
+{
+	m_Crosshair = tnah::Texture2D::Create("assets/textures/crosshair.png");
+}
+
+void MainLayer::OnDetach()
+{
 	
 }
+
+
 
 void MainLayer::OnEvent(tnah::Event& event)
 {

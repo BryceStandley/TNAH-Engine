@@ -3,29 +3,18 @@
 #include "Components/AI/Affordance.h"
 #include "Components/AI/AIComponent.h"
 #include "Components/AI/CharacterComponent.h"
+#include "TNAH/Physics/Collider.h"
 
 namespace tnah
 {
     class Serializer
     {
     public:
-        /**
-         * 
-         * \fn bool SerializeScene
-         * 
-         * \brief Serializes the scene to the given file path
-         * 
-         * \author Bryce Standley
-         * \date 13/9/2021
-         * 
-         * \param scene
-         * \param filePath
-         * 
-         * \return 
-         * 
-         */
-        static bool SerializeScene(Ref<Scene> scene, const std::string& filePath);
 
+        static bool SaveScene(Ref<Scene> scene, const std::string& saveFilePath);
+        static Ref<Scene> LoadScene(const std::string& saveFilePath);
+    
+    private: 
         /**
          * 
          * \fn Ref<Scene> DeserializeScene
@@ -41,7 +30,24 @@ namespace tnah
          * 
          */
         static Ref<Scene> DeserializeScene(const std::string& filePath);
-    private:  
+     
+    
+      /**
+        * 
+        * \fn bool SerializeScene
+        * 
+        * \brief Serializes the scene to the given file path
+        * 
+        * \author Bryce Standley
+        * \date 13/9/2021
+        * 
+        * \param scene
+        * \param filePath
+        * 
+        * \return 
+        * 
+        */
+        static bool SerializeScene(Ref<Scene> scene, const std::string& filePath);
     
         /**
          * 
@@ -228,6 +234,8 @@ namespace tnah
          * 
          */
         static std::string GenerateRigidBody(const RigidBodyComponent& rb, const uint32_t& totalTabs = 0);
+     
+        static std::string GenerateCollider(const Ref<Physics::Collider>& col, const uint32_t& totalTabs = 0);
 
         /**
          * 
@@ -368,7 +376,7 @@ namespace tnah
          * \return 
          * 
          */
-        static std::string GenerateVec3Entry(const std::string& tagType, const glm::vec3& value, const uint32_t& totalTabs = 0);
+        static std::string GenerateValueEntry(const std::string& tagType, const glm::vec3& value, const uint32_t& totalTabs = 0);
 
         /**
          * 
@@ -386,7 +394,7 @@ namespace tnah
          * \return 
          * 
          */
-        static std::string GenerateVec4Entry(const std::string& tagType, const glm::vec4& value, const uint32_t& totalTabs = 0);
+        static std::string GenerateValueEntry(const std::string& tagType, const glm::vec4& value, const uint32_t& totalTabs = 0);
 
         /**
          * 
@@ -494,6 +502,9 @@ namespace tnah
          * 
          */
         static std::string GenerateValueEntry(const std::string& tagType, const std::string& value, const uint32_t& totalTabs = 0);
+     
+        static std::string GenerateValueEntry(const std::string& tagType, const glm::mat3& value, const uint32_t& totalTabs = 0);
+        static std::string GenerateValueEntry(const std::string& tagType, const glm::quat& value, const uint32_t& totalTabs = 0);
 
     private:
        
@@ -718,12 +729,13 @@ namespace tnah
          * 
          * \param fileContents
          * \param componentTagPositions
-         * \param transform
+         * \param gameObject
          * 
          * \return 
          * 
          */
-        static RigidBodyComponent GetRigidBodyFromFile(const std::string& fileContents, std::pair<size_t, size_t> componentTagPositions, const TransformComponent& transform);
+        static void GetRigidBodyFromFile(const std::string& fileContents,
+                                         std::pair<size_t, size_t> componentTagPositions, GameObject& gameObject);
 
         /**
          * 
@@ -741,6 +753,7 @@ namespace tnah
          * \return 
          * 
          */
+        static bool GetColliderFromFile(const std::string& fileContents, std::pair<size_t, size_t> componentTagPositions, RigidBodyComponent& rb);
         
         /**
          * 

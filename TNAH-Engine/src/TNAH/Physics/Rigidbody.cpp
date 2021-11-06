@@ -12,7 +12,7 @@ namespace tnah::Physics {
 		:m_BodyType(type), m_BodyMass(mass)
 	{
 		m_Position = transform.Position;
-		m_Orientation = glm::quat(transform.QuatRotation);
+		m_Orientation = transform.GetQuaternion();
 	}
 
 	Ref<RigidBody> RigidBody::Create(TransformComponent& transform, BodyMass mass, BodyType type)
@@ -23,7 +23,7 @@ namespace tnah::Physics {
 	void RigidBody::OnUpdate(TransformComponent& transform)
 	{
 		m_Position = transform.Position;
-		m_Orientation = glm::normalize(m_Orientation + transform.QuatRotation);
+		m_Orientation = glm::normalize(m_Orientation + transform.GetQuaternion());
 	}
 
 	void RigidBody::AddForce(const glm::vec3& force)

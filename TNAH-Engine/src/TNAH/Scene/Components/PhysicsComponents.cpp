@@ -52,6 +52,36 @@ namespace tnah
         return nullptr;
     }
 
+    Ref<Physics::Collider> RigidBodyComponent::AddCollider(const glm::vec3& boxSize, const glm::vec3& localPosition,
+        const glm::quat& localOrientation, const float& density, const float& volume)
+    {
+        if(Physics::PhysicsEngine::IsActive() && Body)
+        {
+            return Physics::PhysicsEngine::CreateBoxCollider(Body, boxSize);
+        }
+        return nullptr;
+    }
+
+    Ref<Physics::Collider> RigidBodyComponent::AddCollider(const float& sphereRadius, const glm::vec3& localPosition,
+        const glm::quat& localOrientation, const float& density, const float& volume)
+    {
+        if(Physics::PhysicsEngine::IsActive() && Body)
+        {
+            return Physics::PhysicsEngine::CreateSphereCollider(Body, sphereRadius);
+        }
+        return nullptr;
+    }
+
+    Ref<Physics::Collider> RigidBodyComponent::AddCollider(const float& capsuleRadius, const float& capsuleHeight,
+        const glm::vec3& localPosition, const glm::quat& localOrientation, const float& density, const float& volume)
+    {
+        if(Physics::PhysicsEngine::IsActive() && Body)
+        {
+            return Physics::PhysicsEngine::CreateCapsuleCollider(Body, capsuleRadius, capsuleHeight);
+        }
+        return nullptr;
+    }
+
     Ref<Physics::Collider> RigidBodyComponent::AddCollider(const float& sphereRadius)
     {
         if(Physics::PhysicsEngine::IsActive() && Body)

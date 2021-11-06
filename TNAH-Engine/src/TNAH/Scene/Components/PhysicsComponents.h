@@ -124,6 +124,7 @@ class GameObject;
 		 *
 		 */
 		Ref<Physics::Collider> AddCollider(const glm::vec3& boxSize);
+		Ref<Physics::Collider> AddCollider(const glm::vec3& boxSize, const glm::vec3& localPosition, const glm::quat& localOrientation, const float& density, const float& volume);
 
 		
 		/**
@@ -140,6 +141,7 @@ class GameObject;
 		 *
 		 */
 		Ref<Physics::Collider> AddCollider(const float& sphereRadius);
+		Ref<Physics::Collider> AddCollider(const float& sphereRadius, const glm::vec3& localPosition, const glm::quat& localOrientation, const float& density, const float& volume);
 
 		
 		/**
@@ -158,7 +160,8 @@ class GameObject;
 		 *
 		 */
 		Ref<Physics::Collider> AddCollider(const float& capsuleRadius, const float& capsuleHeight);
-	
+		Ref<Physics::Collider> AddCollider(const float& capsuleRadius, const float& capsuleHeight, const glm::vec3& localPosition, const glm::quat& localOrientation, const float& density, const float& volume);
+
 		
 	private:
 		/** @brief	Search string for the component in the editor */

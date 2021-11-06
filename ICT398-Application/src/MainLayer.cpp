@@ -22,7 +22,7 @@ MainLayer::MainLayer()
 		as.dynamic = true;
 		auto& rb = m_Camera.AddComponent<tnah::RigidBodyComponent>(m_Camera);
 		//rb.AddCollider({0.2f, 0.8f, 0.2});
-		rb.AddCollider(0.01f, 2.0f);
+		rb.AddCollider(0.01f, 2.0f); // Capsule
 		rb.Body->SetType(tnah::Physics::BodyType::Kinematic);
 		rb.Body->SetLinearDampening(0.999);
 		rb.Body->GetBodyMass().SetMass(63.0f);
@@ -639,6 +639,7 @@ void MainLayer::OnAttach()
 	tnah::Application::Get().GetWindow().SetCursorDisabled(m_CursorVisible);
 
 	m_EndScreenImage = tnah::Texture2D::Create("assets/images/team.png");
+	
 }
 
 

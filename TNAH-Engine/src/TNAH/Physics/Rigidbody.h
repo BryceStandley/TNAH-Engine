@@ -74,12 +74,7 @@ namespace tnah::Physics {
     	void SetAngularDampening(float value) {m_AngularDampening.Dampening = glm::clamp(value, 0.0f, 1.0f);}
 
         glm::vec3 CalculateLocalInertiaTensor();
-    	/**
-    	* @var m_CollisionBody
-    	*
-    	* @brief The Reactphysics3d Collision body used by the Rigidbody to interact and move within the PhysicsWorld.
-    	*/
-    	rp3d::CollisionBody* m_CollisionBody = nullptr;
+
     private:
 
     	glm::vec3 CalculateCentreOfMass();
@@ -219,7 +214,15 @@ namespace tnah::Physics {
     	*/
         bool m_IgnoreGravity = false;
 
+    	/**
+    	* @var m_CollisionBody
+    	*
+    	* @brief The Reactphysics3d Collision body used by the Rigidbody to interact and move within the PhysicsWorld.
+    	*/
+    	rp3d::CollisionBody* m_CollisionBody = nullptr;
+
         friend class PhysicsEngine;
         friend class EditorUI;
+    	friend class Serializer;
     };
 }

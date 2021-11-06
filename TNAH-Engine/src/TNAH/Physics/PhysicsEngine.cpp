@@ -198,10 +198,10 @@ namespace tnah::Physics
         auto view = componentRegistry.view<TransformComponent, RigidBodyComponent>();
         for(auto e : view)
         {
-            auto& rb = view.get<RigidBodyComponent>(e).Body;
-            auto& trans = view.get<TransformComponent>(e);
+            auto& rigidbody = view.get<RigidBodyComponent>(e).Body;
+            auto& transform = view.get<TransformComponent>(e);
 
-            auto& rot = transform.GetQuaternion();
+            auto& rot = rigidbody->m_Orientation;
                 
             rot += glm::quat(rigidbody->m_ConstrainedAngularVelocity.Velocity) * rot * 0.5f * deltaTime.GetSeconds();
 
@@ -273,7 +273,7 @@ namespace tnah::Physics
                 t.setOrientation(Math::ToRp3dQuat(rb->m_Orientation));
                 rb->m_CollisionBody->setTransform(t);
                 transform.Rotation = glm::eulerAngles(rb->m_Orientation);
-                transform.QuatRotation = rb->m_Orientation;
+                transform.GetQuaternion() = rb->m_Orientation;
             }
 
             for(auto& c : rb->m_Colliders)
@@ -488,13 +488,10 @@ namespace tnah::Physics
         {
             auto& transform = gameObject.Transform();
             auto rb = RigidBody::Create(gameObject.Transform(), {});
-            //Convert the current rotation to a quaternion for physics.
-            // Converting from euler to quaternions are accuate but once we do, we cant convert back.
-            transform.QuaternionTransform = true;
-            transform.QuatRotation = glm::quat(transform.Rotation);
+            transform.GetQuaternion() = glm::quat(transform.Rotation);
             rp3d::Transform reactTransform;
             reactTransform.setPosition(Math::ToRp3dVec3(transform.Position));
-            reactTransform.setOrientation(Math::ToRp3dQuat(transform.QuatRotation));
+            reactTransform.setOrientation(Math::ToRp3dQuat(transform.GetQuaternion()));
             rb->SetCollisionBody(m_PhysicsManager->m_PhysicsWorld->createCollisionBody(reactTransform));
             rb->SetID(m_PhysicsManager->m_TotalRigidbodies); // This returns a ID that's the index of the RB. Starting at 0
             m_PhysicsManager->m_Rigidbodies[rb->GetID()] = rb; 

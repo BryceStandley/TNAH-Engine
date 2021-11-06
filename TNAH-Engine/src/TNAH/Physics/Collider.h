@@ -120,12 +120,13 @@ namespace tnah::Physics {
 			/**
 			* @var m_Density
 			*
-			* @brief The density of the colliders material in kg per meter cubed. Default 1000kg/m3 ie the density of water.
+			* @brief The density of the colliders material in kg per meter cubed. Default 1kg/m3
 			*/
 			float m_Density = 1.0f;
 			
 			friend class PhysicsEngine;
 			friend class EditorUI;
+			friend class Serializer;
 		};
 	
 }

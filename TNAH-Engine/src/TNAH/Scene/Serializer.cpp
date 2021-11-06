@@ -12,7 +12,20 @@ namespace tnah {
     
     
     Resource Serializer::s_SceneResource = Resource();
-    
+
+#pragma region Serialize
+    bool Serializer::SaveScene(Ref<Scene> scene, const std::string& saveFilePath)
+    {
+        if(saveFilePath != "" && scene != nullptr)
+        {
+            return SerializeScene(scene, saveFilePath);
+        }
+
+        return false;
+    }
+
+
+
     bool Serializer::SerializeScene(Ref<Scene> scene, const std::string& filePath)
     {
         std::fstream sceneFile;
@@ -171,9 +184,9 @@ namespace tnah {
         std::stringstream ss;
         ss << GenerateTagOpen("transform", totalTabs);
 
-        ss << GenerateVec3Entry("position", transform.Position, totalTabs+1);
-        ss << GenerateVec3Entry("rotation", transform.Rotation, totalTabs+1);
-        ss << GenerateVec3Entry("scale", transform.Scale, totalTabs+1);
+        ss << GenerateValueEntry("position", transform.Position, totalTabs+1);
+        ss << GenerateValueEntry("rotation", transform.Rotation, totalTabs+1);
+        ss << GenerateValueEntry("scale", transform.Scale, totalTabs+1);
         
         ss << GenerateTagClose("transform", totalTabs);
         return ss.str();
@@ -231,7 +244,6 @@ namespace tnah {
 
         return ss.str();
     }
-
     
     std::string Serializer::GenerateMesh(const MeshComponent& mesh, const uint32_t& totalTabs)
     {
@@ -251,8 +263,8 @@ namespace tnah {
 
         ss << GenerateTagOpen("light", totalTabs);
         ss << GenerateValueEntry("sceneLight", l->m_IsSceneLight, totalTabs + 1);
-        ss << GenerateVec3Entry("direction", l->m_Direction, totalTabs + 1);
-        ss << GenerateVec4Entry("color", l->m_Color, totalTabs + 1);
+        ss << GenerateValueEntry("direction", l->m_Direction, totalTabs + 1);
+        ss << GenerateValueEntry("color", l->m_Color, totalTabs + 1);
         ss << GenerateValueEntry("intensity", l->m_Intensity, totalTabs + 1);
 
         ss << GenerateTagClose("light", totalTabs);
@@ -312,20 +324,96 @@ namespace tnah {
         
         if(rb.Body->GetType() == tnah::Physics::BodyType::Dynamic)
             ss << GenerateValueEntry("type", "dynamic", totalTabs+1);
-        else    
+        else if(rb.Body->GetType() == Physics::BodyType::Static)   
             ss << GenerateValueEntry("type", "static", totalTabs+1);
+        else
+            ss << GenerateValueEntry("type", "kinematic", totalTabs+1);
+
+        ss << GenerateValueEntry("linearLock", rb.Body->m_LinearRotationLock, totalTabs+1);
+        ss << GenerateValueEntry("angularLock", rb.Body->m_AngularRotationLock, totalTabs+1);
+        ss << GenerateValueEntry("linearDamp", rb.Body->m_LinearDampening, totalTabs+1);
+        ss << GenerateValueEntry("angularDamp", rb.Body->m_AngularDampening, totalTabs+1);
+
+        //No need to save the inverse mass, when loading, it can be found from the mass.
+        ss << GenerateValueEntry("mass", rb.Body->m_BodyMass.Mass, totalTabs + 1);
+        ss << GenerateValueEntry("localCOM", rb.Body->m_BodyMass.LocalCentreOfMass, totalTabs + 1);
         
+        ss << GenerateValueEntry("ignoreGravity", rb.Body->m_IgnoreGravity, totalTabs + 1);
+        ss << GenerateValueEntry("sleepVelocity", rb.Body->m_SleepVelocityThreshold, totalTabs + 1);
+        ss << GenerateValueEntry("sleepTime", rb.Body->m_SleepTimeThreshold, totalTabs + 1);
+
+        if(rb.Body->HasColliders())
+        {
+            ss << GenerateTagOpen("colliders", totalTabs + 1);
+            for(auto col : rb.Body->m_Colliders)
+            {
+                ss << GenerateCollider(col.second, totalTabs + 2);
+            }
+            ss << GenerateTagClose("colliders", totalTabs + 1);
+        }
         ss << GenerateTagClose("rigidbody", totalTabs);
         return ss.str();
     }
-    
 
+    std::string Serializer::GenerateCollider(const Ref<Physics::Collider>& col, const uint32_t& totalTabs)
+    {
+        std::stringstream ss;
+        auto t = col->GetType();
+        switch(t)
+        {
+        case Physics::Collider::Type::Box:
+            {
+                ss << GenerateTagOpen("boxCollider", totalTabs);
+                
+                auto s = static_cast<rp3d::BoxShape*>(col->m_Collider);
+                glm::vec3 ext = Math::FromRp3dVec3(s->getHalfExtents()) * 2.0f;
+                ss << GenerateValueEntry("extents", ext, totalTabs + 1);
+                ss << GenerateValueEntry("localPosition", col->m_LocalPosition, totalTabs + 1);
+                ss << GenerateValueEntry("localOrientation", col->m_LocalOrientation, totalTabs + 1);
+                ss << GenerateValueEntry("density", col->m_Density, totalTabs + 1);
+                ss << GenerateValueEntry("volume", col->m_Volume, totalTabs + 1);
+                
+                ss << GenerateTagClose("boxCollider", totalTabs);
+                break;
+            }
+        case Physics::Collider::Type::Sphere:
+            {
+                ss << GenerateTagOpen("sphereCollider", totalTabs);
+                auto s = static_cast<rp3d::SphereShape*>(col->m_Collider);
+                ss << GenerateValueEntry("radius", s->getRadius(), totalTabs + 1);
+                ss << GenerateValueEntry("localPosition", col->m_LocalPosition, totalTabs + 1);
+                ss << GenerateValueEntry("localOrientation", col->m_LocalOrientation, totalTabs + 1);
+                ss << GenerateValueEntry("density", col->m_Density, totalTabs + 1);
+                ss << GenerateValueEntry("volume", col->m_Volume, totalTabs + 1);
+                ss << GenerateTagClose("sphereCollider", totalTabs);
+                break;
+            }
+        case Physics::Collider::Type::Capsule:
+            {
+                ss << GenerateTagOpen("capsuleCollider", totalTabs);
+                auto s = static_cast<rp3d::CapsuleShape*>(col->m_Collider);
+                ss << GenerateValueEntry("radius", s->getRadius(), totalTabs + 1);
+                ss << GenerateValueEntry("Height", s->getHeight(), totalTabs + 1);
+                ss << GenerateValueEntry("localPosition", col->m_LocalPosition, totalTabs + 1);
+                ss << GenerateValueEntry("localOrientation", col->m_LocalOrientation, totalTabs + 1);
+                ss << GenerateValueEntry("density", col->m_Density, totalTabs + 1);
+                ss << GenerateValueEntry("volume", col->m_Volume, totalTabs + 1);
+                ss << GenerateTagClose("capsuleCollider", totalTabs);
+                break;
+            }
+        default: break;
+        }
+
+        return ss.str();
+        
+    }
+    
     std::string Serializer::GenerateAStar(const AStarComponent& astar, const uint32_t& totalTabs)
     {
         std::stringstream ss;
         ss << GenerateTagOpen("astar", totalTabs);
-        ss << GenerateVec3Entry("position", glm::vec3(astar.StartingPos.x, 0, astar.StartingPos.y), totalTabs+1);
-        ss << GenerateVec3Entry("size", glm::vec3(astar.Size.x, 0, astar.Size.y), totalTabs+1);
+        ss << GenerateValueEntry("position", glm::vec3(astar.StartingPos.x, 0, astar.StartingPos.y), totalTabs+1);
+        ss << GenerateValueEntry("size", glm::vec3(astar.Size.x, 0, astar.Size.y), totalTabs+1);
         ss << GenerateTagClose("astar", totalTabs);
         return ss.str();
     }
@@ -339,7 +427,7 @@ namespace tnah {
         return ss.str();
     }
 
-    std::string tnah::Serializer::GenerateVec3(const glm::vec3& value, const uint32_t& totalTabs)
+    std::string Serializer::GenerateVec3(const glm::vec3& value, const uint32_t& totalTabs)
     {
         std::stringstream ss;
         const char* comp[] = {"x", "y", "z"};
@@ -365,7 +453,7 @@ namespace tnah {
         
     }
 
-    std::string Serializer::GenerateVec4Entry(const std::string& tagType, const glm::vec4& value, const uint32_t& totalTabs)
+    std::string Serializer::GenerateValueEntry(const std::string& tagType, const glm::vec4& value, const uint32_t& totalTabs)
     {
         std::stringstream ss;
         ss << GenerateTagOpen(tagType, totalTabs);
@@ -374,7 +462,7 @@ namespace tnah {
         return ss.str();
     }
 
-    std::string Serializer::GenerateVec3Entry(const std::string& tagType, const glm::vec3& value, const uint32_t& totalTabs)
+    std::string Serializer::GenerateValueEntry(const std::string& tagType, const glm::vec3& value, const uint32_t& totalTabs)
     {
         std::stringstream ss;
         ss << GenerateTagOpen(tagType, totalTabs);
@@ -467,10 +555,58 @@ namespace tnah {
         ss << GenerateTagClose(tagType, totalTabs);
         return ss.str();
     }
-
-//***********************************************************************************************************************
-    //Deserialize scene functions
     
+    std::string Serializer::GenerateValueEntry(const std::string& tagType, const glm::mat3& value, const uint32_t& totalTabs)
+    {
+        std::string tabs = "";
+        for(uint32_t i = 0; i < totalTabs +3; i++)
+            tabs += "\t";
+        
+        std::stringstream ss;
+        ss << GenerateTagOpen(tagType, totalTabs);
+        ss << GenerateTagOpen("value", totalTabs + 1);
+        
+        ss << GenerateTagOpen("mat3", totalTabs + 2);
+        ss << tabs + Utility::MatToString(value) + "\n";
+        ss << GenerateTagClose("mat3", totalTabs + 2);
+        
+        ss << GenerateTagClose("value", totalTabs+ 1);
+        ss << GenerateTagClose(tagType, totalTabs);
+        return ss.str();
+    }
+
+    std::string Serializer::GenerateValueEntry(const std::string& tagType, const glm::quat& value, const uint32_t& totalTabs)
+    {
+        std::string tabs = "";
+        for(uint32_t i = 0; i < totalTabs +3; i++)
+            tabs += "\t";
+        
+        std::stringstream ss;
+        ss << GenerateTagOpen(tagType, totalTabs);
+        ss << GenerateTagOpen("value", totalTabs + 1);
+        
+        ss << GenerateTagOpen("quaternion", totalTabs + 2);
+        ss << tabs + Utility::QuatToString(value) + "\n";
+        ss << GenerateTagClose("quaternion", totalTabs + 2);
+        
+        ss << GenerateTagClose("value", totalTabs+ 1);
+        ss << GenerateTagClose(tagType, totalTabs);
+        return ss.str();
+    }
+#pragma endregion Serialize
+
+#pragma region Deserialize
+
+    Ref<Scene> Serializer::LoadScene(const std::string& saveFilePath)
+    {
+        if(saveFilePath != "")
+        {
+            return DeserializeScene(saveFilePath);
+        }
+
+        return nullptr;
+    }
+
     Ref<Scene> Serializer::DeserializeScene(const std::string& filePath)
     {
         std::string result;
@@ -696,9 +832,7 @@ namespace tnah {
         auto rigidPos = FindTags("rigidbody", fileContents, gameObjectTagPositions.first, gameObjectTagPositions.second);
         if(CheckTags(rigidPos))
         {
-            TNAH_CORE_INFO("Rigid: {0} {1}", rigidPos.first, rigidPos.second);
-            auto rb = GetRigidBodyFromFile(fileContents, rigidPos, gameObject.Transform());
-            gameObject.AddComponent<RigidBodyComponent>(gameObject, rb.Body->GetType());
+            GetRigidBodyFromFile(fileContents, rigidPos, gameObject);
             added++;
         }
 
@@ -839,18 +973,83 @@ namespace tnah {
         return MeshComponent(mesh);
     }
 
-    
-    RigidBodyComponent Serializer::GetRigidBodyFromFile(const std::string& fileContents, std::pair<size_t, size_t> componentTagPositions, const TransformComponent& transform)
+
+    void Serializer::GetRigidBodyFromFile(const std::string& fileContents,
+                                          std::pair<size_t, size_t> componentTagPositions, GameObject& gameObject)
     {
         auto type = GetStringValueFromFile("type", fileContents, componentTagPositions);
-        if(type == "dynamic")
-            return RigidBodyComponent();
-        else
+        auto rb = gameObject.AddComponent<RigidBodyComponent>(gameObject);
+        if(type == "static")
         {
-            auto rb =  RigidBodyComponent();
-            rb.Body->SetType(tnah::Physics::BodyType::Static);
-            return rb;
+            rb.Body->SetType(Physics::BodyType::Static);
         }
+        else if(type == "kinematic")
+        {
+            rb.Body->SetType(Physics::BodyType::Kinematic);
+        }
+        rb.Body->m_LinearRotationLock = GetVec3FromFile("linearLock", fileContents, componentTagPositions);
+        rb.Body->m_AngularRotationLock = GetVec3FromFile("angularLock", fileContents, componentTagPositions);
+        rb.Body->m_LinearDampening = GetFloatValueFromFile("linearDamp", fileContents, componentTagPositions);
+        rb.Body->m_AngularDampening = GetFloatValueFromFile("angularDamp", fileContents, componentTagPositions);
+        
+        rb.Body->m_BodyMass.SetMass(GetFloatValueFromFile("mass", fileContents, componentTagPositions));
+        rb.Body->m_BodyMass.LocalCentreOfMass = GetVec3FromFile("localCOM", fileContents, componentTagPositions);
+        
+        rb.Body->m_IgnoreGravity = GetBoolValueFromFile("ignoreGravity", fileContents, componentTagPositions);
+        rb.Body->m_SleepVelocityThreshold = GetFloatValueFromFile("sleepVelocity", fileContents, componentTagPositions);
+        rb.Body->m_SleepTimeThreshold = GetFloatValueFromFile("sleepTime", fileContents, componentTagPositions);
+
+        auto t = FindTags("colliders", fileContents, componentTagPositions.first, componentTagPositions.second);
+        if(CheckTags(t))
+        {
+            //This rb has colliders
+           GetColliderFromFile(fileContents, t, rb);
+        }
+    }
+
+    bool Serializer::GetColliderFromFile(const std::string& fileContents, std::pair<size_t, size_t> componentTagPositions, RigidBodyComponent& rb)
+    {
+        auto t = FindTags("boxCollider", fileContents, componentTagPositions.first, componentTagPositions.second);
+        while(CheckTags(t))
+        {
+            auto ext = GetVec3FromFile("extents", fileContents, t);
+            auto pos  = GetVec3FromFile("localPosition", fileContents, t);
+            auto ori  = GetVec3FromFile("localOrientation", fileContents, t);
+            auto dense = GetFloatValueFromFile("density", fileContents, t);
+            auto vol = GetFloatValueFromFile("volume", fileContents, t);
+            rb.AddCollider(ext, pos, ori, dense, vol);
+            t = FindTags("boxCollider", fileContents, componentTagPositions.first, componentTagPositions.second);
+        }
+
+        t = FindTags("sphereCollider", fileContents, componentTagPositions.first, componentTagPositions.second);
+        while(CheckTags(t))
+        {
+            auto rad = GetFloatValueFromFile("radius", fileContents, t);
+            auto pos  = GetVec3FromFile("localPosition", fileContents, t);
+            auto ori  = GetVec3FromFile("localOrientation", fileContents, t);
+            auto dense = GetFloatValueFromFile("density", fileContents, t);
+            auto vol = GetFloatValueFromFile("volume", fileContents, t);
+            rb.AddCollider(rad, pos, ori, dense, vol);
+            t = FindTags("sphereCollider", fileContents, componentTagPositions.first, componentTagPositions.second);
+        }
+
+        t = FindTags("capsuleCollider", fileContents, componentTagPositions.first, componentTagPositions.second);
+        while(CheckTags(t))
+        {
+            auto rad = GetFloatValueFromFile("radius", fileContents, t);
+            auto hei = GetFloatValueFromFile("height", fileContents, t);
+            auto pos  = GetVec3FromFile("localPosition", fileContents, t);
+            auto ori  = GetVec3FromFile("localOrientation", fileContents, t);
+            auto dense = GetFloatValueFromFile("density", fileContents, t);
+            auto vol = GetFloatValueFromFile("volume", fileContents, t);
+            rb.AddCollider(rad, hei, pos, ori, dense, vol);
+            t = FindTags("capsuleCollider", fileContents, componentTagPositions.first, componentTagPositions.second);
+        }
+
+        if(rb.Body->HasColliders())
+            return true;
+        
+            return false;
     }
     
     
@@ -972,8 +1171,7 @@ namespace tnah {
         
         return false;
     }
-
-
+    
     glm::vec3 Serializer::GetVec3FromFile(const std::string& tagName, const std::string& fileContents,
         std::pair<size_t, size_t> componentTagPositions)
     {
@@ -1100,4 +1298,6 @@ namespace tnah {
         TNAH_WARN("Object defaults loaded");
     }
 
+#pragma endregion Deserialize
+    
 }

@@ -44,7 +44,7 @@ namespace tnah::Physics {
 		m_Mass.SetMass(m_Density * m_Volume);
 
 		//Generate a inertia tensor for the shape
-		float factor = 1.0f / 3.0f * m_Mass.Mass;
+		float factor = 1.0f / 12.0f * m_Mass.Mass;
 		//Todo Check if we really should be using half or full extents
 		auto x = box->getHalfExtents().x * box->getHalfExtents().x;
 		auto y = box->getHalfExtents().y * box->getHalfExtents().y;
@@ -63,7 +63,7 @@ namespace tnah::Physics {
 		m_Mass.SetMass(m_Density * m_Volume);
 
 		//Generate a inertia tensor for the shape
-		float diag = 0.4f * m_Mass.Mass * glm::pow(sphere->getRadius(),2);
+		float diag = (2.0f / 5.0f) * m_Mass.Mass * glm::pow(sphere->getRadius(),2);
 		auto tensor = glm::vec3(diag, diag, diag);
 		m_InertiaTensor.LocalInertiaTensor = tensor;
 		
