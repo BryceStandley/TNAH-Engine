@@ -125,6 +125,20 @@ class GameObject;
 		 */
 		Ref<Physics::Collider> AddCollider(const glm::vec3& boxSize);
 
+		/**
+		* @fn Ref<Physics::Collider> AddCollider(const glm::vec3& boxSize);
+		*
+		* @breif Adds a collider with set values
+		*
+		* @author Bryce Standley
+		* @date 6/11/2021
+		*
+		* @param boxSize
+		* @return 
+		*
+		*/
+		Ref<Physics::Collider> AddCollider(const glm::vec3& boxSize, const glm::vec3& localPosition, const glm::quat& localOrientation, const float& density, const float& volume);
+
 		
 		/**
 		 * @fn Ref<Physics::Collider> ::tnah::RigidBodyComponent::AddCollider(const float& sphereRadius)
@@ -140,6 +154,20 @@ class GameObject;
 		 *
 		 */
 		Ref<Physics::Collider> AddCollider(const float& sphereRadius);
+
+		/**
+		* @fn Ref<Physics::Collider> AddCollider(const float& sphereRadius);
+		*
+		* @breif Adds a sphere collider with set values
+		*
+		* @author Bryce Standley
+		* @date 6/11/2021
+		*
+		* @param sphereRadius
+		* @return 
+		*
+		*/
+		Ref<Physics::Collider> AddCollider(const float& sphereRadius, const glm::vec3& localPosition, const glm::quat& localOrientation, const float& density, const float& volume);
 
 		
 		/**
@@ -158,7 +186,21 @@ class GameObject;
 		 *
 		 */
 		Ref<Physics::Collider> AddCollider(const float& capsuleRadius, const float& capsuleHeight);
-	
+
+		/**
+		* @fn Ref<Physics::Collider> AddCollider(const float& capsuleRadius);
+		*
+		* @breif Adds a capsule collider with set values
+		*
+		* @author Bryce Standley
+		* @date 6/11/2021
+		*
+		* @param capsuleRadius
+		* @return 
+		*
+		*/
+		Ref<Physics::Collider> AddCollider(const float& capsuleRadius, const float& capsuleHeight, const glm::vec3& localPosition, const glm::quat& localOrientation, const float& density, const float& volume);
+
 		
 	private:
 		/** @brief	Search string for the component in the editor */

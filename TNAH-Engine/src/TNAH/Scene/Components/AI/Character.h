@@ -2,7 +2,6 @@
 #include "Actions.h"
 #include "EmotionComponent.h"
 #include "StateMachine.h"
-#include "TNAH/Core/TNAHEnableFromThis.h"
 
 namespace tnah
 {

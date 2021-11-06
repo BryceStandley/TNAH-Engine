@@ -472,5 +472,6 @@ namespace tnah::Physics {
 
         friend class PhysicsEngine;
         friend class EditorUI;
+        friend class Serializer;
     };
 }

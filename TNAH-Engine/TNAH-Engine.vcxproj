@@ -23,7 +23,6 @@
     <ClCompile Include="src\Platform\OpenGL\OpenGLVertexArray.cpp" />
     <ClCompile Include="src\TNAH\Core\Math.cpp" />
     <ClCompile Include="src\TNAH\Core\Ref.cpp" />
-    <ClCompile Include="src\TNAH\Core\TNAHEnableFromThis.cpp" />
     <ClCompile Include="src\TNAH\Core\UUID.cpp" />
     <ClCompile Include="src\TNAH\Editor\EditorUI.cpp" />
     <ClCompile Include="src\TNAH\Layers\ImGuizmo.cpp" />
@@ -109,7 +108,6 @@
     <ClInclude Include="src\TNAH\Core\Singleton.h" />
     <ClInclude Include="src\TNAH\Core\Timer.h" />
     <ClInclude Include="src\TNAH\Core\Timestep.h" />
-    <ClInclude Include="src\TNAH\Core\TNAHEnableFromThis.h" />
     <ClInclude Include="src\TNAH\Core\Utility.h" />
     <ClInclude Include="src\TNAH\Core\UUID.h" />
     <ClInclude Include="src\TNAH\Debug\Debug.h" />

@@ -3,29 +3,32 @@
 #include "Components/AI/Affordance.h"
 #include "Components/AI/AIComponent.h"
 #include "Components/AI/CharacterComponent.h"
+#include "TNAH/Physics/Collider.h"
 
 namespace tnah
 {
     class Serializer
     {
     public:
-        /**
-         * 
-         * \fn bool SerializeScene
-         * 
-         * \brief Serializes the scene to the given file path
-         * 
-         * \author Bryce Standley
-         * \date 13/9/2021
-         * 
-         * \param scene
-         * \param filePath
-         * 
-         * \return 
-         * 
-         */
-        static bool SerializeScene(Ref<Scene> scene, const std::string& filePath);
 
+        /**
+         * @brief Public serializer save scene function
+         * @author Bryce Standley
+         * @date 06-11-2021
+         * @return true 
+         * @return false 
+         */
+        static bool SaveScene(Ref<Scene> scene, const std::string& saveFilePath);
+
+        /**
+         * @brief Public serializer load scene function
+         * @author Bryce Standley
+         * @date 06-11-2021
+         * @return Ref<Scene> 
+         */
+        static Ref<Scene> LoadScene(const std::string& saveFilePath);
+    
+    private: 
         /**
          * 
          * \fn Ref<Scene> DeserializeScene
@@ -41,7 +44,24 @@ namespace tnah
          * 
          */
         static Ref<Scene> DeserializeScene(const std::string& filePath);
-    private:  
+     
+    
+      /**
+        * 
+        * \fn bool SerializeScene
+        * 
+        * \brief Serializes the scene to the given file path
+        * 
+        * \author Bryce Standley
+        * \date 13/9/2021
+        * 
+        * \param scene
+        * \param filePath
+        * 
+        * \return 
+        * 
+        */
+        static bool SerializeScene(Ref<Scene> scene, const std::string& filePath);
     
         /**
          * 
@@ -230,24 +250,54 @@ namespace tnah
         static std::string GenerateRigidBody(const RigidBodyComponent& rb, const uint32_t& totalTabs = 0);
 
         /**
-         * 
-         * \fn std::string GenerateBoxCollider
-         * 
-         * \brief Generates box collider settings to serialize
-         * 
-         * \author Bryce Standley
-         * \date 13/9/2021
-         * 
-         * \param box
-         * \param totalTabs
-         * 
-         * \return 
-         * 
+        * 
+        * \fn std::string GenerateCollider(const Ref<Physics::Collider>& col, const uint32_t& totalTabs = 0);
+        * 
+        * \brief Generates collider settings to serialize
+        * 
+        * \author Bryce Standley
+        * \date 13/9/2021
+        * 
+        * \param col
+        * \param totalTabs
+        * 
+        * \return string
+        * 
+        */
+        static std::string GenerateCollider(const Ref<Physics::Collider>& col, const uint32_t& totalTabs = 0);
+
+        /**
+         * @brief Generates a AI conponent to serialize
+         * @author Christopher Logan
+         * @date 06-11-2021
+         * @return std::string 
          */
         static std::string GenerateAi(const AIComponent& ai, const CharacterComponent &c,const uint32_t& totalTabs = 0);
+
+        /**
+         * @brief Generates a Astar component to serialize
+         * @author Christopher Logan
+         * @date 06-11-2021
+         * @return std::string 
+         */
         static std::string GenerateAStar(const AStarComponent& astar, const uint32_t& totalTabs = 0);
+
+        /**
+         * @brief Generates a Astar obstacle component to serialize
+         * @author Christopher Logan
+         * @date 06-11-2021
+         * @return std::string 
+         */
         static std::string GenerateAStarObstacle(const AStarObstacleComponent& astar, const uint32_t& totalTabs = 0);
+
+        /**
+         * @brief Generates a Affordance component to serialize
+         * @author Christopher Logan
+         * @date 06-11-2021
+         * @return std::string 
+         */
         static std::string GenerateAffordance(Affordance& astar, const uint32_t& totalTabs = 0);
+
         //Tag creators
         /**
          * 
@@ -368,7 +418,7 @@ namespace tnah
          * \return 
          * 
          */
-        static std::string GenerateVec3Entry(const std::string& tagType, const glm::vec3& value, const uint32_t& totalTabs = 0);
+        static std::string GenerateValueEntry(const std::string& tagType, const glm::vec3& value, const uint32_t& totalTabs = 0);
 
         /**
          * 
@@ -386,7 +436,7 @@ namespace tnah
          * \return 
          * 
          */
-        static std::string GenerateVec4Entry(const std::string& tagType, const glm::vec4& value, const uint32_t& totalTabs = 0);
+        static std::string GenerateValueEntry(const std::string& tagType, const glm::vec4& value, const uint32_t& totalTabs = 0);
 
         /**
          * 
@@ -494,10 +544,25 @@ namespace tnah
          * 
          */
         static std::string GenerateValueEntry(const std::string& tagType, const std::string& value, const uint32_t& totalTabs = 0);
+     
+        /**
+         * @brief Generates a Mat3 value entry to serialize
+         * @author Bryce Standley
+         * @date 06-11-2021
+         * @return std::string 
+         */
+        static std::string GenerateValueEntry(const std::string& tagType, const glm::mat3& value, const uint32_t& totalTabs = 0);
+
+        /**
+         * @brief Generates a quaternion value entry to serialize
+         * @author Bryce Standley
+         * @date 06-11-2021
+         * @return std::string 
+         */
+        static std::string GenerateValueEntry(const std::string& tagType, const glm::quat& value, const uint32_t& totalTabs = 0);
 
     private:
-       
-
+     
         /**
          * 
          * \fn Ref<Scene> GetGlobalSettingsFromFile
@@ -718,12 +783,12 @@ namespace tnah
          * 
          * \param fileContents
          * \param componentTagPositions
-         * \param transform
+         * \param gameObject
          * 
          * \return 
          * 
          */
-        static RigidBodyComponent GetRigidBodyFromFile(const std::string& fileContents, std::pair<size_t, size_t> componentTagPositions, const TransformComponent& transform);
+        static void GetRigidBodyFromFile(const std::string& fileContents, std::pair<size_t, size_t> componentTagPositions, GameObject& gameObject);
 
         /**
          * 
@@ -741,6 +806,7 @@ namespace tnah
          * \return 
          * 
          */
+        static bool GetColliderFromFile(const std::string& fileContents, std::pair<size_t, size_t> componentTagPositions, RigidBodyComponent& rb);
         
         /**
          * 
@@ -791,11 +857,39 @@ namespace tnah
          * \return 
          * 
          */
-     
         static LightComponent GetLightFromFile(const std::string& fileContents, std::pair<size_t, size_t> componentTagPositions);
+     
+        /**
+         * @brief Get the Ai From File
+         * @author Christopher Logan
+         * @date 06-11-2021
+         * @return CharacterNames 
+         */
         static CharacterNames GetAiFromFile(const std::string& fileContents, std::pair<size_t, size_t> componentTagPositions);
+
+        /**
+         * @brief Get the Astar From File
+         * @author Christopher Logan
+         * @date 06-11-2021
+         * @return AStarComponent 
+         */
         static AStarComponent GetAstarFromFile(const std::string& fileContents, std::pair<size_t, size_t> componentTagPositions);
+
+        /**
+         * @brief Get the Astar Obstacle From File
+         * @author Christopher Logan
+         * @date 06-11-2021
+         * @return true 
+         * @return false 
+         */
         static bool GetAstarObstacleFromFile(const std::string& fileContents, std::pair<size_t, size_t> componentTagPositions);
+
+        /**
+         * @brief Get the Affordances From File
+         * @author Christopher Logan
+         * @date 06-11-2021
+         * @return Affordance 
+         */
         static Affordance GetAffordancesFromFile(const std::string& fileContents, std::pair<size_t, size_t> componentTagPositions);
      
         /**
