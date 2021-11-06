@@ -32,6 +32,7 @@ MainLayer::MainLayer()
 	tnah::PhysicsProperties p1 = loader.GetObjectAt(0);
 	tnah::PhysicsProperties p2 = loader.GetObjectAt(1);
 	tnah::PhysicsProperties p3 = loader.GetObjectAt(2);
+	std::cout << "Masses P1: "<< p1.mass << " P2: " << p2.mass << " P3: " << p3.mass << std::endl;  
 	m_Box1 = m_ActiveScene->CreateGameObject("Box1");
 	m_Box1.AddComponent<tnah::MeshComponent>("assets/meshes/texturecube.fbx");
 	m_Box1.Transform().Position = p1.position;
@@ -60,7 +61,8 @@ MainLayer::MainLayer()
 	auto col3 = rb3.AddCollider(p3.radius);
 	col3->SetColliderMass(p3.mass);
 	rb3.Body->UpdateBodyProperties();
-
+	
+	//std::cout << "Masses rb1: " << rb1.Body->bodyMass.mass << " rb2: " << rb2.Body->bodyMass.mass << " rb3: " << rb3.Body->bodyMass.mass << std::endl;  
 	//Set the debug mode to true on launch for physics collider rendering
 	tnah::Application::Get().GetDebugModeStatus() = true;
 }
@@ -112,7 +114,7 @@ void MainLayer::OnUpdate(tnah::Timestep deltaTime)
 			auto& transform = m_Ball.GetComponent<tnah::TransformComponent>();
 			transform.Position = startingPos;
 			rb->Orientation = {1.0, 0, 0, 0};
-			rb->linearVelocity = {0, 0 ,2};
+			rb->linearVelocity = {0, 0 ,5};
 			rb->angularVelocity = {0,0,1};
 		}
 		m_StartPhysicsSim = false;
@@ -154,11 +156,13 @@ void MainLayer::OnImGuiRender()
 		std::string rotation = "Orientation: " + glm::to_string(glm::degrees(glm::eulerAngles(transform.QuatRotation)));
 		std::string linearVelocity = "linearVelocity: " + glm::to_string(rb->linearVelocity);
 		std::string angularVelocity = "angularVelocity: " + glm::to_string(rb->angularVelocity);
+		std::string weight = "Weight: " + std::to_string(rb->GetBodyMass().mass);
 		ImGui::Text(tag.Tag.c_str());
 		ImGui::Text(position.c_str());
 		ImGui::Text(rotation.c_str());
 		ImGui::Text(linearVelocity.c_str());
 		ImGui::Text(angularVelocity.c_str());
+		ImGui::Text(weight.c_str());
 		ImGui::Separator();
 	}
 		
@@ -170,11 +174,13 @@ void MainLayer::OnImGuiRender()
 		std::string rotation = "Orientation: " + glm::to_string(glm::degrees(glm::eulerAngles(transform.QuatRotation)));
 		std::string linearVelocity = "linearVelocity: " + glm::to_string(rb->linearVelocity);
 		std::string angularVelocity = "angularVelocity: " + glm::to_string(rb->angularVelocity);
+		std::string weight = "Weight: " + std::to_string(rb->GetBodyMass().mass);
 		ImGui::Text(tag.Tag.c_str());
 		ImGui::Text(position.c_str());
 		ImGui::Text(rotation.c_str());
 		ImGui::Text(linearVelocity.c_str());
 		ImGui::Text(angularVelocity.c_str());
+		ImGui::Text(weight.c_str());
 		ImGui::Separator();
 	}
 		
@@ -186,11 +192,13 @@ void MainLayer::OnImGuiRender()
 		std::string rotation = "Orientation: " + glm::to_string(glm::degrees(glm::eulerAngles(transform.QuatRotation)));
 		std::string linearVelocity = "linearVelocity: " + glm::to_string(rb->linearVelocity);
 		std::string angularVelocity = "angularVelocity: " + glm::to_string(rb->angularVelocity);
+		std::string weight = "Weight: " + std::to_string(rb->GetBodyMass().mass);
 		ImGui::Text(tag.Tag.c_str());
 		ImGui::Text(position.c_str());
 		ImGui::Text(rotation.c_str());
 		ImGui::Text(linearVelocity.c_str());
 		ImGui::Text(angularVelocity.c_str());
+		ImGui::Text(weight.c_str());
 		ImGui::Separator();
 	}
 

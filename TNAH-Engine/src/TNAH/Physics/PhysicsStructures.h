@@ -9,12 +9,12 @@ namespace tnah {
         {
             Mass()
             {
-                SetMass();
+                SetMass(1.0f);
             }
             
-            void SetMass(float mass = 1.0f)
+            void SetMass(float m)
             {
-                mass = mass;
+                mass = m;
                 inverseMass = 1.0f / (mass > 0.0f ? mass : 1.0f);
             }
             

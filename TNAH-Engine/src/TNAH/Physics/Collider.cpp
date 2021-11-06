@@ -35,6 +35,7 @@ namespace tnah::Physics {
 		if(type == Type::Box)
 		{
 			mass.SetMass(m);
+			std::cout << "Set box to " << mass.mass << std::endl;
 			type = Type::Box;
 			float factor = 1.0f / 12.0f * mass.mass;
 			glm::vec3 tensor = glm::vec3(factor * (size.y + size.z), factor * (size.x + size.y),
@@ -44,7 +45,8 @@ namespace tnah::Physics {
 		else
 		{
 			mass.SetMass(m);
-			float diag = 0.5f * mass.mass * (radius * radius);
+			std::cout << "Set sphere to " << mass.mass << std::endl;
+			float diag = 0.4f * mass.mass * (radius * radius);
 			glm::vec3 tensor = glm::vec3(diag, diag, diag);
 			inertiaTensor.LocalInertiaTensor = tensor;	
 		}
@@ -58,6 +60,7 @@ namespace tnah::Physics {
 		
 		volume =  fullExtents.x * fullExtents.y * fullExtents.z;
 		mass.SetMass(density * volume);
+		std::cout << "inital mass box" << mass.mass; 
 		type = Type::Box;
 
 		//1/12 . plwh(mass)
@@ -82,7 +85,7 @@ namespace tnah::Physics {
 		type = Type::Sphere;
 		volume = (4/3) * glm::pi<float>() * glm::pow(sphere->getRadius(), 3);
 		mass.SetMass(density * volume);
-
+		std::cout << "inital mass sphere" << mass.mass; 
 		//Restitution(need to get it to grab it from physics before i forget
 		//4pi/15pabc = mass
 		//AS all circles have to be of a full size and not oddly shaped radius ^ 2 can be used

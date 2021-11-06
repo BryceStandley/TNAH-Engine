@@ -171,15 +171,18 @@ namespace tnah::Physics
             //Big Equation Lambda . N
             glm::vec3 impulse = lambda * contactNormal;
 
-            //LV1 + Impusle/Mass1
-            linearVelocityOne += impulse/rigidbodyOne->GetBodyMass().mass;
-            //AV1 + Lambda . J(inverse) . (R1 x N)
-            angularVelocityOne += lambda * rigidbodyOne->inertiaTensor.WorldInverseInertiaTensor * rigidbodyCrossOne;
+            if(lambda < 0)
+            {
+                //LV1 + Impusle/Mass1
+                linearVelocityOne += impulse/rigidbodyOne->GetBodyMass().mass;
+                //AV1 + Lambda . J(inverse) . (R1 x N)
+                angularVelocityOne += lambda * rigidbodyOne->inertiaTensor.WorldInverseInertiaTensor * rigidbodyCrossOne;
 
-            //LV2 + Impusle/Mass2
-            linearVelocityTwo -= impulse/rigidbodyTwo->GetBodyMass().mass;
-            //AV2 + Lambda . J(inverse) . (R2 x N)
-            angularVelocityTwo -=  lambda * rigidbodyTwo->inertiaTensor.WorldInverseInertiaTensor * rigidbodyCrossTwo;
+                //LV2 + Impusle/Mass2
+                linearVelocityTwo -= impulse/rigidbodyTwo->GetBodyMass().mass;
+                //AV2 + Lambda . J(inverse) . (R2 x N)
+                angularVelocityTwo -=  lambda * rigidbodyTwo->inertiaTensor.WorldInverseInertiaTensor * rigidbodyCrossTwo;   
+            }
 
             rigidbodyOne->linearVelocity = linearVelocityOne;
             rigidbodyOne->angularVelocity = angularVelocityOne;

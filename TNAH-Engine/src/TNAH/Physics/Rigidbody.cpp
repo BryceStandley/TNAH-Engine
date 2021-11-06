@@ -103,6 +103,7 @@ namespace tnah::Physics {
 		float y = tempLocalInertiaTensor[1][1];
 		float z = tempLocalInertiaTensor[2][2];
 		inertiaTensor.SetLocalInertiaTensor({x,y,z});
+		CalculateCentreOfMass();
 		return inertiaTensor.LocalInertiaTensor;
 	}
 
@@ -113,15 +114,17 @@ namespace tnah::Physics {
 		for(auto col : Colliders)
 		{
 			auto mass =  col.second->GetColliderMass().mass;
+			std::cout << "Adding collider mass " << mass << std::endl;
 			totalMass += mass;
 			localCOM += mass * col.second->GetColliderPosition();
 		}
 
 		if(totalMass > 0.0f)
 		{
+			std::cout << "Set body mass " << totalMass << std::endl;
 			bodyMass.SetMass(totalMass);
 		}
-
+		
 		bodyMass.LocalCentreOfMass = localCOM;
 		return localCOM;
 
