@@ -13,7 +13,7 @@ namespace tnah {
 		*
 		* @brief	The physics event class that inherits from the react physics 3d eventListener class
 		*
-		* @author	Dylan Blereau
+		* @author	Christopher Logan
 		* @date	11/09/2021
 		*/
 
@@ -26,7 +26,7 @@ namespace tnah {
 			*
 			* @brief	Event callback overriding React. Naming must be the same as React.
 			*
-			* @author	Dylan Blereau
+			* @author	Christopher Logan
 			* @date	11/09/2021
 			*
 			* @param 	callbackData	Information describing the callback.
@@ -39,15 +39,13 @@ namespace tnah {
 			*
 			* @brief	Event callback overriding React. Naming must be the same as React.
 			*
-			* @author	Dylan Blereau
+			* @author	Christopher Logan
 			* @date	11/09/2021
 			*
 			* @param 	callbackData	Information describing the callback.
 			*/
 
 			void onTrigger(const rp3d::OverlapCallback::CallbackData& callbackData) override;
-		private:
-			//Maybe Reference to scene pointer
 		};
 	}
 }

@@ -13,7 +13,7 @@ namespace tnah {
 	 *
 	 * @brief	A light component.
 	 *
-	 * @author	Chris
+	 * @author	Bryce Standley
 	 * @date	10/09/2021
 	 **************************************************************************************************/
 
@@ -31,7 +31,7 @@ namespace tnah {
 		 *
 		 * @brief	Defaulted constructor
 		 *
-		 * @author	Chris
+		 * @author	Bryce Standley
 		 * @date	10/09/2021
 		 **************************************************************************************************/
 
@@ -42,7 +42,7 @@ namespace tnah {
 		 *
 		 * @brief	Defaulted copy constructor
 		 *
-		 * @author	Chris
+		 * @author	Bryce Standley
 		 * @date	10/09/2021
 		 *
 		 * @param 	other	The other.
@@ -55,7 +55,7 @@ namespace tnah {
 		 *
 		 * @brief	Constructor
 		 *
-		 * @author	Chris
+		 * @author	Bryce Standley
 		 * @date	10/09/2021
 		 *
 		 * @param 	type	The type.
@@ -71,7 +71,7 @@ namespace tnah {
 		 *
 		 * @brief	Sets a directional
 		 *
-		 * @author	Chris
+		 * @author	Bryce Standley
 		 * @date	10/09/2021
 		 *
 		 * @param 	direction	The direction.
@@ -91,7 +91,7 @@ namespace tnah {
 		 *
 		 * @brief	Sets a point
 		 *
-		 * @author	Chris
+		 * @author	Bryce Standley
 		 * @date	10/09/2021
 		 *
 		 * @param 	constant 	The constant.
@@ -109,7 +109,7 @@ namespace tnah {
 		 *
 		 * @brief	Sets a spot
 		 *
-		 * @author	Chris
+		 * @author	Bryce Standley
 		 * @date	10/09/2021
 		 *
 		 * @param 	cutoff	The cutoff.
@@ -125,7 +125,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets the light>
 		 *
-		 * @author	Chris
+		 * @author	Bryce Standley
 		 * @date	10/09/2021
 		 *
 		 * @tparam	tnah::Light	Type of the tnah light.

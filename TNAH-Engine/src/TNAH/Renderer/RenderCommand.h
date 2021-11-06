@@ -8,7 +8,7 @@ namespace tnah {
 	 *
 	 * @brief	A render command class that makes use of the renderer API to perform openGL renderer actions
 	 *
-	 * @author	Dylan Blereau
+	 * @author	Bryce Standley
 	 * @date	12/09/2021
 	 */
 
@@ -21,7 +21,7 @@ namespace tnah {
 		 *
 		 * @brief	Initializes this object
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	12/09/2021
 		 */
 
@@ -35,7 +35,7 @@ namespace tnah {
 		 *
 		 * @brief	Sets clear color
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	12/09/2021
 		 *
 		 * @param 	color	The color.
@@ -51,7 +51,7 @@ namespace tnah {
 		 *
 		 * @brief	Clears this object to its blank/initial state
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	12/09/2021
 		 */
 
@@ -65,7 +65,7 @@ namespace tnah {
 		 *
 		 * @brief	Draws a vertex array
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	12/09/2021
 		 * 
 		 * @param vertexArray The vertexArray object used to draw from.
@@ -83,7 +83,7 @@ namespace tnah {
 		 *
 		 * @brief	Draws a vertex array
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	12/09/2021
 		 *
 		 * @param vertexArray The vertexArray object used to draw from.
@@ -102,7 +102,7 @@ namespace tnah {
 		 *
 		 * @brief	Sets a viewport
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	12/09/2021
 		 *
 		 * @param 	x	  	An uint32_t to process.
@@ -121,7 +121,7 @@ namespace tnah {
 		 *
 		 * @brief	Sets a wireframe
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	12/09/2021
 		 *
 		 * @param 	enable	True to enable, false to disable.
@@ -137,7 +137,7 @@ namespace tnah {
 		 *
 		 * @brief	Check full screen
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	12/09/2021
 		 *
 		 * @param 	width 	The width.
@@ -156,7 +156,7 @@ namespace tnah {
 		 *
 		 * @brief	Sets cull mode
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	12/09/2021
 		 *
 		 * @param 	mode	The mode.
@@ -172,7 +172,7 @@ namespace tnah {
 		 *
 		 * @brief	Sets depth mask
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	12/09/2021
 		 *
 		 * @param 	enabled	True to enable, false to disable.
@@ -189,7 +189,7 @@ namespace tnah {
 		 *
 		 * @brief	Sets depth function mode
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	12/09/2021
 		 *
 		 * @param 	func	DepthFunc value to set.
@@ -204,7 +204,7 @@ namespace tnah {
 		 *
 		 * @brief	Disables a given API function
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	12/09/2021
 		 *
 		 * @param 	value	APIEnum value to disable.
@@ -219,7 +219,7 @@ namespace tnah {
 		 *
 		 * @brief	Enables a given API function
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	12/09/2021
 		 *
 		 * @param 	value	APIEnum value to enable.

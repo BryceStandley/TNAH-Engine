@@ -10,24 +10,95 @@ namespace tnah::Physics {
     class RigidBody : public RefCounted
     {
     public:
+
+        /**
+         * @brief Construct a new Rigid Body object
+         * @author Bryce Standley
+         * @date 06-11-2021
+         */
         RigidBody();
+
+        /**
+         * @brief Construct a new Rigid Body object
+         * @author Bryce Standley
+         * @date 06-11-2021
+         */
         RigidBody(TransformComponent& transform, BodyMass mass, BodyType type = BodyType::Dynamic);
 
+        /**
+         * @brief Creates a Ref to a RigidBody object
+         * @author Bryce Standley
+         * @date 06-11-2021
+         * @return Ref<RigidBody> 
+         */
         static Ref<RigidBody> Create(TransformComponent& transform, BodyMass mass, BodyType type = BodyType::Dynamic);
 
+        /**
+         * @brief Updates the body
+         * @author Bryce Standley
+         * @date 06-11-2021
+         */
         void OnUpdate(TransformComponent& transform);
 
+        /**
+         * @brief Get the Body Mass object
+         * @author Bryce Standley
+         * @date 06-11-2021
+         * @return BodyMass 
+         */
         BodyMass GetBodyMass() const { return m_BodyMass; }
 
+        /**
+         * @brief Adds force to the body (Linear)
+         * @author Bryce Standley
+         * @date 06-11-2021
+         */
         void AddForce(const glm::vec3& force);
+
+        /**
+         * @brief Adds torque to the body (Angular)
+         * @author Bryce Standley
+         * @date 06-11-2021
+         */
         void AddTorque(const glm::vec3& torque);
 
+        /**
+         * @brief Set the Collision Body object
+         * @author Bryce Standley
+         * @date 06-11-2021
+         */
         void SetCollisionBody(rp3d::CollisionBody* collisionBody) { m_CollisionBody = collisionBody; }
+
+        /**
+         * @brief Get the Collision Body object
+         * @author Bryce Standley
+         * @date 06-11-2021
+         * @return rp3d::CollisionBody* 
+         */
         rp3d::CollisionBody* GetCollisionBody() const { return m_CollisionBody; }
 
+        /**
+         * @brief Adds a collider to the body
+         * @author Bryce Standley
+         * @date 06-11-2021
+         */
         void AddCollider(Ref<Collider> collider);
+
+        /**
+         * @brief Get the Colliders objects
+         * @author Bryce Standley
+         * @date 06-11-2021
+         * @return std::unordered_map<uint32_t, Ref<Collider>> 
+         */
     	std::unordered_map<uint32_t, Ref<Collider>> GetColliders() { return m_Colliders; }
 
+        /**
+         * @brief Checks if colliders have been attached to the body
+         * @author Bryce Standley
+         * @date 06-11-2021
+         * @return true 
+         * @return false 
+         */
     	bool HasColliders() const { return m_TotalColliders > 0 ? true : false; }
         
         /**
@@ -43,47 +114,182 @@ namespace tnah::Physics {
          */
         void UpdateBodyProperties();
 
+        /**
+         * @brief Gets the ID of the body
+         * @author Bryce Standley
+         * @date 06-11-2021
+         * @return uint32_t 
+         */
         uint32_t GetID() const { return m_ID; }
 
+        /**
+         * @brief Set the Type object
+         * @author Bryce Standley
+         * @date 06-11-2021
+         */
         void SetType(const BodyType& type) { m_BodyType = type; }
+
+        /**
+         * @brief Get the Type object
+         * @author Bryce Standley
+         * @date 06-11-2021
+         * @return BodyType 
+         */
         BodyType GetType() const { return m_BodyType; }
 
+        /**
+         * @brief Get the Inertia Tensor object
+         * @author Bryce Standley
+         * @date 06-11-2021
+         * @return InertiaTensor 
+         */
         InertiaTensor GetInertiaTensor() const { return m_InertiaTensor; }
+
+        /**
+         * @brief Recalculates the inertia tensor in world space
+         * @author Bryce Standley
+         * @date 06-11-2021
+         */
         void RecalculateWorldInertiaTensor();
     	
+        /**
+         * @brief Get the Linear Velocity object
+         * @author Bryce Standley
+         * @date 06-11-2021
+         * @return LinearVelocity 
+         */
         LinearVelocity GetLinearVelocity() const { return m_LinearVelocity; }
+
+        /**
+         * @brief Get the Angular Velocity object
+         * @author Bryce Standley
+         * @date 06-11-2021
+         * @return AngularVelocity 
+         */
         AngularVelocity GetAngularVelocity() const { return m_AngularVelocity; }
+
+        /**
+         * @brief Get the Velocities objects
+         * @author Bryce Standley
+         * @date 06-11-2021
+         * @return std::pair<LinearVelocity, AngularVelocity> 
+         */
         std::pair<LinearVelocity, AngularVelocity> GetVelocities() { return {m_LinearVelocity, m_AngularVelocity}; }
 
+        /**
+         * @brief Set the Linear Rotational Lock Factor object
+         * @author Bryce Standley
+         * @date 06-11-2021
+         */
         void SetLinearRotationalLockFactor(const glm::ivec3& lock) { m_LinearRotationLock = lock; }
+
+        /**
+         * @brief Set the Angular Rotational Lock Factor object
+         * @author Bryce Standley
+         * @date 06-11-2021
+         */
         void SetAngularRotationalLockFactor(const glm::ivec3& lock) { m_AngularRotationLock = lock; }
 
+        /**
+         * @brief Get the Linear Rotational Lock Factor object
+         * @author Bryce Standley
+         * @date 06-11-2021
+         * @return glm::vec3& 
+         */
         glm::vec3& GetLinearRotationalLockFactor() { return m_LinearRotationLock; }
+
+        /**
+         * @brief Get the Angular Rotational Lock Factor object
+         * @author Bryce Standley
+         * @date 06-11-2021
+         * @return glm::vec3& 
+         */
         glm::vec3& GetAngularRotationalLockFactor() { return m_AngularRotationLock; }
 
+        /**
+         * @brief Applies a collision Impulse to the body (Unused)
+         * @author Bryce Standley
+         * @date 06-11-2021
+         */
         void ApplyCollisionImpulse(const glm::vec3& linearVelocity, const glm::vec3& angularVelocity);
 
+        /**
+         * @brief Resets the velocity, position and orientation values of the body
+         * @author Bryce Standley
+         * @date 06-11-2021
+         */
         void ResetValues();
 
+        /**
+         * @brief Reference to ignore gravity flag. Used to toggle between ignoring or not ignoring gravity
+         * @author Bryce Standley
+         * @date 06-11-2021
+         * @return true 
+         * @return false 
+         */
         bool& IgnoreGravity() { return m_IgnoreGravity; }
+
+        /**
+         * @brief Checks if the body is sleeping
+         * @author Bryce Standley
+         * @date 06-11-2021
+         * @return true 
+         * @return false 
+         */
         bool IsSleeping() const { return m_IsSleeping; }
+
+        /**
+         * @brief Wakes up the body from sleep
+         * @author Bryce Standley
+         * @date 06-11-2021
+         */
         void Awake() { m_IsSleeping = false; }
+
+        /**
+         * @brief Sets a body to sleep
+         * @author Bryce Standley
+         * @date 06-11-2021
+         */
         void Sleep();
 
+        /**
+         * @brief Set the Linear Dampening object, clamping between 0 and 1
+         * @author Bryce Standley
+         * @date 06-11-2021
+         */
     	void SetLinearDampening(float value) {m_LinearDampening.Dampening = glm::clamp(value, 0.0f, 1.0f);}
+
+        /**
+         * @brief Set the Angular Dampening object, clamping between 0 and 1
+         * @author Bryce Standley
+         * @date 06-11-2021
+         */
     	void SetAngularDampening(float value) {m_AngularDampening.Dampening = glm::clamp(value, 0.0f, 1.0f);}
 
+        /**
+         * @brief Calculates the local inertia tensor
+         * @author Bryce Standley
+         * @date 06-11-2021
+         * @return glm::vec3 
+         */
         glm::vec3 CalculateLocalInertiaTensor();
-    	/**
-    	* @var m_CollisionBody
-    	*
-    	* @brief The Reactphysics3d Collision body used by the Rigidbody to interact and move within the PhysicsWorld.
-    	*/
-    	rp3d::CollisionBody* m_CollisionBody = nullptr;
+
+
     private:
 
+        /**
+         * @brief Calculates the centre of mass of the body
+         * @author Bryce Standley
+         * @date 06-11-2021
+         * @return glm::vec3 
+         */
     	glm::vec3 CalculateCentreOfMass();
 
+        /**
+         * @brief Sets the ID of the body 
+         * @author Bryce Standley
+         * @date 06-11-2021
+         */
         void SetID(const uint32_t id) { m_ID = id; }
         
     
@@ -173,6 +379,12 @@ namespace tnah::Physics {
         */
         std::unordered_map<uint32_t, Ref<Collider>> m_Colliders;
 
+        /**
+         * @var m_TotalColliders
+         * @brief Total colliders attached to the body
+         * @author Bryce Standley
+         * @date 06-11-2021
+         */
     	uint32_t m_TotalColliders = 0;
 
     	/**
@@ -196,8 +408,21 @@ namespace tnah::Physics {
         */
         glm::vec3 m_AngularRotationLock = {1,1,1};
 
+        /**
+         * @var m_Position
+         * @brief World position of the body
+         * @author Bryce Standley
+         * @date 06-11-2021
+         */
     	glm::vec3 m_Position = {0,0,0};
-    	glm::quat m_Orientation = {0,0,0,0};
+    	
+        /**
+         * @var m_Orientation
+         * @brief World orientation of the body
+         * @author Bryce Standley
+         * @date 06-11-2021
+         */
+        glm::quat m_Orientation = {0,0,0,0};
 
     	/**
     	 * @var m_IsSleeping
@@ -206,10 +431,28 @@ namespace tnah::Physics {
     	 */
         bool m_IsSleeping = false;
 
+        /**
+         * @var m_SleepVelocityThreshold
+         * @brief Threshold to sleep based on velocity
+         * @author Bryce Standley
+         * @date 06-11-2021
+         */
     	float m_SleepVelocityThreshold = 0.2f;
 
+        /**
+         * @var m_SleepTimeThreshold
+         * @brief Threshold to sleep based on time
+         * @author Bryce Standley
+         * @date 06-11-2021
+         */
     	float m_SleepTimeThreshold = 1.0f;
 
+        /**
+         * @var m_SleepTimeAccumulator
+         * @brief Accumulator of time when the body reached the threshold velocity to sleep
+         * @author Bryce Standley
+         * @date 06-11-2021
+         */
     	float m_SleepTimeAccumulator = 0.0f;
 
     	/**
@@ -218,6 +461,14 @@ namespace tnah::Physics {
     	* @brief A flag to note if the RigidBody should ignore gravity within the world.
     	*/
         bool m_IgnoreGravity = false;
+
+        /**
+    	* @var m_CollisionBody
+    	*
+    	* @brief The Reactphysics3d Collision body used by the Rigidbody to interact and move within the PhysicsWorld.
+    	*/
+    	rp3d::CollisionBody* m_CollisionBody = nullptr;
+        
 
         friend class PhysicsEngine;
         friend class EditorUI;

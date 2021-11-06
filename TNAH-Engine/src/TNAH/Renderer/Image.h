@@ -8,7 +8,7 @@ namespace tnah {
      *
      * @brief	An image class that inherits from the texture2D class
      *
-     * @author	Dylan Blereau
+     * @author	Bryce Standley
      * @date	12/09/2021
      */
 
@@ -21,7 +21,7 @@ namespace tnah {
          *
          * @brief	Destructor
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          */
 
@@ -32,7 +32,7 @@ namespace tnah {
          *
          * @brief	Sets image data
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          *
          * @param [in,out]	data	If non-null, the data.
@@ -46,7 +46,7 @@ namespace tnah {
          *
          * @brief	Binds the given slot
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          *
          * @param 	slot	The slot.
@@ -59,7 +59,7 @@ namespace tnah {
          *
          * @brief	Binds this object
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          */
 
@@ -70,7 +70,7 @@ namespace tnah {
          *
          * @brief	Frees this object
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          */
 
@@ -81,7 +81,7 @@ namespace tnah {
          *
          * @brief	Frees the given data
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          *
          * @param [in,out]	data	If non-null, the data.
@@ -94,7 +94,7 @@ namespace tnah {
          *
          * @brief	Gets ktx data
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          *
          * @returns	Null if it fails, else the ktx data.
@@ -107,7 +107,7 @@ namespace tnah {
          *
          * @brief	Gets image data
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          *
          * @returns	Null if it fails, else the image data.

@@ -10,7 +10,7 @@ namespace tnah {
 	 *
 	 * @brief	VertexArray class that allows for the setup of a VAO
 	 *
-	 * @author	Dylan Blereau
+	 * @author	Bryce Standley
 	 * @date	12/09/2021
 	 */
 
@@ -23,7 +23,7 @@ namespace tnah {
 		 *
 		 * @brief	Defaulted destructor
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	12/09/2021
 		 */
 
@@ -34,7 +34,7 @@ namespace tnah {
 		 *
 		 * @brief	Binds this object
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	12/09/2021
 		 */
 
@@ -45,7 +45,7 @@ namespace tnah {
 		 *
 		 * @brief	Unbinds this object
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	12/09/2021
 		 */
 
@@ -56,7 +56,7 @@ namespace tnah {
 		 *
 		 * @brief	Sets an identifier
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	12/09/2021
 		 *
 		 * @param 	id	The identifier.
@@ -69,7 +69,7 @@ namespace tnah {
 		 *
 		 * @brief	Adds a vertex buffer
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	12/09/2021
 		 *
 		 * @param 	vertexBuffer	Buffer for vertex data.
@@ -83,7 +83,7 @@ namespace tnah {
 		 *
 		 * @brief	Sets index buffer
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	12/09/2021
 		 *
 		 * @param 	indexBuffer	Buffer for index data.
@@ -98,7 +98,7 @@ namespace tnah {
 		 *
 		 * @brief	Sets index size
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	12/09/2021
 		 *
 		 * @param 	size	The size.
@@ -111,7 +111,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets vertex buffers
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	12/09/2021
 		 *
 		 * @returns	The vertex buffers.
@@ -124,7 +124,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets index buffer
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	12/09/2021
 		 *
 		 * @returns	The index buffer.
@@ -137,7 +137,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets index size
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	12/09/2021
 		 *
 		 * @returns	The index size.
@@ -152,7 +152,7 @@ namespace tnah {
 		 *
 		 * @brief	Creates a new VertexArray and binds it for use
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	12/09/2021
 		 *
 		 * @returns	Null if it fails, else a pointer to a VertexArray.

@@ -4,11 +4,21 @@
 namespace tnah {
     namespace Physics{
 
+        /**
+         * @brief Type of a RigidBody
+         * @author Bryce Standley
+         * @date 06-11-2021
+         */
         enum class BodyType
         {
             Dynamic, Static, Kinematic
         };
     
+        /**
+         * @brief Structure of LinearVelocity
+         * @author Bryce Standley
+         * @date 06-11-2021
+         */
         struct LinearVelocity
         {
             glm::vec3 Velocity = {};
@@ -53,6 +63,11 @@ namespace tnah {
             }
         };
 
+        /**
+         * @brief Structure of Force
+         * @author Bryce Standley
+         * @date 06-11-2021
+         */
         struct Force
         {
             glm::vec3 Forces = {};
@@ -70,6 +85,11 @@ namespace tnah {
             }
         };
 
+        /**
+         * @brief Structure of Linear Dampening
+         * @author Bryce Standley
+         * @date 06-11-2021
+         */
         struct LinearDampening
         {
             float Dampening = 0.0f;
@@ -86,8 +106,18 @@ namespace tnah {
             }
         };
 
+        /**
+         * @brief Structure of Mass
+         * @author Bryce Standley
+         * @date 06-11-2021
+         */
         struct BodyMass
         {
+            /**
+             * @brief Construct a new Body Mass object
+             * @author Bryce Standley
+             * @date 06-11-2021
+             */
             BodyMass()
             { SetMass(); }
 
@@ -108,6 +138,11 @@ namespace tnah {
             float InverseMass = 1.0f;
         };
 
+        /**
+         * @brief Structure of Angular Velocity
+         * @author Bryce Standley
+         * @date 06-11-2021
+         */
         struct AngularVelocity
         {
             glm::vec3 Velocity = {};
@@ -152,6 +187,11 @@ namespace tnah {
             }
         };
 
+        /**
+         * @brief Structure of Angular Dampening
+         * @author Bryce Standley
+         * @date 06-11-2021
+         */
         struct AngularDampening
         {
             float Dampening = 0.2f;
@@ -168,10 +208,16 @@ namespace tnah {
             }
         };
 
+        /**
+         * @brief Structure of Torque
+         * @author Bryce Standley
+         * @date 06-11-2021
+         */
         struct Torque
         {
             glm::vec3 Torques = {};
 
+            
             glm::vec3 operator = (const glm::vec3& value)
             {
                 Torques = value;
@@ -185,6 +231,11 @@ namespace tnah {
             }
         };
 
+        /**
+         * @brief Structure of Inertia Tensors (resistance to rotation)
+         * @author Bryce Standley
+         * @date 06-11-2021
+         */
         struct InertiaTensor
         {
             glm::mat3 WorldInertiaTensor = glm::mat3(1.0f);

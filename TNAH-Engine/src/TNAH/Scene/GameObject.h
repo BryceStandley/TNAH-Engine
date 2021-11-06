@@ -13,7 +13,7 @@ namespace tnah {
 	 *
 	 * @brief	The GameObject class is used for creating gameobjects
 	 *
-	 * @author	Dylan Blereau
+	 * @author	Bryce Standley
 	 * @date	7/09/2021
 	 */
 
@@ -26,7 +26,7 @@ namespace tnah {
 		 *
 		 * @brief	Defaulted constructor
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	7/09/2021
 		 */
 
@@ -38,7 +38,7 @@ namespace tnah {
 		 *
 		 * @brief	Constructor
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	7/09/2021
 		 *
 		 * @param 		  	id   	The identifier.
@@ -55,7 +55,7 @@ namespace tnah {
 		 *
 		 * @brief	Destructor
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	7/09/2021
 		 */
 
@@ -156,7 +156,7 @@ namespace tnah {
 		 *
 		 * @brief	Destroys this object
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	7/09/2021
 		 */
 
@@ -171,7 +171,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets the entity identifier
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	7/09/2021
 		 *
 		 * @returns	The identifier.
@@ -184,7 +184,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets the transform
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	7/09/2021
 		 *
 		 * @returns	A reference to a TransformComponent.
@@ -200,7 +200,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets the transform
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	7/09/2021
 		 *
 		 * @returns	A reference to a const glm::mat4.
@@ -216,7 +216,7 @@ namespace tnah {
 		 *
 		 * @brief	Cast that converts the given  to an uint32_t
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	7/09/2021
 		 *
 		 * @returns	The result of the operation.
@@ -229,7 +229,7 @@ namespace tnah {
 		 *
 		 * @brief	Cast that converts the given  to an entity
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	7/09/2021
 		 *
 		 * @returns	The result of the operation.
@@ -242,7 +242,7 @@ namespace tnah {
 		 *
 		 * @brief	Cast that converts the given  to a bool
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	7/09/2021
 		 *
 		 * @returns	The result of the operation.
@@ -258,7 +258,7 @@ namespace tnah {
 		 *
 		 * @brief	Equality operator
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	7/09/2021
 		 *
 		 * @param 	other	The other.
@@ -277,7 +277,7 @@ namespace tnah {
 		 *
 		 * @brief	Inequality operator
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	7/09/2021
 		 *
 		 * @param 	other	The other.
@@ -295,7 +295,7 @@ namespace tnah {
 		 *
 		 * @brief	Sets parent uuid
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	7/09/2021
 		 *
 		 * @param 	parent	The parent.
@@ -308,7 +308,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets the parent uuid
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	7/09/2021
 		 *
 		 * @returns	The parent uuid.
@@ -321,7 +321,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets the children
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	7/09/2021
 		 *
 		 * @returns	A reference to a std::vector&lt;UUID&gt;
@@ -334,7 +334,7 @@ namespace tnah {
 		 *
 		 * @brief	Query if this object has parent
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	7/09/2021
 		 *
 		 * @returns	True if parent, false if not.
@@ -350,7 +350,7 @@ namespace tnah {
 		 *
 		 * @brief	Is ancester of the given entity
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	7/09/2021
 		 *
 		 * @param [in,out]	entity	The entity.
@@ -385,7 +385,7 @@ namespace tnah {
 		 *
 		 * @brief	Is descendant of the given entity
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	7/09/2021
 		 *
 		 * @param 	entity	The entity.
@@ -403,7 +403,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets the uuid
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	7/09/2021
 		 *
 		 * @returns	The uuid.
@@ -416,7 +416,7 @@ namespace tnah {
 		 *
 		 * @brief	Sets a tag
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	7/09/2021
 		 *
 		 * @param 	tag	The tag.
@@ -429,7 +429,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets the tag
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	7/09/2021
 		 *
 		 * @returns	The tag.
@@ -442,7 +442,7 @@ namespace tnah {
 		 *
 		 * @brief	Sets whether or not the object is active
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	7/09/2021
 		 *
 		 * @param 	active	True to active, false to deactivate.
@@ -455,7 +455,7 @@ namespace tnah {
 		 *
 		 * @brief	Query if this object is active
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	7/09/2021
 		 *
 		 * @returns	True if active, false if not.
@@ -468,7 +468,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets component list
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	7/09/2021
 		 *
 		 * @returns	The component list.
@@ -529,7 +529,7 @@ namespace tnah {
 		 *
 		 * @brief	A scene.
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	7/09/2021
 		 */
 
@@ -540,7 +540,7 @@ namespace tnah {
 		 *
 		 * @brief	An object for persisting scene data.
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	7/09/2021
 		 */
 
@@ -551,7 +551,7 @@ namespace tnah {
 		 *
 		 * @brief	A script engine.
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	7/09/2021
 		 */
 

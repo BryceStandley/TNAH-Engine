@@ -31,7 +31,7 @@ namespace tnah {
 		 *
 		 * @brief	Constructor
 		 *
-		 * @author	Chris
+		 * @author	Bryce Standley
 		 * @date	10/09/2021
 		 *
 		 * @param 	width	 	The width.
@@ -46,7 +46,7 @@ namespace tnah {
 		 *
 		 * @brief	Constructor
 		 *
-		 * @author	Chris
+		 * @author	Bryce Standley
 		 * @date	10/09/2021
 		 *
 		 * @param 	heightmapFilePath	Full pathname of the heightmap file.
@@ -59,7 +59,7 @@ namespace tnah {
 		 *
 		 * @brief	Destructor
 		 *
-		 * @author	Chris
+		 * @author	Bryce Standley
 		 * @date	10/09/2021
 		 **************************************************************************************************/
 
@@ -70,7 +70,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets maximum height
 		 *
-		 * @author	Chris
+		 * @author	Bryce Standley
 		 * @date	10/09/2021
 		 *
 		 * @returns	The maximum height.
@@ -83,7 +83,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets minimum height
 		 *
-		 * @author	Chris
+		 * @author	Bryce Standley
 		 * @date	10/09/2021
 		 *
 		 * @returns	The minimum height.
@@ -96,7 +96,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets vertex positions
 		 *
-		 * @author	Chris
+		 * @author	Bryce Standley
 		 * @date	10/09/2021
 		 *
 		 * @returns	The vertex positions.
@@ -109,7 +109,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets total data
 		 *
-		 * @author	Chris
+		 * @author	Bryce Standley
 		 * @date	10/09/2021
 		 *
 		 * @returns	Null if it fails, else the total data.
@@ -122,7 +122,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets indices data
 		 *
-		 * @author	Chris
+		 * @author	Bryce Standley
 		 * @date	10/09/2021
 		 *
 		 * @returns	Null if it fails, else the indices data.
@@ -135,7 +135,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets the size
 		 *
-		 * @author	Chris
+		 * @author	Bryce Standley
 		 * @date	10/09/2021
 		 *
 		 * @returns	The size.
@@ -148,7 +148,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets a height
 		 *
-		 * @author	Chris
+		 * @author	Bryce Standley
 		 * @date	10/09/2021
 		 *
 		 * @param 	x	The x coordinate.
@@ -164,7 +164,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets height color
 		 *
-		 * @author	Chris
+		 * @author	Bryce Standley
 		 * @date	10/09/2021
 		 *
 		 * @param 	x	The x coordinate.
@@ -180,7 +180,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets vertex height
 		 *
-		 * @author	Chris
+		 * @author	Bryce Standley
 		 * @date	10/09/2021
 		 *
 		 * @param 	x	The x coordinate.
@@ -196,7 +196,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets total data size
 		 *
-		 * @author	Chris
+		 * @author	Bryce Standley
 		 * @date	10/09/2021
 		 *
 		 * @returns	The total data size.
@@ -209,7 +209,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets indices size
 		 *
-		 * @author	Chris
+		 * @author	Bryce Standley
 		 * @date	10/09/2021
 		 *
 		 * @returns	The indices size.
@@ -223,7 +223,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets buffer layout
 		 *
-		 * @author	Chris
+		 * @author	Bryce Standley
 		 * @date	10/09/2021
 		 *
 		 * @returns	The buffer layout.
@@ -237,7 +237,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets vertex array
 		 *
-		 * @author	Chris
+		 * @author	Bryce Standley
 		 * @date	10/09/2021
 		 *
 		 * @returns	The vertex array.
@@ -250,7 +250,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets vertex buffer
 		 *
-		 * @author	Chris
+		 * @author	Bryce Standley
 		 * @date	10/09/2021
 		 *
 		 * @returns	The vertex buffer.
@@ -263,7 +263,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets index buffer
 		 *
-		 * @author	Chris
+		 * @author	Bryce Standley
 		 * @date	10/09/2021
 		 *
 		 * @returns	The index buffer.
@@ -276,7 +276,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets the material
 		 *
-		 * @author	Chris
+		 * @author	Bryce Standley
 		 * @date	10/09/2021
 		 *
 		 * @returns	The material.
@@ -314,7 +314,7 @@ namespace tnah {
 		 *
 		 * @brief	Creates this object
 		 *
-		 * @author	Chris
+		 * @author	Bryce Standley
 		 * @date	10/09/2021
 		 **************************************************************************************************/
 
@@ -325,7 +325,7 @@ namespace tnah {
 		 *
 		 * @brief	Generates a heightmap
 		 *
-		 * @author	Chris
+		 * @author	Bryce Standley
 		 * @date	10/09/2021
 		 *
 		 * @param 	width	 	The width.
@@ -340,7 +340,7 @@ namespace tnah {
 		 *
 		 * @brief	Loads height field
 		 *
-		 * @author	Chris
+		 * @author	Bryce Standley
 		 * @date	10/09/2021
 		 *
 		 * @param 	fileName	Filename of the file.
@@ -355,7 +355,7 @@ namespace tnah {
 		 *
 		 * @brief	In bounds
 		 *
-		 * @author	Chris
+		 * @author	Bryce Standley
 		 * @date	10/09/2021
 		 *
 		 * @param 	x	The x coordinate.
@@ -371,7 +371,7 @@ namespace tnah {
 		 *
 		 * @brief	Sets vertex height
 		 *
-		 * @author	Chris
+		 * @author	Bryce Standley
 		 * @date	10/09/2021
 		 *
 		 * @param 	x		 	The x coordinate.
@@ -386,7 +386,7 @@ namespace tnah {
 		 *
 		 * @brief	Generates a vertex positions
 		 *
-		 * @author	Chris
+		 * @author	Bryce Standley
 		 * @date	10/09/2021
 		 *
 		 * @param [in,out]	terrainInformation	Information describing the terrain.
@@ -399,7 +399,7 @@ namespace tnah {
 		 *
 		 * @brief	Generates a vertex indices
 		 *
-		 * @author	Chris
+		 * @author	Bryce Standley
 		 * @date	10/09/2021
 		 **************************************************************************************************/
 
@@ -410,7 +410,7 @@ namespace tnah {
 		 *
 		 * @brief	Generates a vertex colors
 		 *
-		 * @author	Chris
+		 * @author	Bryce Standley
 		 * @date	10/09/2021
 		 *
 		 * @param [in,out]	terrainInformaion	The terrain informaion.
@@ -423,7 +423,7 @@ namespace tnah {
 		 *
 		 * @brief	Generates a vertex texture coordinates
 		 *
-		 * @author	Chris
+		 * @author	Bryce Standley
 		 * @date	10/09/2021
 		 *
 		 * @param [in,out]	terrainInformation	Information describing the terrain.
@@ -436,7 +436,7 @@ namespace tnah {
 		 *
 		 * @brief	Generates a vertex normals
 		 *
-		 * @author	Chris
+		 * @author	Bryce Standley
 		 * @date	10/09/2021
 		 *
 		 * @param [in,out]	terrainInformation	Information describing the terrain.
@@ -449,7 +449,7 @@ namespace tnah {
 		 *
 		 * @brief	Smooth terrain
 		 *
-		 * @author	Chris
+		 * @author	Bryce Standley
 		 * @date	10/09/2021
 		 *
 		 * @param [in,out]	terrainInformation	Information describing the terrain.
@@ -512,7 +512,7 @@ namespace tnah {
 		 *
 		 * @brief	An editor user interface.
 		 *
-		 * @author	Chris
+		 * @author	Bryce Standley
 		 * @date	10/09/2021
 		 **************************************************************************************************/
 
@@ -525,7 +525,7 @@ namespace tnah {
 	 *
 	 * @brief	A terrain component.
 	 *
-	 * @author	Chris
+	 * @author	Bryce Standley
 	 * @date	10/09/2021
 	 **************************************************************************************************/
 
@@ -542,7 +542,7 @@ namespace tnah {
 		 *
 		 * @brief	Defaulted constructor
 		 *
-		 * @author	Chris
+		 * @author	Bryce Standley
 		 * @date	10/09/2021
 		 **************************************************************************************************/
 
@@ -553,7 +553,7 @@ namespace tnah {
 		 *
 		 * @brief	Defaulted copy constructor
 		 *
-		 * @author	Chris
+		 * @author	Bryce Standley
 		 * @date	10/09/2021
 		 *
 		 * @param 	other	The other.
@@ -566,7 +566,7 @@ namespace tnah {
 		 *
 		 * @brief	Constructor
 		 *
-		 * @author	Chris
+		 * @author	Bryce Standley
 		 * @date	10/09/2021
 		 *
 		 * @param 	heightMapFilePath	Full pathname of the height map file.
@@ -582,7 +582,7 @@ namespace tnah {
 		 *
 		 * @brief	Constructor
 		 *
-		 * @author	Chris
+		 * @author	Bryce Standley
 		 * @date	10/09/2021
 		 *
 		 * @param 	width	 	The width.

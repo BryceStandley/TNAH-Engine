@@ -47,7 +47,7 @@ namespace tnah::Physics
          * @brief	Default constructor.
          * This constructor is empty as the object requires the Physics::Initialise(rp3d::EventListener* collisionEventListener) to be called 
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          */
 
@@ -60,27 +60,67 @@ namespace tnah::Physics
          * PhysicsManager::m_PhysicsWorld and PhysicsManager::m_PhysicsLogger if Physics::Initialise(rp3d::EventListener* collisionEventListener)
          * was never called or Physics::Initialise(rp3d::EventListener* collisionEventListener) was called and Physics::PhysicsLoggerInit() was not.
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          */
 
         ~PhysicsManager();
 
-     glm::vec3& GetGravity() { return m_Gravity; }
-     void SetGravity(const glm::vec3& gravity) { m_Gravity = gravity; }
-     void SetGravityState(const bool& state) { m_GravityEnabled = state; }
-     bool& GetGravityState() { return m_GravityEnabled; }
-     bool& GetSleepState() { return m_SleepAllowed; }
+        /**
+         * @brief Get the Gravity object
+         * @author Bryce Standley
+         * @date 06-11-2021
+         * @return glm::vec3& 
+         */
+        glm::vec3& GetGravity() { return m_Gravity; }
 
-     Ref<CollisionDetectionEngine>& GetCollisionDetectionEngine() { return m_CollisionDetectionEngine; }
-    
+        /**
+         * @brief Set the Gravity object
+         * @author Bryce Standley
+         * @date 06-11-2021
+         */
+        void SetGravity(const glm::vec3& gravity) { m_Gravity = gravity; }
+
+        /**
+         * @brief Set the Gravity State object
+         * @author Bryce Standley
+         * @date 06-11-2021
+         */
+        void SetGravityState(const bool& state) { m_GravityEnabled = state; }
+
+        /**
+         * @brief Get the Gravity State object
+         * @author Bryce Standley
+         * @date 06-11-2021
+         * @return true 
+         * @return false 
+         */
+        bool& GetGravityState() { return m_GravityEnabled; }
+
+        /**
+         * @brief Get the Sleep State object
+         * @author Bryce Standley
+         * @date 06-11-2021
+         * @return true 
+         * @return false 
+         */
+        bool& GetSleepState() { return m_SleepAllowed; }
+
+        /**
+         * @brief Get the Collision Detection Engine object
+         * @author Bryce Standley
+         * @date 06-11-2021
+         * @return Ref<CollisionDetectionEngine>& 
+         */
+        Ref<CollisionDetectionEngine>& GetCollisionDetectionEngine() { return m_CollisionDetectionEngine; }
+
     private:
         /**
          * @fn	bool PhysicsManager::Initialise(rp3d::EventListener * collisionEventListener);
          *
          * @brief	Initialises this object
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          *
          * @param [in,out]	collisionEventListener	If non-null, the collision event listener.
@@ -88,13 +128,13 @@ namespace tnah::Physics
          * @returns	True if it succeeds, false if it fails.
          */
         bool Initialise(rp3d::EventListener * collisionEventListener);
-     
+
         /**
          * @fn	void PhysicsManager::OnFixedUpdate(PhysicsTimestep timestep);
          *
          * @brief	Executes the 'fixed update' action
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          *
          * @param 	timestep	The timestep.
@@ -106,7 +146,7 @@ namespace tnah::Physics
          *
          * @brief	Destroys this object
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          */
         void Destroy();
@@ -116,7 +156,7 @@ namespace tnah::Physics
          *
          * @brief	Creates rigid body
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          *
          * @param 	transform	A transform component.
@@ -130,7 +170,7 @@ namespace tnah::Physics
          *
          * @brief	Destroys the rigid body described by rigidBody
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          *
          * @param [in,out]	rigidBody	If non-null, the rigid body.
@@ -142,7 +182,7 @@ namespace tnah::Physics
          *
          * @brief	Creates collision body
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          *
          * @param 	transform	The transform.
@@ -156,19 +196,19 @@ namespace tnah::Physics
          *
          * @brief	Destroys the collision body described by body
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          *
          * @param [in,out]	body	If non-null, the body.
          */
         void DestroyCollisionBody(rp3d::CollisionBody * body) const;
-     
+
         /**
          * @fn	void PhysicsManager::CreateColliderRenderer();
          *
          * @brief	Creates collider renderer
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          */
         void CreateColliderRenderer();
@@ -178,58 +218,93 @@ namespace tnah::Physics
     private:
         /** @brief	The physics common */
         rp3d::PhysicsCommon m_PhysicsCommon;
-     
+
         /** @brief	Pointer to The physics world */
         rp3d::PhysicsWorld* m_PhysicsWorld = nullptr;
-     
+
         /** @brief	Pointer to physics logger */
         rp3d::DefaultLogger* m_PhysicsLogger = nullptr;
-     
+
         /** @brief	True to collider render */
         bool m_ColliderRender = false;
+
+        /** @brief	True if the collider renderer has been initialized */
+        bool m_ColliderRendererInit = false;
+
+        Ref<VertexArray> m_LinesVertexArray;
      
-     /** @brief	True if the collider renderer has been initialized */
-      bool m_ColliderRendererInit = false;
-     
-      Ref<VertexArray> m_LinesVertexArray;
-     
-   /** @brief	Pointer to the buffer for lines vertex data */
-   Ref<VertexBuffer> m_LinesVertexBuffer;
+        /** @brief	Pointer to the buffer for lines vertex data */
+        Ref<VertexBuffer> m_LinesVertexBuffer;
 
-   /** @brief	Pointer to array for triangle vertex data */
-   Ref<VertexArray> m_TriangleVertexArray;
+        /** @brief	Pointer to array for triangle vertex data */
+        Ref<VertexArray> m_TriangleVertexArray;
 
-   /** @brief	Pointer to Buffer for triangle vertex data */
-   Ref<VertexBuffer> m_TriangleVertexBuffer;
+        /** @brief	Pointer to Buffer for triangle vertex data */
+        Ref<VertexBuffer> m_TriangleVertexBuffer;
 
-   /** @brief	Shader used for the collider renderer */
-   Ref<Shader> m_Shader;
+        /** @brief	Shader used for the collider renderer */
+        Ref<Shader> m_Shader;
 
-   /** @brief	Layout of the collider renderer vertex buffers */
-   VertexBufferLayout m_ColliderLayout;
+        /** @brief	Layout of the collider renderer vertex buffers */
+        VertexBufferLayout m_ColliderLayout;
 
-   bool m_GravityEnabled = true;
+        /**
+         * @brief If gravity is enabled or not
+         * @author Bryce Standley
+         * @date 06-11-2021
+         */
+        bool m_GravityEnabled = true;
 
-   glm::vec3 m_Gravity = {0.0f, -9.8f, 0.0f};
+        /**
+         * @brief The value of gravity in the world
+         * @author Bryce Standley
+         * @date 06-11-2021
+         */
+        glm::vec3 m_Gravity = {0.0f, -9.8f, 0.0f};
 
-   /** @brief	True to active */
-   bool m_Active = false;
+        /** @brief	True to active */
+        bool m_Active = false;
 
-   /** @brief Used to tell the physics system if the logging should be enabled*/
-   bool m_Logging = false;
+        /** @brief Used to tell the physics system if the logging should be enabled*/
+        bool m_Logging = false;
 
-     std::unordered_map<uint32_t, Ref<RigidBody>> m_Rigidbodies;
+        /**
+         * @brief All RigidBody objects in the world
+         * @author Bryce Standley
+         * @date 06-11-2021
+         */
+        std::unordered_map<uint32_t, Ref<RigidBody>> m_Rigidbodies;
 
-     uint32_t m_TotalRigidbodies = 0;
+        /**
+         * @brief Total Rigidbody objects in the world
+         * @author Bryce Standley
+         * @date 06-11-2021
+         */
+        uint32_t m_TotalRigidbodies = 0;
 
-     std::unordered_map<uint32_t, Ref<Collider>> m_Colliders;
+        /**
+         * @brief All Collider objects in the world
+         * @author Bryce Standley
+         * @date 06-11-2021
+         */
+        std::unordered_map<uint32_t, Ref<Collider>> m_Colliders;
 
-     uint32_t m_TotalColliders = 0;
+        /**
+         * @brief Total Collider objects in the world
+         * @author Bryce Standley
+         * @date 06-11-2021
+         */
+        uint32_t m_TotalColliders = 0;
 
-     /** @brief a static reference to the active Collision Detection Engine */
-     static Ref<CollisionDetectionEngine> m_CollisionDetectionEngine;
+        /** @brief a static reference to the active Collision Detection Engine */
+        static Ref<CollisionDetectionEngine> m_CollisionDetectionEngine;
 
-     bool m_SleepAllowed = false;
+        /**
+         * @brief Are RigidBody objects allowed to sleep?
+         * @author Bryce Standley
+         * @date 06-11-2021
+         */
+        bool m_SleepAllowed = false;
 
         friend class PhysicsEngine;
 };
@@ -244,7 +319,7 @@ namespace tnah::Physics
      * @brief	A physics class responsible for the engine physics. All actual physics calculations are processed within
      * this class.
      *
-     * @author	Dylan Blereau
+     * @author	Bryce Standley
      * @date	12/09/2021
      */
     class PhysicsEngine
@@ -256,7 +331,7 @@ namespace tnah::Physics
          *
          * @brief	Gets a pointer to the PhysicsManager
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          *
          * @returns	The manager.
@@ -268,7 +343,7 @@ namespace tnah::Physics
          *
          * @brief	Query if the physics is active
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          *
          * @returns	True if active, false if not.
@@ -280,7 +355,7 @@ namespace tnah::Physics
          *
          * @brief	Initialises the physics and its logger
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          *
          * @param [in,out]	collisionEventListener	If non-null, the collision event listener.
@@ -294,31 +369,31 @@ namespace tnah::Physics
          *
          * @brief	Executes the 'fixed update' action
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          *
          * @param 	timestep	The timestep.
          */
         static void OnFixedUpdate(Timestep deltaTime, PhysicsTimestep timestep, entt::registry& componentRegistry);
 
-     /**
-     * @fn	static void Physics::OnUpdate(Timestep timestep);
-     *
-     * @brief	Physics update for any disconnected objects not tied directly to the fixed physics updates.
-     *
-     * @author	Bryce Standley
-     * @date	10/10/2021
-     *
-     * @param 	timestep	The timestep.
-     */
-     static void OnUpdate(Timestep timestep);
+        /**
+         * @fn	static void Physics::OnUpdate(Timestep timestep);
+         *
+         * @brief	Physics update for any disconnected objects not tied directly to the fixed physics updates.
+         *
+         * @author	Bryce Standley
+         * @date	10/10/2021
+         *
+         * @param 	timestep	The timestep.
+         */
+        static void OnUpdate(Timestep timestep);
 
         /**
          * @fn	static void Physics::Destroy();
          *
          * @brief	Destroys this object
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          */
         static void Destroy();
@@ -328,7 +403,7 @@ namespace tnah::Physics
          *
          * @brief	Destroys the rigidbody described by body
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          *
          * @param [in,out]	body	If non-null, the body.
@@ -340,7 +415,7 @@ namespace tnah::Physics
          *
          * @brief	Creates a rigidbody
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          *
          * @param 	transform	The transform.
@@ -354,7 +429,7 @@ namespace tnah::Physics
          *
          * @brief	Toggle collider rendering
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          */
         static void ToggleColliderRendering();
@@ -364,27 +439,27 @@ namespace tnah::Physics
          *
          * @brief	Gets the Collider renderer handle
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          */
         static bool& GetColliderRendererHandle();
-     
+
         /**
          * @fn	static TransformComponent Physics::GetColliderRendererTransform();
          *
          * @brief	Gets the transform of the renderer
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          */
         static TransformComponent GetColliderRendererTransform();
-     
+
         /**
          * @fn	static rp3d::BoxShape* Physics::CreateBoxShape(const glm::vec3& halfExtents);
          *
          * @brief	Creates box shape
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          *
          * @param 	halfExtents	Extents of the half.
@@ -392,13 +467,13 @@ namespace tnah::Physics
          * @returns	Null if it fails, else the new box shape.
          */
         static Ref<Collider> CreateBoxCollider(Ref<RigidBody> rigidbody, const glm::vec3& halfExtents);
-     
+
         /**
          * @fn	static rp3d::SphereShape* Physics::CreateSphereShape(const float& radius);
          *
          * @brief	Creates sphere shape
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          *
          * @param 	radius	The radius.
@@ -412,7 +487,7 @@ namespace tnah::Physics
          *
          * @brief	Creates capsule shape
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          *
          * @param 	radius	The radius.
@@ -429,7 +504,7 @@ namespace tnah::Physics
         *
         * @brief	Enables logging for the physics system
         *
-        * @author	Dylan Blereau
+        * @author	Bryce Standley
         * @date	12/09/2021
         *
         */
@@ -440,7 +515,7 @@ namespace tnah::Physics
         *
         * @brief	Checks if collider rendering is enabled
         *
-        * @author	Dylan Blereau
+        * @author	Bryce Standley
         * @date	12/09/2021
         * 
         * @return bool If the renderer is enabled
@@ -453,7 +528,7 @@ namespace tnah::Physics
          *
          * @brief	Gets collider render objects by using a pair to retreive the VAO and VBO data for lines and triangles
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          *
          * @returns	The collider render objects.
@@ -465,7 +540,7 @@ namespace tnah::Physics
          *
          * @brief	Gets collider shader
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          *
          * @returns	The collider shader.
@@ -477,7 +552,7 @@ namespace tnah::Physics
          *
          * @brief	Updates the collider renderer
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          */
         static void UpdateColliderRenderer();
@@ -487,7 +562,7 @@ namespace tnah::Physics
          *
          * @brief	Gets collider renderer
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          *
          * @returns	The collider renderer.
@@ -499,29 +574,70 @@ namespace tnah::Physics
          *
          * @brief	Initialise the physics logger
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          */
         static void PhysicsLoggerInit();
 
-     static void ProcessCollisions();
-     static void ProcessRigidbodyVelocities(const Timestep& deltaTime, entt::registry& componentRegistry);
-     static void ProcessRigidbodyPositions(const Timestep& deltaTime, entt::registry& componentRegistry);
-     static void ResetRigidbodyForcesAndTorques(entt::registry& componentRegistry);
-     static void UpdateInertiaTensor(entt::registry& componentRegistry);
-     static void UpdateBodies(entt::registry& componentRegistry);
-     static void UpdateSleepState(entt::registry& componentRegistry, Timestep deltaTime);
+        /**
+         * @brief Processes collisions in the CollisionDetectionEngine collision queue
+         * @author Bryce Standley
+         * @date 06-11-2021
+         */
+        static void ProcessCollisions();
+
+        /**
+         * @brief Processes velocities for all RigidBody objects in the world
+         * @author Bryce Standley
+         * @date 06-11-2021
+         */
+        static void ProcessRigidbodyVelocities(const Timestep& deltaTime, entt::registry& componentRegistry);
+
+        /**
+         * @brief Processes position and orientations for all RigidBody objects in the world
+         * @author Bryce Standley
+         * @date 06-11-2021
+         */
+        static void ProcessRigidbodyPositions(const Timestep& deltaTime, entt::registry& componentRegistry);
+
+        /**
+         * @brief Resets external force and torque applied to Rigidbody objects in the world
+         * @author Bryce Standley
+         * @date 06-11-2021
+         */
+        static void ResetRigidbodyForcesAndTorques(entt::registry& componentRegistry);
+
+        /**
+         * @brief Updates the inertia tensor of each RigidBody object in the world
+         * @author Bryce Standley
+         * @date 06-11-2021
+         */
+        static void UpdateInertiaTensor(entt::registry& componentRegistry);
+
+        /**
+         * @brief Updates all state and transform values for React on each RigidBody in the world
+         * @author Bryce Standley
+         * @date 06-11-2021
+         */
+        static void UpdateBodies(entt::registry& componentRegistry);
+
+        /**
+         * @brief Updates and checks each RigidBody object in the world if it can be put to sleep
+         * @author Bryce Standley
+         * @date 06-11-2021
+         */
+        static void UpdateSleepState(entt::registry& componentRegistry, Timestep deltaTime);
     
     private:
      
         /** @brief a static reference to the active physics manager */
         static Ref<PhysicsManager> m_PhysicsManager;
-     
+
         /** @brief Transform used for rendering the colliders within the scene*/
         static TransformComponent m_ColliderTransform;
 
-     friend class tnah::Scene;
-     friend class tnah::Renderer;
+        friend class tnah::Scene;
+        friend class tnah::Renderer;
     };
 
 #pragma endregion PhysicsEngine

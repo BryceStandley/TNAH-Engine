@@ -7,7 +7,7 @@ namespace tnah {
 	 *
 	 * @brief	The graphics context
 	 *
-	 * @author	Dylan Blereau
+	 * @author	Bryce Standley
 	 * @date	12/09/2021
 	 */
 
@@ -20,7 +20,7 @@ namespace tnah {
 		 *
 		 * @brief	Defaulted destructor
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	12/09/2021
 		 */
 
@@ -31,7 +31,7 @@ namespace tnah {
 		 *
 		 * @brief	Initializes this object
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	12/09/2021
 		 */
 
@@ -42,7 +42,7 @@ namespace tnah {
 		 *
 		 * @brief	Swap buffers
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	12/09/2021
 		 */
 
@@ -53,7 +53,7 @@ namespace tnah {
 		 *
 		 * @brief	Creates a new Scope&lt;GraphicsContext&gt;
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	12/09/2021
 		 *
 		 * @param [in,out]	window	If non-null, the window.

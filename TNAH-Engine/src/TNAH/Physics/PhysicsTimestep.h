@@ -7,7 +7,7 @@ namespace tnah
      *
      * @brief	The physics timestep class is designed to make sure the frame rate of the physics is 60 frames per second
      *
-     * @author	Dylan Blereau
+     * @author	Christopher Logan
      * @date	11/09/2021
      */
 
@@ -20,7 +20,7 @@ namespace tnah
          *
          * @brief	Constructor
          *
-         * @author	Dylan Blereau
+         * @author	Christopher Logan
          * @date	11/09/2021
          *
          * @param 	framerate	The framerate.
@@ -35,7 +35,7 @@ namespace tnah
          *
          * @brief	Adds a frame time
          *
-         * @author	Dylan Blereau
+         * @author	Christopher Logan
          * @date	11/09/2021
          *
          * @param 	frameTime	The frame time.
@@ -48,7 +48,7 @@ namespace tnah
          *
          * @brief	Determines if we can fixed update check
          *
-         * @author	Dylan Blereau
+         * @author	Christopher Logan
          * @date	11/09/2021
          *
          * @returns	True if it succeeds, false if it fails.
@@ -61,7 +61,7 @@ namespace tnah
          *
          * @brief	Updates this object
          *
-         * @author	Dylan Blereau
+         * @author	Christopher Logan
          * @date	11/09/2021
          */
 
@@ -72,7 +72,7 @@ namespace tnah
          *
          * @brief	Gets the aplha
          *
-         * @author	Dylan Blereau
+         * @author	Christopher Logan
          * @date	11/09/2021
          *
         * @returns	The aplha.
@@ -85,7 +85,7 @@ namespace tnah
          *
          * @brief	Sets an accumulator
          *
-         * @author	Dylan Blereau
+         * @author	Christopher Logan
          * @date	11/09/2021
          *
          * @param 	a	A float to process.
@@ -98,7 +98,7 @@ namespace tnah
          *
          * @brief	Gets the accumulator
          *
-         * @author	Dylan Blereau
+         * @author	Christopher Logan
          * @date	11/09/2021
          *
          * @returns	The accumulator.
@@ -111,7 +111,7 @@ namespace tnah
          *
          * @brief	Sets total time
          *
-         * @author	Dylan Blereau
+         * @author	Christopher Logan
          * @date	11/09/2021
          *
          * @param 	time	The time.
@@ -124,7 +124,7 @@ namespace tnah
          *
          * @brief	Gets total time
          *
-         * @author	Dylan Blereau
+         * @author	Christopher Logan
          * @date	11/09/2021
          *
          * @returns	The total time.
@@ -137,7 +137,7 @@ namespace tnah
          *
          * @brief	Sets simulation speed
          *
-         * @author	Dylan Blereau
+         * @author	Christopher Logan
          * @date	11/09/2021
          *
          * @param 	speed	The speed.
@@ -150,7 +150,7 @@ namespace tnah
          *
          * @brief	Sets simulation frame rate
          *
-         * @author	Dylan Blereau
+         * @author	Christopher Logan
          * @date	11/09/2021
          *
          * @param 	frames	The frames.
@@ -163,7 +163,7 @@ namespace tnah
          *
          * @brief	Gets simulation speed
          *
-         * @author	Dylan Blereau
+         * @author	Christopher Logan
          * @date	11/09/2021
          *
          * @returns	The simulation speed.

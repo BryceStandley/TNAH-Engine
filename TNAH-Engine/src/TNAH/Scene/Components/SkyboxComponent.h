@@ -16,7 +16,7 @@ namespace tnah {
 	 *
 	 * @brief	A skybox.
 	 *
-	 * @author	Chris
+	 * @author	Bryce Standley, Dylan
 	 * @date	10/09/2021
 	 **************************************************************************************************/
 
@@ -29,7 +29,7 @@ namespace tnah {
 		 *
 		 * @brief	Default constructor
 		 *
-		 * @author	Chris
+		 * @author	Bryce Standley, Dylan
 		 * @date	10/09/2021
 		 **************************************************************************************************/
 
@@ -40,7 +40,7 @@ namespace tnah {
 		 *
 		 * @brief	Constructor
 		 *
-		 * @author	Chris
+		 * @author	Bryce Standley, Dylan
 		 * @date	10/09/2021
 		 *
 		 * @param 	skyboxTextureProperties	The skybox texture properties.
@@ -53,7 +53,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets vbo data
 		 *
-		 * @author	Chris
+		 * @author	Bryce Standley, Dylan
 		 * @date	10/09/2021
 		 *
 		 * @returns	Null if it fails, else the vbo data.
@@ -66,7 +66,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets vbo data size
 		 *
-		 * @author	Chris
+		 * @author	Bryce Standley, Dylan
 		 * @date	10/09/2021
 		 *
 		 * @returns	The vbo data size.
@@ -79,7 +79,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets vertex array
 		 *
-		 * @author	Chris
+		 * @author	Bryce Standley, Dylan
 		 * @date	10/09/2021
 		 *
 		 * @returns	The vertex array.
@@ -92,7 +92,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets vertex buffer
 		 *
-		 * @author	Chris
+		 * @author	Bryce Standley, Dylan
 		 * @date	10/09/2021
 		 *
 		 * @returns	The vertex buffer.
@@ -105,7 +105,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets the material
 		 *
-		 * @author	Chris
+		 * @author	Bryce Standley, Dylan
 		 * @date	10/09/2021
 		 *
 		 * @returns	The material.
@@ -121,7 +121,7 @@ namespace tnah {
 		 *
 		 * @brief	Creates this object
 		 *
-		 * @author	Chris
+		 * @author	Bryce Standley, Dylan
 		 * @date	10/09/2021
 		 **************************************************************************************************/
 
@@ -154,7 +154,7 @@ namespace tnah {
 	 *
 	 * @brief	A skybox component.
 	 *
-	 * @author	Chris
+	 * @author	Bryce Standley, Dylan
 	 * @date	10/09/2021
 	 **************************************************************************************************/
 
@@ -171,7 +171,7 @@ namespace tnah {
 		 *
 		 * @brief	Default constructor
 		 *
-		 * @author	Chris
+		 * @author	Bryce Standley, Dylan
 		 * @date	10/09/2021
 		 **************************************************************************************************/
 
@@ -185,7 +185,7 @@ namespace tnah {
 		 *
 		 * @brief	Defaulted copy constructor
 		 *
-		 * @author	Chris
+		 * @author	Bryce Standley, Dylan
 		 * @date	10/09/2021
 		 *
 		 * @param 	other	The other.
@@ -198,7 +198,7 @@ namespace tnah {
 		 *
 		 * @brief	Constructor
 		 *
-		 * @author	Chris
+		 * @author	Bryce Standley, Dylan
 		 * @date	10/09/2021
 		 *
 		 * @param 	cubemapProperties	The cubemap properties.

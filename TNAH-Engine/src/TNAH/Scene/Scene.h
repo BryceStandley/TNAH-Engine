@@ -22,7 +22,7 @@ namespace tnah {
 	 *
 	 * @brief	A light object forward declaration.
 	 *
-	 * @author	Dylan Blereau
+	 * @author	Bryce Standley
 	 * @date	7/09/2021
 	 */
 
@@ -33,7 +33,7 @@ namespace tnah {
 	 *
 	 * @brief	A game object forward declaration.
 	 *
-	 * @author	Dylan Blereau
+	 * @author	Bryce Standley
 	 * @date	7/09/2021
 	 */
 
@@ -44,7 +44,7 @@ namespace tnah {
 	 *
 	 * @brief	A scene
 	 *
-	 * @author	Dylan Blereau
+	 * @author	Bryce Standley
 	 * @date	7/09/2021
 	 **************************************************************************************************/
 

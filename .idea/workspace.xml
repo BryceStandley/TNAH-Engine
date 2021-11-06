@@ -14,18 +14,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="127c4cee-4109-4dc5-a120-c50cf0ff91ca" name="Default Changelist" comment="Fixed menus">
-      <change afterPath="$PROJECT_DIR$/TNAH-Engine/src/TNAH/Renderer/Material.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TNAH-Engine/src/TNAH/Renderer/Material.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TNAH-Editor/assets/heightmap/1k.tga" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TNAH-Editor/src/Editor.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/TNAH-Editor/src/Editor.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TNAH-Engine.sln" beforeDir="false" afterPath="$PROJECT_DIR$/TNAH-Engine.sln" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TNAH-Engine/TNAH-Engine.vcxproj" beforeDir="false" afterPath="$PROJECT_DIR$/TNAH-Engine/TNAH-Engine.vcxproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TNAH-Engine/TNAH-Engine.vcxproj.filters" beforeDir="false" afterPath="$PROJECT_DIR$/TNAH-Engine/TNAH-Engine.vcxproj.filters" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TNAH-Engine/src/TNAH/Core/Math.h" beforeDir="false" afterPath="$PROJECT_DIR$/TNAH-Engine/src/TNAH/Core/Math.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TNAH-Engine/src/TNAH/Scene/Components/Components.h" beforeDir="false" afterPath="$PROJECT_DIR$/TNAH-Engine/src/TNAH/Scene/Components/Components.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TNAH-Engine/src/TNAH/Physics/Collider.h" beforeDir="false" afterPath="$PROJECT_DIR$/TNAH-Engine/src/TNAH/Physics/Collider.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,17 +50,7 @@
     <option name="SAVE_CHANGES_POLICY" value="STASH" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/src/MainMenuGUI.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/Scene.cpp" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/Debugger.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/.gitignore" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/CMakeLists.txt" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/GlfwWindow.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/GlfwWindow.cpp" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/PhysicsManager.cpp" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/GameAssetFactory.cpp" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/Terrain.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/MainMenuGUI.cpp" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProjectId" id="1qhE8nkWeMDWoZ2e30lMq39kUEW" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -100,7 +80,7 @@
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="CPPToolchains" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -113,11 +93,6 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="TNAH-Project" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" WORKING_DIR="file://$CMakeCurrentBuildDir$" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="TNAH-Project" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="TNAH-Project">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -126,6 +101,11 @@
     <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
   </component>
@@ -190,6 +170,7 @@
       <workItem from="1625131109743" duration="2776000" />
       <workItem from="1625219627792" duration="4001000" />
       <workItem from="1627952541452" duration="3852000" />
+      <workItem from="1636173531376" duration="128000" />
     </task>
     <task id="LOCAL-00001" summary="Added collisions with objects">
       <created>1617722294195</created>
@@ -448,5 +429,9 @@
     <MESSAGE value="Water etc" />
     <MESSAGE value="Fixed menus" />
     <option name="LAST_COMMIT_MESSAGE" value="Fixed menus" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

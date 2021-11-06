@@ -7,7 +7,7 @@ namespace tnah {
 	 *
 	 * @brief	A timestep class that handles the time
 	 *
-	 * @author	Dylan Blereau
+	 * @author	Bryce Standley
 	 * @date	7/09/2021
 	 */
 
@@ -20,7 +20,7 @@ namespace tnah {
 		 *
 		 * @brief	Constructor
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	7/09/2021
 		 *
 		 * @param 	time	(Optional) The time.
@@ -36,7 +36,7 @@ namespace tnah {
 		 *
 		 * @brief	Cast that converts the given  to a float
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	7/09/2021
 		 *
 		 * @returns	The result of the operation.
@@ -49,7 +49,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets the seconds
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	7/09/2021
 		 *
 		 * @returns	The seconds.
@@ -62,7 +62,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets the milliseconds of time
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	7/09/2021
 		 *
 		 * @returns	The milliseconds.

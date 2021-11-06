@@ -11,7 +11,7 @@ namespace tnah {
      *
      * @brief	A light class that inherits from the refCounted class to allow the use of ref pointers. Responsible for lighting in applications
      *
-     * @author	Dylan Blereau
+     * @author	Bryce Standley
      * @date	12/09/2021
      */
 
@@ -37,7 +37,7 @@ namespace tnah {
          *
          * @brief	Information about the shader light.
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          */
 
@@ -93,7 +93,7 @@ namespace tnah {
          *
          * @brief	Constructor
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          *
          * @param 	type	The type of light.
@@ -106,7 +106,7 @@ namespace tnah {
          *
          * @brief	Defaulted destructor
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          */
 
@@ -117,7 +117,7 @@ namespace tnah {
          *
          * @brief	Creates a new light of the given type
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          *
          * @param 	type	The type of light.
@@ -132,7 +132,7 @@ namespace tnah {
          *
          * @brief	Creates a directional light
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          *
          * @param 	direction	The direction.
@@ -151,7 +151,7 @@ namespace tnah {
          *
          * @brief	Creates the directional light
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          *
          * @returns	The new directional light.
@@ -164,7 +164,7 @@ namespace tnah {
          *
          * @brief	Creates a point light
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          *
          * @param 	constant 	The constant.
@@ -181,7 +181,7 @@ namespace tnah {
          *
          * @brief	Creates a point light
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          *
          * @returns	The new point light.
@@ -194,7 +194,7 @@ namespace tnah {
          *
          * @brief	Creates a spot light
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          *
          * @param 	cutoff	The cutoff.
@@ -209,7 +209,7 @@ namespace tnah {
          *
          * @brief	Creates a spot light
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          *
          * @returns	The new spot light.
@@ -222,7 +222,7 @@ namespace tnah {
          *
          * @brief	Sets a color of the light
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          *
          * @param 	value	The value.
@@ -235,7 +235,7 @@ namespace tnah {
          *
          * @brief	Sets light intensity
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          *
          * @param 	value	The value.
@@ -248,7 +248,7 @@ namespace tnah {
          *
          * @brief	Sets the light position
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          *
          * @param 	value	The value.
@@ -261,7 +261,7 @@ namespace tnah {
          *
          * @brief	Sets the light type
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          *
          * @param 	type	The type.
@@ -274,7 +274,7 @@ namespace tnah {
          *
          * @brief	Gets the color
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          *
          * @returns	The color.
@@ -287,7 +287,7 @@ namespace tnah {
          *
          * @brief	Gets the intensity
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          *
          * @returns	The intensity.
@@ -300,7 +300,7 @@ namespace tnah {
          *
          * @brief	Gets the type
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          *
          * @returns	The type.
@@ -313,7 +313,7 @@ namespace tnah {
          *
          * @brief	Gets the position
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          *
          * @returns	The position.
@@ -326,7 +326,7 @@ namespace tnah {
          *
          * @brief	Gets shader information
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          *
          * @returns	The shader information.
@@ -339,7 +339,7 @@ namespace tnah {
          *
          * @brief	Sets a direction
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          *
          * @param 	value	The value.
@@ -352,7 +352,7 @@ namespace tnah {
          *
          * @brief	Sets a diffuse value
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          *
          * @param 	value	The value.
@@ -365,7 +365,7 @@ namespace tnah {
          *
          * @brief	Sets an ambient value
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          *
          * @param 	value	The value.
@@ -378,7 +378,7 @@ namespace tnah {
          *
          * @brief	Sets a specular value
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          *
          * @param 	value	The value.
@@ -391,7 +391,7 @@ namespace tnah {
          *
          * @brief	Gets the direction
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          *
          * @returns	The direction.
@@ -404,7 +404,7 @@ namespace tnah {
          *
          * @brief	Gets the ambient
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          *
          * @returns	The ambient.
@@ -417,7 +417,7 @@ namespace tnah {
          *
          * @brief	Gets the diffuse
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          *
          * @returns	The diffuse.
@@ -430,7 +430,7 @@ namespace tnah {
          *
          * @brief	Gets the specular
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          *
          * @returns	The specular.
@@ -443,7 +443,7 @@ namespace tnah {
          *
          * @brief	Sets a constant
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          *
          * @param 	value	The value.
@@ -456,7 +456,7 @@ namespace tnah {
          *
          * @brief	Sets a linear
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          *
          * @param 	value	The value.
@@ -469,7 +469,7 @@ namespace tnah {
          *
          * @brief	Sets a quadratic
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          *
          * @param 	value	The value.
@@ -482,7 +482,7 @@ namespace tnah {
          *
          * @brief	Sets cut off
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          *
          * @param 	value	The value.
@@ -495,7 +495,7 @@ namespace tnah {
          *
          * @brief	Sets a distance
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          *
          * @param 	value	The value.
@@ -508,7 +508,7 @@ namespace tnah {
          *
          * @brief	Gets the constant
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          *
          * @returns	The constant.
@@ -521,7 +521,7 @@ namespace tnah {
          *
          * @brief	Gets the linear
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          *
          * @returns	The linear.
@@ -534,7 +534,7 @@ namespace tnah {
          *
          * @brief	Gets the quadratic
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          *
          * @returns	The quadratic.
@@ -547,7 +547,7 @@ namespace tnah {
          *
          * @brief	Gets cut off
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          *
          * @returns	The cut off.
@@ -560,7 +560,7 @@ namespace tnah {
          *
          * @brief	Gets the distance
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          *
          * @returns	The distance.
@@ -573,7 +573,7 @@ namespace tnah {
          *
          * @brief	Updates the shader light information described by cameraPosition
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          *
          * @param 	cameraPosition	The camera position.
@@ -586,7 +586,7 @@ namespace tnah {
          *
          * @brief	Check distance
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          *
          * @param 	distance	The distance.
@@ -601,7 +601,7 @@ namespace tnah {
          *
          * @brief	Gets type as string
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          *
          * @returns	The type as string.

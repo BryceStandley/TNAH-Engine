@@ -16,7 +16,7 @@ namespace tnah {
 	 *
 	 * @brief	A renderer class responsible for the rendering of things such as meshes, terrain and skyboxes
 	 *
-	 * @author	Dylan Blereau
+	 * @author	Bryce Standley
 	 * @date	12/09/2021
 	 */
 
@@ -29,7 +29,7 @@ namespace tnah {
 		 *
 		 * @brief	Initializes this object
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	12/09/2021
 		 */
 
@@ -40,7 +40,7 @@ namespace tnah {
 		 *
 		 * @brief	Shuts down this object and frees any resources it is using
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	12/09/2021
 		 */
 
@@ -51,7 +51,7 @@ namespace tnah {
 		 *
 		 * @brief	Executes when the window is resized
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	12/09/2021
 		 *
 		 * @param 	width 	The width.
@@ -65,7 +65,7 @@ namespace tnah {
 		 *
 		 * @brief	Begins a scene
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	12/09/2021
 		 *
 		 * @param [in,out]	camera	The camera.
@@ -77,7 +77,7 @@ namespace tnah {
 		 *
 		 * @brief	Begins a scene
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	12/09/2021
 		 *
 		 * @param [in,out]	camera		   	The camera.
@@ -91,7 +91,7 @@ namespace tnah {
 		 *
 		 * @brief	Ends a scene
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	12/09/2021
 		 */
 
@@ -102,7 +102,7 @@ namespace tnah {
 		 *
 		 * @brief	Increment texture slot
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	12/09/2021
 		 */
 
@@ -113,7 +113,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets current texture slot
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	12/09/2021
 		 *
 		 * @returns	The current texture slot.
@@ -126,7 +126,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets and increment texture slot
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	12/09/2021
 		 *
 		 * @returns	The and increment texture slot.
@@ -140,7 +140,7 @@ namespace tnah {
 		 *
 		 * @brief	Sets cull mode
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	12/09/2021
 		 *
 		 * @param 	mode	The mode.
@@ -153,7 +153,7 @@ namespace tnah {
 		 *
 		 * @brief	Sets shader light information
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	12/09/2021
 		 *
 		 * @param 	material	The material.
@@ -166,7 +166,7 @@ namespace tnah {
 		 *
 		 * @brief	Submits to the renderer
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	12/09/2021
 		 *
 		 * @param 	vertexArray	Array of vertices.
@@ -181,7 +181,7 @@ namespace tnah {
 		 *
 		 * @brief	Submit terrain
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	12/09/2021
 		 *
 		 * @param 	vertexArray	Array of vertices.
@@ -197,7 +197,7 @@ namespace tnah {
 		 *
 		 * @brief	Submit mesh
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	12/09/2021
 		 *
 		 * @param 	vertexArray   	Array of vertices.
@@ -215,7 +215,7 @@ namespace tnah {
 		 *
 		 * @brief	Submit skybox
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	12/09/2021
 		 *
 		 * @param 	vertexArray	Array of vertices.
@@ -229,7 +229,7 @@ namespace tnah {
 		 *
 		 * @brief	Submit collider
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	12/09/2021
 		 *
 		 * @param 	lineVertexArray			Array of vertices.
@@ -245,7 +245,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets the renderer API
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	12/09/2021
 		 *
 		 * @returns	the renderer API.
@@ -258,7 +258,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets white texture
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	12/09/2021
 		 *
 		 * @returns	The white texture.
@@ -271,7 +271,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets black texture
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	12/09/2021
 		 *
 		 * @returns	The black texture.
@@ -284,7 +284,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets missing texture
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	12/09/2021
 		 *
 		 * @returns	The missing texture.
@@ -297,7 +297,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets loaded textures
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	12/09/2021
 		 *
 		 * @returns	The loaded textures.
@@ -310,7 +310,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets loaded shaders
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	12/09/2021
 		 *
 		 * @returns	The loaded shaders.
@@ -323,7 +323,7 @@ namespace tnah {
 		 *
 		 * @brief	Registers the texture described by texture
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	12/09/2021
 		 *
 		 * @param 	texture	The texture.
@@ -336,7 +336,7 @@ namespace tnah {
 		 *
 		 * @brief	Registers the shader described by shader
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	12/09/2021
 		 *
 		 * @param 	shader	The shader.
@@ -349,7 +349,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets loaded models
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	12/09/2021
 		 *
 		 * @returns	The loaded models.
@@ -362,7 +362,7 @@ namespace tnah {
 		 *
 		 * @brief	Registers the model described by model
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	12/09/2021
 		 *
 		 * @param 	model	The model.
@@ -375,7 +375,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets draw calls per frame
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	12/09/2021
 		 *
 		 * @returns	The draw calls per frame.
@@ -388,7 +388,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets total loaded textures
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	12/09/2021
 		 *
 		 * @returns	The total loaded textures.
@@ -401,7 +401,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets total loaded shaders
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	12/09/2021
 		 *
 		 * @returns	The total loaded shaders.
@@ -414,7 +414,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets total loaded models
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	12/09/2021
 		 *
 		 * @returns	The total loaded models.
@@ -431,7 +431,7 @@ namespace tnah {
 		 *
 		 * @brief	Increment draw calls per frame
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	12/09/2021
 		 */
 
@@ -442,7 +442,7 @@ namespace tnah {
 		 *
 		 * @brief	Increment total loaded textures
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	12/09/2021
 		 */
 
@@ -453,7 +453,7 @@ namespace tnah {
 		 *
 		 * @brief	Increment total loaded shaders
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	12/09/2021
 		 */
 
@@ -464,7 +464,7 @@ namespace tnah {
 		 *
 		 * @brief	Increment total loaded models
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	12/09/2021
 		 */
 
@@ -475,7 +475,7 @@ namespace tnah {
 		 *
 		 * @brief	Resets the draw calls per frame
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	12/09/2021
 		 */
 
@@ -486,7 +486,7 @@ namespace tnah {
 		 *
 		 * @brief	Resets the total loaded textures
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	12/09/2021
 		 */
 
@@ -497,7 +497,7 @@ namespace tnah {
 		 *
 		 * @brief	Resets the total loaded shaders
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	12/09/2021
 		 */
 
@@ -508,7 +508,7 @@ namespace tnah {
 		 *
 		 * @brief	Resets the total loaded models
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	12/09/2021
 		 */
 
@@ -519,7 +519,7 @@ namespace tnah {
 		 *
 		 * @brief	scene data.
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	12/09/2021
 		 */
 

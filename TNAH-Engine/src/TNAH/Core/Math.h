@@ -32,7 +32,7 @@ namespace tnah {
 		 *
 		 * @brief	Bi linear interpolate
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	7/09/2021
 		 *
 		 * @param 	a	 	A float to process.
@@ -54,7 +54,7 @@ namespace tnah {
 		 *
 		 * @brief	Decompose transform
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	7/09/2021
 		 *
 		 * @param 		  	transform  	The transform.
@@ -72,7 +72,7 @@ namespace tnah {
 		 *
 		 * @brief	Compare imgui vec2 to glm vec2
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	7/09/2021
 		 *
 		 * @param 	imgui	The imgui.
@@ -94,7 +94,7 @@ namespace tnah {
 		 *
 		 * @brief	Compare imgui vec2
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	7/09/2021
 		 *
 		 * @param 	a	An ImVec2 to process.
@@ -116,7 +116,7 @@ namespace tnah {
 		 *
 		 * @brief	Remaps the range
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	7/09/2021
 		 *
 		 * @param 	value 	The value.
@@ -138,7 +138,7 @@ namespace tnah {
 		 *
 		 * @brief	Convert glm vec3 to irrklang vec3df
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	7/09/2021
 		 *
 		 * @param 	other	The other.
@@ -153,7 +153,7 @@ namespace tnah {
 		 *
 		 * @brief	Converts the glm vec3 values to a rp3D vector 3 values
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	7/09/2021
 		 *
 		 * @param 	values	The values.
@@ -171,7 +171,7 @@ namespace tnah {
 		*
 		* @brief	Converts the reactphysics3d vector3 values to a glm vec3 values
 		*
-		* @author	Dylan Blereau
+		* @author	Bryce Standley
 		* @date	7/09/2021
 		*
 		* @param 	values	The values.
@@ -189,7 +189,7 @@ namespace tnah {
 		 *
 		 * @brief	Converts the glm quaternion values to a rp3D quaternion
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	7/09/2021
 		 *
 		 * @param 	values	The values.
@@ -207,7 +207,7 @@ namespace tnah {
 		*
 		* @brief	Converts the Rp3d quaternion values to a glm quaternion
 		*
-		* @author	Dylan Blereau
+		* @author	Bryce Standley
 		* @date	7/09/2021
 		*
 		* @param 	values	The values.
@@ -226,7 +226,7 @@ namespace tnah {
 		 *
 		 * @brief	Converts a TranformComponent transform to a rp3d transform
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	7/09/2021
 		 *
 		 * @param 	transform	The transform.
@@ -244,7 +244,7 @@ namespace tnah {
 		 *
 		 * @brief	Gets the random
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	7/09/2021
 		 *
 		 * @returns	A float.
@@ -261,7 +261,7 @@ namespace tnah {
 		 *
 		 * @brief	Randoms the given maximum
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	7/09/2021
 		 *
 		 * @param 	max	The maximum.
@@ -280,7 +280,7 @@ namespace tnah {
 		 *
 		 * @brief	Randoms the min and max values
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	7/09/2021
 		 *
 		 * @param 	min	The minimum.

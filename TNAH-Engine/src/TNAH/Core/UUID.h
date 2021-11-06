@@ -9,7 +9,7 @@ namespace tnah {
 		 *
 		 * @brief	An unique identifer class used for gameobjects
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	7/09/2021
 		 */
 
@@ -22,7 +22,7 @@ namespace tnah {
 			 *
 			 * @brief	Default constructor
 			 *
-			 * @author	Dylan Blereau
+			 * @author	Bryce Standley
 			 * @date	7/09/2021
 			 */
 
@@ -33,7 +33,7 @@ namespace tnah {
 			 *
 			 * @brief	Constructor
 			 *
-			 * @author	Dylan Blereau
+			 * @author	Bryce Standley
 			 * @date	7/09/2021
 			 *
 			 * @param 	uuid	The uuid.
@@ -46,7 +46,7 @@ namespace tnah {
 			 *
 			 * @brief	Copy constructor
 			 *
-			 * @author	Dylan Blereau
+			 * @author	Bryce Standley
 			 * @date	7/09/2021
 			 *
 			 * @param 	other	The other.
@@ -59,7 +59,7 @@ namespace tnah {
 			 *
 			 * @brief	Cast that converts the given to a uint64_t
 			 *
-			 * @author	Dylan Blereau
+			 * @author	Bryce Standley
 			 * @date	7/09/2021
 			 *
 			 * @returns	The result of the operation.
@@ -72,7 +72,7 @@ namespace tnah {
 			 *
 			 * @brief	Cast that converts the given to a const uint64_t
 			 *
-			 * @author	Dylan Blereau
+			 * @author	Bryce Standley
 			 * @date	7/09/2021
 			 *
 			 * @returns	A const.
@@ -95,7 +95,7 @@ namespace std {
 	 *
 	 * @brief	A templated hash that used the uuid
 	 *
-	 * @author	Dylan Blereau
+	 * @author	Bryce Standley
 	 * @date	7/09/2021
 	 */
 
@@ -106,7 +106,7 @@ namespace std {
 		 *
 		 * @brief	Function call operator
 		 *
-		 * @author	Dylan Blereau
+		 * @author	Bryce Standley
 		 * @date	7/09/2021
 		 *
 		 * @param 	uuid	The uuid.

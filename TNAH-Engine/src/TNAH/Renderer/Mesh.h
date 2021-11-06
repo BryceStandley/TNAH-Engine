@@ -31,7 +31,7 @@ namespace tnah {
  *
  * @brief	A vertex.
  *
- * @author	Dylan Blereau
+ * @author	Bryce Standley
  * @date	12/09/2021
  */
 
@@ -65,7 +65,7 @@ struct Vertex
      *
      * @brief	Adds bone data
      *
-     * @author	Dylan Blereau
+     * @author	Bryce Standley
      * @date	12/09/2021
      *
      * @param 	BoneID	Identifier for the bone.
@@ -94,7 +94,7 @@ struct Vertex
      *
      * @brief	A mesh texture
      *
-     * @author	Dylan Blereau
+     * @author	Bryce Standley
      * @date	12/09/2021
      */
 
@@ -112,7 +112,7 @@ struct Vertex
          *
          * @brief	Constructor
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          *
          * @param 	texture	The texture.
@@ -129,7 +129,7 @@ struct Vertex
      *
      * @brief	A mesh shader.
      *
-     * @author	Dylan Blereau
+     * @author	Bryce Standley
      * @date	12/09/2021
      */
 
@@ -150,7 +150,7 @@ struct Vertex
          *
          * @brief	Constructor
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          *
          * @param 	shader  	The shader.
@@ -168,7 +168,7 @@ struct Vertex
      *
      * @brief	A mesh class responsible for handling the meshes of models 
      *
-     * @author	Dylan Blereau
+     * @author	Bryce Standley
      * @date	12/09/2021
      */
 
@@ -180,7 +180,7 @@ struct Vertex
          *
          * @brief	Constructor
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          *
          * @param 	vertices	The vertices.
@@ -196,7 +196,7 @@ struct Vertex
          *
          * @brief	Gets mesh vertex array
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          *
          * @returns	The mesh vertex array.
@@ -209,7 +209,7 @@ struct Vertex
          *
          * @brief	Gets mesh vertex buffer
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          *
          * @returns	The mesh vertex buffer.
@@ -222,7 +222,7 @@ struct Vertex
          *
          * @brief	Gets mesh index buffer
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          *
          * @returns	The mesh index buffer.
@@ -235,7 +235,7 @@ struct Vertex
          *
          * @brief	Gets mesh material
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          *
          * @returns	The mesh material.
@@ -248,7 +248,7 @@ struct Vertex
          *
          * @brief	Gets vertex positions
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          *
          * @returns	The vertex positions.
@@ -261,7 +261,7 @@ struct Vertex
          *
          * @brief	Gets the indices
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          *
          * @returns	The indices.
@@ -304,7 +304,7 @@ struct Vertex
      *
      * @brief	A model class that inherits from the refCounted class, which allows model to use the Ref *. Responsible for the loading and handling of models
      *
-     * @author	Dylan Blereau
+     * @author	Bryce Standley
      * @date	12/09/2021
      */
 
@@ -317,7 +317,7 @@ struct Vertex
          *
          * @brief	Creates a new model
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          *
          * @param 	filePath	Full pathname of the file.
@@ -332,7 +332,7 @@ struct Vertex
          *
          * @brief	Default constructor
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          */
 
@@ -343,7 +343,7 @@ struct Vertex
          *
          * @brief	Constructor
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          *
          * @param 	filePath	Full pathname of the file.
@@ -356,7 +356,7 @@ struct Vertex
          *
          * @brief	Gets the animation
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          *
          * @returns	The animation.
@@ -369,7 +369,7 @@ struct Vertex
          *
          * @brief	Gets the meshes
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          *
          * @returns	The meshes.
@@ -382,7 +382,7 @@ struct Vertex
          *
          * @brief	Gets number of meshes
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          *
          * @returns	The number of meshes.
@@ -395,7 +395,7 @@ struct Vertex
          *
          * @brief	Gets bone information map
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          *
          * @returns	The bone information map.
@@ -408,7 +408,7 @@ struct Vertex
          *
          * @brief	Gets bone count
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          *
          * @returns	The bone count.
@@ -441,7 +441,7 @@ struct Vertex
          *
          * @brief	Converts aiMatrix to glm::mat4
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          *
          * @param 	m	An aiMatrix4x4t to process.
@@ -456,7 +456,7 @@ struct Vertex
          *
          * @brief	Converts aiVector to glm::vec3
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          *
          * @param 	v	An aiVector3t to process.
@@ -471,7 +471,7 @@ struct Vertex
          *
          * @brief	Converts aiQuaterniont to glm::quat 
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          *
          * @param 	q	An aiQuaterniont to process.
@@ -486,7 +486,7 @@ struct Vertex
          *
          * @brief	Sets vertex bone data to default
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          *
          * @param [in,out]	vertex	The vertex.
@@ -499,7 +499,7 @@ struct Vertex
          *
          * @brief	Sets vertex bone data
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          *
          * @param [in,out]	vertex	The vertex.
@@ -514,7 +514,7 @@ struct Vertex
          *
          * @brief	Extracts the bone weight for vertices
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          *
          * @param [in,out]	vertices	The vertices.
@@ -529,7 +529,7 @@ struct Vertex
          *
          * @brief	Loads a model
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          *
          * @param 	filePath	Full pathname of the file.
@@ -542,7 +542,7 @@ struct Vertex
          *
          * @brief	Process the node
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          *
          * @param [in,out]	node 	If non-null, the node.
@@ -556,7 +556,7 @@ struct Vertex
          *
          * @brief	Process the mesh
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          *
          * @param [in,out]	mesh		If non-null, the mesh.
@@ -573,7 +573,7 @@ struct Vertex
          *
          * @brief	Loads material textures
          *
-         * @author	Dylan Blereau
+         * @author	Bryce Standley
          * @date	12/09/2021
          *
          * @param 		  	scene   	The scene.
