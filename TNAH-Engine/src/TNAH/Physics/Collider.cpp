@@ -46,9 +46,9 @@ namespace tnah::Physics {
 		//Generate a inertia tensor for the shape
 		float factor = 1.0f / 3.0f * m_Mass.Mass;
 		//Todo Check if we really should be using half or full extents
-		auto x = box->getHalfExtents().x * box->getHalfExtents().x;
-		auto y = box->getHalfExtents().y * box->getHalfExtents().y;
-		auto z = box->getHalfExtents().z * box->getHalfExtents().z;
+		auto x = glm::pow(fullExtents.x, 2);
+		auto y = glm::pow(fullExtents.y, 2);
+		auto z = glm::pow(fullExtents.z, 2);
 		auto tensor = glm::vec3(factor * (y + z), factor * (x + z), factor * (x + y));
 		m_InertiaTensor.LocalInertiaTensor = tensor;
 		

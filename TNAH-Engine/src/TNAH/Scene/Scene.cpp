@@ -348,7 +348,8 @@ namespace tnah{
 									mat->AddTexture(t);
 									
 								}
-								Renderer::SubmitMesh(mesh.GetMeshVertexArray(), mesh.GetMeshMaterial(), sceneLights, transform);
+								//If the object has a Rigidbody, use the quaternion transform
+								Renderer::SubmitMesh(mesh.GetMeshVertexArray(), mesh.GetMeshMaterial(), sceneLights, m_Registry.all_of<RigidBodyComponent>(entity) ? transform.GetQuatTransform() : transform.GetTransform());
 							}
 						}
 					}

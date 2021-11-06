@@ -208,7 +208,7 @@ namespace tnah::Physics
    /** @brief	Layout of the collider renderer vertex buffers */
    VertexBufferLayout m_ColliderLayout;
 
-   bool m_GravityEnabled = true;
+   bool m_GravityEnabled = false;
 
    glm::vec3 m_Gravity = {0.0f, -9.8f, 0.0f};
 
@@ -511,6 +511,8 @@ namespace tnah::Physics
      static void UpdateInertiaTensor(entt::registry& componentRegistry);
      static void UpdateBodies(entt::registry& componentRegistry);
      static void UpdateSleepState(entt::registry& componentRegistry, Timestep deltaTime);
+
+     static void DumpCollisions(bool toDisk);
     
     private:
      

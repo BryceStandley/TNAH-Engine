@@ -35,6 +35,14 @@ namespace tnah
         }
     }
 
+    void RigidBodyComponent::ApplyForce(const glm::vec3& direction, const float& force)
+    {
+        if(Physics::PhysicsEngine::IsActive() && Body)
+        {
+            Body->AddForce(direction * force);
+        }
+    }
+
     void RigidBodyComponent::ApplyTorque(const glm::vec3& direction,const glm::vec3& torque)
     {
         if(Physics::PhysicsEngine::IsActive() && Body)

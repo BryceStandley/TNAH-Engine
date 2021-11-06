@@ -331,39 +331,26 @@ bool tnah::UI::EntrySlider(const std::string& label, int& value, bool readOnly, 
 
 bool tnah::UI::EntrySlider(const char* label, float& value, bool readOnly, float min, float max, float resetValue)
 {
-    bool modified = false;
-    ImGui::Columns(2);
-    ImGui::SetColumnWidth(0, 100.0f);
-    ImGui::Text(label);
-    ImGui::NextColumn();
-    
-    if(!readOnly) modified |= ImGui::SliderFloat("##V", &value, min, max);
-    else ImGui::SliderFloat("##V", &value, min,max, "%d", ImGuiInputTextFlags_ReadOnly);
+	bool modified = false;
+	ImGui::PushID(label);
+	ImGui::Text(label);
+	ImGui::NextColumn();
+	ImGui::PushItemWidth(-1);
+	if (!readOnly)
+	{
+		if (ImGui::SliderFloat("##V", &value, min, max))
+			modified = true;
+	}
+	else
+	{
+		ImGui::InputFloat("##V", &value, 0.0F, 0.0F, "%.3f", ImGuiInputTextFlags_ReadOnly);
+	}
 
-    if(!readOnly)
-    {
-        const ImGuiIO& io = ImGui::GetIO();
-        auto boldFont = io.Fonts->Fonts[0];
-        ImGui::PushMultiItemsWidths(2, ImGui::CalcItemWidth());
-        ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2{ 0, 0 });
-        float lineHeight = GImGui->Font->FontSize + GImGui->Style.FramePadding.y * 2.0f;
-        ImVec2 buttonSize = { lineHeight + 3.0f, lineHeight };
+	ImGui::PopItemWidth();
+	ImGui::NextColumn();
+	ImGui::PopID();
 
-        ImGui::PushStyleColor(ImGuiCol_Button, ImVec4{ 0.8f, 0.1f, 0.15f, 1.0f });
-        ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4{ 0.9f, 0.2f, 0.2f, 1.0f });
-        ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4{ 0.8f, 0.1f, 0.15f, 1.0f });
-        ImGui::PushFont(boldFont);
-        ImGui::SameLine();
-        if(ImGui::Button("Reset", buttonSize))
-        {
-            value = resetValue;
-            modified = true;
-        }
-    }
-    ImGui::PopFont();
-    ImGui::PopStyleColor(3);
-    
-    return modified;
+	return modified;
 }
 
 bool tnah::UI::EntrySlider(const std::string& label, float& value,bool readOnly, float min, float max, float resetValue)
@@ -1226,14 +1213,14 @@ void tnah::UI::EndDockingWindow()
 {
 }
 
-void tnah::UI::BeginWindow(const char* label, bool& open, ImGuiWindowFlags flags)
+void tnah::UI::BeginWindow(const char* label, bool* open, ImGuiWindowFlags flags)
 {
-	ImGui::Begin(label, &open, flags);
+	ImGui::Begin(label, open, flags);
 }
 
-void tnah::UI::BeginWindow(const std::string& label, bool& open, ImGuiWindowFlags flags)
+void tnah::UI::BeginWindow(const std::string& label, bool* open, ImGuiWindowFlags flags)
 {
-	ImGui::Begin(label.c_str(), &open, flags);
+	ImGui::Begin(label.c_str(), open, flags);
 }
 
 void tnah::UI::EndWindow()
@@ -1481,6 +1468,18 @@ glm::vec2 tnah::UI::GetContentSpaceAvailable()
 {
 	auto s = ImGui::GetContentRegionAvail();
 	return glm::vec2(s.x, s.y);
+}
+
+glm::vec2 tnah::UI::GetViewportSize()
+{
+	auto size = ImGui::GetMainViewport()->Size;
+	return {size.x, size.y};
+}
+
+glm::vec2 tnah::UI::GetViewportPosition()
+{
+	auto pos = ImGui::GetMainViewport()->Pos;
+	return {pos.x, pos.y};
 }
 
 //***************************************** Buttons ******************************************************************

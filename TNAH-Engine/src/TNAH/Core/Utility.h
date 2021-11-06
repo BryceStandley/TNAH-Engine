@@ -3,6 +3,8 @@
 #include <filesystem>
 #include <map>
 #include <set>
+#include <sstream>
+#include <glm/detail/type_quat.hpp>
 
 
 namespace tnah::Utility {
@@ -222,6 +224,93 @@ namespace tnah::Utility {
     static bool Contains(const std::map<T, J>& map, const T& searchItem)
     {
         return (std::find(map.begin(), map.end(), searchItem) != map.end());
+    }
+
+	static std::string VecToString(const glm::vec2& value)
+    {
+        auto x = std::to_string(value.x);
+        auto y = std::to_string(value.y);
+        std::stringstream ss;
+        ss << "X: " + x + " Y: " + y;
+        return {ss.str()};
+    }
+
+    static std::string VecToString(const glm::vec3& value)
+    {
+        auto x = std::to_string(value.x);
+        auto y = std::to_string(value.y);
+        auto z = std::to_string(value.z);
+        std::stringstream ss;
+        ss << "X: " + x + " Y: " + y + " Z: " + z;
+        return {ss.str()};
+    }
+
+    static std::string VecToString(const glm::vec4& value)
+    {
+        auto x = std::to_string(value.x);
+        auto y = std::to_string(value.y);
+        auto z = std::to_string(value.z);
+        auto w = std::to_string(value.w);
+        std::stringstream ss;
+        ss << "X: " + x + " Y: " + y + " Z: " + z + " W: " + w;
+        return {ss.str()};
+    }
+
+    static std::string QuatToString(const glm::quat& value)
+    {
+        auto x = std::to_string(value.x);
+        auto y = std::to_string(value.y);
+        auto z = std::to_string(value.z);
+        auto w = std::to_string(value.w);
+        std::stringstream ss;
+        ss << "X: " + x + " Y: " + y + " Z: " + z + " W: " + w;
+        return {ss.str()};
+    }
+
+    static std::string MatToString(const glm::mat2& value)
+    {
+        /*
+         *  0,0: v | 0,1: v \n
+         *  1,0: v | 1,1: v \n
+         */
+
+        std::stringstream ss;
+        ss << "0,0: " + std::to_string(value[0][0]) + " | 0,1: " +std::to_string(value[0][1]) + " | ";
+        ss << "1,0: " + std::to_string(value[1][0]) + " | 1,1: " +std::to_string(value[1][1]);
+
+        return ss.str();
+    }
+
+
+    static std::string MatToString(const glm::mat3& value)
+    {
+        /*
+        *  0,0: v | 0,1: v \n
+        *  1,0: v | 1,1: v \n
+        */
+
+        std::stringstream ss;
+        ss << "0,0: " + std::to_string(value[0][0]) + " | 0,1: " +std::to_string(value[0][1]) + " | 0,2: " + std::to_string(value[0][2]) + " | ";
+        ss << "1,0: " + std::to_string(value[1][0]) + " | 1,1: " +std::to_string(value[1][1]) + " | 1,2: " + std::to_string(value[1][2]) + " | ";
+        ss << "2,0: " + std::to_string(value[2][0]) + " | 2,1: " +std::to_string(value[2][1]) + " | 2,2: " + std::to_string(value[2][2]);
+
+        return ss.str();
+    }
+
+    static std::string MatToString(const glm::mat4& value)
+    {
+        /*
+        *  0,0: v | 0,1: v \n
+        *  1,0: v | 1,1: v \n
+        */
+
+        std::stringstream ss;
+        ss << "0,0: " + std::to_string(value[0][0]) + " | 0,1: " +std::to_string(value[0][1]) + " | 0,2: " + std::to_string(value[0][2]) + " | 0,3: " + std::to_string(value[0][3]) + " | ";
+        ss << "1,0: " + std::to_string(value[1][0]) + " | 1,1: " +std::to_string(value[1][1]) + " | 1,2: " + std::to_string(value[1][2]) + " | 1,3: " + std::to_string(value[1][3]) + " | ";
+        ss << "2,0: " + std::to_string(value[2][0]) + " | 2,1: " +std::to_string(value[2][1]) + " | 2,2: " + std::to_string(value[2][2]) + " | 2,3: " + std::to_string(value[2][3]) + " | ";
+        ss << "3,0: " + std::to_string(value[3][0]) + " | 3,1: " +std::to_string(value[3][1]) + " | 3,2: " + std::to_string(value[3][2]) + " | 3,3: " + std::to_string(value[3][3]);
+
+        return ss.str();
     }
     
 }

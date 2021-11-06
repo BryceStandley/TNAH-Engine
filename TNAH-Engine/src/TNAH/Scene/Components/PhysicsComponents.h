@@ -97,6 +97,20 @@ class GameObject;
 		void ApplyForce(const glm::vec3& direction, const glm::vec3& force);
 
 		/**********************************************************************************************//**
+		* @fn	void RigidBodyComponent::ApplyForce(const glm::vec3& direction, const float& force) const;
+		*
+		* @brief	Applies the force
+		*
+		* @author	Chris
+		* @date	10/09/2021
+		*
+		* @param 	direction 	The direction.
+		* @param 	force	  	The force.
+		**************************************************************************************************/
+
+		void ApplyForce(const glm::vec3& direction, const float& force);
+
+		/**********************************************************************************************//**
 		 * @fn	void RigidBodyComponent::ApplyTorque(const glm::vec3& torque) const;
 		 *
 		 * @brief	Applies the torque described by torque

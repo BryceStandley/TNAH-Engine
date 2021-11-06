@@ -1150,7 +1150,7 @@ namespace tnah {
          * @param 		  	flags	(Optional) The flags.
          */
 
-        static void BeginWindow(const char* label, bool& open, ImGuiWindowFlags flags = 0);
+        static void BeginWindow(const char* label, bool* open, ImGuiWindowFlags flags = 0);
 
         /**
          * @fn	static void UI::BeginWindow(const std::string& label, bool& open, ImGuiWindowFlags flags = 0);
@@ -1165,7 +1165,7 @@ namespace tnah {
          * @param 		  	flags	(Optional) The flags.
          */
 
-        static void BeginWindow(const std::string& label, bool& open, ImGuiWindowFlags flags = 0);
+        static void BeginWindow(const std::string& label, bool* open, ImGuiWindowFlags flags = 0);
 
         /**
          * @fn	static void UI::EndWindow();
@@ -1773,6 +1773,10 @@ namespace tnah {
          */
 
         static glm::vec2 GetContentSpaceAvailable();
+
+     static glm::vec2 GetViewportSize();
+     static glm::vec2 GetViewportPosition();
+     
 
         //*********************** Button Set Properties ++++++++++++++++++++++++++++++++//
 

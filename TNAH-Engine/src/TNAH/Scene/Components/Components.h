@@ -233,7 +233,7 @@ namespace tnah {
 	 * @date	20/07/2021
 	 **************************************************************************************************/
 
-	class TransformComponent
+class TransformComponent
 	{
 	public:
 
@@ -398,7 +398,6 @@ namespace tnah {
 {{ComponentCategory::Core}}
 		};
 	};
-
 	/**********************************************************************************************//**
 	 * @enum	CameraClearMode
 	 *

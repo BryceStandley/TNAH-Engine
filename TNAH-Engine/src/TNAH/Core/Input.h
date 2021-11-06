@@ -4,9 +4,9 @@
 namespace tnah {
 
 	/**
-	 * @class	TNAH_API
+	 * @class	Input
 	 *
-	 * @brief	An Input 
+	 * @brief	An Input control class
 	 *
 	 * @author	Bryce Standley
 	 * @date	7/09/2021
@@ -15,6 +15,7 @@ namespace tnah {
 	class Input
 	{
 	public:
+		virtual ~Input() = default;
 
 		/**
 		 * @fn	inline static bool Input::IsKeyPressed(int keycode)

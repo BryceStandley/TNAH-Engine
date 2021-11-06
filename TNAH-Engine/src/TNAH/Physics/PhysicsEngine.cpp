@@ -83,6 +83,7 @@ namespace tnah::Physics
             auto& collision =  m_PhysicsManager->m_CollisionDetectionEngine->GetCurrentCollisions().front();
             while(!collision.GetCollisionData().empty())
             {
+                std::stringstream ss;
                 auto& item = collision.GetCollisionData().front();
 
                 auto rb1 = item.GetRigidBodies().first;
@@ -94,6 +95,15 @@ namespace tnah::Physics
                     continue;
                 }
                 constexpr float restitution = 0.4f;
+
+
+                //Temp values
+                auto lv1Before = rb1->m_LinearVelocity.Velocity;
+                auto lv2Before = rb2->m_LinearVelocity.Velocity;
+                auto av1Before = rb1->m_AngularVelocity.Velocity;
+                auto av2Before = rb2->m_AngularVelocity.Velocity;
+
+                
 		
                 auto& t1 = item.GetGameObjects().first->Transform();
                 glm::vec3 lv1 = rb1->GetLinearVelocity();
@@ -152,6 +162,31 @@ namespace tnah::Physics
                     rb2->m_LinearVelocity.Velocity = lv2;
                     rb2->m_AngularVelocity.Velocity = av2;
                 }
+                
+
+                ss << "Body1:\n";
+                ss << "Mass: " + std::to_string(rb1->m_BodyMass.Mass) + "kg -  InverseMass: " + std::to_string(rb1->m_BodyMass.InverseMass) + " - World CentreOfMass: "  + Utility::VecToString(rb1->m_BodyMass.WorldCentreOfMass) +"}\n";
+                ss << "World J: " + Utility::MatToString(rb1->m_InertiaTensor.WorldInertiaTensor) + "\n";
+                ss << "Linear Before: " + Utility::VecToString(lv1Before) +" --> After: " + Utility::VecToString(lv1) + "\n";
+                ss << "Angular Before: " + Utility::VecToString(av1Before) +" --> After: " + Utility::VecToString(av1) + "\n\n";
+
+                ss << "Body2:\n";
+                ss << "Mass: " + std::to_string(rb2->m_BodyMass.Mass) + "kg - InverseMass: " + std::to_string(rb2->m_BodyMass.InverseMass) + " - World CentreOfMass: " + Utility::VecToString(rb2->m_BodyMass.WorldCentreOfMass) + "\n";
+                ss << "World J: " + Utility::MatToString(rb2->m_InertiaTensor.WorldInertiaTensor) + "\n";
+                ss << "Linear Before: " + Utility::VecToString(lv2Before) +" --> After: " + Utility::VecToString(lv2) + "\n";
+                ss << "Angular Before: " + Utility::VecToString(av2Before) +" --> After: " + Utility::VecToString(av2) + "\n\n";
+                
+                ss << "Contact Normal: " + Utility::VecToString(item.GetContactNormal()) + "\n";
+                ss << "Coefficient of Restitution: " +std::to_string(restitution) + "\n";
+                ss << "R1: " +Utility::VecToString(r1) + " -- R2: "+Utility::VecToString(r2) + "\n";
+                ss << "Lambda: " +Utility::VecToString(lambda) + "\n";
+                ss << "A: (lvBefore)" + Utility::VecToString(lv1Before) +" + (impulse)" +Utility::VecToString(linear_impulse) +" * (b1InverseMass)" +std::to_string(rb1->m_BodyMass.InverseMass) + "\n";
+                ss << "B: (lvBefore)" + Utility::VecToString(lv2Before) +" - (impulse)" +Utility::VecToString(linear_impulse) +" * (b2InverseMass)" +std::to_string(rb2->m_BodyMass.InverseMass) + "\n";
+                ss << "C: (avBefore)" + Utility::VecToString(av1Before) +" + ( (lambda)" +Utility::VecToString(lambda) +" * (b1Jinverse)" +Utility::MatToString(rb1->m_InertiaTensor.WorldInverseInertiaTensor) +" * (R1)" +Utility::VecToString(r1) +" x (contactNormal)" +Utility::VecToString(cn) + ")\n";
+                ss << "D: (avBefore)" + Utility::VecToString(av2Before) +" - ( (lambda)" +Utility::VecToString(lambda) +" * (b2Jinverse)" +Utility::MatToString(rb2->m_InertiaTensor.WorldInverseInertiaTensor) +" * (R2)" +Utility::VecToString(r2) +" x (contactNormal)" +Utility::VecToString(cn) + ")\n";
+                TNAH_CORE_INFO("Collision Dump \n{0}", ss.str());
+
+                
                 collision.GetCollisionData().pop();
             }
             m_PhysicsManager->m_CollisionDetectionEngine->GetCurrentCollisions().pop();
@@ -203,14 +238,15 @@ namespace tnah::Physics
 
             auto& rot = transform.GetQuaternion();
                 
-            rot += glm::quat(rigidbody->m_ConstrainedAngularVelocity.Velocity) * rot * 0.5f * deltaTime.GetSeconds();
-
-            rp3d::Transform t;
-            t.setPosition(Math::ToRp3dVec3(transform.Position));
-            t.setOrientation(Math::ToRp3dQuat(rot));
-
-            transform.Rotation = glm::eulerAngles(rot);
-            rigidbody->m_CollisionBody->setTransform(t);
+                rb->m_Orientation += glm::quat(0.0, rb->m_ConstrainedAngularVelocity) * deltaTime.GetSeconds();
+                rb->m_Orientation = glm::normalize(rb->m_Orientation);
+                
+            }
+            else if(rb->GetType() == BodyType::Kinematic && !rb->IsSleeping())
+            {
+                trans.Position += rb->m_ConstrainedLinearVelocity.Velocity * deltaTime.GetSeconds();
+                rb->m_Position = trans.Position;
+            }
         }
     }
 
@@ -319,6 +355,40 @@ namespace tnah::Physics
                 }
                 
             }
+        }
+    }
+
+    void PhysicsEngine::DumpCollisions(bool toDisk)
+    {
+        std::stringstream ss;
+        int count = 0;
+        int point = 0;
+        while(!m_PhysicsManager->GetCollisionDetectionEngine()->GetCurrentCollisions().empty())
+        {
+            auto& col = m_PhysicsManager->GetCollisionDetectionEngine()->GetCurrentCollisions().front();
+            ss << "Collision: " + std::to_string(count) + "\n";
+            point = 0;
+            while(!col.GetCollisionData().empty())
+            {
+                auto p = col.GetCollisionData().front();
+                auto rb1 = p.GetRigidBodies().first;
+                auto rb2 = p.GetRigidBodies().second;
+                
+                ss << "Point: " + std::to_string(point) + "\n";
+                ss << "Body1:\n";
+                ss << "Mass: " + std::to_string(rb1->m_BodyMass.Mass) + " InverseMass: " + std::to_string(rb1->m_BodyMass.InverseMass) + " World CentreOfMass: "  + Utility::VecToString(rb2->m_BodyMass.WorldCentreOfMass) +"}\n";
+                ss << "World J: " + Utility::MatToString(rb1->m_InertiaTensor.WorldInertiaTensor);
+
+                ss << "Body2:\n";
+                ss << "Mass: " + std::to_string(rb2->m_BodyMass.Mass) + " InverseMass: " + std::to_string(rb2->m_BodyMass.InverseMass) + " World CentreOfMass: " + Utility::VecToString(rb2->m_BodyMass.WorldCentreOfMass) + "\n";
+                ss << "World J: " + Utility::MatToString(rb2->m_InertiaTensor.WorldInertiaTensor);
+
+                ss << "Contact Normal: " + Utility::VecToString(p.GetContactNormal()) + "\n";
+                col.GetCollisionData().pop();
+                point++;
+            }
+            m_PhysicsManager->GetCollisionDetectionEngine()->GetCurrentCollisions().pop();
+            count++;
         }
     }
 
@@ -488,9 +558,6 @@ namespace tnah::Physics
         {
             auto& transform = gameObject.Transform();
             auto rb = RigidBody::Create(gameObject.Transform(), {});
-            //Convert the current rotation to a quaternion for physics.
-            // Converting from euler to quaternions are accuate but once we do, we cant convert back.
-            transform.QuaternionTransform = true;
             transform.QuatRotation = glm::quat(transform.Rotation);
             rp3d::Transform reactTransform;
             reactTransform.setPosition(Math::ToRp3dVec3(transform.Position));

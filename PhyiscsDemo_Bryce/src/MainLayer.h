@@ -74,8 +74,10 @@ public:
 		 */
 
 	void OnEvent(tnah::Event& event) override;
+	
+	void OnAttach() override;
 
-private:
+	private:
 
 		/** @brief	A pointer to the active scene */
 	tnah::Ref<tnah::Scene> m_ActiveScene = nullptr;
@@ -143,6 +145,8 @@ private:
 	tnah::GameObject m_Ground;
 	bool m_StartPhysicsSim = false;
 	glm::vec3 m_PhysicsSimStartPosition = {0,0,0};
+	float m_ThrowForce = 100.0f;
+	tnah::Ref<tnah::Texture2D> m_Crosshair;
 	
 
 	
