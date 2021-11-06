@@ -31,7 +31,6 @@ MainLayer::MainLayer()
 		m_Camera.AddComponent<tnah::PlayerInteractions>();
 		aff.SetActionValues(tnah::Actions::abuse, 1.0f);
 		aff.SetActionValues(tnah::Actions::greeting, 1.0f);
-		std::cout << "After setting it: " << aff.GetActionValue(tnah::Actions::abuse) << std::endl;
 		m_Camera.AddComponent<tnah::AudioListenerComponent>(true);
 	}
 	

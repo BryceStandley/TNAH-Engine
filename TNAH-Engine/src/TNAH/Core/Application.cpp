@@ -32,9 +32,9 @@ namespace tnah
 		//seed for any rand() functions
 		srand(static_cast<unsigned>(time(0)));
 
-		for(int i = 0; i < 30; i++)
+		for(int i = 0; i < 15; i++)
 		{
-			logQueue.push_back(LogText(""));
+			logQueue.push_back(LogText(" "));
 		}
 	}
 

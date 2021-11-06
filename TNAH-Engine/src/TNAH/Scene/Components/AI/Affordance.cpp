@@ -37,9 +37,7 @@ namespace tnah
                 value = 1;
             else if(value < 0)
                 value = 0;
-
-            if(action == Actions::abuse)
-                std::cout << "Value init = " << value;
+            
             objectsActions[action] = value;
         }
     }

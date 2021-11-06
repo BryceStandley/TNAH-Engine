@@ -181,7 +181,7 @@ namespace tnah
         {
         case Emotion::Frustrated:
             owner->SetDesiredAction(Actions::abuse);
-            owner->SetActionDistance(3.0f);
+            owner->SetActionDistance(5.0f);
             owner->SetAffordanceLevel(1.0f);
             break;
         case Emotion::Angry:
@@ -220,11 +220,11 @@ namespace tnah
         case Emotion::Depressed:
             owner->SetDesiredAction(Actions::sleep);
             owner->SetActionDistance(3.0f);
-            owner->SetAffordanceLevel(0);
+            owner->SetAffordanceLevel(0.1);
             break;
         case Emotion::Bored:
             owner->SetDesiredAction(Actions::sleep);
-            owner->SetActionDistance(5.0f);
+            owner->SetActionDistance(1.0f);
             owner->SetAffordanceLevel(1.0f);
             break;
         case Emotion::Tired:
