@@ -1,4 +1,0 @@
-<map id="BoundingBox::GenerateBoundingBox" name="BoundingBox::GenerateBoundingBox">
-<area shape="rect" id="node1" title="Takes a mesh and generates a basix bounding box based off min and max values of the mesh in X,..." alt="" coords="5,13,243,39"/>
-<area shape="rect" id="node2" href="$class_bounding_box.html#af296a5334106dad59f911db18e128d71" title="Generates normals of the bounding box." alt="" coords="291,5,505,47"/>
-</map>

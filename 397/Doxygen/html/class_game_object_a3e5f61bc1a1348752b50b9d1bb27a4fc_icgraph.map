@@ -1,4 +1,0 @@
-<map id="GameObject::GetId" name="GameObject::GetId">
-<area shape="rect" id="node1" title="Gets the id." alt="" coords="248,5,383,32"/>
-<area shape="rect" id="node2" href="$class_entity_manager.html#a7f0ae1ce99392b3813ef48932bf5e5a7" title="Removes the given game object from the map." alt="" coords="5,5,200,32"/>
-</map>

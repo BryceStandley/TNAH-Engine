@@ -1,4 +1,0 @@
-<map id="Window::GameInput" name="Window::GameInput">
-<area shape="rect" id="node1" title="Holds the game input logic for the keyboard, uses the input variable to set the actual keys." alt="" coords="147,5,285,32"/>
-<area shape="rect" id="node2" href="$class_engine.html#af4c789fb939a0870426c698a5124a0ee" title="Runs the game loop." alt="" coords="5,5,99,32"/>
-</map>

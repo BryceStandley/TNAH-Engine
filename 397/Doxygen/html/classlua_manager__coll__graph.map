@@ -1,3 +1,0 @@
-<map id="luaManager" name="luaManager">
-<area shape="rect" id="node1" title="A class that uses the singleton design pattern to provide one instance of the lua_State,..." alt="" coords="5,5,95,83"/>
-</map>

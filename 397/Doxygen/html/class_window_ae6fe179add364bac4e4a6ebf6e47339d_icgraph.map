@@ -1,4 +1,0 @@
-<map id="Window::GetTime" name="Window::GetTime">
-<area shape="rect" id="node1" title="Getter for deltaTime." alt="" coords="147,5,272,32"/>
-<area shape="rect" id="node2" href="$class_engine.html#af4c789fb939a0870426c698a5124a0ee" title="Runs the game loop." alt="" coords="5,5,99,32"/>
-</map>

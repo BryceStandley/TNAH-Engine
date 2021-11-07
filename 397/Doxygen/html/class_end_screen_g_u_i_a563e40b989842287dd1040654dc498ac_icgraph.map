@@ -1,4 +1,0 @@
-<map id="EndScreenGUI::EndScreenGUI" name="EndScreenGUI::EndScreenGUI">
-<area shape="rect" id="node1" title="Endscreen constructor." alt="" coords="137,5,340,32"/>
-<area shape="rect" id="node2" href="$class_scene.html#a0f3009b2ffcd55c44ebb1d571bbdd101" title="Initilises the scene, setting up the terrain and skybox." alt="" coords="5,5,89,32"/>
-</map>

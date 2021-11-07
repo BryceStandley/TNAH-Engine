@@ -1,4 +1,0 @@
-<map id="Skybox" name="Skybox">
-<area shape="rect" id="node1" title="A class that is responsible for creating a setting up a skybox." alt="" coords="5,351,135,516"/>
-<area shape="rect" id="node2" href="$class_shader.html" title="A class that is responsible for shaders, allowing you to open/use shaders and set uniforms of various..." alt="" coords="25,5,115,288"/>
-</map>

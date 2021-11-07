@@ -1,4 +1,0 @@
-<map id="Player" name="Player">
-<area shape="rect" id="node1" title="Abstract GameObject class for the player." alt="" coords="5,277,133,604"/>
-<area shape="rect" id="node2" href="$class_game_object.html" title="Class that holds the main information of a game object, that is abstracted for more specific reasons." alt="" coords="12,5,127,229"/>
-</map>
