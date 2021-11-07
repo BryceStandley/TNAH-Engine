@@ -1,4 +1,0 @@
-<map id="Enemy::SetState" name="Enemy::SetState">
-<area shape="rect" id="node1" title="sets the animation state to the value provided as parameter, whether it be an integer or an enumerate..." alt="" coords="200,5,323,32"/>
-<area shape="rect" id="node2" href="$class_enemy.html#ac653ecb03c6154acd5d2769f0ac5f14e" title="Resets the enemy object, mainly used for pooling so that we dont need to allocate memory for new enem..." alt="" coords="5,5,152,32"/>
-</map>

@@ -1,4 +1,0 @@
-<map id="Renderer::SetShader" name="Renderer::SetShader">
-<area shape="rect" id="node1" title="Sets the shader and uses it." alt="" coords="160,5,303,32"/>
-<area shape="rect" id="node2" href="$class_model.html#a95878dc77a7f1ed7f13f2383f880c8ca" title="makes use of the view information and graphics renderer among other things to render the model" alt="" coords="5,5,112,32"/>
-</map>

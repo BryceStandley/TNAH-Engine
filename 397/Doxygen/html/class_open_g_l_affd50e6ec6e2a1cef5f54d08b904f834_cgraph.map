@@ -1,5 +1,0 @@
-<map id="OpenGL::SkyboxSetup" name="OpenGL::SkyboxSetup">
-<area shape="rect" id="node1" title="Sets up the skybox." alt="" coords="5,31,161,57"/>
-<area shape="rect" id="node2" href="$class_shader.html#ad362e2b654cd95a3574cd505411e41fd" title="sets an integer for use in the shader program" alt="" coords="209,5,312,32"/>
-<area shape="rect" id="node3" href="$class_shader.html#a870fa9f13d69e558815d6fd351a469dc" title="Allows you to activate and use the shader" alt="" coords="215,56,307,83"/>
-</map>

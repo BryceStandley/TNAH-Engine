@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{0108ffe5-10a2-41f3-9e13-1f6ae11a38c7}</ProjectGuid>
+    <RootNamespace>ICT398_Application</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>ICT398-Application</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)bin\$(Configuration)-$(Platform)\$(ProjectName)\</OutDir>
+    <IntDir>$(SolutionDir)bin-int\$(Configuration)-$(Platform)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)bin\$(Configuration)-$(Platform)\$(ProjectName)\</OutDir>
+    <IntDir>$(SolutionDir)bin-int\$(Configuration)-$(Platform)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup>
+    <LocalDebuggerWorkingDirectory>$(OutDir)</LocalDebuggerWorkingDirectory>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>TNAH_PLATFORM_WINDOWS;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)vender\reactphysics3d\include;$(SolutionDir)vender\ktx\include;$(SolutionDir)vender\assimp\include;$(SolutionDir)EngineDependencesProjects\GLFW\include;$(SolutionDir)vender\glad\include;$(SolutionDir)vender\glm\include;$(SolutionDir)vender\lua\include;$(SolutionDir)vender\luabridge\include;$(SolutionDir)vender\spdlog\include;$(SolutionDir)TNAH-Engine-Core\src\;$(SolutionDir)EngineDependencesProjects\ImGui\;$(SolutionDir)vender/entt/include;$(SolutionDir)vender\irrklang\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <DisableSpecificWarnings>4996</DisableSpecificWarnings>
+      <ExternalWarningLevel>TurnOffAllWarnings</ExternalWarningLevel>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>
+      </Command>
+    </PreBuildEvent>
+    <PreLinkEvent>
+      <Command>XCOPY "$(SolutionDir)vender\glfw\lib\*.dll" "$(OutDir)" /E /Y
+XCOPY "$(SolutionDir)TNAH-Engine-Core\Resources\" "$(OutDir)Resources\" /E /Y
+XCOPY "$(SolutionDir)vender\assimp\lib\*.pdb" "$(OutDir)" /E /Y
+XCOPY "$(SolutionDir)vender\assimp\lib\*.dll" "$(OutDir)" /E /Y
+XCOPY "$(ProjectDir)assets\" "$(OutDir)assets\" /E /Y
+XCOPY "$(SolutionDir)vender\irrKlang\lib\*.dll" "$(OutDir)" /E /Y </Command>
+    </PreLinkEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>TNAH_PLATFORM_WINDOWS;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)vender\reactphysics3d\include;$(SolutionDir)vender\ktx\include;$(SolutionDir)vender\assimp\include;$(SolutionDir)EngineDependencesProjects\GLFW\include;$(SolutionDir)vender\glad\include;$(SolutionDir)vender\glm\include;$(SolutionDir)vender\lua\include;$(SolutionDir)vender\luabridge\include;$(SolutionDir)vender\spdlog\include;$(SolutionDir)TNAH-Engine-Core\src\;$(SolutionDir)EngineDependencesProjects\ImGui\;$(SolutionDir)vender/entt/include;$(SolutionDir)vender\irrklang\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <DisableSpecificWarnings>4996</DisableSpecificWarnings>
+      <ExternalWarningLevel>TurnOffAllWarnings</ExternalWarningLevel>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+    </Link>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>
+      </Command>
+    </PreBuildEvent>
+    <PreLinkEvent>
+      <Command>XCOPY "$(SolutionDir)vender\glfw\lib\*.dll" "$(OutDir)" /E /Y
+XCOPY "$(SolutionDir)TNAH-Engine-Core\Resources\" "$(OutDir)Resources\" /E /Y
+XCOPY "$(SolutionDir)vender\assimp\lib\*.pdb" "$(OutDir)" /E /Y
+XCOPY "$(SolutionDir)vender\assimp\lib\*.dll" "$(OutDir)" /E /Y
+XCOPY  "$(ProjectDir)assets\" "$(OutDir)assets\" /E /Y
+XCOPY "$(SolutionDir)vender\irrKlang\lib\*.dll" "$(OutDir)" /E /Y </Command>
+    </PreLinkEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="src\characters\Dog\Dog.cpp" />
+    <ClCompile Include="src\characters\Dog\DogStates.cpp" />
+    <ClCompile Include="src\characters\Rubbish\Bin.cpp" />
+    <ClCompile Include="src\characters\Rubbish\BinStates.cpp" />
+    <ClCompile Include="src\characters\Student\Student.cpp" />
+    <ClCompile Include="src\characters\Student\StudentStates.cpp" />
+    <ClCompile Include="src\MainLayer.cpp" />
+    <ClCompile Include="src\ICT398-Application.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\characters\Dog\Dog.h" />
+    <ClInclude Include="src\characters\Dog\DogStates.h" />
+    <ClInclude Include="src\characters\Rubbish\Bin.h" />
+    <ClInclude Include="src\characters\Rubbish\BinStates.h" />
+    <ClInclude Include="src\characters\Student\Student.h" />
+    <ClInclude Include="src\characters\Student\StudentStates.h" />
+    <ClInclude Include="src\ICT398-Application.h" />
+    <ClInclude Include="src\MainLayer.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="assets\images" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="assets\meshes\assets\materials\bricks_088873a3-ea5a-430a-9ece-cfc8152156a2\bricks_2c25b5c1-aff9-469a-9220-7e6a71e3bb08.blend" />
+    <Content Include="assets\meshes\assets\materials\bricks_088873a3-ea5a-430a-9ece-cfc8152156a2\textures\Bricks068_2K_Color.jpg" />
+    <Content Include="assets\meshes\assets\materials\bricks_088873a3-ea5a-430a-9ece-cfc8152156a2\textures\Bricks068_2K_Normal.jpg" />
+    <Content Include="assets\meshes\assets\materials\bricks_088873a3-ea5a-430a-9ece-cfc8152156a2\textures\Bricks068_2K_Roughness.jpg" />
+    <Content Include="assets\meshes\assets\materials\bricks_18fda6df-f7bc-4f23-a338-498714db5548\bricks_2f8ef785-36ef-4105-92d6-d0f48c60043a.blend" />
+    <Content Include="assets\meshes\assets\materials\bricks_18fda6df-f7bc-4f23-a338-498714db5548\textures\Bricks071_2K_Color.jpg" />
+    <Content Include="assets\meshes\assets\materials\bricks_18fda6df-f7bc-4f23-a338-498714db5548\textures\Bricks071_2K_Normal.jpg" />
+    <Content Include="assets\meshes\assets\materials\bricks_18fda6df-f7bc-4f23-a338-498714db5548\textures\Bricks071_2K_Roughness.jpg" />
+    <Content Include="assets\meshes\assets\materials\bricks_82c1e831-1927-44a6-8373-606f0bea771e\bricks_e66821fe-a568-48f0-8940-1f2bdf47c2ce.blend" />
+    <Content Include="assets\meshes\assets\materials\bricks_82c1e831-1927-44a6-8373-606f0bea771e\textures\Bricks060_2K_Color.jpg" />
+    <Content Include="assets\meshes\assets\materials\bricks_82c1e831-1927-44a6-8373-606f0bea771e\textures\Bricks060_2K_Normal.jpg" />
+    <Content Include="assets\meshes\assets\materials\bricks_82c1e831-1927-44a6-8373-606f0bea771e\textures\Bricks060_2K_Roughness.jpg" />
+    <Content Include="assets\meshes\assets\materials\bricks_faac96e9-8e27-4056-b523-b09be412d33e\bricks_6ebb55fa-4134-46ac-94f8-301cbfaa3136.blend" />
+    <Content Include="assets\meshes\assets\materials\bricks_faac96e9-8e27-4056-b523-b09be412d33e\textures\Bricks063_2K_Color.jpg" />
+    <Content Include="assets\meshes\assets\materials\bricks_faac96e9-8e27-4056-b523-b09be412d33e\textures\Bricks063_2K_Normal.jpg" />
+    <Content Include="assets\meshes\assets\materials\bricks_faac96e9-8e27-4056-b523-b09be412d33e\textures\Bricks063_2K_Roughness.jpg" />
+    <Content Include="assets\meshes\assets\materials\brown_woodplanks_092fdd0e-0295-4688-9dfd-8ebacafe4e12\brown_woodplanks_1K_b65df4a8-623c-4691-bec2-b5acdecc1aa7.blend" />
+    <Content Include="assets\meshes\assets\materials\brown_woodplanks_092fdd0e-0295-4688-9dfd-8ebacafe4e12\textures_1k\woodplanks4K diffuse.jpg" />
+    <Content Include="assets\meshes\assets\materials\brown_woodplanks_092fdd0e-0295-4688-9dfd-8ebacafe4e12\textures_1k\woodplanks4K height.bmp" />
+    <Content Include="assets\meshes\assets\materials\brown_woodplanks_092fdd0e-0295-4688-9dfd-8ebacafe4e12\textures_1k\woodplanks4K normal.jpg" />
+    <Content Include="assets\meshes\assets\materials\brown_woodplanks_092fdd0e-0295-4688-9dfd-8ebacafe4e12\textures_1k\woodplanks4K roughness.jpg" />
+    <Content Include="assets\meshes\assets\materials\concrete_chipped_cracked_b3fd6c25-434e-4edf-bcc2-aa0f02ff8067\concrete_chipped_cracked_1K_ca532e17-996c-480d-bae9-01915c5aabcb.blend" />
+    <Content Include="assets\meshes\assets\materials\concrete_chipped_cracked_b3fd6c25-434e-4edf-bcc2-aa0f02ff8067\textures_1k\ground_BaseColor.jpg" />
+    <Content Include="assets\meshes\assets\materials\concrete_chipped_cracked_b3fd6c25-434e-4edf-bcc2-aa0f02ff8067\textures_1k\ground_Height.jpg" />
+    <Content Include="assets\meshes\assets\materials\concrete_chipped_cracked_b3fd6c25-434e-4edf-bcc2-aa0f02ff8067\textures_1k\ground_Normal.jpg" />
+    <Content Include="assets\meshes\assets\materials\concrete_chipped_cracked_b3fd6c25-434e-4edf-bcc2-aa0f02ff8067\textures_1k\ground_Roughness.jpg" />
+    <Content Include="assets\meshes\assets\materials\concrete_material_12ca9e42-f1e6-4856-8584-2365518e8a71\concrete_material_a725780a-e7ec-4fb9-bd49-69e45ec4d963.blend" />
+    <Content Include="assets\meshes\assets\materials\concrete_material_12ca9e42-f1e6-4856-8584-2365518e8a71\textures\Concrete034_4K_Color.jpg" />
+    <Content Include="assets\meshes\assets\materials\concrete_material_12ca9e42-f1e6-4856-8584-2365518e8a71\textures\Concrete034_4K_Normal.jpg" />
+    <Content Include="assets\meshes\assets\materials\concrete_material_12ca9e42-f1e6-4856-8584-2365518e8a71\textures\Concrete034_4K_Roughness.jpg" />
+    <Content Include="assets\meshes\assets\materials\concrete_panels_camp_-_exposed____dirt_97df56d8-25d4-4530-a54f-7bcb3b05dfb7\concrete_panels_camp_-_exposed____dirt_1K_6dc42af9-c983-472d-b413-655d34e5381f.blend" />
+    <Content Include="assets\meshes\assets\materials\concrete_panels_camp_-_exposed____dirt_97df56d8-25d4-4530-a54f-7bcb3b05dfb7\textures_1k\4k_concrete_shuttered_panels_Diffuse-2.tga" />
+    <Content Include="assets\meshes\assets\materials\concrete_panels_camp_-_exposed____dirt_97df56d8-25d4-4530-a54f-7bcb3b05dfb7\textures_1k\4k_concrete_shuttered_panels_Diffuse-2000.tga" />
+    <Content Include="assets\meshes\assets\materials\concrete_panels_camp_-_exposed____dirt_97df56d8-25d4-4530-a54f-7bcb3b05dfb7\textures_1k\4k_concrete_shuttered_panels_disable_true.tga" />
+    <Content Include="assets\meshes\assets\materials\dirt_02_c3f46a35-4f28-4177-9c32-5121bf6ea65a\dirt_02_1K_5e2bdf46-1714-4f52-a2d0-9e9b217e6de0.blend" />
+    <Content Include="assets\meshes\assets\materials\dirt_02_c3f46a35-4f28-4177-9c32-5121bf6ea65a\textures_1k\Ground Dirt_ambientOcclusion.jpg" />
+    <Content Include="assets\meshes\assets\materials\dirt_02_c3f46a35-4f28-4177-9c32-5121bf6ea65a\textures_1k\Ground Dirt_diffuse.jpg" />
+    <Content Include="assets\meshes\assets\materials\dirt_02_c3f46a35-4f28-4177-9c32-5121bf6ea65a\textures_1k\Ground Dirt_height.jpg" />
+    <Content Include="assets\meshes\assets\materials\dirt_02_c3f46a35-4f28-4177-9c32-5121bf6ea65a\textures_1k\Ground Dirt_normal.jpg" />
+    <Content Include="assets\meshes\assets\materials\dirt_02_c3f46a35-4f28-4177-9c32-5121bf6ea65a\textures_1k\Ground Dirt_roughness.jpg" />
+    <Content Include="assets\meshes\assets\materials\lamp_screen_plastic_translucid_adcfbc51-b2c9-412a-a702-ea711fddd0c8\lamp_screen_plastic_translucid_cf1e08d5-cf6a-412e-8a1a-88953c10f0e4.blend" />
+    <Content Include="assets\meshes\assets\materials\mud_with_small_puddles_78ff2ce5-0d1a-45ed-83ee-3b8412c9943e\mud_with_small_puddles_1K_d74ef7db-86b5-4b9b-b2af-ad75b44973a1.blend" />
+    <Content Include="assets\meshes\assets\materials\mud_with_small_puddles_78ff2ce5-0d1a-45ed-83ee-3b8412c9943e\textures_1k\Mud and Puddles_4K_Diffuse.jpg" />
+    <Content Include="assets\meshes\assets\materials\mud_with_small_puddles_78ff2ce5-0d1a-45ed-83ee-3b8412c9943e\textures_1k\Mud and Puddles_4K_Displacement.exr" />
+    <Content Include="assets\meshes\assets\materials\mud_with_small_puddles_78ff2ce5-0d1a-45ed-83ee-3b8412c9943e\textures_1k\Mud and Puddles_4K_Normal.jpg" />
+    <Content Include="assets\meshes\assets\materials\mud_with_small_puddles_78ff2ce5-0d1a-45ed-83ee-3b8412c9943e\textures_1k\Mud and Puddles_4K_Roughness.jpg" />
+    <Content Include="assets\meshes\assets\materials\neon_plexi_blue_by_lp_95710264-19cf-4ec1-9f01-d05c208c70d7\neon_plexi_blue_by_lp_ffd9a566-d3c6-4e16-8a72-45749dd2dbac.blend" />
+    <Content Include="assets\meshes\assets\materials\old_raw_wood_pbr_texture_seamless_d2c85006-84a5-4c5a-bd1e-0204351099f3\old_raw_wood_pbr_texture_seamless_093793e4-f3ba-4e5c-97d5-f60338f5c5bc.blend" />
+    <Content Include="assets\meshes\assets\materials\old_raw_wood_pbr_texture_seamless_d2c85006-84a5-4c5a-bd1e-0204351099f3\textures\Diffuse.png" />
+    <Content Include="assets\meshes\assets\materials\old_raw_wood_pbr_texture_seamless_d2c85006-84a5-4c5a-bd1e-0204351099f3\textures\Normal.png" />
+    <Content Include="assets\meshes\assets\materials\old_raw_wood_pbr_texture_seamless_d2c85006-84a5-4c5a-bd1e-0204351099f3\textures\Roughness.png" />
+    <Content Include="assets\meshes\assets\materials\old_white_metal_97da47e0-10b9-4b10-85fe-e2390a3e9e9d\old_white_metal_1K_c27417d2-9528-4c36-be12-da3e8ccdbe8c.blend" />
+    <Content Include="assets\meshes\assets\materials\old_white_metal_97da47e0-10b9-4b10-85fe-e2390a3e9e9d\textures_1k\WhiteMetal_diffuse.jpg" />
+    <Content Include="assets\meshes\assets\materials\old_white_metal_97da47e0-10b9-4b10-85fe-e2390a3e9e9d\textures_1k\WhiteMetal_normal.jpg" />
+    <Content Include="assets\meshes\assets\materials\old_white_metal_97da47e0-10b9-4b10-85fe-e2390a3e9e9d\textures_1k\WhiteMetal_roughness.jpg" />
+    <Content Include="assets\meshes\assets\materials\perfect_concrete_4b90beab-4790-4690-89d4-1dc2a21c08d6\perfect_concrete_1K_e7ee7302-9b24-4f09-9ed9-744012cc9d65.blend" />
+    <Content Include="assets\meshes\assets\materials\perfect_concrete_4b90beab-4790-4690-89d4-1dc2a21c08d6\textures_1k\perfect concrete_albedo.jpg" />
+    <Content Include="assets\meshes\assets\materials\perfect_concrete_4b90beab-4790-4690-89d4-1dc2a21c08d6\textures_1k\perfect concrete_height.jpg" />
+    <Content Include="assets\meshes\assets\materials\perfect_concrete_4b90beab-4790-4690-89d4-1dc2a21c08d6\textures_1k\perfect concrete_normal.jpg" />
+    <Content Include="assets\meshes\assets\materials\perfect_concrete_4b90beab-4790-4690-89d4-1dc2a21c08d6\textures_1k\perfect concrete_roughness.jpg" />
+    <Content Include="assets\meshes\assets\materials\print3d-blue_9d639e91-afe2-4031-8f5a-ccb3d851e6e1\print3d-blue_f4771d75-e482-44e6-8a1a-2069ee633aea.blend" />
+    <Content Include="assets\meshes\assets\materials\procedural_frosted_glass_c9083ee5-464f-42f5-9b57-15ff8b3ae393\procedural_frosted_glass_4cefd1f0-2880-4815-b909-5cffd89e4928.blend" />
+    <Content Include="assets\meshes\assets\materials\procedural_old_wood_ae95bb39-bc76-4c1a-bbad-9487e8e57706\procedural_old_wood_570eee11-4d2d-43ad-b9c3-9a2444179da8.blend" />
+    <Content Include="assets\meshes\assets\materials\procedural_wood_texture_01_ffdc57dc-141d-4df7-a835-f48a30502762\procedural_wood_texture_01_c1371b9b-0741-4092-a1e5-9f4f563d0979.blend" />
+    <Content Include="assets\meshes\assets\materials\ral_classic_blue_hues_4b02acf8-fd5f-4bcd-936a-194985e1429f\ral_classic_blue_hues_fca7c361-6325-47d5-bf9d-9f1888fcd342.blend" />
+    <Content Include="assets\meshes\assets\materials\stainless_steel_02bebe72-3bf4-4b93-a365-995f3c65a7b8\stainless_steel_9fccbb78-96c7-47b3-ae10-75bd80b6df02.blend" />
+    <Content Include="assets\meshes\assets\materials\wood_texture_61c05eca-19cd-4422-bfac-4357c52e2130\wood_texture_94f83bd7-684b-4e9e-b087-ce24fe7e1d6b.blend" />
+    <Content Include="assets\meshes\bin.fbx" />
+    <Content Include="assets\meshes\chair.fbx" />
+    <Content Include="assets\meshes\gdfgfdg.blend" />
+    <Content Include="assets\meshes\gdfgfdg.blend1" />
+    <Content Include="assets\meshes\newbush.fbx" />
+    <Content Include="assets\meshes\table.fbx" />
+    <Content Include="assets\meshes\wholething.fbx" />
+    <Content Include="assets\meshes\wholething2.fbx" />
+    <Content Include="assets\meshes\wholething3.fbx" />
+    <Content Include="assets\meshes\Wooden Table and Chairs.FBX" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\TNAH-Engine-Core\TNAH-Engine-Core.vcxproj">
+      <Project>{bebbf5ca-71ba-43dc-8a58-a2cc6db632f5}</Project>
+      <Name>TNAH-Engine-Core</Name>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

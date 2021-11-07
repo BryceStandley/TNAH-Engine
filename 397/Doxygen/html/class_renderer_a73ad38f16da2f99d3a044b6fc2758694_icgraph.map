@@ -1,4 +1,0 @@
-<map id="Renderer::RenderSkybox" name="Renderer::RenderSkybox">
-<area shape="rect" id="node1" title="Renders the sky box." alt="" coords="144,5,311,32"/>
-<area shape="rect" id="node2" href="$class_scene.html#acaa19d509c2a82c3493085c5f1217e15" title="Runs the scene, setting up objects for rendering and changes." alt="" coords="5,5,96,32"/>
-</map>
